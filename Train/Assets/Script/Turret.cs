@@ -1,0 +1,90 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Turret : MonoBehaviour
+{
+    bool Target_Flag;
+    public Transform Bullet;
+    Transform Bullet_List;
+    Transform Target;
+    Train trainData;
+    int train_Attack;
+    float train_Attack_Delay;
+    float lastTime;
+
+    void Start()
+    {
+        Target_Flag = false;
+        trainData = transform.GetComponentInParent<Train>();
+        Bullet_List = GameObject.Find("Bullet_List").GetComponent<Transform>();
+        train_Attack = trainData.Train_Attack;
+        train_Attack_Delay = trainData.Train_Attack_Delay;
+        lastTime = 0;
+    }
+    void Update()
+    {
+        if(Target != null)
+        {
+            Target_Flag = true;
+        }
+        else
+        {
+            Target_Flag = false;
+        }
+
+        if (Target_Flag)
+        {
+            Vector3 rot = Target.position - transform.position;
+            float rotZ = Mathf.Atan2(rot.y, rot.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0, 0, rotZ);
+            BulletFire();
+        }
+    }
+
+    void BulletFire()
+    {
+        if(Time.time >= lastTime + train_Attack_Delay)
+        {
+            Instantiate(Bullet, transform.position, transform.rotation, Bullet_List);
+            lastTime = Time.time;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Monster"))
+        {
+            if(Target == null)
+            {
+                Target = collision.transform;
+            }
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Monster"))
+        {
+            if(Target == null)
+            {
+                Target = collision.transform;
+            }
+            if(collision.transform != Target)
+            {
+                return;
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Monster"))
+        {
+            if(collision.transform == Target)
+            {
+                Target = null;
+            }
+        }
+    }
+}
