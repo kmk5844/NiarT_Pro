@@ -22,11 +22,13 @@ public class Train : MonoBehaviour
     [Header("HP 슬라이더")]
     public Slider HP_Slider;
     [SerializeField]
-    int cur_HP;
+    int cur_HP; //현재체력
+    GameDirector GD;
 
     // Start is called before the first frame update
     private void Awake()
     {
+        GD = GameObject.Find("GameDirector").GetComponent<GameDirector>();
         Train_Name = trainData.Information_Train[TrainNum].Train_Name;
         Train_HP = trainData.Information_Train[TrainNum].Train_HP;
         cur_HP = Train_HP;
@@ -64,5 +66,12 @@ public class Train : MonoBehaviour
     private void Update()
     {
         HP_Slider.value = cur_HP / Train_HP;
+    }
+
+    private void Train_MonsterHit(Bullet monster)
+    {
+        GD.Game_MonsterHit(monster.slow); //슬로우가 있어야 한다.
+        cur_HP -= monster.atk - GD.Armor; // 몬스터의 데미지를 넣어야 한다
+        //-> 몬스터마다 쏘는 총알이 다르다고 가정하자
     }
 }

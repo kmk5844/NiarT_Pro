@@ -37,7 +37,17 @@ public class Turret : MonoBehaviour
         {
             Vector3 rot = Target.position - transform.position;
             float rotZ = Mathf.Atan2(rot.y, rot.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0, 0, rotZ);
+            if(Quaternion.Euler(0, 0, rotZ).eulerAngles.z - transform.rotation.eulerAngles.z > 1)
+            {
+                transform.Rotate(new Vector3(0, 0, 0.7f));
+            }else if(Quaternion.Euler(0, 0, rotZ).eulerAngles.z - transform.rotation.eulerAngles.z < -1)
+            {
+                transform.Rotate(new Vector3(0, 0, -0.7f));
+            }
+            else
+            {
+                transform.rotation = Quaternion.Euler(0, 0, rotZ);
+            }
             BulletFire();
         }
     }

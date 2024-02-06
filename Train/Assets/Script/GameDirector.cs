@@ -11,8 +11,6 @@ public class GameDirector : MonoBehaviour
 
     [Header("기차 정보")]
     [SerializeField]
-    int TrainHP; //각 트레인에서의 HP가 있어야 함
-    [SerializeField]
     int TrainFuel; // 전체적으로 더한다.
     [SerializeField]
     int TrainSpeed;
@@ -25,6 +23,7 @@ public class GameDirector : MonoBehaviour
     public int TrainMaxSpeed;
     public int TrainEfficienl;
     public int TrainEnginePower;
+    public int TrainArmor;
 
     [Header("레벨 업 적용 후의 기차")]
     [SerializeField]
@@ -33,6 +32,8 @@ public class GameDirector : MonoBehaviour
     int Efficienl;
     [SerializeField]
     int EnginePower;
+    [SerializeField]
+    public int Armor;
 
     [Header("스테이지 정보")]
     [SerializeField]
@@ -41,14 +42,10 @@ public class GameDirector : MonoBehaviour
     [Header("시간 정보")]
     // 수치 결정이 필요한 구간
     [SerializeField] 
-    float lastSpeedTime; //마지믹 속도 올린 시간
+    float lastSpeedTime; //마지막 속도 올린 시간
     [SerializeField]
     float timeBet; //시간 차이
 
-    [Header("임시 몬스터 정보")]
-    public int monsterSpeedSlow;
-    public int monsterAtk;
-    public int AtfterMonsterAtk;
 
     int Level_EngineTier; // km/h을 증가하는 엔진 파워
     int Level_MaxSpeed; // 멕스 스피드 조절
@@ -102,12 +99,6 @@ public class GameDirector : MonoBehaviour
             lastSpeedTime = Time.time;
         }
 
-        if (Input.GetKeyDown(KeyCode.R) && TrainSpeed > 0)
-        {
-            Debug.Log("Hit!!");
-            MonsterHit();
-        }
-
         if(Destination_Distance < TrainDistance )
         {
             Debug.Log("성공 및 종료");
@@ -134,12 +125,11 @@ public class GameDirector : MonoBehaviour
 
         Efficienl = TrainEfficienl - ((TrainEfficienl * (Level_Efficienl * 10)) / 100); // 적을 수록 유리
         EnginePower = TrainEnginePower + ((TrainEnginePower * (Level_EngineTier * 10)) / 100); // 클수록 유리
-        AtfterMonsterAtk = monsterAtk - (monsterAtk * (Level_Armor * 10) / 100); // 작을수록 유리
+        Armor = TrainArmor - (TrainArmor * (Level_Armor * 10) / 100); // 작을수록 유리
     }
 
-    public void MonsterHit()
+    public void Game_MonsterHit(int slow)
     {
-        TrainHP = TrainHP - AtfterMonsterAtk;
-        TrainSpeed -= monsterSpeedSlow;
+        TrainSpeed -= slow;
     }
 }

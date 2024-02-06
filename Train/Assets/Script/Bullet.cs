@@ -6,6 +6,11 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField]
     float Speed;
+    [SerializeField]
+    public int slow;
+    [SerializeField]
+    public int atk;
+
     public BulletType bulletType;
     Transform player;
     Vector3 dir;

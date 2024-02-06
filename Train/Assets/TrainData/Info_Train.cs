@@ -6,6 +6,7 @@ public class Info_Train
     public string Train_Name;
     public int Train_HP;
     public int Train_Weight;
+    public int Train_Armor;
     public string Train_Type;
     public int Train_MaxSpeed;
     public int Train_Efficienl;
