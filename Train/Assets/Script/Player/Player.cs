@@ -2,14 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControl : MonoBehaviour
+public class Player : MonoBehaviour
 {
     [Header("무기")]
     public GameObject Bullet;
-    [SerializeField] float Bullet_Delay;
+    [SerializeField]
+    int Bullet_Atk; //보스랑 싸울 때, atk가 필요함 (잡몹은 한번에 죽도록 만듦)
+    [SerializeField]
+    float Bullet_Delay;
     public Transform bulletTransform;
     Transform Player_Bullet_List;
     float lastTime;
+
+    [Header("체력")]
+    [SerializeField]
+    int Player_HP;
+    //자연 치유가 있나?
+
+    [Header("방어력")]
+    [SerializeField]
+    int Player_Armor;
 
     [Header("이동 속도")]
     [SerializeField] float moveSpeed;

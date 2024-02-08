@@ -23,7 +23,6 @@ public class GameDirector : MonoBehaviour
     public int TrainMaxSpeed;
     public int TrainEfficienl;
     public int TrainEnginePower;
-    public int TrainArmor;
 
     [Header("레벨 업 적용 후의 기차")]
     [SerializeField]
@@ -32,8 +31,6 @@ public class GameDirector : MonoBehaviour
     int Efficienl;
     [SerializeField]
     int EnginePower;
-    [SerializeField]
-    public int Armor;
 
     [Header("스테이지 정보")]
     [SerializeField]
@@ -45,7 +42,6 @@ public class GameDirector : MonoBehaviour
     float lastSpeedTime; //마지막 속도 올린 시간
     [SerializeField]
     float timeBet; //시간 차이
-
 
     int Level_EngineTier; // km/h을 증가하는 엔진 파워
     int Level_MaxSpeed; // 멕스 스피드 조절
@@ -115,7 +111,6 @@ public class GameDirector : MonoBehaviour
             TrainFuel = 0;
         }
         TrainDistance += TrainSpeed;
-
     }
 
     public void Level()
@@ -125,7 +120,12 @@ public class GameDirector : MonoBehaviour
 
         Efficienl = TrainEfficienl - ((TrainEfficienl * (Level_Efficienl * 10)) / 100); // 적을 수록 유리
         EnginePower = TrainEnginePower + ((TrainEnginePower * (Level_EngineTier * 10)) / 100); // 클수록 유리
-        Armor = TrainArmor - (TrainArmor * (Level_Armor * 10) / 100); // 작을수록 유리
+    }
+
+    public int Level_ChangeArmor(int trainArmor)
+    {
+        //데미지 경감이기 때문에 클수록 유리
+        return trainArmor + (trainArmor * (Level_Armor * 10) / 100);
     }
 
     public void Game_MonsterHit(int slow)

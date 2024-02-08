@@ -12,6 +12,7 @@ public class Train : MonoBehaviour
     public string Train_Name;
     public int Train_HP;
     public int Train_Weight;
+    public int Train_Anmor;
     public string Train_Type;
     public int Train_MaxSpeed;
     public int Train_Efficienl;
@@ -33,6 +34,7 @@ public class Train : MonoBehaviour
         Train_HP = trainData.Information_Train[TrainNum].Train_HP;
         cur_HP = Train_HP;
         Train_Weight = trainData.Information_Train[TrainNum].Train_Weight;
+        Train_Anmor = GD.Level_ChangeArmor(trainData.Information_Train[TrainNum].Train_Armor);
         Train_Type = trainData.Information_Train[TrainNum].Train_Type;
         switch (Train_Type)
         {
@@ -65,13 +67,19 @@ public class Train : MonoBehaviour
 
     private void Update()
     {
-        HP_Slider.value = cur_HP / Train_HP;
+        HP_Slider.value = (float)cur_HP / (float)Train_HP;
     }
 
-    private void Train_MonsterHit(Bullet monster)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        GD.Game_MonsterHit(monster.slow); //슬로우가 있어야 한다.
-        cur_HP -= monster.atk - GD.Armor; // 몬스터의 데미지를 넣어야 한다
+        Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+        Train_MonsterHit(bullet);
+        Destroy(collision.gameObject);
+    }
+    private void Train_MonsterHit(Bullet monsterBullet)
+    {
+        GD.Game_MonsterHit(monsterBullet.slow); //슬로우가 있어야 한다.
+        cur_HP -= monsterBullet.atk - Train_Anmor; // 몬스터의 데미지를 넣어야 한다
         //-> 몬스터마다 쏘는 총알이 다르다고 가정하자
     }
 }
