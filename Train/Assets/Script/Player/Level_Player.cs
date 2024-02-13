@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class Level_Player : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [Header("플레이어 정보")]
+    public int Level_Player_Atk;
+    public int Level_Player_AtkDelay;
+    public int Level_Player_HP;
+    public int Level_Player_Armor;
+    public int Level_Player_Speed;
 }

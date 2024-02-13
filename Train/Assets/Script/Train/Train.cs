@@ -72,9 +72,12 @@ public class Train : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Bullet bullet = collision.gameObject.GetComponent<Bullet>();
-        Train_MonsterHit(bullet);
-        Destroy(collision.gameObject);
+        if (collision.CompareTag("Monster_Bullet"))
+        {
+            Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+            Train_MonsterHit(bullet);
+            Destroy(collision.gameObject);
+        }
     }
     private void Train_MonsterHit(Bullet monsterBullet)
     {

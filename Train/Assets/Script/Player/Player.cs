@@ -29,13 +29,14 @@ public class Player : MonoBehaviour
     Rigidbody2D rigid;
 
     bool jumpFlag;
-    // Start is called before the first frame update
+
     void Start()
     {
         jumpFlag = false;
         lastTime = 0;
         rigid = GetComponent<Rigidbody2D>();
         Player_Bullet_List = GameObject.Find("Bullet_List").GetComponent<Transform>();
+        Level();
     }
 
     private void Update()
@@ -84,5 +85,26 @@ public class Player : MonoBehaviour
             Instantiate(Bullet, bulletTransform.position, Quaternion.identity, Player_Bullet_List);
             lastTime = Time.time;
         }
+    }
+
+    void Level()
+    {
+        Level_Player Level_Data = GetComponent<Level_Player>();
+        int Level_Atk = Level_Data.Level_Player_Atk;
+        int Level_AtkDelay = Level_Data.Level_Player_AtkDelay;
+        int Level_HP = Level_Data.Level_Player_HP;
+        int Level_Armor = Level_Data.Level_Player_Armor;
+        int Level_Speed = Level_Data.Level_Player_Speed;
+
+        Bullet_Atk = Bullet_Atk + (((Bullet_Atk * Level_Atk * 10)) / 100);
+        Bullet_Delay = Bullet_Delay - (((Bullet_Delay * Level_AtkDelay * 10)) / 100);
+        Player_HP = Player_HP + (((Player_HP * Level_HP) * 10) / 100);
+        Player_Armor = Player_Armor + (((Player_Armor * Level_Armor) * 10) / 100);
+        moveSpeed = moveSpeed + (((moveSpeed * Level_Speed ) * 10) / 100);
+    }
+
+    public void MonsterHit(int MonsterBullet_Atk)
+    {
+        Player_HP -= (MonsterBullet_Atk - Player_Armor);
     }
 }

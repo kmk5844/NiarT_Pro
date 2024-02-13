@@ -62,11 +62,11 @@ public class GameDirector : MonoBehaviour
             TrainEnginePower += Trains[i].Train_Engine_Power;
         }
 
-        Level_Train trainData = GetComponent<Level_Train>();
-        Level_EngineTier = trainData.Level_Train_EngineTier;
-        Level_MaxSpeed = trainData.Level_Train_MaxSpeed;
-        Level_Armor = trainData.Level_Train_Armor;
-        Level_Efficienl = trainData.Level_Train_Efficienl;
+        Level_Train Level_Data = GetComponent<Level_Train>();
+        Level_EngineTier = Level_Data.Level_Train_EngineTier;
+        Level_MaxSpeed = Level_Data.Level_Train_MaxSpeed;
+        Level_Armor = Level_Data.Level_Train_Armor;
+        Level_Efficienl = Level_Data.Level_Train_Efficienl;
         Level();
 
         lastSpeedTime = 0;

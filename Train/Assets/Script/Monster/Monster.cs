@@ -81,11 +81,11 @@ public class Monster : MonoBehaviour
     {
         if(transform.position.x > player.transform.position.x)
         {
-            monster_Image.flipX = false; // 하면서 수정
+            monster_Image.flipX = true; // 하면서 수정
         }
         else
         {
-            monster_Image.flipX = true;
+            monster_Image.flipX = false;
         }
     }
 
