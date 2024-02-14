@@ -20,10 +20,12 @@ public class Train : MonoBehaviour
     public int Train_Fuel;
     public int Train_Attack;
     public float Train_Attack_Delay;
+    public int Train_Food;
+    public int Train_Heal;
     [Header("HP 슬라이더")]
     public Slider HP_Slider;
-    [SerializeField]
-    int cur_HP; //현재체력
+    
+    public int cur_HP; //현재체력
     GameDirector GD;
 
     // Start is called before the first frame update
@@ -36,6 +38,16 @@ public class Train : MonoBehaviour
         Train_Weight = trainData.Information_Train[TrainNum].Train_Weight;
         Train_Anmor = GD.Level_ChangeArmor(trainData.Information_Train[TrainNum].Train_Armor);
         Train_Type = trainData.Information_Train[TrainNum].Train_Type;
+        CheckType();
+    }
+
+    private void Update()
+    {
+        HP_Slider.value = (float)cur_HP / (float)Train_HP;
+    }
+
+    void CheckType()
+    {
         switch (Train_Type)
         {
             case "Engine":
@@ -45,6 +57,8 @@ public class Train : MonoBehaviour
                 Train_Fuel = 0;
                 Train_Attack = 0;
                 Train_Attack_Delay = 0;
+                Train_Food = 0;
+                Train_Heal = 0;
                 break;
             case "Fuel":
                 Train_MaxSpeed = 0;
@@ -53,6 +67,8 @@ public class Train : MonoBehaviour
                 Train_Fuel = trainData.Information_Train[TrainNum].Train_Fuel;
                 Train_Attack = 0;
                 Train_Attack_Delay = 0;
+                Train_Food = 0;
+                Train_Heal = 0; 
                 break;
             case "Attack":
                 Train_MaxSpeed = 0;
@@ -61,13 +77,30 @@ public class Train : MonoBehaviour
                 Train_Fuel = 0;
                 Train_Attack = trainData.Information_Train[TrainNum].Train_Attack;
                 Train_Attack_Delay = trainData.Information_Train[TrainNum].Train_Attack_Delay;
+                Train_Food = 0;
+                Train_Heal = 0;
+                break;
+            case "Warehouse":
+                Train_MaxSpeed = 0;
+                Train_Efficienl = 0;
+                Train_Engine_Power = 0;
+                Train_Fuel = 0;
+                Train_Attack = 0;
+                Train_Attack_Delay = 0;
+                Train_Food = trainData.Information_Train[TrainNum].Train_Food;
+                Train_Heal = 0;
+                break;
+            case "Medic":
+                Train_MaxSpeed = 0;
+                Train_Efficienl = 0;
+                Train_Engine_Power = 0;
+                Train_Fuel = 0;
+                Train_Attack = 0;
+                Train_Attack_Delay = 0;
+                Train_Food = 0;
+                Train_Heal = trainData.Information_Train[TrainNum].Train_Heal;
                 break;
         }
-    }
-
-    private void Update()
-    {
-        HP_Slider.value = (float)cur_HP / (float)Train_HP;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

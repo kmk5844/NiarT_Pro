@@ -17,7 +17,6 @@ public class Player : MonoBehaviour
     [Header("체력")]
     [SerializeField]
     int Player_HP;
-    //자연 치유가 있나?
 
     [Header("방어력")]
     [SerializeField]

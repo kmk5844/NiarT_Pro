@@ -14,4 +14,6 @@ public class Info_Train
     public int Train_Fuel;
     public int Train_Attack;
     public float Train_Attack_Delay;
+    public int Train_Food;
+    public int Train_Heal;
 }
