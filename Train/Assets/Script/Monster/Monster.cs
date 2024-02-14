@@ -15,7 +15,6 @@ public class Monster : MonoBehaviour
     Vector3 monster_SpawnPos;
     Vector3 movement;
     float xPos;
-    MonsterDirector monsterdirector;
 
     [Header("진폭과 주기, 속도, 최대 길이 ")]
     [SerializeField]
@@ -31,7 +30,6 @@ public class Monster : MonoBehaviour
 
     private void Start()
     {
-        monsterdirector = GameObject.Find("MonsterDirector").GetComponent<MonsterDirector>();
         monster_SpawnPos = transform.position;
         Monster_Bullet_List = GameObject.Find("Bullet_List").GetComponent<Transform>();
         monster_Image = GetComponent<SpriteRenderer>();
@@ -95,7 +93,6 @@ public class Monster : MonoBehaviour
         {
             Destroy(gameObject);
             Destroy(collision.gameObject);
-            monsterdirector.MonsterDie();
         }
     }
 

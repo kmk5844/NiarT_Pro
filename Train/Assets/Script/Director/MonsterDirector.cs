@@ -6,19 +6,23 @@ public class MonsterDirector : MonoBehaviour
 {
     // 스테이지 정보 나온 후, 스테이지에 따라 몬스터 변경해야함
     // 그리고 엑셀에 몬스터 정보도 나와야 한다.
-    // 기차 길이에 따라 소환하는 위치가 달라야 한다.
     [Header("몬스터 정보 및 리스트")]
     public GameObject Monster;
     public Transform Monster_List;
 
     [Header("몬스터 스폰 설정")]
-    public Vector2 MaxPos;
-    public Vector2 MinPos;
+    [SerializeField] Vector2 MaxPos;
+    [SerializeField] Vector2 MinPos;
+    bool isSpawing = false;
 
     [Header("몬스터 한도 설정")]
     public int MaxMonsterNum;
     [SerializeField]
     int MonsterNum;
+
+    [Header("기차 정보")]
+    public Transform Train_List;
+    int TrainCount;
 
     float Random_xPos;
     float Random_yPos;
@@ -26,13 +30,16 @@ public class MonsterDirector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        TrainCount = Train_List.childCount;
+        MaxPos = new Vector2(3f, 8f);
+        MinPos = new Vector2(-4f + ((TrainCount - 1) * -8.5f), 4f);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(MonsterNum < MaxMonsterNum)
+        MonsterNum = Monster_List.childCount;
+        if(MonsterNum < MaxMonsterNum && !isSpawing)
         {
             StartCoroutine(AppearMonster());
         }
@@ -40,16 +47,12 @@ public class MonsterDirector : MonoBehaviour
 
     IEnumerator AppearMonster()
     {
-        MonsterNum++;
-        yield return new WaitForSeconds(Random.Range(0.0f, 5.0f));
+        isSpawing = true;
+        yield return new WaitForSeconds(Random.Range(0.0f, 0.5f));
         Random_xPos = Random.Range(MinPos.x, MaxPos.x);
         Random_yPos = Random.Range(MinPos.y, MaxPos.y);
         Instantiate(Monster, new Vector3(Random_xPos, Random_yPos, 0), Quaternion.identity, Monster_List);
-    }
-
-    public void MonsterDie()
-    {
-        MonsterNum--;
+        isSpawing = false;
     }
 
     private void OnDrawGizmos()
