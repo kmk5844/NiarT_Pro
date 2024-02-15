@@ -76,7 +76,6 @@ public class Player : MonoBehaviour
             jumpFlag = true;
         }
     }
-
     void BulletFire()
     {
         if (Time.time >= lastTime + Bullet_Delay)
