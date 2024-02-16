@@ -12,14 +12,14 @@ public class Long_RangedShoot : MonoBehaviour
     int unit_Attack;
     float unit_Attack_Delay;
     float lastTime;
-
+    
     Long_Ranged unit;
-    public bool isDelaying;
+    public bool isDelaying; // 아마 탈진 때문에 적었을 가능성이 큼
 
     void Start()
     {
         Bullet_List = GameObject.Find("Bullet_List").GetComponent<Transform>();
-        unit = transform.GetComponentInParent<Long_Ranged>();
+        unit = GetComponentInParent<Long_Ranged>();
         unit_Attack = unit.unit_Attack;
         unit_Attack_Delay = unit.unit_Attack_Delay;
         lastTime = 0;
@@ -69,7 +69,7 @@ public class Long_RangedShoot : MonoBehaviour
             Instantiate(Bullet, transform.position, transform.rotation, Bullet_List);
             unit.Shoot_Stamina();
             lastTime = Time.time;
-        }
+        };
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

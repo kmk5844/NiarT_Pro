@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Long_Ranged : Mercenary
 {
-    public Active act;
+    Active act;
     [Header("공격력")]
     public int unit_Attack;
     [Header("공격속도")]
@@ -12,51 +12,44 @@ public class Long_Ranged : Mercenary
     [Header("공격할 때, 이동속도")]
     [SerializeField]
     float workSpeed;
-    [Header("0일 때, 이동속도")]
-    float zeroSpeed;
-
-    bool zeroFlag;
+    public bool zeroFlag;
 
     Long_RangedShoot shoot;
     protected override void Start()
     {
         base.Start();
         act = Active.move;
-        zeroSpeed = 0.5f;
         zeroFlag = false;
         shoot = gameObject.GetComponentInChildren<Long_RangedShoot>();
     }
 
     private void Update()
     {
-        if(Stamina == 0 && act == Active.work && !zeroFlag)
+        if (HP <= 0 && act != Active.die)
+        {
+            act = Active.die;
+        }
+
+        if (Stamina == 0 && act == Active.work && !zeroFlag)
         {
             StartCoroutine(zeroRefresh());
         }
 
         if (act == Active.move)
         {
-            base.move();
+            base.combatant_Move();
         }else if(act == Active.work){
-            if (transform.position.x > MaxMove_X)
-            {
-                move_X *= -1f;
-                sprite.flipX = true;
-            }
-            else if (transform.position.x < MinMove_X)
-            {
-                move_X *= -1f;
-                sprite.flipX = false;
-            }
-
-            if (zeroFlag)
-            {
-                transform.Translate(move_X * zeroSpeed, 0, 0);
-            }
-            else
+            if (!zeroFlag)
             {
                 transform.Translate(move_X * workSpeed, 0, 0);
             }
+            else
+            {
+                transform.Translate(0, 0, 0);
+            }
+        }else if(act == Active.die)
+        {
+            transform.GetComponentInChildren<Long_RangedShoot>().enabled = false;
         }
     }
 
@@ -80,7 +73,10 @@ public class Long_Ranged : Mercenary
         }
         else
         {
-            act = Active.move;
+            if (!zeroFlag)
+            {
+                act = Active.move;
+            }
         }
     }
 

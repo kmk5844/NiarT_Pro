@@ -31,7 +31,7 @@ public class Engineer : Mercenary
         RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1f, LayerMask.GetMask("Platform"));
         train = rayHit.collider.GetComponentInParent<Train>();
         train_HpParsent = (float)train.cur_HP / (float)train.Train_HP * 100f;
-        if(HP <= 0)
+        if(HP <= 0 && act != Active.die)
         {
             act = Active.die;
         }
@@ -49,7 +49,7 @@ public class Engineer : Mercenary
 
         if(act == Active.move)
         {
-            base.move();
+            base.non_combatant_Move();
         }else if(act == Active.work)
         {
             if (move_Work)

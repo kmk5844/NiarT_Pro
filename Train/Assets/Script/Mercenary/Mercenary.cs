@@ -13,12 +13,17 @@ public class Mercenary : MonoBehaviour
     [SerializeField] protected int HP;
     [SerializeField] protected int Stamina;
     private int maxStamina;
-    [SerializeField] private int moveSpeed;
+    [SerializeField] protected int moveSpeed;
     [SerializeField] private int Refresh_Amount;
     [SerializeField] private float Refresh_Delay;
     [Header("소모되는 스테미나 양")]
     [SerializeField] protected int useStamina;
     bool isRefreshing;
+    public bool isCombatantWalking;
+    public bool isCombatantIdling;
+    float Combatant_Idle_LastTime;
+    int combatant_move_x;
+    Vector3 combatant_BeforePosition;
 
     protected SpriteRenderer sprite;
 
@@ -32,10 +37,99 @@ public class Mercenary : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         
         isRefreshing = false;
+        isCombatantWalking = false;
+        isCombatantIdling = false;
         maxStamina = Stamina;
     }
 
-    public void move()
+    protected void combatant_Move()
+    {
+        if (Stamina <= 100 && !isRefreshing)
+        {
+            StartCoroutine(Refresh());
+        }
+
+        if (!isCombatantWalking && !isCombatantIdling)
+        {
+            if(transform.position.x > MaxMove_X - 7)
+            {
+                combatant_move_x = Random.Range(-6, 0);
+            }else if(transform.position.x < MinMove_X + 7)
+            {
+                combatant_move_x = Random.Range(0, 6);
+            }
+            else
+            {
+                combatant_move_x = Random.Range(-6, 6);
+            }
+
+            if (combatant_move_x > 0)
+            {
+                move_X = 0.01f;
+                sprite.flipX = false;
+            }
+            else if (combatant_move_x < 0)
+            {
+                move_X = -0.01f;
+                sprite.flipX = true;
+            }
+            else if (combatant_move_x == 0 || combatant_move_x == 1)
+            {
+                combatant_move_x += 1;
+                move_X = 0.01f;
+            }else if(combatant_move_x == -1)
+            {
+                combatant_move_x -= 1;
+                move_X = 0.01f;
+            }
+            combatant_BeforePosition = transform.position;
+            isCombatantWalking = true;
+        }
+        else if(isCombatantWalking)
+        {
+            if(combatant_move_x > 0 && transform.position.x >  combatant_BeforePosition.x + combatant_move_x)
+            {
+                isCombatantWalking = false;
+            }
+            else if(combatant_move_x < 0 && transform.position.x < combatant_BeforePosition.x + combatant_move_x)
+            {
+                isCombatantWalking = false;
+            }
+            else if(transform.position.x < MinMove_X)
+            {
+                isCombatantWalking = false;
+            }   
+            else if(transform.position.x > MaxMove_X)
+            {
+                isCombatantWalking = false;
+            }
+
+            if (isCombatantWalking)
+            {
+                transform.Translate(move_X * moveSpeed, 0, 0);
+            }
+            else
+            {
+                combatant_Idle();
+            }
+        }else if (!isCombatantWalking && isCombatantIdling)
+        {
+            combatant_Idle();
+        }else if(isCombatantIdling && (transform.position.x < MinMove_X || transform.position.x > MaxMove_X))
+        {
+            if(transform.position.x < MinMove_X)
+            {
+                move_X = 0.01f;
+                transform.Translate(move_X * moveSpeed, 0, 0);
+            }else if(transform.position.x > MaxMove_X)
+            {
+                move_X = -0.01f;
+                transform.Translate(move_X * moveSpeed, 0, 0);
+            }
+        }
+    }
+
+    protected void non_combatant_Move()
     {
         if (Stamina <= 100 && !isRefreshing)
         {
@@ -69,6 +163,20 @@ public class Mercenary : MonoBehaviour
         }
 
         isRefreshing = false;
+    }
+
+    protected void combatant_Idle()
+    {
+        if (!isCombatantIdling)
+        {
+            isCombatantIdling = true;
+            Combatant_Idle_LastTime = Time.time;
+
+        }
+        else if(Time.time >= Combatant_Idle_LastTime + Random.Range(1, 4))
+        {
+            isCombatantIdling = false;
+        }
     }
 
     //부활은 메딕이랑 그 이후의 시스템이 나오면 적을 예정
