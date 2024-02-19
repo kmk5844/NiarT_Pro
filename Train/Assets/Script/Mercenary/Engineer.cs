@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Engineer : Mercenary
 {
-    Active act;
     Rigidbody2D rigid;
     Train train;
     bool move_Work;

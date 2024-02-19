@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Long_Ranged : Mercenary
 {
-    Active act;
     [Header("공격력")]
     public int unit_Attack;
     [Header("공격속도")]

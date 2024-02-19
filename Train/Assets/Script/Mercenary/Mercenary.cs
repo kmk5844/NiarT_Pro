@@ -4,16 +4,22 @@ using UnityEngine;
 
 public class Mercenary : MonoBehaviour
 {
+    [SerializeField]
+    protected Active act;
+
     public Transform Train_List;
     int TrainCount;
     protected float move_X;
     protected float MaxMove_X;
     protected float MinMove_X;
     [Header("용병 정보")]
-    [SerializeField] protected int HP;
-    [SerializeField] protected int Stamina;
-    private int maxStamina;
-    [SerializeField] protected int moveSpeed;
+    public int HP;
+    [HideInInspector]
+    public int MaxHP;
+    public int Stamina;
+    [HideInInspector]
+    public int MaxStamina;
+    [SerializeField] protected float moveSpeed;
     [SerializeField] private int Refresh_Amount;
     [SerializeField] private float Refresh_Delay;
     [Header("소모되는 스테미나 양")]
@@ -39,7 +45,8 @@ public class Mercenary : MonoBehaviour
         isRefreshing = false;
         isCombatantWalking = false;
         isCombatantIdling = false;
-        maxStamina = Stamina;
+        MaxHP = HP;
+        MaxStamina = Stamina;
     }
 
     protected void combatant_Move()
@@ -155,7 +162,7 @@ public class Mercenary : MonoBehaviour
         yield return new WaitForSeconds(Refresh_Delay);
         if(Stamina + Refresh_Amount > 100)
         {
-            Stamina = maxStamina;
+            Stamina = MaxStamina;
         }
         else
         {
@@ -179,6 +186,22 @@ public class Mercenary : MonoBehaviour
         }
     }
 
+    public float check_HpParsent()
+    {
+        return (float)HP / (float)MaxHP * 100f;
+    }
+    public float check_StaminaParsent()
+    {
+        return (float)Stamina / (float)MaxStamina * 100f;
+    }
+
+    public IEnumerator Revive(int Heal_HpParsent) //애니메이션 추가하면 좋음
+    {
+        act = Active.revive;
+        yield return new WaitForSeconds(2);
+        HP = MaxHP * Heal_HpParsent / 100;
+        act = Active.move;
+    }
     //부활은 메딕이랑 그 이후의 시스템이 나오면 적을 예정
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -202,11 +225,14 @@ public class Mercenary : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawLine(new Vector3(MinMove_X, -3, 0), new Vector3(MaxMove_X, -3, 0));
     }
+
 }
 public enum Active
 {
     move,
     work,
     die,
-    revive
+    revive,
+    weak,
+    //플레이어 상호작용 추가하면 -> 플레이어 향해 가서 상호작용 한다
 }

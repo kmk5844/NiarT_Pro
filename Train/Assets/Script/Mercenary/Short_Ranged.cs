@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Short_Ranged : Mercenary
 {
-    public Active act;
     Vector3 targetPosition;
     [Header("잡으러 가는 속도")]
     public int work_Speed;
