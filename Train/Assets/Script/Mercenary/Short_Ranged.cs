@@ -20,11 +20,11 @@ public class Short_Ranged : Mercenary
     void Update()
     {
         if(HP <= 0 && act != Active.die)
-        {
+        {             
             act = Active.die;
+            isDying = true;
         }
-
-        if(Stamina == 0 && !zeroFlag)
+        else if(Stamina == 0 && !zeroFlag)
         {
             StartCoroutine(zeroRefresh());
         }
@@ -64,10 +64,12 @@ public class Short_Ranged : Mercenary
             {
                 run_Target();
             }
-        }else if(act == Active.die)
+        }else if(act == Active.die && isDying)
         {
+            Debug.Log("여기서 애니메이션 구현한다!3");
             transform.GetComponentInChildren<Short_Ranged_DetectionZone>().enabled = false;
             transform.GetComponentInChildren<Short_Range_KillZone>().enabled = false;
+            isDying = false;
         }
     }
 

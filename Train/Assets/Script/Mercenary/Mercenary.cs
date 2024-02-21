@@ -7,7 +7,7 @@ public class Mercenary : MonoBehaviour
     [SerializeField]
     protected Active act;
 
-    public Transform Train_List;
+    protected Transform Train_List;
     int TrainCount;
     protected float move_X;
     protected float MaxMove_X;
@@ -16,6 +16,10 @@ public class Mercenary : MonoBehaviour
     public int HP;
     [HideInInspector]
     public int MaxHP;
+
+    [SerializeField]
+    int def;
+
     public int Stamina;
     [HideInInspector]
     public int MaxStamina;
@@ -23,26 +27,34 @@ public class Mercenary : MonoBehaviour
     [SerializeField] private int Refresh_Amount;
     [SerializeField] private float Refresh_Delay;
     [Header("소모되는 스테미나 양")]
-    [SerializeField] protected int useStamina;
+    [SerializeField]
+    protected int useStamina;
     bool isRefreshing;
-    public bool isCombatantWalking;
-    public bool isCombatantIdling;
+    protected bool isDying;
+    bool isCombatantWalking;
+    bool isCombatantIdling;
     float Combatant_Idle_LastTime;
     int combatant_move_x;
     Vector3 combatant_BeforePosition;
+
+    [HideInInspector]
+    public bool isHealWithMedic;
 
     protected SpriteRenderer sprite;
 
     protected virtual void Start()
     {
+        Train_List = GameObject.Find("Train_List").GetComponent<Transform>();
         TrainCount = Train_List.childCount;
         move_X = 0.01f;
         MaxMove_X = 3f;
         MinMove_X = -4f + ((TrainCount - 1) * -8.5f);
         transform.position = new Vector3(Random.Range(MinMove_X, MaxMove_X), -1, 0);
         sprite = GetComponent<SpriteRenderer>();
-        
+
         isRefreshing = false;
+        isHealWithMedic = false;
+        isDying = false;
         isCombatantWalking = false;
         isCombatantIdling = false;
         MaxHP = HP;
@@ -58,10 +70,10 @@ public class Mercenary : MonoBehaviour
 
         if (!isCombatantWalking && !isCombatantIdling)
         {
-            if(transform.position.x > MaxMove_X - 7)
+            if (transform.position.x > MaxMove_X - 7)
             {
                 combatant_move_x = Random.Range(-6, 0);
-            }else if(transform.position.x < MinMove_X + 7)
+            } else if (transform.position.x < MinMove_X + 7)
             {
                 combatant_move_x = Random.Range(0, 6);
             }
@@ -84,7 +96,7 @@ public class Mercenary : MonoBehaviour
             {
                 combatant_move_x += 1;
                 move_X = 0.01f;
-            }else if(combatant_move_x == -1)
+            } else if (combatant_move_x == -1)
             {
                 combatant_move_x -= 1;
                 move_X = 0.01f;
@@ -92,21 +104,21 @@ public class Mercenary : MonoBehaviour
             combatant_BeforePosition = transform.position;
             isCombatantWalking = true;
         }
-        else if(isCombatantWalking)
+        else if (isCombatantWalking)
         {
-            if(combatant_move_x > 0 && transform.position.x >  combatant_BeforePosition.x + combatant_move_x)
+            if (combatant_move_x > 0 && transform.position.x > combatant_BeforePosition.x + combatant_move_x)
             {
                 isCombatantWalking = false;
             }
-            else if(combatant_move_x < 0 && transform.position.x < combatant_BeforePosition.x + combatant_move_x)
+            else if (combatant_move_x < 0 && transform.position.x < combatant_BeforePosition.x + combatant_move_x)
             {
                 isCombatantWalking = false;
             }
-            else if(transform.position.x < MinMove_X)
+            else if (transform.position.x < MinMove_X)
             {
                 isCombatantWalking = false;
-            }   
-            else if(transform.position.x > MaxMove_X)
+            }
+            else if (transform.position.x > MaxMove_X)
             {
                 isCombatantWalking = false;
             }
@@ -119,16 +131,16 @@ public class Mercenary : MonoBehaviour
             {
                 combatant_Idle();
             }
-        }else if (!isCombatantWalking && isCombatantIdling)
+        } else if (!isCombatantWalking && isCombatantIdling)
         {
             combatant_Idle();
-        }else if(isCombatantIdling && (transform.position.x < MinMove_X || transform.position.x > MaxMove_X))
+        } else if (isCombatantIdling && (transform.position.x < MinMove_X || transform.position.x > MaxMove_X))
         {
-            if(transform.position.x < MinMove_X)
+            if (transform.position.x < MinMove_X)
             {
                 move_X = 0.01f;
                 transform.Translate(move_X * moveSpeed, 0, 0);
-            }else if(transform.position.x > MaxMove_X)
+            } else if (transform.position.x > MaxMove_X)
             {
                 move_X = -0.01f;
                 transform.Translate(move_X * moveSpeed, 0, 0);
@@ -160,7 +172,7 @@ public class Mercenary : MonoBehaviour
     {
         isRefreshing = true;
         yield return new WaitForSeconds(Refresh_Delay);
-        if(Stamina + Refresh_Amount > 100)
+        if (Stamina + Refresh_Amount > MaxStamina)
         {
             Stamina = MaxStamina;
         }
@@ -180,7 +192,7 @@ public class Mercenary : MonoBehaviour
             Combatant_Idle_LastTime = Time.time;
 
         }
-        else if(Time.time >= Combatant_Idle_LastTime + Random.Range(1, 4))
+        else if (Time.time >= Combatant_Idle_LastTime + Random.Range(1, 4))
         {
             isCombatantIdling = false;
         }
@@ -198,11 +210,28 @@ public class Mercenary : MonoBehaviour
     public IEnumerator Revive(int Heal_HpParsent) //애니메이션 추가하면 좋음
     {
         act = Active.revive;
-        yield return new WaitForSeconds(2);
         HP = MaxHP * Heal_HpParsent / 100;
+        yield return new WaitForSeconds(2);
         act = Active.move;
     }
     //부활은 메딕이랑 그 이후의 시스템이 나오면 적을 예정
+
+    public bool Check_Work()
+    {
+        if (act == Active.move)
+        {
+            return true;
+        } else if (act == Active.work)
+        {
+            return false;
+        }
+        return false;
+    }
+
+    public float Check_moveX()
+    {
+        return move_X;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -234,5 +263,6 @@ public enum Active
     die,
     revive,
     weak,
+    call
     //플레이어 상호작용 추가하면 -> 플레이어 향해 가서 상호작용 한다
 }

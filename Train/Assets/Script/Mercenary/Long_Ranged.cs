@@ -27,9 +27,8 @@ public class Long_Ranged : Mercenary
         if (HP <= 0 && act != Active.die)
         {
             act = Active.die;
-        }
-
-        if (Stamina == 0 && act == Active.work && !zeroFlag)
+            isDying = true;
+        }else if (Stamina == 0 && act == Active.work && !zeroFlag)
         {
             StartCoroutine(zeroRefresh());
         }
@@ -46,9 +45,11 @@ public class Long_Ranged : Mercenary
             {
                 transform.Translate(0, 0, 0);
             }
-        }else if(act == Active.die)
+        }else if(act == Active.die && isDying)
         {
+            Debug.Log("여기서 애니메이션 구현한다!2");
             transform.GetComponentInChildren<Long_RangedShoot>().enabled = false;
+            isDying = false;
         }
     }
 

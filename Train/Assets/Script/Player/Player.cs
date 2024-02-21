@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     [Header("체력")]
     [SerializeField]
     int Player_HP;
+    private int Max_HP;
 
     [Header("방어력")]
     [SerializeField]
@@ -26,12 +27,14 @@ public class Player : MonoBehaviour
     [SerializeField] float moveSpeed;
     [SerializeField] float jumpSpeed;
     Rigidbody2D rigid;
+    int moveX;
 
     bool jumpFlag;
 
     void Start()
     {
         jumpFlag = false;
+        Max_HP = Player_HP; 
         lastTime = 0;
         rigid = GetComponent<Rigidbody2D>();
         Player_Bullet_List = GameObject.Find("Bullet_List").GetComponent<Transform>();
@@ -40,7 +43,8 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonUp("Horizontal")) {
+        if (Input.GetButtonUp("Horizontal"))
+        {
             rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.5f, rigid.velocity.y);
         }
 
@@ -58,16 +62,19 @@ public class Player : MonoBehaviour
 
         if (rigid.velocity.x > moveSpeed)
         {
+            moveX = 1;
             rigid.velocity = new Vector2(moveSpeed, rigid.velocity.y);
-        }else if(rigid.velocity.x < moveSpeed * (-1))
+        }
+        else if (rigid.velocity.x < moveSpeed * (-1))
         {
+            moveX = -1;
             rigid.velocity = new Vector2(moveSpeed * (-1), rigid.velocity.y);
         }
 
         Debug.DrawRay(rigid.position, Vector3.down, Color.green);
         RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1f, LayerMask.GetMask("Platform"));
 
-        if(rayHit.collider != null && rayHit.distance >= 0.5f)
+        if (rayHit.collider != null && rayHit.distance >= 0.5f)
         {
             jumpFlag = false;
         }
@@ -98,11 +105,26 @@ public class Player : MonoBehaviour
         Bullet_Delay = Bullet_Delay - (((Bullet_Delay * Level_AtkDelay * 10)) / 100);
         Player_HP = Player_HP + (((Player_HP * Level_HP) * 10) / 100);
         Player_Armor = Player_Armor + (((Player_Armor * Level_Armor) * 10) / 100);
-        moveSpeed = moveSpeed + (((moveSpeed * Level_Speed ) * 10) / 100);
+        moveSpeed = moveSpeed + (((moveSpeed * Level_Speed) * 10) / 100);
     }
 
     public void MonsterHit(int MonsterBullet_Atk)
     {
         Player_HP -= (MonsterBullet_Atk - Player_Armor);
+    }
+
+    public float check_HpParsent()
+    {
+        return (float)Player_HP / (float)Max_HP * 100f;
+    }
+
+    public void Heal_HP(int Medic_Heal)
+    {
+        Player_HP += Medic_Heal;
+    }
+
+    public int Check_moveX()
+    {
+        return moveX;
     }
 }

@@ -24,8 +24,8 @@ public class Train : MonoBehaviour
     public int Train_Heal;
     [Header("HP 슬라이더")]
     public Slider HP_Slider;
-    
     public int cur_HP; //현재체력
+    public bool isReparing;
     GameDirector GD;
 
     // Start is called before the first frame update
@@ -102,7 +102,6 @@ public class Train : MonoBehaviour
                 break;
         }
     }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Monster_Bullet"))
