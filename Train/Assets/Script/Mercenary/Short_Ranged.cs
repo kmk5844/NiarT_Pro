@@ -15,6 +15,7 @@ public class Short_Ranged : Mercenary
         base.Start();
         act = Active.move;
         zeroFlag = false;
+        isRefreshing_weak = false;
     }
 
     void Update()
@@ -26,7 +27,7 @@ public class Short_Ranged : Mercenary
         }
         else if(Stamina == 0 && !zeroFlag)
         {
-            StartCoroutine(zeroRefresh());
+            act = Active.weak;
         }
 
         if (transform.position.x > MaxMove_X)
@@ -70,6 +71,21 @@ public class Short_Ranged : Mercenary
             transform.GetComponentInChildren<Short_Ranged_DetectionZone>().enabled = false;
             transform.GetComponentInChildren<Short_Range_KillZone>().enabled = false;
             isDying = false;
+        }else if(act == Active.weak)
+        {
+            if (!isRefreshing_weak)
+            {
+                zeroFlag = true;
+                killzone.GetComponent<BoxCollider2D>().enabled = false;
+                StartCoroutine(Refresh_Weak());
+            }
+            else if(Stamina >= 70)
+            {
+                killzone.GetComponent<BoxCollider2D>().enabled = true;
+                zeroFlag = false;
+                act = Active.move;
+            }
+
         }
     }
 
@@ -107,23 +123,16 @@ public class Short_Ranged : Mercenary
     }
     public void TargetFlag(bool Flag)
     {
-        if (Flag)
+        if(act != Active.weak)
         {
-            act = Active.work;
+            if (Flag)
+            {
+                act = Active.work;
+            }
+            else
+            {
+                act = Active.move;
+            }
         }
-        else
-        {
-            act = Active.move;
-        }
-    }
-
-    IEnumerator zeroRefresh()
-    {
-        zeroFlag = true;
-        killzone.GetComponent<BoxCollider2D>().enabled = false;
-        yield return new WaitForSeconds(5);
-        Stamina += 60;
-        zeroFlag = false;
-        killzone.GetComponent<BoxCollider2D>().enabled = true;
     }
 }

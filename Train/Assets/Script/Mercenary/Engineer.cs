@@ -39,7 +39,7 @@ public class Engineer : Mercenary
             act = Active.die;
             isDying = true;
         }
-        else if (act != Active.work && Stamina >= 30 && train_HpParsent < repairTrain_Parsent && !train.isReparing && act != Active.call)
+        else if (act != Active.work && Stamina >= 50 && train_HpParsent < repairTrain_Parsent && !train.isReparing && act != Active.call && act != Active.die)
         {
             train.isReparing = true;
             act = Active.work;
@@ -47,7 +47,7 @@ public class Engineer : Mercenary
         else if(Stamina <= 0 || act == Active.work && train_HpParsent > repairTrain_Parsent)
         {
             train.isReparing = false;
-            act = Active.move;
+            act = Active.weak;
             move_Work = true;
         }
 
@@ -66,13 +66,13 @@ public class Engineer : Mercenary
                 {
                     move_X = 0.01f;
                     sprite.flipX = false;
-                    transform.Translate(move_X * move_work_speed, 0, 0);
+                    transform.Translate(move_X * move_work_speed, -1, 0);
                 }
                 else if(transform.position.x > train.transform.position.x + 0.2)
                 {
                     move_X = -0.01f;
                     sprite.flipX = true;
-                    transform.Translate(move_X * move_work_speed, 0, 0);
+                    transform.Translate(move_X * move_work_speed, -1, 0);
                 }
                 else
                 {
@@ -81,16 +81,31 @@ public class Engineer : Mercenary
             }
             else if(!move_Work)
             {
+                if (!train.isReparing)
+                {
+                    train.isReparing = true;
+                }
                 if (!isRepairing)
                 {
-                    Debug.Log(train_HpParsent + "%");
                     StartCoroutine(Repair());
                 }
             }
         }else if(act == Active.die && isDying )
         {
             Debug.Log("여기서 애니메이션 구현한다!");
+            if (train.isReparing)
+            {
+                train.isReparing = false;
+            }
             isDying = false;
+        }else if(act == Active.weak)
+        {
+            if(!isRefreshing_weak)
+            {
+                StartCoroutine(Refresh_Weak());
+            }else if(Stamina >= 70){
+                act = Active.move;
+            }
         }else if(act == Active.call)
         {
             isCalling = true;
@@ -127,6 +142,7 @@ public class Engineer : Mercenary
     IEnumerator Repair()
     {
         isRepairing = true;
+
         yield return new WaitForSeconds(repairDelay);
         if (Stamina - useStamina < 0)
         {

@@ -133,15 +133,29 @@ public class GameDirector : MonoBehaviour
         TrainSpeed -= slow;
     }
 
-    public void Engine_Driver_Passive(Engine_Driver_Type type, int EngineDriver_value)
+    public void Engine_Driver_Passive(Engine_Driver_Type type, int EngineDriver_value, bool survival)
     {
         switch (type)
         {
             case Engine_Driver_Type.speed:
-                MaxSpeed += EngineDriver_value;
+                if (survival)
+                {
+                    MaxSpeed += EngineDriver_value;
+                }
+                else
+                {
+                    MaxSpeed -= EngineDriver_value;
+                }
                 break;
             case Engine_Driver_Type.fuel:
-                Efficienl -= EngineDriver_value;
+                if (survival)
+                {
+                    Efficienl -= EngineDriver_value;
+                }
+                else
+                {
+                    Efficienl += EngineDriver_value;
+                }
                 break;
         }
     }

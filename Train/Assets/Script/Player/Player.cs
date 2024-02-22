@@ -22,6 +22,9 @@ public class Player : MonoBehaviour
     [Header("방어력")]
     [SerializeField]
     int Player_Armor;
+    float era;
+    [SerializeField]
+    float def_constant;
 
     [Header("이동 속도")]
     [SerializeField] float moveSpeed;
@@ -30,6 +33,11 @@ public class Player : MonoBehaviour
     int moveX;
 
     bool jumpFlag;
+    Vector3 respawnPosition;
+    private void Awake()
+    {
+        respawnPosition = transform.position;
+    }
 
     void Start()
     {
@@ -39,6 +47,7 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         Player_Bullet_List = GameObject.Find("Bullet_List").GetComponent<Transform>();
         Level();
+        era = 1f - (float)Player_Armor / def_constant;
     }
 
     private void Update()
@@ -91,7 +100,6 @@ public class Player : MonoBehaviour
             lastTime = Time.time;
         }
     }
-
     void Level()
     {
         Level_Player Level_Data = GetComponent<Level_Player>();
@@ -107,10 +115,25 @@ public class Player : MonoBehaviour
         Player_Armor = Player_Armor + (((Player_Armor * Level_Armor) * 10) / 100);
         moveSpeed = moveSpeed + (((moveSpeed * Level_Speed) * 10) / 100);
     }
-
     public void MonsterHit(int MonsterBullet_Atk)
     {
-        Player_HP -= (MonsterBullet_Atk - Player_Armor);
+        int damageTaken = Mathf.RoundToInt(MonsterBullet_Atk * era);
+        if (Player_HP - damageTaken < 0)
+        {
+            Player_HP = 0;
+        }
+        else
+        {
+            Player_HP -= damageTaken;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Respawn"))
+        {
+            transform.position = new Vector3(collision.transform.position.x, 1, 0); ;
+        }
     }
 
     public float check_HpParsent()

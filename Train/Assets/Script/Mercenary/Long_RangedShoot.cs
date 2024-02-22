@@ -58,7 +58,25 @@ public class Long_RangedShoot : MonoBehaviour
                     transform.rotation = Quaternion.Euler(0, 0, rotZ);
                 }
                 BulletFire();
-            }// 활 원위치 하는 것
+            }
+            else
+            {
+                float targetAngle = 0;
+                Vector3 rotationEuler = transform.rotation.eulerAngles;
+                if (rotationEuler.z >= 0f && rotationEuler.z <= 90f)
+                {
+                    targetAngle = 0f; // 제 1사분면에 있을 때
+                }
+                else if (rotationEuler.z > 90f && rotationEuler.z <= 180f)
+                {
+                    targetAngle = 180f; // 제 2사분면에 있을 때
+                }
+                Quaternion targetRotation = Quaternion.Euler(0f, 0f, targetAngle); // 목표 회전을 표현하는 쿼터니언 값
+                if (Quaternion.Angle(transform.rotation, targetRotation) > 1f)
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 0.7f);
+                }
+            }
         }
     }
 

@@ -30,26 +30,29 @@ public class Long_Ranged : Mercenary
             isDying = true;
         }else if (Stamina == 0 && act == Active.work && !zeroFlag)
         {
-            StartCoroutine(zeroRefresh());
+            act = Active.weak;
         }
 
         if (act == Active.move)
         {
             base.combatant_Move();
         }else if(act == Active.work){
-            if (!zeroFlag)
-            {
-                transform.Translate(move_X * workSpeed, 0, 0);
-            }
-            else
-            {
-                transform.Translate(0, 0, 0);
-            }
+            transform.Translate(move_X * workSpeed, 0, 0);
         }else if(act == Active.die && isDying)
         {
             Debug.Log("여기서 애니메이션 구현한다!2");
             transform.GetComponentInChildren<Long_RangedShoot>().enabled = false;
             isDying = false;
+        }else if(act == Active.weak)
+        {
+            zeroFlag = true;
+            shoot.isDelaying = true;
+            StartCoroutine(Refresh_Weak());
+            if (Stamina >= 70)
+            {
+                shoot.isDelaying = false;
+                zeroFlag = false;
+            }
         }
     }
 
@@ -67,7 +70,7 @@ public class Long_Ranged : Mercenary
 
     public void TargetFlag(bool Flag)
     {
-        if (Flag)
+        if (Flag && act != Active.weak)
         {
             act = Active.work;
         }
@@ -78,15 +81,5 @@ public class Long_Ranged : Mercenary
                 act = Active.move;
             }
         }
-    }
-
-    IEnumerator zeroRefresh()
-    {
-        zeroFlag = true;
-        shoot.isDelaying = true;
-        yield return new WaitForSeconds(5f);
-        Stamina += 50;
-        shoot.isDelaying = false;
-        zeroFlag = false;
     }
 }

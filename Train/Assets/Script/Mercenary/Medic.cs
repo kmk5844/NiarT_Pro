@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Medic : Mercenary
 {
-    Transform unit;
+    public Transform unit;
 
     [Header("일하는 플래그")]
     [SerializeField]
@@ -50,20 +50,18 @@ public class Medic : Mercenary
             isDying = true;
         }
 
-        if(Stamina <= 0)
+        if(Stamina <= 0 && act == Active.work)
         {
-            if(act == Active.work)
-            {
-                work_HP = false;
-                work_Revive = false;
-                work_Stamina = false;
-                act = Active.move;
-                unit.GetComponentInParent<Mercenary>().isHealWithMedic = false;
-            }
+            work_HP = false;
+            work_Revive = false;
+            work_Stamina = false;
+            unit.GetComponentInParent<Mercenary>().isHealWithMedic = false;
+            act = Active.weak;
         }
 
         if (act == Active.move)
         {
+            transform.position = new Vector3(transform.position.x, -1, 0);
             if (move_X > 0)
             {
                 sprite.flipX = false;
@@ -78,12 +76,12 @@ public class Medic : Mercenary
             if (unit.GetComponentInParent<Mercenary>().Check_moveX() > 0)
             {
                 sprite.flipX = false;
-                transform.position = new Vector3(unit.position.x - 1, unit.position.y, unit.position.z);
+                transform.position = new Vector3(unit.position.x - 1, -1, 0);
             }
             else
             {
                 sprite.flipX = true;
-                transform.position = new Vector3(unit.position.x + 1, unit.position.y, unit.position.z);
+                transform.position = new Vector3(unit.position.x + 1, -1, 0);
             }
 
             if (work_HP)
@@ -124,7 +122,17 @@ public class Medic : Mercenary
         {
             Debug.Log("여기서 애니메이션 구현한다!4");
             isDying = false;
-        }else if(act == Active.call)
+        }else if(act == Active.weak)
+        {
+            if (!isRefreshing_weak)
+            {
+                StartCoroutine(Refresh_Weak());
+            }else if(Stamina >= 70)
+            {
+                act = Active.move;
+            }
+        }
+        else if(act == Active.call)
         {
             PlayerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
             if (transform.position.x < PlayerPosition.x - 1.5)
@@ -240,6 +248,7 @@ public class Medic : Mercenary
         isHeal_Revive = false;
         unit.GetComponentInParent<Mercenary>().isHealWithMedic = false;
         act = Active.move;
+        work_Revive = false;
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -250,8 +259,8 @@ public class Medic : Mercenary
             {
                 checkHP = collision.GetComponent<Mercenary_Type>().medic_checkHpParsent;
                 checkStamina = collision.GetComponent<Mercenary_Type>().medic_checkStaminaParsent;
-                
-                if(!work_HP && !work_Revive && !work_Stamina)
+
+                if (!work_HP && !work_Revive && !work_Stamina)
                 {
                     unit = collision.GetComponent<Transform>();
                 }

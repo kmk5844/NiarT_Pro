@@ -26,6 +26,10 @@ public class Train : MonoBehaviour
     public Slider HP_Slider;
     public int cur_HP; //현재체력
     public bool isReparing;
+    [Header("방어 상수")]
+    float era;
+    [SerializeField]
+    float def_constant;
     GameDirector GD;
 
     // Start is called before the first frame update
@@ -43,6 +47,7 @@ public class Train : MonoBehaviour
 
     private void Update()
     {
+        era = 1f - (float)Train_Anmor / def_constant; //만약에 방어력 증가해주는 기관사 타게 된다면 변경 가능성이 큼
         HP_Slider.value = (float)cur_HP / (float)Train_HP;
     }
 
@@ -114,7 +119,15 @@ public class Train : MonoBehaviour
     private void Train_MonsterHit(Bullet monsterBullet)
     {
         GD.Game_MonsterHit(monsterBullet.slow); //슬로우가 있어야 한다.
-        cur_HP -= monsterBullet.atk - Train_Anmor; // 몬스터의 데미지를 넣어야 한다
+        int damageTaken = Mathf.RoundToInt(monsterBullet.atk * era);
+        if(cur_HP - damageTaken < 0)
+        {
+            cur_HP = 0;
+        }
+        else
+        {
+            cur_HP -= damageTaken;
+        }
         //-> 몬스터마다 쏘는 총알이 다르다고 가정하자
     }
 }

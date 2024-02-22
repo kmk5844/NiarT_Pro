@@ -16,20 +16,25 @@ public class Mercenary : MonoBehaviour
     public int HP;
     [HideInInspector]
     public int MaxHP;
-
-    [SerializeField]
-    int def;
-
     public int Stamina;
     [HideInInspector]
     public int MaxStamina;
     [SerializeField] protected float moveSpeed;
     [SerializeField] private int Refresh_Amount;
     [SerializeField] private float Refresh_Delay;
+
+    [Header("방어력 설정")]
+    [SerializeField]
+    int def;
+    float era;
+    [SerializeField]
+    float def_constant;
+
     [Header("소모되는 스테미나 양")]
     [SerializeField]
     protected int useStamina;
     bool isRefreshing;
+    protected bool isRefreshing_weak;
     protected bool isDying;
     bool isCombatantWalking;
     bool isCombatantIdling;
@@ -37,7 +42,7 @@ public class Mercenary : MonoBehaviour
     int combatant_move_x;
     Vector3 combatant_BeforePosition;
 
-    [HideInInspector]
+   [HideInInspector]
     public bool isHealWithMedic;
 
     protected SpriteRenderer sprite;
@@ -52,7 +57,10 @@ public class Mercenary : MonoBehaviour
         transform.position = new Vector3(Random.Range(MinMove_X, MaxMove_X), -1, 0);
         sprite = GetComponent<SpriteRenderer>();
 
+        era = 1f - (float)def / def_constant;
+
         isRefreshing = false;
+        isRefreshing_weak = false;
         isHealWithMedic = false;
         isDying = false;
         isCombatantWalking = false;
@@ -63,7 +71,7 @@ public class Mercenary : MonoBehaviour
 
     protected void combatant_Move()
     {
-        if (Stamina <= 100 && !isRefreshing)
+        if (Stamina < MaxStamina && !isRefreshing)
         {
             StartCoroutine(Refresh());
         }
@@ -184,6 +192,15 @@ public class Mercenary : MonoBehaviour
         isRefreshing = false;
     }
 
+    protected IEnumerator Refresh_Weak()
+    {
+        isRefreshing_weak = true;
+        yield return new WaitForSeconds(10);
+        Stamina = 70;
+        isRefreshing_weak = false;
+
+    }
+
     protected void combatant_Idle()
     {
         if (!isCombatantIdling)
@@ -211,6 +228,7 @@ public class Mercenary : MonoBehaviour
     {
         act = Active.revive;
         HP = MaxHP * Heal_HpParsent / 100;
+        Debug.Log("대충 부활하는 애니메이션");
         yield return new WaitForSeconds(2);
         act = Active.move;
     }
@@ -233,17 +251,30 @@ public class Mercenary : MonoBehaviour
         return move_X;
     }
 
+    public bool Check_Live()
+    {
+        if(act == Active.die)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Monster_Bullet"))
         {
-            if (HP - collision.GetComponent<Bullet>().atk < 0)
+            int damageTaken = Mathf.RoundToInt(collision.GetComponent<Bullet>().atk * era);
+            if(HP - damageTaken < 0)
             {
                 HP = 0;
             }
             else
             {
-                HP -= collision.GetComponent<Bullet>().atk;
+                HP -= damageTaken;
             }
             Destroy(collision.gameObject);
         }
@@ -258,11 +289,12 @@ public class Mercenary : MonoBehaviour
 }
 public enum Active
 {
-    move,
-    work,
-    die,
-    revive,
-    weak,
-    call
+    move,   // 이동
+    work,   // 작업
+    die,    // 죽음
+    revive, // 부활
+    weak,   // 스테미나 부족
+    drained, // 탈진
+    call    //플레이어 호출
     //플레이어 상호작용 추가하면 -> 플레이어 향해 가서 상호작용 한다
 }
