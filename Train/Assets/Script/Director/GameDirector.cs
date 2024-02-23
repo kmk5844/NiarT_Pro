@@ -18,6 +18,10 @@ public class GameDirector : MonoBehaviour
     int TrainDistance;
     [SerializeField]
     int TrainWeight; // 전체적으로 더한다.
+    [SerializeField]
+    int TrainFood;
+    [SerializeField]
+    int TrainHeal;
 
     [Header("레벨 업 적용 전의 기차")]
     public int TrainMaxSpeed;
@@ -52,6 +56,7 @@ public class GameDirector : MonoBehaviour
     {
         Train_Count = List_Train.childCount;
         Trains = new Train[Train_Count];
+
         for (int i = 0; i < Train_Count; i++)
         {
             Trains[i] = List_Train.GetChild(i).gameObject.GetComponent<Train>();
@@ -120,12 +125,6 @@ public class GameDirector : MonoBehaviour
 
         Efficienl = TrainEfficienl - ((TrainEfficienl * (Level_Efficienl * 10)) / 100); // 적을 수록 유리
         EnginePower = TrainEnginePower + ((TrainEnginePower * (Level_EngineTier * 10)) / 100); // 클수록 유리
-    }
-
-    public int Level_ChangeArmor(int trainArmor)
-    {
-        //데미지 경감이기 때문에 클수록 유리
-        return trainArmor + (trainArmor * (Level_Armor * 10) / 100);
     }
 
     public void Game_MonsterHit(int slow)

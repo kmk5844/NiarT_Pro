@@ -12,7 +12,10 @@ public class Train : MonoBehaviour
     public string Train_Name;
     public int Train_HP;
     public int Train_Weight;
+
+    int Level_Anmor;
     public int Train_Anmor;
+
     public string Train_Type;
     public int Train_MaxSpeed;
     public int Train_Efficienl;
@@ -30,17 +33,20 @@ public class Train : MonoBehaviour
     float era;
     [SerializeField]
     float def_constant;
-    GameDirector GD;
+    GameObject GD;
 
     // Start is called before the first frame update
     private void Awake()
     {
-        GD = GameObject.Find("GameDirector").GetComponent<GameDirector>();
+        GD = GameObject.Find("GameDirector");
         Train_Name = trainData.Information_Train[TrainNum].Train_Name;
         Train_HP = trainData.Information_Train[TrainNum].Train_HP;
         cur_HP = Train_HP;
         Train_Weight = trainData.Information_Train[TrainNum].Train_Weight;
-        Train_Anmor = GD.Level_ChangeArmor(trainData.Information_Train[TrainNum].Train_Armor);
+
+        Level_Anmor = GD.GetComponent<Level_Train>().Level_Train_Armor;
+        Train_Anmor = Level_ChangeArmor(trainData.Information_Train[TrainNum].Train_Armor);
+
         Train_Type = trainData.Information_Train[TrainNum].Train_Type;
         CheckType();
     }
@@ -118,7 +124,7 @@ public class Train : MonoBehaviour
     }
     private void Train_MonsterHit(Bullet monsterBullet)
     {
-        GD.Game_MonsterHit(monsterBullet.slow); //슬로우가 있어야 한다.
+        GD.GetComponent<GameDirector>().Game_MonsterHit(monsterBullet.slow); //슬로우가 있어야 한다.
         int damageTaken = Mathf.RoundToInt(monsterBullet.atk * era);
         if(cur_HP - damageTaken < 0)
         {
@@ -129,5 +135,11 @@ public class Train : MonoBehaviour
             cur_HP -= damageTaken;
         }
         //-> 몬스터마다 쏘는 총알이 다르다고 가정하자
+    }
+
+    public int Level_ChangeArmor(int trainArmor)
+    {
+        //데미지 경감이기 때문에 클수록 유리
+        return trainArmor + (trainArmor * (Level_Anmor * 10) / 100);
     }
 }
