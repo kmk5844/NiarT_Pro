@@ -43,7 +43,8 @@ public class Long_Ranged : Mercenary
             Debug.Log("여기서 애니메이션 구현한다!2");
             transform.GetComponentInChildren<Long_RangedShoot>().enabled = false;
             isDying = false;
-        }else if(act == Active.weak)
+        }
+        else if(act == Active.weak)
         {
             zeroFlag = true;
             shoot.isDelaying = true;
@@ -53,6 +54,9 @@ public class Long_Ranged : Mercenary
                 shoot.isDelaying = false;
                 zeroFlag = false;
             }
+        }else if(act == Active.revive)
+        {
+            transform.GetComponentInChildren<Long_RangedShoot>().enabled = true;
         }
     }
 

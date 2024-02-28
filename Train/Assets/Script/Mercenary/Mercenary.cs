@@ -36,14 +36,17 @@ public class Mercenary : MonoBehaviour
     bool isRefreshing;
     protected bool isRefreshing_weak;
     protected bool isDying;
+    public bool isMedicTrainHealing;
     bool isCombatantWalking;
     bool isCombatantIdling;
     float Combatant_Idle_LastTime;
     int combatant_move_x;
     Vector3 combatant_BeforePosition;
 
-   [HideInInspector]
+    [HideInInspector]
     public bool isHealWithMedic;
+    int HealAmount;
+    int HealTimebet;
 
     protected SpriteRenderer sprite;
 
@@ -52,8 +55,8 @@ public class Mercenary : MonoBehaviour
         Train_List = GameObject.Find("Train_List").GetComponent<Transform>();
         TrainCount = Train_List.childCount;
         move_X = 0.01f;
-        MaxMove_X = 3f;
-        MinMove_X = -4f + ((TrainCount - 1) * -8.5f);
+        MaxMove_X = 8f;
+        MinMove_X = -6f + ((TrainCount - 1) * -10f);
         transform.position = new Vector3(Random.Range(MinMove_X, MaxMove_X), -1, 0);
         sprite = GetComponent<SpriteRenderer>();
 
@@ -68,7 +71,6 @@ public class Mercenary : MonoBehaviour
         MaxHP = HP;
         MaxStamina = Stamina;
     }
-
     protected void combatant_Move()
     {
         if (Stamina < MaxStamina && !isRefreshing)
@@ -81,7 +83,8 @@ public class Mercenary : MonoBehaviour
             if (transform.position.x > MaxMove_X - 7)
             {
                 combatant_move_x = Random.Range(-6, 0);
-            } else if (transform.position.x < MinMove_X + 7)
+            }
+            else if (transform.position.x < MinMove_X + 7)
             {
                 combatant_move_x = Random.Range(0, 6);
             }
@@ -109,6 +112,7 @@ public class Mercenary : MonoBehaviour
                 combatant_move_x -= 1;
                 move_X = 0.01f;
             }
+
             combatant_BeforePosition = transform.position;
             isCombatantWalking = true;
         }
@@ -279,7 +283,6 @@ public class Mercenary : MonoBehaviour
             Destroy(collision.gameObject);
         }
     }
-
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
@@ -295,6 +298,6 @@ public enum Active
     revive, // 부활
     weak,   // 스테미나 부족
     drained, // 탈진
-    call    //플레이어 호출
+    call,   //플레이어 호출
     //플레이어 상호작용 추가하면 -> 플레이어 향해 가서 상호작용 한다
 }

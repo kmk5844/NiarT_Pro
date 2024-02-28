@@ -9,13 +9,12 @@ public class MercenaryDirector : MonoBehaviour
     List<GameObject> Engineer_List;
     List<GameObject> Medic_List;
     
-    public int Engineer_Num;
-    public int Medic_Num;
-    public int Engineer_live_Num;
-    public int Medic_live_Num;
-    public int last_Engineer;
-    public int last_Medic;
-
+    int Engineer_Num;
+    int Medic_Num;
+    int Engineer_live_Num;
+    int Medic_live_Num;
+    int last_Engineer;
+    int last_Medic;
 
     public bool isEngineerCall;
     public bool isMedicCall;
@@ -25,14 +24,15 @@ public class MercenaryDirector : MonoBehaviour
     {
         Check_List();
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
-        isEngineerCall = false; isMedicCall = false;
+        isEngineerCall = false;
+        isMedicCall = false;
         Engineer_live_Num = 0;
         Medic_live_Num = 0;
     }
 
     void Update()
     {
-        if (!isChecklive)
+        if (!isChecklive) //계속 체크해야함.
         {
             StartCoroutine(Check_Live_Unit());
         }
@@ -41,18 +41,14 @@ public class MercenaryDirector : MonoBehaviour
         {
             Engineer_Call();
         }
-        else if(player.check_HpParsent() < 70 && Input .GetKeyDown(KeyCode.E) && !isMedicCall) {
+        else if(Input .GetKeyDown(KeyCode.E) && !isMedicCall && player.Check_HpParsent() < 70) {
             Medic_Call();
         }
     }
 
     public void Engineer_Call()
     {
-        if(Engineer_live_Num == 0)
-        {
-            Debug.Log("엔지니어 없자나");
-        }
-        else
+        if(Engineer_live_Num != 0)
         {
             for (int i = 0; i < Engineer_Num; i++)
             {
@@ -63,22 +59,22 @@ public class MercenaryDirector : MonoBehaviour
                     break;
                 } //있으면 오라고 콜함, 없으면 다음
             }
-
             if(!isEngineerCall)
             {
                 Engineer_List[last_Engineer].GetComponent<Engineer>().PlayerEngineerCall();
                 isEngineerCall = true;
             }
         }
+        else
+        {
+            //엔지니어가 없음을 알림.
+        }
     }
     public void Medic_Call()
     {
-        if(Medic_live_Num == 0)
+        if (Medic_live_Num != 0)
         {
-            Debug.Log("메딕 없자나");
-        }else
-        {
-            for(int i = 0; i < Medic_Num; i++)
+            for (int i = 0; i < Medic_Num; i++)
             {
                 if (Medic_List[i].GetComponent<Medic>().Check_Work())
                 {
@@ -87,23 +83,29 @@ public class MercenaryDirector : MonoBehaviour
                     break;
                 }
             }
-
             if (!isMedicCall)
             {
                 Medic_List[last_Medic].GetComponent<Medic>().PlayerMedicCall();
                 isMedicCall = true;
             }
         }
+        else
+        {
+            //메딕이 없음을 알림.
+        }
     }
 
-    public void Engineer_Call_End()
+    public void Call_End(mercenaryType type)
     {
-        isEngineerCall = false;
-    }
-
-    public void Medic_Call_End()
-    {
-        isMedicCall = false;
+        switch (type)
+        {
+            case mercenaryType.Engineer:
+                isEngineerCall = false;
+                break;
+            case mercenaryType.Medic:
+                isMedicCall = false;
+                break;  
+        }
     }
     public void Check_List()
     {
@@ -112,13 +114,15 @@ public class MercenaryDirector : MonoBehaviour
             switch (Mercenary_List.GetChild(i).GetComponent<Mercenary_Type>().mercenary_type)
             {
                 case mercenaryType.Engineer:
-                    Engineer_Num++;break;
+                    Engineer_Num++;
+                    break;
                 case mercenaryType.Medic :
-                    Medic_Num++; break;
+                    Medic_Num++; 
+                    break;
             }
         }
         Add_List();
-    }
+    }//상호작용 하는 애들은 엔지니어랑 메딕 밖에 없다.
 
     public void Add_List()
     {
@@ -139,7 +143,7 @@ public class MercenaryDirector : MonoBehaviour
         }
     }
 
-    IEnumerator Check_Live_Unit()
+    IEnumerator Check_Live_Unit() //die제외한 나머지를 체크한다.
     {
         isChecklive = true;
         yield return new WaitForSeconds(1);

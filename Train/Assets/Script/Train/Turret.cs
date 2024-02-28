@@ -49,7 +49,7 @@ public class Turret : MonoBehaviour
                 transform.rotation = Quaternion.Euler(0, 0, rotZ);
             }
             BulletFire();
-        }
+        }//Target_Flag가 false라면 되돌아가는 코드
     }
 
     void BulletFire()

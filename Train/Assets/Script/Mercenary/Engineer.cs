@@ -8,7 +8,7 @@ public class Engineer : Mercenary
     Train train;
     bool move_Work;
     bool isRepairing;
-    bool isCalling;
+    public bool isCalling;
     float train_HpParsent;
     [Header("수리 속도 및 기차 수리량")]
     [SerializeField] private int repairDelay;
@@ -34,29 +34,37 @@ public class Engineer : Mercenary
         train = rayHit.collider.GetComponentInParent<Train>();
         train_HpParsent = (float)train.cur_HP / (float)train.Train_HP * 100f;
 
-        if(HP <= 0 && act != Active.die)
+        if (HP <= 0 && act != Active.die)
         {
             act = Active.die;
             isDying = true;
         }
-        else if (act != Active.work && Stamina >= 50 && train_HpParsent < repairTrain_Parsent && !train.isReparing && act != Active.call && act != Active.die)
+        else if (act != Active.work && Stamina >= 50 && train_HpParsent < repairTrain_Parsent && !train.isReparing && act != Active.call && act != Active.die && train_HpParsent != 0)
         {
             train.isReparing = true;
             act = Active.work;
+        }else if (act != Active.work && Stamina >= 50 && train_HpParsent < repairTrain_Parsent && !train.isReparing && act != Active.call && act != Active.die && train_HpParsent == 0)
+        {
+            if (train.isRepairable)
+            {
+                train.isReparing = true;
+                act = Active.work;
+            }
         }
-        else if(Stamina <= 0 || act == Active.work && train_HpParsent > repairTrain_Parsent)
+        else if (Stamina <= 0)
         {
             train.isReparing = false;
             act = Active.weak;
+            move_Work = true;
+        }else if (act == Active.work && train_HpParsent > repairTrain_Parsent)
+        {
+            train.isReparing = false;
+            act = Active.move;
             move_Work = true;
         }
 
         if(act == Active.move)
         {
-            if (isCalling)
-            {
-                isCalling = false;
-            }
             base.non_combatant_Move();
         }else if(act == Active.work && !isCalling)
         {
@@ -66,13 +74,13 @@ public class Engineer : Mercenary
                 {
                     move_X = 0.01f;
                     sprite.flipX = false;
-                    transform.Translate(move_X * move_work_speed, -1, 0);
+                    transform.Translate(move_X * move_work_speed, 0, 0);
                 }
                 else if(transform.position.x > train.transform.position.x + 0.2)
                 {
                     move_X = -0.01f;
                     sprite.flipX = true;
-                    transform.Translate(move_X * move_work_speed, -1, 0);
+                    transform.Translate(move_X * move_work_speed, 0, 0);
                 }
                 else
                 {
@@ -124,8 +132,9 @@ public class Engineer : Mercenary
             }
             else
             {
+                isCalling = false;
                 act = Active.move;
-                GameObject.Find("MercenaryDirector").GetComponent<MercenaryDirector>().Engineer_Call_End();
+                GameObject.Find("MercenaryDirector").GetComponent<MercenaryDirector>().Call_End(mercenaryType.Engineer);
             }
         }
     }

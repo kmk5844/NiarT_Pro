@@ -31,8 +31,10 @@ public class MonsterDirector : MonoBehaviour
     void Start()
     {
         TrainCount = Train_List.childCount;
-        MaxPos = new Vector2(3f, 8f);
-        MinPos = new Vector2(-4f + ((TrainCount - 1) * -8.5f), 4f);
+        MaxPos = new Vector2(10f, 8f);
+        MinPos = new Vector2(-6f + ((TrainCount - 1) * -10f), 4f);
+        //몬스터 소환 위치가 달라진다.
+        //기차 길이에 따라 정해야한다.
     }
 
     // Update is called once per frame

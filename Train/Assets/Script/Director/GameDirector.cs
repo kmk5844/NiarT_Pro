@@ -17,11 +17,9 @@ public class GameDirector : MonoBehaviour
     [SerializeField]
     int TrainDistance;
     [SerializeField]
-    int TrainWeight; // 전체적으로 더한다.
+    int TrainWeight;// 전체적으로 더한다.
     [SerializeField]
-    int TrainFood;
-    [SerializeField]
-    int TrainHeal;
+    int TrainFood;  // 전체적으로 더한다.
 
     [Header("레벨 업 적용 전의 기차")]
     public int TrainMaxSpeed;
@@ -41,7 +39,6 @@ public class GameDirector : MonoBehaviour
     int Destination_Distance;
 
     [Header("시간 정보")]
-    // 수치 결정이 필요한 구간
     [SerializeField] 
     float lastSpeedTime; //마지막 속도 올린 시간
     [SerializeField]
@@ -49,7 +46,6 @@ public class GameDirector : MonoBehaviour
 
     int Level_EngineTier; // km/h을 증가하는 엔진 파워
     int Level_MaxSpeed; // 멕스 스피드 조절
-    int Level_Armor; // 데미지 경감
     int Level_Efficienl; // 기름 효율성
 
     void Start()
@@ -65,17 +61,17 @@ public class GameDirector : MonoBehaviour
             TrainMaxSpeed += Trains[i].Train_MaxSpeed;
             TrainEfficienl += Trains[i].Train_Efficienl;
             TrainEnginePower += Trains[i].Train_Engine_Power;
+            TrainFood += Trains[i].Train_Food; //식량기차
         }
 
         Level_Train Level_Data = GetComponent<Level_Train>();
         Level_EngineTier = Level_Data.Level_Train_EngineTier;
         Level_MaxSpeed = Level_Data.Level_Train_MaxSpeed;
-        Level_Armor = Level_Data.Level_Train_Armor;
         Level_Efficienl = Level_Data.Level_Train_Efficienl;
         Level();
 
         lastSpeedTime = 0;
-        timeBet = 0.1f - (EnginePower * 0.001f);
+        timeBet = 0.1f - (EnginePower * 0.001f); //엔진 파워에 따라 결정
     }
 
     void Update()
@@ -97,6 +93,7 @@ public class GameDirector : MonoBehaviour
                     TrainFuel -= Efficienl;
                 }
             }
+            TrainFood -= 1;
             lastSpeedTime = Time.time;
         }
 
@@ -110,6 +107,7 @@ public class GameDirector : MonoBehaviour
             TrainSpeed = 0;
             Debug.Log("실패 및 종료");
         }
+        //조금 더 구체적으로 정하기.
 
         if (TrainFuel <= 0)
         {
@@ -132,7 +130,13 @@ public class GameDirector : MonoBehaviour
         TrainSpeed -= slow;
     }
 
-    public void Engine_Driver_Passive(Engine_Driver_Type type, int EngineDriver_value, bool survival)
+    public void Destroy_train_weight(int weight)
+    {
+        TrainWeight -= weight;
+        Level();
+    }
+
+    public void Engine_Driver_Passive(Engine_Driver_Type type, int EngineDriver_value, bool survival) //방어력은 별개로 등록이 되어있다.
     {
         switch (type)
         {

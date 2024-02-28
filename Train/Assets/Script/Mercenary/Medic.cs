@@ -163,11 +163,11 @@ public class Medic : Mercenary
 
                 if (!isHeal_HP)
                 {
-                    if (Stamina <= 0 || player.GetComponent<Player>().check_HpParsent() > Heal_HpParsent)
+                    if (Stamina <= 0 || player.GetComponent<Player>().Check_HpParsent() > Heal_HpParsent)
                     {
                         act = Active.move;
                         work_HP = false;
-                        GameObject.Find("MercenaryDirector").GetComponent<MercenaryDirector>().Medic_Call_End();
+                        GameObject.Find("MercenaryDirector").GetComponent<MercenaryDirector>().Call_End(mercenaryType.Medic);
                     }
                     StartCoroutine(Heal_PlayerHP(player));
                 }

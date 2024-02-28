@@ -29,16 +29,27 @@ public class Train : MonoBehaviour
     public Slider HP_Slider;
     public int cur_HP; //현재체력
     public bool isReparing;
+    public bool isRepairable;
     [Header("방어 상수")]
     float era;
     [SerializeField]
     float def_constant;
+    [Header("힐링기차")]
+    public int Heal_Amount;
+    public int Heal_timeBet;
+    public bool isHealing;
+    public bool openMedicTrian;
+    Player player;
     GameObject GD;
 
     // Start is called before the first frame update
     private void Awake()
     {
+        openMedicTrian = false;
+        isHealing = false;
+        isRepairable = true;
         GD = GameObject.Find("GameDirector");
+        player = GameObject.FindWithTag("Player").GetComponent<Player>();
         Train_Name = trainData.Information_Train[TrainNum].Train_Name;
         Train_HP = trainData.Information_Train[TrainNum].Train_HP;
         cur_HP = Train_HP;
@@ -55,6 +66,39 @@ public class Train : MonoBehaviour
     {
         era = 1f - (float)Train_Anmor / def_constant; //만약에 방어력 증가해주는 기관사 타게 된다면 변경 가능성이 큼
         HP_Slider.value = (float)cur_HP / (float)Train_HP;
+
+        //여기서 만약 기차가 파괴 당할 시 쓰면 좋은 함수
+
+        if(cur_HP == 0)
+        {
+            switch (Train_Type)
+            {
+                case "Engine":
+                    Destroy_Train(0);
+                    break;
+                case "Fuel":
+                    Destroy_Train(1);
+                    break;
+                case "Attack":
+                    Destroy_Train(0);
+                    break;
+                case "Medic":
+                    Destroy_Train(1);
+                    break;
+            }
+        }
+
+        if (Train_Type.Equals("Medic"))
+        {
+            if(cur_HP == 0 || Train_Heal ==0)
+            {
+                openMedicTrian = false;
+            }
+            else
+            {
+                openMedicTrian = true;
+            }
+        }
     }
 
     void CheckType()
@@ -134,7 +178,42 @@ public class Train : MonoBehaviour
         {
             cur_HP -= damageTaken;
         }
-        //-> 몬스터마다 쏘는 총알이 다르다고 가정하자
+        //-> 몬스터마다 쏘는 총알이 달라야 함.
+    }
+
+    private void Destroy_Train(int i) // 0 -> 특수 / 1 -> 일반 / 2 -> 배달
+    {
+        if(i == 0)
+        {
+            isRepairable = true;
+        }
+        else if(i == 1){
+            isRepairable = false;
+            GD.GetComponent<GameDirector>().Destroy_train_weight(Train_Weight);
+            Train_Weight = 0;
+        }
+        else
+        {
+            //게임 디렉터에 가서 End 선언해야된다.
+        }
+    }
+
+    public IEnumerator Train_Healing()
+    {
+        isHealing = true;
+
+        if (Train_Heal - Heal_Amount < 0)
+        {
+            Train_Heal = 0;
+        }
+        else
+        {
+            Train_Heal -= Heal_Amount;
+        }
+        player.Player_HP += Heal_Amount;
+        yield return new WaitForSeconds(Heal_timeBet);
+
+        isHealing = false;
     }
 
     public int Level_ChangeArmor(int trainArmor)

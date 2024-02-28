@@ -5,18 +5,18 @@ using UnityEngine;
 public class Monster : MonoBehaviour
 {
     [Header("몬스터 총알 정보")]
-    Transform Monster_Bullet_List;
+    Transform monster_Bullet_List;
     public GameObject Bullet;
     [SerializeField]
     float Bullet_Delay;
     float lastTime;
     [SerializeField]
-    GameObject player;
+    GameObject player; //플레이어 위치에 따라 플립하는 경우.
     Vector3 monster_SpawnPos;
     Vector3 movement;
     float xPos;
 
-    [Header("진폭과 주기, 속도, 최대 길이 ")]
+    [Header("진폭과 주기, 속도, 최대 길이 ")] // 몬스터 무브를 변경해야할 가능성이 높음
     [SerializeField]
     float frequency;
     [SerializeField]
@@ -31,7 +31,7 @@ public class Monster : MonoBehaviour
     private void Start()
     {
         monster_SpawnPos = transform.position;
-        Monster_Bullet_List = GameObject.Find("Bullet_List").GetComponent<Transform>();
+        monster_Bullet_List = GameObject.Find("Bullet_List").GetComponent<Transform>();
         monster_Image = GetComponent<SpriteRenderer>();
         lastTime = 0f;
         player = GameObject.FindGameObjectWithTag("Player");
@@ -47,7 +47,7 @@ public class Monster : MonoBehaviour
     private void Update()
     {
         MonsterMove();
-        BulletFire();
+        //BulletFire();
         FlipMonster();
     }
 
@@ -70,7 +70,7 @@ public class Monster : MonoBehaviour
     {
         if (Time.time >= lastTime + Bullet_Delay)
         {
-            Instantiate(Bullet, transform.position, transform.rotation, Monster_Bullet_List);
+            Instantiate(Bullet, transform.position, transform.rotation, monster_Bullet_List);
             lastTime = Time.time;
         }
     }
@@ -95,5 +95,4 @@ public class Monster : MonoBehaviour
             Destroy(collision.gameObject);
         }
     }
-
 }
