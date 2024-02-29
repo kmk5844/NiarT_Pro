@@ -2,29 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class StationDirector : MonoBehaviour
 {
     Camera mainCam;
     public Transform Train;
 
-    [Header("Click Button -> Open Window")]
-    public GameObject BackGround_RepairShop;
-    public GameObject Item_Buy_Window;              // 1
-    public GameObject Player_Upgrade_Window;        // 2
-    public GameObject Train_Upgrade_Window;         // 3
-    public GameObject Train_BuyChange_Window;       // 4
-    public GameObject Mercenary_Position_Window;    // 5
-    public GameObject Mercenary_Buy_Window;         // 6
+    [Header("Lobby")]
+    public GameObject UI_Lobby;
+    public GameObject UI_BackGround;
+    [Header("Click Lobby -> Train Maintenance")]
+    public GameObject UI_TrainMaintenance;
+    [Header("Click Lobby -> Store")]
+    public GameObject UI_Store;
+    [Header("Click Lobby -> TrainingRoom")]
+    public GameObject UI_TrainingRoom;
 
+    int ui_num;
     int train_num; // 이걸로 이용하여 열차를 사거나 변경이 가능하다.
-    int off_num;
+    //int off_num;
     private void Start()
     {
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        ui_num = 0;
         train_num = 0;
-        off_num = 0;
     }
+
     public void ClickTrainButton(bool flag)
     {
         if (flag) //left
@@ -52,74 +56,41 @@ public class StationDirector : MonoBehaviour
 
         if (train_num == 0)
         {
-            mainCam.transform.position = new Vector3(0, 2, -10);
+            mainCam.transform.position = new Vector3(0, 0, -10);
         }
         else
         {
-            mainCam.transform.position = new Vector3(-9 + ((train_num - 1) * -7), 2, -10);
+            mainCam.transform.position = new Vector3(-9 + ((train_num - 1) * -7), 0, -10);
         }
     }
-    public void ClickWindowButton(int num)
+
+    public void ClickLobbyButton(int num)
     {
-        if(BackGround_RepairShop.activeSelf == false)
-        {
-            BackGround_RepairShop.SetActive(true);
-        }
-        offWindow();
-        
-        switch (num)
-        {
+        UI_Lobby.gameObject.SetActive(false);
+        UI_BackGround.gameObject.SetActive(true);
+        switch (num){
             case 1:
-                Item_Buy_Window.SetActive(true);
-                off_num = num;
+                UI_TrainMaintenance.gameObject.SetActive(true);
+                ui_num = 1;
                 break;
-            case 2: 
-                Player_Upgrade_Window.SetActive(true);
-                off_num = num;
+            case 2:
+                UI_Store.gameObject.SetActive(true);
+                ui_num = 2;
                 break;
             case 3:
-                Train_Upgrade_Window.SetActive(true);
-                off_num = num;
-                break;
-            case 4:
-                Train_BuyChange_Window.SetActive(true);
-                off_num = num;
-                break;
-            case 5:
-                Mercenary_Position_Window.SetActive(true);
-                off_num = num;
-                break;
-            case 6:
-                Mercenary_Buy_Window.SetActive(true);
-                off_num = num;
+                UI_TrainingRoom.gameObject.SetActive(true);
+                ui_num = 3;
                 break;
         }
     }
 
-    void offWindow()
+    public void ClickBackButton()
     {
-        switch (off_num)
-        {
-            case 0:
-                break;
-            case 1:
-                Item_Buy_Window.SetActive(false);
-                break;
-            case 2:
-                Player_Upgrade_Window.SetActive(false);
-                break;
-            case 3:
-                Train_Upgrade_Window.SetActive(false);
-                break;
-            case 4:
-                Train_BuyChange_Window.SetActive(false);
-                break;
-            case 5:
-                Mercenary_Position_Window.SetActive(false);
-                break;
-            case 6:
-                Mercenary_Buy_Window.SetActive(false);
-                break;
-        }
+        ui_num = 0;
+        UI_TrainMaintenance.gameObject.SetActive(false);
+        UI_Store.gameObject.SetActive(false);
+        UI_TrainingRoom.gameObject.SetActive(false);
+        UI_BackGround.gameObject.SetActive(false);
+        UI_Lobby.gameObject.SetActive(true);
     }
 }
