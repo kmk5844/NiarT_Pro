@@ -872,7 +872,7 @@ public class SPUM_Manager : MonoBehaviour
         }
         else if(_drawItemIndex == -1 ) //몸
         {
-            string path = "Assets/SPUM/SPUM_Sprites/BodySource/Species/";
+            string path = "Assets/Resources/SPUM/SPUM_Sprites/BodySource/Species/";
             DirectoryInfo dir = new DirectoryInfo(path);
             FileInfo[] info = dir.GetFiles("*.*");
             List<string> _speciesList = new List<string>();

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Engineer : Mercenary
 {
     Rigidbody2D rigid;
-    Train train;
+    Train_InGame train;
     bool move_Work;
     bool isRepairing;
     public bool isCalling;
@@ -31,7 +31,7 @@ public class Engineer : Mercenary
     {
         Debug.DrawRay(rigid.position, Vector3.down, Color.green);
         RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1f, LayerMask.GetMask("Platform"));
-        train = rayHit.collider.GetComponentInParent<Train>();
+        train = rayHit.collider.GetComponentInParent<Train_InGame>();
         train_HpParsent = (float)train.cur_HP / (float)train.Train_HP * 100f;
 
         if (HP <= 0 && act != Active.die)

@@ -1,12 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameDirector : MonoBehaviour
 {
+    [Header("생성할 기차")]
+    public SA_TrainData SA_TrainData;
+    public Train_DataTable EX_TrainData;
+    List<int> Trian_Num;
+
     [Header("기차 리스트")]
     public Transform List_Train;
-    public Train[] Trains;
+    public Train_InGame[] Trains;
     int Train_Count;
 
     [Header("기차 정보")]
@@ -23,14 +29,14 @@ public class GameDirector : MonoBehaviour
 
     [Header("레벨 업 적용 전의 기차")]
     public int TrainMaxSpeed;
-    public int TrainEfficienl;
+    public int TrainEfficient;
     public int TrainEnginePower;
 
     [Header("레벨 업 적용 후의 기차")]
     [SerializeField]
     int MaxSpeed;
     [SerializeField]
-    int Efficienl;
+    int Efficient;
     [SerializeField]
     int EnginePower;
 
@@ -44,30 +50,53 @@ public class GameDirector : MonoBehaviour
     [SerializeField]
     float timeBet; //시간 차이
 
+    GameObject Respawn;
+
     int Level_EngineTier; // km/h을 증가하는 엔진 파워
     int Level_MaxSpeed; // 멕스 스피드 조절
-    int Level_Efficienl; // 기름 효율성
+    int Level_Efficient; // 기름 효율성
 
     void Start()
     {
+        Trian_Num = SA_TrainData.Train_Num;
+        for (int i = 0; i < Trian_Num.Count; i++)
+        {
+            GameObject TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_InGame/" + Trian_Num[i]), List_Train);
+            TrainObject.name = EX_TrainData.Information_Train[Trian_Num[i]].Train_Name;
+            if (i == 0)
+            {
+                //엔진칸
+                TrainObject.transform.position = new Vector3(0.5f, 0, 0);
+            }
+            else
+            {
+                //나머지칸
+                TrainObject.transform.position = new Vector3((1 + (10 * i)) * -1, 0, 0);
+            }
+            TrainObject.GetComponent<Train_InGame>().TrainNum = Trian_Num[i];
+        }
+
+
         Train_Count = List_Train.childCount;
-        Trains = new Train[Train_Count];
+        Trains = new Train_InGame[Train_Count];
+        Respawn = GameObject.FindGameObjectWithTag("Respawn");
+        Respawn.transform.localScale = new Vector3(20 * Train_Count, 1, 0);
+        Respawn.transform.position = new Vector3(List_Train.GetChild(Train_Count/2).transform.position.x, -7, 0);
 
         for (int i = 0; i < Train_Count; i++)
         {
-            Trains[i] = List_Train.GetChild(i).gameObject.GetComponent<Train>();
+            Trains[i] = List_Train.GetChild(i).gameObject.GetComponent<Train_InGame>();
             TrainFuel += Trains[i].Train_Fuel;
             TrainWeight += Trains[i].Train_Weight;
             TrainMaxSpeed += Trains[i].Train_MaxSpeed;
-            TrainEfficienl += Trains[i].Train_Efficienl;
+            TrainEfficient += Trains[i].Train_Efficient;
             TrainEnginePower += Trains[i].Train_Engine_Power;
             TrainFood += Trains[i].Train_Food; //식량기차
         }
 
-        Level_Train Level_Data = GetComponent<Level_Train>();
-        Level_EngineTier = Level_Data.Level_Train_EngineTier;
-        Level_MaxSpeed = Level_Data.Level_Train_MaxSpeed;
-        Level_Efficienl = Level_Data.Level_Train_Efficienl;
+        Level_EngineTier = SA_TrainData.Level_Train_EngineTier;
+        Level_MaxSpeed = SA_TrainData.Level_Train_MaxSpeed;
+        Level_Efficient = SA_TrainData.Level_Train_Efficient;
         Level();
 
         lastSpeedTime = 0;
@@ -83,14 +112,14 @@ public class GameDirector : MonoBehaviour
                 if (TrainFuel > 0)
                 {
                     TrainSpeed++;
-                    TrainFuel -= Efficienl;
+                    TrainFuel -= Efficient;
                 }
             }
             else
             {
                 if (TrainFuel > 0)
                 {
-                    TrainFuel -= Efficienl;
+                    TrainFuel -= Efficient;
                 }
             }
             TrainFood -= 1;
@@ -121,7 +150,7 @@ public class GameDirector : MonoBehaviour
         MaxSpeed = TrainMaxSpeed + ((TrainMaxSpeed * (Level_MaxSpeed *10)) / 100); // 많을 수록 유리
         MaxSpeed = MaxSpeed - (TrainWeight / 100000);
 
-        Efficienl = TrainEfficienl - ((TrainEfficienl * (Level_Efficienl * 10)) / 100); // 적을 수록 유리
+        Efficient = TrainEfficient - ((TrainEfficient * (Level_Efficient * 10)) / 100); // 적을 수록 유리
         EnginePower = TrainEnginePower + ((TrainEnginePower * (Level_EngineTier * 10)) / 100); // 클수록 유리
     }
 
@@ -153,11 +182,11 @@ public class GameDirector : MonoBehaviour
             case Engine_Driver_Type.fuel:
                 if (survival)
                 {
-                    Efficienl -= EngineDriver_value;
+                    Efficient -= EngineDriver_value;
                 }
                 else
                 {
-                    Efficienl += EngineDriver_value;
+                    Efficient += EngineDriver_value;
                 }
                 break;
         }

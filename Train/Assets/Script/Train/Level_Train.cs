@@ -8,5 +8,5 @@ public class Level_Train : MonoBehaviour
     public int Level_Train_EngineTier; // 엔진 티어에 따라 달라짐
     public int Level_Train_MaxSpeed;
     public int Level_Train_Armor;
-    public int Level_Train_Efficienl;
+    public int Level_Train_Efficient;
 }

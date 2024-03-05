@@ -8,7 +8,7 @@ public class Turret : MonoBehaviour
     public Transform Bullet;
     Transform Bullet_List;
     Transform Target;
-    Train trainData;
+    Train_InGame trainData;
     int train_Attack;
     float train_Attack_Delay;
     float lastTime;
@@ -16,7 +16,7 @@ public class Turret : MonoBehaviour
     void Start()
     {
         Target_Flag = false;
-        trainData = transform.GetComponentInParent<Train>();
+        trainData = transform.GetComponentInParent<Train_InGame>();
         Bullet_List = GameObject.Find("Bullet_List").GetComponent<Transform>();
         train_Attack = trainData.Train_Attack;
         train_Attack_Delay = trainData.Train_Attack_Delay;

@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Train : MonoBehaviour
+public class Train_InGame : MonoBehaviour
 {
-    [Header("기차 선택")]
     public Train_DataTable trainData;
     public int TrainNum;
     [Header("선택된 기차 정보")]
@@ -18,7 +17,7 @@ public class Train : MonoBehaviour
 
     public string Train_Type;
     public int Train_MaxSpeed;
-    public int Train_Efficienl;
+    public int Train_Efficient;
     public int Train_Engine_Power;
     public int Train_Fuel;
     public int Train_Attack;
@@ -26,7 +25,7 @@ public class Train : MonoBehaviour
     public int Train_Food;
     public int Train_Heal;
     [Header("HP 슬라이더")]
-    public Slider HP_Slider;
+    Slider HP_Slider;
     public int cur_HP; //현재체력
     public bool isReparing;
     public bool isRepairable;
@@ -52,10 +51,11 @@ public class Train : MonoBehaviour
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
         Train_Name = trainData.Information_Train[TrainNum].Train_Name;
         Train_HP = trainData.Information_Train[TrainNum].Train_HP;
+        HP_Slider = GetComponentInChildren<Slider>();
         cur_HP = Train_HP;
         Train_Weight = trainData.Information_Train[TrainNum].Train_Weight;
 
-        Level_Anmor = GD.GetComponent<Level_Train>().Level_Train_Armor;
+        Level_Anmor = GD.GetComponent<GameDirector>().SA_TrainData.Level_Train_Armor;
         Train_Anmor = Level_ChangeArmor(trainData.Information_Train[TrainNum].Train_Armor);
 
         Train_Type = trainData.Information_Train[TrainNum].Train_Type;
@@ -107,7 +107,7 @@ public class Train : MonoBehaviour
         {
             case "Engine":
                 Train_MaxSpeed = trainData.Information_Train[TrainNum].Train_MaxSpeed;
-                Train_Efficienl = trainData.Information_Train[TrainNum].Train_Efficienl;
+                Train_Efficient = trainData.Information_Train[TrainNum].Train_Efficient;
                 Train_Engine_Power = trainData.Information_Train[TrainNum].Train_Engine_Power;
                 Train_Fuel = 0;
                 Train_Attack = 0;
@@ -117,7 +117,7 @@ public class Train : MonoBehaviour
                 break;
             case "Fuel":
                 Train_MaxSpeed = 0;
-                Train_Efficienl = 0;
+                Train_Efficient = 0;
                 Train_Engine_Power = 0;
                 Train_Fuel = trainData.Information_Train[TrainNum].Train_Fuel;
                 Train_Attack = 0;
@@ -127,7 +127,7 @@ public class Train : MonoBehaviour
                 break;
             case "Attack":
                 Train_MaxSpeed = 0;
-                Train_Efficienl = 0;
+                Train_Efficient = 0;
                 Train_Engine_Power = 0;
                 Train_Fuel = 0;
                 Train_Attack = trainData.Information_Train[TrainNum].Train_Attack;
@@ -137,7 +137,7 @@ public class Train : MonoBehaviour
                 break;
             case "Warehouse":
                 Train_MaxSpeed = 0;
-                Train_Efficienl = 0;
+                Train_Efficient = 0;
                 Train_Engine_Power = 0;
                 Train_Fuel = 0;
                 Train_Attack = 0;
@@ -147,7 +147,7 @@ public class Train : MonoBehaviour
                 break;
             case "Medic":
                 Train_MaxSpeed = 0;
-                Train_Efficienl = 0;
+                Train_Efficient = 0;
                 Train_Engine_Power = 0;
                 Train_Fuel = 0;
                 Train_Attack = 0;

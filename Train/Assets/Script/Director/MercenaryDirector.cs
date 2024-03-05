@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class MercenaryDirector : MonoBehaviour
 {
-    Player player;
+    public SA_MercenaryData mercenaryData;
+    List<int> Mercenary_Num;
+
     public Transform Mercenary_List;
+    Player player;
     List<GameObject> Engineer_List;
     List<GameObject> Medic_List;
     
@@ -22,6 +25,12 @@ public class MercenaryDirector : MonoBehaviour
 
     void Start()
     {
+        Mercenary_Num = mercenaryData.Mercenary_Num;
+        for (int i = 0; i < Mercenary_Num.Count; i++)
+        {
+            GameObject MercenaryObject = Instantiate(Resources.Load<GameObject>("MercenaryObject/" + Mercenary_Num[i]), Mercenary_List);
+            MercenaryObject.name = MercenaryObject.GetComponent<Mercenary_Type>().mercenary_type.ToString();
+        }
         Check_List();
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
         isEngineerCall = false;

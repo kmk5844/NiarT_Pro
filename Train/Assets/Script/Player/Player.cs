@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    Train train;
+    [SerializeField]
+    private SA_PlayerData playerData;
+
+    Train_InGame train;
 
     [Header("무기")]
-    public GameObject Bullet;
+    [SerializeField]
+    private GameObject Bullet;
     [SerializeField]
     int Bullet_Atk; //보스랑 싸울 때, atk가 필요함 (잡몹은 한번에 죽도록 만듦)
     [SerializeField]
@@ -15,6 +19,8 @@ public class Player : MonoBehaviour
     public Transform Bullet_Fire_Transform;
     Transform Player_Bullet_List;
     float lastTime;
+    [Header("무기 오브젝트")]
+    public GameObject GunSprite;
 
     [Header("체력")]
     public int Player_HP;
@@ -32,17 +38,26 @@ public class Player : MonoBehaviour
     [SerializeField] float jumpSpeed;
     Rigidbody2D rigid;
     int moveX;
+    bool jumpFlag;
 
     [Header("의무실")]
     public bool isHealing;
-    public GameObject GunSprite;
-    bool jumpFlag;
+    
     Vector3 respawnPosition;
     void Start()
     {
         respawnPosition = transform.position;
         isHealing = false;
         jumpFlag = false;
+
+        Bullet = playerData.Bullet;
+        Player_HP = playerData.HP;
+        Player_Armor = playerData.Armor;
+        Bullet_Atk = playerData.Atk;
+        Bullet_Delay = playerData.Delay;
+        moveSpeed = playerData.MoveSpeed;
+        //총이미지는 나중에 = playerData.Gun;
+
         Max_HP = Player_HP; 
         lastTime = 0;
         rigid = GetComponent<Rigidbody2D>();
@@ -126,7 +141,7 @@ public class Player : MonoBehaviour
         
         if(rayHit.collider != null)
         {
-            train = rayHit.collider.GetComponentInParent<Train>();
+            train = rayHit.collider.GetComponentInParent<Train_InGame>();
         }
 
         if (rayHit.collider != null && rayHit.distance >= 0.5f)
@@ -142,7 +157,8 @@ public class Player : MonoBehaviour
     {
         if (Time.time >= lastTime + Bullet_Delay)
         {
-            Instantiate(Bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
+            GameObject bullet = Instantiate(Bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
+            bullet.GetComponent<Bullet>().atk = Bullet_Atk;
             lastTime = Time.time;
         }
     }
@@ -162,12 +178,11 @@ public class Player : MonoBehaviour
     }
     void Level()
     {
-        Level_Player Level_Data = GetComponent<Level_Player>();
-        int Level_Atk = Level_Data.Level_Player_Atk;
-        int Level_AtkDelay = Level_Data.Level_Player_AtkDelay;
-        int Level_HP = Level_Data.Level_Player_HP;
-        int Level_Armor = Level_Data.Level_Player_Armor;
-        int Level_Speed = Level_Data.Level_Player_Speed;
+        int Level_Atk = playerData.Level_Player_Atk;
+        int Level_AtkDelay = playerData.Level_Player_AtkDelay;
+        int Level_HP = playerData.Level_Player_HP;
+        int Level_Armor = playerData.Level_Player_Armor;
+        int Level_Speed = playerData.Level_Player_Speed;
 
         Bullet_Atk = Bullet_Atk + (((Bullet_Atk * Level_Atk * 10)) / 100);
         Bullet_Delay = Bullet_Delay - (((Bullet_Delay * Level_AtkDelay * 10)) / 100);

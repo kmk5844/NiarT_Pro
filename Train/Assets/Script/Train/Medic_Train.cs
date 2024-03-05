@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 public class Medic_Train : MonoBehaviour
 {
-    Train medicTrain;
+    Train_InGame medicTrain;
     int Heal_Amount;
     int Heal_timeBet;
     bool isPlayerHealing;
@@ -16,7 +16,7 @@ public class Medic_Train : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        medicTrain = GetComponentInParent<Train>();
+        medicTrain = GetComponentInParent<Train_InGame>();
         Heal_Amount = medicTrain.Heal_Amount;
         Heal_timeBet = medicTrain.Heal_timeBet;
         isMercenaryHealing = false; //용병 전용
