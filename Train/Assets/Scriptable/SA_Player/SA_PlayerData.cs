@@ -52,4 +52,26 @@ public class SA_PlayerData : ScriptableObject
     [SerializeField]
     private int point;
     public int Point { get { return point; } }
+
+    public void SA_Player_Level_Up(int LevelNum)//LevelNum : 0 = Atk / 1= AtkDealy / 2 = HP / 3 = Armor / 4 = Speed
+    {
+        switch(LevelNum)
+        {
+            case (0):
+                level_atk++;
+                break;
+            case (1):
+                level_atkdelay++;
+                break;
+            case (2):
+                level_hp++;
+                break;
+            case (3):
+                level_armor++;
+                break;
+            case (4):
+                level_speed++;
+                break;
+        }
+    }
 }

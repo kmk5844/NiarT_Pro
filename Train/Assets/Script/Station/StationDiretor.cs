@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class StationDirector : MonoBehaviour
 {
     Camera mainCam;
-    public SA_TrainData SA_TrainData;
-    public Train_DataTable EX_TrainData;
+    public GameObject Player_DataObject;
+    public GameObject Train_DataObject;
+
+    Station_PlayerData playerData;
+    Station_TrainData trainData;
+    
     List<int> Train_Data_Num;
     public Transform Train_List;
 
@@ -27,6 +32,9 @@ public class StationDirector : MonoBehaviour
     public GameObject UI_TrainingRoom;
     public ToggleGroup UI_TrainingRoom_Toggle;
     public GameObject[] UI_TrainingRoom_Window;
+    [Header("Coin&Point")]
+    public TextMeshProUGUI Coin_Text;
+    public TextMeshProUGUI Point_Text;
 
     int ui_num;
     int train_num; // 이걸로 이용하여 열차를 사거나 변경이 가능하다.
@@ -34,13 +42,19 @@ public class StationDirector : MonoBehaviour
     private void Start()
     {
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        playerData = Player_DataObject.GetComponent<Station_PlayerData>();
+        trainData = Train_DataObject.GetComponent<Station_TrainData>();
+
+        Coin_Text.text = playerData.Player_Coin + " G";
+        Point_Text.text = playerData.Player_Point + " Pt";
+
         ui_num = 0;
         train_num = 0;
-        Train_Data_Num = SA_TrainData.Train_Num;
+        Train_Data_Num = trainData.Train_Num;
         for (int i = 0; i < Train_Data_Num.Count; i++)
         {
             GameObject TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_Station/" + Train_Data_Num[i]), Train_List);
-            TrainObject.name = EX_TrainData.Information_Train[Train_Data_Num[i]].Train_Name;
+            TrainObject.name = trainData.EX_Data.Information_Train[Train_Data_Num[i]].Train_Name;
             if (i == 0)
             {
                 //엔진칸
