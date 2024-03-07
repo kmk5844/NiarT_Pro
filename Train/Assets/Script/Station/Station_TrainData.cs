@@ -5,7 +5,8 @@ using UnityEngine;
 public class Station_TrainData : MonoBehaviour
 {
     [Header("기차 데이터 모아놓은 스크립터블")]
-    public Train_DataTable EX_Data;
+    public Game_DataTable EX_Game_Data;
+    public Level_DataTable EX_Level_Data;
     public SA_TrainData SA_TrainData;
 
     [Header("기차 데이터")]
@@ -28,10 +29,10 @@ public class Station_TrainData : MonoBehaviour
     private void Awake()
     {
         Check_Level_Train();
-        Max_Train_EngineTier = EX_Data.Information_Level[Data_Index("Level_Train_EngineTier")].Max_Level;
-        Max_Train_MaxSpeed = EX_Data.Information_Level[Data_Index("Level_Train_MaxSpeed")].Max_Level;
-        Max_Train_Armor = EX_Data.Information_Level[Data_Index("Level_Train_Armor")].Max_Level;
-        Max_Train_Efficient = EX_Data.Information_Level[Data_Index("Level_Train_Efficient")].Max_Level;
+        Max_Train_EngineTier = EX_Level_Data.Information_Level[Data_Index("Level_Train_EngineTier")].Max_Level;
+        Max_Train_MaxSpeed = EX_Level_Data.Information_Level[Data_Index("Level_Train_MaxSpeed")].Max_Level;
+        Max_Train_Armor = EX_Level_Data.Information_Level[Data_Index("Level_Train_Armor")].Max_Level;
+        Max_Train_Efficient = EX_Level_Data.Information_Level[Data_Index("Level_Train_Efficient")].Max_Level;
     }
 
     private void Check_Level_Train()
@@ -42,10 +43,10 @@ public class Station_TrainData : MonoBehaviour
         Level_Train_Armor = SA_TrainData.Level_Train_Armor;
         Level_Train_Efficient = SA_TrainData.Level_Train_Efficient;
 
-        Cost_Train_EngineTier = EX_Data.Information_LevelCost[Level_Train_EngineTier].Cost_Level_Train_EngineTier;
-        Cost_Train_MaxSpeed = EX_Data.Information_LevelCost[Level_Train_MaxSpeed].Cost_Level_Train_MaxSpeed;
-        Cost_Train_Armor = EX_Data.Information_LevelCost[Level_Train_Armor].Cost_Level_Train_Armor;
-        Cost_Train_Efficient = EX_Data.Information_LevelCost[Level_Train_Efficient].Cost_Level_Train_Efficient;
+        Cost_Train_EngineTier = EX_Level_Data.Information_LevelCost[Level_Train_EngineTier].Cost_Level_Train_EngineTier;
+        Cost_Train_MaxSpeed = EX_Level_Data.Information_LevelCost[Level_Train_MaxSpeed].Cost_Level_Train_MaxSpeed;
+        Cost_Train_Armor = EX_Level_Data.Information_LevelCost[Level_Train_Armor].Cost_Level_Train_Armor;
+        Cost_Train_Efficient = EX_Level_Data.Information_LevelCost[Level_Train_Efficient].Cost_Level_Train_Efficient;
     }
 
     public void Passive_Level_Up(int LevelNum)//LevelNum : 0 = Tier / 1 = Speed / 2 = Armor / 3 = Efficient
@@ -56,7 +57,7 @@ public class Station_TrainData : MonoBehaviour
 
     private int Data_Index(string str)
     {
-        int index = EX_Data.Information_Level.FindIndex(x => x.Level_Name.Equals(str));
+        int index = EX_Level_Data.Information_Level.FindIndex(x => x.Level_Name.Equals(str));
         return index;
     }
 }

@@ -10,6 +10,7 @@ public class Engineer : Mercenary
     bool isRepairing;
     public bool isCalling;
     float train_HpParsent;
+    [Header("타입마다의 추가 스탯")]
     [Header("수리 속도 및 기차 수리량")]
     [SerializeField] private int repairDelay;
     [SerializeField] private int repairAmount;
@@ -137,6 +138,12 @@ public class Engineer : Mercenary
                 GameObject.Find("MercenaryDirector").GetComponent<MercenaryDirector>().Call_End(mercenaryType.Engineer);
             }
         }
+    }
+    public void Level_AddStatus_Engineer(List<Info_Level_Mercenary_Engineer> type, int level)
+    {
+        repairDelay = type[level].Repair_Delay;
+        repairAmount = type[level].Repair_Amount;
+        repairTrain_Parsent = type[level].Repair_Train_Parsent;
     }
 
     public void PlayerEngineerCall()

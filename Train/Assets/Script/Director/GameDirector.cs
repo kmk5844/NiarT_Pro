@@ -7,7 +7,7 @@ public class GameDirector : MonoBehaviour
 {
     [Header("생성할 기차")]
     public SA_TrainData SA_TrainData;
-    public Train_DataTable EX_TrainData;
+    public Game_DataTable EX_TrainData;
     List<int> Trian_Num;
 
     [Header("기차 리스트")]

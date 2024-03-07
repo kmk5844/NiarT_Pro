@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Long_Ranged : Mercenary
 {
+    [Header("타입마다의 추가 스탯")]
     [Header("공격력")]
     public int unit_Attack;
     [Header("공격속도")]
@@ -59,7 +60,12 @@ public class Long_Ranged : Mercenary
             transform.GetComponentInChildren<Long_RangedShoot>().enabled = true;
         }
     }
-
+    public void Level_AddStatus_LongRanged(List<Info_Level_Mercenary_Long_Ranged> type, int level)
+    {
+        unit_Attack = type[level].Unit_Attack;
+        unit_Attack_Delay = type[level].Unit_Atk_Delay;
+        workSpeed = type[level].WorkSpeed;
+    }
     public void Shoot_Stamina()
     {
         if (Stamina - useStamina < 0)

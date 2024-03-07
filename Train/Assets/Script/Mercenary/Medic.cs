@@ -17,6 +17,7 @@ public class Medic : Mercenary
 
     float checkHP;
     float checkStamina;
+    [Header ("타입마다의 추가 스탯")]
     [Header("회복량")]
     public int Heal_HpAmount;
     public int Heal_StaminaAmount;
@@ -310,5 +311,13 @@ public class Medic : Mercenary
             checkHP = 200;
             checkStamina = 200;
         }
+    }
+
+    public void Level_AddStatus_Medic(List<Info_Level_Mercenary_Medic> type, int level)
+    {
+        Heal_HpAmount = type[level].Heal_Hp_Amount;
+        Heal_StaminaAmount = type[level].Heal_Stamina_Amount;
+        Heal_ReviveAmount = type[level].Heal_Revive_Amount;
+        Heal_HpParsent = type[level].Heal_HP_Parsent;
     }
 }

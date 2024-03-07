@@ -8,4 +8,25 @@ public class SA_MercenaryData : ScriptableObject
     [SerializeField]
     private List<int> mercenary_num;
     public List<int> Mercenary_Num { get { return mercenary_num; } }
+
+    [SerializeField]
+    private int level_engine_driver;
+    public int Level_Engine_Driver { get {  return level_engine_driver; } }
+
+    [SerializeField]
+    private int level_engineer;
+    public int Level_Engineer { get { return level_engineer; } }
+
+    [SerializeField]
+    private int level_long_ranged;
+    public int Level_Long_Ranged { get {  return level_long_ranged; } }
+
+    [SerializeField]
+    private int level_short_ranged;
+    public int Level_Short_Ranged { get { return level_short_ranged; } }
+
+    [SerializeField]
+    private int level_medic;
+    public int Level_Medic { get { return level_medic; } }
+
 }

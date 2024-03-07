@@ -5,8 +5,11 @@ using UnityEngine;
 public class Short_Ranged : Mercenary
 {
     bool zeroFlag;
+    [Header("타입마다의 추가 스탯")]
+    [Header("공격력")]
+    public int unit_Attack;
     [Header("공격 쿨타임")]
-    public int Attack_CoolTime;
+    public float unit_Attack_Delay;
 
     protected override void Start()
     {
@@ -49,6 +52,12 @@ public class Short_Ranged : Mercenary
         {
             transform.GetComponentInChildren<Short_Ranged_KillZone>().enabled = true;
         }
+    }
+
+    public void Level_AddStatus_ShortRanged(List<Info_Level_Mercenary_Short_ranged> type, int level)
+    {
+        unit_Attack = type[level].Unit_Attack;
+        unit_Attack_Delay = type[level].Unit_Atk_Delay;
     }
 
     public void Attack_Stamina()

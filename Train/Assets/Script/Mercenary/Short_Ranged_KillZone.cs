@@ -25,7 +25,7 @@ public class Short_Ranged_KillZone : MonoBehaviour
             transform.position = new Vector3(unit.transform.position.x - 1f, unit.transform.position.y, 0);
         }
 
-        if(Time.time >= lastTime + unit.Attack_CoolTime)
+        if(Time.time >= lastTime + unit.unit_Attack_Delay)
         {
             attack_Flag = true;
             lastTime = Time.time;

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Train_InGame : MonoBehaviour
 {
-    public Train_DataTable trainData;
+    public Game_DataTable trainData;
     public int TrainNum;
     [Header("선택된 기차 정보")]
     public string Train_Name;

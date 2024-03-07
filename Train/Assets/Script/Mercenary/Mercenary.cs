@@ -1,9 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using UnityEngine;
 
 public class Mercenary : MonoBehaviour
 {
+    [SerializeField]
+    mercenaryType Type; // 타입을 가져와서!
+    //그 타입에 맞는 데이터를 수집해서 적용한다.
+    public SA_MercenaryData SA_MercenaryData;
+    public Level_DataTable EX_Level_Data;
+
     [SerializeField]
     protected Active act;
 
@@ -52,6 +59,9 @@ public class Mercenary : MonoBehaviour
 
     protected virtual void Start()
     {
+        Type = GetComponent<Mercenary_Type>().mercenary_type;
+        Data_Index();
+
         Train_List = GameObject.Find("Train_List").GetComponent<Transform>();
         TrainCount = Train_List.childCount;
         move_X = 0.01f;
@@ -287,6 +297,63 @@ public class Mercenary : MonoBehaviour
     {
         Gizmos.color = Color.green;
         Gizmos.DrawLine(new Vector3(MinMove_X, -3, 0), new Vector3(MaxMove_X, -3, 0));
+    }
+
+    public void Data_Index()
+    {
+        switch (Type)
+        {
+            case mercenaryType.Engine_Driver:
+                HP = EX_Level_Data.Level_Mercenary_Engine_Driver[SA_MercenaryData.Level_Engine_Driver].HP;
+                Stamina = EX_Level_Data.Level_Mercenary_Engine_Driver[SA_MercenaryData.Level_Engine_Driver].Stamina;
+                moveSpeed = EX_Level_Data.Level_Mercenary_Engine_Driver[SA_MercenaryData.Level_Engine_Driver].MoveSpeed;
+                Refresh_Amount = EX_Level_Data.Level_Mercenary_Engine_Driver[SA_MercenaryData.Level_Engine_Driver].Refresh_Amount;
+                Refresh_Delay = EX_Level_Data.Level_Mercenary_Engine_Driver[SA_MercenaryData.Level_Engine_Driver].Refresh_Delay;
+                def = EX_Level_Data.Level_Mercenary_Engine_Driver[SA_MercenaryData.Level_Engine_Driver].Def;
+                useStamina = EX_Level_Data.Level_Mercenary_Engine_Driver[SA_MercenaryData.Level_Engine_Driver].Use_Stamina;
+                GetComponent<Engine_Driver>().Level_AddStatus_Engine_Driver(EX_Level_Data.Level_Mercenary_Engine_Driver, SA_MercenaryData.Level_Engine_Driver);
+                break;
+            case mercenaryType.Engineer:
+                HP = EX_Level_Data.Level_Mercenary_Engineer[SA_MercenaryData.Level_Engineer].HP;
+                Stamina = EX_Level_Data.Level_Mercenary_Engineer[SA_MercenaryData.Level_Engineer].Stamina;
+                moveSpeed = EX_Level_Data.Level_Mercenary_Engineer[SA_MercenaryData.Level_Engineer].MoveSpeed;
+                Refresh_Amount = EX_Level_Data.Level_Mercenary_Engineer[SA_MercenaryData.Level_Engineer].Refresh_Amount;
+                Refresh_Delay = EX_Level_Data.Level_Mercenary_Engineer[SA_MercenaryData.Level_Engineer].Refresh_Delay;
+                def = EX_Level_Data.Level_Mercenary_Engineer[SA_MercenaryData.Level_Engineer].Def;
+                useStamina = EX_Level_Data.Level_Mercenary_Engineer[SA_MercenaryData.Level_Engineer].Use_Stamina;
+                GetComponent<Engineer>().Level_AddStatus_Engineer(EX_Level_Data.Level_Mercenary_Engineer, SA_MercenaryData.Level_Engineer);
+                break;
+            case mercenaryType.Long_Ranged:
+                HP = EX_Level_Data.Level_Mercenary_Long_Ranged[SA_MercenaryData.Level_Long_Ranged].HP;
+                Stamina = EX_Level_Data.Level_Mercenary_Long_Ranged[SA_MercenaryData.Level_Long_Ranged].Stamina;
+                moveSpeed = EX_Level_Data.Level_Mercenary_Long_Ranged[SA_MercenaryData.Level_Long_Ranged].MoveSpeed;
+                Refresh_Amount = EX_Level_Data.Level_Mercenary_Long_Ranged[SA_MercenaryData.Level_Long_Ranged].Refresh_Amount;
+                Refresh_Delay = EX_Level_Data.Level_Mercenary_Long_Ranged[SA_MercenaryData.Level_Long_Ranged].Refresh_Delay;
+                def = EX_Level_Data.Level_Mercenary_Long_Ranged[SA_MercenaryData.Level_Long_Ranged].Def;
+                useStamina = EX_Level_Data.Level_Mercenary_Long_Ranged[SA_MercenaryData.Level_Long_Ranged].Use_Stamina;
+                GetComponent<Long_Ranged>().Level_AddStatus_LongRanged(EX_Level_Data.Level_Mercenary_Long_Ranged, SA_MercenaryData.Level_Long_Ranged);
+                break;
+            case mercenaryType.Short_Ranged:
+                HP = EX_Level_Data.Level_Mercenary_Short_Ranged[SA_MercenaryData.Level_Short_Ranged].HP;
+                Stamina = EX_Level_Data.Level_Mercenary_Short_Ranged[SA_MercenaryData.Level_Short_Ranged].Stamina;
+                moveSpeed = EX_Level_Data.Level_Mercenary_Short_Ranged[SA_MercenaryData.Level_Short_Ranged].MoveSpeed;
+                Refresh_Amount = EX_Level_Data.Level_Mercenary_Short_Ranged[SA_MercenaryData.Level_Short_Ranged].Refresh_Amount;
+                Refresh_Delay = EX_Level_Data.Level_Mercenary_Short_Ranged[SA_MercenaryData.Level_Short_Ranged].Refresh_Delay;
+                def = EX_Level_Data.Level_Mercenary_Short_Ranged[SA_MercenaryData.Level_Short_Ranged].Def;
+                useStamina = EX_Level_Data.Level_Mercenary_Short_Ranged[SA_MercenaryData.Level_Short_Ranged].Use_Stamina;
+                GetComponent<Short_Ranged>().Level_AddStatus_ShortRanged(EX_Level_Data.Level_Mercenary_Short_Ranged, SA_MercenaryData.Level_Short_Ranged);
+                break;
+            case mercenaryType.Medic:
+                HP = EX_Level_Data.Level_Mercenary_Medic[SA_MercenaryData.Level_Medic].HP;
+                Stamina = EX_Level_Data.Level_Mercenary_Medic[SA_MercenaryData.Level_Medic].Stamina;
+                moveSpeed = EX_Level_Data.Level_Mercenary_Medic[SA_MercenaryData.Level_Medic].MoveSpeed;
+                Refresh_Amount = EX_Level_Data.Level_Mercenary_Medic[SA_MercenaryData.Level_Medic].Refresh_Amount;
+                Refresh_Delay = EX_Level_Data.Level_Mercenary_Medic[SA_MercenaryData.Level_Medic].Refresh_Delay;
+                def = EX_Level_Data.Level_Mercenary_Medic[SA_MercenaryData.Level_Medic].Def;
+                useStamina = EX_Level_Data.Level_Mercenary_Medic[SA_MercenaryData.Level_Medic].Use_Stamina;
+                GetComponent<Medic>().Level_AddStatus_Medic(EX_Level_Data.Level_Mercenary_Medic, SA_MercenaryData.Level_Medic);
+                break;
+        }
     }
 
 }

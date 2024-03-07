@@ -54,7 +54,7 @@ public class StationDirector : MonoBehaviour
         for (int i = 0; i < Train_Data_Num.Count; i++)
         {
             GameObject TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_Station/" + Train_Data_Num[i]), Train_List);
-            TrainObject.name = trainData.EX_Data.Information_Train[Train_Data_Num[i]].Train_Name;
+            TrainObject.name = trainData.EX_Game_Data.Information_Train[Train_Data_Num[i]].Train_Name;
             if (i == 0)
             {
                 //¿£ÁøÄ­

@@ -1,0 +1,964 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 8
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd2fb75dd45f9994dad538d26463c00a, type: 3}
+  m_Name: Level_DataTable
+  m_EditorClassIdentifier: 
+  Information_Level:
+  - Level_Name: Level_Player_Atk
+    Max_Level: 30
+  - Level_Name: Level_Player_AtkDelay
+    Max_Level: 30
+  - Level_Name: Level_Player_HP
+    Max_Level: 30
+  - Level_Name: Level_Player_Armor
+    Max_Level: 30
+  - Level_Name: Level_Player_Speed
+    Max_Level: 30
+  - Level_Name: Level_Train_EngineTier
+    Max_Level: 15
+  - Level_Name: Level_Train_MaxSpeed
+    Max_Level: 15
+  - Level_Name: Level_Train_Armor
+    Max_Level: 15
+  - Level_Name: Level_Train_Efficient
+    Max_Level: 15
+  - Level_Name: Level_Mercenary_Engine_Driver
+    Max_Level: 3
+  - Level_Name: Level_Mercenary_Engineer
+    Max_Level: 3
+  - Level_Name: Level_Mercenary_Long_Ranged
+    Max_Level: 5
+  - Level_Name: Level_Mercenary_Short_Ranged
+    Max_Level: 5
+  - Level_Name: Level_Mercenary_Medic
+    Max_Level: 3
+  Information_LevelCost:
+  - Level: 0
+    Cost_Level_Player_Atk: 1000
+    Cost_Level_Player_AtkDelay: 2000
+    Cost_Level_Player_HP: 3000
+    Cost_Level_Player_Armor: 4000
+    Cost_Level_Player_Speed: 5000
+    Cost_Level_Train_EngineTier: 6000
+    Cost_Level_Train_MaxSpeed: 7000
+    Cost_Level_Train_Armor: 8000
+    Cost_Level_Train_Efficient: 9000
+  - Level: 1
+    Cost_Level_Player_Atk: 1001
+    Cost_Level_Player_AtkDelay: 2001
+    Cost_Level_Player_HP: 3001
+    Cost_Level_Player_Armor: 4001
+    Cost_Level_Player_Speed: 5001
+    Cost_Level_Train_EngineTier: 6001
+    Cost_Level_Train_MaxSpeed: 7001
+    Cost_Level_Train_Armor: 8001
+    Cost_Level_Train_Efficient: 9001
+  - Level: 2
+    Cost_Level_Player_Atk: 1002
+    Cost_Level_Player_AtkDelay: 2002
+    Cost_Level_Player_HP: 3002
+    Cost_Level_Player_Armor: 4002
+    Cost_Level_Player_Speed: 5002
+    Cost_Level_Train_EngineTier: 6002
+    Cost_Level_Train_MaxSpeed: 7002
+    Cost_Level_Train_Armor: 8002
+    Cost_Level_Train_Efficient: 9002
+  - Level: 3
+    Cost_Level_Player_Atk: 1003
+    Cost_Level_Player_AtkDelay: 2003
+    Cost_Level_Player_HP: 3003
+    Cost_Level_Player_Armor: 4003
+    Cost_Level_Player_Speed: 5003
+    Cost_Level_Train_EngineTier: 6003
+    Cost_Level_Train_MaxSpeed: 7003
+    Cost_Level_Train_Armor: 8003
+    Cost_Level_Train_Efficient: 9003
+  - Level: 4
+    Cost_Level_Player_Atk: 1004
+    Cost_Level_Player_AtkDelay: 2004
+    Cost_Level_Player_HP: 3004
+    Cost_Level_Player_Armor: 4004
+    Cost_Level_Player_Speed: 5004
+    Cost_Level_Train_EngineTier: 6004
+    Cost_Level_Train_MaxSpeed: 7004
+    Cost_Level_Train_Armor: 8004
+    Cost_Level_Train_Efficient: 9004
+  - Level: 5
+    Cost_Level_Player_Atk: 1005
+    Cost_Level_Player_AtkDelay: 2005
+    Cost_Level_Player_HP: 3005
+    Cost_Level_Player_Armor: 4005
+    Cost_Level_Player_Speed: 5005
+    Cost_Level_Train_EngineTier: 6005
+    Cost_Level_Train_MaxSpeed: 7005
+    Cost_Level_Train_Armor: 8005
+    Cost_Level_Train_Efficient: 9005
+  - Level: 6
+    Cost_Level_Player_Atk: 1006
+    Cost_Level_Player_AtkDelay: 2006
+    Cost_Level_Player_HP: 3006
+    Cost_Level_Player_Armor: 4006
+    Cost_Level_Player_Speed: 5006
+    Cost_Level_Train_EngineTier: 6006
+    Cost_Level_Train_MaxSpeed: 7006
+    Cost_Level_Train_Armor: 8006
+    Cost_Level_Train_Efficient: 9006
+  - Level: 7
+    Cost_Level_Player_Atk: 1007
+    Cost_Level_Player_AtkDelay: 2007
+    Cost_Level_Player_HP: 3007
+    Cost_Level_Player_Armor: 4007
+    Cost_Level_Player_Speed: 5007
+    Cost_Level_Train_EngineTier: 6007
+    Cost_Level_Train_MaxSpeed: 7007
+    Cost_Level_Train_Armor: 8007
+    Cost_Level_Train_Efficient: 9007
+  - Level: 8
+    Cost_Level_Player_Atk: 1008
+    Cost_Level_Player_AtkDelay: 2008
+    Cost_Level_Player_HP: 3008
+    Cost_Level_Player_Armor: 4008
+    Cost_Level_Player_Speed: 5008
+    Cost_Level_Train_EngineTier: 6008
+    Cost_Level_Train_MaxSpeed: 7008
+    Cost_Level_Train_Armor: 8008
+    Cost_Level_Train_Efficient: 9008
+  - Level: 9
+    Cost_Level_Player_Atk: 1009
+    Cost_Level_Player_AtkDelay: 2009
+    Cost_Level_Player_HP: 3009
+    Cost_Level_Player_Armor: 4009
+    Cost_Level_Player_Speed: 5009
+    Cost_Level_Train_EngineTier: 6009
+    Cost_Level_Train_MaxSpeed: 7009
+    Cost_Level_Train_Armor: 8009
+    Cost_Level_Train_Efficient: 9009
+  - Level: 10
+    Cost_Level_Player_Atk: 1010
+    Cost_Level_Player_AtkDelay: 2010
+    Cost_Level_Player_HP: 3010
+    Cost_Level_Player_Armor: 4010
+    Cost_Level_Player_Speed: 5010
+    Cost_Level_Train_EngineTier: 6010
+    Cost_Level_Train_MaxSpeed: 7010
+    Cost_Level_Train_Armor: 8010
+    Cost_Level_Train_Efficient: 9010
+  - Level: 11
+    Cost_Level_Player_Atk: 1011
+    Cost_Level_Player_AtkDelay: 2011
+    Cost_Level_Player_HP: 3011
+    Cost_Level_Player_Armor: 4011
+    Cost_Level_Player_Speed: 5011
+    Cost_Level_Train_EngineTier: 6011
+    Cost_Level_Train_MaxSpeed: 7011
+    Cost_Level_Train_Armor: 8011
+    Cost_Level_Train_Efficient: 9011
+  - Level: 12
+    Cost_Level_Player_Atk: 1012
+    Cost_Level_Player_AtkDelay: 2012
+    Cost_Level_Player_HP: 3012
+    Cost_Level_Player_Armor: 4012
+    Cost_Level_Player_Speed: 5012
+    Cost_Level_Train_EngineTier: 6012
+    Cost_Level_Train_MaxSpeed: 7012
+    Cost_Level_Train_Armor: 8012
+    Cost_Level_Train_Efficient: 9012
+  - Level: 13
+    Cost_Level_Player_Atk: 1013
+    Cost_Level_Player_AtkDelay: 2013
+    Cost_Level_Player_HP: 3013
+    Cost_Level_Player_Armor: 4013
+    Cost_Level_Player_Speed: 5013
+    Cost_Level_Train_EngineTier: 6013
+    Cost_Level_Train_MaxSpeed: 7013
+    Cost_Level_Train_Armor: 8013
+    Cost_Level_Train_Efficient: 9013
+  - Level: 14
+    Cost_Level_Player_Atk: 1014
+    Cost_Level_Player_AtkDelay: 2014
+    Cost_Level_Player_HP: 3014
+    Cost_Level_Player_Armor: 4014
+    Cost_Level_Player_Speed: 5014
+    Cost_Level_Train_EngineTier: 6014
+    Cost_Level_Train_MaxSpeed: 7014
+    Cost_Level_Train_Armor: 8014
+    Cost_Level_Train_Efficient: 9014
+  - Level: 15
+    Cost_Level_Player_Atk: 1015
+    Cost_Level_Player_AtkDelay: 2015
+    Cost_Level_Player_HP: 3015
+    Cost_Level_Player_Armor: 4015
+    Cost_Level_Player_Speed: 5015
+    Cost_Level_Train_EngineTier: 6015
+    Cost_Level_Train_MaxSpeed: 7015
+    Cost_Level_Train_Armor: 8015
+    Cost_Level_Train_Efficient: 9015
+  - Level: 16
+    Cost_Level_Player_Atk: 1016
+    Cost_Level_Player_AtkDelay: 2016
+    Cost_Level_Player_HP: 3016
+    Cost_Level_Player_Armor: 4016
+    Cost_Level_Player_Speed: 5016
+    Cost_Level_Train_EngineTier: 0
+    Cost_Level_Train_MaxSpeed: 0
+    Cost_Level_Train_Armor: 0
+    Cost_Level_Train_Efficient: 0
+  - Level: 17
+    Cost_Level_Player_Atk: 1017
+    Cost_Level_Player_AtkDelay: 2017
+    Cost_Level_Player_HP: 3017
+    Cost_Level_Player_Armor: 4017
+    Cost_Level_Player_Speed: 5017
+    Cost_Level_Train_EngineTier: 0
+    Cost_Level_Train_MaxSpeed: 0
+    Cost_Level_Train_Armor: 0
+    Cost_Level_Train_Efficient: 0
+  - Level: 18
+    Cost_Level_Player_Atk: 1018
+    Cost_Level_Player_AtkDelay: 2018
+    Cost_Level_Player_HP: 3018
+    Cost_Level_Player_Armor: 4018
+    Cost_Level_Player_Speed: 5018
+    Cost_Level_Train_EngineTier: 0
+    Cost_Level_Train_MaxSpeed: 0
+    Cost_Level_Train_Armor: 0
+    Cost_Level_Train_Efficient: 0
+  - Level: 19
+    Cost_Level_Player_Atk: 1019
+    Cost_Level_Player_AtkDelay: 2019
+    Cost_Level_Player_HP: 3019
+    Cost_Level_Player_Armor: 4019
+    Cost_Level_Player_Speed: 5019
+    Cost_Level_Train_EngineTier: 0
+    Cost_Level_Train_MaxSpeed: 0
+    Cost_Level_Train_Armor: 0
+    Cost_Level_Train_Efficient: 0
+  - Level: 20
+    Cost_Level_Player_Atk: 1020
+    Cost_Level_Player_AtkDelay: 2020
+    Cost_Level_Player_HP: 3020
+    Cost_Level_Player_Armor: 4020
+    Cost_Level_Player_Speed: 5020
+    Cost_Level_Train_EngineTier: 0
+    Cost_Level_Train_MaxSpeed: 0
+    Cost_Level_Train_Armor: 0
+    Cost_Level_Train_Efficient: 0
+  - Level: 21
+    Cost_Level_Player_Atk: 1021
+    Cost_Level_Player_AtkDelay: 2021
+    Cost_Level_Player_HP: 3021
+    Cost_Level_Player_Armor: 4021
+    Cost_Level_Player_Speed: 5021
+    Cost_Level_Train_EngineTier: 0
+    Cost_Level_Train_MaxSpeed: 0
+    Cost_Level_Train_Armor: 0
+    Cost_Level_Train_Efficient: 0
+  - Level: 22
+    Cost_Level_Player_Atk: 1022
+    Cost_Level_Player_AtkDelay: 2022
+    Cost_Level_Player_HP: 3022
+    Cost_Level_Player_Armor: 4022
+    Cost_Level_Player_Speed: 5022
+    Cost_Level_Train_EngineTier: 0
+    Cost_Level_Train_MaxSpeed: 0
+    Cost_Level_Train_Armor: 0
+    Cost_Level_Train_Efficient: 0
+  - Level: 23
+    Cost_Level_Player_Atk: 1023
+    Cost_Level_Player_AtkDelay: 2023
+    Cost_Level_Player_HP: 3023
+    Cost_Level_Player_Armor: 4023
+    Cost_Level_Player_Speed: 5023
+    Cost_Level_Train_EngineTier: 0
+    Cost_Level_Train_MaxSpeed: 0
+    Cost_Level_Train_Armor: 0
+    Cost_Level_Train_Efficient: 0
+  - Level: 24
+    Cost_Level_Player_Atk: 1024
+    Cost_Level_Player_AtkDelay: 2024
+    Cost_Level_Player_HP: 3024
+    Cost_Level_Player_Armor: 4024
+    Cost_Level_Player_Speed: 5024
+    Cost_Level_Train_EngineTier: 0
+    Cost_Level_Train_MaxSpeed: 0
+    Cost_Level_Train_Armor: 0
+    Cost_Level_Train_Efficient: 0
+  - Level: 25
+    Cost_Level_Player_Atk: 1025
+    Cost_Level_Player_AtkDelay: 2025
+    Cost_Level_Player_HP: 3025
+    Cost_Level_Player_Armor: 4025
+    Cost_Level_Player_Speed: 5025
+    Cost_Level_Train_EngineTier: 0
+    Cost_Level_Train_MaxSpeed: 0
+    Cost_Level_Train_Armor: 0
+    Cost_Level_Train_Efficient: 0
+  - Level: 26
+    Cost_Level_Player_Atk: 1026
+    Cost_Level_Player_AtkDelay: 2026
+    Cost_Level_Player_HP: 3026
+    Cost_Level_Player_Armor: 4026
+    Cost_Level_Player_Speed: 5026
+    Cost_Level_Train_EngineTier: 0
+    Cost_Level_Train_MaxSpeed: 0
+    Cost_Level_Train_Armor: 0
+    Cost_Level_Train_Efficient: 0
+  - Level: 27
+    Cost_Level_Player_Atk: 1027
+    Cost_Level_Player_AtkDelay: 2027
+    Cost_Level_Player_HP: 3027
+    Cost_Level_Player_Armor: 4027
+    Cost_Level_Player_Speed: 5027
+    Cost_Level_Train_EngineTier: 0
+    Cost_Level_Train_MaxSpeed: 0
+    Cost_Level_Train_Armor: 0
+    Cost_Level_Train_Efficient: 0
+  - Level: 28
+    Cost_Level_Player_Atk: 1028
+    Cost_Level_Player_AtkDelay: 2028
+    Cost_Level_Player_HP: 3028
+    Cost_Level_Player_Armor: 4028
+    Cost_Level_Player_Speed: 5028
+    Cost_Level_Train_EngineTier: 0
+    Cost_Level_Train_MaxSpeed: 0
+    Cost_Level_Train_Armor: 0
+    Cost_Level_Train_Efficient: 0
+  - Level: 29
+    Cost_Level_Player_Atk: 1029
+    Cost_Level_Player_AtkDelay: 2029
+    Cost_Level_Player_HP: 3029
+    Cost_Level_Player_Armor: 4029
+    Cost_Level_Player_Speed: 5029
+    Cost_Level_Train_EngineTier: 0
+    Cost_Level_Train_MaxSpeed: 0
+    Cost_Level_Train_Armor: 0
+    Cost_Level_Train_Efficient: 0
+  - Level: 30
+    Cost_Level_Player_Atk: 1030
+    Cost_Level_Player_AtkDelay: 2030
+    Cost_Level_Player_HP: 3030
+    Cost_Level_Player_Armor: 4030
+    Cost_Level_Player_Speed: 5030
+    Cost_Level_Train_EngineTier: 0
+    Cost_Level_Train_MaxSpeed: 0
+    Cost_Level_Train_Armor: 0
+    Cost_Level_Train_Efficient: 0
+  Level_Mercenary_Engine_Driver:
+  - Level: 0
+    HP: 1000
+    Stamina: 100
+    MoveSpeed: 0
+    Refresh_Amount: 5
+    Refresh_Delay: 3
+    Def: 10
+    Use_Stamina: 50
+    Level_Type_Speed: 5
+    Level_Type_Fuel: 4
+    Level_Type_Def: 10
+  - Level: 1
+    HP: 1200
+    Stamina: 110
+    MoveSpeed: 0
+    Refresh_Amount: 5
+    Refresh_Delay: 2
+    Def: 12
+    Use_Stamina: 50
+    Level_Type_Speed: 10
+    Level_Type_Fuel: 6
+    Level_Type_Def: 12
+  - Level: 2
+    HP: 1500
+    Stamina: 120
+    MoveSpeed: 0
+    Refresh_Amount: 7
+    Refresh_Delay: 1
+    Def: 14
+    Use_Stamina: 50
+    Level_Type_Speed: 15
+    Level_Type_Fuel: 10
+    Level_Type_Def: 15
+  - Level: 3
+    HP: 2000
+    Stamina: 150
+    MoveSpeed: 0
+    Refresh_Amount: 10
+    Refresh_Delay: 1
+    Def: 15
+    Use_Stamina: 30
+    Level_Type_Speed: 20
+    Level_Type_Fuel: 14
+    Level_Type_Def: 20
+  - Level: 4
+    HP: 0
+    Stamina: 0
+    MoveSpeed: 0
+    Refresh_Amount: 0
+    Refresh_Delay: 0
+    Def: 0
+    Use_Stamina: 0
+    Level_Type_Speed: 0
+    Level_Type_Fuel: 0
+    Level_Type_Def: 0
+  - Level: 5
+    HP: 0
+    Stamina: 0
+    MoveSpeed: 0
+    Refresh_Amount: 0
+    Refresh_Delay: 0
+    Def: 0
+    Use_Stamina: 0
+    Level_Type_Speed: 0
+    Level_Type_Fuel: 0
+    Level_Type_Def: 0
+  - Level: 6
+    HP: 0
+    Stamina: 0
+    MoveSpeed: 0
+    Refresh_Amount: 0
+    Refresh_Delay: 0
+    Def: 0
+    Use_Stamina: 0
+    Level_Type_Speed: 0
+    Level_Type_Fuel: 0
+    Level_Type_Def: 0
+  - Level: 7
+    HP: 0
+    Stamina: 0
+    MoveSpeed: 0
+    Refresh_Amount: 0
+    Refresh_Delay: 0
+    Def: 0
+    Use_Stamina: 0
+    Level_Type_Speed: 0
+    Level_Type_Fuel: 0
+    Level_Type_Def: 0
+  - Level: 8
+    HP: 0
+    Stamina: 0
+    MoveSpeed: 0
+    Refresh_Amount: 0
+    Refresh_Delay: 0
+    Def: 0
+    Use_Stamina: 0
+    Level_Type_Speed: 0
+    Level_Type_Fuel: 0
+    Level_Type_Def: 0
+  - Level: 9
+    HP: 0
+    Stamina: 0
+    MoveSpeed: 0
+    Refresh_Amount: 0
+    Refresh_Delay: 0
+    Def: 0
+    Use_Stamina: 0
+    Level_Type_Speed: 0
+    Level_Type_Fuel: 0
+    Level_Type_Def: 0
+  - Level: 10
+    HP: 0
+    Stamina: 0
+    MoveSpeed: 0
+    Refresh_Amount: 0
+    Refresh_Delay: 0
+    Def: 0
+    Use_Stamina: 0
+    Level_Type_Speed: 0
+    Level_Type_Fuel: 0
+    Level_Type_Def: 0
+  Level_Mercenary_Engineer:
+  - Level: 0
+    HP: 1000
+    Stamina: 100
+    MoveSpeed: 1
+    Refresh_Amount: 5
+    Refresh_Delay: 3
+    Def: 10
+    Use_Stamina: 7
+    Repair_Delay: 2
+    Repair_Amount: 30
+    Repair_Train_Parsent: 70
+  - Level: 1
+    HP: 1200
+    Stamina: 110
+    MoveSpeed: 1
+    Refresh_Amount: 5
+    Refresh_Delay: 2
+    Def: 12
+    Use_Stamina: 5
+    Repair_Delay: 2
+    Repair_Amount: 50
+    Repair_Train_Parsent: 70
+  - Level: 2
+    HP: 1500
+    Stamina: 120
+    MoveSpeed: 2
+    Refresh_Amount: 7
+    Refresh_Delay: 1
+    Def: 14
+    Use_Stamina: 4
+    Repair_Delay: 1
+    Repair_Amount: 70
+    Repair_Train_Parsent: 75
+  - Level: 3
+    HP: 2000
+    Stamina: 150
+    MoveSpeed: 3
+    Refresh_Amount: 10
+    Refresh_Delay: 1
+    Def: 15
+    Use_Stamina: 3
+    Repair_Delay: 1
+    Repair_Amount: 100
+    Repair_Train_Parsent: 85
+  - Level: 4
+    HP: 0
+    Stamina: 0
+    MoveSpeed: 0
+    Refresh_Amount: 0
+    Refresh_Delay: 0
+    Def: 0
+    Use_Stamina: 0
+    Repair_Delay: 0
+    Repair_Amount: 0
+    Repair_Train_Parsent: 0
+  - Level: 5
+    HP: 0
+    Stamina: 0
+    MoveSpeed: 0
+    Refresh_Amount: 0
+    Refresh_Delay: 0
+    Def: 0
+    Use_Stamina: 0
+    Repair_Delay: 0
+    Repair_Amount: 0
+    Repair_Train_Parsent: 0
+  - Level: 6
+    HP: 0
+    Stamina: 0
+    MoveSpeed: 0
+    Refresh_Amount: 0
+    Refresh_Delay: 0
+    Def: 0
+    Use_Stamina: 0
+    Repair_Delay: 0
+    Repair_Amount: 0
+    Repair_Train_Parsent: 0
+  - Level: 7
+    HP: 0
+    Stamina: 0
+    MoveSpeed: 0
+    Refresh_Amount: 0
+    Refresh_Delay: 0
+    Def: 0
+    Use_Stamina: 0
+    Repair_Delay: 0
+    Repair_Amount: 0
+    Repair_Train_Parsent: 0
+  - Level: 8
+    HP: 0
+    Stamina: 0
+    MoveSpeed: 0
+    Refresh_Amount: 0
+    Refresh_Delay: 0
+    Def: 0
+    Use_Stamina: 0
+    Repair_Delay: 0
+    Repair_Amount: 0
+    Repair_Train_Parsent: 0
+  - Level: 9
+    HP: 0
+    Stamina: 0
+    MoveSpeed: 0
+    Refresh_Amount: 0
+    Refresh_Delay: 0
+    Def: 0
+    Use_Stamina: 0
+    Repair_Delay: 0
+    Repair_Amount: 0
+    Repair_Train_Parsent: 0
+  - Level: 10
+    HP: 0
+    Stamina: 0
+    MoveSpeed: 0
+    Refresh_Amount: 0
+    Refresh_Delay: 0
+    Def: 0
+    Use_Stamina: 0
+    Repair_Delay: 0
+    Repair_Amount: 0
+    Repair_Train_Parsent: 0
+  Level_Mercenary_Long_Ranged:
+  - Level: 0
+    HP: 1000
+    Stamina: 100
+    MoveSpeed: 1
+    Refresh_Amount: 5
+    Refresh_Delay: 3
+    Def: 10
+    Use_Stamina: 10
+    Unit_Attack: 10
+    Unit_Atk_Delay: 6
+    WorkSpeed: 0.09
+  - Level: 1
+    HP: 1200
+    Stamina: 110
+    MoveSpeed: 1
+    Refresh_Amount: 5
+    Refresh_Delay: 2
+    Def: 12
+    Use_Stamina: 9
+    Unit_Attack: 12
+    Unit_Atk_Delay: 5
+    WorkSpeed: 0.1
+  - Level: 2
+    HP: 1500
+    Stamina: 120
+    MoveSpeed: 2
+    Refresh_Amount: 7
+    Refresh_Delay: 1
+    Def: 14
+    Use_Stamina: 8
+    Unit_Attack: 15
+    Unit_Atk_Delay: 4
+    WorkSpeed: 0.12
+  - Level: 3
+    HP: 2000
+    Stamina: 150
+    MoveSpeed: 3
+    Refresh_Amount: 10
+    Refresh_Delay: 1
+    Def: 15
+    Use_Stamina: 6
+    Unit_Attack: 18
+    Unit_Atk_Delay: 3
+    WorkSpeed: 0.15
+  - Level: 4
+    HP: 0
+    Stamina: 0
+    MoveSpeed: 0
+    Refresh_Amount: 0
+    Refresh_Delay: 0
+    Def: 0
+    Use_Stamina: 0
+    Unit_Attack: 0
+    Unit_Atk_Delay: 0
+    WorkSpeed: 0
+  - Level: 5
+    HP: 0
+    Stamina: 0
+    MoveSpeed: 0
+    Refresh_Amount: 0
+    Refresh_Delay: 0
+    Def: 0
+    Use_Stamina: 0
+    Unit_Attack: 0
+    Unit_Atk_Delay: 0
+    WorkSpeed: 0
+  - Level: 6
+    HP: 0
+    Stamina: 0
+    MoveSpeed: 0
+    Refresh_Amount: 0
+    Refresh_Delay: 0
+    Def: 0
+    Use_Stamina: 0
+    Unit_Attack: 0
+    Unit_Atk_Delay: 0
+    WorkSpeed: 0
+  - Level: 7
+    HP: 0
+    Stamina: 0
+    MoveSpeed: 0
+    Refresh_Amount: 0
+    Refresh_Delay: 0
+    Def: 0
+    Use_Stamina: 0
+    Unit_Attack: 0
+    Unit_Atk_Delay: 0
+    WorkSpeed: 0
+  - Level: 8
+    HP: 0
+    Stamina: 0
+    MoveSpeed: 0
+    Refresh_Amount: 0
+    Refresh_Delay: 0
+    Def: 0
+    Use_Stamina: 0
+    Unit_Attack: 0
+    Unit_Atk_Delay: 0
+    WorkSpeed: 0
+  - Level: 9
+    HP: 0
+    Stamina: 0
+    MoveSpeed: 0
+    Refresh_Amount: 0
+    Refresh_Delay: 0
+    Def: 0
+    Use_Stamina: 0
+    Unit_Attack: 0
+    Unit_Atk_Delay: 0
+    WorkSpeed: 0
+  - Level: 10
+    HP: 0
+    Stamina: 0
+    MoveSpeed: 0
+    Refresh_Amount: 0
+    Refresh_Delay: 0
+    Def: 0
+    Use_Stamina: 0
+    Unit_Attack: 0
+    Unit_Atk_Delay: 0
+    WorkSpeed: 0
+  Level_Mercenary_Short_Ranged:
+  - Level: 0
+    HP: 1000
+    Stamina: 100
+    MoveSpeed: 1
+    Refresh_Amount: 5
+    Refresh_Delay: 3
+    Def: 10
+    Use_Stamina: 10
+    Unit_Attack: 10
+    Unit_Atk_Delay: 5
+  - Level: 1
+    HP: 1200
+    Stamina: 110
+    MoveSpeed: 1
+    Refresh_Amount: 5
+    Refresh_Delay: 2
+    Def: 12
+    Use_Stamina: 8
+    Unit_Attack: 12
+    Unit_Atk_Delay: 4
+  - Level: 2
+    HP: 1500
+    Stamina: 120
+    MoveSpeed: 2
+    Refresh_Amount: 7
+    Refresh_Delay: 1
+    Def: 14
+    Use_Stamina: 6
+    Unit_Attack: 13
+    Unit_Atk_Delay: 3
+  - Level: 3
+    HP: 2000
+    Stamina: 150
+    MoveSpeed: 3
+    Refresh_Amount: 10
+    Refresh_Delay: 1
+    Def: 15
+    Use_Stamina: 3
+    Unit_Attack: 18
+    Unit_Atk_Delay: 2
+  - Level: 4
+    HP: 0
+    Stamina: 0
+    MoveSpeed: 0
+    Refresh_Amount: 0
+    Refresh_Delay: 0
+    Def: 0
+    Use_Stamina: 0
+    Unit_Attack: 0
+    Unit_Atk_Delay: 0
+  - Level: 5
+    HP: 0
+    Stamina: 0
+    MoveSpeed: 0
+    Refresh_Amount: 0
+    Refresh_Delay: 0
+    Def: 0
+    Use_Stamina: 0
+    Unit_Attack: 0
+    Unit_Atk_Delay: 0
+  - Level: 6
+    HP: 0
+    Stamina: 0
+    MoveSpeed: 0
+    Refresh_Amount: 0
+    Refresh_Delay: 0
+    Def: 0
+    Use_Stamina: 0
+    Unit_Attack: 0
+    Unit_Atk_Delay: 0
+  - Level: 7
+    HP: 0
+    Stamina: 0
+    MoveSpeed: 0
+    Refresh_Amount: 0
+    Refresh_Delay: 0
+    Def: 0
+    Use_Stamina: 0
+    Unit_Attack: 0
+    Unit_Atk_Delay: 0
+  - Level: 8
+    HP: 0
+    Stamina: 0
+    MoveSpeed: 0
+    Refresh_Amount: 0
+    Refresh_Delay: 0
+    Def: 0
+    Use_Stamina: 0
+    Unit_Attack: 0
+    Unit_Atk_Delay: 0
+  - Level: 9
+    HP: 0
+    Stamina: 0
+    MoveSpeed: 0
+    Refresh_Amount: 0
+    Refresh_Delay: 0
+    Def: 0
+    Use_Stamina: 0
+    Unit_Attack: 0
+    Unit_Atk_Delay: 0
+  - Level: 10
+    HP: 0
+    Stamina: 0
+    MoveSpeed: 0
+    Refresh_Amount: 0
+    Refresh_Delay: 0
+    Def: 0
+    Use_Stamina: 0
+    Unit_Attack: 0
+    Unit_Atk_Delay: 0
+  Level_Mercenary_Medic:
+  - Level: 0
+    HP: 1000
+    Stamina: 100
+    MoveSpeed: 1
+    Refresh_Amount: 5
+    Refresh_Delay: 3
+    Def: 10
+    Use_Stamina: 10
+    Heal_Hp_Amount: 50
+    Heal_Stamina_Amount: 40
+    Heal_Revive_Amount: 10
+    Heal_HP_Parsent: 50
+  - Level: 1
+    HP: 1200
+    Stamina: 110
+    MoveSpeed: 1
+    Refresh_Amount: 5
+    Refresh_Delay: 2
+    Def: 12
+    Use_Stamina: 8
+    Heal_Hp_Amount: 60
+    Heal_Stamina_Amount: 45
+    Heal_Revive_Amount: 20
+    Heal_HP_Parsent: 55
+  - Level: 2
+    HP: 1500
+    Stamina: 120
+    MoveSpeed: 2
+    Refresh_Amount: 7
+    Refresh_Delay: 1
+    Def: 14
+    Use_Stamina: 6
+    Heal_Hp_Amount: 70
+    Heal_Stamina_Amount: 60
+    Heal_Revive_Amount: 30
+    Heal_HP_Parsent: 60
+  - Level: 3
+    HP: 2000
+    Stamina: 150
+    MoveSpeed: 3
+    Refresh_Amount: 10
+    Refresh_Delay: 1
+    Def: 15
+    Use_Stamina: 3
+    Heal_Hp_Amount: 100
+    Heal_Stamina_Amount: 70
+    Heal_Revive_Amount: 70
+    Heal_HP_Parsent: 70
+  - Level: 4
+    HP: 0
+    Stamina: 0
+    MoveSpeed: 0
+    Refresh_Amount: 0
+    Refresh_Delay: 0
+    Def: 0
+    Use_Stamina: 0
+    Heal_Hp_Amount: 0
+    Heal_Stamina_Amount: 0
+    Heal_Revive_Amount: 0
+    Heal_HP_Parsent: 0
+  - Level: 5
+    HP: 0
+    Stamina: 0
+    MoveSpeed: 0
+    Refresh_Amount: 0
+    Refresh_Delay: 0
+    Def: 0
+    Use_Stamina: 0
+    Heal_Hp_Amount: 0
+    Heal_Stamina_Amount: 0
+    Heal_Revive_Amount: 0
+    Heal_HP_Parsent: 0
+  - Level: 6
+    HP: 0
+    Stamina: 0
+    MoveSpeed: 0
+    Refresh_Amount: 0
+    Refresh_Delay: 0
+    Def: 0
+    Use_Stamina: 0
+    Heal_Hp_Amount: 0
+    Heal_Stamina_Amount: 0
+    Heal_Revive_Amount: 0
+    Heal_HP_Parsent: 0
+  - Level: 7
+    HP: 0
+    Stamina: 0
+    MoveSpeed: 0
+    Refresh_Amount: 0
+    Refresh_Delay: 0
+    Def: 0
+    Use_Stamina: 0
+    Heal_Hp_Amount: 0
+    Heal_Stamina_Amount: 0
+    Heal_Revive_Amount: 0
+    Heal_HP_Parsent: 0
+  - Level: 8
+    HP: 0
+    Stamina: 0
+    MoveSpeed: 0
+    Refresh_Amount: 0
+    Refresh_Delay: 0
+    Def: 0
+    Use_Stamina: 0
+    Heal_Hp_Amount: 0
+    Heal_Stamina_Amount: 0
+    Heal_Revive_Amount: 0
+    Heal_HP_Parsent: 0
+  - Level: 9
+    HP: 0
+    Stamina: 0
+    MoveSpeed: 0
+    Refresh_Amount: 0
+    Refresh_Delay: 0
+    Def: 0
+    Use_Stamina: 0
+    Heal_Hp_Amount: 0
+    Heal_Stamina_Amount: 0
+    Heal_Revive_Amount: 0
+    Heal_HP_Parsent: 0
+  - Level: 10
+    HP: 0
+    Stamina: 0
+    MoveSpeed: 0
+    Refresh_Amount: 0
+    Refresh_Delay: 0
+    Def: 0
+    Use_Stamina: 0
+    Heal_Hp_Amount: 0
+    Heal_Stamina_Amount: 0
+    Heal_Revive_Amount: 0
+    Heal_HP_Parsent: 0
