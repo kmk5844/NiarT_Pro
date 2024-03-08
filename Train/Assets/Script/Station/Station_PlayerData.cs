@@ -36,11 +36,6 @@ public class Station_PlayerData : MonoBehaviour
     private void Awake()
     {
         Check_Level_Player();
-        Max_Player_Atk = EX_Level_Data.Information_Level[Data_Index("Level_Player_Atk")].Max_Level;
-        Max_Player_AtkDelay = EX_Level_Data.Information_Level[Data_Index("Level_Player_AtkDelay")].Max_Level;
-        Max_Player_HP = EX_Level_Data.Information_Level[Data_Index("Level_Player_HP")].Max_Level;
-        Max_Player_Armor = EX_Level_Data.Information_Level[Data_Index("Level_Player_Armor")].Max_Level;
-        Max_Player_Speed = EX_Level_Data.Information_Level[Data_Index("Level_Player_Speed")].Max_Level;
     }
 
     private void Check_Level_Player()
@@ -50,6 +45,12 @@ public class Station_PlayerData : MonoBehaviour
         Level_Player_HP = SA_PlayerData.Level_Player_HP;
         Level_Player_Armor = SA_PlayerData.Level_Player_Armor;
         Level_Player_Speed = SA_PlayerData.Level_Player_Speed;
+
+        Max_Player_Atk = EX_Level_Data.Information_Level[Data_Index("Level_Player_Atk")].Max_Level;
+        Max_Player_AtkDelay = EX_Level_Data.Information_Level[Data_Index("Level_Player_AtkDelay")].Max_Level;
+        Max_Player_HP = EX_Level_Data.Information_Level[Data_Index("Level_Player_HP")].Max_Level;
+        Max_Player_Armor = EX_Level_Data.Information_Level[Data_Index("Level_Player_Armor")].Max_Level;
+        Max_Player_Speed = EX_Level_Data.Information_Level[Data_Index("Level_Player_Speed")].Max_Level;
 
         Cost_Player_Atk = EX_Level_Data.Information_LevelCost[Level_Player_Atk].Cost_Level_Player_Atk;
         Cost_Player_AtkDelay = EX_Level_Data.Information_LevelCost[Level_Player_AtkDelay].Cost_Level_Player_AtkDelay;

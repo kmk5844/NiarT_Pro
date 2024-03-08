@@ -29,4 +29,26 @@ public class SA_MercenaryData : ScriptableObject
     private int level_medic;
     public int Level_Medic { get { return level_medic; } }
 
+
+    public void SA_Mercenary_Level_Up(int Num)
+    {
+        switch (Num)
+        {
+            case 0:
+                level_engine_driver++;
+                break;
+            case 1:
+                level_engineer++;
+                break;
+            case 2:
+                level_long_ranged++;
+                break;
+            case 3:
+                level_short_ranged++;
+                break;
+            case 4:
+                level_medic++;
+                break;
+        }
+    }
 }
