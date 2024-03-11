@@ -29,6 +29,26 @@ public class SA_MercenaryData : ScriptableObject
     private int level_medic;
     public int Level_Medic { get { return level_medic; } }
 
+    [SerializeField]
+    private Engine_Driver_Type engine_driver_type;
+    public Engine_Driver_Type Engine_DriverType { get { return engine_driver_type; } }
+
+
+    public void SA_Change_EngineDriver_Type(int Num)
+    {
+        if(Num == 0)
+        {
+            engine_driver_type = Engine_Driver_Type.speed;
+        }
+        else if(Num == 1)
+        {
+            engine_driver_type = Engine_Driver_Type.fuel;
+        }
+        else if(Num == 2)
+        {
+            engine_driver_type = Engine_Driver_Type.def;
+        }
+    }
 
     public void SA_Mercenary_Level_Up(int Num)
     {

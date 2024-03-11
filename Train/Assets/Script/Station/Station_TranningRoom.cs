@@ -34,15 +34,49 @@ public class Station_TranningRoom : MonoBehaviour
     public TextMeshProUGUI After_Mercenary_Information;
     public Button MercenaryUpgrade_Button;
     TextMeshProUGUI MercenaryUpgrade_Button_Text;
+
+    [Header("용병 배치 윈도우")]
+    public TextMeshProUGUI Mercenary_Position_Information;
+    public TextMeshProUGUI[] Mercenary_Information_SubText;
+    public Button[] Plus_Button;
+    public Button[] Minus_Button;
+    List<int> Mercenary_NumList;
+    int EngineTier_MaxMercenary;
+    int[] Mercenary_Num;
+    int Mercenary_TotalNum;
+    public TMP_Dropdown DropDown_EngineDriver_Type;
     void Start()
     {
+        //데이터 수집
         playerData = Player_DataObject.GetComponent<Station_PlayerData>();
         trainData = Train_DataObject.GetComponent<Station_TrainData>();
         mercenaryData = Mercenary_DataObject.GetComponent<Station_MercenaryData>();
+        //플레이어 업그레이드 윈도우
+        Player_Text(true);
+        //용병 업그레이드 윈도우
         MercenaryUpgrade_Button_Text = MercenaryUpgrade_Button.GetComponentInChildren<TextMeshProUGUI>();
         Before_Mercenary_Information.text = "<size=30>Before_Click Mercenary</size>";
         After_Mercenary_Information.text = "<size=30>Before_Click Mercenary</size>";
-        Player_Text(true);
+        //용병 배치 윈도우
+        Mercenary_NumList = mercenaryData.Mercenary_Num;
+        Mercenary_Num = new int[Plus_Button.Length];
+        for(int i = 0; i < Mercenary_Num.Length; i++)
+        {
+            Mercenary_Num[i] = 0;
+        }
+        for (int i = 0; i < Mercenary_NumList.Count; i++)
+        {
+            Mercenary_Num[Mercenary_NumList[i]]++;
+        }
+        for(int i = 0; i < Mercenary_Num.Length; i++)
+        {
+            Mercenary_TotalNum += Mercenary_Num[i]; 
+        }    
+        EngineTier_MaxMercenary = trainData.Max_Train_MaxMercenary;
+        Mecenary_Position_Button();
+        Mercenary_Position_Text();
+        Mercenary_Position_EngineDriver_Type();
+
         OnToggleStart();
     }
 
@@ -185,7 +219,7 @@ public class Station_TranningRoom : MonoBehaviour
         {
             if (Mercenary_Upgrade_Toggle[i].isOn)
             {
-                Mercenary_Information_Text(i);
+                Mercenary_Upgrade_Information_Text(i);
                 Mercenary_Upgrade_Num = i;
             }
         }
@@ -200,16 +234,15 @@ public class Station_TranningRoom : MonoBehaviour
         Mercenary_Level_Text[2].text = "Lv." + mercenaryData.Level_Mercenary_Long_Ranged;
         Mercenary_Level_Text[3].text = "Lv." + mercenaryData.Level_Mercenary_Short_Ranged;
         Mercenary_Level_Text[4].text = "Lv." + mercenaryData.Level_Mercenary_Medic;
-        Mercenary_Information_Text(Mercenary_Upgrade_Num);
+        Mercenary_Upgrade_Information_Text(Mercenary_Upgrade_Num);
     }
 
-    private void Mercenary_Information_Text(int i)
+    private void Mercenary_Upgrade_Information_Text(int i)
     {
         if (i == 0)
         {
             var data_before = mercenaryData.EX_Level_Data.Level_Mercenary_Engine_Driver[mercenaryData.Level_Mercenary_Engine_Driver];
             var data_after = mercenaryData.EX_Level_Data.Level_Mercenary_Engine_Driver[mercenaryData.Level_Mercenary_Engine_Driver + 1];
-            Debug.Log(mercenaryData.Level_Mercenary_Engine_Driver);
             Before_Mercenary_Information.text =
                         "<size=45>Before</size>" +
                         "\nHP = " + data_before.HP +
@@ -419,5 +452,142 @@ public class Station_TranningRoom : MonoBehaviour
                                                        + "G\nUpgrade";
             }
         }
+    }
+
+    private void Mercenary_Position(bool List_Up_Down, int M_Num) //버튼 관리도 한다
+    {
+        if (List_Up_Down)
+        {
+            Mercenary_NumList.Add(M_Num);
+            mercenaryData.Mercenary_Num = Mercenary_NumList;
+        }
+        else if(!List_Up_Down)
+        {
+            Mercenary_NumList.Remove(M_Num);
+            mercenaryData.Mercenary_Num = Mercenary_NumList;
+        }
+
+        Mercenary_TotalNum = 0;
+        for (int i = 0; i < Mercenary_Num.Length; i++) {
+            Mercenary_TotalNum += Mercenary_Num[i];
+        }
+        Mercenary_Position_Text();
+        Mecenary_Position_Button();
+    }
+
+    private void Mecenary_Position_Button()
+    {
+        if(Mercenary_TotalNum == EngineTier_MaxMercenary)
+        {
+            foreach(Button btn in Plus_Button)
+            {
+                btn.interactable = false;
+            }
+            for(int i = 0; i < Minus_Button.Length; i++)
+            {
+                int M_Num = 0;
+                M_Num = Mercenary_Num[i];
+
+                if (M_Num == 0)
+                {
+                    Minus_Button[i].interactable = false;
+                }
+                else
+                {
+                    Minus_Button[i].interactable = true;
+                }
+            }
+        }
+        else
+        {
+            if (Mercenary_Num[0] == 1)
+            {
+                Plus_Button[0].interactable = false;
+                Minus_Button[0].interactable = true;
+            }
+            else
+            {
+                Plus_Button[0].interactable = true;
+                Minus_Button[0].interactable = false;
+            }
+
+            for (int i = 1; i < Plus_Button.Length; i++)
+            {
+                int M_Num = 0;
+                M_Num = Mercenary_Num[i];
+                
+                if (M_Num == 0)
+                {
+                    Minus_Button[i].interactable = false;
+                }
+                else
+                {
+                    Minus_Button[i].interactable = true;
+                }
+                Plus_Button[i].interactable = true;
+            }
+        }
+    }
+
+    public void Mercenary_PositionUP(int i)
+    {
+        Mercenary_Num[i]++;
+        Mercenary_Position(true, i);
+    }
+
+    public void Mercenary_PositionDown(int i)
+    {
+        Mercenary_Num[i]--;
+        Mercenary_Position(false, i);
+    }
+
+    private void Mercenary_Position_Text()
+    {
+        Mercenary_Position_Information.text =
+            "<color=red><size=45> MAX Mercenary Count\n</size>" +
+            "Max : " + EngineTier_MaxMercenary + "</color>\n" + Mercenary_Position_List();
+
+        for(int i = 0; i < Mercenary_Information_SubText.Length; i++)
+        {
+            if(i == 0) { 
+                Mercenary_Information_SubText[i].text =
+                    mercenaryData.EX_Game_Data.Information_Mercenary[i].Name + "\n" + Mercenary_Num[i] + " <color=red>/Max 1</color>";
+            }
+            else
+            {
+                Mercenary_Information_SubText[i].text =
+                    mercenaryData.EX_Game_Data.Information_Mercenary[i].Name + "\n" + Mercenary_Num[i];
+            }
+        }
+    }
+
+    private string Mercenary_Position_List()
+    {
+        string str = "";
+        for(int i = 0; i < Mercenary_NumList.Count; i++)
+        {
+            str += (i+1) + ". " + mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_NumList[i]].Name + "\n";
+        }
+
+        return str;
+    }
+
+    private void Mercenary_Position_EngineDriver_Type()
+    {
+        if(mercenaryData.SA_MercenaryData.Engine_DriverType == Engine_Driver_Type.speed)
+        {
+            DropDown_EngineDriver_Type.value = 0;
+        }else if(mercenaryData.SA_MercenaryData.Engine_DriverType == Engine_Driver_Type.fuel)
+        {
+            DropDown_EngineDriver_Type.value = 1;
+        }
+        else if (mercenaryData.SA_MercenaryData.Engine_DriverType == Engine_Driver_Type.def)
+        {
+            DropDown_EngineDriver_Type.value = 2;
+        }
+    }
+    public void Mercenary_Position_EngineDriver_DropDown()
+    {
+        mercenaryData.SA_MercenaryData.SA_Change_EngineDriver_Type(DropDown_EngineDriver_Type.value);
     }
 }

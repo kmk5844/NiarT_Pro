@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Engine_Driver : Mercenary
 {
-    public Engine_Driver_Type Dirver_Type;
+    [SerializeField]
+    Engine_Driver_Type Driver_Type;
     GameDirector Gd;
     bool isSurvival;
     [Header("타입마다의 추가 스탯")]
@@ -21,7 +22,9 @@ public class Engine_Driver : Mercenary
         Gd = GameObject.Find("GameDirector").GetComponent<GameDirector>();
         isSurvival = true;
 
-        switch (Dirver_Type){
+        Driver_Type = SA_MercenaryData.Engine_DriverType;
+        switch (Driver_Type)
+        {
             case Engine_Driver_Type.speed:
                 Gd.Engine_Driver_Passive(Engine_Driver_Type.speed, Level_Speed, true);
                 break;
@@ -63,7 +66,7 @@ public class Engine_Driver : Mercenary
             }
         }else if(act == Active.revive && !isSurvival)
         {
-            switch (Dirver_Type)
+            switch (Driver_Type)
             {
                 case Engine_Driver_Type.speed:
                     Gd.Engine_Driver_Passive(Engine_Driver_Type.speed, 10, true);
@@ -83,7 +86,7 @@ public class Engine_Driver : Mercenary
         else if (act == Active.die && isDying)
         {
             Debug.Log("여기서 애니메이션 구현한다!5");
-            switch (Dirver_Type)
+            switch (Driver_Type)
             {
                 case Engine_Driver_Type.speed:
                     Gd.Engine_Driver_Passive(Engine_Driver_Type.speed, 10, false);

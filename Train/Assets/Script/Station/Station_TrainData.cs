@@ -26,6 +26,10 @@ public class Station_TrainData : MonoBehaviour
     public int Cost_Train_Armor;
     public int Cost_Train_Efficient;
 
+    [Header("엔진 티어에 따라 달라지는 Max")]
+    public int Max_Train_MaxMercenary;
+    public int Max_Train_MaxTrain;
+
     private void Awake()
     {
         Check_Level_Train();
@@ -47,6 +51,9 @@ public class Station_TrainData : MonoBehaviour
         Cost_Train_MaxSpeed = EX_Level_Data.Information_LevelCost[Level_Train_MaxSpeed].Cost_Level_Train_MaxSpeed;
         Cost_Train_Armor = EX_Level_Data.Information_LevelCost[Level_Train_Armor].Cost_Level_Train_Armor;
         Cost_Train_Efficient = EX_Level_Data.Information_LevelCost[Level_Train_Efficient].Cost_Level_Train_Efficient;
+
+        Max_Train_MaxMercenary = EX_Level_Data.Level_Max_EngineTier[Level_Train_EngineTier].Max_Mercenary;
+        Max_Train_MaxTrain = EX_Level_Data.Level_Max_EngineTier[Level_Train_EngineTier].Max_Train;
     }
 
     public void Passive_Level_Up(int LevelNum)//LevelNum : 0 = Tier / 1 = Speed / 2 = Armor / 3 = Efficient
