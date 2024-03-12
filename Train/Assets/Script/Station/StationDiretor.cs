@@ -58,15 +58,22 @@ public class StationDirector : MonoBehaviour
             if (i == 0)
             {
                 //엔진칸
-                TrainObject.transform.position = new Vector3(0.5f, 8, 0);
+                TrainObject.transform.position = new Vector3(0f, 1, 0);
             }
             else
             {
                 //나머지칸
-                TrainObject.transform.position = new Vector3((1 + (10 * i)) * -1, 8, 0);
+                TrainObject.transform.position = new Vector3((1 + (10.5f * i)) * -1, 1, 0);
             }
         }
+        //float cameraSize = mainCam.orthographicSize;
+        Bounds bounds = CalculateBounds(Train_List.gameObject);
+        Debug.Log(bounds.size);
+        float scaleFactor = mainCam.orthographicSize/ bounds.size.x * 3;
 
+        // 타겟 오브젝트의 크기 조정
+        Train_List.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
+        mainCam.transform.position = Train_List.transform.position + new Vector3(0,0,-10);
         OnToggleStart();
     }
 
@@ -259,5 +266,39 @@ public class StationDirector : MonoBehaviour
         UI_TrainingRoom.gameObject.SetActive(false);
         UI_BackGround.gameObject.SetActive(false);
         UI_Lobby.gameObject.SetActive(true);
+    }
+
+    private Bounds CalculateBounds(GameObject target)
+    {
+        Renderer[] renderers = target.GetComponentsInChildren<Renderer>();
+        Bounds bounds = new Bounds(target.transform.position, Vector3.zero);
+
+        foreach (Renderer renderer in renderers)
+        {
+            bounds.Encapsulate(renderer.bounds);
+        }
+
+        return bounds;
+    }
+
+    private Bounds CalculateChildBounds(GameObject target)
+    {
+        Renderer[] renderers = target.GetComponentsInChildren<Renderer>();
+        Bounds bounds = new Bounds(target.transform.position, Vector3.zero);
+
+        foreach (Renderer renderer in renderers)
+        {
+            bounds.Encapsulate(renderer.bounds);
+        }
+
+        return bounds;
+    }
+
+    private void ScaleChildren(GameObject target, float scaleFactor)
+    {
+        foreach (Transform child in target.transform)
+        {
+            child.localScale *= scaleFactor;
+        }
     }
 }
