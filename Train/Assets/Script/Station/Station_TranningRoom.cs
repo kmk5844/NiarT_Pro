@@ -206,11 +206,13 @@ public class Station_TranningRoom : MonoBehaviour
         {
             toggle.onValueChanged.AddListener(OnToggleValueChanged);
         }
-        Mercenary_Level_Text[0].text = "Lv." + mercenaryData.Level_Mercenary_Engine_Driver;
-        Mercenary_Level_Text[1].text = "Lv." + mercenaryData.Level_Mercenary_Engineer;
-        Mercenary_Level_Text[2].text = "Lv." + mercenaryData.Level_Mercenary_Long_Ranged;
-        Mercenary_Level_Text[3].text = "Lv." + mercenaryData.Level_Mercenary_Short_Ranged;
-        Mercenary_Level_Text[4].text = "Lv." + mercenaryData.Level_Mercenary_Medic;
+        List <int> mercenary_Level = 
+            new List<int>() { mercenaryData.Level_Mercenary_Engine_Driver, mercenaryData.Level_Mercenary_Engineer, mercenaryData.Level_Mercenary_Long_Ranged, mercenaryData.Level_Mercenary_Short_Ranged , mercenaryData.Level_Mercenary_Medic };
+       for(int i = 0; i < mercenary_Level.Count; i++)
+        {
+            Mercenary_Level_Text[i].text = "Lv." + mercenary_Level[i];
+        }
+
     }
 
     private void OnToggleValueChanged(bool isOn)
@@ -574,14 +576,14 @@ public class Station_TranningRoom : MonoBehaviour
 
     private void Mercenary_Position_EngineDriver_Type()
     {
-        if(mercenaryData.SA_MercenaryData.Engine_DriverType == Engine_Driver_Type.speed)
+        if(mercenaryData.SA_MercenaryData.Engine_Driver_Type == Engine_Driver_Type.speed)
         {
             DropDown_EngineDriver_Type.value = 0;
-        }else if(mercenaryData.SA_MercenaryData.Engine_DriverType == Engine_Driver_Type.fuel)
+        }else if(mercenaryData.SA_MercenaryData.Engine_Driver_Type == Engine_Driver_Type.fuel)
         {
             DropDown_EngineDriver_Type.value = 1;
         }
-        else if (mercenaryData.SA_MercenaryData.Engine_DriverType == Engine_Driver_Type.def)
+        else if (mercenaryData.SA_MercenaryData.Engine_Driver_Type == Engine_Driver_Type.def)
         {
             DropDown_EngineDriver_Type.value = 2;
         }

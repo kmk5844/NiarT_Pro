@@ -30,9 +30,13 @@ public class Station_TrainData : MonoBehaviour
     public int Max_Train_MaxMercenary;
     public int Max_Train_MaxTrain;
 
+    [Header("기존 상점 리스트")]
+    public List<int> Train_Store_Num;
+
     private void Awake()
     {
         Check_Level_Train();
+        Check_Store_Train();
         Max_Train_EngineTier = EX_Level_Data.Information_Level[Data_Index("Level_Train_EngineTier")].Max_Level;
         Max_Train_MaxSpeed = EX_Level_Data.Information_Level[Data_Index("Level_Train_MaxSpeed")].Max_Level;
         Max_Train_Armor = EX_Level_Data.Information_Level[Data_Index("Level_Train_Armor")].Max_Level;
@@ -54,6 +58,17 @@ public class Station_TrainData : MonoBehaviour
 
         Max_Train_MaxMercenary = EX_Level_Data.Level_Max_EngineTier[Level_Train_EngineTier].Max_Mercenary;
         Max_Train_MaxTrain = EX_Level_Data.Level_Max_EngineTier[Level_Train_EngineTier].Max_Train;
+    }
+
+    private void Check_Store_Train()
+    {
+        foreach(Info_Train train in EX_Game_Data.Information_Train)
+        {
+            if (train.Store)
+            {
+                Train_Store_Num.Add(train.Number);
+            }
+        }
     }
 
     public void Passive_Level_Up(int LevelNum)//LevelNum : 0 = Tier / 1 = Speed / 2 = Armor / 3 = Efficient

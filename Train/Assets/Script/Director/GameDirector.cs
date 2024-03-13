@@ -19,9 +19,9 @@ public class GameDirector : MonoBehaviour
     [SerializeField]
     int TrainFuel; // 전체적으로 더한다.
     [SerializeField]
-    int TrainSpeed;
+    public int TrainSpeed; // 나중에 private변경
     [SerializeField]
-    int TrainDistance;
+    public int TrainDistance;  // 나중에 private변경
     [SerializeField]
     int TrainWeight;// 전체적으로 더한다.
     [SerializeField]
@@ -41,8 +41,7 @@ public class GameDirector : MonoBehaviour
     int EnginePower;
 
     [Header("스테이지 정보")]
-    [SerializeField]
-    int Destination_Distance;
+    public int Destination_Distance; // 나중에 private변경
 
     [Header("시간 정보")]
     [SerializeField] 

@@ -31,8 +31,11 @@ public class SA_MercenaryData : ScriptableObject
 
     [SerializeField]
     private Engine_Driver_Type engine_driver_type;
-    public Engine_Driver_Type Engine_DriverType { get { return engine_driver_type; } }
+    public Engine_Driver_Type Engine_Driver_Type { get { return engine_driver_type; } }
 
+    [SerializeField]
+    private List<int> mercenary_buy_num;
+    public List<int> Mercenary_Buy_Num { get { return mercenary_buy_num; } }
 
     public void SA_Change_EngineDriver_Type(int Num)
     {

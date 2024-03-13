@@ -22,7 +22,7 @@ public class Engine_Driver : Mercenary
         Gd = GameObject.Find("GameDirector").GetComponent<GameDirector>();
         isSurvival = true;
 
-        Driver_Type = SA_MercenaryData.Engine_DriverType;
+        Driver_Type = SA_MercenaryData.Engine_Driver_Type;
         switch (Driver_Type)
         {
             case Engine_Driver_Type.speed:

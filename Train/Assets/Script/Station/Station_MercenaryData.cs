@@ -29,10 +29,14 @@ public class Station_MercenaryData : MonoBehaviour
     public int Max_Mercenary_Short_Ranged;
     public int Max_Mercenary_Medic;
 
+    [Header("기존 상점 리스트")]
+    public List<int> Mercenary_Store_Num;
+
     private void Awake()
     {
         Mercenary_Num = SA_MercenaryData.Mercenary_Num;
         Check_Level_Mercenary();
+        Check_Store_List();
     }
 
     private void Check_Level_Mercenary()
@@ -54,6 +58,17 @@ public class Station_MercenaryData : MonoBehaviour
         Cost_Mercenary_Long_Ranged = EX_Game_Data.Information_Mercenary[Data_Info("Long_Ranged", 1)].Mercenary_Pride;
         Cost_Mercenary_Short_Ranged = EX_Game_Data.Information_Mercenary[Data_Info("Short_Ranged", 1)].Mercenary_Pride;
         Cost_Mercenary_Medic = EX_Game_Data.Information_Mercenary[Data_Info("Medic", 1)].Mercenary_Pride;
+    }
+
+    public void Check_Store_List()
+    {
+        foreach (Info_Mercenary Mercenary in EX_Game_Data.Information_Mercenary)
+        {
+            if (Mercenary.Store)
+            {
+                Mercenary_Store_Num.Add(Mercenary.Number);
+            }
+        }
     }
 
     public int Data_Info(string M_type, int i)

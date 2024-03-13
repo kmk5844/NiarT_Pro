@@ -38,7 +38,8 @@ public class StationDirector : MonoBehaviour
 
     int ui_num;
     int train_num; // 이걸로 이용하여 열차를 사거나 변경이 가능하다.
-    //int off_num;
+    Vector3 default_Train_Scail;
+    Vector3 default_Train_Position;
     private void Start()
     {
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
@@ -68,12 +69,13 @@ public class StationDirector : MonoBehaviour
         }
         //float cameraSize = mainCam.orthographicSize;
         Bounds bounds = CalculateBounds(Train_List.gameObject);
-        Debug.Log(bounds.size);
         float scaleFactor = mainCam.orthographicSize/ bounds.size.x * 3;
 
         // 타겟 오브젝트의 크기 조정
         Train_List.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
-        mainCam.transform.position = Train_List.transform.position + new Vector3(0,0,-10);
+        Train_List.position = new Vector3((Train_List.GetChild(0).transform.position.x + Train_List.GetChild(Train_List.childCount-1).transform.position.x) / 2 * -1, 1, 0);
+        default_Train_Scail = Train_List.localScale;
+        default_Train_Position = Train_List.position;
         OnToggleStart();
     }
 
@@ -255,6 +257,7 @@ public class StationDirector : MonoBehaviour
                 ui_num = 3;
                 break;
         }
+        Zomm_In_Out_Train();
     }
 
     public void ClickBackButton()
@@ -266,6 +269,19 @@ public class StationDirector : MonoBehaviour
         UI_TrainingRoom.gameObject.SetActive(false);
         UI_BackGround.gameObject.SetActive(false);
         UI_Lobby.gameObject.SetActive(true);
+        Zomm_In_Out_Train();
+    }
+
+    private void Zomm_In_Out_Train()
+    {
+        if(ui_num == 1)
+        {
+
+        }
+        else
+        {
+
+        }
     }
 
     private Bounds CalculateBounds(GameObject target)
