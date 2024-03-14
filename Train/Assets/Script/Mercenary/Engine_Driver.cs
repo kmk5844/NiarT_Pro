@@ -34,7 +34,7 @@ public class Engine_Driver : Mercenary
             case Engine_Driver_Type.def:
                 for(int i = 0; i < Train_List.childCount; i++)
                 {
-                    Train_List.GetChild(i).GetComponent<Train_InGame>().Train_Anmor += Level_Def; 
+                    Train_List.GetChild(i).GetComponent<Train_InGame>().Train_Armor += Level_Def; 
                 }
                 break;
         }
@@ -77,7 +77,7 @@ public class Engine_Driver : Mercenary
                 case Engine_Driver_Type.def:
                     for (int i = 0; i < Train_List.childCount; i++)
                     {
-                        Train_List.GetChild(i).GetComponent<Train_InGame>().Train_Anmor += 10;
+                        Train_List.GetChild(i).GetComponent<Train_InGame>().Train_Armor += 10;
                     }
                     break;
             }
@@ -97,7 +97,7 @@ public class Engine_Driver : Mercenary
                 case Engine_Driver_Type.def:
                     for (int i = 0; i < Train_List.childCount; i++)
                     {
-                        Train_List.GetChild(i).GetComponent<Train_InGame>().Train_Anmor -= 10;
+                        Train_List.GetChild(i).GetComponent<Train_InGame>().Train_Armor -= 10;
                     }
                     break;
             }

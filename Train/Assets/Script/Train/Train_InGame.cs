@@ -13,7 +13,7 @@ public class Train_InGame : MonoBehaviour
     public int Train_Weight;
 
     int Level_Anmor;
-    public int Train_Anmor;
+    public int Train_Armor;
 
     public string Train_Type;
     public int Train_MaxSpeed;
@@ -56,7 +56,7 @@ public class Train_InGame : MonoBehaviour
         Train_Weight = trainData.Information_Train[TrainNum].Train_Weight;
 
         Level_Anmor = GD.GetComponent<GameDirector>().SA_TrainData.Level_Train_Armor;
-        Train_Anmor = Level_ChangeArmor(trainData.Information_Train[TrainNum].Train_Armor);
+        Train_Armor = Level_ChangeArmor(trainData.Information_Train[TrainNum].Train_Armor);
 
         Train_Type = trainData.Information_Train[TrainNum].Train_Type;
         CheckType();
@@ -64,7 +64,7 @@ public class Train_InGame : MonoBehaviour
 
     private void Update()
     {
-        era = 1f - (float)Train_Anmor / def_constant; //만약에 방어력 증가해주는 기관사 타게 된다면 변경 가능성이 큼
+        era = 1f - (float)Train_Armor / def_constant; //만약에 방어력 증가해주는 기관사 타게 된다면 변경 가능성이 큼
         HP_Slider.value = (float)cur_HP / (float)Train_HP;
 
         //여기서 만약 기차가 파괴 당할 시 쓰면 좋은 함수
