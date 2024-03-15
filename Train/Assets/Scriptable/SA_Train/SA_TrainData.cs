@@ -22,6 +22,10 @@ public class SA_TrainData : ScriptableObject
     private int level_train_efficient;
     public int Level_Train_Efficient { get { return level_train_efficient; } }
 
+    [SerializeField]
+    private List<int> train_buy_num;
+    public List<int> Train_Buy_Num { get { return train_buy_num; } }
+
     public void SA_Passive_Level_Up(int LevelNum) //LevelNum : 0 = Tier / 1 = Speed / 2 = Armor / 3 = Efficient
     {
         switch (LevelNum)
