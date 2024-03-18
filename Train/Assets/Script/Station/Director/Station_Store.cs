@@ -91,7 +91,7 @@ public class Station_Store : MonoBehaviour
     private void Check_Init_TrainCard()
     {
         RectTransform ContentSize = Train_Store_Content.GetComponent<RectTransform>();
-        ContentSize.sizeDelta = new Vector2(400 * Train_Store_Num.Count, ContentSize.sizeDelta.y);
+        ContentSize.sizeDelta = new Vector2(300 * Train_Store_Num.Count, ContentSize.sizeDelta.y);
         foreach (int num in Train_Store_Num)
         {
             Train_Card.GetComponent<Store_Train_Card>().Train_Num = num;
@@ -158,7 +158,7 @@ public class Station_Store : MonoBehaviour
     private void Check_Init_MercenaryCard() // 카드 초기화
     {
         RectTransform ContentSize = Mercenary_Store_Content.GetComponent<RectTransform>();
-        ContentSize.sizeDelta = new Vector2(400 * Mercenary_Store_Num.Count, ContentSize.sizeDelta.y);
+        ContentSize.sizeDelta = new Vector2(300 * Mercenary_Store_Num.Count, ContentSize.sizeDelta.y);
         foreach (int num in Mercenary_Store_Num)
         {
             Mercenary_Card.GetComponent<Store_Mercenary_Card>().Mercenary_Num = num;

@@ -135,16 +135,6 @@ public class Train_InGame : MonoBehaviour
                 Train_Food = 0;
                 Train_Heal = 0;
                 break;
-            case "Warehouse":
-                Train_MaxSpeed = 0;
-                Train_Efficient = 0;
-                Train_Engine_Power = 0;
-                Train_Fuel = 0;
-                Train_Attack = 0;
-                Train_Attack_Delay = 0;
-                Train_Food = trainData.Information_Train[TrainNum].Train_Food;
-                Train_Heal = 0;
-                break;
             case "Medic":
                 Train_MaxSpeed = 0;
                 Train_Efficient = 0;

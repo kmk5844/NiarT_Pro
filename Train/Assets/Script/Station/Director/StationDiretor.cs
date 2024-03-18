@@ -44,9 +44,7 @@ public class StationDirector : MonoBehaviour
     public TextMeshProUGUI Point_Text;
 
     int ui_num;
-    int train_num; // 이걸로 이용하여 열차를 사거나 변경이 가능하다.
-    Vector3 default_Train_Scail;
-    Vector3 default_Train_Position;
+
     private void Start()
     {
         Director_TrainMaintenance = transform.GetChild(0).GetComponent<Station_TrainMaintenance>();
@@ -61,7 +59,6 @@ public class StationDirector : MonoBehaviour
         Point_Text.text = playerData.Player_Point + " Pt";
 
         ui_num = 0;
-        train_num = 0;
         Train_Data_Num = trainData.Train_Num;
         for (int i = 0; i < Train_Data_Num.Count; i++)
         {
@@ -78,6 +75,7 @@ public class StationDirector : MonoBehaviour
                 TrainObject.transform.position = new Vector3((1 + (10.5f * i)) * -1, 1, 0);
             }
         }
+
         //float cameraSize = mainCam.orthographicSize;
         Bounds bounds = CalculateBounds(Train_List.gameObject);
         float scaleFactor = mainCam.orthographicSize/ bounds.size.x * 3;
@@ -85,8 +83,6 @@ public class StationDirector : MonoBehaviour
         // 타겟 오브젝트의 크기 조정
         Train_List.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
         Train_List.position = new Vector3((Train_List.GetChild(0).transform.position.x + Train_List.GetChild(Train_List.childCount-1).transform.position.x) / 2 * -1, 1, 0);
-        default_Train_Scail = Train_List.localScale;
-        default_Train_Position = Train_List.position;
         OnToggleStart();
     }
 
@@ -219,41 +215,6 @@ public class StationDirector : MonoBehaviour
                     UI_TrainingRoom_Toggle.transform.GetChild(i).GetComponent<Toggle>().interactable = true;
                 }
             }
-        }
-    }
-
-    public void ClickTrainButton(bool flag)
-    {
-        if (flag) //left
-        {
-            if (train_num + 1 > Train_List.childCount - 1)
-            {
-                train_num = Train_List.childCount - 1;
-            }
-            else
-            {
-                train_num++;
-            }
-        }
-        else //right
-        {
-            if(train_num - 1 < 0)
-            {
-                train_num = 0;
-            }
-            else
-            {
-                train_num--;
-            }
-        }
-
-        if (train_num == 0)
-        {
-            mainCam.transform.position = new Vector3(Train_List.GetChild(0).transform.position.x + 1, 0, -10);
-        }
-        else
-        {
-            mainCam.transform.position = new Vector3(Train_List.GetChild(train_num).transform.position.x - 1, 0, -10);
         }
     }
 

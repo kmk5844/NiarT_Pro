@@ -19,5 +19,5 @@ public class Info_Train
     public int Train_Pride;
     public string Train_Information;
     public bool Store;
-    public bool Position;
+    public bool Change;
 }

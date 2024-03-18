@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Station_TrainData : MonoBehaviour
@@ -32,6 +33,9 @@ public class Station_TrainData : MonoBehaviour
 
     [Header("기존 상점 리스트")]
     public List<int> Train_Store_Num;
+
+    [Header("기존 변경 리스트")]
+    public List<int> Train_Change_Num;
 
     private void Awake()
     {
@@ -68,7 +72,16 @@ public class Station_TrainData : MonoBehaviour
             {
                 Train_Store_Num.Add(train.Number);
             }
+            else
+            {
+                if (train.Change)
+                {
+                    Train_Change_Num.Add(train.Number);
+                }
+            }
         }
+
+        Train_Change_Num = Train_Change_Num.Concat(SA_TrainData.Train_Buy_Num).ToList();
     }
 
     public void Passive_Level_Up(int LevelNum)//LevelNum : 0 = Tier / 1 = Speed / 2 = Armor / 3 = Efficient
