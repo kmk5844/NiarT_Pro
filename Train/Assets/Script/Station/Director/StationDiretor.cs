@@ -7,13 +7,12 @@ using TMPro;
 
 public class StationDirector : MonoBehaviour
 {
-    Camera mainCam;
     public GameObject Player_DataObject;
     public GameObject Train_DataObject;
 
     Station_PlayerData playerData;
     Station_TrainData trainData;
-    
+
     List<int> Train_Data_Num;
     public Transform Train_List;
 
@@ -51,7 +50,6 @@ public class StationDirector : MonoBehaviour
         Director_Store = transform.GetChild(1).GetComponent<Station_Store>();
         Director_TranningRoom = transform.GetChild(2).GetComponent<Station_TranningRoom>();
 
-        mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         playerData = Player_DataObject.GetComponent<Station_PlayerData>();
         trainData = Train_DataObject.GetComponent<Station_TrainData>();
 
@@ -60,10 +58,12 @@ public class StationDirector : MonoBehaviour
 
         ui_num = 0;
         Train_Data_Num = trainData.Train_Num;
+
         for (int i = 0; i < Train_Data_Num.Count; i++)
         {
             GameObject TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_Station/" + Train_Data_Num[i]), Train_List);
             TrainObject.name = trainData.EX_Game_Data.Information_Train[Train_Data_Num[i]].Train_Name;
+            TrainObject.transform.position = Vector3.zero;
             if (i == 0)
             {
                 //엔진칸
@@ -75,14 +75,8 @@ public class StationDirector : MonoBehaviour
                 TrainObject.transform.position = new Vector3((1 + (10.5f * i)) * -1, 1, 0);
             }
         }
-
-        //float cameraSize = mainCam.orthographicSize;
-        Bounds bounds = CalculateBounds(Train_List.gameObject);
-        float scaleFactor = mainCam.orthographicSize/ bounds.size.x * 3;
-
-        // 타겟 오브젝트의 크기 조정
-        Train_List.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
-        Train_List.position = new Vector3((Train_List.GetChild(0).transform.position.x + Train_List.GetChild(Train_List.childCount-1).transform.position.x) / 2 * -1, 1, 0);
+        CenterObject();
+        ResizeObject();
         OnToggleStart();
     }
 
@@ -162,7 +156,7 @@ public class StationDirector : MonoBehaviour
 
     private void OnToggleInit()
     {
-        if(ui_num == 1)
+        if (ui_num == 1)
         {
             for (int i = 0; i < UI_TrainMaintenance_Toggle.transform.childCount; i++)
             {
@@ -180,7 +174,7 @@ public class StationDirector : MonoBehaviour
                 }
             }
         }
-        else if(ui_num == 2)
+        else if (ui_num == 2)
         {
             for (int i = 0; i < UI_Store_Toggle.transform.childCount; i++)
             {
@@ -198,7 +192,7 @@ public class StationDirector : MonoBehaviour
                 }
             }
         }
-        else if(ui_num == 3)
+        else if (ui_num == 3)
         {
             for (int i = 0; i < UI_TrainingRoom_Toggle.transform.childCount; i++)
             {
@@ -222,7 +216,8 @@ public class StationDirector : MonoBehaviour
     {
         UI_Lobby.gameObject.SetActive(false);
         UI_BackGround.gameObject.SetActive(true);
-        switch (num){
+        switch (num)
+        {
             case 1:
                 UI_TrainMaintenance.gameObject.SetActive(true);
                 ui_num = 1;
@@ -253,7 +248,7 @@ public class StationDirector : MonoBehaviour
 
     private void Zomm_In_Out_Train()
     {
-        if(ui_num == 1)
+        if (ui_num == 1)
         {
 
         }
@@ -263,37 +258,44 @@ public class StationDirector : MonoBehaviour
         }
     }
 
-    private Bounds CalculateBounds(GameObject target)
+    public void Add_Train_List()
     {
-        Renderer[] renderers = target.GetComponentsInChildren<Renderer>();
-        Bounds bounds = new Bounds(target.transform.position, Vector3.zero);
-
-        foreach (Renderer renderer in renderers)
-        {
-            bounds.Encapsulate(renderer.bounds);
-        }
-
-        return bounds;
+        Vector3 position = Train_List.GetChild(Train_List.childCount - 1).transform.position;
+        GameObject AddTrain = Instantiate(Resources.Load<GameObject>("TrainObject_Station/" + 1), Train_List);
+        AddTrain.name = trainData.EX_Game_Data.Information_Train[1].Train_Name;
+        AddTrain.transform.position = new Vector3(position.x, position.y, position.z);
     }
 
-    private Bounds CalculateChildBounds(GameObject target)
+    public void Change_Train_List(int train_num, int index)
     {
-        Renderer[] renderers = target.GetComponentsInChildren<Renderer>();
-        Bounds bounds = new Bounds(target.transform.position, Vector3.zero);
-
-        foreach (Renderer renderer in renderers)
-        {
-            bounds.Encapsulate(renderer.bounds);
-        }
-
-        return bounds;
+        Vector3 position = Train_List.GetChild(index).position;
+        Destroy(Train_List.GetChild(index).gameObject);
+        GameObject changeTrain = Instantiate(Resources.Load<GameObject>("TrainObject_Station/" + train_num), Train_List);
+        changeTrain.name = trainData.EX_Game_Data.Information_Train[train_num].Train_Name;
+        changeTrain.transform.position = position;
+        changeTrain.transform.SetSiblingIndex(index);
     }
 
-    private void ScaleChildren(GameObject target, float scaleFactor)
+    public void CenterObject()
     {
-        foreach (Transform child in target.transform)
+        int childCount = Train_List.childCount;
+        Vector3 CenterPosition = Vector3.zero;
+        for (int i = 0; i < childCount; i++)
         {
-            child.localScale *= scaleFactor;
+            Transform child = Train_List.transform.GetChild(i);
+            CenterPosition += child.localPosition;
         }
+        CenterPosition /= childCount;
+        for (int i = 0; i < Train_List.childCount; i++)
+        {
+            Train_List.GetChild(i).position += CenterPosition * -1;
+        }
+        Train_List.position += Vector3.up;
+    }
+
+    private void ResizeObject()
+    {
+        float num = Train_List.childCount * 0.1f;
+        Train_List.localScale = Vector3.one - new Vector3(num, num, num);
     }
 }

@@ -260,7 +260,9 @@ public class Station_TrainMaintenance : MonoBehaviour
         Destroy(UI_TrainList.GetChild(UI_Train_Num).gameObject);
         GameObject changeTrain = Instantiate(Resources.Load<GameObject>("TrainObject_UI/" + Toggle_Train_Num), UI_TrainList);
         changeTrain.name = Toggle_Train_Name;
+        changeTrain.transform.SetSiblingIndex(UI_Train_Num);
         UI_Now_Train_Information();
+        GetComponentInParent<StationDirector>().Change_Train_List(Toggle_Train_Num, UI_Train_Num);
     }
 
     public void Button_Train_Add()
@@ -269,5 +271,6 @@ public class Station_TrainMaintenance : MonoBehaviour
         GameObject EmptyTrain = Instantiate(Resources.Load<GameObject>("TrainObject_UI/1"), UI_TrainList);
         EmptyTrain.name = trainData.EX_Game_Data.Information_Train[1].Train_Name;
         EmptyTrain.SetActive(false);
+        GetComponentInParent<StationDirector>().Add_Train_List();
     }
 }
