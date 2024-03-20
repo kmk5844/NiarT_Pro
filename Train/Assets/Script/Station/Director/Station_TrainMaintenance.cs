@@ -31,6 +31,8 @@ public class Station_TrainMaintenance : MonoBehaviour
     public Button Passive_Button_3;
 
     [Header("기차 변경 윈도우")]
+    public Button Change_Button;
+    public Button Add_Button;
     [SerializeField]
     List<int> Train_Change_Num;
     public Transform Train_Change_Content;
@@ -42,6 +44,10 @@ public class Station_TrainMaintenance : MonoBehaviour
     int Toggle_Train_Num;
     string Toggle_Train_Name;
 
+    [Header("기차 업그레이드 윈도우")]
+    public TextMeshProUGUI Before_Text;
+    public TextMeshProUGUI After_Text;
+    public Button Upgrade_Button;
 
     private void Start()
     {
@@ -98,7 +104,6 @@ public class Station_TrainMaintenance : MonoBehaviour
                 UI_Train_Num--;
             }
         }
-
         UI_TrainList.GetChild(beforeNum).gameObject.SetActive(false);
         UI_TrainList.GetChild(UI_Train_Num).gameObject.SetActive(true);
         UI_Now_Train_Information();
@@ -267,10 +272,13 @@ public class Station_TrainMaintenance : MonoBehaviour
 
     public void Button_Train_Add()
     {
-        trainData.SA_TrainData.Train_Num.Add(1); //empty Trian
-        GameObject EmptyTrain = Instantiate(Resources.Load<GameObject>("TrainObject_UI/1"), UI_TrainList);
-        EmptyTrain.name = trainData.EX_Game_Data.Information_Train[1].Train_Name;
-        EmptyTrain.SetActive(false);
+        trainData.SA_TrainData.Train_Num.Add(100); //empty Trian
+        UI_TrainList.GetChild(UI_Train_Num).gameObject.SetActive(false);
+        UI_Train_Num = UI_TrainList.childCount;
+        GameObject EmptyTrain = Instantiate(Resources.Load<GameObject>("TrainObject_UI/100"), UI_TrainList);
+        EmptyTrain.name = trainData.EX_Game_Data.Information_Train[100].Train_Name;
         GetComponentInParent<StationDirector>().Add_Train_List();
     }
+
+    //기차 업그레이드
 }

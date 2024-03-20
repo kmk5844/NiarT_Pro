@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
+using Unity.Loading;
 
 public class StationDirector : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class StationDirector : MonoBehaviour
 
     List<int> Train_Data_Num;
     public Transform Train_List;
+    public ScrollRect Train_List_ScrollView;
 
     [SerializeField]
     Station_TrainMaintenance Director_TrainMaintenance;
@@ -61,22 +63,11 @@ public class StationDirector : MonoBehaviour
 
         for (int i = 0; i < Train_Data_Num.Count; i++)
         {
-            GameObject TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_Station/" + Train_Data_Num[i]), Train_List);
+            GameObject TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_StationLobby/" + Train_Data_Num[i]), Train_List);
             TrainObject.name = trainData.EX_Game_Data.Information_Train[Train_Data_Num[i]].Train_Name;
-            TrainObject.transform.position = Vector3.zero;
-            if (i == 0)
-            {
-                //¿£ÁøÄ­
-                TrainObject.transform.position = new Vector3(0f, 1, 0);
-            }
-            else
-            {
-                //³ª¸ÓÁöÄ­
-                TrainObject.transform.position = new Vector3((1 + (10.5f * i)) * -1, 1, 0);
-            }
+            TrainObject.transform.localPosition = Vector3.zero;
         }
-        CenterObject();
-        ResizeObject();
+        ResizedContent();
         OnToggleStart();
     }
 
@@ -258,44 +249,31 @@ public class StationDirector : MonoBehaviour
         }
     }
 
-    public void Add_Train_List()
-    {
-        Vector3 position = Train_List.GetChild(Train_List.childCount - 1).transform.position;
-        GameObject AddTrain = Instantiate(Resources.Load<GameObject>("TrainObject_Station/" + 1), Train_List);
-        AddTrain.name = trainData.EX_Game_Data.Information_Train[1].Train_Name;
-        AddTrain.transform.position = new Vector3(position.x, position.y, position.z);
-    }
-
     public void Change_Train_List(int train_num, int index)
     {
-        Vector3 position = Train_List.GetChild(index).position;
         Destroy(Train_List.GetChild(index).gameObject);
-        GameObject changeTrain = Instantiate(Resources.Load<GameObject>("TrainObject_Station/" + train_num), Train_List);
+        GameObject changeTrain = Instantiate(Resources.Load<GameObject>("TrainObject_StationLobby/" + train_num), Train_List);
         changeTrain.name = trainData.EX_Game_Data.Information_Train[train_num].Train_Name;
-        changeTrain.transform.position = position;
         changeTrain.transform.SetSiblingIndex(index);
     }
 
-    public void CenterObject()
+    public void Add_Train_List()
     {
-        int childCount = Train_List.childCount;
-        Vector3 CenterPosition = Vector3.zero;
-        for (int i = 0; i < childCount; i++)
-        {
-            Transform child = Train_List.transform.GetChild(i);
-            CenterPosition += child.localPosition;
-        }
-        CenterPosition /= childCount;
-        for (int i = 0; i < Train_List.childCount; i++)
-        {
-            Train_List.GetChild(i).position += CenterPosition * -1;
-        }
-        Train_List.position += Vector3.up;
+        GameObject AddTrain = Instantiate(Resources.Load<GameObject>("TrainObject_StationLobby/" + 100), Train_List);
+        AddTrain.name = trainData.EX_Game_Data.Information_Train[100].Train_Name;
+        ResizedContent();
     }
 
-    private void ResizeObject()
+    public void ResizedContent()
     {
-        float num = Train_List.childCount * 0.1f;
-        Train_List.localScale = Vector3.one - new Vector3(num, num, num);
+        GridLayoutGroup TrainGrid = Train_List.GetComponent<GridLayoutGroup>();
+        Vector2 cellSize = TrainGrid.cellSize;
+        Vector2 spacing = TrainGrid.spacing;
+
+        float width = (cellSize.x + spacing.x) * (Train_List.childCount-1) + TrainGrid.padding.left;
+
+        RectTransform ContentSize = Train_List.GetComponent<RectTransform>();
+        ContentSize.sizeDelta = new Vector2(width, ContentSize.sizeDelta.y);
+        Train_List_ScrollView.normalizedPosition = Vector2.right;
     }
 }
