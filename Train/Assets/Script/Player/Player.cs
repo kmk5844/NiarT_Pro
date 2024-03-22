@@ -136,8 +136,8 @@ public class Player : MonoBehaviour
             rigid.velocity = new Vector2(moveSpeed * (-1), rigid.velocity.y);
         }
 
-        Debug.DrawRay(rigid.position, Vector3.down, Color.green);
-        RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1f, LayerMask.GetMask("Platform"));
+        Debug.DrawRay(rigid.position, Vector3.down * 2, Color.green);
+        RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 3f, LayerMask.GetMask("Platform"));
         
         if(rayHit.collider != null)
         {

@@ -8,14 +8,12 @@ using UnityEngine.UI;
 public class Station_Store : MonoBehaviour
 {
     [Header("데이터 모음")]
-    public GameObject Player_DataObject;
-    Station_PlayerData playerData;
     public GameObject Train_DataObject;
     Station_TrainData trainData;
     public GameObject Mercenary_DataObject;
     Station_MercenaryData mercenaryData;
 
-    [Header("구매창")]
+    [Header("윈도우")]
     public GameObject Check_Buy_Panel;
     public TextMeshProUGUI Check_Buy_Text;
     public Button Buy_YesButton;
@@ -26,17 +24,22 @@ public class Station_Store : MonoBehaviour
     [SerializeField]
     List<int> Train_Store_Num;
     public Transform Train_Store_Content;
+    public ScrollRect ScrollRect_Train;
     public GameObject Train_Card;
+    public Button BuyButton_Train;
     public TextMeshProUGUI Train_Card_Information;
     [SerializeField]
     List<Toggle> Train_Toggle;
     int Toggle_Trian_Num;
     string Toggle_Train_Name;
 
+
     [Header("용병 구매")]
     [SerializeField]
     List<int> Mercenary_Store_Num;
     public Transform Mercenary_Store_Content;
+    public ScrollRect ScrollRect_Mercenary;
+    public Button BuyButton_Mercenary;
     public GameObject Mercenary_Card;
     public TextMeshProUGUI Mercenary_Card_Information;
     [SerializeField]
@@ -44,15 +47,16 @@ public class Station_Store : MonoBehaviour
     int Toggle_Mercenary_Num; // toggle로 찍힌 카드 안의 숫자
     string Toggle_Mercenary_Name; // toggle로 찍힌 카드 안의 이름
 
+
     private void Start()
     {
-        playerData = Player_DataObject.GetComponent<Station_PlayerData>();
         trainData = Train_DataObject.GetComponent<Station_TrainData>();
         mercenaryData = Mercenary_DataObject.GetComponent<Station_MercenaryData>();
         Train_Store_Num = trainData.Train_Store_Num;
         Mercenary_Store_Num = mercenaryData.Mercenary_Store_Num;
         //기차 구매하기
         Check_Init_TrainCard();
+        Director_Init_TrainyBuy();
         Train_ToggleStart();
         //용병 구매하기
         Check_Init_MercenaryCard();
@@ -60,7 +64,15 @@ public class Station_Store : MonoBehaviour
     }
 
     //기차 구매하기
-
+    public void Director_Init_TrainyBuy()
+    {
+        BuyButton_Train.interactable = false;
+        for (int i = 0; i < Train_Toggle.Count; i++)
+        {
+            Train_Toggle[i].isOn = false;
+        }
+        ScrollRect_Train.normalizedPosition = Vector2.zero;
+    }
     private void Train_ToggleStart()
     {
         foreach(Toggle toggle in Train_Toggle)
@@ -70,13 +82,22 @@ public class Station_Store : MonoBehaviour
     }
     private void Train_OnToggleValueChange(bool isOn)
     {
-        for(int i = 0; i < Train_Toggle.Count; i++)
+        if (isOn)
         {
-            if (Train_Toggle[i].isOn)
+            for (int i = 0; i < Train_Toggle.Count; i++)
             {
-                Train_Store_Information_Text(i);
+                if (Train_Toggle[i].isOn)
+                {
+                    Train_Store_Information_Text(i);
+                }
             }
+            BuyButton_Train.interactable = true;
         }
+        else
+        {
+            BuyButton_Train.interactable = false;
+        }
+
     }
 
     public void Train_Store_Information_Text(int toggle_num)
@@ -90,8 +111,6 @@ public class Station_Store : MonoBehaviour
     }
     private void Check_Init_TrainCard()
     {
-        RectTransform ContentSize = Train_Store_Content.GetComponent<RectTransform>();
-        ContentSize.sizeDelta = new Vector2(300 * Train_Store_Num.Count, ContentSize.sizeDelta.y);
         foreach (int num in Train_Store_Num)
         {
             Train_Card.GetComponent<Store_Train_Card>().Train_Num = num;
@@ -103,11 +122,13 @@ public class Station_Store : MonoBehaviour
                 Card.GetComponent<Store_Train_Card>().Train_Buy.SetActive(true);
             }
         }
+        ResizedContent(Train_Store_Content, ScrollRect_Train);
     }
 
     private void Store_Buy_TrainCard()
     {
         trainData.SA_TrainData.Train_Buy_Num.Add(Toggle_Trian_Num);
+        trainData.Check_Buy_Train(Toggle_Trian_Num);
         Check_AfterBuy_TrainCard();
         Close_Buy_Window();
     }
@@ -126,6 +147,16 @@ public class Station_Store : MonoBehaviour
 
 
     //용병 구매하기
+    public void Director_Init_MercenaryBuy()
+    {
+        BuyButton_Mercenary.interactable = false;
+        for(int i = 0; i < Mercenary_Toggle.Count; i++)
+        {
+            Mercenary_Toggle[i].isOn = false;
+        }
+        ScrollRect_Mercenary.normalizedPosition = Vector2.zero;
+    }
+
     private void Mercenary_ToggleStart()
     {
         foreach(Toggle toggle in Mercenary_Toggle)
@@ -136,13 +167,22 @@ public class Station_Store : MonoBehaviour
 
     private void Mercenary_OnToggleValueChange(bool isOn)
     {
-        for(int i = 0; i < Mercenary_Toggle.Count; i++)
+        if (isOn)
         {
-            if (Mercenary_Toggle[i].isOn)
+            for (int i = 0; i < Mercenary_Toggle.Count; i++)
             {
-                Mercenary_Store_Information_Text(i);
+                if (Mercenary_Toggle[i].isOn)
+                {
+                    Mercenary_Store_Information_Text(i);
+                }
             }
+            BuyButton_Mercenary.interactable = true;
         }
+        else
+        {
+            BuyButton_Mercenary.interactable = false;
+        }
+
     }
 
     private void Mercenary_Store_Information_Text(int toggle_num)
@@ -157,8 +197,6 @@ public class Station_Store : MonoBehaviour
 
     private void Check_Init_MercenaryCard() // 카드 초기화
     {
-        RectTransform ContentSize = Mercenary_Store_Content.GetComponent<RectTransform>();
-        ContentSize.sizeDelta = new Vector2(300 * Mercenary_Store_Num.Count, ContentSize.sizeDelta.y);
         foreach (int num in Mercenary_Store_Num)
         {
             Mercenary_Card.GetComponent<Store_Mercenary_Card>().Mercenary_Num = num;
@@ -170,6 +208,7 @@ public class Station_Store : MonoBehaviour
                 Card.GetComponent<Store_Mercenary_Card>().Mercenary_Buy.SetActive(true);
             }
         }
+        ResizedContent(Mercenary_Store_Content, ScrollRect_Mercenary);
     }
 
     private void Store_Buy_MercenaryCard() // 카드 구매 하기
@@ -229,4 +268,16 @@ public class Station_Store : MonoBehaviour
         }
     }
 
+    //공통 부분
+    public void ResizedContent(Transform ScrollContent, ScrollRect Scrollrect)
+    {
+        GridLayoutGroup Grid = ScrollContent.GetComponent<GridLayoutGroup>();
+        Vector2 cellSize = Grid.cellSize;
+        Vector2 spacing = Grid.spacing;
+
+        float width = (cellSize.x + spacing.x)  * (ScrollContent.childCount -1) -800;
+        RectTransform ContentSize = ScrollContent.GetComponent<RectTransform>();
+        ContentSize.sizeDelta = new Vector2 (width, ContentSize.sizeDelta.y);
+        Scrollrect.normalizedPosition = Vector2.zero;
+    }
 }

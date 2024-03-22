@@ -24,8 +24,6 @@ public class GameDirector : MonoBehaviour
     public int TrainDistance;  // 나중에 private변경
     [SerializeField]
     int TrainWeight;// 전체적으로 더한다.
-    [SerializeField]
-    int TrainFood;  // 전체적으로 더한다.
 
     [Header("레벨 업 적용 전의 기차")]
     public int TrainMaxSpeed;
@@ -90,7 +88,6 @@ public class GameDirector : MonoBehaviour
             TrainMaxSpeed += Trains[i].Train_MaxSpeed;
             TrainEfficient += Trains[i].Train_Efficient;
             TrainEnginePower += Trains[i].Train_Engine_Power;
-            TrainFood += Trains[i].Train_Food; //식량기차
         }
 
         Level_EngineTier = SA_TrainData.Level_Train_EngineTier;
@@ -121,7 +118,6 @@ public class GameDirector : MonoBehaviour
                     TrainFuel -= Efficient;
                 }
             }
-            TrainFood -= 1;
             lastSpeedTime = Time.time;
         }
 

@@ -27,6 +27,7 @@ public class Station_TranningRoom : MonoBehaviour
     public Button PlayerUP_Button_4;
 
     [Header("용병 업그레이드 윈도우")]
+    public ScrollRect ScrollRect_Mercenary_Upgrade; 
     int Mercenary_Upgrade_Num;
     public Toggle[] Mercenary_Upgrade_Toggle;
     public TextMeshProUGUI[] Mercenary_Level_Text;
@@ -37,6 +38,7 @@ public class Station_TranningRoom : MonoBehaviour
     TextMeshProUGUI MercenaryUpgrade_Button_Text;
 
     [Header("용병 배치 윈도우")]
+    public ScrollRect ScrollRect_Mercenary_Position;
     public TextMeshProUGUI Mercenary_Position_Information;
     public TextMeshProUGUI[] Mercenary_Information_SubText;
     public Button[] Plus_Button;
@@ -203,6 +205,16 @@ public class Station_TranningRoom : MonoBehaviour
     }
 
     //용병 업그레이드
+
+    public void Director_Init_MercenaryUpgrade()
+    {
+        MercenaryUpgrade_Button.interactable = false;
+        foreach (Toggle tog in Mercenary_Upgrade_Toggle)
+        {
+            tog.isOn = false;
+        }
+        ScrollRect_Mercenary_Upgrade.normalizedPosition = Vector2.zero;
+    }
     private void OnToggleStart()
     {
         foreach (var toggle in Mercenary_Upgrade_Toggle)
@@ -220,14 +232,23 @@ public class Station_TranningRoom : MonoBehaviour
 
     private void OnToggleValueChanged(bool isOn)
     {
-        for (int i = 0; i < Mercenary_Upgrade_Toggle.Length; i++)
+        if (isOn)
         {
-            if (Mercenary_Upgrade_Toggle[i].isOn)
+            for (int i = 0; i < Mercenary_Upgrade_Toggle.Length; i++)
             {
-                Mercenary_Upgrade_Information_Text(i);
-                Mercenary_Upgrade_Num = i;
+                if (Mercenary_Upgrade_Toggle[i].isOn)
+                {
+                    Mercenary_Upgrade_Information_Text(i);
+                    Mercenary_Upgrade_Num = i;
+                }
             }
+            MercenaryUpgrade_Button.interactable = true;
         }
+        else
+        {
+            MercenaryUpgrade_Button.interactable = false;
+        }
+
     }
 
     public void Mercenary_Level_Up()
@@ -471,6 +492,11 @@ public class Station_TranningRoom : MonoBehaviour
     }
 
     // 용병 배치
+    public void Director_Init_MercenaryPosition()
+    {
+        ScrollRect_Mercenary_Position.normalizedPosition = Vector2.zero;
+    }
+
     private void Mercenary_Position(bool List_Up_Down, int M_Num) //버튼 관리도 한다
     {
         if (List_Up_Down)

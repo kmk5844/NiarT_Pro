@@ -2211,9 +2211,9 @@ RectTransform:
   - {fileID: 1478047133}
   m_Father: {fileID: 455440168}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -170}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &201132337
@@ -2785,7 +2785,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1385412285}
   toggleTransition: 1
   graphic: {fileID: 620329951}
@@ -4107,7 +4107,7 @@ MonoBehaviour:
   Player_DataObject: {fileID: 459383263}
   Train_DataObject: {fileID: 1383074863}
   Train_List: {fileID: 31263911}
-  Train_List_ScrollView: {fileID: 1273471313}
+  ScrollRect_TrainList: {fileID: 1273471313}
   Director_TrainMaintenance: {fileID: 0}
   Director_Store: {fileID: 0}
   Director_TranningRoom: {fileID: 0}
@@ -5208,7 +5208,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 381146461}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 605841939}
+        m_TargetAssemblyTypeName: Station_TrainMaintenance, Assembly-CSharp
+        m_MethodName: Click_Button_Upgrade
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &381146461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7451,6 +7463,7 @@ MonoBehaviour:
   PlayerUP_Button_3: {fileID: 835681338}
   PlayerUP_Text_4: {fileID: 2047142042}
   PlayerUP_Button_4: {fileID: 1159516264}
+  ScrollRect_Mercenary_Upgrade: {fileID: 115052064}
   Mercenary_Upgrade_Toggle:
   - {fileID: 415267662}
   - {fileID: 63275939}
@@ -7472,6 +7485,7 @@ MonoBehaviour:
   - {fileID: 1177235206}
   - {fileID: 1016919721}
   MercenaryUpgrade_Button: {fileID: 1271769688}
+  ScrollRect_Mercenary_Position: {fileID: 71542256}
   Mercenary_Position_Information: {fileID: 583237838}
   Mercenary_Information_SubText:
   - {fileID: 1959246531}
@@ -8744,16 +8758,17 @@ MonoBehaviour:
   Passive_Button_2: {fileID: 926659212}
   Passive_Text_3: {fileID: 1844891204}
   Passive_Button_3: {fileID: 852711361}
-  Change_Button: {fileID: 0}
-  Add_Button: {fileID: 0}
+  Change_Button: {fileID: 544051458}
+  Add_Button: {fileID: 1590387319}
   Train_Change_Num: 
+  ScrollRect_ChangeTrain: {fileID: 676343421}
   Train_Change_Content: {fileID: 1420596131}
   Train_Card: {fileID: 1283555362840668744, guid: 5ca32c5374deacb47bb5236bd8ea3e06, type: 3}
   Train_Card_Information: {fileID: 380568647}
   Train_Toggle: []
-  Before_Text: {fileID: 0}
-  After_Text: {fileID: 0}
-  Upgrade_Button: {fileID: 0}
+  Before_Text: {fileID: 856027352}
+  After_Text: {fileID: 551771066}
+  Upgrade_Button: {fileID: 381146460}
 --- !u!1 &616961570
 GameObject:
   m_ObjectHideFlags: 0
@@ -12960,7 +12975,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 982346543}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.5614035
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -13279,7 +13294,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &901514236
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13969,7 +13984,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 974493872}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
@@ -13978,14 +13993,12 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: 0
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 360, y: 300}
+  m_Spacing: {x: 35, y: 0}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1 &982346542
 GameObject:
   m_ObjectHideFlags: 0
@@ -14019,7 +14032,7 @@ RectTransform:
   m_Father: {fileID: 1820400993}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.5614035, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -14157,9 +14170,9 @@ RectTransform:
   - {fileID: 868610630}
   m_Father: {fileID: 455440168}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -10}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &993625991
@@ -14201,7 +14214,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 868610631}
   toggleTransition: 1
   graphic: {fileID: 1715285272}
@@ -16614,7 +16627,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1097995289
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16764,8 +16777,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1117729364}
-  - component: {fileID: 1117729366}
   - component: {fileID: 1117729367}
+  - component: {fileID: 1117729368}
   m_Layer: 5
   m_Name: Content+ToggleGroup
   m_TagString: Untagged
@@ -16792,32 +16805,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 360}
   m_Pivot: {x: 0, y: 1}
---- !u!114 &1117729366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1117729363}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 4
-  m_Spacing: 0
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 0
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
 --- !u!114 &1117729367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16831,6 +16818,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AllowSwitchOff: 1
+--- !u!114 &1117729368
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1117729363}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 360, y: 300}
+  m_Spacing: {x: 35, y: 0}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1 &1118922495
 GameObject:
   m_ObjectHideFlags: 0
@@ -18258,9 +18269,9 @@ RectTransform:
   - {fileID: 618544763}
   m_Father: {fileID: 455440168}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -90}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1200226241
@@ -19038,7 +19049,7 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 0
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
@@ -19977,7 +19988,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1312279196
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21771,7 +21782,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 354476171}
   toggleTransition: 1
   graphic: {fileID: 595614724}
@@ -23690,7 +23701,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1560052837
 RectTransform:
   m_ObjectHideFlags: 0
@@ -28854,11 +28865,15 @@ MonoBehaviour:
   Buy_NoButton: {fileID: 1029611149}
   Train_Store_Num: 
   Train_Store_Content: {fileID: 974493873}
+  ScrollRect_Train: {fileID: 262027994}
   Train_Card: {fileID: 1283555362840668744, guid: 5ca32c5374deacb47bb5236bd8ea3e06, type: 3}
+  BuyButton_Train: {fileID: 1966454031}
   Train_Card_Information: {fileID: 1240943952}
   Train_Toggle: []
   Mercenary_Store_Num: 
   Mercenary_Store_Content: {fileID: 1117729364}
+  ScrollRect_Mercenary: {fileID: 114662435}
+  BuyButton_Mercenary: {fileID: 185156930}
   Mercenary_Card: {fileID: 1011698666590713340, guid: 4c2e88c40570273478a0b68438c948b1, type: 3}
   Mercenary_Card_Information: {fileID: 587035007}
   Mercenary_Toggle: []

@@ -64,7 +64,7 @@ public class Station_TrainData : MonoBehaviour
         Max_Train_MaxTrain = EX_Level_Data.Level_Max_EngineTier[Level_Train_EngineTier].Max_Train;
     }
 
-    private void Check_Store_Train()
+    public void Check_Store_Train()
     {
         foreach(Info_Train train in EX_Game_Data.Information_Train)
         {
@@ -80,8 +80,12 @@ public class Station_TrainData : MonoBehaviour
                 }
             }
         }
-
         Train_Change_Num = Train_Change_Num.Concat(SA_TrainData.Train_Buy_Num).ToList();
+    }
+
+    public void Check_Buy_Train(int Num)
+    {
+        Train_Change_Num.Add(Num);
     }
 
     public void Passive_Level_Up(int LevelNum)//LevelNum : 0 = Tier / 1 = Speed / 2 = Armor / 3 = Efficient
@@ -94,5 +98,11 @@ public class Station_TrainData : MonoBehaviour
     {
         int index = EX_Level_Data.Information_Level.FindIndex(x => x.Level_Name.Equals(str));
         return index;
+    }
+
+    public void Train_Level_Up(int Train_Num, int index)
+    {
+        SA_TrainData.SA_TrainUpgrade(Train_Num);
+        SA_TrainData.SA_TrainUpgrade_Renewal(index);
     }
 }

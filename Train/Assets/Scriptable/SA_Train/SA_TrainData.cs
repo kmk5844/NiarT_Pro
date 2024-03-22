@@ -61,9 +61,9 @@ public class SA_TrainData : ScriptableObject
         }
     }
 
-    public void TrainUpgrade(int trainNum)
+    public void SA_TrainUpgrade(int trainNum)
     {
-        switch(trainNum%10)
+        switch(trainNum/10)
         {
             case 0:
                 level_trainnumber_00++;
@@ -80,6 +80,37 @@ public class SA_TrainData : ScriptableObject
             case 4:
                 level_trainnumber_40++;
                 break;
+        }
+    }
+
+    public int SA_TrainChange(int trainNum)
+    {
+        switch (trainNum / 10)
+        {
+            case 0:
+                return level_trainnumber_00;
+            case 1:
+                return level_trainnumber_10;
+            case 2:
+                return level_trainnumber_20;
+            case 3:
+                return level_trainnumber_30;
+            case 4:
+                return level_trainnumber_40;
+            default:
+                return 0;
+        }
+    }
+
+    public void SA_TrainUpgrade_Renewal(int index)
+    {
+        int num = Train_Num[index];
+        for(int i = 0; i < Train_Num.Count; i++)
+        {
+            if (Train_Num[i] == num)
+            {
+                Train_Num[i] = Train_Num[i] + 1;
+            }
         }
     }
 }
