@@ -13,6 +13,9 @@ public class Station_TranningRoom : MonoBehaviour
     Station_TrainData trainData;
     public GameObject Mercenary_DataObject;
     Station_MercenaryData mercenaryData;
+    List<int> Mercenary_Buy_NumList;// 구매한 리스트
+    List<int> Mercenary_Position_NumList;// 배치하고 있는 리스트
+
 
     [Header("플레이어 업그레이드 윈도우")]
     public TextMeshProUGUI PlayerUP_Text_0;
@@ -27,62 +30,57 @@ public class Station_TranningRoom : MonoBehaviour
     public Button PlayerUP_Button_4;
 
     [Header("용병 업그레이드 윈도우")]
-    public ScrollRect ScrollRect_Mercenary_Upgrade; 
-    int Mercenary_Upgrade_Num;
-    public Toggle[] Mercenary_Upgrade_Toggle;
-    public TextMeshProUGUI[] Mercenary_Level_Text;
-    public TextMeshProUGUI Before_Mercenary_Information;
-    public TextMeshProUGUI After_Mercenary_Information;
-    public GameObject[] Mercenary_Upgrade_LockPanel;
+
     public Button MercenaryUpgrade_Button;
     TextMeshProUGUI MercenaryUpgrade_Button_Text;
+    [SerializeField]
+    int Mercenary_Upgrade_Num;
+    int Mercenary_Upgrade_ToggleNum;
+    public ScrollRect ScrollRect_Mercenary_Upgrade; 
+    public Transform Mercenary_Upgrade_Content;
+    public GameObject Mercenary_Upgrade_Card;
+    public TextMeshProUGUI Before_Mercenary_Information;
+    public TextMeshProUGUI After_Mercenary_Information;
+    [SerializeField]
+    List<Toggle> Mercenary_Upgrade_Toggle;
 
     [Header("용병 배치 윈도우")]
     public ScrollRect ScrollRect_Mercenary_Position;
+    public Transform Mercenary_Position_Content;
+    public GameObject Mercenary_Position_Card;
     public TextMeshProUGUI Mercenary_Position_Information;
-    public TextMeshProUGUI[] Mercenary_Information_SubText;
-    public Button[] Plus_Button;
-    public Button[] Minus_Button;
-    public GameObject[] Mercenary_Postion_LockPanel;
-    List<int> Mercenary_NumList;
     int EngineTier_MaxMercenary;
-    int[] Mercenary_Num;
     int Mercenary_TotalNum;
-    public TMP_Dropdown DropDown_EngineDriver_Type;
+    [SerializeField]
+    List<Button> PlusButtons;
+    [SerializeField]
+    List<Button> MinusButtons;
+    [SerializeField]
+    TMP_Dropdown DropDown_EngineDriver_Type;
     void Start()
     {
         //데이터 수집
         playerData = Player_DataObject.GetComponent<Station_PlayerData>();
         trainData = Train_DataObject.GetComponent<Station_TrainData>();
         mercenaryData = Mercenary_DataObject.GetComponent<Station_MercenaryData>();
+        Mercenary_Buy_NumList = mercenaryData.SA_MercenaryData.Mercenary_Buy_Num;
+        Mercenary_Position_NumList = mercenaryData.SA_MercenaryData.Mercenary_Num;
         //플레이어 업그레이드 윈도우
         Player_Text(true);
         //용병 업그레이드 윈도우
+        Check_Init_MecenaryUpgradeCard();
         MercenaryUpgrade_Button_Text = MercenaryUpgrade_Button.GetComponentInChildren<TextMeshProUGUI>();
         Before_Mercenary_Information.text = "<size=30>Before_Click Mercenary</size>";
         After_Mercenary_Information.text = "<size=30>Before_Click Mercenary</size>";
-        //용병 배치 윈도우
-        Mercenary_NumList = mercenaryData.Mercenary_Num;
-        Mercenary_Num = new int[Plus_Button.Length];
-        for(int i = 0; i < Mercenary_Num.Length; i++)
-        {
-            Mercenary_Num[i] = 0;
-        }
-        for (int i = 0; i < Mercenary_NumList.Count; i++)
-        {
-            Mercenary_Num[Mercenary_NumList[i]]++;
-        }
-        for(int i = 0; i < Mercenary_Num.Length; i++)
-        {
-            Mercenary_TotalNum += Mercenary_Num[i]; 
-        }    
-        EngineTier_MaxMercenary = trainData.Max_Train_MaxMercenary;
-        Mecenary_Position_Button();
-        Mercenary_Position_Text();
-        Mercenary_Position_EngineDriver_Type();
-
         OnToggleStart();
+
+        //용병 배치 윈도우
+        Mercenary_TotalNum = mercenaryData.Mercenary_Num.Count;
+        EngineTier_MaxMercenary = trainData.Max_Train_MaxMercenary;
+        Mercenary_Position_Text();
+        Check_Init_MercenaryPositionCard();
     }
+
     //플레이어 업그레이드
     private void Player_Text(bool All, int num = 0)
     {
@@ -205,9 +203,20 @@ public class Station_TranningRoom : MonoBehaviour
     }
 
     //용병 업그레이드
-
     public void Director_Init_MercenaryUpgrade()
     {
+        Mercenary_Buy_NumList = mercenaryData.SA_MercenaryData.Mercenary_Buy_Num;
+        if (Mercenary_Upgrade_Content.childCount != Mercenary_Buy_NumList.Count)
+        {
+            for(int i = 0; i < Mercenary_Upgrade_Content.childCount; i++)
+            {
+                Destroy(Mercenary_Upgrade_Content.GetChild(i).gameObject);
+                Mercenary_Upgrade_Toggle.Clear();
+            }
+            Check_Init_MecenaryUpgradeCard();
+            OnToggleStart();
+        }
+
         MercenaryUpgrade_Button.interactable = false;
         foreach (Toggle tog in Mercenary_Upgrade_Toggle)
         {
@@ -215,54 +224,47 @@ public class Station_TranningRoom : MonoBehaviour
         }
         ScrollRect_Mercenary_Upgrade.normalizedPosition = Vector2.zero;
     }
+    private void Check_Init_MecenaryUpgradeCard()
+    {
+        RectTransform ContentSize = Mercenary_Upgrade_Content.GetComponent<RectTransform>();
+        ContentSize.sizeDelta = new Vector2(10 * Mercenary_Buy_NumList.Count, ContentSize.sizeDelta.y);
+        foreach(int num in Mercenary_Buy_NumList)
+        {
+            Mercenary_Upgrade_Card.GetComponent<TrainingRoom_Mercenary_Upgrade_Card>().Mercenary_Num = num;
+            GameObject Card = Instantiate(Mercenary_Upgrade_Card, Mercenary_Upgrade_Content);
+            Card.name = num.ToString();
+            Mercenary_Upgrade_Toggle.Add(Card.GetComponentInChildren<Toggle>());
+        }
+    }
     private void OnToggleStart()
     {
-        foreach (var toggle in Mercenary_Upgrade_Toggle)
+        foreach(Toggle toggle in Mercenary_Upgrade_Toggle)
         {
             toggle.onValueChanged.AddListener(OnToggleValueChanged);
         }
-        List <int> mercenary_Level = 
-            new List<int>() { mercenaryData.Level_Mercenary_Engine_Driver, mercenaryData.Level_Mercenary_Engineer, mercenaryData.Level_Mercenary_Long_Ranged, mercenaryData.Level_Mercenary_Short_Ranged , mercenaryData.Level_Mercenary_Medic };
-       for(int i = 0; i < mercenary_Level.Count; i++)
-        {
-            Mercenary_Level_Text[i].text = "Lv." + mercenary_Level[i];
-        }
-
     }
-
     private void OnToggleValueChanged(bool isOn)
     {
+        int num = -1;
         if (isOn)
         {
-            for (int i = 0; i < Mercenary_Upgrade_Toggle.Length; i++)
+            for (int i = 0; i < Mercenary_Upgrade_Toggle.Count; i++)
             {
                 if (Mercenary_Upgrade_Toggle[i].isOn)
                 {
-                    Mercenary_Upgrade_Information_Text(i);
-                    Mercenary_Upgrade_Num = i;
+                    Mercenary_Upgrade_ToggleNum = i;
+                    num = Mercenary_Upgrade_Toggle[i].GetComponentInParent<TrainingRoom_Mercenary_Upgrade_Card>().Mercenary_Num;
+                    Mercenary_Upgrade_Information_Text(num);
+                    Mercenary_Upgrade_Num = num;
                 }
             }
-            MercenaryUpgrade_Button.interactable = true;
+            MercenaryUpgrade_Button.interactable = mercenaryData.Check_MaxLevel(num);
         }
         else
         {
             MercenaryUpgrade_Button.interactable = false;
         }
-
     }
-
-    public void Mercenary_Level_Up()
-    {
-        mercenaryData.Mercenary_Level_Up(Mercenary_Upgrade_Num);
-
-        Mercenary_Level_Text[0].text = "Lv." + mercenaryData.Level_Mercenary_Engine_Driver;
-        Mercenary_Level_Text[1].text = "Lv." + mercenaryData.Level_Mercenary_Engineer;
-        Mercenary_Level_Text[2].text = "Lv." + mercenaryData.Level_Mercenary_Long_Ranged;
-        Mercenary_Level_Text[3].text = "Lv." + mercenaryData.Level_Mercenary_Short_Ranged;
-        Mercenary_Level_Text[4].text = "Lv." + mercenaryData.Level_Mercenary_Medic;
-        Mercenary_Upgrade_Information_Text(Mercenary_Upgrade_Num);
-    }
-
     private void Mercenary_Upgrade_Information_Text(int i)
     {
         if (i == 0)
@@ -286,7 +288,6 @@ public class Station_TranningRoom : MonoBehaviour
                 After_Mercenary_Information.text =
                        "<size=45>After</size>" +
                        "\nMAX";
-                MercenaryUpgrade_Button.interactable = false;
                 MercenaryUpgrade_Button_Text.text = "MAX";
             }
             else
@@ -303,7 +304,6 @@ public class Station_TranningRoom : MonoBehaviour
                         "\nLevel_Speed = " + data_after.Level_Type_Speed +
                         "\nLevel_Fuel = " + data_after.Level_Type_Fuel +
                         "\nLevel_Def = " + data_after.Level_Type_Def;
-                MercenaryUpgrade_Button.interactable = true;
                 MercenaryUpgrade_Button_Text.text = "-" + mercenaryData.EX_Level_Data.Information_LevelCost[mercenaryData.Level_Mercenary_Engine_Driver].Cost_Level_Mercenary_Engine_Driver
                                                        + "G\nUpgrade";
             }
@@ -329,7 +329,6 @@ public class Station_TranningRoom : MonoBehaviour
                 After_Mercenary_Information.text =
                        "<size=45>After</size>" +
                        "\nMAX";
-                MercenaryUpgrade_Button.interactable = false;
                 MercenaryUpgrade_Button_Text.text = "MAX";
             }
             else
@@ -346,7 +345,6 @@ public class Station_TranningRoom : MonoBehaviour
                         "\nRepair_Delay = " + data_after.Repair_Delay +
                         "\nRepair_Amount = " + data_after.Repair_Amount +
                         "\nRepair_Train_Parsent = " + data_after.Repair_Train_Parsent;
-                MercenaryUpgrade_Button.interactable = true;
                 MercenaryUpgrade_Button_Text.text = "-" + mercenaryData.EX_Level_Data.Information_LevelCost[mercenaryData.Level_Mercenary_Engineer].Cost_Level_Mercenary_Engineer
                                                        + "G\nUpgrade";
             }
@@ -372,7 +370,6 @@ public class Station_TranningRoom : MonoBehaviour
                 After_Mercenary_Information.text =
                        "<size=45>After</size>" +
                        "\nMAX";
-                MercenaryUpgrade_Button.interactable = false;
                 MercenaryUpgrade_Button_Text.text = "MAX";
             }
             else
@@ -389,11 +386,11 @@ public class Station_TranningRoom : MonoBehaviour
                         "\nUnit_Attack = " + data_after.Unit_Attack +
                         "\nUnit_Atk_Delay = " + data_after.Unit_Atk_Delay +
                         "\nWorkSpeed = " + data_after.WorkSpeed;
-                MercenaryUpgrade_Button.interactable = true;
                 MercenaryUpgrade_Button_Text.text = "-" + mercenaryData.EX_Level_Data.Information_LevelCost[mercenaryData.Level_Mercenary_Long_Ranged].Cost_Level_Mercenary_Long_Ranged
                                                        + "G\nUpgrade";
             }
-        } else if (i == 3)
+        }
+        else if (i == 3)
         {
             var data_before = mercenaryData.EX_Level_Data.Level_Mercenary_Short_Ranged[mercenaryData.Level_Mercenary_Short_Ranged];
             var data_after = mercenaryData.EX_Level_Data.Level_Mercenary_Short_Ranged[mercenaryData.Level_Mercenary_Short_Ranged + 1];
@@ -408,12 +405,11 @@ public class Station_TranningRoom : MonoBehaviour
                         "\nUse_Stamina = " + data_before.Use_Stamina +
                         "\nUnit_Attack = " + data_before.Unit_Attack +
                         "\nUnit_Atk_Delay = " + data_before.Unit_Atk_Delay;
-            if (mercenaryData.Level_Mercenary_Short_Ranged + 1 == mercenaryData.Max_Mercenary_Short_Ranged+1)
+            if (mercenaryData.Level_Mercenary_Short_Ranged + 1 == mercenaryData.Max_Mercenary_Short_Ranged + 1)
             {
                 After_Mercenary_Information.text =
                        "<size=45>After</size>" +
                        "\nMAX";
-                MercenaryUpgrade_Button.interactable = false;
                 MercenaryUpgrade_Button_Text.text = "MAX";
             }
             else
@@ -429,12 +425,11 @@ public class Station_TranningRoom : MonoBehaviour
                         "\nUse_Stamina = " + data_after.Use_Stamina +
                         "\nUnit_Attack = " + data_after.Unit_Attack +
                         "\nUnit_Atk_Delay = " + data_after.Unit_Atk_Delay;
-                MercenaryUpgrade_Button.interactable = true;
                 MercenaryUpgrade_Button_Text.text = "-" + mercenaryData.EX_Level_Data.Information_LevelCost[mercenaryData.Level_Mercenary_Short_Ranged].Cost_Level_Mercenary_Short_Ranged
                                                        + "G\nUpgrade";
             }
         }
-        else if(i == 4)
+        else if (i == 4)
         {
             var data_before = mercenaryData.EX_Level_Data.Level_Mercenary_Medic[mercenaryData.Level_Mercenary_Medic];
             var data_after = mercenaryData.EX_Level_Data.Level_Mercenary_Medic[mercenaryData.Level_Mercenary_Medic + 1];
@@ -451,12 +446,11 @@ public class Station_TranningRoom : MonoBehaviour
                         "\nHeal_Stamina_Amount = " + data_before.Heal_Stamina_Amount +
                         "\nHeal_Revive_Amount = " + data_before.Heal_Revive_Amount +
                         "\nHeal_HP_Parsent = " + data_before.Heal_HP_Parsent;
-            if(mercenaryData.Level_Mercenary_Medic + 1 == mercenaryData.Max_Mercenary_Medic + 1)
+            if (mercenaryData.Level_Mercenary_Medic + 1 == mercenaryData.Max_Mercenary_Medic + 1)
             {
                 After_Mercenary_Information.text =
                        "<size=45>After</size>" +
                        "\nMAX";
-                MercenaryUpgrade_Button.interactable = false;
                 MercenaryUpgrade_Button_Text.text = "MAX";
             }
             else
@@ -473,178 +467,158 @@ public class Station_TranningRoom : MonoBehaviour
                         "\nHeal_Stamina_Amount = " + data_after.Heal_Stamina_Amount +
                         "\nHeal_Revive_Amount = " + data_after.Heal_Revive_Amount +
                         "\nHeal_HP_Parsent = " + data_after.Heal_HP_Parsent;
-                MercenaryUpgrade_Button.interactable = true;
                 MercenaryUpgrade_Button_Text.text = "-" + mercenaryData.EX_Level_Data.Information_LevelCost[mercenaryData.Level_Mercenary_Medic].Cost_Level_Mercenary_Medic
                                                        + "G\nUpgrade";
             }
         }
+        MercenaryUpgrade_Button.interactable = mercenaryData.Check_MaxLevel(i);
     }
-
-    public void Mercenary_Upgarde_Check_Lock()
-    {
-        for(int num = 0; num < Mercenary_Upgrade_LockPanel.Length; num++)
-        {
-            if (mercenaryData.SA_MercenaryData.Mercenary_Buy_Num.Contains(num) == true)
-            {
-                Mercenary_Upgrade_LockPanel[num].SetActive(false);
-            }
-        }
+    public void Mercenary_Level_Up()
+    { 
+        mercenaryData.Mercenary_Level_Up(Mercenary_Upgrade_Num);
+        Mercenary_Upgrade_Content.GetChild(Mercenary_Upgrade_ToggleNum).GetComponent<TrainingRoom_Mercenary_Upgrade_Card>().Card_LevleUP();
+        Mercenary_Upgrade_Information_Text(Mercenary_Upgrade_Num);
     }
 
     // 용병 배치
     public void Director_Init_MercenaryPosition()
     {
+        Mercenary_Buy_NumList = mercenaryData.SA_MercenaryData.Mercenary_Buy_Num;
+        if (Mercenary_Position_Content.childCount != Mercenary_Buy_NumList.Count)
+        {
+            for (int i = 0; i < Mercenary_Position_Content.childCount; i++)
+            {
+                Destroy(Mercenary_Position_Content.GetChild(i).gameObject);
+                PlusButtons.Clear();
+                MinusButtons.Clear();
+            }
+            Check_Init_MercenaryPositionCard();
+        }
+
         ScrollRect_Mercenary_Position.normalizedPosition = Vector2.zero;
     }
 
-    private void Mercenary_Position(bool List_Up_Down, int M_Num) //버튼 관리도 한다
+    public void Check_Init_MercenaryPositionCard()
     {
-        if (List_Up_Down)
+        RectTransform ContentSize = Mercenary_Position_Content.GetComponent<RectTransform>();
+        ContentSize.sizeDelta = new Vector2(200 * Mercenary_Buy_NumList.Count, ContentSize.sizeDelta.y);
+        foreach(int num in Mercenary_Buy_NumList)
         {
-            Mercenary_NumList.Add(M_Num);
-            mercenaryData.Mercenary_Num = Mercenary_NumList;
+            Mercenary_Position_Card.GetComponent<TrainingRoom_Mercenary_Position_Card>().Mercenary_Num = num;
+            GameObject Card = Instantiate(Mercenary_Position_Card, Mercenary_Position_Content);
+            Card.name = num.ToString();
+            TrainingRoom_Mercenary_Position_Card SubCard = Card.GetComponent<TrainingRoom_Mercenary_Position_Card>();
+            SubCard.PlusButton.GetComponent<Button>().onClick.AddListener(() => Mercenary_PositionUP(SubCard, num));
+            SubCard.MinusButton.GetComponent<Button>().onClick.AddListener(() => Mercenary_PositionDown(SubCard, num));
+            PlusButtons.Add(SubCard.PlusButton);
+            MinusButtons.Add(SubCard.MinusButton);
+            if(num == 0)
+            {
+                DropDown_EngineDriver_Type = SubCard.dropDown.GetComponent<TMP_Dropdown>();
+                DropDown_EngineDriver_Type.onValueChanged.AddListener(Mercenary_Position_EngineDriver_DropDown);
+            }
         }
-        else if(!List_Up_Down)
-        {
-            Mercenary_NumList.Remove(M_Num);
-            mercenaryData.Mercenary_Num = Mercenary_NumList;
-        }
+        Mercenary_Check_Button();
+    }
 
-        Mercenary_TotalNum = 0;
-        for (int i = 0; i < Mercenary_Num.Length; i++) {
-            Mercenary_TotalNum += Mercenary_Num[i];
-        }
+    public void Mercenary_PositionUP(TrainingRoom_Mercenary_Position_Card Card, int i)
+    {
+        mercenaryData.Mercenary_Num.Add(i);
+        mercenaryData.SA_MercenaryData.SA_Mercenary_Position(true, i);
+        Mercenary_TotalNum = mercenaryData.Mercenary_Num.Count;
+        Card.Plus_Count();
         Mercenary_Position_Text();
-        Mecenary_Position_Button();
+        Mercenary_Check_Button();
     }
 
-    private void Mecenary_Position_Button()
+    public void Mercenary_PositionDown(TrainingRoom_Mercenary_Position_Card Card, int i)
     {
-        if(Mercenary_TotalNum == EngineTier_MaxMercenary)
-        {
-            foreach(Button btn in Plus_Button)
-            {
-                btn.interactable = false;
-            }
-            for(int i = 0; i < Minus_Button.Length; i++)
-            {
-                int M_Num = 0;
-                M_Num = Mercenary_Num[i];
-
-                if (M_Num == 0)
-                {
-                    Minus_Button[i].interactable = false;
-                }
-                else
-                {
-                    Minus_Button[i].interactable = true;
-                }
-            }
-        }
-        else
-        {
-            if (Mercenary_Num[0] == 1)
-            {
-                Plus_Button[0].interactable = false;
-                Minus_Button[0].interactable = true;
-            }
-            else
-            {
-                Plus_Button[0].interactable = true;
-                Minus_Button[0].interactable = false;
-            }
-
-            for (int i = 1; i < Plus_Button.Length; i++)
-            {
-                int M_Num = 0;
-                M_Num = Mercenary_Num[i];
-                
-                if (M_Num == 0)
-                {
-                    Minus_Button[i].interactable = false;
-                }
-                else
-                {
-                    Minus_Button[i].interactable = true;
-                }
-                Plus_Button[i].interactable = true;
-            }
-        }
-    }
-
-    public void Mercenary_PositionUP(int i)
-    {
-        Mercenary_Num[i]++;
-        Mercenary_Position(true, i);
-    }
-
-    public void Mercenary_PositionDown(int i)
-    {
-        Mercenary_Num[i]--;
-        Mercenary_Position(false, i);
+        mercenaryData.Mercenary_Num.Remove(i);
+        mercenaryData.SA_MercenaryData.SA_Mercenary_Position(false, i);
+        Mercenary_TotalNum = mercenaryData.Mercenary_Num.Count;
+        Card.Minus_Count();
+        Mercenary_Position_Text();
+        Mercenary_Check_Button();
     }
 
     private void Mercenary_Position_Text()
     {
         Mercenary_Position_Information.text =
             "<color=red><size=45> MAX Mercenary Count\n</size>" +
-            "Max : " + EngineTier_MaxMercenary + "</color>\n" + Mercenary_Position_List();
-
-        for(int i = 0; i < Mercenary_Information_SubText.Length; i++)
-        {
-            if(i == 0) { 
-                Mercenary_Information_SubText[i].text =
-                    mercenaryData.EX_Game_Data.Information_Mercenary[i].Name + "\n" + Mercenary_Num[i] + " <color=red>/Max 1</color>";
-            }
-            else
-            {
-                Mercenary_Information_SubText[i].text =
-                    mercenaryData.EX_Game_Data.Information_Mercenary[i].Name + "\n" + Mercenary_Num[i];
-            }
-        }
+            "Max : " + EngineTier_MaxMercenary + "</color>\n" + Mercenary_Position_List_Text();
     }
 
-    private string Mercenary_Position_List()
+    private string Mercenary_Position_List_Text()
     {
-
         string str = "";
-        for(int i = 0; i < Mercenary_NumList.Count; i++)
+        for (int i = 0; i < Mercenary_Position_NumList.Count; i++)
         {
-            str += (i+1) + ". " + mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_NumList[i]].Name + "\n";
+            str += (i + 1) + ". " + mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Position_NumList[i]].Name + "\n";
         }
 
         return str;
     }
 
-    private void Mercenary_Position_EngineDriver_Type()
+    private void Mercenary_Check_Button()
     {
-        if(mercenaryData.SA_MercenaryData.Engine_Driver_Type == Engine_Driver_Type.speed)
+        if (Mercenary_TotalNum >= EngineTier_MaxMercenary)
         {
-            DropDown_EngineDriver_Type.value = 0;
-        }else if(mercenaryData.SA_MercenaryData.Engine_Driver_Type == Engine_Driver_Type.fuel)
-        {
-            DropDown_EngineDriver_Type.value = 1;
-        }
-        else if (mercenaryData.SA_MercenaryData.Engine_Driver_Type == Engine_Driver_Type.def)
-        {
-            DropDown_EngineDriver_Type.value = 2;
-        }
-    }
-
-    public void Mercenary_Position_EngineDriver_DropDown()
-    {
-        mercenaryData.SA_MercenaryData.SA_Change_EngineDriver_Type(DropDown_EngineDriver_Type.value);
-    }
-
-    public void Mercenary_Postion_Check_Lock()
-    {
-        for (int num = 0; num < Mercenary_Postion_LockPanel.Length; num++)
-        {
-            if (mercenaryData.SA_MercenaryData.Mercenary_Buy_Num.Contains(num) == true)
+            foreach (Button Btn in PlusButtons)
             {
-                Mercenary_Postion_LockPanel[num].SetActive(false);
+                Btn.interactable = false;
+            }
+            foreach (Button Btn in MinusButtons)
+            {
+                int Mercenary_Count = Btn.GetComponentInParent<TrainingRoom_Mercenary_Position_Card>().Mercenary_Num_Count;
+                if (Mercenary_Count == 0)
+                {
+                    Btn.interactable = false;
+                }
+                else
+                {
+                    Btn.interactable = true;
+                }
+            }
+        }
+        else
+        {
+            foreach (Button Btn in PlusButtons)
+            {
+                if (Btn.GetComponentInParent<TrainingRoom_Mercenary_Position_Card>().Mercenary_Num == 0)
+                {
+                    if (Btn.GetComponentInParent<TrainingRoom_Mercenary_Position_Card>().Mercenary_Num_Count == 1)
+                    {
+                        Btn.GetComponentInParent<TrainingRoom_Mercenary_Position_Card>().Button_OpenClose(true);
+                    }
+                    else
+                    {
+                        Btn.GetComponentInParent<TrainingRoom_Mercenary_Position_Card>().Button_OpenClose(false);
+                    }
+                }
+                else
+                {
+                    Btn.interactable = true;
+                }
+            }
+            foreach (Button Btn in MinusButtons)
+            {
+                if (Btn.GetComponentInParent<TrainingRoom_Mercenary_Position_Card>().Mercenary_Num != 0)
+                {
+                    if (Btn.GetComponentInParent<TrainingRoom_Mercenary_Position_Card>().Mercenary_Num_Count == 0)
+                    {
+                        Btn.interactable = false;
+                    }
+                    else
+                    {
+                        Btn.interactable = true;
+                    }
+                }
             }
         }
     }
 
+    public void Mercenary_Position_EngineDriver_DropDown(int value)
+    {
+        mercenaryData.SA_MercenaryData.SA_Change_EngineDriver_Type(value);
+    }
 }

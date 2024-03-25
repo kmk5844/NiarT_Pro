@@ -15,7 +15,7 @@ public class Store_Train_Card : MonoBehaviour
     public GameObject Train_NameText;
     public GameObject Train_Buy;
 
-    private void Start()
+    private void Awake()
     {
         TrainData_Object = GameObject.Find("TrainData");
         trainData = TrainData_Object.GetComponent<Station_TrainData>();

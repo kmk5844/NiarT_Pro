@@ -15,7 +15,7 @@ public class Store_Mercenary_Card : MonoBehaviour
     public GameObject Mercenary_NameText;
     public GameObject Mercenary_Buy;
 
-    private void Start()
+    private void Awake()
     {
         MercenaryData_Object = GameObject.Find("MercenaryData");
         mercenaryData = MercenaryData_Object.GetComponent<Station_MercenaryData>();

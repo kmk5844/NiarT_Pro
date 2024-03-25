@@ -123,8 +123,8 @@ public class StationDirector : MonoBehaviour
             }
             else if (ui_num == 3)
             {
-                Director_TranningRoom.Mercenary_Upgarde_Check_Lock();
-                Director_TranningRoom.Mercenary_Postion_Check_Lock();
+/*                Director_TranningRoom.Mercenary_Upgarde_Check_Lock();
+                Director_TranningRoom.Mercenary_Postion_Check_Lock();*/
                 for (int i = 0; i < UI_TrainingRoom_Toggle.transform.childCount; i++)
                 {
                     if (UI_TrainingRoom_Toggle.transform.GetChild(i).GetComponent<Toggle>().isOn)

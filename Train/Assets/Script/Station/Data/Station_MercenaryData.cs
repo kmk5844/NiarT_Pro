@@ -92,4 +92,43 @@ public class Station_MercenaryData : MonoBehaviour
         SA_MercenaryData.SA_Mercenary_Level_Up(LevelNum);
         Check_Level_Mercenary();
     }
+
+    public bool Check_MaxLevel(int mercenaryNum)
+    {
+        switch (mercenaryNum)
+        {
+            case 0:
+                return Level_Mercenary_Engine_Driver != Max_Mercenary_Engine_Driver ? true : false;
+            case 1:
+                return Level_Mercenary_Engineer != Max_Mercenary_Engineer ? true : false;
+            case 2:
+                return Level_Mercenary_Long_Ranged != Max_Mercenary_Long_Ranged ? true : false;
+            case 3:
+                return Level_Mercenary_Short_Ranged != Max_Mercenary_Short_Ranged ? true : false;
+            case 4:
+                return Level_Mercenary_Medic != Max_Mercenary_Medic ? true : false;
+            default:
+                return false;
+        }
+    }
+
+
+    public int Mercenary_Find_Level(int mercenaryNum)
+    {
+        switch (mercenaryNum)
+        {
+            case 0:
+                return Level_Mercenary_Engine_Driver;
+            case 1:
+                return Level_Mercenary_Engineer;
+            case 2:
+                return Level_Mercenary_Long_Ranged;
+            case 3:
+                return Level_Mercenary_Short_Ranged;
+            case 4:
+                return Level_Mercenary_Medic;
+            default:
+                return -1;
+        }
+    }
 }
