@@ -24,7 +24,7 @@ public class TrainingRoom_Mercenary_Position_Card : MonoBehaviour
     {
         MercenaryData_Object = GameObject.Find("MercenaryData");
         mercenaryData = MercenaryData_Object.GetComponent<Station_MercenaryData>();
-        Mercenary_Num_Count = mercenaryData.SA_MercenaryData.SA_Mercenary_Find_Count(Mercenary_Num);
+        Mercenary_Count();
         Mercenary_Image.GetComponent<Image>().sprite = Resources.Load<Sprite>("" + Mercenary_Num);
         Mercenary_NameText.GetComponent<TextMeshProUGUI>().text =
             mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].Name;
@@ -40,16 +40,16 @@ public class TrainingRoom_Mercenary_Position_Card : MonoBehaviour
         }
     }
 
-/*    private void Mercenary_Count()
+    private void Mercenary_Count()
     {
-        foreach(int M_num in mercenaryData.Mercenary_Num)
+        foreach (int M_num in mercenaryData.Mercenary_Num)
         {
-            if(M_num == Mercenary_Num)
+            if (M_num == Mercenary_Num)
             {
                 Mercenary_Num_Count++;
             }
         }
-    }*/
+    }
 
     public void Plus_Count()
     {

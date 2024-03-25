@@ -1,3 +1,5 @@
+using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -52,9 +54,7 @@ public class Station_TranningRoom : MonoBehaviour
     int EngineTier_MaxMercenary;
     int Mercenary_TotalNum;
     [SerializeField]
-    List<Button> PlusButtons;
-    [SerializeField]
-    List<Button> MinusButtons;
+    List<GameObject> CardList;
     [SerializeField]
     TMP_Dropdown DropDown_EngineDriver_Type;
     void Start()
@@ -489,12 +489,10 @@ public class Station_TranningRoom : MonoBehaviour
             for (int i = 0; i < Mercenary_Position_Content.childCount; i++)
             {
                 Destroy(Mercenary_Position_Content.GetChild(i).gameObject);
-                PlusButtons.Clear();
-                MinusButtons.Clear();
+                CardList.Clear();
             }
             Check_Init_MercenaryPositionCard();
         }
-
         ScrollRect_Mercenary_Position.normalizedPosition = Vector2.zero;
     }
 
@@ -502,17 +500,16 @@ public class Station_TranningRoom : MonoBehaviour
     {
         RectTransform ContentSize = Mercenary_Position_Content.GetComponent<RectTransform>();
         ContentSize.sizeDelta = new Vector2(200 * Mercenary_Buy_NumList.Count, ContentSize.sizeDelta.y);
-        foreach(int num in Mercenary_Buy_NumList)
+        foreach (int num in Mercenary_Buy_NumList)
         {
             Mercenary_Position_Card.GetComponent<TrainingRoom_Mercenary_Position_Card>().Mercenary_Num = num;
             GameObject Card = Instantiate(Mercenary_Position_Card, Mercenary_Position_Content);
             Card.name = num.ToString();
+            CardList.Add(Card);
             TrainingRoom_Mercenary_Position_Card SubCard = Card.GetComponent<TrainingRoom_Mercenary_Position_Card>();
             SubCard.PlusButton.GetComponent<Button>().onClick.AddListener(() => Mercenary_PositionUP(SubCard, num));
             SubCard.MinusButton.GetComponent<Button>().onClick.AddListener(() => Mercenary_PositionDown(SubCard, num));
-            PlusButtons.Add(SubCard.PlusButton);
-            MinusButtons.Add(SubCard.MinusButton);
-            if(num == 0)
+            if (num == 0)
             {
                 DropDown_EngineDriver_Type = SubCard.dropDown.GetComponent<TMP_Dropdown>();
                 DropDown_EngineDriver_Type.onValueChanged.AddListener(Mercenary_Position_EngineDriver_DropDown);
@@ -524,21 +521,19 @@ public class Station_TranningRoom : MonoBehaviour
     public void Mercenary_PositionUP(TrainingRoom_Mercenary_Position_Card Card, int i)
     {
         mercenaryData.Mercenary_Num.Add(i);
-        mercenaryData.SA_MercenaryData.SA_Mercenary_Position(true, i);
         Mercenary_TotalNum = mercenaryData.Mercenary_Num.Count;
         Card.Plus_Count();
-        Mercenary_Position_Text();
         Mercenary_Check_Button();
+        Mercenary_Position_Text();
     }
 
     public void Mercenary_PositionDown(TrainingRoom_Mercenary_Position_Card Card, int i)
     {
         mercenaryData.Mercenary_Num.Remove(i);
-        mercenaryData.SA_MercenaryData.SA_Mercenary_Position(false, i);
         Mercenary_TotalNum = mercenaryData.Mercenary_Num.Count;
         Card.Minus_Count();
-        Mercenary_Position_Text();
         Mercenary_Check_Button();
+        Mercenary_Position_Text();
     }
 
     private void Mercenary_Position_Text()
@@ -563,54 +558,56 @@ public class Station_TranningRoom : MonoBehaviour
     {
         if (Mercenary_TotalNum >= EngineTier_MaxMercenary)
         {
-            foreach (Button Btn in PlusButtons)
+            for(int i = 0; i < CardList.Count; i++)
             {
-                Btn.interactable = false;
+                CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().PlusButton.interactable = false;
             }
-            foreach (Button Btn in MinusButtons)
+
+            for (int i = 0; i < CardList.Count; i++)
             {
-                int Mercenary_Count = Btn.GetComponentInParent<TrainingRoom_Mercenary_Position_Card>().Mercenary_Num_Count;
+                int Mercenary_Count = CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().Mercenary_Num_Count;
                 if (Mercenary_Count == 0)
                 {
-                    Btn.interactable = false;
+                    CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().MinusButton.interactable = false;
                 }
                 else
                 {
-                    Btn.interactable = true;
+                    CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().MinusButton.interactable = true;
                 }
             }
         }
         else
         {
-            foreach (Button Btn in PlusButtons)
+            for (int i = 0; i < CardList.Count; i++)
             {
-                if (Btn.GetComponentInParent<TrainingRoom_Mercenary_Position_Card>().Mercenary_Num == 0)
+                if (CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().Mercenary_Num == 0)
                 {
-                    if (Btn.GetComponentInParent<TrainingRoom_Mercenary_Position_Card>().Mercenary_Num_Count == 1)
+                    if (CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().Mercenary_Num_Count == 1)
                     {
-                        Btn.GetComponentInParent<TrainingRoom_Mercenary_Position_Card>().Button_OpenClose(true);
+                        CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().Button_OpenClose(true);
                     }
                     else
                     {
-                        Btn.GetComponentInParent<TrainingRoom_Mercenary_Position_Card>().Button_OpenClose(false);
+                        CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().Button_OpenClose(false);
                     }
                 }
                 else
                 {
-                    Btn.interactable = true;
+                    CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().PlusButton.interactable = true;
                 }
             }
-            foreach (Button Btn in MinusButtons)
+
+            for (int i = 0; i < CardList.Count; i++)
             {
-                if (Btn.GetComponentInParent<TrainingRoom_Mercenary_Position_Card>().Mercenary_Num != 0)
+                if (CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().Mercenary_Num != 0)
                 {
-                    if (Btn.GetComponentInParent<TrainingRoom_Mercenary_Position_Card>().Mercenary_Num_Count == 0)
+                    if (CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().Mercenary_Num_Count == 0)
                     {
-                        Btn.interactable = false;
+                        CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().MinusButton.interactable = false;
                     }
                     else
                     {
-                        Btn.interactable = true;
+                        CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().MinusButton.interactable = true;
                     }
                 }
             }
