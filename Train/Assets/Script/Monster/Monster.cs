@@ -4,78 +4,72 @@ using UnityEngine;
 
 public class Monster : MonoBehaviour
 {
+    public int Monster_Num;
+
+    [Header("데이터 모음")]
+    public Game_DataTable EX_GameData;
+
+    [Header("몬스터 정보")]
+    [SerializeField]
+    protected string Monster_Name;
+    [SerializeField]
+    protected int Monster_HP;
+    [SerializeField]
+    protected int Monster_Score;
+    [SerializeField]
+    protected int Monster_Coin;
+
     [Header("몬스터 총알 정보")]
-    Transform monster_Bullet_List;
-    public GameObject Bullet;
     [SerializeField]
-    float Bullet_Delay;
+    protected GameObject Bullet;
+    int Bullet_Atk;
+    [SerializeField]
+    protected float Bullet_Delay;
+    [SerializeField]
+    protected int Bullet_Slow;
     float lastTime;
+    Transform monster_Bullet_List;
+
+    [Header("타겟")]
     [SerializeField]
+    protected string Target;
+
     GameObject player; //플레이어 위치에 따라 플립하는 경우.
-    Vector3 monster_SpawnPos;
-    Vector3 movement;
-    float xPos;
+    GameDirector gameDirector; // 리워드 접수해야함.
+    SpriteRenderer monster_Image;
 
-    [Header("진폭과 주기, 속도, 최대 길이 ")] // 몬스터 무브를 변경해야할 가능성이 높음
-    [SerializeField]
-    float frequency;
-    [SerializeField]
-    float amplitude;
-    [SerializeField]
-    float speed;
-    [SerializeField]
-    float max_xPos;
-
-    SpriteRenderer monster_Image; 
-
-    private void Start()
+    protected virtual void Start()
     {
-        monster_SpawnPos = transform.position;
-        monster_Bullet_List = GameObject.Find("Bullet_List").GetComponent<Transform>();
-        monster_Image = GetComponent<SpriteRenderer>();
         lastTime = 0f;
+        gameDirector = GameObject.Find("GameDirector").GetComponent<GameDirector>();
+
+        Monster_Name = EX_GameData.Information_Monster[Monster_Num].Monster_Name;
+        Monster_HP = EX_GameData.Information_Monster[Monster_Num].Monster_HP;
+        Monster_Score = EX_GameData.Information_Monster[Monster_Num].Monster_Score;
+        Monster_Coin = EX_GameData.Information_Monster[Monster_Num].Monster_Coin;
+        Bullet = Resources.Load<GameObject>(EX_GameData.Information_Monster[Monster_Num].Monster_Bullet);
+        Bullet_Atk = EX_GameData.Information_Monster[Monster_Num].Monster_Atk;
+        Bullet_Delay = EX_GameData.Information_Monster[Monster_Num].Monster_Bullet_Delay;
+        Bullet_Slow = EX_GameData.Information_Monster[Monster_Num].Monster_Bullet_Slow;
+        monster_Bullet_List = GameObject.Find("Bullet_List").GetComponent<Transform>();
+        Target = EX_GameData.Information_Monster[Monster_Num].Monster_Target;
+        monster_Image = GetComponent<SpriteRenderer>();
+        monster_Image.sprite = Resources.Load<Sprite>(EX_GameData.Information_Monster[Monster_Num].Monster_Sprite);
+
         player = GameObject.FindGameObjectWithTag("Player");
-
-        frequency = Random.Range(5f, 15f);
-        amplitude = Random.Range(0.5f, 1.5f);
-        speed = Random.Range(3, 7);
-        max_xPos = Random.Range(1, 9);
-
-        xPos = -1f;
     }
 
-    private void Update()
-    {
-        MonsterMove();
-        //BulletFire();
-        FlipMonster();
-    }
-
-    void MonsterMove()
-    {
-        float yPos = Mathf.Sin(Time.time * frequency) * amplitude;
-        if (monster_SpawnPos.x - max_xPos > transform.position.x)
-        {
-            xPos = 1f;
-        }
-        else if(monster_SpawnPos.x + max_xPos < transform.position.x)
-        {
-            xPos = -1f;
-        }
-        movement = new Vector3(xPos, yPos, 0f);
-        transform.Translate(movement * speed * Time.deltaTime);
-    }
-
-    void BulletFire()
+    protected void BulletFire()
     {
         if (Time.time >= lastTime + Bullet_Delay)
         {
-            Instantiate(Bullet, transform.position, transform.rotation, monster_Bullet_List);
+            GameObject bullet = Instantiate(Bullet, transform.position, transform.rotation, monster_Bullet_List);
+            bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk, Bullet_Slow, Target);
             lastTime = Time.time;
         }
-    }
+    } // 공통적으로 적용해야 함.
 
-    void FlipMonster()
+    protected void FlipMonster()
     {
         if(transform.position.x > player.transform.position.x)
         {
@@ -85,13 +79,21 @@ public class Monster : MonoBehaviour
         {
             monster_Image.flipX = false;
         }
-    }
+    } // 공통적으로 적용해야 함
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision) // 공통적으로 적용해야됨.
     {
         if (collision.gameObject.tag.Equals("Player_Bullet"))
         {
-            Destroy(gameObject);
+            if(Monster_HP > 0)
+            {
+                Monster_HP -= collision.gameObject.GetComponent<Bullet>().atk;
+            }
+            else
+            {
+                gameDirector.Game_Monster_Kill(Monster_Score, Monster_Coin);
+                Destroy(gameObject);
+            }
             Destroy(collision.gameObject);
         }
     }

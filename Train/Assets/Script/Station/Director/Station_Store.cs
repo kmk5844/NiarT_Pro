@@ -88,26 +88,34 @@ public class Station_Store : MonoBehaviour
             {
                 if (Train_Toggle[i].isOn)
                 {
-                    Train_Store_Information_Text(i);
+                    Train_Store_Information_Text(true,i);
                 }
             }
             BuyButton_Train.interactable = true;
         }
         else
         {
+            Train_Store_Information_Text(false);
             BuyButton_Train.interactable = false;
         }
 
     }
-
-    public void Train_Store_Information_Text(int toggle_num)
+    public void Train_Store_Information_Text(bool flag, int toggle_num = -1)
     {
-        Store_Train_Card Card = Train_Store_Content.GetChild(toggle_num).GetComponent<Store_Train_Card>();
-        Toggle_Trian_Num = Card.Train_Num;
-        Toggle_Train_Name = trainData.EX_Game_Data.Information_Train[Toggle_Trian_Num].Train_Name;
+        if (flag)
+        {
+            Store_Train_Card Card = Train_Store_Content.GetChild(toggle_num).GetComponent<Store_Train_Card>();
+            Toggle_Trian_Num = Card.Train_Num;
+            Toggle_Train_Name = trainData.EX_Game_Data.Information_Train[Toggle_Trian_Num].Train_Name;
 
-        Train_Card_Information.text = Toggle_Train_Name +
-            "\n" + trainData.EX_Game_Data.Information_Train[Toggle_Trian_Num].Train_Information;
+            Train_Card_Information.text = Toggle_Train_Name +
+                "\n" + trainData.EX_Game_Data.Information_Train[Toggle_Trian_Num].Train_Information;
+        }
+        else
+        {
+            Train_Card_Information.text = "Choice Train";
+        }
+
     }
     private void Check_Init_TrainCard()
     {
@@ -173,26 +181,35 @@ public class Station_Store : MonoBehaviour
             {
                 if (Mercenary_Toggle[i].isOn)
                 {
-                    Mercenary_Store_Information_Text(i);
+                    Mercenary_Store_Information_Text(true, i);
                 }
             }
             BuyButton_Mercenary.interactable = true;
         }
         else
         {
+            Mercenary_Store_Information_Text(false);
             BuyButton_Mercenary.interactable = false;
         }
 
     }
 
-    private void Mercenary_Store_Information_Text(int toggle_num)
+    private void Mercenary_Store_Information_Text(bool flag, int toggle_num = -1)
     {
-        Store_Mercenary_Card Card = Mercenary_Store_Content.GetChild(toggle_num).GetComponent<Store_Mercenary_Card>();
-        Toggle_Mercenary_Num = Card.Mercenary_Num;
-        Toggle_Mercenary_Name = mercenaryData.EX_Game_Data.Information_Mercenary[Toggle_Mercenary_Num].Name;
-        
-        Mercenary_Card_Information.text = Toggle_Mercenary_Name +
-            "\n" + mercenaryData.EX_Game_Data.Information_Mercenary[Toggle_Mercenary_Num].Mercenary_Information;
+        if (flag)
+        {
+            Store_Mercenary_Card Card = Mercenary_Store_Content.GetChild(toggle_num).GetComponent<Store_Mercenary_Card>();
+            Toggle_Mercenary_Num = Card.Mercenary_Num;
+            Toggle_Mercenary_Name = mercenaryData.EX_Game_Data.Information_Mercenary[Toggle_Mercenary_Num].Name;
+
+            Mercenary_Card_Information.text = Toggle_Mercenary_Name +
+                "\n" + mercenaryData.EX_Game_Data.Information_Mercenary[Toggle_Mercenary_Num].Mercenary_Information;
+        }
+        else
+        {
+            Mercenary_Card_Information.text = "Choice Mercenary";
+        }
+
     }
 
     private void Check_Init_MercenaryCard() // 카드 초기화

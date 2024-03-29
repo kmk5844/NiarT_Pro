@@ -16,7 +16,8 @@ public class Info_Train
     public float Train_Attack_Delay;
     public int Train_Food;
     public int Train_Heal;
-    public int Train_Pride;
+    public int Train_Buy_Cost;
+    public int Train_Change_Cost;
     public string Train_Information;
     public bool Store;
     public bool Change;

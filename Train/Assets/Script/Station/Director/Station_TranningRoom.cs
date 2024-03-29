@@ -227,7 +227,10 @@ public class Station_TranningRoom : MonoBehaviour
     private void Check_Init_MecenaryUpgradeCard()
     {
         RectTransform ContentSize = Mercenary_Upgrade_Content.GetComponent<RectTransform>();
-        ContentSize.sizeDelta = new Vector2(10 * Mercenary_Buy_NumList.Count, ContentSize.sizeDelta.y);
+        if(ScrollRect_Mercenary_Upgrade.GetComponent<RectTransform>().sizeDelta.x <= 200 * Mercenary_Buy_NumList.Count + 70)
+        {
+            ContentSize.sizeDelta = new Vector2(100 * Mercenary_Buy_NumList.Count - 150, ContentSize.sizeDelta.y);
+        }
         foreach(int num in Mercenary_Buy_NumList)
         {
             Mercenary_Upgrade_Card.GetComponent<TrainingRoom_Mercenary_Upgrade_Card>().Mercenary_Num = num;
@@ -254,7 +257,7 @@ public class Station_TranningRoom : MonoBehaviour
                 {
                     Mercenary_Upgrade_ToggleNum = i;
                     num = Mercenary_Upgrade_Toggle[i].GetComponentInParent<TrainingRoom_Mercenary_Upgrade_Card>().Mercenary_Num;
-                    Mercenary_Upgrade_Information_Text(num);
+                    Mercenary_Upgrade_Information_Text(true ,num);
                     Mercenary_Upgrade_Num = num;
                 }
             }
@@ -262,222 +265,231 @@ public class Station_TranningRoom : MonoBehaviour
         }
         else
         {
+            Mercenary_Upgrade_Information_Text(false);
             MercenaryUpgrade_Button.interactable = false;
         }
     }
-    private void Mercenary_Upgrade_Information_Text(int i)
+    private void Mercenary_Upgrade_Information_Text(bool flag, int i = -1)
     {
-        if (i == 0)
+        if (flag)
         {
-            var data_before = mercenaryData.EX_Level_Data.Level_Mercenary_Engine_Driver[mercenaryData.Level_Mercenary_Engine_Driver];
-            var data_after = mercenaryData.EX_Level_Data.Level_Mercenary_Engine_Driver[mercenaryData.Level_Mercenary_Engine_Driver + 1];
-            Before_Mercenary_Information.text =
-                        "<size=45>Before</size>" +
-                        "\nHP = " + data_before.HP +
-                        "\nStamina = " + data_before.Stamina +
-                        "\nMoveSpeed = " + data_before.MoveSpeed +
-                        "\nRefresh_Amount = " + data_before.Refresh_Amount +
-                        "\nRefresh_Delay = " + data_before.Refresh_Delay +
-                        "\nDef = " + data_before.Def +
-                        "\nUse_Stamina = " + data_before.Use_Stamina +
-                        "\nLevel_Speed = " + data_before.Level_Type_Speed +
-                        "\nLevel_Fuel = " + data_before.Level_Type_Fuel +
-                        "\nLevel_Def = " + data_before.Level_Type_Def;
-            if (mercenaryData.Level_Mercenary_Engine_Driver + 1 == mercenaryData.Max_Mercenary_Engine_Driver + 1)
+            if (i == 0)
             {
-                After_Mercenary_Information.text =
-                       "<size=45>After</size>" +
-                       "\nMAX";
-                MercenaryUpgrade_Button_Text.text = "MAX";
+                var data_before = mercenaryData.EX_Level_Data.Level_Mercenary_Engine_Driver[mercenaryData.Level_Mercenary_Engine_Driver];
+                var data_after = mercenaryData.EX_Level_Data.Level_Mercenary_Engine_Driver[mercenaryData.Level_Mercenary_Engine_Driver + 1];
+                Before_Mercenary_Information.text =
+                            "<size=45>Before</size>" +
+                            "\nHP = " + data_before.HP +
+                            "\nStamina = " + data_before.Stamina +
+                            "\nMoveSpeed = " + data_before.MoveSpeed +
+                            "\nRefresh_Amount = " + data_before.Refresh_Amount +
+                            "\nRefresh_Delay = " + data_before.Refresh_Delay +
+                            "\nDef = " + data_before.Def +
+                            "\nUse_Stamina = " + data_before.Use_Stamina +
+                            "\nLevel_Speed = " + data_before.Level_Type_Speed +
+                            "\nLevel_Fuel = " + data_before.Level_Type_Fuel +
+                            "\nLevel_Def = " + data_before.Level_Type_Def;
+                if (mercenaryData.Level_Mercenary_Engine_Driver + 1 == mercenaryData.Max_Mercenary_Engine_Driver + 1)
+                {
+                    After_Mercenary_Information.text =
+                           "<size=45>After</size>" +
+                           "\nMAX";
+                    MercenaryUpgrade_Button_Text.text = "MAX";
+                }
+                else
+                {
+                    After_Mercenary_Information.text =
+                            "<size=45>After</size>" +
+                            "\nHP = " + data_after.HP +
+                            "\nStamina = " + data_after.Stamina +
+                            "\nMoveSpeed = " + data_after.MoveSpeed +
+                            "\nRefresh_Amount = " + data_after.Refresh_Amount +
+                            "\nRefresh_Delay = " + data_after.Refresh_Delay +
+                            "\nDef = " + data_after.Def +
+                            "\nUse_Stamina = " + data_after.Use_Stamina +
+                            "\nLevel_Speed = " + data_after.Level_Type_Speed +
+                            "\nLevel_Fuel = " + data_after.Level_Type_Fuel +
+                            "\nLevel_Def = " + data_after.Level_Type_Def;
+                    MercenaryUpgrade_Button_Text.text = "-" + mercenaryData.EX_Level_Data.Information_LevelCost[mercenaryData.Level_Mercenary_Engine_Driver].Cost_Level_Mercenary_Engine_Driver
+                                                           + "G\nUpgrade";
+                }
             }
-            else
+            else if (i == 1)
             {
-                After_Mercenary_Information.text =
-                        "<size=45>After</size>" +
-                        "\nHP = " + data_after.HP +
-                        "\nStamina = " + data_after.Stamina +
-                        "\nMoveSpeed = " + data_after.MoveSpeed +
-                        "\nRefresh_Amount = " + data_after.Refresh_Amount +
-                        "\nRefresh_Delay = " + data_after.Refresh_Delay +
-                        "\nDef = " + data_after.Def +
-                        "\nUse_Stamina = " + data_after.Use_Stamina +
-                        "\nLevel_Speed = " + data_after.Level_Type_Speed +
-                        "\nLevel_Fuel = " + data_after.Level_Type_Fuel +
-                        "\nLevel_Def = " + data_after.Level_Type_Def;
-                MercenaryUpgrade_Button_Text.text = "-" + mercenaryData.EX_Level_Data.Information_LevelCost[mercenaryData.Level_Mercenary_Engine_Driver].Cost_Level_Mercenary_Engine_Driver
-                                                       + "G\nUpgrade";
+                var data_before = mercenaryData.EX_Level_Data.Level_Mercenary_Engineer[mercenaryData.Level_Mercenary_Engineer];
+                var data_after = mercenaryData.EX_Level_Data.Level_Mercenary_Engineer[mercenaryData.Level_Mercenary_Engineer + 1];
+                Before_Mercenary_Information.text =
+                            "<size=45>Before</size>" +
+                            "\nHP = " + data_before.HP +
+                            "\nStamina = " + data_before.Stamina +
+                            "\nMoveSpeed = " + data_before.MoveSpeed +
+                            "\nRefresh_Amount = " + data_before.Refresh_Amount +
+                            "\nRefresh_Delay = " + data_before.Refresh_Delay +
+                            "\nDef = " + data_before.Def +
+                            "\nUse_Stamina = " + data_before.Use_Stamina +
+                            "\nRepair_Delay = " + data_before.Repair_Delay +
+                            "\nRepair_Amount = " + data_before.Repair_Amount +
+                            "\nRepair_Train_Parsent = " + data_before.Repair_Train_Parsent;
+                if (mercenaryData.Level_Mercenary_Engineer + 1 == mercenaryData.Max_Mercenary_Engineer + 1)
+                {
+                    After_Mercenary_Information.text =
+                           "<size=45>After</size>" +
+                           "\nMAX";
+                    MercenaryUpgrade_Button_Text.text = "MAX";
+                }
+                else
+                {
+                    After_Mercenary_Information.text =
+                            "<size=45>After</size>" +
+                            "\nHP = " + data_after.HP +
+                            "\nStamina = " + data_after.Stamina +
+                            "\nMoveSpeed = " + data_after.MoveSpeed +
+                            "\nRefresh_Amount = " + data_after.Refresh_Amount +
+                            "\nRefresh_Delay = " + data_after.Refresh_Delay +
+                            "\nDef = " + data_after.Def +
+                            "\nUse_Stamina = " + data_after.Use_Stamina +
+                            "\nRepair_Delay = " + data_after.Repair_Delay +
+                            "\nRepair_Amount = " + data_after.Repair_Amount +
+                            "\nRepair_Train_Parsent = " + data_after.Repair_Train_Parsent;
+                    MercenaryUpgrade_Button_Text.text = "-" + mercenaryData.EX_Level_Data.Information_LevelCost[mercenaryData.Level_Mercenary_Engineer].Cost_Level_Mercenary_Engineer
+                                                           + "G\nUpgrade";
+                }
             }
+            else if (i == 2)
+            {
+                var data_before = mercenaryData.EX_Level_Data.Level_Mercenary_Long_Ranged[mercenaryData.Level_Mercenary_Long_Ranged];
+                var data_after = mercenaryData.EX_Level_Data.Level_Mercenary_Long_Ranged[mercenaryData.Level_Mercenary_Long_Ranged + 1];
+                Before_Mercenary_Information.text =
+                            "<size=45>Before</size>" +
+                            "\nHP = " + data_before.HP +
+                            "\nStamina = " + data_before.Stamina +
+                            "\nMoveSpeed = " + data_before.MoveSpeed +
+                            "\nRefresh_Amount = " + data_before.Refresh_Amount +
+                            "\nRefresh_Delay = " + data_before.Refresh_Delay +
+                            "\nDef = " + data_before.Def +
+                            "\nUse_Stamina = " + data_before.Use_Stamina +
+                            "\nUnit_Attack = " + data_before.Unit_Attack +
+                            "\nUnit_Atk_Delay = " + data_before.Unit_Atk_Delay +
+                            "\nWorkSpeed = " + data_before.WorkSpeed;
+                if (mercenaryData.Level_Mercenary_Long_Ranged + 1 == mercenaryData.Max_Mercenary_Long_Ranged + 1)
+                {
+                    After_Mercenary_Information.text =
+                           "<size=45>After</size>" +
+                           "\nMAX";
+                    MercenaryUpgrade_Button_Text.text = "MAX";
+                }
+                else
+                {
+                    After_Mercenary_Information.text =
+                            "<size=45>After</size>" +
+                            "\nHP = " + data_after.HP +
+                            "\nStamina = " + data_after.Stamina +
+                            "\nMoveSpeed = " + data_after.MoveSpeed +
+                            "\nRefresh_Amount = " + data_after.Refresh_Amount +
+                            "\nRefresh_Delay = " + data_after.Refresh_Delay +
+                            "\nDef = " + data_after.Def +
+                            "\nUse_Stamina = " + data_after.Use_Stamina +
+                            "\nUnit_Attack = " + data_after.Unit_Attack +
+                            "\nUnit_Atk_Delay = " + data_after.Unit_Atk_Delay +
+                            "\nWorkSpeed = " + data_after.WorkSpeed;
+                    MercenaryUpgrade_Button_Text.text = "-" + mercenaryData.EX_Level_Data.Information_LevelCost[mercenaryData.Level_Mercenary_Long_Ranged].Cost_Level_Mercenary_Long_Ranged
+                                                           + "G\nUpgrade";
+                }
+            }
+            else if (i == 3)
+            {
+                var data_before = mercenaryData.EX_Level_Data.Level_Mercenary_Short_Ranged[mercenaryData.Level_Mercenary_Short_Ranged];
+                var data_after = mercenaryData.EX_Level_Data.Level_Mercenary_Short_Ranged[mercenaryData.Level_Mercenary_Short_Ranged + 1];
+                Before_Mercenary_Information.text =
+                            "<size=45>Before</size>" +
+                            "\nHP = " + data_before.HP +
+                            "\nStamina = " + data_before.Stamina +
+                            "\nMoveSpeed = " + data_before.MoveSpeed +
+                            "\nRefresh_Amount = " + data_before.Refresh_Amount +
+                            "\nRefresh_Delay = " + data_before.Refresh_Delay +
+                            "\nDef = " + data_before.Def +
+                            "\nUse_Stamina = " + data_before.Use_Stamina +
+                            "\nUnit_Attack = " + data_before.Unit_Attack +
+                            "\nUnit_Atk_Delay = " + data_before.Unit_Atk_Delay;
+                if (mercenaryData.Level_Mercenary_Short_Ranged + 1 == mercenaryData.Max_Mercenary_Short_Ranged + 1)
+                {
+                    After_Mercenary_Information.text =
+                           "<size=45>After</size>" +
+                           "\nMAX";
+                    MercenaryUpgrade_Button_Text.text = "MAX";
+                }
+                else
+                {
+                    After_Mercenary_Information.text =
+                            "<size=45>After</size>" +
+                            "\nHP = " + data_after.HP +
+                            "\nStamina = " + data_after.Stamina +
+                            "\nMoveSpeed = " + data_after.MoveSpeed +
+                            "\nRefresh_Amount = " + data_after.Refresh_Amount +
+                            "\nRefresh_Delay = " + data_after.Refresh_Delay +
+                            "\nDef = " + data_after.Def +
+                            "\nUse_Stamina = " + data_after.Use_Stamina +
+                            "\nUnit_Attack = " + data_after.Unit_Attack +
+                            "\nUnit_Atk_Delay = " + data_after.Unit_Atk_Delay;
+                    MercenaryUpgrade_Button_Text.text = "-" + mercenaryData.EX_Level_Data.Information_LevelCost[mercenaryData.Level_Mercenary_Short_Ranged].Cost_Level_Mercenary_Short_Ranged
+                                                           + "G\nUpgrade";
+                }
+            }
+            else if (i == 4)
+            {
+                var data_before = mercenaryData.EX_Level_Data.Level_Mercenary_Medic[mercenaryData.Level_Mercenary_Medic];
+                var data_after = mercenaryData.EX_Level_Data.Level_Mercenary_Medic[mercenaryData.Level_Mercenary_Medic + 1];
+                Before_Mercenary_Information.text =
+                            "<size=45>Before</size>" +
+                            "\nHP = " + data_before.HP +
+                            "\nStamina = " + data_before.Stamina +
+                            "\nMoveSpeed = " + data_before.MoveSpeed +
+                            "\nRefresh_Amount = " + data_before.Refresh_Amount +
+                            "\nRefresh_Delay = " + data_before.Refresh_Delay +
+                            "\nDef = " + data_before.Def +
+                            "\nUse_Stamina = " + data_before.Use_Stamina +
+                            "\nHeal_HP_Amount = " + data_before.Heal_Hp_Amount +
+                            "\nHeal_Stamina_Amount = " + data_before.Heal_Stamina_Amount +
+                            "\nHeal_Revive_Amount = " + data_before.Heal_Revive_Amount +
+                            "\nHeal_HP_Parsent = " + data_before.Heal_HP_Parsent;
+                if (mercenaryData.Level_Mercenary_Medic + 1 == mercenaryData.Max_Mercenary_Medic + 1)
+                {
+                    After_Mercenary_Information.text =
+                           "<size=45>After</size>" +
+                           "\nMAX";
+                    MercenaryUpgrade_Button_Text.text = "MAX";
+                }
+                else
+                {
+                    After_Mercenary_Information.text =
+                            "<size=45>After</size>" +
+                            "\nHP = " + data_after.HP +
+                            "\nStamina = " + data_after.Stamina +
+                            "\nMoveSpeed = " + data_after.MoveSpeed +
+                            "\nRefresh_Amount = " + data_after.Refresh_Amount +
+                            "\nRefresh_Delay = " + data_after.Refresh_Delay +
+                            "\nDef = " + data_after.Def +
+                            "\nUse_Stamina = " + data_after.Use_Stamina +
+                            "\nHeal_Stamina_Amount = " + data_after.Heal_Stamina_Amount +
+                            "\nHeal_Revive_Amount = " + data_after.Heal_Revive_Amount +
+                            "\nHeal_HP_Parsent = " + data_after.Heal_HP_Parsent;
+                    MercenaryUpgrade_Button_Text.text = "-" + mercenaryData.EX_Level_Data.Information_LevelCost[mercenaryData.Level_Mercenary_Medic].Cost_Level_Mercenary_Medic
+                                                           + "G\nUpgrade";
+                }
+            }
+            MercenaryUpgrade_Button.interactable = mercenaryData.Check_MaxLevel(i);
         }
-        else if (i == 1)
+        else
         {
-            var data_before = mercenaryData.EX_Level_Data.Level_Mercenary_Engineer[mercenaryData.Level_Mercenary_Engineer];
-            var data_after = mercenaryData.EX_Level_Data.Level_Mercenary_Engineer[mercenaryData.Level_Mercenary_Engineer + 1];
-            Before_Mercenary_Information.text =
-                        "<size=45>Before</size>" +
-                        "\nHP = " + data_before.HP +
-                        "\nStamina = " + data_before.Stamina +
-                        "\nMoveSpeed = " + data_before.MoveSpeed +
-                        "\nRefresh_Amount = " + data_before.Refresh_Amount +
-                        "\nRefresh_Delay = " + data_before.Refresh_Delay +
-                        "\nDef = " + data_before.Def +
-                        "\nUse_Stamina = " + data_before.Use_Stamina +
-                        "\nRepair_Delay = " + data_before.Repair_Delay +
-                        "\nRepair_Amount = " + data_before.Repair_Amount +
-                        "\nRepair_Train_Parsent = " + data_before.Repair_Train_Parsent;
-            if (mercenaryData.Level_Mercenary_Engineer + 1 == mercenaryData.Max_Mercenary_Engineer + 1)
-            {
-                After_Mercenary_Information.text =
-                       "<size=45>After</size>" +
-                       "\nMAX";
-                MercenaryUpgrade_Button_Text.text = "MAX";
-            }
-            else
-            {
-                After_Mercenary_Information.text =
-                        "<size=45>After</size>" +
-                        "\nHP = " + data_after.HP +
-                        "\nStamina = " + data_after.Stamina +
-                        "\nMoveSpeed = " + data_after.MoveSpeed +
-                        "\nRefresh_Amount = " + data_after.Refresh_Amount +
-                        "\nRefresh_Delay = " + data_after.Refresh_Delay +
-                        "\nDef = " + data_after.Def +
-                        "\nUse_Stamina = " + data_after.Use_Stamina +
-                        "\nRepair_Delay = " + data_after.Repair_Delay +
-                        "\nRepair_Amount = " + data_after.Repair_Amount +
-                        "\nRepair_Train_Parsent = " + data_after.Repair_Train_Parsent;
-                MercenaryUpgrade_Button_Text.text = "-" + mercenaryData.EX_Level_Data.Information_LevelCost[mercenaryData.Level_Mercenary_Engineer].Cost_Level_Mercenary_Engineer
-                                                       + "G\nUpgrade";
-            }
+            Before_Mercenary_Information.text = "Choice Mercenary";
+            After_Mercenary_Information.text = "Choice Mercenary";
         }
-        else if (i == 2)
-        {
-            var data_before = mercenaryData.EX_Level_Data.Level_Mercenary_Long_Ranged[mercenaryData.Level_Mercenary_Long_Ranged];
-            var data_after = mercenaryData.EX_Level_Data.Level_Mercenary_Long_Ranged[mercenaryData.Level_Mercenary_Long_Ranged + 1];
-            Before_Mercenary_Information.text =
-                        "<size=45>Before</size>" +
-                        "\nHP = " + data_before.HP +
-                        "\nStamina = " + data_before.Stamina +
-                        "\nMoveSpeed = " + data_before.MoveSpeed +
-                        "\nRefresh_Amount = " + data_before.Refresh_Amount +
-                        "\nRefresh_Delay = " + data_before.Refresh_Delay +
-                        "\nDef = " + data_before.Def +
-                        "\nUse_Stamina = " + data_before.Use_Stamina +
-                        "\nUnit_Attack = " + data_before.Unit_Attack +
-                        "\nUnit_Atk_Delay = " + data_before.Unit_Atk_Delay +
-                        "\nWorkSpeed = " + data_before.WorkSpeed;
-            if (mercenaryData.Level_Mercenary_Long_Ranged + 1 == mercenaryData.Max_Mercenary_Long_Ranged + 1)
-            {
-                After_Mercenary_Information.text =
-                       "<size=45>After</size>" +
-                       "\nMAX";
-                MercenaryUpgrade_Button_Text.text = "MAX";
-            }
-            else
-            {
-                After_Mercenary_Information.text =
-                        "<size=45>After</size>" +
-                        "\nHP = " + data_after.HP +
-                        "\nStamina = " + data_after.Stamina +
-                        "\nMoveSpeed = " + data_after.MoveSpeed +
-                        "\nRefresh_Amount = " + data_after.Refresh_Amount +
-                        "\nRefresh_Delay = " + data_after.Refresh_Delay +
-                        "\nDef = " + data_after.Def +
-                        "\nUse_Stamina = " + data_after.Use_Stamina +
-                        "\nUnit_Attack = " + data_after.Unit_Attack +
-                        "\nUnit_Atk_Delay = " + data_after.Unit_Atk_Delay +
-                        "\nWorkSpeed = " + data_after.WorkSpeed;
-                MercenaryUpgrade_Button_Text.text = "-" + mercenaryData.EX_Level_Data.Information_LevelCost[mercenaryData.Level_Mercenary_Long_Ranged].Cost_Level_Mercenary_Long_Ranged
-                                                       + "G\nUpgrade";
-            }
-        }
-        else if (i == 3)
-        {
-            var data_before = mercenaryData.EX_Level_Data.Level_Mercenary_Short_Ranged[mercenaryData.Level_Mercenary_Short_Ranged];
-            var data_after = mercenaryData.EX_Level_Data.Level_Mercenary_Short_Ranged[mercenaryData.Level_Mercenary_Short_Ranged + 1];
-            Before_Mercenary_Information.text =
-                        "<size=45>Before</size>" +
-                        "\nHP = " + data_before.HP +
-                        "\nStamina = " + data_before.Stamina +
-                        "\nMoveSpeed = " + data_before.MoveSpeed +
-                        "\nRefresh_Amount = " + data_before.Refresh_Amount +
-                        "\nRefresh_Delay = " + data_before.Refresh_Delay +
-                        "\nDef = " + data_before.Def +
-                        "\nUse_Stamina = " + data_before.Use_Stamina +
-                        "\nUnit_Attack = " + data_before.Unit_Attack +
-                        "\nUnit_Atk_Delay = " + data_before.Unit_Atk_Delay;
-            if (mercenaryData.Level_Mercenary_Short_Ranged + 1 == mercenaryData.Max_Mercenary_Short_Ranged + 1)
-            {
-                After_Mercenary_Information.text =
-                       "<size=45>After</size>" +
-                       "\nMAX";
-                MercenaryUpgrade_Button_Text.text = "MAX";
-            }
-            else
-            {
-                After_Mercenary_Information.text =
-                        "<size=45>After</size>" +
-                        "\nHP = " + data_after.HP +
-                        "\nStamina = " + data_after.Stamina +
-                        "\nMoveSpeed = " + data_after.MoveSpeed +
-                        "\nRefresh_Amount = " + data_after.Refresh_Amount +
-                        "\nRefresh_Delay = " + data_after.Refresh_Delay +
-                        "\nDef = " + data_after.Def +
-                        "\nUse_Stamina = " + data_after.Use_Stamina +
-                        "\nUnit_Attack = " + data_after.Unit_Attack +
-                        "\nUnit_Atk_Delay = " + data_after.Unit_Atk_Delay;
-                MercenaryUpgrade_Button_Text.text = "-" + mercenaryData.EX_Level_Data.Information_LevelCost[mercenaryData.Level_Mercenary_Short_Ranged].Cost_Level_Mercenary_Short_Ranged
-                                                       + "G\nUpgrade";
-            }
-        }
-        else if (i == 4)
-        {
-            var data_before = mercenaryData.EX_Level_Data.Level_Mercenary_Medic[mercenaryData.Level_Mercenary_Medic];
-            var data_after = mercenaryData.EX_Level_Data.Level_Mercenary_Medic[mercenaryData.Level_Mercenary_Medic + 1];
-            Before_Mercenary_Information.text =
-                        "<size=45>Before</size>" +
-                        "\nHP = " + data_before.HP +
-                        "\nStamina = " + data_before.Stamina +
-                        "\nMoveSpeed = " + data_before.MoveSpeed +
-                        "\nRefresh_Amount = " + data_before.Refresh_Amount +
-                        "\nRefresh_Delay = " + data_before.Refresh_Delay +
-                        "\nDef = " + data_before.Def +
-                        "\nUse_Stamina = " + data_before.Use_Stamina +
-                        "\nHeal_HP_Amount = " + data_before.Heal_Hp_Amount +
-                        "\nHeal_Stamina_Amount = " + data_before.Heal_Stamina_Amount +
-                        "\nHeal_Revive_Amount = " + data_before.Heal_Revive_Amount +
-                        "\nHeal_HP_Parsent = " + data_before.Heal_HP_Parsent;
-            if (mercenaryData.Level_Mercenary_Medic + 1 == mercenaryData.Max_Mercenary_Medic + 1)
-            {
-                After_Mercenary_Information.text =
-                       "<size=45>After</size>" +
-                       "\nMAX";
-                MercenaryUpgrade_Button_Text.text = "MAX";
-            }
-            else
-            {
-                After_Mercenary_Information.text =
-                        "<size=45>After</size>" +
-                        "\nHP = " + data_after.HP +
-                        "\nStamina = " + data_after.Stamina +
-                        "\nMoveSpeed = " + data_after.MoveSpeed +
-                        "\nRefresh_Amount = " + data_after.Refresh_Amount +
-                        "\nRefresh_Delay = " + data_after.Refresh_Delay +
-                        "\nDef = " + data_after.Def +
-                        "\nUse_Stamina = " + data_after.Use_Stamina +
-                        "\nHeal_Stamina_Amount = " + data_after.Heal_Stamina_Amount +
-                        "\nHeal_Revive_Amount = " + data_after.Heal_Revive_Amount +
-                        "\nHeal_HP_Parsent = " + data_after.Heal_HP_Parsent;
-                MercenaryUpgrade_Button_Text.text = "-" + mercenaryData.EX_Level_Data.Information_LevelCost[mercenaryData.Level_Mercenary_Medic].Cost_Level_Mercenary_Medic
-                                                       + "G\nUpgrade";
-            }
-        }
-        MercenaryUpgrade_Button.interactable = mercenaryData.Check_MaxLevel(i);
     }
     public void Mercenary_Level_Up()
     { 
         mercenaryData.Mercenary_Level_Up(Mercenary_Upgrade_Num);
         Mercenary_Upgrade_Content.GetChild(Mercenary_Upgrade_ToggleNum).GetComponent<TrainingRoom_Mercenary_Upgrade_Card>().Card_LevleUP();
-        Mercenary_Upgrade_Information_Text(Mercenary_Upgrade_Num);
+        Mercenary_Upgrade_Information_Text(true, Mercenary_Upgrade_Num);
     }
 
     // 용병 배치
@@ -494,6 +506,7 @@ public class Station_TranningRoom : MonoBehaviour
             Check_Init_MercenaryPositionCard();
         }
         ScrollRect_Mercenary_Position.normalizedPosition = Vector2.zero;
+        Mercenary_Check_Button();// 카드 비활성화 되어 있는 경우 카운트를 세지 않음. 그렇기에 버튼 체크해야한다.
     }
 
     public void Check_Init_MercenaryPositionCard()
@@ -515,7 +528,6 @@ public class Station_TranningRoom : MonoBehaviour
                 DropDown_EngineDriver_Type.onValueChanged.AddListener(Mercenary_Position_EngineDriver_DropDown);
             }
         }
-        Mercenary_Check_Button();
     }
 
     public void Mercenary_PositionUP(TrainingRoom_Mercenary_Position_Card Card, int i)

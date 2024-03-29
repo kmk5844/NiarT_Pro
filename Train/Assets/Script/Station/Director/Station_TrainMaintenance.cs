@@ -15,6 +15,7 @@ public class Station_TrainMaintenance : MonoBehaviour
     public Transform UI_TrainList;
     public int UI_Train_Num;
     public TextMeshProUGUI UI_Train_Information;
+    public TextMeshProUGUI UI_Train_Num_Text;
 
     [Header("패시브 업그레이드 윈도우")]
     public TextMeshProUGUI Passive_Text_0;
@@ -106,8 +107,6 @@ public class Station_TrainMaintenance : MonoBehaviour
                 UI_Train_Num--;
             }
         }
-
-
         UI_TrainList.GetChild(beforeNum).gameObject.SetActive(false);
         UI_TrainList.GetChild(UI_Train_Num).gameObject.SetActive(true);
         Check_Change_Button_Interactable();
@@ -115,12 +114,14 @@ public class Station_TrainMaintenance : MonoBehaviour
         UI_Now_Train_Information();
         //업그레이드 부분도 포함
         Upgrade_Before_After_Text();
-    } // 버튼에 참조
+    } //버튼에 참조
 
     private void UI_Now_Train_Information()
     {
         UI_Train_Information.text =
             trainData.EX_Game_Data.Information_Train[trainData.Train_Num[UI_Train_Num]].Train_Information;
+        UI_Train_Num_Text.text =
+            (UI_Train_Num+1) + " : " + trainData.EX_Game_Data.Information_Train[trainData.Train_Num[UI_Train_Num]].Train_Name;
     }
 
     //패시브 업그레이드
@@ -257,7 +258,7 @@ public class Station_TrainMaintenance : MonoBehaviour
         ContentSize.sizeDelta = new Vector2(300 * Train_Change_Num.Count, ContentSize.sizeDelta.y);
         foreach(int num in Train_Change_Num)
         {
-            Train_Card.GetComponent<Store_Train_Card>().Train_Num = num;
+            Train_Card.GetComponent<TrainMaintenance_Train_Card>().Train_Num = trainData.SA_TrainData.SA_TrainChange(num);
             GameObject Card = Instantiate(Train_Card, Train_Change_Content);
             Card.name = num.ToString();
             Train_Toggle.Add(Card.GetComponentInChildren<Toggle>());
@@ -298,7 +299,7 @@ public class Station_TrainMaintenance : MonoBehaviour
     {
         if (flag)
         {
-            Store_Train_Card Card = Train_Change_Content.GetChild(toggle_num).GetComponent<Store_Train_Card>();
+            TrainMaintenance_Train_Card Card = Train_Change_Content.GetChild(toggle_num).GetComponent<TrainMaintenance_Train_Card>();
             Toggle_Train_Num = Card.Train_Num;
             Toggle_Train_Name = trainData.EX_Game_Data.Information_Train[Toggle_Train_Num].Train_Name;
 
@@ -379,10 +380,22 @@ public class Station_TrainMaintenance : MonoBehaviour
         }
     }
 
+    private void Check_Upgrade_Button_TrainChange()
+    {
+        for (int i = 0; i < Train_Change_Content.childCount; i++)
+        {
+            Destroy(Train_Change_Content.GetChild(i).gameObject);
+            Train_Toggle.Clear(); // 초기화 하지 않으면, 남아있는 메모리 때문에 버그 걸림
+        }
+        Check_Init_TrainCard();
+        Train_ToggleStart();
+    }
+
     //기차 업그레이드
     public void Direcotr_Init_TrainUpgrade()
     {
         Check_Upgrade_Button_Interactable();
+
     }
 
     public void Click_Button_Upgrade()
@@ -392,6 +405,7 @@ public class Station_TrainMaintenance : MonoBehaviour
         GetComponentInParent<StationDirector>().Upgrade_Train_List(); // 로비 기차 변경
         Upgrade_Before_After_Text(); // 비포 애프터 변경도 하고 기차 옆의 정보도 변경.
         UI_Now_Train_Information();
+        Check_Upgrade_Button_TrainChange(); //기차 변경하기에서도 변경이 된다.
     }
 
     public void Upgrade_Before_After_Text()
@@ -453,4 +467,7 @@ public class Station_TrainMaintenance : MonoBehaviour
     {
         Upgrade_Button.interactable = (trainData.Train_Num[UI_Train_Num] < 90) ? true : false;
     }
+
+    //업그레이드 후, 변경에도 이미지 및 정보 변경
+
 }

@@ -22,7 +22,7 @@ public class testDirector : MonoBehaviour
     {
         playerHP = player.GetComponent<Player>();
         gameDirector = gameobject.GetComponent<GameDirector>();
-        text[3].text = gameDirector.Destination_Distance.ToString();
+        //text[3].text = gameDirector.Destination_Distance.ToString();
     }
 
     private void Update()

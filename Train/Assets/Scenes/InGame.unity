@@ -168,7 +168,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SA_TrainData: {fileID: 11400000, guid: a3127143b81d7aa4b87c2baa773295c2, type: 2}
-  EX_TrainData: {fileID: 11400000, guid: 3a83740cb85032c498c0bbd5b0a2ec9d, type: 2}
+  EX_GameData: {fileID: 11400000, guid: 3a83740cb85032c498c0bbd5b0a2ec9d, type: 2}
+  MonsterDirector: {fileID: 550142801}
+  Stage_Num: 0
+  Emerging_Monster: 
+  Reward_Point: 0
+  Destination_Distance: 5000000
   List_Train: {fileID: 5138825400518451174}
   Trains: []
   TrainFuel: 0
@@ -181,9 +186,10 @@ MonoBehaviour:
   MaxSpeed: 0
   Efficient: 0
   EnginePower: 0
-  Destination_Distance: 5000000
   lastSpeedTime: 0
   timeBet: 0
+  Total_Score: 0
+  Total_Coin: 0
 --- !u!1 &355936108
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,11 +269,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9842e2eade3c4c4188b24e9124b41bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Monster: {fileID: 7976047841580440944, guid: 303bc49b11ee43944ad5c823848882ef, type: 3}
+  Monster: {fileID: 7976047841580440944, guid: b5beffd21d3c75a41b4051f661aa52b6, type: 3}
   Monster_List: {fileID: 2125283571}
-  MaxPos: {x: 0, y: 0}
-  MinPos: {x: 0, y: 0}
-  MaxMonsterNum: 10
+  MaxPos_Sky: {x: 0, y: 0}
+  MinPos_Sky: {x: 0, y: 0}
+  MaxMonsterNum: 15
   MonsterNum: 0
   Train_List: {fileID: 5138825400518451174}
 --- !u!1 &555944709

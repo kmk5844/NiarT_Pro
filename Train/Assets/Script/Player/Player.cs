@@ -39,6 +39,7 @@ public class Player : MonoBehaviour
     Rigidbody2D rigid;
     int moveX;
     bool jumpFlag;
+    bool isMouseDown;
 
     [Header("의무실")]
     public bool isHealing;
@@ -68,6 +69,16 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetMouseButtonDown(0))
+        {
+            isMouseDown = true;
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            isMouseDown = false;
+        }
+
         if (train.Train_Type.Equals("Medic"))
         {
             if (Input.GetKeyDown(KeyCode.R) && Check_HpParsent() < 70f && !isHealing)
@@ -102,7 +113,11 @@ public class Player : MonoBehaviour
             {
                 rigid.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
             }
-            BulletFire();
+
+            if (isMouseDown)
+            {
+                BulletFire();
+            }
         }
         else // 치료중일 때, 조작키 허용X
         {

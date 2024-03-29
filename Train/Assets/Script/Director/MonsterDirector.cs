@@ -9,10 +9,11 @@ public class MonsterDirector : MonoBehaviour
     [Header("몬스터 정보 및 리스트")]
     public GameObject Monster;
     public Transform Monster_List;
+    List<int> Emerging_Monster_List;
 
-    [Header("몬스터 스폰 설정")]
-    [SerializeField] Vector2 MaxPos;
-    [SerializeField] Vector2 MinPos;
+    [Header("몬스터 공중 스폰 설정")]
+    [SerializeField] Vector2 MaxPos_Sky;
+    [SerializeField] Vector2 MinPos_Sky;
     bool isSpawing = false;
 
     [Header("몬스터 한도 설정")]
@@ -31,8 +32,8 @@ public class MonsterDirector : MonoBehaviour
     void Start()
     {
         TrainCount = Train_List.childCount;
-        MaxPos = new Vector2(10f, 8f);
-        MinPos = new Vector2(-6f + ((TrainCount - 1) * -10f), 4f);
+        MaxPos_Sky = new Vector2(10f, 8f);
+        MinPos_Sky = new Vector2(-6f + ((TrainCount - 1) * -10f), 4f);
         //몬스터 소환 위치가 달라진다.
         //기차 길이에 따라 정해야한다.
     }
@@ -51,18 +52,25 @@ public class MonsterDirector : MonoBehaviour
     {
         isSpawing = true;
         yield return new WaitForSeconds(Random.Range(0.0f, 0.5f));
-        Random_xPos = Random.Range(MinPos.x, MaxPos.x);
-        Random_yPos = Random.Range(MinPos.y, MaxPos.y);
-        Instantiate(Monster, new Vector3(Random_xPos, Random_yPos, 0), Quaternion.identity, Monster_List);
+        Random_xPos = Random.Range(MinPos_Sky.x, MaxPos_Sky.x);
+        Random_yPos = Random.Range(MinPos_Sky.y, MaxPos_Sky.y);
+        int MonsterRandom = Random.Range(0, Emerging_Monster_List.Count + 1);
+        GameObject MonsterObject = Instantiate(Monster, new Vector3(Random_xPos, Random_yPos, 0), Quaternion.identity, Monster_List);
+        MonsterObject.GetComponent<Monster_0>().Monster_Num = MonsterRandom;
         isSpawing = false;
+    }
+
+    public void Get_Monster_List(List<int> GameDirector_Monster_List)
+    {
+        Emerging_Monster_List = GameDirector_Monster_List;
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(new Vector3(MaxPos.x, MaxPos.y, 0), new Vector3(MaxPos.x, MinPos.y, 0));
-        Gizmos.DrawLine(new Vector3(MaxPos.x, MinPos.y, 0), new Vector3(MinPos.x, MinPos.y, 0));
-        Gizmos.DrawLine(new Vector3(MinPos.x, MinPos.y, 0), new Vector3(MinPos.x, MaxPos.y, 0));
-        Gizmos.DrawLine(new Vector3(MinPos.x, MaxPos.y, 0), new Vector3(MaxPos.x, MaxPos.y, 0));
+        Gizmos.DrawLine(new Vector3(MaxPos_Sky.x, MaxPos_Sky.y, 0), new Vector3(MaxPos_Sky.x, MinPos_Sky.y, 0));
+        Gizmos.DrawLine(new Vector3(MaxPos_Sky.x, MinPos_Sky.y, 0), new Vector3(MinPos_Sky.x, MinPos_Sky.y, 0));
+        Gizmos.DrawLine(new Vector3(MinPos_Sky.x, MinPos_Sky.y, 0), new Vector3(MinPos_Sky.x, MaxPos_Sky.y, 0));
+        Gizmos.DrawLine(new Vector3(MinPos_Sky.x, MaxPos_Sky.y, 0), new Vector3(MaxPos_Sky.x, MaxPos_Sky.y, 0));
     }
 }

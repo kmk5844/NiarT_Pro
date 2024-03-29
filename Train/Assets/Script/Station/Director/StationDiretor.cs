@@ -22,6 +22,8 @@ public class StationDirector : MonoBehaviour
     Station_Store Director_Store;
     [SerializeField]
     Station_TranningRoom Director_TranningRoom;
+    [SerializeField]
+    Station_GameStart Director_GameStart;
 
     [Header("Lobby")]
     public GameObject UI_Lobby;
@@ -38,6 +40,8 @@ public class StationDirector : MonoBehaviour
     public GameObject UI_TrainingRoom;
     public ToggleGroup UI_TrainingRoom_Toggle;
     public GameObject[] UI_TrainingRoom_Window;
+    [Header("Click Lobby -> GameStart")]
+    public GameObject UI_GameStart;
     [Header("Coin&Point")]
     public TextMeshProUGUI Coin_Text;
     public TextMeshProUGUI Point_Text;
@@ -49,6 +53,7 @@ public class StationDirector : MonoBehaviour
         Director_TrainMaintenance = transform.GetChild(0).GetComponent<Station_TrainMaintenance>();
         Director_Store = transform.GetChild(1).GetComponent<Station_Store>();
         Director_TranningRoom = transform.GetChild(2).GetComponent<Station_TranningRoom>();
+        Director_GameStart = transform.GetChild(3).GetComponent<Station_GameStart>();
 
         playerData = Player_DataObject.GetComponent<Station_PlayerData>();
         trainData = Train_DataObject.GetComponent<Station_TrainData>();
@@ -204,22 +209,31 @@ public class StationDirector : MonoBehaviour
 
     public void ClickLobbyButton(int num)
     {
-        UI_Lobby.gameObject.SetActive(false);
-        UI_BackGround.gameObject.SetActive(true);
-        switch (num)
+        if(num == 4)
         {
-            case 1:
-                UI_TrainMaintenance.gameObject.SetActive(true);
-                ui_num = 1;
-                break;
-            case 2:
-                UI_Store.gameObject.SetActive(true);
-                ui_num = 2;
-                break;
-            case 3:
-                UI_TrainingRoom.gameObject.SetActive(true);
-                ui_num = 3;
-                break;
+            UI_GameStart.SetActive(true);
+            Director_GameStart.Check_Train();
+            ui_num = 4;
+        }
+        else
+        {
+            UI_Lobby.gameObject.SetActive(false);
+            UI_BackGround.gameObject.SetActive(true);
+            switch (num)
+            {
+                case 1:
+                    UI_TrainMaintenance.gameObject.SetActive(true);
+                    ui_num = 1;
+                    break;
+                case 2:
+                    UI_Store.gameObject.SetActive(true);
+                    ui_num = 2;
+                    break;
+                case 3:
+                    UI_TrainingRoom.gameObject.SetActive(true);
+                    ui_num = 3;
+                    break;
+            }
         }
     }
 
@@ -235,6 +249,9 @@ public class StationDirector : MonoBehaviour
         }else if(ui_num == 3)
         {
             UI_TrainingRoom.gameObject.SetActive(false);
+        }else if(ui_num == 4)
+        {
+            UI_GameStart.gameObject.SetActive(false);
         }
         UI_BackGround.gameObject.SetActive(false);
 

@@ -79,7 +79,7 @@ public class Train_InGame : MonoBehaviour
                 case "Fuel":
                     Destroy_Train(1);
                     break;
-                case "Attack":
+                case "Turret":
                     Destroy_Train(0);
                     break;
                 case "Medic":
@@ -125,7 +125,7 @@ public class Train_InGame : MonoBehaviour
                 Train_Food = 0;
                 Train_Heal = 0; 
                 break;
-            case "Attack":
+            case "Turret":
                 Train_MaxSpeed = 0;
                 Train_Efficient = 0;
                 Train_Engine_Power = 0;
@@ -151,12 +151,12 @@ public class Train_InGame : MonoBehaviour
     {
         if (collision.CompareTag("Monster_Bullet"))
         {
-            Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+            MonsterBullet bullet = collision.gameObject.GetComponent<MonsterBullet>();
             Train_MonsterHit(bullet);
             Destroy(collision.gameObject);
         }
     }
-    private void Train_MonsterHit(Bullet monsterBullet)
+    private void Train_MonsterHit(MonsterBullet monsterBullet)
     {
         GD.GetComponent<GameDirector>().Game_MonsterHit(monsterBullet.slow); //슬로우가 있어야 한다.
         int damageTaken = Mathf.RoundToInt(monsterBullet.atk * era);
