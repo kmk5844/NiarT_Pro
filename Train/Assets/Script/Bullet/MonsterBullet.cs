@@ -85,7 +85,7 @@ public class MonsterBullet : Bullet
                     }
                 }
             }
-            rand = Random.Range(0, Targets.Count+1);
+            rand = Random.Range(0, Targets.Count);
             return Targets[rand].gameObject;
         }
     }

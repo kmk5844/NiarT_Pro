@@ -7,7 +7,6 @@ public class MonsterDirector : MonoBehaviour
     // 스테이지 정보 나온 후, 스테이지에 따라 몬스터 변경해야함
     // 그리고 엑셀에 몬스터 정보도 나와야 한다.
     [Header("몬스터 정보 및 리스트")]
-    public GameObject Monster;
     public Transform Monster_List;
     List<int> Emerging_Monster_List;
 
@@ -55,8 +54,8 @@ public class MonsterDirector : MonoBehaviour
         Random_xPos = Random.Range(MinPos_Sky.x, MaxPos_Sky.x);
         Random_yPos = Random.Range(MinPos_Sky.y, MaxPos_Sky.y);
         int MonsterRandom = Random.Range(0, Emerging_Monster_List.Count + 1);
-        GameObject MonsterObject = Instantiate(Monster, new Vector3(Random_xPos, Random_yPos, 0), Quaternion.identity, Monster_List);
-        MonsterObject.GetComponent<Monster_0>().Monster_Num = MonsterRandom;
+        GameObject Monster = Resources.Load<GameObject>("Monster/Monster_" + MonsterRandom);
+        Instantiate(Monster, new Vector3(Random_xPos, Random_yPos, 0), Quaternion.identity, Monster_List);
         isSpawing = false;
     }
 

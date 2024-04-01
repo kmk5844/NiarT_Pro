@@ -111,6 +111,7 @@ public class GameDirector : MonoBehaviour
         //조금 더 구체적으로 정하기.
 
         if (TrainFuel <= 0)
+        if (TrainFuel <= 0)
         {
             TrainFuel = 0;
         }
