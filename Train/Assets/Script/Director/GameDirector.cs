@@ -7,6 +7,7 @@ public class GameDirector : MonoBehaviour
 {
     [Header("데이터 모음")]
     public SA_TrainData SA_TrainData;
+    public SA_PlayerData SA_PlayerData;
     public Game_DataTable EX_GameData;
     public GameObject MonsterDirector;
     List<int> Trian_Num;
@@ -30,10 +31,9 @@ public class GameDirector : MonoBehaviour
     [Header("기차 정보")]
     [SerializeField]
     int TrainFuel; // 전체적으로 더한다.
-    [SerializeField]
-    public int TrainSpeed; // 나중에 private변경
-    [SerializeField]
-    public int TrainDistance;  // 나중에 private변경
+    [HideInInspector]
+    public int TrainSpeed;
+    public int TrainDistance;
     [SerializeField]
     int TrainWeight;// 전체적으로 더한다.
 
@@ -62,6 +62,8 @@ public class GameDirector : MonoBehaviour
     int Level_MaxSpeed; // 멕스 스피드 조절
     int Level_Efficient; // 기름 효율성
 
+    bool GameWinFlag;
+
     [SerializeField]
     int Total_Score;
     [SerializeField]
@@ -69,6 +71,7 @@ public class GameDirector : MonoBehaviour
 
     void Start()
     {
+        GameWinFlag = false;
         Stage_Init();
         Train_Init();
 
@@ -98,8 +101,10 @@ public class GameDirector : MonoBehaviour
             lastSpeedTime = Time.time;
         }
 
-        if(Destination_Distance < TrainDistance )
+        if(Destination_Distance < TrainDistance  && GameWinFlag == false)
         {
+            GameWinFlag = true;
+            Game_Win();
             Debug.Log("성공 및 종료");
         }
 
@@ -111,11 +116,14 @@ public class GameDirector : MonoBehaviour
         //조금 더 구체적으로 정하기.
 
         if (TrainFuel <= 0)
-        if (TrainFuel <= 0)
         {
             TrainFuel = 0;
         }
-        TrainDistance += TrainSpeed;
+
+        if(GameWinFlag != true)
+        {
+            TrainDistance += TrainSpeed;
+        }
     }
 
     void Stage_Init()
@@ -231,5 +239,15 @@ public class GameDirector : MonoBehaviour
     {
         Total_Score += GetScore;
         Total_Coin += GetCoin;
+    }
+
+    private void Game_Win()
+    {
+        SA_PlayerData.SA_GameWinReward(Total_Coin, Reward_Point);
+    }
+
+    private void Game_Lose()
+    {
+
     }
 }

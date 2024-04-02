@@ -61,7 +61,7 @@ public class MonsterBullet : Bullet
                 break;
         }
         rid.velocity = new Vector2(dir.x, dir.y).normalized * Speed;
-        Destroy(gameObject, 3f);
+        Destroy(gameObject, 5f);
     }
 
     private GameObject Find_Target(Transform Target_List, string type = null)

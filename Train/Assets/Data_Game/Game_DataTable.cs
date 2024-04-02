@@ -6,6 +6,7 @@ using UnityEngine;
 [ExcelAsset]
 public class Game_DataTable: ScriptableObject
 {
+	public List<Info_Player> Information_Player;
 	public List<Info_Train> Information_Train; // Replace 'EntityType' to an actual type that is serializable.
 	public List<Info_Monster> Information_Monster;
 	public List<Info_Stage> Information_Stage; // Replace 'EntityType' to an actual type that is serializable.

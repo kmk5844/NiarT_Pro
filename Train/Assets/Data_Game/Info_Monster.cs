@@ -10,7 +10,6 @@ public class Info_Monster
     public int Monster_Bullet_Slow;
     public string Monster_Type;
     public string Monster_Target;
-    public string Monster_Sprite;
     public int Monster_Score;
     public int Monster_Coin;
 }

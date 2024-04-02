@@ -6,29 +6,26 @@ using UnityEngine;
 
 public class SA_PlayerData : ScriptableObject
 {
-    [Header("플레이어 기본 정보")]
     [SerializeField]
-    private Sprite gun;
-    public Sprite Gun {  get { return gun; } }
+    Game_DataTable EX_GameData;
     [SerializeField]
-    private GameObject bullet;
-    public GameObject Bullet { get { return bullet; } }
-    [SerializeField]
-    private int atk;
-    public int Atk { get { return atk; } }
-    [SerializeField]
-    private int armor;
-    public int Armor { get { return armor; } }
-    [SerializeField]
-    private float delay;
-    public float Delay { get { return delay; } }
+    private int player_num;
+    public int Player_Num { get { return player_num; } }
 
     [SerializeField]
-    private int hp;
-    public int HP { get { return hp; } }
+    public int Atk { get { return EX_GameData.Information_Player[Player_Num].Player_Atk; } }
     [SerializeField]
-    private float moveSpeed;
-    public float MoveSpeed { get {  return moveSpeed; } }
+    public int Armor { get { return EX_GameData.Information_Player[Player_Num].Player_Armor; } }
+    [SerializeField]
+    public float Delay { get { return EX_GameData.Information_Player[Player_Num].Player_Delay; } }
+    [SerializeField]
+    public int HP { get { return EX_GameData.Information_Player[Player_Num].Player_HP; } }
+    [SerializeField]
+    public float MoveSpeed { get { return EX_GameData.Information_Player[Player_Num].Player_MoveSpeed; } }
+    //public Sprite Gun { get { return gun; } }
+    [SerializeField]
+    public GameObject Bullet { get { return Resources.Load<GameObject>(EX_GameData.Information_Player[Player_Num].Player_Bullet); } }
+
     [Header("레벨")]
     [SerializeField]
     private int level_atk;
@@ -52,6 +49,12 @@ public class SA_PlayerData : ScriptableObject
     [SerializeField]
     private int point;
     public int Point { get { return point; } }
+
+    public void SA_GameWinReward(int R_Coin, int R_Point)
+    {
+        coin += R_Coin;
+        point += R_Point;
+    }
 
     public void SA_Player_Level_Up(int LevelNum)//LevelNum : 0 = Atk / 1= AtkDealy / 2 = HP / 3 = Armor / 4 = Speed
     {

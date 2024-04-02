@@ -170,6 +170,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4362072249939381578}
   - component: {fileID: 2535866768477042833}
+  - component: {fileID: 6593516371788143741}
   m_Layer: 0
   m_Name: 0
   m_TagString: Untagged
@@ -212,7 +213,7 @@ MonoBehaviour:
   Train_Name: 
   Train_HP: 0
   Train_Weight: 0
-  Train_Anmor: 0
+  Train_Armor: 0
   Train_Type: 
   Train_MaxSpeed: 0
   Train_Efficient: 0
@@ -225,11 +226,56 @@ MonoBehaviour:
   cur_HP: 0
   isReparing: 0
   isRepairable: 0
-  def_constant: 0
+  def_constant: 100
   Heal_Amount: 0
   Heal_timeBet: 0
   isHealing: 0
   openMedicTrian: 0
+--- !u!61 &6593516371788143741
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2289058073020065209}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 1, y: -1.75}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 15, y: 0.5}
+  m_EdgeRadius: 0
 --- !u!1 &4532958974026036935
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,7 +472,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2136336011953855272}
   - component: {fileID: 457386205294111383}
-  - component: {fileID: 2376850718023541006}
+  - component: {fileID: 4232668136553009259}
   m_Layer: 6
   m_Name: Train_Floor
   m_TagString: Train_Floor
@@ -501,7 +547,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &2376850718023541006
+--- !u!61 &4232668136553009259
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

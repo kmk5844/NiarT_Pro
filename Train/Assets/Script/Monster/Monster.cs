@@ -54,7 +54,6 @@ public class Monster : MonoBehaviour
         monster_Bullet_List = GameObject.Find("Bullet_List").GetComponent<Transform>();
         Target = EX_GameData.Information_Monster[Monster_Num].Monster_Target;
         monster_Image = GetComponent<SpriteRenderer>();
-        monster_Image.sprite = Resources.Load<Sprite>(EX_GameData.Information_Monster[Monster_Num].Monster_Sprite);
 
         player = GameObject.FindGameObjectWithTag("Player");
     }
