@@ -69,9 +69,15 @@ public class GameDirector : MonoBehaviour
     [SerializeField]
     int Total_Coin;
 
+    [Header("UI")]
+    public GameObject UI_DirectorObject;
+    UIDirector uiDirector;
+
     void Start()
     {
         GameWinFlag = false;
+        uiDirector = UI_DirectorObject.GetComponent<UIDirector>();
+
         Stage_Init();
         Train_Init();
 
@@ -81,7 +87,7 @@ public class GameDirector : MonoBehaviour
 
     void Update()
     {
-        if(Time.time >= lastSpeedTime + timeBet)
+        if(Time.time >= lastSpeedTime + timeBet && GameWinFlag == false)
         {
             if(MaxSpeed >= TrainSpeed)
             {
@@ -101,11 +107,10 @@ public class GameDirector : MonoBehaviour
             lastSpeedTime = Time.time;
         }
 
-        if(Destination_Distance < TrainDistance  && GameWinFlag == false)
+        if(Destination_Distance < TrainDistance && GameWinFlag == false)
         {
             GameWinFlag = true;
             Game_Win();
-            Debug.Log("성공 및 종료");
         }
 
         if (TrainSpeed <= 0)
@@ -243,11 +248,12 @@ public class GameDirector : MonoBehaviour
 
     private void Game_Win()
     {
+        uiDirector.Open_WIN_UI();
         SA_PlayerData.SA_GameWinReward(Total_Coin, Reward_Point);
     }
 
     private void Game_Lose()
     {
-
+        uiDirector.Open_Lose_UI();
     }
 }
