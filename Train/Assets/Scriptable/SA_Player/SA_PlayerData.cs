@@ -50,6 +50,11 @@ public class SA_PlayerData : ScriptableObject
     private int point;
     public int Point { get { return point; } }
 
+    [Header("스테이지")]
+    [SerializeField]
+    private int stage;
+    public int Stage { get { return stage; } }
+
     public void SA_GameWinReward(int R_Coin, int R_Point)
     {
         coin += R_Coin;

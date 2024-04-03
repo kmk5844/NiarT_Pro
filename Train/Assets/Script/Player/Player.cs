@@ -79,28 +79,35 @@ public class Player : MonoBehaviour
             isMouseDown = false;
         }
 
-        if (train.Train_Type.Equals("Medic"))
+        try
         {
-            if (Input.GetKeyDown(KeyCode.R) && Check_HpParsent() < 70f && !isHealing)
+            if (train.Train_Type.Equals("Medic"))
             {
-                if (train.openMedicTrian)
+                if (Input.GetKeyDown(KeyCode.R) && Check_HpParsent() < 70f && !isHealing)
                 {
-                    if (!train.GetComponentInChildren<Medic_Train>().isMercenaryHealing)
+                    if (train.openMedicTrian)
                     {
-                        isHealing = true;
-                        OnOff_Sprite(true);
+                        if (!train.GetComponentInChildren<Medic_Train>().isMercenaryHealing)
+                        {
+                            isHealing = true;
+                            OnOff_Sprite(true);
+                        }
+                        else
+                        {
+                            // 치료 중입니다.
+                        }
                     }
                     else
                     {
-                        // 치료 중입니다.
+                        //파괴되어 사용할 수 없습니다.
                     }
                 }
-                else
-                {
-                    //파괴되어 사용할 수 없습니다.
-                }
             }
+        }catch
+        {
+            Debug.Log("기차 생성 중");
         }
+
 
         if (!isHealing) //치료가 아닐 때, 걸어다니면서 총을 쏨
         {

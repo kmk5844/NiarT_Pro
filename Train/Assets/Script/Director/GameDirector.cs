@@ -14,7 +14,7 @@ public class GameDirector : MonoBehaviour
 
     [Header("스테이지 정보")]
     public int Stage_Num;
-    string Stage_Name;
+    public string Stage_Name;
     string Emerging_Monster_String;
     [SerializeField]
     private List<int> Emerging_Monster;
@@ -31,7 +31,6 @@ public class GameDirector : MonoBehaviour
     [Header("기차 정보")]
     [SerializeField]
     int TrainFuel; // 전체적으로 더한다.
-    [HideInInspector]
     public int TrainSpeed;
     public int TrainDistance;
     [SerializeField]
@@ -62,7 +61,9 @@ public class GameDirector : MonoBehaviour
     int Level_MaxSpeed; // 멕스 스피드 조절
     int Level_Efficient; // 기름 효율성
 
+    public bool GameStartFlag;
     bool GameWinFlag;
+    bool GameLoseFlag;
 
     [SerializeField]
     int Total_Score;
@@ -75,7 +76,10 @@ public class GameDirector : MonoBehaviour
 
     void Start()
     {
+        Stage_Num = SA_PlayerData.Stage;
+        GameStartFlag = false;
         GameWinFlag = false;
+        GameLoseFlag = false;
         uiDirector = UI_DirectorObject.GetComponent<UIDirector>();
 
         Stage_Init();
@@ -87,6 +91,11 @@ public class GameDirector : MonoBehaviour
 
     void Update()
     {
+        if(Time.time > 5 && !GameStartFlag)
+        {
+            GameStartFlag = true;
+        }
+
         if(Time.time >= lastSpeedTime + timeBet && GameWinFlag == false)
         {
             if(MaxSpeed >= TrainSpeed)
@@ -107,16 +116,17 @@ public class GameDirector : MonoBehaviour
             lastSpeedTime = Time.time;
         }
 
-        if(Destination_Distance < TrainDistance && GameWinFlag == false)
+        if(Destination_Distance < TrainDistance && !GameWinFlag)
         {
             GameWinFlag = true;
             Game_Win();
         }
 
-        if (TrainSpeed <= 0)
+        if (TrainSpeed <= 0 && GameStartFlag && !GameLoseFlag)
         {
             TrainSpeed = 0;
-            Debug.Log("실패 및 종료");
+            GameLoseFlag = true;
+            Game_Lose();
         }
         //조금 더 구체적으로 정하기.
 
@@ -125,9 +135,13 @@ public class GameDirector : MonoBehaviour
             TrainFuel = 0;
         }
 
-        if(GameWinFlag != true)
+        if(!GameWinFlag || !GameLoseFlag)
         {
             TrainDistance += TrainSpeed;
+        }
+        else
+        {
+            TrainSpeed = 0;
         }
     }
 
