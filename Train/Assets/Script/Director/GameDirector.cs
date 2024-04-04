@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class GameDirector : MonoBehaviour
 {
+    public GameType gameType;
     [Header("데이터 모음")]
     public SA_TrainData SA_TrainData;
     public SA_PlayerData SA_PlayerData;
@@ -76,6 +77,7 @@ public class GameDirector : MonoBehaviour
 
     void Start()
     {
+        gameType = GameType.Playing;
         Stage_Num = SA_PlayerData.Stage;
         GameStartFlag = false;
         GameWinFlag = false;
@@ -91,58 +93,74 @@ public class GameDirector : MonoBehaviour
 
     void Update()
     {
-        if(Time.time > 5 && !GameStartFlag)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            GameStartFlag = true;
+            if(gameType == GameType.Playing)
+            {
+                gameType = GameType.Pause;
+                Time.timeScale = 0f;
+            }else if(gameType == GameType.Pause)
+            {
+                gameType = GameType.Playing;
+                Time.timeScale = 1f;
+            }
         }
 
-        if(Time.time >= lastSpeedTime + timeBet && GameWinFlag == false)
+        if(gameType == GameType.Playing)
         {
-            if(MaxSpeed >= TrainSpeed)
+            if (Time.time > 5 && !GameStartFlag)
             {
-                if (TrainFuel > 0)
+                GameStartFlag = true;
+            }
+
+            if (Time.time >= lastSpeedTime + timeBet && GameWinFlag == false)
+            {
+                if (MaxSpeed >= TrainSpeed)
                 {
-                    TrainSpeed++;
-                    TrainFuel -= Efficient;
+                    if (TrainFuel > 0)
+                    {
+                        TrainSpeed++;
+                        TrainFuel -= Efficient;
+                    }
                 }
+                else
+                {
+                    if (TrainFuel > 0)
+                    {
+                        TrainFuel -= Efficient;
+                    }
+                }
+                lastSpeedTime = Time.time;
+            }
+
+            if (Destination_Distance < TrainDistance && !GameWinFlag)
+            {
+                GameWinFlag = true;
+                Game_Win();
+            }
+
+            if (TrainSpeed <= 0 && GameStartFlag && !GameLoseFlag)
+            {
+                TrainSpeed = 0;
+                GameLoseFlag = true;
+                Game_Lose();
+            }
+
+            if (TrainFuel <= 0)
+            {
+                TrainFuel = 0;
+            }
+
+            if (!GameWinFlag || !GameLoseFlag)
+            {
+                TrainDistance += TrainSpeed;
             }
             else
             {
-                if (TrainFuel > 0)
-                {
-                    TrainFuel -= Efficient;
-                }
+                TrainSpeed = 0;
             }
-            lastSpeedTime = Time.time;
         }
 
-        if(Destination_Distance < TrainDistance && !GameWinFlag)
-        {
-            GameWinFlag = true;
-            Game_Win();
-        }
-
-        if (TrainSpeed <= 0 && GameStartFlag && !GameLoseFlag)
-        {
-            TrainSpeed = 0;
-            GameLoseFlag = true;
-            Game_Lose();
-        }
-        //조금 더 구체적으로 정하기.
-
-        if (TrainFuel <= 0)
-        {
-            TrainFuel = 0;
-        }
-
-        if(!GameWinFlag || !GameLoseFlag)
-        {
-            TrainDistance += TrainSpeed;
-        }
-        else
-        {
-            TrainSpeed = 0;
-        }
     }
 
     void Stage_Init()
@@ -262,12 +280,21 @@ public class GameDirector : MonoBehaviour
 
     private void Game_Win()
     {
+        uiDirector.Win_Text(Stage_Num, Stage_Name, Total_Score, Total_Coin, Reward_Point);
         uiDirector.Open_WIN_UI();
         SA_PlayerData.SA_GameWinReward(Total_Coin, Reward_Point);
     }
 
     private void Game_Lose()
     {
+        uiDirector.Lose_Text(Total_Coin);
         uiDirector.Open_Lose_UI();
+        SA_PlayerData.SA_GameLoseReward(Total_Coin);
     }
 }
+
+
+public enum GameType{
+    Playing,
+    Pause,
+}//점차 늘어갈 예정

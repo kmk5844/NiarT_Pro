@@ -45,132 +45,141 @@ public class Medic : Mercenary
     // Update is called once per frame
     void Update()
     {
-        if(HP <= 0 && act != Active.die)
-        {
-            act = Active.die;
-            isDying = true;
-        }
+        Check_GameType();
 
-        if(Stamina <= 0 && act == Active.work)
+        if (M_gameType == GameType.Playing)
         {
-            work_HP = false;
-            work_Revive = false;
-            work_Stamina = false;
-            unit.GetComponentInParent<Mercenary>().isHealWithMedic = false;
-            act = Active.weak;
-        }
-
-        if (act == Active.move)
-        {
-            transform.position = new Vector3(transform.position.x, -1, 0);
-            if (move_X > 0)
+            if (HP <= 0 && act != Active.die)
             {
-                sprite.flipX = false;
-            }
-            else
-            {
-                sprite.flipX = true;
-            }
-            base.non_combatant_Move();
-        }else if(act == Active.work)
-        {
-            if (unit.GetComponentInParent<Mercenary>().Check_moveX() > 0)
-            {
-                sprite.flipX = false;
-                transform.position = new Vector3(unit.position.x - 1, -1, 0);
-            }
-            else
-            {
-                sprite.flipX = true;
-                transform.position = new Vector3(unit.position.x + 1, -1, 0);
+                act = Active.die;
+                isDying = true;
             }
 
-            if (work_HP)
+            if (Stamina <= 0 && act == Active.work)
             {
-                if (!isHeal_HP)
-                {
-                    if(checkHP > Heal_HpParsent)
-                    {
-                        act = Active.move;
-                        work_HP = false;
-                        unit.GetComponentInParent<Mercenary>().isHealWithMedic = false;
-                    }
-                    StartCoroutine(Heal_HP());
-                }
+                work_HP = false;
+                work_Revive = false;
+                work_Stamina = false;
+                unit.GetComponentInParent<Mercenary>().isHealWithMedic = false;
+                act = Active.weak;
+            }
 
-            }else if (work_Revive)
+            if (act == Active.move)
             {
-                if (!isHeal_Revive)
-                {
-                    StartCoroutine(Heal_Revive());
-                }
-            }
-            else if(work_Stamina)
-            {
-                if (!isHeal_Stamina)
-                {
-                    if (checkStamina != 0)
-                    {
-                        act = Active.move;
-                        work_Stamina = false;
-                        unit.GetComponentInParent<Mercenary>().isHealWithMedic = false;
-                    }
-                    StartCoroutine(Heal_Stamina());
-                }
-            }
-        }
-        else if(act == Active.die && isDying)
-        {
-            Debug.Log("여기서 애니메이션 구현한다!4");
-            isDying = false;
-        }else if(act == Active.weak)
-        {
-            if (!isRefreshing_weak)
-            {
-                StartCoroutine(Refresh_Weak());
-            }else if(Stamina >= 70)
-            {
-                act = Active.move;
-            }
-        }
-        else if(act == Active.call)
-        {
-            PlayerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
-            if (transform.position.x < PlayerPosition.x - 1.5)
-            {
-                move_X = 0.01f;
-                sprite.flipX = false;
-                transform.Translate(move_X * 6f, 0, 0);
-            }
-            else if (transform.position.x > PlayerPosition.x + 1.5)
-            {
-                move_X = -0.01f;
-                sprite.flipX = true;
-                transform.Translate(move_X * 6f, 0, 0);
-            }
-            else
-            {
-                GameObject player = GameObject.FindGameObjectWithTag("Player");
-                if (player.GetComponent<Player>().Check_moveX() > 0)
+                transform.position = new Vector3(transform.position.x, -1, 0);
+                if (move_X > 0)
                 {
                     sprite.flipX = false;
-                    transform.position = new Vector3(PlayerPosition.x - 1, PlayerPosition.y, PlayerPosition.z);
                 }
                 else
                 {
                     sprite.flipX = true;
-                    transform.position = new Vector3(PlayerPosition.x + 1, PlayerPosition.y, PlayerPosition.z);
+                }
+                base.non_combatant_Move();
+            }
+            else if (act == Active.work)
+            {
+                if (unit.GetComponentInParent<Mercenary>().Check_moveX() > 0)
+                {
+                    sprite.flipX = false;
+                    transform.position = new Vector3(unit.position.x - 1, -1, 0);
+                }
+                else
+                {
+                    sprite.flipX = true;
+                    transform.position = new Vector3(unit.position.x + 1, -1, 0);
                 }
 
-                if (!isHeal_HP)
+                if (work_HP)
                 {
-                    if (Stamina <= 0 || player.GetComponent<Player>().Check_HpParsent() > Heal_HpParsent)
+                    if (!isHeal_HP)
                     {
-                        act = Active.move;
-                        work_HP = false;
-                        GameObject.Find("MercenaryDirector").GetComponent<MercenaryDirector>().Call_End(mercenaryType.Medic);
+                        if (checkHP > Heal_HpParsent)
+                        {
+                            act = Active.move;
+                            work_HP = false;
+                            unit.GetComponentInParent<Mercenary>().isHealWithMedic = false;
+                        }
+                        StartCoroutine(Heal_HP());
                     }
-                    StartCoroutine(Heal_PlayerHP(player));
+
+                }
+                else if (work_Revive)
+                {
+                    if (!isHeal_Revive)
+                    {
+                        StartCoroutine(Heal_Revive());
+                    }
+                }
+                else if (work_Stamina)
+                {
+                    if (!isHeal_Stamina)
+                    {
+                        if (checkStamina != 0)
+                        {
+                            act = Active.move;
+                            work_Stamina = false;
+                            unit.GetComponentInParent<Mercenary>().isHealWithMedic = false;
+                        }
+                        StartCoroutine(Heal_Stamina());
+                    }
+                }
+            }
+            else if (act == Active.die && isDying)
+            {
+                Debug.Log("여기서 애니메이션 구현한다!4");
+                isDying = false;
+            }
+            else if (act == Active.weak)
+            {
+                if (!isRefreshing_weak)
+                {
+                    StartCoroutine(Refresh_Weak());
+                }
+                else if (Stamina >= 70)
+                {
+                    act = Active.move;
+                }
+            }
+            else if (act == Active.call)
+            {
+                PlayerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
+                if (transform.position.x < PlayerPosition.x - 1.5)
+                {
+                    move_X = 0.01f;
+                    sprite.flipX = false;
+                    transform.Translate(move_X * 6f, 0, 0);
+                }
+                else if (transform.position.x > PlayerPosition.x + 1.5)
+                {
+                    move_X = -0.01f;
+                    sprite.flipX = true;
+                    transform.Translate(move_X * 6f, 0, 0);
+                }
+                else
+                {
+                    GameObject player = GameObject.FindGameObjectWithTag("Player");
+                    if (player.GetComponent<Player>().Check_moveX() > 0)
+                    {
+                        sprite.flipX = false;
+                        transform.position = new Vector3(PlayerPosition.x - 1, PlayerPosition.y, PlayerPosition.z);
+                    }
+                    else
+                    {
+                        sprite.flipX = true;
+                        transform.position = new Vector3(PlayerPosition.x + 1, PlayerPosition.y, PlayerPosition.z);
+                    }
+
+                    if (!isHeal_HP)
+                    {
+                        if (Stamina <= 0 || player.GetComponent<Player>().Check_HpParsent() > Heal_HpParsent)
+                        {
+                            act = Active.move;
+                            work_HP = false;
+                            GameObject.Find("MercenaryDirector").GetComponent<MercenaryDirector>().Call_End(mercenaryType.Medic);
+                        }
+                        StartCoroutine(Heal_PlayerHP(player));
+                    }
                 }
             }
         }

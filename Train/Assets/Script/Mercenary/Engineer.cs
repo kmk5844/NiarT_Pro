@@ -35,107 +35,120 @@ public class Engineer : Mercenary
         train = rayHit.collider.GetComponentInParent<Train_InGame>();
         train_HpParsent = (float)train.cur_HP / (float)train.Train_HP * 100f;
 
-        if (HP <= 0 && act != Active.die)
+        Check_GameType();
+
+        if (M_gameType == GameType.Playing)
         {
-            act = Active.die;
-            isDying = true;
-        }
-        else if (act != Active.work && Stamina >= 50 && train_HpParsent < repairTrain_Parsent && !train.isReparing && act != Active.call && act != Active.die && train_HpParsent != 0)
-        {
-            train.isReparing = true;
-            act = Active.work;
-        }else if (act != Active.work && Stamina >= 50 && train_HpParsent < repairTrain_Parsent && !train.isReparing && act != Active.call && act != Active.die && train_HpParsent == 0)
-        {
-            if (train.isRepairable)
+            if (HP <= 0 && act != Active.die)
+            {
+                act = Active.die;
+                isDying = true;
+            }
+            else if (act != Active.work && Stamina >= 50 && train_HpParsent < repairTrain_Parsent && !train.isReparing && act != Active.call && act != Active.die && train_HpParsent != 0)
             {
                 train.isReparing = true;
                 act = Active.work;
             }
-        }
-        else if (Stamina <= 0)
-        {
-            train.isReparing = false;
-            act = Active.weak;
-            move_Work = true;
-        }else if (act == Active.work && train_HpParsent > repairTrain_Parsent)
-        {
-            train.isReparing = false;
-            act = Active.move;
-            move_Work = true;
-        }
-
-        if(act == Active.move)
-        {
-            base.non_combatant_Move();
-        }else if(act == Active.work && !isCalling)
-        {
-            if (move_Work)
+            else if (act != Active.work && Stamina >= 50 && train_HpParsent < repairTrain_Parsent && !train.isReparing && act != Active.call && act != Active.die && train_HpParsent == 0)
             {
-                if (transform.position.x < train.transform.position.x - 0.2)
+                if (train.isRepairable)
+                {
+                    train.isReparing = true;
+                    act = Active.work;
+                }
+            }
+            else if (Stamina <= 0)
+            {
+                train.isReparing = false;
+                act = Active.weak;
+                move_Work = true;
+            }
+            else if (act == Active.work && train_HpParsent > repairTrain_Parsent)
+            {
+                train.isReparing = false;
+                act = Active.move;
+                move_Work = true;
+            }
+
+            if (act == Active.move)
+            {
+                base.non_combatant_Move();
+            }
+            else if (act == Active.work && !isCalling)
+            {
+                if (move_Work)
+                {
+                    if (transform.position.x < train.transform.position.x - 0.2)
+                    {
+                        move_X = 0.01f;
+                        sprite.flipX = false;
+                        transform.Translate(move_X * move_work_speed, 0, 0);
+                    }
+                    else if (transform.position.x > train.transform.position.x + 0.2)
+                    {
+                        move_X = -0.01f;
+                        sprite.flipX = true;
+                        transform.Translate(move_X * move_work_speed, 0, 0);
+                    }
+                    else
+                    {
+                        move_Work = false;
+                    }
+                }
+                else if (!move_Work)
+                {
+                    if (!train.isReparing)
+                    {
+                        train.isReparing = true;
+                    }
+                    if (!isRepairing)
+                    {
+                        StartCoroutine(Repair());
+                    }
+                }
+            }
+            else if (act == Active.die && isDying)
+            {
+                Debug.Log("여기서 애니메이션 구현한다!");
+                if (train.isReparing)
+                {
+                    train.isReparing = false;
+                }
+                isDying = false;
+            }
+            else if (act == Active.weak)
+            {
+                if (!isRefreshing_weak)
+                {
+                    StartCoroutine(Refresh_Weak());
+                }
+                else if (Stamina >= 70)
+                {
+                    act = Active.move;
+                }
+            }
+            else if (act == Active.call)
+            {
+                isCalling = true;
+                PlayerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
+                if (transform.position.x < PlayerPosition.x - 0.5)
                 {
                     move_X = 0.01f;
                     sprite.flipX = false;
-                    transform.Translate(move_X * move_work_speed, 0, 0);
+                    transform.Translate(move_X * 6f, 0, 0);
                 }
-                else if(transform.position.x > train.transform.position.x + 0.2)
+                else if (transform.position.x > PlayerPosition.x + 0.5)
                 {
                     move_X = -0.01f;
                     sprite.flipX = true;
-                    transform.Translate(move_X * move_work_speed, 0, 0);
+                    transform.Translate(move_X * 6f, 0, 0);
                 }
                 else
                 {
-                    move_Work = false;
+                    isCalling = false;
+                    act = Active.move;
+                    GameObject.Find("MercenaryDirector").GetComponent<MercenaryDirector>().Call_End(mercenaryType.Engineer);
                 }
-            }
-            else if(!move_Work)
-            {
-                if (!train.isReparing)
-                {
-                    train.isReparing = true;
-                }
-                if (!isRepairing)
-                {
-                    StartCoroutine(Repair());
-                }
-            }
-        }else if(act == Active.die && isDying )
-        {
-            Debug.Log("여기서 애니메이션 구현한다!");
-            if (train.isReparing)
-            {
-                train.isReparing = false;
-            }
-            isDying = false;
-        }else if(act == Active.weak)
-        {
-            if(!isRefreshing_weak)
-            {
-                StartCoroutine(Refresh_Weak());
-            }else if(Stamina >= 70){
-                act = Active.move;
-            }
-        }else if(act == Active.call)
-        {
-            isCalling = true;
-            PlayerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
-            if (transform.position.x < PlayerPosition.x - 0.5)
-            {
-                move_X = 0.01f;
-                sprite.flipX = false;
-                transform.Translate(move_X * 6f, 0, 0);
-            }
-            else if (transform.position.x > PlayerPosition.x + 0.5)
-            {
-                move_X = -0.01f;
-                sprite.flipX = true;
-                transform.Translate(move_X * 6f, 0, 0);
-            }
-            else
-            {
-                isCalling = false;
-                act = Active.move;
-                GameObject.Find("MercenaryDirector").GetComponent<MercenaryDirector>().Call_End(mercenaryType.Engineer);
             }
         }
     }

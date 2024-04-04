@@ -166,7 +166,7 @@ public class Player : MonoBehaviour
             train = rayHit.collider.GetComponentInParent<Train_InGame>();
         }
 
-        if (rayHit.collider != null && rayHit.distance >= 0.5f)
+        if(rayHit.collider != null && rayHit.distance >= 0.5f)
         {
             jumpFlag = false;
         }

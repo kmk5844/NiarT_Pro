@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Mercenary : MonoBehaviour
 {
+    protected GameType M_gameType;
+    protected GameDirector gameDirector;
+
     [SerializeField]
     mercenaryType Type; // 타입을 가져와서!
     //그 타입에 맞는 데이터를 수집해서 적용한다.
@@ -59,6 +62,8 @@ public class Mercenary : MonoBehaviour
 
     protected virtual void Start()
     {
+        gameDirector = GameObject.Find("GameDirector").GetComponent<GameDirector>();
+        M_gameType = gameDirector.gameType;
         Type = GetComponent<Mercenary_Type>().mercenary_type;
         Data_Index();
 
@@ -81,6 +86,7 @@ public class Mercenary : MonoBehaviour
         MaxHP = HP;
         MaxStamina = Stamina;
     }
+
     protected void combatant_Move()
     {
         if (Stamina < MaxStamina && !isRefreshing)
@@ -169,7 +175,6 @@ public class Mercenary : MonoBehaviour
             }
         }
     }
-
     protected void non_combatant_Move()
     {
         if (Stamina <= 100 && !isRefreshing)
@@ -189,7 +194,6 @@ public class Mercenary : MonoBehaviour
         }
         transform.Translate(move_X * moveSpeed, 0, 0);
     }
-
     IEnumerator Refresh()
     {
         isRefreshing = true;
@@ -205,7 +209,6 @@ public class Mercenary : MonoBehaviour
 
         isRefreshing = false;
     }
-
     protected IEnumerator Refresh_Weak()
     {
         isRefreshing_weak = true;
@@ -214,7 +217,6 @@ public class Mercenary : MonoBehaviour
         isRefreshing_weak = false;
 
     }
-
     protected void combatant_Idle()
     {
         if (!isCombatantIdling)
@@ -228,7 +230,6 @@ public class Mercenary : MonoBehaviour
             isCombatantIdling = false;
         }
     }
-
     public float check_HpParsent()
     {
         return (float)HP / (float)MaxHP * 100f;
@@ -237,7 +238,6 @@ public class Mercenary : MonoBehaviour
     {
         return (float)Stamina / (float)MaxStamina * 100f;
     }
-
     public IEnumerator Revive(int Heal_HpParsent) //애니메이션 추가하면 좋음
     {
         act = Active.revive;
@@ -247,7 +247,6 @@ public class Mercenary : MonoBehaviour
         act = Active.move;
     }
     //부활은 메딕이랑 그 이후의 시스템이 나오면 적을 예정
-
     public bool Check_Work()
     {
         if (act == Active.move)
@@ -259,12 +258,10 @@ public class Mercenary : MonoBehaviour
         }
         return false;
     }
-
     public float Check_moveX()
     {
         return move_X;
     }
-
     public bool Check_Live()
     {
         if(act == Active.die)
@@ -274,6 +271,14 @@ public class Mercenary : MonoBehaviour
         else
         {
             return true;
+        }
+    }
+
+    protected void Check_GameType()
+    {
+        if (M_gameType != gameDirector.gameType)
+        {
+            M_gameType = gameDirector.gameType;
         }
     }
 
@@ -298,7 +303,6 @@ public class Mercenary : MonoBehaviour
         Gizmos.color = Color.green;
         Gizmos.DrawLine(new Vector3(MinMove_X, -3, 0), new Vector3(MaxMove_X, -3, 0));
     }
-
     public void Data_Index()
     {
         switch (Type)
@@ -355,7 +359,6 @@ public class Mercenary : MonoBehaviour
                 break;
         }
     }
-
 }
 public enum Active
 {

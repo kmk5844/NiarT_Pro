@@ -19,38 +19,48 @@ public class Short_Ranged : Mercenary
 
     void Update()
     {
-        if (HP <= 0 && act != Active.die)
-        {
-            act = Active.die;
-            isDying = true;
-        }else if(Stamina <= 0 && act != Active.die)
-        {
-            act = Active.weak;
-        }
+        Check_GameType();
 
-        if (act == Active.move)
+        if (M_gameType == GameType.Playing)
         {
-            base.combatant_Move();
-        }else if(act == Active.work)
-        {
+            if (HP <= 0 && act != Active.die)
+            {
+                act = Active.die;
+                isDying = true;
+            }
+            else if (Stamina <= 0 && act != Active.die)
+            {
+                act = Active.weak;
+            }
 
-        }else if(act == Active.die && isDying)
-        {
-            Debug.Log("여기서 애니메이션 구현한다!2");
-            transform.GetComponentInChildren<Short_Ranged_KillZone>().enabled = false;
-            isDying = false;
-        }else if(act == Active.weak)
-        {
-            StartCoroutine(Refresh_Weak());
-            transform.GetComponentInChildren<Short_Ranged_KillZone>().enabled = false;
-            if (Stamina >= 70)
+            if (act == Active.move)
+            {
+                base.combatant_Move();
+            }
+            else if (act == Active.work)
+            {
+
+            }
+            else if (act == Active.die && isDying)
+            {
+                Debug.Log("여기서 애니메이션 구현한다!2");
+                transform.GetComponentInChildren<Short_Ranged_KillZone>().enabled = false;
+                isDying = false;
+            }
+            else if (act == Active.weak)
+            {
+                StartCoroutine(Refresh_Weak());
+                transform.GetComponentInChildren<Short_Ranged_KillZone>().enabled = false;
+                if (Stamina >= 70)
+                {
+                    transform.GetComponentInChildren<Short_Ranged_KillZone>().enabled = true;
+                    act = Active.move;
+                }
+            }
+            else if (act == Active.revive)
             {
                 transform.GetComponentInChildren<Short_Ranged_KillZone>().enabled = true;
-                act = Active.move;
             }
-        }else if(act == Active.revive)
-        {
-            transform.GetComponentInChildren<Short_Ranged_KillZone>().enabled = true;
         }
     }
 

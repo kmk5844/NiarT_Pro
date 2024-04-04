@@ -14,10 +14,14 @@ public class UIDirector : MonoBehaviour
     public GameObject Lose_UI;
 
     [Header("Win UI 관련된 텍스트")]
-    public TextMeshProUGUI Stage_Text;
-    public TextMeshProUGUI Score_Text;
-    public TextMeshProUGUI Reward_Coin_Text;
-    public TextMeshProUGUI Reward_Point_Text;
+    public TextMeshProUGUI Win_Stage_Text;
+    public TextMeshProUGUI Win_Score_Text;
+    public TextMeshProUGUI Win_Reward_Coin_Text;
+    public TextMeshProUGUI Win_Reward_Point_Text;
+
+    [Header("Lose UI 관련된 텍스트")]
+    public TextMeshProUGUI Lose_Reward_Coin_Text;
+
     private void Start()
     {
         gamedirector = GameDirector_Object.GetComponent<GameDirector>();
@@ -42,10 +46,15 @@ public class UIDirector : MonoBehaviour
 
     public void Win_Text(int StageNum, string StageName, int Score, int Coin, int Point)
     {
-        Stage_Text.text = "Stage" + StageNum + " : " + StageName;
-        Score_Text.text = "Total Score : " + Score;
-        Reward_Coin_Text.text = "Reward Coin : " + Coin;
-        Reward_Point_Text.text = "Reward : Point : " + Point;
+        Win_Stage_Text.text = "Stage" + StageNum + " : " + StageName;
+        Win_Score_Text.text = "Total Score : " + Score;
+        Win_Reward_Coin_Text.text = "Reward Coin : " + Coin;
+        Win_Reward_Point_Text.text = "Reward : Point : " + Point;
+    }
+
+    public void Lose_Text(int Coin)
+    {
+        Lose_Reward_Coin_Text.text = "Reward Coin : " + Coin;
     }
 
     public void Clcik_Station()

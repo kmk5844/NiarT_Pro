@@ -61,6 +61,11 @@ public class SA_PlayerData : ScriptableObject
         point += R_Point;
     }
 
+    public void SA_GameLoseReward(int R_Coin)
+    {
+        coin += R_Coin;
+    }
+
     public void SA_Player_Level_Up(int LevelNum)//LevelNum : 0 = Atk / 1= AtkDealy / 2 = HP / 3 = Armor / 4 = Speed
     {
         switch(LevelNum)
