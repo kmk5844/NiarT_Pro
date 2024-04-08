@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    GameObject gamedriectorObject;
+    GameType gameDirectorType;
+
     [SerializeField]
     private SA_PlayerData playerData;
 
@@ -45,8 +48,16 @@ public class Player : MonoBehaviour
     public bool isHealing;
     
     Vector3 respawnPosition;
+
+    [Header("รั")]
+    public GameObject GunObject;
+    Camera mainCam;
+    private Vector3 mousePos;
+
     void Start()
     {
+        gamedriectorObject = GameObject.Find("GameDirector");
+        mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         respawnPosition = transform.position;
         isHealing = false;
         jumpFlag = false;
@@ -69,6 +80,27 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        gameDirectorType = gamedriectorObject.GetComponent<GameDirector>().gameType;
+
+        if (gameDirectorType == GameType.Playing)
+        {
+            mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
+
+            Vector3 rot = mousePos - GunObject.transform.position;
+            float rotZ = Mathf.Atan2(rot.y, rot.x) * Mathf.Rad2Deg;
+            GunObject.transform.rotation = Quaternion.Euler(0, 0, rotZ);
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                isMouseDown = true;
+            }
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                isMouseDown = false;
+            }
+        }
+
         if (Input.GetMouseButtonDown(0))
         {
             isMouseDown = true;
@@ -78,6 +110,7 @@ public class Player : MonoBehaviour
         {
             isMouseDown = false;
         }
+
 
         try
         {
@@ -231,6 +264,13 @@ public class Player : MonoBehaviour
         if (collision.CompareTag("Respawn"))
         {
             transform.position = new Vector3(respawnPosition.x, 1, 0); ;
+        }
+
+        if (collision.CompareTag("Monster_Bullet"))
+        {
+            Bullet bullet = collision.GetComponent<Bullet>();
+            MonsterHit(bullet.atk);
+            Destroy(collision.gameObject);
         }
     }
 
