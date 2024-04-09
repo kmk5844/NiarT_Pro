@@ -162,7 +162,6 @@ public class GameDirector : MonoBehaviour
         }
 
     }
-
     void Stage_Init()
     {
         Stage_Name = EX_GameData.Information_Stage[Stage_Num].Stage_Name;
@@ -291,10 +290,37 @@ public class GameDirector : MonoBehaviour
         uiDirector.Open_Lose_UI();
         SA_PlayerData.SA_GameLoseReward(Total_Coin);
     }
+
+    public void GameType_Option(bool flag)
+    {
+        if (flag)
+        {
+            gameType = GameType.Option;
+        }
+        else
+        {
+            gameType = GameType.Pause;
+        }
+    }
+
+    public void PauseButton()
+    {
+        if (gameType == GameType.Playing)
+        {
+            gameType = GameType.Pause;
+            Time.timeScale = 0f;
+        }
+        else if (gameType == GameType.Pause)
+        {
+            gameType = GameType.Playing;
+            Time.timeScale = 1f;
+        }
+    }
 }
 
 
 public enum GameType{
     Playing,
     Pause,
+    Option,
 }//점차 늘어갈 예정
