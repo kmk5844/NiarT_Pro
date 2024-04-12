@@ -43,6 +43,7 @@ public class StationDirector : MonoBehaviour
     public TextMeshProUGUI Point_Text;
 
     int ui_num;
+    int ui_Store_Num;
 
     private void Start()
     {
@@ -58,6 +59,7 @@ public class StationDirector : MonoBehaviour
         Point_Text.text = playerData.Player_Point + " Pt";
 
         ui_num = 0;
+        ui_Store_Num = -1;
         OnToggleStart();
     }
 
@@ -100,8 +102,6 @@ public class StationDirector : MonoBehaviour
             }
             else if (ui_num == 3)
             {
-/*                Director_TranningRoom.Mercenary_Upgarde_Check_Lock();
-                Director_TranningRoom.Mercenary_Postion_Check_Lock();*/
                 for (int i = 0; i < UI_TrainingRoom_Toggle.transform.childCount; i++)
                 {
                     if (UI_TrainingRoom_Toggle.transform.GetChild(i).GetComponent<Toggle>().isOn)
@@ -217,10 +217,43 @@ public class StationDirector : MonoBehaviour
         UI_Lobby.gameObject.SetActive(true);
     }
 
-    public void Click()
+    public void Click_StoreButton(int UI_Store_Num)
     {
-
+        ui_Store_Num = UI_Store_Num;
+        UI_Store_Window[ui_Store_Num].SetActive(true);
     }
+
+    public void Click_Store_Back_Button()
+    {
+        UI_Store_Window[ui_Store_Num].SetActive(false);
+        ui_Store_Num = -1;
+    }
+
+    public void Click_Home_Button()
+    {
+        OnToggleInit();
+        if (ui_num == 1)
+        {
+            UI_TrainMaintenance.gameObject.SetActive(false);
+        }
+        else if (ui_num == 2)
+        {
+            UI_Store.gameObject.SetActive(false);
+        }
+        else if (ui_num == 3)
+        {
+            UI_TrainingRoom.gameObject.SetActive(false);
+        }
+        else if (ui_num == 4)
+        {
+            UI_GameStart.gameObject.SetActive(false);
+        }
+        UI_BackGround.gameObject.SetActive(false);
+
+        ui_num = 0; // 꺼져있을 때만 적용
+        UI_Lobby.gameObject.SetActive(true);
+    }
+
     public void Total_Init() { 
             Director_TrainMaintenance.Director_Init_TrainChange();
             Director_Store.Director_Init_TrainyBuy();
