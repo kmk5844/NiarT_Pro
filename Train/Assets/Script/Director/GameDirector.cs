@@ -32,6 +32,7 @@ public class GameDirector : MonoBehaviour
     [Header("기차 정보")]
     [SerializeField]
     int TrainFuel; // 전체적으로 더한다.
+    int Total_TrainFuel;
     public int TrainSpeed;
     public int TrainDistance;
     [SerializeField]
@@ -222,6 +223,7 @@ public class GameDirector : MonoBehaviour
         Level_EngineTier = SA_TrainData.Level_Train_EngineTier;
         Level_MaxSpeed = SA_TrainData.Level_Train_MaxSpeed;
         Level_Efficient = SA_TrainData.Level_Train_Efficient;
+        Total_TrainFuel = TrainFuel;
         Level();
     }
     public void Level()
@@ -315,6 +317,16 @@ public class GameDirector : MonoBehaviour
             gameType = GameType.Playing;
             Time.timeScale = 1f;
         }
+    }
+
+    public float Check_Distance()
+    {
+        return (float)TrainDistance / (float)Destination_Distance;
+    }
+
+    public float Check_Fuel()
+    {
+        return (float)TrainFuel / (float)Total_TrainFuel;
     }
 }
 

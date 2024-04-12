@@ -320,7 +320,6 @@ public class Station_TrainMaintenance : MonoBehaviour
         GameObject changeTrain = Instantiate(Resources.Load<GameObject>("TrainObject_UI/" + changeNum), UI_TrainList);
         changeTrain.name = Toggle_Train_Name;
         changeTrain.transform.SetSiblingIndex(UI_Train_Num);
-        GetComponentInParent<StationDirector>().Change_Train_List(changeNum, UI_Train_Num);
         UI_Now_Train_Information();
         Upgrade_Before_After_Text();
     }
@@ -332,7 +331,6 @@ public class Station_TrainMaintenance : MonoBehaviour
         UI_Train_Num = UI_TrainList.childCount;
         GameObject EmptyTrain = Instantiate(Resources.Load<GameObject>("TrainObject_UI/100"), UI_TrainList);
         EmptyTrain.name = trainData.EX_Game_Data.Information_Train[100].Train_Name;
-        GetComponentInParent<StationDirector>().Add_Train_List();
         Check_Trian_Add();
         Upgrade_Before_After_Text();
         UI_Now_Train_Information();
@@ -402,7 +400,6 @@ public class Station_TrainMaintenance : MonoBehaviour
     {
         trainData.Train_Level_Up(trainData.Train_Num[UI_Train_Num], UI_Train_Num);
         Upgrade_Train_TrainMaintenance(); // UI 기차 변경
-        GetComponentInParent<StationDirector>().Upgrade_Train_List(); // 로비 기차 변경
         Upgrade_Before_After_Text(); // 비포 애프터 변경도 하고 기차 옆의 정보도 변경.
         UI_Now_Train_Information();
         Check_Upgrade_Button_TrainChange(); //기차 변경하기에서도 변경이 된다.

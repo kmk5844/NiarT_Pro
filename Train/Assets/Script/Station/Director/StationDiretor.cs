@@ -13,9 +13,6 @@ public class StationDirector : MonoBehaviour
     Station_PlayerData playerData;
     Station_TrainData trainData;
 
-    public Transform Train_List;
-    public ScrollRect ScrollRect_TrainList;
-
     [SerializeField]
     Station_TrainMaintenance Director_TrainMaintenance;
     [SerializeField]
@@ -34,7 +31,6 @@ public class StationDirector : MonoBehaviour
     public GameObject[] UI_TrainMaintenance_Window;
     [Header("Click Lobby -> Store")]
     public GameObject UI_Store;
-    public ToggleGroup UI_Store_Toggle;
     public GameObject[] UI_Store_Window;
     [Header("Click Lobby -> TrainingRoom")]
     public GameObject UI_TrainingRoom;
@@ -62,23 +58,12 @@ public class StationDirector : MonoBehaviour
         Point_Text.text = playerData.Player_Point + " Pt";
 
         ui_num = 0;
-
-        for (int i = 0; i < trainData.Train_Num.Count; i++)
-        {
-            GameObject TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_StationLobby/" + trainData.Train_Num[i]), Train_List);
-            TrainObject.name = trainData.EX_Game_Data.Information_Train[trainData.Train_Num[i]].Train_Name;
-        }
-        ResizedContent();
         OnToggleStart();
     }
 
     private void OnToggleStart()
     {
         foreach (var toggle in UI_TrainMaintenance_Toggle.GetComponentsInChildren<Toggle>())
-        {
-            toggle.onValueChanged.AddListener(OnToggleValueChanged);
-        }
-        foreach (var toggle in UI_Store_Toggle.GetComponentsInChildren<Toggle>())
         {
             toggle.onValueChanged.AddListener(OnToggleValueChanged);
         }
@@ -112,19 +97,6 @@ public class StationDirector : MonoBehaviour
             {
                 
                 Director_Store.Check_AfterBuy_MercenaryCard();
-                for (int i = 0; i < UI_Store_Toggle.transform.childCount; i++)
-                {
-                    if (UI_Store_Toggle.transform.GetChild(i).GetComponent<Toggle>().isOn)
-                    {
-                        UI_Store_Window[i].SetActive(true);
-                        UI_Store_Toggle.transform.GetChild(i).GetComponent<Toggle>().interactable = false;
-                    }
-                    else
-                    {
-                        UI_Store_Window[i].SetActive(false);
-                        UI_Store_Toggle.transform.GetChild(i).GetComponent<Toggle>().interactable = true;
-                    }
-                }
             }
             else if (ui_num == 3)
             {
@@ -169,21 +141,7 @@ public class StationDirector : MonoBehaviour
         }
         else if (ui_num == 2)
         {
-            for (int i = 0; i < UI_Store_Toggle.transform.childCount; i++)
-            {
-                if (i == 0)
-                {
-                    UI_Store_Window[i].SetActive(true);
-                    UI_Store_Toggle.transform.GetChild(i).GetComponent<Toggle>().isOn = true;
-                    UI_Store_Toggle.transform.GetChild(i).GetComponent<Toggle>().interactable = false;
-                }
-                else
-                {
-                    UI_Store_Window[i].SetActive(false);
-                    UI_Store_Toggle.transform.GetChild(i).GetComponent<Toggle>().isOn = false;
-                    UI_Store_Toggle.transform.GetChild(i).GetComponent<Toggle>().interactable = true;
-                }
-            }
+
         }
         else if (ui_num == 3)
         {
@@ -259,49 +217,10 @@ public class StationDirector : MonoBehaviour
         UI_Lobby.gameObject.SetActive(true);
     }
 
-    public void Change_Train_List(int train_num, int index) // 바꾸기 클릭 했을 경우
+    public void Click()
     {
-        Destroy(Train_List.GetChild(index).gameObject);
-        GameObject changeTrain = Instantiate(Resources.Load<GameObject>("TrainObject_StationLobby/" + train_num), Train_List);
-        changeTrain.name = trainData.EX_Game_Data.Information_Train[train_num].Train_Name;
-        changeTrain.transform.SetSiblingIndex(index);
+
     }
-
-    public void Upgrade_Train_List() // 업그레이드 클릭 했을 경우, 전체적으로 바꾼다.
-    {
-        for (int i = 0; i < Train_List.childCount; i++)
-        {
-            Destroy(Train_List.GetChild(i).gameObject);
-        }
-
-        foreach (int trainNum in trainData.Train_Num)
-        {
-            GameObject train = Instantiate(Resources.Load<GameObject>("TrainObject_StationLobby/" + trainNum), Train_List);
-            train.name = trainData.EX_Game_Data.Information_Train[trainNum].Train_Name;
-        }
-    }
-
-    public void Add_Train_List()
-    {
-        GameObject AddTrain = Instantiate(Resources.Load<GameObject>("TrainObject_StationLobby/" + 100), Train_List);
-        AddTrain.name = trainData.EX_Game_Data.Information_Train[100].Train_Name;
-        ResizedContent();
-    }
-
-    private void ResizedContent()
-    {
-        GridLayoutGroup TrainGrid = Train_List.GetComponent<GridLayoutGroup>();
-        RectTransform ContentSize = Train_List.GetComponent<RectTransform>();
-
-        Vector2 cellSize = TrainGrid.cellSize;
-        Vector2 spacing = TrainGrid.spacing;
-
-        float width = (cellSize.x + spacing.x) * (Train_List.childCount-1) + TrainGrid.padding.left -250;
-
-        ContentSize.sizeDelta = new Vector2(width, ContentSize.sizeDelta.y);
-        ScrollRect_TrainList.normalizedPosition = Vector2.right;
-    }
-
     public void Total_Init() { 
             Director_TrainMaintenance.Director_Init_TrainChange();
             Director_Store.Director_Init_TrainyBuy();

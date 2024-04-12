@@ -23,13 +23,28 @@ public class MercenaryDirector : MonoBehaviour
     public bool isMedicCall;
     bool isChecklive;
 
+    [Header("UI")]
+    public Transform Team_1;
+    public Transform Team_2;
+    public bool Team_Flag;
+
     void Start()
     {
         Mercenary_Num = mercenaryData.Mercenary_Num;
+        if(Mercenary_Num.Count < 5)
+        {
+            Team_Flag = false;
+        }
+        else
+        {
+            Team_Flag = true;
+        }
+
         for (int i = 0; i < Mercenary_Num.Count; i++)
         {
             GameObject MercenaryObject = Instantiate(Resources.Load<GameObject>("MercenaryObject/" + Mercenary_Num[i]), Mercenary_List);
             MercenaryObject.name = MercenaryObject.GetComponent<Mercenary_Type>().mercenary_type.ToString();
+            Spawn_MercenaryUI(MercenaryObject, i);
         }
         Check_List();
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
@@ -52,6 +67,28 @@ public class MercenaryDirector : MonoBehaviour
         }
         else if(Input .GetKeyDown(KeyCode.E) && !isMedicCall && player.Check_HpParsent() < 70) {
             Medic_Call();
+        }
+    }
+
+    public void  Spawn_MercenaryUI(GameObject MercenaryObject, int i)
+    {
+        if (!Team_Flag)
+        {
+            GameObject Mercenary_UI = Instantiate(Resources.Load<GameObject>("UI/Mercenary"), Team_2);
+            Mercenary_UI.GetComponent<Mercenary_UI>().MercenaryObject = MercenaryObject;
+        }
+        else
+        {
+            if (i < 4)
+            {
+                GameObject Mercenary_UI = Instantiate(Resources.Load<GameObject>("UI/Mercenary"), Team_1);
+                Mercenary_UI.GetComponent<Mercenary_UI>().MercenaryObject = MercenaryObject;
+            }
+            else
+            {
+                GameObject Mercenary_UI = Instantiate(Resources.Load<GameObject>("UI/Mercenary"), Team_2);
+                Mercenary_UI.GetComponent<Mercenary_UI>().MercenaryObject = MercenaryObject;
+            }
         }
     }
 
