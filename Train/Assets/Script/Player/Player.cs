@@ -67,7 +67,6 @@ public class Player : MonoBehaviour
         isHealing = false;
         jumpFlag = false;
         jumpdistance = 0.5f;
-        moveScale = transform.localScale.x;
 
         Bullet = playerData.Bullet;
         Player_HP = playerData.HP;
@@ -89,13 +88,12 @@ public class Player : MonoBehaviour
     {
         gameDirectorType = gamedriectorObject.GetComponent<GameDirector>().gameType;
 
-        if (Input.GetAxis("Horizontal") < 0f)
+        if (Input.GetKeyDown(KeyCode.A))
         {
-            transform.localScale = new Vector3(moveScale, transform.localScale.y, transform.localScale.z);
+            transform.rotation = Quaternion.Euler(0,0,0);
         }
-        else
-        {
-            transform.localScale = new Vector3(-moveScale, transform.localScale.y, transform.localScale.z);
+        else if(Input.GetKeyDown(KeyCode.D)){
+            transform.rotation = Quaternion.Euler(0, -180, 0);
         }
 
         if (gameDirectorType == GameType.Playing)
