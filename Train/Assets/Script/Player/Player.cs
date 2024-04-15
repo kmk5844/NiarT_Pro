@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    bool Spum_Demo;
+
     GameObject gamedriectorObject;
     GameType gameDirectorType;
 
@@ -16,7 +18,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject Bullet;
     [SerializeField]
-    int Bullet_Atk; //º¸½º¶û ½Î¿ï ¶§, atk°¡ ÇÊ¿äÇÔ (Àâ¸÷Àº ÇÑ¹ø¿¡ Á×µµ·Ï ¸¸µê)
+    int Bullet_Atk; //º¸½º¶û ½Î¿ï ¶§, atk°¡ ÇÊ¿äÇÔ
     [SerializeField]
     float Bullet_Delay;
     public Transform Bullet_Fire_Transform;
@@ -43,6 +45,9 @@ public class Player : MonoBehaviour
     int moveX;
     bool jumpFlag;
     bool isMouseDown;
+    float jumpdistance;
+    float jumpFlagDistance;
+    float moveScale;
 
     [Header("ÀÇ¹«½Ç")]
     public bool isHealing;
@@ -61,6 +66,8 @@ public class Player : MonoBehaviour
         respawnPosition = transform.position;
         isHealing = false;
         jumpFlag = false;
+        jumpdistance = 0.5f;
+        moveScale = transform.localScale.x;
 
         Bullet = playerData.Bullet;
         Player_HP = playerData.HP;
@@ -81,6 +88,15 @@ public class Player : MonoBehaviour
     private void Update()
     {
         gameDirectorType = gamedriectorObject.GetComponent<GameDirector>().gameType;
+
+        if (Input.GetAxis("Horizontal") < 0f)
+        {
+            transform.localScale = new Vector3(moveScale, transform.localScale.y, transform.localScale.z);
+        }
+        else
+        {
+            transform.localScale = new Vector3(-moveScale, transform.localScale.y, transform.localScale.z);
+        }
 
         if (gameDirectorType == GameType.Playing)
         {
@@ -147,9 +163,10 @@ public class Player : MonoBehaviour
             if (Input.GetButtonUp("Horizontal"))
             {
                 rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.5f, rigid.velocity.y);
+
             }
 
-            if (!jumpFlag && Input.GetButtonDown("Jump"))
+            if (Input.GetButtonDown("Jump") && !jumpFlag)
             {
                 rigid.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
             }
@@ -191,15 +208,15 @@ public class Player : MonoBehaviour
             rigid.velocity = new Vector2(moveSpeed * (-1), rigid.velocity.y);
         }
 
-        Debug.DrawRay(rigid.position, Vector3.down * 2, Color.green);
-        RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 3f, LayerMask.GetMask("Platform"));
+        Debug.DrawRay(rigid.position, Vector3.down * jumpdistance, Color.green);
+        RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, jumpdistance, LayerMask.GetMask("Platform"));
         
         if(rayHit.collider != null)
         {
             train = rayHit.collider.GetComponentInParent<Train_InGame>();
         }
 
-        if(rayHit.collider != null && rayHit.distance >= 0.5f)
+        if(rayHit.collider != null && rayHit.distance >= jumpFlagDistance)
         {
             jumpFlag = false;
         }

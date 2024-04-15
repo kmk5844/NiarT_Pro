@@ -76,6 +76,10 @@ public class GameDirector : MonoBehaviour
     public GameObject UI_DirectorObject;
     UIDirector uiDirector;
 
+    float distance_lastSpeedTime;
+    float distance_time;
+
+
     void Start()
     {
         gameType = GameType.Playing;
@@ -89,7 +93,9 @@ public class GameDirector : MonoBehaviour
         Train_Init();
 
         lastSpeedTime = 0;
+        distance_lastSpeedTime = 0;
         timeBet = 0.1f - (EnginePower * 0.001f); //엔진 파워에 따라 결정
+        distance_time = 0.1f;
     }
 
     void Update()
@@ -154,7 +160,11 @@ public class GameDirector : MonoBehaviour
 
             if (!GameWinFlag || !GameLoseFlag)
             {
-                TrainDistance += TrainSpeed;
+                if (Time.time >= distance_lastSpeedTime + distance_time)
+                {
+                    TrainDistance += TrainSpeed;
+                    distance_lastSpeedTime = Time.time;
+                }
             }
             else
             {

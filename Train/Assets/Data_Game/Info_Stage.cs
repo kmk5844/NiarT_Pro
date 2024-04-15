@@ -7,7 +7,6 @@ public class Info_Stage
     public string Emerging_Monster;
     public int Reward_Point;
     public int Reward_Item;
-    public int F_Grade;
     public int D_Grade;
     public int C_Grade;
     public int B_Grade;
