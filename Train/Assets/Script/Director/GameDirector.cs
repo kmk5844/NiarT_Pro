@@ -278,16 +278,52 @@ public class GameDirector : MonoBehaviour
         Total_Score += GetScore;
         Total_Coin += GetCoin;
     }
+    private string Check_Score()
+    {
+        if (Total_Score >= EX_GameData.Information_Stage[Stage_Num].S_Grade)
+        {
+            return "S";
+        }
+        else if (EX_GameData.Information_Stage[Stage_Num].S_Grade > Total_Score && Total_Score >= EX_GameData.Information_Stage[Stage_Num].A_Grade)
+        {
+            return "A";
+        }
+        else if (EX_GameData.Information_Stage[Stage_Num].A_Grade > Total_Score && Total_Score >= EX_GameData.Information_Stage[Stage_Num].B_Grade)
+        {
+            return "B";
+        }
+        else if (EX_GameData.Information_Stage[Stage_Num].B_Grade > Total_Score && Total_Score >= EX_GameData.Information_Stage[Stage_Num].C_Grade)
+        {
+            return "C";
+        }
+        else if (EX_GameData.Information_Stage[Stage_Num].C_Grade > Total_Score && Total_Score >= EX_GameData.Information_Stage[Stage_Num].D_Grade)
+        {
+            return "D";
+        }
+        else if (EX_GameData.Information_Stage[Stage_Num].D_Grade > Total_Score)
+        {
+            return "F";
+        }
+        return "F";
+    }
+
+    private void Change_Game_End()
+    {
+        gameType = GameType.GameEnd;
+        Time.timeScale = 0f;
+    }
 
     private void Game_Win()
     {
-        uiDirector.Win_Text(Stage_Num, Stage_Name, Total_Score, Total_Coin, Reward_Point);
+        Change_Game_End();
+        uiDirector.Win_Text(Stage_Num, Stage_Name, Total_Score, Check_Score(),Total_Coin, Reward_Point);
         uiDirector.Open_WIN_UI();
         SA_PlayerData.SA_GameWinReward(Total_Coin, Reward_Point);
     }
 
     private void Game_Lose()
     {
+        Change_Game_End();
         uiDirector.Lose_Text(Total_Coin);
         uiDirector.Open_Lose_UI();
         SA_PlayerData.SA_GameLoseReward(Total_Coin);
@@ -335,4 +371,6 @@ public enum GameType{
     Playing,
     Pause,
     Option,
+    GameEnd,
+
 }//점차 늘어갈 예정

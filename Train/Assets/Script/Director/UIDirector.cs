@@ -42,6 +42,7 @@ public class UIDirector : MonoBehaviour
     [Header("Win UI 관련된 텍스트")]
     public TextMeshProUGUI Win_Stage_Text;
     public TextMeshProUGUI Win_Score_Text;
+    public TextMeshProUGUI Win_Score_Grade_Text;
     public TextMeshProUGUI Win_Reward_Coin_Text;
     public TextMeshProUGUI Win_Reward_Point_Text;
 
@@ -129,10 +130,11 @@ public class UIDirector : MonoBehaviour
         }
     }
 
-    public void Win_Text(int StageNum, string StageName, int Score, int Coin, int Point)
+    public void Win_Text(int StageNum, string StageName, int Score, string Score_Grade,int Coin, int Point)
     {
-        Win_Stage_Text.text = "Stage" + StageNum + " : " + StageName;
+        Win_Stage_Text.text = "Stage" + (StageNum +1) + " : " + StageName;
         Win_Score_Text.text = "Total Score : " + Score;
+        Win_Score_Grade_Text.text = Score_Grade;
         Win_Reward_Coin_Text.text = "Reward Coin : " + Coin;
         Win_Reward_Point_Text.text = "Reward : Point : " + Point;
     }
@@ -205,7 +207,6 @@ public class UIDirector : MonoBehaviour
             Team_Index2 = 2;
         }
     }
-
     private float SpeedToRotation(float speed)
     {
         return (speed - minSpeed) * (maxRotation - minRotation) / (maxSpeed - minSpeed) + minRotation;
