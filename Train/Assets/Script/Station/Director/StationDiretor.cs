@@ -33,9 +33,8 @@ public class StationDirector : MonoBehaviour
     public GameObject UI_Store;
     public GameObject[] UI_Store_Window;
     [Header("Click Lobby -> TrainingRoom")]
-    public GameObject UI_TrainingRoom;
-    public ToggleGroup UI_TrainingRoom_Toggle;
-    public GameObject[] UI_TrainingRoom_Window;
+    public GameObject UI_Fortress;
+    public GameObject[] UI_Fortress_Window;
     [Header("Click Lobby -> GameStart")]
     public GameObject UI_GameStart;
     [Header("Coin&Point")]
@@ -44,6 +43,7 @@ public class StationDirector : MonoBehaviour
 
     int ui_num;
     int ui_Store_Num;
+    int ui_Fortress_Num;
 
     private void Start()
     {
@@ -69,10 +69,6 @@ public class StationDirector : MonoBehaviour
         {
             toggle.onValueChanged.AddListener(OnToggleValueChanged);
         }
-        foreach (var toggle in UI_TrainingRoom_Toggle.GetComponentsInChildren<Toggle>())
-        {
-            toggle.onValueChanged.AddListener(OnToggleValueChanged);
-        }
     }
 
     private void OnToggleValueChanged(bool isOn)
@@ -92,27 +88,6 @@ public class StationDirector : MonoBehaviour
                     {
                         UI_TrainMaintenance_Window[i].SetActive(false);
                         UI_TrainMaintenance_Toggle.transform.GetChild(i).GetComponent<Toggle>().interactable = true;
-                    }
-                }
-            }
-            else if (ui_num == 2)
-            {
-                
-                Director_Store.Check_AfterBuy_MercenaryCard();
-            }
-            else if (ui_num == 3)
-            {
-                for (int i = 0; i < UI_TrainingRoom_Toggle.transform.childCount; i++)
-                {
-                    if (UI_TrainingRoom_Toggle.transform.GetChild(i).GetComponent<Toggle>().isOn)
-                    {
-                        UI_TrainingRoom_Window[i].SetActive(true);
-                        UI_TrainingRoom_Toggle.transform.GetChild(i).GetComponent<Toggle>().interactable = false;
-                    }
-                    else
-                    {
-                        UI_TrainingRoom_Window[i].SetActive(false);
-                        UI_TrainingRoom_Toggle.transform.GetChild(i).GetComponent<Toggle>().interactable = true;
                     }
                 }
             }
@@ -139,28 +114,6 @@ public class StationDirector : MonoBehaviour
                 }
             }
         }
-        else if (ui_num == 2)
-        {
-
-        }
-        else if (ui_num == 3)
-        {
-            for (int i = 0; i < UI_TrainingRoom_Toggle.transform.childCount; i++)
-            {
-                if (i == 0)
-                {
-                    UI_TrainingRoom_Window[i].SetActive(true);
-                    UI_TrainingRoom_Toggle.transform.GetChild(i).GetComponent<Toggle>().isOn = true;
-                    UI_TrainingRoom_Toggle.transform.GetChild(i).GetComponent<Toggle>().interactable = false;
-                }
-                else
-                {
-                    UI_TrainingRoom_Window[i].SetActive(false);
-                    UI_TrainingRoom_Toggle.transform.GetChild(i).GetComponent<Toggle>().isOn = false;
-                    UI_TrainingRoom_Toggle.transform.GetChild(i).GetComponent<Toggle>().interactable = true;
-                }
-            }
-        }
         //Init구간
         Total_Init();
     }
@@ -184,18 +137,18 @@ public class StationDirector : MonoBehaviour
                     ui_num = 1;
                     break;
                 case 2:
+                    Director_Store.Check_AfterBuy_MercenaryCard();
                     UI_Store.gameObject.SetActive(true);
                     ui_num = 2;
                     break;
                 case 3:
-                    UI_TrainingRoom.gameObject.SetActive(true);
+                    UI_Fortress.gameObject.SetActive(true);
                     ui_num = 3;
                     break;
             }
         }
     }
-
-    public void ClickBackButton()
+    public void ClickBackButton() // 토글 모두 제거 후, 지우기
     {
         OnToggleInit();
         if(ui_num == 1)
@@ -206,7 +159,7 @@ public class StationDirector : MonoBehaviour
             UI_Store.gameObject.SetActive(false);
         }else if(ui_num == 3)
         {
-            UI_TrainingRoom.gameObject.SetActive(false);
+            UI_Fortress.gameObject.SetActive(false);
         }else if(ui_num == 4)
         {
             UI_GameStart.gameObject.SetActive(false);
@@ -229,6 +182,18 @@ public class StationDirector : MonoBehaviour
         ui_Store_Num = -1;
     }
 
+    public void Click_FortressButton(int UI_Fortress_Num)
+    {
+        ui_Fortress_Num = UI_Fortress_Num;
+        UI_Fortress_Window[ui_Fortress_Num].SetActive(true);
+    }
+
+    public void Click_Fortress_Back_Button()
+    {
+        UI_Fortress_Window[ui_Fortress_Num].SetActive(false);
+        ui_Fortress_Num = -1;
+    }
+
     public void Click_Home_Button()
     {
         OnToggleInit();
@@ -242,7 +207,7 @@ public class StationDirector : MonoBehaviour
         }
         else if (ui_num == 3)
         {
-            UI_TrainingRoom.gameObject.SetActive(false);
+            UI_Fortress.gameObject.SetActive(false);
         }
         else if (ui_num == 4)
         {
@@ -255,10 +220,10 @@ public class StationDirector : MonoBehaviour
     }
 
     public void Total_Init() { 
-            Director_TrainMaintenance.Director_Init_TrainChange();
-            Director_Store.Director_Init_TrainyBuy();
-            Director_Store.Director_Init_MercenaryBuy();
-            Director_TranningRoom.Director_Init_MercenaryUpgrade();
-            Director_TranningRoom.Director_Init_MercenaryPosition();
+        Director_TrainMaintenance.Director_Init_TrainChange();
+        Director_Store.Director_Init_TrainyBuy();
+        Director_Store.Director_Init_MercenaryBuy();
+        Director_TranningRoom.Director_Init_MercenaryUpgrade();
+        Director_TranningRoom.Director_Init_MercenaryPosition();
     }
 }
