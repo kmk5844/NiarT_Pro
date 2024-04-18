@@ -14,8 +14,6 @@ public class Station_TrainMaintenance : MonoBehaviour
     [Header("UI에서 나타나는 기차")]
     public Transform UI_TrainList;
     public int UI_Train_Num;
-    public TextMeshProUGUI UI_Train_Information;
-    public TextMeshProUGUI UI_Train_Num_Text;
 
     [Header("패시브 업그레이드 윈도우")]
     public TextMeshProUGUI Passive_Text_0;
@@ -35,7 +33,6 @@ public class Station_TrainMaintenance : MonoBehaviour
     public ScrollRect ScrollRect_ChangeTrain;
     public Transform Train_Change_Content;
     public GameObject Train_Card;
-    public TextMeshProUGUI Train_Card_Information;
     int Engine_Tier_Max_Train;
     [SerializeField]
     List<Toggle> Train_Toggle;
@@ -56,7 +53,6 @@ public class Station_TrainMaintenance : MonoBehaviour
         Train_Change_Num = trainData.Train_Change_Num;
         //UI 기차 생성하기
         UI_TrainImage();
-        UI_Now_Train_Information();
         //패시브 업그레이드
         Passive_Text(true);
         //기차 변경하기
@@ -111,18 +107,9 @@ public class Station_TrainMaintenance : MonoBehaviour
         UI_TrainList.GetChild(UI_Train_Num).gameObject.SetActive(true);
         Check_Change_Button_Interactable();
         Check_Upgrade_Button_Interactable();
-        UI_Now_Train_Information();
         //업그레이드 부분도 포함
         Upgrade_Before_After_Text();
     } //버튼에 참조
-
-    private void UI_Now_Train_Information()
-    {
-        UI_Train_Information.text =
-            trainData.EX_Game_Data.Information_Train[trainData.Train_Num[UI_Train_Num]].Train_Information;
-        UI_Train_Num_Text.text =
-            (UI_Train_Num+1) + " : " + trainData.EX_Game_Data.Information_Train[trainData.Train_Num[UI_Train_Num]].Train_Name;
-    }
 
     //패시브 업그레이드
     private void Passive_Text(bool All, int num = 0)
@@ -279,11 +266,11 @@ public class Station_TrainMaintenance : MonoBehaviour
         {
             for (int i = 0; i < Train_Toggle.Count; i++)
             {
-                if (Train_Toggle[i].isOn)
+/*                if (Train_Toggle[i].isOn)
                 {
                     Train_Change_Information_Text(true, i);
                 }
-
+*/
                 ChangeFlag = true;
                 Check_Change_Button_Interactable();
             }
@@ -291,7 +278,6 @@ public class Station_TrainMaintenance : MonoBehaviour
         else{
             ChangeFlag = false;
             Check_Change_Button_Interactable();
-            Train_Change_Information_Text(false);
         }
     }
 
@@ -302,14 +288,7 @@ public class Station_TrainMaintenance : MonoBehaviour
             TrainMaintenance_Train_Card Card = Train_Change_Content.GetChild(toggle_num).GetComponent<TrainMaintenance_Train_Card>();
             Toggle_Train_Num = Card.Train_Num;
             Toggle_Train_Name = trainData.EX_Game_Data.Information_Train[Toggle_Train_Num].Train_Name;
-
-            Train_Card_Information.text = Toggle_Train_Name;
         }
-        else
-        {
-            Train_Card_Information.text = "Choice Train";
-        }
-
     }
 
     public void Button_Train_Change()
@@ -320,7 +299,6 @@ public class Station_TrainMaintenance : MonoBehaviour
         GameObject changeTrain = Instantiate(Resources.Load<GameObject>("TrainObject_UI/" + changeNum), UI_TrainList);
         changeTrain.name = Toggle_Train_Name;
         changeTrain.transform.SetSiblingIndex(UI_Train_Num);
-        UI_Now_Train_Information();
         Upgrade_Before_After_Text();
     }
 
@@ -333,21 +311,12 @@ public class Station_TrainMaintenance : MonoBehaviour
         EmptyTrain.name = trainData.EX_Game_Data.Information_Train[100].Train_Name;
         Check_Trian_Add();
         Upgrade_Before_After_Text();
-        UI_Now_Train_Information();
     }
 
     private void Check_Trian_Add()
     {
         Engine_Tier_Max_Train = trainData.Max_Train_MaxTrain;
         Add_Button.interactable = (trainData.Train_Num.Count <  Engine_Tier_Max_Train) ? true : false;
-        /*        if (trainData.Train_Num.Count < Engine_Tier_Max_Train)
-                {
-                    Add_Button.interactable = true;
-                }
-                else
-                {
-                    Add_Button.interactable = false;
-                }*/
     }
 
     private void Check_Change_Button_Interactable()
@@ -355,26 +324,10 @@ public class Station_TrainMaintenance : MonoBehaviour
         if (UI_Train_Num == 0)
         {
             Change_Button.interactable = (ChangeFlag) ? false : false;
-            /*            if (ChangeFlag)
-                        {
-                            Change_Button.interactable = false;
-                        }
-                        else
-                        {
-                            Change_Button.interactable = false;
-                        }*/
         }
         else
         {
             Change_Button.interactable = (ChangeFlag) ? true : false;
-            /*            if (ChangeFlag)
-                        {
-                            Change_Button.interactable = true;
-                        }
-                        else
-                        {
-                            Change_Button.interactable = false;
-                        }*/
         }
     }
 
@@ -401,7 +354,6 @@ public class Station_TrainMaintenance : MonoBehaviour
         trainData.Train_Level_Up(trainData.Train_Num[UI_Train_Num], UI_Train_Num);
         Upgrade_Train_TrainMaintenance(); // UI 기차 변경
         Upgrade_Before_After_Text(); // 비포 애프터 변경도 하고 기차 옆의 정보도 변경.
-        UI_Now_Train_Information();
         Check_Upgrade_Button_TrainChange(); //기차 변경하기에서도 변경이 된다.
     }
 
@@ -467,4 +419,8 @@ public class Station_TrainMaintenance : MonoBehaviour
 
     //업그레이드 후, 변경에도 이미지 및 정보 변경
 
+    public void Train_Information_Button()
+    {
+
+    }
 }

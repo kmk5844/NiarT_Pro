@@ -222,12 +222,12 @@ public class GameDirector : MonoBehaviour
             if (i == 0)
             {
                 //¿£ÁøÄ­
-                TrainObject.transform.position = new Vector3(0.5f, 0, 0);
+                TrainObject.transform.position = new Vector3(0f, 0, 0);
             }
             else
             {
                 //³ª¸ÓÁöÄ­
-                TrainObject.transform.position = new Vector3((1 + (10 * i)) * -1, 0, 0);
+                TrainObject.transform.position = new Vector3(-20.15f, 0, 0);
             }
             TrainObject.GetComponent<Train_InGame>().TrainNum = Trian_Num[i];
         }
