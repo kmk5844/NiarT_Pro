@@ -227,7 +227,7 @@ public class GameDirector : MonoBehaviour
             else
             {
                 //³ª¸ÓÁöÄ­
-                TrainObject.transform.position = new Vector3(-20.15f, 0, 0);
+                TrainObject.transform.position = new Vector3(-5.9f * i, 0, 0);
             }
             TrainObject.GetComponent<Train_InGame>().TrainNum = Trian_Num[i];
         }
