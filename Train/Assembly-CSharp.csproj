@@ -61,8 +61,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Resources\SPUM\Sample\Script\PlayerObj.cs" />
-    <Compile Include="Assets\Scriptable\SA_Mercenary\SA_MercenaryData.cs" />
     <Compile Include="Assets\Scriptable\SA_Train\SA_TrainData.cs" />
+    <Compile Include="Assets\Scriptable\SA_Mercenary\SA_MercenaryData.cs" />
     <Compile Include="Assets\Data_Game\Game_DataTable.cs" />
     <Compile Include="Assets\Resources\SPUM\Script\Plugin\Moments Recorder\Scripts\ReflectionUtils.cs" />
     <Compile Include="Assets\Script\Train\Train_InGame.cs" />
@@ -140,8 +140,8 @@
     <Compile Include="Assets\Resources\SPUM\Script\SPUM_Manager.cs" />
     <Compile Include="Assets\Resources\SPUM\Script\SPUM_PreviewItem.cs" />
     <Compile Include="Assets\Resources\SPUM\Script\SPUM_Button.cs" />
-    <Compile Include="Assets\Script\Director\CharacterDirector.cs" />
     <Compile Include="Assets\Data_Level\Info_Level_Train_EngineTier.cs" />
+    <Compile Include="Assets\Script\Director\CharacterDirector.cs" />
     <Compile Include="Assets\Script\Train\Medic_Train.cs" />
     <Compile Include="Assets\Script\Station\Card\Store_Train_Card.cs" />
     <Compile Include="Assets\Script\Monster\Monster_5.cs" />
@@ -154,8 +154,8 @@
     <Compile Include="Assets\Script\Director\GameDirector.cs" />
     <Compile Include="Assets\Resources\SPUM\Script\SPUM_Prefabs.cs" />
     <Compile Include="Assets\Data_Game\Info_Mercenary.cs" />
-    <Compile Include="Assets\Data_Level\Info_Level_Mercenary_Engine_Driver.cs" />
     <Compile Include="Assets\Script\Bullet\Bullet.cs" />
+    <Compile Include="Assets\Data_Level\Info_Level_Mercenary_Engine_Driver.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -1069,12 +1069,12 @@
       <HintPath>Library\ScriptAssemblies\Unity.AI.Navigation.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.VSCode.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="Unity.AI.Navigation.Editor.ConversionSystem">
       <HintPath>Library\ScriptAssemblies\Unity.AI.Navigation.Editor.ConversionSystem.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.VSCode.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Cinemachine">
