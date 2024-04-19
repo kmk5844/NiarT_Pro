@@ -22,6 +22,7 @@ public class Mercenary : MonoBehaviour
     protected float move_X;
     protected float MaxMove_X;
     protected float MinMove_X;
+    protected float move_Y;
     [Header("용병 정보")]
     public int HP;
     [HideInInspector]
@@ -70,9 +71,10 @@ public class Mercenary : MonoBehaviour
         Train_List = GameObject.Find("Train_List").GetComponent<Transform>();
         TrainCount = Train_List.childCount;
         move_X = 0.01f;
-        MaxMove_X = 8f;
-        MinMove_X = -6f + ((TrainCount - 1) * -10f);
-        transform.position = new Vector3(Random.Range(MinMove_X, MaxMove_X), -1, 0);
+        MaxMove_X = 5.5f;
+        MinMove_X = -2.75f + (-5.9f * (TrainCount - 1));
+        move_Y = -0.4f;
+        transform.position = new Vector3(Random.Range(MinMove_X, MaxMove_X), move_Y, 0);
         sprite = GetComponent<SpriteRenderer>();
 
         era = 1f - (float)def / def_constant;
@@ -301,7 +303,7 @@ public class Mercenary : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(new Vector3(MinMove_X, -3, 0), new Vector3(MaxMove_X, -3, 0));
+        Gizmos.DrawLine(new Vector3(MinMove_X, -1.3f, 0), new Vector3(MaxMove_X, -1.3f, 0));
     }
     public void Data_Index()
     {

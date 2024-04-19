@@ -13,10 +13,8 @@ public class GameDirector : MonoBehaviour
     public GameObject MonsterDirector;
     List<int> Trian_Num;
 
-    public GameObject aimObject;
-    Transform Aim;
-    Vector3 mousePos;
-    Camera mainCamera;
+    Texture2D cursorOrigin;
+    Texture2D cursorAim;
 
     [Header("스테이지 정보")]
     public int Stage_Num;
@@ -92,10 +90,9 @@ public class GameDirector : MonoBehaviour
         GameWinFlag = false;
         GameLoseFlag = false;
         uiDirector = UI_DirectorObject.GetComponent<UIDirector>();
+        cursorOrigin = Resources.Load<Texture2D>("Cursor/Origin6464");
+        cursorAim = Resources.Load<Texture2D>("Cursor/Aim6464");
 
-        Aim = aimObject.GetComponent<Transform>();
-        mainCamera = Camera.main;
-        mousePos = mainCamera.ScreenToViewportPoint(Input.mousePosition);
 
         Stage_Init();
         Train_Init();
@@ -104,15 +101,11 @@ public class GameDirector : MonoBehaviour
         distance_lastSpeedTime = 0;
         timeBet = 0.1f - (EnginePower * 0.001f); //엔진 파워에 따라 결정
         distance_time = 0.1f;
-        HideCursor();
+        ChangeCursor(true);
     }
 
     void Update()
     {
-        mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
-        mousePos.z = 0f;
-        Aim.position = mousePos;
-
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if(gameType == GameType.Playing)
@@ -128,8 +121,7 @@ public class GameDirector : MonoBehaviour
 
         if(gameType == GameType.Playing)
         {
-            HideCursor();
-
+            ChangeCursor(true);
             if (Time.time > 5 && !GameStartFlag)
             {
                 GameStartFlag = true;
@@ -188,7 +180,7 @@ public class GameDirector : MonoBehaviour
         }
         else
         {
-            ShowCursor();
+            ChangeCursor(false);
         }
     }
     void Stage_Init()
@@ -392,17 +384,17 @@ public class GameDirector : MonoBehaviour
     {
         return (float)TrainFuel / (float)Total_TrainFuel;
     }
-    private void ShowCursor()
+
+    private void ChangeCursor(bool flag)
     {
-        aimObject.SetActive(false);
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-    }
-    private void HideCursor()
-    {
-        aimObject.SetActive(true);
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Confined;
+        if (flag) // 게임 진행 중일 때
+        {
+            Cursor.SetCursor(cursorAim, Vector2.zero, CursorMode.ForceSoftware);
+        }
+        else // Pause했을 때
+        {
+            Cursor.SetCursor(cursorOrigin, Vector2.zero, CursorMode.ForceSoftware);
+        }
     }
 }
 

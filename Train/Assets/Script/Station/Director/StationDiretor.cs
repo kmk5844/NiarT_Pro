@@ -33,6 +33,7 @@ public class StationDirector : MonoBehaviour
     public GameObject UI_TrainInformation_Window;
     public GameObject UI_Home_Button;
     public GameObject UI_Back_Button;
+    public GameObject[] UI_MenuAndGear_After;
     [Header("Click Lobby -> Store")]
     public GameObject UI_Store;
     public GameObject[] UI_Store_Window;
@@ -91,11 +92,13 @@ public class StationDirector : MonoBehaviour
                     {
                         ui_Maintenance_Num = i;
                         UI_TrainMaintenance_Window[i].SetActive(true);
+                        UI_MenuAndGear_After[i].SetActive(true);
                         UI_TrainMaintenance_Toggle.transform.GetChild(i).GetComponent<Toggle>().interactable = false;
                     }
                     else
                     {
                         UI_TrainMaintenance_Window[i].SetActive(false);
+                        UI_MenuAndGear_After[i].SetActive(false);
                         UI_TrainMaintenance_Toggle.transform.GetChild(i).GetComponent<Toggle>().interactable = true;
                     }
                 }

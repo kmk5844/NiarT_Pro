@@ -66,7 +66,7 @@ public class Medic : Mercenary
 
             if (act == Active.move)
             {
-                transform.position = new Vector3(transform.position.x, -1, 0);
+                transform.position = new Vector3(transform.position.x, move_Y, 0);
                 if (move_X > 0)
                 {
                     sprite.flipX = false;
@@ -82,12 +82,12 @@ public class Medic : Mercenary
                 if (unit.GetComponentInParent<Mercenary>().Check_moveX() > 0)
                 {
                     sprite.flipX = false;
-                    transform.position = new Vector3(unit.position.x - 1, -1, 0);
+                    transform.position = new Vector3(unit.position.x - 1, move_Y, 0);
                 }
                 else
                 {
                     sprite.flipX = true;
-                    transform.position = new Vector3(unit.position.x + 1, -1, 0);
+                    transform.position = new Vector3(unit.position.x + 1, move_Y, 0);
                 }
 
                 if (work_HP)
