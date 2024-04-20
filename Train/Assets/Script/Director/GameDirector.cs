@@ -15,6 +15,8 @@ public class GameDirector : MonoBehaviour
 
     Texture2D cursorOrigin;
     Texture2D cursorAim;
+    Vector2 cursorHotspot_Origin;
+    Vector2 cursorHotspot_Aim;
 
     [Header("스테이지 정보")]
     public int Stage_Num;
@@ -92,7 +94,8 @@ public class GameDirector : MonoBehaviour
         uiDirector = UI_DirectorObject.GetComponent<UIDirector>();
         cursorOrigin = Resources.Load<Texture2D>("Cursor/Origin6464");
         cursorAim = Resources.Load<Texture2D>("Cursor/Aim6464");
-
+        cursorHotspot_Origin = Vector2.zero;
+        cursorHotspot_Aim = new Vector2(cursorAim.width / 2, cursorAim.height / 2);
 
         Stage_Init();
         Train_Init();
@@ -389,11 +392,11 @@ public class GameDirector : MonoBehaviour
     {
         if (flag) // 게임 진행 중일 때
         {
-            Cursor.SetCursor(cursorAim, Vector2.zero, CursorMode.ForceSoftware);
+            Cursor.SetCursor(cursorAim, cursorHotspot_Aim, CursorMode.ForceSoftware);
         }
         else // Pause했을 때
         {
-            Cursor.SetCursor(cursorOrigin, Vector2.zero, CursorMode.ForceSoftware);
+            Cursor.SetCursor(cursorOrigin, cursorHotspot_Origin, CursorMode.ForceSoftware);
         }
     }
 }
