@@ -22,11 +22,15 @@ public class Train_InGame : MonoBehaviour
     public int Train_Fuel;
     public int Train_Attack;
     public float Train_Attack_Delay;
-    public int Train_Food;
     public int Train_Heal;
     [Header("HP 슬라이더")]
-    Slider HP_Slider;
+    public Transform HP_Arrow;
     public int cur_HP; //현재체력
+    float minRotation;
+    float maxRotation;
+    float minHP;
+    float maxHP;
+    float HP_Parsent;
     public bool isReparing;
     public bool isRepairable;
     [Header("방어 상수")]
@@ -50,9 +54,13 @@ public class Train_InGame : MonoBehaviour
         GD = GameObject.Find("GameDirector");
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
         Train_Name = trainData.Information_Train[TrainNum].Train_Name;
+        
         Train_HP = trainData.Information_Train[TrainNum].Train_HP;
-        HP_Slider = GetComponentInChildren<Slider>();
         cur_HP = Train_HP;
+        minRotation = 105f;
+        maxRotation = -37f;
+        minHP = 0f;
+        maxHP = 100f;
         Train_Weight = trainData.Information_Train[TrainNum].Train_Weight;
 
         Level_Anmor = GD.GetComponent<GameDirector>().SA_TrainData.Level_Train_Armor;
@@ -65,11 +73,18 @@ public class Train_InGame : MonoBehaviour
     private void Update()
     {
         era = 1f - (float)Train_Armor / def_constant; //만약에 방어력 증가해주는 기관사 타게 된다면 변경 가능성이 큼
-        HP_Slider.value = (float)cur_HP / (float)Train_HP;
-
+        HP_Parsent = (float)cur_HP / (float)Train_HP * 100f;
+        try
+        {
+            HP_Arrow.rotation = Quaternion.Euler(0f, 0f, HPToRotation(HP_Parsent));
+        }
+        catch
+        {
+            Debug.Log("임시");
+        }
         //여기서 만약 기차가 파괴 당할 시 쓰면 좋은 함수
 
-        if(cur_HP == 0)
+        if (cur_HP == 0)
         {
             switch (Train_Type)
             {
@@ -112,7 +127,6 @@ public class Train_InGame : MonoBehaviour
                 Train_Fuel = 0;
                 Train_Attack = 0;
                 Train_Attack_Delay = 0;
-                Train_Food = 0;
                 Train_Heal = 0;
                 break;
             case "Fuel":
@@ -122,7 +136,6 @@ public class Train_InGame : MonoBehaviour
                 Train_Fuel = trainData.Information_Train[TrainNum].Train_Fuel;
                 Train_Attack = 0;
                 Train_Attack_Delay = 0;
-                Train_Food = 0;
                 Train_Heal = 0; 
                 break;
             case "Turret":
@@ -132,7 +145,6 @@ public class Train_InGame : MonoBehaviour
                 Train_Fuel = 0;
                 Train_Attack = trainData.Information_Train[TrainNum].Train_Attack;
                 Train_Attack_Delay = trainData.Information_Train[TrainNum].Train_Attack_Delay;
-                Train_Food = 0;
                 Train_Heal = 0;
                 break;
             case "Medic":
@@ -142,21 +154,11 @@ public class Train_InGame : MonoBehaviour
                 Train_Fuel = 0;
                 Train_Attack = 0;
                 Train_Attack_Delay = 0;
-                Train_Food = 0;
                 Train_Heal = trainData.Information_Train[TrainNum].Train_Heal;
                 break;
         }
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Monster_Bullet"))
-        {
-            MonsterBullet bullet = collision.gameObject.GetComponent<MonsterBullet>();
-            Train_MonsterHit(bullet);
-            Destroy(collision.gameObject);
-        }
-    }
-    private void Train_MonsterHit(MonsterBullet monsterBullet)
+    public void Train_MonsterHit(MonsterBullet monsterBullet)
     {
         GD.GetComponent<GameDirector>().Game_MonsterHit(monsterBullet.slow); //슬로우가 있어야 한다.
         int damageTaken = Mathf.RoundToInt(monsterBullet.atk * era);
@@ -210,5 +212,9 @@ public class Train_InGame : MonoBehaviour
     {
         //데미지 경감이기 때문에 클수록 유리
         return trainArmor + (trainArmor * (Level_Anmor * 10) / 100);
+    }
+    private float HPToRotation(float HP)
+    {
+        return (HP - minHP) * (maxRotation - minRotation) / (maxHP - minHP) + minRotation;
     }
 }

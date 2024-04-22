@@ -1,0 +1,83 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UIElements;
+
+public class parallex : MonoBehaviour
+{
+    public GameObject GameDirector_Object;
+    GameDirector GameDirector;
+    Transform cam;
+    Vector3 camStartPos;
+    float distanceX;
+    Transform PlayerPos;
+
+    GameObject[] backgrounds;
+    Material[] mat;
+
+    [SerializeField]
+    float[] backSpeed;
+
+    float farthestBack;
+
+    [Range(0.051f, 1f)]
+    public float parallaxSpeed;
+
+    float offset;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        GameDirector = GameDirector_Object.GetComponent<GameDirector>();
+        cam = Camera.main.transform;
+        PlayerPos = GameObject.FindGameObjectWithTag("Player").transform;
+        camStartPos = cam.position;
+
+        int backCount = transform.childCount;
+        mat = new Material[backCount];
+        backSpeed = new float[backCount];
+        backgrounds = new GameObject[backCount];
+
+        for (int i = 0; i < backCount; i++)
+        {
+            backgrounds[i] = transform.GetChild(i).gameObject;
+            mat[i] = backgrounds[i].GetComponent<Renderer>().material;
+        }
+
+        BackSpeedCalculate(backCount);
+    }
+
+    void BackSpeedCalculate(int backCount)
+    {
+        for (int i = 0; i < backCount; i++)
+        {
+            if ((backgrounds[i].transform.position.z - cam.position.z) > farthestBack)
+            {
+                farthestBack = backgrounds[i].transform.position.z - cam.position.z;
+            }
+        }
+
+        for (int i = 0; i < backCount; i++)
+        {
+            backSpeed[i] = 1 - (backgrounds[i].transform.position.z - cam.position.z) / farthestBack;
+        }
+    }
+
+    private void Update()
+    {
+        if(GameDirector.gameType == GameType.Playing)
+        {
+            for (int i = 0; i < backgrounds.Length; i++)
+            {
+                float speed = backSpeed[i] * parallaxSpeed;
+                offset += (Time.deltaTime * speed + (GameDirector.TrainSpeed / 20000f)) / 10f;
+                mat[i].SetTextureOffset("_MainTex", new Vector2(offset, 0) * speed);
+            }
+        }
+    }
+
+    private void LateUpdate()
+    {
+        transform.position = new Vector3(cam.position.x, transform.position.y, transform.position.z);
+    }
+}

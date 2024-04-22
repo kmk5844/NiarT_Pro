@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Monster : MonoBehaviour
 {
@@ -36,7 +37,6 @@ public class Monster : MonoBehaviour
 
     GameObject player; //플레이어 위치에 따라 플립하는 경우.
     GameDirector gameDirector; // 리워드 접수해야함.
-    SpriteRenderer monster_Image;
 
     protected virtual void Start()
     {
@@ -53,7 +53,6 @@ public class Monster : MonoBehaviour
         Bullet_Slow = EX_GameData.Information_Monster[Monster_Num].Monster_Bullet_Slow;
         monster_Bullet_List = GameObject.Find("Bullet_List").GetComponent<Transform>();
         Target = EX_GameData.Information_Monster[Monster_Num].Monster_Target;
-        monster_Image = GetComponent<SpriteRenderer>();
 
         player = GameObject.FindGameObjectWithTag("Player");
     }
@@ -70,13 +69,14 @@ public class Monster : MonoBehaviour
 
     protected void FlipMonster()
     {
-        if(transform.position.x > player.transform.position.x)
+        if (player.transform.position.x - transform.position.x < 0f)
         {
-            monster_Image.flipX = true; // 하면서 수정
+            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+
         }
         else
         {
-            monster_Image.flipX = false;
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
     } // 공통적으로 적용해야 함
 
