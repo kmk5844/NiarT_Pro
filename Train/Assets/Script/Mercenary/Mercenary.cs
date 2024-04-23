@@ -72,7 +72,7 @@ public class Mercenary : MonoBehaviour
         TrainCount = Train_List.childCount;
         move_X = 0.01f;
         MaxMove_X = 5.5f;
-        MinMove_X = -2.75f + (-5.9f * (TrainCount - 1));
+        MinMove_X = -2.75f + (-7.341864f * (TrainCount - 1));
         move_Y = -0.4f;
         transform.position = new Vector3(Random.Range(MinMove_X, MaxMove_X), move_Y, 0);
         sprite = GetComponent<SpriteRenderer>();

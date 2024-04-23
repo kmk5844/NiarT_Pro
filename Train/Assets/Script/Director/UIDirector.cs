@@ -57,8 +57,8 @@ public class UIDirector : MonoBehaviour
         Team_Index1 = 2;
         Team_Index2 = 0;
 
-        minRotation = 100f;
-        maxRotation = -80f;
+        minRotation = 115f;
+        maxRotation = -105f;
 
         minSpeed = 0f;
         maxSpeed = 400f;

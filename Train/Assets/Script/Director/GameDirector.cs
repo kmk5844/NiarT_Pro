@@ -1,6 +1,8 @@
+using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 
 public class GameDirector : MonoBehaviour
@@ -84,7 +86,11 @@ public class GameDirector : MonoBehaviour
     float distance_lastSpeedTime;
     float distance_time;
 
-    void Start()
+    [Header("Train_Cam")]
+    public Transform TrainCamList;
+    public GameObject TrainCam_Prefeb;
+
+    void Awake()
     {
         gameType = GameType.Playing;
         Stage_Num = SA_PlayerData.Stage;
@@ -217,14 +223,15 @@ public class GameDirector : MonoBehaviour
             if (i == 0)
             {
                 //¿£ÁøÄ­
-                TrainObject.transform.position = new Vector3(0f, 0, 0);
+                TrainObject.transform.position = new Vector3(0f, 0.4f, 0);
             }
             else
             {
                 //³ª¸ÓÁöÄ­
-                TrainObject.transform.position = new Vector3(-5.9f * i, 0, 0);
+                TrainObject.transform.position = new Vector3(-7.341864f * i, 0.4f, 0);
             }
             TrainObject.GetComponent<Train_InGame>().TrainNum = Trian_Num[i];
+            Instantiate_TrainCam(TrainObject);
         }
 
         Train_Count = List_Train.childCount;
@@ -398,6 +405,23 @@ public class GameDirector : MonoBehaviour
         {
             Cursor.SetCursor(cursorOrigin, cursorHotspot_Origin, CursorMode.ForceSoftware);
         }
+    }
+
+    private void Instantiate_TrainCam(GameObject Train)
+    {
+        GameObject Cam = Instantiate(TrainCam_Prefeb, TrainCamList);
+        Cam.GetComponent<CinemachineVirtualCamera>().Follow = Train.transform;
+        Cam.GetComponent<CinemachineVirtualCamera>().LookAt = Train.transform;
+        Cam.name = Train.name + "_Cam";
+    }
+
+    void size(GameObject T)
+    {
+        Renderer P_Renderer = T.GetComponent<Renderer>();
+        Bounds bounds = P_Renderer.bounds;
+
+        float tt = bounds.size.x;
+        Debug.Log(tt);
     }
 }
 

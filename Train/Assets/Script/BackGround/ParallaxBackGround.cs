@@ -10,7 +10,6 @@ public class parallex : MonoBehaviour
     Transform cam;
     Vector3 camStartPos;
     float distanceX;
-    Transform PlayerPos;
 
     GameObject[] backgrounds;
     Material[] mat;
@@ -30,7 +29,6 @@ public class parallex : MonoBehaviour
     {
         GameDirector = GameDirector_Object.GetComponent<GameDirector>();
         cam = Camera.main.transform;
-        PlayerPos = GameObject.FindGameObjectWithTag("Player").transform;
         camStartPos = cam.position;
 
         int backCount = transform.childCount;
@@ -65,7 +63,8 @@ public class parallex : MonoBehaviour
 
     private void Update()
     {
-        if(GameDirector.gameType == GameType.Playing)
+        distanceX = cam.position.x - camStartPos.x;
+        if (GameDirector.gameType == GameType.Playing)
         {
             for (int i = 0; i < backgrounds.Length; i++)
             {

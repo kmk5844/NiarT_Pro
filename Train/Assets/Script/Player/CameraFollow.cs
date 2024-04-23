@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class CameraFollow : MonoBehaviour
 {
@@ -14,13 +15,14 @@ public class CameraFollow : MonoBehaviour
     float CameraSpeed;
 
     Vector3 offset;
-    bool Left_Key;
-    bool Right_Key;
-    public float Key_Speed;
-
+    public Transform TrainCam_List;
+    int max_trainCam_Count;
+    int trainCam_Count;
     // Start is called before the first frame update
     void Start()
     {
+        trainCam_Count = -1;
+        max_trainCam_Count = TrainCam_List.childCount;
         transform.position = new Vector3(Player.transform.position.x, CameraOffset.y, transform.position.z);
     }
 
@@ -28,25 +30,23 @@ public class CameraFollow : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            Left_Key = true;
+            prev_Cam();
         }
 
         if (Input.GetKeyDown(KeyCode.C))
         {
-            Right_Key = true;
+            next_Cam();
         }
 
-        if (Input.GetKeyUp(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.X))
         {
-            Left_Key = false;
+            if(trainCam_Count != -1)
+            {
+                Player_Cam();
+            }
         }
 
-        if (Input.GetKeyUp(KeyCode.C))
-        {
-            Right_Key = false;
-        }
     }
-
     private void FixedUpdate()
     {
         Vector3 postion = new Vector3(Player.transform.position.x + CameraOffset.x, CameraOffset.y, Player.transform.position.z + CameraOffset.z);
@@ -55,22 +55,57 @@ public class CameraFollow : MonoBehaviour
 
     void LateUpdate()
     {
-        if (Left_Key || Right_Key)
-        {
-            if (Left_Key)
-            {
-                transform.position += new Vector3(-1f * Key_Speed, 0f, 0f);
-            }
 
-            if (Right_Key)
-            {
-                transform.position += new Vector3(1f * Key_Speed, 0f, 0f);
-            }
+        transform.position = offset;
+    }
+
+    void prev_Cam()
+    {
+        if(trainCam_Count == -1)
+        {
+            trainCam_Count = 0;
         }
         else
         {
-            transform.position = offset;
-
+            if(trainCam_Count < max_trainCam_Count - 1)
+            {
+                trainCam_Count++;
+                TrainCam_List.GetChild(trainCam_Count-1).gameObject.SetActive(false);
+            }
+            else
+            {
+                trainCam_Count = 0;
+                TrainCam_List.GetChild(max_trainCam_Count-1).gameObject.SetActive(false);
+            }
         }
+        TrainCam_List.GetChild(trainCam_Count).gameObject.SetActive(true);
+    }
+
+    void Player_Cam()
+    {
+        TrainCam_List.GetChild(trainCam_Count).gameObject.SetActive(false);
+        trainCam_Count = -1;
+    }
+
+    void next_Cam()
+    {
+        if (trainCam_Count == -1)
+        {
+            trainCam_Count = 0;
+        }
+        else
+        {
+            if(trainCam_Count > 0)
+            {
+                trainCam_Count--;
+                TrainCam_List.GetChild(trainCam_Count+1).gameObject.SetActive(false);
+            }
+            else
+            {
+                trainCam_Count = max_trainCam_Count - 1;
+                TrainCam_List.GetChild(0).gameObject.SetActive(false);
+            }
+        }
+        TrainCam_List.GetChild(trainCam_Count).gameObject.SetActive(true);
     }
 }
