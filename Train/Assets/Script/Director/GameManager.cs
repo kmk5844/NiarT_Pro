@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] Animator Loading;
+
     #region ΩÃ±€≈Ê
     private static GameManager instance = null;
     void Awake()
@@ -31,15 +34,17 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    // Start is called before the first frame update
-    void Start()
+    public void Loading_Scene(string SceneName)
     {
-        
+        StartCoroutine(LoadScene(SceneName));
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator LoadScene(string SceneName)
     {
-        
+        Loading.gameObject.SetActive(true);
+        Loading.SetTrigger("Start_Loading");
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadSceneAsync(SceneName);
+        Loading.SetTrigger("End_Loading");
     }
 }

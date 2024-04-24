@@ -148,6 +148,9 @@ public class Station_TrainMaintenance : MonoBehaviour
         UI_TrainList.GetChild(UI_Train_Num).gameObject.SetActive(true);
         UI_TrainButtonList.GetChild(beforeNum).GetComponent<Station_Maintenance_TrainNum_Button>().ChekcButton(false);
         UI_TrainButtonList.GetChild(UI_Train_Num).GetComponent<Station_Maintenance_TrainNum_Button>().ChekcButton(true);
+        Check_Change_Button_Interactable();
+        Check_Upgrade_Button_Interactable();
+        Upgrade_Before_After_Text();
     }
 
     //패시브 업그레이드
@@ -305,10 +308,11 @@ public class Station_TrainMaintenance : MonoBehaviour
         {
             for (int i = 0; i < Train_Toggle.Count; i++)
             {
-/*                if (Train_Toggle[i].isOn)
+                if (Train_Toggle[i].isOn)
                 {
-                    Toggle_Train_Num = i;
-                }*/
+                    TrainMaintenance_Train_Card Card = Train_Change_Content.GetChild(i).GetComponent<TrainMaintenance_Train_Card>();
+                    Toggle_Train_Num = Card.Train_Num;
+                }
                 ChangeFlag = true;
                 Check_Change_Button_Interactable();
             }
@@ -375,7 +379,6 @@ public class Station_TrainMaintenance : MonoBehaviour
     public void Direcotr_Init_TrainUpgrade()
     {
         Check_Upgrade_Button_Interactable();
-
     }
 
     public void Click_Button_Upgrade()
@@ -419,6 +422,7 @@ public class Station_TrainMaintenance : MonoBehaviour
             }
 
         }
+        Upgrade_Text.text = trainData.EX_Game_Data.Information_Train[trainData.Train_Num[UI_Train_Num]].Train_Upgrade_Cost.ToString();
     }
 
     private void Upgrade_Train_TrainMaintenance()

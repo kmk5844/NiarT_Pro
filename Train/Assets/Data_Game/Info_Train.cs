@@ -18,6 +18,7 @@ public class Info_Train
     public int Train_Heal;
     public int Train_Buy_Cost;
     public int Train_Change_Cost;
+    public int Train_Upgrade_Cost;
     public string Train_Information;
     public bool Store;
     public bool Change;

@@ -46,6 +46,6 @@ public class Station_GameStart : MonoBehaviour
 
     public void Click_GameStart()
     {
-        SceneManager.LoadScene("InGame");
+        SceneManager.LoadScene("CharacterSelect");
     }
 }
