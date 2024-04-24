@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    bool Spum_Demo;
-
     GameObject gamedriectorObject;
     GameType gameDirectorType;
 
@@ -24,8 +22,6 @@ public class Player : MonoBehaviour
     public Transform Bullet_Fire_Transform;
     Transform Player_Bullet_List;
     float lastTime;
-    [Header("무기 오브젝트")]
-    public GameObject GunSprite;
 
     [Header("체력")]
     public int Player_HP;
@@ -54,7 +50,7 @@ public class Player : MonoBehaviour
     
     Vector3 respawnPosition;
 
-    [Header("총")]
+    [Header("무기 오브젝트")]
     public GameObject GunObject;
     Camera mainCam;
     private Vector3 mousePos;
@@ -88,13 +84,13 @@ public class Player : MonoBehaviour
     {
         gameDirectorType = gamedriectorObject.GetComponent<GameDirector>().gameType;
 
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            transform.rotation = Quaternion.Euler(0,0,0);
-        }
-        else if(Input.GetKeyDown(KeyCode.D)){
-            transform.rotation = Quaternion.Euler(0, -180, 0);
-        }
+        /*        if (Input.GetKeyDown(KeyCode.A))
+                {
+                    transform.rotation = Quaternion.Euler(0,0,0);
+                }
+                else if(Input.GetKeyDown(KeyCode.D)){
+                    transform.rotation = Quaternion.Euler(0, -180, 0); //스케일로 변경
+                }*/
 
         if (gameDirectorType == GameType.Playing)
         {
@@ -103,6 +99,24 @@ public class Player : MonoBehaviour
             Vector3 rot = mousePos - GunObject.transform.position;
             float rotZ = Mathf.Atan2(rot.y, rot.x) * Mathf.Rad2Deg;
             GunObject.transform.rotation = Quaternion.Euler(0, 0, rotZ);
+
+            if(rotZ >= -90 && rotZ <= 90)
+            {
+                GunObject.transform.localScale = new Vector3(1, 1, 1);
+            }
+            else
+            {
+                GunObject.transform.localScale = new Vector3(1, -1, 1);
+            }
+
+            if(mousePos.x > transform.position.x)
+            {
+                transform.rotation = Quaternion.Euler(0,-180,0);
+            }
+            else
+            {
+                transform.rotation = Quaternion.Euler(0, 0 ,0);
+            }
 
             if (Input.GetMouseButtonDown(0))
             {
@@ -114,17 +128,6 @@ public class Player : MonoBehaviour
                 isMouseDown = false;
             }
         }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            isMouseDown = true;
-        }
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            isMouseDown = false;
-        }
-
 
         try
         {
@@ -238,12 +241,12 @@ public class Player : MonoBehaviour
         if (flag)
         {
             GetComponent<SpriteRenderer>().enabled = false;
-            GunSprite.SetActive(false);
+            GunObject.SetActive(false);
         }
         else
         {
             GetComponent<SpriteRenderer>().enabled = true;
-            GunSprite.SetActive(true);
+            GunObject.SetActive(true);
         }
     }
     void Level()

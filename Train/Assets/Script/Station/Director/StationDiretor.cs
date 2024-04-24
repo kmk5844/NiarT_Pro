@@ -65,6 +65,7 @@ public class StationDirector : MonoBehaviour
         {
             Coin_Text[i].text = playerData.Player_Coin.ToString();
             Point_Text[i].text = playerData.Player_Point.ToString();
+            Debug.Log(playerData.Player_Coin);
         }
 
         ui_num = 0;

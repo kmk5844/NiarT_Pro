@@ -36,6 +36,8 @@ public class Station_PlayerData : MonoBehaviour
     private void Awake()
     {
         Check_Level_Player();
+        Player_Coin = SA_PlayerData.Coin;
+        Player_Point = SA_PlayerData.Point;
     }
 
     private void Check_Level_Player()
