@@ -16,6 +16,6 @@ public class CharacterDirector : MonoBehaviour
     IEnumerator Start_Game()
     {
         yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene("InGame");
+        LoadingManager.LoadScene("InGame");
     }
 }

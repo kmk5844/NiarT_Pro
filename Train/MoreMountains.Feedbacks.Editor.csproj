@@ -62,19 +62,19 @@
   <ItemGroup>
     <Compile Include="Assets\Feel\MMFeedbacks\Editor\Sequencing\MMInputSequenceRecorderEditor.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\Editor\Core\MMF_PlayerEditor.cs" />
+    <Compile Include="Assets\Feel\MMFeedbacks\Editor\Core\MMFeedbacksConfiguration.cs" />
+    <Compile Include="Assets\Feel\MMFeedbacks\Editor\Core\MMFeedbackStyling.cs" />
+    <Compile Include="Assets\Feel\MMFeedbacks\Editor\Core\MMF_PlayerCopy.cs" />
+    <Compile Include="Assets\Feel\MMFeedbacks\Editor\Core\MMF_PlayerConfiguration.cs" />
+    <Compile Include="Assets\Feel\MMFeedbacks\Editor\Core\MMF_FeedbackInspector.cs" />
+    <Compile Include="Assets\Feel\MMFeedbacks\Editor\FeedbackListOutputter\FeedbackListOutputer.cs" />
+    <Compile Include="Assets\Feel\MMFeedbacks\Editor\Shakers\MMWiggleEditor.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\Editor\Core\MMF_FeedbackInspectorStyle.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\Editor\Legacy\MMFeedbacksEditor.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\Editor\Core\MMFeedbacksColors.cs" />
-    <Compile Include="Assets\Feel\MMFeedbacks\Editor\Core\MMFeedbacksConfiguration.cs" />
-    <Compile Include="Assets\Feel\MMFeedbacks\Editor\Core\MMFeedbackStyling.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\Editor\Core\MMF_PlayerStyling.cs" />
-    <Compile Include="Assets\Feel\MMFeedbacks\Editor\Core\MMF_PlayerCopy.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\Editor\Core\AttributeDrawers.cs" />
-    <Compile Include="Assets\Feel\MMFeedbacks\Editor\Core\MMF_PlayerConfiguration.cs" />
-    <Compile Include="Assets\Feel\MMFeedbacks\Editor\Core\MMF_FeedbackInspector.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\Editor\Sequencing\MMSequencerEditor.cs" />
-    <Compile Include="Assets\Feel\MMFeedbacks\Editor\FeedbackListOutputter\FeedbackListOutputer.cs" />
-    <Compile Include="Assets\Feel\MMFeedbacks\Editor\Shakers\MMWiggleEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Feel\MMFeedbacks\Editor\MoreMountains.Feedbacks.Editor.asmdef" />
@@ -458,6 +458,10 @@
     </Reference>
     <Reference Include="NPOI.OpenXml4Net">
       <HintPath>Assets\ExcelImporter\Editor\NPOI\Net20\NPOI.OpenXml4Net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json@3.2.1\Runtime\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="nunit.framework">

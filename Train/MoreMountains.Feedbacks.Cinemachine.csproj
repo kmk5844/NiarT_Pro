@@ -62,19 +62,19 @@
   <ItemGroup>
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\Cinemachine\Feedbacks\MMF_CinemachineImpulseSource.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\Cinemachine\Shakers\MMCinemachineFieldOfViewShaker.cs" />
-    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\Cinemachine\Feedbacks\Legacy\MMFeedbackCinemachineImpulseClear.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\Cinemachine\Shakers\MMCinemachineCameraShaker.cs" />
-    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\Cinemachine\Feedbacks\Legacy\MMFeedbackCinemachineTransition.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\Cinemachine\Shakers\MMCinemachineOrthographicSizeShaker.cs" />
+    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\Cinemachine\Feedbacks\MMF_CinemachineImpulse.cs" />
+    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\Cinemachine\Shakers\MMCinemachineZoom.cs" />
+    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\Cinemachine\Shakers\MMCinemachineFreeLookZoom.cs" />
+    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\Cinemachine\Shakers\MMCinemachinePriorityListener.cs" />
+    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\Cinemachine\Feedbacks\Legacy\MMFeedbackCinemachineImpulseClear.cs" />
+    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\Cinemachine\Feedbacks\Legacy\MMFeedbackCinemachineTransition.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\Cinemachine\Shakers\MMCinemachinePriorityBrainListener.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\Cinemachine\Feedbacks\Legacy\MMFeedbackCinemachineImpulse.cs" />
-    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\Cinemachine\Feedbacks\MMF_CinemachineImpulse.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\Cinemachine\Feedbacks\MMF_CinemachineImpulseClear.cs" />
-    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\Cinemachine\Shakers\MMCinemachineZoom.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\Cinemachine\Shakers\MMCinemachineClippingPlanesShaker.cs" />
-    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\Cinemachine\Shakers\MMCinemachineFreeLookZoom.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\Cinemachine\Feedbacks\MMF_CinemachineTransition.cs" />
-    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\Cinemachine\Shakers\MMCinemachinePriorityListener.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\Cinemachine\MoreMountains.Feedbacks.Cinemachine.asmdef" />
@@ -454,6 +454,10 @@
     </Reference>
     <Reference Include="NPOI.OpenXml4Net">
       <HintPath>Assets\ExcelImporter\Editor\NPOI\Net20\NPOI.OpenXml4Net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json@3.2.1\Runtime\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="netstandard">

@@ -12,7 +12,6 @@ public class Station_GameStart : MonoBehaviour
     Station_TrainData trainData;
     public Button GameStart_Button;
     public TextMeshProUGUI text;
-    SceneManager sceneManager;
 
     int Fuel_Count;
 
@@ -46,6 +45,6 @@ public class Station_GameStart : MonoBehaviour
 
     public void Click_GameStart()
     {
-        SceneManager.LoadScene("CharacterSelect");
+        LoadingManager.LoadScene("CharacterSelect");
     }
 }

@@ -159,12 +159,12 @@ public class UIDirector : MonoBehaviour
 
     public void Click_Station()
     {
-        SceneManager.LoadScene("Station");
+        LoadingManager.LoadScene("Station");
     }
 
     public void Click_Retry()
     {
-        SceneManager.LoadScene("InGame");
+        LoadingManager.LoadScene("InGame");
     }
 
     public void Click_MainMenu()

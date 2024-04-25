@@ -60,10 +60,10 @@
     <Analyzer Include="D:\Unity Version\Unity 2022.3.19f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Resources\SPUM\Sprite_SheetExporter(Beta)\Script\Editor\SetGameSizeWindow.cs" />
     <Compile Include="Assets\Resources\SPUM\Sprite_Editor(Beta)\Script\Editor\SPUM_Sync.cs" />
-    <Compile Include="Assets\Resources\SPUM\Sprite_Editor(Beta)\Script\Editor\SPUM_Eye.cs" />
     <Compile Include="Assets\Resources\SPUM\Sprite_Editor(Beta)\Script\Editor\SPUM_SpriteEdit.cs" />
+    <Compile Include="Assets\Resources\SPUM\Sprite_SheetExporter(Beta)\Script\Editor\SetGameSizeWindow.cs" />
+    <Compile Include="Assets\Resources\SPUM\Sprite_Editor(Beta)\Script\Editor\SPUM_Eye.cs" />
     <Compile Include="Assets\Resources\SPUM\Script\Editor\SPUM_SpriteEditor.cs" />
     <Compile Include="Assets\Resources\SPUM\Sprite_SheetExporter(Beta)\Script\Editor\SPUM_Exporter.cs" />
     <Compile Include="Assets\Resources\SPUM\Script\Editor\SPUM_Editor.cs" />
@@ -447,6 +447,10 @@
     </Reference>
     <Reference Include="NPOI.OpenXml4Net">
       <HintPath>Assets\ExcelImporter\Editor\NPOI\Net20\NPOI.OpenXml4Net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json@3.2.1\Runtime\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="nunit.framework">
@@ -973,12 +977,28 @@
       <HintPath>Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.ResourceManager">
+      <HintPath>Library\ScriptAssemblies\Unity.ResourceManager.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Unity.ScriptableBuildPipeline">
+      <HintPath>Library\ScriptAssemblies\Unity.ScriptableBuildPipeline.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Localization.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Localization.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Unity.VisualStudio.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Localization">
+      <HintPath>Library\ScriptAssemblies\Unity.Localization.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEditor.UI">
@@ -1003,6 +1023,10 @@
     </Reference>
     <Reference Include="Unity.Timeline">
       <HintPath>Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Addressables.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.Addressables.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.AI.Navigation.Updater">
@@ -1035,6 +1059,14 @@
     </Reference>
     <Reference Include="Cinemachine">
       <HintPath>Library\ScriptAssemblies\Cinemachine.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.ScriptableBuildPipeline.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.ScriptableBuildPipeline.Editor.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Addressables">
+      <HintPath>Library\ScriptAssemblies\Unity.Addressables.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>

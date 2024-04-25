@@ -60,19 +60,19 @@
     <Analyzer Include="D:\Unity Version\Unity 2022.3.19f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\NiceVibrations\Feedbacks\Legacy\MMFeedbackHaptics.cs" />
+    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\NiceVibrations\Feedbacks\Legacy\MMFeedbackNVSettings.cs" />
+    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\NiceVibrations\Feedbacks\MMF_NVClip.cs" />
+    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\NiceVibrations\Feedbacks\MMF_NVControl.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\NiceVibrations\Feedbacks\Legacy\MMFeedbackNVClip.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\NiceVibrations\Feedbacks\MMF_NVContinuous.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\NiceVibrations\Feedbacks\Legacy\MMFeedbackNVEmphasis.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\NiceVibrations\Feedbacks\Legacy\MMFeedbackNVPreset.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\NiceVibrations\Feedbacks\MMF_NVEmphasis.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\NiceVibrations\Feedbacks\MMF_NVPreset.cs" />
-    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\NiceVibrations\Feedbacks\Legacy\MMFeedbackHaptics.cs" />
-    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\NiceVibrations\Feedbacks\Legacy\MMFeedbackNVSettings.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\NiceVibrations\Feedbacks\MMF_Haptics.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\NiceVibrations\Feedbacks\Legacy\MMFeedbackNVContinuous.cs" />
     <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\NiceVibrations\Feedbacks\Legacy\MMFeedbackNVControl.cs" />
-    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\NiceVibrations\Feedbacks\MMF_NVClip.cs" />
-    <Compile Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\NiceVibrations\Feedbacks\MMF_NVControl.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Feel\MMFeedbacks\MMFeedbacksForThirdParty\NiceVibrations\MoreMountains.Feedbacks.NiceVibrations.asmdef" />
@@ -452,6 +452,10 @@
     </Reference>
     <Reference Include="NPOI.OpenXml4Net">
       <HintPath>Assets\ExcelImporter\Editor\NPOI\Net20\NPOI.OpenXml4Net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json@3.2.1\Runtime\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="netstandard">

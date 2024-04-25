@@ -61,16 +61,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Feel\NiceVibrations\Scripts\Components\AssemblyInfo.cs" />
+    <Compile Include="Assets\Feel\NiceVibrations\Scripts\Components\HapticReceiver.cs" />
+    <Compile Include="Assets\Feel\NiceVibrations\Scripts\Components\HapticSource.cs" />
+    <Compile Include="Assets\Feel\NiceVibrations\Scripts\Components\JNIHelpers.cs" />
+    <Compile Include="Assets\Feel\NiceVibrations\Scripts\Components\LofeltHaptics.cs" />
     <Compile Include="Assets\Feel\NiceVibrations\Scripts\Components\DeviceCapabilities.cs" />
     <Compile Include="Assets\Feel\NiceVibrations\Scripts\Components\HapticClip.cs" />
     <Compile Include="Assets\Feel\NiceVibrations\Scripts\Components\HapticController.cs" />
     <Compile Include="Assets\Feel\NiceVibrations\Scripts\Components\Gamepad.cs" />
-    <Compile Include="Assets\Feel\NiceVibrations\Scripts\Components\HapticReceiver.cs" />
     <Compile Include="Assets\Feel\NiceVibrations\Scripts\Components\HapticPatterns.cs" />
     <Compile Include="Assets\Feel\NiceVibrations\Define\NiceVibrationsDefineSymbols.cs" />
-    <Compile Include="Assets\Feel\NiceVibrations\Scripts\Components\HapticSource.cs" />
-    <Compile Include="Assets\Feel\NiceVibrations\Scripts\Components\JNIHelpers.cs" />
-    <Compile Include="Assets\Feel\NiceVibrations\Scripts\Components\LofeltHaptics.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Feel\NiceVibrations\Plugins\Windows\x64\nice_vibrations_editor_plugin.dll" />
@@ -459,6 +459,10 @@
     </Reference>
     <Reference Include="NPOI.OpenXml4Net">
       <HintPath>Assets\ExcelImporter\Editor\NPOI\Net20\NPOI.OpenXml4Net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json@3.2.1\Runtime\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="netstandard">

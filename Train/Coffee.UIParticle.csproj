@@ -61,12 +61,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\ParticleEffectForUGUI-main\ParticleEffectForUGUI-main\Scripts\ModifiedMaterial.cs" />
-    <Compile Include="Assets\ParticleEffectForUGUI-main\ParticleEffectForUGUI-main\Scripts\UIParticleUpdater.cs" />
     <Compile Include="Assets\ParticleEffectForUGUI-main\ParticleEffectForUGUI-main\Scripts\Utils.cs" />
     <Compile Include="Assets\ParticleEffectForUGUI-main\ParticleEffectForUGUI-main\Scripts\AnimatableProperty.cs" />
     <Compile Include="Assets\ParticleEffectForUGUI-main\ParticleEffectForUGUI-main\Scripts\UIParticleRenderer.cs" />
-    <Compile Include="Assets\ParticleEffectForUGUI-main\ParticleEffectForUGUI-main\Scripts\UIParticle.cs" />
     <Compile Include="Assets\ParticleEffectForUGUI-main\ParticleEffectForUGUI-main\Scripts\UIParticleAttractor.cs" />
+    <Compile Include="Assets\ParticleEffectForUGUI-main\ParticleEffectForUGUI-main\Scripts\UIParticleUpdater.cs" />
+    <Compile Include="Assets\ParticleEffectForUGUI-main\ParticleEffectForUGUI-main\Scripts\UIParticle.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ParticleEffectForUGUI-main\ParticleEffectForUGUI-main\Scripts\Coffee.UIParticle.asmdef" />
@@ -446,6 +446,10 @@
     </Reference>
     <Reference Include="NPOI.OpenXml4Net">
       <HintPath>Assets\ExcelImporter\Editor\NPOI\Net20\NPOI.OpenXml4Net.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Library\PackageCache\com.unity.nuget.newtonsoft-json@3.2.1\Runtime\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="netstandard">

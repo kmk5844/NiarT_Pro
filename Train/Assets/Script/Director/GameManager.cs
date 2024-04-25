@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] Animator Loading;
-
     #region ΩÃ±€≈Ê
     private static GameManager instance = null;
     void Awake()
@@ -34,17 +32,12 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    public void Loading_Scene(string SceneName)
+    public void Update()
     {
-        StartCoroutine(LoadScene(SceneName));
-    }
-
-    IEnumerator LoadScene(string SceneName)
-    {
-        Loading.gameObject.SetActive(true);
-        Loading.SetTrigger("Start_Loading");
-        yield return new WaitForSeconds(2f);
-        SceneManager.LoadSceneAsync(SceneName);
-        Loading.SetTrigger("End_Loading");
+        if(Input.GetKeyUp(KeyCode.Alpha0))
+        {
+            //µ•¿Ã≈Õ √ ±‚»≠
+            SceneManager.LoadScene("0.MainMenu");
+        }
     }
 }
