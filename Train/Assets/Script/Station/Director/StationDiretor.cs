@@ -228,6 +228,15 @@ public class StationDirector : MonoBehaviour
         UI_Lobby.gameObject.SetActive(true);
     }
 
+    public void Check_CoinAndPoint()
+    {
+        for (int i = 0; i < Coin_Text.Length; i++)
+        {
+            Coin_Text[i].text = playerData.Player_Coin.ToString();
+            Point_Text[i].text = playerData.Player_Point.ToString();
+        }
+    }
+
     public void Total_Init() { 
         Director_TrainMaintenance.Director_Init_TrainChange();
         Director_Store.Director_Init_TrainyBuy();

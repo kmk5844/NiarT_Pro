@@ -71,6 +71,16 @@ public class SA_PlayerData : ScriptableObject
         player_num = i;
     }
 
+    public void SA_Buy_Coin(int R_Coin)
+    {
+        coin -= R_Coin;
+    }
+
+    public void SA_Use_Point(int R_Point)
+    {
+        point -= R_Point;
+    }
+
     public void SA_Player_Level_Up(int LevelNum)//LevelNum : 0 = Atk / 1= AtkDealy / 2 = HP / 3 = Armor / 4 = Speed
     {
         switch(LevelNum)

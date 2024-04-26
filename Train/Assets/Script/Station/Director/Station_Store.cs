@@ -8,6 +8,8 @@ using UnityEngine.UI;
 public class Station_Store : MonoBehaviour
 {
     [Header("데이터 모음")]
+    public GameObject Player_DataObject;
+    Station_PlayerData playerData;
     public GameObject Train_DataObject;
     Station_TrainData trainData;
     public GameObject Mercenary_DataObject;
@@ -50,6 +52,7 @@ public class Station_Store : MonoBehaviour
 
     private void Start()
     {
+        playerData = Player_DataObject.GetComponent<Station_PlayerData>();
         trainData = Train_DataObject.GetComponent<Station_TrainData>();
         mercenaryData = Mercenary_DataObject.GetComponent<Station_MercenaryData>();
         Train_Store_Num = trainData.Train_Store_Num;
@@ -135,6 +138,7 @@ public class Station_Store : MonoBehaviour
 
     private void Store_Buy_TrainCard()
     {
+        playerData.Player_Buy_Coin(trainData.EX_Game_Data.Information_Train[Toggle_Trian_Num].Train_Buy_Cost);
         trainData.SA_TrainData.Train_Buy_Num.Add(Toggle_Trian_Num);
         trainData.Check_Buy_Train(Toggle_Trian_Num);
         Check_AfterBuy_TrainCard();
@@ -296,5 +300,10 @@ public class Station_Store : MonoBehaviour
         RectTransform ContentSize = ScrollContent.GetComponent<RectTransform>();
         ContentSize.sizeDelta = new Vector2 (width, ContentSize.sizeDelta.y);
         Scrollrect.normalizedPosition = Vector2.zero;
+    }
+
+    private void Check_Player_Coin_Point()
+    {
+        transform.GetComponentInParent<StationDirector>().Check_CoinAndPoint();
     }
 }

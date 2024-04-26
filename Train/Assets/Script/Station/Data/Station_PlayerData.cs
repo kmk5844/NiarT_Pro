@@ -67,6 +67,12 @@ public class Station_PlayerData : MonoBehaviour
         Check_Level_Player();
     }
 
+    public void Player_Buy_Coin(int Coin)
+    {
+        SA_PlayerData.SA_Buy_Coin(Coin);
+        Player_Coin = SA_PlayerData.Coin;
+    }
+
     public int Data_Index(string str)
     {
         int index = EX_Level_Data.Information_Level.FindIndex(x => x.Level_Name.Equals(str));

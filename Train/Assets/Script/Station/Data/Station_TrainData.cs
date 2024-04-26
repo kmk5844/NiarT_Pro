@@ -88,6 +88,22 @@ public class Station_TrainData : MonoBehaviour
         Train_Change_Num.Add(Num);
     }
 
+    public int Check_Cost(int num)
+    {
+        switch (num)
+        {
+            case 0:
+                return Cost_Train_EngineTier;
+            case 1:
+                return Cost_Train_MaxSpeed;
+            case 2:
+                return Cost_Train_Armor;
+            case 3:
+                return Cost_Train_Efficient;
+        }
+        return -1;
+    }
+
     public void Passive_Level_Up(int LevelNum)//LevelNum : 0 = Tier / 1 = Speed / 2 = Armor / 3 = Efficient
     {
         SA_TrainData.SA_Passive_Level_Up(LevelNum);

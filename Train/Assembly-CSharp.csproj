@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scriptable\SA_Mercenary\SA_MercenaryData.cs" />
     <Compile Include="Assets\Scriptable\SA_Train\SA_TrainData.cs" />
     <Compile Include="Assets\Resources\SPUM\Script\Plugin\Moments Recorder\Scripts\ReflectionUtils.cs" />
+    <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\DemoRandomColorSwap.cs" />
     <Compile Include="Assets\Script\Train\Train_InGame.cs" />
     <Compile Include="Assets\Script\Station\Director\StationDiretor.cs" />
     <Compile Include="Assets\Data_Level\Info_Level_Mercenary_Long_Ranged.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Assets\Data_Game\Info_Item.cs" />
     <Compile Include="Assets\Data_Level\Info_Level_Mercenary_Medic.cs" />
     <Compile Include="Assets\Resources\SPUM\Script\Plugin\Moments Recorder\Scripts\Gif\LzwEncoder.cs" />
+    <Compile Include="Assets\AllIn1SpriteShader\Scripts\RandomSeed.cs" />
     <Compile Include="Assets\Script\Station\Card\TrainingRoom_Mercenary_Upgrade_Card.cs" />
     <Compile Include="Assets\Resources\SPUM\Script\Ect\SpritePos.cs" />
     <Compile Include="Assets\Resources\SPUM\Script\Plugin\Moments Recorder\Scripts\Gif\GifFrame.cs" />
@@ -77,6 +79,7 @@
     <Compile Include="Assets\Script\Station\Card\TrainingRoom_Mercenary_Position_Card.cs" />
     <Compile Include="Assets\Data_Level\Info_LevelCost.cs" />
     <Compile Include="Assets\Script\Station\Card\TrainMaintenance_Train_Card.cs" />
+    <Compile Include="Assets\AllIn1SpriteShader\Scripts\All1CreateUnifiedOutline.cs" />
     <Compile Include="Assets\Script\Director\AudioManager.cs" />
     <Compile Include="Assets\Resources\SPUM\Script\Ect\ColorSelect.cs" />
     <Compile Include="Assets\Data_Game\Info_Stage.cs" />
@@ -95,23 +98,33 @@
     <Compile Include="Assets\Script\Train\Hit_TrainFloor.cs" />
     <Compile Include="Assets\Script\Monster\Monster_3.cs" />
     <Compile Include="Assets\Script\Monster\Monster_0.cs" />
+    <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\DemoCircleExpositor.cs" />
     <Compile Include="Assets\Script\Monster\Monster_2.cs" />
     <Compile Include="Assets\Data_Level\Info_Level.cs" />
     <Compile Include="Assets\Resources\SPUM\Script\Plugin\Moments Recorder\Scripts\MinAttribute.cs" />
     <Compile Include="Assets\Script\Director\MonsterDirector.cs" />
+    <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\DemoItem.cs" />
     <Compile Include="Assets\Resources\SPUM\Script\SPUM_AnimationController.cs" />
     <Compile Include="Assets\Script\Director\LoadingManager.cs" />
     <Compile Include="Assets\Resources\SPUM\Script\SPUM_EyeSet.cs" />
     <Compile Include="Assets\Resources\SPUM\Script\SPUM_Manager.cs" />
     <Compile Include="Assets\Resources\SPUM\Script\SPUM_PreviewItem.cs" />
+    <Compile Include="Assets\AllIn1SpriteShader\Scripts\AllIn1ShaderWindow.cs" />
     <Compile Include="Assets\Script\Director\CharacterDirector.cs" />
     <Compile Include="Assets\Script\Station\Card\Store_Train_Card.cs" />
+    <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\AllIn1ScrollProperty.cs" />
+    <Compile Include="Assets\AllIn1SpriteShader\Scripts\AllIn1Shader.cs" />
     <Compile Include="Assets\Resources\SPUM\SoonsoonData\SoonsoonData.cs" />
+    <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\All1ShaderDemoController.cs" />
     <Compile Include="Assets\Script\Director\GameDirector.cs" />
     <Compile Include="Assets\Data_Game\Info_Mercenary.cs" />
+    <Compile Include="Assets\AllIn1SpriteShader\Scripts\SetAtlasUvs.cs" />
     <Compile Include="Assets\Data_Level\Info_Level_Mercenary_Engine_Driver.cs" />
     <Compile Include="Assets\Resources\SPUM\Sample\Script\PlayerObj.cs" />
+    <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\DemoCamera.cs" />
+    <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\All1TextureOffsetOverTime.cs" />
     <Compile Include="Assets\Data_Game\Game_DataTable.cs" />
+    <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\Demo2AutoScroll.cs" />
     <Compile Include="Assets\Resources\SPUM\Script\SPUM_HorseSpriteList.cs" />
     <Compile Include="Assets\0.Test\SoundTester.cs" />
     <Compile Include="Assets\0.Test\LocalTest.cs" />
@@ -130,6 +143,7 @@
     <Compile Include="Assets\Script\Station\Director\Station_GameStart.cs" />
     <Compile Include="Assets\Resources\SPUM\Sprite_Editor(Beta)\Script\SpriteSync.cs" />
     <Compile Include="Assets\Script\Monster\Monster_4.cs" />
+    <Compile Include="Assets\AllIn1SpriteShader\Scripts\SetGlobalTime.cs" />
     <Compile Include="Assets\Script\Player\CameraFollow.cs" />
     <Compile Include="Assets\Data_Level\Level_DataTable.cs" />
     <Compile Include="Assets\Resources\SPUM\Script\Plugin\Moments Recorder\Scripts\Gif\GifEncoder.cs" />
@@ -150,8 +164,10 @@
     <Compile Include="Assets\Script\Mercenary\Engine_Driver.cs" />
     <Compile Include="Assets\Script\Mercenary\Mercenary_Type.cs" />
     <Compile Include="Assets\Script\Director\GameManager.cs" />
+    <Compile Include="Assets\LocalManager.cs" />
     <Compile Include="Assets\Script\Bullet\TurretBullet.cs" />
     <Compile Include="Assets\Data_Game\Info_Train.cs" />
+    <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\DemoRepositionExpositor.cs" />
     <Compile Include="Assets\Resources\SPUM\Script\SPUM_Button.cs" />
     <Compile Include="Assets\Data_Level\Info_Level_Train_EngineTier.cs" />
     <Compile Include="Assets\Script\Train\Medic_Train.cs" />
@@ -170,9 +186,12 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\AllIn1SpriteShader\Resources\AllIn1SpriteShader.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
+    <None Include="Assets\AllIn1SpriteShader\Resources\AllIn1SpriteShaderScaledTime.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\AllIn1SpriteShader\Resources\AllIn1SpriteShaderUiMask.shader" />
     <None Include="Assets\Feel\readme.txt" />
     <None Include="Assets\Feel\license.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
@@ -192,6 +211,7 @@
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
+    <None Include="Assets\AllIn1SpriteShader\Resources\AllIn1OneShaderFunctions.cginc" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
