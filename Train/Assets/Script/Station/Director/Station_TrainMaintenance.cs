@@ -277,7 +277,7 @@ public class Station_TrainMaintenance : MonoBehaviour
 
     public void Click_Passive_Upgrade(int i)//LevelNum : 0 = Tier / 1 = Speed / 2 = Armor / 3 = Efficient
     {
-        playerData.Player_Buy_Coin(trainData.Check_Cost(i)); //먼저 차감 후, 업그레이드가 된다.
+        playerData.Player_Buy_Coin(trainData.Check_Cost_Train(i)); //먼저 차감 후, 업그레이드가 된다.
         trainData.Passive_Level_Up(i);
         Passive_Text(false, i);
         Check_Player_Coin_Point();

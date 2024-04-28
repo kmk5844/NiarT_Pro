@@ -131,4 +131,22 @@ public class Station_MercenaryData : MonoBehaviour
                 return -1;
         }
     }
+
+    public int Check_Cost_Mercenary(int Num)
+    {
+        switch (Num)
+        {
+            case 0:
+                return EX_Level_Data.Information_LevelCost[Level_Mercenary_Engine_Driver].Cost_Level_Mercenary_Engine_Driver;
+            case 1:
+                return EX_Level_Data.Information_LevelCost[Level_Mercenary_Engineer].Cost_Level_Mercenary_Engineer;
+            case 2:
+                return EX_Level_Data.Information_LevelCost[Level_Mercenary_Long_Ranged].Cost_Level_Mercenary_Long_Ranged;
+            case 3:
+                return EX_Level_Data.Information_LevelCost[Level_Mercenary_Short_Ranged].Cost_Level_Mercenary_Short_Ranged;
+            case 4:
+                return EX_Level_Data.Information_LevelCost[Level_Mercenary_Medic].Cost_Level_Mercenary_Medic;
+        }
+        return -1;
+    }
 }

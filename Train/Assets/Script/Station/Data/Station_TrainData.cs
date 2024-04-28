@@ -88,7 +88,7 @@ public class Station_TrainData : MonoBehaviour
         Train_Change_Num.Add(Num);
     }
 
-    public int Check_Cost(int num)
+    public int Check_Cost_Train(int num)
     {
         switch (num)
         {

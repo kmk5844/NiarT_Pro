@@ -142,6 +142,7 @@ public class Station_Store : MonoBehaviour
         trainData.SA_TrainData.Train_Buy_Num.Add(Toggle_Trian_Num);
         trainData.Check_Buy_Train(Toggle_Trian_Num);
         Check_AfterBuy_TrainCard();
+        Check_Player_Coin_Point();
         Close_Buy_Window();
     }
 
@@ -234,8 +235,10 @@ public class Station_Store : MonoBehaviour
 
     private void Store_Buy_MercenaryCard() // 카드 구매 하기
     {
+        playerData.Player_Buy_Coin(mercenaryData.EX_Game_Data.Information_Mercenary[Toggle_Mercenary_Num].Mercenary_Pride);
         mercenaryData.SA_MercenaryData.Mercenary_Buy_Num.Add(Toggle_Mercenary_Num);
         Check_AfterBuy_MercenaryCard();
+        Check_Player_Coin_Point();
         Close_Buy_Window();
     }
 

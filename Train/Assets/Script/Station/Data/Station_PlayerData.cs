@@ -73,6 +73,30 @@ public class Station_PlayerData : MonoBehaviour
         Player_Coin = SA_PlayerData.Coin;
     }
 
+    public void Player_Use_Point(int Point)
+    {
+        SA_PlayerData.SA_Use_Point(Point);
+        Player_Point = SA_PlayerData.Point;
+    }
+
+    public int Check_Cost_Player(int num)
+    {
+        switch (num)
+        {
+            case 0:
+                return Cost_Player_Atk;
+            case 1:
+                return Cost_Player_AtkDelay;
+            case 2:
+                return Cost_Player_HP;
+            case 3:
+                return Cost_Player_Armor;
+            case 4:
+                return Cost_Player_Speed;
+        }
+        return -1;
+    }
+
     public int Data_Index(string str)
     {
         int index = EX_Level_Data.Information_Level.FindIndex(x => x.Level_Name.Equals(str));
