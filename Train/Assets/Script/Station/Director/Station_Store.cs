@@ -138,12 +138,19 @@ public class Station_Store : MonoBehaviour
 
     private void Store_Buy_TrainCard()
     {
-        playerData.Player_Buy_Coin(trainData.EX_Game_Data.Information_Train[Toggle_Trian_Num].Train_Buy_Cost);
-        trainData.SA_TrainData.Train_Buy_Num.Add(Toggle_Trian_Num);
-        trainData.Check_Buy_Train(Toggle_Trian_Num);
-        Check_AfterBuy_TrainCard();
-        Check_Player_Coin_Point();
-        Close_Buy_Window();
+        if(playerData.Player_Coin >= trainData.EX_Game_Data.Information_Train[Toggle_Trian_Num].Train_Buy_Cost)
+        {
+            playerData.Player_Buy_Coin(trainData.EX_Game_Data.Information_Train[Toggle_Trian_Num].Train_Buy_Cost);
+            trainData.SA_TrainData.Train_Buy_Num.Add(Toggle_Trian_Num);
+            trainData.Check_Buy_Train(Toggle_Trian_Num);
+            Check_AfterBuy_TrainCard();
+            Check_Player_Coin_Point();
+            Close_Buy_Window();
+        }
+        else
+        {
+            Ban_Player_Coin_Point(true);
+        }
     }
 
     public void Check_AfterBuy_TrainCard()
@@ -235,11 +242,19 @@ public class Station_Store : MonoBehaviour
 
     private void Store_Buy_MercenaryCard() // 카드 구매 하기
     {
-        playerData.Player_Buy_Coin(mercenaryData.EX_Game_Data.Information_Mercenary[Toggle_Mercenary_Num].Mercenary_Pride);
-        mercenaryData.SA_MercenaryData.Mercenary_Buy_Num.Add(Toggle_Mercenary_Num);
-        Check_AfterBuy_MercenaryCard();
-        Check_Player_Coin_Point();
-        Close_Buy_Window();
+        if (playerData.Player_Coin >= mercenaryData.EX_Game_Data.Information_Mercenary[Toggle_Mercenary_Num].Mercenary_Pride)
+        {
+            playerData.Player_Buy_Coin(mercenaryData.EX_Game_Data.Information_Mercenary[Toggle_Mercenary_Num].Mercenary_Pride);
+            mercenaryData.SA_MercenaryData.Mercenary_Buy_Num.Add(Toggle_Mercenary_Num);
+            Check_AfterBuy_MercenaryCard();
+            Check_Player_Coin_Point();
+            Close_Buy_Window();
+        }
+        else
+        {
+            Ban_Player_Coin_Point(true);
+        }
+
     }
 
     public void Check_AfterBuy_MercenaryCard() //카드 구매 후, 체크하기
@@ -308,5 +323,11 @@ public class Station_Store : MonoBehaviour
     private void Check_Player_Coin_Point()
     {
         transform.GetComponentInParent<StationDirector>().Check_CoinAndPoint();
+    }
+
+    private void Ban_Player_Coin_Point(bool Flag)
+    {
+        transform.GetComponentInParent<StationDirector>().Check_Ban_CoinPoint(Flag);
+        Close_Buy_Window();
     }
 }

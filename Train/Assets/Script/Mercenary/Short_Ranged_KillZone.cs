@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Short_Ranged_KillZone : MonoBehaviour
 {
-    float flipX;
     Short_Ranged unit;
     public bool attack_Flag;
     float lastTime;
+
     void Start()
     {
         unit = GetComponentInParent<Short_Ranged>();
@@ -16,15 +16,6 @@ public class Short_Ranged_KillZone : MonoBehaviour
 
     void Update()
     {
-        flipX = unit.Check_moveX();
-        if (flipX > 0)
-        {
-            transform.position = new Vector3(unit.transform.position.x + 1f, unit.transform.position.y, 0);
-        }else if(flipX < 0)
-        {
-            transform.position = new Vector3(unit.transform.position.x - 1f, unit.transform.position.y, 0);
-        }
-
         if(Time.time >= lastTime + unit.unit_Attack_Delay)
         {
             attack_Flag = true;
@@ -42,6 +33,5 @@ public class Short_Ranged_KillZone : MonoBehaviour
                 attack_Flag = false;
             }
         }
-
     }
 }

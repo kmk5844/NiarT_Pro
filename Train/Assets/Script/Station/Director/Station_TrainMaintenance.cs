@@ -277,11 +277,18 @@ public class Station_TrainMaintenance : MonoBehaviour
 
     public void Click_Passive_Upgrade(int i)//LevelNum : 0 = Tier / 1 = Speed / 2 = Armor / 3 = Efficient
     {
-        playerData.Player_Buy_Coin(trainData.Check_Cost_Train(i)); //먼저 차감 후, 업그레이드가 된다.
-        trainData.Passive_Level_Up(i);
-        Passive_Text(false, i);
-        Check_Player_Coin_Point();
-        Check_Trian_Add(); // 엔진 티어의 레벨에 따라 기차 추가 여부가 달라짐
+        if(playerData.Player_Coin >= trainData.Check_Cost_Train(i))
+        {
+            playerData.Player_Buy_Coin(trainData.Check_Cost_Train(i)); //먼저 차감 후, 업그레이드가 된다.
+            trainData.Passive_Level_Up(i);
+            Passive_Text(false, i);
+            Check_Player_Coin_Point();
+            Check_Trian_Add(); // 엔진 티어의 레벨에 따라 기차 추가 여부가 달라짐
+        }
+        else
+        {
+            Ban_Player_Coin_Point(true);
+        }
     }
 
     //기차 변경하기
@@ -358,30 +365,45 @@ public class Station_TrainMaintenance : MonoBehaviour
 
     public void Button_Train_Change()
     {
-        playerData.Player_Buy_Coin(trainData.EX_Game_Data.Information_Train[Toggle_Train_Num].Train_Change_Cost);
-        int changeNum = trainData.SA_TrainData.SA_TrainChange(Toggle_Train_Num); // -> Toggle_Train_Num 같은 경우, 0레벨의 기차숫자로 가져오기 때문에, 재수정이 필요.
-        trainData.SA_TrainData.Train_Num[UI_Train_Num] = changeNum; //임시로 저장
-        Destroy(UI_TrainList.GetChild(UI_Train_Num).gameObject);
-        GameObject changeTrain = Instantiate(Resources.Load<GameObject>("TrainObject_UI/" + changeNum), UI_TrainList);
-        changeTrain.name = Toggle_Train_Name;
-        changeTrain.transform.SetSiblingIndex(UI_Train_Num);
-        Upgrade_Before_After_Text();
-        Check_Player_Coin_Point();
+        if (playerData.Player_Coin >= trainData.EX_Game_Data.Information_Train[Toggle_Train_Num].Train_Change_Cost)
+        {
+            playerData.Player_Buy_Coin(trainData.EX_Game_Data.Information_Train[Toggle_Train_Num].Train_Change_Cost);
+            int changeNum = trainData.SA_TrainData.SA_TrainChange(Toggle_Train_Num); // -> Toggle_Train_Num 같은 경우, 0레벨의 기차숫자로 가져오기 때문에, 재수정이 필요.
+            trainData.SA_TrainData.Train_Num[UI_Train_Num] = changeNum; //임시로 저장
+            Destroy(UI_TrainList.GetChild(UI_Train_Num).gameObject);
+            GameObject changeTrain = Instantiate(Resources.Load<GameObject>("TrainObject_UI/" + changeNum), UI_TrainList);
+            changeTrain.name = Toggle_Train_Name;
+            changeTrain.transform.SetSiblingIndex(UI_Train_Num);
+            Upgrade_Before_After_Text();
+            Check_Player_Coin_Point();
+        }
+        else
+        {
+            Ban_Player_Coin_Point(true);
+        }
     }
 
     public void Button_Train_Add()
     {
-        UI_TrainButtonList.GetChild(UI_Train_Num).GetComponent<Station_Maintenance_TrainNum_Button>().ChekcButton(false);
-        playerData.Player_Buy_Coin(trainData.EX_Game_Data.Information_Train[100].Train_Change_Cost);
-        trainData.SA_TrainData.Train_Num.Add(100); //empty Trian
-        UI_TrainList.GetChild(UI_Train_Num).gameObject.SetActive(false);
-        UI_Train_Num = UI_TrainList.childCount;
-        GameObject EmptyTrain = Instantiate(Resources.Load<GameObject>("TrainObject_UI/100"), UI_TrainList);
-        EmptyTrain.name = trainData.EX_Game_Data.Information_Train[100].Train_Name;
-        UI_TrainImage(true);
-        Check_Trian_Add();
-        Upgrade_Before_After_Text();
-        Check_Player_Coin_Point();
+        if(playerData.Player_Coin >= trainData.EX_Game_Data.Information_Train[100].Train_Change_Cost)
+        {
+            UI_TrainButtonList.GetChild(UI_Train_Num).GetComponent<Station_Maintenance_TrainNum_Button>().ChekcButton(false);
+            playerData.Player_Buy_Coin(trainData.EX_Game_Data.Information_Train[100].Train_Change_Cost);
+            trainData.SA_TrainData.Train_Num.Add(100); //empty Trian
+            UI_TrainList.GetChild(UI_Train_Num).gameObject.SetActive(false);
+            UI_Train_Num = UI_TrainList.childCount;
+            GameObject EmptyTrain = Instantiate(Resources.Load<GameObject>("TrainObject_UI/100"), UI_TrainList);
+            EmptyTrain.name = trainData.EX_Game_Data.Information_Train[100].Train_Name;
+            UI_TrainImage(true);
+            Check_Trian_Add();
+            Upgrade_Before_After_Text();
+            Check_Player_Coin_Point();
+        }
+        else
+        {
+            Ban_Player_Coin_Point(true);
+        }
+        
     }
 
     private void Check_Trian_Add()
@@ -421,11 +443,18 @@ public class Station_TrainMaintenance : MonoBehaviour
 
     public void Click_Button_Upgrade()
     {
-        playerData.Player_Buy_Coin(trainData.EX_Game_Data.Information_Train[trainData.Train_Num[UI_Train_Num]].Train_Upgrade_Cost);
-        trainData.Train_Level_Up(trainData.Train_Num[UI_Train_Num], UI_Train_Num);
-        Upgrade_Train_TrainMaintenance(); // UI 기차 변경
-        Upgrade_Before_After_Text(); // 비포 애프터 변경도 하고 기차 옆의 정보도 변경.
-        Check_Upgrade_Button_TrainChange(); //기차 변경하기에서도 변경이 된다.
+        if (playerData.Player_Coin >= trainData.EX_Game_Data.Information_Train[trainData.Train_Num[UI_Train_Num]].Train_Upgrade_Cost)
+        {
+            playerData.Player_Buy_Coin(trainData.EX_Game_Data.Information_Train[trainData.Train_Num[UI_Train_Num]].Train_Upgrade_Cost);
+            trainData.Train_Level_Up(trainData.Train_Num[UI_Train_Num], UI_Train_Num);
+            Upgrade_Train_TrainMaintenance(); // UI 기차 변경
+            Upgrade_Before_After_Text(); // 비포 애프터 변경도 하고 기차 옆의 정보도 변경.
+            Check_Upgrade_Button_TrainChange(); //기차 변경하기에서도 변경이 된다.
+        }
+        else
+        {
+            Ban_Player_Coin_Point(true);
+        }
     }
 
     public void Upgrade_Before_After_Text()
@@ -493,5 +522,10 @@ public class Station_TrainMaintenance : MonoBehaviour
     private void Check_Player_Coin_Point()
     {
         transform.GetComponentInParent<StationDirector>().Check_CoinAndPoint();
+    }
+
+    private void Ban_Player_Coin_Point(bool Flag)
+    {
+        transform.GetComponentInParent<StationDirector>().Check_Ban_CoinPoint(Flag);
     }
 }

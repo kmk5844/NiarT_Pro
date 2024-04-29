@@ -45,6 +45,9 @@ public class StationDirector : MonoBehaviour
     [Header("Coin&Point")]
     public TextMeshProUGUI[] Coin_Text;
     public TextMeshProUGUI[] Point_Text;
+    public GameObject Ban_Panel;
+    public GameObject Coin_Ban_Text;
+    public GameObject Point_Ban_Text;
 
     int ui_num;
     int ui_Maintenance_Num;
@@ -235,6 +238,26 @@ public class StationDirector : MonoBehaviour
             Coin_Text[i].text = playerData.Player_Coin.ToString();
             Point_Text[i].text = playerData.Player_Point.ToString();
         }
+    }
+
+    public void Check_Ban_CoinPoint(bool CoinPoint)
+    {
+        Ban_Panel.SetActive(true);
+        if (CoinPoint)
+        {
+            Coin_Ban_Text.SetActive(true);
+            Point_Ban_Text.SetActive(false);
+        }
+        else
+        {
+            Coin_Ban_Text.SetActive(false);
+            Point_Ban_Text.SetActive(true);
+        }
+    }
+
+    public void Close_Ban_CoinPoint()
+    {
+        Ban_Panel.SetActive(false);
     }
 
     public void Total_Init() { 

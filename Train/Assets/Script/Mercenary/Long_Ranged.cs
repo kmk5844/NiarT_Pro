@@ -45,6 +45,11 @@ public class Long_Ranged : Mercenary
             }
             else if (act == Active.work)
             {
+                if(transform.position.x < MinMove_X || transform.position.x > MaxMove_X)
+                {
+                    move_X *= -1;
+                }
+
                 transform.Translate(move_X * workSpeed, 0, 0);
             }
             else if (act == Active.die && isDying)

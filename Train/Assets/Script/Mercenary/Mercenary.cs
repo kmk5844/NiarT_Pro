@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Mercenary : MonoBehaviour
 {
@@ -13,6 +14,12 @@ public class Mercenary : MonoBehaviour
     //그 타입에 맞는 데이터를 수집해서 적용한다.
     public SA_MercenaryData SA_MercenaryData;
     public Level_DataTable EX_Level_Data;
+    
+    public Transform Unit_Scale;
+    protected float Unit_Scale_X;
+    protected float Unit_Scale_Y;
+    protected float Unit_Scale_Z;
+
 
     [SerializeField]
     protected Active act;
@@ -59,7 +66,6 @@ public class Mercenary : MonoBehaviour
     int HealAmount;
     int HealTimebet;
 
-    protected SpriteRenderer sprite;
 
     protected virtual void Start()
     {
@@ -73,9 +79,12 @@ public class Mercenary : MonoBehaviour
         move_X = 0.01f;
         MaxMove_X = 5.5f;
         MinMove_X = -2.75f + (-7.341864f * (TrainCount - 1));
-        move_Y = -0.4f;
+        move_Y = -0.9f;
         transform.position = new Vector3(Random.Range(MinMove_X, MaxMove_X), move_Y, 0);
-        sprite = GetComponent<SpriteRenderer>();
+        //sprite = GetComponent<SpriteRenderer>();
+        Unit_Scale_X = Unit_Scale.localScale.x;
+        Unit_Scale_Y = Unit_Scale.localScale.y;
+        Unit_Scale_Z = Unit_Scale.localScale.z;
 
         era = 1f - (float)def / def_constant;
 
@@ -114,12 +123,14 @@ public class Mercenary : MonoBehaviour
             if (combatant_move_x > 0)
             {
                 move_X = 0.01f;
-                sprite.flipX = false;
+                Unit_Scale.localScale = new Vector3(-Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
+                //sprite.flipX = false;
             }
             else if (combatant_move_x < 0)
             {
                 move_X = -0.01f;
-                sprite.flipX = true;
+                Unit_Scale.localScale = new Vector3(Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
+                //sprite.flipX = true;
             }
             else if (combatant_move_x == 0 || combatant_move_x == 1)
             {
@@ -187,12 +198,14 @@ public class Mercenary : MonoBehaviour
         if (transform.position.x > MaxMove_X)
         {
             move_X *= -1f;
-            sprite.flipX = true;
+            Unit_Scale.localScale = new Vector3(Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
+            //sprite.flipX = true;
         }
         else if (transform.position.x < MinMove_X)
         {
             move_X *= -1f;
-            sprite.flipX = false;
+             Unit_Scale.localScale = new Vector3(-Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
+            //sprite.flipX = false;
         }
         transform.Translate(move_X * moveSpeed, 0, 0);
     }

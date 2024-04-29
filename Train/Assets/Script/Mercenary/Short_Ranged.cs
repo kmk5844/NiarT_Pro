@@ -39,7 +39,10 @@ public class Short_Ranged : Mercenary
             }
             else if (act == Active.work)
             {
-
+                if (transform.position.x < MinMove_X || transform.position.x > MaxMove_X)
+                {
+                    move_X *= -1;
+                }
             }
             else if (act == Active.die && isDying)
             {

@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
         if(Input.GetKeyUp(KeyCode.Alpha0))
         {
             //데이터 초기화
-            SceneManager.LoadScene("0.MainMenu");
+            SceneManager.LoadScene(0);
         }
     }
 }

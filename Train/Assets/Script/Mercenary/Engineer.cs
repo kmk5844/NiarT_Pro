@@ -81,13 +81,13 @@ public class Engineer : Mercenary
                     if (transform.position.x < train.transform.position.x - 0.2)
                     {
                         move_X = 0.01f;
-                        sprite.flipX = false;
+                        //sprite.flipX = false;
                         transform.Translate(move_X * move_work_speed, 0, 0);
                     }
                     else if (transform.position.x > train.transform.position.x + 0.2)
                     {
                         move_X = -0.01f;
-                        sprite.flipX = true;
+                        //sprite.flipX = true;
                         transform.Translate(move_X * move_work_speed, 0, 0);
                     }
                     else
@@ -134,13 +134,13 @@ public class Engineer : Mercenary
                 if (transform.position.x < PlayerPosition.x - 0.5)
                 {
                     move_X = 0.01f;
-                    sprite.flipX = false;
+                    //sprite.flipX = false;
                     transform.Translate(move_X * 6f, 0, 0);
                 }
                 else if (transform.position.x > PlayerPosition.x + 0.5)
                 {
                     move_X = -0.01f;
-                    sprite.flipX = true;
+                    //sprite.flipX = true;
                     transform.Translate(move_X * 6f, 0, 0);
                 }
                 else

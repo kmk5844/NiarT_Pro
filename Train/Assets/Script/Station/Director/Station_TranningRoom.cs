@@ -198,10 +198,17 @@ public class Station_TranningRoom : MonoBehaviour
 
     public void Click_Player_Upgrade(int i)//LevelNum : 0 = Atk / 1= AtkDealy / 2 = HP / 3 = Armor / 4 = Speed
     {
-        playerData.Player_Use_Point(playerData.Check_Cost_Player(i));
-        playerData.Player_Level_Up(i);
-        Check_Player_Coin_Point();
-        Player_Text(false, i);
+        if(playerData.Player_Point >= playerData.Check_Cost_Player(i))
+        {
+            playerData.Player_Use_Point(playerData.Check_Cost_Player(i));
+            playerData.Player_Level_Up(i);
+            Check_Player_Coin_Point();
+            Player_Text(false, i);
+        }
+        else
+        {
+            Ban_Player_Coin_Point(false);
+        }
     }
 
     //용병 업그레이드
@@ -489,11 +496,19 @@ public class Station_TranningRoom : MonoBehaviour
     }
     public void Mercenary_Level_Up()
     {
-        playerData.Player_Buy_Coin(mercenaryData.Check_Cost_Mercenary(Mercenary_Upgrade_Num));
-        mercenaryData.Mercenary_Level_Up(Mercenary_Upgrade_Num);
-        Mercenary_Upgrade_Content.GetChild(Mercenary_Upgrade_ToggleNum).GetComponent<TrainingRoom_Mercenary_Upgrade_Card>().Card_LevleUP();
-        Check_Player_Coin_Point();
-        Mercenary_Upgrade_Information_Text(true, Mercenary_Upgrade_Num);
+        if(playerData.Player_Coin >= mercenaryData.Check_Cost_Mercenary(Mercenary_Upgrade_Num))
+        {
+            playerData.Player_Buy_Coin(mercenaryData.Check_Cost_Mercenary(Mercenary_Upgrade_Num));
+            mercenaryData.Mercenary_Level_Up(Mercenary_Upgrade_Num);
+            Mercenary_Upgrade_Content.GetChild(Mercenary_Upgrade_ToggleNum).GetComponent<TrainingRoom_Mercenary_Upgrade_Card>().Card_LevleUP();
+            Check_Player_Coin_Point();
+            Mercenary_Upgrade_Information_Text(true, Mercenary_Upgrade_Num);
+        }
+        else
+        {
+            Ban_Player_Coin_Point(true);
+        }
+
     }
 
     // 용병 배치
@@ -638,5 +653,9 @@ public class Station_TranningRoom : MonoBehaviour
     private void Check_Player_Coin_Point()
     {
         transform.GetComponentInParent<StationDirector>().Check_CoinAndPoint();
+    }
+    private void Ban_Player_Coin_Point(bool Flag)
+    {
+        transform.GetComponentInParent<StationDirector>().Check_Ban_CoinPoint(Flag);
     }
 }

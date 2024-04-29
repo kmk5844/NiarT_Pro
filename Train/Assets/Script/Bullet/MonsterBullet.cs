@@ -11,6 +11,8 @@ public class MonsterBullet : Bullet
     Transform Train_List;
     [SerializeField]
     Transform Mercenary_List;
+
+    bool targetFlag;
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -61,6 +63,7 @@ public class MonsterBullet : Bullet
                 break;
         }
         rid.velocity = new Vector2(dir.x, dir.y).normalized * Speed;
+        transform.rotation = Quaternion.LookRotation(Vector3.forward, rid.velocity);
         Destroy(gameObject, 5f);
     }
 
@@ -81,12 +84,25 @@ public class MonsterBullet : Bullet
                 {
                     if (Target_List.GetChild(i).GetComponent<Train_InGame>().Train_Type.Equals(type))
                     {
+                        if (!targetFlag)
+                        {
+                            targetFlag = true;
+                        }
                         Targets.Add(Target_List.GetChild(i).gameObject);
                     }
                 }
             }
-            rand = Random.Range(0, Targets.Count);
-            return Targets[rand].gameObject;
+
+            if (targetFlag)
+            {
+                rand = Random.Range(0, Targets.Count);
+                return Targets[rand].gameObject;
+            }
+            else
+            {
+                return GameObject.FindGameObjectWithTag("Player");
+            }
+            
         }
     }
 

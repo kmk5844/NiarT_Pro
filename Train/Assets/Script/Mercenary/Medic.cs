@@ -69,11 +69,13 @@ public class Medic : Mercenary
                 transform.position = new Vector3(transform.position.x, move_Y, 0);
                 if (move_X > 0)
                 {
-                    sprite.flipX = false;
+                    Unit_Scale.localScale = new Vector3(-Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
+                    //sprite.flipX = false;
                 }
                 else
                 {
-                    sprite.flipX = true;
+                    Unit_Scale.localScale = new Vector3(Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
+                    //sprite.flipX = true;
                 }
                 base.non_combatant_Move();
             }
@@ -81,12 +83,14 @@ public class Medic : Mercenary
             {
                 if (unit.GetComponentInParent<Mercenary>().Check_moveX() > 0)
                 {
-                    sprite.flipX = false;
+                    Unit_Scale.localScale = new Vector3(-Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
+                    //sprite.flipX = false;
                     transform.position = new Vector3(unit.position.x - 1, move_Y, 0);
                 }
                 else
                 {
-                    sprite.flipX = true;
+                    Unit_Scale.localScale = new Vector3(Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
+                    //sprite.flipX = true;
                     transform.position = new Vector3(unit.position.x + 1, move_Y, 0);
                 }
 
@@ -147,13 +151,15 @@ public class Medic : Mercenary
                 if (transform.position.x < PlayerPosition.x - 1.5)
                 {
                     move_X = 0.01f;
-                    sprite.flipX = false;
+                    Unit_Scale.localScale = new Vector3(-Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
+                    //sprite.flipX = false;
                     transform.Translate(move_X * 6f, 0, 0);
                 }
                 else if (transform.position.x > PlayerPosition.x + 1.5)
                 {
                     move_X = -0.01f;
-                    sprite.flipX = true;
+                    Unit_Scale.localScale = new Vector3(Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
+                    //sprite.flipX = true;
                     transform.Translate(move_X * 6f, 0, 0);
                 }
                 else
@@ -161,13 +167,15 @@ public class Medic : Mercenary
                     GameObject player = GameObject.FindGameObjectWithTag("Player");
                     if (player.GetComponent<Player>().Check_moveX() > 0)
                     {
-                        sprite.flipX = false;
-                        transform.position = new Vector3(PlayerPosition.x - 1, PlayerPosition.y, PlayerPosition.z);
+                        Unit_Scale.localScale = new Vector3(-Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
+                        //sprite.flipX = false;
+                        transform.position = new Vector3(PlayerPosition.x - 0.8f, PlayerPosition.y, PlayerPosition.z);
                     }
                     else
                     {
-                        sprite.flipX = true;
-                        transform.position = new Vector3(PlayerPosition.x + 1, PlayerPosition.y, PlayerPosition.z);
+                        Unit_Scale.localScale = new Vector3(Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
+                        //sprite.flipX = true;
+                        transform.position = new Vector3(PlayerPosition.x + 0.8f, PlayerPosition.y, PlayerPosition.z);
                     }
 
                     if (!isHeal_HP)

@@ -45,11 +45,22 @@ public class Long_RangedShoot : MonoBehaviour
             {
                 Vector3 rot = Target.position - transform.position;
                 float rotZ = Mathf.Atan2(rot.y, rot.x) * Mathf.Rad2Deg;
-                if (Quaternion.Euler(0, 0, rotZ).eulerAngles.z - transform.rotation.eulerAngles.z > 1)
+
+                if (rotZ >= -90 && rotZ <= 90)
+                {
+                    transform.GetChild(0).transform.localScale = new Vector3(1, 1, 1);
+                }
+                else
+                {
+                    transform.GetChild(0).transform.localScale = new Vector3(1, -1, 1);
+                }
+
+
+                if (Quaternion.Euler(0, 0, rotZ).eulerAngles.z - transform.rotation.eulerAngles.z > 0.5f)
                 {
                     transform.Rotate(new Vector3(0, 0, 0.7f));
                 }
-                else if (Quaternion.Euler(0, 0, rotZ).eulerAngles.z - transform.rotation.eulerAngles.z < -1)
+                else if (Quaternion.Euler(0, 0, rotZ).eulerAngles.z - transform.rotation.eulerAngles.z < -0.5f)
                 {
                     transform.Rotate(new Vector3(0, 0, -0.7f));
                 }

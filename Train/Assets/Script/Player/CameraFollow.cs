@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.UIElements;
 
 public class CameraFollow : MonoBehaviour
 {
@@ -45,17 +46,12 @@ public class CameraFollow : MonoBehaviour
                 Player_Cam();
             }
         }
-
-    }
-    private void FixedUpdate()
-    {
         Vector3 postion = new Vector3(Player.transform.position.x + CameraOffset.x, CameraOffset.y, Player.transform.position.z + CameraOffset.z);
-        offset = Vector3.Lerp(transform.position, postion, Time.deltaTime * CameraSpeed);
+        offset = Vector3.Lerp(transform.position, postion, Time.deltaTime * CameraSpeed * 5);
     }
 
-    void LateUpdate()
+    void FixedUpdate()
     {
-
         transform.position = offset;
     }
 

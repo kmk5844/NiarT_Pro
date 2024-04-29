@@ -84,14 +84,6 @@ public class Player : MonoBehaviour
     {
         gameDirectorType = gamedriectorObject.GetComponent<GameDirector>().gameType;
 
-        /*        if (Input.GetKeyDown(KeyCode.A))
-                {
-                    transform.rotation = Quaternion.Euler(0,0,0);
-                }
-                else if(Input.GetKeyDown(KeyCode.D)){
-                    transform.rotation = Quaternion.Euler(0, -180, 0); //스케일로 변경
-                }*/
-
         if (gameDirectorType == GameType.Playing)
         {
             mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
