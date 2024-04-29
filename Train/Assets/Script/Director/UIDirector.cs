@@ -169,7 +169,7 @@ public class UIDirector : MonoBehaviour
 
     public void Click_MainMenu()
     {
-        Debug.Log("메인메뉴 이동");
+        LoadingManager.LoadScene("1.MainMenu");
     }
 
     public void Click_GameExit()
