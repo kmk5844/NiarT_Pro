@@ -28,14 +28,24 @@ public class Engineer : Mercenary
         isCalling = false;
     }
 
-    void Update()
+    private void Update()
     {
         Debug.DrawRay(rigid.position, Vector3.down, Color.green);
         RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1f, LayerMask.GetMask("Platform"));
+
         train = rayHit.collider.GetComponentInParent<Train_InGame>();
         train_HpParsent = (float)train.cur_HP / (float)train.Train_HP * 100f;
 
         Check_GameType();
+
+        if (move_X > 0)
+        {
+            Unit_Scale.localScale = new Vector3(-Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
+        }
+        else
+        {
+            Unit_Scale.localScale = new Vector3(Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
+        }
 
         if (M_gameType == GameType.Playing)
         {
@@ -70,32 +80,9 @@ public class Engineer : Mercenary
                 move_Work = true;
             }
 
-            if (act == Active.move)
+            if (act == Active.work && !isCalling)
             {
-                base.non_combatant_Move();
-            }
-            else if (act == Active.work && !isCalling)
-            {
-                if (move_Work)
-                {
-                    if (transform.position.x < train.transform.position.x - 0.2)
-                    {
-                        move_X = 0.01f;
-                        //sprite.flipX = false;
-                        transform.Translate(move_X * move_work_speed, 0, 0);
-                    }
-                    else if (transform.position.x > train.transform.position.x + 0.2)
-                    {
-                        move_X = -0.01f;
-                        //sprite.flipX = true;
-                        transform.Translate(move_X * move_work_speed, 0, 0);
-                    }
-                    else
-                    {
-                        move_Work = false;
-                    }
-                }
-                else if (!move_Work)
+                if (!move_Work)
                 {
                     if (!train.isReparing)
                     {
@@ -127,21 +114,55 @@ public class Engineer : Mercenary
                     act = Active.move;
                 }
             }
+            
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if (M_gameType == GameType.Playing)
+        {
+            if (act == Active.move)
+            {
+                base.non_combatant_Move();
+            }
+            else if (act == Active.work && !isCalling)
+            {
+                if (move_Work)
+                {
+                    if (transform.position.x < train.transform.position.x - 0.2)
+                    {
+                        move_X = 1f;
+                        rb2D.velocity = new Vector2(move_X * moveSpeed, rb2D.velocity.y);
+                    }
+                    else if (transform.position.x > train.transform.position.x + 0.2)
+                    {
+                        move_X = -1f;
+                        rb2D.velocity = new Vector2(move_X * moveSpeed, rb2D.velocity.y);
+                    }
+                    else
+                    {
+                        move_Work = false;
+                    }
+                }
+            }
             else if (act == Active.call)
             {
                 isCalling = true;
                 PlayerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
                 if (transform.position.x < PlayerPosition.x - 0.5)
                 {
-                    move_X = 0.01f;
+                    move_X = 1f;
                     //sprite.flipX = false;
-                    transform.Translate(move_X * 6f, 0, 0);
+                    rb2D.velocity = new Vector2(move_X * 6f, rb2D.velocity.y);
+
                 }
                 else if (transform.position.x > PlayerPosition.x + 0.5)
                 {
-                    move_X = -0.01f;
+                    move_X = -1f;
                     //sprite.flipX = true;
-                    transform.Translate(move_X * 6f, 0, 0);
+                    rb2D.velocity = new Vector2(move_X * 6f, rb2D.velocity.y);
+
                 }
                 else
                 {
@@ -150,7 +171,12 @@ public class Engineer : Mercenary
                     GameObject.Find("MercenaryDirector").GetComponent<MercenaryDirector>().Call_End(mercenaryType.Engineer);
                 }
             }
+            else if (act == Active.die)
+            {
+                rb2D.velocity = Vector2.zero;
+            }
         }
+
     }
     public void Level_AddStatus_Engineer(List<Info_Level_Mercenary_Engineer> type, int level)
     {

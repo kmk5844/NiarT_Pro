@@ -39,20 +39,8 @@ public class Long_Ranged : Mercenary
                 act = Active.weak;
             }
 
-            if (act == Active.move)
-            {
-                base.combatant_Move();
-            }
-            else if (act == Active.work)
-            {
-                if(transform.position.x < MinMove_X || transform.position.x > MaxMove_X)
-                {
-                    move_X *= -1;
-                }
-
-                transform.Translate(move_X * workSpeed, 0, 0);
-            }
-            else if (act == Active.die && isDying)
+           
+            if (act == Active.die && isDying)
             {
                 Debug.Log("여기서 애니메이션 구현한다!2");
                 transform.GetComponentInChildren<Long_RangedShoot>().enabled = false;
@@ -74,7 +62,29 @@ public class Long_Ranged : Mercenary
                 transform.GetComponentInChildren<Long_RangedShoot>().enabled = true;
             }
         }
-       
+    }
+
+    private void FixedUpdate()
+    {
+        if(M_gameType == GameType.Playing)
+        {
+            if (act == Active.move)
+            {
+                base.combatant_Move();
+            }
+            else if (act == Active.work)
+            {
+                if (transform.position.x < MinMove_X || transform.position.x > MaxMove_X)
+                {
+                    move_X *= -1;
+                }
+                rb2D.velocity = new Vector2(move_X * moveSpeed, rb2D.velocity.y);
+            }
+            else if (act == Active.die)
+            {
+                rb2D.velocity = Vector2.zero;
+            }
+        }
     }
     public void Level_AddStatus_LongRanged(List<Info_Level_Mercenary_Long_Ranged> type, int level)
     {

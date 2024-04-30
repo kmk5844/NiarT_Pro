@@ -27,7 +27,9 @@ public class Mercenary : MonoBehaviour
     protected Transform Train_List;
     int TrainCount;
     protected float move_X;
+    [SerializeField]
     protected float MaxMove_X;
+    [SerializeField]
     protected float MinMove_X;
     protected float move_Y;
     [Header("용병 정보")]
@@ -38,6 +40,7 @@ public class Mercenary : MonoBehaviour
     [HideInInspector]
     public int MaxStamina;
     [SerializeField] protected float moveSpeed;
+    protected Rigidbody2D rb2D;
     [SerializeField] private int Refresh_Amount;
     [SerializeField] private float Refresh_Delay;
 
@@ -69,6 +72,7 @@ public class Mercenary : MonoBehaviour
 
     protected virtual void Start()
     {
+
         gameDirector = GameObject.Find("GameDirector").GetComponent<GameDirector>();
         M_gameType = gameDirector.gameType;
         Type = GetComponent<Mercenary_Type>().mercenary_type;
@@ -76,8 +80,9 @@ public class Mercenary : MonoBehaviour
 
         Train_List = GameObject.Find("Train_List").GetComponent<Transform>();
         TrainCount = Train_List.childCount;
-        move_X = 0.01f;
-        MaxMove_X = 5.5f;
+        move_X = 1f;
+        rb2D = GetComponent<Rigidbody2D>();
+        MaxMove_X = 7f;
         MinMove_X = -2.75f + (-7.341864f * (TrainCount - 1));
         move_Y = -0.9f;
         transform.position = new Vector3(Random.Range(MinMove_X, MaxMove_X), move_Y, 0);
@@ -105,6 +110,15 @@ public class Mercenary : MonoBehaviour
             StartCoroutine(Refresh());
         }
 
+        if (move_X > 0)
+        {
+            Unit_Scale.localScale = new Vector3(-Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
+        }
+        else
+        {
+            Unit_Scale.localScale = new Vector3(Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
+        }
+
         if (!isCombatantWalking && !isCombatantIdling)
         {
             if (transform.position.x > MaxMove_X - 7)
@@ -117,29 +131,28 @@ public class Mercenary : MonoBehaviour
             }
             else
             {
-                combatant_move_x = Random.Range(-6, 6);
+                combatant_move_x = Random.Range(-3, 3);
             }
 
             if (combatant_move_x > 0)
             {
-                move_X = 0.01f;
-                Unit_Scale.localScale = new Vector3(-Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
+                move_X = 1f;
                 //sprite.flipX = false;
             }
             else if (combatant_move_x < 0)
             {
-                move_X = -0.01f;
-                Unit_Scale.localScale = new Vector3(Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
+                move_X = -1f;
                 //sprite.flipX = true;
             }
             else if (combatant_move_x == 0 || combatant_move_x == 1)
             {
                 combatant_move_x += 1;
-                move_X = 0.01f;
-            } else if (combatant_move_x == -1)
+                move_X = 1f;
+            }
+            else if (combatant_move_x == -1)
             {
                 combatant_move_x -= 1;
-                move_X = 0.01f;
+                move_X = 1f;
             }
 
             combatant_BeforePosition = transform.position;
@@ -166,26 +179,29 @@ public class Mercenary : MonoBehaviour
 
             if (isCombatantWalking)
             {
-                transform.Translate(move_X * moveSpeed, 0, 0);
+                rb2D.velocity = new Vector2(move_X * moveSpeed, rb2D.velocity.y);
             }
             else
             {
                 combatant_Idle();
             }
-        } else if (!isCombatantWalking && isCombatantIdling)
+        }
+        else if (!isCombatantWalking && isCombatantIdling)
         {
+            rb2D.velocity = new Vector2(0, 0);
             combatant_Idle();
-        } else if (isCombatantIdling && (transform.position.x < MinMove_X || transform.position.x > MaxMove_X))
+        }
+        else if (isCombatantIdling && (transform.position.x < MinMove_X || transform.position.x > MaxMove_X))
         {
             if (transform.position.x < MinMove_X)
             {
-                move_X = 0.01f;
-                transform.Translate(move_X * moveSpeed, 0, 0);
-            } else if (transform.position.x > MaxMove_X)
-            {
-                move_X = -0.01f;
-                transform.Translate(move_X * moveSpeed, 0, 0);
+                move_X = 1f;
             }
+            else if (transform.position.x > MaxMove_X)
+            {
+                move_X = -1f;
+            }
+            rb2D.velocity = new Vector2(move_X * moveSpeed, rb2D.velocity.y);
         }
     }
     protected void non_combatant_Move()
@@ -195,20 +211,27 @@ public class Mercenary : MonoBehaviour
             StartCoroutine(Refresh());
         }
 
+        if(move_X > 0)
+        {
+            Unit_Scale.localScale = new Vector3(-Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
+        }
+        else
+        {
+            Unit_Scale.localScale = new Vector3(Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
+        }
+
         if (transform.position.x > MaxMove_X)
         {
-            move_X *= -1f;
-            Unit_Scale.localScale = new Vector3(Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
-            //sprite.flipX = true;
+            move_X = -1f;
         }
         else if (transform.position.x < MinMove_X)
         {
-            move_X *= -1f;
-             Unit_Scale.localScale = new Vector3(-Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
-            //sprite.flipX = false;
+            move_X = 1f;
         }
-        transform.Translate(move_X * moveSpeed, 0, 0);
+
+        rb2D.velocity = new Vector2(move_X * moveSpeed, rb2D.velocity.y);
     }
+
     IEnumerator Refresh()
     {
         isRefreshing = true;
@@ -238,11 +261,10 @@ public class Mercenary : MonoBehaviour
         {
             isCombatantIdling = true;
             Combatant_Idle_LastTime = Time.time;
-
         }
         else if (Time.time >= Combatant_Idle_LastTime + Random.Range(1, 4))
         {
-            isCombatantIdling = false;
+           isCombatantIdling = false;
         }
     }
     public float check_HpParsent()

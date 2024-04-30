@@ -23,10 +23,12 @@ public class parallex : MonoBehaviour
     public float parallaxSpeed;
 
     float offset;
+    Transform Player;
 
     // Start is called before the first frame update
     void Start()
     {
+        Player = GameObject.FindWithTag("Player").transform;
         GameDirector = GameDirector_Object.GetComponent<GameDirector>();
         cam = Camera.main.transform;
         camStartPos = cam.position;
@@ -60,8 +62,7 @@ public class parallex : MonoBehaviour
             backSpeed[i] = 1 - (backgrounds[i].transform.position.z - cam.position.z) / farthestBack;
         }
     }
-
-    private void Update()
+    private void LateUpdate()
     {
         distanceX = cam.position.x - camStartPos.x;
         if (GameDirector.gameType == GameType.Playing)
@@ -73,10 +74,6 @@ public class parallex : MonoBehaviour
                 mat[i].SetTextureOffset("_MainTex", new Vector2(offset, 0) * speed);
             }
         }
-    }
-
-    private void LateUpdate()
-    {
-        transform.position = new Vector3(cam.position.x, transform.position.y, transform.position.z);
+        transform.position = new Vector3(Player.position.x, transform.position.y, transform.position.z);
     }
 }

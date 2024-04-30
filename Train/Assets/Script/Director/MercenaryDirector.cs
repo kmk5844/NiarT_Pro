@@ -70,7 +70,7 @@ public class MercenaryDirector : MonoBehaviour
         }
     }
 
-    public void  Spawn_MercenaryUI(GameObject MercenaryObject, int i)
+    public void Spawn_MercenaryUI(GameObject MercenaryObject, int i)
     {
         if (!Team_Flag)
         {

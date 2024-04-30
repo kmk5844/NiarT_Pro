@@ -3,7 +3,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using UnityEditor.Localization.Plugins.XLIFF.V20;
 using UnityEngine;
+using UnityEngine.Playables;
+using UnityEngine.Tilemaps;
 
 public class GameDirector : MonoBehaviour
 {
@@ -430,5 +433,6 @@ public enum GameType{
     Playing,
     Pause,
     Option,
+    Ending,
     GameEnd,
 }//점차 늘어갈 예정

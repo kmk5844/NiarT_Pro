@@ -17,6 +17,21 @@ public class Short_Ranged : Mercenary
         act = Active.move;
     }
 
+    private void FixedUpdate()
+    {
+        if (M_gameType == GameType.Playing)
+        {
+            if (act == Active.move)
+            {
+                base.combatant_Move();
+            }
+            else if (act == Active.die)
+            {
+                rb2D.velocity = Vector2.zero;
+            }
+        }
+    }
+
     void Update()
     {
         Check_GameType();
@@ -33,11 +48,7 @@ public class Short_Ranged : Mercenary
                 act = Active.weak;
             }
 
-            if (act == Active.move)
-            {
-                base.combatant_Move();
-            }
-            else if (act == Active.work)
+            if (act == Active.work)
             {
                 if (transform.position.x < MinMove_X || transform.position.x > MaxMove_X)
                 {
