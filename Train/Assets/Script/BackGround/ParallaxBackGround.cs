@@ -65,7 +65,7 @@ public class parallex : MonoBehaviour
     private void LateUpdate()
     {
         distanceX = cam.position.x - camStartPos.x;
-        if (GameDirector.gameType == GameType.Playing)
+        if (GameDirector.gameType == GameType.Playing || GameDirector.gameType == GameType.Ending)
         {
             for (int i = 0; i < backgrounds.Length; i++)
             {

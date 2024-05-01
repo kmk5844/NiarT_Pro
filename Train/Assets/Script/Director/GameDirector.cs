@@ -93,6 +93,8 @@ public class GameDirector : MonoBehaviour
     public Transform TrainCamList;
     public GameObject TrainCam_Prefeb;
 
+    public GameObject Station;
+
     void Awake()
     {
         gameType = GameType.Playing;
@@ -162,7 +164,7 @@ public class GameDirector : MonoBehaviour
             if (Destination_Distance < TrainDistance && !GameWinFlag)
             {
                 GameWinFlag = true;
-                Game_Win();
+                gameType = GameType.Ending;
             }
 
             if (TrainSpeed <= 0 && GameStartFlag && !GameLoseFlag)
@@ -188,6 +190,32 @@ public class GameDirector : MonoBehaviour
             else
             {
                 TrainSpeed = 0;
+            }
+        }
+        else if (gameType == GameType.Ending)
+        {
+            if (Time.time >= lastSpeedTime + 0.012f)
+            {
+                if (TrainSpeed > 0)
+                {
+                    TrainSpeed -= 1;
+                }
+                else
+                {
+                    TrainSpeed = 0;
+                }
+                lastSpeedTime = Time.time;
+            }
+
+            if(TrainSpeed <= 25 && TrainSpeed > 23)
+            {
+                Station.SetActive(true);
+            }
+
+            if(TrainSpeed == 0)
+            {
+                gameType = GameType.GameEnd;
+                Game_Win();
             }
         }
         else
@@ -416,15 +444,6 @@ public class GameDirector : MonoBehaviour
         Cam.GetComponent<CinemachineVirtualCamera>().Follow = Train.transform;
         Cam.GetComponent<CinemachineVirtualCamera>().LookAt = Train.transform;
         Cam.name = Train.name + "_Cam";
-    }
-
-    void size(GameObject T)
-    {
-        Renderer P_Renderer = T.GetComponent<Renderer>();
-        Bounds bounds = P_Renderer.bounds;
-
-        float tt = bounds.size.x;
-        Debug.Log(tt);
     }
 }
 

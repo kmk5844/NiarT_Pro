@@ -78,7 +78,7 @@ public class Long_Ranged : Mercenary
                 {
                     move_X *= -1;
                 }
-                rb2D.velocity = new Vector2(move_X * moveSpeed, rb2D.velocity.y);
+                rb2D.velocity = new Vector2(move_X * 2f, rb2D.velocity.y);
             }
             else if (act == Active.die)
             {

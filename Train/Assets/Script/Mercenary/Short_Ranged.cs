@@ -34,6 +34,7 @@ public class Short_Ranged : Mercenary
 
     void Update()
     {
+        Debug.Log(HP);
         Check_GameType();
 
         if (M_gameType == GameType.Playing)

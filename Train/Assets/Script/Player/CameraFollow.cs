@@ -14,6 +14,7 @@ public class CameraFollow : MonoBehaviour
     Vector3 CameraOffset;
     [SerializeField]
     float CameraSpeed;
+    Transform Cam_Trans;
 
     Vector3 offset;
     public Transform TrainCam_List;
@@ -22,9 +23,10 @@ public class CameraFollow : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Cam_Trans = GetComponent<Transform>();
         trainCam_Count = -1;
         max_trainCam_Count = TrainCam_List.childCount;
-        transform.position = new Vector3(Player.transform.position.x, CameraOffset.y, transform.position.z);
+        Cam_Trans.position = new Vector3(Player.transform.position.x, CameraOffset.y, Cam_Trans.position.z);
     }
 
     private void Update()
@@ -47,12 +49,12 @@ public class CameraFollow : MonoBehaviour
             }
         }
         Vector3 postion = new Vector3(Player.transform.position.x + CameraOffset.x, CameraOffset.y, Player.transform.position.z + CameraOffset.z);
-        offset = Vector3.Lerp(transform.position, postion, Time.deltaTime * CameraSpeed * 5);
+        offset = Vector3.Lerp(Cam_Trans.position, postion, Time.deltaTime * CameraSpeed * 5);
     }
 
     void FixedUpdate()
     {
-        transform.position = offset;
+        Cam_Trans.position = offset;
     }
 
     void prev_Cam()

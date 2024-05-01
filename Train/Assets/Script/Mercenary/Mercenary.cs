@@ -277,6 +277,9 @@ public class Mercenary : MonoBehaviour
     }
     public IEnumerator Revive(int Heal_HpParsent) //애니메이션 추가하면 좋음
     {
+        Debug.LogError("!");
+        Debug.LogError(HP);
+        Debug.LogError(Heal_HpParsent);
         act = Active.revive;
         HP = MaxHP * Heal_HpParsent / 100;
         Debug.Log("대충 부활하는 애니메이션");
