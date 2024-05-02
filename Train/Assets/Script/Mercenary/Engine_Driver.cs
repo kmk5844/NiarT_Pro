@@ -15,6 +15,12 @@ public class Engine_Driver : Mercenary
     int Level_Fuel;
     [SerializeField]
     int Level_Def;
+
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+
     protected override void Start()
     {
         base.Start();
@@ -112,6 +118,10 @@ public class Engine_Driver : Mercenary
                 isSurvival = false;
                 isDying = false;
             }
+        }
+        else if (M_gameType == GameType.Ending)
+        {
+            act = Active.Game_Wait;
         }
     }
 

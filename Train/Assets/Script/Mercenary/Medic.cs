@@ -30,6 +30,11 @@ public class Medic : Mercenary
     bool isHeal_Revive;
     Vector3 PlayerPosition;
 
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+
     protected override void Start()
     {
         base.Start();
@@ -173,6 +178,7 @@ public class Medic : Mercenary
                 }
             }
         }
+
     }
 
     // Update is called once per frame
@@ -205,6 +211,11 @@ public class Medic : Mercenary
             {
                 rb2D.velocity = Vector2.zero;
             }
+        }
+        else if (M_gameType == GameType.Ending)
+        {
+            act = Active.Game_Wait;
+            rb2D.velocity = Vector2.zero;
         }
     }
 

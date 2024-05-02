@@ -15,6 +15,11 @@ public class Long_Ranged : Mercenary
     public bool zeroFlag;
 
     Long_RangedShoot shoot;
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+
     protected override void Start()
     {
         base.Start();
@@ -84,6 +89,11 @@ public class Long_Ranged : Mercenary
             {
                 rb2D.velocity = Vector2.zero;
             }
+        }
+        else if (M_gameType == GameType.Ending)
+        {
+            act = Active.Game_Wait;
+            rb2D.velocity = Vector2.zero;
         }
     }
     public void Level_AddStatus_LongRanged(List<Info_Level_Mercenary_Long_Ranged> type, int level)

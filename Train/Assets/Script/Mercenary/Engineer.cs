@@ -19,6 +19,11 @@ public class Engineer : Mercenary
     [Header("OO%이하의 기차인 경우 수리")]
     [SerializeField] private int repairTrain_Parsent;
     Vector3 PlayerPosition;
+
+    protected override void Awake()
+    {
+        base.Awake();
+    }
     protected override void Start()
     {
         base.Start();
@@ -175,6 +180,11 @@ public class Engineer : Mercenary
             {
                 rb2D.velocity = Vector2.zero;
             }
+        }
+        else if (M_gameType == GameType.Ending)
+        {
+            act = Active.Game_Wait;
+            rb2D.velocity = Vector2.zero;
         }
 
     }

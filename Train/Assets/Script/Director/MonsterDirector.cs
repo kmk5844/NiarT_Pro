@@ -33,6 +33,11 @@ public class MonsterDirector : MonoBehaviour
     float Random_xPos;
     float Random_yPos;
 
+
+    private void Awake()
+    {
+        //MaxMonsterNum = Data
+    }
     // Start is called before the first frame update
     void Start()
     {

@@ -10,6 +10,10 @@ public class Short_Ranged : Mercenary
     public int unit_Attack;
     [Header("°ø°Ý ÄðÅ¸ÀÓ")]
     public float unit_Attack_Delay;
+    protected override void Awake()
+    {
+        base.Awake();
+    }
 
     protected override void Start()
     {
@@ -30,11 +34,15 @@ public class Short_Ranged : Mercenary
                 rb2D.velocity = Vector2.zero;
             }
         }
+        else if (M_gameType == GameType.Ending)
+        {
+            act = Active.Game_Wait;
+            rb2D.velocity = Vector2.zero;
+        }
     }
 
     void Update()
     {
-        Debug.Log(HP);
         Check_GameType();
 
         if (M_gameType == GameType.Playing)

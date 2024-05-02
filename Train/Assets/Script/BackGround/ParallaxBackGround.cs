@@ -8,8 +8,6 @@ public class parallex : MonoBehaviour
     public GameObject GameDirector_Object;
     GameDirector GameDirector;
     Transform cam;
-    Vector3 camStartPos;
-    float distanceX;
 
     GameObject[] backgrounds;
     Material[] mat;
@@ -31,7 +29,6 @@ public class parallex : MonoBehaviour
         Player = GameObject.FindWithTag("Player").transform;
         GameDirector = GameDirector_Object.GetComponent<GameDirector>();
         cam = Camera.main.transform;
-        camStartPos = cam.position;
 
         int backCount = transform.childCount;
         mat = new Material[backCount];
@@ -61,10 +58,10 @@ public class parallex : MonoBehaviour
         {
             backSpeed[i] = 1 - (backgrounds[i].transform.position.z - cam.position.z) / farthestBack;
         }
+
     }
     private void LateUpdate()
     {
-        distanceX = cam.position.x - camStartPos.x;
         if (GameDirector.gameType == GameType.Playing || GameDirector.gameType == GameType.Ending)
         {
             for (int i = 0; i < backgrounds.Length; i++)
@@ -74,6 +71,10 @@ public class parallex : MonoBehaviour
                 mat[i].SetTextureOffset("_MainTex", new Vector2(offset, 0) * speed);
             }
         }
+    }
+
+    private void FixedUpdate()
+    {
         transform.position = new Vector3(Player.position.x, transform.position.y, transform.position.z);
     }
 }

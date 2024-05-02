@@ -20,7 +20,6 @@ public class Mercenary : MonoBehaviour
     protected float Unit_Scale_Y;
     protected float Unit_Scale_Z;
 
-
     [SerializeField]
     protected Active act;
 
@@ -69,14 +68,17 @@ public class Mercenary : MonoBehaviour
     int HealAmount;
     int HealTimebet;
 
+    protected virtual void Awake()
+    {
+        HP = 100;
+        Data_Index();
+    }
 
     protected virtual void Start()
     {
-
         gameDirector = GameObject.Find("GameDirector").GetComponent<GameDirector>();
         M_gameType = gameDirector.gameType;
         Type = GetComponent<Mercenary_Type>().mercenary_type;
-        Data_Index();
 
         Train_List = GameObject.Find("Train_List").GetComponent<Transform>();
         TrainCount = Train_List.childCount;
@@ -84,7 +86,7 @@ public class Mercenary : MonoBehaviour
         rb2D = GetComponent<Rigidbody2D>();
         MaxMove_X = 7f;
         MinMove_X = -2.75f + (-7.341864f * (TrainCount - 1));
-        move_Y = -0.9f;
+        move_Y = -0.83f;
         transform.position = new Vector3(Random.Range(MinMove_X, MaxMove_X), move_Y, 0);
         //sprite = GetComponent<SpriteRenderer>();
         Unit_Scale_X = Unit_Scale.localScale.x;
@@ -277,9 +279,6 @@ public class Mercenary : MonoBehaviour
     }
     public IEnumerator Revive(int Heal_HpParsent) //애니메이션 추가하면 좋음
     {
-        Debug.LogError("!");
-        Debug.LogError(HP);
-        Debug.LogError(Heal_HpParsent);
         act = Active.revive;
         HP = MaxHP * Heal_HpParsent / 100;
         Debug.Log("대충 부활하는 애니메이션");
@@ -409,5 +408,6 @@ public enum Active
     weak,   // 스테미나 부족
     drained, // 탈진
     call,   //플레이어 호출
+    Game_Wait, // 인게임의 기다림 
     //플레이어 상호작용 추가하면 -> 플레이어 향해 가서 상호작용 한다
 }

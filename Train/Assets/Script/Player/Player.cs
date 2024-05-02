@@ -84,7 +84,7 @@ public class Player : MonoBehaviour
     {
         gameDirectorType = gamedriectorObject.GetComponent<GameDirector>().gameType;
 
-        if (gameDirectorType == GameType.Playing)
+        if (gameDirectorType == GameType.Playing || gameDirectorType == GameType.Ending)
         {
             mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
 
@@ -110,14 +110,24 @@ public class Player : MonoBehaviour
                 transform.rotation = Quaternion.Euler(0, 0 ,0);
             }
 
-            if (Input.GetMouseButtonDown(0))
+            if(gameDirectorType == GameType.Playing)
             {
-                isMouseDown = true;
-            }
+                if (Input.GetMouseButtonDown(0))
+                {
+                    isMouseDown = true;
+                }
 
-            if (Input.GetMouseButtonUp(0))
+                if (Input.GetMouseButtonUp(0))
+                {
+                    isMouseDown = false;
+                }
+            }
+            else if(gameDirectorType == GameType.Ending)
             {
-                isMouseDown = false;
+                if (isMouseDown)
+                {
+                    isMouseDown = false;
+                }
             }
         }
 

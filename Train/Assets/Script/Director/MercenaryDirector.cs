@@ -74,19 +74,19 @@ public class MercenaryDirector : MonoBehaviour
     {
         if (!Team_Flag)
         {
-            GameObject Mercenary_UI = Instantiate(Resources.Load<GameObject>("UI/Mercenary"), Team_2);
+            GameObject Mercenary_UI = Instantiate(Resources.Load<GameObject>("InGame_UI/Mercenary"), Team_2);
             Mercenary_UI.GetComponent<Mercenary_UI>().MercenaryObject = MercenaryObject;
         }
         else
         {
             if (i < 4)
             {
-                GameObject Mercenary_UI = Instantiate(Resources.Load<GameObject>("UI/Mercenary"), Team_1);
+                GameObject Mercenary_UI = Instantiate(Resources.Load<GameObject>("InGame_UI/Mercenary"), Team_1);
                 Mercenary_UI.GetComponent<Mercenary_UI>().MercenaryObject = MercenaryObject;
             }
             else
             {
-                GameObject Mercenary_UI = Instantiate(Resources.Load<GameObject>("UI/Mercenary"), Team_2);
+                GameObject Mercenary_UI = Instantiate(Resources.Load<GameObject>("InGame_UI/Mercenary"), Team_2);
                 Mercenary_UI.GetComponent<Mercenary_UI>().MercenaryObject = MercenaryObject;
             }
         }

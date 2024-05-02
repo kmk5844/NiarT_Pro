@@ -207,7 +207,7 @@ public class GameDirector : MonoBehaviour
                 lastSpeedTime = Time.time;
             }
 
-            if(TrainSpeed <= 25 && TrainSpeed > 23)
+            if(TrainSpeed <= 50 && TrainSpeed > 45)
             {
                 Station.SetActive(true);
             }
