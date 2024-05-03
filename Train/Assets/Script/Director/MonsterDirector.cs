@@ -7,6 +7,9 @@ public class MonsterDirector : MonoBehaviour
     // 스테이지 정보 나온 후, 스테이지에 따라 몬스터 변경해야함
     // 그리고 엑셀에 몬스터 정보도 나와야 한다.
     public Game_DataTable EX_GameData;
+    public SA_PlayerData SA_PlayerData;
+    public bool TestMonsterCount;
+
     [Header("몬스터 정보 및 리스트")]
     public Transform Monster_List;
     List<int> Emerging_Monster_List;
@@ -36,7 +39,14 @@ public class MonsterDirector : MonoBehaviour
 
     private void Awake()
     {
-        //MaxMonsterNum = Data
+        if(TestMonsterCount)
+        {
+            MaxMonsterNum = 1;
+        }
+        else
+        {
+            MaxMonsterNum = EX_GameData.Information_Stage[SA_PlayerData.Stage].Monster_Count;
+        }
     }
     // Start is called before the first frame update
     void Start()

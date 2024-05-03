@@ -5,6 +5,8 @@ using UnityEngine.Localization.Settings;
 
 public class LocalManager : MonoBehaviour
 {
+    [SerializeField]
+    SA_LocalData SA_Local;
     bool isChanging;
     int index;
     int Local_Max;
@@ -12,7 +14,7 @@ public class LocalManager : MonoBehaviour
     private void Awake()
     {
         Local_Max = LocalizationSettings.AvailableLocales.Locales.Count;
-        index = 1; // Default가 한국어
+        index = SA_Local.Local_Index; // Default가 한국어
         ChangeLocale();
     }
 
@@ -54,6 +56,7 @@ public class LocalManager : MonoBehaviour
         isChanging = true;
         yield return LocalizationSettings.InitializationOperation;
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[index];
+        SA_Local.SA_Change_Local(index);
         isChanging = false;
     }
 }
