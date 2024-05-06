@@ -1,12 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine;
 using TMPro;
 
 public class DialogSystem : MonoBehaviour
 {
 	[SerializeField]
+	private GameObject StroyDirector_Objcet;
+	StoryDirector stroydirector;
+
+    private bool SkipHit_Flag;
+    private bool AutoHit_Flag;
+	private bool Auto_Flag;
+	private float delay;
+	Time time;
+    private bool isDelaying = false;
+
+    [SerializeField]
 	private int branch;
 	[SerializeField]
 	private Test_Local test;
@@ -15,9 +27,9 @@ public class DialogSystem : MonoBehaviour
 	[SerializeField]
 	private	Speaker[] speakers;		// 대화에 참여하는 캐릭터들의 UI
 	[SerializeField]
-	private	List<DialogData> dialogs;					// 현재 분기의 대사 목록 배열
+	private	List<DialogData> dialogs;                   // 현재 분기의 대사 목록 배열
 
-	[SerializeField]
+    [SerializeField]
 	private	bool			isAutoStart = true;			// 자동 시작 여부
 	private	bool			isFirst = true;				// 최초 1회만 호출하기 위한 변수
 	private	int				currentDialogIndex = -1;	// 현재 대사 순번
@@ -27,23 +39,25 @@ public class DialogSystem : MonoBehaviour
 
 	private void Awake()
 	{
-		int index = 0;
+        stroydirector = StroyDirector_Objcet.GetComponent<StoryDirector>();
+		delay = stroydirector.delayTime;
+        int index = 0;
         DialogData data = new DialogData();
         for (int i = 0; i < test.Test.Count; i++)
 		{
 			if (test.Test[i].branch == branch)
 			{
 				data.speakerIndex = test.Test[i].Speaker_Index;
-				if(SA_Local.Local_Index == 0)
-				{
+                if (SA_Local.Local_Index == 0)
+                {
                     data.name = test.Test[i].ko_name;
                     data.dialogue = test.Test[i].ko_dialog;
-				}
-				else if(SA_Local.Local_Index == 1)
-				{
-					data.name = test.Test[i].en_name;
-					data.dialogue = test.Test[i].en_dialog;
-				}
+                }
+                else if (SA_Local.Local_Index == 1)
+                {
+                    data.name = test.Test[i].en_name;
+                    data.dialogue = test.Test[i].en_dialog;
+                }
                 dialogs.Add(data);
                 index++;
 			}
@@ -51,10 +65,19 @@ public class DialogSystem : MonoBehaviour
 		Setup();
 	}
 
-	private void Setup()
+    private void Update()
+    {
+		SkipHit_Flag = stroydirector.SkipHit_Flag;
+        AutoHit_Flag = stroydirector.AutoHit_Flag;
+        Auto_Flag = stroydirector.Auto_Flag;
+
+    }
+
+
+    private void Setup()
 	{
-		// 모든 대화 관련 게임오브젝트 비활성화
-		for ( int i = 0; i < speakers.Length; ++ i )
+        // 모든 대화 관련 게임오브젝트 비활성화
+        for ( int i = 0; i < speakers.Length; ++ i )
 		{
 			SetActiveObjects(speakers[i], false);
 			// 캐릭터 이미지는 보이도록 설정
@@ -76,7 +99,7 @@ public class DialogSystem : MonoBehaviour
 			isFirst = false;
 		}
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !SkipHit_Flag && !AutoHit_Flag)
         {
             if (isTypingEffect == true)
             {
@@ -111,10 +134,32 @@ public class DialogSystem : MonoBehaviour
             }
 		}
 
-		return false;
+		if(Auto_Flag && !isTypingEffect)
+		{
+            // 대사가 남아있을 경우 다음 대사 진행
+            if (dialogs.Count > currentDialogIndex + 1)
+            {
+                SetNextDialog();
+            }
+            // 대사가 더 이상 없을 경우 모든 오브젝트를 비활성화하고 true 반환
+            else
+            {
+                // 현재 대화에 참여했던 모든 캐릭터, 대화 관련 UI를 보이지 않게 비활성화
+                for (int i = 0; i < speakers.Length; ++i)
+                {
+                    SetActiveObjects(speakers[i], false);
+                    // SetActiveObjects()에 캐릭터 이미지를 보이지 않게 하는 부분이 없기 때문에 별도로 호출
+                    speakers[i].player_able.gameObject.SetActive(false);
+                }
+
+                return true;
+            }
+        }
+
+        return false;
 	}
 
-	private void SetNextDialog()
+    private void SetNextDialog()
 	{
 		// 이전 화자의 대화 관련 오브젝트 비활성화
 		SetActiveObjects(speakers[currentSpeakerIndex], false);
@@ -153,7 +198,7 @@ public class DialogSystem : MonoBehaviour
 		isTypingEffect = true;
 
 		// 텍스트를 한글자씩 타이핑치듯 재생
-		while ( index < dialogs[currentDialogIndex].dialogue.Length +1)
+		while ( index < dialogs[currentDialogIndex].dialogue.Length + 1)
 		{
 			speakers[currentSpeakerIndex].textDialogue.text = dialogs[currentDialogIndex].dialogue.Substring(0, index);
 
