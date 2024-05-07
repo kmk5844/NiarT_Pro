@@ -15,8 +15,6 @@ public class DialogSystem : MonoBehaviour
     private bool AutoHit_Flag;
 	private bool Auto_Flag;
 	private float delay;
-	Time time;
-    private bool isDelaying = false;
 
     [SerializeField]
 	private int branch;
@@ -34,7 +32,7 @@ public class DialogSystem : MonoBehaviour
 	private	bool			isFirst = true;				// 최초 1회만 호출하기 위한 변수
 	private	int				currentDialogIndex = -1;	// 현재 대사 순번
 	private	int				currentSpeakerIndex = 0;	// 현재 말을 하는 화자(Speaker)의 speakers 배열 순번
-	private	float			typingSpeed = 0.1f;			// 텍스트 타이핑 효과의 재생 속도
+	private	float			typingSpeed = 0.08f;			// 텍스트 타이핑 효과의 재생 속도
 	private	bool			isTypingEffect = false;     // 텍스트 타이핑 효과를 재생중인지
 
 	private void Awake()
@@ -70,7 +68,6 @@ public class DialogSystem : MonoBehaviour
 		SkipHit_Flag = stroydirector.SkipHit_Flag;
         AutoHit_Flag = stroydirector.AutoHit_Flag;
         Auto_Flag = stroydirector.Auto_Flag;
-
     }
 
 
@@ -92,7 +89,6 @@ public class DialogSystem : MonoBehaviour
 		{
 			// 초기화. 캐릭터 이미지는 활성화하고, 대사 관련 UI는 모두 비활성화
 			Setup();
-
 			// 자동 재생(isAutoStart=true)으로 설정되어 있으면 첫 번째 대사 재생
 			if ( isAutoStart ) SetNextDialog();
 
@@ -151,7 +147,6 @@ public class DialogSystem : MonoBehaviour
                     // SetActiveObjects()에 캐릭터 이미지를 보이지 않게 하는 부분이 없기 때문에 별도로 호출
                     speakers[i].player_able.gameObject.SetActive(false);
                 }
-
                 return true;
             }
         }
@@ -207,7 +202,12 @@ public class DialogSystem : MonoBehaviour
 			yield return new WaitForSeconds(typingSpeed);
 		}
 
-		isTypingEffect = false;
+        if (Auto_Flag)
+        {
+            yield return new WaitForSeconds(delay);
+        }
+
+        isTypingEffect = false;
 
 		// 대사가 완료되었을 때 출력되는 커서 활성화
 		speakers[currentSpeakerIndex].objectArrow.SetActive(true);

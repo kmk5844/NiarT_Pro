@@ -5,7 +5,7 @@ using UnityEngine;
 public class MercenaryDirector : MonoBehaviour
 {
     public SA_MercenaryData mercenaryData;
-    List<int> Mercenary_Num;
+    public List<int> Mercenary_Num;
 
     public Transform Mercenary_List;
     Player player;
@@ -44,7 +44,7 @@ public class MercenaryDirector : MonoBehaviour
         {
             GameObject MercenaryObject = Instantiate(Resources.Load<GameObject>("MercenaryObject/" + Mercenary_Num[i]), Mercenary_List);
             MercenaryObject.name = MercenaryObject.GetComponent<Mercenary_Type>().mercenary_type.ToString();
-            Spawn_MercenaryUI(MercenaryObject, i);
+            Spawn_MercenaryUI(MercenaryObject, i, Mercenary_Num[i]);
         }
         Check_List();
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
@@ -70,24 +70,27 @@ public class MercenaryDirector : MonoBehaviour
         }
     }
 
-    public void Spawn_MercenaryUI(GameObject MercenaryObject, int i)
+    public void Spawn_MercenaryUI(GameObject MercenaryObject, int index, int Merceenary_Num)
     {
         if (!Team_Flag)
         {
             GameObject Mercenary_UI = Instantiate(Resources.Load<GameObject>("InGame_UI/Mercenary"), Team_2);
             Mercenary_UI.GetComponent<Mercenary_UI>().MercenaryObject = MercenaryObject;
+            Mercenary_UI.GetComponent<Mercenary_UI>().Mercenary_Num = Merceenary_Num;
         }
         else
         {
-            if (i < 4)
+            if (index < 4)
             {
                 GameObject Mercenary_UI = Instantiate(Resources.Load<GameObject>("InGame_UI/Mercenary"), Team_1);
                 Mercenary_UI.GetComponent<Mercenary_UI>().MercenaryObject = MercenaryObject;
+                Mercenary_UI.GetComponent<Mercenary_UI>().Mercenary_Num = Merceenary_Num;
             }
             else
             {
                 GameObject Mercenary_UI = Instantiate(Resources.Load<GameObject>("InGame_UI/Mercenary"), Team_2);
                 Mercenary_UI.GetComponent<Mercenary_UI>().MercenaryObject = MercenaryObject;
+                Mercenary_UI.GetComponent<Mercenary_UI>().Mercenary_Num = Merceenary_Num;
             }
         }
     }

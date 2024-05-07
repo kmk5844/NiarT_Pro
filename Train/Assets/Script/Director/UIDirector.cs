@@ -70,6 +70,10 @@ public class UIDirector : MonoBehaviour
         mercenarydirector = MercenaryDirector_Object.GetComponent<MercenaryDirector>();
         if (!mercenarydirector.Team_Flag)
         {
+            if(mercenarydirector.Mercenary_Num.Count == 0)
+            {
+                Team_2.gameObject.SetActive(false);
+            }
             Team_1.gameObject.SetActive(false);
             Panel.gameObject.SetActive(false);
         }
