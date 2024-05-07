@@ -133,7 +133,7 @@ public class Station_Store : MonoBehaviour
                 Card.GetComponent<Store_Train_Card>().Train_Buy.SetActive(true);
             }
         }
-        ResizedContent(Train_Store_Content, ScrollRect_Train);
+        //ResizedContent(Train_Store_Content, ScrollRect_Train);
     }
 
     private void Store_Buy_TrainCard()
