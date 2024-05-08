@@ -49,7 +49,9 @@ public class Station_TranningRoom : MonoBehaviour
     [Header("용병 배치 윈도우")]
     public ScrollRect ScrollRect_Mercenary_Position;
     public Transform Mercenary_Position_Content;
+    public Transform Mercenary_On_Board_Card_List;
     public GameObject Mercenary_Position_Card;
+    public GameObject Mercenary_On_Board_Card;
     public TextMeshProUGUI Mercenary_Position_Information;
     int EngineTier_MaxMercenary;
     int Mercenary_TotalNum;
@@ -77,7 +79,8 @@ public class Station_TranningRoom : MonoBehaviour
         //용병 배치 윈도우
         Mercenary_TotalNum = mercenaryData.Mercenary_Num.Count;
         EngineTier_MaxMercenary = trainData.Max_Train_MaxMercenary;
-        Mercenary_Position_Text();
+        Mercenary_Position_List_Init_Card();
+        Mercenary_Position_Max_Text();
         Check_Init_MercenaryPositionCard();
     }
 
@@ -555,7 +558,8 @@ public class Station_TranningRoom : MonoBehaviour
         Mercenary_TotalNum = mercenaryData.Mercenary_Num.Count;
         Card.Plus_Count();
         Mercenary_Check_Button();
-        Mercenary_Position_Text();
+        Mercenary_Position_List_Plus_Card(i);
+        Mercenary_Position_Max_Text();
     }
 
     public void Mercenary_PositionDown(TrainingRoom_Mercenary_Position_Card Card, int i)
@@ -564,25 +568,42 @@ public class Station_TranningRoom : MonoBehaviour
         Mercenary_TotalNum = mercenaryData.Mercenary_Num.Count;
         Card.Minus_Count();
         Mercenary_Check_Button();
-        Mercenary_Position_Text();
+        Mercenary_Position_List_Minus_Card(i);
+        Mercenary_Position_Max_Text();
     }
 
-    private void Mercenary_Position_Text()
+    private void Mercenary_Position_Max_Text()
     {
         Mercenary_Position_Information.text =
-            "<color=red><size=45> MAX Mercenary Count\n</size>" +
-            "Max : " + EngineTier_MaxMercenary + "</color>\n" + Mercenary_Position_List_Text();
+            "최대 인원 : " + EngineTier_MaxMercenary + "명";
     }
-
-    private string Mercenary_Position_List_Text()
+    private void Mercenary_Position_List_Init_Card()
     {
-        string str = "";
         for (int i = 0; i < Mercenary_Position_NumList.Count; i++)
         {
-            str += (i + 1) + ". " + mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Position_NumList[i]].Name + "\n";
+            GameObject Card = Instantiate(Mercenary_On_Board_Card, Mercenary_On_Board_Card_List);
+            Card.GetComponent<Mercenary_On_Board_Card>().Mercenary_Num = Mercenary_Position_NumList[i];
+            Card.name = i.ToString();
         }
+    }
 
-        return str;
+    private void Mercenary_Position_List_Plus_Card(int num)
+    {
+        GameObject Card = Instantiate(Mercenary_On_Board_Card, Mercenary_On_Board_Card_List);
+        Card.GetComponent<Mercenary_On_Board_Card>().Mercenary_Num = num;
+        Card.name = num.ToString();
+    }
+
+    private void Mercenary_Position_List_Minus_Card(int num)
+    {
+        for(int i = 0; i < Mercenary_On_Board_Card_List.childCount; i++)
+        {
+            if(Mercenary_On_Board_Card_List.GetChild(i).name.Equals(num.ToString()))
+            {
+                Destroy(Mercenary_On_Board_Card_List.GetChild(i).gameObject);
+                break;
+            }
+        }
     }
 
     private void Mercenary_Check_Button()

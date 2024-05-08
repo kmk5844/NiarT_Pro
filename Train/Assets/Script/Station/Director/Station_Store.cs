@@ -133,7 +133,7 @@ public class Station_Store : MonoBehaviour
                 Card.GetComponent<Store_Train_Card>().Train_Buy.SetActive(true);
             }
         }
-        //ResizedContent(Train_Store_Content, ScrollRect_Train);
+        ResizedContent_V(Train_Store_Content, ScrollRect_Train);
     }
 
     private void Store_Buy_TrainCard()
@@ -237,7 +237,7 @@ public class Station_Store : MonoBehaviour
                 Card.GetComponent<Store_Mercenary_Card>().Mercenary_Buy.SetActive(true);
             }
         }
-        ResizedContent(Mercenary_Store_Content, ScrollRect_Mercenary);
+        ResizedContent_H(Mercenary_Store_Content, ScrollRect_Mercenary);
     }
 
     private void Store_Buy_MercenaryCard() // 카드 구매 하기
@@ -308,7 +308,7 @@ public class Station_Store : MonoBehaviour
     }
 
     //공통 부분
-    public void ResizedContent(Transform ScrollContent, ScrollRect Scrollrect)
+    public void ResizedContent_H(Transform ScrollContent, ScrollRect Scrollrect)
     {
         GridLayoutGroup Grid = ScrollContent.GetComponent<GridLayoutGroup>();
         Vector2 cellSize = Grid.cellSize;
@@ -317,6 +317,18 @@ public class Station_Store : MonoBehaviour
         float width = (cellSize.x + spacing.x)  * (ScrollContent.childCount -1) -800;
         RectTransform ContentSize = ScrollContent.GetComponent<RectTransform>();
         ContentSize.sizeDelta = new Vector2 (width, ContentSize.sizeDelta.y);
+        Scrollrect.normalizedPosition = Vector2.zero;
+    }
+
+    public void ResizedContent_V(Transform ScrollContent, ScrollRect Scrollrect)
+    {
+        GridLayoutGroup Grid = ScrollContent.GetComponent<GridLayoutGroup>();
+        Vector2 cellSize = Grid.cellSize;
+        Vector2 spacing = Grid.spacing;
+
+        float hight = (cellSize.y + spacing.y) * ScrollContent.childCount;
+        RectTransform ContentSize = ScrollContent.GetComponent<RectTransform>();
+        ContentSize.sizeDelta = new Vector2(ContentSize.sizeDelta.x, hight);
         Scrollrect.normalizedPosition = Vector2.zero;
     }
 
