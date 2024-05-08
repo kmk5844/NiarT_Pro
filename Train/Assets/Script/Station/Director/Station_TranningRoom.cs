@@ -79,9 +79,9 @@ public class Station_TranningRoom : MonoBehaviour
         //용병 배치 윈도우
         Mercenary_TotalNum = mercenaryData.Mercenary_Num.Count;
         EngineTier_MaxMercenary = trainData.Max_Train_MaxMercenary;
+        Check_Init_MercenaryPositionCard();
         Mercenary_Position_List_Init_Card();
         Mercenary_Position_Max_Text();
-        Check_Init_MercenaryPositionCard();
     }
 
     //플레이어 업그레이드
@@ -606,7 +606,7 @@ public class Station_TranningRoom : MonoBehaviour
         }
     }
 
-    private void Mercenary_Check_Button()
+    public void Mercenary_Check_Button()
     {
         if (Mercenary_TotalNum >= EngineTier_MaxMercenary)
         {

@@ -180,6 +180,11 @@ public class StationDirector : MonoBehaviour
     {
         ui_Fortress_Num = UI_Fortress_Num;
         UI_Fortress_Window[ui_Fortress_Num].SetActive(true);
+        if(UI_Fortress_Num == 2)
+        {
+           //카드 비활성화 때문에, Count가 인식이 되지 않는 문제가 발생하여 임시로 둠(데모버전 이후 바꾸기)
+           Director_TranningRoom.GetComponent<Station_TranningRoom>().Mercenary_Check_Button();
+        }
     }
 
     public void Click_Fortress_Back_Button()
