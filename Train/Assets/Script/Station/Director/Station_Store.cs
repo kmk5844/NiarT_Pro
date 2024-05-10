@@ -28,12 +28,20 @@ public class Station_Store : MonoBehaviour
     public Transform Train_Store_Content;
     public ScrollRect ScrollRect_Train;
     public GameObject Train_Card;
+
+    public GameObject Select_Train_Blueprint;
+    public Image Select_Train_Sprite;
+
+    public GameObject Train_Information_Object;
+    public TextMeshProUGUI Train_Information_Text;
+
+    public TextMeshProUGUI Train_Information_Cost;
     public Button BuyButton_Train;
-    public TextMeshProUGUI Train_Card_Information;
     [SerializeField]
     List<Toggle> Train_Toggle;
-    int Toggle_Trian_Num;
+    int Toggle_Train_Num;
     string Toggle_Train_Name;
+    int Toggle_Train_Cost;
 
 
     [Header("용병 구매")]
@@ -41,9 +49,13 @@ public class Station_Store : MonoBehaviour
     List<int> Mercenary_Store_Num;
     public Transform Mercenary_Store_Content;
     public ScrollRect ScrollRect_Mercenary;
-    public Button BuyButton_Mercenary;
     public GameObject Mercenary_Card;
-    public TextMeshProUGUI Mercenary_Card_Information;
+
+    public GameObject Mercenary_Information_Object;
+    public TextMeshProUGUI Mercenary_Information_Text;
+
+    public TextMeshProUGUI Mercenary_Information_Cost;
+    public Button BuyButton_Mercenary;
     [SerializeField]
     List <Toggle> Mercenary_Toggle;
     int Toggle_Mercenary_Num; // toggle로 찍힌 카드 안의 숫자
@@ -108,15 +120,30 @@ public class Station_Store : MonoBehaviour
         if (flag)
         {
             Store_Train_Card Card = Train_Store_Content.GetChild(toggle_num).GetComponent<Store_Train_Card>();
-            Toggle_Trian_Num = Card.Train_Num;
-            Toggle_Train_Name = trainData.EX_Game_Data.Information_Train[Toggle_Trian_Num].Train_Name;
+            Toggle_Train_Num = Card.Train_Num;
+            Toggle_Train_Name = trainData.EX_Game_Data.Information_Train[Toggle_Train_Num].Train_Name;
+            Toggle_Train_Cost = trainData.EX_Game_Data.Information_Train[Toggle_Train_Num].Train_Buy_Cost;
 
-            Train_Card_Information.text = Toggle_Train_Name +
-                "\n" + trainData.EX_Game_Data.Information_Train[Toggle_Trian_Num].Train_Information;
+            //설계도 켜짐
+            Select_Train_Blueprint.SetActive(true);
+            Select_Train_Sprite.sprite = Resources.Load<Sprite>("Sprite/Train/Train_" + Toggle_Train_Num);
+
+            //기차 정보 켜짐
+            Train_Information_Object.SetActive(true);
+            Train_Information_Text.text = Toggle_Train_Name +
+                "\n<size=20>" + trainData.EX_Game_Data.Information_Train[Toggle_Train_Num].Train_Information;
+
+            //Cost 정보 켜짐
+            Train_Information_Cost.text = Toggle_Train_Cost + "G";
         }
         else
         {
-            Train_Card_Information.text = "Choice Train";
+            //설계도 꺼짐
+            Select_Train_Blueprint.SetActive(false);
+            //기차 정보 꺼짐
+            Train_Information_Object.SetActive(false);
+            //Cost 정보 꺼짐
+            Train_Information_Cost.text = "0G";
         }
 
     }
@@ -135,14 +162,13 @@ public class Station_Store : MonoBehaviour
         }
         ResizedContent_V(Train_Store_Content, ScrollRect_Train);
     }
-
     private void Store_Buy_TrainCard()
     {
-        if(playerData.Player_Coin >= trainData.EX_Game_Data.Information_Train[Toggle_Trian_Num].Train_Buy_Cost)
+        if(playerData.Player_Coin >= trainData.EX_Game_Data.Information_Train[Toggle_Train_Num].Train_Buy_Cost)
         {
-            playerData.Player_Buy_Coin(trainData.EX_Game_Data.Information_Train[Toggle_Trian_Num].Train_Buy_Cost);
-            trainData.SA_TrainData.Train_Buy_Num.Add(Toggle_Trian_Num);
-            trainData.Check_Buy_Train(Toggle_Trian_Num);
+            playerData.Player_Buy_Coin(trainData.EX_Game_Data.Information_Train[Toggle_Train_Num].Train_Buy_Cost);
+            trainData.SA_TrainData.Train_Buy_Num.Add(Toggle_Train_Num);
+            trainData.Check_Buy_Train(Toggle_Train_Num);
             Check_AfterBuy_TrainCard();
             Check_Player_Coin_Point();
             Close_Buy_Window();
@@ -152,7 +178,6 @@ public class Station_Store : MonoBehaviour
             Ban_Player_Coin_Point(true);
         }
     }
-
     public void Check_AfterBuy_TrainCard()
     {
         for(int i = 0; i < Train_Store_Content.childCount; i++)
@@ -176,7 +201,6 @@ public class Station_Store : MonoBehaviour
         }
         ScrollRect_Mercenary.normalizedPosition = Vector2.zero;
     }
-
     private void Mercenary_ToggleStart()
     {
         foreach(Toggle toggle in Mercenary_Toggle)
@@ -184,7 +208,6 @@ public class Station_Store : MonoBehaviour
             toggle.onValueChanged.AddListener(Mercenary_OnToggleValueChange);
         }
     }
-
     private void Mercenary_OnToggleValueChange(bool isOn)
     {
         if (isOn)
@@ -205,7 +228,6 @@ public class Station_Store : MonoBehaviour
         }
 
     }
-
     private void Mercenary_Store_Information_Text(bool flag, int toggle_num = -1)
     {
         if (flag)
@@ -214,16 +236,15 @@ public class Station_Store : MonoBehaviour
             Toggle_Mercenary_Num = Card.Mercenary_Num;
             Toggle_Mercenary_Name = mercenaryData.EX_Game_Data.Information_Mercenary[Toggle_Mercenary_Num].Name;
 
-            Mercenary_Card_Information.text = Toggle_Mercenary_Name +
+            Mercenary_Information_Text.text = Toggle_Mercenary_Name +
                 "\n" + mercenaryData.EX_Game_Data.Information_Mercenary[Toggle_Mercenary_Num].Mercenary_Information;
         }
         else
         {
-            Mercenary_Card_Information.text = "Choice Mercenary";
+            Mercenary_Information_Text.text = "Choice Mercenary";
         }
 
     }
-
     private void Check_Init_MercenaryCard() // 카드 초기화
     {
         foreach (int num in Mercenary_Store_Num)
@@ -237,9 +258,8 @@ public class Station_Store : MonoBehaviour
                 Card.GetComponent<Store_Mercenary_Card>().Mercenary_Buy.SetActive(true);
             }
         }
-        ResizedContent_H(Mercenary_Store_Content, ScrollRect_Mercenary);
+        ResizedContent_V(Mercenary_Store_Content, ScrollRect_Mercenary);
     }
-
     private void Store_Buy_MercenaryCard() // 카드 구매 하기
     {
         if (playerData.Player_Coin >= mercenaryData.EX_Game_Data.Information_Mercenary[Toggle_Mercenary_Num].Mercenary_Pride)
@@ -256,7 +276,6 @@ public class Station_Store : MonoBehaviour
         }
 
     }
-
     public void Check_AfterBuy_MercenaryCard() //카드 구매 후, 체크하기
     {
         for(int i = 0; i < Mercenary_Store_Content.childCount; i++)
@@ -268,28 +287,26 @@ public class Station_Store : MonoBehaviour
             }
         }
     }
-
     public void Open_Buy_Window(int i)
     {
         Check_Buy_Panel_Num = i;
         Check_Buy_Panel.SetActive(true);
         if(i == 0)
         {
-            Check_Buy_Text.text = "Would you like to purchase an " + Toggle_Train_Name + "?";
+            Check_Buy_Text.text = Toggle_Train_Name + "구매하시겠습니까?";
             Buy_YesButton.onClick.AddListener(Store_Buy_TrainCard);
         }
         else if (i == 1)
         {
-            Check_Buy_Text.text = "Would you like to purchase an " + Toggle_Mercenary_Name + "?";
+            Check_Buy_Text.text = Toggle_Mercenary_Name + "구매하시겠습니까?";
             Buy_YesButton.onClick.AddListener(Store_Buy_MercenaryCard);
 
         }
         else if(i == 2)
         {
-            Check_Buy_Text.text = "Would you like to purchase an Item?";
+            Check_Buy_Text.text = "아이템을 구매하시겠습니까?";
         }
     }
-
     public void Close_Buy_Window()
     {
         Check_Buy_Panel.SetActive(false);
@@ -306,20 +323,7 @@ public class Station_Store : MonoBehaviour
 
         }
     }
-
     //공통 부분
-    public void ResizedContent_H(Transform ScrollContent, ScrollRect Scrollrect)
-    {
-        GridLayoutGroup Grid = ScrollContent.GetComponent<GridLayoutGroup>();
-        Vector2 cellSize = Grid.cellSize;
-        Vector2 spacing = Grid.spacing;
-
-        float width = (cellSize.x + spacing.x)  * (ScrollContent.childCount -1) -800;
-        RectTransform ContentSize = ScrollContent.GetComponent<RectTransform>();
-        ContentSize.sizeDelta = new Vector2 (width, ContentSize.sizeDelta.y);
-        Scrollrect.normalizedPosition = Vector2.zero;
-    }
-
     public void ResizedContent_V(Transform ScrollContent, ScrollRect Scrollrect)
     {
         GridLayoutGroup Grid = ScrollContent.GetComponent<GridLayoutGroup>();

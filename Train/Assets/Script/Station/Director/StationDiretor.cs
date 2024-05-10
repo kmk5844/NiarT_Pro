@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 using Unity.Loading;
+using UnityEditor.Experimental.GraphView;
 
 public class StationDirector : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class StationDirector : MonoBehaviour
     [SerializeField]
     Station_Store Director_Store;
     [SerializeField]
-    Station_TranningRoom Director_TranningRoom;
+    Station_Fortress Director_Fortress;
     [SerializeField]
     Station_GameStart Director_GameStart;
 
@@ -58,7 +59,7 @@ public class StationDirector : MonoBehaviour
     {
         Director_TrainMaintenance = transform.GetChild(0).GetComponent<Station_TrainMaintenance>();
         Director_Store = transform.GetChild(1).GetComponent<Station_Store>();
-        Director_TranningRoom = transform.GetChild(2).GetComponent<Station_TranningRoom>();
+        Director_Fortress = transform.GetChild(2).GetComponent<Station_Fortress>();
         Director_GameStart = transform.GetChild(3).GetComponent<Station_GameStart>();
 
         playerData = Player_DataObject.GetComponent<Station_PlayerData>();
@@ -183,7 +184,7 @@ public class StationDirector : MonoBehaviour
         if(UI_Fortress_Num == 2)
         {
            //카드 비활성화 때문에, Count가 인식이 되지 않는 문제가 발생하여 임시로 둠(데모버전 이후 바꾸기)
-           Director_TranningRoom.GetComponent<Station_TranningRoom>().Mercenary_Check_Button();
+           Director_Fortress.GetComponent<Station_Fortress>().Mercenary_Check_Button();
         }
     }
 
@@ -269,7 +270,7 @@ public class StationDirector : MonoBehaviour
         Director_TrainMaintenance.Director_Init_TrainChange();
         Director_Store.Director_Init_TrainyBuy();
         Director_Store.Director_Init_MercenaryBuy();
-        Director_TranningRoom.Director_Init_MercenaryUpgrade();
-        Director_TranningRoom.Director_Init_MercenaryPosition();
+        Director_Fortress.Director_Init_MercenaryUpgrade();
+        Director_Fortress.Director_Init_MercenaryPosition();
     }
 }

@@ -33,12 +33,12 @@ public class Station_GameStart : MonoBehaviour
 
         if(Fuel_Count == 0)
         {
-            text.text = "At least one fuel train is required for gameplay.";
+            text.text = "원활한 게임 플레이를 위해\n적어도 연료 기차 한 대가 필요합니다.";
             GameStart_Button.interactable = false;
         }
         else
         {
-            text.text = "Let's Play";
+            text.text = "게임 시작이 가능합니다.";
             GameStart_Button.interactable = true;
         }
     }

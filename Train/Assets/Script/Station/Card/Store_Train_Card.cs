@@ -21,8 +21,7 @@ public class Store_Train_Card : MonoBehaviour
         trainData = TrainData_Object.GetComponent<Station_TrainData>();
         GetComponentInChildren<Toggle>().group = GetComponentInParent<ToggleGroup>();
 
-        Train_Image.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprite/Trian/Train_" + Train_Num);
-        Train_NameText.GetComponent<TextMeshProUGUI>().text = trainData.EX_Game_Data.Information_Train[Train_Num].Train_Name
-            + "\n<size=25>" + trainData.EX_Game_Data.Information_Train[Train_Num].Train_Buy_Cost + "G</size>";
+        Train_Image.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprite/Train/Train_" + Train_Num);
+        Train_NameText.GetComponent<TextMeshProUGUI>().text = trainData.EX_Game_Data.Information_Train[Train_Num].Train_Name;
     }
 }
