@@ -49,6 +49,8 @@ public class StationDirector : MonoBehaviour
     public GameObject Ban_Panel;
     public GameObject Coin_Ban_Text;
     public GameObject Point_Ban_Text;
+    [Header("Option")]
+    public GameObject Option_Object;
 
     int ui_num;
     int ui_Maintenance_Num;
@@ -235,6 +237,21 @@ public class StationDirector : MonoBehaviour
 
         ui_num = 0; // 꺼져있을 때만 적용
         UI_Lobby.gameObject.SetActive(true);
+    }
+
+    public void Click_Option_Button()
+    {
+        Option_Object.SetActive(true);
+    }
+
+    public void Click_Option_Back_Button()
+    {
+        Option_Object.SetActive(false);
+    }
+
+    public void Click_MainMenu_Button()
+    {
+        LoadingManager.LoadScene("1.MainMenu");
     }
 
     public void Check_CoinAndPoint()
