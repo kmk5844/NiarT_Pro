@@ -81,7 +81,7 @@ public class Station_TrainMaintenance : MonoBehaviour
             foreach (int trainNum in trainData.Train_Num)
             {
                 GameObject train = Instantiate(Resources.Load<GameObject>("TrainObject_UI/" + trainNum), UI_TrainList);
-                train.name = trainData.EX_Game_Data.Information_Train[trainNum].Train_Name;
+                train.name = trainNum.ToString();
                 if (num != 0) // 처음에만 실행
                 {
                     train.SetActive(false);
@@ -372,7 +372,7 @@ public class Station_TrainMaintenance : MonoBehaviour
             trainData.SA_TrainData.Train_Num[UI_Train_Num] = changeNum; //임시로 저장
             Destroy(UI_TrainList.GetChild(UI_Train_Num).gameObject);
             GameObject changeTrain = Instantiate(Resources.Load<GameObject>("TrainObject_UI/" + changeNum), UI_TrainList);
-            changeTrain.name = Toggle_Train_Name;
+            changeTrain.name = Toggle_Train_Num.ToString();
             changeTrain.transform.SetSiblingIndex(UI_Train_Num);
             Upgrade_Before_After_Text();
             Check_Player_Coin_Point();
@@ -393,7 +393,7 @@ public class Station_TrainMaintenance : MonoBehaviour
             UI_TrainList.GetChild(UI_Train_Num).gameObject.SetActive(false);
             UI_Train_Num = UI_TrainList.childCount;
             GameObject EmptyTrain = Instantiate(Resources.Load<GameObject>("TrainObject_UI/100"), UI_TrainList);
-            EmptyTrain.name = trainData.EX_Game_Data.Information_Train[100].Train_Name;
+            EmptyTrain.name = 100.ToString();
             UI_TrainImage(true);
             Check_Trian_Add();
             Upgrade_Before_After_Text();
@@ -420,7 +420,14 @@ public class Station_TrainMaintenance : MonoBehaviour
         }
         else
         {
-            Change_Button.interactable = (ChangeFlag) ? true : false;
+            if(UI_TrainList.GetChild(UI_Train_Num).name == Toggle_Train_Num.ToString())
+            {
+                Change_Button.interactable = (ChangeFlag) ? false : false;
+            }
+            else
+            {
+                Change_Button.interactable = (ChangeFlag) ? true : false;
+            }
         }
     }
 
@@ -462,7 +469,7 @@ public class Station_TrainMaintenance : MonoBehaviour
         Info_Train train = trainData.EX_Game_Data.Information_Train[trainData.Train_Num[UI_Train_Num]];
 
         Before_Text.text =
-            "Lv : " + (trainData.Train_Num[UI_Train_Num] + 1) % 10
+            "  Lv : " + (trainData.Train_Num[UI_Train_Num] + 1) % 10
             + "\nName : " + train.Train_Name
             + "\nHP : " + train.Train_HP
             + "\nWeight : " + train.Train_Weight
@@ -470,7 +477,7 @@ public class Station_TrainMaintenance : MonoBehaviour
 
         if (trainData.Train_Num[UI_Train_Num] >= 90)
         {
-            After_Text.text = "Specail Train";
+            After_Text.text = "  Specail Train";
         }
         else
         {
@@ -478,15 +485,15 @@ public class Station_TrainMaintenance : MonoBehaviour
             {
                 train = trainData.EX_Game_Data.Information_Train[trainData.Train_Num[UI_Train_Num] + 1];
                 After_Text.text =
-                    "Lv : " + (trainData.Train_Num[UI_Train_Num] + 2) % 10
+                    "  Lv : " + (trainData.Train_Num[UI_Train_Num] + 2) % 10
                     + "\nName : " + train.Train_Name
-                    + "\nHP : " + train.Train_HP
-                    + "\nWeight : " + train.Train_Weight
-                    + "\nArmor : " + train.Train_Armor;
+                    + "\nHP : <color=red>" + train.Train_HP
+                    + "\n</color>Weight : <color=red>" + train.Train_Weight
+                    + "\n</color>Armor : <color=red>" + train.Train_Armor;
             }
             else if (trainData.Train_Num[UI_Train_Num] % 10 == 9)
             {
-                After_Text.text = "Max";
+                After_Text.text = "  Max";
             }
 
         }

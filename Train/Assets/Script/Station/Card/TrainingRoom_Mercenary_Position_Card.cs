@@ -26,7 +26,7 @@ public class TrainingRoom_Mercenary_Position_Card : MonoBehaviour
         MercenaryData_Object = GameObject.Find("MercenaryData");
         mercenaryData = MercenaryData_Object.GetComponent<Station_MercenaryData>();
         Mercenary_Count();
-        Mercenary_Image.GetComponent<Image>().sprite = Mercenary_Face_Image[Mercenary_Num];
+        Mercenary_Image.GetComponent<Image>().sprite = mercenaryData.SA_MercenaryData.Mercenary_Head_Image[Mercenary_Num];
         Mercenary_NameText.GetComponent<TextMeshProUGUI>().text =
             mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].Name;
         if (Mercenary_Num != 0)

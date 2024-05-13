@@ -165,6 +165,8 @@ public class StationDirector : MonoBehaviour
                     break;
             }
         }
+        Total_Init();
+
     }
 
     public void Click_StoreButton(int UI_Store_Num)

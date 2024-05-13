@@ -135,7 +135,7 @@ public class Player : MonoBehaviour
         {
             if (train.Train_Type.Equals("Medic"))
             {
-                if (Input.GetKeyDown(KeyCode.R) && Check_HpParsent() < 70f && !isHealing)
+                if (Input.GetKeyDown(KeyCode.R) && Check_HpParsent() < 50f && !isHealing)
                 {
                     if (train.openMedicTrian)
                     {
@@ -260,10 +260,10 @@ public class Player : MonoBehaviour
         int Level_Speed = playerData.Level_Player_Speed;
 
         Bullet_Atk = Bullet_Atk + (((Bullet_Atk * Level_Atk * 10)) / 100);
-        Bullet_Delay = Bullet_Delay - (((Bullet_Delay * Level_AtkDelay * 10)) / 100);
+        Bullet_Delay = Bullet_Delay - (((Bullet_Delay * Level_AtkDelay)) / 100);
         Player_HP = Player_HP + (((Player_HP * Level_HP) * 10) / 100);
         Player_Armor = Player_Armor + (((Player_Armor * Level_Armor) * 10) / 100);
-        moveSpeed = moveSpeed + (((moveSpeed * Level_Speed) * 10) / 100);
+        moveSpeed = moveSpeed + (((moveSpeed * Level_Speed)) / 100);
     }
 
     public void MonsterHit(int MonsterBullet_Atk)

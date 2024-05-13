@@ -130,8 +130,8 @@ public class Station_Store : MonoBehaviour
 
             //기차 정보 켜짐
             Train_Information_Object.SetActive(true);
-            Train_Information_Text.text = Toggle_Train_Name +
-                "\n<size=20>" + trainData.EX_Game_Data.Information_Train[Toggle_Train_Num].Train_Information;
+            Train_Information_Text.text = "<color=black><b>"+Toggle_Train_Name +
+                "</color></b><size=36>\n\n" + trainData.EX_Game_Data.Information_Train[Toggle_Train_Num].Train_Information.Replace("\\n", "\n");
 
             //Cost 정보 켜짐
             Train_Information_Cost.text = Toggle_Train_Cost + "G";
@@ -199,7 +199,7 @@ public class Station_Store : MonoBehaviour
         {
             Mercenary_Toggle[i].isOn = false;
         }
-        ScrollRect_Mercenary.normalizedPosition = Vector2.zero;
+        ScrollRect_Mercenary.normalizedPosition = Vector2.up;
     }
     private void Mercenary_ToggleStart()
     {
@@ -236,12 +236,14 @@ public class Station_Store : MonoBehaviour
             Toggle_Mercenary_Num = Card.Mercenary_Num;
             Toggle_Mercenary_Name = mercenaryData.EX_Game_Data.Information_Mercenary[Toggle_Mercenary_Num].Name;
 
-            Mercenary_Information_Text.text = Toggle_Mercenary_Name +
-                "\n" + mercenaryData.EX_Game_Data.Information_Mercenary[Toggle_Mercenary_Num].Mercenary_Information;
+            Mercenary_Information_Text.text = "<color=black><b>" + Toggle_Mercenary_Name +
+                "</color></b>\n<size=30>" + mercenaryData.EX_Game_Data.Information_Mercenary[Toggle_Mercenary_Num].Mercenary_Information.Replace("\\n", "\n");
+
+            Mercenary_Information_Object.SetActive(true);
         }
         else
         {
-            Mercenary_Information_Text.text = "Choice Mercenary";
+            Mercenary_Information_Object.SetActive(false);
         }
 
     }
@@ -293,12 +295,12 @@ public class Station_Store : MonoBehaviour
         Check_Buy_Panel.SetActive(true);
         if(i == 0)
         {
-            Check_Buy_Text.text = Toggle_Train_Name + "구매하시겠습니까?";
+            Check_Buy_Text.text = Toggle_Train_Name + " 설계도를 구매하시겠습니까?";
             Buy_YesButton.onClick.AddListener(Store_Buy_TrainCard);
         }
         else if (i == 1)
         {
-            Check_Buy_Text.text = Toggle_Mercenary_Name + "구매하시겠습니까?";
+            Check_Buy_Text.text = Toggle_Mercenary_Name + " 용병 초대권을\n구매하시겠습니까?";
             Buy_YesButton.onClick.AddListener(Store_Buy_MercenaryCard);
 
         }
@@ -333,7 +335,7 @@ public class Station_Store : MonoBehaviour
         float hight = (cellSize.y + spacing.y) * ScrollContent.childCount;
         RectTransform ContentSize = ScrollContent.GetComponent<RectTransform>();
         ContentSize.sizeDelta = new Vector2(ContentSize.sizeDelta.x, hight);
-        Scrollrect.normalizedPosition = Vector2.zero;
+        Scrollrect.normalizedPosition = Vector2.up;
     }
 
     private void Check_Player_Coin_Point()

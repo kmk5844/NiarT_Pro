@@ -21,7 +21,7 @@ public class Store_Mercenary_Card : MonoBehaviour
         mercenaryData = MercenaryData_Object.GetComponent<Station_MercenaryData>();
         GetComponentInChildren<Toggle>().group = GetComponentInParent<ToggleGroup>();
 
-        Mercenary_Image.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprite/Mercenary_" + Mercenary_Num);
+        Mercenary_Image.GetComponent<Image>().sprite = mercenaryData.SA_MercenaryData.Mercenary_Head_Image[Mercenary_Num];
         Mercenary_NameText.GetComponent<TextMeshProUGUI>().text = mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].Name;
     }
 }
