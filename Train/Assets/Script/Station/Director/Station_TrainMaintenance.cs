@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ public class Station_TrainMaintenance : MonoBehaviour
     public int UI_Train_Num;
     public Transform UI_TrainButtonList;
     public GameObject[] Train_Button;
+    public TextMeshProUGUI UI_Train_Information_Text;
 
     [Header("패시브 업그레이드 윈도우")]
     public TextMeshProUGUI Passive_Text_0;
@@ -62,6 +64,7 @@ public class Station_TrainMaintenance : MonoBehaviour
         Train_Change_Num = trainData.Train_Change_Num;
         //UI 기차 생성하기
         UI_TrainImage(false);
+        Current_Train_Information();
         //패시브 업그레이드
         Passive_Text(true);
         //기차 변경하기
@@ -163,6 +166,8 @@ public class Station_TrainMaintenance : MonoBehaviour
         UI_TrainButtonList.GetChild(UI_Train_Num).GetComponent<Station_Maintenance_TrainNum_Button>().ChekcButton(true);
         Check_Change_Button_Interactable();
         Check_Upgrade_Button_Interactable();
+
+        Current_Train_Information();
         //업그레이드 부분도 포함
         Upgrade_Before_After_Text();
     } //버튼에 참조
@@ -177,7 +182,14 @@ public class Station_TrainMaintenance : MonoBehaviour
         UI_TrainButtonList.GetChild(UI_Train_Num).GetComponent<Station_Maintenance_TrainNum_Button>().ChekcButton(true);
         Check_Change_Button_Interactable();
         Check_Upgrade_Button_Interactable();
+        Current_Train_Information();
         Upgrade_Before_After_Text();
+    }
+
+    void Current_Train_Information()
+    {
+        int trainNum = int.Parse(UI_TrainList.GetChild(UI_Train_Num).name);
+        UI_Train_Information_Text.text = trainData.EX_Game_Data.Information_Train[trainNum].Train_Information.Replace("\\n", "\n").Replace("\\t", "\t");
     }
 
     //패시브 업그레이드

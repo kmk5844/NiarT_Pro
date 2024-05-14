@@ -5,6 +5,7 @@ using UnityEngine;
 public class MenuDirector : MonoBehaviour
 {
     public GameObject UI_Option;
+    public GameObject Demo;
     public void Click_Stroy_Mode()
     {
         LoadingManager.LoadScene("Station");
@@ -12,7 +13,12 @@ public class MenuDirector : MonoBehaviour
 
     public void Click_Infinite_Mode()
     {
+        Demo.SetActive(true);
+    }
 
+    public void Click_Back_Button()
+    {
+        Demo.SetActive(false);
     }
 
     public void Click_Option_Mode()
