@@ -30,7 +30,7 @@ public class Monster_0 : Monster
 
     private void Update()
     {
-        //MonsterMove();
+        MonsterMove();
         BulletFire();
         FlipMonster();
     }

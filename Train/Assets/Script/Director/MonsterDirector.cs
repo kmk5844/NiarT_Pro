@@ -36,7 +36,6 @@ public class MonsterDirector : MonoBehaviour
     float Random_xPos;
     float Random_yPos;
 
-
     private void Awake()
     {
         if(TestMonsterCount)
@@ -55,8 +54,8 @@ public class MonsterDirector : MonoBehaviour
         MaxPos_Sky = new Vector2(8f, 6f);
         MinPos_Sky = new Vector2((-7.341864f * TrainCount) + 1, 3f);
 
-        MaxPos_Ground = new Vector2(7f, -1f);
-        MinPos_Ground = new Vector2((-7.341864f * (TrainCount-1) -3), -1f);
+        MaxPos_Ground = new Vector2(7f, -0.25f);
+        MinPos_Ground = new Vector2((-7.341864f * (TrainCount-1) -3), -0.25f);
         //몬스터 소환 위치가 달라진다.
         //기차 길이에 따라 정해야한다.
     }

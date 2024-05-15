@@ -19,20 +19,27 @@ public class Monster_1 : Monster
     protected override void Start()
     {
         base.Start();
-
+        transform.position = new Vector3(transform.position.x, -0.625f, transform.position.z);
         monster_SpawnPos = transform.position;
 
-        speed = Random.Range(3, 7);
-        max_xPos = Random.Range(1, 9);
+        speed =  0.1f;
+        max_xPos = Random.Range(1, 3);
 
         xPos = -1f;
     }
 
     private void Update()
     {
-        //MonsterMove();
-        BulletFire();
-        FlipMonster();
+        if(xPos > 0)
+        {
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
+        else
+        {
+            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
+        MonsterMove();
+        //BulletFire();
     }
 
     void MonsterMove()
