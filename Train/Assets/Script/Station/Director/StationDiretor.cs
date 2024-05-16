@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 using TMPro;
 using Unity.Loading;
 using UnityEditor.Experimental.GraphView;
+using MoreMountains.Tools;
 
 public class StationDirector : MonoBehaviour
 {
@@ -56,9 +57,13 @@ public class StationDirector : MonoBehaviour
     int ui_Maintenance_Num;
     int ui_Store_Num;
     int ui_Fortress_Num;
+    [Header("BGM")]
+    public AudioClip StationBGM;
 
     private void Start()
     {
+        MMSoundManagerSoundPlayEvent.Trigger(StationBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true);
+
         Director_TrainMaintenance = transform.GetChild(0).GetComponent<Station_TrainMaintenance>();
         Director_Store = transform.GetChild(1).GetComponent<Station_Store>();
         Director_Fortress = transform.GetChild(2).GetComponent<Station_Fortress>();

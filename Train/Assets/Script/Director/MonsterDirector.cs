@@ -74,8 +74,8 @@ public class MonsterDirector : MonoBehaviour
     {
         isSpawing = true;
         yield return new WaitForSeconds(Random.Range(0.0f, 0.5f));
-        int MonsterRandom = Random.Range(0, Emerging_Monster_List.Count);
-        Check_Sky_OR_Ground_Monster(MonsterRandom);
+        //int MonsterRandom = Random.Range(0, Emerging_Monster_List.Count);
+        Check_Sky_OR_Ground_Monster(2);
         isSpawing = false;
     }
 

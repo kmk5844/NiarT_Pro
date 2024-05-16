@@ -1,4 +1,5 @@
 using Cinemachine;
+using MoreMountains.Tools;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -92,8 +93,13 @@ public class GameDirector : MonoBehaviour
     [Header("Train_Cam")]
     public Transform TrainCamList;
     public GameObject TrainCam_Prefeb;
-
     public GameObject Station;
+
+    [Header("BGM")]
+    private AudioSource _myAudioSource;
+    public AudioClip PlayBGM;
+    public AudioClip WinSFX;
+    public AudioClip LoseSFX;
 
     void Awake()
     {
@@ -116,6 +122,11 @@ public class GameDirector : MonoBehaviour
         timeBet = 0.1f - (EnginePower * 0.001f); //엔진 파워에 따라 결정
         distance_time = 0.1f;
         ChangeCursor(true);
+    }
+
+    private void Start()
+    {
+        _myAudioSource = MMSoundManagerSoundPlayEvent.Trigger(PlayBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true);
     }
 
     void Update()
@@ -379,6 +390,10 @@ public class GameDirector : MonoBehaviour
         Change_Game_End();
         uiDirector.Win_Text(Stage_Num, Stage_Name, Total_Score, Check_Score(),Total_Coin, Reward_Point);
         uiDirector.Open_WIN_UI();
+        
+        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, 0, _myAudioSource);
+
+        MMSoundManagerSoundPlayEvent.Trigger(WinSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         SA_PlayerData.SA_GameWinReward(Total_Coin, Reward_Point);
     }
 
@@ -387,6 +402,10 @@ public class GameDirector : MonoBehaviour
         Change_Game_End();
         uiDirector.Lose_Text(Total_Coin);
         uiDirector.Open_Lose_UI();
+
+        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, 0, _myAudioSource);
+
+        MMSoundManagerSoundPlayEvent.Trigger(LoseSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         SA_PlayerData.SA_GameLoseReward(Total_Coin);
     }
 

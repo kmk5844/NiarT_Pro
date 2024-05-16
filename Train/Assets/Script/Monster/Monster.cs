@@ -57,12 +57,12 @@ public class Monster : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    protected void BulletFire()
+    protected void BulletFire(int x_scale = 0)
     {
         if (Time.time >= lastTime + Bullet_Delay)
         {
             GameObject bullet = Instantiate(Bullet, transform.position, transform.rotation, monster_Bullet_List);
-            bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk, Bullet_Slow, Target);
+            bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk, Bullet_Slow, Target, x_scale);
             lastTime = Time.time;
         }
     } // 공통적으로 적용해야 함.

@@ -16,6 +16,8 @@ public class Monster_3 : Monster
     [SerializeField]
     float max_xPos;
 
+
+
     protected override void Start()
     {
         base.Start();

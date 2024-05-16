@@ -1,3 +1,4 @@
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -47,13 +48,13 @@ public class Player : MonoBehaviour
 
     [Header("의무실")]
     public bool isHealing;
-    
     Vector3 respawnPosition;
 
     [Header("무기 오브젝트")]
     public GameObject GunObject;
     Camera mainCam;
     private Vector3 mousePos;
+    public AudioClip ShootSFX;
 
     void Start()
     {
@@ -235,6 +236,7 @@ public class Player : MonoBehaviour
             GameObject bullet = Instantiate(Bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
             bullet.GetComponent<Bullet>().atk = Bullet_Atk;
             lastTime = Time.time;
+            MMSoundManagerSoundPlayEvent.Trigger(ShootSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         }
     }
 

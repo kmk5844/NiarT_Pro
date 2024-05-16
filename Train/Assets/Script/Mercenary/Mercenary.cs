@@ -46,7 +46,7 @@ public class Mercenary : MonoBehaviour
     [Header("방어력 설정")]
     [SerializeField]
     int def;
-    float era;
+    protected float era;
     [SerializeField]
     float def_constant;
 

@@ -300,6 +300,20 @@ public class Medic : Mercenary
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.CompareTag("Monster_Bullet"))
+        {
+            int damageTaken = Mathf.RoundToInt(collision.GetComponent<Bullet>().atk * era);
+            if (HP - damageTaken < 0)
+            {
+                HP = 0;
+            }
+            else
+            {
+                HP -= damageTaken;
+            }
+            Destroy(collision.gameObject);
+        }
+
         if (collision != null && act != Active.call)
         {
             if (collision.CompareTag("Mercenary"))

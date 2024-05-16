@@ -12,6 +12,8 @@ public class MonsterBullet : Bullet
     [SerializeField]
     Transform Mercenary_List;
 
+    int x_scale;
+
     bool targetFlag;
     // Start is called before the first frame update
     protected override void Start()
@@ -61,6 +63,23 @@ public class MonsterBullet : Bullet
                 Target = Find_Target(Mercenary_List);
                 dir = (Target.transform.position - transform.position).normalized;
                 break;
+            case ("Straight"):
+                if (x_scale == 1) // Straight_Left
+                {
+                    dir = new Vector3(1, 0, 0);
+
+                }
+                else if (x_scale == -1) // Straight_Right
+                {
+                    dir = new Vector3(-1, 0, 0);
+
+                }
+                else if (x_scale == 0) // Straight_Down
+                {
+                    dir = new Vector3(0, -1, 0);
+
+                }
+                break;
         }
         rid.velocity = new Vector2(dir.x, dir.y).normalized * Speed;
         transform.rotation = Quaternion.LookRotation(Vector3.forward, rid.velocity);
@@ -106,10 +125,11 @@ public class MonsterBullet : Bullet
         }
     }
 
-    public void Get_MonsterBullet_Information(int Monster_Atk, int Monster_Slow, string Target)
+    public void Get_MonsterBullet_Information(int Monster_Atk, int Monster_Slow, string Target, int X_Scale = 0)
     {
         atk = Monster_Atk;
         slow = Monster_Slow;
         target = Target;
+        x_scale = X_Scale;
     }
 }

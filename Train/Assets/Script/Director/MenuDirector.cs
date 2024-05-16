@@ -1,3 +1,4 @@
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,13 @@ public class MenuDirector : MonoBehaviour
 {
     public GameObject UI_Option;
     public GameObject Demo;
+    public AudioClip MainMenuBgm;
+
+    private void Start()
+    {
+        MMSoundManagerSoundPlayEvent.Trigger(MainMenuBgm, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true);
+    }
+
     public void Click_Stroy_Mode()
     {
         LoadingManager.LoadScene("Station");
