@@ -22,6 +22,7 @@ public class MonsterDirector : MonoBehaviour
     [SerializeField] Vector2 MaxPos_Ground;
     [SerializeField] Vector2 MinPos_Ground;
 
+    public bool GameDirector_StartFlag;
     bool isSpawing = false;
 
     [Header("몬스터 한도 설정")]
@@ -38,7 +39,8 @@ public class MonsterDirector : MonoBehaviour
 
     private void Awake()
     {
-        if(TestMonsterCount)
+        GameDirector_StartFlag = false;
+        if (TestMonsterCount)
         {
             MaxMonsterNum = 1;
         }
@@ -63,10 +65,13 @@ public class MonsterDirector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MonsterNum = Monster_List.childCount;
-        if(MonsterNum < MaxMonsterNum && !isSpawing)
+        if (GameDirector_StartFlag)
         {
-            StartCoroutine(AppearMonster());
+            MonsterNum = Monster_List.childCount;
+            if (MonsterNum < MaxMonsterNum && !isSpawing)
+            {
+                StartCoroutine(AppearMonster());
+            }
         }
     }
 
@@ -74,8 +79,8 @@ public class MonsterDirector : MonoBehaviour
     {
         isSpawing = true;
         yield return new WaitForSeconds(Random.Range(0.0f, 0.5f));
-        //int MonsterRandom = Random.Range(0, Emerging_Monster_List.Count);
-        Check_Sky_OR_Ground_Monster(2);
+        int MonsterRandomIndex = Random.Range(0, Emerging_Monster_List.Count);
+        Check_Sky_OR_Ground_Monster(Emerging_Monster_List[MonsterRandomIndex]);
         isSpawing = false;
     }
 

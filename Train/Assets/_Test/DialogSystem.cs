@@ -16,10 +16,12 @@ public class DialogSystem : MonoBehaviour
 	private bool Auto_Flag;
 	private float delay;
 
+	[SerializeField]
+	private int stageNum;
     [SerializeField]
 	private int branch;
 	[SerializeField]
-	private Test_Local test;
+	private Story_DataTable EX_Story;
 	[SerializeField]
 	private SA_LocalData SA_Local;
 	[SerializeField]
@@ -27,12 +29,13 @@ public class DialogSystem : MonoBehaviour
 	[SerializeField]
 	private	List<DialogData> dialogs;                   // 현재 분기의 대사 목록 배열
 
+
     [SerializeField]
 	private	bool			isAutoStart = true;			// 자동 시작 여부
 	private	bool			isFirst = true;				// 최초 1회만 호출하기 위한 변수
 	private	int				currentDialogIndex = -1;	// 현재 대사 순번
 	private	int				currentSpeakerIndex = 0;	// 현재 말을 하는 화자(Speaker)의 speakers 배열 순번
-	private	float			typingSpeed = 0.08f;			// 텍스트 타이핑 효과의 재생 속도
+	private	float			typingSpeed = 0.05f;			// 텍스트 타이핑 효과의 재생 속도
 	private	bool			isTypingEffect = false;     // 텍스트 타이핑 효과를 재생중인지
 
 	private void Awake()
@@ -41,20 +44,20 @@ public class DialogSystem : MonoBehaviour
 		delay = stroydirector.delayTime;
         int index = 0;
         DialogData data = new DialogData();
-        for (int i = 0; i < test.Test.Count; i++)
+        for (int i = 0; i < EX_Story.Story.Count; i++)
 		{
-			if (test.Test[i].branch == branch)
+			if (EX_Story.Story[i].branch == branch && EX_Story.Story[i].Stage_Num == stageNum)
 			{
-				data.speakerIndex = test.Test[i].Speaker_Index;
+				data.speakerIndex = EX_Story.Story[i].Speaker_Index;
                 if (SA_Local.Local_Index == 0)
                 {
-                    data.name = test.Test[i].ko_name;
-                    data.dialogue = test.Test[i].ko_dialog;
+                    data.name = EX_Story.Story[i].ko_name;
+                    data.dialogue = EX_Story.Story[i].ko_dialog;
                 }
                 else if (SA_Local.Local_Index == 1)
                 {
-                    data.name = test.Test[i].en_name;
-                    data.dialogue = test.Test[i].en_dialog;
+                    data.name = EX_Story.Story[i].en_name;
+                    data.dialogue = EX_Story.Story[i].en_dialog;
                 }
                 dialogs.Add(data);
                 index++;
@@ -70,6 +73,12 @@ public class DialogSystem : MonoBehaviour
         Auto_Flag = stroydirector.Auto_Flag;
     }
 
+	public void Story_Init(GameObject StoryDirector_Object, int StageNum, int Branch)
+	{
+		StroyDirector_Objcet = StoryDirector_Object;
+		stageNum = StageNum;
+		branch = Branch;
+    }
 
     private void Setup()
 	{
@@ -182,8 +191,17 @@ public class DialogSystem : MonoBehaviour
 
 		// 캐릭터 알파 값 변경
 		Color color = speaker.player_able.color;
-		color.a = visible == true ? 1 : 0.2f;
-		speaker.player_able.color = color;
+		if(speaker.alpha_zero == true)
+		{
+			color = visible == true ? Color.white : Color.black;
+            color.a = visible == true ? 1 : 0f;
+        }
+        else
+		{
+			color = visible == true ? Color.white : Color.black;
+            color.a = visible == true ? 1 : 0.2f;
+        }
+        speaker.player_able.color = color;
 	}
 
 	private IEnumerator OnTypingText()
@@ -222,6 +240,7 @@ public struct Speaker
 	public	TextMeshProUGUI	textName;			// 현재 대사중인 캐릭터 이름 출력 Text UI
 	public	TextMeshProUGUI	textDialogue;		// 현재 대사 출력 Text UI
 	public	GameObject		objectArrow;        // 대사가 완료되었을 때 출력되는 커서 오브젝트
+	public bool alpha_zero;
 }
 
 [System.Serializable]

@@ -16,7 +16,7 @@ public class MenuDirector : MonoBehaviour
 
     public void Click_Stroy_Mode()
     {
-        LoadingManager.LoadScene("Station");
+        GameManager.Instance.Start_Enter();
     }
 
     public void Click_Infinite_Mode()

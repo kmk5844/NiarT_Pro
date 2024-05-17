@@ -57,6 +57,7 @@ public class SA_PlayerData : ScriptableObject
 
     public void SA_GameWinReward(int R_Coin, int R_Point)
     {
+        stage++;
         coin += R_Coin;
         point += R_Point;
     }

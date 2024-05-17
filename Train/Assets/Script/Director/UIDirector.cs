@@ -164,7 +164,8 @@ public class UIDirector : MonoBehaviour
 
     public void Click_Station()
     {
-        LoadingManager.LoadScene("Station");
+        GameManager.Instance.Start_Enter();
+        //LoadingManager.LoadScene("Station");
     }
 
     public void Click_Retry()

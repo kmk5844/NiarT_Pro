@@ -23,6 +23,7 @@ public class Monster_2 : Monster
         speed = 10;
 
         xPos = -1f;
+        StartCoroutine(DestoryAfterDelay());
     }
 
     private void Update()
@@ -31,6 +32,11 @@ public class Monster_2 : Monster
         BulletFire(0);
     }
 
+    private IEnumerator DestoryAfterDelay()
+    {
+        yield return new WaitForSeconds(2f);
+        Destroy(gameObject);
+    }
 
     void MonsterMove()
     {
