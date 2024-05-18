@@ -138,6 +138,7 @@ public class GameDirector : MonoBehaviour
         options = MMSoundManagerPlayOptions.Default;
         options.MmSoundManagerTrack = MMSoundManager.MMSoundManagerTracks.Music;
         options.ID = 0;
+        options.Loop = true;
         MMSoundManagerSoundPlayEvent.Trigger(PlayBGM, options);
 
         // starts to fade it out (using the ID we passed earlier)
