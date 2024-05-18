@@ -289,12 +289,12 @@ public class GameDirector : MonoBehaviour
             if (i == 0)
             {
                 //¿£ÁøÄ­
-                TrainObject.transform.position = new Vector3(0f, 0.4f, 0);
+                TrainObject.transform.position = new Vector3(-0.57f, 0.35f, 0);
             }
             else
             {
                 //³ª¸ÓÁöÄ­
-                TrainObject.transform.position = new Vector3(-7.341864f * i, 0.4f, 0);
+                TrainObject.transform.position = new Vector3(-10.94f * i, 0.35f, 0);
             }
             TrainObject.GetComponent<Train_InGame>().TrainNum = Trian_Num[i];
             Instantiate_TrainCam(TrainObject);
@@ -303,8 +303,8 @@ public class GameDirector : MonoBehaviour
         Train_Count = List_Train.childCount;
         Trains = new Train_InGame[Train_Count];
         Respawn = GameObject.FindGameObjectWithTag("Respawn");
-        Respawn.transform.localScale = new Vector3(20 * Train_Count, 1, 0);
-        Respawn.transform.position = new Vector3(List_Train.GetChild(Train_Count / 2).transform.position.x, -7, 0);
+        Respawn.transform.localScale = new Vector3(15 * Train_Count, 1, 0);
+        Respawn.transform.position = new Vector3(List_Train.GetChild(Train_Count / 2).transform.position.x, -3, 0);
 
         for (int i = 0; i < Train_Count; i++)
         {

@@ -24,7 +24,7 @@ public class Engine_Driver : Mercenary
     protected override void Start()
     {
         base.Start();
-        transform.position = new Vector3(-2, move_Y, 0);
+        transform.position = new Vector3(-4.4f, move_Y, 0);
         Gd = GameObject.Find("GameDirector").GetComponent<GameDirector>();
         isSurvival = true;
 

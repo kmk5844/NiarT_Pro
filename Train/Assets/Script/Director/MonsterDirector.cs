@@ -53,11 +53,11 @@ public class MonsterDirector : MonoBehaviour
     void Start()
     {
         TrainCount = Train_List.childCount;
-        MaxPos_Sky = new Vector2(8f, 6f);
-        MinPos_Sky = new Vector2((-7.341864f * TrainCount) + 1, 3f);
+        MaxPos_Sky = new Vector2(5f, 6f);
+        MinPos_Sky = new Vector2((-10f * TrainCount), 3f);
 
-        MaxPos_Ground = new Vector2(7f, -0.25f);
-        MinPos_Ground = new Vector2((-7.341864f * (TrainCount-1) -3), -0.25f);
+        MaxPos_Ground = new Vector2(3f, -0.9f);
+        MinPos_Ground = new Vector2(((-10f * (TrainCount)+3)), -0.9f);
         //몬스터 소환 위치가 달라진다.
         //기차 길이에 따라 정해야한다.
     }

@@ -84,9 +84,9 @@ public class Mercenary : MonoBehaviour
         TrainCount = Train_List.childCount;
         move_X = 1f;
         rb2D = GetComponent<Rigidbody2D>();
-        MaxMove_X = 7f;
-        MinMove_X = -2.75f + (-7.341864f * (TrainCount - 1));
-        move_Y = -0.83f;
+        MaxMove_X = 4f;
+        MinMove_X = -10.94f * (TrainCount - 1) -5f;
+        move_Y = -0.95f;
         transform.position = new Vector3(Random.Range(MinMove_X, MaxMove_X), move_Y, 0);
         //sprite = GetComponent<SpriteRenderer>();
         Unit_Scale_X = Unit_Scale.localScale.x;
