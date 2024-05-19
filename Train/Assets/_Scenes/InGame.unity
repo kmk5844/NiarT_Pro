@@ -15766,8 +15766,9 @@ MonoBehaviour:
   TrainCamList: {fileID: 1018480111}
   TrainCam_Prefeb: {fileID: 1930972734947747122, guid: 36d579275bcafb04c9c6425fce0ff2d9, type: 3}
   Station: {fileID: 79248390}
-  WindBGM: {fileID: 8300000, guid: ea521f44f1ee5cb49bd72af45d4ce756, type: 3}
+  DustWindBGM: {fileID: 8300000, guid: ea521f44f1ee5cb49bd72af45d4ce756, type: 3}
   PlayBGM: {fileID: 8300000, guid: 7df1124ec7766ad4484f74d7af166dde, type: 3}
+  WinBGM: {fileID: 8300000, guid: 7c2f75e5afa49b14f823868133a29c65, type: 3}
   WinSFX: {fileID: 8300000, guid: 72956b6f79b058c469d9192e234b2b33, type: 3}
   LoseSFX: {fileID: 8300000, guid: a2f610c1c61be7a45ae9a5c2917e8bbc, type: 3}
 --- !u!114 &234993072
@@ -34239,7 +34240,9 @@ MonoBehaviour:
   Player: {fileID: 231193414}
   CameraOffset: {x: 0, y: 3, z: -10}
   CameraSpeed: 8
+  V_Cam_X: 0
   TrainCam_List: {fileID: 1018480111}
+  CameraFlag: 0
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34279,7 +34282,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
   m_Name: 
@@ -57798,7 +57801,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1920978281}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 5, y: 1.15, z: 1}
   m_ConstrainProportionsScale: 0

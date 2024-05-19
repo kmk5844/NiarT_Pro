@@ -42,16 +42,38 @@ public class SA_StoryData : ScriptableObject
                 LoadingManager.LoadScene("Station");
                 break;
             case 0:
-                LoadingManager.LoadScene("CharacterSelect");
+                LoadingManager.LoadScene("Demo_Tutorial");
                 break;
             case 1:
                 LoadingManager.LoadScene("InGame");
                 break;
             case 2:
-                LoadingManager.LoadScene("Station");
+                LoadingManager.LoadScene("Demo_Tutorial");
                 break;
 
         }
+    }
 
+/*    public void Start_Tutorial(int PlayerData)
+    {
+        switch (PlayerData)
+        {
+            case 0:
+                LoadingManager.LoadScene("Demo_Tutorial");
+                break;
+        }
+    }*/
+
+    public void End_Tutorial(int PlayerData)
+    {
+        switch (PlayerData)
+        {
+            case 0:
+                LoadingManager.LoadScene("CharacterSelect");
+                break;
+            case 2:
+                LoadingManager.LoadScene("Station");
+                break;
+        }
     }
 }

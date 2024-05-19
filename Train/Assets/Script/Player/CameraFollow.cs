@@ -16,13 +16,19 @@ public class CameraFollow : MonoBehaviour
     float CameraSpeed;
     Transform Cam_Trans;
 
+    GameObject V_Cam;
+    public float V_Cam_X;
+
     Vector3 offset;
     public Transform TrainCam_List;
     int max_trainCam_Count;
     int trainCam_Count;
+    public bool CameraFlag;
+
     // Start is called before the first frame update
     void Start()
     {
+        CameraFlag = false;
         Cam_Trans = GetComponent<Transform>();
         trainCam_Count = -1;
         max_trainCam_Count = TrainCam_List.childCount;
@@ -34,11 +40,13 @@ public class CameraFollow : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z))
         {
             prev_Cam();
+            CameraFlag = true;
         }
 
         if (Input.GetKeyDown(KeyCode.C))
         {
             next_Cam();
+            CameraFlag = true;
         }
 
         if (Input.GetKeyDown(KeyCode.X))
@@ -46,6 +54,7 @@ public class CameraFollow : MonoBehaviour
             if(trainCam_Count != -1)
             {
                 Player_Cam();
+                CameraFlag = false;
             }
         }
         Vector3 postion = new Vector3(Player.transform.position.x + CameraOffset.x, CameraOffset.y, Player.transform.position.z + CameraOffset.z);
@@ -76,7 +85,9 @@ public class CameraFollow : MonoBehaviour
                 TrainCam_List.GetChild(max_trainCam_Count-1).gameObject.SetActive(false);
             }
         }
-        TrainCam_List.GetChild(trainCam_Count).gameObject.SetActive(true);
+        V_Cam = TrainCam_List.GetChild(trainCam_Count).gameObject;
+        V_Cam.gameObject.SetActive(true);
+        V_Cam_X = V_Cam.transform.position.x;
     }
 
     void Player_Cam()
@@ -104,6 +115,8 @@ public class CameraFollow : MonoBehaviour
                 TrainCam_List.GetChild(0).gameObject.SetActive(false);
             }
         }
-        TrainCam_List.GetChild(trainCam_Count).gameObject.SetActive(true);
+        V_Cam = TrainCam_List.GetChild(trainCam_Count).gameObject;
+        V_Cam.gameObject.SetActive(true);
+        V_Cam_X = V_Cam.transform.position.x;
     }
 }

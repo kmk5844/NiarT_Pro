@@ -5,7 +5,9 @@ using UnityEngine.UI;
 
 public class DemoTutorial : MonoBehaviour
 {
-    public int PlayerNum; // 나중에 플레이어 넘버를 넘겨 받을 예정
+    public SA_PlayerData playerData;
+    public SA_StoryData storyData;
+    int PlayerStageNum;
     //-> 그걸 이용해서 bool 판단
 
     public Image Tutorial_Image;
@@ -17,10 +19,12 @@ public class DemoTutorial : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        PlayerStageNum = playerData.Stage;
+
         InGameCount = 0;
         StationCount = 0;
 
-        if(PlayerNum == 0)
+        if(PlayerStageNum == 0)
         {
             T_InGame_F_Station = true;
         }
@@ -59,7 +63,7 @@ public class DemoTutorial : MonoBehaviour
             }
             else
             {
-                Debug.Log("다음");
+                storyData.End_Tutorial(PlayerStageNum);
             }
         }
         else // Tutorial
@@ -71,7 +75,7 @@ public class DemoTutorial : MonoBehaviour
             }
             else
             {
-                Debug.Log("다음");
+                storyData.End_Tutorial(PlayerStageNum);
             }
         }
     }

@@ -193,12 +193,10 @@ public class DialogSystem : MonoBehaviour
 		Color color = speaker.player_able.color;
 		if(speaker.alpha_zero == true)
 		{
-			color = visible == true ? Color.white : Color.black;
             color.a = visible == true ? 1 : 0f;
         }
         else
 		{
-			color = visible == true ? Color.white : Color.black;
             color.a = visible == true ? 1 : 0.2f;
         }
         speaker.player_able.color = color;

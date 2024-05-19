@@ -62,6 +62,7 @@ public class GameDirector : MonoBehaviour
     float lastSpeedTime; //마지막 속도 올린 시간
     [SerializeField]
     float timeBet; //시간 차이
+    float StartTime;
     int RandomStartTime;
 
     GameObject Respawn;
@@ -92,16 +93,20 @@ public class GameDirector : MonoBehaviour
     public GameObject Station;
 
     [Header("BGM")]
-    private AudioSource _myAudioSource;
-    public AudioClip WindBGM;
+    public AudioClip DustWindBGM;
     public AudioClip PlayBGM;
+    public AudioClip WinBGM;
     public AudioClip WinSFX;
     public AudioClip LoseSFX;
+    bool Change_Win_BGM_Flag;
+    int BGM_ID;
 
     void Awake()
     {
         gameType = GameType.Playing;
         Stage_Num = SA_PlayerData.Stage;
+        BGM_ID = 30;
+        Change_Win_BGM_Flag = false;
         GameStartFlag = false;
         GameWinFlag = false;
         GameLoseFlag = false;
@@ -123,31 +128,35 @@ public class GameDirector : MonoBehaviour
 
     private void Start()
     {
-        _myAudioSource = MMSoundManagerSoundPlayEvent.Trigger(WindBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true);
+        StartTime = Time.time;
+        gameType = GameType.Playing;
+        MMSoundManagerSoundPlayEvent.Trigger(DustWindBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID: BGM_ID);
     }
 
-    public void Test()
+    public void SoundSequce(AudioClip audio)
     {
-        StartCoroutine(sound());
+        StartCoroutine(Change_Sound(audio));
     }
 
-    private IEnumerator sound()
+    private IEnumerator Change_Sound(AudioClip audio)
     {
+        BGM_ID++;
+
         // plays the sound, notice we pass it a unique ID
         MMSoundManagerPlayOptions options;
         options = MMSoundManagerPlayOptions.Default;
         options.MmSoundManagerTrack = MMSoundManager.MMSoundManagerTracks.Music;
-        options.ID = 0;
+        options.ID = BGM_ID;
         options.Loop = true;
-        MMSoundManagerSoundPlayEvent.Trigger(PlayBGM, options);
+        MMSoundManagerSoundPlayEvent.Trigger(audio, options);
 
         // starts to fade it out (using the ID we passed earlier)
         yield return null;
-        MMSoundManagerSoundFadeEvent.Trigger(MMSoundManagerSoundFadeEvent.Modes.StopFade,0, 3f, 0f, new MMTweenType(MMTween.MMTweenCurve.EaseInCubic));
+        MMSoundManagerSoundFadeEvent.Trigger(MMSoundManagerSoundFadeEvent.Modes.StopFade, BGM_ID-1, 3f, 0f, new MMTweenType(MMTween.MMTweenCurve.EaseInCubic));
 
         // frees the sound at the end (still using that same ID)
         yield return MMCoroutine.WaitFor(3f);
-        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, 0);
+        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, BGM_ID-1);
     }
 
     void Update()
@@ -165,19 +174,15 @@ public class GameDirector : MonoBehaviour
             }
         }
 
-        if(gameType == GameType.Playing)
+       if(gameType == GameType.Playing)
         {
             ChangeCursor(true);
-            if (Time.time > RandomStartTime && !GameStartFlag)
+            if (Time.time >= RandomStartTime + StartTime && !GameStartFlag)
             {
                 GameStartFlag = true;
                 MonsterDirector.GetComponent<MonsterDirector>().GameDirector_StartFlag = true;
-                Test();
-               /* MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Pause, 0, _myAudioSource);
-                _myAudioSource = MMSoundManagerSoundPlayEvent.Trigger(PlayBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID:1);*/
-            }
-
-            if (Time.time >= lastSpeedTime + timeBet && GameWinFlag == false)
+                SoundSequce(PlayBGM);
+            }else if (Time.time >= lastSpeedTime + timeBet && GameWinFlag == false)
             {
                 if (MaxSpeed >= TrainSpeed)
                 {
@@ -230,6 +235,12 @@ public class GameDirector : MonoBehaviour
         }
         else if (gameType == GameType.Ending)
         {
+            if (!Change_Win_BGM_Flag)
+            {
+                SoundSequce(WinBGM);
+                Change_Win_BGM_Flag = true;
+            }
+
             if (Time.time >= lastSpeedTime + 0.03f)
             {
                 if (TrainSpeed > 0)
@@ -415,8 +426,6 @@ public class GameDirector : MonoBehaviour
         Change_Game_End();
         uiDirector.Win_Text(Stage_Num, Stage_Name, Total_Score, Check_Score(),Total_Coin, Reward_Point);
         uiDirector.Open_WIN_UI();
-        
-        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, 0, _myAudioSource);
 
         MMSoundManagerSoundPlayEvent.Trigger(WinSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         SA_PlayerData.SA_GameWinReward(Total_Coin, Reward_Point);
@@ -428,7 +437,7 @@ public class GameDirector : MonoBehaviour
         uiDirector.Lose_Text(Total_Coin);
         uiDirector.Open_Lose_UI();
 
-        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, 0, _myAudioSource);
+        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, BGM_ID);
 
         MMSoundManagerSoundPlayEvent.Trigger(LoseSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         SA_PlayerData.SA_GameLoseReward(Total_Coin);

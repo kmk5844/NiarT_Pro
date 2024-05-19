@@ -75,6 +75,13 @@ public class parallex : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.position = new Vector3(Player.position.x, transform.position.y, transform.position.z);
+        if (!cam.transform.GetComponent<CameraFollow>().CameraFlag)
+        {
+            transform.position = new Vector3(Player.position.x, transform.position.y, transform.position.z);
+        }
+        else
+        {
+            transform.position = new Vector3(cam.transform.GetComponent<CameraFollow>().V_Cam_X, transform.position.y, transform.position.z);
+        }
     }
 }
