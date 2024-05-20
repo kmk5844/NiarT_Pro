@@ -120,7 +120,7 @@ public class Medic : Mercenary
             }
             else if (act == Active.die && isDying)
             {
-                Debug.Log("여기서 애니메이션 구현한다!4");
+                //Debug.Log("여기서 애니메이션 구현한다!4");
                 isDying = false;
             }
             else if (act == Active.weak)

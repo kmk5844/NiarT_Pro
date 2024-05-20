@@ -100,6 +100,10 @@ public class GameDirector : MonoBehaviour
     public AudioClip LoseSFX;
     bool Change_Win_BGM_Flag;
     int BGM_ID;
+    public float Train_Min_X;
+
+    [Header("몬스터리스트")]
+    public GameObject Monster_List;
 
     void Awake()
     {
@@ -238,6 +242,7 @@ public class GameDirector : MonoBehaviour
             if (!Change_Win_BGM_Flag)
             {
                 SoundSequce(WinBGM);
+                Monster_List.SetActive(false);
                 Change_Win_BGM_Flag = true;
             }
 

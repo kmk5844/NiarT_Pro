@@ -6,6 +6,8 @@ using UnityEngine.AI;
 public class Medic_Train : MonoBehaviour
 {
     Train_InGame medicTrain;
+    public GameObject[] On_Off_Object;
+
     int Heal_Amount;
     int Heal_timeBet;
     bool isPlayerHealing;
@@ -27,6 +29,18 @@ public class Medic_Train : MonoBehaviour
     {
         isPlayerHealing = medicTrain.isHealing;
         isOpen = medicTrain.openMedicTrian;
+
+        if (!isPlayerHealing && !isMercenaryHealing)
+        {
+            On_Off_Object[0].SetActive(false);
+            On_Off_Object[1].SetActive(true);
+        }
+        else
+        {
+            On_Off_Object[0].SetActive(true);
+            On_Off_Object[1].SetActive(false);
+        }
+
         if (isMercenaryHealing)
         {
             if(col.check_HpParsent() >= 60f || !medicTrain.openMedicTrian) //파괴되거나 용병 60퍼 이상 치료가 되면 내보냄.

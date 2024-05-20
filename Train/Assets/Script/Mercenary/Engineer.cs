@@ -101,7 +101,7 @@ public class Engineer : Mercenary
             }
             else if (act == Active.die && isDying)
             {
-                Debug.Log("여기서 애니메이션 구현한다!");
+                //Debug.Log("여기서 애니메이션 구현한다!");
                 if (train.isReparing)
                 {
                     train.isReparing = false;

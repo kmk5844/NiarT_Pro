@@ -99,7 +99,7 @@ public class Engine_Driver : Mercenary
             }
             else if (act == Active.die && isDying)
             {
-                Debug.Log("여기서 애니메이션 구현한다!5");
+                //Debug.Log("여기서 애니메이션 구현한다!5");
                 switch (Driver_Type)
                 {
                     case Engine_Driver_Type.speed:

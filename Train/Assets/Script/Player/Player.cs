@@ -158,7 +158,7 @@ public class Player : MonoBehaviour
             }
         }catch
         {
-            Debug.Log("기차 생성 중");
+            //Debug.Log("기차 생성 중");
         }
 
 
@@ -244,12 +244,12 @@ public class Player : MonoBehaviour
     {
         if (flag)
         {
-            GetComponent<SpriteRenderer>().enabled = false;
+            transform.GetChild(0).gameObject.SetActive(false);
             GunObject.SetActive(false);
         }
         else
         {
-            GetComponent<SpriteRenderer>().enabled = true;
+            transform.GetChild(0).gameObject.SetActive(true);
             GunObject.SetActive(true);
         }
     }

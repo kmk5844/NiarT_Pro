@@ -80,7 +80,7 @@ public class Train_InGame : MonoBehaviour
         }
         catch
         {
-            Debug.Log("임시");
+            //Debug.Log("임시");
         }
         //여기서 만약 기차가 파괴 당할 시 쓰면 좋은 함수
 

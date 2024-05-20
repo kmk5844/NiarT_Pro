@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using MoreMountains.Tools;
 
 public class StoryDirector : MonoBehaviour
 {
@@ -13,8 +14,9 @@ public class StoryDirector : MonoBehaviour
     [SerializeField]
     private SA_PlayerData SA_PlayerData;
 
-    public Transform Canvas;
+    public AudioClip StoryBGM; 
 
+    public Transform Canvas;
     [SerializeField]
     private Button SkipButton;
     [SerializeField]
@@ -38,6 +40,7 @@ public class StoryDirector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        MMSoundManagerSoundPlayEvent.Trigger(StoryBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true);
         SkipButton.onClick.AddListener(() => Click_Skip_Button());
         AutoToggle.onValueChanged.AddListener((value) => Click_Auto_Toggle(value));
 

@@ -1,3 +1,4 @@
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,15 +11,18 @@ public class DemoTutorial : MonoBehaviour
     int PlayerStageNum;
     //-> 그걸 이용해서 bool 판단
 
-    public Image Tutorial_Image;
+    public AudioClip Tutorial_BGM;
+
     int InGameCount;
     int StationCount;
-    public Sprite[] InGame_Sprite;
-    public Sprite[] Station_Sprite;
+    public GameObject[] InGame;
+    public GameObject[] Station;
     bool T_InGame_F_Station;
     // Start is called before the first frame update
     void Start()
     {
+        MMSoundManagerSoundPlayEvent.Trigger(Tutorial_BGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true);
+
         PlayerStageNum = playerData.Stage;
 
         InGameCount = 0;
@@ -35,11 +39,11 @@ public class DemoTutorial : MonoBehaviour
 
         if (T_InGame_F_Station)
         {
-            Tutorial_Image.sprite = InGame_Sprite[0];
+            InGame[0].SetActive(true);
         }
         else
         {
-            Tutorial_Image.sprite = Station_Sprite[0];
+            Station[0].SetActive(true);
         }
     }
 
@@ -57,9 +61,10 @@ public class DemoTutorial : MonoBehaviour
         if(T_InGame_F_Station) // InGame
         {
             InGameCount++;
-            if(InGameCount < InGame_Sprite.Length)
+            if(InGameCount < InGame.Length)
             {
-                Tutorial_Image.sprite = InGame_Sprite[InGameCount];
+                InGame[InGameCount - 1].SetActive(false);
+                InGame[InGameCount].SetActive(true);
             }
             else
             {
@@ -69,9 +74,10 @@ public class DemoTutorial : MonoBehaviour
         else // Tutorial
         {
             StationCount++;
-            if (StationCount < Station_Sprite.Length)
+            if (StationCount < Station.Length)
             {
-                Tutorial_Image.sprite = Station_Sprite[StationCount];
+                Station[StationCount - 1].SetActive(false);
+                Station[StationCount].SetActive(true);
             }
             else
             {
