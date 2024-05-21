@@ -16,6 +16,11 @@ public class Monster_3 : Monster
     [SerializeField]
     float max_xPos;
 
+    [SerializeField]
+    float frequency;
+    [SerializeField]
+    float amplitude;
+
 
 
     protected override void Start()
@@ -24,21 +29,30 @@ public class Monster_3 : Monster
 
         monster_SpawnPos = transform.position;
 
-        speed = Random.Range(3, 7);
+        speed = Random.Range(3f, 7f);
         max_xPos = Random.Range(1, 9);
+        frequency = Random.Range(5f, 15f);
+        amplitude = Random.Range(0.5f, 1.5f);
+
 
         xPos = -1f;
     }
 
     private void Update()
     {
-        //MonsterMove();
         BulletFire();
         FlipMonster();
     }
 
+    private void FixedUpdate()
+    {
+        MonsterMove();
+    }
+
     void MonsterMove()
     {
+        float yPos = Mathf.Sin(Time.time * frequency) * amplitude;
+
         if (monster_SpawnPos.x - max_xPos > transform.position.x)
         {
             xPos = 1f;
@@ -47,7 +61,7 @@ public class Monster_3 : Monster
         {
             xPos = -1f;
         }
-        movement = new Vector3(xPos, 0f, 0f);
+        movement = new Vector3(xPos, yPos, 0f);
         transform.Translate(movement * speed * Time.deltaTime);
     }
 }

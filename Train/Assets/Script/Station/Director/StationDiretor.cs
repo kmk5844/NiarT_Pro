@@ -43,6 +43,7 @@ public class StationDirector : MonoBehaviour
     public GameObject[] UI_Fortress_Window;
     [Header("Click Lobby -> GameStart")]
     public GameObject UI_GameStart;
+    public TextMeshProUGUI Stage_Text;
     [Header("Coin&Point")]
     public TextMeshProUGUI[] Coin_Text;
     public TextMeshProUGUI[] Point_Text;
@@ -76,6 +77,7 @@ public class StationDirector : MonoBehaviour
             Coin_Text[i].text = playerData.Player_Coin.ToString();
             Point_Text[i].text = playerData.Player_Point.ToString();
         }
+        Stage_Text.text = "Stage " + playerData.SA_PlayerData.Stage; 
 
         ui_num = 0;
         ui_Store_Num = -1;

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5264343738519905018}
   - component: {fileID: 5675363555252991354}
+  - component: {fileID: 5674455434706568908}
   m_Layer: 0
   m_Name: StroySceneDirector
   m_TagString: Untagged
@@ -44,9 +45,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47918f13f8fd0b946bb9b6c48a45f373, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EX_StoryData: {fileID: 11400000, guid: b8af22cb28fb5d34aa1677af812607be, type: 2}
+  SA_StoryData: {fileID: 11400000, guid: 3fe10e46d1c5bc84cb3ea00a8d9be089, type: 2}
+  SA_PlayerData: {fileID: 11400000, guid: 00cbb5f50188b374e85c8a529a52b4b0, type: 2}
+  StoryBGM: {fileID: 8300000, guid: 6372573e798c75f4aa268002de3d7818, type: 3}
+  Canvas: {fileID: 0}
   SkipButton: {fileID: 0}
   AutoToggle: {fileID: 0}
   SkipHit_Flag: 0
   AutoHit_Flag: 0
   Auto_Flag: 0
   delayTime: 1
+  BranchList:
+  - {fileID: 5710891358671493708, guid: f925a1fa9cd1c33479831698f4d58298, type: 3}
+  - {fileID: 5800646665800637770, guid: d31521bf01ebafb40b5bd14f311dbabf, type: 3}
+  - {fileID: 7050491767273396361, guid: e9e7801fbd54095448d3650fc8ba93c5, type: 3}
+  - {fileID: 7050491767273396361, guid: 692bfc630086fd64aa6194559294e072, type: 3}
+--- !u!114 &5674455434706568908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 159974234900794929}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 885047dff474cad4497a451fea44af6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogSystem: {fileID: 0}
