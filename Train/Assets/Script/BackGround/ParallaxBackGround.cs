@@ -17,7 +17,7 @@ public class parallex : MonoBehaviour
 
     float farthestBack;
 
-    [Range(0.051f, 1f)]
+    [Range(0.03f, 1f)]
     public float parallaxSpeed;
 
     float offset;
@@ -77,7 +77,7 @@ public class parallex : MonoBehaviour
     {
         if (!cam.transform.GetComponent<CameraFollow>().CameraFlag)
         {
-            transform.position = new Vector3(Player.position.x, transform.position.y, transform.position.z);
+            transform.position = new Vector3(cam.position.x, transform.position.y, transform.position.z);
         }
         else
         {

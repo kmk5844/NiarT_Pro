@@ -167,7 +167,7 @@ public class Station_Store : MonoBehaviour
         if(playerData.Player_Coin >= trainData.EX_Game_Data.Information_Train[Toggle_Train_Num].Train_Buy_Cost)
         {
             playerData.Player_Buy_Coin(trainData.EX_Game_Data.Information_Train[Toggle_Train_Num].Train_Buy_Cost);
-            trainData.SA_TrainData.Train_Buy_Num.Add(Toggle_Train_Num);
+            trainData.SA_TrainData.SA_Train_Buy(Toggle_Train_Num);
             trainData.Check_Buy_Train(Toggle_Train_Num);
             Check_AfterBuy_TrainCard();
             Check_Player_Coin_Point();
@@ -238,7 +238,7 @@ public class Station_Store : MonoBehaviour
 
             Mercenary_Information_Text.text = "<color=black><b>" + Toggle_Mercenary_Name +
                 "</color></b>\n<size=30>" + mercenaryData.EX_Game_Data.Information_Mercenary[Toggle_Mercenary_Num].Mercenary_Information.Replace("\\n", "\n");
-
+            Mercenary_Information_Cost.text = mercenaryData.EX_Game_Data.Information_Mercenary[Toggle_Mercenary_Num].Mercenary_Pride + "G";
             Mercenary_Information_Object.SetActive(true);
         }
         else

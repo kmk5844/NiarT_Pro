@@ -189,7 +189,8 @@ public class Station_TrainMaintenance : MonoBehaviour
     void Current_Train_Information()
     {
         int trainNum = int.Parse(UI_TrainList.GetChild(UI_Train_Num).name);
-        UI_Train_Information_Text.text = trainData.EX_Game_Data.Information_Train[trainNum].Train_Information.Replace("\\n", "\n").Replace("\\t", "\t");
+        UI_Train_Information_Text.text = trainData.EX_Game_Data.Information_Train[trainNum].Train_Information.Replace("\\n", "\n") +
+            trainData.EX_Game_Data.Information_Train[trainNum].Train_Select_Information.Replace("\\n", "\n").Replace("\\t", "\t");
     }
 
     //패시브 업그레이드
@@ -337,7 +338,7 @@ public class Station_TrainMaintenance : MonoBehaviour
         ContentSize.sizeDelta = new Vector2(300 * Train_Change_Num.Count, ContentSize.sizeDelta.y);
         foreach (int num in Train_Change_Num)
         {
-            Train_Card.GetComponent<TrainMaintenance_Train_Card>().Train_Num = trainData.SA_TrainData.SA_TrainChange(num);
+            Train_Card.GetComponent<TrainMaintenance_Train_Card>().Train_Num = trainData.SA_TrainData.SA_TrainChangeNum(num);
             GameObject Card = Instantiate(Train_Card, Train_Change_Content);
             Card.name = num.ToString();
             Train_Toggle.Add(Card.GetComponentInChildren<Toggle>());
@@ -380,8 +381,8 @@ public class Station_TrainMaintenance : MonoBehaviour
         if (playerData.Player_Coin >= trainData.EX_Game_Data.Information_Train[Toggle_Train_Num].Train_Change_Cost)
         {
             playerData.Player_Buy_Coin(trainData.EX_Game_Data.Information_Train[Toggle_Train_Num].Train_Change_Cost);
-            int changeNum = trainData.SA_TrainData.SA_TrainChange(Toggle_Train_Num); // -> Toggle_Train_Num 같은 경우, 0레벨의 기차숫자로 가져오기 때문에, 재수정이 필요.
-            trainData.SA_TrainData.Train_Num[UI_Train_Num] = changeNum; //임시로 저장
+            int changeNum = trainData.SA_TrainData.SA_TrainChangeNum(Toggle_Train_Num); // -> Toggle_Train_Num 같은 경우, 0레벨의 기차숫자로 가져오기 때문에, 재수정이 필요.
+            trainData.SA_TrainData.SA_Train_Change(UI_Train_Num, changeNum); //임시로 저장
             Destroy(UI_TrainList.GetChild(UI_Train_Num).gameObject);
             GameObject changeTrain = Instantiate(Resources.Load<GameObject>("TrainObject_UI/" + changeNum), UI_TrainList);
             changeTrain.name = Toggle_Train_Num.ToString();
@@ -401,7 +402,7 @@ public class Station_TrainMaintenance : MonoBehaviour
         {
             UI_TrainButtonList.GetChild(UI_Train_Num).GetComponent<Station_Maintenance_TrainNum_Button>().ChekcButton(false);
             playerData.Player_Buy_Coin(trainData.EX_Game_Data.Information_Train[100].Train_Change_Cost);
-            trainData.SA_TrainData.Train_Num.Add(100); //empty Trian
+            trainData.SA_TrainData.SA_Train_Add(100); //empty Trian
             UI_TrainList.GetChild(UI_Train_Num).gameObject.SetActive(false);
             UI_Train_Num = UI_TrainList.childCount;
             GameObject EmptyTrain = Instantiate(Resources.Load<GameObject>("TrainObject_UI/100"), UI_TrainList);

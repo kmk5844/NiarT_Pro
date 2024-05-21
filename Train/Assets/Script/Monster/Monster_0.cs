@@ -22,7 +22,7 @@ public class Monster_0 : Monster
 
         monster_SpawnPos = transform.position;
 
-        speed = Random.Range(3, 7);
+        speed = Random.Range(1f, 4f);
         max_xPos = Random.Range(1, 9);
 
         xPos = -1f;
@@ -30,9 +30,14 @@ public class Monster_0 : Monster
 
     private void Update()
     {
-        MonsterMove();
+        //MonsterMove();
         BulletFire();
         FlipMonster();
+    }
+
+    private void FixedUpdate()
+    {
+        MonsterMove();
     }
 
     void MonsterMove()

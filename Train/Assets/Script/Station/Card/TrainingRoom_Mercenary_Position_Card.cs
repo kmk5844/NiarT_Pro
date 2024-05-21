@@ -43,7 +43,7 @@ public class TrainingRoom_Mercenary_Position_Card : MonoBehaviour
 
     private void Mercenary_Count()
     {
-        foreach (int M_num in mercenaryData.Mercenary_Num)
+        foreach (int M_num in mercenaryData.SA_MercenaryData.Mercenary_Num)
         {
             if (M_num == Mercenary_Num)
             {

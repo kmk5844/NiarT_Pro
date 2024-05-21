@@ -20,6 +20,7 @@ public class Info_Train
     public int Train_Change_Cost;
     public int Train_Upgrade_Cost;
     public string Train_Information;
+    public string Train_Select_Information;
     public bool Store;
     public bool Change;
 }

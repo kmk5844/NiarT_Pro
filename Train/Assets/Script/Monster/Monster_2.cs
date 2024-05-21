@@ -28,8 +28,12 @@ public class Monster_2 : Monster
 
     private void Update()
     {
-        MonsterMove();
         BulletFire(0);
+    }
+
+    private void FixedUpdate()
+    {
+        MonsterMove();
     }
 
     private IEnumerator DestoryAfterDelay()

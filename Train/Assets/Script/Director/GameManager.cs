@@ -37,13 +37,21 @@ public class GameManager : MonoBehaviour
     public SA_StoryData StoryData;
     public List<int> Story_Equals_Stage; //임시로 놔둔것
 
+    public void Start()
+    {
+        DataManager.Instance.Init();
+        //데모버전에서 적용 / 정식에서는  Load();
+    }
 
     public void Update()
     {
-        if(Input.GetKeyUp(KeyCode.Alpha0))
+        if (Input.GetKeyDown(KeyCode.Alpha9))
         {
-            //데이터 초기화
-            SceneManager.LoadScene(0);
+            PlayerData.SA_GameWinReward(9999, 9999);
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            Game_Reset();
         }
     }
 
@@ -69,5 +77,11 @@ public class GameManager : MonoBehaviour
         {
             StoryData.End_Story(-1);
         }
+    }
+
+    public void Game_Reset()
+    {
+        DataManager.Instance.Init();
+        SceneManager.LoadScene(0);
     }
 }

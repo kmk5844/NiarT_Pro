@@ -10,7 +10,6 @@ public class Station_MercenaryData : MonoBehaviour
     public SA_MercenaryData SA_MercenaryData;
 
     [Header("용병 데이터")]
-    public List<int> Mercenary_Num;
     public int Level_Mercenary_Engine_Driver;
     public int Level_Mercenary_Engineer;
     public int Level_Mercenary_Long_Ranged;
@@ -34,7 +33,6 @@ public class Station_MercenaryData : MonoBehaviour
 
     private void Awake()
     {
-        Mercenary_Num = SA_MercenaryData.Mercenary_Num;
         Check_Level_Mercenary();
         Check_Store_List();
     }

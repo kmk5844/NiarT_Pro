@@ -167,18 +167,19 @@ public class GameDirector : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if(gameType == GameType.Playing)
+            if (gameType == GameType.Playing)
             {
                 gameType = GameType.Pause;
                 Time.timeScale = 0f;
-            }else if(gameType == GameType.Pause)
+            }
+            else if (gameType == GameType.Pause)
             {
                 gameType = GameType.Playing;
                 Time.timeScale = 1f;
             }
         }
 
-       if(gameType == GameType.Playing)
+        if (gameType == GameType.Playing)
         {
             ChangeCursor(true);
             if (Time.time >= RandomStartTime + StartTime && !GameStartFlag)
@@ -320,7 +321,7 @@ public class GameDirector : MonoBehaviour
         Train_Count = List_Train.childCount;
         Trains = new Train_InGame[Train_Count];
         Respawn = GameObject.FindGameObjectWithTag("Respawn");
-        Respawn.transform.localScale = new Vector3(15 * Train_Count, 1, 0);
+        Respawn.transform.localScale = new Vector3(25 * Train_Count, 1, 0);
         Respawn.transform.position = new Vector3(List_Train.GetChild(Train_Count / 2).transform.position.x, -3, 0);
 
         for (int i = 0; i < Train_Count; i++)

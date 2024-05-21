@@ -1,5 +1,7 @@
+using ES3Types;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "SA_PlayerData", menuName = "Scriptable/PlayerData", order = 1)]
@@ -60,26 +62,68 @@ public class SA_PlayerData : ScriptableObject
         stage++;
         coin += R_Coin;
         point += R_Point;
+        Save();
     }
 
     public void SA_GameLoseReward(int R_Coin)
     {
         coin += R_Coin;
+        Save();
     }
 
     public void SA_Click_Playable(int i)
     {
         player_num = i;
+        Save();
     }
 
     public void SA_Buy_Coin(int R_Coin)
     {
         coin -= R_Coin;
+        Save();
     }
 
     public void SA_Use_Point(int R_Point)
     {
         point -= R_Point;
+        Save();
+    }
+
+    private void Save()
+    {
+        PlayerPrefs.SetInt("SA_PlayerData_Data_level_atk", level_atk);
+        PlayerPrefs.SetInt("SA_PlayerData_Data_level_atkdelay", level_atkdelay);
+        PlayerPrefs.SetInt("SA_PlayerData_Data_level_player_hp", level_hp);
+        PlayerPrefs.SetInt("SA_PlayerData_Data_level_player_armor", level_armor);
+        PlayerPrefs.SetInt("SA_PlayerData_Data_levle_speed", level_speed);
+        PlayerPrefs.SetInt("SA_PlayerData_Data_coin", coin);
+        PlayerPrefs.SetInt("SA_PlayerData_Data_point", point);
+        PlayerPrefs.SetInt("SA_PlayerData_Data_stage", stage);
+    }
+
+    public void Load()
+    {
+        level_atk = PlayerPrefs.GetInt("SA_PlayerData_Data_level_atk");
+        level_atkdelay = PlayerPrefs.GetInt("SA_PlayerData_Data_level_atkdelay");
+        level_hp = PlayerPrefs.GetInt("SA_PlayerData_Data_level_player_hp");
+        level_armor = PlayerPrefs.GetInt("SA_PlayerData_Data_level_player_armor");
+        level_speed = PlayerPrefs.GetInt("SA_PlayerData_Data_levle_speed");
+        coin = PlayerPrefs.GetInt("SA_PlayerData_Data_coin");
+        point = PlayerPrefs.GetInt("SA_PlayerData_Data_point");
+        stage = PlayerPrefs.GetInt("SA_PlayerData_Data_stage");
+    }
+
+    public void Init()
+    {
+        level_atk = 0;
+        level_atkdelay = 0;
+        level_hp = 0;
+        level_armor = 0;
+        level_speed = 0;
+        coin = 0;
+        point = 0;
+        stage = 0;
+        Save();
     }
 
     public void SA_Player_Level_Up(int LevelNum)//LevelNum : 0 = Atk / 1= AtkDealy / 2 = HP / 3 = Armor / 4 = Speed

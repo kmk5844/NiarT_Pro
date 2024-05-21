@@ -82,17 +82,25 @@ public class UIDirector : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if(gamedirector.gameType == GameType.Ending || gamedirector.gameType == GameType.GameEnd)
         {
-            if (!OptionFlag)
+
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                ON_OFF_Pause_UI(PauseFlag);
-            }
-            else
-            {
-                Click_Option_Exit();
+                if (!OptionFlag)
+                {
+                    ON_OFF_Pause_UI(PauseFlag);
+                }
+                else
+                {
+                    Click_Option_Exit();
+                }
             }
         }
+
 
         if (Input.GetKeyDown(KeyCode.Tab) && mercenarydirector.Team_Flag)
         {

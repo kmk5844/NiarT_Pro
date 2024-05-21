@@ -79,7 +79,7 @@ public class Station_Fortress : MonoBehaviour
         OnToggleStart();
 
         //용병 배치 윈도우
-        Mercenary_TotalNum = mercenaryData.Mercenary_Num.Count;
+        Mercenary_TotalNum = mercenaryData.SA_MercenaryData.Mercenary_Num.Count;
         EngineTier_MaxMercenary = trainData.Max_Train_MaxMercenary;
         Check_Init_MercenaryPositionCard();
         Mercenary_Position_List_Init_Card();
@@ -498,8 +498,8 @@ public class Station_Fortress : MonoBehaviour
 
     public void Mercenary_PositionUP(TrainingRoom_Mercenary_Position_Card Card, int i)
     {
-        mercenaryData.Mercenary_Num.Add(i);
-        Mercenary_TotalNum = mercenaryData.Mercenary_Num.Count;
+        mercenaryData.SA_MercenaryData.SA_Mercenary_Num_Plus(i);
+        Mercenary_TotalNum = mercenaryData.SA_MercenaryData.Mercenary_Num.Count;
         Card.Plus_Count();
         Mercenary_Check_Button();
         Mercenary_Position_List_Plus_Card(i);
@@ -508,8 +508,8 @@ public class Station_Fortress : MonoBehaviour
 
     public void Mercenary_PositionDown(TrainingRoom_Mercenary_Position_Card Card, int i)
     {
-        mercenaryData.Mercenary_Num.Remove(i);
-        Mercenary_TotalNum = mercenaryData.Mercenary_Num.Count;
+        mercenaryData.SA_MercenaryData.SA_Mercenary_Num_Remove(i);
+        Mercenary_TotalNum = mercenaryData.SA_MercenaryData.Mercenary_Num.Count;
         Card.Minus_Count();
         Mercenary_Check_Button();
         Mercenary_Position_List_Minus_Card(i);

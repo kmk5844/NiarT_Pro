@@ -46,21 +46,35 @@ public class ScrollingBackground : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // 모든 자식 오브젝트 이동
-        foreach (Transform child in transform)
+        if (Time.timeScale == 0f)
         {
-            if (!child.GetComponent<ObjectMover>().Flag)
+            foreach (Transform child in transform)
             {
-                child.GetComponent<Rigidbody2D>().AddForce(Vector2.left * child.GetComponent<ObjectMover>().force, ForceMode2D.Impulse);
-                child.GetComponent<ObjectMover>().Flag = true;
-            }
-
-            // 화면 밖으로 나가면 파괴
-            if (child.position.x < W_minX)
-            {
-                Destroy(child.gameObject);
+                if (child.GetComponent<ObjectMover>().Flag)
+                {
+                    child.GetComponent<ObjectMover>().Flag = false;
+                }
             }
         }
+        else
+        {
+            foreach (Transform child in transform)
+            {
+                if (!child.GetComponent<ObjectMover>().Flag)
+                {
+                    child.GetComponent<Rigidbody2D>().AddForce(Vector2.left * child.GetComponent<ObjectMover>().force, ForceMode2D.Impulse);
+                    child.GetComponent<ObjectMover>().Flag = true;
+                }
+
+                // 화면 밖으로 나가면 파괴
+                if (child.position.x < W_minX)
+                {
+                    Destroy(child.gameObject);
+                }
+            }
+        }
+        // 모든 자식 오브젝트 이동
+
     }
 
     private void SpawnObject()

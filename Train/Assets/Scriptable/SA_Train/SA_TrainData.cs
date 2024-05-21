@@ -48,15 +48,19 @@ public class SA_TrainData : ScriptableObject
         {
             case (0):
                 level_train_enginetier++;
+                  Save();
                 break;
             case (1):
                 level_train_maxspeed++;
+                  Save();
                 break;
             case (2):
                 level_train_armor++;
+                  Save();
                 break;
             case (3):
                 level_train_efficient++;
+                  Save();
                 break;
         }
     }
@@ -81,9 +85,10 @@ public class SA_TrainData : ScriptableObject
                 level_trainnumber_40++;
                 break;
         }
+        Save();
     }
 
-    public int SA_TrainChange(int trainNum)
+    public int SA_TrainChangeNum(int trainNum)
     {
         switch (trainNum / 10)
         {
@@ -112,5 +117,73 @@ public class SA_TrainData : ScriptableObject
                 Train_Num[i] = Train_Num[i] + 1;
             }
         }
+        Save();
+    }
+
+    public void SA_Train_Buy(int TrainNum)
+    {
+        train_buy_num.Add(TrainNum);
+        Save();
+    }
+
+    public void SA_Train_Add(int TrainNum)
+    {
+        train_num.Add(TrainNum);
+        Save();
+    }
+
+    public void SA_Train_Change(int index, int chnage)
+    {
+        train_num[index] = chnage;
+        Save();
+    }
+
+    private void Save()
+    {
+        ES3.Save("SA_TrainData_Data_Train_Num", train_num);
+        PlayerPrefs.SetInt("SA_TrainData_Data_level_train_enginetier", level_train_enginetier);
+        PlayerPrefs.SetInt("SA_TrainData_Data_level_train_maxspeed", level_train_maxspeed);
+        PlayerPrefs.SetInt("SA_TrainData_Data_level_train_armor", level_train_armor);
+        PlayerPrefs.SetInt("SA_TrainData_Data_level_train_efficient", level_train_efficient);
+        ES3.Save("SA_TrainData_Data_Train_Buy_Num", train_buy_num);
+        PlayerPrefs.SetInt("SA_TrainData_Data_level_trainnumber_00", level_trainnumber_00);
+        PlayerPrefs.SetInt("SA_TrainData_Data_level_trainnumber_10", level_trainnumber_10);
+        PlayerPrefs.SetInt("SA_TrainData_Data_level_trainnumber_20", level_trainnumber_20);
+        PlayerPrefs.SetInt("SA_TrainData_Data_level_trainnumber_30", level_trainnumber_30);
+        PlayerPrefs.SetInt("SA_TrainData_Data_level_trainnumber_40", level_trainnumber_40);
+    }
+
+    public void Load()
+    {
+        train_num = ES3.Load<List<int>>("SA_TrainData_Data_Train_Num");
+        train_buy_num = ES3.Load<List<int>>("SA_TrainData_Data_Train_Buy_Num");
+        level_train_enginetier = PlayerPrefs.GetInt("SA_TrainData_Data_level_train_enginetier");
+        level_train_maxspeed =  PlayerPrefs.GetInt("SA_TrainData_Data_level_train_maxspeed");
+        level_train_armor = PlayerPrefs.GetInt("SA_TrainData_Data_level_train_armor");
+        level_train_efficient =  PlayerPrefs.GetInt("SA_TrainData_Data_level_train_efficient");
+        level_trainnumber_00 = PlayerPrefs.GetInt("SA_TrainData_Data_level_trainnumber_00");
+        level_trainnumber_10 = PlayerPrefs.GetInt("SA_TrainData_Data_level_trainnumber_10");
+        level_trainnumber_20 = PlayerPrefs.GetInt("SA_TrainData_Data_level_trainnumber_20");
+        level_trainnumber_30 = PlayerPrefs.GetInt("SA_TrainData_Data_level_trainnumber_30");
+        level_trainnumber_40 = PlayerPrefs.GetInt("SA_TrainData_Data_level_trainnumber_40");
+    }
+
+    public void Init()
+    {
+        train_num.Clear();
+        train_num.Add(0);
+        train_num.Add(10);
+        train_buy_num.Clear();
+
+        level_train_enginetier = 0;
+        level_train_maxspeed = 0;
+        level_train_armor = 0;
+        level_train_efficient = 0;
+        level_trainnumber_00 = 0;
+        level_trainnumber_10 = 10;
+        level_trainnumber_20 = 20;
+        level_trainnumber_30 = 30;
+        level_trainnumber_40 = 40;
+        Save();
     }
 }

@@ -38,8 +38,13 @@ public class Monster_1 : Monster
         {
             transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
-        MonsterMove();
+        //MonsterMove();
         BulletFire(xPos);
+    }
+
+    private void FixedUpdate()
+    {
+        MonsterMove();
     }
 
     void MonsterMove()

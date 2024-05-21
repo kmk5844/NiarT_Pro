@@ -23,7 +23,7 @@ public class TrainingRoom_Mercenary_Upgrade_Card : MonoBehaviour
 
         Mercenary_Image.GetComponent<Image>().sprite =  mercenaryData.SA_MercenaryData.Mercenary_Head_Image[Mercenary_Num];
         Mercenary_NameText.GetComponent<TextMeshProUGUI>().text = "<size=15>" + mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].Name
-            + "</size>\n<size=35>Lv." + mercenaryData.Mercenary_Find_Level(Mercenary_Num);
+            + "</size>\n<size=30>Lv." + mercenaryData.Mercenary_Find_Level(Mercenary_Num);
     }
 
     public void Card_LevleUP()
