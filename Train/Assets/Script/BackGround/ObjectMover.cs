@@ -10,9 +10,6 @@ public class ObjectMover : MonoBehaviour
     {
         Flag = false;
         // 자식 오브젝트 추가
-        foreach (Transform child in transform)
-        {
-            child.GetComponent<Rigidbody2D>().AddForce(Vector2.left * force, ForceMode2D.Impulse);
-        }
+        transform.GetComponent<Rigidbody2D>().AddForce(Vector2.left * force, ForceMode2D.Impulse);
     }
 }

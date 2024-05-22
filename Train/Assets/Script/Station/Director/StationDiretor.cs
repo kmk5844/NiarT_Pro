@@ -224,6 +224,8 @@ public class StationDirector : MonoBehaviour
 
     public void Click_Home_Button()
     {
+        Total_Init();
+
         if (ui_num == 1)
         {
             TrainMaintenance_ToggleInit();
@@ -291,7 +293,7 @@ public class StationDirector : MonoBehaviour
         Ban_Panel.SetActive(false);
     }
 
-    public void Total_Init() { 
+    public void Total_Init() {
         Director_TrainMaintenance.Director_Init_TrainChange();
         Director_Store.Director_Init_TrainyBuy();
         Director_Store.Director_Init_MercenaryBuy();

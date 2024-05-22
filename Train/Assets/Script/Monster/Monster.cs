@@ -29,6 +29,7 @@ public class Monster : MonoBehaviour
     [SerializeField]
     protected int Bullet_Slow;
     float lastTime;
+    float bossLastTime;
     Transform monster_Bullet_List;
 
     [Header("타겟")]
@@ -40,7 +41,8 @@ public class Monster : MonoBehaviour
 
     protected virtual void Start()
     {
-        lastTime = 0f;
+        lastTime = Time.time;
+        bossLastTime = 0f;
         gameDirector = GameObject.Find("GameDirector").GetComponent<GameDirector>();
 
         Monster_Name = EX_GameData.Information_Monster[Monster_Num].Monster_Name;
@@ -66,6 +68,19 @@ public class Monster : MonoBehaviour
             lastTime = Time.time;
         }
     } // 공통적으로 적용해야 함.
+
+    protected void DemoBulletFire(int x_scale = 0)
+    {
+        if (Time.time >= lastTime + Bullet_Delay)
+        {
+            for(int i = 0; i < 3; i++)
+            {
+                GameObject bullet = Instantiate(Bullet, transform.position, transform.rotation, monster_Bullet_List);
+                bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk, Bullet_Slow, Target, x_scale);
+            }
+            lastTime = Time.time;
+        }
+    }
 
     protected void FlipMonster()
     {

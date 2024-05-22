@@ -53,6 +53,10 @@ public class UIDirector : MonoBehaviour
     bool PauseFlag;
     bool OptionFlag;
 
+
+    [Header("데모버전에서만 버튼 추가")]
+    public Button Retry_Button;
+    public Button Station_Button;
     private void Start()
     {
         Team_Index1 = 2;
@@ -78,6 +82,7 @@ public class UIDirector : MonoBehaviour
             Team_1.gameObject.SetActive(false);
             Panel.gameObject.SetActive(false);
         }
+        DemoCheck();
     }
 
     private void Update()
@@ -176,6 +181,11 @@ public class UIDirector : MonoBehaviour
         //LoadingManager.LoadScene("Station");
     }
 
+    public void Demo_Station()
+    {
+        GameManager.Instance.Demo_End_Enter();
+    }
+
     public void Click_Retry()
     {
         LoadingManager.LoadScene("InGame");
@@ -224,5 +234,18 @@ public class UIDirector : MonoBehaviour
     private float SpeedToRotation(float speed)
     {
         return (speed - minSpeed) * (maxRotation - minRotation) / (maxSpeed - minSpeed) + minRotation;
+    }
+
+    private void DemoCheck()
+    {
+        if (gamedirector.Stage_Num == 5)
+        {
+            Retry_Button.interactable = false;
+            Station_Button.onClick.AddListener(() => Demo_Station());
+        }
+        else
+        {
+            Station_Button.onClick.AddListener(() => Click_Station());
+        }
     }
 }

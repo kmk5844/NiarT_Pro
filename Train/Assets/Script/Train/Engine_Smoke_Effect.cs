@@ -26,6 +26,15 @@ public class Engine_Smoke_Effect : MonoBehaviour
         Speed = GetComponent<GameDirector>().TrainSpeed;
         UpdateStartLifeTime();
         UpdateVelocityOverLifeTime();
+        if(GetComponent<GameDirector>().gameType == GameType.Ending)
+        {
+            ChangeColor();
+        }
+    }
+
+    private void ChangeColor()
+    {
+        mainModule.startColor = Color.black;
     }
 
     private void UpdateStartLifeTime()

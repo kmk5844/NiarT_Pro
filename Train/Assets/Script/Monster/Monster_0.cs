@@ -22,7 +22,7 @@ public class Monster_0 : Monster
 
         monster_SpawnPos = transform.position;
 
-        speed = Random.Range(1f, 4f);
+        speed = Random.Range(0.5f, 2f);
         max_xPos = Random.Range(1, 9);
 
         xPos = -1f;

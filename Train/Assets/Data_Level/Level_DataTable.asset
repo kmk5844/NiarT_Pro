@@ -48,12 +48,12 @@ MonoBehaviour:
     Cost_Level_Player_HP: 1
     Cost_Level_Player_Armor: 1
     Cost_Level_Player_Speed: 1
-    Cost_Level_Train_EngineTier: 500
-    Cost_Level_Train_MaxSpeed: 200
-    Cost_Level_Train_Armor: 500
-    Cost_Level_Train_Efficient: 300
-    Cost_Level_Mercenary_Engine_Driver: 500
-    Cost_Level_Mercenary_Engineer: 500
+    Cost_Level_Train_EngineTier: 1000
+    Cost_Level_Train_MaxSpeed: 1300
+    Cost_Level_Train_Armor: 1000
+    Cost_Level_Train_Efficient: 700
+    Cost_Level_Mercenary_Engine_Driver: 1000
+    Cost_Level_Mercenary_Engineer: 1000
     Cost_Level_Mercenary_Long_Ranged: 500
     Cost_Level_Mercenary_Short_Ranged: 500
     Cost_Level_Mercenary_Medic: 500
@@ -63,12 +63,12 @@ MonoBehaviour:
     Cost_Level_Player_HP: 1
     Cost_Level_Player_Armor: 1
     Cost_Level_Player_Speed: 1
-    Cost_Level_Train_EngineTier: 700
-    Cost_Level_Train_MaxSpeed: 300
-    Cost_Level_Train_Armor: 700
-    Cost_Level_Train_Efficient: 400
-    Cost_Level_Mercenary_Engine_Driver: 700
-    Cost_Level_Mercenary_Engineer: 700
+    Cost_Level_Train_EngineTier: 1200
+    Cost_Level_Train_MaxSpeed: 1500
+    Cost_Level_Train_Armor: 1100
+    Cost_Level_Train_Efficient: 900
+    Cost_Level_Mercenary_Engine_Driver: 2000
+    Cost_Level_Mercenary_Engineer: 200
     Cost_Level_Mercenary_Long_Ranged: 700
     Cost_Level_Mercenary_Short_Ranged: 700
     Cost_Level_Mercenary_Medic: 700
@@ -78,11 +78,11 @@ MonoBehaviour:
     Cost_Level_Player_HP: 1
     Cost_Level_Player_Armor: 1
     Cost_Level_Player_Speed: 1
-    Cost_Level_Train_EngineTier: 1000
-    Cost_Level_Train_MaxSpeed: 500
-    Cost_Level_Train_Armor: 1000
-    Cost_Level_Train_Efficient: 500
-    Cost_Level_Mercenary_Engine_Driver: 800
+    Cost_Level_Train_EngineTier: 1400
+    Cost_Level_Train_MaxSpeed: 1800
+    Cost_Level_Train_Armor: 1300
+    Cost_Level_Train_Efficient: 1000
+    Cost_Level_Mercenary_Engine_Driver: 3000
     Cost_Level_Mercenary_Engineer: 800
     Cost_Level_Mercenary_Long_Ranged: 800
     Cost_Level_Mercenary_Short_Ranged: 800
@@ -94,10 +94,10 @@ MonoBehaviour:
     Cost_Level_Player_Armor: 3
     Cost_Level_Player_Speed: 3
     Cost_Level_Train_EngineTier: 1500
-    Cost_Level_Train_MaxSpeed: 1000
+    Cost_Level_Train_MaxSpeed: 2000
     Cost_Level_Train_Armor: 1500
-    Cost_Level_Train_Efficient: 600
-    Cost_Level_Mercenary_Engine_Driver: 1000
+    Cost_Level_Train_Efficient: 1200
+    Cost_Level_Mercenary_Engine_Driver: 4000
     Cost_Level_Mercenary_Engineer: 1000
     Cost_Level_Mercenary_Long_Ranged: 1000
     Cost_Level_Mercenary_Short_Ranged: 1000
@@ -108,10 +108,10 @@ MonoBehaviour:
     Cost_Level_Player_HP: 3
     Cost_Level_Player_Armor: 3
     Cost_Level_Player_Speed: 3
-    Cost_Level_Train_EngineTier: 2000
-    Cost_Level_Train_MaxSpeed: 1500
-    Cost_Level_Train_Armor: 2000
-    Cost_Level_Train_Efficient: 700
+    Cost_Level_Train_EngineTier: 1800
+    Cost_Level_Train_MaxSpeed: 2200
+    Cost_Level_Train_Armor: 1600
+    Cost_Level_Train_Efficient: 1500
     Cost_Level_Mercenary_Engine_Driver: 0
     Cost_Level_Mercenary_Engineer: 0
     Cost_Level_Mercenary_Long_Ranged: 0
@@ -123,10 +123,10 @@ MonoBehaviour:
     Cost_Level_Player_HP: 3
     Cost_Level_Player_Armor: 3
     Cost_Level_Player_Speed: 3
-    Cost_Level_Train_EngineTier: 2500
-    Cost_Level_Train_MaxSpeed: 2000
-    Cost_Level_Train_Armor: 2500
-    Cost_Level_Train_Efficient: 800
+    Cost_Level_Train_EngineTier: 2200
+    Cost_Level_Train_MaxSpeed: 2400
+    Cost_Level_Train_Armor: 2000
+    Cost_Level_Train_Efficient: 1800
     Cost_Level_Mercenary_Engine_Driver: 0
     Cost_Level_Mercenary_Engineer: 0
     Cost_Level_Mercenary_Long_Ranged: 0
@@ -522,7 +522,7 @@ MonoBehaviour:
     Max_Train: 5
   Level_Mercenary_Engine_Driver:
   - Level: 0
-    HP: 500
+    HP: 2000
     Stamina: 100
     MoveSpeed: 0
     Refresh_Amount: 0
@@ -533,7 +533,7 @@ MonoBehaviour:
     Level_Type_Fuel: 2
     Level_Type_Def: 10
   - Level: 1
-    HP: 600
+    HP: 2200
     Stamina: 100
     MoveSpeed: 0
     Refresh_Amount: 0
@@ -544,7 +544,7 @@ MonoBehaviour:
     Level_Type_Fuel: 4
     Level_Type_Def: 12
   - Level: 2
-    HP: 700
+    HP: 2400
     Stamina: 100
     MoveSpeed: 0
     Refresh_Amount: 0
@@ -644,7 +644,7 @@ MonoBehaviour:
     Level_Type_Def: 0
   Level_Mercenary_Engineer:
   - Level: 0
-    HP: 500
+    HP: 2000
     Stamina: 100
     MoveSpeed: 3
     Refresh_Amount: 5
@@ -655,7 +655,7 @@ MonoBehaviour:
     Repair_Amount: 10
     Repair_Train_Parsent: 70
   - Level: 1
-    HP: 600
+    HP: 2200
     Stamina: 110
     MoveSpeed: 3
     Refresh_Amount: 5
@@ -666,7 +666,7 @@ MonoBehaviour:
     Repair_Amount: 12
     Repair_Train_Parsent: 70
   - Level: 2
-    HP: 700
+    HP: 2400
     Stamina: 120
     MoveSpeed: 4
     Refresh_Amount: 7
@@ -766,7 +766,7 @@ MonoBehaviour:
     Repair_Train_Parsent: 0
   Level_Mercenary_Long_Ranged:
   - Level: 0
-    HP: 500
+    HP: 2000
     Stamina: 100
     MoveSpeed: 3
     Refresh_Amount: 5
@@ -774,10 +774,10 @@ MonoBehaviour:
     Def: 5
     Use_Stamina: 10
     Unit_Attack: 10
-    Unit_Atk_Delay: 7
+    Unit_Atk_Delay: 5
     WorkSpeed: 0.09
   - Level: 1
-    HP: 600
+    HP: 2200
     Stamina: 105
     MoveSpeed: 3
     Refresh_Amount: 5
@@ -785,10 +785,10 @@ MonoBehaviour:
     Def: 7
     Use_Stamina: 9
     Unit_Attack: 15
-    Unit_Atk_Delay: 6
+    Unit_Atk_Delay: 4
     WorkSpeed: 0.1
   - Level: 2
-    HP: 700
+    HP: 2400
     Stamina: 110
     MoveSpeed: 4
     Refresh_Amount: 7
@@ -796,10 +796,10 @@ MonoBehaviour:
     Def: 10
     Use_Stamina: 8
     Unit_Attack: 20
-    Unit_Atk_Delay: 4
+    Unit_Atk_Delay: 3
     WorkSpeed: 0.12
   - Level: 3
-    HP: 900
+    HP: 2600
     Stamina: 120
     MoveSpeed: 5
     Refresh_Amount: 10
@@ -807,7 +807,7 @@ MonoBehaviour:
     Def: 12
     Use_Stamina: 6
     Unit_Attack: 40
-    Unit_Atk_Delay: 3
+    Unit_Atk_Delay: 2
     WorkSpeed: 0.15
   - Level: 4
     HP: 0
@@ -888,7 +888,7 @@ MonoBehaviour:
     WorkSpeed: 0
   Level_Mercenary_Short_Ranged:
   - Level: 0
-    HP: 500
+    HP: 2000
     Stamina: 100
     MoveSpeed: 4
     Refresh_Amount: 5
@@ -898,7 +898,7 @@ MonoBehaviour:
     Unit_Attack: 10
     Unit_Atk_Delay: 5
   - Level: 1
-    HP: 600
+    HP: 2200
     Stamina: 110
     MoveSpeed: 4
     Refresh_Amount: 5
@@ -908,7 +908,7 @@ MonoBehaviour:
     Unit_Attack: 12
     Unit_Atk_Delay: 4
   - Level: 2
-    HP: 700
+    HP: 2400
     Stamina: 120
     MoveSpeed: 5
     Refresh_Amount: 7
@@ -918,7 +918,7 @@ MonoBehaviour:
     Unit_Attack: 13
     Unit_Atk_Delay: 3
   - Level: 3
-    HP: 800
+    HP: 2800
     Stamina: 150
     MoveSpeed: 6
     Refresh_Amount: 10
@@ -999,7 +999,7 @@ MonoBehaviour:
     Unit_Atk_Delay: 0
   Level_Mercenary_Medic:
   - Level: 0
-    HP: 500
+    HP: 2000
     Stamina: 100
     MoveSpeed: 4
     Refresh_Amount: 5
@@ -1011,7 +1011,7 @@ MonoBehaviour:
     Heal_Revive_Amount: 50
     Heal_HP_Parsent: 50
   - Level: 1
-    HP: 600
+    HP: 2200
     Stamina: 110
     MoveSpeed: 4
     Refresh_Amount: 5
@@ -1023,7 +1023,7 @@ MonoBehaviour:
     Heal_Revive_Amount: 60
     Heal_HP_Parsent: 55
   - Level: 2
-    HP: 700
+    HP: 2400
     Stamina: 120
     MoveSpeed: 5
     Refresh_Amount: 7
@@ -1035,7 +1035,7 @@ MonoBehaviour:
     Heal_Revive_Amount: 70
     Heal_HP_Parsent: 60
   - Level: 3
-    HP: 800
+    HP: 2800
     Stamina: 150
     MoveSpeed: 6
     Refresh_Amount: 10

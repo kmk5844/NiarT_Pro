@@ -61,17 +61,7 @@ public class SA_StoryData : ScriptableObject
 
         }
     }
-
-/*    public void Start_Tutorial(int PlayerData)
-    {
-        switch (PlayerData)
-        {
-            case 0:
-                LoadingManager.LoadScene("Demo_Tutorial");
-                break;
-        }
-    }*/
-
+    
     public void End_Tutorial(int PlayerData)
     {
         switch (PlayerData)
@@ -82,6 +72,15 @@ public class SA_StoryData : ScriptableObject
             case 2:
                 LoadingManager.LoadScene("Station");
                 break;
+        }
+    }
+
+    public void End_Demo(int PlayerData)
+    {
+        if (PlayerData == 5)
+        {
+            Debug.Log(PlayerData);
+            LoadingManager.LoadScene("Demo_End");
         }
     }
 }

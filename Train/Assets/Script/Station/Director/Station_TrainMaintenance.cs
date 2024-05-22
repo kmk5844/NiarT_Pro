@@ -296,6 +296,7 @@ public class Station_TrainMaintenance : MonoBehaviour
             trainData.Passive_Level_Up(i);
             Passive_Text(false, i);
             Check_Player_Coin_Point();
+            // 여기에 맥스 조절하는 부분이 없다.
             Check_Trian_Add(); // 엔진 티어의 레벨에 따라 기차 추가 여부가 달라짐
         }
         else
@@ -328,8 +329,8 @@ public class Station_TrainMaintenance : MonoBehaviour
         {
             Train_Toggle[i].isOn = false;
         }
-        Cost_Change_Text.text = "0";
-        Cost_Add_Text.text = trainData.EX_Game_Data.Information_Train[100].Train_Upgrade_Cost.ToString();
+        Cost_Change_Text.text = "0G";
+        Cost_Add_Text.text = trainData.EX_Game_Data.Information_Train[100].Train_Change_Cost.ToString() + "G";
     } //전체 초기화
 
     private void Check_Init_TrainCard()
@@ -365,7 +366,7 @@ public class Station_TrainMaintenance : MonoBehaviour
                     Toggle_Train_Num = Card.Train_Num;
                 }
                 ChangeFlag = true;
-                Cost_Change_Text.text = trainData.EX_Game_Data.Information_Train[Toggle_Train_Num].Train_Change_Cost.ToString();
+                Cost_Change_Text.text = trainData.EX_Game_Data.Information_Train[Toggle_Train_Num].Train_Change_Cost.ToString() +"G";
                 Check_Change_Button_Interactable();
             }
         }
@@ -389,6 +390,8 @@ public class Station_TrainMaintenance : MonoBehaviour
             changeTrain.transform.SetSiblingIndex(UI_Train_Num);
             Upgrade_Before_After_Text();
             Check_Player_Coin_Point();
+            Check_Change_Button_Interactable();
+            Current_Train_Information();
         }
         else
         {
@@ -411,6 +414,7 @@ public class Station_TrainMaintenance : MonoBehaviour
             Check_Trian_Add();
             Upgrade_Before_After_Text();
             Check_Player_Coin_Point();
+            Current_Train_Information();
         }
         else
         {
@@ -510,7 +514,7 @@ public class Station_TrainMaintenance : MonoBehaviour
             }
 
         }
-        Upgrade_Text.text = trainData.EX_Game_Data.Information_Train[trainData.Train_Num[UI_Train_Num]].Train_Upgrade_Cost.ToString();
+        Upgrade_Text.text = trainData.EX_Game_Data.Information_Train[trainData.Train_Num[UI_Train_Num]].Train_Upgrade_Cost.ToString() + "G";
     }
 
     private void Upgrade_Train_TrainMaintenance()
@@ -524,7 +528,7 @@ public class Station_TrainMaintenance : MonoBehaviour
         foreach (int trainNum in trainData.Train_Num)
         {
             GameObject train = Instantiate(Resources.Load<GameObject>("TrainObject_UI/" + trainNum), UI_TrainList);
-            train.name = trainData.EX_Game_Data.Information_Train[trainNum].Train_Name;
+            train.name = trainNum.ToString();
             if (num != UI_Train_Num)
             {
                 train.gameObject.SetActive(false);

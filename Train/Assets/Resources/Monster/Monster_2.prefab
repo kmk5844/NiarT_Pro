@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7976047841580440950}
   - component: {fileID: 7976047841580440945}
-  - component: {fileID: 8897022937012925001}
   - component: {fileID: -5810396239641667512}
+  - component: {fileID: 2809599653816258061}
   m_Layer: 8
   m_Name: Monster_2
   m_TagString: Monster
@@ -86,8 +86,33 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &8897022937012925001
-BoxCollider2D:
+--- !u!114 &-5810396239641667512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7976047841580440944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56f31d2c8b6f84640a7a07d518271e3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Monster_Num: 2
+  EX_GameData: {fileID: 11400000, guid: 3a83740cb85032c498c0bbd5b0a2ec9d, type: 2}
+  Monster_Name: 
+  Monster_HP: 0
+  Monster_Score: 0
+  Monster_Coin: 0
+  Bullet: {fileID: 0}
+  Bullet_Delay: 0
+  Bullet_Slow: 0
+  Target: 
+  monster_SpawnPos: {x: 0, y: 0, z: 0}
+  speed: 0
+  max_xPos: 0
+--- !u!58 &2809599653816258061
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -118,41 +143,6 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.05733043, y: -0.03767252}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.375, y: 1.375}
-    newSize: {x: 0.49, y: 0.49}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Offset: {x: -0.07, y: 0}
   serializedVersion: 2
-  m_Size: {x: 0.42833692, y: 0.42307281}
-  m_EdgeRadius: 0
---- !u!114 &-5810396239641667512
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7976047841580440944}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56f31d2c8b6f84640a7a07d518271e3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Monster_Num: 2
-  EX_GameData: {fileID: 11400000, guid: 3a83740cb85032c498c0bbd5b0a2ec9d, type: 2}
-  Monster_Name: 
-  Monster_HP: 0
-  Monster_Score: 0
-  Monster_Coin: 0
-  Bullet: {fileID: 0}
-  Bullet_Delay: 0
-  Bullet_Slow: 0
-  Target: 
-  monster_SpawnPos: {x: 0, y: 0, z: 0}
-  speed: 0
-  max_xPos: 0
+  m_Radius: 0.5

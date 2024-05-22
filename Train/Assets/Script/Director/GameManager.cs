@@ -79,6 +79,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void Demo_End_Enter()
+    {
+        StoryData.End_Demo(PlayerData.Stage);
+    }
+
     public void Game_Reset()
     {
         DataManager.Instance.Init();

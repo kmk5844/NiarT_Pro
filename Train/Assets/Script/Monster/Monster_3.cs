@@ -29,10 +29,10 @@ public class Monster_3 : Monster
 
         monster_SpawnPos = transform.position;
 
-        speed = Random.Range(3f, 7f);
+        speed = Random.Range(1f, 3f);
         max_xPos = Random.Range(1, 9);
-        frequency = Random.Range(5f, 15f);
-        amplitude = Random.Range(0.5f, 1.5f);
+        frequency = Random.Range(5f, 10f);
+        amplitude = Random.Range(0.5f, 1f);
 
 
         xPos = -1f;

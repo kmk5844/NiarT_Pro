@@ -300,7 +300,7 @@ public class Station_Store : MonoBehaviour
         }
         else if (i == 1)
         {
-            Check_Buy_Text.text = Toggle_Mercenary_Name + " 용병 초대권을\n구매하시겠습니까?";
+            Check_Buy_Text.text = Toggle_Mercenary_Name + " 고용하시겠습니까?";
             Buy_YesButton.onClick.AddListener(Store_Buy_MercenaryCard);
 
         }

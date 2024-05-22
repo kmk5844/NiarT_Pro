@@ -1,5 +1,5 @@
 using UnityEngine;
-public class ScrollingBackground : MonoBehaviour
+public class GameObjectBackground : MonoBehaviour
 {
     public GameDirector gamedirector;
     public GameObject[] W_Object; // 오브젝트
@@ -21,6 +21,7 @@ public class ScrollingBackground : MonoBehaviour
 
     private float timer;
     int Train_Speed;
+    public float Force;
 
     private void Start()
     {
@@ -93,11 +94,10 @@ public class ScrollingBackground : MonoBehaviour
             newObject = Instantiate(B_Object[Random.Range(0, B_Object.Length)], position, Quaternion.identity, transform);
         }
 
-        // 이동 속도 랜덤 설정
-        float speed = Train_Speed * 0.05f;
+        Force = Train_Speed * 0.05f;
         float Scale = Random.Range(0.4f, 0.8f);
         newObject.transform.localScale = new Vector3(Scale, Scale, Scale);
-        newObject.GetComponent<ObjectMover>().force = speed;
+        newObject.GetComponent<ObjectMover>().force = Force;
     }
 
     private void OnDrawGizmos()

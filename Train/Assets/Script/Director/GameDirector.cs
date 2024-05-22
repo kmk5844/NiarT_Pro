@@ -19,6 +19,11 @@ public class GameDirector : MonoBehaviour
     Vector2 cursorHotspot_Origin;
     Vector2 cursorHotspot_Aim;
 
+    [Header("플레이어")]
+    [SerializeField]
+    GameObject playerObject;
+    Player player;
+
     [Header("스테이지 정보")]
     public int Stage_Num;
     public string Stage_Name;
@@ -132,6 +137,8 @@ public class GameDirector : MonoBehaviour
 
     private void Start()
     {
+        playerObject = GameObject.FindGameObjectWithTag("Player");
+        player = playerObject.GetComponent<Player>();
         StartTime = Time.time;
         gameType = GameType.Playing;
         MMSoundManagerSoundPlayEvent.Trigger(DustWindBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID: BGM_ID);
@@ -216,6 +223,12 @@ public class GameDirector : MonoBehaviour
             if (TrainSpeed <= 0 && GameStartFlag && !GameLoseFlag)
             {
                 TrainSpeed = 0;
+                GameLoseFlag = true;
+                Game_Lose();
+            }
+
+            if (player.Player_HP < 0 && GameStartFlag && !GameLoseFlag)
+            {
                 GameLoseFlag = true;
                 Game_Lose();
             }
@@ -489,11 +502,11 @@ public class GameDirector : MonoBehaviour
     {
         if (flag) // 게임 진행 중일 때
         {
-            Cursor.SetCursor(cursorAim, cursorHotspot_Aim, CursorMode.ForceSoftware);
+            Cursor.SetCursor(cursorAim, cursorHotspot_Aim, CursorMode.Auto);
         }
         else // Pause했을 때
         {
-            Cursor.SetCursor(cursorOrigin, cursorHotspot_Origin, CursorMode.ForceSoftware);
+            Cursor.SetCursor(cursorOrigin, cursorHotspot_Origin, CursorMode.Auto);
         }
     }
 
