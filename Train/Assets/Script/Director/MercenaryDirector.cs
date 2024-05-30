@@ -67,7 +67,7 @@ public class MercenaryDirector : MonoBehaviour
         }
         else if(Input .GetKeyDown(KeyCode.E) && !isMedicCall && player.Check_HpParsent() < 70) {
             Medic_Call();
-        }
+        } // 여기서 수정을 해야함. 70퍼센트 소환은 하지만, 그래도 되지 않는 경우가 발생한다.
     }
 
     public void Spawn_MercenaryUI(GameObject MercenaryObject, int index, int Merceenary_Num)

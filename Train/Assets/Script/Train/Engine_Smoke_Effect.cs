@@ -22,7 +22,7 @@ public class Engine_Smoke_Effect : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MaxSpeed = GetComponent<GameDirector>().TrainMaxSpeed;
+        MaxSpeed = GetComponent<GameDirector>().MaxSpeed;
         Speed = GetComponent<GameDirector>().TrainSpeed;
         UpdateStartLifeTime();
         UpdateVelocityOverLifeTime();

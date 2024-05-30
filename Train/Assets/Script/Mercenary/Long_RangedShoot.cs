@@ -98,7 +98,7 @@ public class Long_RangedShoot : MonoBehaviour
             Instantiate(Bullet, transform.position, transform.rotation, Bullet_List);
             unit.Shoot_Stamina();
             lastTime = Time.time;
-        };
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -11,7 +11,12 @@ public class GameDirector : MonoBehaviour
     public SA_TrainData SA_TrainData;
     public SA_PlayerData SA_PlayerData;
     public Game_DataTable EX_GameData;
+
+    [Header("디렉터")]
     public GameObject MonsterDirector;
+    public GameObject UI_DirectorObject;
+    MonsterDirector monsterDirector;
+    UIDirector uiDirector;
     List<int> Trian_Num;
 
     Texture2D cursorOrigin;
@@ -19,14 +24,12 @@ public class GameDirector : MonoBehaviour
     Vector2 cursorHotspot_Origin;
     Vector2 cursorHotspot_Aim;
 
-    [Header("플레이어")]
-    [SerializeField]
     GameObject playerObject;
     Player player;
 
     [Header("스테이지 정보")]
+    [SerializeField]
     public int Stage_Num;
-    public string Stage_Name;
     string Emerging_Monster_String;
     [SerializeField]
     private List<int> Emerging_Monster;
@@ -37,38 +40,38 @@ public class GameDirector : MonoBehaviour
 
     [Header("기차 리스트")]
     public Transform List_Train;
-    public Train_InGame[] Trains;
+    Train_InGame[] Trains;
     int Train_Count;
 
     [Header("기차 정보")]
     [SerializeField]
     int TrainFuel; // 전체적으로 더한다.
     int Total_TrainFuel;
-    public int TrainSpeed;
+    public float TrainSpeed;
     public int TrainDistance;
     [SerializeField]
     int TrainWeight;// 전체적으로 더한다.
 
     [Header("레벨 업 적용 전의 기차")]
-    public int TrainMaxSpeed;
-    public int TrainEfficient;
-    public int TrainEnginePower;
+    [SerializeField]
+    int TrainMaxSpeed;
+    [SerializeField]
+    int TrainEfficient;
+    [SerializeField]
+    int TrainEnginePower;
 
     [Header("레벨 업 적용 후의 기차")]
     [SerializeField]
-    int MaxSpeed;
+    public float MaxSpeed;
     [SerializeField]
     int Efficient;
     [SerializeField]
     int EnginePower;
 
-    [Header("시간 정보")]
-    [SerializeField]
     float lastSpeedTime; //마지막 속도 올린 시간
-    [SerializeField]
     float timeBet; //시간 차이
     float StartTime;
-    int RandomStartTime;
+    float RandomStartTime;
 
     GameObject Respawn;
 
@@ -80,14 +83,8 @@ public class GameDirector : MonoBehaviour
     bool GameWinFlag;
     bool GameLoseFlag;
 
-    [SerializeField]
     int Total_Score;
-    [SerializeField]
     int Total_Coin;
-
-    [Header("UI")]
-    public GameObject UI_DirectorObject;
-    UIDirector uiDirector;
 
     float distance_lastSpeedTime;
     float distance_time;
@@ -105,10 +102,6 @@ public class GameDirector : MonoBehaviour
     public AudioClip LoseSFX;
     bool Change_Win_BGM_Flag;
     int BGM_ID;
-    public float Train_Min_X;
-
-    [Header("몬스터리스트")]
-    public GameObject Monster_List;
 
     void Awake()
     {
@@ -119,7 +112,9 @@ public class GameDirector : MonoBehaviour
         GameStartFlag = false;
         GameWinFlag = false;
         GameLoseFlag = false;
+        monsterDirector = MonsterDirector.GetComponent<MonsterDirector>();
         uiDirector = UI_DirectorObject.GetComponent<UIDirector>();
+
         cursorOrigin = Resources.Load<Texture2D>("Cursor/Origin6464");
         cursorAim = Resources.Load<Texture2D>("Cursor/Aim6464");
         cursorHotspot_Origin = Vector2.zero;
@@ -127,7 +122,7 @@ public class GameDirector : MonoBehaviour
 
         Stage_Init();
         Train_Init();
-        RandomStartTime = Random.Range(5, 10);
+        RandomStartTime = Random.Range(5f, 8f);
         lastSpeedTime = 0;
         distance_lastSpeedTime = 0;
         timeBet = 0.1f - (EnginePower * 0.001f); //엔진 파워에 따라 결정
@@ -142,32 +137,6 @@ public class GameDirector : MonoBehaviour
         StartTime = Time.time;
         gameType = GameType.Playing;
         MMSoundManagerSoundPlayEvent.Trigger(DustWindBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID: BGM_ID);
-    }
-
-    public void SoundSequce(AudioClip audio)
-    {
-        StartCoroutine(Change_Sound(audio));
-    }
-
-    private IEnumerator Change_Sound(AudioClip audio)
-    {
-        BGM_ID++;
-
-        // plays the sound, notice we pass it a unique ID
-        MMSoundManagerPlayOptions options;
-        options = MMSoundManagerPlayOptions.Default;
-        options.MmSoundManagerTrack = MMSoundManager.MMSoundManagerTracks.Music;
-        options.ID = BGM_ID;
-        options.Loop = true;
-        MMSoundManagerSoundPlayEvent.Trigger(audio, options);
-
-        // starts to fade it out (using the ID we passed earlier)
-        yield return null;
-        MMSoundManagerSoundFadeEvent.Trigger(MMSoundManagerSoundFadeEvent.Modes.StopFade, BGM_ID-1, 3f, 0f, new MMTweenType(MMTween.MMTweenCurve.EaseInCubic));
-
-        // frees the sound at the end (still using that same ID)
-        yield return MMCoroutine.WaitFor(3f);
-        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, BGM_ID-1);
     }
 
     void Update()
@@ -192,7 +161,7 @@ public class GameDirector : MonoBehaviour
             if (Time.time >= RandomStartTime + StartTime && !GameStartFlag)
             {
                 GameStartFlag = true;
-                MonsterDirector.GetComponent<MonsterDirector>().GameDirector_StartFlag = true;
+                monsterDirector.GameDirector_StartFlag = true;
                 SoundSequce(PlayBGM);
             }else if (Time.time >= lastSpeedTime + timeBet && GameWinFlag == false)
             {
@@ -213,54 +182,44 @@ public class GameDirector : MonoBehaviour
                 }
                 lastSpeedTime = Time.time;
             }
-           
-            if (Destination_Distance < TrainDistance && !GameWinFlag)
-            {
-                GameWinFlag = true;
-                gameType = GameType.Ending;
-            }
-
-            if (TrainSpeed <= 0 && GameStartFlag && !GameLoseFlag)
-            {
-                TrainSpeed = 0;
-                GameLoseFlag = true;
-                Game_Lose();
-            }
-
-            if (player.Player_HP < 0 && GameStartFlag && !GameLoseFlag)
-            {
-                GameLoseFlag = true;
-                Game_Lose();
-            }
 
             if (TrainFuel <= 0)
             {
                 TrainFuel = 0;
             }
 
+            if (Destination_Distance < TrainDistance && !GameWinFlag)
+            {
+                GameWinFlag = true;
+                gameType = GameType.Ending;
+            }
+
+            if ((TrainSpeed <= 0 || player.Player_HP <= 0) && GameStartFlag && !GameLoseFlag)
+            {
+                TrainSpeed = 0;
+                GameLoseFlag = true;
+                Game_Lose();
+            }
+
             if (!GameWinFlag || !GameLoseFlag)
             {
                 if (Time.time >= distance_lastSpeedTime + distance_time)
                 {
-                    TrainDistance += TrainSpeed;
+                    TrainDistance += (int)TrainSpeed;
                     distance_lastSpeedTime = Time.time;
                 }
-            }
-            else
-            {
-                TrainSpeed = 0;
             }
         }
         else if (gameType == GameType.Ending)
         {
+            ChangeCursor(false);
             if (!Change_Win_BGM_Flag)
             {
                 SoundSequce(WinBGM);
-                Monster_List.SetActive(false);
                 Change_Win_BGM_Flag = true;
             }
 
-            if (Time.time >= lastSpeedTime + 0.03f)
+            if (Time.time >= lastSpeedTime + 0.025f)
             {
                 if (TrainSpeed > 0)
                 {
@@ -273,7 +232,7 @@ public class GameDirector : MonoBehaviour
                 lastSpeedTime = Time.time;
             }
 
-            if(TrainSpeed <= 50 && TrainSpeed > 45)
+            if(TrainSpeed <= 40 && TrainSpeed > 35)
             {
                 Station.SetActive(true);
             }
@@ -291,7 +250,6 @@ public class GameDirector : MonoBehaviour
     }
     void Stage_Init()
     {
-        Stage_Name = EX_GameData.Information_Stage[Stage_Num].Stage_Name;
         Emerging_Monster_String = EX_GameData.Information_Stage[Stage_Num].Emerging_Monster;
         Reward_Point = EX_GameData.Information_Stage[Stage_Num].Reward_Point;
         Destination_Distance = EX_GameData.Information_Stage[Stage_Num].Destination_Distance;
@@ -306,17 +264,15 @@ public class GameDirector : MonoBehaviour
                 Emerging_Monster.Add(num);
             }
         }
-
         MonsterDirector.GetComponent<MonsterDirector>().Get_Monster_List(Emerging_Monster);
     }
-
     void Train_Init()
     {
         Trian_Num = SA_TrainData.Train_Num;
         for (int i = 0; i < Trian_Num.Count; i++)
         {
             GameObject TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_InGame/" + Trian_Num[i]), List_Train);
-            TrainObject.name = EX_GameData.Information_Train[Trian_Num[i]].Train_Name;
+            //TrainObject.name = EX_GameData.Information_Train[Trian_Num[i]].Train_Name;
             if (i == 0)
             {
                 //엔진칸
@@ -328,6 +284,12 @@ public class GameDirector : MonoBehaviour
                 TrainObject.transform.position = new Vector3(-10.94f * i, 0.35f, 0);
             }
             TrainObject.GetComponent<Train_InGame>().TrainNum = Trian_Num[i];
+            Train_InGame train = TrainObject.GetComponent<Train_InGame>();
+            TrainFuel += train.Train_Fuel;
+            TrainWeight += train.Train_Weight;
+            TrainMaxSpeed += train.Train_MaxSpeed;
+            TrainEfficient += train.Train_Efficient;
+            TrainEnginePower += train.Train_Engine_Power;
             Instantiate_TrainCam(TrainObject);
         }
 
@@ -336,16 +298,6 @@ public class GameDirector : MonoBehaviour
         Respawn = GameObject.FindGameObjectWithTag("Respawn");
         Respawn.transform.localScale = new Vector3(25 * Train_Count, 1, 0);
         Respawn.transform.position = new Vector3(List_Train.GetChild(Train_Count / 2).transform.position.x, -3, 0);
-
-        for (int i = 0; i < Train_Count; i++)
-        {
-            Trains[i] = List_Train.GetChild(i).gameObject.GetComponent<Train_InGame>();
-            TrainFuel += Trains[i].Train_Fuel;
-            TrainWeight += Trains[i].Train_Weight;
-            TrainMaxSpeed += Trains[i].Train_MaxSpeed;
-            TrainEfficient += Trains[i].Train_Efficient;
-            TrainEnginePower += Trains[i].Train_Engine_Power;
-        }
 
         Level_EngineTier = SA_TrainData.Level_Train_EngineTier;
         Level_MaxSpeed = SA_TrainData.Level_Train_MaxSpeed;
@@ -356,7 +308,7 @@ public class GameDirector : MonoBehaviour
     public void Level()
     {
         MaxSpeed = TrainMaxSpeed + ((TrainMaxSpeed * (Level_MaxSpeed *10)) / 100); // 많을 수록 유리
-        MaxSpeed = MaxSpeed - (TrainWeight / 100000);
+        MaxSpeed = MaxSpeed - (TrainWeight / 100000); //무게로 인해 speed 감소
 
         Efficient = TrainEfficient - ((TrainEfficient * (Level_Efficient * 10)) / 100); // 적을 수록 유리
         EnginePower = TrainEnginePower + ((TrainEnginePower * (Level_EngineTier * 10)) / 100); // 클수록 유리
@@ -434,30 +386,33 @@ public class GameDirector : MonoBehaviour
         return "F";
     }
 
-    private void Change_Game_End()
+    private void Change_Game_End(bool WinFlag) // 이겼을 때
     {
         gameType = GameType.GameEnd;
         Time.timeScale = 0f;
+        if (WinFlag)
+        {
+            uiDirector.Win_Text(Stage_Num, Total_Score, Check_Score(), Total_Coin, Reward_Point);
+            uiDirector.Open_WIN_UI();
+        }
+        else
+        {
+            uiDirector.Lose_Text(Total_Coin);
+            uiDirector.Open_Lose_UI();
+        }
     }
 
     private void Game_Win()
     {
-        Change_Game_End();
-        uiDirector.Win_Text(Stage_Num, Stage_Name, Total_Score, Check_Score(),Total_Coin, Reward_Point);
-        uiDirector.Open_WIN_UI();
-
+        Change_Game_End(true);
         MMSoundManagerSoundPlayEvent.Trigger(WinSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         SA_PlayerData.SA_GameWinReward(Total_Coin, Reward_Point);
     }
 
     private void Game_Lose()
     {
-        Change_Game_End();
-        uiDirector.Lose_Text(Total_Coin);
-        uiDirector.Open_Lose_UI();
-
+        Change_Game_End(false);
         MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, BGM_ID);
-
         MMSoundManagerSoundPlayEvent.Trigger(LoseSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         SA_PlayerData.SA_GameLoseReward(Total_Coin);
     }
@@ -471,20 +426,6 @@ public class GameDirector : MonoBehaviour
         else
         {
             gameType = GameType.Pause;
-        }
-    }
-
-    public void PauseButton()
-    {
-        if (gameType == GameType.Playing)
-        {
-            gameType = GameType.Pause;
-            Time.timeScale = 0f;
-        }
-        else if (gameType == GameType.Pause)
-        {
-            gameType = GameType.Playing;
-            Time.timeScale = 1f;
         }
     }
 
@@ -516,6 +457,31 @@ public class GameDirector : MonoBehaviour
         Cam.GetComponent<CinemachineVirtualCamera>().Follow = Train.transform;
         Cam.GetComponent<CinemachineVirtualCamera>().LookAt = Train.transform;
         Cam.name = Train.name + "_Cam";
+    }
+    public void SoundSequce(AudioClip audio)
+    {
+        StartCoroutine(Change_Sound(audio));
+    }
+
+    private IEnumerator Change_Sound(AudioClip audio)
+    {
+        BGM_ID++;
+
+        // plays the sound, notice we pass it a unique ID
+        MMSoundManagerPlayOptions options;
+        options = MMSoundManagerPlayOptions.Default;
+        options.MmSoundManagerTrack = MMSoundManager.MMSoundManagerTracks.Music;
+        options.ID = BGM_ID;
+        options.Loop = true;
+        MMSoundManagerSoundPlayEvent.Trigger(audio, options);
+
+        // starts to fade it out (using the ID we passed earlier)
+        yield return null;
+        MMSoundManagerSoundFadeEvent.Trigger(MMSoundManagerSoundFadeEvent.Modes.StopFade, BGM_ID - 1, 3f, 0f, new MMTweenType(MMTween.MMTweenCurve.EaseInCubic));
+
+        // frees the sound at the end (still using that same ID)
+        yield return MMCoroutine.WaitFor(3f);
+        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, BGM_ID - 1);
     }
 }
 

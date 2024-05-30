@@ -6,7 +6,7 @@ public class Engine_Driver : Mercenary
 {
     [SerializeField]
     Engine_Driver_Type Driver_Type;
-    GameDirector Gd;
+    GameDirector gamedirector;
     bool isSurvival;
     [Header("타입마다의 추가 스탯")]
     [SerializeField]
@@ -25,17 +25,17 @@ public class Engine_Driver : Mercenary
     {
         base.Start();
         transform.position = new Vector3(-4.4f, move_Y, 0);
-        Gd = GameObject.Find("GameDirector").GetComponent<GameDirector>();
+        gamedirector = GameObject.Find("GameDirector").GetComponent<GameDirector>();
         isSurvival = true;
 
         Driver_Type = SA_MercenaryData.Engine_Driver_Type;
         switch (Driver_Type)
         {
             case Engine_Driver_Type.speed:
-                Gd.Engine_Driver_Passive(Engine_Driver_Type.speed, Level_Speed, true);
+                gamedirector.Engine_Driver_Passive(Engine_Driver_Type.speed, Level_Speed, true);
                 break;
             case Engine_Driver_Type.fuel:
-                Gd.Engine_Driver_Passive(Engine_Driver_Type.fuel, Level_Fuel, true);
+                gamedirector.Engine_Driver_Passive(Engine_Driver_Type.fuel, Level_Fuel, true);
                 break;
             case Engine_Driver_Type.def:
                 for(int i = 0; i < Train_List.childCount; i++)
@@ -83,10 +83,10 @@ public class Engine_Driver : Mercenary
                 switch (Driver_Type)
                 {
                     case Engine_Driver_Type.speed:
-                        Gd.Engine_Driver_Passive(Engine_Driver_Type.speed, 10, true);
+                        gamedirector.Engine_Driver_Passive(Engine_Driver_Type.speed, Level_Speed, true);
                         break;
                     case Engine_Driver_Type.fuel:
-                        Gd.Engine_Driver_Passive(Engine_Driver_Type.fuel, 4, true);
+                        gamedirector.Engine_Driver_Passive(Engine_Driver_Type.fuel, Level_Fuel, true);
                         break;
                     case Engine_Driver_Type.def:
                         for (int i = 0; i < Train_List.childCount; i++)
@@ -103,10 +103,10 @@ public class Engine_Driver : Mercenary
                 switch (Driver_Type)
                 {
                     case Engine_Driver_Type.speed:
-                        Gd.Engine_Driver_Passive(Engine_Driver_Type.speed, 10, false);
+                        gamedirector.Engine_Driver_Passive(Engine_Driver_Type.speed, Level_Speed, false);
                         break;
                     case Engine_Driver_Type.fuel:
-                        Gd.Engine_Driver_Passive(Engine_Driver_Type.fuel, 4, false);
+                        gamedirector.Engine_Driver_Passive(Engine_Driver_Type.fuel, Level_Fuel, false);
                         break;
                     case Engine_Driver_Type.def:
                         for (int i = 0; i < Train_List.childCount; i++)

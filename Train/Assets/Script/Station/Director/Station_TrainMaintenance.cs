@@ -1,8 +1,6 @@
 using JetBrains.Annotations;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Security.Principal;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -44,7 +42,6 @@ public class Station_TrainMaintenance : MonoBehaviour
     [SerializeField]
     List<Toggle> Train_Toggle;
     int Toggle_Train_Num;
-    string Toggle_Train_Name;
     bool ChangeFlag;
     public TextMeshProUGUI Cost_Add_Text;
     public TextMeshProUGUI Cost_Change_Text;

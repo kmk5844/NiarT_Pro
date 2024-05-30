@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Engineer : Mercenary
 {
+    MercenaryDirector mercenaryDirector;
+    Transform player;
+
     Rigidbody2D rigid;
     Train_InGame train;
     bool move_Work;
@@ -31,6 +34,8 @@ public class Engineer : Mercenary
         rigid = GetComponent<Rigidbody2D>();
         move_Work = true;
         isCalling = false;
+        mercenaryDirector = GameObject.Find("MercenaryDirector").GetComponent<MercenaryDirector>();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     private void Update()
@@ -154,18 +159,16 @@ public class Engineer : Mercenary
             else if (act == Active.call)
             {
                 isCalling = true;
-                PlayerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
+                PlayerPosition = player.position; // 호출한 지점으로 변경하기
                 if (transform.position.x < PlayerPosition.x - 0.5)
                 {
                     move_X = 1f;
-                    //sprite.flipX = false;
                     rb2D.velocity = new Vector2(move_X * 6f, rb2D.velocity.y);
 
                 }
                 else if (transform.position.x > PlayerPosition.x + 0.5)
                 {
                     move_X = -1f;
-                    //sprite.flipX = true;
                     rb2D.velocity = new Vector2(move_X * 6f, rb2D.velocity.y);
 
                 }
@@ -173,7 +176,7 @@ public class Engineer : Mercenary
                 {
                     isCalling = false;
                     act = Active.move;
-                    GameObject.Find("MercenaryDirector").GetComponent<MercenaryDirector>().Call_End(mercenaryType.Engineer);
+                    mercenaryDirector.Call_End(mercenaryType.Engineer);
                 }
             }
             else if (act == Active.die)
@@ -186,7 +189,6 @@ public class Engineer : Mercenary
             act = Active.Game_Wait;
             rb2D.velocity = Vector2.zero;
         }
-
     }
     public void Level_AddStatus_Engineer(List<Info_Level_Mercenary_Engineer> type, int level)
     {

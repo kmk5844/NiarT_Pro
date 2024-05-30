@@ -20,7 +20,7 @@ public class GameObjectBackground : MonoBehaviour
     public float B_minY;
 
     private float timer;
-    int Train_Speed;
+    float Train_Speed;
     public float Force;
 
     private void Start()
@@ -75,7 +75,6 @@ public class GameObjectBackground : MonoBehaviour
             }
         }
         // 모든 자식 오브젝트 이동
-
     }
 
     private void SpawnObject()
@@ -113,7 +112,6 @@ public class GameObjectBackground : MonoBehaviour
         Gizmos.DrawLine(new Vector3(B_maxX, B_minY, 0), new Vector3(B_minX, B_minY, 0));
         Gizmos.DrawLine(new Vector3(B_minX, B_minY, 0), new Vector3(B_minX, B_maxY, 0));
         Gizmos.DrawLine(new Vector3(B_minX, B_maxY, 0), new Vector3(B_maxX, B_maxY, 0));
-
     }
 }
 

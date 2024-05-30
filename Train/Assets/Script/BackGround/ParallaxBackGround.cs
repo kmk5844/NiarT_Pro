@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,9 @@ using UnityEngine.UIElements;
 
 public class parallex : MonoBehaviour
 {
+    public bool Brain_Flag;
+    public float Mat_Speed;
+
     public GameObject GameDirector_Object;
     GameDirector GameDirector;
     Transform cam;
@@ -29,6 +33,14 @@ public class parallex : MonoBehaviour
         Player = GameObject.FindWithTag("Player").transform;
         GameDirector = GameDirector_Object.GetComponent<GameDirector>();
         cam = Camera.main.transform;
+        if (Brain_Flag)
+        {
+            transform.GetComponent<CinemachineBrain>().enabled = true;
+        }
+        else
+        {
+            transform.GetComponent<CinemachineBrain>().enabled = false;
+        }
 
         int backCount = transform.childCount;
         mat = new Material[backCount];
@@ -43,6 +55,8 @@ public class parallex : MonoBehaviour
 
         BackSpeedCalculate(backCount);
     }
+
+
 
     void BackSpeedCalculate(int backCount)
     {
@@ -60,28 +74,41 @@ public class parallex : MonoBehaviour
         }
 
     }
+
     private void LateUpdate()
     {
         if (GameDirector.gameType == GameType.Playing || GameDirector.gameType == GameType.Ending)
         {
-            for (int i = 0; i < backgrounds.Length; i++)
+            if (!Brain_Flag)
             {
-                float speed = backSpeed[i] * parallaxSpeed;
+                float speed = Mat_Speed * parallaxSpeed;
                 offset += (Time.deltaTime * speed + (GameDirector.TrainSpeed / 20000f)) / 10f;
-                mat[i].SetTextureOffset("_MainTex", new Vector2(offset, 0) * speed);
+                mat[0].SetTextureOffset("_MainTex", new Vector2(offset, 0) * speed);
+            }
+            else
+            {
+                for (int i = 0; i < backgrounds.Length; i++)
+                {
+                    float speed = backSpeed[i] * parallaxSpeed;
+                    offset += (Time.deltaTime * speed + (GameDirector.TrainSpeed / 20000f)) / 10f;
+                    mat[i].SetTextureOffset("_MainTex", new Vector2(offset, 0) * speed);
+                }
             }
         }
-    }
 
+    }
     private void FixedUpdate()
     {
-        if (!cam.transform.GetComponent<CameraFollow>().CameraFlag)
+        if (!Brain_Flag)
         {
-            transform.position = new Vector3(cam.position.x, transform.position.y, transform.position.z);
-        }
-        else
-        {
-            transform.position = new Vector3(cam.transform.GetComponent<CameraFollow>().V_Cam_X, transform.position.y, transform.position.z);
+            if (!cam.transform.GetComponent<CameraFollow>().CameraFlag)
+            {
+                transform.position = new Vector3(cam.position.x, transform.position.y, transform.position.z);
+            }
+            else
+            {
+                transform.position = new Vector3(cam.transform.GetComponent<CameraFollow>().V_Cam_X, transform.position.y, transform.position.z);
+            }
         }
     }
 }

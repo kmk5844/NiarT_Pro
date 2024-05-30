@@ -12,7 +12,6 @@ public class StationDirector : MonoBehaviour
     public GameObject Player_DataObject; // 골드와 포인트 확인
     public GameObject Train_DataObject; // 게임에서 나타낼 기차
     Station_PlayerData playerData;
-    Station_TrainData trainData;
 
     [SerializeField]
     Station_TrainMaintenance Director_TrainMaintenance;
@@ -64,14 +63,9 @@ public class StationDirector : MonoBehaviour
     {
         MMSoundManagerSoundPlayEvent.Trigger(StationBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true);
 
-        Director_TrainMaintenance = transform.GetChild(0).GetComponent<Station_TrainMaintenance>();
-        Director_Store = transform.GetChild(1).GetComponent<Station_Store>();
-        Director_Fortress = transform.GetChild(2).GetComponent<Station_Fortress>();
-        Director_GameStart = transform.GetChild(3).GetComponent<Station_GameStart>();
-
         playerData = Player_DataObject.GetComponent<Station_PlayerData>();
-        trainData = Train_DataObject.GetComponent<Station_TrainData>();
 
+        //GameStart에 Stage 표현
         for(int i = 0; i < Coin_Text.Length; i++)
         {
             Coin_Text[i].text = playerData.Player_Coin.ToString();
@@ -81,6 +75,7 @@ public class StationDirector : MonoBehaviour
 
         ui_num = 0;
         ui_Store_Num = -1;
+        // 기차 정비소에 유일한 토글
         TrainMaintenance_ToggleStart();
     }
 
@@ -94,25 +89,22 @@ public class StationDirector : MonoBehaviour
 
     private void TrainMaintenance_ToggleChange(bool isOn)
     {
-        if (isOn) //isON 제거하면 끄는 순간과 켜는 순간이 2번이나 작동이 된다
+        if (isOn && ui_num == 1) //isON 제거하면 끄는 순간과 켜는 순간이 2번이나 작동이 된다
         {
-            if (ui_num == 1)
+            for (int i = 0; i < UI_TrainMaintenance_Toggle.transform.childCount; i++)
             {
-                for (int i = 0; i < UI_TrainMaintenance_Toggle.transform.childCount; i++)
+                if (UI_TrainMaintenance_Toggle.transform.GetChild(i).GetComponent<Toggle>().isOn)
                 {
-                    if (UI_TrainMaintenance_Toggle.transform.GetChild(i).GetComponent<Toggle>().isOn)
-                    {
-                        ui_Maintenance_Num = i;
-                        UI_TrainMaintenance_Window[i].SetActive(true);
-                        UI_MenuAndGear_After[i].SetActive(true);
-                        UI_TrainMaintenance_Toggle.transform.GetChild(i).GetComponent<Toggle>().interactable = false;
-                    }
-                    else
-                    {
-                        UI_TrainMaintenance_Window[i].SetActive(false);
-                        UI_MenuAndGear_After[i].SetActive(false);
-                        UI_TrainMaintenance_Toggle.transform.GetChild(i).GetComponent<Toggle>().interactable = true;
-                    }
+                    ui_Maintenance_Num = i;
+                    UI_TrainMaintenance_Window[i].SetActive(true);
+                    UI_MenuAndGear_After[i].SetActive(true);
+                    UI_TrainMaintenance_Toggle.transform.GetChild(i).GetComponent<Toggle>().interactable = false;
+                }
+                else
+                {
+                    UI_TrainMaintenance_Window[i].SetActive(false);
+                    UI_MenuAndGear_After[i].SetActive(false);
+                    UI_TrainMaintenance_Toggle.transform.GetChild(i).GetComponent<Toggle>().interactable = true;
                 }
             }
             Total_Init();
@@ -172,7 +164,6 @@ public class StationDirector : MonoBehaviour
             }
         }
         Total_Init();
-
     }
 
     public void Click_StoreButton(int UI_Store_Num)

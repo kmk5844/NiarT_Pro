@@ -33,25 +33,39 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+    public bool Demo;
     public SA_PlayerData PlayerData;
     public SA_StoryData StoryData;
     public List<int> Story_Equals_Stage; //임시로 놔둔것
 
     public void Start()
     {
-        DataManager.Instance.Init();
-        //데모버전에서 적용 / 정식에서는  Load();
+        if (Demo)
+        {
+            DataManager.Instance.Init();
+        }
+        else
+        {
+            DataManager.Instance.Load();
+        }
     }
 
     public void Update()
     {
+        if (Demo)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha0))
+            {
+                if (Time.timeScale == 0)
+                {
+                    Time.timeScale = 1;
+                }
+                Game_Reset();
+            }
+        }
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             PlayerData.SA_GameWinReward(9999, 9999);
-        }
-        if(Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            Game_Reset();
         }
     }
 
@@ -86,7 +100,6 @@ public class GameManager : MonoBehaviour
 
     public void Game_Reset()
     {
-        DataManager.Instance.Init();
         SceneManager.LoadScene(0);
     }
 }

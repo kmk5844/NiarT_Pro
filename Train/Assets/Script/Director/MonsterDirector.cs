@@ -78,7 +78,7 @@ public class MonsterDirector : MonoBehaviour
     IEnumerator AppearMonster()
     {
         isSpawing = true;
-        yield return new WaitForSeconds(Random.Range(1f, 5f));
+        yield return new WaitForSeconds(Random.Range(1f, 6f));
         int MonsterRandomIndex = Random.Range(0, Emerging_Monster_List.Count);
         Check_Sky_OR_Ground_Monster(Emerging_Monster_List[MonsterRandomIndex]);
         isSpawing = false;

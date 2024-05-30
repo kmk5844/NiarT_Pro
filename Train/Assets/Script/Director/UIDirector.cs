@@ -59,6 +59,10 @@ public class UIDirector : MonoBehaviour
     public Button Station_Button;
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        gamedirector = GameDirector_Object.GetComponent<GameDirector>();
+        mercenarydirector = MercenaryDirector_Object.GetComponent<MercenaryDirector>();
+
         Team_Index1 = 2;
         Team_Index2 = 0;
 
@@ -66,13 +70,11 @@ public class UIDirector : MonoBehaviour
         maxRotation = -105f;
 
         minSpeed = 0f;
-        maxSpeed = 400f;
+        maxSpeed = gamedirector.MaxSpeed + 30;
 
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         PauseFlag = false;
         OptionFlag = false;
-        gamedirector = GameDirector_Object.GetComponent<GameDirector>();
-        mercenarydirector = MercenaryDirector_Object.GetComponent<MercenaryDirector>();
+
         if (!mercenarydirector.Team_Flag)
         {
             if(mercenarydirector.Mercenary_Num.Count == 0)
@@ -82,7 +84,7 @@ public class UIDirector : MonoBehaviour
             Team_1.gameObject.SetActive(false);
             Panel.gameObject.SetActive(false);
         }
-        DemoCheck();
+        DemoCheck(); // 나중에 데모 변경예정
     }
 
     private void Update()
@@ -148,9 +150,9 @@ public class UIDirector : MonoBehaviour
         }
     }
 
-    public void Win_Text(int StageNum, string StageName, int Score, string Score_Grade,int Coin, int Point)
+    public void Win_Text(int StageNum, int Score, string Score_Grade,int Coin, int Point)
     {
-        Win_Stage_Text.text = "Stage" + (StageNum +1) + " : " + StageName;
+        Win_Stage_Text.text = "Stage" + (StageNum +1);
         Win_Score_Text.text = "Total Score : " + Score;
         Win_Score_Grade_Image.sprite = Resources.Load<Sprite>("InGame_UI/Grade/" + Score_Grade);
         Win_Reward_Coin_Text.text = "Reward Coin : " + Coin;
@@ -160,19 +162,6 @@ public class UIDirector : MonoBehaviour
     public void Lose_Text(int Coin)
     {
         Lose_Reward_Coin_Text.text = "Reward Coin : " + Coin;
-    }
-
-    public void Clcik_Pause()
-    {
-        gamedirector.PauseButton();
-        ON_OFF_Pause_UI(false);
-    }
-
-    public void Click_Option()
-    {
-        gamedirector.GameType_Option(true);
-        OptionFlag = true;
-        Option_UI.SetActive(true);
     }
 
     public void Click_Station()
@@ -206,12 +195,6 @@ public class UIDirector : MonoBehaviour
         gamedirector.GameType_Option(false);
         OptionFlag = false;
         Option_UI.SetActive(false);
-    }
-
-    public void Clcik_Pause_Exit()
-    {
-        gamedirector.PauseButton();
-        ON_OFF_Pause_UI(true);
     }
 
     public void Change_Team()
