@@ -21,15 +21,13 @@ public class Monster_3 : Monster
     [SerializeField]
     float amplitude;
 
-
-
     protected override void Start()
     {
         base.Start();
 
         monster_SpawnPos = transform.position;
 
-        speed = Random.Range(1f, 3f);
+        speed = Random.Range(0.5f, 2f);
         max_xPos = Random.Range(1, 9);
         frequency = Random.Range(5f, 10f);
         amplitude = Random.Range(0.5f, 1f);

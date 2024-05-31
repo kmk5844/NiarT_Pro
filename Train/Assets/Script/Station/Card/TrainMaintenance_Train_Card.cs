@@ -16,7 +16,7 @@ public class TrainMaintenance_Train_Card : MonoBehaviour
 
     private void Awake()
     {
-        TrainData_Object = GameObject.Find("TrainData");
+        TrainData_Object = GameObject.Find("TrainData"); //소환술로 인해 나옴.
         trainData = TrainData_Object.GetComponent<Station_TrainData>();
         GetComponentInChildren<Toggle>().group = GetComponentInParent<ToggleGroup>();
 

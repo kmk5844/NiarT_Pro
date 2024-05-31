@@ -20,7 +20,7 @@ public class Monster_2 : Monster
         base.Start();
         transform.position = new Vector3(9, transform.position.y, transform.position.z);
 
-        speed = 10;
+        speed = 5;
 
         xPos = -1f;
         StartCoroutine(DestoryAfterDelay());

@@ -285,6 +285,7 @@ public class Player : MonoBehaviour
     {
         if (collision.CompareTag("Respawn"))
         {
+            Player_HP -= 200;
             transform.position = new Vector3(respawnPosition.x, 1, 0); ;
         }
 

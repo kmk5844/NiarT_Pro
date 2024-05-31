@@ -70,7 +70,6 @@ public class Mercenary : MonoBehaviour
 
     protected virtual void Awake()
     {
-        HP = 100;
         Data_Index();
     }
 
@@ -139,12 +138,10 @@ public class Mercenary : MonoBehaviour
             if (combatant_move_x > 0)
             {
                 move_X = 1f;
-                //sprite.flipX = false;
             }
             else if (combatant_move_x < 0)
             {
                 move_X = -1f;
-                //sprite.flipX = true;
             }
             else if (combatant_move_x == 0 || combatant_move_x == 1)
             {

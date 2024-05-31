@@ -39,6 +39,7 @@ public class Station_Store : MonoBehaviour
     public Button BuyButton_Train;
     [SerializeField]
     List<Toggle> Train_Toggle;
+    int Select_Toggle_Train_Num;
     int Toggle_Train_Num;
     string Toggle_Train_Name;
     int Toggle_Train_Cost;
@@ -58,6 +59,7 @@ public class Station_Store : MonoBehaviour
     public Button BuyButton_Mercenary;
     [SerializeField]
     List <Toggle> Mercenary_Toggle;
+    int Select_Toggle_Mercenary_Num;
     int Toggle_Mercenary_Num; // toggle로 찍힌 카드 안의 숫자
     string Toggle_Mercenary_Name; // toggle로 찍힌 카드 안의 이름
 
@@ -104,6 +106,7 @@ public class Station_Store : MonoBehaviour
                 if (Train_Toggle[i].isOn)
                 {
                     Train_Store_Information_Text(true,i);
+                    Select_Toggle_Train_Num = i;
                 }
             }
             BuyButton_Train.interactable = true;
@@ -113,7 +116,6 @@ public class Station_Store : MonoBehaviour
             Train_Store_Information_Text(false);
             BuyButton_Train.interactable = false;
         }
-
     }
     public void Train_Store_Information_Text(bool flag, int toggle_num = -1)
     {
@@ -169,6 +171,7 @@ public class Station_Store : MonoBehaviour
             playerData.Player_Buy_Coin(trainData.EX_Game_Data.Information_Train[Toggle_Train_Num].Train_Buy_Cost);
             trainData.SA_TrainData.SA_Train_Buy(Toggle_Train_Num);
             trainData.Check_Buy_Train(Toggle_Train_Num);
+            Train_Toggle[Select_Toggle_Train_Num].isOn = false;
             Check_AfterBuy_TrainCard();
             Check_Player_Coin_Point();
             Close_Buy_Window();
@@ -190,7 +193,6 @@ public class Station_Store : MonoBehaviour
         }
     }
 
-
     //용병 구매하기
     public void Director_Init_MercenaryBuy()
     {
@@ -198,6 +200,7 @@ public class Station_Store : MonoBehaviour
         for(int i = 0; i < Mercenary_Toggle.Count; i++)
         {
             Mercenary_Toggle[i].isOn = false;
+            Select_Toggle_Mercenary_Num = i;
         }
         ScrollRect_Mercenary.normalizedPosition = Vector2.up;
     }
@@ -269,6 +272,7 @@ public class Station_Store : MonoBehaviour
             playerData.Player_Buy_Coin(mercenaryData.EX_Game_Data.Information_Mercenary[Toggle_Mercenary_Num].Mercenary_Pride);
             mercenaryData.SA_MercenaryData.Mercenary_Buy_Num.Add(Toggle_Mercenary_Num);
             Check_AfterBuy_MercenaryCard();
+            Mercenary_Toggle[Select_Toggle_Mercenary_Num].isOn = false;
             Check_Player_Coin_Point();
             Close_Buy_Window();
         }

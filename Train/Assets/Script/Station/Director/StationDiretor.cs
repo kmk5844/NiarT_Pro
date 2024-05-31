@@ -130,8 +130,6 @@ public class StationDirector : MonoBehaviour
                 }
             }
         }
-        //Init구간
-        Total_Init();
     }
 
     public void ClickLobbyButton(int num)
@@ -151,15 +149,18 @@ public class StationDirector : MonoBehaviour
                 case 1:
                     UI_TrainMaintenance.gameObject.SetActive(true);
                     ui_num = 1;
+                    Check_CoinAndPoint();
                     break;
                 case 2:
                     Director_Store.Check_AfterBuy_MercenaryCard();
                     UI_Store.gameObject.SetActive(true);
                     ui_num = 2;
+                    Check_CoinAndPoint();
                     break;
                 case 3:
                     UI_Fortress.gameObject.SetActive(true);
                     ui_num = 3;
+                    Check_CoinAndPoint();
                     break;
             }
         }
@@ -202,6 +203,7 @@ public class StationDirector : MonoBehaviour
         UI_TrainMaintenance_Window[ui_Maintenance_Num].SetActive(false);
         UI_Home_Button.SetActive(false);
         UI_Back_Button.SetActive(true);
+        Director_TrainMaintenance.Current_Train_Information();
     }
 
     public void Click_Information_Back_Button()
@@ -257,14 +259,11 @@ public class StationDirector : MonoBehaviour
 
     public void Check_CoinAndPoint()
     {
-        for (int i = 0; i < Coin_Text.Length; i++)
-        {
-            Coin_Text[i].text = playerData.Player_Coin.ToString();
-            Point_Text[i].text = playerData.Player_Point.ToString();
-        }
+        Coin_Text[ui_num-1].text = playerData.Player_Coin.ToString();
+        Point_Text[ui_num - 1].text = playerData.Player_Point.ToString();
     }
 
-    public void Check_Ban_CoinPoint(bool CoinPoint)
+    public void Check_Ban_CoinPoint(bool CoinPoint) // true면 코인 부족, false면 포인트 부족
     {
         Ban_Panel.SetActive(true);
         if (CoinPoint)

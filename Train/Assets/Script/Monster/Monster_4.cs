@@ -61,14 +61,6 @@ public class Monster_4 : Monster
 
     void MonsterMove()
     {
-/*        if (monster_SpawnPos.x - max_xPos > transform.position.x)
-        {
-            xPos = 1f;
-        }
-        else if (monster_SpawnPos.x + max_xPos < transform.position.x)
-        {
-            xPos = -1f;
-        }*/
         movement = new Vector3(xPos, 0f, 0f);
         transform.Translate(movement * speed * Time.deltaTime);
     }

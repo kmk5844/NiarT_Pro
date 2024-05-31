@@ -134,54 +134,11 @@ public class Medic : Mercenary
                     act = Active.move;
                 }
             }
-            else if (act == Active.call)
-            {
-                PlayerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
-                if (transform.position.x < PlayerPosition.x - 1.5)
-                {
-                    move_X = 1f;
-                    //sprite.flipX = false;
-                    rb2D.velocity = new Vector2(move_X * 8f, rb2D.velocity.y);
-                }
-                else if (transform.position.x > PlayerPosition.x + 1.5)
-                {
-                    move_X = -1f;
-                    //sprite.flipX = true;
-                    rb2D.velocity = new Vector2(move_X * 8f, rb2D.velocity.y);
-                }
-                else
-                {
-                    GameObject player = GameObject.FindGameObjectWithTag("Player");
-                    if (player.GetComponent<Player>().Check_moveX() > 0)
-                    {
-                        Unit_Scale.localScale = new Vector3(-Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
-                        //sprite.flipX = false;
-                        transform.position = new Vector3(PlayerPosition.x - 0.6f, PlayerPosition.y, PlayerPosition.z);
-                    }
-                    else
-                    {
-                        Unit_Scale.localScale = new Vector3(Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
-                        //sprite.flipX = true;
-                        transform.position = new Vector3(PlayerPosition.x + 0.6f, PlayerPosition.y, PlayerPosition.z);
-                    }
-
-                    if (!isHeal_HP)
-                    {
-                        if (Stamina <= 0 || player.GetComponent<Player>().Check_HpParsent() > Heal_HpParsent)
-                        {
-                            act = Active.move;
-                            work_HP = false;
-                            GameObject.Find("MercenaryDirector").GetComponent<MercenaryDirector>().Call_End(mercenaryType.Medic);
-                        }
-                        StartCoroutine(Heal_PlayerHP(player));
-                    }
-                }
-            }
+           
         }
 
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (M_gameType == GameType.Playing)
@@ -197,19 +154,56 @@ public class Medic : Mercenary
                 if (unit.GetComponentInParent<Mercenary>().Check_moveX() > 0)
                 {
                     Unit_Scale.localScale = new Vector3(-Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
-                    //sprite.flipX = false;
                     transform.position = new Vector3(unit.position.x - 0.6f, move_Y, 0);
                 }
                 else
                 {
                     Unit_Scale.localScale = new Vector3(Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
-                    //sprite.flipX = true;
                     transform.position = new Vector3(unit.position.x + 0.6f, move_Y, 0);
                 }
             }
             else if (act == Active.die)
             {
                 rb2D.velocity = Vector2.zero;
+            }
+            else if (act == Active.call)
+            {
+                PlayerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
+                if (transform.position.x < PlayerPosition.x - 1.5)
+                {
+                    move_X = 1f;
+                    rb2D.velocity = new Vector2(move_X * 8f, rb2D.velocity.y);
+                }
+                else if (transform.position.x > PlayerPosition.x + 1.5)
+                {
+                    move_X = -1f;
+                    rb2D.velocity = new Vector2(move_X * 8f, rb2D.velocity.y);
+                }
+                else
+                {
+                    GameObject player = GameObject.FindGameObjectWithTag("Player");
+                    if (player.GetComponent<Player>().Check_moveX() > 0)
+                    {
+                        Unit_Scale.localScale = new Vector3(-Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
+                        transform.position = new Vector3(PlayerPosition.x - 0.6f, PlayerPosition.y, PlayerPosition.z);
+                    }
+                    else
+                    {
+                        Unit_Scale.localScale = new Vector3(Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
+                        transform.position = new Vector3(PlayerPosition.x + 0.6f, PlayerPosition.y, PlayerPosition.z);
+                    }
+
+                    if (!isHeal_HP)
+                    {
+                        if (Stamina <= 0 || player.GetComponent<Player>().Check_HpParsent() > Heal_HpParsent)
+                        {
+                            act = Active.move;
+                            work_HP = false;
+                            GameObject.Find("MercenaryDirector").GetComponent<MercenaryDirector>().Call_End(mercenaryType.Medic);
+                        }
+                        StartCoroutine(Heal_PlayerHP(player));
+                    }
+                }
             }
         }
         else if (M_gameType == GameType.Ending)

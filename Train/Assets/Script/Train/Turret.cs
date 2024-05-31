@@ -5,6 +5,7 @@ using UnityEngine;
 public class Turret : MonoBehaviour
 {
     bool Target_Flag;
+    public Transform FireObject;
     public Transform BulletObject;
     Transform Bullet_List;
     Transform Target;
@@ -13,6 +14,7 @@ public class Turret : MonoBehaviour
     float train_Attack_Delay;
     float lastTime;
     public float Z;
+    
 
     void Start()
     {
@@ -26,7 +28,6 @@ public class Turret : MonoBehaviour
     }
     void Update()
     {
-
         Turret_Flip();
         if (Target != null)
         {
@@ -54,10 +55,10 @@ public class Turret : MonoBehaviour
 
             if(Z > 1)
             {
-                transform.Rotate(new Vector3(0, 0, 0.7f));
+                transform.Rotate(new Vector3(0, 0, 0.75f));
             }else if(Z < -1)
             {
-                transform.Rotate(new Vector3(0, 0, -0.7f));
+                transform.Rotate(new Vector3(0, 0, -0.75f));
             }
             else
             {
@@ -71,7 +72,7 @@ public class Turret : MonoBehaviour
     {
         if (Time.time >= lastTime + train_Attack_Delay)
         {
-            Instantiate(BulletObject, transform.position, transform.rotation, Bullet_List);
+            Instantiate(BulletObject, FireObject.position, FireObject.rotation, Bullet_List);
             lastTime = Time.time;
         }
     }

@@ -30,9 +30,16 @@ public class Monster_0 : Monster
 
     private void Update()
     {
-        //MonsterMove();
-        BulletFire();
-        FlipMonster();
+        Total_GameType();
+        if (monster_gametype == Monster_GameType.Fighting)
+        {
+            BulletFire();
+            FlipMonster();
+        }
+        else if(monster_gametype == Monster_GameType.GameEnding)
+        {
+            Monster_Ending();
+        }
     }
 
     private void FixedUpdate()

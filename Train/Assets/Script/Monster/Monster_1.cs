@@ -58,6 +58,7 @@ public class Monster_1 : Monster
             xPos = -1;
         }
         movement = new Vector3(xPos, 0f, 0f);
-        transform.Translate(movement * speed * Time.deltaTime);
+        transform.Translate(movement * speed * Time.deltaTime); 
+        // 기차의 거리에 맞춰야 한다.
     }
 }
