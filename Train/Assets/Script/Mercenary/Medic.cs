@@ -133,6 +133,38 @@ public class Medic : Mercenary
                 {
                     act = Active.move;
                 }
+            }else if(act == Active.call)
+            {
+                if (transform.position.x < PlayerPosition.x - 1.5)
+                {
+
+                }
+                else if (transform.position.x > PlayerPosition.x + 1.5)
+                {
+                 
+                }
+                else
+                {
+                    GameObject player = GameObject.FindGameObjectWithTag("Player");
+                    if (player.GetComponent<Player>().Check_moveX() > 0)
+                    {
+                        Unit_Scale.localScale = new Vector3(-Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
+                    }
+                    else
+                    {
+                        Unit_Scale.localScale = new Vector3(Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
+                    }
+                    if (!isHeal_HP)
+                    {
+                        if (Stamina <= 0 || player.GetComponent<Player>().Check_HpParsent() > Heal_HpParsent)
+                        {
+                            act = Active.move;
+                            work_HP = false;
+                            GameObject.Find("MercenaryDirector").GetComponent<MercenaryDirector>().Call_End(mercenaryType.Medic);
+                        }
+                        StartCoroutine(Heal_PlayerHP(player));
+                    }
+                }
             }
            
         }
@@ -184,25 +216,14 @@ public class Medic : Mercenary
                     GameObject player = GameObject.FindGameObjectWithTag("Player");
                     if (player.GetComponent<Player>().Check_moveX() > 0)
                     {
-                        Unit_Scale.localScale = new Vector3(-Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
                         transform.position = new Vector3(PlayerPosition.x - 0.6f, PlayerPosition.y, PlayerPosition.z);
                     }
                     else
                     {
-                        Unit_Scale.localScale = new Vector3(Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
                         transform.position = new Vector3(PlayerPosition.x + 0.6f, PlayerPosition.y, PlayerPosition.z);
                     }
 
-                    if (!isHeal_HP)
-                    {
-                        if (Stamina <= 0 || player.GetComponent<Player>().Check_HpParsent() > Heal_HpParsent)
-                        {
-                            act = Active.move;
-                            work_HP = false;
-                            GameObject.Find("MercenaryDirector").GetComponent<MercenaryDirector>().Call_End(mercenaryType.Medic);
-                        }
-                        StartCoroutine(Heal_PlayerHP(player));
-                    }
+                    
                 }
             }
         }

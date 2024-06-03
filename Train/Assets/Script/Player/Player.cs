@@ -309,6 +309,7 @@ public class Player : MonoBehaviour
 
     public int Check_moveX()
     {
+        Debug.Log(moveX);
         return moveX;
     }
 }

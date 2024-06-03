@@ -34,12 +34,15 @@ public class StationDirector : MonoBehaviour
     public GameObject UI_Home_Button;
     public GameObject UI_Back_Button;
     public GameObject[] UI_MenuAndGear_After;
+    bool Information_Flag;
     [Header("Click Lobby -> Store")]
     public GameObject UI_Store;
     public GameObject[] UI_Store_Window;
+    bool StoreWindow_Flag;
     [Header("Click Lobby -> Fortress")]
     public GameObject UI_Fortress;
     public GameObject[] UI_Fortress_Window;
+    bool Fortress_Flag;
     [Header("Click Lobby -> GameStart")]
     public GameObject UI_GameStart;
     public TextMeshProUGUI Stage_Text;
@@ -77,6 +80,49 @@ public class StationDirector : MonoBehaviour
         ui_Store_Num = -1;
         // 기차 정비소에 유일한 토글
         TrainMaintenance_ToggleStart();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (ui_num == 1)
+            {
+                if (Information_Flag)
+                {
+                    Click_Information_Back_Button();
+                }
+                else
+                {
+                    Click_Home_Button();
+                }
+            }
+            else if (ui_num == 2)
+            {
+                if (StoreWindow_Flag)
+                {
+                    Click_Store_Back_Button();
+                }
+                else
+                {
+                    Click_Home_Button();
+                }
+            }
+            else if (ui_num == 3)
+            {
+                if (Fortress_Flag)
+                {
+                    Click_Fortress_Back_Button();
+                }
+                else
+                {
+                    Click_Home_Button();
+                }
+            }else if (ui_num == 4)
+            {
+                Click_Home_Button();
+            }
+        }
     }
 
     private void TrainMaintenance_ToggleStart()
@@ -169,18 +215,21 @@ public class StationDirector : MonoBehaviour
 
     public void Click_StoreButton(int UI_Store_Num)
     {
+        StoreWindow_Flag = true;
         ui_Store_Num = UI_Store_Num;
         UI_Store_Window[ui_Store_Num].SetActive(true);
     }
 
     public void Click_Store_Back_Button()
     {
+        StoreWindow_Flag = false;
         UI_Store_Window[ui_Store_Num].SetActive(false);
         ui_Store_Num = -1;
     }
 
     public void Click_FortressButton(int UI_Fortress_Num)
     {
+        Fortress_Flag = true;
         ui_Fortress_Num = UI_Fortress_Num;
         UI_Fortress_Window[ui_Fortress_Num].SetActive(true);
         if(UI_Fortress_Num == 2)
@@ -192,12 +241,14 @@ public class StationDirector : MonoBehaviour
 
     public void Click_Fortress_Back_Button()
     {
+        Fortress_Flag = false;
         UI_Fortress_Window[ui_Fortress_Num].SetActive(false);
         ui_Fortress_Num = -1;
     }
 
     public void Click_Information_Button()
     {
+        Information_Flag = true;
         UI_TrainLIst_Window.SetActive(false);
         UI_TrainInformation_Window.SetActive(true);
         UI_TrainMaintenance_Window[ui_Maintenance_Num].SetActive(false);
@@ -208,6 +259,7 @@ public class StationDirector : MonoBehaviour
 
     public void Click_Information_Back_Button()
     {
+        Information_Flag = false;
         UI_TrainLIst_Window.SetActive(true);
         UI_TrainInformation_Window.SetActive(false);
         UI_TrainMaintenance_Window[ui_Maintenance_Num].SetActive(true);

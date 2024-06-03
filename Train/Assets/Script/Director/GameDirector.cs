@@ -161,7 +161,7 @@ public class GameDirector : MonoBehaviour
             if (Time.time >= RandomStartTime + StartTime && !GameStartFlag)
             {
                 GameStartFlag = true;
-                monsterDirector.GameDirector_StartFlag = true;
+                monsterDirector.GameDirector_SpawnFlag = true;
                 SoundSequce(PlayBGM);
             }else if (Time.time >= lastSpeedTime + timeBet && GameWinFlag == false)
             {
@@ -213,6 +213,7 @@ public class GameDirector : MonoBehaviour
         else if (gameType == GameType.Ending)
         {
             ChangeCursor(false);
+            monsterDirector.GameDirector_SpawnFlag = false;
             if (!Change_Win_BGM_Flag)
             {
                 SoundSequce(WinBGM);

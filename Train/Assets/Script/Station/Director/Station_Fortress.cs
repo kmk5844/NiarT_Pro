@@ -518,8 +518,9 @@ public class Station_Fortress : MonoBehaviour
         for (int i = 0; i < Mercenary_Position_NumList.Count; i++)
         {
             GameObject Card = Instantiate(Mercenary_On_Board_Card, Mercenary_On_Board_Card_List);
-            Card.GetComponent<Mercenary_On_Board_Card>().Mercenary_Num = Mercenary_Position_NumList[i];
-            Card.name = i.ToString();
+            int num = Mercenary_Position_NumList[i];
+            Card.GetComponent<Mercenary_On_Board_Card>().Mercenary_Num = num;
+            Card.name = num.ToString();
         }
     }
 

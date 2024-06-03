@@ -9,16 +9,23 @@ public class LoadingManager : MonoBehaviour
     public static string nextScene;
 
     [SerializeField]
-    Image[] progressBar;
-    int num;
+    bool FadeFlag;
+    [SerializeField]
+    Slider Loading_Slider;
+    [SerializeField]
+    Image FadeImage;
+    [SerializeField]
+    float FadeInDuration = 0.5f;
+    [SerializeField]
+
     private void Start()
     {
         if (Time.timeScale == 0f)
         {
             Time.timeScale = 1f;
         }
-        num = 0;
-        StartCoroutine(LoadScene());
+
+        StartCoroutine(LoadScene_LoadingBar());
     }
 
     public static void LoadScene(string sceneName)
@@ -27,7 +34,7 @@ public class LoadingManager : MonoBehaviour
         SceneManager.LoadScene("LoadingScene");
     }
 
-    IEnumerator LoadScene()
+    IEnumerator LoadScene_LoadingBar()
     {
         yield return null;
         AsyncOperation op = SceneManager.LoadSceneAsync(nextScene);
@@ -37,56 +44,23 @@ public class LoadingManager : MonoBehaviour
         {
             yield return null;
             timer += Time.deltaTime;
-            //if (op.progress < 0.9f)
-            if(num < progressBar.Length-1)
+            if (op.progress < 0.9f)
             {
-                progressBar[num].fillAmount = Mathf.Lerp(progressBar[num].fillAmount, 1f, timer);
-                if (progressBar[num].fillAmount == 1f)
+                Loading_Slider.value = Mathf.Lerp(0f, op.progress, timer * 32);
+                if (Loading_Slider.value >= op.progress)
                 {
                     timer = 0f;
-                    num++;
                 }
             }
             else
             {
-                if(op.progress < 0.9f)
+                Loading_Slider.value = Mathf.Lerp(Loading_Slider.value, 1f, timer);
+                if (Loading_Slider.value >= 1.0f)
                 {
-                    progressBar[num].fillAmount = Mathf.Lerp(progressBar[num].fillAmount, op.progress, timer);
-                    if (progressBar[num].fillAmount >= op.progress)
-                    {
-                        timer = 0f;
-                    }
+                    op.allowSceneActivation = true;
+                    yield break;
                 }
-                else
-                {
-                    progressBar[num].fillAmount = Mathf.Lerp(progressBar[num].fillAmount, 1f, timer);
-                    if (progressBar[num].fillAmount == 1.0f)
-                    {
-                        op.allowSceneActivation = true;
-                        yield break;
-                    }
-                }
-
-
-                /*                if (op.progress < 0.9f)
-                                {
-                                    progressBar[num].fillAmount = Mathf.Lerp(progressBar[num].fillAmount, op.progress, timer);
-                                    if (progressBar[num].fillAmount >= op.progress)
-                                    {
-                                        timer = 0f;
-                                    }
-                                }
-                                else
-                                {
-                                    progressBar[num].fillAmount = Mathf.Lerp(progressBar[num].fillAmount, 1f, timer);
-                                    if (progressBar[num].fillAmount == 1.0f)
-                                    {
-                                        op.allowSceneActivation = true;
-                                        yield break;
-                                    }
-                                }*/
             }
         }
-        
     }
 }

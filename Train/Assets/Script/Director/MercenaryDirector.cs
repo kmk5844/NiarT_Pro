@@ -28,6 +28,8 @@ public class MercenaryDirector : MonoBehaviour
     public Transform Team_2;
     public bool Team_Flag;
 
+    float Player_X_Pos;
+
     void Start()
     {
         Mercenary_Num = mercenaryData.Mercenary_Num;
@@ -103,14 +105,14 @@ public class MercenaryDirector : MonoBehaviour
             {
                 if (Engineer_List[i].GetComponent<Engineer>().Check_Work())
                 {
-                    Engineer_List[i].GetComponent<Engineer>().PlayerEngineerCall();
+                    Engineer_List[i].GetComponent<Engineer>().PlayerEngineerCall(player.transform.position);
                     isEngineerCall = true;
                     break;
                 } //있으면 오라고 콜함, 없으면 다음
             }
             if(!isEngineerCall)
             {
-                Engineer_List[last_Engineer].GetComponent<Engineer>().PlayerEngineerCall();
+                Engineer_List[last_Engineer].GetComponent<Engineer>().PlayerEngineerCall(player.transform.position);
                 isEngineerCall = true;
             }
         }

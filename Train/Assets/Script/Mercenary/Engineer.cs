@@ -13,7 +13,6 @@ public class Engineer : Mercenary
     bool isRepairing;
     public bool isCalling;
     float train_HpParsent;
-    [Header("타입마다의 추가 스탯")]
     [Header("수리 속도 및 기차 수리량")]
     [SerializeField] private int repairDelay;
     [SerializeField] private int repairAmount;
@@ -21,7 +20,7 @@ public class Engineer : Mercenary
     [SerializeField] private int move_work_speed;
     [Header("OO%이하의 기차인 경우 수리")]
     [SerializeField] private int repairTrain_Parsent;
-    Vector3 PlayerPosition;
+    Vector3 Player_X_Position;
 
     protected override void Awake()
     {
@@ -159,14 +158,13 @@ public class Engineer : Mercenary
             else if (act == Active.call)
             {
                 isCalling = true;
-                PlayerPosition = player.position; // 호출한 지점으로 변경하기
-                if (transform.position.x < PlayerPosition.x - 0.5)
+                if (transform.position.x < Player_X_Position.x - 0.5)
                 {
                     move_X = 1f;
                     rb2D.velocity = new Vector2(move_X * 6f, rb2D.velocity.y);
 
                 }
-                else if (transform.position.x > PlayerPosition.x + 0.5)
+                else if (transform.position.x > Player_X_Position.x + 0.5)
                 {
                     move_X = -1f;
                     rb2D.velocity = new Vector2(move_X * 6f, rb2D.velocity.y);
@@ -197,12 +195,13 @@ public class Engineer : Mercenary
         repairTrain_Parsent = type[level].Repair_Train_Parsent;
     }
 
-    public void PlayerEngineerCall()
+    public void PlayerEngineerCall(Vector3 PlayerCall_XPos)
     {
         if(act == Active.work)
         {
             train.isReparing = false;
         }
+        Player_X_Position = new Vector3(PlayerCall_XPos.x, transform.position.y, transform.position.z);
         act = Active.call;
     }
 

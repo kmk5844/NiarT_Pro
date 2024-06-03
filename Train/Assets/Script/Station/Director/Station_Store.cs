@@ -200,7 +200,6 @@ public class Station_Store : MonoBehaviour
         for(int i = 0; i < Mercenary_Toggle.Count; i++)
         {
             Mercenary_Toggle[i].isOn = false;
-            Select_Toggle_Mercenary_Num = i;
         }
         ScrollRect_Mercenary.normalizedPosition = Vector2.up;
     }
@@ -220,6 +219,7 @@ public class Station_Store : MonoBehaviour
                 if (Mercenary_Toggle[i].isOn)
                 {
                     Mercenary_Store_Information_Text(true, i);
+                    Select_Toggle_Mercenary_Num = i;
                 }
             }
             BuyButton_Mercenary.interactable = true;
