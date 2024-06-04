@@ -87,6 +87,18 @@ public class Short_Ranged : Mercenary
         }
     }
 
+    public void M_Buff_Atk(int buff_atk, bool flag)
+    {
+        if (flag)
+        {
+            unit_Attack += buff_atk;
+        }
+        else
+        {
+            unit_Attack -= buff_atk;
+        }
+    }
+
     public void Level_AddStatus_ShortRanged(List<Info_Level_Mercenary_Short_ranged> type, int level)
     {
         unit_Attack = type[level].Unit_Attack;

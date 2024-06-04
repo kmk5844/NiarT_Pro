@@ -33,6 +33,10 @@ public class Mercenary_Type : MonoBehaviour
                 medic_checkHpParsent = GetComponent<Engine_Driver>().check_HpParsent();
                 medic_checkStaminaParsent = GetComponent<Engine_Driver>().check_StaminaParsent();
                 break;
+            case mercenaryType.Bard:
+                medic_checkHpParsent = GetComponent<Bard>().check_HpParsent();
+                medic_checkStaminaParsent = GetComponent<Bard>().check_StaminaParsent();
+                break;
         }
     }
 
@@ -54,6 +58,9 @@ public class Mercenary_Type : MonoBehaviour
                 break;
             case mercenaryType.Engine_Driver:
                 GetComponent<Engine_Driver>().HP += Medic_Heal;
+                break;
+            case mercenaryType.Bard:
+                GetComponent<Bard>().HP += Medic_Heal;
                 break;
         }
     }
@@ -77,6 +84,9 @@ public class Mercenary_Type : MonoBehaviour
             case mercenaryType.Engine_Driver:
                 GetComponent<Engine_Driver>().Stamina += Medic_Heal;
                 break;
+            case mercenaryType.Bard:
+                GetComponent<Bard>().Stamina += Medic_Heal;
+                break;
         }
     }
 
@@ -99,8 +109,75 @@ public class Mercenary_Type : MonoBehaviour
             case mercenaryType.Engine_Driver:
                 StartCoroutine(GetComponent<Engine_Driver>().Revive(Medic_Heal));
                 break;
+            case mercenaryType.Bard:
+                StartCoroutine(GetComponent<Bard>().Revive(Medic_Heal));
+                break;
         }
     }
+
+    public void Buff_HP(int hp, bool flag)
+    {
+        switch (mercenary_type)
+        {
+            case mercenaryType.Engineer:
+                GetComponent<Engineer>().M_Buff_HP(hp,flag);
+                break;
+            case mercenaryType.Long_Ranged:
+                GetComponent<Long_Ranged>().M_Buff_HP(hp, flag);
+                break;
+            case mercenaryType.Short_Ranged:
+                GetComponent<Short_Ranged>().M_Buff_HP(hp, flag);
+                break;
+            case mercenaryType.Medic:
+                GetComponent<Medic>().M_Buff_HP(hp, flag);
+                break;
+            case mercenaryType.Engine_Driver:
+                GetComponent<Engine_Driver>().M_Buff_HP(hp, flag);
+                break;
+            case mercenaryType.Bard:
+                GetComponent<Bard>().M_Buff_HP(hp, flag);
+                break;
+        }
+    }
+
+    public void Buff_Atk(int atk, bool flag)
+    {
+        switch (mercenary_type)
+        {
+            case mercenaryType.Long_Ranged:
+                GetComponent<Long_Ranged>().M_Buff_Atk(atk, flag);
+                break;
+            case mercenaryType.Short_Ranged:
+                GetComponent<Short_Ranged>().M_Buff_Atk(atk, flag);
+                break;
+        }
+    }
+
+    public void Buff_Def(int def, bool flag)
+    {
+        switch (mercenary_type)
+        {
+            case mercenaryType.Engineer:
+                GetComponent<Engineer>().M_Buff_Def(def, flag);
+                break;
+            case mercenaryType.Long_Ranged:
+                GetComponent<Long_Ranged>().M_Buff_Def(def, flag);
+                break;
+            case mercenaryType.Short_Ranged:
+                GetComponent<Short_Ranged>().M_Buff_Def(def, flag);
+                break;
+            case mercenaryType.Medic:
+                GetComponent<Medic>().M_Buff_Def(def, flag);
+                break;
+            case mercenaryType.Engine_Driver:
+                GetComponent<Engine_Driver>().M_Buff_Def(def, flag);
+                break;
+            case mercenaryType.Bard:
+                GetComponent<Bard>().M_Buff_Def(def, flag);
+                break;
+        }
+    }
+
 }
 public enum mercenaryType
 {
@@ -108,5 +185,7 @@ public enum mercenaryType
     Long_Ranged,
     Short_Ranged,
     Medic,
-    Engine_Driver
+    Engine_Driver,
+    Bard,
+
 }

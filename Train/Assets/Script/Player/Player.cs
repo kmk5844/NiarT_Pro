@@ -312,4 +312,39 @@ public class Player : MonoBehaviour
         Debug.Log(moveX);
         return moveX;
     }
+
+    public void P_Buff(Bard_Type type, int amount, bool flag)
+    {
+        if (flag)
+        {
+            switch (type) {
+                case Bard_Type.HP_Buff:
+                    Player_HP += amount;
+                    Max_HP += amount;
+                    break;
+                case Bard_Type.Atk_Buff:
+                    Bullet_Atk += amount;
+                    break;
+                case Bard_Type.Def_Buff:
+                    Player_Armor += amount;
+                    break;
+            }
+        }
+        else
+        {
+            switch (type)
+            {
+                case Bard_Type.HP_Buff:
+                    Player_HP -= amount;
+                    Max_HP -= amount;
+                    break;
+                case Bard_Type.Atk_Buff:
+                    Bullet_Atk -= amount;
+                    break;
+                case Bard_Type.Def_Buff:
+                    Player_Armor -= amount;
+                    break;
+            }
+        }
+    }
 }

@@ -23,6 +23,8 @@ public class MercenaryDirector : MonoBehaviour
     public bool isMedicCall;
     bool isChecklive;
 
+    public static bool Mercenary_Spawn_Flag;
+
     [Header("UI")]
     public Transform Team_1;
     public Transform Team_2;
@@ -32,6 +34,7 @@ public class MercenaryDirector : MonoBehaviour
 
     void Start()
     {
+        Mercenary_Spawn_Flag = false;
         Mercenary_Num = mercenaryData.Mercenary_Num;
         if(Mercenary_Num.Count < 5)
         {
@@ -48,6 +51,7 @@ public class MercenaryDirector : MonoBehaviour
             MercenaryObject.name = MercenaryObject.GetComponent<Mercenary_Type>().mercenary_type.ToString();
             Spawn_MercenaryUI(MercenaryObject, i, Mercenary_Num[i]);
         }
+        Mercenary_Spawn_Flag = true;
         Check_List();
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
         isEngineerCall = false;

@@ -47,7 +47,6 @@ public class Mercenary : MonoBehaviour
     [SerializeField]
     int def;
     protected float era;
-    [SerializeField]
     float def_constant;
 
     [Header("소모되는 스테미나 양")]
@@ -75,6 +74,7 @@ public class Mercenary : MonoBehaviour
 
     protected virtual void Start()
     {
+        def_constant = 100;
         gameDirector = GameObject.Find("GameDirector").GetComponent<GameDirector>();
         M_gameType = gameDirector.gameType;
         Type = GetComponent<Mercenary_Type>().mercenary_type;
@@ -318,6 +318,32 @@ public class Mercenary : MonoBehaviour
         }
     }
 
+    public void M_Buff_HP(int buff_hp, bool flag)
+    {
+        if (flag)
+        {
+            HP += buff_hp;
+            MaxHP += buff_hp;
+        }
+        else
+        {
+            HP -= buff_hp;
+            MaxHP -= buff_hp;
+        }
+    }
+
+    public void M_Buff_Def(int buff_Def, bool flag)
+    {
+        if (flag)
+        {
+            def += buff_Def;
+        }
+        else
+        {
+            def -= buff_Def;
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Monster_Bullet"))
@@ -392,6 +418,16 @@ public class Mercenary : MonoBehaviour
                 def = EX_Level_Data.Level_Mercenary_Medic[SA_MercenaryData.Level_Medic].Def;
                 useStamina = EX_Level_Data.Level_Mercenary_Medic[SA_MercenaryData.Level_Medic].Use_Stamina;
                 GetComponent<Medic>().Level_AddStatus_Medic(EX_Level_Data.Level_Mercenary_Medic, SA_MercenaryData.Level_Medic);
+                break;
+            case mercenaryType.Bard:
+                HP = EX_Level_Data.Level_Mercenary_Bard[SA_MercenaryData.Level_Bard].HP;
+                Stamina = EX_Level_Data.Level_Mercenary_Bard[SA_MercenaryData.Level_Bard].Stamina;
+                moveSpeed = EX_Level_Data.Level_Mercenary_Bard[SA_MercenaryData.Level_Bard].MoveSpeed;
+                Refresh_Amount = EX_Level_Data.Level_Mercenary_Bard[SA_MercenaryData.Level_Bard].Refresh_Amount;
+                Refresh_Delay = EX_Level_Data.Level_Mercenary_Bard[SA_MercenaryData.Level_Bard].Refresh_Delay;
+                def = EX_Level_Data.Level_Mercenary_Bard[SA_MercenaryData.Level_Bard].Def;
+                useStamina = EX_Level_Data.Level_Mercenary_Bard[SA_MercenaryData.Level_Bard].Use_Stamina;
+                GetComponent<Bard>().Level_AddStatus_Bard(EX_Level_Data.Level_Mercenary_Bard, SA_MercenaryData.Level_Bard);
                 break;
         }
     }

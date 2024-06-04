@@ -16,4 +16,5 @@ public class Info_LevelCost
     public int Cost_Level_Mercenary_Long_Ranged;
     public int Cost_Level_Mercenary_Short_Ranged;
     public int Cost_Level_Mercenary_Medic;
+    public int Cost_Level_Mercenary_Bard;
 }

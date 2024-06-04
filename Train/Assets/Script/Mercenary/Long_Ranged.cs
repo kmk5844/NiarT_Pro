@@ -128,4 +128,16 @@ public class Long_Ranged : Mercenary
             }
         }
     }
+
+    public void M_Buff_Atk(int buff_atk, bool flag)
+    {
+        if (flag)
+        {
+            unit_Attack += buff_atk;
+        }
+        else
+        {
+            unit_Attack -= buff_atk;
+        }
+    }
 }

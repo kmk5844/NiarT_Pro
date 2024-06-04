@@ -30,8 +30,16 @@ public class SA_MercenaryData : ScriptableObject
     public int Level_Medic { get { return level_medic; } }
 
     [SerializeField]
+    private int level_bard;
+    public int Level_Bard { get { return level_bard; } }
+
+    [SerializeField]
     private Engine_Driver_Type engine_driver_type;
     public Engine_Driver_Type Engine_Driver_Type { get { return engine_driver_type; } }
+
+    [SerializeField]
+    private Bard_Type bard_type;
+    public Bard_Type Bard_Type { get { return bard_type; } }
 
     [SerializeField]
     private List<int> mercenary_buy_num;
@@ -55,6 +63,21 @@ public class SA_MercenaryData : ScriptableObject
             engine_driver_type = Engine_Driver_Type.def;
         }
         Save();
+    }
+
+    public void SA_Change_Bard_Type(int Num)
+    {
+        if(Num == 0)
+        {
+            bard_type = Bard_Type.HP_Buff;
+        }
+        else if(Num == 1)
+        {
+            bard_type = Bard_Type.Atk_Buff;
+        }else if(Num == 2)
+        {
+            bard_type = Bard_Type.Def_Buff;
+        }
     }
 
     public void SA_Mercenary_Num_Plus(int i)
@@ -103,13 +126,17 @@ public class SA_MercenaryData : ScriptableObject
     private void Save()
     {
         ES3.Save("SA_Mercenary_Data_Data_mercenary_num", mercenary_num);
-        PlayerPrefs.SetInt("SA_Mercenary_Data_Data_level_engine_driver", level_engine_driver);
-        PlayerPrefs.SetInt("SA_Mercenary_Data_Data_level_engineer", level_engineer);
-        PlayerPrefs.SetInt("SA_Mercenary_Data_Data_level_long_ranged", level_long_ranged);
-        PlayerPrefs.SetInt("SA_Mercenary_Data_Data_level_short_ranged", level_short_ranged);
-        PlayerPrefs.SetInt("SA_Mercenary_Data_Data_level_medic", level_medic);
+        ES3.Save("SA_Mercenary_Data_Data_level_engine_driver", level_engine_driver);
+        ES3.Save("SA_Mercenary_Data_Data_level_engineer", level_engineer);
+        ES3.Save("SA_Mercenary_Data_Data_level_long_ranged", level_long_ranged);
+        ES3.Save("SA_Mercenary_Data_Data_level_short_ranged", level_short_ranged);
+        ES3.Save("SA_Mercenary_Data_Data_level_medic", level_medic);
         ES3.Save<Engine_Driver_Type>("SA_Mercenary_Data_engine_driver_type", engine_driver_type);
         ES3.Save("SA_Mercenary_Data_Data_mercenary_buy_num", mercenary_buy_num);
+        //데모버전 이후
+        ES3.Save<Bard_Type>("SA_Mercenary_Data_bard_type", bard_type);
+        ES3.Save("SA_Mercenary_Data_Data_level_bard", level_bard);
+
     }
 
     public void Load()
@@ -117,23 +144,28 @@ public class SA_MercenaryData : ScriptableObject
         mercenary_num = ES3.Load<List<int>>("SA_Mercenary_Data_Data_mercenary_num");
         engine_driver_type = ES3.Load<Engine_Driver_Type>("SA_Mercenary_Data_engine_driver_type");
         mercenary_buy_num = ES3.Load<List<int>>("SA_Mercenary_Data_Data_mercenary_buy_num");
-        level_engine_driver = PlayerPrefs.GetInt("SA_Mercenary_Data_Data_level_engine_driver");
-        level_engineer = PlayerPrefs.GetInt("SA_Mercenary_Data_Data_level_engineer");
-        level_long_ranged = PlayerPrefs.GetInt("SA_Mercenary_Data_Data_level_long_ranged");
-        level_short_ranged = PlayerPrefs.GetInt("SA_Mercenary_Data_Data_level_short_ranged");
-        level_medic = PlayerPrefs.GetInt("SA_Mercenary_Data_Data_level_medic");
+        level_engine_driver = ES3.Load<int>("SA_Mercenary_Data_Data_level_engine_driver");
+        level_engineer = ES3.Load<int>("SA_Mercenary_Data_Data_level_engineer");
+        level_long_ranged = ES3.Load<int>("SA_Mercenary_Data_Data_level_long_ranged");
+        level_short_ranged = ES3.Load<int>("SA_Mercenary_Data_Data_level_short_ranged");
+        level_medic = ES3.Load<int>("SA_Mercenary_Data_Data_level_medic");
+        //데모버전 이후
+        bard_type = ES3.Load<Bard_Type>("SA_Mercenary_Data_engine_driver_type");
+        level_medic = ES3.Load<int>("SA_Mercenary_Data_Data_level_bard");
     }
 
     public void Init()
     {
         mercenary_num.Clear();
         engine_driver_type = Engine_Driver_Type.speed;
+        bard_type = Bard_Type.HP_Buff;
         mercenary_buy_num.Clear();
         level_engine_driver = 0;
         level_engineer = 0;
         level_long_ranged = 0;
         level_short_ranged = 0;
         level_medic = 0;
+        level_bard = 0;
         Save();
     }
 }

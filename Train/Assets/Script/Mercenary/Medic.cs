@@ -135,14 +135,8 @@ public class Medic : Mercenary
                 }
             }else if(act == Active.call)
             {
-                if (transform.position.x < PlayerPosition.x - 1.5)
-                {
-
-                }
-                else if (transform.position.x > PlayerPosition.x + 1.5)
-                {
-                 
-                }
+                if (transform.position.x < PlayerPosition.x - 1.5) { }
+                else if (transform.position.x > PlayerPosition.x + 1.5) { }
                 else
                 {
                     GameObject player = GameObject.FindGameObjectWithTag("Player");

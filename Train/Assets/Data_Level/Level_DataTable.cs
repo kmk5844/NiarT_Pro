@@ -14,4 +14,5 @@ public class Level_DataTable : ScriptableObject
 	public List<Info_Level_Mercenary_Long_Ranged> Level_Mercenary_Long_Ranged; // Replace 'EntityType' to an actual type that is serializable.
 	public List<Info_Level_Mercenary_Short_ranged> Level_Mercenary_Short_Ranged; // Replace 'EntityType' to an actual type that is serializable.
 	public List<Info_Level_Mercenary_Medic> Level_Mercenary_Medic; // Replace 'EntityType' to an actual type that is serializable.
+	public List<Info_Level_Mercenary_Bard> Level_Mercenary_Bard;
 }
