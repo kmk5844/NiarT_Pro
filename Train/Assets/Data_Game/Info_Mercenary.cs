@@ -9,4 +9,5 @@ public class Info_Mercenary
     public int Mercenary_Pride;
     public bool Store;
     public bool Position;
+    public bool DropDown;
 }

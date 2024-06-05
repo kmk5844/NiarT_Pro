@@ -53,6 +53,8 @@ public class Station_Fortress : MonoBehaviour
     List<GameObject> CardList;
     [SerializeField]
     TMP_Dropdown DropDown_EngineDriver_Type;
+    [SerializeField]
+    TMP_Dropdown DropDown_Bard_Type;
     void Start()
     {
         //데이터 수집
@@ -485,6 +487,11 @@ public class Station_Fortress : MonoBehaviour
                 DropDown_EngineDriver_Type = SubCard.dropDown.GetComponent<TMP_Dropdown>();
                 DropDown_EngineDriver_Type.onValueChanged.AddListener(Mercenary_Position_EngineDriver_DropDown);
             }
+            if(num == 5)
+            {
+                DropDown_Bard_Type = SubCard.dropDown.GetComponent<TMP_Dropdown>();
+                DropDown_Bard_Type.onValueChanged.AddListener(Mercenary_Position_Bard_DropDown);
+            }
         }
     }
 
@@ -569,7 +576,7 @@ public class Station_Fortress : MonoBehaviour
         {
             for (int i = 0; i < CardList.Count; i++)
             {
-                if (CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().Mercenary_Num == 0)
+                if (CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().Mercenary_Num == 0 || CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().Mercenary_Num == 5)
                 {
                     if (CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().Mercenary_Num_Count == 1)
                     {
@@ -605,6 +612,11 @@ public class Station_Fortress : MonoBehaviour
     public void Mercenary_Position_EngineDriver_DropDown(int value)
     {
         mercenaryData.SA_MercenaryData.SA_Change_EngineDriver_Type(value);
+    }
+
+    public void Mercenary_Position_Bard_DropDown(int value)
+    {
+        mercenaryData.SA_MercenaryData.SA_Change_Bard_Type(value);
     }
 
     private void Check_Player_Coin_Point()

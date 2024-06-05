@@ -9,6 +9,8 @@ public class GameDirector : MonoBehaviour
     public GameType gameType;
     [Header("데이터 모음")]
     public SA_TrainData SA_TrainData;
+    public SA_TrainTurretData SA_TrainTurretData;
+    public SA_TrainBoosterData SA_TrainBoosterData;
     public SA_PlayerData SA_PlayerData;
     public Game_DataTable EX_GameData;
 
@@ -284,7 +286,7 @@ public class GameDirector : MonoBehaviour
                 //나머지칸
                 TrainObject.transform.position = new Vector3(-10.94f * i, 0.35f, 0);
             }
-            TrainObject.GetComponent<Train_InGame>().TrainNum = Trian_Num[i];
+            //TrainObject.GetComponent<Train_InGame>().TrainNum = Trian_Num[i];
             Train_InGame train = TrainObject.GetComponent<Train_InGame>();
             TrainFuel += train.Train_Fuel;
             TrainWeight += train.Train_Weight;

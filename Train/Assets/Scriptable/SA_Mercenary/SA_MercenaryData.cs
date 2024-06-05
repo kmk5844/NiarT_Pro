@@ -48,35 +48,74 @@ public class SA_MercenaryData : ScriptableObject
     [SerializeField]
     private Sprite[] mercenary_head_image;
     public Sprite[] Mercenary_Head_Image {  get {  return mercenary_head_image;} }
-    public void SA_Change_EngineDriver_Type(int Num)
+    public void SA_Change_EngineDriver_Type(int DropDown_Num)
     {
-        if(Num == 0)
+        if(DropDown_Num == 0)
         {
             engine_driver_type = Engine_Driver_Type.speed;
         }
-        else if(Num == 1)
+        else if(DropDown_Num == 1)
         {
             engine_driver_type = Engine_Driver_Type.fuel;
         }
-        else if(Num == 2)
+        else if(DropDown_Num == 2)
         {
             engine_driver_type = Engine_Driver_Type.def;
         }
         Save();
     }
 
-    public void SA_Change_Bard_Type(int Num)
+    public int SA_Get_EngineDriver_Type_DropDown_Value()
     {
-        if(Num == 0)
+        if (engine_driver_type == Engine_Driver_Type.speed)
+        {
+            return 0;
+        }else if (engine_driver_type == Engine_Driver_Type.fuel)
+        {
+            return 1;
+        }else if(engine_driver_type == Engine_Driver_Type.def)
+        {
+            return 2;
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
+    public void SA_Change_Bard_Type(int DropDown_Num)
+    {
+        if(DropDown_Num == 0)
         {
             bard_type = Bard_Type.HP_Buff;
         }
-        else if(Num == 1)
+        else if(DropDown_Num == 1)
         {
             bard_type = Bard_Type.Atk_Buff;
-        }else if(Num == 2)
+        }else if(DropDown_Num == 2)
         {
             bard_type = Bard_Type.Def_Buff;
+        }
+        Save();
+    }
+
+    public int SA_Get_Bard_Type_DropDown_Value()
+    {
+        if (bard_type == Bard_Type.HP_Buff)
+        {
+            return 0;
+        }
+        else if (bard_type == Bard_Type.Atk_Buff)
+        {
+            return 1;
+        }
+        else if (bard_type == Bard_Type.Def_Buff)
+        {
+            return 2;
+        }
+        else
+        {
+            return -1;
         }
     }
 

@@ -320,7 +320,7 @@ public class Station_TrainMaintenance : MonoBehaviour
             Train_Toggle[i].isOn = false;
         }
         Cost_Change_Text.text = "0G";
-        Cost_Add_Text.text = trainData.EX_Game_Data.Information_Train[100].Train_Change_Cost.ToString() + "G";
+        //Cost_Add_Text.text = trainData.EX_Game_Data.Information_Train[100].Train_Change_Cost.ToString() + "G";
     } //전체 초기화
 
     private void Check_Init_TrainCard()
@@ -356,7 +356,7 @@ public class Station_TrainMaintenance : MonoBehaviour
                     Toggle_Train_Num = Card.Train_Num;
                 }
                 ChangeFlag = true;
-                Cost_Change_Text.text = trainData.EX_Game_Data.Information_Train[Toggle_Train_Num].Train_Change_Cost.ToString() +"G";
+                //Cost_Change_Text.text = trainData.EX_Game_Data.Information_Train[Toggle_Train_Num].Train_Change_Cost.ToString() +"G";
                 Check_Change_Button_Interactable();
             }
         }
@@ -369,7 +369,7 @@ public class Station_TrainMaintenance : MonoBehaviour
 
     public void Button_Train_Change()
     {
-        if (playerData.Player_Coin >= trainData.EX_Game_Data.Information_Train[Toggle_Train_Num].Train_Change_Cost)
+/*        if (playerData.Player_Coin >= trainData.EX_Game_Data.Information_Train[Toggle_Train_Num].Train_Change_Cost)
         {
             playerData.Player_Buy_Coin(trainData.EX_Game_Data.Information_Train[Toggle_Train_Num].Train_Change_Cost);
             int changeNum = trainData.SA_TrainData.SA_TrainChangeNum(Toggle_Train_Num); // -> Toggle_Train_Num 같은 경우, 0레벨의 기차숫자로 가져오기 때문에, 재수정이 필요.
@@ -385,12 +385,12 @@ public class Station_TrainMaintenance : MonoBehaviour
         else
         {
             Ban_Player_Coin_Point(true);
-        }
+        }*/
     }
 
     public void Button_Train_Add()
     {
-        if(playerData.Player_Coin >= trainData.EX_Game_Data.Information_Train[100].Train_Change_Cost)
+/*        if(playerData.Player_Coin >= trainData.EX_Game_Data.Information_Train[100].Train_Change_Cost)
         {
             UI_TrainButtonList.GetChild(UI_Train_Num).GetComponent<Station_Maintenance_TrainNum_Button>().ChekcButton(false);
             playerData.Player_Buy_Coin(trainData.EX_Game_Data.Information_Train[100].Train_Change_Cost);
@@ -407,7 +407,7 @@ public class Station_TrainMaintenance : MonoBehaviour
         else
         {
             Ban_Player_Coin_Point(true);
-        }
+        }*/
     }
 
     private void Check_Trian_Add()

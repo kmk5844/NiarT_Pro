@@ -6,9 +6,15 @@ using UnityEngine.UI;
 public class Train_InGame : MonoBehaviour
 {
     public Game_DataTable trainData;
-    public int TrainNum;
+
+    [SerializeField]
+    int Train_Num;
+    [SerializeField]
+    int Train_Num2;
+    bool TurretFlag;
+    bool BoosterFlag;
+
     [Header("선택된 기차 정보")]
-    public string Train_Name;
     public int Train_HP;
     public int Train_Weight;
 
@@ -23,13 +29,7 @@ public class Train_InGame : MonoBehaviour
     public int Train_Attack;
     public float Train_Attack_Delay;
     public int Train_Heal;
-    [Header("HP 슬라이더")]
-    public Transform HP_Arrow;
     public int cur_HP; //현재체력
-    float minRotation;
-    float maxRotation;
-    float minHP;
-    float maxHP;
     float HP_Parsent;
     public bool isReparing;
     public bool isRepairable;
@@ -43,30 +43,60 @@ public class Train_InGame : MonoBehaviour
     public bool isHealing;
     public bool openMedicTrian;
     Player player;
-    GameObject GD;
+    GameObject gameDirector;
 
     // Start is called before the first frame update
-    private void Awake()
+    private void Start()
     {
         openMedicTrian = false;
         isHealing = false;
         isRepairable = true;
-        GD = GameObject.Find("GameDirector");
+        gameDirector = GameObject.Find("GameDirector");
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
-        Train_Name = trainData.Information_Train[TrainNum].Train_Name;
-        
-        Train_HP = trainData.Information_Train[TrainNum].Train_HP;
+
+        TurretFlag = false;
+        BoosterFlag = false;
+        era = 100;
+        gameObject.name = gameObject.name.Replace("(Clone)", "");
+        string[] name = gameObject.name.Split('/');
+        if (name[0].Equals("51"))
+        {
+            TurretFlag = true;
+            Train_Num = int.Parse(name[0]);
+            Train_Num2 = int.Parse(name[1]);
+        }
+        else if (name[0].Equals("52"))
+        {
+            BoosterFlag = true;
+            Train_Num = int.Parse(name[0]);
+            Train_Num2 = int.Parse(name[1]);
+        }
+        else
+        {
+            Train_Num = int.Parse(gameObject.name);
+        }
+
+        Level_Anmor = gameDirector.GetComponent<GameDirector>().SA_TrainData.Level_Train_Armor;
+        if (TurretFlag)
+        {
+            Train_HP = trainData.Information_Train_Turret_Part[Train_Num2].Train_HP;
+            Train_Weight = trainData.Information_Train_Turret_Part[Train_Num2].Train_Weight;
+            Train_Armor = trainData.Information_Train_Turret_Part[Train_Num2].Train_Armor;
+        }
+        else if (BoosterFlag)
+        {
+            Train_HP = trainData.Information_Train_Booster_Part[Train_Num2].Train_HP;
+            Train_Weight = trainData.Information_Train_Booster_Part[Train_Num2].Train_Weight;
+            Train_Armor = trainData.Information_Train_Booster_Part[Train_Num2].Train_Armor;
+        }
+        else
+        {
+            Train_HP = trainData.Information_Train[Train_Num].Train_HP;
+            Train_Weight = trainData.Information_Train[Train_Num].Train_Weight;
+            Train_Armor = trainData.Information_Train[Train_Num].Train_Armor;
+        }
         cur_HP = Train_HP;
-        minRotation = 105f;
-        maxRotation = -37f;
-        minHP = 0f;
-        maxHP = 100f;
-        Train_Weight = trainData.Information_Train[TrainNum].Train_Weight;
-
-        Level_Anmor = GD.GetComponent<GameDirector>().SA_TrainData.Level_Train_Armor;
-        Train_Armor = Level_ChangeArmor(trainData.Information_Train[TrainNum].Train_Armor);
-
-        Train_Type = trainData.Information_Train[TrainNum].Train_Type;
+        Train_Type = trainData.Information_Train[Train_Num].Train_Type;
         CheckType();
     }
 
@@ -74,14 +104,6 @@ public class Train_InGame : MonoBehaviour
     {
         era = 1f - (float)Train_Armor / def_constant; //만약에 방어력 증가해주는 기관사 타게 된다면 변경 가능성이 큼
         HP_Parsent = (float)cur_HP / (float)Train_HP * 100f;
-        try
-        {
-            HP_Arrow.rotation = Quaternion.Euler(0f, 0f, HPToRotation(HP_Parsent));
-        }
-        catch
-        {
-            //Debug.Log("임시");
-        }
         //여기서 만약 기차가 파괴 당할 시 쓰면 좋은 함수
 
         if (cur_HP == 0)
@@ -121,9 +143,9 @@ public class Train_InGame : MonoBehaviour
         switch (Train_Type)
         {
             case "Engine":
-                Train_MaxSpeed = trainData.Information_Train[TrainNum].Train_MaxSpeed;
-                Train_Efficient = trainData.Information_Train[TrainNum].Train_Efficient;
-                Train_Engine_Power = trainData.Information_Train[TrainNum].Train_Engine_Power;
+                Train_MaxSpeed = trainData.Information_Train[Train_Num].Train_MaxSpeed;
+                Train_Efficient = trainData.Information_Train[Train_Num].Train_Efficient;
+                Train_Engine_Power = trainData.Information_Train[Train_Num].Train_Engine_Power;
                 Train_Fuel = 0;
                 Train_Attack = 0;
                 Train_Attack_Delay = 0;
@@ -133,18 +155,18 @@ public class Train_InGame : MonoBehaviour
                 Train_MaxSpeed = 0;
                 Train_Efficient = 0;
                 Train_Engine_Power = 0;
-                Train_Fuel = trainData.Information_Train[TrainNum].Train_Fuel;
+                Train_Fuel = trainData.Information_Train[Train_Num].Train_Fuel;
                 Train_Attack = 0;
                 Train_Attack_Delay = 0;
-                Train_Heal = 0; 
+                Train_Heal = 0;
                 break;
             case "Turret":
                 Train_MaxSpeed = 0;
                 Train_Efficient = 0;
                 Train_Engine_Power = 0;
                 Train_Fuel = 0;
-                Train_Attack = trainData.Information_Train[TrainNum].Train_Attack;
-                Train_Attack_Delay = trainData.Information_Train[TrainNum].Train_Attack_Delay;
+                Train_Attack = trainData.Information_Train_Turret_Part[Train_Num2].Train_Attack;
+                Train_Attack_Delay = trainData.Information_Train_Turret_Part[Train_Num2].Train_Attack_Delay;
                 Train_Heal = 0;
                 break;
             case "Medic":
@@ -154,13 +176,13 @@ public class Train_InGame : MonoBehaviour
                 Train_Fuel = 0;
                 Train_Attack = 0;
                 Train_Attack_Delay = 0;
-                Train_Heal = trainData.Information_Train[TrainNum].Train_Heal;
+                Train_Heal = trainData.Information_Train[Train_Num].Train_Heal;
                 break;
         }
     }
     public void Train_MonsterHit(MonsterBullet monsterBullet)
     {
-        GD.GetComponent<GameDirector>().Game_MonsterHit(monsterBullet.slow); //슬로우가 있어야 한다.
+        gameDirector.GetComponent<GameDirector>().Game_MonsterHit(monsterBullet.slow); //슬로우가 있어야 한다.
         int damageTaken = Mathf.RoundToInt(monsterBullet.atk * era);
         if(cur_HP - damageTaken < 0)
         {
@@ -170,7 +192,6 @@ public class Train_InGame : MonoBehaviour
         {
             cur_HP -= damageTaken;
         }
-        //-> 몬스터마다 쏘는 총알이 달라야 함.
     }
 
     private void Destroy_Train(int i) // 0 -> 특수 / 1 -> 일반 / 2 -> 배달
@@ -181,7 +202,7 @@ public class Train_InGame : MonoBehaviour
         }
         else if(i == 1){
             isRepairable = false;
-            GD.GetComponent<GameDirector>().Destroy_train_weight(Train_Weight);
+            gameDirector.GetComponent<GameDirector>().Destroy_train_weight(Train_Weight);
             Train_Weight = 0;
         }
         else
@@ -212,9 +233,5 @@ public class Train_InGame : MonoBehaviour
     {
         //데미지 경감이기 때문에 클수록 유리
         return trainArmor + (trainArmor * (Level_Anmor * 10) / 100);
-    }
-    private float HPToRotation(float HP)
-    {
-        return (HP - minHP) * (maxRotation - minRotation) / (maxHP - minHP) + minRotation;
     }
 }
