@@ -8,7 +8,7 @@ public class Info_Train_Turret_Part
     public int Train_Weight;
     public int Train_Armor;
     public int Train_Attack;
-    public int Train_Attack_Delay;
+    public float Train_Attack_Delay;
     public int Train_Buy_Cost;
     public int Train_Upgrade_Cost;
     public string Train_Information;

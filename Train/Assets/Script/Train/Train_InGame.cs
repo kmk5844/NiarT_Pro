@@ -46,7 +46,7 @@ public class Train_InGame : MonoBehaviour
     GameObject gameDirector;
 
     // Start is called before the first frame update
-    private void Start()
+    private void Awake()
     {
         openMedicTrian = false;
         isHealing = false;
@@ -58,7 +58,8 @@ public class Train_InGame : MonoBehaviour
         BoosterFlag = false;
         era = 100;
         gameObject.name = gameObject.name.Replace("(Clone)", "");
-        string[] name = gameObject.name.Split('/');
+        string[] name = gameObject.name.Split('_');
+
         if (name[0].Equals("51"))
         {
             TurretFlag = true;
@@ -122,6 +123,9 @@ public class Train_InGame : MonoBehaviour
                 case "Medic":
                     Destroy_Train(1);
                     break;
+                case "Booster":
+                    Destroy_Train(1);
+                    break;
             }
         }
 
@@ -140,42 +144,28 @@ public class Train_InGame : MonoBehaviour
 
     void CheckType()
     {
+        Train_MaxSpeed = 0;
+        Train_Efficient = 0;
+        Train_Engine_Power = 0;
+        Train_Fuel = 0;
+        Train_Attack = 0;
+        Train_Attack_Delay = 0;
+        Train_Heal = 0;
         switch (Train_Type)
         {
             case "Engine":
                 Train_MaxSpeed = trainData.Information_Train[Train_Num].Train_MaxSpeed;
                 Train_Efficient = trainData.Information_Train[Train_Num].Train_Efficient;
                 Train_Engine_Power = trainData.Information_Train[Train_Num].Train_Engine_Power;
-                Train_Fuel = 0;
-                Train_Attack = 0;
-                Train_Attack_Delay = 0;
-                Train_Heal = 0;
                 break;
             case "Fuel":
-                Train_MaxSpeed = 0;
-                Train_Efficient = 0;
-                Train_Engine_Power = 0;
                 Train_Fuel = trainData.Information_Train[Train_Num].Train_Fuel;
-                Train_Attack = 0;
-                Train_Attack_Delay = 0;
-                Train_Heal = 0;
                 break;
             case "Turret":
-                Train_MaxSpeed = 0;
-                Train_Efficient = 0;
-                Train_Engine_Power = 0;
-                Train_Fuel = 0;
                 Train_Attack = trainData.Information_Train_Turret_Part[Train_Num2].Train_Attack;
                 Train_Attack_Delay = trainData.Information_Train_Turret_Part[Train_Num2].Train_Attack_Delay;
-                Train_Heal = 0;
                 break;
             case "Medic":
-                Train_MaxSpeed = 0;
-                Train_Efficient = 0;
-                Train_Engine_Power = 0;
-                Train_Fuel = 0;
-                Train_Attack = 0;
-                Train_Attack_Delay = 0;
                 Train_Heal = trainData.Information_Train[Train_Num].Train_Heal;
                 break;
         }

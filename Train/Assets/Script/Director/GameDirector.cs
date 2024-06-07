@@ -19,7 +19,12 @@ public class GameDirector : MonoBehaviour
     public GameObject UI_DirectorObject;
     MonsterDirector monsterDirector;
     UIDirector uiDirector;
-    List<int> Trian_Num;
+    List<int> Train_Num;
+    List<int> Train_Turret_Num;
+    List<int> Train_Booster_Num;
+    int Train_Turret_Count;
+    int Train_Booster_Count;
+    GameObject TrainObject;
 
     Texture2D cursorOrigin;
     Texture2D cursorAim;
@@ -271,11 +276,28 @@ public class GameDirector : MonoBehaviour
     }
     void Train_Init()
     {
-        Trian_Num = SA_TrainData.Train_Num;
-        for (int i = 0; i < Trian_Num.Count; i++)
+        Train_Turret_Count = 0;
+        Train_Booster_Count = 0;
+        Train_Num = SA_TrainData.Train_Num;
+        Train_Turret_Num = SA_TrainTurretData.Train_Turret_Num;
+        Train_Booster_Num = SA_TrainBoosterData.Train_Booster_Num;
+        for (int i = 0; i < Train_Num.Count; i++)
         {
-            GameObject TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_InGame/" + Trian_Num[i]), List_Train);
-            //TrainObject.name = EX_GameData.Information_Train[Trian_Num[i]].Train_Name;
+            if (Train_Num[i] == 51)
+            {
+                TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_InGame/51_" + Train_Turret_Num[Train_Turret_Count]), List_Train);
+                Train_Turret_Count++;
+            }
+            else if (Train_Num[i] == 52)
+            {
+                TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_InGame/52_" + Train_Booster_Num[Train_Booster_Count]), List_Train);
+                Train_Booster_Count++;
+            }
+            else
+            {
+                TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_InGame/" + Train_Num[i]), List_Train);
+            }
+
             if (i == 0)
             {
                 //¿£ÁøÄ­
@@ -286,7 +308,7 @@ public class GameDirector : MonoBehaviour
                 //³ª¸ÓÁöÄ­
                 TrainObject.transform.position = new Vector3(-10.94f * i, 0.35f, 0);
             }
-            //TrainObject.GetComponent<Train_InGame>().TrainNum = Trian_Num[i];
+            
             Train_InGame train = TrainObject.GetComponent<Train_InGame>();
             TrainFuel += train.Train_Fuel;
             TrainWeight += train.Train_Weight;
@@ -459,7 +481,7 @@ public class GameDirector : MonoBehaviour
         GameObject Cam = Instantiate(TrainCam_Prefeb, TrainCamList);
         Cam.GetComponent<CinemachineVirtualCamera>().Follow = Train.transform;
         Cam.GetComponent<CinemachineVirtualCamera>().LookAt = Train.transform;
-        Cam.name = Train.name + "_Cam";
+        Cam.name = Train.name.Replace("(Clone)", "") + "_Cam";
     }
     public void SoundSequce(AudioClip audio)
     {

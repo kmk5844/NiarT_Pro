@@ -9,6 +9,8 @@ public class Station_TrainData : MonoBehaviour
     public Game_DataTable EX_Game_Data;
     public Level_DataTable EX_Level_Data;
     public SA_TrainData SA_TrainData;
+    public SA_TrainTurretData SA_TrainTurretData;
+    public SA_TrainBoosterData SA_TrainBoosterData;
 
     [Header("기차 데이터")]
     public List<int> Train_Num;
@@ -37,10 +39,24 @@ public class Station_TrainData : MonoBehaviour
     [Header("기존 변경 리스트")]
     public List<int> Train_Change_Num;
 
+    [Header("기존 포탑 상점 리스트")]
+    public List<int> Train_Turret_Store_Num;
+
+    [Header("기존 부스터 상점 리스트")]
+    public List<int> Train_Booster_Store_Num;
+
+    [Header("기존 포탑 변경 리스트")]
+    public List<int> Train_Turret_Part_Change_Num;
+
+    [Header("기존 부스터 변경 리스트")]
+    public List<int> Train_Booster_Part_Change_Num;
+
     private void Awake()
     {
         Check_Level_Train();
         Check_Store_Train();
+        Check_Store_Turret_Part();
+        Check_Store_Booster_Part();
         Max_Train_EngineTier = EX_Level_Data.Information_Level[Data_Index("Level_Train_EngineTier")].Max_Level;
         Max_Train_MaxSpeed = EX_Level_Data.Information_Level[Data_Index("Level_Train_MaxSpeed")].Max_Level;
         Max_Train_Armor = EX_Level_Data.Information_Level[Data_Index("Level_Train_Armor")].Max_Level;
@@ -81,6 +97,29 @@ public class Station_TrainData : MonoBehaviour
             }
         }
         Train_Change_Num = Train_Change_Num.Concat(SA_TrainData.Train_Buy_Num).ToList();
+    }
+
+    public void Check_Store_Turret_Part()
+    {
+        foreach(Info_Train_Turret_Part Turret in EX_Game_Data.Information_Train_Turret_Part)
+        {
+            if (Turret.Store)
+            {
+                Train_Turret_Store_Num.Add(Turret.Num);
+            }
+            else
+            {
+                if (Turret.Change)
+                {
+                    Train_Turret_Store_Num.Add(Turret.Num);
+                }
+            }
+        }
+        Train_Turret_Part_Change_Num = Train_Turret_Part_Change_Num.Concat(SA_TrainTurretData.Train_Turret_Num).ToList();
+    }
+    public void Check_Store_Booster_Part()
+    {
+
     }
 
     public void Check_Buy_Train(int Num)

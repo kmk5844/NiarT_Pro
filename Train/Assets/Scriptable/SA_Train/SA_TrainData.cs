@@ -103,7 +103,7 @@ public class SA_TrainData : ScriptableObject
             case 4:
                 return level_trainnumber_40;
             default:
-                return 0;
+                return -1;
         }
     }
 
