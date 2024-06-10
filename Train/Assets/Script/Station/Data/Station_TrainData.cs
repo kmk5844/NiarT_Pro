@@ -111,15 +111,30 @@ public class Station_TrainData : MonoBehaviour
             {
                 if (Turret.Change)
                 {
-                    Train_Turret_Store_Num.Add(Turret.Num);
+                    Train_Turret_Part_Change_Num.Add(Turret.Num);
                 }
             }
         }
-        Train_Turret_Part_Change_Num = Train_Turret_Part_Change_Num.Concat(SA_TrainTurretData.Train_Turret_Num).ToList();
+        Train_Turret_Part_Change_Num = Train_Turret_Part_Change_Num.Concat(SA_TrainTurretData.Train_Turret_Buy_Num).ToList();
     }
     public void Check_Store_Booster_Part()
     {
+        foreach(Info_Train_Booster_Part Booster in EX_Game_Data.Information_Train_Booster_Part)
+        {
+            if(Booster.Store)
+            {
+                Train_Booster_Store_Num.Add(Booster.Num);
+            }
+            else
+            {
+                if (Booster.Change)
+                {
+                    Train_Booster_Part_Change_Num.Add(Booster.Num);
 
+                }
+            }
+        }
+        Train_Booster_Part_Change_Num = Train_Booster_Part_Change_Num.Concat(SA_TrainBoosterData.Train_Booster_Buy_Num).ToList();
     }
 
     public void Check_Buy_Train(int Num)
@@ -159,5 +174,17 @@ public class Station_TrainData : MonoBehaviour
     {
         SA_TrainData.SA_TrainUpgrade(Train_Num);
         SA_TrainData.SA_TrainUpgrade_Renewal(index);
+    }
+
+    public void Train_Turret_Level_Up(int Train_Num, int index)
+    {
+        SA_TrainTurretData.SA_Train_Turret_Upgrade(Train_Num);
+        SA_TrainTurretData.SA_Train_Turret_Upgrade_Renewal(index);
+    }
+
+    public void Train_Booster_Level_Up(int Train_Num, int index)
+    {
+        SA_TrainBoosterData.SA_Train_Booster_Upgrade(Train_Num);
+        SA_TrainBoosterData.SA_Train_Booster_Upgrade_Renewal(index);
     }
 }

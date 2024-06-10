@@ -35,7 +35,7 @@ public class SA_TrainBoosterData : ScriptableObject
     public int Level_TrainBoosterNumber_40 { get { return level_trainboosternumber_40; } }
 
   
-    public void SA_TrainUpgrade(int trainBoosterNum)
+    public void SA_Train_Booster_Upgrade(int trainBoosterNum)
     {
         switch (trainBoosterNum / 10)
         {
@@ -58,9 +58,9 @@ public class SA_TrainBoosterData : ScriptableObject
         Save();
     }
 
-    public int SA_TrainChangeNum(int trainTurretNum)
+    public int SA_Train_Booster_ChangeNum(int trainBoosterNum)
     {
-        switch (trainTurretNum / 10)
+        switch (trainBoosterNum / 10)
         {
             case 0:
                 return level_trainboosternumber_00;
@@ -77,7 +77,7 @@ public class SA_TrainBoosterData : ScriptableObject
         }
     }
 
-    public void SA_TrainUpgrade_Renewal(int index)
+    public void SA_Train_Booster_Upgrade_Renewal(int index)
     {
         int num = Train_Booster_Num[index];
         for (int i = 0; i < Train_Booster_Num.Count; i++)
@@ -90,21 +90,33 @@ public class SA_TrainBoosterData : ScriptableObject
         Save();
     }
 
-    public void SA_Train_Buy(int TrainNum)
+    public void SA_Train_Booster_Buy(int TrainNum)
     {
         train_booster_buy_num.Add(TrainNum);
         Save();
     }
 
-    public void SA_Train_Add(int TrainNum)
+    public void SA_Train_Booster_Add(int TrainNum)
     {
         train_booster_num.Add(TrainNum);
         Save();
     }
 
-    public void SA_Train_Change(int index, int chnage)
+    public void SA_Train_Booster_Insert(int index,int TrainNum)
+    {
+        train_booster_num.Insert(index, TrainNum);
+        Save();
+    }
+
+    public void SA_Train_Booster_Change(int index, int chnage)
     {
         train_booster_num[index] = chnage;
+        Save();
+    }
+
+    public void SA_Train_Booster_Remove(int index)
+    {
+        train_booster_num.RemoveAt(index);
         Save();
     }
 

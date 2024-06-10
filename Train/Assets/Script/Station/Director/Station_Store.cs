@@ -22,8 +22,13 @@ public class Station_Store : MonoBehaviour
     public Button Buy_NoButton;
     int Check_Buy_Panel_Num;
 
-    [Header("기차 구매")]
+    [Header("상점")] // 파츠 구매도 포함
     [SerializeField]
+    List<Toggle> Store_List_Toggle;
+    [SerializeField]
+    List<GameObject> Store_List_Object;
+
+    [Header("상점의 기차 구매")]
     List<int> Train_Store_Num;
     public Transform Train_Store_Content;
     public ScrollRect ScrollRect_Train;
@@ -43,7 +48,6 @@ public class Station_Store : MonoBehaviour
     int Toggle_Train_Num;
     string Toggle_Train_Name;
     int Toggle_Train_Cost;
-
 
     [Header("용병 구매")]
     [SerializeField]

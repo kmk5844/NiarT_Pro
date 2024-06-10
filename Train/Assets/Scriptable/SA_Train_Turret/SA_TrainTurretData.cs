@@ -12,7 +12,7 @@ public class SA_TrainTurretData : ScriptableObject
 
     [SerializeField]
     private List<int> train_turret_buy_num;
-    public List<int> Train__Turret_Buy_Num { get { return train_turret_buy_num; } }
+    public List<int> Train_Turret_Buy_Num { get { return train_turret_buy_num; } }
 
     [SerializeField]
     private int level_trainturretnumber_00;
@@ -127,10 +127,21 @@ public class SA_TrainTurretData : ScriptableObject
         train_turret_num.Add(TrainNum);
         Save();
     }
+    public void SA_Train_Turret_Insert(int index,int TrainNum)
+    {
+        train_turret_num.Insert(index,TrainNum);
+        Save();
+    }
 
     public void SA_Train_Turret_Change(int index, int chnage)
     {
         train_turret_num[index] = chnage;
+        Save();
+    }
+
+    public void SA_Train_Turret_Remove(int index)
+    {
+        train_turret_num.RemoveAt(index);
         Save();
     }
 
