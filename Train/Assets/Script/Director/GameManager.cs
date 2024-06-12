@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
-            PlayerData.SA_GameWinReward(9999, 9999);
+            PlayerData.SA_GameWinReward(999999, 999999);
         }
     }
 

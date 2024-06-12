@@ -24,30 +24,53 @@ public class Station_Store : MonoBehaviour
 
     [Header("상점")] // 파츠 구매도 포함
     [SerializeField]
-    List<Toggle> Store_List_Toggle;
+    List<Toggle> Store_Train_List_Toggle;
     [SerializeField]
-    List<GameObject> Store_List_Object;
-
-    [Header("상점의 기차 구매")]
-    List<int> Train_Store_Num;
-    public Transform Train_Store_Content;
-    public ScrollRect ScrollRect_Train;
-    public GameObject Train_Card;
+    List<GameObject> Store_Train_List_Window;
+    int Store_Train_Num;
 
     public GameObject Select_Train_Blueprint;
     public Image Select_Train_Sprite;
+    public GameObject Store_Train_Part_Card;
 
     public GameObject Train_Information_Object;
     public TextMeshProUGUI Train_Information_Text;
-
     public TextMeshProUGUI Train_Information_Cost;
     public Button BuyButton_Train;
+    public GameObject Part_Lock_Panel;
+
+    [Header("상점의 기차 구매")]
+    public ScrollRect ScrollRect_Train;
+    public Transform Train_Store_Content;
+    List<int> Train_Store_Num;
     [SerializeField]
     List<Toggle> Train_Toggle;
     int Select_Toggle_Train_Num;
     int Toggle_Train_Num;
     string Toggle_Train_Name;
     int Toggle_Train_Cost;
+
+    [Header("상점의 포탑 구매")]
+    public ScrollRect ScrollRect_Turret;
+    public Transform Turret_Store_Content;
+    List<int> Turret_Store_Num;
+    [SerializeField]
+    List<Toggle> Turret_Toggle;
+    int Select_Toggle_Turret_Num;
+    int Toggle_Turret_Num;
+    string Toggle_Turret_Name;
+    int Toggle_Turret_Cost;
+
+    [Header("상점의 부스터 구매")]
+    public ScrollRect ScrollRect_Booster;
+    public Transform Booster_Store_Content;
+    List<int> Booster_Store_Num;
+    [SerializeField]
+    List<Toggle> Booster_Toggle;
+    int Select_Toggle_Booster_Num;
+    int Toggle_Booster_Num;
+    string Toggle_Booster_Name;
+    int Toggle_Booster_Cost;
 
     [Header("용병 구매")]
     [SerializeField]
@@ -67,32 +90,137 @@ public class Station_Store : MonoBehaviour
     int Toggle_Mercenary_Num; // toggle로 찍힌 카드 안의 숫자
     string Toggle_Mercenary_Name; // toggle로 찍힌 카드 안의 이름
 
-
     private void Start()
     {
         playerData = Player_DataObject.GetComponent<Station_PlayerData>();
         trainData = Train_DataObject.GetComponent<Station_TrainData>();
         mercenaryData = Mercenary_DataObject.GetComponent<Station_MercenaryData>();
         Train_Store_Num = trainData.Train_Store_Num;
+        Turret_Store_Num = trainData.Train_Turret_Store_Num;
+        Booster_Store_Num = trainData.Train_Booster_Store_Num;
         Mercenary_Store_Num = mercenaryData.Mercenary_Store_Num;
+        //기차 스토어 토글
+        StoreTrainList_ToggleStart();
+        StoreTrainList_Toggle_Init();
         //기차 구매하기
         Check_Init_TrainCard();
-        Director_Init_TrainyBuy();
+        Director_Init_TrainBuy();
         Train_ToggleStart();
+        //터렛 파츠 구매하기
+        Check_Init_TurretCard();
+        Director_Init_TurretBuy();
+        Turret_ToggleStart();
+        //부스터 파츠 구매하기
+        Check_Init_BoosterCard();
+        Director_Init_BoosterBuy();
+        Booster_ToggleStart();
+
         //용병 구매하기
         Check_Init_MercenaryCard();
         Mercenary_ToggleStart();
     }
 
+    public void StoreTrainList_Toggle_Init()
+    {
+        Store_Train_Num = 0;
+        for(int i = 0; i < Store_Train_List_Toggle.Count; i++)
+        {
+            if(i == 0)
+            {
+                Store_Train_List_Toggle[i].isOn = true;
+                Store_Train_List_Toggle[i].interactable = false;
+                Store_Train_List_Window[i].SetActive(true);
+            }
+            else
+            {
+                Store_Train_List_Toggle[i].isOn = false;
+                Store_Train_List_Toggle[i].interactable = true;
+                Store_Train_List_Window[i].SetActive(false);
+            }
+        }
+    }
+
+    private void StoreTrainList_ToggleStart()
+    {
+        foreach(var toggle in Store_Train_List_Toggle)
+        {
+            toggle.onValueChanged.AddListener(StoreTrainList_OnToggleValueChange);
+        }
+    }
+
+    private void StoreTrainList_OnToggleValueChange(bool isOn)
+    {
+        if (isOn)
+        {
+            for(int i = 0; i < Store_Train_List_Toggle.Count; i++)
+            {
+                if (Store_Train_List_Toggle[i].isOn)
+                {
+                    Select_Init();
+                    Store_Train_Num = i;
+                    Store_Train_List_Toggle[i].isOn = true;
+                    Store_Train_List_Toggle[i].interactable = false;
+                    if(i == 1)
+                    {
+                        Check_Part_Store_Lock(51);
+                    }
+                    else if(i == 2)
+                    {
+                        Check_Part_Store_Lock(52);
+                    }
+                    else
+                    {
+                        Check_Part_Store_Lock();
+                    }
+                    Store_Train_List_Window[i].SetActive(true);
+                    
+                    // 여기서 체크
+                }
+                else
+                {
+                    Store_Train_List_Toggle[i].isOn = false;
+                    Store_Train_List_Toggle[i].interactable = true;
+                    Store_Train_List_Window[i].SetActive(false);
+                }
+            }
+        }
+    }
+    private void Select_Init()
+    {
+        foreach(Toggle toggle in Train_Toggle)
+        {
+            toggle.isOn = false;
+        }
+        foreach(Toggle toggle in Turret_Toggle)
+        {
+            toggle.isOn = false;
+        }
+        foreach(Toggle toggle in Booster_Toggle)
+        {
+            toggle.isOn = false;
+        }
+    }
+    private void Check_Part_Store_Lock(int num = -1)
+    {
+        if (trainData.SA_TrainData.Train_Buy_Num.Contains(num) || num == -1)
+        {
+            Part_Lock_Panel.SetActive(false);
+        }
+        else
+        {
+            Part_Lock_Panel.SetActive(true);
+        }
+    }
+
     //기차 구매하기
-    public void Director_Init_TrainyBuy()
+    public void Director_Init_TrainBuy()
     {
         BuyButton_Train.interactable = false;
         for (int i = 0; i < Train_Toggle.Count; i++)
         {
             Train_Toggle[i].isOn = false;
         }
-        ScrollRect_Train.normalizedPosition = Vector2.zero;
+        ScrollRect_Train.normalizedPosition = Vector2.up;
     }
     private void Train_ToggleStart()
     {
@@ -121,7 +249,7 @@ public class Station_Store : MonoBehaviour
             BuyButton_Train.interactable = false;
         }
     }
-    public void Train_Store_Information_Text(bool flag, int toggle_num = -1)
+    private void Train_Store_Information_Text(bool flag, int toggle_num = -1)
     {
         if (flag)
         {
@@ -157,8 +285,9 @@ public class Station_Store : MonoBehaviour
     {
         foreach (int num in Train_Store_Num)
         {
-            Train_Card.GetComponent<Store_Train_Card>().Train_Num = num;
-            GameObject Card = Instantiate(Train_Card, Train_Store_Content);
+            Store_Train_Part_Card.GetComponent<Store_Train_Card>().Train_Num = num;
+            Store_Train_Part_Card.GetComponent<Store_Train_Card>().Train_Num2 = -1;
+            GameObject Card = Instantiate(Store_Train_Part_Card, Train_Store_Content);
             Card.name = num.ToString();
             Train_Toggle.Add(Card.GetComponentInChildren<Toggle>());
             if (trainData.SA_TrainData.Train_Buy_Num.Contains(num) == true)
@@ -192,6 +321,234 @@ public class Station_Store : MonoBehaviour
             GameObject Card = Train_Store_Content.GetChild(i).gameObject;
             int Card_Num = Card.GetComponent<Store_Train_Card>().Train_Num;
             if (trainData.SA_TrainData.Train_Buy_Num.Contains(Card_Num)){
+                Card.GetComponent<Store_Train_Card>().Train_Buy.SetActive(true);
+            }
+        }
+    }
+
+    //무기 파츠 구매하기
+    public void Director_Init_TurretBuy()
+    {
+        BuyButton_Train.interactable = false;
+        for (int i = 0; i < Turret_Toggle.Count; i++)
+        {
+            Turret_Toggle[i].isOn = false;
+        }
+        ScrollRect_Turret.normalizedPosition = Vector2.zero;
+    }
+    private void Turret_ToggleStart()
+    {
+        foreach (Toggle toggle in Turret_Toggle)
+        {
+            toggle.onValueChanged.AddListener(Turret_OnToggleValueChange);
+        }
+    }
+    private void Turret_OnToggleValueChange(bool isOn)
+    {
+        if (isOn)
+        {
+            for (int i = 0; i < Turret_Toggle.Count; i++)
+            {
+                if (Turret_Toggle[i].isOn)
+                {
+                    Turret_Store_Information_Text(true, i);
+                    Select_Toggle_Turret_Num = i;
+                }
+            }
+            BuyButton_Train.interactable = true;
+        }
+        else
+        {
+            Turret_Store_Information_Text(false);
+            BuyButton_Train.interactable = false;
+        }
+    }
+    private void Turret_Store_Information_Text(bool flag, int toggle_num = -1)
+    {
+        if (flag)
+        {
+            Store_Train_Card Card = Turret_Store_Content.GetChild(toggle_num).GetComponent<Store_Train_Card>();
+            Toggle_Turret_Num = Card.Train_Num2;
+            Toggle_Turret_Name = trainData.EX_Game_Data.Information_Train_Turret_Part[Toggle_Turret_Num].Turret_Part_Name;
+            Toggle_Turret_Cost = trainData.EX_Game_Data.Information_Train_Turret_Part[Toggle_Turret_Num].Train_Buy_Cost;
+
+            //설계도 켜짐
+            Select_Train_Blueprint.SetActive(true);
+            Select_Train_Sprite.sprite = Resources.Load<Sprite>("Sprite/Train/Train_51_" + Toggle_Turret_Num);
+
+            //기차 정보 켜짐
+            Train_Information_Object.SetActive(true);
+            Train_Information_Text.text = "<color=black><b>" + Toggle_Turret_Name +
+                "</color></b><size=36>\n\n" + trainData.EX_Game_Data.Information_Train_Turret_Part[Toggle_Turret_Num].Train_Information.Replace("\\n", "\n");
+
+            //Cost 정보
+            Train_Information_Cost.text = Toggle_Turret_Cost + "G";
+        }
+        else
+        {
+            //설계도 꺼짐
+            Select_Train_Blueprint.SetActive(false);
+            //기차 정보 꺼짐
+            Train_Information_Object.SetActive(false);
+            //Cost 정보 꺼짐
+            Train_Information_Cost.text = "0G";
+        }
+    }
+    private void Check_Init_TurretCard()
+    {
+        foreach (int num in Turret_Store_Num)
+        {
+            Store_Train_Part_Card.GetComponent<Store_Train_Card>().Train_Num = 51;
+            Store_Train_Part_Card.GetComponent<Store_Train_Card>().Train_Num2 = num;
+            GameObject Card = Instantiate(Store_Train_Part_Card, Turret_Store_Content);
+            Card.name = "51_" + num.ToString();
+            Turret_Toggle.Add(Card.GetComponentInChildren<Toggle>());
+            if (trainData.SA_TrainTurretData.Train_Turret_Buy_Num.Contains(num) == true)
+            {
+                Card.GetComponent<Store_Train_Card>().Train_Buy.SetActive(true);
+            }
+        }
+        ResizedContent_V(Turret_Store_Content, ScrollRect_Turret);
+    }
+    private void Store_Buy_TurretCard()
+    {
+        if (playerData.Player_Coin >= trainData.EX_Game_Data.Information_Train_Turret_Part[Toggle_Turret_Num].Train_Buy_Cost)
+        {
+            playerData.Player_Buy_Coin(trainData.EX_Game_Data.Information_Train_Turret_Part[Toggle_Turret_Num].Train_Buy_Cost);
+            trainData.SA_TrainTurretData.SA_Train_Turret_Buy(Toggle_Turret_Num);
+            trainData.Check_Buy_Turret(Toggle_Turret_Num);
+            Turret_Toggle[Select_Toggle_Turret_Num].isOn = false;
+            Check_AfterBuy_TurretCard();
+            Check_Player_Coin_Point();
+            Close_Buy_Window();
+        }
+        else
+        {
+            Ban_Player_Coin_Point(true);
+        }
+    }
+    public void Check_AfterBuy_TurretCard()
+    {
+        for (int i = 0; i < Turret_Store_Content.childCount; i++)
+        {
+            GameObject Card = Turret_Store_Content.GetChild(i).gameObject;
+            int Card_Num = Card.GetComponent<Store_Train_Card>().Train_Num2;
+            if (trainData.SA_TrainTurretData.Train_Turret_Buy_Num.Contains(Card_Num))
+            {
+                Card.GetComponent<Store_Train_Card>().Train_Buy.SetActive(true);
+            }
+        }
+    }
+
+    //부스터 파츠 구매하기
+    public void Director_Init_BoosterBuy()
+    {
+        BuyButton_Train.interactable = false;
+        for (int i = 0; i < Booster_Toggle.Count; i++)
+        {
+            Booster_Toggle[i].isOn = false;
+        }
+        ScrollRect_Booster.normalizedPosition = Vector2.zero;
+    }
+    private void Booster_ToggleStart()
+    {
+        foreach (Toggle toggle in Booster_Toggle)
+        {
+            toggle.onValueChanged.AddListener(Booster_OnToggleValueChange);
+        }
+    }
+    private void Booster_OnToggleValueChange(bool isOn)
+    {
+        if (isOn)
+        {
+            for (int i = 0; i < Booster_Toggle.Count; i++)
+            {
+                if (Booster_Toggle[i].isOn)
+                {
+                    Booster_Store_Information_Text(true, i);
+                    Select_Toggle_Booster_Num = i;
+                }
+            }
+            BuyButton_Train.interactable = true;
+        }
+        else
+        {
+            Booster_Store_Information_Text(false);
+            BuyButton_Train.interactable = false;
+        }
+    }
+    private void Booster_Store_Information_Text(bool flag, int toggle_num = -1)
+    {
+        if (flag)
+        {
+            Store_Train_Card Card = Booster_Store_Content.GetChild(toggle_num).GetComponent<Store_Train_Card>();
+            Toggle_Booster_Num = Card.Train_Num2;
+            Toggle_Booster_Name = trainData.EX_Game_Data.Information_Train_Booster_Part[Toggle_Booster_Num].Booster_Part_Name;
+            Toggle_Booster_Cost = trainData.EX_Game_Data.Information_Train_Booster_Part[Toggle_Booster_Num].Train_Buy_Cost;
+
+            //설계도 켜짐
+            Select_Train_Blueprint.SetActive(true);
+            Select_Train_Sprite.sprite = Resources.Load<Sprite>("Sprite/Train/Train_52_" + Toggle_Booster_Num);
+
+            //기차 정보 켜짐
+            Train_Information_Object.SetActive(true);
+            Train_Information_Text.text = "<color=black><b>" + Toggle_Booster_Name +
+                "</color></b><size=36>\n\n" + trainData.EX_Game_Data.Information_Train_Booster_Part[Toggle_Booster_Num].Train_Information.Replace("\\n", "\n");
+
+            //Cost 정보
+            Train_Information_Cost.text = Toggle_Booster_Cost + "G";
+        }
+        else
+        {
+            //설계도 꺼짐
+            Select_Train_Blueprint.SetActive(false);
+            //기차 정보 꺼짐
+            Train_Information_Object.SetActive(false);
+            //Cost 정보 꺼짐
+            Train_Information_Cost.text = "0G";
+        }
+    }
+    private void Check_Init_BoosterCard()
+    {
+        foreach (int num in Booster_Store_Num)
+        {
+            Store_Train_Part_Card.GetComponent<Store_Train_Card>().Train_Num = 52;
+            Store_Train_Part_Card.GetComponent<Store_Train_Card>().Train_Num2 = num;
+            GameObject Card = Instantiate(Store_Train_Part_Card, Booster_Store_Content);
+            Card.name = "52_" + num.ToString();
+            Booster_Toggle.Add(Card.GetComponentInChildren<Toggle>());
+            if (trainData.SA_TrainBoosterData.Train_Booster_Buy_Num.Contains(num) == true)
+            {
+                Card.GetComponent<Store_Train_Card>().Train_Buy.SetActive(true);
+            }
+        }
+        ResizedContent_V(Booster_Store_Content, ScrollRect_Booster);
+    }
+    private void Store_Buy_BoosterCard()
+    {
+        if (playerData.Player_Coin >= trainData.EX_Game_Data.Information_Train_Booster_Part[Toggle_Booster_Num].Train_Buy_Cost)
+        {
+            playerData.Player_Buy_Coin(trainData.EX_Game_Data.Information_Train_Booster_Part[Toggle_Booster_Num].Train_Buy_Cost);
+            trainData.SA_TrainBoosterData.SA_Train_Booster_Buy(Toggle_Booster_Num);
+            trainData.Check_Buy_Booster(Toggle_Booster_Num);
+            Booster_Toggle[Select_Toggle_Booster_Num].isOn = false;
+            Check_AfterBuy_BoosterCard();
+            Check_Player_Coin_Point();
+            Close_Buy_Window();
+        }
+        else
+        {
+            Ban_Player_Coin_Point(true);
+        }
+    }
+    public void Check_AfterBuy_BoosterCard()
+    {
+        for (int i = 0; i < Booster_Store_Content.childCount; i++)
+        {
+            GameObject Card = Booster_Store_Content.GetChild(i).gameObject;
+            int Card_Num = Card.GetComponent<Store_Train_Card>().Train_Num2;
+            if (trainData.SA_TrainBoosterData.Train_Booster_Buy_Num.Contains(Card_Num))
+            {
                 Card.GetComponent<Store_Train_Card>().Train_Buy.SetActive(true);
             }
         }
@@ -303,8 +660,20 @@ public class Station_Store : MonoBehaviour
         Check_Buy_Panel.SetActive(true);
         if(i == 0)
         {
-            Check_Buy_Text.text = Toggle_Train_Name + " 설계도를 구매하시겠습니까?";
-            Buy_YesButton.onClick.AddListener(Store_Buy_TrainCard);
+            if(Store_Train_Num == 0)
+            {
+                Check_Buy_Text.text = Toggle_Train_Name + " 설계도를 구매하시겠습니까?";
+                Buy_YesButton.onClick.AddListener(Store_Buy_TrainCard);
+            }else if(Store_Train_Num == 1)
+            {
+                Check_Buy_Text.text = Toggle_Turret_Name + " 설계도를 구매하시겠습니까?";
+                Buy_YesButton.onClick.AddListener(Store_Buy_TurretCard);
+            }else if(Store_Train_Num == 2)
+            {
+                Check_Buy_Text.text = Toggle_Booster_Name + " 설계도를 구매하시겠습니까?";
+                Buy_YesButton.onClick.AddListener(Store_Buy_BoosterCard);
+            }
+
         }
         else if (i == 1)
         {
@@ -322,7 +691,13 @@ public class Station_Store : MonoBehaviour
         Check_Buy_Panel.SetActive(false);
         if (Check_Buy_Panel_Num == 0)
         {
-            Buy_YesButton.onClick.RemoveListener(Store_Buy_TrainCard);
+            if(Store_Train_Num == 0)
+            {
+                Buy_YesButton.onClick.RemoveListener(Store_Buy_TrainCard);
+            }else if(Store_Train_Num == 1)
+            {
+                Buy_YesButton.onClick.RemoveListener(Store_Buy_BoosterCard);
+            }
         }
         else if (Check_Buy_Panel_Num == 1)
         {

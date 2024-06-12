@@ -142,6 +142,16 @@ public class Station_TrainData : MonoBehaviour
         Train_Change_Num.Add(Num);
     }
 
+    public void Check_Buy_Turret(int Num)
+    {
+        Train_Turret_Part_Change_Num.Add(Num);
+    }
+
+    public void Check_Buy_Booster(int Num)
+    {
+        Train_Booster_Part_Change_Num.Add(Num);
+    }
+
     public int Check_Cost_Train(int num)
     {
         switch (num)

@@ -88,7 +88,12 @@ public class StationDirector : MonoBehaviour
         {
             if (ui_num == 1)
             {
-                if (Information_Flag)
+
+                if (Director_TrainMaintenance.Part_Window_Flag)
+                {
+                    Director_TrainMaintenance.Click_Part_Back_Button();
+                }
+                else if (Information_Flag)
                 {
                     Click_Information_Back_Button();
                 }
@@ -101,7 +106,7 @@ public class StationDirector : MonoBehaviour
             {
                 if (StoreWindow_Flag)
                 {
-                    Click_Store_Back_Button();
+                   Click_Store_Back_Button();
                 }
                 else
                 {
@@ -223,6 +228,10 @@ public class StationDirector : MonoBehaviour
     public void Click_Store_Back_Button()
     {
         StoreWindow_Flag = false;
+        if(ui_Store_Num == 0)
+        {
+            Director_Store.StoreTrainList_Toggle_Init();
+        }
         UI_Store_Window[ui_Store_Num].SetActive(false);
         ui_Store_Num = -1;
     }
@@ -337,7 +346,10 @@ public class StationDirector : MonoBehaviour
 
     public void Total_Init() {
         Director_TrainMaintenance.Director_Init_TrainChange();
-        Director_Store.Director_Init_TrainyBuy();
+        Director_TrainMaintenance.Director_Init_TrainPartChange();
+        Director_Store.Director_Init_TrainBuy();
+        Director_Store.Director_Init_TurretBuy();
+        Director_Store.Director_Init_BoosterBuy();
         Director_Store.Director_Init_MercenaryBuy();
         Director_Fortress.Director_Init_MercenaryUpgrade();
         Director_Fortress.Director_Init_MercenaryPosition();
