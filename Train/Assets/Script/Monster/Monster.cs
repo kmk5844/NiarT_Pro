@@ -50,6 +50,8 @@ public class Monster : MonoBehaviour
     protected bool DestoryFlag;
     float End_Delay;
 
+    float raser_hit_time;
+
     protected virtual void Start()
     {
         lastTime = Time.time;
@@ -156,26 +158,59 @@ public class Monster : MonoBehaviour
         }
     }
 
+    private void Damage_Monster_Collsion(Collision2D collision)
+    {
+        HitDamage.GetComponent<Hit_Text_Damage>().damage = collision.gameObject.GetComponent<Bullet>().atk;
+        HitDamage.GetComponent<Hit_Text_Damage>().Random_X = transform.position.x + Random.Range(-0.5f, 0.5f);
+        HitDamage.GetComponent<Hit_Text_Damage>().Random_Y = transform.position.y + Random.Range(0.5f, 1.5f);
+        Instantiate(HitDamage);
+        if (Monster_HP > 0)
+        {
+            Monster_HP -= collision.gameObject.GetComponent<Bullet>().atk;
+        }
+        else
+        {
+            gameDirector.Game_Monster_Kill(Monster_Score, Monster_Coin);
+            Destroy(gameObject);
+        }
+    }
+    private void Damage_Monster_Trigger(Collider2D collision)
+    {
+        HitDamage.GetComponent<Hit_Text_Damage>().damage = collision.gameObject.GetComponent<Bullet>().atk;
+        HitDamage.GetComponent<Hit_Text_Damage>().Random_X = transform.position.x + Random.Range(-0.5f, 0.5f);
+        HitDamage.GetComponent<Hit_Text_Damage>().Random_Y = transform.position.y + Random.Range(0.5f, 1.5f);
+        Instantiate(HitDamage);
+        if (Monster_HP > 0)
+        {
+            Monster_HP -= collision.gameObject.GetComponent<Bullet>().atk;
+        }
+        else
+        {
+            gameDirector.Game_Monster_Kill(Monster_Score, Monster_Coin);
+            Destroy(gameObject);
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision) // 공통적으로 적용해야됨.
     {
         if (collision.gameObject.tag.Equals("Player_Bullet"))
         {
-            HitDamage.GetComponent<Hit_Text_Damage>().damage = collision.gameObject.GetComponent<Bullet>().atk;
-            HitDamage.GetComponent<Hit_Text_Damage>().Random_X = transform.position.x + Random.Range(-0.5f, 0.5f);
-            HitDamage.GetComponent<Hit_Text_Damage>().Random_Y = transform.position.y + Random.Range(0.5f, 1.5f);
-            Instantiate(HitDamage);
-            if (Monster_HP > 0)
-            {
-                Monster_HP -= collision.gameObject.GetComponent<Bullet>().atk;
-            }
-            else
-            {
-                gameDirector.Game_Monster_Kill(Monster_Score, Monster_Coin);
-                Destroy(gameObject);
-            }
+            Damage_Monster_Collsion(collision);
             Destroy(collision.gameObject);
         }
     }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag.Equals("Player_Bullet") && collision.gameObject.name.Equals("Raser"))
+        {
+            if(Time.time > raser_hit_time + 0.3f) {
+                Damage_Monster_Trigger(collision);
+                raser_hit_time = Time.time;
+            }
+        }
+    }
+
 }
 
 public enum Monster_GameType{
