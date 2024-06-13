@@ -163,7 +163,7 @@ public class Monster : MonoBehaviour
         HitDamage.GetComponent<Hit_Text_Damage>().damage = collision.gameObject.GetComponent<Bullet>().atk;
         HitDamage.GetComponent<Hit_Text_Damage>().Random_X = transform.position.x + Random.Range(-0.5f, 0.5f);
         HitDamage.GetComponent<Hit_Text_Damage>().Random_Y = transform.position.y + Random.Range(0.5f, 1.5f);
-        Instantiate(HitDamage);
+        Instantiate(HitDamage, monster_Bullet_List);
         if (Monster_HP > 0)
         {
             Monster_HP -= collision.gameObject.GetComponent<Bullet>().atk;
@@ -179,7 +179,7 @@ public class Monster : MonoBehaviour
         HitDamage.GetComponent<Hit_Text_Damage>().damage = collision.gameObject.GetComponent<Bullet>().atk;
         HitDamage.GetComponent<Hit_Text_Damage>().Random_X = transform.position.x + Random.Range(-0.5f, 0.5f);
         HitDamage.GetComponent<Hit_Text_Damage>().Random_Y = transform.position.y + Random.Range(0.5f, 1.5f);
-        Instantiate(HitDamage);
+        Instantiate(HitDamage, monster_Bullet_List);
         if (Monster_HP > 0)
         {
             Monster_HP -= collision.gameObject.GetComponent<Bullet>().atk;
