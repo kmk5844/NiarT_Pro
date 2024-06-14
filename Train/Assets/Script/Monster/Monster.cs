@@ -51,6 +51,11 @@ public class Monster : MonoBehaviour
     float End_Delay;
 
     float raser_hit_time;
+    float fire_hit_time;
+    public bool fire_debuff_flag;
+    bool fire_hit_flag;
+    int fire_hit_damage;
+    int fire_hit_Count;
 
     protected virtual void Start()
     {
@@ -83,6 +88,32 @@ public class Monster : MonoBehaviour
                 sprite_List.Add(transform.GetChild(i).GetComponent<SpriteRenderer>());
             }
         }
+    }
+
+    protected void Fire_Debuff()
+    {
+        if (fire_debuff_flag)
+        {
+            if(fire_hit_Count < 5) // 변경예정
+            {
+                if (!fire_hit_flag) {
+                    StartCoroutine(Fire_Hit_Corutine());
+                }
+            }
+            else
+            {
+                fire_debuff_flag = false;
+            }
+        }
+    }
+
+    IEnumerator Fire_Hit_Corutine()
+    {
+        fire_hit_flag = true;
+        Damage_Monster_Bomb(fire_hit_damage);
+        yield return new WaitForSeconds(1f);
+        fire_hit_Count++;
+        fire_hit_flag = false;
     }
 
     protected void BulletFire(int x_scale = 0)
@@ -191,26 +222,77 @@ public class Monster : MonoBehaviour
         }
     }
 
+    public void Damage_Monster_Bomb(int Bomb_Atk)
+    {
+        HitDamage.GetComponent<Hit_Text_Damage>().damage = Bomb_Atk;
+        HitDamage.GetComponent<Hit_Text_Damage>().Random_X = transform.position.x + Random.Range(-0.5f, 0.5f);
+        HitDamage.GetComponent<Hit_Text_Damage>().Random_Y = transform.position.y + Random.Range(0.5f, 1.5f);
+        Instantiate(HitDamage, monster_Bullet_List);
+        if (Monster_HP > 0)
+        {
+            Monster_HP -= Bomb_Atk;
+        }
+        else
+        {
+            gameDirector.Game_Monster_Kill(Monster_Score, Monster_Coin);
+            Destroy(gameObject);
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision) // 공통적으로 적용해야됨.
     {
         if (collision.gameObject.tag.Equals("Player_Bullet"))
         {
-            Damage_Monster_Collsion(collision);
-            Destroy(collision.gameObject);
+            if (!collision.gameObject.name.Equals("Ballon_Bullet_Turret(Clone)"))
+            {
+                Damage_Monster_Collsion(collision);
+                Destroy(collision.gameObject);
+            }
         }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.tag.Equals("Player_Bullet") && collision.gameObject.name.Equals("Raser"))
+        if (collision.gameObject.tag.Equals("Player_Bullet"))
         {
-            if(Time.time > raser_hit_time + 0.3f) {
-                Damage_Monster_Trigger(collision);
-                raser_hit_time = Time.time;
+            if (collision.gameObject.name.Equals("Raser"))
+            {
+                Raser_Hit(collision);
+            }
+            if (collision.gameObject.name.Equals("Fire"))
+            {
+                Fire_Hit(collision);
             }
         }
     }
 
+    void Raser_Hit(Collider2D collision)
+    {
+        if (Time.time > raser_hit_time + 0.3f)
+        {
+            Damage_Monster_Trigger(collision);
+            raser_hit_time = Time.time;
+        }
+    }
+
+    void Fire_Hit(Collider2D collision)
+    {
+        if (Time.time > fire_hit_time + 0.6f)
+        {
+            fire_hit_damage = collision.gameObject.GetComponent<Bullet>().atk;
+            if (!fire_debuff_flag)
+            {
+                fire_debuff_flag = true;
+                fire_hit_Count = 0;
+            }
+            else
+            {
+                fire_hit_Count = 0;
+            }
+            Damage_Monster_Trigger(collision);
+            fire_hit_time = Time.time;
+        }
+    }
 }
 
 public enum Monster_GameType{

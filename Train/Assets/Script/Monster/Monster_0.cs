@@ -28,9 +28,10 @@ public class Monster_0 : Monster
         xPos = -1f;
     }
 
-    private void Update()
+    void Update()
     {
         Total_GameType();
+        Fire_Debuff();
         if (monster_gametype == Monster_GameType.Fighting)
         {
             BulletFire();

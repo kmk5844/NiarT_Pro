@@ -1,20 +1,23 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Balloon_TurretBullet : Bullet
 {
-    float Random_X;
+    float Random_X; // ÁÂ¿ì Èçµéµµ·Ï ÀÛ¾÷ ¿¹Á¤
     float Random_Y;
     public float maxY;
     public Transform monster_target;
     bool SpawnFlag;
 
+    public GameObject Bomb;
+
     protected override void Start()
     {
         base.Start();
+        Bomb.SetActive(false);
         SpawnFlag = true;
-        Random_X = Random.Range(0f, 1f);
         Random_Y = Random.Range(0f, 1f);
         rid.velocity =  Vector2.up * Speed;
     }
@@ -43,12 +46,19 @@ public class Balloon_TurretBullet : Bullet
             {
                 if(transform.position.y > maxY + Random_Y)
                 {
-                    rid.velocity =  Vector2.down * 0.6f;
+                    rid.velocity =  Vector2.down * 0.4f;
                 }else if(transform.position.y < maxY - Random_Y){
-                    rid.velocity =  Vector2.up * 0.6f;
+                    rid.velocity =  Vector2.up * 0.4f;
                 }
             }
         }
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Monster"))
+        {
+            Bomb.SetActive(true);
+        }
+    }
 }
