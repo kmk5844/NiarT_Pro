@@ -94,7 +94,7 @@ public class Monster : MonoBehaviour
     {
         if (fire_debuff_flag)
         {
-            if(fire_hit_Count < 5) // 변경예정
+            if(fire_hit_Count < 6) // 변경예정
             {
                 if (!fire_hit_flag) {
                     StartCoroutine(Fire_Hit_Corutine());
@@ -110,7 +110,10 @@ public class Monster : MonoBehaviour
     IEnumerator Fire_Hit_Corutine()
     {
         fire_hit_flag = true;
-        Damage_Monster_Bomb(fire_hit_damage);
+        if (fire_hit_Count != 0)
+        {
+            Damage_Monster_Bomb(fire_hit_damage);
+        }
         yield return new WaitForSeconds(1f);
         fire_hit_Count++;
         fire_hit_flag = false;
@@ -245,7 +248,14 @@ public class Monster : MonoBehaviour
         {
             if (!collision.gameObject.name.Equals("Ballon_Bullet_Turret(Clone)"))
             {
-                Damage_Monster_Collsion(collision);
+                if (collision.gameObject.name.Equals("Fire_Arrow(Clone)"))
+                {
+                    FireArrow_Hit(collision);
+                }
+                else
+                {
+                    Damage_Monster_Collsion(collision);
+                }
                 Destroy(collision.gameObject);
             }
         }
@@ -277,9 +287,9 @@ public class Monster : MonoBehaviour
 
     void Fire_Hit(Collider2D collision)
     {
-        if (Time.time > fire_hit_time + 0.6f)
+        if (Time.time > fire_hit_time + 0.3f)
         {
-            fire_hit_damage = collision.gameObject.GetComponent<Bullet>().atk;
+            fire_hit_damage = collision.gameObject.GetComponent<Bullet>().atk/2;
             if (!fire_debuff_flag)
             {
                 fire_debuff_flag = true;
@@ -292,6 +302,21 @@ public class Monster : MonoBehaviour
             Damage_Monster_Trigger(collision);
             fire_hit_time = Time.time;
         }
+    }
+
+    void FireArrow_Hit(Collision2D collision)
+    {
+        fire_hit_damage = collision.gameObject.GetComponent<Bullet>().atk / 2;
+        if (!fire_debuff_flag)
+        {
+            fire_debuff_flag = true;
+            fire_hit_Count = 0;
+        }
+        else
+        {
+            fire_hit_Count = 0;
+        }
+        Damage_Monster_Collsion(collision);
     }
 }
 

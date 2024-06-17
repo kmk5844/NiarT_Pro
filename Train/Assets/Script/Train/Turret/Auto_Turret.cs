@@ -12,8 +12,7 @@ public class Auto_Turret : MonoBehaviour
     Train_InGame trainData;
     float train_Attack_Delay;
     float lastTime;
-    public float Z;
-    
+    public float Z;    
 
     void Start()
     {

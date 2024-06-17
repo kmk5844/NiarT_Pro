@@ -16,7 +16,6 @@ public class Fire_Turret : MonoBehaviour
     public bool Attack_Flag;
     public bool Change_Flag;
     float Turret_Z;
-    int atk;
     float train_Attack_Delay;
     float lastTime;
     public float Turret_Min_Z;
@@ -31,10 +30,9 @@ public class Fire_Turret : MonoBehaviour
         LR_Flag = true;
         Particle = Fire_Effect.GetComponent<ParticleSystem>();
         mainModule = Particle.main;
-        //trainData = transform.GetComponentInParent<Train_InGame>();
-        //Fire_Object.GetComponet<Bullet>().atk = trainData.Train_Attack;
-        atk = 10;
-        train_Attack_Delay = 12;
+        trainData = transform.GetComponentInParent<Train_InGame>();
+        Fire_Object.GetComponent<Bullet>().atk = trainData.Train_Attack;
+        train_Attack_Delay = trainData.Train_Attack_Delay;
         lastTime = Time.time;
     }
 

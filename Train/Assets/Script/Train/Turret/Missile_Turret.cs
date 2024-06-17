@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class Missile_Turret : MonoBehaviour
 {
-     bool Target_Flag;
+    bool Target_Flag;
     public Transform FireObject;
     public Transform BulletObject;
     Transform Bullet_List;
     public Transform Target;
-    int train_Attack;
     float train_Attack_Delay;
     float lastTime;
     public float Z;
-
 
     void Start()
     {
@@ -60,5 +58,6 @@ public class Missile_Turret : MonoBehaviour
                 Target = collision.transform;
             }
         }
+
     }
 }

@@ -60,6 +60,7 @@
     <Analyzer Include="D:\Unity Version\Unity 2022.3.19f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Script\Train\Turret\Intercept_Flare_Turret.cs" />
     <Compile Include="Assets\Scriptable\SA_Mercenary\SA_MercenaryData.cs" />
     <Compile Include="Assets\Epic Toon FX(3d effect)\Demo\Scripts\ETFXFireProjectile.cs" />
     <Compile Include="Assets\Scriptable\SA_Train\SA_TrainData.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="Assets\Script\Monster\Monster_3.cs" />
     <Compile Include="Assets\Script\Director\StoryDirector.cs" />
     <Compile Include="Assets\Script\Monster\Monster_0.cs" />
+    <Compile Include="Assets\Script\Train\Turret\Intercept_Missile_Turret.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\DemoCircleExpositor.cs" />
     <Compile Include="Assets\Script\Story\Stroy_FadeOut.cs" />
     <Compile Include="Assets\Script\Director\MenuDirector.cs" />
@@ -144,6 +146,7 @@
     <Compile Include="Assets\Script\Station\Card\Store_Train_Card.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\AllIn1ScrollProperty.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Scripts\AllIn1Shader.cs" />
+    <Compile Include="Assets\Script\Train\Turret\Arrow_Turret.cs" />
     <Compile Include="Assets\Epic Toon FX(3d effect)\Demo\Scripts\VFX Library\UICanvasManager.cs" />
     <Compile Include="Assets\Resources\SPUM\SoonsoonData\SoonsoonData.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\All1ShaderDemoController.cs" />
@@ -167,6 +170,7 @@
     <Compile Include="Assets\_Scenes\Demo\Demo_End.cs" />
     <Compile Include="Assets\Script\Mercenary\Short_Ranged_KillZone.cs" />
     <Compile Include="Assets\Script\Mercenary\Medic.cs" />
+    <Compile Include="Assets\Script\Bullet\Turret\Arrow_TurretBullet.cs" />
     <Compile Include="Assets\Resources\SPUM\Sprite_Editor(Beta)\Script\SPUM_SpriteEditManager.cs" />
     <Compile Include="Assets\Script\Monster\Monster.cs" />
     <Compile Include="Assets\Resources\SPUM\Sprite_SheetExporter(Beta)\Script\SPUM_Exporter.cs" />
@@ -176,12 +180,15 @@
     <Compile Include="Assets\Epic Toon FX(3d effect)\Demo\Scripts\ETFXMouseOrbit.cs" />
     <Compile Include="Assets\Script\Train\Turret\Missile_Turret.cs" />
     <Compile Include="Assets\Script\Mercenary\Long_RangedShoot.cs" />
+    <Compile Include="Assets\Script\Bullet\Turret\Intercept_Missile_TurretBullet.cs" />
+    <Compile Include="Assets\Script\Bullet\Turret\Flare_TurretBullet.cs" />
     <Compile Include="Assets\Script\Mercenary\Engineer.cs" />
     <Compile Include="Assets\Script\Bullet\Turret\Auto_TurretBullet.cs" />
     <Compile Include="Assets\Resources\SPUM\Script\Plugin\Moments Recorder\Scripts\Worker.cs" />
     <Compile Include="Assets\Data_Game\Info_Monster.cs" />
     <Compile Include="Assets\Script\Station\Director\Station_GameStart.cs" />
     <Compile Include="Assets\Resources\SPUM\Sprite_Editor(Beta)\Script\SpriteSync.cs" />
+    <Compile Include="Assets\Script\Bullet\Turret\Flare_Bomb.cs" />
     <Compile Include="Assets\Script\Monster\Monster_4.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Scripts\SetGlobalTime.cs" />
     <Compile Include="Assets\Script\Player\CameraFollow.cs" />
@@ -243,10 +250,14 @@
     <None Include="Assets\AllIn1SpriteShader\Resources\AllIn1SpriteShader.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\AllIn1SpriteShader\Resources\AllIn1SpriteShaderScaledTime.shader" />
+    <None Include="Assets\HovlStudio\HSFiles\Shaders\DissolveNoise.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\AllIn1SpriteShader\Resources\AllIn1SpriteShaderUiMask.shader" />
+    <None Include="Assets\HovlStudio\HSFiles\Shaders\Distortion.shader" />
+    <None Include="Assets\HovlStudio\HSFiles\Shaders\Blend_TwoSides.shader" />
     <None Include="Assets\Feel\readme.txt" />
+    <None Include="Assets\HovlStudio\HSFiles\Shaders\Blend_CenterGlow.shader" />
     <None Include="Assets\Epic Toon FX(3d effect)\Shaders\ETFX_PowerboxLit.shader" />
     <None Include="Assets\Feel\license.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
@@ -260,13 +271,18 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\Resources\SPUM\ReadMe - 1.6.5.txt" />
     <None Include="Assets\Epic Toon FX(3d effect)\Upgrade\URP Compatibility.txt" />
+    <None Include="Assets\HovlStudio\HSFiles\Shaders\Blend_LinePath.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\HovlStudio\HSFiles\Shaders\AddTrail.shader" />
+    <None Include="Assets\HovlStudio\HSFiles\Shaders\Scroll.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\ParticleEffectForUGUI-main\ParticleEffectForUGUI-main\Shaders\UIAdditive.shader" />
+    <None Include="Assets\HovlStudio\HSFiles\Shaders\Add_CenterGlow.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
+    <None Include="Assets\HovlStudio\HSFiles\Shaders\ShockWave.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
     <None Include="Assets\AllIn1SpriteShader\Resources\AllIn1OneShaderFunctions.cginc" />

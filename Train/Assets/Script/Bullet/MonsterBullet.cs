@@ -125,6 +125,15 @@ public class MonsterBullet : Bullet
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Intercept_Bullet"))
+        {
+            Destroy(gameObject);
+            Destroy(collision.gameObject);
+        }
+    }
+
     public void Get_MonsterBullet_Information(int Monster_Atk, int Monster_Slow, string Target, int X_Scale = 0)
     {
         atk = Monster_Atk;

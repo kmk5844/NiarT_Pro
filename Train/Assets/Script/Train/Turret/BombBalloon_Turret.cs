@@ -9,8 +9,6 @@ public class BombBalloon_Turret : MonoBehaviour
     Transform Balloon_List;
     Train_InGame trainData;
     float train_Attack_Delay;
-    float lastTime;
-    bool SpawnFlag;
     bool BallonFlag;
     public float max_X;
     public float min_X;
@@ -23,7 +21,6 @@ public class BombBalloon_Turret : MonoBehaviour
         Balloon_List = GameObject.Find("Balloon_List").GetComponent<Transform>();
         BulletObject.GetComponent<Bullet>().atk = trainData.Train_Attack;
         train_Attack_Delay = trainData.Train_Attack_Delay;
-        lastTime = 0;
     }
     void Update()
     {
