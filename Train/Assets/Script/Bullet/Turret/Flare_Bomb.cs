@@ -4,12 +4,21 @@ using UnityEngine;
 
 public class Flare_Bomb : MonoBehaviour
 {
-    public Flare_TurretBullet Bullet;
+    Flare_TurretBullet Bullet;
+    public ParticleSystem BombEffect;
     bool bomb_flag;
     void Start()
     {
         Bullet = GetComponentInParent<Flare_TurretBullet>();
         bomb_flag = false;
+    }
+
+    private void Update()
+    {
+        if (BombEffect.isStopped)
+        {
+            Destroy(Bullet.gameObject);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -26,7 +35,5 @@ public class Flare_Bomb : MonoBehaviour
             }
             bomb_flag = true;
         }
-        Destroy(Bullet.gameObject, 4f);
     }
-    
 }

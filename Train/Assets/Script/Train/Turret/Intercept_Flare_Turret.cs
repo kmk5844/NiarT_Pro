@@ -6,7 +6,7 @@ public class Intercept_Flare_Turret : MonoBehaviour
 {
     public Transform BulletObject;
     Transform Bullet_List;
-    //Train_InGame trainData;
+    Train_InGame trainData;
     float train_Attack_Delay;
     public float max_X;
     public float min_X;
@@ -16,10 +16,10 @@ public class Intercept_Flare_Turret : MonoBehaviour
 
     private void Start()
     {
-        //trainData = transform.GetComponentInParent<Train_InGame>();
+        trainData = transform.GetComponentInParent<Train_InGame>();
         Bullet_List = GameObject.Find("Bullet_List").GetComponent<Transform>();
+        train_Attack_Delay = trainData.Train_Attack_Delay;
         train_Attack_Delay = 2;
-        //train_Attack_Delay = trainData.Train_Attack_Delay;
     }
 
     private void Update()

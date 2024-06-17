@@ -107,7 +107,7 @@ public class Train_InGame : MonoBehaviour
         HP_Parsent = (float)cur_HP / (float)Train_HP * 100f;
         //여기서 만약 기차가 파괴 당할 시 쓰면 좋은 함수
 
-        if (cur_HP == 0)
+        if (cur_HP <= 0)
         {
             switch (Train_Type)
             {

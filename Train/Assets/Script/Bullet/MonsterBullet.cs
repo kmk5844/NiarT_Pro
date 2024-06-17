@@ -129,8 +129,11 @@ public class MonsterBullet : Bullet
     {
         if (collision.CompareTag("Intercept_Bullet"))
         {
-            Destroy(gameObject);
-            Destroy(collision.gameObject);
+            if (!collision.name.Equals("Bomb")) // 부딪치는 순간 삭제하기 때문에, 제외시켜야한다.
+            {
+                Destroy(gameObject);
+                Destroy(collision.gameObject);
+            }
         }
     }
 

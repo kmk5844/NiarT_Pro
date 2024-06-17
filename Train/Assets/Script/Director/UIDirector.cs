@@ -14,13 +14,6 @@ public class UIDirector : MonoBehaviour
     MercenaryDirector mercenarydirector;
     Player player;
 
-    //Speed관련 변수
-    float minRotation;
-    float maxRotation;
-
-    float minSpeed;
-    float maxSpeed;
-
     [Header("전체적인 UI 오브젝트")]
     public GameObject Game_UI;
     public GameObject Pause_UI;
@@ -29,16 +22,13 @@ public class UIDirector : MonoBehaviour
     public GameObject Option_UI;
 
     [Header("Game UI")]
-    public Slider Player_HP_Bar;
+    public Image Player_HP_Bar;
     public Slider Distance_Bar;
-    public Slider TotalFuel_Bar;
+    public Image TotalFuel_Bar;
     public TextMeshProUGUI Speed_Text;
+    public TextMeshProUGUI Fuel_Text;
     public Transform Speed_Arrow;
-    public Transform Team_1;
-    public Transform Team_2;
-    public GameObject Panel;
-    int Team_Index1;
-    int Team_Index2;
+
 
     [Header("Win UI 관련된 텍스트")]
     public TextMeshProUGUI Win_Stage_Text;
@@ -63,27 +53,10 @@ public class UIDirector : MonoBehaviour
         gamedirector = GameDirector_Object.GetComponent<GameDirector>();
         mercenarydirector = MercenaryDirector_Object.GetComponent<MercenaryDirector>();
 
-        Team_Index1 = 2;
-        Team_Index2 = 0;
-
-        minRotation = 115f;
-        maxRotation = -105f;
-
-        minSpeed = 0f;
-        maxSpeed = gamedirector.MaxSpeed + 30;
-
         PauseFlag = false;
         OptionFlag = false;
 
-        if (!mercenarydirector.Team_Flag)
-        {
-            if(mercenarydirector.Mercenary_Num.Count == 0)
-            {
-                Team_2.gameObject.SetActive(false);
-            }
-            Team_1.gameObject.SetActive(false);
-            Panel.gameObject.SetActive(false);
-        }
+
         DemoCheck(); // 나중에 데모 변경예정
     }
 
@@ -108,20 +81,13 @@ public class UIDirector : MonoBehaviour
             }
         }
 
+        Player_HP_Bar.fillAmount = player.Check_HpParsent() / 100f;
+        TotalFuel_Bar.fillAmount = gamedirector.Check_Fuel();
+        Speed_Text.text = gamedirector.TrainSpeed + " Km/h";
+        Fuel_Text.text = "Fuel : "+ (int)(gamedirector.Check_Fuel() * 100f) + "%";
 
-        if (Input.GetKeyDown(KeyCode.Tab) && mercenarydirector.Team_Flag)
-        {
-            Vector2 temp = Team_2.transform.position;
-            Team_2.transform.position = Team_1.transform.position;
-            Team_1.transform.position = temp;
-            Change_Team();
-        }
 
-        Player_HP_Bar.value = player.Check_HpParsent() / 100f;
         Distance_Bar.value = gamedirector.Check_Distance();
-        TotalFuel_Bar.value = gamedirector.Check_Fuel();
-        Speed_Text.text = gamedirector.TrainSpeed + "Km/h";
-        Speed_Arrow.rotation = Quaternion.Euler(0f, 0f, SpeedToRotation(gamedirector.TrainSpeed));
     }
 
     public void Open_WIN_UI()
@@ -174,7 +140,6 @@ public class UIDirector : MonoBehaviour
     {
         GameManager.Instance.Demo_End_Enter();
     }
-
     public void Click_Retry()
     {
         LoadingManager.LoadScene("InGame");
@@ -195,28 +160,6 @@ public class UIDirector : MonoBehaviour
         gamedirector.GameType_Option(false);
         OptionFlag = false;
         Option_UI.SetActive(false);
-    }
-
-    public void Change_Team()
-    {
-        if(Team_Index1 == 0 && Team_Index2 == 2)
-        {
-            Team_1.SetSiblingIndex(Team_Index2);
-            Team_2.SetSiblingIndex(Team_Index1);
-            Team_Index1 = 2;
-            Team_Index2 = 0;
-        }
-        else if(Team_Index1 == 2 && Team_Index2 == 0)
-        {
-            Team_1.SetSiblingIndex(Team_Index2);
-            Team_2.SetSiblingIndex(Team_Index1);
-            Team_Index1 = 0;
-            Team_Index2 = 2;
-        }
-    }
-    private float SpeedToRotation(float speed)
-    {
-        return (speed - minSpeed) * (maxRotation - minRotation) / (maxSpeed - minSpeed) + minRotation;
     }
 
     private void DemoCheck()

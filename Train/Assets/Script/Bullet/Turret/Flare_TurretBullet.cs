@@ -18,8 +18,8 @@ public class Flare_TurretBullet : Bullet
     {
         base.Start();
         BombFlag = false;
-        Speed = Random.Range(1f, 2.5f);
-        RandomBombTime = Random.Range(2f, 3.5f);
+        Speed = Random.Range(1f, 1.5f);
+        RandomBombTime = Random.Range(2f, 3f);
         Random_X = Random.Range(-1f, 1f);
         Random_Y = Random.Range(0.5f, 1.5f);
         rid.velocity = new Vector2 (Random_X, Random_Y);
