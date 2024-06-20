@@ -7,6 +7,7 @@ public class Mercenary_New : MonoBehaviour
     public mercenaryType Type;
     protected GameType Mer_GameType;
     protected GameDirector gameDirector;
+    protected MercenaryDirector mercenaryDirector;
     protected SA_MercenaryData SA_MercenaryData;
     protected Level_DataTable EX_Level_Data;
 
@@ -41,6 +42,8 @@ public class Mercenary_New : MonoBehaviour
 
     //휴식
     bool isRefreshing;
+    protected bool isDying;
+
 
     [Header("방어력 설정")]
     int def;
@@ -50,6 +53,7 @@ public class Mercenary_New : MonoBehaviour
     protected virtual void Awake()
     {
         gameDirector = GameObject.Find("GameDirector").GetComponent<GameDirector>();
+        mercenaryDirector = GameObject.Find("MercenaryDirector").GetComponent<MercenaryDirector>();
         SA_MercenaryData = gameDirector.SA_MercenaryData;
         EX_Level_Data = gameDirector.EX_LevelData;
         Train_List = gameDirector.Train_List;
@@ -185,7 +189,7 @@ public class Mercenary_New : MonoBehaviour
         }
     }
 
-    protected void non_combatant_Move()
+    protected void non_combatant_Flip()
     {
         if (Move_X > 0)
         {
@@ -196,6 +200,11 @@ public class Mercenary_New : MonoBehaviour
             Unit_Scale.localScale = new Vector3(Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
         }
 
+    }
+
+    protected void non_combatant_Move()
+    {
+        non_combatant_Flip();
         if (transform.position.x > MaxMove_X)
         {
             Move_X = -1f;
@@ -256,7 +265,7 @@ public class Mercenary_New : MonoBehaviour
         return (float)HP / (float)MaxHP * 100f;
     }
 
-    protected void Mer_Buff_HP(int Buff_HP, bool flag)
+    public void Mer_Buff_HP(int Buff_HP, bool flag)
     {
         if (flag)
         {
@@ -344,8 +353,19 @@ public class Mercenary_New : MonoBehaviour
                 HP = EX_Level_Data.Level_Mercenary_Bard[SA_MercenaryData.Level_Bard].HP;
                 moveSpeed = EX_Level_Data.Level_Mercenary_Bard[SA_MercenaryData.Level_Bard].MoveSpeed;
                 def = EX_Level_Data.Level_Mercenary_Bard[SA_MercenaryData.Level_Bard].Def;
-                GetComponent<Bard>().Level_AddStatus_Bard(EX_Level_Data.Level_Mercenary_Bard, SA_MercenaryData.Level_Bard);
+                GetComponent<Bard_New>().Level_AddStatus_Bard(EX_Level_Data.Level_Mercenary_Bard, SA_MercenaryData.Level_Bard);
                 break;
         }
     }
+}
+
+public enum mercenaryType
+{
+    Engineer,
+    Long_Ranged,
+    Short_Ranged,
+    Medic,
+    Engine_Driver,
+    Bard,
+    CowBoy,
 }

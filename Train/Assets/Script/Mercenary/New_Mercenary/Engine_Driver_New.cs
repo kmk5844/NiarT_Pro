@@ -10,7 +10,6 @@ public class Engine_Driver_New : Mercenary_New
     int Level_Speed;
     int Level_Fuel;
     int Level_Def;
-    bool isDying;
 
     protected override void Awake()
     {
@@ -26,6 +25,40 @@ public class Engine_Driver_New : Mercenary_New
         isDying = false;
 
         Driver_Type = SA_MercenaryData.Engine_Driver_Type;
+        EngineDriver_Survival_Buff();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        Check_GameType();
+        if(Mer_GameType == GameType.Playing)
+        {
+            if (HP <= 0 && act != Active.die)
+            {
+                act = Active.die;
+                isDying = true;
+            }
+
+            if(act == Active.revive && !isSurvival)
+            {
+                EngineDriver_Survival_Buff();
+                isSurvival = true;
+            }
+
+            if(act == Active.die && isDying)
+            {
+                EngineDriver_Die_Buff();
+                isSurvival = false;
+                isDying = false;
+            }
+        }else if(Mer_GameType == GameType.Ending)
+        {
+            act = Active.Game_Wait;
+        }
+    }
+
+    void EngineDriver_Survival_Buff() {
         switch (Driver_Type)
         {
             case Engine_Driver_Type.speed:
@@ -43,67 +76,35 @@ public class Engine_Driver_New : Mercenary_New
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    void EngineDriver_Die_Buff()
     {
-        Check_GameType();
-        if(Mer_GameType == GameType.Playing)
+        switch (Driver_Type)
         {
-            if (HP <= 0 && act != Active.die)
-            {
-                act = Active.die;
-                isDying = true;
-            }
-
-            if(act == Active.revive && !isSurvival)
-            {
-                switch (Driver_Type)
+            case Engine_Driver_Type.speed:
+                gameDirector.Engine_Driver_Passive(Engine_Driver_Type.speed, Level_Speed, false);
+                break;
+            case Engine_Driver_Type.fuel:
+                gameDirector.Engine_Driver_Passive(Engine_Driver_Type.fuel, Level_Fuel, false);
+                break;
+            case Engine_Driver_Type.def:
+                for (int i = 0; i < Train_List.childCount; i++)
                 {
-                    case Engine_Driver_Type.speed:
-                        gameDirector.Engine_Driver_Passive(Engine_Driver_Type.speed, Level_Speed, true);
-                        break;
-                    case Engine_Driver_Type.fuel:
-                        gameDirector.Engine_Driver_Passive(Engine_Driver_Type.fuel, Level_Fuel, true);
-                        break;
-                    case Engine_Driver_Type.def:
-                        for (int i = 0; i < Train_List.childCount; i++)
-                        {
-                            Train_List.GetChild(i).GetComponent<Train_InGame>().Train_Armor += Level_Def;
-                        }
-                        break;
+                    Train_List.GetChild(i).GetComponent<Train_InGame>().Train_Armor -= Level_Def;
                 }
-                isSurvival = true;
-            }
-
-            if(act == Active.die && isDying)
-            {
-                switch (Driver_Type)
-                {
-                    case Engine_Driver_Type.speed:
-                        gameDirector.Engine_Driver_Passive(Engine_Driver_Type.speed, Level_Speed, false);
-                        break;
-                    case Engine_Driver_Type.fuel:
-                        gameDirector.Engine_Driver_Passive(Engine_Driver_Type.fuel, Level_Fuel, false);
-                        break;
-                    case Engine_Driver_Type.def:
-                        for (int i = 0; i < Train_List.childCount; i++)
-                        {
-                            Train_List.GetChild(i).GetComponent<Train_InGame>().Train_Armor -= Level_Def;
-                        }
-                        break;
-                }
-                isSurvival = false;
-                isDying = false;
-            }
-        }else if(Mer_GameType == GameType.Ending)
-        {
-            act = Active.Game_Wait;
+                break;
         }
     }
+
     public void Level_AddStatus_Engine_Driver(List<Info_Level_Mercenary_Engine_Driver> type, int level)
     {
         Level_Speed = type[level].Level_Type_Speed;
         Level_Fuel = type[level].Level_Type_Fuel;
         Level_Def = type[level].Level_Type_Def;
     }
+}
+public enum Engine_Driver_Type
+{
+    speed,
+    fuel,
+    def
 }

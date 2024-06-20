@@ -78,7 +78,7 @@ public class Mercenary : MonoBehaviour
         def_constant = 100;
         gameDirector = GameObject.Find("GameDirector").GetComponent<GameDirector>();
         M_gameType = gameDirector.gameType;
-        Type = GetComponent<Mercenary_Type>().mercenary_type;
+        //Type = GetComponent<Mercenary_Type>().mercenary_type;
 
         Train_List = GameObject.Find("Train_List").GetComponent<Transform>();
         TrainCount = Train_List.childCount;

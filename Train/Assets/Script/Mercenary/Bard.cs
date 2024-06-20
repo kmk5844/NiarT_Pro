@@ -31,6 +31,7 @@ public class Bard : Mercenary
         act = Active.work;
         Flag = false;
         transform.position = new Vector3(-2f, move_Y, 0);
+        
         Mercenary_List = GameObject.Find("Mercenary_List").transform;
 
         bard_type = SA_MercenaryData.Bard_Type;
@@ -41,7 +42,7 @@ public class Bard : Mercenary
     void Update()
     {
         Check_GameType();
-        if(MercenaryDirector.Mercenary_Spawn_Flag == true && !Flag)
+        /*if(MercenaryDirector.Mercenary_Spawn_Flag == true && !Flag)
         {
 
             switch (bard_type)
@@ -69,7 +70,7 @@ public class Bard : Mercenary
                     break;
             }
             Flag = true;
-        }
+        }*/
         
         if (M_gameType == GameType.Playing)
         {
@@ -168,11 +169,4 @@ public class Bard : Mercenary
         Level_Atk = type[level].Level_Type_Atk_Buff;
         Level_Def = type[level].Level_Type_Def_Buff;
     }
-}
-
-public enum Bard_Type
-{
-    HP_Buff,
-    Atk_Buff,
-    Def_Buff
 }

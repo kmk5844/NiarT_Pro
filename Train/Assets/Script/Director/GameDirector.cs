@@ -3,6 +3,7 @@ using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Timeline;
 
 public class GameDirector : MonoBehaviour
 {
@@ -34,7 +35,8 @@ public class GameDirector : MonoBehaviour
     Vector2 cursorHotspot_Aim;
 
     GameObject playerObject;
-    Player player;
+    [HideInInspector]
+    public Player player;
 
     [Header("스테이지 정보")]
     [SerializeField]
@@ -59,6 +61,7 @@ public class GameDirector : MonoBehaviour
     public int TrainDistance;
     [SerializeField]
     int TrainWeight;// 전체적으로 더한다.
+    public bool SpawnTrainFlag;
 
     [Header("레벨 업 적용 전의 기차")]
     [SerializeField]
@@ -120,6 +123,7 @@ public class GameDirector : MonoBehaviour
         GameStartFlag = false;
         GameWinFlag = false;
         GameLoseFlag = false;
+        SpawnTrainFlag = false;
         monsterDirector = MonsterDirector.GetComponent<MonsterDirector>();
         uiDirector = UI_DirectorObject.GetComponent<UIDirector>();
 
@@ -331,6 +335,7 @@ public class GameDirector : MonoBehaviour
         Level_Efficient = SA_TrainData.Level_Train_Efficient;
         Total_TrainFuel = TrainFuel;
         Level();
+        SpawnTrainFlag = true;
     }
     public void Level()
     {

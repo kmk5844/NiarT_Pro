@@ -23,7 +23,7 @@ public class MercenaryDirector : MonoBehaviour
     public bool isMedicCall;
     bool isChecklive;
 
-    public static bool Mercenary_Spawn_Flag;
+    public bool Mercenary_Spawn_Flag;
 
     [Header("UI")]
     public Transform Team_1;
@@ -48,7 +48,7 @@ public class MercenaryDirector : MonoBehaviour
         for (int i = 0; i < Mercenary_Num.Count; i++)
         {
             GameObject MercenaryObject = Instantiate(Resources.Load<GameObject>("MercenaryObject/" + Mercenary_Num[i] + "_New"), Mercenary_List);
-            MercenaryObject.name = MercenaryObject.GetComponent<Mercenary_Type>().mercenary_type.ToString();
+            MercenaryObject.name = MercenaryObject.GetComponent<Mercenary_New>().Type.ToString();
             Spawn_MercenaryUI(MercenaryObject, i, Mercenary_Num[i]);
         }
         Mercenary_Spawn_Flag = true;
@@ -166,7 +166,7 @@ public class MercenaryDirector : MonoBehaviour
     {
         for(int i = 0; i <  Mercenary_List.childCount; i++)
         {
-            switch (Mercenary_List.GetChild(i).GetComponent<Mercenary_Type>().mercenary_type)
+            switch (Mercenary_List.GetChild(i).GetComponent<Mercenary_New>().Type)
             {
                 case mercenaryType.Engineer:
                     Engineer_Num++;
@@ -186,7 +186,7 @@ public class MercenaryDirector : MonoBehaviour
 
         for (int i = 0; i < Mercenary_List.childCount; i++)
         {
-            switch (Mercenary_List.GetChild(i).GetComponent<Mercenary_Type>().mercenary_type)
+            switch (Mercenary_List.GetChild(i).GetComponent<Mercenary_New>().Type)
             {
                 case mercenaryType.Engineer:
                     Engineer_List.Add(Mercenary_List.GetChild(i).gameObject);

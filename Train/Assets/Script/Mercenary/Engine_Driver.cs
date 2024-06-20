@@ -135,10 +135,3 @@ public class Engine_Driver : Mercenary
         Level_Def = type[level].Level_Type_Def;
     }
 }
-
-public enum Engine_Driver_Type
-{
-    speed,
-    fuel,
-    def
-}

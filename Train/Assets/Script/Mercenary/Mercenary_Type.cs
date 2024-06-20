@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class Mercenary_Type : MonoBehaviour
 {
-    public mercenaryType mercenary_type;
+    mercenaryType mercenary_type;
 
     public float medic_checkHpParsent;
     public float medic_checkStaminaParsent;
+
+    private void Start()
+    {
+        mercenary_type = GetComponent<Mercenary_New>().Type;
+    }
 
     private void Update()
     {
@@ -35,7 +40,8 @@ public class Mercenary_Type : MonoBehaviour
                 //medic_checkStaminaParsent = GetComponent<Engine_Driver>().check_StaminaParsent();
                 break;
             case mercenaryType.Bard:
-                medic_checkHpParsent = GetComponent<Bard>().check_HpParsent();
+                //medic_checkHpParsent = GetComponent<Bard>().check_HpParsent();
+                medic_checkHpParsent = GetComponent<Bard_New>().Check_HpParsent();
                 //medic_checkStaminaParsent = GetComponent<Bard>().check_StaminaParsent();
                 break;
             case mercenaryType.CowBoy:
@@ -62,10 +68,10 @@ public class Mercenary_Type : MonoBehaviour
                 GetComponent<Medic>().HP += Medic_Heal;
                 break;
             case mercenaryType.Engine_Driver:
-                GetComponent<Engine_Driver>().HP += Medic_Heal;
+                GetComponent<Engine_Driver_New>().HP += Medic_Heal;
                 break;
             case mercenaryType.Bard:
-                GetComponent<Bard>().HP += Medic_Heal;
+                GetComponent<Bard_New>().HP += Medic_Heal;
                 break;
             case mercenaryType.CowBoy:
                 GetComponent<CowBoy>().HP += Medic_Heal;
@@ -143,10 +149,10 @@ public class Mercenary_Type : MonoBehaviour
                 GetComponent<Medic>().M_Buff_HP(hp, flag);
                 break;
             case mercenaryType.Engine_Driver:
-                GetComponent<Engine_Driver>().M_Buff_HP(hp, flag);
+                GetComponent<Engine_Driver_New>().Mer_Buff_HP(hp, flag);
                 break;
             case mercenaryType.Bard:
-                GetComponent<Bard>().M_Buff_HP(hp, flag);
+                GetComponent<Bard_New>().Mer_Buff_HP(hp, flag);
                 break;
             case mercenaryType.CowBoy:
                 GetComponent<CowBoy>().M_Buff_HP(hp, flag);
@@ -184,25 +190,14 @@ public class Mercenary_Type : MonoBehaviour
                 GetComponent<Medic>().M_Buff_Def(def, flag);
                 break;
             case mercenaryType.Engine_Driver:
-                GetComponent<Engine_Driver>().M_Buff_Def(def, flag);
+                GetComponent<Engine_Driver_New>().Mer_Buff_Def(def, flag);
                 break;
             case mercenaryType.Bard:
-                GetComponent<Bard>().M_Buff_Def(def, flag);
+                GetComponent<Bard_New>().Mer_Buff_Def(def, flag);
                 break;
             case mercenaryType.CowBoy:
                 GetComponent<CowBoy>().M_Buff_Def(def,flag);
                 break;
         }
     }
-
-}
-public enum mercenaryType
-{
-    Engineer,
-    Long_Ranged,
-    Short_Ranged,
-    Medic,
-    Engine_Driver,
-    Bard,
-    CowBoy,
 }
