@@ -24,8 +24,9 @@ public class Engine_Driver : Mercenary
     protected override void Start()
     {
         base.Start();
+        Type = mercenaryType.Engine_Driver;
+        act = Active.work;
         transform.position = new Vector3(-4.4f, move_Y, 0);
-        gamedirector = GameObject.Find("GameDirector").GetComponent<GameDirector>();
         isSurvival = true;
 
         Driver_Type = SA_MercenaryData.Engine_Driver_Type;
@@ -57,28 +58,8 @@ public class Engine_Driver : Mercenary
                 act = Active.die;
                 isDying = true;
             }
-            else if (Stamina <= 0)
-            {
-                act = Active.weak;
-            }
 
-            if (act == Active.work)
-            {
-                //조건과 스킬을 어떤식으로 사용하면 좋은지
-                Debug.Log("스킬과 스테미나 사용");
-            }
-            else if (act == Active.weak)
-            {
-                if (!isRefreshing_weak)
-                {
-                    StartCoroutine(Refresh_Weak());
-                }
-                else if (Stamina >= 70)
-                {
-                    act = Active.move;
-                }
-            }
-            else if (act == Active.revive && !isSurvival)
+            if (act == Active.revive && !isSurvival)
             {
                 switch (Driver_Type)
                 {
@@ -115,9 +96,31 @@ public class Engine_Driver : Mercenary
                         }
                         break;
                 }
+
                 isSurvival = false;
                 isDying = false;
             }
+            /*            else if (Stamina <= 0)
+            {
+                act = Active.weak;
+            }
+           if (act == Active.work)
+            {
+                //조건과 스킬을 어떤식으로 사용하면 좋은지
+                Debug.Log("스킬과 스테미나 사용");
+            }
+            else if (act == Active.weak)
+            {
+                if (!isRefreshing_weak)
+                {
+                    StartCoroutine(Refresh_Weak());
+                }
+                else if (Stamina >= 70)
+                {
+                    act = Active.move;
+                }
+            }
+            else */
         }
         else if (M_gameType == GameType.Ending)
         {

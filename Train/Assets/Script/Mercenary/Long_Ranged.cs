@@ -4,14 +4,11 @@ using UnityEngine;
 
 public class Long_Ranged : Mercenary
 {
-    [Header("타입마다의 추가 스탯")]
     [Header("공격력")]
     public int unit_Attack;
     [Header("공격속도")]
     public float unit_Attack_Delay;
-    [Header("공격할 때, 이동속도")]
-    [SerializeField]
-    float workSpeed;
+
     public bool zeroFlag;
 
     Long_RangedShoot shoot;
@@ -23,6 +20,7 @@ public class Long_Ranged : Mercenary
     protected override void Start()
     {
         base.Start();
+        Type = mercenaryType.Long_Ranged;
         act = Active.move;
         zeroFlag = false;
         shoot = gameObject.GetComponentInChildren<Long_RangedShoot>();
@@ -39,10 +37,10 @@ public class Long_Ranged : Mercenary
                 act = Active.die;
                 isDying = true;
             }
-            else if (Stamina == 0 && act == Active.work && !zeroFlag)
+/*            else if (Stamina == 0 && act == Active.work && !zeroFlag)
             {
                 act = Active.weak;
-            }
+            }*/
 
            
             if (act == Active.die && isDying)
@@ -51,7 +49,11 @@ public class Long_Ranged : Mercenary
                 transform.GetComponentInChildren<Long_RangedShoot>().enabled = false;
                 isDying = false;
             }
-            else if (act == Active.weak)
+            else if (act == Active.revive)
+            {
+                transform.GetComponentInChildren<Long_RangedShoot>().enabled = true;
+            }
+/*            else if (act == Active.weak)
             {
                 zeroFlag = true;
                 shoot.isDelaying = true;
@@ -61,11 +63,7 @@ public class Long_Ranged : Mercenary
                     shoot.isDelaying = false;
                     zeroFlag = false;
                 }
-            }
-            else if (act == Active.revive)
-            {
-                transform.GetComponentInChildren<Long_RangedShoot>().enabled = true;
-            }
+            }*/
         }
     }
 
@@ -83,7 +81,7 @@ public class Long_Ranged : Mercenary
                 {
                     move_X *= -1;
                 }
-                rb2D.velocity = new Vector2(move_X * 2f, rb2D.velocity.y);
+                rb2D.velocity = Vector2.zero;
             }
             else if (act == Active.die)
             {
@@ -100,9 +98,9 @@ public class Long_Ranged : Mercenary
     {
         unit_Attack = type[level].Unit_Attack;
         unit_Attack_Delay = type[level].Unit_Atk_Delay;
-        workSpeed = type[level].WorkSpeed;
+        //workSpeed = type[level].WorkSpeed;
     }
-    public void Shoot_Stamina()
+/*    public void Shoot_Stamina()
     {
         if (Stamina - useStamina < 0)
         {
@@ -112,11 +110,11 @@ public class Long_Ranged : Mercenary
         {
             Stamina -= useStamina;
         }
-    }
+    }*/
 
     public void TargetFlag(bool Flag)
     {
-        if (Flag && act != Active.weak)
+        if (Flag && act != Active.refresh)
         {
             act = Active.work;
         }

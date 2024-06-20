@@ -28,7 +28,7 @@ public class Short_Ranged_KillZone : MonoBehaviour
         {
             if (collision.CompareTag("Monster"))
             {
-                unit.Attack_Stamina();
+                //unit.Attack_Stamina();
                 Destroy(collision.gameObject);
                 attack_Flag = false;
             }

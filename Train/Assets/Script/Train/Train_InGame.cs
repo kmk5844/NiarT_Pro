@@ -22,15 +22,26 @@ public class Train_InGame : MonoBehaviour
     public int Train_Armor;
 
     public string Train_Type;
+    //엔진
     public int Train_MaxSpeed;
     public int Train_Efficient;
     public int Train_Engine_Power;
+    //연료
     public int Train_Fuel;
+    //포탑
     public int Train_Attack;
     public float Train_Attack_Delay;
+    //부스터
+    public int Train_WarningSpeed;
+    public int Train_BoosterFuel;
+    public int Train_UseFuel;
+    public int Train_BoosterSpeedUP;
+    public int Train_BoosterTime;
+    //의무실
     public int Train_Heal;
     public int cur_HP; //현재체력
     float HP_Parsent;
+    
     public bool isReparing;
     public bool isRepairable;
     [Header("방어 상수")]
@@ -43,7 +54,8 @@ public class Train_InGame : MonoBehaviour
     public bool isHealing;
     public bool openMedicTrian;
     Player player;
-    GameObject gameDirector;
+    [HideInInspector]
+    public GameObject gameDirector;
 
     // Start is called before the first frame update
     private void Awake()
@@ -138,7 +150,7 @@ public class Train_InGame : MonoBehaviour
             else
             {
                 openMedicTrian = true;
-            }
+            } 
         }
     }
 
@@ -150,6 +162,11 @@ public class Train_InGame : MonoBehaviour
         Train_Fuel = 0;
         Train_Attack = 0;
         Train_Attack_Delay = 0;
+        Train_WarningSpeed = 0;
+        Train_BoosterFuel = 0;
+        Train_UseFuel = 0;
+        Train_BoosterSpeedUP = 0;
+        Train_BoosterTime = 0;
         Train_Heal = 0;
         switch (Train_Type)
         {
@@ -164,6 +181,12 @@ public class Train_InGame : MonoBehaviour
             case "Turret":
                 Train_Attack = trainData.Information_Train_Turret_Part[Train_Num2].Train_Attack;
                 Train_Attack_Delay = trainData.Information_Train_Turret_Part[Train_Num2].Train_Attack_Delay;
+                break;
+            case "Booster":
+                Train_WarningSpeed = trainData.Information_Train_Booster_Part[Train_Num2].Train_WarningSpeed;
+                Train_BoosterFuel = trainData.Information_Train_Booster_Part[Train_Num2].Train_BoosterFuel;
+                Train_UseFuel = trainData.Information_Train_Booster_Part[Train_Num2].Train_UseFuel;
+                Train_BoosterSpeedUP = trainData.Information_Train_Booster_Part[Train_Num2].Train_BoosterSpeedUP;
                 break;
             case "Medic":
                 Train_Heal = trainData.Information_Train[Train_Num].Train_Heal;

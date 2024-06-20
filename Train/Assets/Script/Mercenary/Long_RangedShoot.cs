@@ -96,7 +96,7 @@ public class Long_RangedShoot : MonoBehaviour
         if(Time.time >= lastTime + unit_Attack_Delay)
         {
             Instantiate(Bullet, transform.position, transform.rotation, Bullet_List);
-            unit.Shoot_Stamina();
+            //unit.Shoot_Stamina();
             lastTime = Time.time;
         }
     }

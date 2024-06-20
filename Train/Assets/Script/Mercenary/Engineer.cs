@@ -29,6 +29,7 @@ public class Engineer : Mercenary
     protected override void Start()
     {
         base.Start();
+        Type = mercenaryType.Engineer;
         act = Active.move;
         rigid = GetComponent<Rigidbody2D>();
         move_Work = true;
@@ -63,12 +64,12 @@ public class Engineer : Mercenary
                 act = Active.die;
                 isDying = true;
             }
-            else if (act != Active.work && Stamina >= 50 && train_HpParsent < repairTrain_Parsent && !train.isReparing && act != Active.call && act != Active.die && train_HpParsent != 0)
+            else if (act != Active.work /*&& Stamina >= 50*/ && train_HpParsent < repairTrain_Parsent && !train.isReparing && act != Active.call && act != Active.die && train_HpParsent != 0)
             {
                 train.isReparing = true;
                 act = Active.work;
             }
-            else if (act != Active.work && Stamina >= 50 && train_HpParsent < repairTrain_Parsent && !train.isReparing && act != Active.call && act != Active.die && train_HpParsent == 0)
+            else if (act != Active.work /*&& Stamina >= 50*/ && train_HpParsent < repairTrain_Parsent && !train.isReparing && act != Active.call && act != Active.die && train_HpParsent == 0)
             {
                 if (train.isRepairable)
                 {
@@ -76,12 +77,12 @@ public class Engineer : Mercenary
                     act = Active.work;
                 }
             }
-            else if (Stamina <= 0)
+            /*else if (Stamina <= 0)
             {
                 train.isReparing = false;
                 act = Active.weak;
                 move_Work = true;
-            }
+            }*/
             else if (act == Active.work && train_HpParsent > repairTrain_Parsent)
             {
                 train.isReparing = false;
@@ -112,16 +113,16 @@ public class Engineer : Mercenary
                 }
                 isDying = false;
             }
-            else if (act == Active.weak)
+            else if (act == Active.refresh)
             {
-                if (!isRefreshing_weak)
+                /*if (!isRefreshing_weak)
                 {
                     StartCoroutine(Refresh_Weak());
                 }
                 else if (Stamina >= 70)
                 {
                     act = Active.move;
-                }
+                }*/
             }
             
         }
@@ -210,14 +211,14 @@ public class Engineer : Mercenary
         isRepairing = true;
 
         yield return new WaitForSeconds(repairDelay);
-        if (Stamina - useStamina < 0)
+/*        if (Stamina - useStamina < 0)
         {
             Stamina = 0;
         }
         else
         {
             Stamina -= useStamina;
-        }
+        }*/
         train.cur_HP += repairAmount;
         isRepairing = false;
     }

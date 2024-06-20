@@ -16,7 +16,7 @@ public class Medic : Mercenary
     bool work_Revive;
 
     public float checkHP;
-    float checkStamina;
+    //float checkStamina;
     [Header ("타입마다의 추가 스탯")]
     [Header("회복량")]
     public int Heal_HpAmount;
@@ -26,7 +26,7 @@ public class Medic : Mercenary
     public int Heal_HpParsent;
 
     bool isHeal_HP;
-    bool isHeal_Stamina;
+    //bool isHeal_Stamina;
     bool isHeal_Revive;
     Vector3 PlayerPosition;
 
@@ -38,9 +38,9 @@ public class Medic : Mercenary
     protected override void Start()
     {
         base.Start();
+        Type = mercenaryType.Medic;
         act = Active.move;
         checkHP = 200;
-        checkStamina = 200;
 
         work_HP = false; 
         work_Stamina = false; 
@@ -56,12 +56,10 @@ public class Medic : Mercenary
             if (move_X > 0)
             {
                 Unit_Scale.localScale = new Vector3(-Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
-                //sprite.flipX = false;
             }
             else
             {
                 Unit_Scale.localScale = new Vector3(Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
-                //sprite.flipX = true;
             }
         }
 
@@ -73,14 +71,14 @@ public class Medic : Mercenary
                 isDying = true;
             }
 
-            if (Stamina <= 0 && act == Active.work)
+/*            if (Stamina <= 0 && act == Active.work)
             {
                 work_HP = false;
                 work_Revive = false;
                 work_Stamina = false;
                 unit.GetComponentInParent<Mercenary>().isHealWithMedic = false;
                 act = Active.weak;
-            }
+            }*/
 
             if (act == Active.work)
             {
@@ -97,7 +95,7 @@ public class Medic : Mercenary
                         StartCoroutine(Heal_HP());
                     }
                 }
-                else if (work_Revive)
+/*                else if (work_Revive)
                 {
                     if (!isHeal_Revive)
                     {
@@ -116,14 +114,14 @@ public class Medic : Mercenary
                         }
                         StartCoroutine(Heal_Stamina());
                     }
-                }
+                }*/
             }
             else if (act == Active.die && isDying)
             {
                 //Debug.Log("여기서 애니메이션 구현한다!4");
                 isDying = false;
             }
-            else if (act == Active.weak)
+            /*else if (act == Active.weak)
             {
                 if (!isRefreshing_weak)
                 {
@@ -133,7 +131,8 @@ public class Medic : Mercenary
                 {
                     act = Active.move;
                 }
-            }else if(act == Active.call)
+            }*/
+            else if(act == Active.call)
             {
                 if (transform.position.x < PlayerPosition.x - 1.5) { }
                 else if (transform.position.x > PlayerPosition.x + 1.5) { }
@@ -150,19 +149,17 @@ public class Medic : Mercenary
                     }
                     if (!isHeal_HP)
                     {
-                        if (Stamina <= 0 || player.GetComponent<Player>().Check_HpParsent() > Heal_HpParsent)
+                        StartCoroutine(Heal_PlayerHP(player));
+/*                        if (Stamina <= 0 || player.GetComponent<Player>().Check_HpParsent() > Heal_HpParsent)
                         {
                             act = Active.move;
                             work_HP = false;
                             GameObject.Find("MercenaryDirector").GetComponent<MercenaryDirector>().Call_End(mercenaryType.Medic);
-                        }
-                        StartCoroutine(Heal_PlayerHP(player));
+                        }*/
                     }
                 }
             }
-           
         }
-
     }
 
     void FixedUpdate()
@@ -241,15 +238,16 @@ public class Medic : Mercenary
     {
         isHeal_HP = true;
         yield return new WaitForSeconds(2);
-        if (Stamina - useStamina < 0)
+/*        if (Stamina - useStamina < 0)
         {
             Stamina = 0;
         }
         else
         {
             Stamina -= useStamina;
-        }
+        }*/
         unit.GetComponent<Mercenary_Type>().Heal_HP(Heal_HpAmount);
+        Debug.Log(unit.gameObject.name);
         isHeal_HP = false;
     }
 
@@ -259,24 +257,24 @@ public class Medic : Mercenary
         yield return new WaitForSeconds(2);
         if (player.GetComponent<Player>().Check_HpParsent() <= Heal_HpParsent)
         {
-            if (Stamina - useStamina < 0)
+/*            if (Stamina - useStamina < 0)
             {
                 Stamina = 0;
             }
             else
             {
                 Stamina -= useStamina;
-            }
+            }*/
             player.GetComponent<Player>().Heal_HP(Heal_HpAmount);
         }
         isHeal_HP = false;
     }
 
-    IEnumerator Heal_Stamina()
+/*    IEnumerator Heal_Stamina()
     {
         isHeal_Stamina = true;
         yield return new WaitForSeconds(2);
-        if (Stamina - useStamina < 0)
+          if (Stamina - useStamina < 0)
         {
             Stamina = 0;
         }
@@ -286,20 +284,20 @@ public class Medic : Mercenary
         }
         unit.GetComponent<Mercenary_Type>().Heal_Stamina(Heal_StaminaAmount);
         isHeal_Stamina = false;
-    }
+    }*/
 
     IEnumerator Heal_Revive()
     {
         isHeal_Revive = true;
         yield return new WaitForSeconds(2);
-        if (Stamina - useStamina < 0)
+/*        if (Stamina - useStamina < 0)
         {
             Stamina = 0;
         }
         else
         {
             Stamina -= useStamina;
-        }
+        }*/
         unit.GetComponent<Mercenary_Type>().Heal_Revive(Heal_ReviveAmount);
         isHeal_Revive = false;
         unit.GetComponentInParent<Mercenary>().isHealWithMedic = false;
@@ -330,7 +328,7 @@ public class Medic : Mercenary
                 if (act != Active.work)
                 {
                     checkHP = collision.GetComponent<Mercenary_Type>().medic_checkHpParsent;
-                    checkStamina = collision.GetComponent<Mercenary_Type>().medic_checkStaminaParsent;
+                    //checkStamina = collision.GetComponent<Mercenary_Type>().medic_checkStaminaParsent;
 
                     if (!work_HP && !work_Revive && !work_Stamina)
                     {
@@ -359,7 +357,7 @@ public class Medic : Mercenary
                                 work_Revive = true;
                             }
                         }
-                        else if (checkStamina == 0)
+/*                        else if (checkStamina == 0)
                         {
                             //추가 스테미나
                             if (act != Active.work)
@@ -368,7 +366,7 @@ public class Medic : Mercenary
                                 act = Active.work;
                                 work_Stamina = true;
                             }
-                        }
+                        }*/
                     }
                 }
             }

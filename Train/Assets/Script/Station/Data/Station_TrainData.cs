@@ -51,6 +51,7 @@ public class Station_TrainData : MonoBehaviour
     [Header("기존 부스터 변경 리스트")]
     public List<int> Train_Booster_Part_Change_Num;
 
+    public bool Flag_BoosterTrain;
     private void Awake()
     {
         Check_Level_Train();

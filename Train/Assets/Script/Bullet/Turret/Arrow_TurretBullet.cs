@@ -10,7 +10,7 @@ public class Arrow_TurretBullet : Bullet
         Bullet_Arrow_Turret();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         Vector2 gravity = Vector2.down * 9.81f;
         Vector2 velocity = rid.velocity;

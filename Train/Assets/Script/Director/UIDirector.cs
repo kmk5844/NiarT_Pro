@@ -27,7 +27,9 @@ public class UIDirector : MonoBehaviour
     public Image TotalFuel_Bar;
     public TextMeshProUGUI Speed_Text;
     public TextMeshProUGUI Fuel_Text;
-    public Transform Speed_Arrow;
+    public TextMeshProUGUI Score_Text;
+    public TextMeshProUGUI Coin_Text;
+    public Slider Speed_Arrow;
 
 
     [Header("Win UI 관련된 텍스트")]
@@ -85,7 +87,7 @@ public class UIDirector : MonoBehaviour
         TotalFuel_Bar.fillAmount = gamedirector.Check_Fuel();
         Speed_Text.text = gamedirector.TrainSpeed + " Km/h";
         Fuel_Text.text = "Fuel : "+ (int)(gamedirector.Check_Fuel() * 100f) + "%";
-
+        Speed_Arrow.value = gamedirector.TrainSpeed / gamedirector.MaxSpeed;
 
         Distance_Bar.value = gamedirector.Check_Distance();
     }
@@ -114,6 +116,12 @@ public class UIDirector : MonoBehaviour
             PauseFlag = true;
             Pause_UI.SetActive(true);
         }
+    }
+
+    public void Gameing_Text(int Score, int Coin)
+    {
+        Score_Text.text = "Score : " + Score;
+        Coin_Text.text = "Coin : " + Coin;
     }
 
     public void Win_Text(int StageNum, int Score, string Score_Grade,int Coin, int Point)

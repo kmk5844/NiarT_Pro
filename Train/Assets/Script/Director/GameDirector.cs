@@ -11,8 +11,10 @@ public class GameDirector : MonoBehaviour
     public SA_TrainData SA_TrainData;
     public SA_TrainTurretData SA_TrainTurretData;
     public SA_TrainBoosterData SA_TrainBoosterData;
+    public SA_MercenaryData SA_MercenaryData;
     public SA_PlayerData SA_PlayerData;
     public Game_DataTable EX_GameData;
+    public Level_DataTable EX_LevelData;
 
     [Header("디렉터")]
     public GameObject MonsterDirector;
@@ -46,13 +48,12 @@ public class GameDirector : MonoBehaviour
     private int Destination_Distance; // 나중에 private변경
 
     [Header("기차 리스트")]
-    public Transform List_Train;
+    public Transform Train_List;
     Train_InGame[] Trains;
     int Train_Count;
 
     [Header("기차 정보")]
-    [SerializeField]
-    int TrainFuel; // 전체적으로 더한다.
+    public int TrainFuel; // 전체적으로 더한다.
     int Total_TrainFuel;
     public float TrainSpeed;
     public int TrainDistance;
@@ -165,6 +166,7 @@ public class GameDirector : MonoBehaviour
         if (gameType == GameType.Playing)
         {
             ChangeCursor(true);
+            uiDirector.Gameing_Text(Total_Score, Total_Coin);
             if (Time.time >= RandomStartTime + StartTime && !GameStartFlag)
             {
                 GameStartFlag = true;
@@ -285,17 +287,17 @@ public class GameDirector : MonoBehaviour
         {
             if (Train_Num[i] == 51)
             {
-                TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_InGame/51_" + Train_Turret_Num[Train_Turret_Count]), List_Train);
+                TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_InGame/51_" + Train_Turret_Num[Train_Turret_Count]), Train_List);
                 Train_Turret_Count++;
             }
             else if (Train_Num[i] == 52)
             {
-                TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_InGame/52_" + Train_Booster_Num[Train_Booster_Count]), List_Train);
+                TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_InGame/52_" + Train_Booster_Num[Train_Booster_Count]), Train_List);
                 Train_Booster_Count++;
             }
             else
             {
-                TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_InGame/" + Train_Num[i]), List_Train);
+                TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_InGame/" + Train_Num[i]), Train_List);
             }
 
             if (i == 0)
@@ -318,11 +320,11 @@ public class GameDirector : MonoBehaviour
             Instantiate_TrainCam(TrainObject);
         }
 
-        Train_Count = List_Train.childCount;
+        Train_Count = Train_List.childCount;
         Trains = new Train_InGame[Train_Count];
         Respawn = GameObject.FindGameObjectWithTag("Respawn");
         Respawn.transform.localScale = new Vector3(25 * Train_Count, 1, 0);
-        Respawn.transform.position = new Vector3(List_Train.GetChild(Train_Count / 2).transform.position.x, -3, 0);
+        Respawn.transform.position = new Vector3(Train_List.GetChild(Train_Count / 2).transform.position.x, -3, 0);
 
         Level_EngineTier = SA_TrainData.Level_Train_EngineTier;
         Level_MaxSpeed = SA_TrainData.Level_Train_MaxSpeed;

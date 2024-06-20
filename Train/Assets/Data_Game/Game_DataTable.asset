@@ -1956,7 +1956,7 @@ MonoBehaviour:
   - Num: 50
     Turret_Part_Name: "\uC11D\uAD81 \uD30C\uCE20"
     Train_HP: 30000
-    Train_Weight: 8000000
+    Train_Weight: 800000
     Train_Armor: 10
     Train_Attack: 10
     Train_Attack_Delay: 8
@@ -1972,7 +1972,7 @@ MonoBehaviour:
   - Num: 51
     Turret_Part_Name: "\uC11D\uAD81 \uD30C\uCE20"
     Train_HP: 40000
-    Train_Weight: 8500000
+    Train_Weight: 850000
     Train_Armor: 11
     Train_Attack: 12
     Train_Attack_Delay: 7.8
@@ -2100,7 +2100,7 @@ MonoBehaviour:
   - Num: 60
     Turret_Part_Name: "\uC694\uACA9 \uBBF8\uC0AC\uC77C \uD3EC\uD0D1 \uD30C\uCE20"
     Train_HP: 30000
-    Train_Weight: 8000000
+    Train_Weight: 800000
     Train_Armor: 10
     Train_Attack: 0
     Train_Attack_Delay: 6
@@ -2114,7 +2114,7 @@ MonoBehaviour:
   - Num: 61
     Turret_Part_Name: "\uC694\uACA9 \uBBF8\uC0AC\uC77C \uD3EC\uD0D1 \uD30C\uCE20"
     Train_HP: 40000
-    Train_Weight: 8500000
+    Train_Weight: 850000
     Train_Armor: 11
     Train_Attack: 0
     Train_Attack_Delay: 5.8
@@ -2240,10 +2240,10 @@ MonoBehaviour:
   - Num: 70
     Turret_Part_Name: "\uD50C\uB808\uC5B4 \uD30C\uCE20"
     Train_HP: 30000
-    Train_Weight: 8000000
+    Train_Weight: 800000
     Train_Armor: 10
-    Train_Attack: 10
-    Train_Attack_Delay: 8
+    Train_Attack: 0
+    Train_Attack_Delay: 2
     Train_Buy_Cost: 4000
     Train_Upgrade_Cost: 6000
     Train_Information: 
@@ -2254,10 +2254,10 @@ MonoBehaviour:
   - Num: 71
     Turret_Part_Name: "\uD50C\uB808\uC5B4 \uD30C\uCE20"
     Train_HP: 40000
-    Train_Weight: 8500000
+    Train_Weight: 850000
     Train_Armor: 11
-    Train_Attack: 12
-    Train_Attack_Delay: 7.8
+    Train_Attack: 0
+    Train_Attack_Delay: 1.8
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 9999999
     Train_Information: 
@@ -2380,25 +2380,35 @@ MonoBehaviour:
   Information_Train_Booster_Part:
   - Num: 0
     Booster_Part_Name: "\uD504\uB85C\uD3A0\uB7EC \uC5D4\uC9C4 \uD30C\uCE20"
-    Train_HP: 0
-    Train_Weight: 0
-    Train_Armor: 0
-    Train_Buy_Cost: 0
-    Train_Upgrade_Cost: 0
-    Train_Information: 
-    Train_Select_Information: 
+    Train_HP: 30000
+    Train_Weight: 800000
+    Train_Armor: 10
+    Train_WarningSpeed: 30
+    Train_BoosterFuel: 500
+    Train_UseFuel: 5
+    Train_BoosterSpeedUP: 1
+    Train_Buy_Cost: 2000
+    Train_Upgrade_Cost: 3000
+    Train_Information: "\uC704\uAE09 \uC2DC, \uBD80\uC2A4\uD130 \uC0AC\uC6A9, \uAE30\uCC28
+      \uC18D\uB3C4 \uC99D\uAC00"
+    Train_Select_Information: /
     Store: 1
     Change: 1
     Stage_UnLock: 0
   - Num: 1
     Booster_Part_Name: "\uD504\uB85C\uD3A0\uB7EC \uC5D4\uC9C4 \uD30C\uCE20"
-    Train_HP: 0
-    Train_Weight: 0
-    Train_Armor: 0
+    Train_HP: 40000
+    Train_Weight: 850000
+    Train_Armor: 11
+    Train_WarningSpeed: 31
+    Train_BoosterFuel: 600
+    Train_UseFuel: 5
+    Train_BoosterSpeedUP: 1
     Train_Buy_Cost: 0
-    Train_Upgrade_Cost: 0
-    Train_Information: 
-    Train_Select_Information: 
+    Train_Upgrade_Cost: 99999999
+    Train_Information: "\uC704\uAE09 \uC2DC, \uBD80\uC2A4\uD130 \uC0AC\uC6A9, \uAE30\uCC28
+      \uC18D\uB3C4 \uC99D\uAC00"
+    Train_Select_Information: /
     Store: 0
     Change: 0
     Stage_UnLock: 0
@@ -2407,6 +2417,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2419,6 +2433,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2431,6 +2449,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2443,6 +2465,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2455,6 +2481,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2467,6 +2497,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2479,6 +2513,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2491,6 +2529,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2503,6 +2545,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2515,6 +2561,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2527,6 +2577,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2539,6 +2593,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2551,6 +2609,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2563,6 +2625,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2575,6 +2641,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2587,6 +2657,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2599,6 +2673,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2611,6 +2689,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2623,6 +2705,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2635,6 +2721,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2647,6 +2737,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2659,6 +2753,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2671,6 +2769,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2683,6 +2785,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2695,6 +2801,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2707,6 +2817,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2719,6 +2833,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2731,6 +2849,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2743,6 +2865,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2755,6 +2881,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2767,6 +2897,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2779,6 +2913,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2791,6 +2929,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2803,6 +2945,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2815,6 +2961,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2827,6 +2977,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2839,6 +2993,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2851,6 +3009,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2863,6 +3025,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2875,6 +3041,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2887,6 +3057,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2899,6 +3073,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2911,6 +3089,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2923,6 +3105,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2935,6 +3121,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2947,6 +3137,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2959,6 +3153,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 
@@ -2971,6 +3169,10 @@ MonoBehaviour:
     Train_HP: 0
     Train_Weight: 0
     Train_Armor: 0
+    Train_WarningSpeed: 0
+    Train_BoosterFuel: 0
+    Train_UseFuel: 0
+    Train_BoosterSpeedUP: 0
     Train_Buy_Cost: 0
     Train_Upgrade_Cost: 0
     Train_Information: 

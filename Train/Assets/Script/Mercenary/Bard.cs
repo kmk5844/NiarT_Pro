@@ -27,6 +27,8 @@ public class Bard : Mercenary
     protected override void Start()
     {
         base.Start();
+        Type = mercenaryType.Bard;
+        act = Active.work;
         Flag = false;
         transform.position = new Vector3(-2f, move_Y, 0);
         Mercenary_List = GameObject.Find("Mercenary_List").transform;
@@ -76,27 +78,7 @@ public class Bard : Mercenary
                 act = Active.die;
                 isDying = true;
             }
-            else if (Stamina <= 0)
-            {
-                act = Active.weak;
-            }
-
-            if (act == Active.work)
-            {
-                //
-            }
-            else if (act == Active.weak)
-            {
-                if (!isRefreshing_weak)
-                {
-                    StartCoroutine(Refresh_Weak());
-                }
-                else if (Stamina >= 70)
-                {
-                    act = Active.move;
-                }
-            }
-            else if(act == Active.revive && !isSurvival)
+            if(act == Active.revive && !isSurvival)
             {
                 switch (bard_type)
                 {
@@ -149,8 +131,30 @@ public class Bard : Mercenary
                         }
                         break;
                 }
+                act = Active.work;
                 isSurvival = false;
                 isDying = false;
+                /*            else if (Stamina <= 0)
+            {
+                act = Active.weak;
+            }
+
+            if (act == Active.work)
+            {
+                //
+            }
+            else if (act == Active.weak)
+            {
+                if (!isRefreshing_weak)
+                {
+                    StartCoroutine(Refresh_Weak());
+                }
+                else if (Stamina >= 70)
+                {
+                    act = Active.move;
+                }
+            }
+            else */
             }
         }else if(M_gameType == GameType.Ending)
         {

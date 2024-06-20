@@ -19,7 +19,6 @@ public class Intercept_Flare_Turret : MonoBehaviour
         trainData = transform.GetComponentInParent<Train_InGame>();
         Bullet_List = GameObject.Find("Bullet_List").GetComponent<Transform>();
         train_Attack_Delay = trainData.Train_Attack_Delay;
-        train_Attack_Delay = 2;
     }
 
     private void Update()

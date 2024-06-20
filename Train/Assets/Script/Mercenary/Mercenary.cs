@@ -9,8 +9,7 @@ public class Mercenary : MonoBehaviour
     protected GameType M_gameType;
     protected GameDirector gameDirector;
 
-    [SerializeField]
-    mercenaryType Type; // 타입을 가져와서!
+    protected mercenaryType Type; // 타입을 가져와서!
     //그 타입에 맞는 데이터를 수집해서 적용한다.
     public SA_MercenaryData SA_MercenaryData;
     public Level_DataTable EX_Level_Data;
@@ -35,13 +34,15 @@ public class Mercenary : MonoBehaviour
     public int HP;
     [HideInInspector]
     public int MaxHP;
-    public int Stamina;
-    [HideInInspector]
-    public int MaxStamina;
     [SerializeField] protected float moveSpeed;
     protected Rigidbody2D rb2D;
-    [SerializeField] private int Refresh_Amount;
     [SerializeField] private float Refresh_Delay;
+    //행동 후, 리플레쉬 후, 다시 move 전환 할 수 있도록 건든다.
+
+    //public int Stamina;
+    //[HideInInspector]
+    //public int MaxStamina;
+    //[SerializeField] private int Refresh_Amount;
 
     [Header("방어력 설정")]
     [SerializeField]
@@ -49,13 +50,14 @@ public class Mercenary : MonoBehaviour
     protected float era;
     float def_constant;
 
-    [Header("소모되는 스테미나 양")]
-    [SerializeField]
-    protected int useStamina;
-    bool isRefreshing;
-    protected bool isRefreshing_weak;
+    //[Header("소모되는 스테미나 양")]
+    //[SerializeField]
+    //protected int useStamina;
+    //bool isRefreshing;
+    //protected bool isRefreshing_weak;
     protected bool isDying;
     public bool isMedicTrainHealing;
+
     bool isCombatantWalking;
     bool isCombatantIdling;
     float Combatant_Idle_LastTime;
@@ -71,7 +73,6 @@ public class Mercenary : MonoBehaviour
     {
         Data_Index();
     }
-
     protected virtual void Start()
     {
         def_constant = 100;
@@ -94,23 +95,24 @@ public class Mercenary : MonoBehaviour
 
         era = 1f - (float)def / def_constant;
 
-        isRefreshing = false;
-        isRefreshing_weak = false;
         isHealWithMedic = false;
         isDying = false;
         isCombatantWalking = false;
         isCombatantIdling = false;
         MaxHP = HP;
-        MaxStamina = Stamina;
+        //isRefreshing = false;
+        //isRefreshing_weak = false;
+        //MaxStamina = Stamina;
     }
 
     protected void combatant_Move()
     {
-        if (Stamina < MaxStamina && !isRefreshing)
+/*        if (Stamina < MaxStamina && !isRefreshing)
         {
             StartCoroutine(Refresh());
-        }
+        }*/
 
+        //좌우 반전
         if (move_X > 0)
         {
             Unit_Scale.localScale = new Vector3(-Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
@@ -120,7 +122,8 @@ public class Mercenary : MonoBehaviour
             Unit_Scale.localScale = new Vector3(Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
         }
 
-        if (!isCombatantWalking && !isCombatantIdling)
+ 
+        if (!isCombatantWalking && !isCombatantIdling) //어디로 갈지 거리 계산
         {
             if (transform.position.x > MaxMove_X - 7)
             {
@@ -157,7 +160,7 @@ public class Mercenary : MonoBehaviour
             combatant_BeforePosition = transform.position;
             isCombatantWalking = true;
         }
-        else if (isCombatantWalking)
+        else if (isCombatantWalking) // 걷고있을 때
         {
             if (combatant_move_x > 0 && transform.position.x > combatant_BeforePosition.x + combatant_move_x)
             {
@@ -187,7 +190,7 @@ public class Mercenary : MonoBehaviour
         }
         else if (!isCombatantWalking && isCombatantIdling)
         {
-            rb2D.velocity = new Vector2(0, 0);
+            rb2D.velocity = Vector2.zero;
             combatant_Idle();
         }
         else if (isCombatantIdling && (transform.position.x < MinMove_X || transform.position.x > MaxMove_X))
@@ -205,10 +208,10 @@ public class Mercenary : MonoBehaviour
     }
     protected void non_combatant_Move()
     {
-        if (Stamina <= 100 && !isRefreshing)
+/*        if (Stamina <= 100 && !isRefreshing)
         {
             StartCoroutine(Refresh());
-        }
+        }*/
 
         if(move_X > 0)
         {
@@ -231,29 +234,28 @@ public class Mercenary : MonoBehaviour
         rb2D.velocity = new Vector2(move_X * moveSpeed, rb2D.velocity.y);
     }
 
-    IEnumerator Refresh()
+/*    IEnumerator Refresh()
     {
-        isRefreshing = true;
-        yield return new WaitForSeconds(Refresh_Delay);
-        if (Stamina + Refresh_Amount > MaxStamina)
+        //isRefreshing = true;
+        //yield return new WaitForSeconds(Refresh_Delay);
+*//*        if (Stamina + Refresh_Amount > MaxStamina)
         {
             Stamina = MaxStamina;
         }
         else
         {
             Stamina += Refresh_Amount;
-        }
+        }*//*
 
-        isRefreshing = false;
-    }
-    protected IEnumerator Refresh_Weak()
+        //sRefreshing = false;
+    }*/
+/*    protected IEnumerator Refresh_Weak()
     {
         isRefreshing_weak = true;
         yield return new WaitForSeconds(10);
         Stamina = 70;
         isRefreshing_weak = false;
-
-    }
+    }*/
     protected void combatant_Idle()
     {
         if (!isCombatantIdling)
@@ -270,19 +272,19 @@ public class Mercenary : MonoBehaviour
     {
         return (float)HP / (float)MaxHP * 100f;
     }
-    public float check_StaminaParsent()
+/*    public float check_StaminaParsent()
     {
         return (float)Stamina / (float)MaxStamina * 100f;
-    }
+    }*/
     public IEnumerator Revive(int Heal_HpParsent) //애니메이션 추가하면 좋음
     {
         act = Active.revive;
         HP = MaxHP * Heal_HpParsent / 100;
-        Debug.Log("대충 부활하는 애니메이션");
+        Debug.Log("대충 부활하는 애니메이션 : " + gameObject.name);
         yield return new WaitForSeconds(2);
         act = Active.move;
     }
-    //부활은 메딕이랑 그 이후의 시스템이 나오면 적을 예정
+
     public bool Check_Work()
     {
         if (act == Active.move)
@@ -371,62 +373,62 @@ public class Mercenary : MonoBehaviour
         {
             case mercenaryType.Engine_Driver:
                 HP = EX_Level_Data.Level_Mercenary_Engine_Driver[SA_MercenaryData.Level_Engine_Driver].HP;
-                Stamina = EX_Level_Data.Level_Mercenary_Engine_Driver[SA_MercenaryData.Level_Engine_Driver].Stamina;
+                //Stamina = EX_Level_Data.Level_Mercenary_Engine_Driver[SA_MercenaryData.Level_Engine_Driver].Stamina;
                 moveSpeed = EX_Level_Data.Level_Mercenary_Engine_Driver[SA_MercenaryData.Level_Engine_Driver].MoveSpeed;
-                Refresh_Amount = EX_Level_Data.Level_Mercenary_Engine_Driver[SA_MercenaryData.Level_Engine_Driver].Refresh_Amount;
+                //Refresh_Amount = EX_Level_Data.Level_Mercenary_Engine_Driver[SA_MercenaryData.Level_Engine_Driver].Refresh_Amount;
                 Refresh_Delay = EX_Level_Data.Level_Mercenary_Engine_Driver[SA_MercenaryData.Level_Engine_Driver].Refresh_Delay;
                 def = EX_Level_Data.Level_Mercenary_Engine_Driver[SA_MercenaryData.Level_Engine_Driver].Def;
-                useStamina = EX_Level_Data.Level_Mercenary_Engine_Driver[SA_MercenaryData.Level_Engine_Driver].Use_Stamina;
+                //useStamina = EX_Level_Data.Level_Mercenary_Engine_Driver[SA_MercenaryData.Level_Engine_Driver].Use_Stamina;
                 GetComponent<Engine_Driver>().Level_AddStatus_Engine_Driver(EX_Level_Data.Level_Mercenary_Engine_Driver, SA_MercenaryData.Level_Engine_Driver);
                 break;
             case mercenaryType.Engineer:
                 HP = EX_Level_Data.Level_Mercenary_Engineer[SA_MercenaryData.Level_Engineer].HP;
-                Stamina = EX_Level_Data.Level_Mercenary_Engineer[SA_MercenaryData.Level_Engineer].Stamina;
+                //Stamina = EX_Level_Data.Level_Mercenary_Engineer[SA_MercenaryData.Level_Engineer].Stamina;
                 moveSpeed = EX_Level_Data.Level_Mercenary_Engineer[SA_MercenaryData.Level_Engineer].MoveSpeed;
-                Refresh_Amount = EX_Level_Data.Level_Mercenary_Engineer[SA_MercenaryData.Level_Engineer].Refresh_Amount;
+                //Refresh_Amount = EX_Level_Data.Level_Mercenary_Engineer[SA_MercenaryData.Level_Engineer].Refresh_Amount;
                 Refresh_Delay = EX_Level_Data.Level_Mercenary_Engineer[SA_MercenaryData.Level_Engineer].Refresh_Delay;
                 def = EX_Level_Data.Level_Mercenary_Engineer[SA_MercenaryData.Level_Engineer].Def;
-                useStamina = EX_Level_Data.Level_Mercenary_Engineer[SA_MercenaryData.Level_Engineer].Use_Stamina;
+                //useStamina = EX_Level_Data.Level_Mercenary_Engineer[SA_MercenaryData.Level_Engineer].Use_Stamina;
                 GetComponent<Engineer>().Level_AddStatus_Engineer(EX_Level_Data.Level_Mercenary_Engineer, SA_MercenaryData.Level_Engineer);
                 break;
             case mercenaryType.Long_Ranged:
                 HP = EX_Level_Data.Level_Mercenary_Long_Ranged[SA_MercenaryData.Level_Long_Ranged].HP;
-                Stamina = EX_Level_Data.Level_Mercenary_Long_Ranged[SA_MercenaryData.Level_Long_Ranged].Stamina;
+                //Stamina = EX_Level_Data.Level_Mercenary_Long_Ranged[SA_MercenaryData.Level_Long_Ranged].Stamina;
                 moveSpeed = EX_Level_Data.Level_Mercenary_Long_Ranged[SA_MercenaryData.Level_Long_Ranged].MoveSpeed;
-                Refresh_Amount = EX_Level_Data.Level_Mercenary_Long_Ranged[SA_MercenaryData.Level_Long_Ranged].Refresh_Amount;
+                //Refresh_Amount = EX_Level_Data.Level_Mercenary_Long_Ranged[SA_MercenaryData.Level_Long_Ranged].Refresh_Amount;
                 Refresh_Delay = EX_Level_Data.Level_Mercenary_Long_Ranged[SA_MercenaryData.Level_Long_Ranged].Refresh_Delay;
                 def = EX_Level_Data.Level_Mercenary_Long_Ranged[SA_MercenaryData.Level_Long_Ranged].Def;
-                useStamina = EX_Level_Data.Level_Mercenary_Long_Ranged[SA_MercenaryData.Level_Long_Ranged].Use_Stamina;
+                //useStamina = EX_Level_Data.Level_Mercenary_Long_Ranged[SA_MercenaryData.Level_Long_Ranged].Use_Stamina;
                 GetComponent<Long_Ranged>().Level_AddStatus_LongRanged(EX_Level_Data.Level_Mercenary_Long_Ranged, SA_MercenaryData.Level_Long_Ranged);
                 break;
             case mercenaryType.Short_Ranged:
                 HP = EX_Level_Data.Level_Mercenary_Short_Ranged[SA_MercenaryData.Level_Short_Ranged].HP;
-                Stamina = EX_Level_Data.Level_Mercenary_Short_Ranged[SA_MercenaryData.Level_Short_Ranged].Stamina;
+                //Stamina = EX_Level_Data.Level_Mercenary_Short_Ranged[SA_MercenaryData.Level_Short_Ranged].Stamina;
                 moveSpeed = EX_Level_Data.Level_Mercenary_Short_Ranged[SA_MercenaryData.Level_Short_Ranged].MoveSpeed;
-                Refresh_Amount = EX_Level_Data.Level_Mercenary_Short_Ranged[SA_MercenaryData.Level_Short_Ranged].Refresh_Amount;
+                //Refresh_Amount = EX_Level_Data.Level_Mercenary_Short_Ranged[SA_MercenaryData.Level_Short_Ranged].Refresh_Amount;
                 Refresh_Delay = EX_Level_Data.Level_Mercenary_Short_Ranged[SA_MercenaryData.Level_Short_Ranged].Refresh_Delay;
                 def = EX_Level_Data.Level_Mercenary_Short_Ranged[SA_MercenaryData.Level_Short_Ranged].Def;
-                useStamina = EX_Level_Data.Level_Mercenary_Short_Ranged[SA_MercenaryData.Level_Short_Ranged].Use_Stamina;
+                //useStamina = EX_Level_Data.Level_Mercenary_Short_Ranged[SA_MercenaryData.Level_Short_Ranged].Use_Stamina;
                 GetComponent<Short_Ranged>().Level_AddStatus_ShortRanged(EX_Level_Data.Level_Mercenary_Short_Ranged, SA_MercenaryData.Level_Short_Ranged);
                 break;
             case mercenaryType.Medic:
                 HP = EX_Level_Data.Level_Mercenary_Medic[SA_MercenaryData.Level_Medic].HP;
-                Stamina = EX_Level_Data.Level_Mercenary_Medic[SA_MercenaryData.Level_Medic].Stamina;
+                //Stamina = EX_Level_Data.Level_Mercenary_Medic[SA_MercenaryData.Level_Medic].Stamina;
                 moveSpeed = EX_Level_Data.Level_Mercenary_Medic[SA_MercenaryData.Level_Medic].MoveSpeed;
-                Refresh_Amount = EX_Level_Data.Level_Mercenary_Medic[SA_MercenaryData.Level_Medic].Refresh_Amount;
+                //Refresh_Amount = EX_Level_Data.Level_Mercenary_Medic[SA_MercenaryData.Level_Medic].Refresh_Amount;
                 Refresh_Delay = EX_Level_Data.Level_Mercenary_Medic[SA_MercenaryData.Level_Medic].Refresh_Delay;
                 def = EX_Level_Data.Level_Mercenary_Medic[SA_MercenaryData.Level_Medic].Def;
-                useStamina = EX_Level_Data.Level_Mercenary_Medic[SA_MercenaryData.Level_Medic].Use_Stamina;
+                //useStamina = EX_Level_Data.Level_Mercenary_Medic[SA_MercenaryData.Level_Medic].Use_Stamina;
                 GetComponent<Medic>().Level_AddStatus_Medic(EX_Level_Data.Level_Mercenary_Medic, SA_MercenaryData.Level_Medic);
                 break;
             case mercenaryType.Bard:
                 HP = EX_Level_Data.Level_Mercenary_Bard[SA_MercenaryData.Level_Bard].HP;
-                Stamina = EX_Level_Data.Level_Mercenary_Bard[SA_MercenaryData.Level_Bard].Stamina;
+                //Stamina = EX_Level_Data.Level_Mercenary_Bard[SA_MercenaryData.Level_Bard].Stamina;
                 moveSpeed = EX_Level_Data.Level_Mercenary_Bard[SA_MercenaryData.Level_Bard].MoveSpeed;
-                Refresh_Amount = EX_Level_Data.Level_Mercenary_Bard[SA_MercenaryData.Level_Bard].Refresh_Amount;
+                //Refresh_Amount = EX_Level_Data.Level_Mercenary_Bard[SA_MercenaryData.Level_Bard].Refresh_Amount;
                 Refresh_Delay = EX_Level_Data.Level_Mercenary_Bard[SA_MercenaryData.Level_Bard].Refresh_Delay;
                 def = EX_Level_Data.Level_Mercenary_Bard[SA_MercenaryData.Level_Bard].Def;
-                useStamina = EX_Level_Data.Level_Mercenary_Bard[SA_MercenaryData.Level_Bard].Use_Stamina;
+                //useStamina = EX_Level_Data.Level_Mercenary_Bard[SA_MercenaryData.Level_Bard].Use_Stamina;
                 GetComponent<Bard>().Level_AddStatus_Bard(EX_Level_Data.Level_Mercenary_Bard, SA_MercenaryData.Level_Bard);
                 break;
         }
@@ -438,8 +440,7 @@ public enum Active
     work,   // 작업
     die,    // 죽음
     revive, // 부활
-    weak,   // 스테미나 부족
-    drained, // 탈진
+    refresh,   // 스테미나 부족
     call,   //플레이어 호출
     Game_Wait, // 인게임의 기다림 
     //플레이어 상호작용 추가하면 -> 플레이어 향해 가서 상호작용 한다

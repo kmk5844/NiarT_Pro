@@ -47,7 +47,7 @@ public class MercenaryDirector : MonoBehaviour
 
         for (int i = 0; i < Mercenary_Num.Count; i++)
         {
-            GameObject MercenaryObject = Instantiate(Resources.Load<GameObject>("MercenaryObject/" + Mercenary_Num[i]), Mercenary_List);
+            GameObject MercenaryObject = Instantiate(Resources.Load<GameObject>("MercenaryObject/" + Mercenary_Num[i] + "_New"), Mercenary_List);
             MercenaryObject.name = MercenaryObject.GetComponent<Mercenary_Type>().mercenary_type.ToString();
             Spawn_MercenaryUI(MercenaryObject, i, Mercenary_Num[i]);
         }
