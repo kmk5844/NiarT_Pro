@@ -2,17 +2,161 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Medic_New : MonoBehaviour
+public class Medic_New : Mercenary_New
 {
-    // Start is called before the first frame update
-    void Start()
+    public Transform unit;
+    
+    bool work_HP;
+    public float CheckHP;
+    int Heal_HpAmount;
+    int Heal_HpParsent;
+
+    bool isHeal_HP;
+
+
+    protected override void Awake()
     {
-        
+        base.Awake();
+    }
+    protected override void Start()
+    {
+        base.Start();
+        act = Active.move;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        Check_GameType();
+        if(act != Active.work)
+        {
+            non_combatant_Flip();
+        }
+
+        if(Mer_GameType == GameType.Playing)
+        {
+            if(HP<= 0 && act != Active.die)
+            {
+                act = Active.die;
+                isDying = true;
+            }
+
+            if(act == Active.work)
+            {
+                if (work_HP)
+                {
+                    if (!isHeal_HP)
+                    {
+                        CheckHP = unit.GetComponent<Mercenary_Type>().medic_checkHpParsent;
+                        if (CheckHP > Heal_HpParsent)
+                        {
+                            act = Active.refresh;
+                            work_HP = false;
+                            unit.GetComponentInParent<Mercenary_New>().isHealWithMedic = false;
+                        }
+                        StartCoroutine(Heal_HP());
+                    }
+                }
+            }else if(act == Active.die && isDying)
+            {
+                isDying = false;
+            }else if(act == Active.refresh) {
+                if (!isRefreshing)
+                {
+                    StartCoroutine(Refresh());
+                }   
+            }
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if(Mer_GameType == GameType.Playing)
+        {
+            if (act == Active.move)
+            {
+                base.non_combatant_Move();
+            }else if(act == Active.work)
+            {
+                if(unit.GetComponentInParent<Mercenary_New>().Check_MoveX() > 0)
+                {
+                    Unit_Scale.localScale = new Vector3(-Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
+                    transform.position = new Vector3(unit.position.x - 0.6f, Move_Y, 0);
+                }
+                else
+                {
+                    Unit_Scale.localScale = new Vector3(Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
+                    transform.position = new Vector3(unit.position.x + 0.6f, Move_Y, 0);
+                }
+            }else if(act == Active.refresh)
+            {
+                rb2D.velocity = Vector2.zero;
+            }
+            else if(act == Active.die)
+            {
+                rb2D.velocity = Vector2.zero;
+            }
+        }else if(Mer_GameType == GameType.Ending)
+        {
+            act = Active.Game_Wait;
+            rb2D.velocity = Vector2.zero;
+        }
+    }
+
+    IEnumerator Heal_HP()
+    {
+        isHeal_HP = true;
+        workCount++;
+
+        if (workCount > Max_workCount)
+        {
+            if (unit.GetComponentInParent<Mercenary_New>().isHealWithMedic)
+            {
+                work_HP = false;
+                unit.GetComponentInParent<Mercenary_New>().isHealWithMedic = false;
+            }
+            act = Active.refresh;
+        }
+        else
+        {
+            unit.GetComponent<Mercenary_Type>().Heal_HP(Heal_HpAmount);
+        }
+        yield return new WaitForSeconds(1);
+        isHeal_HP = false;
+    }
+
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
+        base.OnTriggerEnter2D(collision);
+        if(collision != null && collision.CompareTag("Mercenary"))
+        {
+            if (act != Active.work)
+            {
+                CheckHP = collision.GetComponent<Mercenary_Type>().medic_checkHpParsent;
+
+                if (!work_HP)
+                {
+                    unit = collision.GetComponent<Transform>();
+                }
+
+                if (!unit.GetComponentInParent<Mercenary_New>().isHealWithMedic)
+                {
+                    if(CheckHP != 0 && CheckHP < Heal_HpParsent)
+                    {
+                        if(act != Active.work)
+                        {
+                            unit.GetComponentInParent<Mercenary_New>().isHealWithMedic = true;
+                            act = Active.work;
+                            work_HP = true;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void Level_AddStatus_Medic(List<Info_Level_Mercenary_Medic> type, int level)
+    {
+        Heal_HpAmount = type[level].Heal_Hp_Amount;
+        Heal_HpParsent = type[level].Heal_HP_Parsent;
     }
 }

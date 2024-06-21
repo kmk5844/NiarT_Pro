@@ -11,7 +11,7 @@ public class Mercenary_New : MonoBehaviour
     protected SA_MercenaryData SA_MercenaryData;
     protected Level_DataTable EX_Level_Data;
 
-    Transform Unit_Scale;
+    protected Transform Unit_Scale;
     protected float Unit_Scale_X;
     protected float Unit_Scale_Y;
     protected float Unit_Scale_Z;
@@ -32,6 +32,9 @@ public class Mercenary_New : MonoBehaviour
     protected float moveSpeed;
     protected Rigidbody2D rb2D;
     public float Refresh_Delay;
+    protected int workCount;
+    [SerializeField]
+    protected int Max_workCount;
 
     //전투 용병 Move
     bool isCombatantWalking;
@@ -41,8 +44,9 @@ public class Mercenary_New : MonoBehaviour
     Vector2 Combatant_BeforePosition;
 
     //휴식
-    bool isRefreshing;
+    protected bool isRefreshing;
     protected bool isDying;
+    public bool isHealWithMedic;
 
 
     [Header("방어력 설정")]
@@ -79,6 +83,7 @@ public class Mercenary_New : MonoBehaviour
 
         isCombatantWalking = false;
         isCombatantIdling = false;
+        isRefreshing = false;
     }
 
     protected void Combatant_Move()
@@ -221,8 +226,11 @@ public class Mercenary_New : MonoBehaviour
     {
         isRefreshing = true;
         // 랜덤으로 넣으면 좋겠다는 대표님의 의견
+        Debug.Log("코루틴 시작");
         yield return new WaitForSeconds(Refresh_Delay);
+        workCount = 0;
         act = Active.move;
+        Debug.Log("휴식 완료");
         isRefreshing = false;
     }
 
@@ -233,6 +241,12 @@ public class Mercenary_New : MonoBehaviour
         Debug.Log("부활 : " + gameObject.name);
         yield return new WaitForSeconds(4);
         act = Active.move;
+    }
+
+    public void workCountUP()
+    {
+        workCount++;
+        Debug.Log(workCount);
     }
 
     public float Check_MoveX()
@@ -290,8 +304,7 @@ public class Mercenary_New : MonoBehaviour
             def -= buff_Def;
         }
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Monster_Bullet"))
         {
@@ -329,13 +342,13 @@ public class Mercenary_New : MonoBehaviour
                 HP = EX_Level_Data.Level_Mercenary_Engineer[SA_MercenaryData.Level_Engineer].HP;
                 moveSpeed = EX_Level_Data.Level_Mercenary_Engineer[SA_MercenaryData.Level_Engineer].MoveSpeed;
                 def = EX_Level_Data.Level_Mercenary_Engineer[SA_MercenaryData.Level_Engineer].Def;
-                GetComponent<Engineer>().Level_AddStatus_Engineer(EX_Level_Data.Level_Mercenary_Engineer, SA_MercenaryData.Level_Engineer);
+                GetComponent<Engineer_New>().Level_AddStatus_Engineer(EX_Level_Data.Level_Mercenary_Engineer, SA_MercenaryData.Level_Engineer);
                 break;
             case mercenaryType.Long_Ranged:
                 HP = EX_Level_Data.Level_Mercenary_Long_Ranged[SA_MercenaryData.Level_Long_Ranged].HP;
                 moveSpeed = EX_Level_Data.Level_Mercenary_Long_Ranged[SA_MercenaryData.Level_Long_Ranged].MoveSpeed;
                 def = EX_Level_Data.Level_Mercenary_Long_Ranged[SA_MercenaryData.Level_Long_Ranged].Def;
-                GetComponent<Long_Ranged>().Level_AddStatus_LongRanged(EX_Level_Data.Level_Mercenary_Long_Ranged, SA_MercenaryData.Level_Long_Ranged);
+                GetComponent<Long_Ranged_New>().Level_AddStatus_LongRanged(EX_Level_Data.Level_Mercenary_Long_Ranged, SA_MercenaryData.Level_Long_Ranged);
                 break;
             case mercenaryType.Short_Ranged:
                 HP = EX_Level_Data.Level_Mercenary_Short_Ranged[SA_MercenaryData.Level_Short_Ranged].HP;
@@ -347,7 +360,7 @@ public class Mercenary_New : MonoBehaviour
                 HP = EX_Level_Data.Level_Mercenary_Medic[SA_MercenaryData.Level_Medic].HP;
                 moveSpeed = EX_Level_Data.Level_Mercenary_Medic[SA_MercenaryData.Level_Medic].MoveSpeed;
                 def = EX_Level_Data.Level_Mercenary_Medic[SA_MercenaryData.Level_Medic].Def;
-                GetComponent<Medic>().Level_AddStatus_Medic(EX_Level_Data.Level_Mercenary_Medic, SA_MercenaryData.Level_Medic);
+                GetComponent<Medic_New>().Level_AddStatus_Medic(EX_Level_Data.Level_Mercenary_Medic, SA_MercenaryData.Level_Medic);
                 break;
             case mercenaryType.Bard:
                 HP = EX_Level_Data.Level_Mercenary_Bard[SA_MercenaryData.Level_Bard].HP;

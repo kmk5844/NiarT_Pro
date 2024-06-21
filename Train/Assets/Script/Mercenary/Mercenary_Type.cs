@@ -19,11 +19,13 @@ public class Mercenary_Type : MonoBehaviour
         switch (mercenary_type)
         {
             case mercenaryType.Engineer:
-                medic_checkHpParsent = GetComponent<Engineer>().check_HpParsent();
+                //medic_checkHpParsent = GetComponent<Engineer>().check_HpParsent();
+                medic_checkHpParsent = GetComponent<Engineer_New>().Check_HpParsent();
                 //medic_checkStaminaParsent = GetComponent<Engineer>().check_StaminaParsent();
                 break;
             case mercenaryType.Long_Ranged:
-                medic_checkHpParsent = GetComponent<Long_Ranged>().check_HpParsent();
+                medic_checkHpParsent = GetComponent<Long_Ranged_New>().Check_HpParsent();
+                //medic_checkHpParsent = GetComponent<Long_Ranged>().check_HpParsent();
                 //medic_checkStaminaParsent = GetComponent<Long_Ranged>().check_StaminaParsent();
                 break;
             case mercenaryType.Short_Ranged:
@@ -31,7 +33,7 @@ public class Mercenary_Type : MonoBehaviour
                 //medic_checkStaminaParsent = GetComponent<Short_Ranged>().check_StaminaParsent();
                 break;
             case mercenaryType.Medic:
-                medic_checkHpParsent = GetComponent<Medic>().check_HpParsent();
+                medic_checkHpParsent = GetComponent<Medic_New>().Check_HpParsent();
                 //medic_checkStaminaParsent = GetComponent<Medic>().check_StaminaParsent();
                 break;
             case mercenaryType.Engine_Driver:
@@ -56,7 +58,7 @@ public class Mercenary_Type : MonoBehaviour
         switch (mercenary_type)
         {
             case mercenaryType.Engineer:
-                GetComponent<Engineer>().HP += Medic_Heal;
+                GetComponent<Engineer_New>().HP += Medic_Heal;
                 break;
             case mercenaryType.Long_Ranged:
                 GetComponent<Long_Ranged>().HP += Medic_Heal;
@@ -65,7 +67,7 @@ public class Mercenary_Type : MonoBehaviour
                 GetComponent<Short_Ranged>().HP += Medic_Heal;
                 break;
             case mercenaryType.Medic:
-                GetComponent<Medic>().HP += Medic_Heal;
+                GetComponent<Medic_New>().HP += Medic_Heal;
                 break;
             case mercenaryType.Engine_Driver:
                 GetComponent<Engine_Driver_New>().HP += Medic_Heal;

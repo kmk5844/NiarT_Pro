@@ -50,7 +50,6 @@ public class Booster_Train : MonoBehaviour
                     {
                         BoosterFuel += 1;
                         gameDirector.TrainFuel -= 1;
-                        Debug.Log("충전 중");
                     }
                     lastTime = Time.time;
                 }
@@ -59,7 +58,6 @@ public class Booster_Train : MonoBehaviour
                     BoosterFuel = Data_BoosterFuel;
                     FuelFlag = true;
                     lastTime = Time.time;
-                    Debug.Log("충전 완료");
                 }
             }
         }

@@ -440,7 +440,7 @@ public enum Active
     work,   // 작업
     die,    // 죽음
     revive, // 부활
-    refresh,   // 스테미나 부족
+    refresh,   //휴식
     call,   //플레이어 호출
     Game_Wait, // 인게임의 기다림 
     //플레이어 상호작용 추가하면 -> 플레이어 향해 가서 상호작용 한다

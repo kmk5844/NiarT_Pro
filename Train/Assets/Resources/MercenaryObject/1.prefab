@@ -1304,7 +1304,7 @@ SortingGroup:
   m_GameObject: {fileID: 3492529602214384306}
   m_Enabled: 1
   m_SortingLayerID: -400100297
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 5
   m_SortAtRoot: 0
 --- !u!95 &923802621404710413
@@ -1721,10 +1721,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5672988045978866468}
   - component: {fileID: 5657773405572910835}
-  - component: {fileID: -5034076542171183547}
   - component: {fileID: 981002140666562588}
   - component: {fileID: 8577565596038662855}
   - component: {fileID: 3682293328867946100}
+  - component: {fileID: 1330521819056149970}
   m_Layer: 11
   m_Name: 1
   m_TagString: Mercenary
@@ -1774,42 +1774,6 @@ MonoBehaviour:
   UnitTypeChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &-5034076542171183547
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4407769092627486282}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 739d6b64946ea48468dc89143c3e65d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Type: 0
-  SA_MercenaryData: {fileID: 11400000, guid: 001e50c30842bd2419afbe10369066e1, type: 2}
-  EX_Level_Data: {fileID: 11400000, guid: 44cb49c8f1fbe1d4b93aa11c2f1dd5e4, type: 2}
-  Unit_Scale: {fileID: 3384528955262121181}
-  act: 0
-  MaxMove_X: 0
-  MinMove_X: 0
-  HP: 0
-  MaxHP: 0
-  Stamina: 0
-  MaxStamina: 0
-  moveSpeed: 4
-  Refresh_Amount: 0
-  Refresh_Delay: 0
-  def: 0
-  def_constant: 100
-  useStamina: 0
-  isMedicTrainHealing: 0
-  isHealWithMedic: 0
-  isCalling: 0
-  repairDelay: 0
-  repairAmount: 0
-  move_work_speed: 0
-  repairTrain_Parsent: 0
 --- !u!114 &981002140666562588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1822,7 +1786,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84bedad9b23f94c47b2228e5b3e06450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mercenary_type: 0
   medic_checkHpParsent: 0
   medic_checkStaminaParsent: 0
 --- !u!50 &8577565596038662855
@@ -1887,6 +1850,36 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.32}
   m_Size: {x: 0.25, y: 0.6}
   m_Direction: 0
+--- !u!114 &1330521819056149970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4407769092627486282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 739d6b64946ea48468dc89143c3e65d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SA_MercenaryData: {fileID: 11400000, guid: 001e50c30842bd2419afbe10369066e1, type: 2}
+  EX_Level_Data: {fileID: 11400000, guid: 44cb49c8f1fbe1d4b93aa11c2f1dd5e4, type: 2}
+  Unit_Scale: {fileID: 3384528955262121181}
+  act: 0
+  MaxMove_X: 0
+  MinMove_X: 0
+  HP: 0
+  MaxHP: 0
+  moveSpeed: 0
+  Refresh_Delay: 0
+  def: 0
+  isMedicTrainHealing: 0
+  isHealWithMedic: 0
+  isCalling: 0
+  repairDelay: 0
+  repairAmount: 0
+  move_work_speed: 0
+  repairTrain_Parsent: 0
 --- !u!1 &4504844242798188848
 GameObject:
   m_ObjectHideFlags: 0

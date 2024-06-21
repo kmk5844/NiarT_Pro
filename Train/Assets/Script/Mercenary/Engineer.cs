@@ -175,7 +175,7 @@ public class Engineer : Mercenary
                 {
                     isCalling = false;
                     act = Active.move;
-                    mercenaryDirector.Call_End(mercenaryType.Engineer);
+                    //mercenaryDirector.Call_End(mercenaryType.Engineer);
                 }
             }
             else if (act == Active.die)

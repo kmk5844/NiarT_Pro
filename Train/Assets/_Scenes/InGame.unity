@@ -15461,6 +15461,7 @@ MonoBehaviour:
   EX_LevelData: {fileID: 11400000, guid: 44cb49c8f1fbe1d4b93aa11c2f1dd5e4, type: 2}
   MonsterDirector: {fileID: 550142801}
   UI_DirectorObject: {fileID: 1935013891}
+  player: {fileID: 0}
   Stage_Num: 0
   Emerging_Monster: 
   Reward_Point: 0
@@ -15470,6 +15471,7 @@ MonoBehaviour:
   TrainSpeed: 0
   TrainDistance: 0
   TrainWeight: 0
+  SpawnTrainFlag: 0
   TrainMaxSpeed: 0
   TrainEfficient: 0
   TrainEnginePower: 0
@@ -21920,7 +21922,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EX_GameData: {fileID: 11400000, guid: 3a83740cb85032c498c0bbd5b0a2ec9d, type: 2}
   SA_PlayerData: {fileID: 11400000, guid: 00cbb5f50188b374e85c8a529a52b4b0, type: 2}
-  TestMonsterCount: 0
+  TestMonsterCount: 1
   Monster_List: {fileID: 2125283571}
   MaxPos_Sky: {x: 0, y: 0}
   MinPos_Sky: {x: 0, y: 0}
@@ -34606,10 +34608,7 @@ MonoBehaviour:
   Mercenary_Num: 
   Mercenary_List: {fileID: 1315201695}
   isEngineerCall: 0
-  isMedicCall: 0
-  Team_1: {fileID: 0}
-  Team_2: {fileID: 0}
-  Team_Flag: 0
+  Mercenary_Spawn_Flag: 0
 --- !u!1 &1018480110
 GameObject:
   m_ObjectHideFlags: 0
