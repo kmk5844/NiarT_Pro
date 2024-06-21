@@ -34,16 +34,20 @@ public class Long_Ranged_New : Mercenary_New
                 act = Active.die;
                 isDying = true;
             }
+            if(act == Active.move)
+            {
+                if (!shoot.enabled)
+                {
+                    shoot.enabled = true;
+                }
+            }
             if (act == Active.work)
             {
                 if(workCount > Max_workCount)
                 {
                     act = Active.refresh;
                 }
-                if (!shoot.enabled)
-                {
-                    shoot.enabled = true;
-                }
+
             }
             if(act == Active.refresh)
             {
@@ -67,7 +71,7 @@ public class Long_Ranged_New : Mercenary_New
     {
         if (Mer_GameType == GameType.Playing)
         {
-            if(act == Active.move)
+            if (act == Active.move)
             {
                 base.Combatant_Move();
             }
@@ -84,7 +88,7 @@ public class Long_Ranged_New : Mercenary_New
                 rb2D.velocity = Vector2.zero;
             }
         }
-        else if(Mer_GameType == GameType.Ending)
+        else if (Mer_GameType == GameType.Ending)
         {
             act = Active.Game_Wait;
             rb2D.velocity = Vector2.zero;
