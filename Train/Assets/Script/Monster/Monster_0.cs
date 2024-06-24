@@ -28,8 +28,9 @@ public class Monster_0 : Monster
         xPos = -1f;
     }
 
-    void Update()
+    protected override void Update()
     {
+        base.Update();
         Total_GameType();
         Fire_Debuff();
         if (monster_gametype == Monster_GameType.Fighting)
@@ -37,15 +38,20 @@ public class Monster_0 : Monster
             BulletFire();
             FlipMonster();
         }
-        else if(monster_gametype == Monster_GameType.GameEnding)
+        
+        if(monster_gametype == Monster_GameType.GameEnding)
         {
             Monster_Ending();
         }
     }
 
-    private void FixedUpdate()
+    protected override void FixedUpdate()
     {
-        MonsterMove();
+        base.FixedUpdate();
+        if(monster_gametype == Monster_GameType.Fighting)
+        {
+            MonsterMove();
+        }
     }
 
     void MonsterMove()

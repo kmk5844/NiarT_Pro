@@ -34,6 +34,10 @@ public class SA_MercenaryData : ScriptableObject
     public int Level_Bard { get { return level_bard; } }
 
     [SerializeField]
+    private int level_cowboy;
+    public int Level_CowBoy { get { return level_cowboy; } }
+
+    [SerializeField]
     private Engine_Driver_Type engine_driver_type;
     public Engine_Driver_Type Engine_Driver_Type { get { return engine_driver_type; } }
 
@@ -160,6 +164,14 @@ public class SA_MercenaryData : ScriptableObject
                 level_medic++;
                 Save();
                 break;
+            case 5:
+                level_bard++;
+                Save();
+                break;
+            case 6:
+                level_cowboy++;
+                Save();
+                break;
         }
     }
     private void Save()
@@ -175,6 +187,7 @@ public class SA_MercenaryData : ScriptableObject
         //데모버전 이후
         ES3.Save<Bard_Type>("SA_Mercenary_Data_bard_type", bard_type);
         ES3.Save("SA_Mercenary_Data_Data_level_bard", level_bard);
+        ES3.Save("SA_Mercenary_Data_Data_level_cowboy", level_cowboy);
 
     }
 
@@ -191,6 +204,7 @@ public class SA_MercenaryData : ScriptableObject
         //데모버전 이후
         bard_type = ES3.Load<Bard_Type>("SA_Mercenary_Data_engine_driver_type");
         level_medic = ES3.Load<int>("SA_Mercenary_Data_Data_level_bard");
+        level_cowboy = ES3.Load<int>("SA_Mercenary_Data_Data_level_cowboy");
     }
 
     public void Init()
@@ -205,6 +219,7 @@ public class SA_MercenaryData : ScriptableObject
         level_short_ranged = 0;
         level_medic = 0;
         level_bard = 0;
+        level_cowboy = 0;
         Save();
     }
 }

@@ -43,7 +43,7 @@ public class Medic_Train : MonoBehaviour
 
         if (isMercenaryHealing)
         {
-            if(col.check_HpParsent() >= 60f || !medicTrain.openMedicTrian) //파괴되거나 용병 60퍼 이상 치료가 되면 내보냄.
+            if(col.Check_HpParsent() >= 60f || !medicTrain.openMedicTrian) //파괴되거나 용병 60퍼 이상 치료가 되면 내보냄.
             {
                 isMercenaryHealing = false;
                 col.transform.gameObject.SetActive(true);
@@ -65,7 +65,7 @@ public class Medic_Train : MonoBehaviour
             if (collision.CompareTag("Mercenary") && !isPlayerHealing && !isMercenaryHealing) //용병과 플레이어가 치료하는 상태가 아니라면
             {
                 col = collision.GetComponentInParent<Mercenary>();
-                if (col.check_HpParsent() <= 20f)
+                if (col.Check_HpParsent() <= 20f)
                 {
                     isMercenaryHealing = true;
                     col.transform.gameObject.SetActive(false);

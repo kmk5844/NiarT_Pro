@@ -28,7 +28,7 @@ public class Monster_1 : Monster
         xPos = -1;
     }
 
-    private void Update()
+    protected override void Update()
     {
         if(xPos > 0)
         {
@@ -42,7 +42,7 @@ public class Monster_1 : Monster
         BulletFire(xPos);
     }
 
-    private void FixedUpdate()
+    protected override void FixedUpdate()
     {
         MonsterMove();
     }

@@ -5,8 +5,9 @@ using UnityEngine;
 public class CowBoy : Mercenary
 {
     public float unity_Attack_Delay;
-    float binding_Time;
-    bool binding_Flag;
+    public bool refreshFlag;
+    CowBoy_Grap grap;
+    CircleCollider2D grapZone;
     protected override void Awake()
     {
         base.Awake();
@@ -16,42 +17,85 @@ public class CowBoy : Mercenary
     {
         base.Start();
         act  = Active.move;
+        grap = GetComponentInChildren<CowBoy_Grap>();
+        grapZone = grap.GetComponent<CircleCollider2D>();
     }
 
-    private void Update()
+    protected override void Update()
     {
-        Check_GameType();
+        base.Update();
+        if(workCount == Max_workCount)
+        {
+            refreshFlag = true;
+        }
+        else
+        {
+            refreshFlag = false;
+        }
 
-        if(M_gameType == GameType.Playing)
+
+        if(Mer_GameType == GameType.Playing)
         {
             if (HP <= 0 && act != Active.die)
             {
                 act = Active.die;
                 isDying = true;
             }
+            if(act == Active.move)
+            {
+                if (grapZone.enabled == false)
+                {
+                    grapZone.enabled = true;
+                }
+            }
+
+            if (act == Active.refresh)
+            {
+                if (grapZone.enabled == true)
+                {
+                    grapZone.enabled = false;
+                }
+
+                if (!isRefreshing)
+                {
+                    StartCoroutine(Refresh());
+                }
+            }
+
+            if(act == Active.die)
+            {
+                if (grapZone.enabled == true)
+                {
+                    grapZone.enabled = false;
+                }
+            }
         }
     }
 
     private void FixedUpdate()
     {
-        if (M_gameType == GameType.Playing)
+        if (Mer_GameType == GameType.Playing)
         {
-            if(act == Active.move)
+            if (act == Active.move)
             {
-                base.combatant_Move();
-            }else if(act == Active.work)
-            {
-                rb2D.velocity = Vector2.zero;
-
-            }else if(act == Active.die)
+                base.Combatant_Move();
+            }
+            else if (act == Active.work)
             {
                 rb2D.velocity = Vector2.zero;
             }
-        }else if(M_gameType == GameType.Ending)
+            else if (act == Active.refresh)
+            {
+                rb2D.velocity = Vector2.zero;
+            }
+            else if (act == Active.die)
+            {
+                rb2D.velocity = Vector2.zero;
+            }
+        }else if(Mer_GameType == GameType.Ending)
         {
             act = Active.Game_Wait;
             rb2D.velocity = Vector2.zero;
         }
     }
-
 }

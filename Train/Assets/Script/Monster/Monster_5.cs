@@ -28,7 +28,7 @@ public class Monster_5 : Monster
         xPos = -1f;
     }
 
-    private void Update()
+    protected override void Update()
     {
         //MonsterMove();
         BulletFire();

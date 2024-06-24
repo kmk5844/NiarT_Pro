@@ -349,8 +349,7 @@ public class Station_Fortress : MonoBehaviour
                 Before_Mercenary_Information.text =
                             "<size=45>업그레이드 전</size>" +
                             "\n공격력 : " + data_before.Unit_Attack +
-                            "\n공격 속도 : " + data_before.Unit_Atk_Delay +
-                            "\n공격 이동 속도 : " + data_before.WorkSpeed;
+                            "\n공격 속도 : " + data_before.Unit_Atk_Delay;
                 if (mercenaryData.Level_Mercenary_Long_Ranged + 1 == mercenaryData.Max_Mercenary_Long_Ranged + 1)
                 {
                     After_Mercenary_Information.text =
@@ -363,8 +362,7 @@ public class Station_Fortress : MonoBehaviour
                     After_Mercenary_Information.text =
                             "<size=45>업그레이드 후</size>" +
                             "\n공격력 : " + data_after.Unit_Attack +
-                            "\n공격 속도 : " + data_after.Unit_Atk_Delay +
-                            "\n공격 이동 속도 : " + data_after.WorkSpeed;
+                            "\n공격 속도 : " + data_after.Unit_Atk_Delay;
                     Mercenary_Upgrade_Cost_Text.text = mercenaryData.EX_Level_Data.Information_LevelCost[mercenaryData.Level_Mercenary_Long_Ranged].Cost_Level_Mercenary_Long_Ranged
                                                            + "G";
                 }

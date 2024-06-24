@@ -26,12 +26,12 @@ public class Monster_2 : Monster
         StartCoroutine(DestoryAfterDelay());
     }
 
-    private void Update()
+    protected override void Update()
     {
         BulletFire(0);
     }
 
-    private void FixedUpdate()
+    protected override void FixedUpdate()
     {
         MonsterMove();
     }

@@ -1,189 +1,200 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 
 public class Engineer : Mercenary
 {
-    MercenaryDirector mercenaryDirector;
-    Transform player;
-
     Rigidbody2D rigid;
     Train_InGame train;
-    bool move_Work;
+    public bool move_Work;
     bool isRepairing;
     public bool isCalling;
     float train_HpParsent;
-    [Header("수리 속도 및 기차 수리량")]
-    [SerializeField] private int repairDelay;
-    [SerializeField] private int repairAmount;
-    [Header("수리하러 갈때의 움직임")]
-    [SerializeField] private int move_work_speed;
-    [Header("OO%이하의 기차인 경우 수리")]
-    [SerializeField] private int repairTrain_Parsent;
-    Vector3 Player_X_Position;
+
+    [SerializeField]
+    private int repairDelay;
+    [SerializeField]
+    private int repairAmount;
+    [SerializeField]
+    private int move_work_Speed;
+    [SerializeField]
+    private int repaireTrain_parsent;
+    Vector2 Player_X_Position;
+
+    bool TrainSpawnFlag;
 
     protected override void Awake()
     {
         base.Awake();
     }
+
     protected override void Start()
     {
         base.Start();
-        Type = mercenaryType.Engineer;
         act = Active.move;
         rigid = GetComponent<Rigidbody2D>();
         move_Work = true;
+        TrainSpawnFlag = false;
         isCalling = false;
-        mercenaryDirector = GameObject.Find("MercenaryDirector").GetComponent<MercenaryDirector>();
-        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    private void Update()
+    protected override void Update()
     {
-        Debug.DrawRay(rigid.position, Vector3.down, Color.green);
-        RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1f, LayerMask.GetMask("Platform"));
-
-        train = rayHit.collider.GetComponentInParent<Train_InGame>();
-        train_HpParsent = (float)train.cur_HP / (float)train.Train_HP * 100f;
-
-        Check_GameType();
-
-        if (move_X > 0)
+        base.Update();
+        if (!TrainSpawnFlag)
         {
-            Unit_Scale.localScale = new Vector3(-Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
-        }
-        else
-        {
-            Unit_Scale.localScale = new Vector3(Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
+            TrainSpawnFlag = gameDirector.SpawnTrainFlag;
+        }else{
+            Debug.DrawRay(rigid.position, Vector3.down, Color.green);
+            RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1f, LayerMask.GetMask("Platform"));
+
+            train = rayHit.collider.GetComponentInParent<Train_InGame>();
+            train_HpParsent = (float)train.cur_HP / (float)train.Train_HP * 100f;
         }
 
-        if (M_gameType == GameType.Playing)
+        base.non_combatant_Flip();
+
+        if (Mer_GameType == GameType.Playing)
         {
             if (HP <= 0 && act != Active.die)
             {
                 act = Active.die;
                 isDying = true;
             }
-            else if (act != Active.work /*&& Stamina >= 50*/ && train_HpParsent < repairTrain_Parsent && !train.isReparing && act != Active.call && act != Active.die && train_HpParsent != 0)
+            if (act == Active.move) // 콜하지 않는 행동, 일하지 않는 행동
             {
-                train.isReparing = true;
-                act = Active.work;
-            }
-            else if (act != Active.work /*&& Stamina >= 50*/ && train_HpParsent < repairTrain_Parsent && !train.isReparing && act != Active.call && act != Active.die && train_HpParsent == 0)
-            {
-                if (train.isRepairable)
+                if(train != null)
                 {
-                    train.isReparing = true;
-                    act = Active.work;
+                    //트레인 체력이 일정 체력 이하로 떨어졌을 때와, 기차 수리중이 아니라면
+                    if (train_HpParsent < repaireTrain_parsent && !train.isReparing)
+                    {
+                        // 트레인이 0퍼 아닐때와 0퍼일 때
+                        if (train_HpParsent != 0)
+                        {
+                            train.isReparing = true;
+                            act = Active.work;
+                        }
+                        else if (train_HpParsent == 0)
+                        {
+                            // 트레인이 수리 가능하다면
+                            if (train.isRepairable)
+                            {
+                                train.isRepairable = true;
+                                act = Active.work;
+                            }
+                        }
+                    }
                 }
             }
-            /*else if (Stamina <= 0)
+            else if (act == Active.work)
             {
-                train.isReparing = false;
-                act = Active.weak;
-                move_Work = true;
-            }*/
-            else if (act == Active.work && train_HpParsent > repairTrain_Parsent)
-            {
-                train.isReparing = false;
-                act = Active.move;
-                move_Work = true;
-            }
+                //트레인이 일정 체력 이상일 때, 전환
+                if (train_HpParsent > repaireTrain_parsent)
+                {
+                    train.isReparing = false;
+                    act = Active.refresh;
+                    move_Work = true;
+                }
 
-            if (act == Active.work && !isCalling)
-            {
-                if (!move_Work)
+                //호출을 하지 않았을 때
+                if (!isCalling)
                 {
-                    if (!train.isReparing)
+                    if (!move_Work) // 움직이지 않을 때
                     {
-                        train.isReparing = true;
+                        if (!train.isReparing) // 수리 중인 플래그가 꺼져있을 때
+                        {
+                            train.isReparing = true;
+                        }
+                        if (!isRepairing) // 자신이 수리 중임
+                        {
+                            StartCoroutine(Repair());
+                        }
                     }
-                    if (!isRepairing)
+                }
+            }else if (act == Active.refresh)
+            {
+                if (!isRefreshing)
+                {
+                    StartCoroutine(Refresh());
+                }
+                else
+                {
+                    if (!move_Work)
                     {
-                        StartCoroutine(Repair());
+                        move_Work = true;
                     }
                 }
             }
-            else if (act == Active.die && isDying)
+            if (act == Active.die && isDying)
             {
-                //Debug.Log("여기서 애니메이션 구현한다!");
                 if (train.isReparing)
                 {
                     train.isReparing = false;
                 }
                 isDying = false;
             }
-            else if (act == Active.refresh)
-            {
-                /*if (!isRefreshing_weak)
-                {
-                    StartCoroutine(Refresh_Weak());
-                }
-                else if (Stamina >= 70)
-                {
-                    act = Active.move;
-                }*/
-            }
-            
         }
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        if (M_gameType == GameType.Playing)
-        {
-            if (act == Active.move)
-            {
+        if (Mer_GameType == GameType.Playing){
+            if (act == Active.move){
                 base.non_combatant_Move();
-            }
-            else if (act == Active.work && !isCalling)
-            {
-                if (move_Work)
+            }else if (act == Active.work){
+                if (!isCalling)
                 {
-                    if (transform.position.x < train.transform.position.x - 0.2)
+                    if (move_Work)
                     {
-                        move_X = 1f;
-                        rb2D.velocity = new Vector2(move_X * moveSpeed, rb2D.velocity.y);
-                    }
-                    else if (transform.position.x > train.transform.position.x + 0.2)
-                    {
-                        move_X = -1f;
-                        rb2D.velocity = new Vector2(move_X * moveSpeed, rb2D.velocity.y);
-                    }
-                    else
-                    {
-                        move_Work = false;
+                        if(transform.position.x < train.transform.position.x - 0.2)
+                        {
+                            Move_X = 1f;
+                            rb2D.velocity = new Vector2(Move_X * moveSpeed, rb2D.velocity.y);
+                        }else if(transform.position.x > train.transform.position.x + 0.2)
+                        {
+                            Move_X = -1f;
+                            rb2D.velocity = new Vector2(Move_X * moveSpeed, rb2D.velocity.y);
+                        }
+                        else
+                        {
+                            rb2D.velocity = Vector2.zero;
+                            move_Work = false;
+                        }
                     }
                 }
-            }
-            else if (act == Active.call)
+
+            }else if(act == Active.call)
             {
                 isCalling = true;
-                if (transform.position.x < Player_X_Position.x - 0.5)
+                move_Work = true;
+                if (transform.position.x < Player_X_Position.x - 0.5f)
                 {
-                    move_X = 1f;
-                    rb2D.velocity = new Vector2(move_X * 6f, rb2D.velocity.y);
+                    Move_X = 1f;
+                    rb2D.velocity = new Vector2(Move_X * 6f, rb2D.velocity.y);
 
                 }
-                else if (transform.position.x > Player_X_Position.x + 0.5)
+                else if (transform.position.x > Player_X_Position.x + 0.5f)
                 {
-                    move_X = -1f;
-                    rb2D.velocity = new Vector2(move_X * 6f, rb2D.velocity.y);
-
+                    Move_X = -1f;
+                    rb2D.velocity = new Vector2(Move_X * 6f, rb2D.velocity.y);
                 }
                 else
                 {
                     isCalling = false;
                     act = Active.move;
-                    //mercenaryDirector.Call_End(mercenaryType.Engineer);
+                    mercenaryDirector.Call_End_Engineer();
                 }
-            }
-            else if (act == Active.die)
+            }else if(act == Active.refresh)
+            {
+                rb2D.velocity = Vector2.zero;
+            }else if(act == Active.die)
             {
                 rb2D.velocity = Vector2.zero;
             }
         }
-        else if (M_gameType == GameType.Ending)
+        
+        if(Mer_GameType == GameType.Ending)
         {
             act = Active.Game_Wait;
             rb2D.velocity = Vector2.zero;
@@ -193,12 +204,12 @@ public class Engineer : Mercenary
     {
         repairDelay = type[level].Repair_Delay;
         repairAmount = type[level].Repair_Amount;
-        repairTrain_Parsent = type[level].Repair_Train_Parsent;
+        repaireTrain_parsent = type[level].Repair_Train_Parsent;
     }
 
     public void PlayerEngineerCall(Vector3 PlayerCall_XPos)
     {
-        if(act == Active.work)
+        if (act == Active.work)
         {
             train.isReparing = false;
         }
@@ -209,17 +220,40 @@ public class Engineer : Mercenary
     IEnumerator Repair()
     {
         isRepairing = true;
-
-        yield return new WaitForSeconds(repairDelay);
-/*        if (Stamina - useStamina < 0)
+        workCount++;
+        if (workCount > Max_workCount)
         {
-            Stamina = 0;
+            act = Active.refresh;
+            if (train.isReparing)
+            {
+                train.isReparing = false;
+            }
         }
         else
         {
-            Stamina -= useStamina;
-        }*/
-        train.cur_HP += repairAmount;
+            train.cur_HP += repairAmount;
+        }
+        yield return new WaitForSeconds(repairDelay);
         isRepairing = false;
+    }
+
+    public int Check_Work()
+    {
+        if (act == Active.move)
+        {
+            return 0;
+        }
+        else if (act == Active.work)
+        {
+            return 1;
+        }
+        else if(act == Active.refresh)
+        {
+            return 2;
+        }
+        else
+        {
+            return -1;
+        }
     }
 }

@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class Long_Ranged : Mercenary
 {
-    [Header("공격력")]
     public int unit_Attack;
-    [Header("공격속도")]
     public float unit_Attack_Delay;
 
     public bool zeroFlag;
-
     Long_RangedShoot shoot;
+
     protected override void Awake()
     {
         base.Awake();
@@ -20,66 +18,67 @@ public class Long_Ranged : Mercenary
     protected override void Start()
     {
         base.Start();
-        Type = mercenaryType.Long_Ranged;
         act = Active.move;
         zeroFlag = false;
-        shoot = gameObject.GetComponentInChildren<Long_RangedShoot>();
+        shoot = GetComponentInChildren<Long_RangedShoot>();
     }
 
-    private void Update()
+    protected override void Update()
     {
-        Check_GameType();
-
-        if(M_gameType == GameType.Playing)
+        base.Update();
+        if(Mer_GameType == GameType.Playing)
         {
-            if (HP <= 0 && act != Active.die)
+            if (HP <= 0&& act != Active.die)
             {
                 act = Active.die;
                 isDying = true;
             }
-/*            else if (Stamina == 0 && act == Active.work && !zeroFlag)
+            if(act == Active.move)
             {
-                act = Active.weak;
-            }*/
-
-           
-            if (act == Active.die && isDying)
-            {
-                Debug.Log("여기서 애니메이션 구현한다!2");
-                transform.GetComponentInChildren<Long_RangedShoot>().enabled = false;
-                isDying = false;
-            }
-            else if (act == Active.revive)
-            {
-                transform.GetComponentInChildren<Long_RangedShoot>().enabled = true;
-            }
-/*            else if (act == Active.weak)
-            {
-                zeroFlag = true;
-                shoot.isDelaying = true;
-                StartCoroutine(Refresh_Weak());
-                if (Stamina >= 70)
+                if (!shoot.enabled)
                 {
-                    shoot.isDelaying = false;
-                    zeroFlag = false;
+                    shoot.enabled = true;
                 }
-            }*/
+            }
+            if (act == Active.work)
+            {
+                if(workCount == Max_workCount)
+                {
+                    act = Active.refresh;
+                }
+
+            }
+            if(act == Active.refresh)
+            {
+                if (!isRefreshing)
+                {
+                    StartCoroutine(Refresh());
+                }
+                if (shoot.enabled)
+                {
+                    shoot.enabled = false;
+                }
+            }
+            if(act == Active.die && isDying)
+            {
+                shoot.enabled = false;
+            }
         }
     }
 
     private void FixedUpdate()
     {
-        if(M_gameType == GameType.Playing)
+        if (Mer_GameType == GameType.Playing)
         {
             if (act == Active.move)
             {
-                base.combatant_Move();
+                base.Combatant_Move();
             }
             else if (act == Active.work)
             {
                 if (transform.position.x < MinMove_X || transform.position.x > MaxMove_X)
                 {
-                    move_X *= -1;
+                    Move_X *= -1;
                 }
                 rb2D.velocity = Vector2.zero;
             }
@@ -88,30 +87,19 @@ public class Long_Ranged : Mercenary
                 rb2D.velocity = Vector2.zero;
             }
         }
-        else if (M_gameType == GameType.Ending)
+        else if (Mer_GameType == GameType.Ending)
         {
             act = Active.Game_Wait;
             rb2D.velocity = Vector2.zero;
         }
     }
+
     public void Level_AddStatus_LongRanged(List<Info_Level_Mercenary_Long_Ranged> type, int level)
     {
         unit_Attack = type[level].Unit_Attack;
         unit_Attack_Delay = type[level].Unit_Atk_Delay;
         //workSpeed = type[level].WorkSpeed;
     }
-/*    public void Shoot_Stamina()
-    {
-        if (Stamina - useStamina < 0)
-        {
-            Stamina = 0;
-        }
-        else
-        {
-            Stamina -= useStamina;
-        }
-    }*/
-
     public void TargetFlag(bool Flag)
     {
         if (Flag && act != Active.refresh)
@@ -126,7 +114,6 @@ public class Long_Ranged : Mercenary
             }
         }
     }
-
     public void M_Buff_Atk(int buff_atk, bool flag)
     {
         if (flag)

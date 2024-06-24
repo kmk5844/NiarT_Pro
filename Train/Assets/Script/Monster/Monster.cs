@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,7 +32,7 @@ public class Monster : MonoBehaviour
     [SerializeField]
     protected int Bullet_Slow;
     float lastTime;
-    float bossLastTime;
+    //float bossLastTime;
     Transform monster_Bullet_List;
 
     [Header("Å¸°Ù")]
@@ -56,12 +57,14 @@ public class Monster : MonoBehaviour
     bool fire_hit_flag;
     int fire_hit_damage;
     int fire_hit_Count;
+    int mercenary_atk;
 
     protected virtual void Start()
     {
         lastTime = Time.time;
+        mercenary_atk = 0;
         monster_gametype = Monster_GameType.Fighting;
-        bossLastTime = 0f;
+        //bossLastTime = 0f;
         gameDirector = GameObject.Find("GameDirector").GetComponent<GameDirector>();
         HitDamage = Resources.Load<GameObject>("Monster/Hit_Text");
 
@@ -86,6 +89,25 @@ public class Monster : MonoBehaviour
             for (int i = 0; i < transform.childCount; i++)
             {
                 sprite_List.Add(transform.GetChild(i).GetComponent<SpriteRenderer>());
+            }
+        }
+    }
+
+    protected virtual void Update()
+    {
+        if(monster_gametype == Monster_GameType.CowBoy_Debuff)
+        {
+
+        }
+    }
+
+    protected virtual void FixedUpdate()
+    {
+        if(monster_gametype == Monster_GameType.CowBoy_Debuff)
+        {
+            if(transform.position.y > 0.5f)
+            {
+                transform.Translate(Vector3.down * 0.2f * Time.deltaTime);
             }
         }
     }
@@ -192,6 +214,11 @@ public class Monster : MonoBehaviour
         }
     }
 
+    public void grapTrigger()
+    {
+        monster_gametype = Monster_GameType.CowBoy_Debuff;
+    }
+
     private void Damage_Monster_Collsion(Collision2D collision)
     {
         HitDamage.GetComponent<Hit_Text_Damage>().damage = collision.gameObject.GetComponent<Bullet>().atk;
@@ -217,6 +244,27 @@ public class Monster : MonoBehaviour
         if (Monster_HP > 0)
         {
             Monster_HP -= collision.gameObject.GetComponent<Bullet>().atk;
+        }
+        else
+        {
+            gameDirector.Game_Monster_Kill(Monster_Score, Monster_Coin);
+            Destroy(gameObject);
+        }
+    }
+
+    private void Damage_Monster_Trigger_Mercenary(Collider2D collision)
+    {
+        if(collision.GetComponentInParent<Mercenary>().Type == mercenaryType.Short_Ranged)
+        {
+            mercenary_atk = collision.GetComponentInParent<Short_Ranged>().unit_Attack;
+        }
+        HitDamage.GetComponent<Hit_Text_Damage>().damage = mercenary_atk;
+        HitDamage.GetComponent<Hit_Text_Damage>().Random_X = transform.position.x + Random.Range(-0.5f, 0.5f);
+        HitDamage.GetComponent<Hit_Text_Damage>().Random_Y = transform.position.y + Random.Range(0.5f, 1.5f);
+        Instantiate(HitDamage, monster_Bullet_List);
+        if (Monster_HP > 0)
+        {
+            Monster_HP -= mercenary_atk;
         }
         else
         {
@@ -257,6 +305,16 @@ public class Monster : MonoBehaviour
                     Damage_Monster_Collsion(collision);
                 }
                 Destroy(collision.gameObject);
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag.Equals("Player_Bullet"))
+        {
+            if (collision.gameObject.name.Equals("Short_AttackCollider")){
+                Damage_Monster_Trigger_Mercenary(collision);
             }
         }
     }
@@ -323,6 +381,7 @@ public class Monster : MonoBehaviour
 public enum Monster_GameType{
     SpwanStart,
     Fighting,
+    CowBoy_Debuff,
     Die,
     GameEnding,
 }

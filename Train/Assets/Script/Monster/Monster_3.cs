@@ -36,13 +36,13 @@ public class Monster_3 : Monster
         xPos = -1f;
     }
 
-    private void Update()
+    protected override void Update()
     {
         BulletFire();
         FlipMonster();
     }
 
-    private void FixedUpdate()
+    protected override void FixedUpdate()
     {
         MonsterMove();
     }

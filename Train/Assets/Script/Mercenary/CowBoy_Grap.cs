@@ -3,23 +3,28 @@ using System.Collections.Generic;
 using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 
-public class testGrap : MonoBehaviour
+public class CowBoy_Grap : MonoBehaviour
 {
+    CowBoy unit;
+
     LineRenderer line;
     float grappleShootSpeed;
     float grappleCollectSpeed;
 
-    bool isGrappling = false;
-    bool retracting = false;
+    bool isCounting;
+    bool isGrappling;
+    bool isRetracting;
     Vector2 NonTargetPos;
     GameObject target;
     private void Start()
     {
+        isCounting = false;
         isGrappling = false;
-        retracting = false;
+        isRetracting = false;
         grappleShootSpeed = 10f;
         grappleCollectSpeed = 5f;
 
+        unit = GetComponentInParent<CowBoy>();
         line = GetComponent<LineRenderer>();
     }
 
@@ -28,14 +33,14 @@ public class testGrap : MonoBehaviour
         if (target == null && isGrappling)
         {
             NonTargetPos = line.GetPosition(1);
-            retracting = false;
-            if (!retracting)
+            isRetracting = false;
+            if (!isRetracting)
             {
                 StartCoroutine(NonGrapple());
             }
         }
 
-        if (retracting)
+        if (isRetracting)
         {
             line.SetPosition(0, transform.position);
             line.SetPosition(1, target.transform.position);
@@ -59,7 +64,9 @@ public class testGrap : MonoBehaviour
         }
 
         line.SetPosition(1, target.transform.position);
-        retracting = true;
+        unit.mercenaryActive_Change(Active.work);
+        isRetracting = true;
+        isCounting = false;
     }
 
     IEnumerator NonGrapple()
@@ -77,6 +84,19 @@ public class testGrap : MonoBehaviour
         }
 
         line.SetPosition(1, transform.position);
+        if (!isCounting)
+        {
+            unit.workCountUP();
+            isCounting = true;
+        }
+        if (unit.refreshFlag)
+        {
+            unit.mercenaryActive_Change(Active.refresh);
+        }
+        else
+        {
+            unit.mercenaryActive_Change(Active.move);
+        }
         isGrappling = false;
         line.enabled = false;
     }
@@ -87,12 +107,16 @@ public class testGrap : MonoBehaviour
         {
             if (collision.CompareTag("Monster"))
             {
-                isGrappling = true;
-                target = collision.gameObject;
-                line.enabled = true;
-                line.positionCount = 2;
+                if (unit.mercenaryActive_Check() == Active.move)
+                {
+                    isGrappling = true;
+                    target = collision.gameObject;
+                    line.enabled = true;
+                    line.positionCount = 2;
 
-                StartCoroutine(Grapple());
+                    StartCoroutine(Grapple());
+                    target.GetComponent<Monster>().grapTrigger();
+                }
             }
         }
     }

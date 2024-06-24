@@ -6,52 +6,33 @@ public class Engine_Driver : Mercenary
 {
     [SerializeField]
     Engine_Driver_Type Driver_Type;
-    GameDirector gamedirector;
     bool isSurvival;
-    [Header("타입마다의 추가 스탯")]
-    [SerializeField]
     int Level_Speed;
-    [SerializeField]
     int Level_Fuel;
-    [SerializeField]
     int Level_Def;
 
     protected override void Awake()
     {
         base.Awake();
     }
-
+    // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
-        Type = mercenaryType.Engine_Driver;
         act = Active.work;
-        transform.position = new Vector3(-4.4f, move_Y, 0);
+        transform.position = new Vector2(-4.4f, Move_Y);
         isSurvival = true;
+        isDying = false;
 
         Driver_Type = SA_MercenaryData.Engine_Driver_Type;
-        switch (Driver_Type)
-        {
-            case Engine_Driver_Type.speed:
-                gamedirector.Engine_Driver_Passive(Engine_Driver_Type.speed, Level_Speed, true);
-                break;
-            case Engine_Driver_Type.fuel:
-                gamedirector.Engine_Driver_Passive(Engine_Driver_Type.fuel, Level_Fuel, true);
-                break;
-            case Engine_Driver_Type.def:
-                for(int i = 0; i < Train_List.childCount; i++)
-                {
-                    Train_List.GetChild(i).GetComponent<Train_InGame>().Train_Armor += Level_Def; 
-                }
-                break;
-        }
+        EngineDriver_Survival_Buff();
     }
 
-    void Update()
+    // Update is called once per frame
+    protected override void Update()
     {
-        Check_GameType();
-
-        if (M_gameType == GameType.Playing)
+        base.Update();
+        if(Mer_GameType == GameType.Playing)
         {
             if (HP <= 0 && act != Active.die)
             {
@@ -59,72 +40,58 @@ public class Engine_Driver : Mercenary
                 isDying = true;
             }
 
-            if (act == Active.revive && !isSurvival)
+            if(act == Active.revive && !isSurvival)
             {
-                switch (Driver_Type)
-                {
-                    case Engine_Driver_Type.speed:
-                        gamedirector.Engine_Driver_Passive(Engine_Driver_Type.speed, Level_Speed, true);
-                        break;
-                    case Engine_Driver_Type.fuel:
-                        gamedirector.Engine_Driver_Passive(Engine_Driver_Type.fuel, Level_Fuel, true);
-                        break;
-                    case Engine_Driver_Type.def:
-                        for (int i = 0; i < Train_List.childCount; i++)
-                        {
-                            Train_List.GetChild(i).GetComponent<Train_InGame>().Train_Armor += 10;
-                        }
-                        break;
-                }
+                EngineDriver_Survival_Buff();
                 isSurvival = true;
             }
-            else if (act == Active.die && isDying)
-            {
-                //Debug.Log("여기서 애니메이션 구현한다!5");
-                switch (Driver_Type)
-                {
-                    case Engine_Driver_Type.speed:
-                        gamedirector.Engine_Driver_Passive(Engine_Driver_Type.speed, Level_Speed, false);
-                        break;
-                    case Engine_Driver_Type.fuel:
-                        gamedirector.Engine_Driver_Passive(Engine_Driver_Type.fuel, Level_Fuel, false);
-                        break;
-                    case Engine_Driver_Type.def:
-                        for (int i = 0; i < Train_List.childCount; i++)
-                        {
-                            Train_List.GetChild(i).GetComponent<Train_InGame>().Train_Armor -= 10;
-                        }
-                        break;
-                }
 
+            if(act == Active.die && isDying)
+            {
+                EngineDriver_Die_Buff();
                 isSurvival = false;
                 isDying = false;
             }
-            /*            else if (Stamina <= 0)
-            {
-                act = Active.weak;
-            }
-           if (act == Active.work)
-            {
-                //조건과 스킬을 어떤식으로 사용하면 좋은지
-                Debug.Log("스킬과 스테미나 사용");
-            }
-            else if (act == Active.weak)
-            {
-                if (!isRefreshing_weak)
-                {
-                    StartCoroutine(Refresh_Weak());
-                }
-                else if (Stamina >= 70)
-                {
-                    act = Active.move;
-                }
-            }
-            else */
-        }
-        else if (M_gameType == GameType.Ending)
+        }else if(Mer_GameType == GameType.Ending)
         {
             act = Active.Game_Wait;
+        }
+    }
+
+    void EngineDriver_Survival_Buff() {
+        switch (Driver_Type)
+        {
+            case Engine_Driver_Type.speed:
+                gameDirector.Engine_Driver_Passive(Engine_Driver_Type.speed, Level_Speed, true);
+                break;
+            case Engine_Driver_Type.fuel:
+                gameDirector.Engine_Driver_Passive(Engine_Driver_Type.fuel, Level_Fuel, true);
+                break;
+            case Engine_Driver_Type.def:
+                for (int i = 0; i < Train_List.childCount; i++)
+                {
+                    Train_List.GetChild(i).GetComponent<Train_InGame>().Train_Armor += Level_Def;
+                }
+                break;
+        }
+    }
+
+    void EngineDriver_Die_Buff()
+    {
+        switch (Driver_Type)
+        {
+            case Engine_Driver_Type.speed:
+                gameDirector.Engine_Driver_Passive(Engine_Driver_Type.speed, Level_Speed, false);
+                break;
+            case Engine_Driver_Type.fuel:
+                gameDirector.Engine_Driver_Passive(Engine_Driver_Type.fuel, Level_Fuel, false);
+                break;
+            case Engine_Driver_Type.def:
+                for (int i = 0; i < Train_List.childCount; i++)
+                {
+                    Train_List.GetChild(i).GetComponent<Train_InGame>().Train_Armor -= Level_Def;
+                }
+                break;
         }
     }
 
@@ -134,4 +101,10 @@ public class Engine_Driver : Mercenary
         Level_Fuel = type[level].Level_Type_Fuel;
         Level_Def = type[level].Level_Type_Def;
     }
+}
+public enum Engine_Driver_Type
+{
+    speed,
+    fuel,
+    def
 }

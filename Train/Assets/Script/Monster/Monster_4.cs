@@ -35,12 +35,12 @@ public class Monster_4 : Monster
         yPos = 1f;
     }
 
-    private void Update()
+    protected override void Update()
     {
         //MonsterMove();
     }
 
-    private void FixedUpdate()
+    protected override void FixedUpdate()
     {
         if(transform.position.x > max_xPos)
         {

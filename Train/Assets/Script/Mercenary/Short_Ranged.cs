@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class Short_Ranged : Mercenary
 {
-    bool zeroFlag;
-    [Header("타입마다의 추가 스탯")]
-    [Header("공격력")]
     public int unit_Attack;
-    [Header("공격 쿨타임")]
     public float unit_Attack_Delay;
+    Short_Ranged_KillZone attackZone;
+    [SerializeField]
+    BoxCollider2D Zone_Collider;
+    [SerializeField]
+    BoxCollider2D Attack_Collider;
+    bool attackFlag;
+
     protected override void Awake()
     {
         base.Awake();
@@ -18,73 +21,88 @@ public class Short_Ranged : Mercenary
     protected override void Start()
     {
         base.Start();
-        Type = mercenaryType.Short_Ranged;
         act = Active.move;
+        attackFlag = false;
+        attackZone = GetComponentInChildren<Short_Ranged_KillZone>();
+        Zone_Collider = attackZone.GetComponent<BoxCollider2D>();
+        Attack_Collider = attackZone.transform.GetChild(0).GetComponentInChildren<BoxCollider2D>();
+        
+        Zone_Collider.enabled = true;
+        Attack_Collider.enabled = false;
     }
 
-    private void FixedUpdate()
+    protected override void Update()
     {
-        if (M_gameType == GameType.Playing)
-        {
-            if (act == Active.move)
-            {
-                base.combatant_Move();
-            }
-            else if (act == Active.die)
-            {
-                rb2D.velocity = Vector2.zero;
-            }
-        }
-        else if (M_gameType == GameType.Ending)
-        {
-            act = Active.Game_Wait;
-            rb2D.velocity = Vector2.zero;
-        }
-    }
-
-    void Update()
-    {
-        Check_GameType();
-
-        if (M_gameType == GameType.Playing)
+        base.Update();
+        if(Mer_GameType == GameType.Playing)
         {
             if (HP <= 0 && act != Active.die)
             {
                 act = Active.die;
                 isDying = true;
             }
-/*            else if (Stamina <= 0 && act != Active.die)
+            if(act == Active.move)
             {
-                act = Active.weak;
-            }*/
-
-            if (act == Active.work)
-            {
-                if (transform.position.x < MinMove_X || transform.position.x > MaxMove_X)
+                if (!Zone_Collider.enabled)
                 {
-                    move_X *= -1;
+                    Zone_Collider.enabled = true;
                 }
             }
-            else if (act == Active.die && isDying)
+            if (act == Active.work)
             {
-                Debug.Log("여기서 애니메이션 구현한다!2");
-                transform.GetComponentInChildren<Short_Ranged_KillZone>().enabled = false;
-                isDying = false;
-            }
-            else if (act == Active.refresh)
-            {
-/*                StartCoroutine(Refresh_Weak());
-                transform.GetComponentInChildren<Short_Ranged_KillZone>().enabled = false;
-                if (Stamina >= 70)
+                if(workCount == Max_workCount)
                 {
-                    transform.GetComponentInChildren<Short_Ranged_KillZone>().enabled = true;
-                    act = Active.move;
-                }*/
+                    act = Active.refresh;
+                }
+                if (!attackFlag)
+                {
+                    StartCoroutine(Attack());
+                }
             }
-            else if (act == Active.revive)
+            if (act == Active.refresh)
             {
-                transform.GetComponentInChildren<Short_Ranged_KillZone>().enabled = true;
+                if (!isRefreshing)
+                {
+                    StartCoroutine(Refresh());
+                }
+                if (Zone_Collider.enabled)
+                {
+                    Zone_Collider.enabled = false;
+                }
             }
+            if (act == Active.die && isDying)
+            {
+                Zone_Collider.enabled = false;
+            }
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (Mer_GameType == GameType.Playing)
+        {
+            if (act == Active.move)
+            {
+                base.Combatant_Move();
+            }
+            if (act == Active.work)
+            {
+                rb2D.velocity = Vector2.zero;
+            }
+            if (act == Active.refresh)
+            {
+                rb2D.velocity = Vector2.zero;
+            }
+
+            if (act == Active.die)
+            {
+                rb2D.velocity = Vector2.zero;
+            }
+        }
+        else if (Mer_GameType == GameType.Ending)
+        {
+            act = Active.Game_Wait;
+            rb2D.velocity = Vector2.zero;
         }
     }
 
@@ -100,21 +118,19 @@ public class Short_Ranged : Mercenary
         }
     }
 
+    IEnumerator Attack()
+    {
+        attackFlag = true;
+        yield return new WaitForSeconds(0.5f);
+        Attack_Collider.enabled = true;
+        workCount++;
+        yield return new WaitForSeconds(0.5f);
+        Attack_Collider.enabled = false;
+        attackFlag = false;
+    }
     public void Level_AddStatus_ShortRanged(List<Info_Level_Mercenary_Short_ranged> type, int level)
     {
         unit_Attack = type[level].Unit_Attack;
         unit_Attack_Delay = type[level].Unit_Atk_Delay;
     }
-
-/*    public void Attack_Stamina()
-    {
-        if (Stamina - useStamina < 0)
-        {
-            Stamina = 0;
-        }
-        else
-        {
-            Stamina -= useStamina;
-        }
-    }*/
 }

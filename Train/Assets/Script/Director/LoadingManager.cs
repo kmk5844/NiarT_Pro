@@ -14,8 +14,8 @@ public class LoadingManager : MonoBehaviour
     Slider Loading_Slider;
     [SerializeField]
     Image FadeImage;
-    [SerializeField]
-    float FadeInDuration = 0.5f;
+/*    [SerializeField]
+    float FadeInDuration = 0.5f;*/
     [SerializeField]
 
     private void Start()

@@ -63,7 +63,7 @@ public class AllIn1ShaderWindow : EditorWindow
         {
             scrollPosition = scrollView.scrollPosition;
 
-            #if UNITY_2019_4_OR_NEWER
+            #if UNITY_2019_4_ORER
             Texture2D imageInspector = (Texture2D)AssetDatabase.LoadAssetAtPath("Assets/AllIn1SpriteShader/Textures/CustomEditorImage2.png", typeof(Texture2D));
             #else
             Texture2D imageInspector = (Texture2D)AssetDatabase.LoadAssetAtPath("Assets/AllIn1SpriteShader/Textures/CustomEditorImage.png", typeof(Texture2D));

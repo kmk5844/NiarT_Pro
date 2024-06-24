@@ -15,7 +15,8 @@ public class MercenaryDirector : MonoBehaviour
     int Engineer_live_Num;
     int last_Engineer;
 
-    public bool isEngineerCall;
+    bool isEngineerCall;
+    bool isEngineerCall_Second;
     bool isChecklive;
 
     public bool Mercenary_Spawn_Flag;
@@ -49,8 +50,8 @@ public class MercenaryDirector : MonoBehaviour
     {
         for (int i = 0; i < Mercenary_Num.Count; i++)
         {
-            GameObject MercenaryObject = Instantiate(Resources.Load<GameObject>("MercenaryObject/" + Mercenary_Num[i] + "_New"), Mercenary_List);
-            MercenaryObject.name = MercenaryObject.GetComponent<Mercenary_New>().Type.ToString();
+            GameObject MercenaryObject = Instantiate(Resources.Load<GameObject>("MercenaryObject/" + Mercenary_Num[i]), Mercenary_List);
+            MercenaryObject.name = MercenaryObject.GetComponent<Mercenary>().Type.ToString();
         }
         Mercenary_Spawn_Flag = true;
     }
@@ -61,16 +62,28 @@ public class MercenaryDirector : MonoBehaviour
         {
             for (int i = 0; i < Engineer_Num; i++)
             {
-                if (Engineer_List[i].GetComponent<Engineer_New>().Check_Work())
+                if (Engineer_List[i].GetComponent<Engineer>().Check_Work() == 0)
                 {
-                    Engineer_List[i].GetComponent<Engineer_New>().PlayerEngineerCall(player.transform.position);
+                    Engineer_List[i].GetComponent<Engineer>().PlayerEngineerCall(player.transform.position);
                     isEngineerCall = true;
                     break;
                 }
             }
             if (!isEngineerCall)
             {
-                Debug.Log("일하고 있거나 쉬고 있습니다.");
+                for(int i = 0; i < Engineer_Num; i++)
+                {
+                    if (Engineer_List[i].GetComponent<Engineer>().Check_Work() == 0 || Engineer_List[i].GetComponent<Engineer>().Check_Work() == 1)
+                    {
+                        Engineer_List[i].GetComponent<Engineer>().PlayerEngineerCall(player.transform.position);
+                        isEngineerCall_Second = true;
+                        break;
+                    }
+                }
+                if (!isEngineerCall_Second)
+                {
+                    Debug.Log("쉬고 있습니다.");
+                }
             }
         }
         else
@@ -87,7 +100,7 @@ public class MercenaryDirector : MonoBehaviour
     {
         for(int i = 0; i <  Mercenary_List.childCount; i++)
         {
-            if(Mercenary_List.GetChild(i).GetComponent<Mercenary_New>().Type == mercenaryType.Engineer)
+            if(Mercenary_List.GetChild(i).GetComponent<Mercenary>().Type == mercenaryType.Engineer)
             {
                 Engineer_Num++;
             }
@@ -101,7 +114,7 @@ public class MercenaryDirector : MonoBehaviour
 
         for (int i = 0; i < Mercenary_List.childCount; i++)
         {
-            if(Mercenary_List.GetChild(i).GetComponent<Mercenary_New>().Type == mercenaryType.Engineer)
+            if(Mercenary_List.GetChild(i).GetComponent<Mercenary>().Type == mercenaryType.Engineer)
             {
                 Engineer_List.Add(Mercenary_List.GetChild(i).gameObject);
             }
@@ -111,11 +124,11 @@ public class MercenaryDirector : MonoBehaviour
     IEnumerator Check_Live_Unit() //die제외한 나머지를 체크한다.
     {
         isChecklive = true;
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.1f);
         int num = 0;
         for(int i= 0; i < Engineer_Num; i++)
         {
-            if (Engineer_List[i].GetComponent<Engineer_New>().Check_Live())
+            if (Engineer_List[i].GetComponent<Engineer>().Check_Live())
             {
                 last_Engineer = i;
                 num++;

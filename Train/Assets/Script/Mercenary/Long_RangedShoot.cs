@@ -13,13 +13,13 @@ public class Long_RangedShoot : MonoBehaviour
     float unit_Attack_Delay;
     float lastTime;
 
-    Long_Ranged_New unit;
-    public bool isDelaying; // 아마 탈진 때문에 적었을 가능성이 큼
+    Long_Ranged unit;
+    public bool isDelaying;
 
     void Start()
     {
         Bullet_List = GameObject.Find("Bullet_List").GetComponent<Transform>();
-        unit = GetComponentInParent<Long_Ranged_New>();
+        unit = GetComponentInParent<Long_Ranged>();
         unit_Attack = unit.unit_Attack;
         unit_Attack_Delay = unit.unit_Attack_Delay;
         lastTime = 0;

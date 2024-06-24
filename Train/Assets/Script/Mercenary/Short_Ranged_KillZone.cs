@@ -5,31 +5,36 @@ using UnityEngine;
 public class Short_Ranged_KillZone : MonoBehaviour
 {
     Short_Ranged unit;
-    public bool attack_Flag;
-    float lastTime;
+    Active unit_act;
 
     void Start()
     {
         unit = GetComponentInParent<Short_Ranged>();
-        lastTime = 0;
     }
 
     void Update()
     {
-        if(Time.time >= lastTime + unit.unit_Attack_Delay)
-        {
-            attack_Flag = true;
-            lastTime = Time.time;
-        }
+        unit_act = unit.mercenaryActive_Check();
     }
-    private void OnTriggerStay2D(Collider2D collision)
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (attack_Flag)
+        if(unit_act == Active.move)
         {
             if (collision.CompareTag("Monster"))
             {
-                Destroy(collision.gameObject);
-                attack_Flag = false;
+                unit.mercenaryActive_Change(Active.work);
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(unit_act == Active.work)
+        {
+            if (collision.CompareTag("Monster"))
+            {
+                unit.mercenaryActive_Change(Active.move);
             }
         }
     }
