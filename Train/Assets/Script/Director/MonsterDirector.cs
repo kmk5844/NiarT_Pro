@@ -86,12 +86,12 @@ public class MonsterDirector : MonoBehaviour
 
     private void Check_Sky_OR_Ground_Monster(int Monster_Num)
     {
-        if(EX_GameData.Information_Monster[Monster_Num].Monster_Type == "Sky")
+        if (EX_GameData.Information_Monster[Monster_Num].Monster_Type == "Sky")
         {
             Random_xPos = Random.Range(MinPos_Sky.x, MaxPos_Sky.x);
             Random_yPos = Random.Range(MinPos_Sky.y, MaxPos_Sky.y);
         }
-        else if(EX_GameData.Information_Monster[Monster_Num].Monster_Type == "Ground")
+        else if (EX_GameData.Information_Monster[Monster_Num].Monster_Type == "Ground")
         {
             Random_xPos = Random.Range(MinPos_Ground.x, MaxPos_Ground.x);
             Random_yPos = Random.Range(MinPos_Ground.y, MaxPos_Ground.y);

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Medic : Mercenary
 {
     public Transform unit;
-    
+
     bool work_HP;
     public float CheckHP;
     int Heal_HpAmount;
@@ -27,20 +27,20 @@ public class Medic : Mercenary
     protected override void Update()
     {
         base.Update();
-        if(act != Active.work)
+        if (act != Active.work)
         {
             non_combatant_Flip();
         }
 
-        if(Mer_GameType == GameType.Playing)
+        if (Mer_GameType == GameType.Playing)
         {
-            if(HP<= 0 && act != Active.die)
+            if (HP <= 0 && act != Active.die)
             {
                 act = Active.die;
                 isDying = true;
             }
 
-            if(act == Active.work)
+            if (act == Active.work)
             {
                 if (work_HP)
                 {
@@ -56,28 +56,32 @@ public class Medic : Mercenary
                         StartCoroutine(Heal_HP());
                     }
                 }
-            }else if(act == Active.die && isDying)
+            }
+            else if (act == Active.die && isDying)
             {
                 isDying = false;
-            }else if(act == Active.refresh) {
+            }
+            else if (act == Active.refresh)
+            {
                 if (!isRefreshing)
                 {
                     StartCoroutine(Refresh());
-                }   
+                }
             }
         }
     }
 
     private void FixedUpdate()
     {
-        if(Mer_GameType == GameType.Playing)
+        if (Mer_GameType == GameType.Playing)
         {
             if (act == Active.move)
             {
                 base.non_combatant_Move();
-            }else if(act == Active.work)
+            }
+            else if (act == Active.work)
             {
-                if(unit.GetComponentInParent<Mercenary>().Check_MoveX() > 0)
+                if (unit.GetComponentInParent<Mercenary>().Check_MoveX() > 0)
                 {
                     Unit_Scale.localScale = new Vector3(-Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
                     transform.position = new Vector3(unit.position.x - 0.6f, Move_Y, 0);
@@ -87,15 +91,17 @@ public class Medic : Mercenary
                     Unit_Scale.localScale = new Vector3(Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
                     transform.position = new Vector3(unit.position.x + 0.6f, Move_Y, 0);
                 }
-            }else if(act == Active.refresh)
+            }
+            else if (act == Active.refresh)
             {
                 rb2D.velocity = Vector2.zero;
             }
-            else if(act == Active.die)
+            else if (act == Active.die)
             {
                 rb2D.velocity = Vector2.zero;
             }
-        }else if(Mer_GameType == GameType.Ending)
+        }
+        else if (Mer_GameType == GameType.Ending)
         {
             act = Active.Game_Wait;
             rb2D.velocity = Vector2.zero;
@@ -127,7 +133,7 @@ public class Medic : Mercenary
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         base.OnTriggerEnter2D(collision);
-        if(collision != null && collision.CompareTag("Mercenary"))
+        if (collision != null && collision.CompareTag("Mercenary"))
         {
             if (act != Active.work)
             {
@@ -140,9 +146,9 @@ public class Medic : Mercenary
 
                 if (!unit.GetComponentInParent<Mercenary>().isHealWithMedic)
                 {
-                    if(CheckHP != 0 && CheckHP < Heal_HpParsent)
+                    if (CheckHP != 0 && CheckHP < Heal_HpParsent)
                     {
-                        if(act != Active.work)
+                        if (act != Active.work)
                         {
                             unit.GetComponentInParent<Mercenary>().isHealWithMedic = true;
                             act = Active.work;
