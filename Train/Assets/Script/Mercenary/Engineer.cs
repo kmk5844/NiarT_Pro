@@ -50,7 +50,7 @@ public class Engineer : Mercenary
             RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1f, LayerMask.GetMask("Platform"));
 
             train = rayHit.collider.GetComponentInParent<Train_InGame>();
-            train_HpParsent = (float)train.cur_HP / (float)train.Train_HP * 100f;
+            train_HpParsent = (float)train.Train_HP / (float)train.Max_Train_HP * 100f;
         }
 
         base.non_combatant_Flip();
@@ -231,7 +231,7 @@ public class Engineer : Mercenary
         }
         else
         {
-            train.cur_HP += repairAmount;
+            train.Train_HP += repairAmount;
         }
         yield return new WaitForSeconds(repairDelay);
         isRepairing = false;

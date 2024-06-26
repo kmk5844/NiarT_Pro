@@ -58,6 +58,7 @@ public class GameDirector : MonoBehaviour
     public int TrainFuel; // 전체적으로 더한다.
     int Total_TrainFuel;
     public float TrainSpeed;
+    float TrainSpeedUP;
     public int TrainDistance;
     [SerializeField]
     int TrainWeight;// 전체적으로 더한다.
@@ -114,6 +115,9 @@ public class GameDirector : MonoBehaviour
     bool Change_Win_BGM_Flag;
     int BGM_ID;
 
+    //아이템부분
+    bool ItemFlag_14;
+
     void Awake()
     {
         gameType = GameType.Playing;
@@ -138,8 +142,11 @@ public class GameDirector : MonoBehaviour
         lastSpeedTime = 0;
         distance_lastSpeedTime = 0;
         timeBet = 0.1f - (EnginePower * 0.001f); //엔진 파워에 따라 결정
+        TrainSpeedUP = 1;
         distance_time = 0.1f;
         ChangeCursor(true);
+        //
+        ItemFlag_14 = false;
     }
 
     private void Start()
@@ -182,7 +189,7 @@ public class GameDirector : MonoBehaviour
                 {
                     if (TrainFuel > 0)
                     {
-                        TrainSpeed++;
+                        TrainSpeed += TrainSpeedUP;
                         TrainFuel -= Efficient;
                     }
                 }
@@ -237,7 +244,7 @@ public class GameDirector : MonoBehaviour
             {
                 if (TrainSpeed > 0)
                 {
-                    TrainSpeed -= 1;
+                    TrainSpeed -= TrainSpeedUP;
                 }
                 else
                 {
@@ -387,7 +394,15 @@ public class GameDirector : MonoBehaviour
     public void Game_Monster_Kill(int GetScore, int GetCoin)
     {
         Total_Score += GetScore;
-        Total_Coin += GetCoin;
+        if (!ItemFlag_14)
+        {
+            Total_Coin += GetCoin;
+        }
+        else
+        {
+            Total_Coin += 2 * GetCoin;
+        }
+
     }
     private string Check_Score()
     {
@@ -514,6 +529,34 @@ public class GameDirector : MonoBehaviour
         // frees the sound at the end (still using that same ID)
         yield return MMCoroutine.WaitFor(3f);
         MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, BGM_ID - 1);
+    }
+
+    //Item부분
+    public void Item_Fuel_Charge(float persent)
+    {
+        TrainFuel += (int)(Total_TrainFuel * (persent / 100f));
+    }
+
+    public void Item_Use_Heal_TrainHP(float persent)
+    {
+        for(int i = 0; i < Train_List.childCount; i++)
+        {
+            Train_List.GetChild(i).GetComponent<Train_InGame>().Item_Heal_TrainHP(persent);
+        }
+    }
+
+    public IEnumerator Item_Train_SpeedUp(int delayTime)
+    {
+        TrainSpeedUP += 0.5f;
+        yield return new WaitForSeconds(delayTime);
+        TrainSpeedUP -= 0.5f;
+    }
+
+    public IEnumerator Item_Coin_Double(int delayTime)
+    {
+        ItemFlag_14 = true;
+        yield return new WaitForSeconds(delayTime);
+        ItemFlag_14 = false;
     }
 }
 

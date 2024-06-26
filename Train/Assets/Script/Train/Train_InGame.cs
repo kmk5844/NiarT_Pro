@@ -15,7 +15,10 @@ public class Train_InGame : MonoBehaviour
     bool BoosterFlag;
 
     [Header("선택된 기차 정보")]
-    public int Train_HP;
+    public int Train_HP; //현재체력
+    float HP_Parsent;
+    [HideInInspector]
+    public int Max_Train_HP;
     public int Train_Weight;
 
     int Level_Anmor;
@@ -39,8 +42,6 @@ public class Train_InGame : MonoBehaviour
     public int Train_BoosterTime;
     //의무실
     public int Train_Heal;
-    public int cur_HP; //현재체력
-    float HP_Parsent;
     
     public bool isReparing;
     public bool isRepairable;
@@ -92,23 +93,23 @@ public class Train_InGame : MonoBehaviour
         Level_Anmor = gameDirector.GetComponent<GameDirector>().SA_TrainData.Level_Train_Armor;
         if (TurretFlag)
         {
-            Train_HP = trainData.Information_Train_Turret_Part[Train_Num2].Train_HP;
+            Max_Train_HP = trainData.Information_Train_Turret_Part[Train_Num2].Train_HP;
             Train_Weight = trainData.Information_Train_Turret_Part[Train_Num2].Train_Weight;
             Train_Armor = trainData.Information_Train_Turret_Part[Train_Num2].Train_Armor;
         }
         else if (BoosterFlag)
         {
-            Train_HP = trainData.Information_Train_Booster_Part[Train_Num2].Train_HP;
+            Max_Train_HP = trainData.Information_Train_Booster_Part[Train_Num2].Train_HP;
             Train_Weight = trainData.Information_Train_Booster_Part[Train_Num2].Train_Weight;
             Train_Armor = trainData.Information_Train_Booster_Part[Train_Num2].Train_Armor;
         }
         else
         {
-            Train_HP = trainData.Information_Train[Train_Num].Train_HP;
+            Max_Train_HP = trainData.Information_Train[Train_Num].Train_HP;
             Train_Weight = trainData.Information_Train[Train_Num].Train_Weight;
             Train_Armor = trainData.Information_Train[Train_Num].Train_Armor;
         }
-        cur_HP = Train_HP;
+        Train_HP = Max_Train_HP;
         Train_Type = trainData.Information_Train[Train_Num].Train_Type;
         CheckType();
     }
@@ -116,10 +117,10 @@ public class Train_InGame : MonoBehaviour
     private void Update()
     {
         era = 1f - (float)Train_Armor / def_constant; //만약에 방어력 증가해주는 기관사 타게 된다면 변경 가능성이 큼
-        HP_Parsent = (float)cur_HP / (float)Train_HP * 100f;
+        HP_Parsent = (float)Train_HP / (float)Max_Train_HP * 100f;
         //여기서 만약 기차가 파괴 당할 시 쓰면 좋은 함수
 
-        if (cur_HP <= 0)
+        if (Train_HP <= 0)
         {
             switch (Train_Type)
             {
@@ -143,7 +144,7 @@ public class Train_InGame : MonoBehaviour
 
         if (Train_Type.Equals("Medic"))
         {
-            if(cur_HP == 0 || Train_Heal ==0)
+            if(Train_HP == 0 || Train_Heal ==0)
             {
                 openMedicTrian = false;
             }
@@ -197,13 +198,13 @@ public class Train_InGame : MonoBehaviour
     {
         gameDirector.GetComponent<GameDirector>().Game_MonsterHit(monsterBullet.slow); //슬로우가 있어야 한다.
         int damageTaken = Mathf.RoundToInt(monsterBullet.atk * era);
-        if(cur_HP - damageTaken < 0)
+        if(Train_HP - damageTaken < 0)
         {
-            cur_HP = 0;
+            Train_HP = 0;
         }
         else
         {
-            cur_HP -= damageTaken;
+            Train_HP -= damageTaken;
         }
     }
 
@@ -246,5 +247,11 @@ public class Train_InGame : MonoBehaviour
     {
         //데미지 경감이기 때문에 클수록 유리
         return trainArmor + (trainArmor * (Level_Anmor * 10) / 100);
+    }
+
+    //item 부분
+    public void Item_Heal_TrainHP(float persent)
+    {
+        Train_HP += (int)(Max_Train_HP * (persent / 100f));
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Long_RangedShoot : MonoBehaviour
 {
     bool Target_Flag;
-    public Transform Bullet;
+    public Transform BulletObj;
     Transform Bullet_List;
     Transform Target;
 
@@ -95,7 +95,8 @@ public class Long_RangedShoot : MonoBehaviour
     {
         if(Time.time >= lastTime + unit_Attack_Delay)
         {
-            Instantiate(Bullet, transform.position, transform.rotation, Bullet_List);
+            BulletObj.GetComponent<Bullet>().atk = unit_Attack;
+            Instantiate(BulletObj, transform.position, transform.rotation, Bullet_List);
             unit.workCountUP();
             //여기서 카운트 센다.
             lastTime = Time.time;

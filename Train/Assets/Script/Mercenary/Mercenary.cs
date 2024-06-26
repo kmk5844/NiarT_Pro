@@ -38,6 +38,7 @@ public class Mercenary : MonoBehaviour
     float Refresh_Delay;
     float Min_Refresh_Delay;
     float Max_Refresh_Delay;
+    float Item_Refresh_Delay;
     protected int workCount;
     [SerializeField]
     protected int Max_workCount;
@@ -64,7 +65,6 @@ public class Mercenary : MonoBehaviour
     public GameObject CoolTime_Guage_Object;
     public Image CoolTime_Guage;
 
-
     protected virtual void Awake()
     {
         gameDirector = GameObject.Find("GameDirector").GetComponent<GameDirector>();
@@ -80,6 +80,7 @@ public class Mercenary : MonoBehaviour
         TrainCount = Train_List.childCount;
         rb2D = GetComponent<Rigidbody2D>();
         Refresh_Delay = 0f;
+        Item_Refresh_Delay = 0f;
         Move_X = 1f;
         MaxMove_X = 4f;
         MinMove_X = -10.94f * (TrainCount - 1) - 5f;
@@ -119,7 +120,7 @@ public class Mercenary : MonoBehaviour
         if (isRefreshing)
         {
             float elpsedTime = Time.time - refreshStartTime;
-            float totalDuration = Mathf.Clamp(refreshStartTime + Refresh_Delay, refreshStartTime, float.MaxValue) - refreshStartTime;
+            float totalDuration = Mathf.Clamp(refreshStartTime + (Refresh_Delay- Item_Refresh_Delay), refreshStartTime, float.MaxValue) - refreshStartTime;
             float currentFillAmount = Mathf.Lerp(0, 1, Mathf.Clamp01(elpsedTime / totalDuration));
             CoolTime_Guage.fillAmount = currentFillAmount;
         }
@@ -269,7 +270,7 @@ public class Mercenary : MonoBehaviour
         CoolTime_Guage_Object.SetActive(true);
         refreshStartTime = Time.time;
         Refresh_Delay = Random.Range(Min_Refresh_Delay, Max_Refresh_Delay);
-        yield return new WaitForSeconds(Refresh_Delay);
+        yield return new WaitForSeconds(Refresh_Delay - Item_Refresh_Delay);
         workCount = 0;
         CoolTime_Guage_Object.SetActive(false);
         act = Active.move;
@@ -447,6 +448,9 @@ public class Mercenary : MonoBehaviour
                 break;
         }
     }
+
+    //ItemºÎºÐ
+
 }
 public enum Active
 {

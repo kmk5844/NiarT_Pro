@@ -17,7 +17,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject Bullet;
     [SerializeField]
-    int Bullet_Atk; //보스랑 싸울 때, atk가 필요함
+    int Bullet_Atk;
+    int item_Atk;
     [SerializeField]
     float Bullet_Delay;
     public Transform Bullet_Fire_Transform;
@@ -78,6 +79,7 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         Player_Bullet_List = GameObject.Find("Bullet_List").GetComponent<Transform>();
         Level();
+        item_Atk = 0;
         era = 1f - (float)Player_Armor / def_constant;
     }
 
@@ -234,7 +236,7 @@ public class Player : MonoBehaviour
         if (Time.time >= lastTime + Bullet_Delay)
         {
             GameObject bullet = Instantiate(Bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
-            bullet.GetComponent<Bullet>().atk = Bullet_Atk;
+            bullet.GetComponent<Bullet>().atk = Bullet_Atk + item_Atk;
             lastTime = Time.time;
             MMSoundManagerSoundPlayEvent.Trigger(ShootSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         }
@@ -307,9 +309,9 @@ public class Player : MonoBehaviour
         Player_HP += Medic_Heal;
     }
 
+
     public int Check_moveX()
     {
-        Debug.Log(moveX);
         return moveX;
     }
 
@@ -346,5 +348,58 @@ public class Player : MonoBehaviour
                     break;
             }
         }
+    }
+
+    //Item 부분
+    public void Item_Player_Heal_HP(float persent)
+    {
+        Player_HP += (int)(Max_HP * (persent / 100f));
+    }
+
+    public IEnumerator Item_Player_SpeedUP(float speed, int delayTime)
+    {
+        moveSpeed += speed;
+        Debug.Log(moveSpeed);
+        yield return new WaitForSeconds(delayTime);
+        moveSpeed -= speed;
+        Debug.Log(moveSpeed);
+    }
+
+    public IEnumerator Item_Player_Heal_HP_Auto(float perseent, int delaytime)
+    {
+        while(delaytime > 0)
+        {
+            Item_Player_Heal_HP(perseent);
+            yield return new WaitForSeconds(1);
+            Debug.Log("회복" + delaytime) ;
+            delaytime -= 1;
+        }
+    }
+
+    public IEnumerator Item_Player_AtkUP(int AddAtk, int delayTime)
+    {
+        item_Atk += AddAtk;
+        yield return new WaitForSeconds(delayTime);
+        item_Atk -= AddAtk;
+    }
+
+    public IEnumerator Item_Player_DoubleAtkUP(int delayTime)
+    {
+        item_Atk += Bullet_Atk;
+        yield return new WaitForSeconds(delayTime);
+        item_Atk -= Bullet_Atk;
+    }
+
+    public void Item_Player_Ballon_Bullet()
+    {
+        GameObject ballon = Resources.Load<GameObject>("Bullet/Turret/Ballon_Bullet_Turret");
+        ballon.GetComponent<Bullet>().atk = Bullet_Atk;
+        Instantiate(ballon,transform.position, Quaternion.identity, Player_Bullet_List);
+    }
+
+    public void Item_Player_Giant_Scarecrow()
+    {
+        float pos = Random.Range(transform.position.x - 4, transform.position.x + 4);
+        Instantiate(Resources.Load<GameObject>("InGameObject/Giant_ScarecrowObject"), new Vector2(pos, -0.95f), Quaternion.identity);
     }
 }

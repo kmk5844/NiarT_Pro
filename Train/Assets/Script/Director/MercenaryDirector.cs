@@ -137,4 +137,13 @@ public class MercenaryDirector : MonoBehaviour
         Engineer_live_Num = num;
         isChecklive = false;
     }
+
+    //아이템부분
+    public void Item_Use_Fatigue_Reliever(int count, int delayTime)
+    {
+        for (int i = 0; i < Mercenary_List.childCount; i++)
+        {
+            Debug.Log("나중에 진행 예정");
+        }
+    }
 }

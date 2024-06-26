@@ -29,6 +29,7 @@ public class MonsterDirector : MonoBehaviour
     public int MaxMonsterNum;
     [SerializeField]
     int MonsterNum;
+    int item_MonsterCount;
 
     [Header("기차 정보")]
     public Transform Train_List;
@@ -52,6 +53,7 @@ public class MonsterDirector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        item_MonsterCount = 0;
         TrainCount = Train_List.childCount;
         MaxPos_Sky = new Vector2(5f, 6f);
         MinPos_Sky = new Vector2((-10f * TrainCount), 3f);
@@ -68,7 +70,7 @@ public class MonsterDirector : MonoBehaviour
         if (GameDirector_SpawnFlag)
         {
             MonsterNum = Monster_List.childCount;
-            if (MonsterNum < MaxMonsterNum && !isSpawing)
+            if (MonsterNum < MaxMonsterNum + item_MonsterCount && !isSpawing)
             {
                 StartCoroutine(AppearMonster());
             }
@@ -118,5 +120,22 @@ public class MonsterDirector : MonoBehaviour
         Gizmos.DrawLine(new Vector3(MaxPos_Ground.x, MinPos_Ground.y, 0), new Vector3(MinPos_Ground.x, MinPos_Ground.y, 0));
         Gizmos.DrawLine(new Vector3(MinPos_Ground.x, MinPos_Ground.y, 0), new Vector3(MinPos_Ground.x, MaxPos_Ground.y, 0));
         Gizmos.DrawLine(new Vector3(MinPos_Ground.x, MaxPos_Ground.y, 0), new Vector3(MaxPos_Ground.x, MaxPos_Ground.y, 0));
+    }
+
+    //아이템부분
+    public IEnumerator Item_Monster_FearFlag(int count, int delayTime)
+    {
+        item_MonsterCount -= count;
+        yield return new WaitForSeconds(delayTime);
+        item_MonsterCount += count;
+        Debug.Log("종료");
+    }
+
+    public IEnumerator Item_Monster_GreedFlag(int count, int delayTime)
+    {
+        item_MonsterCount += count;
+        yield return new WaitForSeconds(delayTime);
+        item_MonsterCount -= count;
+        Debug.Log("종료");
     }
 }

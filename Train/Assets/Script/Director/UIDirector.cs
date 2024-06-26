@@ -85,7 +85,7 @@ public class UIDirector : MonoBehaviour
 
         Player_HP_Bar.fillAmount = player.Check_HpParsent() / 100f;
         TotalFuel_Bar.fillAmount = gamedirector.Check_Fuel();
-        Speed_Text.text = gamedirector.TrainSpeed + " Km/h";
+        Speed_Text.text = (int)gamedirector.TrainSpeed + " Km/h";
         Fuel_Text.text = "Fuel : "+ (int)(gamedirector.Check_Fuel() * 100f) + "%";
         Speed_Arrow.value = gamedirector.TrainSpeed / gamedirector.MaxSpeed;
 

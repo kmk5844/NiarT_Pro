@@ -98,7 +98,6 @@ public class Long_Ranged : Mercenary
     {
         unit_Attack = type[level].Unit_Attack;
         unit_Attack_Delay = type[level].Unit_Atk_Delay;
-        //workSpeed = type[level].WorkSpeed;
     }
     public void TargetFlag(bool Flag)
     {
