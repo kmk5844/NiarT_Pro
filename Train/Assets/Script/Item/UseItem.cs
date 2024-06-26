@@ -107,16 +107,21 @@ public class UseItem : MonoBehaviour
                 player.Item_Player_Giant_Scarecrow();
                 break;
             case 29:
+                player.Item_Player_Spawn_Turret(0);
                 break;
             case 30:
+                StartCoroutine(player.Item_Player_AtkUP(10, 15));
+                StartCoroutine(player.Item_Player_AtkDelayDown(0.3f, 15));
                 break;
             case 31:
+                StartCoroutine(player.Item_Player_Giant_GunAndBullet(20));
                 break;
             case 32:
                 break;
             case 33:
                 break;
             case 34:
+                player.Item_Player_Heal_HP(10);
                 break;
             case 35:
                 break;

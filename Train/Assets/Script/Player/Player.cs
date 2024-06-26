@@ -15,10 +15,9 @@ public class Player : MonoBehaviour
 
     [Header("무기")]
     [SerializeField]
-    private GameObject Bullet;
+    private GameObject playerBullet;
     [SerializeField]
     int Bullet_Atk;
-    int item_Atk;
     [SerializeField]
     float Bullet_Delay;
     public Transform Bullet_Fire_Transform;
@@ -57,6 +56,12 @@ public class Player : MonoBehaviour
     private Vector3 mousePos;
     public AudioClip ShootSFX;
 
+    //아이템 부분
+    int item_Atk;
+    float item_Delay;
+    float minPos;
+    float maxPos;
+
     void Start()
     {
         gamedriectorObject = GameObject.Find("GameDirector");
@@ -66,7 +71,7 @@ public class Player : MonoBehaviour
         jumpFlag = false;
         jumpdistance = 0.5f;
 
-        Bullet = playerData.Bullet;
+        playerBullet = playerData.Bullet;
         Player_HP = playerData.HP;
         Player_Armor = playerData.Armor;
         Bullet_Atk = playerData.Atk;
@@ -80,6 +85,7 @@ public class Player : MonoBehaviour
         Player_Bullet_List = GameObject.Find("Bullet_List").GetComponent<Transform>();
         Level();
         item_Atk = 0;
+        item_Delay = 0;
         era = 1f - (float)Player_Armor / def_constant;
     }
 
@@ -233,9 +239,9 @@ public class Player : MonoBehaviour
     }
     void BulletFire()
     {
-        if (Time.time >= lastTime + Bullet_Delay)
+        if (Time.time >= lastTime + (Bullet_Delay + item_Delay))
         {
-            GameObject bullet = Instantiate(Bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
+            GameObject bullet = Instantiate(playerBullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
             bullet.GetComponent<Bullet>().atk = Bullet_Atk + item_Atk;
             lastTime = Time.time;
             MMSoundManagerSoundPlayEvent.Trigger(ShootSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
@@ -351,6 +357,12 @@ public class Player : MonoBehaviour
     }
 
     //Item 부분
+    private void Check_Pos()
+    {
+        minPos = MonsterDirector.MinPos_Ground.x;
+        maxPos = MonsterDirector.MaxPos_Ground.x;
+    }
+
     public void Item_Player_Heal_HP(float persent)
     {
         Player_HP += (int)(Max_HP * (persent / 100f));
@@ -383,6 +395,13 @@ public class Player : MonoBehaviour
         item_Atk -= AddAtk;
     }
 
+    public IEnumerator Item_Player_AtkDelayDown(float atkdelaytime, int delayTime)
+    {
+        item_Delay -= atkdelaytime;
+        yield return new WaitForSeconds(delayTime);
+        item_Delay += atkdelaytime;
+    }
+
     public IEnumerator Item_Player_DoubleAtkUP(int delayTime)
     {
         item_Atk += Bullet_Atk;
@@ -399,7 +418,31 @@ public class Player : MonoBehaviour
 
     public void Item_Player_Giant_Scarecrow()
     {
-        float pos = Random.Range(transform.position.x - 4, transform.position.x + 4);
-        Instantiate(Resources.Load<GameObject>("InGameObject/Giant_ScarecrowObject"), new Vector2(pos, -0.95f), Quaternion.identity);
+        Check_Pos();
+        float pos = Random.Range(minPos, maxPos);
+        Instantiate(Resources.Load<GameObject>("ItemObject/Giant_ScarecrowObject"), new Vector2(pos, -0.95f), Quaternion.identity);
+    }
+
+    public void Item_Player_Spawn_Turret(int num)
+    {
+        Check_Pos();
+        float pos = Random.Range(minPos, maxPos);
+        switch (num)
+        {
+            case 0:
+                Instantiate(Resources.Load<GameObject>("ItemObject/Mini_Auto_Turret"), new Vector2(pos, -0.3f), Quaternion.identity);
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+        }
+    }
+
+    public IEnumerator Item_Player_Giant_GunAndBullet(float delayTime)
+    {
+        playerBullet.transform.localScale = new Vector3(4f, 4f, 4f);
+        yield return new WaitForSeconds(delayTime);
+        playerBullet.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
     }
 }

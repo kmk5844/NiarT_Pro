@@ -19,8 +19,8 @@ public class MonsterDirector : MonoBehaviour
     [SerializeField] Vector2 MinPos_Sky;
 
     [Header("몬스터 지상 스폰 설정")]
-    [SerializeField] Vector2 MaxPos_Ground;
-    [SerializeField] Vector2 MinPos_Ground;
+    public static Vector2 MaxPos_Ground;
+    public static Vector2 MinPos_Ground;
 
     public bool GameDirector_SpawnFlag;
     bool isSpawing = false;
