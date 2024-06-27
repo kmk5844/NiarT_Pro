@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,18 +26,21 @@ public class CameraFollow : MonoBehaviour
     int trainCam_Count;
     public bool CameraFlag;
 
-    // Start is called before the first frame update
+    //Item 부분
+    public GameObject mapCamera;
+
     void Start()
     {
         CameraFlag = false;
         Cam_Trans = GetComponent<Transform>();
+        mapCamera.SetActive(false);
         trainCam_Count = -1;
         max_trainCam_Count = TrainCam_List.childCount;
         Cam_Trans.position = new Vector3(Player.transform.position.x, CameraOffset.y, Cam_Trans.position.z);
     }
 
     private void Update()
-    {
+    { 
         if (Input.GetKeyDown(KeyCode.Z))
         {
             prev_Cam();
@@ -118,5 +122,13 @@ public class CameraFollow : MonoBehaviour
         V_Cam = TrainCam_List.GetChild(trainCam_Count).gameObject;
         V_Cam.gameObject.SetActive(true);
         V_Cam_X = V_Cam.transform.position.x;
+    }
+
+    //Item부분
+    public IEnumerator Item_Camera_Map(int delaytime)
+    {
+        mapCamera.SetActive(true);
+        yield return new WaitForSeconds(delaytime);
+        mapCamera.SetActive(false);
     }
 }

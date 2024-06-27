@@ -73,10 +73,10 @@ public class UseItem : MonoBehaviour
                 StartCoroutine(player.Item_Player_DoubleAtkUP(6));
                 break;
             case 18:
+                player.Item_Player_Spawn_Claymore();
                 break;
             case 19:
-                break;
-            case 20:
+                player.Item_Player_Spawn_WireEntanglement();
                 break;
         }
     }
@@ -117,8 +117,11 @@ public class UseItem : MonoBehaviour
                 StartCoroutine(player.Item_Player_Giant_GunAndBullet(20));
                 break;
             case 32:
+                player.Item_Player_Spawn_Shield(0);
                 break;
             case 33:
+                player.Item_Player_Spawn_Shield(1);
+                StartCoroutine(player.Item_Player_Heal_HP_Auto(5,5));
                 break;
             case 34:
                 player.Item_Player_Heal_HP(10);
@@ -126,8 +129,10 @@ public class UseItem : MonoBehaviour
             case 35:
                 break;
             case 36:
+                player.Item_Player_Spawn_Dron(0);
                 break;
             case 37:
+                StartCoroutine(Camera.main.GetComponent<CameraFollow>().Item_Camera_Map(15));
                 break;
             case 38:
                 break;
@@ -136,6 +141,10 @@ public class UseItem : MonoBehaviour
             case 40:
                 break;
             case 41:
+                player.Item_Player_Minus_HP(20);
+                StartCoroutine(player.Item_Player_SpeedUP(2f, 30));
+                StartCoroutine(player.Item_Player_AtkUP(30, 30));
+                StartCoroutine(player.Item_Player_AtkDelayDown(0.5f, 30));
                 break;
             case 42:
                 break;

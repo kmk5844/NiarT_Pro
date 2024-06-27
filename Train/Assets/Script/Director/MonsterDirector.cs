@@ -15,8 +15,8 @@ public class MonsterDirector : MonoBehaviour
     List<int> Emerging_Monster_List;
 
     [Header("몬스터 공중 스폰 설정")]
-    [SerializeField] Vector2 MaxPos_Sky;
-    [SerializeField] Vector2 MinPos_Sky;
+    public static Vector2 MaxPos_Sky;
+    public static Vector2 MinPos_Sky;
 
     [Header("몬스터 지상 스폰 설정")]
     public static Vector2 MaxPos_Ground;

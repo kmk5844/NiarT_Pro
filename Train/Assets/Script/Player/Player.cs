@@ -39,12 +39,12 @@ public class Player : MonoBehaviour
     [SerializeField] float moveSpeed;
     [SerializeField] float jumpSpeed;
     Rigidbody2D rigid;
-    int moveX;
+    //int moveX;
+    bool rotationOn;
     bool jumpFlag;
     bool isMouseDown;
     float jumpdistance;
     float jumpFlagDistance;
-    float moveScale;
 
     [Header("의무실")]
     public bool isHealing;
@@ -57,10 +57,14 @@ public class Player : MonoBehaviour
     public AudioClip ShootSFX;
 
     //아이템 부분
+    [Header("아이템 장착 부분")]
+    public Transform ItemTransform;
     int item_Atk;
     float item_Delay;
-    float minPos;
-    float maxPos;
+    Vector2 minGroundPos;
+    Vector2 maxGroundPos;
+    Vector2 minSkyPos;
+    Vector2 maxSkyPos;
 
     void Start()
     {
@@ -79,6 +83,7 @@ public class Player : MonoBehaviour
         moveSpeed = playerData.MoveSpeed;
         //총이미지는 나중에 = playerData.Gun;
 
+        rotationOn = false;
         Max_HP = Player_HP; 
         lastTime = 0;
         rigid = GetComponent<Rigidbody2D>();
@@ -112,10 +117,12 @@ public class Player : MonoBehaviour
 
             if(mousePos.x > transform.position.x)
             {
+                rotationOn = true;
                 transform.rotation = Quaternion.Euler(0,-180,0);
             }
             else
             {
+                rotationOn = false;
                 transform.rotation = Quaternion.Euler(0, 0 ,0);
             }
 
@@ -211,12 +218,12 @@ public class Player : MonoBehaviour
 
         if (rigid.velocity.x > moveSpeed)
         {
-            moveX = 1;
+            //moveX = 1;
             rigid.velocity = new Vector2(moveSpeed, rigid.velocity.y);
         }
         else if (rigid.velocity.x < moveSpeed * (-1))
         {
-            moveX = -1;
+            //moveX = -1;
             rigid.velocity = new Vector2(moveSpeed * (-1), rigid.velocity.y);
         }
 
@@ -316,11 +323,6 @@ public class Player : MonoBehaviour
     }
 
 
-    public int Check_moveX()
-    {
-        return moveX;
-    }
-
     public void P_Buff(Bard_Type type, int amount, bool flag)
     {
         if (flag)
@@ -359,13 +361,20 @@ public class Player : MonoBehaviour
     //Item 부분
     private void Check_Pos()
     {
-        minPos = MonsterDirector.MinPos_Ground.x;
-        maxPos = MonsterDirector.MaxPos_Ground.x;
+        minSkyPos = MonsterDirector.MinPos_Sky;
+        maxSkyPos = MonsterDirector.MaxPos_Sky;
+        minGroundPos = MonsterDirector.MinPos_Ground;
+        maxGroundPos = MonsterDirector.MaxPos_Ground;
     }
 
     public void Item_Player_Heal_HP(float persent)
     {
         Player_HP += (int)(Max_HP * (persent / 100f));
+    }
+
+    public void Item_Player_Minus_HP(float persent)
+    {
+        Player_HP -= (int)(Max_HP * (persent / 100f));
     }
 
     public IEnumerator Item_Player_SpeedUP(float speed, int delayTime)
@@ -419,22 +428,52 @@ public class Player : MonoBehaviour
     public void Item_Player_Giant_Scarecrow()
     {
         Check_Pos();
-        float pos = Random.Range(minPos, maxPos);
-        Instantiate(Resources.Load<GameObject>("ItemObject/Giant_ScarecrowObject"), new Vector2(pos, -0.95f), Quaternion.identity);
+        float pos = Random.Range(minGroundPos.x, maxGroundPos.x);
+        GameObject Scarecrow = Resources.Load<GameObject>("ItemObject/Giant_ScarecrowObject");
+        Scarecrow.GetComponent<Item_Shield>().HP = 1000;
+        Instantiate(Scarecrow, new Vector2(pos, -0.95f), Quaternion.identity);
     }
 
     public void Item_Player_Spawn_Turret(int num)
     {
         Check_Pos();
-        float pos = Random.Range(minPos, maxPos);
+        float pos = Random.Range(minGroundPos.x, maxGroundPos.x);
         switch (num)
         {
             case 0:
                 Instantiate(Resources.Load<GameObject>("ItemObject/Mini_Auto_Turret"), new Vector2(pos, -0.3f), Quaternion.identity);
                 break;
             case 1:
+                //로봇 공장
                 break;
-            case 2:
+        }
+    }
+
+    public void Item_Player_Spawn_Dron(int num)
+    {
+        Check_Pos();
+        Vector2 pos = new Vector2(minSkyPos.x - 2, (minSkyPos.y + maxSkyPos.y) / 2);
+        switch (num)
+        {
+            case 0:
+                Instantiate(Resources.Load<GameObject>("ItemObject/MiniDron"), pos, Quaternion.identity);
+                break;
+    }
+}
+    public void Item_Player_Spawn_Shield(int num)
+    {
+        GameObject shield;
+        switch (num)
+        {
+            case 0:
+                shield = Resources.Load<GameObject>("ItemObject/MiniShield");
+                shield.GetComponent<Item_Shield>().HP = 1000;
+                Instantiate(shield, ItemTransform);
+                break;
+            case 1:
+                shield = Resources.Load<GameObject>("ItemObject/HealingShield");
+                shield.GetComponent<Item_Shield>().HP = 500;
+                Instantiate(shield, ItemTransform);
                 break;
         }
     }
@@ -444,5 +483,26 @@ public class Player : MonoBehaviour
         playerBullet.transform.localScale = new Vector3(4f, 4f, 4f);
         yield return new WaitForSeconds(delayTime);
         playerBullet.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
+    }
+
+    public void Item_Player_Spawn_Claymore()
+    {
+        GameObject ClaymoreObject = Resources.Load<GameObject>("ItemObject/Claymore");
+        float Pos;
+        if (rotationOn)
+        {
+            Pos = transform.position.x + 1;
+        }
+        else
+        {
+            Pos = transform.position.x - 1;
+        }
+        Instantiate(ClaymoreObject, new Vector2(Pos, -0.4f),Quaternion.identity);
+    }
+
+    public void Item_Player_Spawn_WireEntanglement()
+    {
+        GameObject WireEntanglementObject = Resources.Load<GameObject>("ItemObject/WireEntanglement");
+        Instantiate(WireEntanglementObject, new Vector2(transform.position.x, -0.4f), Quaternion.identity);
     }
 }

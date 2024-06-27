@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Giant_ScareCrow : MonoBehaviour
+public class Item_Shield : MonoBehaviour
 {
     public int HP;
 
     private void Start()
     {
-        HP = 1000;
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

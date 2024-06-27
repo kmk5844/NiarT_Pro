@@ -221,11 +221,12 @@ public class Monster : MonoBehaviour
 
     private void Damage_Monster_Collsion(Collision2D collision)
     {
-        HitDamage.GetComponent<Hit_Text_Damage>().damage = collision.gameObject.GetComponent<Bullet>().atk;
+        int hit_atk = collision.gameObject.GetComponent<Bullet>().atk;
+        HitDamage.GetComponent<Hit_Text_Damage>().damage = hit_atk;
         HitDamage.GetComponent<Hit_Text_Damage>().Random_X = transform.position.x + Random.Range(-0.5f, 0.5f);
         HitDamage.GetComponent<Hit_Text_Damage>().Random_Y = transform.position.y + Random.Range(0.5f, 1.5f);
         Instantiate(HitDamage, monster_Bullet_List);
-        if (Monster_HP > 0)
+        if (Monster_HP - hit_atk > 0)
         {
             Monster_HP -= collision.gameObject.GetComponent<Bullet>().atk;
         }
@@ -237,11 +238,12 @@ public class Monster : MonoBehaviour
     }
     private void Damage_Monster_Trigger(Collider2D collision)
     {
-        HitDamage.GetComponent<Hit_Text_Damage>().damage = collision.gameObject.GetComponent<Bullet>().atk;
+        int hit_atk = collision.gameObject.GetComponent<Bullet>().atk;
+        HitDamage.GetComponent<Hit_Text_Damage>().damage = hit_atk;
         HitDamage.GetComponent<Hit_Text_Damage>().Random_X = transform.position.x + Random.Range(-0.5f, 0.5f);
         HitDamage.GetComponent<Hit_Text_Damage>().Random_Y = transform.position.y + Random.Range(0.5f, 1.5f);
         Instantiate(HitDamage, monster_Bullet_List);
-        if (Monster_HP > 0)
+        if (Monster_HP - hit_atk > 0)
         {
             Monster_HP -= collision.gameObject.GetComponent<Bullet>().atk;
         }
@@ -262,7 +264,7 @@ public class Monster : MonoBehaviour
         HitDamage.GetComponent<Hit_Text_Damage>().Random_X = transform.position.x + Random.Range(-0.5f, 0.5f);
         HitDamage.GetComponent<Hit_Text_Damage>().Random_Y = transform.position.y + Random.Range(0.5f, 1.5f);
         Instantiate(HitDamage, monster_Bullet_List);
-        if (Monster_HP > 0)
+        if (Monster_HP  - mercenary_atk > 0)
         {
             Monster_HP -= mercenary_atk;
         }
@@ -279,7 +281,7 @@ public class Monster : MonoBehaviour
         HitDamage.GetComponent<Hit_Text_Damage>().Random_X = transform.position.x + Random.Range(-0.5f, 0.5f);
         HitDamage.GetComponent<Hit_Text_Damage>().Random_Y = transform.position.y + Random.Range(0.5f, 1.5f);
         Instantiate(HitDamage, monster_Bullet_List);
-        if (Monster_HP > 0)
+        if (Monster_HP - Bomb_Atk > 0)
         {
             Monster_HP -= Bomb_Atk;
         }
@@ -289,6 +291,23 @@ public class Monster : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    private void Damage_Item_WireEntanglement(Collider2D collision)
+    {
+        HitDamage.GetComponent<Hit_Text_Damage>().damage = 2;
+        HitDamage.GetComponent<Hit_Text_Damage>().Random_X = transform.position.x + Random.Range(-0.5f, 0.5f);
+        HitDamage.GetComponent<Hit_Text_Damage>().Random_Y = transform.position.y + Random.Range(0.5f, 1.5f);
+        Instantiate(HitDamage, monster_Bullet_List);
+        if (Monster_HP - 2 > 0)
+        {
+            Monster_HP -= 2;
+        }
+        else
+        {
+            gameDirector.Game_Monster_Kill(Monster_Score, Monster_Coin);
+            Destroy(gameObject);
+        }
+    } 
 
     private void OnCollisionEnter2D(Collision2D collision) // 공통적으로 적용해야됨.
     {
@@ -313,6 +332,7 @@ public class Monster : MonoBehaviour
     {
         if (collision.gameObject.tag.Equals("Player_Bullet"))
         {
+
             if (collision.gameObject.name.Equals("Short_AttackCollider")){
                 Damage_Monster_Trigger_Mercenary(collision);
             }
@@ -325,22 +345,42 @@ public class Monster : MonoBehaviour
         {
             if (collision.gameObject.name.Equals("Raser"))
             {
-                Raser_Hit(collision);
+                Raser_Hit(collision, true);
             }
             if (collision.gameObject.name.Equals("Fire"))
             {
                 Fire_Hit(collision);
             }
         }
+
+        if (collision.gameObject.tag.Equals("Item"))
+        {
+            if (collision.gameObject.name.Equals("WireEntanglement(Clone)"))
+            {
+                Raser_Hit(collision, false);
+            }
+        }
     }
 
-    void Raser_Hit(Collider2D collision)
+    void Raser_Hit(Collider2D collision, bool RealRaser)
     {
-        if (Time.time > raser_hit_time + 0.3f)
+        if (RealRaser)
         {
-            Damage_Monster_Trigger(collision);
-            raser_hit_time = Time.time;
+            if (Time.time > raser_hit_time + 0.3f)
+            {
+                Damage_Monster_Trigger(collision);
+                raser_hit_time = Time.time;
+            }
         }
+        else
+        {
+            if(Time.time > raser_hit_time + 0.5f)
+            {
+                Damage_Item_WireEntanglement(collision);
+                raser_hit_time = Time.time;
+            }
+        }
+        
     }
 
     void Fire_Hit(Collider2D collision)

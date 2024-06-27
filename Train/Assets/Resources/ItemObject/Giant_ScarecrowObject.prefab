@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7097170339422059155}
   - component: {fileID: 5486701465383371903}
-  - component: {fileID: 3139568671443107537}
   - component: {fileID: 3509885243360282617}
   - component: {fileID: 5526778545843352700}
+  - component: {fileID: 7658282489643014017}
   m_Layer: 0
   m_Name: Giant_ScarecrowObject
   m_TagString: Untagged
@@ -87,19 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3139568671443107537
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1340998997326395944}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3191cdea18806f4487bc624c4e8983b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HP: 0
 --- !u!50 &3509885243360282617
 Rigidbody2D:
   serializedVersion: 4
@@ -360,3 +347,16 @@ PolygonCollider2D:
       - {x: 0.5625, y: 2.8671875}
       - {x: 0.5703125, y: 2.8671875}
   m_UseDelaunayMesh: 0
+--- !u!114 &7658282489643014017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1340998997326395944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7431d97b145ec146a83072f970e5bad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HP: 0
