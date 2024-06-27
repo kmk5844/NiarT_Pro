@@ -452,13 +452,22 @@ public class Player : MonoBehaviour
     public void Item_Player_Spawn_Dron(int num)
     {
         Check_Pos();
-        Vector2 pos = new Vector2(minSkyPos.x - 2, (minSkyPos.y + maxSkyPos.y) / 2);
         switch (num)
         {
             case 0:
-                Instantiate(Resources.Load<GameObject>("ItemObject/MiniDron"), pos, Quaternion.identity);
+                GameObject MiniDron = Resources.Load<GameObject>("ItemObject/MiniDron");
+                MiniDron.GetComponent<MiniDron>().DronAtk = 10;
+                Vector2 pos = new Vector2(minSkyPos.x - 2, (minSkyPos.y + maxSkyPos.y) / 2);
+                Instantiate(MiniDron, pos, Quaternion.identity);
                 break;
-    }
+            case 1:
+                GameObject MiniRaserDron = Resources.Load<GameObject>("ItemObject/MiniRaserDron");
+                MiniRaserDron.GetComponent<MiniDron>().DronAtk = 2;
+                pos = new Vector2(minSkyPos.x, maxSkyPos.y + 1);
+                Instantiate(MiniRaserDron, pos, Quaternion.identity);
+                break;
+
+        }
 }
     public void Item_Player_Spawn_Shield(int num)
     {

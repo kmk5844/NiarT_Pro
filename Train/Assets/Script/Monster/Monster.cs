@@ -134,7 +134,7 @@ public class Monster : MonoBehaviour
         fire_hit_flag = true;
         if (fire_hit_Count != 0)
         {
-            Damage_Monster_Bomb(fire_hit_damage);
+            Damage_Monster_BombAndDron(fire_hit_damage);
         }
         yield return new WaitForSeconds(1f);
         fire_hit_Count++;
@@ -275,7 +275,7 @@ public class Monster : MonoBehaviour
         }
     }
 
-    public void Damage_Monster_Bomb(int Bomb_Atk)
+    public void Damage_Monster_BombAndDron(int Bomb_Atk)
     {
         HitDamage.GetComponent<Hit_Text_Damage>().damage = Bomb_Atk;
         HitDamage.GetComponent<Hit_Text_Damage>().Random_X = transform.position.x + Random.Range(-0.5f, 0.5f);
@@ -337,6 +337,14 @@ public class Monster : MonoBehaviour
                 Damage_Monster_Trigger_Mercenary(collision);
             }
         }
+        if (collision.gameObject.tag.Equals("Item"))
+        {
+            if (collision.gameObject.name.Equals("MiniDron(Clone)"))
+            {
+                int atk = collision.GetComponent<MiniDron>().DronAtk;
+                Damage_Monster_BombAndDron(atk);
+            }
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -359,6 +367,7 @@ public class Monster : MonoBehaviour
             {
                 Raser_Hit(collision, false);
             }
+
         }
     }
 

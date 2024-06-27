@@ -22,7 +22,7 @@ public class Ballon_Bomb : MonoBehaviour
                 // 대상이 유닛 타입일 경우에만 데미지 적용
                 if (collider.CompareTag("Monster"))
                 {
-                    collider.GetComponent<Monster>().Damage_Monster_Bomb(Ballon.atk);
+                    collider.GetComponent<Monster>().Damage_Monster_BombAndDron(Ballon.atk);
                 }
             }
             bomb_flag = true;

@@ -21,7 +21,7 @@ public class Item_Claymore_Bomb : MonoBehaviour
                 // 대상이 유닛 타입일 경우에만 데미지 적용
                 if (collider.CompareTag("Monster"))
                 {
-                    collider.GetComponent<Monster>().Damage_Monster_Bomb(20);
+                    collider.GetComponent<Monster>().Damage_Monster_BombAndDron(20);
                 }
             }
             bomb_flag = true;

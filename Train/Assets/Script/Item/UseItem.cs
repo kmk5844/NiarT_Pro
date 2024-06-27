@@ -147,6 +147,7 @@ public class UseItem : MonoBehaviour
                 StartCoroutine(player.Item_Player_AtkDelayDown(0.5f, 30));
                 break;
             case 42:
+                player.Item_Player_Spawn_Dron(1);
                 break;
             case 43:
                 break;

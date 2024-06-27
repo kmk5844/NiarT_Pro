@@ -11,15 +11,36 @@ public class MiniDron : MonoBehaviour
 
     public MiniDronType type;
     float UpDown;
+    public int DronAtk;
     public float DronSpeed;
     Rigidbody2D MiniDronRid2d;
     GameObject SpriteObject;
     Vector2 SpriteObject_InitPos;
+    BoxCollider2D DefaultDron_BoxCollider;
+    public GameObject RaserObject;
 
     void Start()
     {
+        if (DronAtk == 0)
+        {
+            DronAtk = 10;
+        }
         MiniDronRid2d = GetComponent<Rigidbody2D>();
-        MiniDronRid2d.velocity = new Vector3(1.5f, 0);
+        DefaultDron_BoxCollider = GetComponent<BoxCollider2D>();
+
+        if(type == MiniDronType.DefaultDron)
+        {
+            DefaultDron_BoxCollider.enabled = true;
+            RaserObject.SetActive(false);
+            MiniDronRid2d.velocity = new Vector2(5f, 0);
+        }
+        else
+        {
+            DefaultDron_BoxCollider.enabled = false;
+            RaserObject.GetComponent<Raser_TurretBullet>().atk = DronAtk;
+            RaserObject.SetActive(true);
+            MiniDronRid2d.velocity = new Vector2(0, -0.5f);
+        }
 
         UpDown = 1;
         SpriteObject = transform.GetChild(0).gameObject;
@@ -48,7 +69,12 @@ public class MiniDron : MonoBehaviour
         }
         else if(type == MiniDronType.RaserDron)
         {
+            SpriteObject.transform.position = new Vector2(transform.position.x, transform.position.y);
 
+            if(transform.position.y < MonsterDirector.MinPos_Ground.y)
+            {
+                Destroy(gameObject, 2f);
+            }
         }
     }
 }
