@@ -59,6 +59,14 @@ public class Monster : MonoBehaviour
     int fire_hit_Count;
     int mercenary_atk;
 
+    //Item 부분
+    float Item_Monster_Atk;
+    float Item_Monster_AtkDelay;
+    protected float Item_Monster_Speed;
+    protected bool Item_Monster_ChangeFlag;
+    protected bool Item_Mosnter_SpeedFlag;
+    protected int Item_Mosnter_SpeedPersent;
+
     protected virtual void Start()
     {
         lastTime = Time.time;
@@ -91,14 +99,12 @@ public class Monster : MonoBehaviour
                 sprite_List.Add(transform.GetChild(i).GetComponent<SpriteRenderer>());
             }
         }
+        Item_Mosnter_SpeedFlag = false;
     }
 
     protected virtual void Update()
     {
-        if(monster_gametype == Monster_GameType.CowBoy_Debuff)
-        {
 
-        }
     }
 
     protected virtual void FixedUpdate()
@@ -143,10 +149,11 @@ public class Monster : MonoBehaviour
 
     protected void BulletFire(int x_scale = 0)
     {
-        if (Time.time >= lastTime + Bullet_Delay)
+        if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay))
         {
             GameObject bullet = Instantiate(Bullet, transform.position, transform.rotation, monster_Bullet_List);
-            bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk, Bullet_Slow, Target, x_scale);
+            bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, Target, x_scale);
+            Debug.Log((Bullet_Delay + Item_Monster_AtkDelay));
             lastTime = Time.time;
         }
     } // 공통적으로 적용해야 함. -> 변경 예정
@@ -332,7 +339,6 @@ public class Monster : MonoBehaviour
     {
         if (collision.gameObject.tag.Equals("Player_Bullet"))
         {
-
             if (collision.gameObject.name.Equals("Short_AttackCollider")){
                 Damage_Monster_Trigger_Mercenary(collision);
             }
@@ -341,7 +347,7 @@ public class Monster : MonoBehaviour
         {
             if (collision.gameObject.name.Equals("MiniDron(Clone)"))
             {
-                int atk = collision.GetComponent<MiniDron>().DronAtk;
+                int atk = collision.GetComponent<Item_MiniDron>().DronAtk;
                 Damage_Monster_BombAndDron(atk);
             }
         }
@@ -425,6 +431,42 @@ public class Monster : MonoBehaviour
         }
         Damage_Monster_Collsion(collision);
     }
+
+    //아이템 부분
+    public IEnumerator Item_Monster_CureseFlag(int Persent, int delayTime)
+    {
+        Item_Monster_Atk += Bullet_Atk * (Persent / 100f);
+        Item_Monster_AtkDelay += Bullet_Delay * (Persent / 100f);
+        Item_Monster_ChangeFlag = true;
+        Item_Mosnter_SpeedFlag = true;
+        Item_Mosnter_SpeedPersent = Persent;
+        yield return new WaitForSeconds(delayTime);
+        Item_Monster_Atk -= Bullet_Atk * (Persent / 100f);
+        Item_Monster_AtkDelay -= Bullet_Delay * (Persent / 100f);
+        Item_Monster_ChangeFlag = true;
+        Item_Mosnter_SpeedFlag = false;
+        Item_Mosnter_SpeedPersent = Persent;
+    }
+/*
+    public void Item_Monster_CureseFlag(int Persent, bool OnOff)
+    {
+        if (OnOff)
+        {
+            Item_Monster_Atk += Bullet_Atk * (Persent / 100f);
+            Item_Monster_AtkDelay += Bullet_Delay * (Persent / 100f);
+            Item_Monster_ChangeFlag = true;
+            Item_Mosnter_SpeedFlag = true;
+            Item_Mosnter_SpeedPersent = Persent;
+        }
+        else
+        {
+            Item_Monster_Atk -= Bullet_Atk * (Persent / 100f);
+            Item_Monster_AtkDelay -= Bullet_Delay * (Persent / 100f);
+            Item_Monster_ChangeFlag = true;
+            Item_Mosnter_SpeedFlag = false;
+            Item_Mosnter_SpeedPersent = Persent;
+        }
+    }*/
 }
 
 public enum Monster_GameType{

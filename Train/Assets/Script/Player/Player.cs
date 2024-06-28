@@ -444,7 +444,8 @@ public class Player : MonoBehaviour
                 Instantiate(Resources.Load<GameObject>("ItemObject/Mini_Auto_Turret"), new Vector2(pos, -0.3f), Quaternion.identity);
                 break;
             case 1:
-                //·Îº¿ °øÀå
+                GameObject Plant = Resources.Load<GameObject>("ItemObject/RobotPlant");
+                Instantiate(Plant, new Vector2(pos, -0.2f), Quaternion.identity);
                 break;
         }
     }
@@ -456,13 +457,13 @@ public class Player : MonoBehaviour
         {
             case 0:
                 GameObject MiniDron = Resources.Load<GameObject>("ItemObject/MiniDron");
-                MiniDron.GetComponent<MiniDron>().DronAtk = 10;
+                MiniDron.GetComponent<Item_MiniDron>().DronAtk = 10;
                 Vector2 pos = new Vector2(minSkyPos.x - 2, (minSkyPos.y + maxSkyPos.y) / 2);
                 Instantiate(MiniDron, pos, Quaternion.identity);
                 break;
             case 1:
                 GameObject MiniRaserDron = Resources.Load<GameObject>("ItemObject/MiniRaserDron");
-                MiniRaserDron.GetComponent<MiniDron>().DronAtk = 2;
+                MiniRaserDron.GetComponent<Item_MiniDron>().DronAtk = 2;
                 pos = new Vector2(minSkyPos.x, maxSkyPos.y + 1);
                 Instantiate(MiniRaserDron, pos, Quaternion.identity);
                 break;
@@ -513,5 +514,20 @@ public class Player : MonoBehaviour
     {
         GameObject WireEntanglementObject = Resources.Load<GameObject>("ItemObject/WireEntanglement");
         Instantiate(WireEntanglementObject, new Vector2(transform.position.x, -0.4f), Quaternion.identity);
+    }
+
+    public IEnumerator Item_Player_Dagger(float delayTime)
+    {
+        GameObject Dagger = Resources.Load<GameObject>("ItemObject/Dagger");
+        yield return new WaitForSeconds(delayTime + 1);
+        Instantiate(Dagger, new Vector2(transform.position.x, transform.position.y + 0.5f), Quaternion.Euler(0, 0, 180), Player_Bullet_List);
+        yield return new WaitForSeconds(delayTime);
+        Instantiate(Dagger, new Vector2(transform.position.x, transform.position.y + 0.5f), Quaternion.Euler(0, 0, 135), Player_Bullet_List);
+        yield return new WaitForSeconds(delayTime);
+        Instantiate(Dagger, new Vector2(transform.position.x, transform.position.y + 0.5f), Quaternion.Euler(0, 0, 90), Player_Bullet_List);
+        yield return new WaitForSeconds(delayTime);
+        Instantiate(Dagger, new Vector2(transform.position.x, transform.position.y + 0.5f), Quaternion.Euler(0, 0, 45), Player_Bullet_List);
+        yield return new WaitForSeconds(delayTime);
+        Instantiate(Dagger, new Vector2(transform.position.x, transform.position.y + 0.5f), Quaternion.Euler(0, 0, 0), Player_Bullet_List);
     }
 }

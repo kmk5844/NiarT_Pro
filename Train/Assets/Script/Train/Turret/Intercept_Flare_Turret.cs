@@ -2,23 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Intercept_Flare_Turret : MonoBehaviour
+public class Intercept_Flare_Turret : Turret
 {
     public Transform BulletObject;
-    Transform Bullet_List;
-    Train_InGame trainData;
-    float train_Attack_Delay;
     public float max_X;
     public float min_X;
     public float max_Y;
     Vector3 RandomPos;
     bool BulletFlag;
 
-    private void Start()
+    protected override void Start()
     {
-        trainData = transform.GetComponentInParent<Train_InGame>();
-        Bullet_List = GameObject.Find("Bullet_List").GetComponent<Transform>();
-        train_Attack_Delay = trainData.Train_Attack_Delay;
+        base.Start();
     }
 
     private void Update()
@@ -32,7 +27,7 @@ public class Intercept_Flare_Turret : MonoBehaviour
     IEnumerator BulletFire()
     {
         BulletFlag = true;
-        yield return  new WaitForSeconds(train_Attack_Delay);
+        yield return  new WaitForSeconds((train_Attack_Delay - Item_Attack_Delay));
         float Random_X = Random.Range(min_X, max_X);
         RandomPos = new Vector3(transform.position.x + Random_X, transform.position.y + max_Y, 0);
         Instantiate(BulletObject, RandomPos, transform.rotation, Bullet_List);

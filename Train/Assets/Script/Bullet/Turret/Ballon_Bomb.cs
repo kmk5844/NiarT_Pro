@@ -30,7 +30,6 @@ public class Ballon_Bomb : MonoBehaviour
 
         gameObject.GetComponentInParent<SpriteRenderer>().enabled = false;
         //여기서 폭탄 애니메이션 
-        Destroy(Ballon.gameObject, 3f);
+        Destroy(Ballon.gameObject, 2f);
     }
-
 }

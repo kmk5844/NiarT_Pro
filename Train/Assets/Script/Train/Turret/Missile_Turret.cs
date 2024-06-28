@@ -2,25 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Missile_Turret : MonoBehaviour
+public class Missile_Turret : Turret
 {
     bool Target_Flag;
     public Transform FireObject;
     public Transform BulletObject;
-    Transform Bullet_List;
     public Transform Target;
-    float train_Attack_Delay;
-    float lastTime;
     public float Z;
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         Target_Flag = false;
-        Train_InGame trainData = transform.GetComponentInParent<Train_InGame>();
-        Bullet_List = GameObject.Find("Bullet_List").GetComponent<Transform>();
         BulletObject.GetComponent<Bullet>().atk = trainData.Train_Attack;
-        train_Attack_Delay = trainData.Train_Attack_Delay;
-        lastTime = 0;
     }
     void Update()
     {
@@ -41,7 +35,7 @@ public class Missile_Turret : MonoBehaviour
 
     void BulletFire()
     {
-        if (Time.time >= lastTime + train_Attack_Delay)
+        if (Time.time >= lastTime + (train_Attack_Delay - Item_Attack_Delay))
         {
             BulletObject.GetComponent<Missile_TurretBullet>().monster_target = Target;
             Instantiate(BulletObject, FireObject.position, FireObject.rotation, Bullet_List);

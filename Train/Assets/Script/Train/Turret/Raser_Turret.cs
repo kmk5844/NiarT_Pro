@@ -2,27 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Raser_Turret : MonoBehaviour
+public class Raser_Turret : Turret
 {
     bool Target_Flag;
     bool Fire_Flag;
     Transform Target;
-    public GameObject test_raser;
-    Train_InGame trainData;
-    float train_Attack_Delay;
+    public GameObject raser;
     float train_Attacking_Delay;
-    float lastTime;
     public float Z;
     
-
-    void Start()
+    protected override void Start()
     {
-        Target_Flag = false;
-        trainData = transform.GetComponentInParent<Train_InGame>();
-        test_raser.GetComponent<Bullet>().atk = trainData.Train_Attack;
-        train_Attack_Delay = trainData.Train_Attack_Delay;
-        train_Attacking_Delay = 4;
+        base.Start();
+        rotation_TurretFlag = true;
+        train_Rotation_Delay = 0.05f;
 
+        Target_Flag = false;
+        raser.GetComponent<Bullet>().atk = trainData.Train_Attack;
+        train_Attacking_Delay = 4;
         lastTime = Time.time + 12;
     }
     void Update()
@@ -56,7 +53,7 @@ public class Raser_Turret : MonoBehaviour
             {
                 if ((Time.time >= lastTime + train_Attacking_Delay))
                 {
-                    test_raser.SetActive(false);
+                    raser.SetActive(false);
                     Fire_Flag = false;
                     lastTime = Time.time;
                 }
@@ -65,20 +62,20 @@ public class Raser_Turret : MonoBehaviour
             {
                 if (Z > 0.1f)
                 {
-                    transform.Rotate(new Vector3(0, 0, 0.05f));
+                    transform.Rotate(new Vector3(0, 0, (train_Rotation_Delay + Item_Rotation_Delay)));
                 }
                 else if (Z < -0.1f)
                 {
-                    transform.Rotate(new Vector3(0, 0, -0.05f));
+                    transform.Rotate(new Vector3(0, 0, -(train_Rotation_Delay + Item_Rotation_Delay)));
                 }
                 else
                 {
                     transform.rotation = Quaternion.Euler(0, 0, rotZ);
                 }
 
-                if((Time.time >= lastTime + train_Attack_Delay))
+                if((Time.time >= lastTime + (train_Attack_Delay - Item_Attack_Delay)))
                 {
-                    test_raser.SetActive(true);
+                    raser.SetActive(true);
                     Fire_Flag = true;
                     lastTime = Time.time;
                 }

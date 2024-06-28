@@ -537,11 +537,20 @@ public class GameDirector : MonoBehaviour
         TrainFuel += (int)(Total_TrainFuel * (persent / 100f));
     }
 
-    public void Item_Use_Heal_TrainHP(float persent)
+    public void Item_Use_Train_Heal_HP(float persent)
     {
         for(int i = 0; i < Train_List.childCount; i++)
         {
-            Train_List.GetChild(i).GetComponent<Train_InGame>().Item_Heal_TrainHP(persent);
+            Train_List.GetChild(i).GetComponent<Train_InGame>().Item_Train_Heal_HP(persent);
+        }
+    }
+
+    public void Item_Use_Train_Turret_All_SpeedUP(float persent, int delayTime)
+    {
+        for(int i = 0; i < Train_List.childCount; i++)
+        {
+            Train_InGame train = Train_List.GetChild(i).GetComponent<Train_InGame>();
+            StartCoroutine(train.Item_Train_Turret_SpeedUP(persent, delayTime));
         }
     }
 

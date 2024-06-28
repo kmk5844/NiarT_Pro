@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -250,8 +251,19 @@ public class Train_InGame : MonoBehaviour
     }
 
     //item ºÎºÐ
-    public void Item_Heal_TrainHP(float persent)
+    public void Item_Train_Heal_HP(float persent)
     {
         Train_HP += (int)(Max_Train_HP * (persent / 100f));
+    }
+
+    public IEnumerator Item_Train_Turret_SpeedUP(float persent, int delayTime)
+    {
+        if (Train_Type.Equals("Turret")){
+            transform.GetComponentInChildren<Turret>().Item_Turret_Attack_Speed_UP(persent, true);
+            transform.GetComponentInChildren<Turret>().Item_Turret_Rotattion_Speed_UP(persent, true);
+            yield return new WaitForSeconds(delayTime);
+            transform.GetComponentInChildren<Turret>().Item_Turret_Attack_Speed_UP(persent, false);
+            transform.GetComponentInChildren<Turret>().Item_Turret_Rotattion_Speed_UP(persent, false);
+        }
     }
 }

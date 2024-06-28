@@ -2,25 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Auto_Turret : MonoBehaviour
+public class Auto_Turret : Turret
 {
     bool Target_Flag;
     public Transform FireObject;
     public Transform BulletObject;
-    Transform Bullet_List;
     Transform Target;
-    Train_InGame trainData;
-    float train_Attack_Delay;
-    float lastTime;
     public float Z;    
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+
+        rotation_TurretFlag = true;
+        train_Rotation_Delay = 0.75f;
+
         Target_Flag = false;
-        trainData = transform.GetComponentInParent<Train_InGame>();
-        Bullet_List = GameObject.Find("Bullet_List").GetComponent<Transform>();
         BulletObject.GetComponent<Bullet>().atk = trainData.Train_Attack;
-        train_Attack_Delay = trainData.Train_Attack_Delay;
         lastTime = 0;
     }
     void Update()
@@ -52,10 +50,10 @@ public class Auto_Turret : MonoBehaviour
 
             if(Z > 1)
             {
-                transform.Rotate(new Vector3(0, 0, 0.75f));
+                transform.Rotate(new Vector3(0, 0, (train_Rotation_Delay + Item_Rotation_Delay)));
             }else if(Z < -1)
             {
-                transform.Rotate(new Vector3(0, 0, -0.75f));
+                transform.Rotate(new Vector3(0, 0, -(train_Rotation_Delay + Item_Rotation_Delay)));
             }
             else
             {
@@ -67,7 +65,7 @@ public class Auto_Turret : MonoBehaviour
 
     void BulletFire()
     {
-        if (Time.time >= lastTime + train_Attack_Delay)
+        if (Time.time >= lastTime + (train_Attack_Delay - Item_Attack_Delay))
         {
             Instantiate(BulletObject, FireObject.position, FireObject.rotation, Bullet_List);
             lastTime = Time.time;

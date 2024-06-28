@@ -33,6 +33,7 @@ public class Monster_0 : Monster
         base.Update();
         Total_GameType();
         Fire_Debuff();
+        Check_ItemFlag();
         if (monster_gametype == Monster_GameType.Fighting)
         {
             BulletFire();
@@ -42,6 +43,18 @@ public class Monster_0 : Monster
         if(monster_gametype == Monster_GameType.GameEnding)
         {
             Monster_Ending();
+        }
+
+        if (Item_Monster_ChangeFlag)
+        {
+            if (Item_Mosnter_SpeedFlag)
+            {
+                Item_Monster_Speed += speed * (Item_Mosnter_SpeedPersent / 100f);
+            }
+            else
+            {
+                Item_Monster_Speed -= speed * (Item_Mosnter_SpeedPersent / 100f);
+            }
         }
     }
 
@@ -65,6 +78,23 @@ public class Monster_0 : Monster
             xPos = -1f;
         }
         movement = new Vector3(xPos, 0f, 0f);
-        transform.Translate(movement * speed * Time.deltaTime);
+        transform.Translate(movement * (speed - Item_Monster_Speed) * Time.deltaTime);
+    }
+
+    void Check_ItemFlag()
+    {
+        if (Item_Monster_ChangeFlag)
+        {
+            if (Item_Mosnter_SpeedFlag)
+            {
+                Item_Monster_Speed += speed * (Item_Mosnter_SpeedPersent / 100f);
+                Item_Monster_ChangeFlag = false;
+            }
+            else
+            {
+                Item_Monster_Speed -= speed * (Item_Mosnter_SpeedPersent / 100f);
+                Item_Monster_ChangeFlag = false;
+            }
+        }
     }
 }

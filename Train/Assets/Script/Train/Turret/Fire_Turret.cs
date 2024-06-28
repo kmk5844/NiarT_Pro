@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.ParticleSystem;
 
-public class Fire_Turret : MonoBehaviour
+public class Fire_Turret : Turret
 {
-    Train_InGame trainData;
     public GameObject Fire_Object;
-
     public GameObject Fire_Effect;
     ParticleSystem Particle;
     private ParticleSystem.MainModule mainModule;
@@ -16,23 +14,20 @@ public class Fire_Turret : MonoBehaviour
     public bool Attack_Flag;
     public bool Change_Flag;
     float Turret_Z;
-    float train_Attack_Delay;
-    float lastTime;
     public float Turret_Min_Z;
     public float Turret_Max_Z;
-
-
-    // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
+        base.Start();
+        rotation_TurretFlag = true;
+        train_Rotation_Delay = 0.35f;
+
         Change_Flag = false;
         Attack_Flag = true; 
         LR_Flag = true;
         Particle = Fire_Effect.GetComponent<ParticleSystem>();
         mainModule = Particle.main;
-        trainData = transform.GetComponentInParent<Train_InGame>();
         Fire_Object.GetComponent<Bullet>().atk = trainData.Train_Attack;
-        train_Attack_Delay = trainData.Train_Attack_Delay;
         lastTime = Time.time;
     }
 
@@ -52,11 +47,11 @@ public class Fire_Turret : MonoBehaviour
 
         if (LR_Flag)
         {
-            transform.Rotate(new Vector3(0, 0, 0.35f));
+            transform.Rotate(new Vector3(0, 0, (train_Rotation_Delay + Item_Rotation_Delay)));
         }
         else
         {
-            transform.Rotate(new Vector3(0, 0, -0.35f));
+            transform.Rotate(new Vector3(0, 0, -(train_Rotation_Delay + Item_Rotation_Delay)));
         }
         Fire_Check();
         UpdateVelocityOverLifeTime();
@@ -71,7 +66,7 @@ public class Fire_Turret : MonoBehaviour
             Change_Flag = true; 
             lastTime = Time.time;
         }
-        else if(Time.time >= lastTime + train_Attack_Delay && !Attack_Flag)
+        else if(Time.time >= lastTime + (train_Attack_Delay - Item_Attack_Delay) && !Attack_Flag)
         {
             Attack_Flag = true;
             Change_Flag = true;

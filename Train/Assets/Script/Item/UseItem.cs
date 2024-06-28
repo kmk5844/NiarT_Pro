@@ -35,10 +35,10 @@ public class UseItem : MonoBehaviour
                 gameDirector.Item_Fuel_Charge(20);
                 break;
             case 5:
-                gameDirector.Item_Use_Heal_TrainHP(10);
+                gameDirector.Item_Use_Train_Heal_HP(10);
                 break;
             case 6:
-                gameDirector.Item_Use_Heal_TrainHP(20);
+                gameDirector.Item_Use_Train_Heal_HP(20);
                 break;
             case 7:
                 StartCoroutine(gameDirector.Item_Train_SpeedUp(15));
@@ -66,6 +66,7 @@ public class UseItem : MonoBehaviour
                 StartCoroutine(gameDirector.Item_Coin_Double(30));
                 break;
             case 15:
+                gameDirector.Item_Use_Train_Turret_All_SpeedUP(10, 10);
                 break;
             case 16:
                 break;
@@ -92,6 +93,7 @@ public class UseItem : MonoBehaviour
             case 22:
                 break;
             case 23:
+                StartCoroutine(player.Item_Player_Dagger(0.5f));
                 break;
             case 24:
                 StartCoroutine(monsterDirector.Item_Monster_FearFlag(5, 30));
@@ -100,6 +102,7 @@ public class UseItem : MonoBehaviour
                 StartCoroutine(monsterDirector.Item_Monster_GreedFlag(5, 30));
                 break;
             case 26:
+                monsterDirector.Item_Use_Monster_CureseFlag(10, 30);
                 break;
             case 27:
                 break;
@@ -137,8 +140,10 @@ public class UseItem : MonoBehaviour
             case 38:
                 break;
             case 39:
+                gameDirector.Item_Use_Train_Turret_All_SpeedUP(20, 20);
                 break;
             case 40:
+                player.Item_Player_Spawn_Turret(1);
                 break;
             case 41:
                 player.Item_Player_Minus_HP(20);

@@ -38,9 +38,13 @@ public class MonsterDirector : MonoBehaviour
     float Random_xPos;
     float Random_yPos;
 
+    //Item부분
+    bool Item_curseFlag;
+
     private void Awake()
     {
         GameDirector_SpawnFlag = false;
+        Item_curseFlag = false;
         if (TestMonsterCount)
         {
             MaxMonsterNum = 1;
@@ -138,4 +142,26 @@ public class MonsterDirector : MonoBehaviour
         item_MonsterCount -= count;
         Debug.Log("종료");
     }
+
+    public void Item_Use_Monster_CureseFlag(int Persent, int delayTime)
+    {
+        //StartCoroutine(Monster_CureseFlag_OnOff(delayTime));
+        for(int i= 0; i < Monster_List.childCount; i++)
+        {
+            Monster monster = Monster_List.GetChild(i).GetComponent<Monster>();
+            StartCoroutine(monster.Item_Monster_CureseFlag(Persent, delayTime));
+        }
+    }
+
+/*    IEnumerator Monster_CureseFlag_OnOff(int delayTime)
+    {
+        Item_curseFlag = true;
+        yield return new WaitForSeconds(delayTime);
+        Item_curseFlag = false;
+        for(int i = 0; i < Monster_List.childCount; i++)
+        {
+            Monster monster = Monster_List.GetChild(i).GetComponent<Monster>();
+
+        }
+    }*/
 }

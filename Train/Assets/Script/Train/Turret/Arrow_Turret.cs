@@ -2,29 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Arrow_Turret : MonoBehaviour
+public class Arrow_Turret : Turret
 {
     bool Target_Flag;
     public Transform FireObject;
     public Transform BulletObject;
     public Transform BulletObject_Fire;
-    Transform Bullet_List;
     Transform Target;
-    Train_InGame trainData;
-    float train_Attack_Delay;
-    float lastTime;
     public float Z;
 
-    void Start()
+    protected override void Start()
     {
-        BulletObject_Fire.name = "Fire_Arrow";
+        base.Start();
+        rotation_TurretFlag = true;
+        train_Rotation_Delay = 0.75f;
 
+        BulletObject_Fire.name = "Fire_Arrow";
         Target_Flag = false;
-        trainData = transform.GetComponentInParent<Train_InGame>();
-        Bullet_List = GameObject.Find("Bullet_List").GetComponent<Transform>();
         BulletObject.GetComponent<Bullet>().atk = trainData.Train_Attack;
         BulletObject_Fire.GetComponent<Bullet>().atk = trainData.Train_Attack;
-        train_Attack_Delay = trainData.Train_Attack_Delay;
     }
 
     private void Update()
@@ -56,11 +52,11 @@ public class Arrow_Turret : MonoBehaviour
 
             if (Z > 1)
             {
-                transform.Rotate(new Vector3(0, 0, 0.75f));
+                transform.Rotate(new Vector3(0, 0, (train_Rotation_Delay + Item_Rotation_Delay)));
             }
             else if (Z < -1)
             {
-                transform.Rotate(new Vector3(0, 0, -0.75f));
+                transform.Rotate(new Vector3(0, 0, -(train_Rotation_Delay + Item_Rotation_Delay)));
             }
             else
             {
@@ -73,7 +69,7 @@ public class Arrow_Turret : MonoBehaviour
     void BulletFire()
     {
         int Random_Arrow = Random.Range(0, 11);
-        if (Time.time >= lastTime + train_Attack_Delay)
+        if (Time.time >= lastTime + (train_Attack_Delay - Item_Attack_Delay))
         {
             if(Random_Arrow == 10 || Random_Arrow == 5)
             {
