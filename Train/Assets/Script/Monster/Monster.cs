@@ -60,6 +60,9 @@ public class Monster : MonoBehaviour
     int mercenary_atk;
 
     //Item 부분
+    bool Item_ChangeFlag;
+    int Item_Persent;
+
     float Item_Monster_Atk;
     float Item_Monster_AtkDelay;
     protected float Item_Monster_Speed;
@@ -100,11 +103,43 @@ public class Monster : MonoBehaviour
             }
         }
         Item_Mosnter_SpeedFlag = false;
+
+        if (MonsterDirector.Item_curseFlag)
+        {
+            Item_Persent = MonsterDirector.Item_cursePersent_Spawn;
+            Item_Monster_Atk += Bullet_Atk * (Item_Persent / 100f);
+            Item_Monster_AtkDelay += Bullet_Delay * (Item_Persent / 100f);
+            Item_Monster_ChangeFlag = true;
+            Item_Mosnter_SpeedFlag = true;
+            Item_Mosnter_SpeedPersent = Item_Persent;
+        }
     }
 
     protected virtual void Update()
     {
+        if (Item_ChangeFlag)
+        {
+            if (MonsterDirector.Item_curseFlag)
+            {
+                Item_Monster_Atk += Bullet_Atk * (Item_Persent / 100f);
+                Item_Monster_AtkDelay += Bullet_Delay * (Item_Persent / 100f);
+                Item_Monster_ChangeFlag = true;
+                Item_Mosnter_SpeedFlag = true;
+                Item_Mosnter_SpeedPersent = Item_Persent;
 
+                Item_ChangeFlag = false;
+            }
+            else 
+            {
+                Item_Monster_Atk -= Bullet_Atk * (Item_Persent / 100f);
+                Item_Monster_AtkDelay -= Bullet_Delay * (Item_Persent / 100f);
+                Item_Monster_ChangeFlag = true;
+                Item_Mosnter_SpeedFlag = false;
+                Item_Mosnter_SpeedPersent = 100;
+
+                Item_ChangeFlag = false;
+            }
+        }
     }
 
     protected virtual void FixedUpdate()
@@ -433,40 +468,11 @@ public class Monster : MonoBehaviour
     }
 
     //아이템 부분
-    public IEnumerator Item_Monster_CureseFlag(int Persent, int delayTime)
+    public void Item_Monster_CureseFlag(int Persent)
     {
-        Item_Monster_Atk += Bullet_Atk * (Persent / 100f);
-        Item_Monster_AtkDelay += Bullet_Delay * (Persent / 100f);
-        Item_Monster_ChangeFlag = true;
-        Item_Mosnter_SpeedFlag = true;
-        Item_Mosnter_SpeedPersent = Persent;
-        yield return new WaitForSeconds(delayTime);
-        Item_Monster_Atk -= Bullet_Atk * (Persent / 100f);
-        Item_Monster_AtkDelay -= Bullet_Delay * (Persent / 100f);
-        Item_Monster_ChangeFlag = true;
-        Item_Mosnter_SpeedFlag = false;
-        Item_Mosnter_SpeedPersent = Persent;
+        Item_ChangeFlag = true;
+        Item_Persent = Persent;
     }
-/*
-    public void Item_Monster_CureseFlag(int Persent, bool OnOff)
-    {
-        if (OnOff)
-        {
-            Item_Monster_Atk += Bullet_Atk * (Persent / 100f);
-            Item_Monster_AtkDelay += Bullet_Delay * (Persent / 100f);
-            Item_Monster_ChangeFlag = true;
-            Item_Mosnter_SpeedFlag = true;
-            Item_Mosnter_SpeedPersent = Persent;
-        }
-        else
-        {
-            Item_Monster_Atk -= Bullet_Atk * (Persent / 100f);
-            Item_Monster_AtkDelay -= Bullet_Delay * (Persent / 100f);
-            Item_Monster_ChangeFlag = true;
-            Item_Mosnter_SpeedFlag = false;
-            Item_Mosnter_SpeedPersent = Persent;
-        }
-    }*/
 }
 
 public enum Monster_GameType{

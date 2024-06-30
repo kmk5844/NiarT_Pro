@@ -22,7 +22,7 @@ public class ItemDirector : MonoBehaviour
             }
             else
             {
-                Debug.Log("아이템이 비어있습니다.");
+                Debug.Log("사용 아이템이 비어있습니다.");
             }
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
@@ -34,7 +34,7 @@ public class ItemDirector : MonoBehaviour
             }
             else
             {
-                Debug.Log("아이템이 비어있습니다.");
+                Debug.Log("사용 아이템이 비어있습니다.");
             }
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
@@ -46,7 +46,7 @@ public class ItemDirector : MonoBehaviour
             }
             else
             {
-                Debug.Log("아이템이 비어있습니다.");
+                Debug.Log("사용 아이템이 비어있습니다.");
             }
         }
     }

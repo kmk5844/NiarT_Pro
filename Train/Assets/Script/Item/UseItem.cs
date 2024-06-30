@@ -102,7 +102,7 @@ public class UseItem : MonoBehaviour
                 StartCoroutine(monsterDirector.Item_Monster_GreedFlag(5, 30));
                 break;
             case 26:
-                monsterDirector.Item_Use_Monster_CureseFlag(10, 30);
+                StartCoroutine(monsterDirector.Item_Use_Monster_CureseFlag(10, 30));
                 break;
             case 27:
                 break;

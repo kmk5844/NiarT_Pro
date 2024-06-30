@@ -39,7 +39,8 @@ public class MonsterDirector : MonoBehaviour
     float Random_yPos;
 
     //Item부분
-    bool Item_curseFlag;
+    public static bool Item_curseFlag;
+    public static int Item_cursePersent_Spawn;
 
     private void Awake()
     {
@@ -57,6 +58,8 @@ public class MonsterDirector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Item_curseFlag = false;
+
         item_MonsterCount = 0;
         TrainCount = Train_List.childCount;
         MaxPos_Sky = new Vector2(5f, 6f);
@@ -104,6 +107,10 @@ public class MonsterDirector : MonoBehaviour
         }
         GameObject Monster = Resources.Load<GameObject>("Monster/Monster_" + Monster_Num);
         Instantiate(Monster, new Vector3(Random_xPos, Random_yPos, 0), Quaternion.identity, Monster_List);
+        if (Item_curseFlag)
+        {
+
+        }
     }
 
     public void Get_Monster_List(List<int> GameDirector_Monster_List)
@@ -143,25 +150,21 @@ public class MonsterDirector : MonoBehaviour
         Debug.Log("종료");
     }
 
-    public void Item_Use_Monster_CureseFlag(int Persent, int delayTime)
+    public IEnumerator Item_Use_Monster_CureseFlag(int Persent, int delayTime)
     {
-        //StartCoroutine(Monster_CureseFlag_OnOff(delayTime));
-        for(int i= 0; i < Monster_List.childCount; i++)
+        Item_cursePersent_Spawn = Persent;
+        Item_curseFlag = true;
+        for (int i = 0; i < Monster_List.childCount; i++)
         {
             Monster monster = Monster_List.GetChild(i).GetComponent<Monster>();
-            StartCoroutine(monster.Item_Monster_CureseFlag(Persent, delayTime));
+            monster.Item_Monster_CureseFlag(Persent);
         }
-    }
-
-/*    IEnumerator Monster_CureseFlag_OnOff(int delayTime)
-    {
-        Item_curseFlag = true;
         yield return new WaitForSeconds(delayTime);
         Item_curseFlag = false;
-        for(int i = 0; i < Monster_List.childCount; i++)
+        for (int i = 0; i < Monster_List.childCount; i++)
         {
             Monster monster = Monster_List.GetChild(i).GetComponent<Monster>();
-
+            monster.Item_Monster_CureseFlag(Persent);
         }
-    }*/
+    }
 }
