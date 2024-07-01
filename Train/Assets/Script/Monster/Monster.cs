@@ -481,6 +481,9 @@ public class Monster : MonoBehaviour
                 if (collision.gameObject.name.Equals("Fire_Arrow(Clone)"))
                 {
                     FireArrow_Hit(collision);
+                }else if (collision.gameObject.name.Equals("FireBullet(Clone)"))
+                {
+                    FireArrow_Hit(collision);
                 }
                 else
                 {

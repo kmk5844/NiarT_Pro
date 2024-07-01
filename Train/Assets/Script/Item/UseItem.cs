@@ -94,6 +94,7 @@ public class UseItem : MonoBehaviour
                 StartCoroutine(player.Item_Change_Bullet("Bouncing_Bullet", 15));
                 break;
             case 22:
+                StartCoroutine(player.Item_Change_Bullet("FireBullet", 15));
                 break;
             case 23:
                 StartCoroutine(player.Item_Player_Dagger(0.5f));
