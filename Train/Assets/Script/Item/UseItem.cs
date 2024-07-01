@@ -51,7 +51,7 @@ public class UseItem : MonoBehaviour
                 StartCoroutine(player.Item_Player_Heal_HP_Auto(1f, 10));
                 break;
             case 10:
-                //mercenaryDirector.Item_Use_Fatigue_Reliever(1, 10);
+                mercenaryDirector.Item_Use_Fatigue_Reliever(1, 10 ,30);
                 break;
             case 11:
                 StartCoroutine(player.Item_Player_AtkUP(5, 15));
@@ -69,6 +69,7 @@ public class UseItem : MonoBehaviour
                 gameDirector.Item_Use_Train_Turret_All_SpeedUP(10, 10);
                 break;
             case 16:
+                mercenaryDirector.Item_Use_Snack(10);
                 break;
             case 17:
                 StartCoroutine(player.Item_Player_DoubleAtkUP(6));
@@ -87,8 +88,10 @@ public class UseItem : MonoBehaviour
         switch (num)
         {
             case 20:
+                StartCoroutine(player.Item_Change_Bullet("Blood_Bullet", 15));
                 break;
             case 21:
+                StartCoroutine(player.Item_Change_Bullet("Bouncing_Bullet", 15));
                 break;
             case 22:
                 break;
@@ -105,6 +108,7 @@ public class UseItem : MonoBehaviour
                 StartCoroutine(monsterDirector.Item_Use_Monster_CureseFlag(10, 30));
                 break;
             case 27:
+                StartCoroutine(monsterDirector.Item_Use_Monster_GiantFlag(30, 30));
                 break;
             case 28:
                 player.Item_Player_Giant_Scarecrow();
@@ -130,6 +134,7 @@ public class UseItem : MonoBehaviour
                 player.Item_Player_Heal_HP(10);
                 break;
             case 35:
+                mercenaryDirector.Item_Use_Gloves_Expertise(40, 15);
                 break;
             case 36:
                 player.Item_Player_Spawn_Dron(0);
@@ -138,6 +143,7 @@ public class UseItem : MonoBehaviour
                 StartCoroutine(Camera.main.GetComponent<CameraFollow>().Item_Camera_Map(15));
                 break;
             case 38:
+                mercenaryDirector.Item_Use_Bear(2, 30);
                 break;
             case 39:
                 gameDirector.Item_Use_Train_Turret_All_SpeedUP(20, 20);
@@ -171,6 +177,32 @@ public class UseItem : MonoBehaviour
             case 55:
                 break;
             case 56:
+                break;
+            case 57:
+                break;
+            case 58:
+                break;
+            case 59:
+                break;
+            case 60:
+                break;
+            case 61:
+                break;
+            case 62:
+                break;
+            case 63:
+                break;
+            case 64:
+                break;
+            case 65:
+                break;
+            case 66:
+                break;
+            case 67:
+                break;
+            case 68:
+                break;
+            case 69:
                 break;
         }
     }

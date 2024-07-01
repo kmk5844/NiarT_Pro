@@ -39,8 +39,14 @@ public class MonsterDirector : MonoBehaviour
     float Random_yPos;
 
     //ItemºÎºÐ
+    [HideInInspector]
     public static bool Item_curseFlag;
+    [HideInInspector]
     public static int Item_cursePersent_Spawn;
+    [HideInInspector]
+    public static bool Item_giantFlag;
+    [HideInInspector]
+    public static int Item_giantPersent_Spawn;
 
     private void Awake()
     {
@@ -165,6 +171,24 @@ public class MonsterDirector : MonoBehaviour
         {
             Monster monster = Monster_List.GetChild(i).GetComponent<Monster>();
             monster.Item_Monster_CureseFlag(Persent);
+        }
+    }
+
+    public IEnumerator Item_Use_Monster_GiantFlag(int Persent, int delayTime)
+    {
+        Item_giantPersent_Spawn = Persent;
+        Item_giantFlag = true;
+        for(int i = 0; i < Monster_List.childCount; i++)
+        {
+            Monster monster = Monster_List.GetChild(i).GetComponent<Monster>();
+            monster.Item_Monster_GiantFlag(Persent);
+        }
+        yield return new WaitForSeconds(delayTime);
+        Item_giantFlag = false;
+        for (int i = 0; i < Monster_List.childCount; i++)
+        {
+            Monster monster = Monster_List.GetChild(i).GetComponent<Monster>();
+            monster.Item_Monster_GiantFlag(Persent);
         }
     }
 }

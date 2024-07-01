@@ -24,7 +24,7 @@ public class CowBoy : Mercenary
     protected override void Update()
     {
         base.Update();
-        if(workCount == Max_workCount)
+        if(workCount >= Max_workCount + base.Item_workCount_UP)
         {
             refreshFlag = true;
         }

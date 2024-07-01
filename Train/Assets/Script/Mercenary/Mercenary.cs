@@ -38,7 +38,6 @@ public class Mercenary : MonoBehaviour
     float Refresh_Delay;
     float Min_Refresh_Delay;
     float Max_Refresh_Delay;
-    float Item_Refresh_Delay;
     protected int workCount;
     [SerializeField]
     protected int Max_workCount;
@@ -65,6 +64,11 @@ public class Mercenary : MonoBehaviour
     public GameObject CoolTime_Guage_Object;
     public Image CoolTime_Guage;
 
+    //Item부분
+    protected int Item_workCount_UP;
+    protected float Item_Refresh_Delay;
+    protected float Item_Refresh_DelayPercent;
+
     protected virtual void Awake()
     {
         gameDirector = GameObject.Find("GameDirector").GetComponent<GameDirector>();
@@ -81,6 +85,7 @@ public class Mercenary : MonoBehaviour
         rb2D = GetComponent<Rigidbody2D>();
         Refresh_Delay = 0f;
         Item_Refresh_Delay = 0f;
+        Item_workCount_UP = 0;
         Move_X = 1f;
         MaxMove_X = 4f;
         MinMove_X = -10.94f * (TrainCount - 1) - 5f;
@@ -120,7 +125,7 @@ public class Mercenary : MonoBehaviour
         if (isRefreshing)
         {
             float elpsedTime = Time.time - refreshStartTime;
-            float totalDuration = Mathf.Clamp(refreshStartTime + (Refresh_Delay- Item_Refresh_Delay), refreshStartTime, float.MaxValue) - refreshStartTime;
+            float totalDuration = Mathf.Clamp(refreshStartTime + (Refresh_Delay - Item_Refresh_Delay), refreshStartTime, float.MaxValue) - refreshStartTime;
             float currentFillAmount = Mathf.Lerp(0, 1, Mathf.Clamp01(elpsedTime / totalDuration));
             CoolTime_Guage.fillAmount = currentFillAmount;
         }
@@ -270,6 +275,14 @@ public class Mercenary : MonoBehaviour
         CoolTime_Guage_Object.SetActive(true);
         refreshStartTime = Time.time;
         Refresh_Delay = Random.Range(Min_Refresh_Delay, Max_Refresh_Delay);
+        if(Item_Refresh_DelayPercent == 0)
+        {
+            Item_Refresh_Delay = 0;
+        }
+        else
+        {
+            Item_Refresh_Delay = Refresh_Delay * (Item_Refresh_DelayPercent / 100f);
+        }
         yield return new WaitForSeconds(Refresh_Delay - Item_Refresh_Delay);
         workCount = 0;
         CoolTime_Guage_Object.SetActive(false);
@@ -450,7 +463,33 @@ public class Mercenary : MonoBehaviour
     }
 
     //Item부분
+    public void Item_Snack(float HPpercent)
+    {
+        HP += (int)(MaxHP * (HPpercent / 100f));
+    }
 
+    public IEnumerator Item_Fatigue_Reliever(int workcount, float refreshPercent, int delayTime)
+    {
+        Item_workCount_UP = workcount;
+        Item_Refresh_DelayPercent = refreshPercent;
+        yield return new WaitForSeconds(delayTime);
+        Item_workCount_UP = 0;
+        Item_Refresh_DelayPercent = 0;
+    }
+
+    public IEnumerator Item_Gloves_Expertise(float refreshPercent, int delayTime)
+    {
+        Item_Refresh_DelayPercent = refreshPercent;
+        yield return new WaitForSeconds(delayTime);
+        Item_Refresh_DelayPercent = 0;
+    }
+
+    public IEnumerator Item_Bear(int count, int delayTime)
+    {
+        Item_workCount_UP = count;
+        yield return new WaitForSeconds(delayTime);
+        Item_workCount_UP = 0;
+    }
 }
 public enum Active
 {

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+
 public class Monster : MonoBehaviour
 {
     public int Monster_Num;
@@ -60,15 +61,23 @@ public class Monster : MonoBehaviour
     int mercenary_atk;
 
     //Item 부분
-    bool Item_ChangeFlag;
-    int Item_Persent;
+    bool Item_Curese_ChangeFlag;
+    int Item_Curese_Persent;
 
     float Item_Monster_Atk;
     float Item_Monster_AtkDelay;
     protected float Item_Monster_Speed;
-    protected bool Item_Monster_ChangeFlag;
-    protected bool Item_Mosnter_SpeedFlag;
+    protected bool Item_Monster_Speed_ChangeFlag;
+    protected bool Item_Monster_SpeedFlag;
     protected int Item_Mosnter_SpeedPersent;
+
+    bool Item_Giant_ChangeFlag;
+    bool Item_Giant_ChangeFlag_Scale;
+    int Item_Giant_Persent;
+
+    float default_LocalScale_X;
+    float default_LocalScale_Y;
+    float default_LocalScale_Z;
 
     protected virtual void Start()
     {
@@ -102,42 +111,155 @@ public class Monster : MonoBehaviour
                 sprite_List.Add(transform.GetChild(i).GetComponent<SpriteRenderer>());
             }
         }
-        Item_Mosnter_SpeedFlag = false;
+
+        default_LocalScale_X = transform.localScale.x;
+        default_LocalScale_Y = transform.localScale.y;
+        default_LocalScale_Z = transform.localScale.z;
+
+
+        //아이템 부분
+
+        Item_Curese_ChangeFlag = false;
+        Item_Giant_ChangeFlag = false;
+        Item_Giant_ChangeFlag_Scale = false;
+        Item_Monster_SpeedFlag = false;
+
 
         if (MonsterDirector.Item_curseFlag)
         {
-            Item_Persent = MonsterDirector.Item_cursePersent_Spawn;
-            Item_Monster_Atk += Bullet_Atk * (Item_Persent / 100f);
-            Item_Monster_AtkDelay += Bullet_Delay * (Item_Persent / 100f);
-            Item_Monster_ChangeFlag = true;
-            Item_Mosnter_SpeedFlag = true;
-            Item_Mosnter_SpeedPersent = Item_Persent;
+            Item_Curese_Persent = MonsterDirector.Item_cursePersent_Spawn;
+            Item_Monster_Atk += Bullet_Atk * (Item_Curese_Persent / 100f);
+            Item_Monster_AtkDelay += Bullet_Delay * (Item_Curese_Persent / 100f);
+            Item_Mosnter_SpeedPersent = Item_Curese_Persent;
+            Item_Monster_Speed_ChangeFlag = true;
+            Item_Monster_SpeedFlag = true;
+        }
+
+        if (MonsterDirector.Item_giantFlag)
+        {
+            Item_Giant_ChangeFlag_Scale = false;
+            transform.localScale = new Vector3(
+                default_LocalScale_X + 0.5f,
+                default_LocalScale_Y + 0.5f,
+                default_LocalScale_Z + 0.5f
+                );
+            Item_Giant_Persent = MonsterDirector.Item_giantPersent_Spawn;
+            Item_Mosnter_SpeedPersent = Item_Giant_Persent;
+            Item_Monster_Speed_ChangeFlag = true;
+            Item_Monster_SpeedFlag = true;
         }
     }
 
     protected virtual void Update()
     {
-        if (Item_ChangeFlag)
+        if (Item_Curese_ChangeFlag)
         {
             if (MonsterDirector.Item_curseFlag)
             {
-                Item_Monster_Atk += Bullet_Atk * (Item_Persent / 100f);
-                Item_Monster_AtkDelay += Bullet_Delay * (Item_Persent / 100f);
-                Item_Monster_ChangeFlag = true;
-                Item_Mosnter_SpeedFlag = true;
-                Item_Mosnter_SpeedPersent = Item_Persent;
+                Item_Monster_Atk += Bullet_Atk * (Item_Curese_Persent / 100f);
+                Item_Monster_AtkDelay += Bullet_Delay * (Item_Curese_Persent / 100f);
+                Item_Mosnter_SpeedPersent = Item_Curese_Persent;
+                Item_Monster_Speed_ChangeFlag = true;
+                Item_Monster_SpeedFlag = true;
 
-                Item_ChangeFlag = false;
+                Item_Curese_ChangeFlag = false;
             }
             else 
             {
-                Item_Monster_Atk -= Bullet_Atk * (Item_Persent / 100f);
-                Item_Monster_AtkDelay -= Bullet_Delay * (Item_Persent / 100f);
-                Item_Monster_ChangeFlag = true;
-                Item_Mosnter_SpeedFlag = false;
-                Item_Mosnter_SpeedPersent = 100;
+                Item_Monster_Atk -= Bullet_Atk * (Item_Curese_Persent / 100f);
+                Item_Monster_AtkDelay -= Bullet_Delay * (Item_Curese_Persent / 100f);
+                Item_Mosnter_SpeedPersent = Item_Curese_Persent;
+                Item_Monster_Speed_ChangeFlag = true;
+                Item_Monster_SpeedFlag = false;
 
-                Item_ChangeFlag = false;
+                Item_Curese_ChangeFlag = false;
+            }
+        }
+
+        if (Item_Giant_ChangeFlag)
+        {
+            if (MonsterDirector.Item_giantFlag)
+            {
+                Item_Mosnter_SpeedPersent = Item_Giant_Persent;
+                Item_Monster_Speed_ChangeFlag = true;
+                Item_Monster_SpeedFlag = true;
+
+                Item_Giant_ChangeFlag = false;
+            }
+            else
+            {
+                Item_Mosnter_SpeedPersent = Item_Giant_Persent;
+                Item_Monster_Speed_ChangeFlag = true;
+                Item_Monster_SpeedFlag = false;
+
+                Item_Giant_ChangeFlag = false;
+            }
+        }
+
+        if (Item_Giant_ChangeFlag_Scale)
+        {
+            if (MonsterDirector.Item_giantFlag)
+            {
+                if(transform.localScale.y < default_LocalScale_Y + 0.5f)
+                {
+                    if(transform.localScale.x > 0)
+                    {
+                        transform.localScale = new Vector3(
+                            transform.localScale.x + (0.08f * Time.deltaTime),
+                            transform.localScale.y + (0.08f * Time.deltaTime),
+                            transform.localScale.z + (0.08f * Time.deltaTime)
+                            );
+                    }
+                    else
+                    {
+                        transform.localScale = new Vector3(
+                            transform.localScale.x - (0.08f * Time.deltaTime),
+                            transform.localScale.y + (0.08f * Time.deltaTime),
+                            transform.localScale.z + (0.08f * Time.deltaTime)
+                            );
+                    }
+                    
+                }
+                else
+                {
+                    Item_Giant_ChangeFlag_Scale = false;
+                    transform.localScale = new Vector3(
+                        default_LocalScale_X + 0.5f,
+                        default_LocalScale_Y + 0.5f,
+                        default_LocalScale_Z + 0.5f
+                        );
+                }
+            }
+            else
+            {
+                if(transform.localScale.y > default_LocalScale_Y)
+                {
+                    if (transform.localScale.x > 0)
+                    {
+                        transform.localScale = new Vector3(
+                            transform.localScale.x - (0.08f * Time.deltaTime),
+                            transform.localScale.y - (0.08f * Time.deltaTime),
+                            transform.localScale.z - (0.08f * Time.deltaTime)
+                            );
+                    }
+                    else
+                    {
+                        transform.localScale = new Vector3(
+                            transform.localScale.x + (0.08f * Time.deltaTime),
+                            transform.localScale.y - (0.08f * Time.deltaTime),
+                            transform.localScale.z - (0.08f * Time.deltaTime)
+                            );
+                    }
+                }
+                else
+                {
+                    Item_Giant_ChangeFlag_Scale = false;
+                    transform.localScale = new Vector3(
+                        default_LocalScale_X,
+                        default_LocalScale_Y,
+                        default_LocalScale_Z
+                        );
+                }
             }
         }
     }
@@ -188,7 +310,6 @@ public class Monster : MonoBehaviour
         {
             GameObject bullet = Instantiate(Bullet, transform.position, transform.rotation, monster_Bullet_List);
             bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, Target, x_scale);
-            Debug.Log((Bullet_Delay + Item_Monster_AtkDelay));
             lastTime = Time.time;
         }
     } // 공통적으로 적용해야 함. -> 변경 예정
@@ -470,8 +591,15 @@ public class Monster : MonoBehaviour
     //아이템 부분
     public void Item_Monster_CureseFlag(int Persent)
     {
-        Item_ChangeFlag = true;
-        Item_Persent = Persent;
+        Item_Curese_ChangeFlag = true;
+        Item_Curese_Persent = Persent;
+    }
+
+    public void Item_Monster_GiantFlag(int Persent)
+    {
+        Item_Giant_ChangeFlag = true;
+        Item_Giant_ChangeFlag_Scale = true;
+        Item_Giant_Persent = Persent;
     }
 }
 

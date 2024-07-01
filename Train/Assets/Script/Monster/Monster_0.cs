@@ -19,13 +19,13 @@ public class Monster_0 : Monster
     protected override void Start()
     {
         base.Start();
-
         monster_SpawnPos = transform.position;
 
         speed = Random.Range(0.5f, 2f);
         max_xPos = Random.Range(1, 9);
 
         xPos = -1f;
+        Check_ItemSpeedSpawn();
     }
 
     protected override void Update()
@@ -33,7 +33,7 @@ public class Monster_0 : Monster
         base.Update();
         Total_GameType();
         Fire_Debuff();
-        Check_ItemFlag();
+        Check_ItemSpeedFlag();
         if (monster_gametype == Monster_GameType.Fighting)
         {
             BulletFire();
@@ -43,18 +43,6 @@ public class Monster_0 : Monster
         if(monster_gametype == Monster_GameType.GameEnding)
         {
             Monster_Ending();
-        }
-
-        if (Item_Monster_ChangeFlag)
-        {
-            if (Item_Mosnter_SpeedFlag)
-            {
-                Item_Monster_Speed += speed * (Item_Mosnter_SpeedPersent / 100f);
-            }
-            else
-            {
-                Item_Monster_Speed -= speed * (Item_Mosnter_SpeedPersent / 100f);
-            }
         }
     }
 
@@ -81,19 +69,40 @@ public class Monster_0 : Monster
         transform.Translate(movement * (speed - Item_Monster_Speed) * Time.deltaTime);
     }
 
-    void Check_ItemFlag()
+    void Check_ItemSpeedSpawn()
     {
-        if (Item_Monster_ChangeFlag)
+        if (MonsterDirector.Item_curseFlag)
         {
-            if (Item_Mosnter_SpeedFlag)
+            Item_Mosnter_SpeedPersent = MonsterDirector.Item_cursePersent_Spawn;
+            Item_Monster_Speed += speed * (Item_Mosnter_SpeedPersent / 100f);
+        }
+        else if (MonsterDirector.Item_giantFlag)
+        {
+            Item_Mosnter_SpeedPersent = MonsterDirector.Item_giantPersent_Spawn;
+            Item_Monster_Speed += speed * (Item_Mosnter_SpeedPersent / 100f);
+
+        }
+        else
+        {
+            Item_Monster_Speed = 0;
+        }
+    }
+
+    void Check_ItemSpeedFlag()
+    {
+        Item_Monster_Speed_ChangeFlag = base.Item_Monster_Speed_ChangeFlag;
+        Item_Monster_SpeedFlag = base.Item_Monster_SpeedFlag;
+        if (Item_Monster_Speed_ChangeFlag)
+        {
+            if (Item_Monster_SpeedFlag)
             {
                 Item_Monster_Speed += speed * (Item_Mosnter_SpeedPersent / 100f);
-                Item_Monster_ChangeFlag = false;
+                Item_Monster_Speed_ChangeFlag = false;
             }
             else
             {
-                Item_Monster_Speed -= speed * (Item_Mosnter_SpeedPersent / 100f);
-                Item_Monster_ChangeFlag = false;
+                Item_Monster_Speed = 0;
+                Item_Monster_Speed_ChangeFlag = false;
             }
         }
     }

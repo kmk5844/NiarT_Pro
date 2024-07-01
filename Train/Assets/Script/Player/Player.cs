@@ -530,4 +530,11 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(delayTime);
         Instantiate(Dagger, new Vector2(transform.position.x, transform.position.y + 0.5f), Quaternion.Euler(0, 0, 0), Player_Bullet_List);
     }
+
+    public IEnumerator Item_Change_Bullet(string BulletName, int delayTime)
+    {
+        playerBullet = Resources.Load<GameObject>("Bullet/Player/Special/" + BulletName);
+        yield return new WaitForSeconds(delayTime);
+        playerBullet = playerData.Bullet;
+    }
 }

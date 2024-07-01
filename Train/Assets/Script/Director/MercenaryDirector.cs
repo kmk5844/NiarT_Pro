@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 
 public class MercenaryDirector : MonoBehaviour
@@ -139,11 +140,35 @@ public class MercenaryDirector : MonoBehaviour
     }
 
     //아이템부분
-    public void Item_Use_Fatigue_Reliever(int count, int delayTime)
+    public void Item_Use_Snack(float HPpercent)
     {
         for (int i = 0; i < Mercenary_List.childCount; i++)
         {
-            Debug.Log("나중에 진행 예정");
+            Mercenary_List.GetChild(i).GetComponent<Mercenary>().Item_Snack(HPpercent);
+        }
+    }
+
+    public void Item_Use_Fatigue_Reliever(int count, float refreshPercent,int delayTime)
+    {
+        for (int i = 0; i < Mercenary_List.childCount; i++)
+        {
+            StartCoroutine(Mercenary_List.GetChild(i).GetComponent<Mercenary>().Item_Fatigue_Reliever(count, refreshPercent, delayTime));
+        }
+    }
+
+    public void Item_Use_Gloves_Expertise(float refreshPercent, int delayTime)
+    {
+        for (int i = 0; i < Mercenary_List.childCount; i++)
+        {
+            StartCoroutine(Mercenary_List.GetChild(i).GetComponent<Mercenary>().Item_Gloves_Expertise(refreshPercent, delayTime));
+        }
+    } 
+    
+    public void Item_Use_Bear(int workCount, int delayTime)
+    {
+        for (int i = 0; i < Mercenary_List.childCount; i++)
+        {
+            StartCoroutine(Mercenary_List.GetChild(i).GetComponent<Mercenary>().Item_Bear(workCount, delayTime));
         }
     }
 }
