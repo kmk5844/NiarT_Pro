@@ -273,6 +273,10 @@ public class Monster : MonoBehaviour
                 transform.Translate(Vector3.down * 0.2f * Time.deltaTime);
             }
         }
+        if(monster_gametype == Monster_GameType.Stun_Bullet_Debuff)
+        {
+            Debug.Log("기절");
+        }
     }
 
     protected void Fire_Debuff()
@@ -470,7 +474,41 @@ public class Monster : MonoBehaviour
             gameDirector.Game_Monster_Kill(Monster_Score, Monster_Coin);
             Destroy(gameObject);
         }
-    } 
+    }
+
+    public void Damage_Item_Stun_Bullet(int hit_atk, int delayTime)
+    {
+        HitDamage.GetComponent<Hit_Text_Damage>().damage = hit_atk;
+        HitDamage.GetComponent<Hit_Text_Damage>().Random_X = transform.position.x + Random.Range(-0.5f, 0.5f);
+        HitDamage.GetComponent<Hit_Text_Damage>().Random_Y = transform.position.y + Random.Range(0.5f, 1.5f);
+        Instantiate(HitDamage, monster_Bullet_List);
+        if (Monster_HP - hit_atk > 0)
+        {
+            Monster_HP -= hit_atk;
+        }
+        else
+        {
+            gameDirector.Game_Monster_Kill(Monster_Score, Monster_Coin);
+            Destroy(gameObject);
+        }
+        StartCoroutine(Item_Stun_Debuff(delayTime));
+    }
+
+    private IEnumerator Item_Stun_Debuff(int delayTime)
+    {
+        if(monster_gametype != Monster_GameType.Stun_Bullet_Debuff)
+        {
+            Monster_GameType BeforeGameType = monster_gametype;
+            monster_gametype = Monster_GameType.Stun_Bullet_Debuff;
+            yield return new WaitForSeconds(5);
+            monster_gametype = BeforeGameType;
+        }
+    }
+
+    public void Item_FlashBang(int delayTime)
+    {
+        StartCoroutine(Item_Stun_Debuff(delayTime));
+    }
 
     private void OnCollisionEnter2D(Collision2D collision) // 공통적으로 적용해야됨.
     {
@@ -481,7 +519,7 @@ public class Monster : MonoBehaviour
                 if (collision.gameObject.name.Equals("Fire_Arrow(Clone)"))
                 {
                     FireArrow_Hit(collision);
-                }else if (collision.gameObject.name.Equals("FireBullet(Clone)"))
+                }else if (collision.gameObject.name.Equals("Fire_Bullet(Clone)"))
                 {
                     FireArrow_Hit(collision);
                 }
@@ -610,6 +648,7 @@ public enum Monster_GameType{
     SpwanStart,
     Fighting,
     CowBoy_Debuff,
+    Stun_Bullet_Debuff,
     Die,
     GameEnding,
 }

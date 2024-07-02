@@ -1,6 +1,7 @@
 using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -55,6 +56,8 @@ public class Player : MonoBehaviour
     Camera mainCam;
     private Vector3 mousePos;
     public AudioClip ShootSFX;
+    public List<GameObject> GunObject_List;
+    int GunIndex;
 
     //아이템 부분
     [Header("아이템 장착 부분")]
@@ -65,6 +68,15 @@ public class Player : MonoBehaviour
     Vector2 maxGroundPos;
     Vector2 minSkyPos;
     Vector2 maxSkyPos;
+    [HideInInspector]
+    public static bool Item_GunFlag; // True : 보급 몬스터가 총 관련된 아이템 떨구지 않도록 방지
+    public bool Item_Gun_TimeFlag;
+    float Item_Gun_ClickTime;
+    float Item_Gun_Max_ClickTime;
+    public bool Item_Gun_CountFlag;
+    int Item_Gun_ClickCount;
+    int Item_Gun_Max_ClickCount;
+    public GameObject Item_GunSpecial_Bullet;
 
     void Start()
     {
@@ -81,7 +93,6 @@ public class Player : MonoBehaviour
         Bullet_Atk = playerData.Atk;
         Bullet_Delay = playerData.Delay;
         moveSpeed = playerData.MoveSpeed;
-        //총이미지는 나중에 = playerData.Gun;
 
         rotationOn = false;
         Max_HP = Player_HP; 
@@ -89,9 +100,18 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         Player_Bullet_List = GameObject.Find("Bullet_List").GetComponent<Transform>();
         Level();
+        era = 1f - (float)Player_Armor / def_constant;
+
+        GunIndex = 0;
+
         item_Atk = 0;
         item_Delay = 0;
-        era = 1f - (float)Player_Armor / def_constant;
+
+        Item_GunFlag = false;
+        Item_Gun_TimeFlag = false;
+        Item_Gun_ClickTime = 0;
+        Item_Gun_CountFlag = false;
+        Item_Gun_ClickCount = 0;
     }
 
     private void Update()
@@ -192,7 +212,36 @@ public class Player : MonoBehaviour
 
             if (isMouseDown)
             {
-                BulletFire();
+                if (Item_Gun_TimeFlag)
+                {
+                    Item_Gun_ClickTime += Time.deltaTime;
+                    if(Item_Gun_ClickTime > Item_Gun_Max_ClickTime)
+                    {
+                        Item_Gun_Default();
+                    }
+                }
+
+                switch (GunIndex)
+                {
+                    case 0:
+                    case 1:
+                    case 2:
+                    case 3:
+                        BulletFire();
+                        break;
+                    case 4:
+                    case 5:
+                        SpecailBulletFire(true);
+                        break;
+
+                }
+            }
+            else
+            {
+                if (GunIndex == 4 || GunIndex == 5)
+                {
+                    SpecailBulletFire(false);
+                }
             }
         }
         else // 치료중일 때, 조작키 허용X
@@ -251,7 +300,27 @@ public class Player : MonoBehaviour
             GameObject bullet = Instantiate(playerBullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
             bullet.GetComponent<Bullet>().atk = Bullet_Atk + item_Atk;
             lastTime = Time.time;
+            if (Item_Gun_CountFlag)
+            {
+                Item_Gun_ClickCount++;
+                if (Item_Gun_ClickCount == Item_Gun_Max_ClickCount)
+                {
+                    Item_Gun_Default();
+                }
+            }
             MMSoundManagerSoundPlayEvent.Trigger(ShootSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+        }
+    }
+
+    void SpecailBulletFire(bool OnOff)
+    {
+        if (OnOff)
+        {
+            Item_GunSpecial_Bullet.SetActive(true);
+        }
+        else
+        {
+            Item_GunSpecial_Bullet.SetActive(false);
         }
     }
 
@@ -322,7 +391,6 @@ public class Player : MonoBehaviour
         Player_HP += Medic_Heal;
     }
 
-
     public void P_Buff(Bard_Type type, int amount, bool flag)
     {
         if (flag)
@@ -380,10 +448,8 @@ public class Player : MonoBehaviour
     public IEnumerator Item_Player_SpeedUP(float speed, int delayTime)
     {
         moveSpeed += speed;
-        Debug.Log(moveSpeed);
         yield return new WaitForSeconds(delayTime);
         moveSpeed -= speed;
-        Debug.Log(moveSpeed);
     }
 
     public IEnumerator Item_Player_Heal_HP_Auto(float perseent, int delaytime)
@@ -392,7 +458,6 @@ public class Player : MonoBehaviour
         {
             Item_Player_Heal_HP(perseent);
             yield return new WaitForSeconds(1);
-            Debug.Log("회복" + delaytime) ;
             delaytime -= 1;
         }
     }
@@ -536,5 +601,92 @@ public class Player : MonoBehaviour
         playerBullet = Resources.Load<GameObject>("Bullet/Player/Special/" + BulletName);
         yield return new WaitForSeconds(delayTime);
         playerBullet = playerData.Bullet;
+    }
+
+    public void Item_Gun_Change(string Weapon, int max)
+    {
+        Item_GunFlag = true;
+        GunObject_List[0].SetActive(false);
+        switch (Weapon) { 
+            case "Flash_Bang":
+                GunIndex = 1;
+                GunObject_List[GunIndex].SetActive(true);
+                Bullet_Fire_Transform = GunObject_List[GunIndex].GetComponent<Transform>().GetChild(0);
+                playerBullet = Resources.Load<GameObject>("Bullet/Player/Special/Flash_Bang_Bullet");
+                Item_Gun_CountFlag = true;
+                Item_Gun_ClickCount = 0;
+                Item_Gun_Max_ClickCount = max;
+                break;
+            case "Gatling_Gun":
+                GunIndex = 2;
+                GunObject_List[GunIndex].SetActive(true);
+                Bullet_Fire_Transform = GunObject_List[GunIndex].GetComponent<Transform>().GetChild(0);
+                Bullet_Atk = 2;
+                Bullet_Delay = 0.1f;
+                Item_Gun_TimeFlag = true;
+                Item_Gun_ClickTime = 0f;
+                Item_Gun_Max_ClickTime = max;
+                break;
+            case "Missile_Gun":
+                GunIndex = 3;
+                GunObject_List[GunIndex].SetActive(true);
+                Bullet_Fire_Transform = GunObject_List[GunIndex].GetComponent<Transform>().GetChild(0);
+                playerBullet = Resources.Load<GameObject>("Bullet/Player/Special/Missile_Player_Bullet");
+                Bullet_Atk = 20;
+                Item_Gun_CountFlag = true;
+                Item_Gun_ClickCount = 0;
+                Item_Gun_Max_ClickCount = max;
+                break;
+            case "Raser_Gun":
+                GunIndex = 4;
+                GunObject_List[GunIndex].SetActive(true);
+                Item_GunSpecial_Bullet = GunObject_List[GunIndex].GetComponent<Transform>().GetChild(0).gameObject;
+                Item_GunSpecial_Bullet.GetComponent<Bullet>().atk = 2;
+                Item_Gun_TimeFlag = true;
+                Item_Gun_ClickTime = 0f;
+                Item_Gun_Max_ClickTime = max;
+                break;
+            case "Fire_Gun":
+                GunIndex = 5;
+                GunObject_List[GunIndex].SetActive(true);
+                Item_GunSpecial_Bullet = GunObject_List[GunIndex].GetComponent<Transform>().GetChild(0).gameObject;
+                Item_GunSpecial_Bullet.GetComponent<Bullet>().atk = 3;
+                Item_Gun_TimeFlag = true;
+                Item_Gun_ClickTime = 0f;
+                Item_Gun_Max_ClickTime = max;
+                break;
+        }
+    }
+
+    private void Item_Gun_Default()
+    {
+        Item_GunFlag = false;
+        Item_Gun_TimeFlag = false;
+        Item_Gun_CountFlag = false;
+
+        GunObject_List[GunIndex].SetActive(false);
+        switch (GunIndex) {
+            case 1:
+                playerBullet = playerData.Bullet;
+                break;
+            case 2:
+                Bullet_Atk = playerData.Atk;
+                Bullet_Delay = playerData.Delay;
+                break;
+            case 3:
+                Bullet_Atk = playerData.Atk;
+                playerBullet = playerData.Bullet;
+                break;
+            case 4:
+            case 5:
+                SpecailBulletFire(false);
+                Item_GunSpecial_Bullet = null;
+                break;
+
+        }
+        GunIndex = 0;
+        GunObject_List[GunIndex].SetActive(true);
+        Bullet_Fire_Transform = GunObject_List[GunIndex].GetComponent<Transform>().GetChild(0);
+
     }
 }

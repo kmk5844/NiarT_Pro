@@ -43,17 +43,19 @@ public class Auto_Item_ScritableObject : EditorWindow
         foreach(Info_Item item in itemList)
         {
             ItemDataObject itemObject = ScriptableObject.CreateInstance<ItemDataObject>();
-
-            itemObject.Num = item.Num;
-            itemObject.Item_Name = item.Item_Name.Replace("^", " ");
-            itemObject.Item_Type = CheckItemType(item.Item_Type);
-            itemObject.Item_Information = item.Item_Information;
-            itemObject.Box_Type = CheckItemBoxType(item.Box_Type);
-            itemObject.Buy_Flag = item.Buy_Flag;
-            itemObject.Sell_Flag = item.Sell_Flag;
-            itemObject.Item_Buy_Pride = item.Item_Buy_Pride;
-            itemObject.Item_Sell_Pride = item.Item_Sell_Pride;
-            itemObject.Supply_Monster = item.Supply_Monster;
+            itemObject.Auto_Item_Insert(
+                item.Num,
+                item.Item_Name.Replace("^", " "),
+                CheckItemType(item.Item_Type),
+                item.Item_Information,
+                CheckItemBoxType(item.Box_Type),
+                item.Buy_Flag,
+                item.Sell_Flag,
+                item.Item_Buy_Pride,
+                item.Item_Sell_Pride,
+                item.Supply_Monster,
+                0
+                ) ;
 
             AssetDatabase.CreateAsset(itemObject,  "Assets/Scriptable/SA_Item/Item_Object/" +item.Num +"_"+ item.Item_Name.Replace("^", "_") + ".asset");
             AssetDatabase.SaveAssets();

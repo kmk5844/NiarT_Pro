@@ -4,19 +4,17 @@ using UnityEngine;
 
 public class UseItem : MonoBehaviour
 {
-    //public SA_ItemList itemList;
+    public SA_ItemList itemList;
+
     [Header("영향받는 스크립트")]
     public Player player;
     public GameDirector gameDirector;
     public MercenaryDirector mercenaryDirector;
     public MonsterDirector monsterDirector;
 
-    private void Start()
-    {
-    }
-
     public void UseEquipItem(int num)
     {
+        itemList.Item[num].Item_Count_Down();
         switch (num)
         {
             case 0:
@@ -94,7 +92,7 @@ public class UseItem : MonoBehaviour
                 StartCoroutine(player.Item_Change_Bullet("Bouncing_Bullet", 15));
                 break;
             case 22:
-                StartCoroutine(player.Item_Change_Bullet("FireBullet", 15));
+                StartCoroutine(player.Item_Change_Bullet("Fire_Bullet", 15));
                 break;
             case 23:
                 StartCoroutine(player.Item_Player_Dagger(0.5f));
@@ -162,48 +160,40 @@ public class UseItem : MonoBehaviour
                 player.Item_Player_Spawn_Dron(1);
                 break;
             case 43:
+                player.Item_Gun_Change("Flash_Bang", 1);
                 break;
             case 44:
+                player.Item_Gun_Change("Gatling_Gun", 5);
                 break;
             case 45:
+                player.Item_Gun_Change("Missile_Gun", 5);
                 break;
             case 46:
+                player.Item_Gun_Change("Raser_Gun", 10);
                 break;
             case 47:
+                player.Item_Gun_Change("Fire_Gun", 10);
                 break;
             case 48:
+                StartCoroutine(player.Item_Change_Bullet("Stun_Bullet", 15));
                 break;
             case 54:
-                break;
             case 55:
-                break;
             case 56:
-                break;
             case 57:
-                break;
             case 58:
-                break;
             case 59:
-                break;
             case 60:
-                break;
             case 61:
-                break;
             case 62:
-                break;
             case 63:
-                break;
             case 64:
-                break;
             case 65:
-                break;
             case 66:
-                break;
             case 67:
-                break;
             case 68:
-                break;
             case 69:
+                itemList.Item[num].Item_Count_UP();
                 break;
         }
     }
