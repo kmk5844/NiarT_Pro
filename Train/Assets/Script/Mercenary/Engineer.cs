@@ -221,7 +221,7 @@ public class Engineer : Mercenary
     {
         isRepairing = true;
         workCount++;
-        if (workCount > Max_workCount)
+        if (workCount >= Max_workCount + base.Item_workCount_UP)
         {
             act = Active.refresh;
             if (train.isReparing)

@@ -50,7 +50,7 @@ public class Short_Ranged : Mercenary
             }
             if (act == Active.work)
             {
-                if(workCount == Max_workCount)
+                if(workCount >= Max_workCount + base.Item_workCount_UP)
                 {
                     act = Active.refresh;
                 }

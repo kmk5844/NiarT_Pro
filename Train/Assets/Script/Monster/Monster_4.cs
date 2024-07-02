@@ -33,29 +33,44 @@ public class Monster_4 : Monster
 
         xPos = -1f;
         yPos = 1f;
+
+        Check_ItemSpeedSpawn();
     }
 
     protected override void Update()
     {
-        //MonsterMove();
+        base.Update();
+        Total_GameType();
+        Fire_Debuff();
+        Check_ItemSpeedFlag();
+
+        if (monster_gametype == Monster_GameType.GameEnding)
+        {
+            Monster_Ending();
+        }
     }
 
     protected override void FixedUpdate()
     {
-        if(transform.position.x > max_xPos)
+        base.FixedUpdate();
+
+        if (monster_gametype == Monster_GameType.Fighting)
         {
-            MonsterMove();
-        }
-        else
-        {
-            if (!spawn_Flag)
+            if (transform.position.x > max_xPos)
             {
-                speed = 0.5f;
-                monster_SpawnPos = transform.position;
-                spawn_Flag = true;
+                MonsterMove();
             }
-            DemoBulletFire();
-            MonsterMove_H();
+            else
+            {
+                if (!spawn_Flag)
+                {
+                    speed = 0.5f;
+                    monster_SpawnPos = transform.position;
+                    spawn_Flag = true;
+                }
+                DemoBulletFire();
+                MonsterMove_H();
+            }
         }
     }
 
@@ -77,5 +92,43 @@ public class Monster_4 : Monster
         }
         movement = new Vector3(0f, yPos, 0f);
         transform.Translate(movement * speed * Time.deltaTime);
+    }
+
+    void Check_ItemSpeedSpawn()
+    {
+        if (MonsterDirector.Item_curseFlag)
+        {
+            Item_Mosnter_SpeedPersent = MonsterDirector.Item_cursePersent_Spawn;
+            Item_Monster_Speed += speed * (Item_Mosnter_SpeedPersent / 100f);
+        }
+        else if (MonsterDirector.Item_giantFlag)
+        {
+            Item_Mosnter_SpeedPersent = MonsterDirector.Item_giantPersent_Spawn;
+            Item_Monster_Speed += speed * (Item_Mosnter_SpeedPersent / 100f);
+
+        }
+        else
+        {
+            Item_Monster_Speed = 0;
+        }
+    }
+
+    void Check_ItemSpeedFlag()
+    {
+        Item_Monster_Speed_ChangeFlag = base.Item_Monster_Speed_ChangeFlag;
+        Item_Monster_SpeedFlag = base.Item_Monster_SpeedFlag;
+        if (Item_Monster_Speed_ChangeFlag)
+        {
+            if (Item_Monster_SpeedFlag)
+            {
+                Item_Monster_Speed += speed * (Item_Mosnter_SpeedPersent / 100f);
+                Item_Monster_Speed_ChangeFlag = false;
+            }
+            else
+            {
+                Item_Monster_Speed = 0;
+                Item_Monster_Speed_ChangeFlag = false;
+            }
+        }
     }
 }

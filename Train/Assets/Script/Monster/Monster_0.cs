@@ -34,6 +34,7 @@ public class Monster_0 : Monster
         Total_GameType();
         Fire_Debuff();
         Check_ItemSpeedFlag();
+
         if (monster_gametype == Monster_GameType.Fighting)
         {
             BulletFire();

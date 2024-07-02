@@ -113,7 +113,7 @@ public class Medic : Mercenary
         isHeal_HP = true;
         workCount++;
 
-        if (workCount > Max_workCount)
+        if (workCount >= Max_workCount + base.Item_workCount_UP)
         {
             if (unit.GetComponentInParent<Mercenary>().isHealWithMedic)
             {

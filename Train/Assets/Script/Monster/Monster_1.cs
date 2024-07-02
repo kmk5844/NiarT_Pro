@@ -26,25 +26,42 @@ public class Monster_1 : Monster
         max_xPos = Random.Range(1, 3);
 
         xPos = -1;
+        Check_ItemSpeedSpawn();
     }
 
     protected override void Update()
     {
-        if(xPos > 0)
+        base.Update();
+        Total_GameType();
+        Fire_Debuff();
+        Check_ItemSpeedFlag();
+
+        if (monster_gametype == Monster_GameType.Fighting)
         {
-            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            BulletFire(xPos);
+            if (xPos > 0)
+            {
+                transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            }
+            else
+            {
+                transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            }
         }
-        else
+
+        if (monster_gametype == Monster_GameType.GameEnding)
         {
-            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            Monster_Ending();
         }
-        //MonsterMove();
-        BulletFire(xPos);
     }
 
     protected override void FixedUpdate()
     {
-        MonsterMove();
+        base.FixedUpdate();
+        if(monster_gametype == Monster_GameType.Fighting)
+        {
+            MonsterMove();
+        }
     }
 
     void MonsterMove()
@@ -58,7 +75,45 @@ public class Monster_1 : Monster
             xPos = -1;
         }
         movement = new Vector3(xPos, 0f, 0f);
-        transform.Translate(movement * speed * Time.deltaTime); 
+        transform.Translate(movement * (speed - Item_Monster_Speed) * Time.deltaTime); 
         // 기차의 거리에 맞춰야 한다.
+    }
+
+    void Check_ItemSpeedSpawn()
+    {
+        if (MonsterDirector.Item_curseFlag)
+        {
+            Item_Mosnter_SpeedPersent = MonsterDirector.Item_cursePersent_Spawn;
+            Item_Monster_Speed += speed * (Item_Mosnter_SpeedPersent / 100f);
+        }
+        else if (MonsterDirector.Item_giantFlag)
+        {
+            Item_Mosnter_SpeedPersent = MonsterDirector.Item_giantPersent_Spawn;
+            Item_Monster_Speed += speed * (Item_Mosnter_SpeedPersent / 100f);
+
+        }
+        else
+        {
+            Item_Monster_Speed = 0;
+        }
+    }
+
+    void Check_ItemSpeedFlag()
+    {
+        Item_Monster_Speed_ChangeFlag = base.Item_Monster_Speed_ChangeFlag;
+        Item_Monster_SpeedFlag = base.Item_Monster_SpeedFlag;
+        if (Item_Monster_Speed_ChangeFlag)
+        {
+            if (Item_Monster_SpeedFlag)
+            {
+                Item_Monster_Speed += speed * (Item_Mosnter_SpeedPersent / 100f);
+                Item_Monster_Speed_ChangeFlag = false;
+            }
+            else
+            {
+                Item_Monster_Speed = 0;
+                Item_Monster_Speed_ChangeFlag = false;
+            }
+        }
     }
 }
