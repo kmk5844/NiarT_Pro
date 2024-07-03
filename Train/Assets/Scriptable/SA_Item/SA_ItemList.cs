@@ -12,7 +12,7 @@ public class SA_ItemList : ScriptableObject
 
     public void ItemList_Init()
     {
-        item.RemoveAll(x => x != null);
+        item.Clear();
     }
 
     public void ItemList_InsertObject(ItemDataObject newobjcet)

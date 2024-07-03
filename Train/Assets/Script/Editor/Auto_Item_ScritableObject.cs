@@ -61,6 +61,7 @@ public class Auto_Item_ScritableObject : EditorWindow
             AssetDatabase.SaveAssets();
             SA_ItemList.ItemList_InsertObject(itemObject);
         }
+        UnityEditor.EditorUtility.SetDirty(SA_ItemList);
     }
 
     Information_Item_Type CheckItemType(string itemtype)

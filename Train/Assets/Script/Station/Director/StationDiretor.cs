@@ -20,6 +20,8 @@ public class StationDirector : MonoBehaviour
     [SerializeField]
     Station_Fortress Director_Fortress;
     [SerializeField]
+    Station_Inventory Director_Inventory;
+    [SerializeField]
     Station_GameStart Director_GameStart;
 
     [Header("Lobby")]
@@ -43,6 +45,10 @@ public class StationDirector : MonoBehaviour
     public GameObject UI_Fortress;
     public GameObject[] UI_Fortress_Window;
     bool Fortress_Flag;
+    [Header("Click Lobby -> Inventory")]
+    public GameObject UI_Inventory;
+    public ToggleGroup UI_Inventory_Toggle;
+    public GameObject[] UI_Inventory_Window;
     [Header("Click Lobby -> GameStart")]
     public GameObject UI_GameStart;
     public TextMeshProUGUI Stage_Text;
@@ -59,6 +65,7 @@ public class StationDirector : MonoBehaviour
     int ui_Maintenance_Num;
     int ui_Store_Num;
     int ui_Fortress_Num;
+    int ui_Inventory_Num;
     [Header("BGM")]
     public AudioClip StationBGM;
 
@@ -78,8 +85,9 @@ public class StationDirector : MonoBehaviour
 
         ui_num = 0;
         ui_Store_Num = -1;
-        // 기차 정비소에 유일한 토글
+        // 기차 정비소와 인벤토리의 토글
         TrainMaintenance_ToggleStart();
+        Inventory_ToggleStart();
     }
 
     private void Update()
@@ -88,7 +96,6 @@ public class StationDirector : MonoBehaviour
         {
             if (ui_num == 1)
             {
-
                 if (Director_TrainMaintenance.Part_Window_Flag)
                 {
                     Director_TrainMaintenance.Click_Part_Back_Button();
@@ -106,7 +113,7 @@ public class StationDirector : MonoBehaviour
             {
                 if (StoreWindow_Flag)
                 {
-                   Click_Store_Back_Button();
+                    Click_Store_Back_Button();
                 }
                 else
                 {
@@ -123,7 +130,11 @@ public class StationDirector : MonoBehaviour
                 {
                     Click_Home_Button();
                 }
-            }else if (ui_num == 4)
+            }else if(ui_num == 4)
+            {
+                Click_Home_Button();
+            }
+            else if (ui_num == 5)
             {
                 Click_Home_Button();
             }
@@ -135,6 +146,14 @@ public class StationDirector : MonoBehaviour
         foreach (var toggle in UI_TrainMaintenance_Toggle.GetComponentsInChildren<Toggle>())
         {
             toggle.onValueChanged.AddListener(TrainMaintenance_ToggleChange);
+        }
+    }
+
+    private void Inventory_ToggleStart()
+    {
+        foreach(var toggle in UI_Inventory_Toggle.GetComponentsInChildren<Toggle>())
+        {
+            toggle.onValueChanged.AddListener(Inventory_ToggleChange);
         }
     }
 
@@ -183,13 +202,57 @@ public class StationDirector : MonoBehaviour
         }
     }
 
+    private void Inventory_ToggleChange(bool isOn)
+    {
+        if(isOn && ui_num == 4)
+        {
+            for(int i = 0; i < UI_Inventory_Toggle.transform.childCount; i++)
+            {
+                if (UI_Inventory_Toggle.transform.GetChild(i).GetComponent<Toggle>().isOn)
+                {
+                    ui_Inventory_Num = i;
+                    UI_Inventory_Window[i].SetActive(true);
+                    UI_Inventory_Toggle.transform.GetChild(i).GetComponent<Toggle>().interactable = false;
+                }
+                else
+                {
+                    UI_Inventory_Window[i].SetActive(false);
+                    UI_Inventory_Toggle.transform.GetChild(i).GetComponent<Toggle>().interactable = true;
+                }
+            }
+            Total_Init();
+        }
+    }
+
+    private void Inventory_ToggleInit()
+    {
+        if (ui_num == 4)
+        {
+            for (int i = 0; i < UI_TrainMaintenance_Toggle.transform.childCount; i++)
+            {
+                if (i == 0)
+                {
+                    UI_Inventory_Window[i].SetActive(true);
+                    UI_Inventory_Toggle.transform.GetChild(i).GetComponent<Toggle>().isOn = true;
+                    UI_Inventory_Toggle.transform.GetChild(i).GetComponent<Toggle>().interactable = false;
+                }
+                else
+                {
+                    UI_Inventory_Window[i].SetActive(false);
+                    UI_Inventory_Toggle.transform.GetChild(i).GetComponent<Toggle>().isOn = false;
+                    UI_Inventory_Toggle.transform.GetChild(i).GetComponent<Toggle>().interactable = true;
+                }
+            }
+        }
+    }
+
     public void ClickLobbyButton(int num)
     {
-        if (num == 4)
+        if (num == 5)
         {
             UI_GameStart.SetActive(true);
             Director_GameStart.Check_Train();
-            ui_num = 4;
+            ui_num = 5;
         }
         else
         {
@@ -212,6 +275,10 @@ public class StationDirector : MonoBehaviour
                     UI_Fortress.gameObject.SetActive(true);
                     ui_num = 3;
                     Check_CoinAndPoint();
+                    break;
+                case 4:
+                    UI_Inventory.gameObject.SetActive(true);
+                    ui_num = 4;
                     break;
             }
         }
@@ -292,8 +359,12 @@ public class StationDirector : MonoBehaviour
         else if (ui_num == 3)
         {
             UI_Fortress.gameObject.SetActive(false);
+        }else if(ui_num == 4)
+        {
+            Inventory_ToggleInit();
+            UI_Inventory.gameObject.SetActive(false);
         }
-        else if (ui_num == 4)
+        else if (ui_num == 5)
         {
             UI_GameStart.gameObject.SetActive(false);
         }

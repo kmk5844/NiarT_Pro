@@ -11,7 +11,6 @@ public class SA_ItemData : ScriptableObject
     private List<ItemDataObject> equiped_item;
     public List<ItemDataObject> Equiped_Item { get { return equiped_item; } }
 
-
     public void UseEquipedItem(int num)
     {
         equiped_item.RemoveAt(num);
