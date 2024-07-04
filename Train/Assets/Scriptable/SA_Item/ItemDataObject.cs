@@ -7,6 +7,10 @@ public class ItemDataObject : ScriptableObject
     private int num;
     public int Num { get { return num; } }
     [SerializeField]
+    private string item_id;
+    public string Item_Id {  get { return item_id; } }
+
+    [SerializeField]
     private string item_name;
     public string Item_Name {  get { return item_name; } }
     [SerializeField]
@@ -18,6 +22,14 @@ public class ItemDataObject : ScriptableObject
     [SerializeField]
     private Information_Item_Box_Type box_type;
     public Information_Item_Box_Type Box_Type { get { return box_type; } }
+
+    [SerializeField]
+    private Information_Item_Rarity_Type item_rarity_type;
+    public Information_Item_Rarity_Type Item_Rarity_Type { get { return item_rarity_type; } }
+    [SerializeField]
+    private bool use_flag;
+    public bool Use_Flag { get { return use_flag; } }
+
     [SerializeField]
     private bool buy_flag;
     public bool Buy_Flag { get { return buy_flag; } }
@@ -33,27 +45,39 @@ public class ItemDataObject : ScriptableObject
     [SerializeField]
     private bool supply_monster;
     public bool Supply_Monster { get { return supply_monster; } }
+
+    /*
+    추가 예정
+    [SerializeField]
+    private Sprite item_sprite;
+    public Sprite Item_Sprite { get { retrun item_sprite; } }
+     */
+
     [SerializeField]
     private int item_count;
     public int Item_Count { get { return item_count; } }
 
 
     public void Auto_Item_Insert(
-        int _num, string _item_name, Information_Item_Type _item_type, string _item_information,
-        Information_Item_Box_Type _box_type, bool _buy_flag, bool _sell_flag, int _buy_pride,
-        int _sell_pride, bool _supply_monster, int _item_count
+        int _num, string _item_id, string _item_name, Information_Item_Type _item_type, string _item_information,
+        Information_Item_Box_Type _box_type, Information_Item_Rarity_Type _rarrity_type, bool _use_flag
+        , bool _buy_flag, bool _sell_flag, int _buy_pride, int _sell_pride, bool _supply_monster, int _item_count
         )
     {
         num = _num;
+        item_id = _item_id;
         item_name = _item_name;
         item_type = _item_type;
         item_information = _item_information;
         box_type = _box_type;
+        item_rarity_type = _rarrity_type;
+        use_flag = _use_flag;
         buy_flag = _buy_flag;
         sell_flag = _sell_flag;
         item_buy_pride = _buy_pride;
         item_sell_pride = _sell_pride;
         supply_monster = _supply_monster;
+        //item_sprite = ;
         item_count = _item_count;
     }
 
@@ -65,6 +89,11 @@ public class ItemDataObject : ScriptableObject
     public void Item_Count_UP() // 사거나 보급 아이템에서 먹었을 때
     {
         item_count++;
+    }
+
+    public void Item_Count_UP(int num)
+    {
+        item_count += num;
     }
 }
 
@@ -83,4 +112,15 @@ public enum Information_Item_Box_Type {
     Item,
     Material,
     None
+}
+
+public enum Information_Item_Rarity_Type
+{
+    Common,
+    Rare,
+    Unique,
+    Epic,
+
+
+    Error
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ItemList_Object : MonoBehaviour
 {
+    public Station_Inventory Inventory_Director;
     public ItemDataObject item;
 
     public string item_name;
@@ -14,37 +15,35 @@ public class ItemList_Object : MonoBehaviour
 
     [Header("정보 표시")]
     public TextMeshProUGUI item_object_text_count;
+    public ItemList_Tooltip item_tooltip_object;
 
-    public GameObject item_information_Window;
-    TextMeshProUGUI item_information_text_name;
-    TextMeshProUGUI item_information_text_information;
-
-
-    bool item_information_Flag;
+    bool item_information_Flag; // 정보 출력 플래그
+    bool item_mouseOver_Flag; // 이미 올려져 있다는 플래그
 
     private void Start()
     {
         item_information_Flag = false;
-        item_name = item.name;
+        item_name = item.Item_Name;
         item_information = item.Item_Information;
         item_count = item.Item_Count;
-        item_information_text_name = item_information_Window.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        item_information_text_information = item_information_Window.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        item_use = item.Use_Flag;
         item_object_text_count.text = item_count.ToString();
-        item_information_text_name.text = item_name;
-        item_information_text_information.text = item_information;
-
     }
 
     private void Update()
     {
         if (item_information_Flag)
         {
-            item_information_Window.SetActive(true);
+            item_tooltip_object.Tooltip_ON(item_name, item_information, item_use);
+            item_mouseOver_Flag = true;
         }
         else
         {
-            item_information_Window.SetActive(false);
+            if (item_mouseOver_Flag)
+            {
+                item_tooltip_object.Tooltip_Off();
+                item_mouseOver_Flag = false;
+            }
         }
     }
 
@@ -62,7 +61,7 @@ public class ItemList_Object : MonoBehaviour
     {
         if (item_use)
         {
-            Debug.Log("클릭!!");
+            Inventory_Director.UseItemStatus_Click(item);
         }
     }
 }

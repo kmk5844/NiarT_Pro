@@ -45,19 +45,22 @@ public class Auto_Item_ScritableObject : EditorWindow
             ItemDataObject itemObject = ScriptableObject.CreateInstance<ItemDataObject>();
             itemObject.Auto_Item_Insert(
                 item.Num,
-                item.Item_Name.Replace("^", " "),
+                item.Item_Id.Replace("^", ""),
+                item.Item_Name,
                 CheckItemType(item.Item_Type),
                 item.Item_Information,
                 CheckItemBoxType(item.Box_Type),
+                CheckItemRarityType(item.Rarity_Type),
+                item.Use_Flag,
                 item.Buy_Flag,
                 item.Sell_Flag,
                 item.Item_Buy_Pride,
                 item.Item_Sell_Pride,
                 item.Supply_Monster,
                 0
-                ) ;
+                );
 
-            AssetDatabase.CreateAsset(itemObject,  "Assets/Scriptable/SA_Item/Item_Object/" +item.Num +"_"+ item.Item_Name.Replace("^", "_") + ".asset");
+            AssetDatabase.CreateAsset(itemObject,  "Assets/Scriptable/SA_Item/Item_Object/" +item.Num +"_"+ item.Item_Id.Replace("^", "_") + ".asset");
             AssetDatabase.SaveAssets();
             SA_ItemList.ItemList_InsertObject(itemObject);
         }
@@ -98,5 +101,21 @@ public class Auto_Item_ScritableObject : EditorWindow
                 return Information_Item_Box_Type.None;
         }
         return Information_Item_Box_Type.None;
+    }
+
+    Information_Item_Rarity_Type CheckItemRarityType(string raritytype)
+    {
+        switch (raritytype)
+        {
+            case "Common":
+                return Information_Item_Rarity_Type.Common;
+            case "Rare":
+                return Information_Item_Rarity_Type.Rare;
+            case "Unique":
+                return Information_Item_Rarity_Type.Unique;
+            case "Epic":
+                return Information_Item_Rarity_Type.Epic;
+        }
+        return Information_Item_Rarity_Type.Error;
     }
 }

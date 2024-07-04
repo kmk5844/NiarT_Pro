@@ -89,6 +89,12 @@ public class SA_PlayerData : ScriptableObject
         Save();
     }
 
+    public void SA_Get_Point(int R_Point)
+    {
+        point += R_Point;
+        Save();
+    }
+
     private void Save()
     {
         PlayerPrefs.SetInt("SA_PlayerData_Data_level_atk", level_atk);

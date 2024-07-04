@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Station_Item : MonoBehaviour
+public class Station_ItemData : MonoBehaviour
 {
     public SA_ItemList SA_ItemList;
     public SA_ItemData SA_Player_ItemData;
@@ -16,16 +16,11 @@ public class Station_Item : MonoBehaviour
     ItemDataObject Equipment_Item_3;
 
     [Header("인벤토리에 들어있는 아이템")]
-    [SerializeField]
-    List<ItemDataObject> Equipment_Inventory_ItemList;
-    [SerializeField]
-    List<ItemDataObject> Common_Inventory_ItemList; 
-    [SerializeField]
-    List<ItemDataObject> Box_Inventory_ItemList; 
-    [SerializeField]
-    List<ItemDataObject> Material_Inventory_ItemList; 
-    [SerializeField]
-    List<ItemDataObject> Quest_Inventory_ItemList; 
+    public List<ItemDataObject> Equipment_Inventory_ItemList;
+    public List<ItemDataObject> Common_Inventory_ItemList; 
+    public List<ItemDataObject> Box_Inventory_ItemList; 
+    public List<ItemDataObject> Material_Inventory_ItemList; 
+    public List<ItemDataObject> Quest_Inventory_ItemList; 
 
     private void Awake()
     {
