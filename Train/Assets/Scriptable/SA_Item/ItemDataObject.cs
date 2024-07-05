@@ -83,17 +83,22 @@ public class ItemDataObject : ScriptableObject
 
     public void Item_Count_Down() // 사용하거나, 팔 때
     {
-        item_count--;
+        item_count -= 1;
     }
 
     public void Item_Count_UP() // 사거나 보급 아이템에서 먹었을 때
     {
-        item_count++;
+        item_count += 1;
     }
 
     public void Item_Count_UP(int num)
     {
         item_count += num;
+    }
+
+    public void Item_Count_Down(int num)
+    {
+        item_count -= num;
     }
 }
 

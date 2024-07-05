@@ -8,14 +8,24 @@ public class ItemList_Tooltip : MonoBehaviour
 {
     public TextMeshProUGUI Item_Name;
     public TextMeshProUGUI Item_Information;
+    public TextMeshProUGUI Item_Pride;
     public GameObject UseWindow;
-    bool TootipFlag;
+    bool TooltipFlag;
 
     float halfwidth;
     float halfheight;
     float pivot_x;
     float pivot_y;
     RectTransform rt;
+
+    public enum TooltipType
+    {
+        Inventory,
+        Store_Buy,
+        Store_Sell
+    }
+
+    public TooltipType tooltiptype;
 
     private void Start()
     {
@@ -27,7 +37,7 @@ public class ItemList_Tooltip : MonoBehaviour
 
     private void Update()
     {
-        if (TootipFlag)
+        if (TooltipFlag)
         {
             transform.position = Input.mousePosition + new Vector3(40, -40, 0);
         }
@@ -57,21 +67,38 @@ public class ItemList_Tooltip : MonoBehaviour
         rt.pivot = new Vector2(pivot_x, pivot_y);
     }
 
-    public void Tooltip_ON(string itemName, string itemInformation, bool useFlag)
+    public void Tooltip_ON(string itemName, string itemInformation, bool useFlag, int Pride)
     {
-        TootipFlag = true;
+        TooltipFlag = true;
         Item_Name.text = itemName;
         Item_Information.text = itemInformation;
-        if (useFlag)
+        if (tooltiptype == TooltipType.Inventory)
         {
-            UseWindow.SetActive(true);
+            Item_Pride.text = "";
+            if (useFlag)
+            {
+                UseWindow.SetActive(true);
+                UseWindow.GetComponentInChildren<TextMeshProUGUI>().text = "사용하시려면 좌클릭 눌러주세요";
+            }
         }
+        else if (tooltiptype == TooltipType.Store_Buy)
+        {
+            Item_Pride.text = "구매 가격 : " + Pride;
+            UseWindow.SetActive(true);
+            UseWindow.GetComponentInChildren<TextMeshProUGUI>().text = "구매하시려면 좌클릭 눌러주세요";
+        }else if(tooltiptype == TooltipType.Store_Sell)
+        {
+            Item_Pride.text = "판매 가격 : " + Pride;
+            UseWindow.SetActive(true);
+            UseWindow.GetComponentInChildren<TextMeshProUGUI>().text = "판매하시려면 좌클릭 눌러주세요";
+        }
+
         gameObject.SetActive(true);
     }
 
     public void Tooltip_Off()
     {
-        TootipFlag = false;
+        TooltipFlag = false;
         Item_Name.text = "";
         Item_Information.text = "";
         UseWindow.SetActive(false);

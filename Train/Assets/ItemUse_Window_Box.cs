@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class ItemUse_Window_Box : MonoBehaviour
 {
+    Station_Inventory inventory;
     [SerializeField]
     SA_ItemList ItemList;
     [SerializeField]
@@ -28,8 +29,18 @@ public class ItemUse_Window_Box : MonoBehaviour
     List<ItemDataObject> Random_Unique_Box_ItemList;
     List<ItemDataObject> Random_Epic_Box_ItemList;
 
-    public void Random_Box_Open(int num)
+    private void Start()
     {
+
+    }
+
+    public void Random_Box_Open(int num, GameObject InventoryDirector)
+    {
+        if(inventory == null)
+        {
+            inventory = InventoryDirector.GetComponent<Station_Inventory>();
+        }    
+
         if (!Check)
         {
             Random_Material_ItemList = ItemList.Random_Material_ItemList;
@@ -55,19 +66,33 @@ public class ItemUse_Window_Box : MonoBehaviour
             Item_Name.text = item.Item_Name;
             Item_Information.text = item.Item_Information;
             Item_Count.text = "<color=red>"+ Add_ItemCount + "</size>∞≥∏¶ »πµÊ«œºÃΩ¿¥œ¥Ÿ";
-            item.Item_Count_UP(Add_ItemCount);
-            
-        }else if(num == 55)
+            if (item.Item_Count == 0)
+            {
+                item.Item_Count_UP(Add_ItemCount);
+                inventory.Check_ItemObject(0, item);
+            }
+            else
+            {
+                item.Item_Count_UP(Add_ItemCount);
+                inventory.Check_ItemObject(1, item);
+            }
+        }
+        else if(num == 55)
         {
             int RarityNum = Random.Range(0, 100);
+            
             if (RarityNum >= 0 && RarityNum < 80)
             {
-                item = Random_Common_Item_ItemList[Random.Range(0, Random_Common_Item_ItemList.Count)];
+                int rand = Random.Range(0, Random_Rare_Item_ItemList.Count);
+                item = Random_Common_Item_ItemList[rand];
             }
             else if (RarityNum >= 90 && RarityNum < 100)
             {
-                item = Random_Rare_Item_ItemList[Random.Range(0, Random_Rare_Item_ItemList.Count)];
+                int rand = Random.Range(0, Random_Rare_Item_ItemList.Count);
+                item = Random_Rare_Item_ItemList[rand];
             }
+
+
             /*else if(RarityNum >= 80 && RarityNum < 95)
             {
                 item = Random_Unique_Item_ItemList[Random.Range(0, Random_Unique_Item_ItemList.Count)];
@@ -76,12 +101,20 @@ public class ItemUse_Window_Box : MonoBehaviour
             {
                 item = Random_Epic_Item_ItemList[Random.Range(0, Random_Epic_Item_ItemList.Count)];
             }*/
-            Debug.Log(RarityNum);
             //Item_Icon = º≥¡§
             Item_Name.text = item.Item_Name;
             Item_Information.text = item.Item_Information;
             Item_Count.text = "<color=red>" + 1 + "</size>∞≥∏¶ »πµÊ«œºÃΩ¿¥œ¥Ÿ";
-            item.Item_Count_UP();
+            if(item.Item_Count == 0)
+            {
+                item.Item_Count_UP();
+                inventory.Check_ItemObject(0, item);
+            }
+            else
+            {
+                item.Item_Count_UP();
+                inventory.Check_ItemObject(1, item);
+            }
         }
         else if(num == 56)
         {
@@ -107,7 +140,16 @@ public class ItemUse_Window_Box : MonoBehaviour
             Item_Name.text = item.Item_Name;
             Item_Information.text = item.Item_Information;
             Item_Count.text = "<color=red>" + 1 + "</size>∞≥∏¶ »πµÊ«œºÃΩ¿¥œ¥Ÿ";
-            item.Item_Count_UP();
+            if (item.Item_Count == 0)
+            {
+                item.Item_Count_UP();
+                inventory.Check_ItemObject(0, item);
+            }
+            else
+            {
+                item.Item_Count_UP();
+                inventory.Check_ItemObject(1, item);
+            }
         }
     }
 }

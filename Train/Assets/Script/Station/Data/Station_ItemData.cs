@@ -20,12 +20,13 @@ public class Station_ItemData : MonoBehaviour
     public List<ItemDataObject> Common_Inventory_ItemList; 
     public List<ItemDataObject> Box_Inventory_ItemList; 
     public List<ItemDataObject> Material_Inventory_ItemList; 
-    public List<ItemDataObject> Quest_Inventory_ItemList; 
+    public List<ItemDataObject> Quest_Inventory_ItemList;
 
+    [Header("상점에 들어있는 아이템 + 팔 수 있는 것까지")]
+    public List<ItemDataObject> Store_Buy_itemList;
     private void Awake()
     {
         Check_Inventory_Item();
-
         Equipment_Item_1 = SA_Player_ItemData.Equiped_Item[0];
         Equipment_Item_2 = SA_Player_ItemData.Equiped_Item[1];
         Equipment_Item_3 = SA_Player_ItemData.Equiped_Item[2];
@@ -58,6 +59,34 @@ public class Station_ItemData : MonoBehaviour
                     Quest_Inventory_ItemList.Add(item);
                 }
             }
+            if(item.Buy_Flag)
+            {
+                Store_Buy_itemList.Add(item);
+            }
+        }
+    }
+
+    public void Plus_Inventory_Item(ItemDataObject item)
+    {
+        if (item.Item_Type == Information_Item_Type.Equipment)
+        {
+            Equipment_Inventory_ItemList.Add(item);
+        }
+        if (item.Item_Type == Information_Item_Type.Inventory)
+        {
+            Common_Inventory_ItemList.Add(item);
+        }
+        if (item.Item_Type == Information_Item_Type.Box)
+        {
+            Box_Inventory_ItemList.Add(item);
+        }
+        if (item.Item_Type == Information_Item_Type.Material)
+        {
+            Material_Inventory_ItemList.Add(item);
+        }
+        if (item.Item_Type == Information_Item_Type.Quset)
+        {
+            Quest_Inventory_ItemList.Add(item);
         }
     }
 }

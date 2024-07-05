@@ -34,7 +34,7 @@ public class ItemList_Object : MonoBehaviour
     {
         if (item_information_Flag)
         {
-            item_tooltip_object.Tooltip_ON(item_name, item_information, item_use);
+            item_tooltip_object.Tooltip_ON(item_name, item_information, item_use, 0);
             item_mouseOver_Flag = true;
         }
         else
@@ -63,5 +63,21 @@ public class ItemList_Object : MonoBehaviour
         {
             Inventory_Director.UseItemStatus_Click(item);
         }
+    }
+
+    public bool Check_ItemCount()
+    {
+       item_count = item.Item_Count;
+
+        if(item_count != 0)
+        {
+            item_object_text_count.text = item_count.ToString();
+            return true;
+        }
+        else if(item_count == 0)
+        {
+            return false;
+        }
+        return false;
     }
 }

@@ -14,6 +14,8 @@ public class Station_Store : MonoBehaviour
     Station_TrainData trainData;
     public GameObject Mercenary_DataObject;
     Station_MercenaryData mercenaryData;
+    public GameObject Item_DataObject;
+    Station_ItemData itemData;
 
     [Header("윈도우")]
     public GameObject Check_Buy_Panel;
@@ -90,11 +92,17 @@ public class Station_Store : MonoBehaviour
     int Toggle_Mercenary_Num; // toggle로 찍힌 카드 안의 숫자
     string Toggle_Mercenary_Name; // toggle로 찍힌 카드 안의 이름
 
+    [Header("아이템 구매하기")]
+    public ItemBuy_Object ItemBuyList_Object;
+    public ItemList_Tooltip ItemBuyTooltip_Object;
+    public GameObject Item_Buy_Window;
+
     private void Start()
     {
         playerData = Player_DataObject.GetComponent<Station_PlayerData>();
         trainData = Train_DataObject.GetComponent<Station_TrainData>();
         mercenaryData = Mercenary_DataObject.GetComponent<Station_MercenaryData>();
+        itemData = Item_DataObject.GetComponent<Station_ItemData>();
         Train_Store_Num = trainData.Train_Store_Num;
         Turret_Store_Num = trainData.Train_Turret_Store_Num;
         Booster_Store_Num = trainData.Train_Booster_Store_Num;
@@ -114,10 +122,12 @@ public class Station_Store : MonoBehaviour
         Check_Init_BoosterCard();
         Director_Init_BoosterBuy();
         Booster_ToggleStart();
-
         //용병 구매하기
         Check_Init_MercenaryCard();
         Mercenary_ToggleStart();
+        //아이템 구매하기
+        Check_Init_ItemBuy();
+        //아이템 판매하기
     }
 
     public void StoreTrainList_Toggle_Init()
@@ -708,6 +718,25 @@ public class Station_Store : MonoBehaviour
 
         }
     }
+
+    //아이템 구매 부분
+    private void Check_Init_ItemBuy()
+    {
+        foreach(ItemDataObject item in itemData.Store_Buy_itemList)
+        {
+            ItemBuyList_Object.item = item;
+            ItemBuyList_Object.item_tooltip_object = ItemBuyTooltip_Object;
+            Instantiate(ItemBuyList_Object, Item_Buy_Window.transform);
+        }
+    }
+
+
+    public void Director_Init_ItemBuy()
+    {
+
+    }
+
+
     //공통 부분
     public void ResizedContent_V(Transform ScrollContent, ScrollRect Scrollrect)
     {

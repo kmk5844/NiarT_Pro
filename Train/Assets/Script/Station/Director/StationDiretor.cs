@@ -224,6 +224,11 @@ public class StationDirector : MonoBehaviour
         }
     }
 
+    public int Check_UI_Inventory_Num()
+    {
+        return ui_Inventory_Num;
+    }
+
     private void Inventory_ToggleInit()
     {
         if (ui_num == 4)
