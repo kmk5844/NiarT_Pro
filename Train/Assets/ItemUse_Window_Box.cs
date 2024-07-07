@@ -22,8 +22,6 @@ public class ItemUse_Window_Box : MonoBehaviour
     List<ItemDataObject> Random_Material_ItemList;
     List<ItemDataObject> Random_Common_Item_ItemList;
     List<ItemDataObject> Random_Rare_Item_ItemList;
-/*    List<ItemDataObject> Random_Unique_Item_ItemList;
-    List<ItemDataObject> Random_Epic_Item_ItemList;*/
     List<ItemDataObject> Random_Common_Box_ItemList;
     List<ItemDataObject> Random_Rare_Box_ItemList;
     List<ItemDataObject> Random_Unique_Box_ItemList;

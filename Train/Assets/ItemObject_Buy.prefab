@@ -85,9 +85,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6232870913738864109}
   - component: {fileID: 6966147897478431445}
+  - component: {fileID: 2706482904163013076}
   - component: {fileID: 7531415564063907309}
   - component: {fileID: 2699285514616907625}
-  - component: {fileID: 2706482904163013076}
   m_Layer: 5
   m_Name: ItemObject_Buy
   m_TagString: Untagged
@@ -123,6 +123,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7941203515255204665}
   m_CullTransparentMesh: 1
+--- !u!114 &2706482904163013076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7941203515255204665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a1fe15163dcac4ca07fcdd885ab281, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StoreDirector: {fileID: 0}
+  item: {fileID: 0}
+  item_name: 
+  item_information: 
+  item_pride: 0
+  item_use: 0
+  item_tooltip_object: {fileID: 0}
 --- !u!114 &7531415564063907309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,20 +233,3 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!114 &2706482904163013076
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7941203515255204665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0a1fe15163dcac4ca07fcdd885ab281, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  item: {fileID: 0}
-  item_name: 
-  item_information: 
-  item_use: 0
-  item_tooltip_object: {fileID: 0}

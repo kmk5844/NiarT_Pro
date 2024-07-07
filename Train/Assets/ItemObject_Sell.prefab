@@ -219,8 +219,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6232870913738864109}
   - component: {fileID: 6966147897478431445}
+  - component: {fileID: -4406628019090635191}
   - component: {fileID: 7531415564063907309}
-  - component: {fileID: 7069951994219883165}
   - component: {fileID: 2699285514616907625}
   m_Layer: 5
   m_Name: ItemObject_Sell
@@ -258,6 +258,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7941203515255204665}
   m_CullTransparentMesh: 1
+--- !u!114 &-4406628019090635191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7941203515255204665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a76ecfdedeb855b48b06b2226bab5968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 0}
+  item_name: 
+  item_information: 
+  item_count: 0
+  item_use: 0
+  item_object_text_count: {fileID: 0}
+  item_tooltip_object: {fileID: 0}
 --- !u!114 &7531415564063907309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,26 +307,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7069951994219883165
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7941203515255204665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ff03054de9e993469fcf4347fd0cef2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Inventory_Director: {fileID: 0}
-  item: {fileID: 11400000, guid: 03c625e01f21910438b5cc8fa8878418, type: 2}
-  item_name: 
-  item_information: 
-  item_count: 1
-  item_use: 0
-  item_object_text_count: {fileID: 2995304095947724183}
-  item_tooltip_object: {fileID: 0}
 --- !u!114 &2699285514616907625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,7 +324,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 7069951994219883165}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: ItemList_Object, Assembly-CSharp
           m_MethodName: OnMouseEnter
           m_Mode: 1
@@ -341,7 +340,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 7069951994219883165}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: ItemList_Object, Assembly-CSharp
           m_MethodName: OnMouseExit
           m_Mode: 1
@@ -357,7 +356,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 7069951994219883165}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: ItemList_Object, Assembly-CSharp
           m_MethodName: OnMouseClick
           m_Mode: 1

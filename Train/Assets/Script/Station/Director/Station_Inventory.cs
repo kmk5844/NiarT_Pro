@@ -43,7 +43,6 @@ public class Station_Inventory : MonoBehaviour
         }
     }
 
-
     void Spawn_Item(int num)
     {
         switch(num)

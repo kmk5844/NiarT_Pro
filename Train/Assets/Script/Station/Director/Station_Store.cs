@@ -92,10 +92,22 @@ public class Station_Store : MonoBehaviour
     int Toggle_Mercenary_Num; // toggle로 찍힌 카드 안의 숫자
     string Toggle_Mercenary_Name; // toggle로 찍힌 카드 안의 이름
 
+    [Header("아이템 구매")]
+    [SerializeField]
+    List<Toggle> Store_Item_List_Toggle;
+    [SerializeField]
+    List<GameObject> Store_Item_List_Window;
+    int Store_Item_List_Num;
+
     [Header("아이템 구매하기")]
     public ItemBuy_Object ItemBuyList_Object;
     public ItemList_Tooltip ItemBuyTooltip_Object;
     public GameObject Item_Buy_Window;
+
+    [Header("아이템 판매하기")]
+    public ItemSell_Object ItemSellList_Object;
+    public ItemList_Tooltip ItemSellTooltip_Object;
+    public GameObject Item_Sell_Window;
 
     private void Start()
     {
@@ -125,9 +137,13 @@ public class Station_Store : MonoBehaviour
         //용병 구매하기
         Check_Init_MercenaryCard();
         Mercenary_ToggleStart();
+        //아이템 토글
+        StoreItemList_ToggleStart();
+        StoreTrainList_Toggle_Init();
         //아이템 구매하기
         Check_Init_ItemBuy();
         //아이템 판매하기
+        Check_Init_ItemSell();
     }
 
     public void StoreTrainList_Toggle_Init()
@@ -664,6 +680,98 @@ public class Station_Store : MonoBehaviour
             }
         }
     }
+    //아이템 구매
+    public void ItemList_Toggle_Init()
+    {
+        Store_Item_List_Num = 0;
+        for(int i = 0; i < Store_Item_List_Toggle.Count; i++)
+        {
+            if(i == 0)
+            {
+                Store_Item_List_Toggle[i].isOn = true;
+                Store_Item_List_Toggle[i].interactable = false;
+                Store_Item_List_Window[i].SetActive(true);
+            }
+            else
+            {
+                Store_Item_List_Toggle[i].isOn = false;
+                Store_Item_List_Toggle[i].interactable = true;
+                Store_Item_List_Window[i].SetActive(false);
+            }
+        }
+    }
+
+    private void StoreItemList_ToggleStart()
+    {
+        foreach(var toggle in Store_Item_List_Toggle)
+        {
+            toggle.onValueChanged.AddListener(StoreItemList_OnToggleValueChange);
+        }
+    }
+
+    private void StoreItemList_OnToggleValueChange(bool isOn)
+    {
+        if (isOn)
+        {
+            for(int i = 0; i < Store_Item_List_Toggle.Count; i++)
+            {
+                if (Store_Item_List_Toggle[i].isOn)
+                {
+                    Store_Item_List_Num = i;
+                    Store_Item_List_Toggle[i].isOn = true;
+                    Store_Item_List_Toggle[i].interactable = false;
+                    Store_Item_List_Window[i].SetActive(true);
+                }
+                else
+                {
+                    Store_Item_List_Toggle[i].isOn = false;
+                    Store_Item_List_Toggle[i].interactable = true;
+                    Store_Item_List_Window[i].SetActive(false);
+                }
+            }
+        }
+    }
+
+
+    //아이템 구매 부분
+    private void Check_Init_ItemBuy()
+    {
+        foreach (ItemDataObject item in itemData.Store_Buy_itemList)
+        {
+            ItemBuyList_Object.item = item;
+            ItemBuyList_Object.StoreDirector = GetComponent<Station_Store>();
+            ItemBuyList_Object.item_tooltip_object = ItemBuyTooltip_Object;
+            Instantiate(ItemBuyList_Object, Item_Buy_Window.transform);
+        }
+    }
+
+    private void Store_Buy_Item(ItemDataObject item)
+    {
+        if(playerData.Player_Coin >= item.Item_Buy_Pride)
+        {
+            playerData.Player_Buy_Coin(item.Item_Buy_Pride);
+            item.Item_Count_UP();
+            itemData.Plus_Inventory_Item(item);
+            Close_Buy_Window();
+        }
+        else
+        {
+            Ban_Player_Coin_Point(true);
+        }
+    }
+
+    //아이템 판매 부분
+    private void Check_Init_ItemSell()
+    {
+        foreach(ItemDataObject item in itemData.Store_Sell_itemList)
+        {
+            ItemSellList_Object.item = item;
+            ItemSellList_Object.StoreDirector = GetComponent<Station_Store>();
+            ItemSellList_Object.item_tooltip_object = ItemSellTooltip_Object;
+            Instantiate(ItemSellList_Object, Item_Sell_Window.transform);
+        }
+    }
+
     public void Open_Buy_Window(int i)
     {
         Check_Buy_Panel_Num = i;
@@ -689,13 +797,16 @@ public class Station_Store : MonoBehaviour
         {
             Check_Buy_Text.text = Toggle_Mercenary_Name + " 고용하시겠습니까?";
             Buy_YesButton.onClick.AddListener(Store_Buy_MercenaryCard);
-
-        }
-        else if(i == 2)
-        {
-            Check_Buy_Text.text = "아이템을 구매하시겠습니까?";
         }
     }
+
+    public void Open_Buy_Window_Item(ItemDataObject item)
+    {
+        Check_Buy_Panel.SetActive(true);
+        Check_Buy_Text.text = item.Item_Name + "을(를) 구매하시겠습니까?";
+        Buy_YesButton.onClick.AddListener(() => Store_Buy_Item(item));
+    }
+
     public void Close_Buy_Window()
     {
         Check_Buy_Panel.SetActive(false);
@@ -719,21 +830,12 @@ public class Station_Store : MonoBehaviour
         }
     }
 
-    //아이템 구매 부분
-    private void Check_Init_ItemBuy()
-    {
-        foreach(ItemDataObject item in itemData.Store_Buy_itemList)
-        {
-            ItemBuyList_Object.item = item;
-            ItemBuyList_Object.item_tooltip_object = ItemBuyTooltip_Object;
-            Instantiate(ItemBuyList_Object, Item_Buy_Window.transform);
-        }
-    }
 
 
     public void Director_Init_ItemBuy()
     {
-
+        //팔 때는 필요할 듯
+        //-> 사고 팔 때의 인벤토리에서 변화가 있어야 한다.
     }
 
 

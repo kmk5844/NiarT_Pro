@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using System.Net;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ItemUse_Window_53 : MonoBehaviour
 {
-    public ItemDataObject Convertion_Object;
+    [Header("데이터 관리")]
+    public GameObject itemData_object; 
+    Station_ItemData itemData;
 
+    [Header("변환 전의 윈도우")]
     public GameObject BeforeConvertWindow;
-    public GameObject AfterConvertWindow;
+    public ItemDataObject Convertion_Object;
 
     public ToggleGroup ChoiceMaterial;
     public GameObject[] ChoiceMaterial_Window;
-
-    public ToggleGroup Material_ToggleGroup_1;
-    public ToggleGroup Material_ToggleGroup_2;
+    ToggleGroup[] Material_ToggleGroup;
 
     public TextMeshProUGUI Conversion_Material_Text;
     public TextMeshProUGUI Materail_Text_1;
@@ -30,17 +30,32 @@ public class ItemUse_Window_53 : MonoBehaviour
     ItemDataObject Material_ToggleNum_ItemObject2;
     int Material_ToggleNum1;
 
-    int convertCount;
-    public TextMeshProUGUI CountText;
+    [Header("수량 선택")]
     public Button ConvertCountUp;
     public Button ConvertCountDown;
+    int convertCount;
+    public TextMeshProUGUI CountText;
 
-    //After
+    [Header("변환 후의 윈도우")]
+    public GameObject AfterConvertWindow;
     public TextMeshProUGUI ResultText;
     public TextMeshProUGUI ResultText2;
 
     private void Start()
     {
+        itemData = itemData_object.GetComponent<Station_ItemData>();
+        Convertion_Object = itemData.ConvertionMaterial_object;
+
+        Material_ToggleGroup = new ToggleGroup[ChoiceMaterial_Window.Length];
+        for (int i = 0; i < ChoiceMaterial_Window.Length; i++)
+        {
+            Material_ToggleGroup[i] = ChoiceMaterial_Window[i].GetComponent<ToggleGroup>();
+            Material_ToggleGroup[i].transform.GetChild(0).GetComponent<ItemUse_Window_53_ToggleObject>().item = itemData.Mercenary_Material_object;
+            Material_ToggleGroup[i].transform.GetChild(1).GetComponent<ItemUse_Window_53_ToggleObject>().item = itemData.Common_Train_Material_object;
+            Material_ToggleGroup[i].transform.GetChild(2).GetComponent<ItemUse_Window_53_ToggleObject>().item = itemData.Turret_Train_Material_object;
+            Material_ToggleGroup[i].transform.GetChild(3).GetComponent<ItemUse_Window_53_ToggleObject>().item = itemData.Booster_Train_Material_object;
+        }
+        
         convertCount = 1;
         CountText.text = convertCount + "개";
         ConvertCountDown.onClick.AddListener(() => Button_CountDown());
@@ -68,11 +83,11 @@ public class ItemUse_Window_53 : MonoBehaviour
 
     private void ChoiceMaterial_ItemList_ToggleStart()
     {
-        foreach(Toggle toggle in Material_ToggleGroup_1.GetComponentsInChildren<Toggle>())
+        foreach(Toggle toggle in Material_ToggleGroup[0].GetComponentsInChildren<Toggle>())
         {
             toggle.onValueChanged.AddListener(ChoiceMaterial_ItemList_ToggleChange_1);
         }
-        foreach (Toggle toggle in Material_ToggleGroup_2.GetComponentsInChildren<Toggle>())
+        foreach (Toggle toggle in Material_ToggleGroup[1].GetComponentsInChildren<Toggle>())
         {
             toggle.onValueChanged.AddListener(ChoiceMaterial_ItemList_ToggleChange_2);
         }
@@ -103,25 +118,25 @@ public class ItemUse_Window_53 : MonoBehaviour
         
         if (isON)
         {
-            for (int i = 0; i < Material_ToggleGroup_1.transform.childCount; i++)
+            for (int i = 0; i < Material_ToggleGroup[0].transform.childCount; i++)
             {
-                if (Material_ToggleGroup_1.transform.GetChild(i).GetComponent<Toggle>().isOn)
+                if (Material_ToggleGroup[0].transform.GetChild(i).GetComponent<Toggle>().isOn)
                 {
                     anyToggleON = true;
                     Material_ToggleNum1 = i;
-                    Material_ToggleNum_ItemObject1 = Material_ToggleGroup_1.transform.GetChild(i).GetComponent<ItemUse_Window_53_ToggleObject>().item;
+                    Material_ToggleNum_ItemObject1 = Material_ToggleGroup[0].transform.GetChild(i).GetComponent<ItemUse_Window_53_ToggleObject>().item;
                 }
             }
 
-            for(int i = 0; i < Material_ToggleGroup_2.transform.childCount; i++) //어차피 순회 해야됨, 그렇지 않으면 열리지 않음.
+            for(int i = 0; i < Material_ToggleGroup[1].transform.childCount; i++) //어차피 순회 해야됨, 그렇지 않으면 열리지 않음.
             {
                 if(i == Material_ToggleNum1)
                 {
-                    Material_ToggleGroup_2.transform.GetChild(i).GetComponent<Toggle>().interactable = false;
+                    Material_ToggleGroup[1].transform.GetChild(i).GetComponent<Toggle>().interactable = false;
                 }
                 else
                 {
-                    Material_ToggleGroup_2.transform.GetChild(i).GetComponent<Toggle>().interactable = true;
+                    Material_ToggleGroup[1].transform.GetChild(i).GetComponent<Toggle>().interactable = true;
                 }
             }
         }
@@ -138,13 +153,13 @@ public class ItemUse_Window_53 : MonoBehaviour
             Material_ToggleNum_ItemObject1 = null;
             Material_ToggleNum_ItemObject2 = null;
             ChoiceMaterial.transform.GetChild(1).GetComponent<Toggle>().interactable = false;
-            for (int i = 0; i < Material_ToggleGroup_2.transform.childCount; i++)
+            for (int i = 0; i < Material_ToggleGroup[1].transform.childCount; i++)
             {
-                if (Material_ToggleGroup_2.transform.GetChild(i).GetComponent<Toggle>().isOn)
+                if (Material_ToggleGroup[1].transform.GetChild(i).GetComponent<Toggle>().isOn)
                 {
-                    Material_ToggleGroup_2.transform.GetChild(i).GetComponent<Toggle>().isOn = false;
+                    Material_ToggleGroup[1].transform.GetChild(i).GetComponent<Toggle>().isOn = false;
                 }
-                Material_ToggleGroup_2.transform.GetChild(i).GetComponent<Toggle>().interactable = true;
+                Material_ToggleGroup[1].transform.GetChild(i).GetComponent<Toggle>().interactable = true;
             }
         }
         Check_Button();
@@ -153,11 +168,11 @@ public class ItemUse_Window_53 : MonoBehaviour
     {
         if (isON)
         {
-            for (int i = 0; i < Material_ToggleGroup_2.transform.childCount; i++)
+            for (int i = 0; i < Material_ToggleGroup[1].transform.childCount; i++)
             {
-                if (Material_ToggleGroup_2.transform.GetChild(i).GetComponent<Toggle>().isOn)
+                if (Material_ToggleGroup[1].transform.GetChild(i).GetComponent<Toggle>().isOn)
                 {
-                    Material_ToggleNum_ItemObject2 = Material_ToggleGroup_2.transform.GetChild(i).GetComponent<ItemUse_Window_53_ToggleObject>().item;
+                    Material_ToggleNum_ItemObject2 = Material_ToggleGroup[1].transform.GetChild(i).GetComponent<ItemUse_Window_53_ToggleObject>().item;
                 }
             }
             Materail_Text_2.text = "ID : " + Material_ToggleNum_ItemObject2.Num + "\n" + Material_ToggleNum_ItemObject2.Item_Count;
@@ -251,9 +266,9 @@ public class ItemUse_Window_53 : MonoBehaviour
             window.SetActive(false);
         }
 
-        for(int i = 0; i < Material_ToggleGroup_1.transform.childCount; i++)
+        for(int i = 0; i < Material_ToggleGroup[0].transform.childCount; i++)
         {
-            Material_ToggleGroup_1.transform.GetChild(i).GetComponent<Toggle>().isOn = false;
+            Material_ToggleGroup[0].transform.GetChild(i).GetComponent<Toggle>().isOn = false;
         }
         Material_ToggleNum1 = -1;
 

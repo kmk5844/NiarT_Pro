@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ItemSell_Object : MonoBehaviour
 {
+    public Station_Store StoreDirector;
     public ItemDataObject item;
 
     public string item_name;
@@ -59,10 +60,7 @@ public class ItemSell_Object : MonoBehaviour
     public void OnMouseClick()
     {
         Debug.Log("ÆÇ¸Å");
-        /*        if (item_use)
-                {
-                    Inventory_Director.UseItemStatus_Click(item);
-                }*/
+        //StoreDirector
     }
 
 }
