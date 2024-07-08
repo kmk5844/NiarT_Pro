@@ -15,7 +15,7 @@ public class ItemDirector : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            if (itemData.Equiped_Item[0].Item_Type != Information_Item_Type.None)
+            if (itemData.Equiped_Item[0].Item_Type != Information_Item_Type.Empty)
             {
                 useitem.UseEquipItem(itemData.Equiped_Item[0].Num);
                 itemData.UseEquipedItem(0);
@@ -27,7 +27,7 @@ public class ItemDirector : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            if (itemData.Equiped_Item[1].Item_Type != Information_Item_Type.None)
+            if (itemData.Equiped_Item[1].Item_Type != Information_Item_Type.Empty)
             {
                 useitem.UseEquipItem(itemData.Equiped_Item[1].Num);
                 itemData.UseEquipedItem(1);
@@ -39,7 +39,7 @@ public class ItemDirector : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            if (itemData.Equiped_Item[2].Item_Type != Information_Item_Type.None)
+            if (itemData.Equiped_Item[2].Item_Type != Information_Item_Type.Empty)
             {
                 useitem.UseEquipItem(itemData.Equiped_Item[2].Num);
                 itemData.UseEquipedItem(2);

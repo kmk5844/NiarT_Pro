@@ -11,9 +11,28 @@ public class SA_ItemData : ScriptableObject
     private List<ItemDataObject> equiped_item;
     public List<ItemDataObject> Equiped_Item { get { return equiped_item; } }
 
+    [SerializeField]
+    private List<int> equiped_item_count;
+    public List<int> Equiped_Item_Count { get { return equiped_item_count;} }
+    
     public void UseEquipedItem(int num)
     {
-        equiped_item.RemoveAt(num);
-        equiped_item.Insert(num, EmptyObject);
+        if (equiped_item_count[num] == 1)
+        {
+            equiped_item_count[num] -= 1;
+            
+            equiped_item.RemoveAt(num);
+            equiped_item.Insert(num, EmptyObject);
+        }
+        else
+        {
+            equiped_item_count[num] -= 1;
+        }
+    }
+
+    public void Equip_Item(int num, ItemDataObject item, int count)
+    {
+        equiped_item[num] = item;
+        equiped_item_count[num] = count;
     }
 }

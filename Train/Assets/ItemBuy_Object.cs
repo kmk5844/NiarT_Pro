@@ -57,6 +57,6 @@ public class ItemBuy_Object : MonoBehaviour
 
     public void OnMouseClick()
     {
-        StoreDirector.Open_Buy_Window_Item(item);
+        StoreDirector.Open_BuyAndSell_Item_Window(item, true);
     }
 }

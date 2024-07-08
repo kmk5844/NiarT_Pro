@@ -83,6 +83,12 @@ public class SA_PlayerData : ScriptableObject
         Save();
     }
 
+    public void SA_Get_Coin(int R_Coin)
+    {
+        coin += R_Coin;
+        Save();
+    }
+
     public void SA_Use_Point(int R_Point)
     {
         point -= R_Point;

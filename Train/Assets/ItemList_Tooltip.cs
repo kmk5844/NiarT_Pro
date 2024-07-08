@@ -22,7 +22,8 @@ public class ItemList_Tooltip : MonoBehaviour
     {
         Inventory,
         Store_Buy,
-        Store_Sell
+        Store_Sell,
+        Equip
     }
 
     public TooltipType tooltiptype;
@@ -91,6 +92,12 @@ public class ItemList_Tooltip : MonoBehaviour
             Item_Pride.text = "판매 가격 : " + Pride;
             UseWindow.SetActive(true);
             UseWindow.GetComponentInChildren<TextMeshProUGUI>().text = "판매하시려면 좌클릭 눌러주세요";
+        }
+        else if(tooltiptype == TooltipType.Equip)
+        {
+            //최대 개수 text
+            UseWindow.SetActive(true);
+            UseWindow.GetComponentInChildren<TextMeshProUGUI>().text = "장착하시려면 좌클릭 눌러주세요";
         }
 
         gameObject.SetActive(true);

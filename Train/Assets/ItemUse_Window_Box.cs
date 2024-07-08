@@ -64,16 +64,8 @@ public class ItemUse_Window_Box : MonoBehaviour
             Item_Name.text = item.Item_Name;
             Item_Information.text = item.Item_Information;
             Item_Count.text = "<color=red>"+ Add_ItemCount + "</size>∞≥∏¶ »πµÊ«œºÃΩ¿¥œ¥Ÿ";
-            if (item.Item_Count == 0)
-            {
-                item.Item_Count_UP(Add_ItemCount);
-                inventory.Check_ItemObject(0, item);
-            }
-            else
-            {
-                item.Item_Count_UP(Add_ItemCount);
-                inventory.Check_ItemObject(1, item);
-            }
+            item.Item_Count_UP(Add_ItemCount);
+            inventory.Check_ItemList(true, item, Add_ItemCount);
         }
         else if(num == 55)
         {
@@ -103,16 +95,8 @@ public class ItemUse_Window_Box : MonoBehaviour
             Item_Name.text = item.Item_Name;
             Item_Information.text = item.Item_Information;
             Item_Count.text = "<color=red>" + 1 + "</size>∞≥∏¶ »πµÊ«œºÃΩ¿¥œ¥Ÿ";
-            if(item.Item_Count == 0)
-            {
-                item.Item_Count_UP();
-                inventory.Check_ItemObject(0, item);
-            }
-            else
-            {
-                item.Item_Count_UP();
-                inventory.Check_ItemObject(1, item);
-            }
+            item.Item_Count_UP();
+            inventory.Check_ItemList(true, item);
         }
         else if(num == 56)
         {
@@ -138,16 +122,8 @@ public class ItemUse_Window_Box : MonoBehaviour
             Item_Name.text = item.Item_Name;
             Item_Information.text = item.Item_Information;
             Item_Count.text = "<color=red>" + 1 + "</size>∞≥∏¶ »πµÊ«œºÃΩ¿¥œ¥Ÿ";
-            if (item.Item_Count == 0)
-            {
-                item.Item_Count_UP();
-                inventory.Check_ItemObject(0, item);
-            }
-            else
-            {
-                item.Item_Count_UP();
-                inventory.Check_ItemObject(1, item);
-            }
+            item.Item_Count_UP();
+            inventory.Check_ItemList(true, item);
         }
     }
 }

@@ -303,6 +303,9 @@ public class StationDirector : MonoBehaviour
         if(ui_Store_Num == 0)
         {
             Director_Store.StoreTrainList_Toggle_Init();
+        }else if(ui_Store_Num == 2)
+        {
+            Director_Store.ItemList_Toggle_Init();
         }
         UI_Store_Window[ui_Store_Num].SetActive(false);
         ui_Store_Num = -1;

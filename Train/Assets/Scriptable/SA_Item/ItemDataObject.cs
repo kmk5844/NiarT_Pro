@@ -46,6 +46,10 @@ public class ItemDataObject : ScriptableObject
     private bool supply_monster;
     public bool Supply_Monster { get { return supply_monster; } }
 
+    [SerializeField]
+    private int max_equip;
+    public int Max_Equip { get {  return max_equip; } }
+
     /*
     추가 예정
     [SerializeField]
@@ -61,7 +65,7 @@ public class ItemDataObject : ScriptableObject
     public void Auto_Item_Insert(
         int _num, string _item_id, string _item_name, Information_Item_Type _item_type, string _item_information,
         Information_Item_Box_Type _box_type, Information_Item_Rarity_Type _rarrity_type, bool _use_flag
-        , bool _buy_flag, bool _sell_flag, int _buy_pride, int _sell_pride, bool _supply_monster, int _item_count
+        , bool _buy_flag, bool _sell_flag, int _buy_pride, int _sell_pride, bool _supply_monster, int _max_equip, int _item_count
         )
     {
         num = _num;
@@ -77,6 +81,7 @@ public class ItemDataObject : ScriptableObject
         item_buy_pride = _buy_pride;
         item_sell_pride = _sell_pride;
         supply_monster = _supply_monster;
+        max_equip = _max_equip;
         //item_sprite = ;
         item_count = _item_count;
     }
@@ -110,7 +115,7 @@ public enum Information_Item_Type {
     Box,
     Inventory,
     Quset,
-    None
+    Empty
 }
 
 public enum Information_Item_Box_Type { 

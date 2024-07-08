@@ -11,6 +11,7 @@ public class ItemSell_Object : MonoBehaviour
     public string item_name;
     public string item_information;
     public int item_count;
+    public int item_pride;
     public bool item_use;
 
     [Header("정보 표시")]
@@ -26,6 +27,7 @@ public class ItemSell_Object : MonoBehaviour
         item_name = item.Item_Name;
         item_information = item.Item_Information;
         item_count = item.Item_Count;
+        item_pride = item.Item_Sell_Pride;
         item_use = item.Use_Flag;
         item_object_text_count.text = item_count.ToString();
     }
@@ -34,7 +36,7 @@ public class ItemSell_Object : MonoBehaviour
     {
         if (item_information_Flag)
         {
-            item_tooltip_object.Tooltip_ON(item_name, item_information, item_use, 0);
+            item_tooltip_object.Tooltip_ON(item_name, item_information, item_use, item_pride);
             item_mouseOver_Flag = true;
         }
         else
@@ -59,8 +61,21 @@ public class ItemSell_Object : MonoBehaviour
 
     public void OnMouseClick()
     {
-        Debug.Log("판매");
-        //StoreDirector
+        StoreDirector.Open_BuyAndSell_Item_Window(item, false);
     }
+    public bool Check_ItemCount()
+    {
+        item_count = item.Item_Count;
 
+        if (item_count != 0)
+        {
+            item_object_text_count.text = item_count.ToString();
+            return true;
+        }
+        else if (item_count == 0)
+        {
+            return false;
+        }
+        return false;
+    }
 }

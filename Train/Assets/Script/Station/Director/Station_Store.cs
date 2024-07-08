@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class Station_Store : MonoBehaviour
 {
@@ -17,12 +19,22 @@ public class Station_Store : MonoBehaviour
     public GameObject Item_DataObject;
     Station_ItemData itemData;
 
+    [Header("인벤토리 관리자")]
+    public Station_Inventory inventory_director;
+
     [Header("윈도우")]
     public GameObject Check_Buy_Panel;
     public TextMeshProUGUI Check_Buy_Text;
     public Button Buy_YesButton;
     public Button Buy_NoButton;
     int Check_Buy_Panel_Num;
+
+    [Header("아이템 갯수")]
+    public GameObject Item_Count_Window;
+    public Button Button_ItemCount_Plus;
+    public Button Button_ItemCount_Minus;
+    public TextMeshProUGUI Item_Count_Text;
+    int item_Count;
 
     [Header("상점")] // 파츠 구매도 포함
     [SerializeField]
@@ -119,6 +131,10 @@ public class Station_Store : MonoBehaviour
         Turret_Store_Num = trainData.Train_Turret_Store_Num;
         Booster_Store_Num = trainData.Train_Booster_Store_Num;
         Mercenary_Store_Num = mercenaryData.Mercenary_Store_Num;
+        {
+            Item_Count_Window.SetActive(false);
+            Button_ItemCount_Init();
+        }
         //기차 스토어 토글
         StoreTrainList_ToggleStart();
         StoreTrainList_Toggle_Init();
@@ -139,7 +155,7 @@ public class Station_Store : MonoBehaviour
         Mercenary_ToggleStart();
         //아이템 토글
         StoreItemList_ToggleStart();
-        StoreTrainList_Toggle_Init();
+        ItemList_Toggle_Init();
         //아이템 구매하기
         Check_Init_ItemBuy();
         //아이템 판매하기
@@ -736,22 +752,42 @@ public class Station_Store : MonoBehaviour
     //아이템 구매 부분
     private void Check_Init_ItemBuy()
     {
+        ItemBuyList_Object.StoreDirector = GetComponent<Station_Store>();
+        ItemBuyList_Object.item_tooltip_object = ItemBuyTooltip_Object;
         foreach (ItemDataObject item in itemData.Store_Buy_itemList)
         {
             ItemBuyList_Object.item = item;
-            ItemBuyList_Object.StoreDirector = GetComponent<Station_Store>();
-            ItemBuyList_Object.item_tooltip_object = ItemBuyTooltip_Object;
             Instantiate(ItemBuyList_Object, Item_Buy_Window.transform);
         }
     }
 
     private void Store_Buy_Item(ItemDataObject item)
     {
-        if(playerData.Player_Coin >= item.Item_Buy_Pride)
+        bool itemAvailability = false;
+        if (playerData.Player_Coin >= item.Item_Buy_Pride * item_Count)
         {
-            playerData.Player_Buy_Coin(item.Item_Buy_Pride);
-            item.Item_Count_UP();
+            playerData.Player_Buy_Coin(item.Item_Buy_Pride * item_Count);
+            item.Item_Count_UP(item_Count);
             itemData.Plus_Inventory_Item(item);
+            {
+                foreach (ItemSell_Object BuyObject in Item_Sell_Window.GetComponentsInChildren<ItemSell_Object>())
+                {
+                    if (BuyObject.item == item)
+                    {
+                        itemAvailability = true;
+                        BuyObject.Check_ItemCount();
+                        break;
+                    }
+                }
+                if (!itemAvailability)
+                {
+                    ItemSellList_Object.item = item;
+                    ItemSellList_Object.StoreDirector = GetComponent<Station_Store>();
+                    ItemSellList_Object.item_tooltip_object = ItemSellTooltip_Object;
+                    Instantiate(ItemSellList_Object, Item_Sell_Window.transform);
+                }
+            }
+            inventory_director.Check_ItemList(true, item);
             Close_Buy_Window();
         }
         else
@@ -763,13 +799,32 @@ public class Station_Store : MonoBehaviour
     //아이템 판매 부분
     private void Check_Init_ItemSell()
     {
+        ItemSellList_Object.StoreDirector = GetComponent<Station_Store>();
+        ItemSellList_Object.item_tooltip_object = ItemSellTooltip_Object;
         foreach(ItemDataObject item in itemData.Store_Sell_itemList)
         {
             ItemSellList_Object.item = item;
-            ItemSellList_Object.StoreDirector = GetComponent<Station_Store>();
-            ItemSellList_Object.item_tooltip_object = ItemSellTooltip_Object;
             Instantiate(ItemSellList_Object, Item_Sell_Window.transform);
         }
+    }
+
+    private void Store_Sell_Item(ItemDataObject item)
+    {
+        playerData.Player_Get_Coin(item.Item_Sell_Pride * item_Count);
+        item.Item_Count_Down(item_Count);
+        foreach(ItemSell_Object itemObject in Item_Sell_Window.GetComponentsInChildren<ItemSell_Object>())
+        {
+            if(itemObject.item == item)
+            {
+                if(!itemObject.Check_ItemCount())
+                {
+                    itemData.Minus_Inventory_Item(item);
+                    Destroy(itemObject.gameObject);
+                }
+            }
+        }
+        inventory_director.Check_ItemList(false, item);
+        Close_Buy_Window();
     }
 
     public void Open_Buy_Window(int i)
@@ -780,31 +835,46 @@ public class Station_Store : MonoBehaviour
         {
             if(Store_Train_Num == 0)
             {
-                Check_Buy_Text.text = Toggle_Train_Name + " 설계도를 구매하시겠습니까?";
+                Check_Buy_Text.text = "\n" + Toggle_Train_Name + " 설계도를 구매하시겠습니까?";
                 Buy_YesButton.onClick.AddListener(Store_Buy_TrainCard);
             }else if(Store_Train_Num == 1)
             {
-                Check_Buy_Text.text = Toggle_Turret_Name + " 설계도를 구매하시겠습니까?";
+                Check_Buy_Text.text = "\n" + Toggle_Turret_Name + " 설계도를 구매하시겠습니까?";
                 Buy_YesButton.onClick.AddListener(Store_Buy_TurretCard);
             }else if(Store_Train_Num == 2)
             {
-                Check_Buy_Text.text = Toggle_Booster_Name + " 설계도를 구매하시겠습니까?";
+                Check_Buy_Text.text = "\n" + Toggle_Booster_Name + " 설계도를 구매하시겠습니까?";
                 Buy_YesButton.onClick.AddListener(Store_Buy_BoosterCard);
             }
 
         }
         else if (i == 1)
         {
-            Check_Buy_Text.text = Toggle_Mercenary_Name + " 고용하시겠습니까?";
+            Check_Buy_Text.text = "\n" + Toggle_Mercenary_Name + " 고용하시겠습니까?";
             Buy_YesButton.onClick.AddListener(Store_Buy_MercenaryCard);
         }
     }
 
-    public void Open_Buy_Window_Item(ItemDataObject item)
+    public void Open_BuyAndSell_Item_Window(ItemDataObject item, bool Flag)
     {
+        Check_Buy_Panel_Num = 2;
         Check_Buy_Panel.SetActive(true);
-        Check_Buy_Text.text = item.Item_Name + "을(를) 구매하시겠습니까?";
-        Buy_YesButton.onClick.AddListener(() => Store_Buy_Item(item));
+        Item_Count_Window.SetActive(true);
+        Button_ItemCount_Init();
+        if (Flag)
+        {
+            Check_Buy_Text.text = item.Item_Name + "을(를) 구매하시겠습니까?";
+            Button_ItemCount_Plus.onClick.AddListener(() => Click_ItemCount_Plus(item));
+            Button_ItemCount_Minus.onClick.AddListener(() => Click_ItemCount_Minus(item));
+            Buy_YesButton.onClick.AddListener(() => Store_Buy_Item(item));
+        }
+        else
+        {
+            Check_Buy_Text.text = item.Item_Name + "을(를) 판매하시겠습니까?";
+            Button_ItemCount_Plus.onClick.AddListener(() => Click_ItemCount_Plus(item));
+            Button_ItemCount_Minus.onClick.AddListener(() => Click_ItemCount_Minus(item));
+            Buy_YesButton.onClick.AddListener(()=> Store_Sell_Item(item));
+        }
     }
 
     public void Close_Buy_Window()
@@ -826,16 +896,72 @@ public class Station_Store : MonoBehaviour
         }
         else if (Check_Buy_Panel_Num == 2)
         {
-
+            Item_Count_Window.SetActive(false);
+            Buy_YesButton.onClick.RemoveAllListeners();
+            Button_ItemCount_Plus.onClick.RemoveAllListeners();
+            Button_ItemCount_Minus.onClick.RemoveAllListeners();
         }
     }
 
-
-
-    public void Director_Init_ItemBuy()
+    private void Click_ItemCount_Plus(ItemDataObject item)
     {
-        //팔 때는 필요할 듯
-        //-> 사고 팔 때의 인벤토리에서 변화가 있어야 한다.
+        item_Count++;
+        Item_Count_Text.text = item_Count.ToString();
+        Check_ItemCount(item);
+    }
+
+    private void Click_ItemCount_Minus(ItemDataObject item)
+    {
+        item_Count--;
+        Item_Count_Text.text = item_Count.ToString();
+        Check_ItemCount(item);
+    }
+
+    public void Check_ItemCount(ItemDataObject item)
+    {
+        if(item_Count == 1)
+        {
+            Button_ItemCount_Minus.interactable = false;
+        }
+        else
+        {
+            Button_ItemCount_Minus.interactable = true;
+        }
+
+        if(Store_Item_List_Num == 0)
+        {
+            if(playerData.Player_Coin > item.Item_Buy_Pride * (item_Count + 1))
+            {
+                Button_ItemCount_Plus.interactable = true;
+            }
+            else
+            {
+                Button_ItemCount_Plus.interactable = false;
+            }
+            // 자신이 가지고 있는 골드로 제한
+
+
+        }
+        else if (Store_Item_List_Num == 1)
+        {
+            if(item.Item_Count != item_Count)
+            {
+                Button_ItemCount_Plus.interactable = true;
+            }
+            else
+            {
+                Button_ItemCount_Plus.interactable = false;
+            }
+            //자신이 가지고 있는 아이템 갯수를 제한
+        }
+    }
+
+    public void Button_ItemCount_Init()
+    {
+        item_Count = 1;
+        Item_Count_Text.text = item_Count.ToString();
+        Button_ItemCount_Minus.interactable = false;
+        Button_ItemCount_Plus.interactable = true;
     }
 
 

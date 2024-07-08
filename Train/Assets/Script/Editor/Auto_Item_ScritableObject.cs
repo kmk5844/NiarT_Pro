@@ -32,7 +32,6 @@ public class Auto_Item_ScritableObject : EditorWindow
         {
             File.Delete(filePath);
         }
-
         // Refresh the Unity Editor to reflect changes
         AssetDatabase.Refresh();
     }
@@ -57,6 +56,7 @@ public class Auto_Item_ScritableObject : EditorWindow
                 item.Item_Buy_Pride,
                 item.Item_Sell_Pride,
                 item.Supply_Monster,
+                item.Max_Equip,
                 0
                 );
 
@@ -86,7 +86,7 @@ public class Auto_Item_ScritableObject : EditorWindow
             case "Quset":
                 return Information_Item_Type.Quset;
         }
-        return Information_Item_Type.None;
+        return Information_Item_Type.Empty;
     }
 
     Information_Item_Box_Type CheckItemBoxType(string boxtype)

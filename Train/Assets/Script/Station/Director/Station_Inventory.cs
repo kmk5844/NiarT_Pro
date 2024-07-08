@@ -108,122 +108,80 @@ public class Station_Inventory : MonoBehaviour
                 Item_UseItem_WindowObject_List[1].SetActive(true);
                 Item_UseItem_WindowObject_List[1].GetComponent<ItemUse_Window_Box>().Random_Box_Open(item.Num, gameObject);
                 item.Item_Count_Down();
-                Check_ItemObject(2, item);
+                Check_ItemList(false, item);
                 break;
             case 57:
                 UI_UseItem_Num = 2;
                 Item_UseItem_WindowObject_List[2].SetActive(true);
                 item.Item_Count_Down();
-                Check_ItemObject(2, item);
+                Check_ItemList(false, item);
                 break;
         }
         Item_UseStatus_YesButton.onClick.RemoveAllListeners();
     }
 
-    public void Check_ItemObject(int num, ItemDataObject item)
+
+    public void Check_ItemList(bool Flag, ItemDataObject item, int addnum = 1)
     {
-        if (num == 0) // 새로 추가
+        int num = 0;
+        if (item.Item_Type == Information_Item_Type.Equipment)
+        {
+            num = 0;
+        }
+        if (item.Item_Type == Information_Item_Type.Inventory)
+        {
+            num = 1;
+        }
+        if (item.Item_Type == Information_Item_Type.Box)
+        {
+            num = 2;
+        }
+        if (item.Item_Type == Information_Item_Type.Material)
+        {
+            num = 3;
+        }
+        if (item.Item_Type == Information_Item_Type.Quset)
+        {
+            num = 4;
+        }
+
+        if (Flag) // Plus
         {
             ItemObject.item = item;
-            if (item.Item_Type == Information_Item_Type.Equipment)
+            if(item.Item_Count - addnum == 0)
             {
-                Instantiate(ItemObject, Transform_ItemList[0]);
+                Data_ItemList.Plus_Inventory_Item(item);
+                Instantiate(ItemObject, Transform_ItemList[num]);
             }
-            if (item.Item_Type == Information_Item_Type.Inventory)
+            else
             {
-                Instantiate(ItemObject, Transform_ItemList[1]);
-            }
-            if (item.Item_Type == Information_Item_Type.Box)
-            {
-                Instantiate(ItemObject, Transform_ItemList[2]);
-            }
-            if (item.Item_Type == Information_Item_Type.Material)
-            {
-                Instantiate(ItemObject, Transform_ItemList[3]);
-            }
-            if (item.Item_Type == Information_Item_Type.Quset)
-            {
-                Instantiate(ItemObject, Transform_ItemList[4]);
-            }
-            Data_ItemList.Plus_Inventory_Item(item);
-        }
-        else if (num == 1) // 있던 거에 Plus
-        {
-            ItemList_Object List_Item;
-            if (item.Item_Type == Information_Item_Type.Equipment)
-            {
-                for (int i = 0; i < Transform_ItemList[0].childCount; i++)
+                foreach(ItemList_Object Inventory_Item in Transform_ItemList[num].GetComponentsInChildren<ItemList_Object>())
                 {
-                    if (Transform_ItemList[0].GetChild(i).GetComponent<ItemList_Object>().item == item)
+                    if(Inventory_Item.item == item)
                     {
-                        List_Item = Transform_ItemList[0].GetChild(i).GetComponent<ItemList_Object>();
-                        List_Item.Check_ItemCount();
-                    }
-                }
-            }
-            if (item.Item_Type == Information_Item_Type.Inventory)
-            {
-                for (int i = 0; i < Transform_ItemList[1].childCount; i++)
-                {
-                    if (Transform_ItemList[1].GetChild(i).GetComponent<ItemList_Object>().item == item)
-                    {
-                        List_Item = Transform_ItemList[1].GetChild(i).GetComponent<ItemList_Object>();
-                        List_Item.Check_ItemCount();
-                    }
-                }
-            }
-            if (item.Item_Type == Information_Item_Type.Box)
-            {
-                for (int i = 0; i < Transform_ItemList[2].childCount; i++)
-                {
-                    if (Transform_ItemList[2].GetChild(i).GetComponent<ItemList_Object>().item == item)
-                    {
-                        List_Item = Transform_ItemList[2].GetChild(i).GetComponent<ItemList_Object>();
-                        List_Item.Check_ItemCount();
-                    }
-                }
-            }
-            if (item.Item_Type == Information_Item_Type.Material)
-            {
-                for (int i = 0; i < Transform_ItemList[3].childCount; i++)
-                {
-                    if (Transform_ItemList[3].GetChild(i).GetComponent<ItemList_Object>().item == item)
-                    {
-                        List_Item = Transform_ItemList[3].GetChild(i).GetComponent<ItemList_Object>();
-                        List_Item.Check_ItemCount();
-                    }
-                }
-            }
-            if (item.Item_Type == Information_Item_Type.Quset)
-            {
-                for (int i = 0; i < Transform_ItemList[4].childCount; i++)
-                {
-                    if (Transform_ItemList[4].GetChild(i).GetComponent<ItemList_Object>().item == item)
-                    {
-                        List_Item = Transform_ItemList[4].GetChild(i).GetComponent<ItemList_Object>();
-                        List_Item.Check_ItemCount();
+                        Inventory_Item.Check_ItemCount();
                     }
                 }
             }
         }
-        else if (num == 2) // 차감
+        else // Minus
         {
-            ItemList_Object ListItem;
-            station_inventory_num = station.Check_UI_Inventory_Num();
-            for (int i = 0; i < Transform_ItemList[station_inventory_num].childCount; i++)
+            foreach (ItemList_Object Inventory_Item in Transform_ItemList[num].GetComponentsInChildren<ItemList_Object>())
             {
-                if (Transform_ItemList[station_inventory_num].GetChild(i).GetComponent<ItemList_Object>().item == item)
+                if (Inventory_Item.item == item)
                 {
-                    ListItem = Transform_ItemList[station_inventory_num].GetChild(i).GetComponent<ItemList_Object>();
-                    if (!ListItem.Check_ItemCount())
+                    if (!Inventory_Item.Check_ItemCount())
                     {
-                        Destroy(ListItem.gameObject);
+                        Destroy(Inventory_Item.gameObject);
+                        Data_ItemList.Minus_Inventory_Item(item);
                     }
+                    break;
                 }
             }
         }
     }
-
+    
+    
     public void UseItemStatus_NoButton()
     {
         Item_UseStatus_WindowObject.SetActive(false);
