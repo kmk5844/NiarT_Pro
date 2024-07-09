@@ -9,4 +9,6 @@ public class Info_Level_Mercenary_CowBoy
     public float Min_Refresh_Delay;
     public float Max_Refresh_Delay;
     public int Def;
+    public int Upgrade_Cost;
+    public int Material;
 }

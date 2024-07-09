@@ -11,6 +11,8 @@ public class Station_TrainMaintenance : MonoBehaviour
     Station_TrainData trainData;
     public GameObject Player_DataObject;
     Station_PlayerData playerData;
+    public GameObject Item_DataObject;
+    Station_ItemData itemData;
 
     [Header("UI에서 나타나는 기차")]
     public Transform UI_TrainList;
@@ -43,7 +45,6 @@ public class Station_TrainMaintenance : MonoBehaviour
     int Toggle_Train_Num;
     bool ChangeFlag;
     public TextMeshProUGUI Cost_Add_Text;
-    bool BoosterTrain_Flag;
 
     [Header("파츠 변경 윈도우")]
     public List<int> Train_Turret_Part_Change_Num;
@@ -70,7 +71,8 @@ public class Station_TrainMaintenance : MonoBehaviour
     public TextMeshProUGUI Before_Text;
     public TextMeshProUGUI After_Text;
     public Button Upgrade_Button;
-    public TextMeshProUGUI Upgrade_Text;
+    public Image Material_Image;
+    public TextMeshProUGUI[] Upgrade_Text; // 0 : Coin, 1 : 가지고 있는 재료템, 2: 재료 충족 조건
 
     private void Start()
     {
@@ -80,6 +82,7 @@ public class Station_TrainMaintenance : MonoBehaviour
         UI_Init_Train_Booster_Num = 0;
         trainData = Train_DataObject.GetComponent<Station_TrainData>();
         playerData = Player_DataObject.GetComponent<Station_PlayerData>();
+        itemData = Item_DataObject.GetComponent<Station_ItemData>();
         Engine_Tier_Max_Train = trainData.Max_Train_MaxTrain;
         Train_Change_Num = trainData.Train_Change_Num;
         Train_Turret_Part_Change_Num = trainData.Train_Turret_Part_Change_Num;
@@ -925,8 +928,11 @@ public class Station_TrainMaintenance : MonoBehaviour
         if (trainData.Train_Num[UI_Train_Num] == 51)
         {
             int cost = trainData.EX_Game_Data.Information_Train_Turret_Part[trainData.SA_TrainTurretData.Train_Turret_Num[UI_Train_Turret_Num]].Train_Upgrade_Cost;
-            if (playerData.Player_Coin >= cost) {
+            int Material_Count = trainData.EX_Game_Data.Information_Train_Turret_Part[trainData.SA_TrainTurretData.Train_Turret_Num[UI_Train_Turret_Num]].Material;
+            if (playerData.Player_Coin >= cost && itemData.Turret_Train_Material_object.Item_Count >= Material_Count)
+            {
                 playerData.Player_Buy_Coin(cost);
+                itemData.Turret_Train_Material_object.Item_Count_Down(Material_Count);
                 trainData.Train_Turret_Level_Up(trainData.SA_TrainTurretData.Train_Turret_Num[UI_Train_Turret_Num], UI_Train_Turret_Num);
                 Upgrade_Train_TrainMaintenance(); // UI 기차 변경
                 Upgrade_Before_After_Text(); // 비포 애프터 변경도 하고 기차 옆의 정보도 변경.
@@ -939,10 +945,12 @@ public class Station_TrainMaintenance : MonoBehaviour
         }
         else if (trainData.Train_Num[UI_Train_Num] == 52)
         {
-            int cost = trainData.EX_Game_Data.Information_Train_Turret_Part[trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num]].Train_Upgrade_Cost;
-            if (playerData.Player_Coin >= cost)
+            int cost = trainData.EX_Game_Data.Information_Train_Booster_Part[trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num]].Train_Upgrade_Cost;
+            int Material_Count = trainData.EX_Game_Data.Information_Train_Booster_Part[trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num]].Material;
+            if (playerData.Player_Coin >= cost && itemData.Booster_Train_Material_object.Item_Count >= Material_Count)
             {
                 playerData.Player_Buy_Coin(cost);
+                itemData.Booster_Train_Material_object.Item_Count_Down(Material_Count);
                 trainData.Train_Booster_Level_Up(trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num], UI_Train_Booster_Num);
                 Upgrade_Train_TrainMaintenance(); // UI 기차 변경
                 Upgrade_Before_After_Text(); // 비포 애프터 변경도 하고 기차 옆의 정보도 변경.
@@ -956,9 +964,11 @@ public class Station_TrainMaintenance : MonoBehaviour
         else
         {
             int cost = trainData.EX_Game_Data.Information_Train[trainData.Train_Num[UI_Train_Num]].Train_Upgrade_Cost;
-            if (playerData.Player_Coin >= cost)
+            int Material_Count = trainData.EX_Game_Data.Information_Train[trainData.Train_Num[UI_Train_Num]].Material;
+            if (playerData.Player_Coin >= cost && itemData.Common_Train_Material_object.Item_Count >= Material_Count)
             {
                 playerData.Player_Buy_Coin(cost);
+                itemData.Common_Train_Material_object.Item_Count_Down(Material_Count);
                 trainData.Train_Level_Up(trainData.Train_Num[UI_Train_Num], UI_Train_Num);
                 Upgrade_Train_TrainMaintenance(); // UI 기차 변경
                 Upgrade_Before_After_Text(); // 비포 애프터 변경도 하고 기차 옆의 정보도 변경.
@@ -989,7 +999,7 @@ public class Station_TrainMaintenance : MonoBehaviour
             {
                 train = trainData.EX_Game_Data.Information_Train_Turret_Part[trainData.SA_TrainTurretData.Train_Turret_Num[UI_Train_Turret_Num] + 1];
                 After_Text.text =
-                    "  Lv : " + (trainData.Train_Num[UI_Train_Num] + 2) % 10
+                    "  Lv : " + (trainData.SA_TrainTurretData.Train_Turret_Num[UI_Train_Turret_Num] + 2) % 10
                     + "\nName : " + train.Turret_Part_Name
                     + "\nHP : <color=red>" + train.Train_HP
                     + "\n</color>Weight : <color=red>" + train.Train_Weight
@@ -999,12 +1009,59 @@ public class Station_TrainMaintenance : MonoBehaviour
             {
                 After_Text.text = "  Max";
             }
-            Upgrade_Text.text = trainData.EX_Game_Data.Information_Train_Turret_Part[trainData.SA_TrainTurretData.Train_Turret_Num[UI_Train_Turret_Num]].Train_Upgrade_Cost + "G";
-
+            //Material_Image.sprite = itemData.Turret_Train_Material_object.Item_Sprite;
+            Upgrade_Text[0].text = trainData.EX_Game_Data.Information_Train_Turret_Part[trainData.SA_TrainTurretData.Train_Turret_Num[UI_Train_Turret_Num]].Train_Upgrade_Cost + "G";
+            int Material_InChnace_Count = trainData.EX_Game_Data.Information_Train_Turret_Part[trainData.SA_TrainTurretData.Train_Turret_Num[UI_Train_Turret_Num]].Material;
+            int Material_Inventory_Count = itemData.Turret_Train_Material_object.Item_Count;
+            if (Material_Inventory_Count >= Material_InChnace_Count)
+            {
+                Upgrade_Text[1].text = "<color=green>" + Material_Inventory_Count + "</color>";
+            }
+            else
+            {
+                Upgrade_Text[1].text = "<color=red>" + Material_Inventory_Count + "</color>";
+            }
+            Upgrade_Text[2].text = trainData.EX_Game_Data.Information_Train_Turret_Part[trainData.SA_TrainTurretData.Train_Turret_Num[UI_Train_Turret_Num]].Material.ToString();
         }
         else if (trainData.Train_Num[UI_Train_Num] == 52)
         {
+            Info_Train_Booster_Part train = trainData.EX_Game_Data.Information_Train_Booster_Part[trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num]];
 
+            Before_Text.text = 
+                "Lv : " + (trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num] + 1) % 10
+                + "\nName : " + train.Booster_Part_Name
+                + "\nHP : " + train.Train_HP
+                + "\nWeight : " + train.Train_Weight
+                + "\nArmor : " + train.Train_Armor;
+
+            if (trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num] % 10 < 9)
+            {
+                train = trainData.EX_Game_Data.Information_Train_Booster_Part[trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num]];
+                After_Text.text =
+                    "  Lv : " + (trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num] + 2) % 10
+                    + "\nName : " + train.Booster_Part_Name
+                    + "\nHP : <color=red>" + train.Train_HP
+                    + "\n</color>Weight : <color=red>" + train.Train_Weight
+                    + "\n</color>Armor : <color=red>" + train.Train_Armor;
+            }
+            else if (trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num] % 10 == 9)
+            {
+                After_Text.text = "  Max";
+            }
+
+            //Material_Image.sprite = itemData.Booster_Train_Material_object.Item_Sprite;
+            Upgrade_Text[0].text = trainData.EX_Game_Data.Information_Train_Booster_Part[trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num]].Train_Upgrade_Cost + "G";
+            int Material_InChnace_Count = trainData.EX_Game_Data.Information_Train_Booster_Part[trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num]].Material;
+            int Material_Inventory_Count = itemData.Booster_Train_Material_object.Item_Count;
+            if (Material_Inventory_Count >= Material_InChnace_Count)
+            {
+                Upgrade_Text[1].text = "<color=green>" + Material_Inventory_Count + "</color>";
+            }
+            else
+            {
+                Upgrade_Text[1].text = "<color=red>" + Material_Inventory_Count + "</color>";
+            }
+            Upgrade_Text[2].text = trainData.EX_Game_Data.Information_Train_Booster_Part[trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num]].Material.ToString();
         }
         else
         {
@@ -1032,8 +1089,19 @@ public class Station_TrainMaintenance : MonoBehaviour
             {
                 After_Text.text = "  Max";
             }
-
-            Upgrade_Text.text = trainData.EX_Game_Data.Information_Train[trainData.Train_Num[UI_Train_Num]].Train_Upgrade_Cost.ToString() + "G";
+            //Material_Image.sprite = itemData.Common_Train_Material_object.Item_Sprite;
+            Upgrade_Text[0].text = trainData.EX_Game_Data.Information_Train[trainData.Train_Num[UI_Train_Num]].Train_Upgrade_Cost + "G";
+            int Material_InChnace_Count = trainData.EX_Game_Data.Information_Train[trainData.Train_Num[UI_Train_Num]].Material;
+            int Material_Inventory_Count = itemData.Common_Train_Material_object.Item_Count;
+            if (Material_Inventory_Count >= Material_InChnace_Count)
+            {
+                Upgrade_Text[1].text = "<color=green>" + Material_Inventory_Count + "</color>";
+            }
+            else
+            {
+                Upgrade_Text[1].text = "<color=red>" + Material_Inventory_Count + "</color>";
+            }
+            Upgrade_Text[2].text = trainData.EX_Game_Data.Information_Train[trainData.Train_Num[UI_Train_Num]].Material.ToString();
         }
     }
 

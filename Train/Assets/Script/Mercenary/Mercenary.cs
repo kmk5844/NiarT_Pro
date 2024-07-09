@@ -449,7 +449,7 @@ public class Mercenary : MonoBehaviour
                 Min_Refresh_Delay = EX_Level_Data.Level_Mercenary_Bard[SA_MercenaryData.Level_Bard].Min_Refresh_Delay;
                 Max_Refresh_Delay = EX_Level_Data.Level_Mercenary_Bard[SA_MercenaryData.Level_Bard].Max_Refresh_Delay;
                 def = EX_Level_Data.Level_Mercenary_Bard[SA_MercenaryData.Level_Bard].Def;
-                GetComponent<Bard>().Level_AddStatus_Bard(EX_Level_Data.Level_Mercenary_Bard, SA_MercenaryData.Level_Bard);
+                GetComponent<Bard>().Level_AddStatus_Bard(EX_Level_Data.Level_Mercenary_Bard, SA_MercenaryData.Level_Bard); //특수 스탯
                 break;
             case mercenaryType.CowBoy:
                 HP = EX_Level_Data.Level_Mercenary_CowBoy[SA_MercenaryData.Level_CowBoy].HP;
@@ -458,6 +458,7 @@ public class Mercenary : MonoBehaviour
                 Min_Refresh_Delay = EX_Level_Data.Level_Mercenary_CowBoy[SA_MercenaryData.Level_CowBoy].Min_Refresh_Delay;
                 Max_Refresh_Delay = EX_Level_Data.Level_Mercenary_CowBoy[SA_MercenaryData.Level_CowBoy].Max_Refresh_Delay;
                 def = EX_Level_Data.Level_Mercenary_CowBoy[SA_MercenaryData.Level_CowBoy].Def;
+                //카우보이의 개별적인 특수 스탯이 없음.
                 break;
         }
     }

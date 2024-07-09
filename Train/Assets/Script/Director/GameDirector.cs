@@ -437,16 +437,7 @@ public class GameDirector : MonoBehaviour
     {
         gameType = GameType.GameEnd;
         Time.timeScale = 0f;
-        if (WinFlag)
-        {
-            uiDirector.Win_Text(Stage_Num, Total_Score, Check_Score(), Total_Coin, Reward_Point);
-            uiDirector.Open_WIN_UI();
-        }
-        else
-        {
-            uiDirector.Lose_Text(Total_Coin);
-            uiDirector.Open_Lose_UI();
-        }
+        uiDirector.Open_Result_UI(WinFlag, Stage_Num, Total_Score, Total_Coin, Check_Score(), Reward_Point);
     }
 
     private void Game_Win()

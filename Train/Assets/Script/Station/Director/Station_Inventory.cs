@@ -27,16 +27,12 @@ public class Station_Inventory : MonoBehaviour
     public GameObject Item_UseItem_WindowObject;
     public List<GameObject> Item_UseItem_WindowObject_List;
 
-    private StationDirector station;
-    int station_inventory_num;
-
     private void Start()
     {
         UI_UseItem_Num = 0;
         ItemObject.Inventory_Director = GetComponent<Station_Inventory>();
         ItemObject.item_tooltip_object = TooltipObject;
-        station = GetComponentInParent<StationDirector>();
-        
+
         for (int i = 0; i < Transform_ItemList.Count; i++)
         {
             Spawn_Item(i);
@@ -84,6 +80,7 @@ public class Station_Inventory : MonoBehaviour
                 break;
         }
     }
+
     public void UseItemStatus_Click(ItemDataObject itemobject)
     {
         Item_UseStatus_WindowObject_InformationText.text = "\"" + itemobject.Item_Name + " \"을 \n사용하시겠습니까?";
@@ -123,6 +120,7 @@ public class Station_Inventory : MonoBehaviour
 
     public void Check_ItemList(bool Flag, ItemDataObject item, int addnum = 1)
     {
+        Debug.Log(item);
         int num = 0;
         if (item.Item_Type == Information_Item_Type.Equipment)
         {
@@ -208,5 +206,10 @@ public class Station_Inventory : MonoBehaviour
                 break;
         }
         UI_UseItem_Num = -1;
+    }
+
+    public void Director_Init_Inventory()
+    {
+
     }
 }

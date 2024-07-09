@@ -15,6 +15,9 @@ public class Station_Fortress : MonoBehaviour
     Station_TrainData trainData;
     public GameObject Mercenary_DataObject;
     Station_MercenaryData mercenaryData;
+    public GameObject Item_DataObject;
+    Station_ItemData itemData;
+
     List<int> Mercenary_Buy_NumList;// 구매한 리스트
     List<int> Mercenary_Position_NumList;// 배치하고 있는 리스트
 
@@ -36,7 +39,7 @@ public class Station_Fortress : MonoBehaviour
     public GameObject Mercenary_Information_Upgarade_Object;
     public TextMeshProUGUI Before_Mercenary_Information;
     public TextMeshProUGUI After_Mercenary_Information;
-    public TextMeshProUGUI Mercenary_Upgrade_Cost_Text;
+    public TextMeshProUGUI[] Mercenary_Upgrade_Text;
     [SerializeField]
     List<Toggle> Mercenary_Upgrade_Toggle;
 
@@ -61,6 +64,7 @@ public class Station_Fortress : MonoBehaviour
         playerData = Player_DataObject.GetComponent<Station_PlayerData>();
         trainData = Train_DataObject.GetComponent<Station_TrainData>();
         mercenaryData = Mercenary_DataObject.GetComponent<Station_MercenaryData>();
+        itemData = Item_DataObject.GetComponent<Station_ItemData>();
         Mercenary_Buy_NumList = mercenaryData.SA_MercenaryData.Mercenary_Buy_Num;
         Mercenary_Position_NumList = mercenaryData.SA_MercenaryData.Mercenary_Num;
         //플레이어 업그레이드 윈도우
@@ -281,149 +285,224 @@ public class Station_Fortress : MonoBehaviour
         }
         else
         {
-            Mercenary_Upgrade_Cost_Text.text = "0G";
+            Mercenary_Upgrade_Text[0].text = "0G";
             Mercenary_Information_Upgarade_Object.SetActive(false);
             MercenaryUpgrade_Button.interactable = false;
         }
     }
     private void Mercenary_Upgrade_Information_Text(int i = -1)
     {
-            if (i == 0)
+        int Material_Max_Count = itemData.Mercenary_Material_object.Item_Count;
+        if (i == 0)
+        {
+            var data_before = mercenaryData.EX_Level_Data.Level_Mercenary_Engine_Driver[mercenaryData.Level_Mercenary[i]];
+            var data_after = mercenaryData.EX_Level_Data.Level_Mercenary_Engine_Driver[mercenaryData.Level_Mercenary[i] + 1];
+            Before_Mercenary_Information.text =
+                        "<size=45>업그레이드 전</size>" +
+                        "\n최대 스피드 증가량 : " + data_before.Level_Type_Speed +
+                        "\n연료 효율성 감소량 : " + data_before.Level_Type_Fuel +
+                        "\n기차 방어력 증가량 : " + data_before.Level_Type_Def;
+            if (mercenaryData.Level_Mercenary[i] + 1 == mercenaryData.Max_Mercenary[i] + 1)
             {
-                var data_before = mercenaryData.EX_Level_Data.Level_Mercenary_Engine_Driver[mercenaryData.Level_Mercenary_Engine_Driver];
-                var data_after = mercenaryData.EX_Level_Data.Level_Mercenary_Engine_Driver[mercenaryData.Level_Mercenary_Engine_Driver + 1];
-                Before_Mercenary_Information.text =
-                            "<size=45>업그레이드 전</size>" +
-                            "\n최대 스피드 증가량 : " + data_before.Level_Type_Speed +
-                            "\n연료 효율성 감소량 : " + data_before.Level_Type_Fuel +
-                            "\n기차 방어력 증가량 : " + data_before.Level_Type_Def;
-                if (mercenaryData.Level_Mercenary_Engine_Driver + 1 == mercenaryData.Max_Mercenary_Engine_Driver + 1)
-                {
-                    After_Mercenary_Information.text =
-                           "<size=45>업그레이드 후</size>" +
-                           "\nMAX";
-                    Mercenary_Upgrade_Cost_Text.text = "MAX";
-                }
-                else
-                {
-                    After_Mercenary_Information.text =
-                            "<size=45>업그레이드 후</size>" +
-                            "\n최대 스피드 증가량 : " + data_after.Level_Type_Speed +
-                            "\n연료 효율성 감소량 : " + data_after.Level_Type_Fuel +
-                            "\n기차 방어력 증가량 : " + data_after.Level_Type_Def;
-                    Mercenary_Upgrade_Cost_Text.text = mercenaryData.EX_Level_Data.Information_LevelCost[mercenaryData.Level_Mercenary_Engine_Driver].Cost_Level_Mercenary_Engine_Driver
-                                                       + "G";
-                }
+                After_Mercenary_Information.text =
+                        "<size=45>업그레이드 후</size>" +
+                        "\nMAX";
+                Mercenary_Upgrade_Text[0].text = "MAX";
+                Mercenary_Upgrade_Text[1].text = "MAX";
+                Mercenary_Upgrade_Text[2].text = "MAX";
             }
-            else if (i == 1)
+            else
             {
-                var data_before = mercenaryData.EX_Level_Data.Level_Mercenary_Engineer[mercenaryData.Level_Mercenary_Engineer];
-                var data_after = mercenaryData.EX_Level_Data.Level_Mercenary_Engineer[mercenaryData.Level_Mercenary_Engineer + 1];
-                Before_Mercenary_Information.text =
-                            "<size=45>업그레이드 전</size>" +
-                            "\n수리 속도 : " + data_before.Repair_Delay +
-                            "\n수리 회복량 : " + data_before.Repair_Amount +
-                            "\n수리 가능한 최소 HP : " + data_before.Repair_Train_Parsent;
-                if (mercenaryData.Level_Mercenary_Engineer + 1 == mercenaryData.Max_Mercenary_Engineer + 1)
-                {
-                    After_Mercenary_Information.text =
-                           "<size=45>업그레이드 후</size>" +
-                           "\nMAX";
-                    Mercenary_Upgrade_Cost_Text.text = "MAX";
-                }
-                else
-                {
-                    After_Mercenary_Information.text =
-                            "<size=45>업그레이드 후</size>" +
-                            "\n수리 속도 : " + data_after.Repair_Delay +
-                            "\n수리 회복량 : " + data_after.Repair_Amount +
-                            "\n수리 가능한 최소 HP : " + data_after.Repair_Train_Parsent;
-                    Mercenary_Upgrade_Cost_Text.text =  mercenaryData.EX_Level_Data.Information_LevelCost[mercenaryData.Level_Mercenary_Engineer].Cost_Level_Mercenary_Engineer
-                                                           + "G";
-                }
+                After_Mercenary_Information.text =
+                        "<size=45>업그레이드 후</size>" +
+                        "\n최대 스피드 증가량 : " + data_after.Level_Type_Speed +
+                        "\n연료 효율성 감소량 : " + data_after.Level_Type_Fuel +
+                        "\n기차 방어력 증가량 : " + data_after.Level_Type_Def;
+                Mercenary_Upgrade_Text[0].text = mercenaryData.EX_Level_Data.Level_Mercenary_Engine_Driver[mercenaryData.Level_Mercenary[i]].Upgrade_Cost + "G";
+                Mercenary_Upgrade_Text[1].text = Material_Max_Count.ToString();
+                Mercenary_Upgrade_Text[2].text = mercenaryData.EX_Level_Data.Level_Mercenary_Engine_Driver[mercenaryData.Level_Mercenary[i]].Material.ToString();
             }
-            else if (i == 2)
+        }
+        else if (i == 1)
+        {
+            var data_before = mercenaryData.EX_Level_Data.Level_Mercenary_Engineer[mercenaryData.Level_Mercenary[i]];
+            var data_after = mercenaryData.EX_Level_Data.Level_Mercenary_Engineer[mercenaryData.Level_Mercenary[i] + 1];
+            Before_Mercenary_Information.text =
+                        "<size=45>업그레이드 전</size>" +
+                        "\n수리 속도 : " + data_before.Repair_Delay +
+                        "\n수리 회복량 : " + data_before.Repair_Amount +
+                        "\n수리 가능한 최소 HP : " + data_before.Repair_Train_Parsent;
+            if (mercenaryData.Level_Mercenary[i] + 1 == mercenaryData.Max_Mercenary[i] + 1)
             {
-                var data_before = mercenaryData.EX_Level_Data.Level_Mercenary_Long_Ranged[mercenaryData.Level_Mercenary_Long_Ranged];
-                var data_after = mercenaryData.EX_Level_Data.Level_Mercenary_Long_Ranged[mercenaryData.Level_Mercenary_Long_Ranged + 1];
-                Before_Mercenary_Information.text =
-                            "<size=45>업그레이드 전</size>" +
-                            "\n공격력 : " + data_before.Unit_Attack +
-                            "\n공격 속도 : " + data_before.Unit_Atk_Delay;
-                if (mercenaryData.Level_Mercenary_Long_Ranged + 1 == mercenaryData.Max_Mercenary_Long_Ranged + 1)
-                {
-                    After_Mercenary_Information.text =
-                           "<size=45>업그레이드 후</size>" +
-                           "\nMAX";
-                    Mercenary_Upgrade_Cost_Text.text = "MAX";
-                }
-                else
-                {
-                    After_Mercenary_Information.text =
-                            "<size=45>업그레이드 후</size>" +
-                            "\n공격력 : " + data_after.Unit_Attack +
-                            "\n공격 속도 : " + data_after.Unit_Atk_Delay;
-                    Mercenary_Upgrade_Cost_Text.text = mercenaryData.EX_Level_Data.Information_LevelCost[mercenaryData.Level_Mercenary_Long_Ranged].Cost_Level_Mercenary_Long_Ranged
-                                                           + "G";
-                }
+                After_Mercenary_Information.text =
+                        "<size=45>업그레이드 후</size>" +
+                        "\nMAX";
+                Mercenary_Upgrade_Text[0].text = "MAX";
+                Mercenary_Upgrade_Text[1].text = "MAX";
+                Mercenary_Upgrade_Text[2].text = "MAX";
             }
-            else if (i == 3)
+            else
             {
-                var data_before = mercenaryData.EX_Level_Data.Level_Mercenary_Short_Ranged[mercenaryData.Level_Mercenary_Short_Ranged];
-                var data_after = mercenaryData.EX_Level_Data.Level_Mercenary_Short_Ranged[mercenaryData.Level_Mercenary_Short_Ranged + 1];
-                Before_Mercenary_Information.text =
-                            "<size=45>업그레이드 후</size>" +
-                            "\n공격력 : " + data_before.Unit_Attack +
-                            "\n공격 속도 : " + data_before.Unit_Atk_Delay;
-                if (mercenaryData.Level_Mercenary_Short_Ranged + 1 == mercenaryData.Max_Mercenary_Short_Ranged + 1)
-                {
-                    After_Mercenary_Information.text =
-                           "<size=45>업그레이드 후</size>" +
-                           "\nMAX";
-                    Mercenary_Upgrade_Cost_Text.text = "MAX";
-                }
-                else
-                {
-                    After_Mercenary_Information.text =
-                            "<size=45>업그레이드 후</size>" +
-                            "\n공격력 : " + data_after.Unit_Attack +
-                            "\n공격 속도 : " + data_after.Unit_Atk_Delay;
-                    Mercenary_Upgrade_Cost_Text.text = mercenaryData.EX_Level_Data.Information_LevelCost[mercenaryData.Level_Mercenary_Short_Ranged].Cost_Level_Mercenary_Short_Ranged
-                                                           + "G";
-                }
+                After_Mercenary_Information.text =
+                        "<size=45>업그레이드 후</size>" +
+                        "\n수리 속도 : " + data_after.Repair_Delay +
+                        "\n수리 회복량 : " + data_after.Repair_Amount +
+                        "\n수리 가능한 최소 HP : " + data_after.Repair_Train_Parsent;
+                Mercenary_Upgrade_Text[0].text = mercenaryData.EX_Level_Data.Level_Mercenary_Engineer[mercenaryData.Level_Mercenary[i]].Upgrade_Cost + "G";
+                Mercenary_Upgrade_Text[1].text = Material_Max_Count.ToString();
+                Mercenary_Upgrade_Text[2].text = mercenaryData.EX_Level_Data.Level_Mercenary_Engineer[mercenaryData.Level_Mercenary[i]].Material.ToString();
             }
-            else if (i == 4)
+        }
+        else if (i == 2)
+        {
+            var data_before = mercenaryData.EX_Level_Data.Level_Mercenary_Long_Ranged[mercenaryData.Level_Mercenary[i]];
+            var data_after = mercenaryData.EX_Level_Data.Level_Mercenary_Long_Ranged[mercenaryData.Level_Mercenary[i] + 1];
+            Before_Mercenary_Information.text =
+                        "<size=45>업그레이드 전</size>" +
+                        "\n공격력 : " + data_before.Unit_Attack +
+                        "\n공격 속도 : " + data_before.Unit_Atk_Delay;
+            if (mercenaryData.Level_Mercenary[i] + 1 == mercenaryData.Max_Mercenary[i] + 1)
             {
-                var data_before = mercenaryData.EX_Level_Data.Level_Mercenary_Medic[mercenaryData.Level_Mercenary_Medic];
-                var data_after = mercenaryData.EX_Level_Data.Level_Mercenary_Medic[mercenaryData.Level_Mercenary_Medic + 1];
-                Before_Mercenary_Information.text =
-                            "<size=45>업그레이드 전</size>" +
-                            "\n회복량 : " + data_before.Heal_Hp_Amount +
-                            "\n회복 가능한 최소 HP : " + data_before.Heal_HP_Parsent;
-                if (mercenaryData.Level_Mercenary_Medic + 1 == mercenaryData.Max_Mercenary_Medic + 1)
-                {
-                    After_Mercenary_Information.text =
-                           "<size=45>업그레이드 후</size>" +
-                           "\nMAX";
-                    Mercenary_Upgrade_Cost_Text.text = "MAX";
-                }
-                else
-                {
-                    After_Mercenary_Information.text =
-                            "<size=45>업그레이드 후</size>" +
-                            "\n회복량 : " + data_before.Heal_Hp_Amount +
-                            "\n회복 가능한 최소 HP : " + data_after.Heal_HP_Parsent;
-                    Mercenary_Upgrade_Cost_Text.text = mercenaryData.EX_Level_Data.Information_LevelCost[mercenaryData.Level_Mercenary_Medic].Cost_Level_Mercenary_Medic
-                                                           + "G";
-                }
+                After_Mercenary_Information.text =
+                        "<size=45>업그레이드 후</size>" +
+                        "\nMAX";
+                Mercenary_Upgrade_Text[0].text = "MAX";
+                Mercenary_Upgrade_Text[1].text = "MAX";
+                Mercenary_Upgrade_Text[2].text = "MAX";
             }
-            MercenaryUpgrade_Button.interactable = mercenaryData.Check_MaxLevel(i);
+            else
+            {
+                After_Mercenary_Information.text =
+                        "<size=45>업그레이드 후</size>" +
+                        "\n공격력 : " + data_after.Unit_Attack +
+                        "\n공격 속도 : " + data_after.Unit_Atk_Delay;
+                Mercenary_Upgrade_Text[0].text = mercenaryData.EX_Level_Data.Level_Mercenary_Long_Ranged[mercenaryData.Level_Mercenary[i]].Upgrade_Cost + "G";
+                Mercenary_Upgrade_Text[1].text = Material_Max_Count.ToString();
+                Mercenary_Upgrade_Text[2].text = mercenaryData.EX_Level_Data.Level_Mercenary_Long_Ranged[mercenaryData.Level_Mercenary[i]].Material.ToString();
+            }
+        }
+        else if (i == 3)
+        {
+            var data_before = mercenaryData.EX_Level_Data.Level_Mercenary_Short_Ranged[mercenaryData.Level_Mercenary[i]];
+            var data_after = mercenaryData.EX_Level_Data.Level_Mercenary_Short_Ranged[mercenaryData.Level_Mercenary[i] + 1];
+            Before_Mercenary_Information.text =
+                        "<size=45>업그레이드 후</size>" +
+                        "\n공격력 : " + data_before.Unit_Attack +
+                        "\n공격 속도 : " + data_before.Unit_Atk_Delay;
+            if (mercenaryData.Level_Mercenary[i] + 1 == mercenaryData.Max_Mercenary[i] + 1)
+            {
+                After_Mercenary_Information.text =
+                        "<size=45>업그레이드 후</size>" +
+                        "\nMAX";
+                Mercenary_Upgrade_Text[0].text = "MAX";
+                Mercenary_Upgrade_Text[1].text = "MAX";
+                Mercenary_Upgrade_Text[2].text = "MAX";
+            }
+            else
+            {
+                After_Mercenary_Information.text =
+                        "<size=45>업그레이드 후</size>" +
+                        "\n공격력 : " + data_after.Unit_Attack +
+                        "\n공격 속도 : " + data_after.Unit_Atk_Delay;
+                Mercenary_Upgrade_Text[0].text = mercenaryData.EX_Level_Data.Level_Mercenary_Short_Ranged[mercenaryData.Level_Mercenary[i]].Upgrade_Cost + "G";
+                Mercenary_Upgrade_Text[1].text = Material_Max_Count.ToString();
+                Mercenary_Upgrade_Text[2].text = mercenaryData.EX_Level_Data.Level_Mercenary_Short_Ranged[mercenaryData.Level_Mercenary[i]].Material.ToString();
+            }
+        }
+        else if (i == 4)
+        {
+            var data_before = mercenaryData.EX_Level_Data.Level_Mercenary_Medic[mercenaryData.Level_Mercenary[i]];
+            var data_after = mercenaryData.EX_Level_Data.Level_Mercenary_Medic[mercenaryData.Level_Mercenary[i] + 1];
+            Before_Mercenary_Information.text =
+                        "<size=45>업그레이드 전</size>" +
+                        "\n회복량 : " + data_before.Heal_Hp_Amount +
+                        "\n회복 가능한 최소 HP : " + data_before.Heal_HP_Parsent;
+            if (mercenaryData.Level_Mercenary[i] + 1 == mercenaryData.Max_Mercenary[i] + 1)
+            {
+                After_Mercenary_Information.text =
+                        "<size=45>업그레이드 후</size>" +
+                        "\nMAX";
+                Mercenary_Upgrade_Text[0].text = "MAX";
+                Mercenary_Upgrade_Text[1].text = "MAX";
+                Mercenary_Upgrade_Text[2].text = "MAX";
+            }
+            else
+            {
+                After_Mercenary_Information.text =
+                        "<size=45>업그레이드 후</size>" +
+                        "\n회복량 : " + data_before.Heal_Hp_Amount +
+                        "\n회복 가능한 최소 HP : " + data_after.Heal_HP_Parsent;
+                Mercenary_Upgrade_Text[0].text = mercenaryData.EX_Level_Data.Level_Mercenary_Medic[mercenaryData.Level_Mercenary[i]].Upgrade_Cost + "G";
+                Mercenary_Upgrade_Text[1].text = Material_Max_Count.ToString();
+                Mercenary_Upgrade_Text[2].text = mercenaryData.EX_Level_Data.Level_Mercenary_Medic[mercenaryData.Level_Mercenary[i]].Material.ToString();
+            }
+        }
+        else if(i == 5)
+        {
+            var data_before = mercenaryData.EX_Level_Data.Level_Mercenary_Bard[mercenaryData.Level_Mercenary[i]];
+            var data_after = mercenaryData.EX_Level_Data.Level_Mercenary_Bard[mercenaryData.Level_Mercenary[i] + 1];
+            Before_Mercenary_Information.text =
+                        "<size=45>업그레이드 전</size>" +
+                        "\n체력 증가량 : " + data_before.Level_Type_HP_Buff +
+                        "\n공격력 증가량 : " + data_before.Level_Type_Atk_Buff +
+                        "\n방어력 증가량 : " + data_before.Level_Type_Def_Buff;
+            if (mercenaryData.Level_Mercenary[i] + 1 == mercenaryData.Max_Mercenary[i] + 1)
+            {
+                After_Mercenary_Information.text =
+                        "<size=45>업그레이드 후</size>" +
+                        "\nMAX";
+                Mercenary_Upgrade_Text[0].text = "MAX";
+                Mercenary_Upgrade_Text[1].text = "MAX";
+                Mercenary_Upgrade_Text[2].text = "MAX";
+
+            }
+            else
+            {
+                After_Mercenary_Information.text =
+                        "<size=45>업그레이드 후</size>" +
+                        "\n체력 증가량 : " + data_after.Level_Type_HP_Buff +
+                        "\n공격력 증가량 : " + data_after.Level_Type_Atk_Buff +
+                        "\n방어력 증가량 : " + data_after.Level_Type_Def_Buff;
+                Mercenary_Upgrade_Text[0].text = mercenaryData.EX_Level_Data.Level_Mercenary_Bard[mercenaryData.Level_Mercenary[i]].Upgrade_Cost + "G";
+                Mercenary_Upgrade_Text[1].text = Material_Max_Count.ToString();
+                Mercenary_Upgrade_Text[2].text = mercenaryData.EX_Level_Data.Level_Mercenary_Bard[mercenaryData.Level_Mercenary[i]].Material.ToString();
+            }
+        }
+        else if(i == 6)
+        {
+            var data_before = mercenaryData.EX_Level_Data.Level_Mercenary_CowBoy[mercenaryData.Level_Mercenary[i]];
+            var data_after = mercenaryData.EX_Level_Data.Level_Mercenary_CowBoy[mercenaryData.Level_Mercenary[i] + 1];
+            Before_Mercenary_Information.text =
+                "<size=45>업그레이드 전</size>" +
+                "\n행동력 : " + data_before.Max_WorkCount;
+            if (mercenaryData.Level_Mercenary[i] + 1 == mercenaryData.Max_Mercenary[i] + 1)
+            {
+                After_Mercenary_Information.text =
+                        "<size=45>업그레이드 후</size>" +
+                        "\nMAX";
+                Mercenary_Upgrade_Text[0].text = "MAX";
+            }
+            else
+            {
+                Before_Mercenary_Information.text =
+                    "<size=45>업그레이드 후</size>" +
+                    "\n행동력 : " + data_after.Max_WorkCount;
+                Mercenary_Upgrade_Text[0].text = mercenaryData.EX_Level_Data.Level_Mercenary_CowBoy[mercenaryData.Level_Mercenary[i]].Upgrade_Cost + "G";
+                Mercenary_Upgrade_Text[1].text = Material_Max_Count.ToString();
+                Mercenary_Upgrade_Text[2].text = mercenaryData.EX_Level_Data.Level_Mercenary_CowBoy[mercenaryData.Level_Mercenary[i]].Material.ToString();
+            }
+        }
+        MercenaryUpgrade_Button.interactable = mercenaryData.Check_MaxLevel(i);
     }
     public void Mercenary_Level_Up()
     {
-        if(playerData.Player_Coin >= mercenaryData.Check_Cost_Mercenary(Mercenary_Upgrade_Num))
+        int Material_Upgrade_Count = mercenaryData.Check_Material_Mercenary(Mercenary_Upgrade_Num); 
+        int Material_Inventory_Count = itemData.Mercenary_Material_object.Item_Count;
+
+        if (playerData.Player_Coin >= mercenaryData.Check_Cost_Mercenary(Mercenary_Upgrade_Num) && Material_Inventory_Count >= Material_Upgrade_Count)
         {
             playerData.Player_Buy_Coin(mercenaryData.Check_Cost_Mercenary(Mercenary_Upgrade_Num));
+            itemData.Mercenary_Material_object.Item_Count_Down(Material_Upgrade_Count);
             mercenaryData.Mercenary_Level_Up(Mercenary_Upgrade_Num);
             Mercenary_Upgrade_Content.GetChild(Mercenary_Upgrade_ToggleNum).GetComponent<TrainingRoom_Mercenary_Upgrade_Card>().Card_LevleUP();
             Check_Player_Coin_Point();
@@ -433,7 +512,6 @@ public class Station_Fortress : MonoBehaviour
         {
             Ban_Player_Coin_Point(true);
         }
-
     }
 
     // 용병 배치

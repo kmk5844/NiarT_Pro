@@ -19,5 +19,5 @@ public class Info_Train
     public string Train_Select_Information;
     public bool Store;
     public bool Change;
-    public int Stage_UnLock;
+    public int Material;
 }

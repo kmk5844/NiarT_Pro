@@ -17,8 +17,7 @@ public class UIDirector : MonoBehaviour
     [Header("전체적인 UI 오브젝트")]
     public GameObject Game_UI;
     public GameObject Pause_UI;
-    public GameObject Win_UI;
-    public GameObject Lose_UI;
+    public GameObject Result_UI;
     public GameObject Option_UI;
 
     [Header("Game UI")]
@@ -32,15 +31,11 @@ public class UIDirector : MonoBehaviour
     public Slider Speed_Arrow;
 
 
-    [Header("Win UI 관련된 텍스트")]
-    public TextMeshProUGUI Win_Stage_Text;
-    public TextMeshProUGUI Win_Score_Text;
-    public Image Win_Score_Grade_Image;
-    public TextMeshProUGUI Win_Reward_Coin_Text;
-    public TextMeshProUGUI Win_Reward_Point_Text;
-
-    [Header("Lose UI 관련된 텍스트")]
-    public TextMeshProUGUI Lose_Reward_Coin_Text;
+    [Header("Result UI 관련된 텍스트")]
+    public TextMeshProUGUI[] Result_Text_List; //0. Stage, 1. Score, 2. Gold, 3. Rank 4. Point
+    public Image Result_Image; //win or lose
+    Sprite Result_Win_Image;
+    Sprite Result_Lose_Image;
 
     bool PauseFlag;
     bool OptionFlag;
@@ -59,7 +54,7 @@ public class UIDirector : MonoBehaviour
         OptionFlag = false;
 
 
-        DemoCheck(); // 나중에 데모 변경예정
+        //DemoCheck(); // 나중에 데모 변경예정
     }
 
     private void Update()
@@ -92,16 +87,26 @@ public class UIDirector : MonoBehaviour
         Distance_Bar.value = gamedirector.Check_Distance();
     }
 
-    public void Open_WIN_UI()
+    public void Open_Result_UI(bool Win, int StageNum, int Score, int Coin, string Score_Grade,int Point)
     {
+        Result_Text_List[0].text = "스테이지 " + (StageNum + 1);
+        Result_Text_List[1].text = "점수 : " + Score + "점";
+        Result_Text_List[2].text = "획득 골드 : " + Coin + "원";
+        if (Win)
+        {
+            Result_Text_List[3].text = "랭크 : " + Score_Grade;
+            Result_Text_List[4].text = "플레이어 포인트 : " + Point;
+            Result_Text_List[4].gameObject.SetActive(true);
+            Result_Image.sprite = Result_Win_Image;
+        }
+        else
+        {
+            Result_Text_List[3].text = "랭크 : F";
+            Result_Text_List[4].gameObject.SetActive(false);
+            Result_Image.sprite = Result_Lose_Image;
+        }
         Game_UI.SetActive(false);
-        Win_UI.SetActive(true);
-    }
-
-    public void Open_Lose_UI()
-    {
-        Game_UI.SetActive(false);
-        Lose_UI.SetActive(true);
+        Result_UI.SetActive(true);
     }
 
     public void ON_OFF_Pause_UI(bool Flag)
@@ -122,20 +127,6 @@ public class UIDirector : MonoBehaviour
     {
         Score_Text.text = "Score : " + Score;
         Coin_Text.text = "Coin : " + Coin;
-    }
-
-    public void Win_Text(int StageNum, int Score, string Score_Grade,int Coin, int Point)
-    {
-        Win_Stage_Text.text = "Stage" + (StageNum +1);
-        Win_Score_Text.text = "Total Score : " + Score;
-        Win_Score_Grade_Image.sprite = Resources.Load<Sprite>("InGame_UI/Grade/" + Score_Grade);
-        Win_Reward_Coin_Text.text = "Reward Coin : " + Coin;
-        Win_Reward_Point_Text.text = "Reward : Point : " + Point;
-    }
-
-    public void Lose_Text(int Coin)
-    {
-        Lose_Reward_Coin_Text.text = "Reward Coin : " + Coin;
     }
 
     public void Click_Station()

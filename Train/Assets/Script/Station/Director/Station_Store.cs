@@ -19,8 +19,8 @@ public class Station_Store : MonoBehaviour
     public GameObject Item_DataObject;
     Station_ItemData itemData;
 
-    [Header("인벤토리 관리자")]
     public Station_Inventory inventory_director;
+
 
     [Header("윈도우")]
     public GameObject Check_Buy_Panel;
@@ -770,12 +770,12 @@ public class Station_Store : MonoBehaviour
             item.Item_Count_UP(item_Count);
             itemData.Plus_Inventory_Item(item);
             {
-                foreach (ItemSell_Object BuyObject in Item_Sell_Window.GetComponentsInChildren<ItemSell_Object>())
+                foreach (ItemSell_Object Sell_Object in Item_Sell_Window.GetComponentsInChildren<ItemSell_Object>())
                 {
-                    if (BuyObject.item == item)
+                    if (Sell_Object.item == item) // 구매 시, 아이템 체크
                     {
                         itemAvailability = true;
-                        BuyObject.Check_ItemCount();
+                        Sell_Object.Check_ItemCount();
                         break;
                     }
                 }
@@ -823,7 +823,6 @@ public class Station_Store : MonoBehaviour
                 }
             }
         }
-        inventory_director.Check_ItemList(false, item);
         Close_Buy_Window();
     }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 namespace ES3Types
 {
 	[UnityEngine.Scripting.Preserve]
-	[ES3PropertiesAttribute("mercenary_num", "level_engine_driver", "level_engineer", "level_long_ranged", "level_short_ranged", "level_medic", "engine_driver_type", "mercenary_buy_num", "mercenary_head_image")]
+	[ES3PropertiesAttribute("mercenary_num", "level_engine_driver", "level_engineer", "level_long_ranged", "level_short_ranged", "level_medic", "level_bard", "level_cowboy", "engine_driver_type", "mercenary_buy_num", "mercenary_head_image")]
 	public class ES3UserType_SA_MercenaryData : ES3ScriptableObjectType
 	{
 		public static ES3Type Instance = null;
@@ -22,6 +22,8 @@ namespace ES3Types
 			writer.WritePrivateField("level_long_ranged", instance);
 			writer.WritePrivateField("level_short_ranged", instance);
 			writer.WritePrivateField("level_medic", instance);
+			writer.WritePrivateField("level_bard", instance);
+			writer.WritePrivateField("level_cowboy", instance);
 			writer.WritePrivateField("engine_driver_type", instance);
 			writer.WritePrivateField("mercenary_buy_num", instance);
 			writer.WritePrivateField("mercenary_head_image", instance);
@@ -52,6 +54,12 @@ namespace ES3Types
 					break;
 					case "level_medic":
 					instance = (SA_MercenaryData)reader.SetPrivateField("level_medic", reader.Read<System.Int32>(), instance);
+					break;
+					case "level_bard":
+					instance = (SA_MercenaryData)reader.SetPrivateField("level_bard", reader.Read<System.Int32>(), instance);
+					break;
+					case "level_cowboy":
+					instance = (SA_MercenaryData)reader.SetPrivateField("level_cowboy", reader.Read<System.Int32>(), instance);
 					break;
 					case "engine_driver_type":
 					instance = (SA_MercenaryData)reader.SetPrivateField("engine_driver_type", reader.Read<Engine_Driver_Type>(), instance);

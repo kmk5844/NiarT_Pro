@@ -11,4 +11,7 @@ public class Info_Level_Mercenary_Bard
     public int Level_Type_HP_Buff;
     public int Level_Type_Atk_Buff;
     public int Level_Type_Def_Buff;
+    public int Upgrade_Cost;
+    public int Material;
+
 }

@@ -399,8 +399,11 @@ public class StationDirector : MonoBehaviour
 
     public void Check_CoinAndPoint()
     {
-        Coin_Text[ui_num-1].text = playerData.Player_Coin.ToString();
-        Point_Text[ui_num - 1].text = playerData.Player_Point.ToString();
+        for(int i = 0; i <  Coin_Text.Length; i++)
+        {
+            Coin_Text[i].text = playerData.Player_Coin.ToString();
+            Point_Text[i].text = playerData.Player_Point.ToString();
+        }
     }
 
     public void Check_Ban_CoinPoint(bool CoinPoint) // true면 코인 부족, false면 포인트 부족
@@ -432,5 +435,6 @@ public class StationDirector : MonoBehaviour
         Director_Store.Director_Init_MercenaryBuy();
         Director_Fortress.Director_Init_MercenaryUpgrade();
         Director_Fortress.Director_Init_MercenaryPosition();
+        Director_Inventory.Director_Init_Inventory();
     }
 }

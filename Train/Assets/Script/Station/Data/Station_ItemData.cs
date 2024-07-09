@@ -33,6 +33,7 @@ public class Station_ItemData : MonoBehaviour
     {
         foreach(ItemDataObject item in SA_ItemList.Item)
         {
+            item.Load();
             if(item.Item_Count != 0) // 가지고 있는 인벤토리
             {
                 if(item.Item_Type == Information_Item_Type.Equipment)

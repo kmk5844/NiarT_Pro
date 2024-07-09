@@ -10,23 +10,9 @@ public class Station_MercenaryData : MonoBehaviour
     public SA_MercenaryData SA_MercenaryData;
 
     [Header("용병 데이터")]
-    public int Level_Mercenary_Engine_Driver;
-    public int Level_Mercenary_Engineer;
-    public int Level_Mercenary_Long_Ranged;
-    public int Level_Mercenary_Short_Ranged;
-    public int Level_Mercenary_Medic;
-
-    public int Cost_Mercenary_Engine_Driver;
-    public int Cost_Mercenary_Engineer;
-    public int Cost_Mercenary_Long_Ranged;
-    public int Cost_Mercenary_Short_Ranged;
-    public int Cost_Mercenary_Medic;
-
-    public int Max_Mercenary_Engine_Driver;
-    public int Max_Mercenary_Engineer;
-    public int Max_Mercenary_Long_Ranged;
-    public int Max_Mercenary_Short_Ranged;
-    public int Max_Mercenary_Medic;
+    public int[] Level_Mercenary = new int[7];
+    public int[] Cost_Mercenary = new int[7];
+    public int[] Max_Mercenary = new int[7];
 
     [Header("기존 상점 리스트")]
     public List<int> Mercenary_Store_Num;
@@ -39,23 +25,29 @@ public class Station_MercenaryData : MonoBehaviour
 
     private void Check_Level_Mercenary()
     {
-        Level_Mercenary_Engine_Driver = SA_MercenaryData.Level_Engine_Driver;
-        Level_Mercenary_Engineer = SA_MercenaryData.Level_Engineer;
-        Level_Mercenary_Long_Ranged = SA_MercenaryData.Level_Long_Ranged;
-        Level_Mercenary_Short_Ranged = SA_MercenaryData.Level_Short_Ranged;
-        Level_Mercenary_Medic = SA_MercenaryData.Level_Medic;
+        Level_Mercenary[0] = SA_MercenaryData.Level_Engine_Driver;
+        Level_Mercenary[1] = SA_MercenaryData.Level_Engineer;
+        Level_Mercenary[2] = SA_MercenaryData.Level_Long_Ranged;
+        Level_Mercenary[3] = SA_MercenaryData.Level_Short_Ranged;
+        Level_Mercenary[4] = SA_MercenaryData.Level_Medic;
+        Level_Mercenary[5] = SA_MercenaryData.Level_Bard;
+        Level_Mercenary[6] = SA_MercenaryData.Level_CowBoy;
 
-        Max_Mercenary_Engine_Driver = EX_Level_Data.Information_Level[Data_Info("Level_Mercenary_Engine_Driver", 0)].Max_Level;
-        Max_Mercenary_Engineer = EX_Level_Data.Information_Level[Data_Info("Level_Mercenary_Engineer", 0)].Max_Level;
-        Max_Mercenary_Long_Ranged = EX_Level_Data.Information_Level[Data_Info("Level_Mercenary_Long_Ranged", 0)].Max_Level;
-        Max_Mercenary_Short_Ranged = EX_Level_Data.Information_Level[Data_Info("Level_Mercenary_Short_Ranged", 0)].Max_Level;
-        Max_Mercenary_Medic = EX_Level_Data.Information_Level[Data_Info("Level_Mercenary_Medic", 0)].Max_Level;
+        Max_Mercenary[0] = EX_Level_Data.Information_Level[Data_Info("Level_Mercenary_Engine_Driver", 0)].Max_Level;
+        Max_Mercenary[1] = EX_Level_Data.Information_Level[Data_Info("Level_Mercenary_Engineer", 0)].Max_Level;
+        Max_Mercenary[2] = EX_Level_Data.Information_Level[Data_Info("Level_Mercenary_Long_Ranged", 0)].Max_Level;
+        Max_Mercenary[3] = EX_Level_Data.Information_Level[Data_Info("Level_Mercenary_Short_Ranged", 0)].Max_Level;
+        Max_Mercenary[4] = EX_Level_Data.Information_Level[Data_Info("Level_Mercenary_Medic", 0)].Max_Level;
+        Max_Mercenary[5] = EX_Level_Data.Information_Level[Data_Info("Level_Mercenary_Bard", 0)].Max_Level;
+        Max_Mercenary[6] = EX_Level_Data.Information_Level[Data_Info("Level_Mercenary_CowBoy", 0)].Max_Level;
 
-        Cost_Mercenary_Engine_Driver = EX_Game_Data.Information_Mercenary[Data_Info("Engine_Driver", 1)].Mercenary_Pride; // 상점 구매용
-        Cost_Mercenary_Engineer = EX_Game_Data.Information_Mercenary[Data_Info("Engineer", 1)].Mercenary_Pride;
-        Cost_Mercenary_Long_Ranged = EX_Game_Data.Information_Mercenary[Data_Info("Long_Ranged", 1)].Mercenary_Pride;
-        Cost_Mercenary_Short_Ranged = EX_Game_Data.Information_Mercenary[Data_Info("Short_Ranged", 1)].Mercenary_Pride;
-        Cost_Mercenary_Medic = EX_Game_Data.Information_Mercenary[Data_Info("Medic", 1)].Mercenary_Pride;
+        Cost_Mercenary[0] = EX_Game_Data.Information_Mercenary[Data_Info("Engine_Driver", 1)].Mercenary_Pride; // 상점 구매용
+        Cost_Mercenary[1] = EX_Game_Data.Information_Mercenary[Data_Info("Engineer", 1)].Mercenary_Pride;
+        Cost_Mercenary[2] = EX_Game_Data.Information_Mercenary[Data_Info("Long_Ranged", 1)].Mercenary_Pride;
+        Cost_Mercenary[3] = EX_Game_Data.Information_Mercenary[Data_Info("Short_Ranged", 1)].Mercenary_Pride;
+        Cost_Mercenary[4] = EX_Game_Data.Information_Mercenary[Data_Info("Medic", 1)].Mercenary_Pride;
+        Cost_Mercenary[5] = EX_Game_Data.Information_Mercenary[Data_Info("Bard", 1)].Mercenary_Pride;
+        Cost_Mercenary[6] = EX_Game_Data.Information_Mercenary[Data_Info("CowBoy", 1)].Mercenary_Pride;
     }
 
     public void Check_Store_List()
@@ -72,12 +64,12 @@ public class Station_MercenaryData : MonoBehaviour
     public int Data_Info(string M_type, int i)
     {
         int index;
-        if (i == 0)
+        if (i == 0) // 이름
         {
             index = EX_Level_Data.Information_Level.FindIndex(X => X.Level_Name.Equals(M_type));
             return index;
         }
-        else if(i == 1)
+        else if(i == 1) // Type
         {
             index = EX_Game_Data.Information_Mercenary.FindIndex(x => x.Type.Equals(M_type));
             return index;
@@ -93,41 +85,13 @@ public class Station_MercenaryData : MonoBehaviour
 
     public bool Check_MaxLevel(int mercenaryNum)
     {
-        switch (mercenaryNum)
-        {
-            case 0:
-                return Level_Mercenary_Engine_Driver != Max_Mercenary_Engine_Driver ? true : false;
-            case 1:
-                return Level_Mercenary_Engineer != Max_Mercenary_Engineer ? true : false;
-            case 2:
-                return Level_Mercenary_Long_Ranged != Max_Mercenary_Long_Ranged ? true : false;
-            case 3:
-                return Level_Mercenary_Short_Ranged != Max_Mercenary_Short_Ranged ? true : false;
-            case 4:
-                return Level_Mercenary_Medic != Max_Mercenary_Medic ? true : false;
-            default:
-                return false;
-        }
+        return Level_Mercenary[mercenaryNum] != Max_Mercenary[mercenaryNum] ? true : false;
     }
 
 
     public int Mercenary_Find_Level(int mercenaryNum)
     {
-        switch (mercenaryNum)
-        {
-            case 0:
-                return Level_Mercenary_Engine_Driver;
-            case 1:
-                return Level_Mercenary_Engineer;
-            case 2:
-                return Level_Mercenary_Long_Ranged;
-            case 3:
-                return Level_Mercenary_Short_Ranged;
-            case 4:
-                return Level_Mercenary_Medic;
-            default:
-                return -1;
-        }
+        return Level_Mercenary[mercenaryNum];
     }
 
     public int Check_Cost_Mercenary(int Num)
@@ -135,15 +99,41 @@ public class Station_MercenaryData : MonoBehaviour
         switch (Num)
         {
             case 0:
-                return EX_Level_Data.Information_LevelCost[Level_Mercenary_Engine_Driver].Cost_Level_Mercenary_Engine_Driver;
+                return EX_Level_Data.Level_Mercenary_Engine_Driver[Level_Mercenary[Num]].Upgrade_Cost;
             case 1:
-                return EX_Level_Data.Information_LevelCost[Level_Mercenary_Engineer].Cost_Level_Mercenary_Engineer;
+                return EX_Level_Data.Level_Mercenary_Engineer[Level_Mercenary[Num]].Upgrade_Cost;
             case 2:
-                return EX_Level_Data.Information_LevelCost[Level_Mercenary_Long_Ranged].Cost_Level_Mercenary_Long_Ranged;
+                return EX_Level_Data.Level_Mercenary_Long_Ranged[Level_Mercenary[Num]].Upgrade_Cost;
             case 3:
-                return EX_Level_Data.Information_LevelCost[Level_Mercenary_Short_Ranged].Cost_Level_Mercenary_Short_Ranged;
+                return EX_Level_Data.Level_Mercenary_Short_Ranged[Level_Mercenary[Num]].Upgrade_Cost;
             case 4:
-                return EX_Level_Data.Information_LevelCost[Level_Mercenary_Medic].Cost_Level_Mercenary_Medic;
+                return EX_Level_Data.Level_Mercenary_Medic[Level_Mercenary[Num]].Upgrade_Cost;
+            case 5:
+                return EX_Level_Data.Level_Mercenary_Bard[Level_Mercenary[Num]].Upgrade_Cost;
+            case 6:
+                return EX_Level_Data.Level_Mercenary_CowBoy[Level_Mercenary[Num]].Upgrade_Cost;
+        }
+        return -1;
+    }
+
+    public int Check_Material_Mercenary(int Num)
+    {
+        switch (Num)
+        {
+            case 0:
+                return EX_Level_Data.Level_Mercenary_Engine_Driver[Level_Mercenary[Num]].Material;
+            case 1:
+                return EX_Level_Data.Level_Mercenary_Engineer[Level_Mercenary[Num]].Material;
+            case 2:
+                return EX_Level_Data.Level_Mercenary_Long_Ranged[Level_Mercenary[Num]].Material;
+            case 3:
+                return EX_Level_Data.Level_Mercenary_Short_Ranged[Level_Mercenary[Num]].Material;
+            case 4:
+                return EX_Level_Data.Level_Mercenary_Medic[Level_Mercenary[Num]].Material;
+            case 5:
+                return EX_Level_Data.Level_Mercenary_Bard[Level_Mercenary[Num]].Material;
+            case 6:
+                return EX_Level_Data.Level_Mercenary_CowBoy[Level_Mercenary[Num]].Material;
         }
         return -1;
     }

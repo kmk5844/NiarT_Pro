@@ -1,5 +1,6 @@
 using System.IO;
 using UnityEngine;
+using UnityEditor;
 
 public class ItemDataObject : ScriptableObject
 {
@@ -61,7 +62,6 @@ public class ItemDataObject : ScriptableObject
     private int item_count;
     public int Item_Count { get { return item_count; } }
 
-
     public void Auto_Item_Insert(
         int _num, string _item_id, string _item_name, Information_Item_Type _item_type, string _item_information,
         Information_Item_Box_Type _box_type, Information_Item_Rarity_Type _rarrity_type, bool _use_flag
@@ -89,21 +89,35 @@ public class ItemDataObject : ScriptableObject
     public void Item_Count_Down() // 사용하거나, 팔 때
     {
         item_count -= 1;
+        Save();
     }
 
     public void Item_Count_UP() // 사거나 보급 아이템에서 먹었을 때
     {
         item_count += 1;
+        Save();
     }
 
     public void Item_Count_UP(int num)
     {
         item_count += num;
+        Save();
     }
 
     public void Item_Count_Down(int num)
     {
         item_count -= num;
+        Save();
+    }
+
+    public void Save()
+    {
+        ES3.Save(name + "_ItemCount", item_count);
+    }
+
+    public void Load()
+    {
+        item_count = ES3.Load(name + "_ItemCount", Item_Count);
     }
 }
 

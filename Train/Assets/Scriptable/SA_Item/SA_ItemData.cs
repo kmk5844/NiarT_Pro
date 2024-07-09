@@ -14,7 +14,7 @@ public class SA_ItemData : ScriptableObject
     [SerializeField]
     private List<int> equiped_item_count;
     public List<int> Equiped_Item_Count { get { return equiped_item_count;} }
-    
+
     public void UseEquipedItem(int num)
     {
         if (equiped_item_count[num] == 1)
@@ -28,11 +28,25 @@ public class SA_ItemData : ScriptableObject
         {
             equiped_item_count[num] -= 1;
         }
+        Save();
     }
 
     public void Equip_Item(int num, ItemDataObject item, int count)
     {
         equiped_item[num] = item;
         equiped_item_count[num] = count;
+        Save();
+    }
+
+    public void Save()
+    {
+        ES3.Save<List<ItemDataObject>>(name + "_Equiped_Item", equiped_item);
+        ES3.Save(name + "_Equiped_ItemCount", equiped_item_count);
+    }
+
+    public void Load()
+    {
+        equiped_item = ES3.Load<List<ItemDataObject>>(name + "_Equiped_Item");
+        equiped_item_count = ES3.Load<List<int>>(name + "_Equiped_ItemCount");
     }
 }

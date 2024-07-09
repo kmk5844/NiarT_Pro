@@ -8,6 +8,7 @@ public class ItemDirector : MonoBehaviour
     UseItem useitem;
     private void Start()
     {
+        itemData.Load();
         useitem = GetComponent<UseItem>();
     }
 

@@ -11,11 +11,4 @@ public class Info_LevelCost
     public int Cost_Level_Train_MaxSpeed;
     public int Cost_Level_Train_Armor;
     public int Cost_Level_Train_Efficient;
-    public int Cost_Level_Mercenary_Engine_Driver;
-    public int Cost_Level_Mercenary_Engineer;
-    public int Cost_Level_Mercenary_Long_Ranged;
-    public int Cost_Level_Mercenary_Short_Ranged;
-    public int Cost_Level_Mercenary_Medic;
-    public int Cost_Level_Mercenary_Bard;
-    public int Cost_Level_Mercenary_CowBoy;
 }
