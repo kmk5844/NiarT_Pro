@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Station_ItemData : MonoBehaviour
 {
+    public static bool itemChangeFlag;
     public SA_ItemList SA_ItemList;
     public SA_ItemData SA_Player_ItemData;
 
@@ -96,23 +97,38 @@ public class Station_ItemData : MonoBehaviour
     {
         if (item.Item_Type == Information_Item_Type.Equipment)
         {
-            Equipment_Inventory_ItemList.Add(item);
+            if (!Equipment_Inventory_ItemList.Find(x => x == item))
+            {
+                Equipment_Inventory_ItemList.Add(item);
+            }
         }
         if (item.Item_Type == Information_Item_Type.Inventory)
         {
-            Common_Inventory_ItemList.Add(item);
+            if(!Common_Inventory_ItemList.Find(x => x == item))
+            {
+                Common_Inventory_ItemList.Add(item);
+            }
         }
         if (item.Item_Type == Information_Item_Type.Box)
         {
-            Box_Inventory_ItemList.Add(item);
+            if(!Box_Inventory_ItemList.Find(x => x == item))
+            {
+                Box_Inventory_ItemList.Add(item);
+            }
         }
         if (item.Item_Type == Information_Item_Type.Material)
         {
-            Material_Inventory_ItemList.Add(item);
+            if(!Material_Inventory_ItemList.Find(x =>x == item))
+            {
+                Material_Inventory_ItemList.Add(item);
+            }
         }
         if (item.Item_Type == Information_Item_Type.Quset)
         {
-            Quest_Inventory_ItemList.Add(item);
+            if(!Quest_Inventory_ItemList.Find(x => x == item))
+            {
+                Quest_Inventory_ItemList.Add(item);
+            }
         }
 
         if (item.Sell_Flag)
@@ -147,6 +163,14 @@ public class Station_ItemData : MonoBehaviour
         if (item.Sell_Flag)
         {
             Store_Sell_itemList.Remove(item);
+        }
+    }
+
+    public void Check_ItemChangeFlag()
+    {
+        if (!itemChangeFlag)
+        {
+            itemChangeFlag = true;
         }
     }
 }

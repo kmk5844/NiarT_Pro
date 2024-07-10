@@ -131,10 +131,7 @@ public class Station_Store : MonoBehaviour
         Turret_Store_Num = trainData.Train_Turret_Store_Num;
         Booster_Store_Num = trainData.Train_Booster_Store_Num;
         Mercenary_Store_Num = mercenaryData.Mercenary_Store_Num;
-        {
-            Item_Count_Window.SetActive(false);
-            Button_ItemCount_Init();
-        }
+        Item_Count_Window.SetActive(false);
         //기차 스토어 토글
         StoreTrainList_ToggleStart();
         StoreTrainList_Toggle_Init();
@@ -787,7 +784,7 @@ public class Station_Store : MonoBehaviour
                     Instantiate(ItemSellList_Object, Item_Sell_Window.transform);
                 }
             }
-            inventory_director.Check_ItemList(true, item);
+            itemData.Check_ItemChangeFlag();
             Close_Buy_Window();
         }
         else
@@ -808,6 +805,15 @@ public class Station_Store : MonoBehaviour
         }
     }
 
+    public void Director_Init_ItemSell()
+    {
+        foreach(ItemSell_Object item in Item_Sell_Window.GetComponentsInChildren<ItemSell_Object>())
+        {
+            Destroy(item.gameObject);
+        }
+        Check_Init_ItemSell();
+    }
+
     private void Store_Sell_Item(ItemDataObject item)
     {
         playerData.Player_Get_Coin(item.Item_Sell_Pride * item_Count);
@@ -823,6 +829,7 @@ public class Station_Store : MonoBehaviour
                 }
             }
         }
+        itemData.Check_ItemChangeFlag();
         Close_Buy_Window();
     }
 
@@ -859,9 +866,9 @@ public class Station_Store : MonoBehaviour
         Check_Buy_Panel_Num = 2;
         Check_Buy_Panel.SetActive(true);
         Item_Count_Window.SetActive(true);
-        Button_ItemCount_Init();
         if (Flag)
         {
+            Button_ItemCount_Init(true, item);
             Check_Buy_Text.text = item.Item_Name + "을(를) 구매하시겠습니까?";
             Button_ItemCount_Plus.onClick.AddListener(() => Click_ItemCount_Plus(item));
             Button_ItemCount_Minus.onClick.AddListener(() => Click_ItemCount_Minus(item));
@@ -869,6 +876,7 @@ public class Station_Store : MonoBehaviour
         }
         else
         {
+            Button_ItemCount_Init(false, item);
             Check_Buy_Text.text = item.Item_Name + "을(를) 판매하시겠습니까?";
             Button_ItemCount_Plus.onClick.AddListener(() => Click_ItemCount_Plus(item));
             Button_ItemCount_Minus.onClick.AddListener(() => Click_ItemCount_Minus(item));
@@ -955,12 +963,26 @@ public class Station_Store : MonoBehaviour
         }
     }
 
-    public void Button_ItemCount_Init()
+    public void Button_ItemCount_Init(bool Flag,ItemDataObject item)
     {
         item_Count = 1;
         Item_Count_Text.text = item_Count.ToString();
         Button_ItemCount_Minus.interactable = false;
-        Button_ItemCount_Plus.interactable = true;
+        if (Flag)
+        {
+            Button_ItemCount_Plus.interactable = true;
+        }
+        else
+        {
+            if (item.Item_Count <= 1)
+            {
+                Button_ItemCount_Plus.interactable = false;
+            }
+            else
+            {
+                Button_ItemCount_Plus.interactable = true;
+            }
+        }
     }
 
 

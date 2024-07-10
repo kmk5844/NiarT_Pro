@@ -120,7 +120,6 @@ public class Station_Inventory : MonoBehaviour
 
     public void Check_ItemList(bool Flag, ItemDataObject item, int addnum = 1)
     {
-        Debug.Log(item);
         int num = 0;
         if (item.Item_Type == Information_Item_Type.Equipment)
         {
@@ -150,6 +149,7 @@ public class Station_Inventory : MonoBehaviour
             {
                 Data_ItemList.Plus_Inventory_Item(item);
                 Instantiate(ItemObject, Transform_ItemList[num]);
+                Debug.Log(Transform_ItemList[num]);
             }
             else
             {
@@ -177,9 +177,10 @@ public class Station_Inventory : MonoBehaviour
                 }
             }
         }
+        Data_ItemList.Check_ItemChangeFlag();
     }
-    
-    
+
+
     public void UseItemStatus_NoButton()
     {
         Item_UseStatus_WindowObject.SetActive(false);
@@ -210,6 +211,31 @@ public class Station_Inventory : MonoBehaviour
 
     public void Director_Init_Inventory()
     {
+        foreach (ItemList_Object _itemObejct in Transform_ItemList[0].GetComponentsInChildren<ItemList_Object>())
+        {
+            Destroy(_itemObejct.gameObject);
+        }
+        foreach (ItemList_Object _itemObejct in Transform_ItemList[1].GetComponentsInChildren<ItemList_Object>())
+        {
+            Destroy(_itemObejct.gameObject);
+        }
+        foreach (ItemList_Object _itemObejct in Transform_ItemList[2].GetComponentsInChildren<ItemList_Object>())
+        {
+            Destroy(_itemObejct.gameObject);
+        }
+        foreach (ItemList_Object _itemObejct in Transform_ItemList[3].GetComponentsInChildren<ItemList_Object>())
+        {
+            Destroy(_itemObejct.gameObject);
+        }
+        foreach (ItemList_Object _itemObejct in Transform_ItemList[4].GetComponentsInChildren<ItemList_Object>())
+        {
+            Destroy(_itemObejct.gameObject);
+        }
 
+
+        for (int i = 0; i < Transform_ItemList.Count; i++)
+        {
+            Spawn_Item(i);
+        }
     }
 }

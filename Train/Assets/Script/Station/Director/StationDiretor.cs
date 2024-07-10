@@ -435,6 +435,12 @@ public class StationDirector : MonoBehaviour
         Director_Store.Director_Init_MercenaryBuy();
         Director_Fortress.Director_Init_MercenaryUpgrade();
         Director_Fortress.Director_Init_MercenaryPosition();
-        Director_Inventory.Director_Init_Inventory();
+        if (Station_ItemData.itemChangeFlag)
+        {
+            Director_Store.Director_Init_ItemSell();
+            Director_Inventory.Director_Init_Inventory();
+            Director_GameStart.Director_Init_EquipItem();
+            Station_ItemData.itemChangeFlag = false;
+        }
     }
 }

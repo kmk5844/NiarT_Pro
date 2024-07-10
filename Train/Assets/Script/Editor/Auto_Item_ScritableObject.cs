@@ -20,6 +20,11 @@ public class Auto_Item_ScritableObject : EditorWindow
             DeleteAllFilesInFolder();
             CreatObjectsFromList();
         }
+
+        if(GUILayout.Button("Init Auto Item"))
+        {
+            Init_ItemCount();
+        }
     }
 
     public Game_DataTable DataTable;
@@ -65,6 +70,15 @@ public class Auto_Item_ScritableObject : EditorWindow
             SA_ItemList.ItemList_InsertObject(itemObject);
         }
         UnityEditor.EditorUtility.SetDirty(SA_ItemList);
+    }
+
+    void Init_ItemCount()
+    {
+        foreach(ItemDataObject item in SA_ItemList.Item)
+        {
+            item.Init();
+            UnityEditor.EditorUtility.SetDirty(item);
+        }
     }
 
     Information_Item_Type CheckItemType(string itemtype)

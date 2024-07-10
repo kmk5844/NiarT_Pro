@@ -75,12 +75,12 @@ SpriteRenderer:
   m_SortingLayerID: 1130603629
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1184640271, guid: 785cf5441ce7efb47a4d18ead6c24353, type: 3}
+  m_Sprite: {fileID: 945919822, guid: 18b85a5995ef7ee4d9f152289d31f138, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 9.8, y: 3.78}
+  m_Size: {x: 10.08, y: 3.62}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -118,18 +118,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -1.4}
+  m_Offset: {x: -0.55, y: -1.3}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 9.8, y: 3.78}
-    newSize: {x: 9.8, y: 3.78}
+    oldSize: {x: 10.08, y: 3.62}
+    newSize: {x: 10.08, y: 3.62}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 9.8, y: 0.25}
+  m_Size: {x: 9, y: 0.25}
   m_EdgeRadius: 0
 --- !u!114 &5255340509325488579
 MonoBehaviour:
@@ -266,9 +266,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trainData: {fileID: 11400000, guid: 3a83740cb85032c498c0bbd5b0a2ec9d, type: 2}
-  TrainNum: 2
-  Train_Name: 
+  Train_Num: 0
+  Train_Num2: 0
   Train_HP: 0
+  Max_Train_HP: 0
   Train_Weight: 0
   Train_Armor: 0
   Train_Type: 
@@ -278,9 +279,12 @@ MonoBehaviour:
   Train_Fuel: 0
   Train_Attack: 0
   Train_Attack_Delay: 0
+  Train_WarningSpeed: 0
+  Train_BoosterFuel: 0
+  Train_UseFuel: 0
+  Train_BoosterSpeedUP: 0
+  Train_BoosterTime: 0
   Train_Heal: 0
-  HP_Arrow: {fileID: 4447503681436904296}
-  cur_HP: 0
   isReparing: 0
   isRepairable: 0
   def_constant: 100
@@ -288,6 +292,7 @@ MonoBehaviour:
   Heal_timeBet: 0
   isHealing: 0
   openMedicTrian: 0
+  gameDirector: {fileID: 0}
 --- !u!1 &8169988276266197549
 GameObject:
   m_ObjectHideFlags: 0

@@ -119,6 +119,17 @@ public class ItemDataObject : ScriptableObject
     {
         item_count = ES3.Load(name + "_ItemCount", Item_Count);
     }
+
+    public void Init()
+    {
+        item_count = 0;
+        ES3.Save(name + "_ItemCount", item_count);
+    }
+
+    private void OnValidate()
+    {
+        ES3.Save(name + "_ItemCount", item_count);
+    }
 }
 
 public enum Information_Item_Type { 

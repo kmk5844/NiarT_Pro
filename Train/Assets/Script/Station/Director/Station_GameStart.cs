@@ -116,10 +116,10 @@ public class Station_GameStart : MonoBehaviour
     public void Open_ItemCountWindow(ItemDataObject item)
     {
         Item_Count = 1;
-        CheckCount();
         CountText.text = Item_Count.ToString();
         itemObject_Count = item.Item_Count;
         Max_Count = item.Max_Equip;
+        CheckCount();
         MaxText.text = "Max : " + Max_Count;
         ItemCount_Window.SetActive(true);
         Button_Equip.onClick.AddListener(() => Equip_Item(item));
@@ -209,5 +209,15 @@ public class Station_GameStart : MonoBehaviour
                 Button_Plus.interactable = true;
             }
         }
+    }
+
+    public void Director_Init_EquipItem()
+    {
+        foreach(ItemEquip_Object _item in ItemList_Window.GetComponentsInChildren<ItemEquip_Object>())
+        {
+            Destroy(_item.gameObject);
+        }
+
+        Spawn_Item();
     }
 }
