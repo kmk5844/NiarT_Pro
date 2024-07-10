@@ -314,12 +314,12 @@ public class GameDirector : MonoBehaviour
             if (i == 0)
             {
                 //¿£ÁøÄ­
-                TrainObject.transform.position = new Vector3(-0.57f, 0.35f, 0);
+                TrainObject.transform.position = new Vector3(-0.43f, 0.27f, 0);
             }
             else
             {
                 //³ª¸ÓÁöÄ­
-                TrainObject.transform.position = new Vector3(-10.94f * i, 0.35f, 0);
+                TrainObject.transform.position = new Vector3(-10.94f * i, 0.27f, 0);
             }
             
             Train_InGame train = TrainObject.GetComponent<Train_InGame>();

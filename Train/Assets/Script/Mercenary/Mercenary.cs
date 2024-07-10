@@ -87,9 +87,9 @@ public class Mercenary : MonoBehaviour
         Item_Refresh_Delay = 0f;
         Item_workCount_UP = 0;
         Move_X = 1f;
-        MaxMove_X = 4f;
+        MaxMove_X = 3f;
         MinMove_X = -10.94f * (TrainCount - 1) - 5f;
-        Move_Y = -0.95f;
+        Move_Y = -0.94f;
         transform.position = new Vector2(Random.Range(MinMove_X, MaxMove_X), Move_Y);
         Unit_Scale = transform.GetChild(0);
         Unit_Scale_X = Unit_Scale.localScale.x;

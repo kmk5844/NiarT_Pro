@@ -112,23 +112,21 @@ public class ItemDataObject : ScriptableObject
 
     public void Save()
     {
-        ES3.Save(name + "_ItemCount", item_count);
+        string save_itemName = name + "_ItemCount";
+        ES3.Save(save_itemName, item_count);
     }
 
     public void Load()
     {
-        item_count = ES3.Load(name + "_ItemCount", Item_Count);
+        string save_itemName = name + "_ItemCount";
+        item_count = ES3.Load(save_itemName, Item_Count);
     }
 
     public void Init()
     {
         item_count = 0;
-        ES3.Save(name + "_ItemCount", item_count);
-    }
-
-    private void OnValidate()
-    {
-        ES3.Save(name + "_ItemCount", item_count);
+        string save_itemName = name + "_ItemCount";
+        ES3.Save(save_itemName, item_count);
     }
 }
 

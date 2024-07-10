@@ -17,7 +17,8 @@ public class Train_InGame : MonoBehaviour
 
     [Header("선택된 기차 정보")]
     public int Train_HP; //현재체력
-    float HP_Parsent;
+    [HideInInspector]
+    public float HP_Parsent;
     [HideInInspector]
     public int Max_Train_HP;
     public int Train_Weight;
@@ -59,7 +60,9 @@ public class Train_InGame : MonoBehaviour
     [HideInInspector]
     public GameObject gameDirector;
 
-    // Start is called before the first frame update
+    //UI부분
+    bool WarningFlag;
+
     private void Awake()
     {
         openMedicTrian = false;

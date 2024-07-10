@@ -43,10 +43,19 @@ public class SA_ItemData : ScriptableObject
         ES3.Save<List<ItemDataObject>>(name + "_Equiped_Item", equiped_item);
         ES3.Save(name + "_Equiped_ItemCount", equiped_item_count);
     }
-
     public void Load()
     {
         equiped_item = ES3.Load<List<ItemDataObject>>(name + "_Equiped_Item");
         equiped_item_count = ES3.Load<List<int>>(name + "_Equiped_ItemCount");
+    }
+
+    public void Init()
+    {
+        for(int i = 0; i < equiped_item.Count; i++)
+        {
+            equiped_item[i] = EmptyObject;
+            equiped_item_count[i] = 0;
+        }
+        Save();
     }
 }
