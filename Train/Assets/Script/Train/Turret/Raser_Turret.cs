@@ -8,6 +8,7 @@ public class Raser_Turret : Turret
     bool Fire_Flag;
     Transform Target;
     public GameObject raser;
+    float Data_Attack_Delay;
     float train_Attacking_Delay;
     public float Z;
     
@@ -18,7 +19,9 @@ public class Raser_Turret : Turret
         train_Rotation_Delay = 0.05f;
 
         Target_Flag = false;
+        raser = transform.GetChild(0).gameObject;
         raser.GetComponent<Bullet>().atk = trainData.Train_Attack;
+        Data_Attack_Delay = train_Attack_Delay;
         train_Attacking_Delay = 4;
         lastTime = Time.time + 12;
     }
@@ -51,10 +54,11 @@ public class Raser_Turret : Turret
 
             if (Fire_Flag)
             {
-                if ((Time.time >= lastTime + train_Attacking_Delay))
+                if ((Time.time >= lastTime + train_Attack_Delay))
                 {
                     raser.SetActive(false);
                     Fire_Flag = false;
+                    train_Attack_Delay = Data_Attack_Delay;
                     lastTime = Time.time;
                 }
             }
@@ -73,10 +77,34 @@ public class Raser_Turret : Turret
                     transform.rotation = Quaternion.Euler(0, 0, rotZ);
                 }
 
-                if((Time.time >= lastTime + (train_Attack_Delay - Item_Attack_Delay)))
+                if ((Time.time >= lastTime + (train_Attack_Delay - Item_Attack_Delay)))
                 {
                     raser.SetActive(true);
                     Fire_Flag = true;
+                    train_Attack_Delay = train_Attacking_Delay;
+                    lastTime = Time.time;
+                }
+            }
+        }
+        else
+        {
+            if (Fire_Flag)
+            {
+                if ((Time.time >= lastTime + train_Attack_Delay))
+                {
+                    raser.SetActive(false);
+                    Fire_Flag = false;
+                    train_Attack_Delay = Data_Attack_Delay;
+                    lastTime = Time.time;
+                }
+            }
+            else
+            {
+                if ((Time.time >= lastTime + (train_Attack_Delay - Item_Attack_Delay)))
+                {
+                    raser.SetActive(true);
+                    Fire_Flag = true;
+                    train_Attack_Delay = train_Attacking_Delay;
                     lastTime = Time.time;
                 }
             }

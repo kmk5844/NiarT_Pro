@@ -1,3 +1,4 @@
+using MoreMountains.Feel;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,37 +6,47 @@ using UnityEngine;
 public class Intercept_Flare_Turret : Turret
 {
     public Transform BulletObject;
-    public float max_X;
-    public float min_X;
-    public float max_Y;
-    Vector3 RandomPos;
-    bool BulletFlag;
+    GameObject[] Flare_List;
 
     protected override void Start()
     {
         base.Start();
+        Flare_List = new GameObject[transform.childCount];
+
+        for(int i = 0; i < transform.childCount; i++)
+        {
+            Flare_List[i] = transform.GetChild(i).gameObject;
+        }
     }
 
     private void Update()
     {
-        if (!BulletFlag)
+        BulletFire();
+    }
+
+    void BulletFire()
+    {
+        if (Time.time >= lastTime + (train_Attack_Delay - Item_Attack_Delay))
         {
-            StartCoroutine(BulletFire());
+            int Random_X = Random.Range(0, Flare_List.Length);
+            StartCoroutine(Flare_Opne_And_Close(Random_X));
+            lastTime = Time.time;
         }
     }
 
-    IEnumerator BulletFire()
+    IEnumerator Flare_Opne_And_Close(int num)
     {
-        BulletFlag = true;
-        yield return  new WaitForSeconds((train_Attack_Delay - Item_Attack_Delay));
-        float Random_X = Random.Range(min_X, max_X);
-        RandomPos = new Vector3(transform.position.x + Random_X, transform.position.y + max_Y, 0);
-        Instantiate(BulletObject, RandomPos, transform.rotation, Bullet_List);
-        BulletFlag = false;
-    }
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.white;
-        Gizmos.DrawLine(new Vector2(transform.position.x + min_X, transform.position.y + max_Y), new Vector2(transform.position.x + max_X, transform.position.y + max_Y));
+        while (Flare_List[num].transform.localEulerAngles.z <= 120)
+        {
+            Flare_List[num].transform.Rotate(new Vector3(0, 0, 300f * Time.deltaTime));
+            yield return null;
+        }
+        Instantiate(BulletObject, Flare_List[num].transform.position, transform.rotation, Bullet_List);
+        yield return new WaitForSeconds(0.5f);
+        while (Flare_List[num].transform.localEulerAngles.z  >= 1)
+        {
+            Flare_List[num].transform.Rotate(new Vector3(0, 0, -300f * Time.deltaTime));
+            yield return null;
+        }
     }
 }

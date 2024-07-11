@@ -11,10 +11,11 @@ public class Auto_Item_ScritableObject : EditorWindow
     {
         EditorWindow.GetWindow(typeof(Auto_Item_ScritableObject));
     }
+    string itemCount = "";
 
     private void OnGUI()
     {
-        if(GUILayout.Button("Create Auto Item"))
+        if (GUILayout.Button("Create Auto Item"))
         {
             SA_ItemList.ItemList_Init();
             DeleteAllFilesInFolder();
@@ -24,6 +25,19 @@ public class Auto_Item_ScritableObject : EditorWindow
         if(GUILayout.Button("Init Auto Item"))
         {
             Init_ItemCount();
+        }
+
+        GUILayout.BeginHorizontal();
+        {
+            GUILayout.Label("아이템 개수 적어주세요");
+            itemCount = EditorGUILayout.TextField(itemCount, GUILayout.Width(200));
+        }
+        GUILayout.EndHorizontal();
+
+        if (GUILayout.Button("Count Auto Item"))
+        {
+            Init_ItemCount();
+            Add_ItemCount(itemCount);
         }
     }
 
@@ -77,6 +91,16 @@ public class Auto_Item_ScritableObject : EditorWindow
         foreach(ItemDataObject item in SA_ItemList.Item)
         {
             item.Init();
+            UnityEditor.EditorUtility.SetDirty(item);
+        }
+    }
+
+    void Add_ItemCount(string count_s)
+    {
+        int count = int.Parse(count_s);
+        foreach (ItemDataObject item in SA_ItemList.Item)
+        {
+            item.Item_Count_UP(count);
             UnityEditor.EditorUtility.SetDirty(item);
         }
     }

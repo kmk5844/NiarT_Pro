@@ -43,7 +43,9 @@ public class Train_InGame : MonoBehaviour
     public int Train_BoosterSpeedUP;
     public int Train_BoosterTime;
     //ÀÇ¹«½Ç
-    public int Train_Heal;
+    public float Train_Heal;
+    [HideInInspector]
+    public float Max_Train_Heal;
     
     public bool isReparing;
     public bool isRepairable;
@@ -195,6 +197,7 @@ public class Train_InGame : MonoBehaviour
                 break;
             case "Medic":
                 Train_Heal = trainData.Information_Train[Train_Num].Train_Heal;
+                Max_Train_Heal = Train_Heal;
                 break;
         }
     }

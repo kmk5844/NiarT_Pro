@@ -8,6 +8,9 @@ public class Arrow_Turret : Turret
     public Transform FireObject;
     public Transform BulletObject;
     public Transform BulletObject_Fire;
+
+    public GameObject ArrowObject;
+    Vector3 ArrowOriginPosition;
     Transform Target;
     public float Z;
 
@@ -21,6 +24,8 @@ public class Arrow_Turret : Turret
         Target_Flag = false;
         BulletObject.GetComponent<Bullet>().atk = trainData.Train_Attack;
         BulletObject_Fire.GetComponent<Bullet>().atk = trainData.Train_Attack;
+
+        ArrowOriginPosition = ArrowObject.transform.localPosition;
     }
 
     private void Update()
@@ -64,11 +69,31 @@ public class Arrow_Turret : Turret
             }
             BulletFire();
         }//Target_Flag가 false라면 되돌아가는 코드
+
+
+        if (ArrowObject.activeSelf)
+        {
+            if(ArrowOriginPosition.x > ArrowObject.transform.localPosition.x)
+            {
+                ArrowObject.transform.Translate(1f * Time.deltaTime, 0, 0);
+            }
+        }
     }
 
     void BulletFire()
     {
         int Random_Arrow = Random.Range(0, 11);
+        if (Time.time >= lastTime + (train_Attack_Delay - Item_Attack_Delay) - 3)
+        {
+            ArrowObject.SetActive(true);
+        }
+        else
+        {
+            ArrowObject.SetActive(false);
+            ArrowObject.transform.localPosition =
+                new Vector3(ArrowOriginPosition.x - 0.5f, 0, 0);
+        }
+
         if (Time.time >= lastTime + (train_Attack_Delay - Item_Attack_Delay))
         {
             if(Random_Arrow == 10 || Random_Arrow == 5)

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Ballon_Bomb : MonoBehaviour
 {
+    public GameObject Ballon_Sprite;
     Balloon_TurretBullet Ballon;
     bool bomb_flag;
     void Start()
@@ -30,6 +31,7 @@ public class Ballon_Bomb : MonoBehaviour
 
         gameObject.GetComponentInParent<SpriteRenderer>().enabled = false;
         //여기서 폭탄 애니메이션 
+        Destroy(Ballon_Sprite);
         Destroy(Ballon.gameObject, 2f);
     }
 }

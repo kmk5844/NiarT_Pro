@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -7,11 +8,8 @@ public class BombBalloon_Turret : Turret
 {
     public Transform BulletObject;
     Transform Balloon_List; // Bullet에 넣어도 되지만, 풍선은 따로 제한해야되기 때문에 Ballon으로 이용.
-    bool BallonFlag;
-    public float max_X;
-    public float min_X;
-    public float max_Y;
-    Vector3 RandomPos;
+    GameObject[] Orc_List;
+    int BeforeRandomNum;
 
     protected override void Start()
     {
@@ -20,31 +18,41 @@ public class BombBalloon_Turret : Turret
         Balloon_List = GameObject.Find("Balloon_List").GetComponent<Transform>();
         BulletObject.GetComponent<Bullet>().atk = trainData.Train_Attack;
         train_Attack_Delay = trainData.Train_Attack_Delay;
+
+        Orc_List = new GameObject[transform.childCount];
+
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            Orc_List[i] = transform.GetChild(i).gameObject;
+        }
     }
     void Update()
     {
-        if(Balloon_List.childCount < 2)
+        if (!Orc_List[BeforeRandomNum].activeSelf)
         {
-            if (!BallonFlag)
+            if (Time.time >= lastTime + (train_Attack_Delay - Item_Attack_Delay) - 3)
             {
-                StartCoroutine(BulletFire());
+                Orc_List[BeforeRandomNum].SetActive(true);
             }
+        }
+
+        if (Balloon_List.childCount < 2)
+        {
+            BulletFire();
         }
     }
 
-    IEnumerator BulletFire()
+    void BulletFire()
     {
-        BallonFlag = true;
-        yield return new WaitForSeconds((train_Attack_Delay - Item_Attack_Delay));
-        float Random_X = Random.Range(min_X, max_X);
-        RandomPos = new Vector3(transform.position.x + Random_X, transform.position.y + max_Y, 0);
-        Instantiate(BulletObject, RandomPos, transform.rotation, Balloon_List);
-        BallonFlag = false;
-    }
+        int Random_X = Random.Range(0, Orc_List.Length);
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.white;
-        Gizmos.DrawLine(new Vector2(transform.position.x + min_X, transform.position.y + max_Y), new Vector2(transform.position.x + max_X, transform.position.y + max_Y));
+        if (Time.time >= lastTime + (train_Attack_Delay - Item_Attack_Delay))
+        {
+            Orc_List[Random_X].SetActive(false);
+            Instantiate(BulletObject, Orc_List[Random_X].transform.position, transform.rotation, Balloon_List);
+            lastTime = Time.time;
+        }
+
+        BeforeRandomNum = Random_X;
     }
 }

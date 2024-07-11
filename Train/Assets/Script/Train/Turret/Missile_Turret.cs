@@ -31,7 +31,35 @@ public class Missile_Turret : Turret
         {
             BulletFire();
         }
+        RotateTurret(Target_Flag);
     }
+
+    void RotateTurret(bool Flag)
+    {
+        if (Flag)
+        {
+            if(transform.rotation.eulerAngles.z < 20)
+            {
+                transform.Rotate(new Vector3(0, 0, 0.25f));
+            }
+            else
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 20);
+            }
+        }
+        else
+        {
+            if(transform.rotation.eulerAngles.z <= 1)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 1);
+            }
+            else
+            {
+                transform.Rotate(new Vector3(0, 0, -0.25f));
+            }
+        }
+    }
+
 
     void BulletFire()
     {
@@ -52,6 +80,5 @@ public class Missile_Turret : Turret
                 Target = collision.transform;
             }
         }
-
     }
 }

@@ -373,7 +373,7 @@ public class Station_Store : MonoBehaviour
         {
             Turret_Toggle[i].isOn = false;
         }
-        ScrollRect_Turret.normalizedPosition = Vector2.zero;
+        ScrollRect_Turret.normalizedPosition = Vector2.up;
     }
     private void Turret_ToggleStart()
     {
@@ -487,7 +487,7 @@ public class Station_Store : MonoBehaviour
         {
             Booster_Toggle[i].isOn = false;
         }
-        ScrollRect_Booster.normalizedPosition = Vector2.zero;
+        ScrollRect_Booster.normalizedPosition = Vector2.up;
     }
     private void Booster_ToggleStart()
     {
@@ -889,10 +889,14 @@ public class Station_Store : MonoBehaviour
         Check_Buy_Panel.SetActive(false);
         if (Check_Buy_Panel_Num == 0)
         {
-            if(Store_Train_Num == 0)
+            if (Store_Train_Num == 0)
             {
                 Buy_YesButton.onClick.RemoveListener(Store_Buy_TrainCard);
-            }else if(Store_Train_Num == 1)
+            } else if (Store_Train_Num == 1) 
+            {
+                Buy_YesButton.onClick.RemoveListener(Store_Buy_TurretCard);
+            }
+            else if (Store_Train_Num == 2)
             {
                 Buy_YesButton.onClick.RemoveListener(Store_Buy_BoosterCard);
             }

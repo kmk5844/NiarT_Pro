@@ -25,12 +25,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2168190201035853324}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.4, y: 0.12, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.45, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 449558065492059124}
+  m_Father: {fileID: 1034916800130208770}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1130201010644849115
 SpriteRenderer:
@@ -115,10 +115,6 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1034916800130208770}
-  - {fileID: 959225533243452201}
-  - {fileID: 7916261691983141819}
-  - {fileID: 5590190899306026241}
-  - {fileID: 6798878346914717174}
   m_Father: {fileID: 5205291665666521567}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3443332252866469694
@@ -226,6 +222,7 @@ MonoBehaviour:
   Train_Num: 0
   Train_Num2: 0
   Train_HP: 0
+  HP_Parsent: 0
   Max_Train_HP: 0
   Train_Weight: 0
   Train_Armor: 0
@@ -242,9 +239,10 @@ MonoBehaviour:
   Train_BoosterSpeedUP: 0
   Train_BoosterTime: 0
   Train_Heal: 0
+  Max_Train_Heal: 0
   isReparing: 0
   isRepairable: 0
-  def_constant: 0
+  def_constant: 100
   Heal_Amount: 0
   Heal_timeBet: 0
   isHealing: 0
@@ -275,12 +273,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3780805646712526560}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.2, y: 0.12, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.1500001, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 449558065492059124}
+  m_Father: {fileID: 1034916800130208770}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6517311103759694263
 SpriteRenderer:
@@ -364,7 +362,11 @@ Transform:
   m_LocalPosition: {x: 0.05, y: 0.12, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 959225533243452201}
+  - {fileID: 7916261691983141819}
+  - {fileID: 5590190899306026241}
+  - {fileID: 6798878346914717174}
   m_Father: {fileID: 449558065492059124}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6622176540045903208
@@ -432,9 +434,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BulletObject: {fileID: 2284520680175412986, guid: f5b40bb29ad53864883bbf5f85cd9636, type: 3}
-  max_X: 3.1
-  min_X: -3.3
-  max_Y: -0.3
 --- !u!1 &7068885211573969688
 GameObject:
   m_ObjectHideFlags: 0
@@ -603,12 +602,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7270043025830832818}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.2, y: 0.12, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.25, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 449558065492059124}
+  m_Father: {fileID: 1034916800130208770}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7901326632153554492
 SpriteRenderer:
@@ -750,12 +749,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9133105182782876778}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.4, y: 0.12, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.35, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 449558065492059124}
+  m_Father: {fileID: 1034916800130208770}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1188973838836584506
 SpriteRenderer:

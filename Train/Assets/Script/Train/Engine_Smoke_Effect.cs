@@ -6,6 +6,7 @@ using static UnityEngine.ParticleSystem;
 public class Engine_Smoke_Effect : MonoBehaviour
 {
     public GameObject ParticleObject;
+    GameDirector gameDirector;
     ParticleSystem Particle;
     private ParticleSystem.MainModule mainModule;
 
@@ -15,6 +16,7 @@ public class Engine_Smoke_Effect : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameDirector = GameObject.Find("GameDirector").GetComponent<GameDirector>();
         Particle = ParticleObject.GetComponent<ParticleSystem>();
         mainModule = Particle.main;
     }
@@ -22,11 +24,11 @@ public class Engine_Smoke_Effect : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MaxSpeed = GetComponent<GameDirector>().MaxSpeed;
-        Speed = GetComponent<GameDirector>().TrainSpeed;
+        MaxSpeed = gameDirector.MaxSpeed;
+        Speed = gameDirector.TrainSpeed;
         UpdateStartLifeTime();
         UpdateVelocityOverLifeTime();
-        if(GetComponent<GameDirector>().gameType == GameType.Ending)
+        if(gameDirector.gameType == GameType.Ending)
         {
             ChangeColor();
         }

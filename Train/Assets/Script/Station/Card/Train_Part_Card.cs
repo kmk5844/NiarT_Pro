@@ -22,6 +22,8 @@ public class Train_Part_Card : MonoBehaviour
         trainData = TrainData_Object.GetComponent<Station_TrainData>();
         GetComponentInChildren<Toggle>().group = GetComponentInParent<ToggleGroup>();
 
+        Train_Part_Num = (Train_Part_Num / 10) * 10;
+
         if(Train_Type_Num == 51)
         {
             Train_Part_Image.sprite = Resources.Load<Sprite>("Sprite/Train/Train_51_" + Train_Part_Num);

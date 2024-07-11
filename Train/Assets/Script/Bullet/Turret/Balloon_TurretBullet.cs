@@ -5,12 +5,16 @@ using UnityEngine;
 
 public class Balloon_TurretBullet : Bullet
 {
-    float Random_X; // ÁÂ¿ì Èçµéµµ·Ï ÀÛ¾÷ ¿¹Á¤
+    float Ballon_Min_Z;
+    float Ballon_Max_Z;
+
     float Random_Y;
     public float maxY;
     public Transform monster_target;
     bool SpawnFlag;
 
+    public GameObject Ballon;
+    bool LR_BallonFlag;
     public GameObject Bomb;
 
     protected override void Start()
@@ -20,9 +24,40 @@ public class Balloon_TurretBullet : Bullet
         SpawnFlag = true;
         Random_Y = Random.Range(0f, 1f);
         rid.velocity =  Vector2.up * Speed;
+
+        Ballon_Min_Z = -0.1f;
+        Ballon_Max_Z = 0.1f;
+        LR_BallonFlag = true;
     }
     private void FixedUpdate()
     {
+        if(monster_target == null)
+        {
+            if (LR_BallonFlag)
+            {
+                Ballon.transform.Rotate(new Vector3(0, 0, -8f * Time.deltaTime));
+                if (Ballon.transform.localRotation.z < Ballon_Min_Z)
+                {
+                    LR_BallonFlag = false;
+                }
+            }
+            else
+            {
+                Ballon.transform.Rotate(new Vector3(0, 0, 8f * Time.deltaTime));
+                if (Ballon.transform.localRotation.z > Ballon_Max_Z)
+                {
+                    LR_BallonFlag = true;
+                }
+            }
+        }
+        else
+        {
+            if(Ballon != null)
+            {
+                Ballon.transform.localEulerAngles = Vector3.zero;
+            }
+        }
+
         if (SpawnFlag)
         {
             if (transform.position.y > maxY) {

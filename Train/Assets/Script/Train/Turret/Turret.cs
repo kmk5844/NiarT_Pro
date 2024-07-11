@@ -58,4 +58,11 @@ public class Turret : MonoBehaviour
             Debug.Log("rotation : " + (Item_Rotation_Delay + train_Rotation_Delay));
         }
     }
+
+    public float Bullet_Delay_Percent()
+    {
+        float elapsedTime = Time.time - lastTime;
+        float progress = Mathf.Clamp01(elapsedTime / (train_Attack_Delay - Item_Attack_Delay));
+        return progress;
+    }
 }

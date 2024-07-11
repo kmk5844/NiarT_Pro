@@ -34,8 +34,8 @@ public class UIDirector : MonoBehaviour
     [Header("Result UI 관련된 텍스트")]
     public TextMeshProUGUI[] Result_Text_List; //0. Stage, 1. Score, 2. Gold, 3. Rank 4. Point
     public Image Result_Image; //win or lose
-    Sprite Result_Win_Image;
-    Sprite Result_Lose_Image;
+    public Sprite Result_Win_Image;
+    public Sprite Result_Lose_Image;
 
     bool PauseFlag;
     bool OptionFlag;

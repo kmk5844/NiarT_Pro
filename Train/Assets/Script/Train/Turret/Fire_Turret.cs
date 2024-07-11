@@ -7,8 +7,12 @@ public class Fire_Turret : Turret
 {
     public GameObject Fire_Object;
     public GameObject Fire_Effect;
+    SpriteRenderer Fire_Turret_Image;
     ParticleSystem Particle;
     private ParticleSystem.MainModule mainModule;
+
+    float Data_Attack_Delay;
+    float train_Attacking_Delay;
 
     bool LR_Flag;
     public bool Attack_Flag;
@@ -21,9 +25,13 @@ public class Fire_Turret : Turret
         base.Start();
         rotation_TurretFlag = true;
         train_Rotation_Delay = 0.35f;
+        Fire_Turret_Image = GetComponent<SpriteRenderer>();
+
+        Data_Attack_Delay = train_Attack_Delay;
+        train_Attacking_Delay = 5;
 
         Change_Flag = false;
-        Attack_Flag = true; 
+        Attack_Flag = true;
         LR_Flag = true;
         Particle = Fire_Effect.GetComponent<ParticleSystem>();
         mainModule = Particle.main;
@@ -34,6 +42,7 @@ public class Fire_Turret : Turret
     // Update is called once per frame
     void FixedUpdate()
     {
+        Turret_Flip();
         Turret_Z = transform.rotation.eulerAngles.z;
 
         if (Turret_Z > Turret_Max_Z)
@@ -42,7 +51,7 @@ public class Fire_Turret : Turret
         }
         if (Turret_Z < Turret_Min_Z)
         {
-            LR_Flag |= true;
+            LR_Flag = true;
         }
 
         if (LR_Flag)
@@ -60,16 +69,18 @@ public class Fire_Turret : Turret
     void Fire_Check()
     {
         Fire_OnOff();
-        if (Time.time >= lastTime + 5 && Attack_Flag)
+        if (Time.time >= lastTime + train_Attack_Delay && Attack_Flag)
         {
             Attack_Flag = false;
-            Change_Flag = true; 
+            Change_Flag = true;
+            train_Attack_Delay = Data_Attack_Delay;
             lastTime = Time.time;
         }
-        else if(Time.time >= lastTime + (train_Attack_Delay - Item_Attack_Delay) && !Attack_Flag)
+        else if (Time.time >= lastTime + (train_Attack_Delay - Item_Attack_Delay) && !Attack_Flag)
         {
             Attack_Flag = true;
             Change_Flag = true;
+            train_Attack_Delay = train_Attacking_Delay;
             lastTime = Time.time;
         }
     }
@@ -88,7 +99,23 @@ public class Fire_Turret : Turret
                 Fire_Object.SetActive(false);
                 Particle.Stop();
             }
-            Change_Flag = false;        
+            Change_Flag = false;
+        }
+    }
+
+    void Turret_Flip()
+    {
+        if (transform.eulerAngles.z >= -90f && transform.eulerAngles.z < 90f)
+        {
+            Fire_Turret_Image.flipY = false;
+        }
+        else if (transform.eulerAngles.z >= 90f && transform.eulerAngles.z < 270f)
+        {
+            Fire_Turret_Image.flipY = true;
+        }
+        else
+        {
+            Fire_Turret_Image.flipY = false;
         }
     }
 

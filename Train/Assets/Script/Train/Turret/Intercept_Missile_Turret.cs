@@ -31,6 +31,7 @@ public class Intercept_Missile_Turret : Turret
         {
             BulletFire();
         }
+        RotateTurret(Target_Flag);
     }
 
     void BulletFire()
@@ -40,6 +41,32 @@ public class Intercept_Missile_Turret : Turret
             BulletObject.GetComponent<Missile_TurretBullet>().monster_target = Target;
             Instantiate(BulletObject, FireObject.position, FireObject.rotation, Bullet_List);
             lastTime = Time.time;
+        }
+    }
+
+    void RotateTurret(bool Flag)
+    {
+        if (Flag)
+        {
+            if (transform.rotation.eulerAngles.z < 20)
+            {
+                transform.Rotate(new Vector3(0, 0, 0.25f));
+            }
+            else
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 20);
+            }
+        }
+        else
+        {
+            if (transform.rotation.eulerAngles.z <= 1)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 1);
+            }
+            else
+            {
+                transform.Rotate(new Vector3(0, 0, -0.25f));
+            }
         }
     }
 

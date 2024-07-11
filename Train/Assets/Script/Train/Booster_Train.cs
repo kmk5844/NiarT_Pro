@@ -11,8 +11,9 @@ public class Booster_Train : MonoBehaviour
     public bool Corutine_BoosterFlag; //코루틴 전용 플래그
     float SpeedPercent;
     int WarningSpeed;   // -> %로 따짐. OO% 이하인 경우
-    int Data_BoosterFuel;    // 부스터 사용을 위한 저장하는 연료량
-    public int BoosterFuel;
+    public float BoosterFuel;
+    [HideInInspector]
+    public float Data_BoosterFuel;    // 부스터 사용을 위한 저장하는 연료량
     int UseFuel;        // 부스터 사용을 위한 연료 소모량
 
     int BoosterSpeedUP; // 연료가 바닥날 때까지 올린다.
