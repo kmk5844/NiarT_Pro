@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ItemList_Object : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class ItemList_Object : MonoBehaviour
     public bool item_use;
 
     [Header("정보 표시")]
+    public Image item_icon_object;
     public TextMeshProUGUI item_object_text_count;
     public ItemList_Tooltip item_tooltip_object;
 
@@ -27,6 +29,7 @@ public class ItemList_Object : MonoBehaviour
         item_information = item.Item_Information;
         item_count = item.Item_Count;
         item_use = item.Use_Flag;
+        item_icon_object.sprite = item.Item_Sprite;
         item_object_text_count.text = item_count.ToString();
     }
 

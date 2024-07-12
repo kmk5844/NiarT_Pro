@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class UseItem : MonoBehaviour
 {
+    ItemDirector itemDirector;
     public SA_ItemList itemList;
 
     [Header("영향받는 스크립트")]
@@ -12,13 +13,19 @@ public class UseItem : MonoBehaviour
     public MercenaryDirector mercenaryDirector;
     public MonsterDirector monsterDirector;
 
+    private void Start()
+    {
+        itemDirector = GetComponent<ItemDirector>();
+    }
+
     public void UseEquipItem(int num)
     {
         itemList.Item[num].Item_Count_Down();
+        itemDirector.Get_Supply_Item_Information(itemList.Item[num].Item_Sprite, itemList.Item[num].Item_Name, itemList.Item[num].Item_Information);
         switch (num)
         {
             case 0:
-                //용병 랜덤 부활
+                //용병 랜덤 부활;
                 break;
             case 1:
                 player.Item_Player_Heal_HP(10);
@@ -83,6 +90,7 @@ public class UseItem : MonoBehaviour
 
     public void Get_SupplyItem(int num)
     {
+        itemDirector.Get_Supply_Item_Information(itemList.Item[num].Item_Sprite, itemList.Item[num].Item_Name, itemList.Item[num].Item_Information);
         switch (num)
         {
             case 20:

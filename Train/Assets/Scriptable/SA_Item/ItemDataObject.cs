@@ -51,12 +51,10 @@ public class ItemDataObject : ScriptableObject
     private int max_equip;
     public int Max_Equip { get {  return max_equip; } }
 
-    /*
-    추가 예정
     [SerializeField]
     private Sprite item_sprite;
-    public Sprite Item_Sprite { get { retrun item_sprite; } }
-     */
+    public Sprite Item_Sprite { get { return item_sprite; } }
+
 
     [SerializeField]
     private int item_count;
@@ -82,7 +80,7 @@ public class ItemDataObject : ScriptableObject
         item_sell_pride = _sell_pride;
         supply_monster = _supply_monster;
         max_equip = _max_equip;
-        //item_sprite = ;
+        //item_sprite = Resources.Load<sprite>("~~");;
         item_count = _item_count;
     }
 

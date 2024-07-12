@@ -10,8 +10,6 @@ public class UIDirector : MonoBehaviour
 {
     public GameObject GameDirector_Object;
     GameDirector gamedirector;
-    public GameObject MercenaryDirector_Object;
-    MercenaryDirector mercenarydirector;
     Player player;
 
     [Header("전체적인 UI 오브젝트")]
@@ -30,6 +28,17 @@ public class UIDirector : MonoBehaviour
     public TextMeshProUGUI Coin_Text;
     public Slider Speed_Arrow;
 
+    [Header("Item UI")]
+    public GameObject ItemInformation_Object;
+    public Image ItemIcon_Image;
+    public TextMeshProUGUI ItemName_Text;
+    public TextMeshProUGUI ItemInformation_Text;
+    bool ItemInformation_Object_Flag;
+    float ItemInformation_Object_Time;
+    float ItemInformation_Object_TimeDelay;
+    public Transform Equiped_Item_List;
+    Image[] Equiped_Item_Image;
+    TextMeshProUGUI[] Equiped_Item_Count;
 
     [Header("Result UI 관련된 텍스트")]
     public TextMeshProUGUI[] Result_Text_List; //0. Stage, 1. Score, 2. Gold, 3. Rank 4. Point
@@ -40,19 +49,31 @@ public class UIDirector : MonoBehaviour
     bool PauseFlag;
     bool OptionFlag;
 
-
     [Header("데모버전에서만 버튼 추가")]
     public Button Retry_Button;
     public Button Station_Button;
+
+    private void Awake()
+    {
+        Equiped_Item_Image = new Image[Equiped_Item_List.childCount];
+        Equiped_Item_Count = new TextMeshProUGUI[Equiped_Item_List.childCount];
+
+        for (int i = 0; i < Equiped_Item_List.childCount; i++)
+        {
+            Equiped_Item_Image[i] = Equiped_Item_List.GetChild(i).GetComponent<Image>();
+            Equiped_Item_Count[i] = Equiped_Item_List.GetChild(i).GetComponentInChildren<TextMeshProUGUI>();
+        }
+    }
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         gamedirector = GameDirector_Object.GetComponent<GameDirector>();
-        mercenarydirector = MercenaryDirector_Object.GetComponent<MercenaryDirector>();
 
         PauseFlag = false;
         OptionFlag = false;
 
+        ItemInformation_Object_Flag = false;
+        ItemInformation_Object_TimeDelay = 4f;
 
         //DemoCheck(); // 나중에 데모 변경예정
     }
@@ -65,6 +86,15 @@ public class UIDirector : MonoBehaviour
         }
         else
         {
+            if (ItemInformation_Object_Flag)
+            {
+                if (Time.time > ItemInformation_Object_Time + ItemInformation_Object_TimeDelay)
+                {
+                    ItemInformation_Object.SetActive(false);
+                    ItemInformation_Object_Flag = false;
+                }
+            }
+
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 if (!OptionFlag)
@@ -159,6 +189,36 @@ public class UIDirector : MonoBehaviour
         gamedirector.GameType_Option(false);
         OptionFlag = false;
         Option_UI.SetActive(false);
+    }
+
+    public void Item_EquipedIcon(int num, Sprite img, int Count)
+    {
+        Equiped_Item_Image[num].sprite = img;
+        if(Count != 0)
+        {
+            Equiped_Item_Count[num].text = Count.ToString();
+        }
+        else
+        {
+            Equiped_Item_Count[num].gameObject.SetActive(false);
+        }
+    }
+
+    public void ItemInformation_On(Sprite itemIcon, string itemName, string itemInformation)
+    {
+        ItemIcon_Image.sprite = itemIcon;
+        ItemName_Text.text = itemName;
+        ItemInformation_Text.text = itemInformation;
+        if (!ItemInformation_Object_Flag)
+        {
+            ItemInformation_Object_Time = Time.time;
+            ItemInformation_Object.SetActive(true);
+            ItemInformation_Object_Flag = true;
+        }
+        else
+        {
+            ItemInformation_Object_Time = Time.time;
+        }
     }
 
     private void DemoCheck()

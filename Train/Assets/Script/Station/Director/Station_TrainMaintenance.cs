@@ -1009,7 +1009,7 @@ public class Station_TrainMaintenance : MonoBehaviour
             {
                 After_Text.text = "  Max";
             }
-            //Material_Image.sprite = itemData.Turret_Train_Material_object.Item_Sprite;
+            Material_Image.sprite = itemData.Turret_Train_Material_object.Item_Sprite;
             Upgrade_Text[0].text = trainData.EX_Game_Data.Information_Train_Turret_Part[trainData.SA_TrainTurretData.Train_Turret_Num[UI_Train_Turret_Num]].Train_Upgrade_Cost + "G";
             int Material_InChnace_Count = trainData.EX_Game_Data.Information_Train_Turret_Part[trainData.SA_TrainTurretData.Train_Turret_Num[UI_Train_Turret_Num]].Material;
             int Material_Inventory_Count = itemData.Turret_Train_Material_object.Item_Count;
@@ -1049,7 +1049,7 @@ public class Station_TrainMaintenance : MonoBehaviour
                 After_Text.text = "  Max";
             }
 
-            //Material_Image.sprite = itemData.Booster_Train_Material_object.Item_Sprite;
+            Material_Image.sprite = itemData.Booster_Train_Material_object.Item_Sprite;
             Upgrade_Text[0].text = trainData.EX_Game_Data.Information_Train_Booster_Part[trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num]].Train_Upgrade_Cost + "G";
             int Material_InChnace_Count = trainData.EX_Game_Data.Information_Train_Booster_Part[trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num]].Material;
             int Material_Inventory_Count = itemData.Booster_Train_Material_object.Item_Count;
@@ -1089,7 +1089,7 @@ public class Station_TrainMaintenance : MonoBehaviour
             {
                 After_Text.text = "  Max";
             }
-            //Material_Image.sprite = itemData.Common_Train_Material_object.Item_Sprite;
+            Material_Image.sprite = itemData.Common_Train_Material_object.Item_Sprite;
             Upgrade_Text[0].text = trainData.EX_Game_Data.Information_Train[trainData.Train_Num[UI_Train_Num]].Train_Upgrade_Cost + "G";
             int Material_InChnace_Count = trainData.EX_Game_Data.Information_Train[trainData.Train_Num[UI_Train_Num]].Material;
             int Material_Inventory_Count = itemData.Common_Train_Material_object.Item_Count;

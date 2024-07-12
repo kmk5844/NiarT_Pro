@@ -41,7 +41,8 @@ public class Intercept_Flare_Turret : Turret
             Flare_List[num].transform.Rotate(new Vector3(0, 0, 300f * Time.deltaTime));
             yield return null;
         }
-        Instantiate(BulletObject, Flare_List[num].transform.position, transform.rotation, Bullet_List);
+        Vector2 Flare_Positinon = new Vector2 (Flare_List[num].transform.position.x + 2, Flare_List[num].transform.position.y - 1);
+        Instantiate(BulletObject, Flare_Positinon, transform.rotation, Bullet_List);
         yield return new WaitForSeconds(0.5f);
         while (Flare_List[num].transform.localEulerAngles.z  >= 1)
         {

@@ -16,6 +16,7 @@ public class Balloon_TurretBullet : Bullet
     public GameObject Ballon;
     bool LR_BallonFlag;
     public GameObject Bomb;
+    bool BombFlag;
 
     protected override void Start()
     {
@@ -24,6 +25,7 @@ public class Balloon_TurretBullet : Bullet
         SpawnFlag = true;
         Random_Y = Random.Range(0f, 1f);
         rid.velocity =  Vector2.up * Speed;
+        BombFlag = false;
 
         Ballon_Min_Z = -0.1f;
         Ballon_Max_Z = 0.1f;
@@ -31,32 +33,36 @@ public class Balloon_TurretBullet : Bullet
     }
     private void FixedUpdate()
     {
-        if(monster_target == null)
+        if(BombFlag ==false)
         {
-            if (LR_BallonFlag)
+            if (monster_target == null)
             {
-                Ballon.transform.Rotate(new Vector3(0, 0, -8f * Time.deltaTime));
-                if (Ballon.transform.localRotation.z < Ballon_Min_Z)
+                if (LR_BallonFlag)
                 {
-                    LR_BallonFlag = false;
+                    Ballon.transform.Rotate(new Vector3(0, 0, -8f * Time.deltaTime));
+                    if (Ballon.transform.localRotation.z < Ballon_Min_Z)
+                    {
+                        LR_BallonFlag = false;
+                    }
+                }
+                else
+                {
+                    Ballon.transform.Rotate(new Vector3(0, 0, 8f * Time.deltaTime));
+                    if (Ballon.transform.localRotation.z > Ballon_Max_Z)
+                    {
+                        LR_BallonFlag = true;
+                    }
                 }
             }
             else
             {
-                Ballon.transform.Rotate(new Vector3(0, 0, 8f * Time.deltaTime));
-                if (Ballon.transform.localRotation.z > Ballon_Max_Z)
+                if (Ballon != null)
                 {
-                    LR_BallonFlag = true;
+                    Ballon.transform.localEulerAngles = Vector3.zero;
                 }
             }
         }
-        else
-        {
-            if(Ballon != null)
-            {
-                Ballon.transform.localEulerAngles = Vector3.zero;
-            }
-        }
+
 
         if (SpawnFlag)
         {
@@ -94,6 +100,7 @@ public class Balloon_TurretBullet : Bullet
         if (collision.gameObject.CompareTag("Monster"))
         {
             Bomb.SetActive(true);
+            BombFlag = true;
         }
     }
 }

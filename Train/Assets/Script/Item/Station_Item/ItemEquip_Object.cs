@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ItemEquip_Object : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class ItemEquip_Object : MonoBehaviour
     public GameObject Item_Panel;
 
     [Header("정보 표시")]
+    public Image item_icon_object;
     public TextMeshProUGUI item_object_text_count;
     public ItemList_Tooltip item_tooltip_object;
 
@@ -31,6 +33,7 @@ public class ItemEquip_Object : MonoBehaviour
         item_count = item.Item_Count;
         item_use = item.Use_Flag;
         item_max = item.Max_Equip;
+        item_icon_object.sprite = item.Item_Sprite;
         item_object_text_count.text = item_count.ToString();
         Change_EquipFlag();
     }

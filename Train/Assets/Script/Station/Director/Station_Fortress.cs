@@ -39,6 +39,7 @@ public class Station_Fortress : MonoBehaviour
     public GameObject Mercenary_Information_Upgarade_Object;
     public TextMeshProUGUI Before_Mercenary_Information;
     public TextMeshProUGUI After_Mercenary_Information;
+    public Image Mercenary_Material_Image;
     public TextMeshProUGUI[] Mercenary_Upgrade_Text;
     [SerializeField]
     List<Toggle> Mercenary_Upgrade_Toggle;
@@ -73,6 +74,7 @@ public class Station_Fortress : MonoBehaviour
         //용병 업그레이드 윈도우
         Check_Init_MecenaryUpgradeCard();
         Mercenary_Information_Upgarade_Object.SetActive(false);
+        Mercenary_Material_Image.sprite = itemData.Mercenary_Material_object.Item_Sprite;
         OnToggleStart();
 
         //용병 배치 윈도우
@@ -256,6 +258,8 @@ public class Station_Fortress : MonoBehaviour
             Card.name = num.ToString();
             Mercenary_Upgrade_Toggle.Add(Card.GetComponentInChildren<Toggle>());
         }
+        Mercenary_Upgrade_Text[1].text = "0";
+        Mercenary_Upgrade_Text[2].text = "0";
         ResizedContent_V(Mercenary_Upgrade_Content, ScrollRect_Mercenary_Upgrade);
     }
     private void OnToggleStart()

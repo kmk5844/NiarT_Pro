@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ItemBuy_Object : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class ItemBuy_Object : MonoBehaviour
     public bool item_use;
 
     [Header("정보 표시")]
+    public Image item_icon_object;
     public ItemList_Tooltip item_tooltip_object;
 
     bool item_information_Flag; // 정보 출력 플래그
@@ -26,6 +28,7 @@ public class ItemBuy_Object : MonoBehaviour
         item_information = item.Item_Information;
         item_pride = item.Item_Buy_Pride;
         item_use = item.Use_Flag;
+        item_icon_object.sprite = item.Item_Sprite;
     }
 
     private void Update()
