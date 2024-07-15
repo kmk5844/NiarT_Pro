@@ -37,6 +37,14 @@ public class StationDirector : MonoBehaviour
     public GameObject UI_Back_Button;
     public GameObject[] UI_MenuAndGear_After;
     bool Information_Flag;
+
+    [Header("Store+Fortress")]
+    public ScrollRect Store_Fortress_ScrollView;
+    public RectTransform Store_Fortress_Content;
+    public Button Content_Fortress_Button;
+    public Button Content_Store_Button;
+    bool isMoving = false;
+
     [Header("Click Lobby -> Store")]
     public GameObject UI_Store;
     public GameObject[] UI_Store_Window;
@@ -85,6 +93,12 @@ public class StationDirector : MonoBehaviour
 
         ui_num = 0;
         ui_Store_Num = -1;
+
+        Store_Fortress_Content.anchoredPosition = new Vector2(0, 0);
+        
+        Content_Fortress_Button.onClick.AddListener(ShowNextBackGround);
+        Content_Store_Button.onClick.AddListener(ShowPerviousBackGround);
+
         // 기차 정비소와 인벤토리의 토글
         TrainMaintenance_ToggleStart();
         Inventory_ToggleStart();
@@ -440,5 +454,50 @@ public class StationDirector : MonoBehaviour
             Director_GameStart.Director_Init_EquipItem();
             Station_ItemData.itemChangeFlag = false;
         }
+    }
+
+    void ShowPerviousBackGround()
+    {
+        Debug.Log(ui_num);
+        if (ui_num > 1 && !isMoving)
+        {
+            isMoving = true;
+            ui_num--;
+            Total_Init();
+            StartCoroutine(SmoothMoveContent(ui_num));
+        }
+    }
+
+    void ShowNextBackGround()
+    {
+        if (ui_num < 3 &&!isMoving)
+        {
+            isMoving = true;
+            ui_num++;
+            Total_Init();
+            StartCoroutine(SmoothMoveContent(ui_num));
+        }
+    }
+
+    IEnumerator SmoothMoveContent(int targetIndex)
+    {
+        float startX = Store_Fortress_Content.anchoredPosition.x;
+        float targetX = ((targetIndex-2) * 1920); // 각 배경사진의 가로 길이만큼 이동
+
+        float duration = 0.3f; // 이동에 걸리는 시간 (초)
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / duration);
+            float newX = Mathf.Lerp(startX, -targetX, t);
+            Debug.Log(newX);
+            Store_Fortress_Content.anchoredPosition = new Vector2(newX, 0);
+            yield return null;
+        }
+
+        Store_Fortress_Content.anchoredPosition = new Vector2(-targetX, 0);
+        isMoving = false;
     }
 }

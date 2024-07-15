@@ -413,6 +413,7 @@ public class Station_Store : MonoBehaviour
                 }
             }
             itemData.Check_ItemChangeFlag();
+            Check_Player_Coin_Point();
             Close_Buy_Window();
         }
         else
@@ -466,6 +467,7 @@ public class Station_Store : MonoBehaviour
             }
         }
         itemData.Check_ItemChangeFlag();
+        Check_Player_Coin_Point();
         Close_Buy_Window();
     }
 
@@ -525,6 +527,7 @@ public class Station_Store : MonoBehaviour
         {
             Button_ItemCount_Init(true, item);
             Check_Buy_Pride.text = item.Item_Buy_Pride.ToString();
+            Check_Buy_Text.text = "구매하시겠습니까?";
             Button_ItemCount_Plus.onClick.AddListener(() => Click_ItemCount_Plus(item, Flag));
             Button_ItemCount_Minus.onClick.AddListener(() => Click_ItemCount_Minus(item, Flag));
             Buy_YesButton.onClick.AddListener(() => Store_Buy_Item(item));
@@ -533,6 +536,7 @@ public class Station_Store : MonoBehaviour
         {
             Button_ItemCount_Init(false, item);
             Check_Buy_Pride.text = item.Item_Sell_Pride.ToString();
+            Check_Buy_Text.text = "판매하시겠습니까?";
             Button_ItemCount_Plus.onClick.AddListener(() => Click_ItemCount_Plus(item, Flag));
             Button_ItemCount_Minus.onClick.AddListener(() => Click_ItemCount_Minus(item, Flag));
             Buy_YesButton.onClick.AddListener(()=> Store_Sell_Item(item));
