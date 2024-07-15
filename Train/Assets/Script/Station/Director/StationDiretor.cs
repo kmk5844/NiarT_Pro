@@ -302,10 +302,10 @@ public class StationDirector : MonoBehaviour
         StoreWindow_Flag = false;
         if(ui_Store_Num == 0)
         {
-            Director_Store.StoreTrainList_Toggle_Init();
+            Director_Store.Init_StoreButton();
         }else if(ui_Store_Num == 2)
         {
-            Director_Store.ItemList_Toggle_Init();
+            Director_Store.Init_ItemButton();
         }
         UI_Store_Window[ui_Store_Num].SetActive(false);
         ui_Store_Num = -1;
@@ -429,10 +429,8 @@ public class StationDirector : MonoBehaviour
     public void Total_Init() {
         Director_TrainMaintenance.Director_Init_TrainChange();
         Director_TrainMaintenance.Director_Init_TrainPartChange();
-        Director_Store.Director_Init_TrainBuy();
-        Director_Store.Director_Init_TurretBuy();
-        Director_Store.Director_Init_BoosterBuy();
-        Director_Store.Director_Init_MercenaryBuy();
+        Director_Store.Init_StoreButton();
+        Director_Store.Init_ItemButton();
         Director_Fortress.Director_Init_MercenaryUpgrade();
         Director_Fortress.Director_Init_MercenaryPosition();
         if (Station_ItemData.itemChangeFlag)
