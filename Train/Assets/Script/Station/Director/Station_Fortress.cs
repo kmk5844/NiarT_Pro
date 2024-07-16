@@ -25,7 +25,7 @@ public class Station_Fortress : MonoBehaviour
     public TextMeshProUGUI[] PlayerUP_Text;
     public Button [] PlayerUP_Button;
 
-    public TextMeshProUGUI Player_Information;
+    public TextMeshProUGUI[] Player_Information;
 
     [Header("용병 업그레이드 윈도우")]
     public Button MercenaryUpgrade_Button;
@@ -91,48 +91,48 @@ public class Station_Fortress : MonoBehaviour
         {
             if (playerData.Level_Player_Atk == playerData.Max_Player_Atk)
             {
-                PlayerUP_Text[0].text = "Lv.MAX\n0 Pt";
+                PlayerUP_Text[0].text = "Lv.MAX";
                 PlayerUP_Button[0].interactable = false;
             }
             else
             {
-                PlayerUP_Text[0].text = "Lv." + playerData.Level_Player_Atk + "\n" + playerData.Cost_Player_Atk + " Pt";
+                PlayerUP_Text[0].text = "Lv." + playerData.Level_Player_Atk + " / " + playerData.Cost_Player_Atk + " Point";
             }
             if (playerData.Level_Player_AtkDelay == playerData.Max_Player_AtkDelay)
             {
-                PlayerUP_Text[1].text = "Lv.MAX\n0 Pt";
+                PlayerUP_Text[1].text = "Lv.MAX";
                 PlayerUP_Button[1].interactable = false;
             }
             else
             {
-                PlayerUP_Text[1].text = "Lv." + playerData.Level_Player_AtkDelay + "\n" + playerData.Cost_Player_AtkDelay + " Pt";
+                PlayerUP_Text[1].text = "Lv." + playerData.Level_Player_AtkDelay + " / " + playerData.Cost_Player_AtkDelay + " Point";
             }
             if (playerData.Level_Player_HP == playerData.Max_Player_HP)
             {
-                PlayerUP_Text[2].text = "Lv.MAX\n0 Pt";
+                PlayerUP_Text[2].text = "Lv.MAX";
                 PlayerUP_Button[2].interactable = false;
             }
             else
             {
-                PlayerUP_Text[2].text = "Lv." + playerData.Level_Player_HP + "\n" + playerData.Cost_Player_HP + " Pt";
+                PlayerUP_Text[2].text = "Lv." + playerData.Level_Player_HP + " / " + playerData.Cost_Player_HP + " Point";
             }
             if (playerData.Level_Player_Armor == playerData.Max_Player_Armor)
             {
-                PlayerUP_Text[3].text = "Lv.MAX\n0 Pt";
+                PlayerUP_Text[3].text = "Lv.MAX";
                 PlayerUP_Button[3].interactable = false;
             }
             else
             {
-                PlayerUP_Text[3].text = "Lv." + playerData.Level_Player_Armor + "\n" + playerData.Cost_Player_Armor + " Pt";
+                PlayerUP_Text[3].text = "Lv." + playerData.Level_Player_Armor + " / " + playerData.Cost_Player_Armor + " Point";
             }
             if (playerData.Level_Player_Speed == playerData.Max_Player_Speed)
             {
-                PlayerUP_Text[4].text = "Lv.MAX\n Pt";
+                PlayerUP_Text[4].text = "Lv.MAX";
                 PlayerUP_Button[4].interactable = false;
             }
             else
             {
-                PlayerUP_Text[4].text = "Lv." + playerData.Level_Player_Speed + "\n" + playerData.Cost_Player_Speed + " Pt";
+                PlayerUP_Text[4].text = "Lv." + playerData.Level_Player_Speed + " / " + playerData.Cost_Player_Speed + " Point";
             }
         }
         else
@@ -141,60 +141,60 @@ public class Station_Fortress : MonoBehaviour
             {
                 if (playerData.Level_Player_Atk == playerData.Max_Player_Atk)
                 {
-                    PlayerUP_Text[0].text = "Lv.MAX\n0 Pt";
+                    PlayerUP_Text[0].text = "Lv.MAX";
                     PlayerUP_Button[0].interactable = false;
                 }
                 else
                 {
-                    PlayerUP_Text[0].text = "Lv." + playerData.Level_Player_Atk + "\n" + playerData.Cost_Player_Atk + " Pt";
+                    PlayerUP_Text[0].text = "Lv." + playerData.Level_Player_Atk + " / " + playerData.Cost_Player_Atk + " Point";
                 }
             }
             else if (num == 1)
             {
                 if (playerData.Level_Player_AtkDelay == playerData.Max_Player_AtkDelay)
                 {
-                    PlayerUP_Text[1].text = "Lv.MAX\n0 Pt";
+                    PlayerUP_Text[1].text = "Lv.MAX";
                     PlayerUP_Button[1].interactable = false;
                 }
                 else
                 {
-                    PlayerUP_Text[1].text = "Lv." + playerData.Level_Player_AtkDelay + "\n" + playerData.Cost_Player_AtkDelay + " Pt";
+                    PlayerUP_Text[1].text = "Lv." + playerData.Level_Player_AtkDelay + " / " + playerData.Cost_Player_AtkDelay + " Point";
                 }
             }
             else if (num == 2)
             {
                 if (playerData.Level_Player_HP == playerData.Max_Player_HP)
                 {
-                    PlayerUP_Text[2].text = "Lv.MAX\n0 Pt";
+                    PlayerUP_Text[2].text = "Lv.MAX";
                     PlayerUP_Button[2].interactable = false;
                 }
                 else
                 {
-                    PlayerUP_Text[2].text = "Lv." + playerData.Level_Player_HP + "\n" + playerData.Cost_Player_HP + " Pt";
+                    PlayerUP_Text[2].text = "Lv." + playerData.Level_Player_HP + " / " + playerData.Cost_Player_HP + " Point";
                 }
             }
             else if (num == 3)
             {
                 if (playerData.Level_Player_Armor == playerData.Max_Player_Armor)
                 {
-                    PlayerUP_Text[3].text = "Lv.MAX\n0 Pt";
+                    PlayerUP_Text[3].text = "Lv.MAX";
                     PlayerUP_Button[3].interactable = false;
                 }
                 else
                 {
-                    PlayerUP_Text[3].text = "Lv." + playerData.Level_Player_Armor + "\n" + playerData.Cost_Player_Armor + " Pt";
+                    PlayerUP_Text[3].text = "Lv." + playerData.Level_Player_Armor + " / " + playerData.Cost_Player_Armor + " Point";
                 }
             }
             else if (num == 4)
             {
                 if (playerData.Level_Player_Speed == playerData.Max_Player_Speed)
                 {
-                    PlayerUP_Text[4].text = "Lv.MAX\n0 Pt";
+                    PlayerUP_Text[4].text = "Lv.MAX";
                     PlayerUP_Button[4].interactable = false;
                 }
                 else
                 {
-                    PlayerUP_Text[4].text = "Lv." + playerData.Level_Player_Speed + "\n" + playerData.Cost_Player_Speed + " Pt";
+                    PlayerUP_Text[4].text = "Lv." + playerData.Level_Player_Speed + " / " + playerData.Cost_Player_Speed + " Point";
                 }
             }
         }
@@ -202,12 +202,11 @@ public class Station_Fortress : MonoBehaviour
 
     private void Player_Information_Text()
     {
-        Player_Information.text =
-            "추가 공격력 : +" + (((playerData.SA_PlayerData.Atk * playerData.Level_Player_Atk * 10)) / 100) +
-            "\n추가 공격 속도 : -" + (((playerData.SA_PlayerData.Delay * playerData.Level_Player_AtkDelay)) / 100) +
-            "\n추가 체력 : +" + (((playerData.SA_PlayerData.HP * playerData.Level_Player_HP * 10)) / 100) +
-            "\n추가 방어력 : +" + (((playerData.SA_PlayerData.Armor * playerData.Level_Player_Armor * 10)) / 100) +
-            "\n추가 스피드 : +" + (((playerData.SA_PlayerData.MoveSpeed * playerData.Level_Player_Speed )) / 100);
+        Player_Information[0].text = "공격력 : " + (playerData.SA_PlayerData.Atk * playerData.Level_Player_Atk * 10) / 100;
+        Player_Information[1].text = "공격속도 : " + (playerData.SA_PlayerData.Delay * playerData.Level_Player_AtkDelay) / 100;
+        Player_Information[2].text = "방어력 : " + (playerData.SA_PlayerData.Armor * playerData.Level_Player_Armor * 10) / 100;
+        Player_Information[3].text = "이동속도 : " + (playerData.SA_PlayerData.MoveSpeed * playerData.Level_Player_Speed) / 100;
+        Player_Information[4].text = "체력 : " + (playerData.SA_PlayerData.HP * playerData.Level_Player_HP * 10) / 100;
     }
 
     public void Click_Player_Upgrade(int i)//LevelNum : 0 = Atk / 1= AtkDealy / 2 = HP / 3 = Armor / 4 = Speed

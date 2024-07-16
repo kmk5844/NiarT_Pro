@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Store_Mercenary_Card : MonoBehaviour
+public class Store_Mercenary_Card : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField]
     public Station_MercenaryData mercenaryData;
@@ -67,11 +68,14 @@ public class Store_Mercenary_Card : MonoBehaviour
         }
     }
 
-    public void OnMouseClick()
+    public void OnPointerClick(PointerEventData eventData)
     {
         if (Mercenary_Buy.activeSelf != true)
         {
-            storeDirector.Open_Buy_Window(1, Mercenary_Num);
+            if (eventData.button == PointerEventData.InputButton.Left)
+            {
+                storeDirector.Open_Buy_Window(1, Mercenary_Num);
+            }
         }
     }
 }

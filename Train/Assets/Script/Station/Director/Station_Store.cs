@@ -41,6 +41,7 @@ public class Station_Store : MonoBehaviour
     int Store_Train_Num;
     public GameObject Store_Train_Part_Card;
     public GameObject Part_Lock_Panel;
+    int Click_Train_Window_Num;
 
     [Header("상점의 기차 구매")]
     public Transform Train_Store_Content;
@@ -69,6 +70,7 @@ public class Station_Store : MonoBehaviour
     [SerializeField]
     List<GameObject> Store_Item_List_Window;
     int Store_Item_Num;
+    int Click_Item_Window_Num;
 
     [Header("아이템 구매하기")]
     public ItemBuy_Object ItemBuyList_Object;
@@ -80,10 +82,6 @@ public class Station_Store : MonoBehaviour
     public ItemList_Tooltip ItemSellTooltip_Object;
     public ScrollRect Item_Sell_Scroll_View;
     public GameObject Item_Sell_Window;
-
-    [Header("애니메이션")]
-    public Animator Store_Ani;
-
     private void Start()
     {
         playerData = Player_DataObject.GetComponent<Station_PlayerData>();
@@ -122,17 +120,23 @@ public class Station_Store : MonoBehaviour
 
     private void Click_TrainStoreButton(int num)
     {
+        Click_Train_Window_Num = num;
+        Click_TrainStoreButton_Change();
+    }
+
+    public void Click_TrainStoreButton_Change()
+    {
         Store_Train_List_Button[Store_Train_Num].interactable = true;
-        Store_Train_Num = num;
-        if(num == 0)
+        Store_Train_Num = Click_Train_Window_Num;
+        if (Click_Train_Window_Num == 0)
         {
             Check_Part_Store_Lock();
         }
-        else if(num == 1)
+        else if (Click_Train_Window_Num == 1)
         {
             Check_Part_Store_Lock(51);
         }
-        else if(num == 2)
+        else if (Click_Train_Window_Num == 2)
         {
             Check_Part_Store_Lock(52);
         }
@@ -167,7 +171,6 @@ public class Station_Store : MonoBehaviour
     }
 
     //기차 구매하기
-
     private void Check_Init_TrainCard()
     {
         Store_Train_Part_Card.GetComponent<Store_Train_Card>().trainData = trainData;
@@ -355,8 +358,14 @@ public class Station_Store : MonoBehaviour
 
     private void Click_ItemStoreButton(int num)
     {
+        Click_Item_Window_Num = num;
+        Click_ItemStoreButton_Change();
+    }
+
+    public void Click_ItemStoreButton_Change()
+    {
         Store_Item_List_Button[Store_Item_Num].interactable = true;
-        Store_Item_Num = num;
+        Store_Item_Num = Click_Item_Window_Num;
         Store_Item_List_Button[Store_Item_Num].interactable = false;
         Change_ItemStoreChild(Store_Item_Num);
     }
@@ -438,17 +447,22 @@ public class Station_Store : MonoBehaviour
 
         if (Total_ItemCount >= 24)
         {
-            ResizedContent_V(Item_Sell_Window.transform, Item_Sell_Scroll_View);
+            ResizedContent_H(Item_Sell_Window.transform, Item_Sell_Scroll_View);
         }
     }
 
     public void Director_Init_ItemSell()
     {
-        foreach(ItemSell_Object item in Item_Sell_Window.GetComponentsInChildren<ItemSell_Object>())
+        foreach (ItemSell_Object item in Item_Sell_Window.GetComponentsInChildren<ItemSell_Object>())
         {
             Destroy(item.gameObject);
         }
         Check_Init_ItemSell();
+    }
+
+    public void Director_Init_ItemSell_ScrollView()
+    {
+        ResizedContent_H(Item_Sell_Window.transform, Item_Sell_Scroll_View);
     }
 
     private void Store_Sell_Item(ItemDataObject item)
@@ -666,17 +680,16 @@ public class Station_Store : MonoBehaviour
     }
 
     //공통 부분
-
-    public void ResizedContent_V(Transform ScrollContent, ScrollRect Scrollrect)
+    public void ResizedContent_H(Transform ScrollContent, ScrollRect Scrollrect)
     {
         GridLayoutGroup Grid = ScrollContent.GetComponent<GridLayoutGroup>();
         Vector2 cellSize = Grid.cellSize;
         Vector2 spacing = Grid.spacing;
 
-        float wide = (cellSize.x * (ScrollContent.childCount / 9)) + (spacing.x * ((ScrollContent.childCount / 9) - 1)) ;
+        float wide = (cellSize.x * (ScrollContent.childCount/ 9)) + (spacing.x * ((ScrollContent.childCount/ 9) - 1)) ;
         RectTransform ContentSize = ScrollContent.GetComponent<RectTransform>();
         ContentSize.sizeDelta = new Vector2(wide, ContentSize.sizeDelta.y);
-        Scrollrect.normalizedPosition = Vector2.zero;
+        Scrollrect.horizontalNormalizedPosition = 0f;
     }
 
     private void Check_Player_Coin_Point()
@@ -689,4 +702,5 @@ public class Station_Store : MonoBehaviour
         transform.GetComponentInParent<StationDirector>().Check_Ban_CoinPoint(Flag);
         Close_Buy_Window();
     }
+
 }

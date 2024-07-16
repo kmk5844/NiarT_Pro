@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Store_Train_Card : MonoBehaviour
+public class Store_Train_Card : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField]
     public Station_TrainData trainData;
@@ -108,35 +109,38 @@ public class Store_Train_Card : MonoBehaviour
         }
     }
 
-    public void OnMouseClick()
+    public void OnPointerClick(PointerEventData eventData)
     {
         if (Train_Buy.activeSelf != true)
         {
-            if (Train_Num == 51)
+            if(eventData.button == PointerEventData.InputButton.Left)
             {
-                if (Train_Num2 == -1)
+                if (Train_Num == 51)
                 {
-                    storeDirector.Open_Buy_Window(0, Train_Num);
+                    if (Train_Num2 == -1)
+                    {
+                        storeDirector.Open_Buy_Window(0, Train_Num);
+                    }
+                    else
+                    {
+                        storeDirector.Open_Buy_Window(0, Train_Num2);
+                    }
+                }
+                else if (Train_Num == 52)
+                {
+                    if (Train_Num2 == -1)
+                    {
+                        storeDirector.Open_Buy_Window(0, Train_Num);
+                    }
+                    else
+                    {
+                        storeDirector.Open_Buy_Window(0, Train_Num2);
+                    }
                 }
                 else
                 {
-                    storeDirector.Open_Buy_Window(0, Train_Num2);
-                }
-            }
-            else if (Train_Num == 52)
-            {
-                if (Train_Num2 == -1)
-                {
                     storeDirector.Open_Buy_Window(0, Train_Num);
                 }
-                else
-                {
-                    storeDirector.Open_Buy_Window(0, Train_Num2);
-                }
-            }
-            else
-            {
-                storeDirector.Open_Buy_Window(0, Train_Num);
             }
         }
     }   

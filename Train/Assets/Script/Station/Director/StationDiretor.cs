@@ -46,11 +46,11 @@ public class StationDirector : MonoBehaviour
     bool isMoving = false;
 
     [Header("Click Lobby -> Store")]
-    public GameObject UI_Store;
+    public GameObject UI_StoreAndFortress;
+    public GameObject UI_Store_ButtonList;
     public GameObject[] UI_Store_Window;
     bool StoreWindow_Flag;
     [Header("Click Lobby -> Fortress")]
-    public GameObject UI_Fortress;
     public GameObject[] UI_Fortress_Window;
     bool Fortress_Flag;
     [Header("Click Lobby -> Inventory")]
@@ -77,6 +77,9 @@ public class StationDirector : MonoBehaviour
     [Header("BGM")]
     public AudioClip StationBGM;
 
+    [Header("Animation")]
+    public Animator Ani_Store;
+
     private void Start()
     {
         MMSoundManagerSoundPlayEvent.Trigger(StationBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true);
@@ -95,7 +98,7 @@ public class StationDirector : MonoBehaviour
         ui_Store_Num = -1;
 
         Store_Fortress_Content.anchoredPosition = new Vector2(0, 0);
-        
+
         Content_Fortress_Button.onClick.AddListener(ShowNextBackGround);
         Content_Store_Button.onClick.AddListener(ShowPerviousBackGround);
 
@@ -286,12 +289,14 @@ public class StationDirector : MonoBehaviour
                     break;
                 case 2:
                     Director_Store.Check_AfterBuy_MercenaryCard();
-                    UI_Store.gameObject.SetActive(true);
+                    Store_Fortress_Content.anchoredPosition = new Vector2(0, 0);
+                    UI_StoreAndFortress.gameObject.SetActive(true);
                     ui_num = 2;
                     Check_CoinAndPoint();
                     break;
                 case 3:
-                    UI_Fortress.gameObject.SetActive(true);
+                    Store_Fortress_Content.anchoredPosition = new Vector2(-1920, 0);
+                    UI_StoreAndFortress.gameObject.SetActive(true);
                     ui_num = 3;
                     Check_CoinAndPoint();
                     break;
@@ -306,22 +311,29 @@ public class StationDirector : MonoBehaviour
 
     public void Click_StoreButton(int UI_Store_Num)
     {
+        Ani_Store.SetInteger("StoreClose", -1);
         StoreWindow_Flag = true;
         ui_Store_Num = UI_Store_Num;
-        UI_Store_Window[ui_Store_Num].SetActive(true);
+        /*        UI_Store_Window[ui_Store_Num].SetActive(true);
+                UI_Store_ButtonList.SetActive(false);*/
+        Ani_Store.SetInteger("StoreOpen", ui_Store_Num);
     }
 
     public void Click_Store_Back_Button()
     {
         StoreWindow_Flag = false;
-        if(ui_Store_Num == 0)
+        Ani_Store.SetInteger("StoreOpen", -1);
+        /*        UI_Store_Window[ui_Store_Num].SetActive(false);
+                UI_Store_ButtonList.SetActive(true);*/
+        if (ui_Store_Num == 0)
         {
             Director_Store.Init_StoreButton();
-        }else if(ui_Store_Num == 2)
+        }
+        else if (ui_Store_Num == 2)
         {
             Director_Store.Init_ItemButton();
         }
-        UI_Store_Window[ui_Store_Num].SetActive(false);
+        Ani_Store.SetInteger("StoreClose", ui_Store_Num);
         ui_Store_Num = -1;
     }
 
@@ -376,11 +388,11 @@ public class StationDirector : MonoBehaviour
         }
         else if (ui_num == 2)
         {
-            UI_Store.gameObject.SetActive(false);
+            UI_StoreAndFortress.gameObject.SetActive(false);
         }
         else if (ui_num == 3)
         {
-            UI_Fortress.gameObject.SetActive(false);
+            UI_StoreAndFortress.gameObject.SetActive(false);
         }else if(ui_num == 4)
         {
             Inventory_ToggleInit();
@@ -441,6 +453,7 @@ public class StationDirector : MonoBehaviour
     }
 
     public void Total_Init() {
+        Close_StoreAndFortress_Window();
         Director_TrainMaintenance.Director_Init_TrainChange();
         Director_TrainMaintenance.Director_Init_TrainPartChange();
         Director_Store.Init_StoreButton();
@@ -454,6 +467,7 @@ public class StationDirector : MonoBehaviour
             Director_GameStart.Director_Init_EquipItem();
             Station_ItemData.itemChangeFlag = false;
         }
+        Director_Store.Director_Init_ItemSell_ScrollView();
     }
 
     void ShowPerviousBackGround()
@@ -476,6 +490,25 @@ public class StationDirector : MonoBehaviour
             ui_num++;
             Total_Init();
             StartCoroutine(SmoothMoveContent(ui_num));
+        }
+    }
+
+    void Close_StoreAndFortress_Window()
+    {
+        foreach (GameObject window in UI_Store_Window)
+        {
+            if(window.activeSelf == true)
+            {
+                window.SetActive(false);
+            }
+        }
+
+        foreach(GameObject window in UI_Fortress_Window)
+        {
+            if (window.activeSelf == true)
+            {
+                window.SetActive(false);
+            }
         }
     }
 
