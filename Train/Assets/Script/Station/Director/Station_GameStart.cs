@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using static UnityEditor.Progress;
+using System;
 
 public class Station_GameStart : MonoBehaviour
 {
@@ -27,6 +28,7 @@ public class Station_GameStart : MonoBehaviour
     public Button Button_Minus;
     public Button Button_Equip;
     public Button Button_ItemCountChange;
+    public Button Button_ItemEmpty;
 
     public Button GameStart_Button;
     public TextMeshProUGUI text;
@@ -101,16 +103,88 @@ public class Station_GameStart : MonoBehaviour
     public void Open_Inventory_Window(int num)
     {
         Equipment_Button_Num = num;
+        StartCoroutine(Open_Inventory_Window_Ani(num));
+        /*Inventory_Window.SetActive(true);
+                Button_ItemCountChange.onClick.AddListener(() => Open_ItemCountWindow
+                (itemData.SA_Player_ItemData.Equiped_Item[num]));
+                Inventory_Window.SetActive(true);
+                GameStart_Button.gameObject.SetActive(false);*/
+    }
+
+    IEnumerator Open_Inventory_Window_Ani(int num)
+    {
+        RectTransform Item_Window = Inventory_Window.GetComponent<RectTransform>();
+        float startX = Item_Window.anchoredPosition.x;
+        float targetX = -620f;
+        if(Item_Window.anchoredPosition.x != targetX)
+        {
+            float duration = 0.1f;
+            float elapsedTime = 0f;
+            while (elapsedTime < duration)
+            {
+                elapsedTime += Time.deltaTime;
+                float t = Mathf.Clamp01(elapsedTime / duration);
+                float newX = Mathf.Lerp(startX, targetX, t);
+                Item_Window.anchoredPosition = new Vector2(newX, Item_Window.anchoredPosition.y);
+                yield return null;
+            }
+        }
+        else
+        {
+            Button_ItemCountChange.onClick.RemoveAllListeners(); // 버그 방지용 (이거 없이도 작동이 되긴 되나 버그 방지용으로 만듦)
+            Button_ItemEmpty.onClick.RemoveAllListeners();
+        }
+
         Button_ItemCountChange.onClick.AddListener(() => Open_ItemCountWindow
-        (itemData.SA_Player_ItemData.Equiped_Item[num]));
-        Inventory_Window.SetActive(true);
+            (itemData.SA_Player_ItemData.Equiped_Item[num]));
+        Button_ItemEmpty.onClick.AddListener(() => Click_EmptyItem(num));
+        GameStart_Button.gameObject.SetActive(false);
     }
 
     public void Close_Inventory_Window()
     {
-        Button_ItemCountChange.onClick.RemoveAllListeners();
+        StartCoroutine(Close_Inventory_Window_Ani());
+/*        Button_ItemCountChange.onClick.RemoveAllListeners();
         Equipment_Button_Num = -1;
         Inventory_Window.SetActive(false);
+        GameStart_Button.gameObject.SetActive(true);*/
+    }
+
+    IEnumerator Close_Inventory_Window_Ani()
+    {
+        RectTransform Item_Window = Inventory_Window.GetComponent<RectTransform>();
+        float startX = Item_Window.anchoredPosition.x;
+        float targetX = -1300f;
+
+        float duration = 0.1f;
+        float elapsedTime = 0f;
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / duration);
+            float newX = Mathf.Lerp(startX, targetX, t);
+            Item_Window.anchoredPosition = new Vector2(newX, Item_Window.anchoredPosition.y);
+            yield return null;
+        }
+
+        Button_ItemCountChange.onClick.RemoveAllListeners();
+        Button_ItemEmpty.onClick.RemoveAllListeners();
+        Equipment_Button_Num = -1;
+        GameStart_Button.gameObject.SetActive(true);
+    }
+
+    private void Click_EmptyItem(int num)
+    {
+        foreach (ItemEquip_Object itemList_Object in ItemList_Window.GetComponentsInChildren<ItemEquip_Object>())
+        {
+            if (itemList_Object.item == itemData.SA_Player_ItemData.Equiped_Item[num])
+            {
+                itemList_Object.item_equip = false;
+                itemList_Object.Change_EquipFlag();
+                break;
+            }
+        }
+        itemData.SA_Player_ItemData.Empty_Item(num);
     }
 
     public void Open_ItemCountWindow(ItemDataObject item)
@@ -217,7 +291,6 @@ public class Station_GameStart : MonoBehaviour
         {
             Destroy(_item.gameObject);
         }
-
         Spawn_Item();
     }
 }

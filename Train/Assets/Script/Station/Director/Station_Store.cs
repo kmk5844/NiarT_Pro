@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.PackageManager.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,14 +36,8 @@ public class Station_Store : MonoBehaviour
     int item_Count;
 
     [Header("기차 구매")] // 파츠 구매도 포함
-    [SerializeField]
-    List<Button> Store_Train_List_Button;
-    [SerializeField]
-    List<GameObject> Store_Train_List_Window;
     int Store_Train_Num;
     public GameObject Store_Train_Part_Card;
-    public GameObject Part_Lock_Panel;
-    int Click_Train_Window_Num;
 
     [Header("상점의 기차 구매")]
     public Transform Train_Store_Content;
@@ -64,14 +60,6 @@ public class Station_Store : MonoBehaviour
     [Header("기차와 용병의 툴팁")]
     public StoreList_Tooltip StoreTooltip_Object;
 
-    [Header("아이템 구매")]
-    [SerializeField]
-    List<Button> Store_Item_List_Button;
-    [SerializeField]
-    List<GameObject> Store_Item_List_Window;
-    int Store_Item_Num;
-    int Click_Item_Window_Num;
-
     [Header("아이템 구매하기")]
     public ItemBuy_Object ItemBuyList_Object;
     public ItemList_Tooltip ItemBuyTooltip_Object;
@@ -80,8 +68,10 @@ public class Station_Store : MonoBehaviour
     [Header("아이템 판매하기")]
     public ItemSell_Object ItemSellList_Object;
     public ItemList_Tooltip ItemSellTooltip_Object;
-    public ScrollRect Item_Sell_Scroll_View;
     public GameObject Item_Sell_Window;
+
+    [HideInInspector]
+    public bool ItemSellFlag;
     private void Start()
     {
         playerData = Player_DataObject.GetComponent<Station_PlayerData>();
@@ -94,79 +84,29 @@ public class Station_Store : MonoBehaviour
         Mercenary_Store_Num = mercenaryData.Mercenary_Store_Num;
         Item_Count_Window.SetActive(false);
 
-        //기차 스토어
-        //버튼 추가하는 방식으로
         //기차 구매하기
         Check_Init_TrainCard();
-        Store_Train_List_Button[0].onClick.AddListener(() => Click_TrainStoreButton(0));
-        Store_Train_List_Button[1].onClick.AddListener(() => Click_TrainStoreButton(1));
-        Store_Train_List_Button[2].onClick.AddListener(() => Click_TrainStoreButton(2));
-        Init_StoreButton();
         //터렛 파츠 구매하기
         Check_Init_TurretCard();
         //부스터 파츠 구매하기
         Check_Init_BoosterCard();
         //용병 구매하기
         Check_Init_MercenaryCard();
-        //아이템 토글
-        Store_Item_List_Button[0].onClick.AddListener(() => Click_ItemStoreButton(0));
-        Store_Item_List_Button[1].onClick.AddListener(() => Click_ItemStoreButton(1));
-        Init_ItemButton();
         //아이템 구매하기
         Check_Init_ItemBuy();
         //아이템 판매하기
         Check_Init_ItemSell();
     }
 
-    private void Click_TrainStoreButton(int num)
-    {
-        Click_Train_Window_Num = num;
-        Click_TrainStoreButton_Change();
-    }
-
-    public void Click_TrainStoreButton_Change()
-    {
-        Store_Train_List_Button[Store_Train_Num].interactable = true;
-        Store_Train_Num = Click_Train_Window_Num;
-        if (Click_Train_Window_Num == 0)
-        {
-            Check_Part_Store_Lock();
-        }
-        else if (Click_Train_Window_Num == 1)
-        {
-            Check_Part_Store_Lock(51);
-        }
-        else if (Click_Train_Window_Num == 2)
-        {
-            Check_Part_Store_Lock(52);
-        }
-        Store_Train_List_Button[Store_Train_Num].interactable = false;
-        Change_TrainStoreChild(Store_Train_Num);
-    }
-
-    public void Init_StoreButton()
-    {
-        Store_Train_List_Button[Store_Train_Num].interactable = true;
-        Store_Train_Num = 0;
-        Store_Train_List_Button[Store_Train_Num].interactable = false;
-        Check_Part_Store_Lock();
-        Change_TrainStoreChild(Store_Train_Num);
-    }
-
-    private void Change_TrainStoreChild(int ChangeNum)
-    {
-        Store_Train_List_Window[ChangeNum].transform.SetAsLastSibling();
-    }
-
-    private void Check_Part_Store_Lock(int num = -1)
+    public bool Check_Part_Store_Lock(int num = -1)
     {
         if (trainData.SA_TrainData.Train_Buy_Num.Contains(num) || num == -1)
         {
-            Part_Lock_Panel.SetActive(false);
+            return false;
         }
         else
         {
-            Part_Lock_Panel.SetActive(true);
+            return true;
         }
     }
 
@@ -356,33 +296,6 @@ public class Station_Store : MonoBehaviour
     }
     //아이템 구매
 
-    private void Click_ItemStoreButton(int num)
-    {
-        Click_Item_Window_Num = num;
-        Click_ItemStoreButton_Change();
-    }
-
-    public void Click_ItemStoreButton_Change()
-    {
-        Store_Item_List_Button[Store_Item_Num].interactable = true;
-        Store_Item_Num = Click_Item_Window_Num;
-        Store_Item_List_Button[Store_Item_Num].interactable = false;
-        Change_ItemStoreChild(Store_Item_Num);
-    }
-
-    public void Init_ItemButton()
-    {
-        Store_Item_List_Button[Store_Item_Num].interactable = true;
-        Store_Item_Num = 0;
-        Store_Item_List_Button[Store_Item_Num].interactable = false;
-        Change_ItemStoreChild(Store_Item_Num);
-    }
-
-    private void Change_ItemStoreChild(int ChangeNum)
-    {
-        Store_Item_List_Window[ChangeNum].transform.SetAsLastSibling();
-    }
-
     //아이템 구매 부분
     private void Check_Init_ItemBuy()
     {
@@ -444,11 +357,10 @@ public class Station_Store : MonoBehaviour
             Total_ItemCount++;
             
         }
-
-        if (Total_ItemCount >= 24)
+/*        if (Total_ItemCount >= 24)
         {
             ResizedContent_H(Item_Sell_Window.transform, Item_Sell_Scroll_View);
-        }
+        }*/
     }
 
     public void Director_Init_ItemSell()
@@ -460,10 +372,10 @@ public class Station_Store : MonoBehaviour
         Check_Init_ItemSell();
     }
 
-    public void Director_Init_ItemSell_ScrollView()
+/*    public void Director_Init_ItemSell_ScrollView()
     {
         ResizedContent_H(Item_Sell_Window.transform, Item_Sell_Scroll_View);
-    }
+    }*/
 
     private void Store_Sell_Item(ItemDataObject item)
     {
@@ -629,9 +541,9 @@ public class Station_Store : MonoBehaviour
             Button_ItemCount_Minus.interactable = true;
         }
 
-        if(Store_Item_Num == 0)
+        if (!ItemSellFlag)
         {
-            if(playerData.Player_Coin > item.Item_Buy_Pride * (item_Count + 1))
+            if (playerData.Player_Coin > item.Item_Buy_Pride * (item_Count + 1))
             {
                 Button_ItemCount_Plus.interactable = true;
             }
@@ -643,9 +555,9 @@ public class Station_Store : MonoBehaviour
 
 
         }
-        else if (Store_Item_Num == 1)
+        else
         {
-            if(item.Item_Count != item_Count)
+            if (item.Item_Count != item_Count)
             {
                 Button_ItemCount_Plus.interactable = true;
             }

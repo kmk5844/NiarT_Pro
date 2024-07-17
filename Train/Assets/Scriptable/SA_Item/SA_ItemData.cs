@@ -31,6 +31,13 @@ public class SA_ItemData : ScriptableObject
         Save();
     }
 
+
+    public void Empty_Item(int num)
+    {
+        equiped_item[num] = EmptyObject;
+        equiped_item_count[num] = 0;
+        Save();
+    }
     public void Equip_Item(int num, ItemDataObject item, int count)
     {
         equiped_item[num] = item;

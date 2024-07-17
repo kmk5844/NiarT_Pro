@@ -301,14 +301,14 @@ public class Station_Fortress : MonoBehaviour
             var data_before = mercenaryData.EX_Level_Data.Level_Mercenary_Engine_Driver[mercenaryData.Level_Mercenary[i]];
             var data_after = mercenaryData.EX_Level_Data.Level_Mercenary_Engine_Driver[mercenaryData.Level_Mercenary[i] + 1];
             Before_Mercenary_Information.text =
-                        "<size=45>업그레이드 전</size>" +
+                        "<size=36>업그레이드 전</size>" +
                         "\n최대 스피드 증가량 : " + data_before.Level_Type_Speed +
                         "\n연료 효율성 감소량 : " + data_before.Level_Type_Fuel +
                         "\n기차 방어력 증가량 : " + data_before.Level_Type_Def;
             if (mercenaryData.Level_Mercenary[i] + 1 == mercenaryData.Max_Mercenary[i] + 1)
             {
                 After_Mercenary_Information.text =
-                        "<size=45>업그레이드 후</size>" +
+                        "<size=36>업그레이드 후</size>" +
                         "\nMAX";
                 Mercenary_Upgrade_Text[0].text = "MAX";
                 Mercenary_Upgrade_Text[1].text = "MAX";
@@ -317,7 +317,7 @@ public class Station_Fortress : MonoBehaviour
             else
             {
                 After_Mercenary_Information.text =
-                        "<size=45>업그레이드 후</size>" +
+                        "<size=36>업그레이드 후</size>" +
                         "\n최대 스피드 증가량 : " + data_after.Level_Type_Speed +
                         "\n연료 효율성 감소량 : " + data_after.Level_Type_Fuel +
                         "\n기차 방어력 증가량 : " + data_after.Level_Type_Def;
@@ -331,14 +331,14 @@ public class Station_Fortress : MonoBehaviour
             var data_before = mercenaryData.EX_Level_Data.Level_Mercenary_Engineer[mercenaryData.Level_Mercenary[i]];
             var data_after = mercenaryData.EX_Level_Data.Level_Mercenary_Engineer[mercenaryData.Level_Mercenary[i] + 1];
             Before_Mercenary_Information.text =
-                        "<size=45>업그레이드 전</size>" +
+                        "<size=36>업그레이드 전</size>" +
                         "\n수리 속도 : " + data_before.Repair_Delay +
                         "\n수리 회복량 : " + data_before.Repair_Amount +
                         "\n수리 가능한 최소 HP : " + data_before.Repair_Train_Parsent;
             if (mercenaryData.Level_Mercenary[i] + 1 == mercenaryData.Max_Mercenary[i] + 1)
             {
                 After_Mercenary_Information.text =
-                        "<size=45>업그레이드 후</size>" +
+                        "<size=36>업그레이드 후</size>" +
                         "\nMAX";
                 Mercenary_Upgrade_Text[0].text = "MAX";
                 Mercenary_Upgrade_Text[1].text = "MAX";
@@ -347,7 +347,7 @@ public class Station_Fortress : MonoBehaviour
             else
             {
                 After_Mercenary_Information.text =
-                        "<size=45>업그레이드 후</size>" +
+                        "<size=36>업그레이드 후</size>" +
                         "\n수리 속도 : " + data_after.Repair_Delay +
                         "\n수리 회복량 : " + data_after.Repair_Amount +
                         "\n수리 가능한 최소 HP : " + data_after.Repair_Train_Parsent;
@@ -361,13 +361,13 @@ public class Station_Fortress : MonoBehaviour
             var data_before = mercenaryData.EX_Level_Data.Level_Mercenary_Long_Ranged[mercenaryData.Level_Mercenary[i]];
             var data_after = mercenaryData.EX_Level_Data.Level_Mercenary_Long_Ranged[mercenaryData.Level_Mercenary[i] + 1];
             Before_Mercenary_Information.text =
-                        "<size=45>업그레이드 전</size>" +
+                        "<size=36>업그레이드 전</size>" +
                         "\n공격력 : " + data_before.Unit_Attack +
                         "\n공격 속도 : " + data_before.Unit_Atk_Delay;
             if (mercenaryData.Level_Mercenary[i] + 1 == mercenaryData.Max_Mercenary[i] + 1)
             {
                 After_Mercenary_Information.text =
-                        "<size=45>업그레이드 후</size>" +
+                        "<size=36>업그레이드 후</size>" +
                         "\nMAX";
                 Mercenary_Upgrade_Text[0].text = "MAX";
                 Mercenary_Upgrade_Text[1].text = "MAX";
@@ -376,7 +376,7 @@ public class Station_Fortress : MonoBehaviour
             else
             {
                 After_Mercenary_Information.text =
-                        "<size=45>업그레이드 후</size>" +
+                        "<size=36>업그레이드 후</size>" +
                         "\n공격력 : " + data_after.Unit_Attack +
                         "\n공격 속도 : " + data_after.Unit_Atk_Delay;
                 Mercenary_Upgrade_Text[0].text = mercenaryData.EX_Level_Data.Level_Mercenary_Long_Ranged[mercenaryData.Level_Mercenary[i]].Upgrade_Cost + "G";
@@ -389,13 +389,13 @@ public class Station_Fortress : MonoBehaviour
             var data_before = mercenaryData.EX_Level_Data.Level_Mercenary_Short_Ranged[mercenaryData.Level_Mercenary[i]];
             var data_after = mercenaryData.EX_Level_Data.Level_Mercenary_Short_Ranged[mercenaryData.Level_Mercenary[i] + 1];
             Before_Mercenary_Information.text =
-                        "<size=45>업그레이드 후</size>" +
+                        "<size=36>업그레이드 전</size>" +
                         "\n공격력 : " + data_before.Unit_Attack +
                         "\n공격 속도 : " + data_before.Unit_Atk_Delay;
             if (mercenaryData.Level_Mercenary[i] + 1 == mercenaryData.Max_Mercenary[i] + 1)
             {
                 After_Mercenary_Information.text =
-                        "<size=45>업그레이드 후</size>" +
+                        "<size=36>업그레이드 후</size>" +
                         "\nMAX";
                 Mercenary_Upgrade_Text[0].text = "MAX";
                 Mercenary_Upgrade_Text[1].text = "MAX";
@@ -404,7 +404,7 @@ public class Station_Fortress : MonoBehaviour
             else
             {
                 After_Mercenary_Information.text =
-                        "<size=45>업그레이드 후</size>" +
+                        "<size=36>업그레이드 후</size>" +
                         "\n공격력 : " + data_after.Unit_Attack +
                         "\n공격 속도 : " + data_after.Unit_Atk_Delay;
                 Mercenary_Upgrade_Text[0].text = mercenaryData.EX_Level_Data.Level_Mercenary_Short_Ranged[mercenaryData.Level_Mercenary[i]].Upgrade_Cost + "G";
@@ -417,13 +417,13 @@ public class Station_Fortress : MonoBehaviour
             var data_before = mercenaryData.EX_Level_Data.Level_Mercenary_Medic[mercenaryData.Level_Mercenary[i]];
             var data_after = mercenaryData.EX_Level_Data.Level_Mercenary_Medic[mercenaryData.Level_Mercenary[i] + 1];
             Before_Mercenary_Information.text =
-                        "<size=45>업그레이드 전</size>" +
+                        "<size=36>업그레이드 전</size>" +
                         "\n회복량 : " + data_before.Heal_Hp_Amount +
                         "\n회복 가능한 최소 HP : " + data_before.Heal_HP_Parsent;
             if (mercenaryData.Level_Mercenary[i] + 1 == mercenaryData.Max_Mercenary[i] + 1)
             {
                 After_Mercenary_Information.text =
-                        "<size=45>업그레이드 후</size>" +
+                        "<size=36>업그레이드 후</size>" +
                         "\nMAX";
                 Mercenary_Upgrade_Text[0].text = "MAX";
                 Mercenary_Upgrade_Text[1].text = "MAX";
@@ -432,7 +432,7 @@ public class Station_Fortress : MonoBehaviour
             else
             {
                 After_Mercenary_Information.text =
-                        "<size=45>업그레이드 후</size>" +
+                        "<size=36>업그레이드 후</size>" +
                         "\n회복량 : " + data_before.Heal_Hp_Amount +
                         "\n회복 가능한 최소 HP : " + data_after.Heal_HP_Parsent;
                 Mercenary_Upgrade_Text[0].text = mercenaryData.EX_Level_Data.Level_Mercenary_Medic[mercenaryData.Level_Mercenary[i]].Upgrade_Cost + "G";
@@ -445,14 +445,14 @@ public class Station_Fortress : MonoBehaviour
             var data_before = mercenaryData.EX_Level_Data.Level_Mercenary_Bard[mercenaryData.Level_Mercenary[i]];
             var data_after = mercenaryData.EX_Level_Data.Level_Mercenary_Bard[mercenaryData.Level_Mercenary[i] + 1];
             Before_Mercenary_Information.text =
-                        "<size=45>업그레이드 전</size>" +
+                        "<size=36>업그레이드 전</size>" +
                         "\n체력 증가량 : " + data_before.Level_Type_HP_Buff +
                         "\n공격력 증가량 : " + data_before.Level_Type_Atk_Buff +
                         "\n방어력 증가량 : " + data_before.Level_Type_Def_Buff;
             if (mercenaryData.Level_Mercenary[i] + 1 == mercenaryData.Max_Mercenary[i] + 1)
             {
                 After_Mercenary_Information.text =
-                        "<size=45>업그레이드 후</size>" +
+                        "<size=36>업그레이드 후</size>" +
                         "\nMAX";
                 Mercenary_Upgrade_Text[0].text = "MAX";
                 Mercenary_Upgrade_Text[1].text = "MAX";
@@ -462,7 +462,7 @@ public class Station_Fortress : MonoBehaviour
             else
             {
                 After_Mercenary_Information.text =
-                        "<size=45>업그레이드 후</size>" +
+                        "<size=36>업그레이드 후</size>" +
                         "\n체력 증가량 : " + data_after.Level_Type_HP_Buff +
                         "\n공격력 증가량 : " + data_after.Level_Type_Atk_Buff +
                         "\n방어력 증가량 : " + data_after.Level_Type_Def_Buff;
@@ -476,19 +476,19 @@ public class Station_Fortress : MonoBehaviour
             var data_before = mercenaryData.EX_Level_Data.Level_Mercenary_CowBoy[mercenaryData.Level_Mercenary[i]];
             var data_after = mercenaryData.EX_Level_Data.Level_Mercenary_CowBoy[mercenaryData.Level_Mercenary[i] + 1];
             Before_Mercenary_Information.text =
-                "<size=45>업그레이드 전</size>" +
+                "<size=36>업그레이드 전</size>" +
                 "\n행동력 : " + data_before.Max_WorkCount;
             if (mercenaryData.Level_Mercenary[i] + 1 == mercenaryData.Max_Mercenary[i] + 1)
             {
                 After_Mercenary_Information.text =
-                        "<size=45>업그레이드 후</size>" +
+                        "<size=36>업그레이드 후</size>" +
                         "\nMAX";
                 Mercenary_Upgrade_Text[0].text = "MAX";
             }
             else
             {
                 Before_Mercenary_Information.text =
-                    "<size=45>업그레이드 후</size>" +
+                    "<size=36>업그레이드 후</size>" +
                     "\n행동력 : " + data_after.Max_WorkCount;
                 Mercenary_Upgrade_Text[0].text = mercenaryData.EX_Level_Data.Level_Mercenary_CowBoy[mercenaryData.Level_Mercenary[i]].Upgrade_Cost + "G";
                 Mercenary_Upgrade_Text[1].text = Material_Max_Count.ToString();
@@ -572,6 +572,7 @@ public class Station_Fortress : MonoBehaviour
                 DropDown_Bard_Type.onValueChanged.AddListener(Mercenary_Position_Bard_DropDown);
             }
         }
+        Mercenary_Check_Button();
     }
 
     public void Mercenary_PositionUP(TrainingRoom_Mercenary_Position_Card Card, int i)
