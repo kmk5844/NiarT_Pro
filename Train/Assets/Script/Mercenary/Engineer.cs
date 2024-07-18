@@ -45,12 +45,16 @@ public class Engineer : Mercenary
         if (!TrainSpawnFlag)
         {
             TrainSpawnFlag = gameDirector.SpawnTrainFlag;
+            train = null;
         }else{
             Debug.DrawRay(rigid.position, Vector3.down, Color.green);
             RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1f, LayerMask.GetMask("Platform"));
 
-            train = rayHit.collider.GetComponentInParent<Train_InGame>();
-            train_HpParsent = (float)train.Train_HP / (float)train.Max_Train_HP * 100f;
+            if(rayHit.collider != null) // null이 아니라면으로 처리 -> 그렇지 않으면 오류 발생
+            {
+                train = rayHit.collider.GetComponentInParent<Train_InGame>();
+                train_HpParsent = (float)train.Train_HP / (float)train.Max_Train_HP * 100f;
+            }
         }
 
         base.non_combatant_Flip();

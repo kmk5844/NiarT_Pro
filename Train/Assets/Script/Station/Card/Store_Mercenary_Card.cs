@@ -37,19 +37,32 @@ public class Store_Mercenary_Card : MonoBehaviour, IPointerClickHandler
 
     private void Update()
     {
-        if (Mercenary_Information_Flag)
+        if (StationDirector.TooltipFlag)
         {
-            store_tooltip_object.Tooltip_ON(mercenary_name, mercenary_information, mercenary_pride);
-            Mercenary_mouseOver_Flag = true;
+            if (Mercenary_Information_Flag)
+            {
+                store_tooltip_object.Tooltip_ON(mercenary_name, mercenary_information, mercenary_pride);
+                Mercenary_mouseOver_Flag = true;
+            }
+            else
+            {
+                if (Mercenary_mouseOver_Flag)
+                {
+                    store_tooltip_object.Tooltip_Off();
+                    Mercenary_mouseOver_Flag = false;
+                }
+            }
         }
         else
         {
-            if (Mercenary_mouseOver_Flag)
+            if (Mercenary_Information_Flag)
             {
-                store_tooltip_object.Tooltip_Off();
+                Mercenary_Information_Flag = false;
                 Mercenary_mouseOver_Flag = false;
+                store_tooltip_object.Tooltip_Off();
             }
         }
+
     }
 
     public void OnMouseEnter()

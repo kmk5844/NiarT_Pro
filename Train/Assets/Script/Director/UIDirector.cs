@@ -191,16 +191,16 @@ public class UIDirector : MonoBehaviour
         Option_UI.SetActive(false);
     }
 
-    public void Item_EquipedIcon(int num, Sprite img, int Count)
+    public void Item_EquipedIcon(int equiped_num, Sprite img, int Count)
     {
-        Equiped_Item_Image[num].sprite = img;
+        Equiped_Item_Image[equiped_num].sprite = img;
         if(Count != 0)
         {
-            Equiped_Item_Count[num].text = Count.ToString();
+            Equiped_Item_Count[equiped_num].text = Count.ToString();
         }
         else
         {
-            Equiped_Item_Count[num].gameObject.SetActive(false);
+            Equiped_Item_Count[equiped_num].gameObject.SetActive(false);
         }
     }
 

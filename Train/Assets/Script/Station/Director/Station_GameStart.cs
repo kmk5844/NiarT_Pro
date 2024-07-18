@@ -19,9 +19,13 @@ public class Station_GameStart : MonoBehaviour
     public ItemEquip_Object itemEquip_object;
     public ItemList_Tooltip itemTooltip_object;
     public Transform ItemList_Window;
+    public Button[] Equiped_Button;
+
 
     public GameObject Inventory_Window;
     public GameObject ItemCount_Window;
+    public Image ItemImage;
+    public TextMeshProUGUI ItemNameText;
     public TextMeshProUGUI CountText;
     public TextMeshProUGUI MaxText;
     public Button Button_Plus;
@@ -31,7 +35,7 @@ public class Station_GameStart : MonoBehaviour
     public Button Button_ItemEmpty;
 
     public Button GameStart_Button;
-    public TextMeshProUGUI text;
+    public TextMeshProUGUI TrainText;
 
     int Fuel_Count;
 
@@ -40,13 +44,36 @@ public class Station_GameStart : MonoBehaviour
     int itemObject_Count; // 게임오브젝트가 가지고 있는 갯수
 
     int Equipment_Button_Num;
+
+    [HideInInspector]
+    public bool EquipItemFlag;
+
     private void Start()
     {
         trainData = Train_DataObject.GetComponent<Station_TrainData>();
         itemData = Item_DataObject.GetComponent<Station_ItemData>();
         itemEquip_object.GameStartDirector = GetComponent<Station_GameStart>();
         itemEquip_object.item_tooltip_object = itemTooltip_object;
+        for(int i = 0; i < Equiped_Button.Length; i++)
+        {
+            Equiped_ImageAndCount(i);
+        }
         Spawn_Item();
+    }
+
+    private void Equiped_ImageAndCount(int buttonNum)
+    {
+        int num = itemData.SA_Player_ItemData.Equiped_Item[buttonNum];
+        if (num == -1)
+        {
+            Equiped_Button[buttonNum].GetComponent<Image>().sprite = itemData.SA_Player_ItemData.EmptyObject.Item_Sprite;
+            Equiped_Button[buttonNum].GetComponentInChildren<TextMeshProUGUI>().text = "";
+        }
+        else
+        {
+            Equiped_Button[buttonNum].GetComponent<Image>().sprite = itemData.SA_ItemList.Item[num].Item_Sprite;
+            Equiped_Button[buttonNum].GetComponentInChildren<TextMeshProUGUI>().text = itemData.SA_Player_ItemData.Equiped_Item_Count[buttonNum].ToString();
+        }
     }
 
     private void Spawn_Item()
@@ -54,13 +81,13 @@ public class Station_GameStart : MonoBehaviour
         foreach (ItemDataObject item in itemData.Equipment_Inventory_ItemList)
         {
             itemEquip_object.item = item;
-            if (itemData.SA_Player_ItemData.Equiped_Item[0] == item)
+            if (itemData.SA_Player_ItemData.Equiped_Item[0] == item.Num)
             {
                 itemEquip_object.item_equip = true;
-            }else if (itemData.SA_Player_ItemData.Equiped_Item[1] == item)
+            }else if (itemData.SA_Player_ItemData.Equiped_Item[1] == item.Num)
             {
                 itemEquip_object.item_equip = true;
-            }else if (itemData.SA_Player_ItemData.Equiped_Item[2] == item)
+            }else if (itemData.SA_Player_ItemData.Equiped_Item[2] == item.Num)
             {
                 itemEquip_object.item_equip = true;
             }
@@ -70,6 +97,8 @@ public class Station_GameStart : MonoBehaviour
             }
             Instantiate(itemEquip_object, ItemList_Window);
         }
+
+
     }
 
     public void Check_Train()
@@ -85,12 +114,12 @@ public class Station_GameStart : MonoBehaviour
 
         if(Fuel_Count == 0)
         {
-            text.text = "원활한 게임 플레이를 위해\n적어도 연료 기차 한 대가 필요합니다.";
+            TrainText.text = "원활한 게임 플레이를 위해\n적어도 연료 기차 한 대가 필요합니다.";
             GameStart_Button.interactable = false;
         }
         else
         {
-            text.text = "게임 시작이 가능합니다.";
+            TrainText.text = "게임 시작이 가능합니다.";
             GameStart_Button.interactable = true;
         }
     }
@@ -104,15 +133,12 @@ public class Station_GameStart : MonoBehaviour
     {
         Equipment_Button_Num = num;
         StartCoroutine(Open_Inventory_Window_Ani(num));
-        /*Inventory_Window.SetActive(true);
-                Button_ItemCountChange.onClick.AddListener(() => Open_ItemCountWindow
-                (itemData.SA_Player_ItemData.Equiped_Item[num]));
-                Inventory_Window.SetActive(true);
-                GameStart_Button.gameObject.SetActive(false);*/
     }
 
     IEnumerator Open_Inventory_Window_Ani(int num)
     {
+        EquipItemFlag = true;
+
         RectTransform Item_Window = Inventory_Window.GetComponent<RectTransform>();
         float startX = Item_Window.anchoredPosition.x;
         float targetX = -620f;
@@ -143,11 +169,8 @@ public class Station_GameStart : MonoBehaviour
 
     public void Close_Inventory_Window()
     {
+        EquipItemFlag = false;
         StartCoroutine(Close_Inventory_Window_Ani());
-/*        Button_ItemCountChange.onClick.RemoveAllListeners();
-        Equipment_Button_Num = -1;
-        Inventory_Window.SetActive(false);
-        GameStart_Button.gameObject.SetActive(true);*/
     }
 
     IEnumerator Close_Inventory_Window_Ani()
@@ -177,7 +200,7 @@ public class Station_GameStart : MonoBehaviour
     {
         foreach (ItemEquip_Object itemList_Object in ItemList_Window.GetComponentsInChildren<ItemEquip_Object>())
         {
-            if (itemList_Object.item == itemData.SA_Player_ItemData.Equiped_Item[num])
+            if (itemList_Object.item.Num == itemData.SA_Player_ItemData.Equiped_Item[num])
             {
                 itemList_Object.item_equip = false;
                 itemList_Object.Change_EquipFlag();
@@ -185,11 +208,15 @@ public class Station_GameStart : MonoBehaviour
             }
         }
         itemData.SA_Player_ItemData.Empty_Item(num);
+        Equiped_ImageAndCount(num);
     }
 
-    public void Open_ItemCountWindow(ItemDataObject item)
+    public void Open_ItemCountWindow(int item_Num)
     {
+        ItemDataObject item = itemData.SA_ItemList.Item[item_Num];
         Item_Count = 1;
+        ItemImage.sprite = item.Item_Sprite;
+        ItemNameText.text = item.Item_Name;
         CountText.text = Item_Count.ToString();
         itemObject_Count = item.Item_Count;
         Max_Count = item.Max_Equip;
@@ -201,11 +228,11 @@ public class Station_GameStart : MonoBehaviour
 
     public void Equip_Item(ItemDataObject item)
     {
-        if (itemData.SA_Player_ItemData.Equiped_Item[Equipment_Button_Num].Item_Type != Information_Item_Type.Empty)
+        if (itemData.SA_Player_ItemData.Equiped_Item[Equipment_Button_Num] != -1)
         {
             foreach (ItemEquip_Object itemList_Object in ItemList_Window.GetComponentsInChildren<ItemEquip_Object>())
             {
-                if (itemList_Object.item == itemData.SA_Player_ItemData.Equiped_Item[Equipment_Button_Num])
+                if (itemList_Object.item.Num == itemData.SA_Player_ItemData.Equiped_Item[Equipment_Button_Num])
                 {
                     itemList_Object.item_equip = false;
                     itemList_Object.Change_EquipFlag();
@@ -214,6 +241,7 @@ public class Station_GameStart : MonoBehaviour
             }
         }
         itemData.SA_Player_ItemData.Equip_Item(Equipment_Button_Num, item, Item_Count);
+        Equiped_ImageAndCount(Equipment_Button_Num);
 
         foreach (ItemEquip_Object itemList_Object in ItemList_Window.GetComponentsInChildren<ItemEquip_Object>())
         {

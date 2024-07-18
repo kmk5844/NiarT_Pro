@@ -33,19 +33,32 @@ public class ItemBuy_Object : MonoBehaviour
 
     private void Update()
     {
-        if (item_information_Flag)
+        if (StationDirector.TooltipFlag)
         {
-            item_tooltip_object.Tooltip_ON(item_name, item_information, item_use, item_pride);
-            item_mouseOver_Flag = true;
+            if (item_information_Flag)
+            {
+                item_tooltip_object.Tooltip_ON(item_name, item_information, item_use, item_pride);
+                item_mouseOver_Flag = true;
+            }
+            else
+            {
+                if (item_mouseOver_Flag)
+                {
+                    item_tooltip_object.Tooltip_Off();
+                    item_mouseOver_Flag = false;
+                }
+            }
         }
         else
         {
-            if (item_mouseOver_Flag)
+            if (item_information_Flag)
             {
-                item_tooltip_object.Tooltip_Off();
+                item_information_Flag = false;
                 item_mouseOver_Flag = false;
+                item_tooltip_object.Tooltip_Off();
             }
         }
+
     }
 
     public void OnMouseEnter()

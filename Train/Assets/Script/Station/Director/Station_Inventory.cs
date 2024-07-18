@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEditorInternal.VersionControl;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,18 +21,29 @@ public class Station_Inventory : MonoBehaviour
     public List<Transform> Transform_ItemList;
     [Header("UI_UseStatus")]
     public GameObject Item_UseStatus_WindowObject;
-    public TextMeshProUGUI Item_UseStatus_WindowObject_InformationText;
+    public TextMeshProUGUI Item_UseStatus_Name;
+    public Image Item_UseStatus_Icon;
+    public TextMeshProUGUI Item_UseStatus_Count_Text;
     public Button Item_UseStatus_YesButton;
     [Header("UI_UseItem")]
     int UI_UseItem_Num;
     public GameObject Item_UseItem_WindowObject;
     public List<GameObject> Item_UseItem_WindowObject_List;
 
+
+    ItemDataObject useItem;
+    [HideInInspector]
+    public bool UseWindowFlag;
+    public bool UseItemWindowFlag;
+
     private void Start()
     {
         UI_UseItem_Num = 0;
         ItemObject.Inventory_Director = GetComponent<Station_Inventory>();
         ItemObject.item_tooltip_object = TooltipObject;
+
+        UseWindowFlag = false;
+        UseItemWindowFlag = false;
 
         for (int i = 0; i < Transform_ItemList.Count; i++)
         {
@@ -83,20 +95,36 @@ public class Station_Inventory : MonoBehaviour
 
     public void UseItemStatus_Click(ItemDataObject itemobject)
     {
-        Item_UseStatus_WindowObject_InformationText.text = "\"" + itemobject.Item_Name + " \"을 \n사용하시겠습니까?";
+        UseWindowFlag = true;
+
+        Item_UseStatus_Name.text = itemobject.Item_Name;
+        Item_UseStatus_Icon.sprite = itemobject.Item_Sprite;
+
+        if(itemobject.Num == 53)
+        {
+            Item_UseStatus_Count_Text.text = "10";
+        }
+        else
+        {
+            Item_UseStatus_Count_Text.text = "1";
+        }
         Item_UseStatus_YesButton.onClick.AddListener(() => UseItemStatus_YesButton(itemobject));
         Item_UseStatus_WindowObject.SetActive(true);
     }
 
     public void UseItemStatus_YesButton(ItemDataObject item)
     {
+        UseWindowFlag = false;
+        UseItemWindowFlag = true;
+
         Item_UseStatus_WindowObject.SetActive(false);
         Item_UseItem_WindowObject.SetActive(true);
         switch (item.Num)
         {
             case 53:
                 UI_UseItem_Num = 0;
-                Item_UseItem_WindowObject_List[0].SetActive(true); 
+                Item_UseItem_WindowObject_List[0].SetActive(true);
+                useItem = item;
                 break;
             case 54:
             case 55:
@@ -183,19 +211,22 @@ public class Station_Inventory : MonoBehaviour
 
     public void UseItemStatus_NoButton()
     {
+        UseWindowFlag = false;
+
         Item_UseStatus_WindowObject.SetActive(false);
         Item_UseStatus_YesButton.onClick.RemoveAllListeners();
     }
 
     public void UseItemWindow_BackButton()
     {
+        UseItemWindowFlag = false;
         switch (UI_UseItem_Num)
         {
             case 0:
                 Item_UseItem_WindowObject.SetActive(false);
                 Item_UseItem_WindowObject_List[0].SetActive(false);
                 Item_UseItem_WindowObject_List[0].GetComponent<ItemUse_Window_53>().Item_53_Init();
-
+                Check_ItemList(false, useItem);
                 break;
             case 1:
                 Item_UseItem_WindowObject.SetActive(false);

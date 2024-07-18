@@ -81,7 +81,7 @@ public class ItemEquip_Object : MonoBehaviour
     {
         if(!item_equip)
         {
-            GameStartDirector.Open_ItemCountWindow(item);
+            GameStartDirector.Open_ItemCountWindow(item.Num);
         }
     }
 }

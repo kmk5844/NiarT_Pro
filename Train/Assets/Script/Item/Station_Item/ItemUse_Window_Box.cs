@@ -14,7 +14,6 @@ public class ItemUse_Window_Box : MonoBehaviour
 
     public Image Item_Icon;
     public TextMeshProUGUI Item_Name;
-    public TextMeshProUGUI Item_Information;
     public TextMeshProUGUI Item_Count;
 
     bool Check = false;
@@ -27,10 +26,6 @@ public class ItemUse_Window_Box : MonoBehaviour
     List<ItemDataObject> Random_Unique_Box_ItemList;
     List<ItemDataObject> Random_Epic_Box_ItemList;
 
-    private void Start()
-    {
-
-    }
 
     public void Random_Box_Open(int num, GameObject InventoryDirector)
     {
@@ -62,8 +57,8 @@ public class ItemUse_Window_Box : MonoBehaviour
             int Add_ItemCount = Random.Range(1, 11);
             //Item_Icon = º≥¡§
             Item_Name.text = item.Item_Name;
-            Item_Information.text = item.Item_Information;
-            Item_Count.text = "<color=red>"+ Add_ItemCount + "</size>∞≥∏¶ »πµÊ«œºÃΩ¿¥œ¥Ÿ";
+            Item_Icon.sprite = item.Item_Sprite;
+            Item_Count.text = Add_ItemCount.ToString();
             item.Item_Count_UP(Add_ItemCount);
             inventory.Check_ItemList(true, item, Add_ItemCount);
         }
@@ -93,8 +88,8 @@ public class ItemUse_Window_Box : MonoBehaviour
             }*/
             //Item_Icon = º≥¡§
             Item_Name.text = item.Item_Name;
-            Item_Information.text = item.Item_Information;
-            Item_Count.text = "<color=red>" + 1 + "</size>∞≥∏¶ »πµÊ«œºÃΩ¿¥œ¥Ÿ";
+            Item_Icon.sprite = item.Item_Sprite;
+            Item_Count.text = "1";
             item.Item_Count_UP();
             inventory.Check_ItemList(true, item);
         }
@@ -120,8 +115,8 @@ public class ItemUse_Window_Box : MonoBehaviour
             }
             //Item_Icon = º≥¡§
             Item_Name.text = item.Item_Name;
-            Item_Information.text = item.Item_Information;
-            Item_Count.text = "<color=red>" + 1 + "</size>∞≥∏¶ »πµÊ«œºÃΩ¿¥œ¥Ÿ";
+            Item_Icon.sprite = item.Item_Sprite;
+            Item_Count.text = "1";
             item.Item_Count_UP();
             inventory.Check_ItemList(true, item);
         }

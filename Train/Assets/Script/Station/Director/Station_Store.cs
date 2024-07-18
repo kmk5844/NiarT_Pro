@@ -71,6 +71,8 @@ public class Station_Store : MonoBehaviour
     public GameObject Item_Sell_Window;
 
     [HideInInspector]
+    public bool Store_BuyAndSell_Window_Flag;
+    [HideInInspector]
     public bool ItemSellFlag;
     private void Start()
     {
@@ -83,6 +85,7 @@ public class Station_Store : MonoBehaviour
         Booster_Store_Num = trainData.Train_Booster_Store_Num;
         Mercenary_Store_Num = mercenaryData.Mercenary_Store_Num;
         Item_Count_Window.SetActive(false);
+        Store_BuyAndSell_Window_Flag = false;
 
         //기차 구매하기
         Check_Init_TrainCard();
@@ -294,7 +297,6 @@ public class Station_Store : MonoBehaviour
             }
         }
     }
-    //아이템 구매
 
     //아이템 구매 부분
     private void Check_Init_ItemBuy()
@@ -357,10 +359,7 @@ public class Station_Store : MonoBehaviour
             Total_ItemCount++;
             
         }
-/*        if (Total_ItemCount >= 24)
-        {
-            ResizedContent_H(Item_Sell_Window.transform, Item_Sell_Scroll_View);
-        }*/
+
     }
 
     public void Director_Init_ItemSell()
@@ -371,11 +370,6 @@ public class Station_Store : MonoBehaviour
         }
         Check_Init_ItemSell();
     }
-
-/*    public void Director_Init_ItemSell_ScrollView()
-    {
-        ResizedContent_H(Item_Sell_Window.transform, Item_Sell_Scroll_View);
-    }*/
 
     private void Store_Sell_Item(ItemDataObject item)
     {
@@ -399,6 +393,7 @@ public class Station_Store : MonoBehaviour
 
     public void Open_Buy_Window(int i, int TrainAndMercenaryNum)
     {
+        Store_BuyAndSell_Window_Flag = true;
         Check_Buy_Panel_Num = i;
         Check_Buy_Panel.SetActive(true);
         if(i == 0)
@@ -444,6 +439,7 @@ public class Station_Store : MonoBehaviour
 
     public void Open_BuyAndSell_Item_Window(ItemDataObject item, bool Flag)
     {
+        Store_BuyAndSell_Window_Flag = true;
         Check_Buy_Panel_Num = 2;
         Check_Buy_Panel.SetActive(true);
         Item_Count_Window.SetActive(true);
@@ -471,6 +467,7 @@ public class Station_Store : MonoBehaviour
 
     public void Close_Buy_Window()
     {
+        Store_BuyAndSell_Window_Flag = false;
         Check_Buy_Panel.SetActive(false);
         if (Check_Buy_Panel_Num == 0)
         {
@@ -615,4 +612,10 @@ public class Station_Store : MonoBehaviour
         Close_Buy_Window();
     }
 
+    public void Director_Tooltip_Off()
+    {
+        StoreTooltip_Object.Tooltip_Off();
+        ItemBuyTooltip_Object.Tooltip_Off(); 
+        ItemSellTooltip_Object.Tooltip_Off(); 
+    }
 }

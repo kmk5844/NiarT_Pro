@@ -6,6 +6,7 @@ using UnityEngine;
 public class ItemDirector : MonoBehaviour
 {
     public UIDirector uiDirector;
+    public SA_ItemList itemList;
     public SA_ItemData itemData;
     UseItem useitem;
     private void Start()
@@ -21,7 +22,14 @@ public class ItemDirector : MonoBehaviour
 
         for(int i = 0; i < itemData.Equiped_Item.Count; i++)
         {
-            uiDirector.Item_EquipedIcon(i, itemData.Equiped_Item[i].Item_Sprite, itemData.Equiped_Item_Count[i]);
+            if (itemData.Equiped_Item[i] == -1)
+            {
+                uiDirector.Item_EquipedIcon(i, itemData.EmptyObject.Item_Sprite, itemData.Equiped_Item_Count[i]);
+            }
+            else
+            {
+                uiDirector.Item_EquipedIcon(i, itemList.Item[itemData.Equiped_Item[i]].Item_Sprite, itemData.Equiped_Item_Count[i]);
+            }
         }
         useitem = GetComponent<UseItem>();
     }
@@ -44,11 +52,18 @@ public class ItemDirector : MonoBehaviour
 
     private void Change_EquipedItem(int num)
     {
-        if (itemData.Equiped_Item[num].Item_Type != Information_Item_Type.Empty)
+        if (itemData.Equiped_Item[num] != -1)
         {
-            useitem.UseEquipItem(itemData.Equiped_Item[num].Num);
+            useitem.UseEquipItem(itemData.Equiped_Item[num]);
             itemData.UseEquipedItem(num);
-            uiDirector.Item_EquipedIcon(num, itemData.Equiped_Item[num].Item_Sprite, itemData.Equiped_Item_Count[num]);
+            if(itemData.Equiped_Item[num] == -1)
+            {
+                uiDirector.Item_EquipedIcon(num, itemData.EmptyObject.Item_Sprite, itemData.Equiped_Item_Count[num]);
+            }
+            else
+            {
+                uiDirector.Item_EquipedIcon(num, itemList.Item[itemData.Equiped_Item[num]].Item_Sprite, itemData.Equiped_Item_Count[num]);
+            }
         }
         else
         {

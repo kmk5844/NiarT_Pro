@@ -72,6 +72,7 @@ public class StoreList_Tooltip : MonoBehaviour
         TooltipFlag = false;
         Train_Name.text = "";
         Train_Information.text = "";
+
         gameObject.SetActive(false);
     }
 }

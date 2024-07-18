@@ -80,7 +80,7 @@ public class ItemDataObject : ScriptableObject
         item_sell_pride = _sell_pride;
         supply_monster = _supply_monster;
         max_equip = _max_equip;
-        //item_sprite = Resources.Load<sprite>("~~");;
+        item_sprite = Resources.Load<Sprite>("ItemIcon/" + num);
         item_count = _item_count;
     }
 

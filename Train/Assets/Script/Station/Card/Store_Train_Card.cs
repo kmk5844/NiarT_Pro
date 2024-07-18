@@ -23,7 +23,9 @@ public class Store_Train_Card : MonoBehaviour, IPointerClickHandler
     [Header("정보 표시")]
     public StoreList_Tooltip store_tooltip_object;
 
+    [SerializeField]
     bool Train_Information_Flag;
+    [SerializeField]
     bool Train_mouseOver_Flag;
 
     private void Start()
@@ -78,17 +80,29 @@ public class Store_Train_Card : MonoBehaviour, IPointerClickHandler
 
     private void Update()
     {
-        if (Train_Information_Flag)
+        if (StationDirector.TooltipFlag)
         {
-            store_tooltip_object.Tooltip_ON(train_name, train_information, train_pride);
-            Train_mouseOver_Flag = true;
+            if (Train_Information_Flag)
+            {
+                store_tooltip_object.Tooltip_ON(train_name, train_information, train_pride);
+                Train_mouseOver_Flag = true;
+            }
+            else
+            {
+                if (Train_mouseOver_Flag)
+                {
+                    store_tooltip_object.Tooltip_Off();
+                    Train_mouseOver_Flag = false;
+                }
+            }
         }
         else
         {
-            if (Train_mouseOver_Flag)
+            if (Train_Information_Flag)
             {
-                store_tooltip_object.Tooltip_Off();
+                Train_Information_Flag = false;
                 Train_mouseOver_Flag = false;
+                store_tooltip_object.Tooltip_Off();
             }
         }
     }
