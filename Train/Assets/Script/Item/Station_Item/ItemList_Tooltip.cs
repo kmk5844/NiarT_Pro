@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class ItemList_Tooltip : MonoBehaviour
 {
+    public Image Item_Icon;
     public TextMeshProUGUI Item_Name;
     public TextMeshProUGUI Item_Information;
     public TextMeshProUGUI Item_Pride;
@@ -62,15 +63,16 @@ public class ItemList_Tooltip : MonoBehaviour
         else
         {
             // ¾Æ·¡
-            pivot_y = -0.5f;
+            pivot_y = -0.58f;
         }
 
         rt.pivot = new Vector2(pivot_x, pivot_y);
     }
 
-    public void Tooltip_ON(string itemName, string itemInformation, bool useFlag, int Pride)
+    public void Tooltip_ON(Sprite img, string itemName, string itemInformation, bool useFlag, int Pride)
     {
         TooltipFlag = true;
+        Item_Icon.sprite = img;
         Item_Name.text = itemName;
         Item_Information.text = itemInformation;
         if (tooltiptype == TooltipType.Inventory)

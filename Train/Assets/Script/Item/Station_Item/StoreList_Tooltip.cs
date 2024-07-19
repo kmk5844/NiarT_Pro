@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class StoreList_Tooltip : MonoBehaviour
 {
+    public Image ItemIcon;
     public TextMeshProUGUI Train_Name;
     public TextMeshProUGUI Train_Information;
     public TextMeshProUGUI Train_Pride;
@@ -51,7 +52,7 @@ public class StoreList_Tooltip : MonoBehaviour
         else
         {
             // 아래
-            pivot_y = -0.5f;
+            pivot_y = -0.58f;
         }
 
         rt.pivot = new Vector2(pivot_x, pivot_y);
@@ -62,7 +63,7 @@ public class StoreList_Tooltip : MonoBehaviour
         TooltipFlag = true;
         Train_Name.text = storeName;
         Train_Information.text = storeInformation;
-        Train_Pride.text = Pride.ToString();
+        Train_Pride.text = "구매 가격 : " +  Pride.ToString();
 
         gameObject.SetActive(true);
     }

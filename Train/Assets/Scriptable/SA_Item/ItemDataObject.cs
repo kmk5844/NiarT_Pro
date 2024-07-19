@@ -52,9 +52,12 @@ public class ItemDataObject : ScriptableObject
     public int Max_Equip { get {  return max_equip; } }
 
     [SerializeField]
+    private float cool_time;
+    public float Cool_Time { get { return cool_time; } }
+
+    [SerializeField]
     private Sprite item_sprite;
     public Sprite Item_Sprite { get { return item_sprite; } }
-
 
     [SerializeField]
     private int item_count;
@@ -63,7 +66,7 @@ public class ItemDataObject : ScriptableObject
     public void Auto_Item_Insert(
         int _num, string _item_id, string _item_name, Information_Item_Type _item_type, string _item_information,
         Information_Item_Box_Type _box_type, Information_Item_Rarity_Type _rarrity_type, bool _use_flag
-        , bool _buy_flag, bool _sell_flag, int _buy_pride, int _sell_pride, bool _supply_monster, int _max_equip, int _item_count
+        , bool _buy_flag, bool _sell_flag, int _buy_pride, int _sell_pride, bool _supply_monster, int _max_equip, float _cool_time ,int _item_count
         )
     {
         num = _num;
@@ -80,6 +83,7 @@ public class ItemDataObject : ScriptableObject
         item_sell_pride = _sell_pride;
         supply_monster = _supply_monster;
         max_equip = _max_equip;
+        cool_time = _cool_time;
         item_sprite = Resources.Load<Sprite>("ItemIcon/" + num);
         item_count = _item_count;
     }

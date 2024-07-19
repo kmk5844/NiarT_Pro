@@ -71,10 +71,10 @@ public class Player : MonoBehaviour
     [HideInInspector]
     public static bool Item_GunFlag; // True : 보급 몬스터가 총 관련된 아이템 떨구지 않도록 방지
     public bool Item_Gun_TimeFlag;
-    float Item_Gun_ClickTime;
+    public static float Item_Gun_ClickTime;
     float Item_Gun_Max_ClickTime;
     public bool Item_Gun_CountFlag;
-    int Item_Gun_ClickCount;
+    public static int Item_Gun_ClickCount;
     int Item_Gun_Max_ClickCount;
     public GameObject Item_GunSpecial_Bullet;
 
@@ -303,6 +303,7 @@ public class Player : MonoBehaviour
             if (Item_Gun_CountFlag)
             {
                 Item_Gun_ClickCount++;
+
                 if (Item_Gun_ClickCount == Item_Gun_Max_ClickCount)
                 {
                     Item_Gun_Default();
@@ -687,6 +688,5 @@ public class Player : MonoBehaviour
         GunIndex = 0;
         GunObject_List[GunIndex].SetActive(true);
         Bullet_Fire_Transform = GunObject_List[GunIndex].GetComponent<Transform>().GetChild(0);
-
     }
 }

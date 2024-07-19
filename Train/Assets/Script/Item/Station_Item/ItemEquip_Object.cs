@@ -42,7 +42,7 @@ public class ItemEquip_Object : MonoBehaviour
     {
         if (item_information_Flag)
         {
-            item_tooltip_object.Tooltip_ON(item_name, item_information, item_use, item_max);
+            item_tooltip_object.Tooltip_ON(item.Item_Sprite, item_name, item_information, item_use, item_max);
             item_mouseOver_Flag = true;
         }
         else

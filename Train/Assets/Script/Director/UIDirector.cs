@@ -11,6 +11,7 @@ public class UIDirector : MonoBehaviour
     public GameObject GameDirector_Object;
     GameDirector gamedirector;
     Player player;
+    public SA_ItemList itemList;
 
     [Header("전체적인 UI 오브젝트")]
     public GameObject Game_UI;
@@ -40,11 +41,19 @@ public class UIDirector : MonoBehaviour
     Image[] Equiped_Item_Image;
     TextMeshProUGUI[] Equiped_Item_Count;
 
-    [Header("Result UI 관련된 텍스트")]
+    [Header("Item CoolTime UI")]
+    public GameObject ItemCoolTime_Object;
+    public Transform ItemCoolTime_List;
+
+    [Header("Result UI 관련된 텍스트 및 아이템")]
     public TextMeshProUGUI[] Result_Text_List; //0. Stage, 1. Score, 2. Gold, 3. Rank 4. Point
     public Image Result_Image; //win or lose
     public Sprite Result_Win_Image;
     public Sprite Result_Lose_Image;
+
+    public List<int> GetItemList_Num;
+    public Transform GetItemList_Transform;
+    public GameObject GetItemList_Object;
 
     bool PauseFlag;
     bool OptionFlag;
@@ -73,7 +82,7 @@ public class UIDirector : MonoBehaviour
         OptionFlag = false;
 
         ItemInformation_Object_Flag = false;
-        ItemInformation_Object_TimeDelay = 4f;
+        ItemInformation_Object_TimeDelay = 5f;
 
         //DemoCheck(); // 나중에 데모 변경예정
     }
@@ -90,8 +99,8 @@ public class UIDirector : MonoBehaviour
             {
                 if (Time.time > ItemInformation_Object_Time + ItemInformation_Object_TimeDelay)
                 {
-                    ItemInformation_Object.SetActive(false);
-                    ItemInformation_Object_Flag = false;
+                    StartCoroutine(ItemInformation_Object_Off());
+
                 }
             }
 
@@ -135,6 +144,13 @@ public class UIDirector : MonoBehaviour
             Result_Text_List[4].gameObject.SetActive(false);
             Result_Image.sprite = Result_Lose_Image;
         }
+        for(int i = 0; i < GetItemList_Num.Count; i++)
+        {
+            Image img = GetItemList_Object.GetComponentInChildren<Image>();
+            img.sprite = itemList.Item[GetItemList_Num[i]].Item_Sprite;
+            Instantiate(GetItemList_Object, GetItemList_Transform);
+        }
+
         Game_UI.SetActive(false);
         Result_UI.SetActive(true);
     }
@@ -211,15 +227,75 @@ public class UIDirector : MonoBehaviour
         ItemInformation_Text.text = itemInformation;
         if (!ItemInformation_Object_Flag)
         {
-            ItemInformation_Object_Time = Time.time;
-            ItemInformation_Object.SetActive(true);
-            ItemInformation_Object_Flag = true;
+            StartCoroutine(ItemInformation_Object_On());
         }
         else
         {
             ItemInformation_Object_Time = Time.time;
         }
     }
+
+    IEnumerator ItemInformation_Object_On()
+    {
+        RectTransform ItemInformation = ItemInformation_Object.GetComponent<RectTransform>();
+        float startX = ItemInformation.anchoredPosition.x;
+        float targetX = -110f;
+
+        float duration = 0.4f;
+        float elapsedTime = 0f;
+
+        ItemInformation_Object.SetActive(true);
+        ItemInformation_Object_Flag = true;
+        ItemInformation_Object_Time = Time.time;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / duration);
+            float newX = Mathf.Lerp(startX, targetX, t);
+            ItemInformation.anchoredPosition = new Vector2(newX, ItemInformation.anchoredPosition.y);
+            yield return null;
+        }
+
+    }
+
+    IEnumerator ItemInformation_Object_Off()
+    {
+        RectTransform ItemInformation = ItemInformation_Object.GetComponent<RectTransform>();
+        float startX = ItemInformation.anchoredPosition.x;
+        float targetX = 120f;
+
+        float duration = 0.4f;
+        float elapsedTime = 0f;
+
+        ItemInformation_Object_Flag = false;
+        while(elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / duration);
+            float newX = Mathf.Lerp(startX, targetX, t);
+            ItemInformation.anchoredPosition = new Vector2(newX, ItemInformation.anchoredPosition.y);
+            if(ItemInformation_Object_Flag)
+            {
+                StartCoroutine(ItemInformation_Object_On());
+                break;
+            }
+            yield return null;
+        }
+
+        if (!ItemInformation_Object_Flag)
+        {
+            ItemInformation_Object.SetActive(false);
+        }
+    }
+
+    public void ItemCoolTime_Instantiate(ItemDataObject item)
+    {
+        
+        ItemCoolTime_Object.GetComponent<ItemCoolTime>().SetSetting(item);
+        Instantiate(ItemCoolTime_Object, ItemCoolTime_List);
+    }
+
 
     private void DemoCheck()
     {

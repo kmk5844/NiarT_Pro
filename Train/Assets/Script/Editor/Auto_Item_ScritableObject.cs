@@ -76,6 +76,7 @@ public class Auto_Item_ScritableObject : EditorWindow
                 item.Item_Sell_Pride,
                 item.Supply_Monster,
                 item.Max_Equip,
+                item.Cool_Time,
                 0
                 );
 

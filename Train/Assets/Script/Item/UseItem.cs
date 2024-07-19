@@ -12,6 +12,7 @@ public class UseItem : MonoBehaviour
     public GameDirector gameDirector;
     public MercenaryDirector mercenaryDirector;
     public MonsterDirector monsterDirector;
+    public UIDirector uiDirector;
 
     private void Start()
     {
@@ -86,10 +87,12 @@ public class UseItem : MonoBehaviour
                 player.Item_Player_Spawn_WireEntanglement();
                 break;
         }
+        uiDirector.ItemCoolTime_Instantiate(itemList.Item[num]);
     }
 
     public void Get_SupplyItem(int num)
     {
+        bool coolTime_Flag = true;
         itemDirector.Get_Supply_Item_Information(itemList.Item[num].Item_Sprite, itemList.Item[num].Item_Name, itemList.Item[num].Item_Information);
         switch (num)
         {
@@ -201,8 +204,15 @@ public class UseItem : MonoBehaviour
             case 67:
             case 68:
             case 69:
+                coolTime_Flag = false;
+                uiDirector.GetItemList_Num.Add(num);
                 itemList.Item[num].Item_Count_UP();
                 break;
+        }
+
+        if (coolTime_Flag)
+        {
+            uiDirector.ItemCoolTime_Instantiate(itemList.Item[num]);
         }
     }
 }

@@ -15,5 +15,6 @@ public class Info_Item
     public int Item_Sell_Pride;
     public bool Supply_Monster;
     public int Max_Equip;
+    public float Cool_Time;
     public string Sprite;
 }
