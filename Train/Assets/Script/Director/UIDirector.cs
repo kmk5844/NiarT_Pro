@@ -120,7 +120,7 @@ public class UIDirector : MonoBehaviour
         Player_HP_Bar.fillAmount = player.Check_HpParsent() / 100f;
         TotalFuel_Bar.fillAmount = gamedirector.Check_Fuel();
         Speed_Text.text = (int)gamedirector.TrainSpeed + " Km/h";
-        Fuel_Text.text = "Fuel : "+ (int)(gamedirector.Check_Fuel() * 100f) + "%";
+        Fuel_Text.text = (int)(gamedirector.Check_Fuel() * 100f) + "%";
         Speed_Arrow.value = gamedirector.TrainSpeed / gamedirector.MaxSpeed;
 
         Distance_Bar.value = gamedirector.Check_Distance();
@@ -128,19 +128,19 @@ public class UIDirector : MonoBehaviour
 
     public void Open_Result_UI(bool Win, int StageNum, int Score, int Coin, string Score_Grade,int Point)
     {
-        Result_Text_List[0].text = "½ºÅ×ÀÌÁö " + (StageNum + 1);
-        Result_Text_List[1].text = "Á¡¼ö : " + Score + "Á¡";
-        Result_Text_List[2].text = "È¹µæ °ñµå : " + Coin + "¿ø";
+        Result_Text_List[0].text = (StageNum + 1).ToString();
+        Result_Text_List[1].text = Score.ToString(); // + "Á¡";
+        Result_Text_List[2].text = Coin.ToString(); // + "¿ø";
         if (Win)
         {
-            Result_Text_List[3].text = "·©Å© : " + Score_Grade;
-            Result_Text_List[4].text = "ÇÃ·¹ÀÌ¾î Æ÷ÀÎÆ® : " + Point;
+            Result_Text_List[3].text = Score_Grade;
+            Result_Text_List[4].text = Point.ToString();
             Result_Text_List[4].gameObject.SetActive(true);
             Result_Image.sprite = Result_Win_Image;
         }
         else
         {
-            Result_Text_List[3].text = "·©Å© : F";
+            Result_Text_List[3].text = "F";
             Result_Text_List[4].gameObject.SetActive(false);
             Result_Image.sprite = Result_Lose_Image;
         }
@@ -171,8 +171,8 @@ public class UIDirector : MonoBehaviour
 
     public void Gameing_Text(int Score, int Coin)
     {
-        Score_Text.text = "Score : " + Score;
-        Coin_Text.text = "Coin : " + Coin;
+        Score_Text.text = Score.ToString();
+        Coin_Text.text = Coin.ToString();
     }
 
     public void Click_Station()

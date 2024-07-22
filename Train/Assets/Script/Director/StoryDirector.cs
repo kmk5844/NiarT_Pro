@@ -35,6 +35,7 @@ public class StoryDirector : MonoBehaviour
         GameObject Branch = BranchList[Branch_Value]; // stageNum에 따라 Branch 값을 가져온다.
         Branch.GetComponent<DialogSystem>().Story_Init(gameObject, SA_PlayerData.Stage , Branch_Value);
         GameObject Branch_Canvas = Instantiate(Branch, Canvas);
+        Branch_Canvas.transform.SetSiblingIndex(1);
         gameObject.GetComponent<Dialog>().dialogSystem = Branch_Canvas.GetComponent<DialogSystem>();
     }
     // Start is called before the first frame update
