@@ -200,6 +200,13 @@ public class UIDirector : MonoBehaviour
         Application.Quit();
     }
 
+    public void Click_Option()
+    {
+        gamedirector.GameType_Option(true);
+        OptionFlag = true;
+        Option_UI.SetActive(true);
+    }
+
     public void Click_Option_Exit()
     {
         gamedirector.GameType_Option(false);

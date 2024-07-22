@@ -4,7 +4,6 @@ using System.Threading;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 public class TrainingRoom_Mercenary_Position_Card : MonoBehaviour
 {
