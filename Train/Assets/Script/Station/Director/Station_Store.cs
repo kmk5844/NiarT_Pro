@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Localization.Components;
 
 public class Station_Store : MonoBehaviour
 {
@@ -21,13 +22,16 @@ public class Station_Store : MonoBehaviour
 
     [Header("구매 윈도우")]
     public GameObject Check_Buy_Panel;
+    public Image Check_Buy_Image;
     public TextMeshProUGUI Check_Buy_Name;
     public TextMeshProUGUI Check_Buy_Pride;
-    public TextMeshProUGUI Check_Buy_Text;
+    //public TextMeshProUGUI Check_Buy_Text;
+    public LocalizeStringEvent Check_Buy_Text;
     public TextMeshProUGUI Check_Buy_Count;
     public Button Buy_YesButton;
     public Button Buy_NoButton;
     int Check_Buy_Panel_Num;
+    public Sprite Defualt_Store_Sprite;
 
     public GameObject Item_Count_Window;
     public Button Button_ItemCount_Plus;
@@ -85,6 +89,9 @@ public class Station_Store : MonoBehaviour
         Mercenary_Store_Num = mercenaryData.Mercenary_Store_Num;
         Item_Count_Window.SetActive(false);
         Store_BuyAndSell_Window_Flag = false;
+
+        //로컬라이제이션
+        Check_Buy_Text.StringReference.TableReference = "Station_Table_St";
 
         //기차 구매하기
         Check_Init_TrainCard();
@@ -397,7 +404,9 @@ public class Station_Store : MonoBehaviour
         Check_Buy_Panel.SetActive(true);
         if(i == 0)
         {
-            Check_Buy_Text.text = "구매하시겠습니까?";
+            //Check_Buy_Text.text = "구매하시겠습니까?";
+            Check_Buy_Image.sprite = Defualt_Store_Sprite;
+            Check_Buy_Text.StringReference.TableEntryReference = "UI_Store_Train&Item_Buy";
             Check_Buy_Count.text = "1".ToString();
             if (Store_Train_Num == 0)
             {
@@ -426,7 +435,9 @@ public class Station_Store : MonoBehaviour
         }
         else if (i == 1)
         {
-            Check_Buy_Text.text = "고용하시겠습니까?";
+            //Check_Buy_Text.text = "고용하시겠습니까?";
+            Check_Buy_Image.sprite = Defualt_Store_Sprite;
+            Check_Buy_Text.StringReference.TableEntryReference = "UI_Store_Mercenary_Buy";
             Check_Buy_Count.text = "1".ToString();
             {
                 Check_Buy_Name.text = trainData.EX_Game_Data.Information_Mercenary[TrainAndMercenaryNum].Name;
@@ -447,8 +458,10 @@ public class Station_Store : MonoBehaviour
         if (Flag)
         {
             Button_ItemCount_Init(true, item);
+            Check_Buy_Image.sprite = item.Item_Sprite;
             Check_Buy_Pride.text = item.Item_Buy_Pride.ToString();
-            Check_Buy_Text.text = "구매하시겠습니까?";
+            //Check_Buy_Text.text = "구매하시겠습니까?";
+            Check_Buy_Text.StringReference.TableEntryReference = "UI_Store_Train&Item_Buy";
             Button_ItemCount_Plus.onClick.AddListener(() => Click_ItemCount_Plus(item, Flag));
             Button_ItemCount_Minus.onClick.AddListener(() => Click_ItemCount_Minus(item, Flag));
             Buy_YesButton.onClick.AddListener(() => Store_Buy_Item(item));
@@ -456,8 +469,10 @@ public class Station_Store : MonoBehaviour
         else
         {
             Button_ItemCount_Init(false, item);
+            Check_Buy_Image.sprite = item.Item_Sprite;
             Check_Buy_Pride.text = item.Item_Sell_Pride.ToString();
-            Check_Buy_Text.text = "판매하시겠습니까?";
+            //Check_Buy_Text.text = "판매하시겠습니까?";
+            Check_Buy_Text.StringReference.TableEntryReference = "UI_Store_Item_Sell";
             Button_ItemCount_Plus.onClick.AddListener(() => Click_ItemCount_Plus(item, Flag));
             Button_ItemCount_Minus.onClick.AddListener(() => Click_ItemCount_Minus(item, Flag));
             Buy_YesButton.onClick.AddListener(()=> Store_Sell_Item(item));
