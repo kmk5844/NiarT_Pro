@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Localization.Components;
+
 
 public class ItemList_Tooltip : MonoBehaviour
 {
@@ -11,6 +13,7 @@ public class ItemList_Tooltip : MonoBehaviour
     public TextMeshProUGUI Item_Information;
     public TextMeshProUGUI Item_Pride;
     public GameObject UseWindow;
+    LocalizeStringEvent UseWindow_Text;
     bool TooltipFlag;
 
     float halfwidth;
@@ -34,6 +37,7 @@ public class ItemList_Tooltip : MonoBehaviour
         halfwidth = GetComponentInParent<CanvasScaler>().referenceResolution.x * 0.5f;
         halfheight = GetComponentInParent<CanvasScaler>().referenceResolution.y * 0.016f;
         rt = GetComponent<RectTransform>();
+
         Tooltip_Off();
     }
 
@@ -75,31 +79,39 @@ public class ItemList_Tooltip : MonoBehaviour
         Item_Icon.sprite = img;
         Item_Name.text = itemName;
         Item_Information.text = itemInformation;
+        UseWindow_Text = UseWindow.GetComponentInChildren<LocalizeStringEvent>();
+        UseWindow_Text.StringReference.TableReference = "Station_Table_St";
         if (tooltiptype == TooltipType.Inventory)
         {
             Item_Pride.text = "";
             if (useFlag)
             {
                 UseWindow.SetActive(true);
-                UseWindow.GetComponentInChildren<TextMeshProUGUI>().text = "사용하시려면 좌클릭 눌러주세요";
+                UseWindow_Text.StringReference.TableEntryReference = "UI_ToolTip_Use";
+                //UseWindow.GetComponentInChildren<TextMeshProUGUI>().text = "사용하시려면 좌클릭 눌러주세요";
             }
         }
         else if (tooltiptype == TooltipType.Store_Buy)
         {
             Item_Pride.text = "구매 가격 : " + Pride;
             UseWindow.SetActive(true);
-            UseWindow.GetComponentInChildren<TextMeshProUGUI>().text = "구매하시려면 좌클릭 눌러주세요";
-        }else if(tooltiptype == TooltipType.Store_Sell)
+            UseWindow_Text.StringReference.TableEntryReference = "UI_ToolTip_Buy";
+            //UseWindow.GetComponentInChildren<TextMeshProUGUI>().text = "구매하시려면 좌클릭 눌러주세요";
+        }
+        else if(tooltiptype == TooltipType.Store_Sell)
         {
             Item_Pride.text = "판매 가격 : " + Pride;
             UseWindow.SetActive(true);
-            UseWindow.GetComponentInChildren<TextMeshProUGUI>().text = "판매하시려면 좌클릭 눌러주세요";
+            UseWindow_Text.StringReference.TableEntryReference = "UI_ToolTip_Sell";
+            //UseWindow.GetComponentInChildren<TextMeshProUGUI>().text = "판매하시려면 좌클릭 눌러주세요";
         }
         else if(tooltiptype == TooltipType.Equip)
         {
             //최대 개수 text
+            Item_Pride.text = "";
             UseWindow.SetActive(true);
-            UseWindow.GetComponentInChildren<TextMeshProUGUI>().text = "장착하시려면 좌클릭 눌러주세요";
+            UseWindow_Text.StringReference.TableEntryReference = "UI_ToolTip_Equip";
+            //UseWindow.GetComponentInChildren<TextMeshProUGUI>().text = "장착하시려면 좌클릭 눌러주세요";
         }
 
         gameObject.SetActive(true);

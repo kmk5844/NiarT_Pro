@@ -202,11 +202,11 @@ public class Station_Fortress : MonoBehaviour
 
     private void Player_Information_Text()
     {
-        Player_Information[0].text = "공격력 : " + (playerData.SA_PlayerData.Atk * playerData.Level_Player_Atk * 10) / 100;
-        Player_Information[1].text = "공격속도 : " + (playerData.SA_PlayerData.Delay * playerData.Level_Player_AtkDelay) / 100;
-        Player_Information[2].text = "방어력 : " + (playerData.SA_PlayerData.Armor * playerData.Level_Player_Armor * 10) / 100;
-        Player_Information[3].text = "이동속도 : " + (playerData.SA_PlayerData.MoveSpeed * playerData.Level_Player_Speed) / 100;
-        Player_Information[4].text = "체력 : " + (playerData.SA_PlayerData.HP * playerData.Level_Player_HP * 10) / 100;
+        Player_Information[0].text = playerData.SA_PlayerData.Atk + "<color=red> + " + (playerData.SA_PlayerData.Atk * playerData.Level_Player_Atk * 10) / 100 + "</color>";
+        Player_Information[1].text = playerData.SA_PlayerData.Delay + "<color=red> + " + ((playerData.SA_PlayerData.Delay * playerData.Level_Player_AtkDelay) / 100) + "</color>";
+        Player_Information[2].text = playerData.SA_PlayerData.Armor + "<color=red> + " + ((playerData.SA_PlayerData.Armor * playerData.Level_Player_Armor * 10) / 100) + "</color>";
+        Player_Information[3].text = playerData.SA_PlayerData.MoveSpeed + "<color=red> + " + ((playerData.SA_PlayerData.MoveSpeed * playerData.Level_Player_Speed) / 100) + "</color>";
+        Player_Information[4].text = playerData.SA_PlayerData.HP + "<color=red> + " + ((playerData.SA_PlayerData.HP * playerData.Level_Player_HP * 10) / 100) + "</color>";
     }
 
     public void Click_Player_Upgrade(int i)//LevelNum : 0 = Atk / 1= AtkDealy / 2 = HP / 3 = Armor / 4 = Speed
@@ -597,8 +597,7 @@ public class Station_Fortress : MonoBehaviour
 
     private void Mercenary_Position_Max_Text()
     {
-        Mercenary_Position_Information.text =
-            "최대 인원 : " + EngineTier_MaxMercenary + "명";
+        Mercenary_Position_Information.text = EngineTier_MaxMercenary.ToString();
     }
     private void Mercenary_Position_List_Init_Card()
     {

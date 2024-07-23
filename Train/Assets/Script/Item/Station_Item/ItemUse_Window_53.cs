@@ -19,9 +19,16 @@ public class ItemUse_Window_53 : MonoBehaviour
     public GameObject[] ChoiceMaterial_Window;
     ToggleGroup[] Material_ToggleGroup;
 
-    public TextMeshProUGUI Conversion_Material_Text;
-    public TextMeshProUGUI Materail_Text_1;
-    public TextMeshProUGUI Materail_Text_2;
+    public Image Conversion_Material_Image;
+    public TextMeshProUGUI Conversion_Material_Name_Text;
+    public TextMeshProUGUI Conversion_Material_Count_Text;
+    public Image Material_Image_1;
+    public TextMeshProUGUI Material_Count_Text_1;
+    public TextMeshProUGUI Material_Name_Text_1;
+    public Image Material_Image_2;
+    public TextMeshProUGUI Material_Count_Text_2;
+    public TextMeshProUGUI Material_Name_Text_2;
+    public GameObject[] Material_LockPanel_2;
 
     public TextMeshProUGUI ConvertText;
     public Button Convert_Button;
@@ -38,8 +45,11 @@ public class ItemUse_Window_53 : MonoBehaviour
 
     [Header("변환 후의 윈도우")]
     public GameObject AfterConvertWindow;
-    public TextMeshProUGUI ResultText;
-    public TextMeshProUGUI ResultText2;
+    public Image Result_Icon_Img;
+    public TextMeshProUGUI Result_Name_Text;
+    public TextMeshProUGUI Result_Count_Text;
+
+    public Sprite Empty_Sprite;
 
     private void Start()
     {
@@ -57,7 +67,7 @@ public class ItemUse_Window_53 : MonoBehaviour
         }
         
         convertCount = 1;
-        CountText.text = convertCount + "개";
+        CountText.text = convertCount.ToString();
         ConvertCountDown.onClick.AddListener(() => Button_CountDown());
         ConvertCountUp.onClick.AddListener(() => Button_CountUP());
         ConvertCountDown.interactable = false;
@@ -66,9 +76,15 @@ public class ItemUse_Window_53 : MonoBehaviour
 
         ChoiceMaterial_ToggleStart();
         ChoiceMaterial_ItemList_ToggleStart();
-        Conversion_Material_Text.text = "ID : " + Convertion_Object.Num + "\n" + Convertion_Object.Item_Count;
-        Materail_Text_1.text = "?";
-        Materail_Text_2.text = "?";
+        Conversion_Material_Image.sprite = Convertion_Object.Item_Sprite;
+        Conversion_Material_Name_Text.text = Convertion_Object.Item_Name;
+        Conversion_Material_Count_Text.text = Convertion_Object.Item_Count.ToString();
+        Material_Image_1.sprite = Empty_Sprite;
+        Material_Name_Text_1.text = "버릴 재료";
+        Material_Count_Text_1.text = "";
+        Material_Image_2.sprite = Empty_Sprite;
+        Material_Name_Text_2.text = "바꿀 재료";
+        Material_Count_Text_2.text = "";
         Material_ToggleNum1 = -1;
         Check_Button();
     }
@@ -133,23 +149,32 @@ public class ItemUse_Window_53 : MonoBehaviour
                 if(i == Material_ToggleNum1)
                 {
                     Material_ToggleGroup[1].transform.GetChild(i).GetComponent<Toggle>().interactable = false;
+                    Material_LockPanel_2[i].SetActive(true);
                 }
                 else
                 {
                     Material_ToggleGroup[1].transform.GetChild(i).GetComponent<Toggle>().interactable = true;
+                    Material_LockPanel_2[i].SetActive(false);
                 }
             }
         }
 
         if (anyToggleON)
         {
-            Materail_Text_1.text = "ID : " + Material_ToggleNum_ItemObject1.Num + "\n" + Material_ToggleNum_ItemObject1.Item_Count;
+            Material_Image_1.sprite = Material_ToggleNum_ItemObject1.Item_Sprite;
+            Material_Name_Text_1.text = Material_ToggleNum_ItemObject1.Item_Name;
+            Material_Count_Text_1.text = Material_ToggleNum_ItemObject1.Item_Count.ToString();
             ChoiceMaterial.transform.GetChild(1).GetComponent<Toggle>().interactable = true;
         }
         else
         {
-            Materail_Text_1.text = "?";
-            Materail_Text_2.text = "?";
+            Material_Image_1.sprite = Empty_Sprite;
+            Material_Image_2.sprite = Empty_Sprite;
+            Material_Name_Text_1.text = "버릴 재료";
+            Material_Count_Text_1.text = "";
+            Material_Name_Text_2.text = "바꿀 재료";
+            Material_Count_Text_2.text = "";
+
             Material_ToggleNum_ItemObject1 = null;
             Material_ToggleNum_ItemObject2 = null;
             ChoiceMaterial.transform.GetChild(1).GetComponent<Toggle>().interactable = false;
@@ -160,6 +185,7 @@ public class ItemUse_Window_53 : MonoBehaviour
                     Material_ToggleGroup[1].transform.GetChild(i).GetComponent<Toggle>().isOn = false;
                 }
                 Material_ToggleGroup[1].transform.GetChild(i).GetComponent<Toggle>().interactable = true;
+                Material_LockPanel_2[i].SetActive(false);
             }
         }
         Check_Button();
@@ -175,7 +201,9 @@ public class ItemUse_Window_53 : MonoBehaviour
                     Material_ToggleNum_ItemObject2 = Material_ToggleGroup[1].transform.GetChild(i).GetComponent<ItemUse_Window_53_ToggleObject>().item;
                 }
             }
-            Materail_Text_2.text = "ID : " + Material_ToggleNum_ItemObject2.Num + "\n" + Material_ToggleNum_ItemObject2.Item_Count;
+            Material_Image_2.sprite = Material_ToggleNum_ItemObject2.Item_Sprite;
+            Material_Name_Text_2.text = Material_ToggleNum_ItemObject2.Item_Name;
+            Material_Count_Text_2.text = Material_ToggleNum_ItemObject2.Item_Count.ToString();
         }
         Check_Button();
     }
@@ -186,19 +214,19 @@ public class ItemUse_Window_53 : MonoBehaviour
         {
             if(Material_ToggleNum_ItemObject1 == null)
             {
-                ConvertText.text = ("전환에 사용할 재료를 선택하세요");
+                ConvertText.text = ("변환에 사용할 재료를 선택하세요");
                 Convert_Button.interactable = false;
             }else{
                 if(Material_ToggleNum_ItemObject1.Item_Count >= convertCount)
                 {
                     if (Material_ToggleNum_ItemObject2 != null)
                     {
-                        ConvertText.text = ("전환 가능합니다!");
+                        ConvertText.text = ("변환 가능합니다!");
                         Convert_Button.interactable = true;
                     }
                     else
                     {
-                        ConvertText.text = ("전환할 재료를 선택하세요");
+                        ConvertText.text = ("변환할 재료를 선택하세요");
                         Convert_Button.interactable = false;
                     }
                 }
@@ -211,7 +239,7 @@ public class ItemUse_Window_53 : MonoBehaviour
         }
         else
         {
-            ConvertText.text = ("전환 재료가 부족합니다. (전환 재료 10개당 1개 전환 가능)");
+            ConvertText.text = ("변환 재료가 부족합니다. (변환 재료 10개당 1개 변환 가능)");
             Convert_Button.interactable = false;
         }
     }
@@ -219,7 +247,7 @@ public class ItemUse_Window_53 : MonoBehaviour
     private void Button_CountUP()
     {
         convertCount++;
-        CountText.text = convertCount + "개";
+        CountText.text = convertCount.ToString();
 
         if (ConvertCountDown.interactable == false)
         {
@@ -231,9 +259,9 @@ public class ItemUse_Window_53 : MonoBehaviour
     private void Button_CountDown()
     {
         convertCount--;
-        CountText.text = convertCount + "개";
+        CountText.text = convertCount.ToString();
 
-        if(convertCount == 1)
+        if (convertCount == 1)
         {
             ConvertCountDown.interactable = false;
         }
@@ -245,17 +273,23 @@ public class ItemUse_Window_53 : MonoBehaviour
         Convertion_Object.Item_Count_Down(10 * convertCount);
         Material_ToggleNum_ItemObject1.Item_Count_Down(convertCount);
         Material_ToggleNum_ItemObject2.Item_Count_UP(convertCount);
-        BeforeConvertWindow.SetActive(false);
-        
-        ResultText.text = "ID : " + Material_ToggleNum_ItemObject2.Num + "\n" + Material_ToggleNum_ItemObject2.Item_Count;
-        ResultText2.text = "<color=red>" + Material_ToggleNum_ItemObject2.Item_Name + "</color>로 변환 성공했습니다.";
+
+        Result_Icon_Img.sprite = Material_ToggleNum_ItemObject2.Item_Sprite;
+        Result_Name_Text.text = Material_ToggleNum_ItemObject2.Item_Name;
+        Result_Count_Text.text = Material_ToggleNum_ItemObject2.Item_Count.ToString();
         AfterConvertWindow.SetActive(true);
+    }
+
+    public void Button_Check()
+    {
+        Item_53_Init();
+        AfterConvertWindow.SetActive(false);
     }
 
     public void Item_53_Init()
     {
         convertCount = 1;
-        CountText.text = convertCount + "개";
+        CountText.text = convertCount.ToString();
         ConvertCountDown.interactable = false;
 
         BeforeConvertWindow.SetActive(true);
@@ -270,11 +304,27 @@ public class ItemUse_Window_53 : MonoBehaviour
         {
             Material_ToggleGroup[0].transform.GetChild(i).GetComponent<Toggle>().isOn = false;
         }
+
+        for (int i = 0; i < ChoiceMaterial_Window.Length; i++)
+        {
+            Material_ToggleGroup[i] = ChoiceMaterial_Window[i].GetComponent<ToggleGroup>();
+            Material_ToggleGroup[i].transform.GetChild(0).GetComponent<ItemUse_Window_53_ToggleObject>().Check_Count();
+            Material_ToggleGroup[i].transform.GetChild(1).GetComponent<ItemUse_Window_53_ToggleObject>().Check_Count();
+            Material_ToggleGroup[i].transform.GetChild(2).GetComponent<ItemUse_Window_53_ToggleObject>().Check_Count();
+            Material_ToggleGroup[i].transform.GetChild(3).GetComponent<ItemUse_Window_53_ToggleObject>().Check_Count();
+        }
+
         Material_ToggleNum1 = -1;
 
-        Conversion_Material_Text.text = "ID : " + Convertion_Object.Num + "\n" + Convertion_Object.Item_Count;
-        Materail_Text_1.text = "?";
-        Materail_Text_2.text = "?";
+        Conversion_Material_Count_Text.text = Convertion_Object.Item_Count.ToString();
+
+        Material_Image_1.sprite = Empty_Sprite;
+        Material_Image_2.sprite = Empty_Sprite;
+
+        Material_Name_Text_1.text = "버릴 재료";
+        Material_Count_Text_1.text = "";
+        Material_Name_Text_2.text = "바꿀 재료";
+        Material_Count_Text_2.text = "";
 
         Material_ToggleNum_ItemObject1 = null;
         Material_ToggleNum_ItemObject2 = null;
