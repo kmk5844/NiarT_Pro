@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.Localization.Components;
 
 public class Store_Mercenary_Card : MonoBehaviour, IPointerClickHandler
 {
@@ -13,10 +14,8 @@ public class Store_Mercenary_Card : MonoBehaviour, IPointerClickHandler
 
     public int Mercenary_Num;
     public GameObject Mercenary_Image;
-    public GameObject Mercenary_NameText;
+    public LocalizeStringEvent Mercenary_NameText;
     public GameObject Mercenary_Buy;
-    string mercenary_name;
-    string mercenary_information;
     int mercenary_pride;
 
     [Header("정보 표시")]
@@ -29,9 +28,10 @@ public class Store_Mercenary_Card : MonoBehaviour, IPointerClickHandler
     private void Start()
     {
         Mercenary_Image.GetComponent<Image>().sprite = mercenaryData.SA_MercenaryData.Mercenary_Head_Image[Mercenary_Num];
-        mercenary_name = mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].Name;
-        Mercenary_NameText.GetComponent<TextMeshProUGUI>().text = mercenary_name;
-        mercenary_information = mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].Mercenary_Information;
+        Mercenary_NameText.StringReference.TableReference = "ExcelData_Table_St";
+        Mercenary_NameText.StringReference.TableEntryReference = "Mercenary_Name_" + Mercenary_Num;
+        //mercenary_name = mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].Name;
+        //Mercenary_NameText.GetComponent<TextMeshProUGUI>().text = mercenary_name;
         mercenary_pride = mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].Mercenary_Pride;
     }
 
@@ -41,7 +41,7 @@ public class Store_Mercenary_Card : MonoBehaviour, IPointerClickHandler
         {
             if (Mercenary_Information_Flag)
             {
-                store_tooltip_object.Tooltip_ON(mercenary_name, mercenary_information, mercenary_pride);
+                store_tooltip_object.Tooltip_ON(false, mercenary_pride, Mercenary_Num);
                 Mercenary_mouseOver_Flag = true;
             }
             else

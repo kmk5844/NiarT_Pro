@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.Localization.Components;
 
 public class Store_Train_Card : MonoBehaviour, IPointerClickHandler
 {
@@ -14,7 +15,7 @@ public class Store_Train_Card : MonoBehaviour, IPointerClickHandler
     public int Train_Num;
     public int Train_Num2;
     public GameObject Train_Image;
-    public GameObject Train_NameText;
+    public LocalizeStringEvent Train_NameText;
     public GameObject Train_Buy;
     string train_name;
     string train_information;
@@ -30,6 +31,8 @@ public class Store_Train_Card : MonoBehaviour, IPointerClickHandler
 
     private void Start()
     {
+        Train_NameText.StringReference.TableReference = "ExcelData_Table_St";
+
         if (Train_Num == 51)
         {
             if(Train_Num2 == -1)
@@ -38,7 +41,9 @@ public class Store_Train_Card : MonoBehaviour, IPointerClickHandler
                 train_name = trainData.EX_Game_Data.Information_Train[Train_Num].Train_Name;
                 train_information = trainData.EX_Game_Data.Information_Train[Train_Num].Train_Information;
                 train_pride = trainData.EX_Game_Data.Information_Train[Train_Num].Train_Buy_Cost;
-                Train_NameText.GetComponent<TextMeshProUGUI>().text = train_name;
+                
+                Train_NameText.StringReference.TableEntryReference = "Train_Name_51";
+                //Train_NameText.GetComponent<TextMeshProUGUI>().text = train_name;
             }
             else
             {
@@ -46,7 +51,9 @@ public class Store_Train_Card : MonoBehaviour, IPointerClickHandler
                 train_name = trainData.EX_Game_Data.Information_Train_Turret_Part[Train_Num2].Turret_Part_Name;
                 train_information = trainData.EX_Game_Data.Information_Train_Turret_Part[Train_Num2].Train_Information;
                 train_pride = trainData.EX_Game_Data.Information_Train_Turret_Part[Train_Num2].Train_Buy_Cost;
-                Train_NameText.GetComponent<TextMeshProUGUI>().text =train_name;
+                
+                Train_NameText.StringReference.TableEntryReference = "Train_Turret_Name_" + (Train_Num2 / 10);
+                //Train_NameText.GetComponent<TextMeshProUGUI>().text =train_name;
             }
         }
         else if (Train_Num == 52)
@@ -57,7 +64,9 @@ public class Store_Train_Card : MonoBehaviour, IPointerClickHandler
                 train_name = trainData.EX_Game_Data.Information_Train[Train_Num].Train_Name;
                 train_information = trainData.EX_Game_Data.Information_Train[Train_Num].Train_Information;
                 train_pride = trainData.EX_Game_Data.Information_Train[Train_Num].Train_Buy_Cost;
-                Train_NameText.GetComponent<TextMeshProUGUI>().text = train_name;
+                
+                Train_NameText.StringReference.TableEntryReference = "Train_Name_52";
+                //Train_NameText.GetComponent<TextMeshProUGUI>().text = train_name;
             }
             else
             {
@@ -65,7 +74,9 @@ public class Store_Train_Card : MonoBehaviour, IPointerClickHandler
                 train_name = trainData.EX_Game_Data.Information_Train_Booster_Part[Train_Num2].Booster_Part_Name;
                 train_information = trainData.EX_Game_Data.Information_Train_Booster_Part[Train_Num2].Train_Information;
                 train_pride = trainData.EX_Game_Data.Information_Train_Booster_Part[Train_Num2].Train_Buy_Cost;
-                Train_NameText.GetComponent<TextMeshProUGUI>().text = train_name;
+                
+                Train_NameText.StringReference.TableEntryReference = "Train_Booster_Name_" + (Train_Num2 / 10);
+                //Train_NameText.GetComponent<TextMeshProUGUI>().text = train_name;
             }
         }
         else
@@ -74,7 +85,9 @@ public class Store_Train_Card : MonoBehaviour, IPointerClickHandler
             train_name = trainData.EX_Game_Data.Information_Train[Train_Num].Train_Name;
             train_information = trainData.EX_Game_Data.Information_Train[Train_Num].Train_Information;
             train_pride = trainData.EX_Game_Data.Information_Train[Train_Num].Train_Buy_Cost;
-            Train_NameText.GetComponent<TextMeshProUGUI>().text = train_name;
+            
+            Train_NameText.StringReference.TableEntryReference = "Train_Name_" + (Train_Num/10);
+            //Train_NameText.GetComponent<TextMeshProUGUI>().text = train_name;
         }
     }
 
@@ -84,7 +97,7 @@ public class Store_Train_Card : MonoBehaviour, IPointerClickHandler
         {
             if (Train_Information_Flag)
             {
-                store_tooltip_object.Tooltip_ON(train_name, train_information, train_pride);
+                store_tooltip_object.Tooltip_ON(true, train_pride, Train_Num, Train_Num2);
                 Train_mouseOver_Flag = true;
             }
             else

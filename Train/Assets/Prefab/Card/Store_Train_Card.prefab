@@ -142,9 +142,11 @@ MonoBehaviour:
   Train_Num: 0
   Train_Num2: 0
   Train_Image: {fileID: 7984269721183024127}
-  Train_NameText: {fileID: 2750755477824038931}
+  Train_NameText: {fileID: 4432550555590585645}
   Train_Buy: {fileID: 6310699639832149633}
   store_tooltip_object: {fileID: 0}
+  Train_Information_Flag: 0
+  Train_mouseOver_Flag: 0
 --- !u!114 &2470929101608378700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,6 +203,8 @@ GameObject:
   - component: {fileID: 7677807901095994131}
   - component: {fileID: 3873175591986223093}
   - component: {fileID: 1436192647245906895}
+  - component: {fileID: 4432550555590585645}
+  - component: {fileID: 7293480108594108169}
   m_Layer: 5
   m_Name: Train_Title
   m_TagString: Untagged
@@ -225,7 +229,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -58}
-  m_SizeDelta: {x: 250, y: 70}
+  m_SizeDelta: {x: 230, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3873175591986223093
 CanvasRenderer:
@@ -324,6 +328,98 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &4432550555590585645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2750755477824038931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1436192647245906895}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &7293480108594108169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2750755477824038931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjects:
+  - rid: 692368514488205404
+  references:
+    version: 2
+    RefIds:
+    - rid: 692368514488205404
+      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 1436192647245906895}
+        m_TrackedProperties:
+          items:
+          - rid: 692368514488205405
+          - rid: 692368514488205406
+        m_UpdateType: 0
+    - rid: 692368514488205405
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontAsset
+        m_TypeString: TMPro.TMP_FontAsset, Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 11400000, guid: d18e954a556ff18488dcca0937276cbf, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: 11400000, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+    - rid: 692368514488205406
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_sharedMaterial
+        m_TypeString: UnityEngine.Material, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 6434882401615742907, guid: d18e954a556ff18488dcca0937276cbf, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: -7662232666586179337, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
 --- !u!1 &6310699639832149633
 GameObject:
   m_ObjectHideFlags: 0

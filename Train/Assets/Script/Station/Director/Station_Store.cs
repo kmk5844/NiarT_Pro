@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Localization.Components;
+using static UnityEditor.Progress;
 
 public class Station_Store : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class Station_Store : MonoBehaviour
     [Header("구매 윈도우")]
     public GameObject Check_Buy_Panel;
     public Image Check_Buy_Image;
-    public TextMeshProUGUI Check_Buy_Name;
+    public LocalizeStringEvent Check_Buy_Name;
     public TextMeshProUGUI Check_Buy_Pride;
     //public TextMeshProUGUI Check_Buy_Text;
     public LocalizeStringEvent Check_Buy_Text;
@@ -91,6 +92,7 @@ public class Station_Store : MonoBehaviour
         Store_BuyAndSell_Window_Flag = false;
 
         //로컬라이제이션
+        Check_Buy_Name.StringReference.TableReference = "Station_Table_St";
         Check_Buy_Text.StringReference.TableReference = "Station_Table_St";
 
         //기차 구매하기
@@ -105,6 +107,9 @@ public class Station_Store : MonoBehaviour
         Check_Init_ItemBuy();
         //아이템 판매하기
         Check_Init_ItemSell();
+
+        GetComponentInParent<StationDirector>().UI_Train_Lock_Panel[0].SetActive(Check_Part_Store_Lock(51));
+        GetComponentInParent<StationDirector>().UI_Train_Lock_Panel[1].SetActive(Check_Part_Store_Lock(52));
     }
 
     public bool Check_Part_Store_Lock(int num = -1)
@@ -411,7 +416,16 @@ public class Station_Store : MonoBehaviour
             if (Store_Train_Num == 0)
             {
                 {
-                    Check_Buy_Name.text = trainData.EX_Game_Data.Information_Train[TrainAndMercenaryNum].Train_Name;
+                    Check_Buy_Name.StringReference.TableReference = "ExcelData_Table_St";
+                    if(TrainAndMercenaryNum == 51 || TrainAndMercenaryNum == 52)
+                    {
+                        Check_Buy_Name.StringReference.TableEntryReference = "Train_Name_" + TrainAndMercenaryNum;
+                    }
+                    else
+                    {
+                        Check_Buy_Name.StringReference.TableEntryReference = "Train_Name_" + (TrainAndMercenaryNum/10);
+                    }
+                    //Check_Buy_Name.text = trainData.EX_Game_Data.Information_Train[TrainAndMercenaryNum].Train_Name;
                     Check_Buy_Pride.text = trainData.EX_Game_Data.Information_Train[TrainAndMercenaryNum].Train_Buy_Cost.ToString();
                 }
                 Buy_YesButton.onClick.AddListener(() => Store_Buy_TrainCard(TrainAndMercenaryNum));
@@ -419,7 +433,9 @@ public class Station_Store : MonoBehaviour
             else if (Store_Train_Num == 1)
             {
                 {
-                    Check_Buy_Name.text = trainData.EX_Game_Data.Information_Train_Turret_Part[TrainAndMercenaryNum].Turret_Part_Name;
+                    Check_Buy_Name.StringReference.TableReference = "ExcelData_Table_St";
+                    Check_Buy_Name.StringReference.TableEntryReference = "Train_Turret_Name_" + TrainAndMercenaryNum;
+                    //Check_Buy_Name.text = trainData.EX_Game_Data.Information_Train_Turret_Part[TrainAndMercenaryNum].Turret_Part_Name;
                     Check_Buy_Pride.text = trainData.EX_Game_Data.Information_Train_Turret_Part[TrainAndMercenaryNum].Train_Buy_Cost.ToString();
                 }
                 Buy_YesButton.onClick.AddListener(() => Store_Buy_TurretCard(TrainAndMercenaryNum));
@@ -427,7 +443,9 @@ public class Station_Store : MonoBehaviour
             else if (Store_Train_Num == 2)
             {
                 {
-                    Check_Buy_Name.text = trainData.EX_Game_Data.Information_Train_Booster_Part[TrainAndMercenaryNum].Booster_Part_Name;
+                    Check_Buy_Name.StringReference.TableReference = "ExcelData_Table_St";
+                    Check_Buy_Name.StringReference.TableEntryReference = "Train_Booster_Name_" + TrainAndMercenaryNum;
+                    //Check_Buy_Name.text = trainData.EX_Game_Data.Information_Train_Booster_Part[TrainAndMercenaryNum].Booster_Part_Name;
                     Check_Buy_Pride.text = trainData.EX_Game_Data.Information_Train_Booster_Part[TrainAndMercenaryNum].Train_Buy_Cost.ToString();
                 }
                 Buy_YesButton.onClick.AddListener(() =>Store_Buy_BoosterCard(TrainAndMercenaryNum));
@@ -440,7 +458,9 @@ public class Station_Store : MonoBehaviour
             Check_Buy_Text.StringReference.TableEntryReference = "UI_Store_Mercenary_Buy";
             Check_Buy_Count.text = "1".ToString();
             {
-                Check_Buy_Name.text = trainData.EX_Game_Data.Information_Mercenary[TrainAndMercenaryNum].Name;
+                //Check_Buy_Name.text = trainData.EX_Game_Data.Information_Mercenary[TrainAndMercenaryNum].Name;
+                Check_Buy_Name.StringReference.TableReference = "ExcelData_Table_St";
+                Check_Buy_Name.StringReference.TableEntryReference = "Mercenary_Name_" + TrainAndMercenaryNum;
                 Check_Buy_Pride.text = trainData.EX_Game_Data.Information_Mercenary[TrainAndMercenaryNum].Mercenary_Pride.ToString();
             }
             Buy_YesButton.onClick.AddListener(() => Store_Buy_MercenaryCard(TrainAndMercenaryNum));
@@ -453,8 +473,10 @@ public class Station_Store : MonoBehaviour
         Check_Buy_Panel_Num = 2;
         Check_Buy_Panel.SetActive(true);
         Item_Count_Window.SetActive(true);
-        Check_Buy_Name.text = item.Item_Name;
-        
+        //Check_Buy_Name.text = item.Item_Name;
+        Check_Buy_Name.StringReference.TableReference = "ItemData_Table_St";
+        Check_Buy_Name.StringReference.TableEntryReference = "Item_Name_" + item.Num;
+
         if (Flag)
         {
             Button_ItemCount_Init(true, item);

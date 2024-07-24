@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Localization.Components;
+
 
 public class Station_TrainMaintenance : MonoBehaviour
 {
@@ -18,7 +20,7 @@ public class Station_TrainMaintenance : MonoBehaviour
     public Transform UI_TrainList;
     public Transform UI_TrainButtonList;
     public GameObject[] Train_Button;
-    public TextMeshProUGUI UI_Train_Information_Text;
+    public LocalizeStringEvent UI_Train_Information_Text;
     public int UI_Train_Num;
     int UI_Init_Train_Turret_Num;
     public int UI_Init_Train_Booster_Num;
@@ -52,7 +54,7 @@ public class Station_TrainMaintenance : MonoBehaviour
     public ScrollRect ScrollRect_Turret_Part;
     public ScrollRect ScrollRect_Booster_Part;
     public GameObject UI_Train_Part_Window;
-    public TextMeshProUGUI UI_Train_Part_Text;
+    public LocalizeStringEvent UI_Train_Part_Text;
     public GameObject Part_Card;
     public Transform Turret_Part_Content;
     public Transform Booster_Part_Content;
@@ -87,6 +89,8 @@ public class Station_TrainMaintenance : MonoBehaviour
         Train_Change_Num = trainData.Train_Change_Num;
         Train_Turret_Part_Change_Num = trainData.Train_Turret_Part_Change_Num;
         Train_Booster_Part_Change_Num = trainData.Train_Booster_Part_Change_Num;
+        UI_Train_Information_Text.StringReference.TableReference = "ExcelData_Table_St";
+        UI_Train_Part_Text.StringReference.TableReference = "ExcelData_Table_St";
         //UI 기차 생성하기
         UI_TrainImage(false);
         Current_Train_Information();
@@ -249,18 +253,21 @@ public class Station_TrainMaintenance : MonoBehaviour
 
         if (trainNum == 51)
         {
-            UI_Train_Information_Text.text = trainData.EX_Game_Data.Information_Train_Turret_Part[trainNum2].Train_Information.Replace("\\n", "\n") +
-                trainData.EX_Game_Data.Information_Train_Turret_Part[trainNum2].Train_Select_Information.Replace("\\n", "\n").Replace("\\t", "\t");
+            UI_Train_Information_Text.StringReference.TableEntryReference = "Train_Turret_Information_" + (trainNum2 / 10);
+           /* UI_Train_Information_Text.text = trainData.EX_Game_Data.Information_Train_Turret_Part[trainNum2].Train_Information.Replace("\\n", "\n")
+                + trainData.EX_Game_Data.Information_Train_Turret_Part[trainNum2].Train_Select_Information.Replace("\\n", "\n").Replace("\\t", "\t");*/
         }
         else if (trainNum == 52)
         {
-            UI_Train_Information_Text.text = trainData.EX_Game_Data.Information_Train_Booster_Part[trainNum2].Train_Information.Replace("\\n", "\n") +
-               trainData.EX_Game_Data.Information_Train_Booster_Part[trainNum2].Train_Select_Information.Replace("\\n", "\n").Replace("\\t", "\t");
+            UI_Train_Information_Text.StringReference.TableEntryReference = "Train_Booster_Information_" + (trainNum2 / 10);
+          /*  UI_Train_Information_Text.text = trainData.EX_Game_Data.Information_Train_Booster_Part[trainNum2].Train_Information.Replace("\\n", "\n")
+              + trainData.EX_Game_Data.Information_Train_Booster_Part[trainNum2].Train_Select_Information.Replace("\\n", "\n").Replace("\\t", "\t");*/
         }
         else
         {
-            UI_Train_Information_Text.text = trainData.EX_Game_Data.Information_Train[trainNum].Train_Information.Replace("\\n", "\n") +
-            trainData.EX_Game_Data.Information_Train[trainNum].Train_Select_Information.Replace("\\n", "\n").Replace("\\t", "\t");
+            UI_Train_Information_Text.StringReference.TableEntryReference = "Train_Information_" + (trainNum / 10);
+          /*  UI_Train_Information_Text.text = trainData.EX_Game_Data.Information_Train[trainNum].Train_Information.Replace("\\n", "\n")
+               + trainData.EX_Game_Data.Information_Train[trainNum].Train_Select_Information.Replace("\\n", "\n").Replace("\\t", "\t");*/
         }
     }
 
@@ -571,7 +578,9 @@ public class Station_TrainMaintenance : MonoBehaviour
 
     public void Click_Part_Back_Button()
     {
-        UI_Train_Part_Text.text = "<size=50>파츠 정보</size>";
+        UI_Train_Part_Text.StringReference.TableEntryReference = null;
+        UI_Train_Part_Text.GetComponent<TextMeshProUGUI>().text = "";
+        //UI_Train_Part_Text.text = "<size=50>파츠 정보</size>";
         if (Toggle_Train_Num == 51)
         {
             foreach(Toggle toggle in Turret_Part_Toggle)
@@ -796,7 +805,8 @@ public class Station_TrainMaintenance : MonoBehaviour
                 {
                     Train_Part_Card Card = Turret_Part_Content.GetChild(i).GetComponent<Train_Part_Card>();
                     Toggle_Turret_Part_Num = Card.Train_Part_Num;
-                    UI_Train_Part_Text.text = "<size=50>파츠 정보</size>\n\n" + trainData.EX_Game_Data.Information_Train_Turret_Part[Toggle_Turret_Part_Num].Train_Information.Replace("\\n", "\n");
+                    UI_Train_Part_Text.StringReference.TableEntryReference = "Train_Turret_Information_" + (Toggle_Turret_Part_Num / 10);
+                    //UI_Train_Part_Text.text = "<size=50>파츠 정보</size>\n\n" + trainData.EX_Game_Data.Information_Train_Turret_Part[Toggle_Turret_Part_Num].Train_Information.Replace("\\n", "\n");
                     //텍스트
                 }
                 Part_Change_Button.interactable = true;
@@ -818,7 +828,8 @@ public class Station_TrainMaintenance : MonoBehaviour
                 {
                     Train_Part_Card Card = Booster_Part_Content.GetChild(i).GetComponent<Train_Part_Card>();
                     Toggle_Booster_Part_Num = Card.Train_Part_Num;
-                    UI_Train_Part_Text.text = "<size=50>파츠 정보</size>\n\n" + trainData.EX_Game_Data.Information_Train_Booster_Part[Toggle_Booster_Part_Num].Train_Information.Replace("\\n", "\n");
+                    UI_Train_Part_Text.StringReference.TableEntryReference = "Train_Booster_Information_" + (Toggle_Booster_Part_Num / 10);
+                    //UI_Train_Part_Text.text = "<size=50>파츠 정보</size>\n\n" + trainData.EX_Game_Data.Information_Train_Booster_Part[Toggle_Booster_Part_Num].Train_Information.Replace("\\n", "\n");
                 }
             }
             Part_Change_Button.interactable = true;
@@ -989,7 +1000,6 @@ public class Station_TrainMaintenance : MonoBehaviour
 
             Before_Text.text =
                "  Lv : " + (trainData.SA_TrainTurretData.Train_Turret_Num[UI_Train_Turret_Num] + 1) % 10
-               + "\nName : " + train.Turret_Part_Name
                + "\nHP : " + train.Train_HP
                + "\nWeight : " + train.Train_Weight
                + "\nArmor : " + train.Train_Armor;
@@ -1000,7 +1010,6 @@ public class Station_TrainMaintenance : MonoBehaviour
                 train = trainData.EX_Game_Data.Information_Train_Turret_Part[trainData.SA_TrainTurretData.Train_Turret_Num[UI_Train_Turret_Num] + 1];
                 After_Text.text =
                     "  Lv : " + (trainData.SA_TrainTurretData.Train_Turret_Num[UI_Train_Turret_Num] + 2) % 10
-                    + "\nName : " + train.Turret_Part_Name
                     + "\nHP : <color=red>" + train.Train_HP
                     + "\n</color>Weight : <color=red>" + train.Train_Weight
                     + "\n</color>Armor : <color=red>" + train.Train_Armor;
@@ -1028,8 +1037,7 @@ public class Station_TrainMaintenance : MonoBehaviour
             Info_Train_Booster_Part train = trainData.EX_Game_Data.Information_Train_Booster_Part[trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num]];
 
             Before_Text.text = 
-                "Lv : " + (trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num] + 1) % 10
-                + "\nName : " + train.Booster_Part_Name
+                " Lv : " + (trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num] + 1) % 10
                 + "\nHP : " + train.Train_HP
                 + "\nWeight : " + train.Train_Weight
                 + "\nArmor : " + train.Train_Armor;
@@ -1039,7 +1047,6 @@ public class Station_TrainMaintenance : MonoBehaviour
                 train = trainData.EX_Game_Data.Information_Train_Booster_Part[trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num]];
                 After_Text.text =
                     "  Lv : " + (trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num] + 2) % 10
-                    + "\nName : " + train.Booster_Part_Name
                     + "\nHP : <color=red>" + train.Train_HP
                     + "\n</color>Weight : <color=red>" + train.Train_Weight
                     + "\n</color>Armor : <color=red>" + train.Train_Armor;
@@ -1069,7 +1076,6 @@ public class Station_TrainMaintenance : MonoBehaviour
 
             Before_Text.text =
                 "  Lv : " + (trainData.Train_Num[UI_Train_Num] + 1) % 10
-                + "\nName : " + train.Train_Name
                 + "\nHP : " + train.Train_HP
                 + "\nWeight : " + train.Train_Weight
                 + "\nArmor : " + train.Train_Armor;
@@ -1080,7 +1086,6 @@ public class Station_TrainMaintenance : MonoBehaviour
                 train = trainData.EX_Game_Data.Information_Train[trainData.Train_Num[UI_Train_Num] + 1];
                 After_Text.text =
                     "  Lv : " + (trainData.Train_Num[UI_Train_Num] + 2) % 10
-                    + "\nName : " + train.Train_Name
                     + "\nHP : <color=red>" + train.Train_HP
                     + "\n</color>Weight : <color=red>" + train.Train_Weight
                     + "\n</color>Armor : <color=red>" + train.Train_Armor;

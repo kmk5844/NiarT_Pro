@@ -37,7 +37,7 @@ public class ItemBuy_Object : MonoBehaviour
         {
             if (item_information_Flag)
             {
-                item_tooltip_object.Tooltip_ON(item.Item_Sprite, item_name, item_information, item_use, item_pride);
+                item_tooltip_object.Tooltip_ON(item.Item_Sprite, item.Num, item_use, item_pride);
                 item_mouseOver_Flag = true;
             }
             else

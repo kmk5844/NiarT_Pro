@@ -613,6 +613,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5554182}
   m_CullTransparentMesh: 1
+--- !u!1 &8949158
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8949159}
+  - component: {fileID: 8949161}
+  - component: {fileID: 8949160}
+  m_Layer: 5
+  m_Name: Panel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8949159
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8949158}
+  m_LocalRotation: {x: 0, y: 0, z: 0.08106876, w: 0.9967085}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 761768503}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 9.3}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 765.1765, y: 81.69055}
+  m_SizeDelta: {x: 665.1576, y: 1080}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8949160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8949158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &8949161
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8949158}
+  m_CullTransparentMesh: 1
 --- !u!1 &13669019
 GameObject:
   m_ObjectHideFlags: 0
@@ -1315,7 +1390,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -1326,7 +1401,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -1337,7 +1412,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 545
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -1348,7 +1423,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: -810
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -1359,7 +1434,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -1370,7 +1445,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -1860,6 +1935,256 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -128}
   m_SizeDelta: {x: 174, y: 52}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &61155609
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 61155610}
+  - component: {fileID: 61155613}
+  - component: {fileID: 61155612}
+  - component: {fileID: 61155611}
+  m_Layer: 5
+  m_Name: 'Pride_Count_Text '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &61155610
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 61155609}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1088754740}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 49.968018, y: 0}
+  m_SizeDelta: {x: 135.06, y: 40}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &61155611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 61155609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjects:
+  - rid: 692368514488205317
+  - rid: 692368514488205320
+  references:
+    version: 2
+    RefIds:
+    - rid: 692368514488205317
+      type: {class: TrackedRectTransform, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 61155610}
+        m_TrackedProperties:
+          items:
+          - rid: 692368514488205318
+          - rid: 692368514488205319
+    - rid: 692368514488205318
+      type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_AnchoredPosition.x
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: 49.968018
+        - localeIdentifier:
+            m_Code: en
+          value: 63.614
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: 55.614
+    - rid: 692368514488205319
+      type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_SizeDelta.x
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: 135.06
+        - localeIdentifier:
+            m_Code: en
+          value: 107.77
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: 123.77
+    - rid: 692368514488205320
+      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 61155612}
+        m_TrackedProperties:
+          items:
+          - rid: 692368514488205321
+          - rid: 692368514488205322
+          - rid: 692368514488205328
+          - rid: 692368514488205329
+        m_UpdateType: 0
+    - rid: 692368514488205321
+      type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontSize
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: 20
+        - localeIdentifier:
+            m_Code: en
+          value: 16
+    - rid: 692368514488205322
+      type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontSizeBase
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: 20
+        - localeIdentifier:
+            m_Code: en
+          value: 16
+    - rid: 692368514488205328
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontAsset
+        m_TypeString: TMPro.TMP_FontAsset, Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 11400000, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: 11400000, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+    - rid: 692368514488205329
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_sharedMaterial
+        m_TypeString: UnityEngine.Material, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 5132732996156694399, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: -7662232666586179337, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+--- !u!114 &61155612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 61155609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: '###
+
+'
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+  m_sharedMaterial: {fileID: 5132732996156694399, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 20
+  m_fontSizeBase: 20
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &61155613
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 61155609}
+  m_CullTransparentMesh: 1
 --- !u!1 &62390977
 GameObject:
   m_ObjectHideFlags: 0
@@ -4648,9 +4973,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_StringReference:
     m_TableReference:
-      m_TableCollectionName: 
+      m_TableCollectionName: GUID:260850c1fa5abac4b9d2e4157fa012b2
     m_TableEntryReference:
-      m_KeyId: 0
+      m_KeyId: 31989495797764096
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -5229,7 +5554,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1047, y: -107}
+  m_AnchoredPosition: {x: -254, y: -49}
   m_SizeDelta: {x: 1390, y: 925}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &182183711
@@ -5874,6 +6199,8 @@ GameObject:
   - component: {fileID: 210331031}
   - component: {fileID: 210331032}
   - component: {fileID: 210331030}
+  - component: {fileID: 210331033}
+  - component: {fileID: 210331034}
   m_Layer: 5
   m_Name: Informaiton_Text
   m_TagString: Untagged
@@ -5937,7 +6264,7 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4294967295
   m_fontSize: 20
-  m_fontSizeBase: 30
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 14
@@ -6005,6 +6332,98 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 210331029}
   m_CullTransparentMesh: 1
+--- !u!114 &210331033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210331029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 210331030}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &210331034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210331029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjects:
+  - rid: 692368520459321370
+  references:
+    version: 2
+    RefIds:
+    - rid: 692368520459321370
+      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 210331030}
+        m_TrackedProperties:
+          items:
+          - rid: 692368520459321371
+          - rid: 692368520459321372
+        m_UpdateType: 0
+    - rid: 692368520459321371
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontAsset
+        m_TypeString: TMPro.TMP_FontAsset, Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 11400000, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: 11400000, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+    - rid: 692368520459321372
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_sharedMaterial
+        m_TypeString: UnityEngine.Material, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 5132732996156694399, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: -7662232666586179337, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
 --- !u!1 &211376248
 GameObject:
   m_ObjectHideFlags: 0
@@ -6784,7 +7203,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -6795,7 +7214,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -6806,7 +7225,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 215
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -6817,7 +7236,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: -480
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -6828,7 +7247,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -6839,7 +7258,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -8689,7 +9108,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -8700,7 +9119,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -8711,7 +9130,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 105
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -8722,7 +9141,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: -590
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -8733,7 +9152,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -8744,7 +9163,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -10672,7 +11091,7 @@ MonoBehaviour:
   - {fileID: 34098976}
   UI_Train_Lock_Panel:
   - {fileID: 1303254034}
-  - {fileID: 0}
+  - {fileID: 909312080}
   UI_Store_BackButton:
   - {fileID: 328206111}
   - {fileID: 148984381}
@@ -11356,7 +11775,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -11367,7 +11786,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -11378,7 +11797,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 435
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -11389,7 +11808,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: -590
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -11400,7 +11819,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -11411,7 +11830,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -11831,140 +12250,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 371031577}
   m_CullTransparentMesh: 1
---- !u!1 &374088479
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 374088480}
-  - component: {fileID: 374088481}
-  - component: {fileID: 374088482}
-  m_Layer: 5
-  m_Name: Pride_Text
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &374088480
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 374088479}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2081220560}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 80, y: -74}
-  m_SizeDelta: {x: 235, y: 40}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &374088481
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 374088479}
-  m_CullTransparentMesh: 1
---- !u!114 &374088482
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 374088479}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_text: "\uAD6C\uB9E4 \uAC00\uACA9 : ###\n"
-  m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
-  m_sharedMaterial: {fileID: 5132732996156694399, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
-  m_fontSharedMaterials: []
-  m_fontMaterial: {fileID: 0}
-  m_fontMaterials: []
-  m_fontColor32:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
-  m_enableVertexGradient: 0
-  m_colorMode: 3
-  m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
-  m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
-  m_tintAllSprites: 0
-  m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: -1183493901
-  m_overrideHtmlColors: 0
-  m_faceColor:
-    serializedVersion: 2
-    rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
-  m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
-  m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 512
-  m_textAlignment: 65535
-  m_characterSpacing: 0
-  m_wordSpacing: 0
-  m_lineSpacing: 0
-  m_lineSpacingMax: 0
-  m_paragraphSpacing: 0
-  m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
-  m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
-  m_linkedTextComponent: {fileID: 0}
-  parentLinkedComponent: {fileID: 0}
-  m_enableKerning: 1
-  m_enableExtraPadding: 0
-  checkPaddingRequired: 0
-  m_isRichText: 1
-  m_parseCtrlCharacters: 1
-  m_isOrthographic: 1
-  m_isCullingEnabled: 0
-  m_horizontalMapping: 0
-  m_verticalMapping: 0
-  m_uvLineOffset: 0
-  m_geometrySortingOrder: 0
-  m_IsTextObjectScaleStatic: 0
-  m_VertexBufferAutoSizeReduction: 0
-  m_useMaxVisibleDescender: 1
-  m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
-  m_isUsingLegacyAnimationComponent: 0
-  m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
-  m_baseMaterial: {fileID: 0}
-  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &375176037
 GameObject:
   m_ObjectHideFlags: 0
@@ -12849,7 +13134,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -12860,7 +13145,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -12871,7 +13156,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 435
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -12882,7 +13167,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: -150
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -12893,7 +13178,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -12904,7 +13189,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -13323,7 +13608,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -13334,7 +13619,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -13345,7 +13630,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 545
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -13356,7 +13641,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: -150
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -13367,7 +13652,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -13378,7 +13663,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -14227,7 +14512,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -14238,7 +14523,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -14249,7 +14534,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 545
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -14260,7 +14545,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: -590
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -14271,7 +14556,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -14282,7 +14567,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -16165,7 +16450,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -16176,7 +16461,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -16187,7 +16472,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 435
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -16198,7 +16483,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: -370
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -16209,7 +16494,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -16220,7 +16505,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -18637,7 +18922,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -18648,7 +18933,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -18659,7 +18944,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 545
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -18670,7 +18955,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: -260
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -18681,7 +18966,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -18692,7 +18977,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -18808,7 +19093,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -18819,7 +19104,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -18830,7 +19115,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 215
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -18841,7 +19126,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: -370
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -18852,7 +19137,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -18863,7 +19148,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -20401,7 +20686,7 @@ MonoBehaviour:
   - {fileID: 1479415419390654497, guid: f82053e6821a8bf48b03c5b9ed44791d, type: 3}
   - {fileID: 5386974030229855136, guid: 6eb5c1c2233a84447b6ba23f5522251b, type: 3}
   - {fileID: 3530898196566825832, guid: 20bd29aa83e988e409ca24619c9077b0, type: 3}
-  UI_Train_Information_Text: {fileID: 1900193854}
+  UI_Train_Information_Text: {fileID: 1900193857}
   UI_Train_Num: 0
   UI_Init_Train_Booster_Num: 0
   Passive_Text:
@@ -20427,7 +20712,7 @@ MonoBehaviour:
   ScrollRect_Turret_Part: {fileID: 219929742}
   ScrollRect_Booster_Part: {fileID: 2058088085}
   UI_Train_Part_Window: {fileID: 689525171}
-  UI_Train_Part_Text: {fileID: 1147955674}
+  UI_Train_Part_Text: {fileID: 1147955676}
   Part_Card: {fileID: 5552529427496242445, guid: e93e80a49e591254dba969320aab4180, type: 3}
   Turret_Part_Content: {fileID: 940837481}
   Booster_Part_Content: {fileID: 2122390205}
@@ -21972,7 +22257,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -21983,7 +22268,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -21994,7 +22279,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 435
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -22005,7 +22290,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: -810
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -22016,7 +22301,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -22027,7 +22312,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -22376,6 +22661,8 @@ GameObject:
   - component: {fileID: 668159521}
   - component: {fileID: 668159523}
   - component: {fileID: 668159522}
+  - component: {fileID: 668159525}
+  - component: {fileID: 668159524}
   m_Layer: 5
   m_Name: Name_Text
   m_TagString: Untagged
@@ -22499,6 +22786,98 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 668159520}
   m_CullTransparentMesh: 1
+--- !u!114 &668159524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668159520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjects:
+  - rid: 692368520459321383
+  references:
+    version: 2
+    RefIds:
+    - rid: 692368520459321383
+      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 668159522}
+        m_TrackedProperties:
+          items:
+          - rid: 692368520459321384
+          - rid: 692368520459321385
+        m_UpdateType: 0
+    - rid: 692368520459321384
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontAsset
+        m_TypeString: TMPro.TMP_FontAsset, Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 11400000, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: 11400000, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+    - rid: 692368520459321385
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_sharedMaterial
+        m_TypeString: UnityEngine.Material, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 5132732996156694399, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: -7662232666586179337, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+--- !u!114 &668159525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 668159520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 668159522}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &668472816
 GameObject:
   m_ObjectHideFlags: 0
@@ -24752,12 +25131,13 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 8949159}
   - {fileID: 182183710}
   m_Father: {fileID: 1560052837}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 795, y: 64}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &761768504
@@ -24877,6 +25257,8 @@ GameObject:
   - component: {fileID: 765837802}
   - component: {fileID: 765837801}
   - component: {fileID: 765837800}
+  - component: {fileID: 765837804}
+  - component: {fileID: 765837803}
   m_Layer: 5
   m_Name: Pride_Text
   m_TagString: Untagged
@@ -24904,7 +25286,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uAD6C\uB9E4 \uAC00\uACA9 : ###\n"
+  m_text: "\uAD6C\uB9E4 \uAC00\uACA9 : "
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
   m_sharedMaterial: {fileID: 5132732996156694399, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
@@ -24988,18 +25370,171 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 765837799}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1919581420}
+  m_Father: {fileID: 1316883924}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 80, y: -74}
-  m_SizeDelta: {x: 235, y: 40}
+  m_AnchoredPosition: {x: -67.53198, y: 0}
+  m_SizeDelta: {x: 99.9362, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &765837803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765837799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjects:
+  - rid: 692368514488205314
+  - rid: 692368514488205323
+  references:
+    version: 2
+    RefIds:
+    - rid: 692368514488205314
+      type: {class: TrackedRectTransform, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 765837802}
+        m_TrackedProperties:
+          items:
+          - rid: 692368514488205315
+          - rid: 692368514488205316
+    - rid: 692368514488205315
+      type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_AnchoredPosition.x
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: -67.53198
+        - localeIdentifier:
+            m_Code: en
+          value: -45.4135
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: -61.884766
+    - rid: 692368514488205316
+      type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_SizeDelta.x
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: 99.9362
+        - localeIdentifier:
+            m_Code: en
+          value: 144.1732
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: 111.2306
+    - rid: 692368514488205323
+      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 765837800}
+        m_TrackedProperties:
+          items:
+          - rid: 692368514488205324
+          - rid: 692368514488205325
+          - rid: 692368514488205326
+          - rid: 692368514488205327
+        m_UpdateType: 0
+    - rid: 692368514488205324
+      type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontSize
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: 20
+        - localeIdentifier:
+            m_Code: en
+          value: 16
+    - rid: 692368514488205325
+      type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontSizeBase
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: 20
+        - localeIdentifier:
+            m_Code: en
+          value: 16
+    - rid: 692368514488205326
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontAsset
+        m_TypeString: TMPro.TMP_FontAsset, Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 11400000, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: 11400000, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+    - rid: 692368514488205327
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_sharedMaterial
+        m_TypeString: UnityEngine.Material, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 5132732996156694399, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: -7662232666586179337, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+--- !u!114 &765837804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 765837799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:260850c1fa5abac4b9d2e4157fa012b2
+    m_TableEntryReference:
+      m_KeyId: 32240780946034688
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 765837800}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &767432532
 GameObject:
   m_ObjectHideFlags: 0
@@ -25474,7 +26009,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -25485,7 +26020,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -25496,7 +26031,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 325
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -25507,7 +26042,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: -590
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -25518,7 +26053,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -25529,7 +26064,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -27478,8 +28013,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Item_Icon: {fileID: 931009760}
-  Item_Name: {fileID: 939055856}
-  Item_Information: {fileID: 1419193648}
+  Item_Name: {fileID: 939055859}
+  Item_Information: {fileID: 1419193651}
   Item_Pride: {fileID: 1118948411}
   UseWindow: {fileID: 1737246652}
   tooltiptype: 3
@@ -28228,7 +28763,7 @@ MonoBehaviour:
         - localeIdentifier:
             m_Code: ja-JP
           value: 512
---- !u!1 &881509924
+--- !u!1 &878191732
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -28236,42 +28771,156 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 881509925}
-  - component: {fileID: 881509927}
-  - component: {fileID: 881509926}
+  - component: {fileID: 878191733}
+  - component: {fileID: 878191736}
+  - component: {fileID: 878191735}
+  - component: {fileID: 878191734}
   m_Layer: 5
-  m_Name: Pride_Text
+  m_Name: 'Pride_Count_Text '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &881509925
+--- !u!224 &878191733
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 881509924}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_GameObject: {fileID: 878191732}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1647159828}
+  m_Father: {fileID: 1316883924}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 80, y: -74}
-  m_SizeDelta: {x: 235, y: 40}
+  m_AnchoredPosition: {x: 49.968018, y: 0}
+  m_SizeDelta: {x: 135.06, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &881509926
+--- !u!114 &878191734
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 881509924}
+  m_GameObject: {fileID: 878191732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjects:
+  - rid: 692368514488205317
+  - rid: 692368514488205320
+  references:
+    version: 2
+    RefIds:
+    - rid: 692368514488205317
+      type: {class: TrackedRectTransform, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 878191733}
+        m_TrackedProperties:
+          items:
+          - rid: 692368514488205318
+          - rid: 692368514488205319
+    - rid: 692368514488205318
+      type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_AnchoredPosition.x
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: 49.968018
+        - localeIdentifier:
+            m_Code: en
+          value: 71.85
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: 55.614
+    - rid: 692368514488205319
+      type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_SizeDelta.x
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: 135.06
+        - localeIdentifier:
+            m_Code: en
+          value: 91.295
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: 123.77
+    - rid: 692368514488205320
+      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 878191735}
+        m_TrackedProperties:
+          items:
+          - rid: 692368514488205321
+          - rid: 692368514488205322
+          - rid: 692368514488205328
+          - rid: 692368514488205329
+        m_UpdateType: 0
+    - rid: 692368514488205321
+      type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontSize
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: 20
+        - localeIdentifier:
+            m_Code: en
+          value: 16
+    - rid: 692368514488205322
+      type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontSizeBase
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: 20
+        - localeIdentifier:
+            m_Code: en
+          value: 16
+    - rid: 692368514488205328
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontAsset
+        m_TypeString: TMPro.TMP_FontAsset, Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 11400000, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: 11400000, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+    - rid: 692368514488205329
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_sharedMaterial
+        m_TypeString: UnityEngine.Material, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 5132732996156694399, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: -7662232666586179337, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+--- !u!114 &878191735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 878191732}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
@@ -28285,7 +28934,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uAD6C\uB9E4 \uAC00\uACA9 : ###\n"
+  m_text: '###
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
   m_sharedMaterial: {fileID: 5132732996156694399, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
@@ -28354,13 +29005,13 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!222 &881509927
+--- !u!222 &878191736
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 881509924}
+  m_GameObject: {fileID: 878191732}
   m_CullTransparentMesh: 1
 --- !u!1 &884570581
 GameObject:
@@ -29513,6 +30164,8 @@ GameObject:
   - component: {fileID: 912451598}
   - component: {fileID: 912451597}
   - component: {fileID: 912451596}
+  - component: {fileID: 912451599}
+  - component: {fileID: 912451600}
   m_Layer: 5
   m_Name: Item_Name
   m_TagString: Untagged
@@ -29636,6 +30289,110 @@ RectTransform:
   m_AnchoredPosition: {x: 140, y: 122}
   m_SizeDelta: {x: 282, y: 58}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &912451599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 912451595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 912451596}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &912451600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 912451595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjects:
+  - rid: 692368520459321407
+  references:
+    version: 2
+    RefIds:
+    - rid: 692368520459321407
+      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 912451596}
+        m_TrackedProperties:
+          items:
+          - rid: 692368520459321408
+          - rid: 692368520459321409
+          - rid: 692368520459321410
+        m_UpdateType: 0
+    - rid: 692368520459321408
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontAsset
+        m_TypeString: TMPro.TMP_FontAsset, Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 11400000, guid: e99461bc2fb375241bc10e3adf7773fe, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: 11400000, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+    - rid: 692368520459321409
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_sharedMaterial
+        m_TypeString: UnityEngine.Material, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 8962919107164798502, guid: e99461bc2fb375241bc10e3adf7773fe, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: -7662232666586179337, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+    - rid: 692368520459321410
+      type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontSize
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: 37.65
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: 58
 --- !u!1 &918054778
 GameObject:
   m_ObjectHideFlags: 0
@@ -31231,6 +31988,8 @@ GameObject:
   - component: {fileID: 939055855}
   - component: {fileID: 939055857}
   - component: {fileID: 939055856}
+  - component: {fileID: 939055859}
+  - component: {fileID: 939055858}
   m_Layer: 5
   m_Name: Name_Text
   m_TagString: Untagged
@@ -31343,7 +32102,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &939055857
@@ -31354,6 +32113,110 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 939055854}
   m_CullTransparentMesh: 1
+--- !u!114 &939055858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939055854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjects:
+  - rid: 692368520459321389
+  references:
+    version: 2
+    RefIds:
+    - rid: 692368520459321389
+      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 939055856}
+        m_TrackedProperties:
+          items:
+          - rid: 692368520459321390
+          - rid: 692368520459321391
+          - rid: 692368520459321392
+        m_UpdateType: 0
+    - rid: 692368520459321390
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontAsset
+        m_TypeString: TMPro.TMP_FontAsset, Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 11400000, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: 11400000, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+    - rid: 692368520459321391
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_sharedMaterial
+        m_TypeString: UnityEngine.Material, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 5132732996156694399, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: -7662232666586179337, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+    - rid: 692368520459321392
+      type: {class: BoolTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_hasFontAssetChanged
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: 1
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: 0
+--- !u!114 &939055859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939055854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 939055856}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &940837480
 GameObject:
   m_ObjectHideFlags: 0
@@ -31962,7 +32825,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &965955577
 RectTransform:
   m_ObjectHideFlags: 0
@@ -33679,7 +34542,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -33690,7 +34553,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -33701,7 +34564,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 325
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -33712,7 +34575,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: -260
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -33723,7 +34586,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -33734,7 +34597,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -35549,7 +36412,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -35560,7 +36423,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -35571,7 +36434,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 105
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -35582,7 +36445,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: -260
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -35593,7 +36456,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -35604,7 +36467,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -36653,6 +37516,8 @@ GameObject:
   - component: {fileID: 1072069129}
   - component: {fileID: 1072069131}
   - component: {fileID: 1072069130}
+  - component: {fileID: 1072069133}
+  - component: {fileID: 1072069132}
   m_Layer: 5
   m_Name: Name_Text
   m_TagString: Untagged
@@ -36776,6 +37641,98 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1072069128}
   m_CullTransparentMesh: 1
+--- !u!114 &1072069132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1072069128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjects:
+  - rid: 692368520459321377
+  references:
+    version: 2
+    RefIds:
+    - rid: 692368520459321377
+      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 1072069130}
+        m_TrackedProperties:
+          items:
+          - rid: 692368520459321378
+          - rid: 692368520459321379
+        m_UpdateType: 0
+    - rid: 692368520459321378
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontAsset
+        m_TypeString: TMPro.TMP_FontAsset, Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 11400000, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: 11400000, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+    - rid: 692368520459321379
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_sharedMaterial
+        m_TypeString: UnityEngine.Material, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 5132732996156694399, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: -7662232666586179337, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+--- !u!114 &1072069133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1072069128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1072069130}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &1075266607
 GameObject:
   m_ObjectHideFlags: 0
@@ -37329,6 +38286,43 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1081733635}
   m_CullTransparentMesh: 1
+--- !u!1 &1088754739
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1088754740}
+  m_Layer: 5
+  m_Name: Pride
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1088754740
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1088754739}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1137666131}
+  - {fileID: 61155610}
+  m_Father: {fileID: 1647159828}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 80, y: -74.00012}
+  m_SizeDelta: {x: 235, y: 40}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1088909710
 GameObject:
   m_ObjectHideFlags: 0
@@ -38196,7 +39190,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1105547350
 RectTransform:
   m_ObjectHideFlags: 0
@@ -38302,7 +39296,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1105547352
@@ -39298,7 +40292,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1118948410
 RectTransform:
   m_ObjectHideFlags: 0
@@ -40072,6 +41066,295 @@ RectTransform:
   m_AnchoredPosition: {x: 80, y: -320}
   m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1137666130
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1137666131}
+  - component: {fileID: 1137666135}
+  - component: {fileID: 1137666134}
+  - component: {fileID: 1137666133}
+  - component: {fileID: 1137666132}
+  m_Layer: 5
+  m_Name: Pride_Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1137666131
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137666130}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1088754740}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -67.53198, y: 0}
+  m_SizeDelta: {x: 99.9362, y: 40}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1137666132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137666130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjects:
+  - rid: 692368514488205314
+  - rid: 692368514488205323
+  references:
+    version: 2
+    RefIds:
+    - rid: 692368514488205314
+      type: {class: TrackedRectTransform, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 1137666131}
+        m_TrackedProperties:
+          items:
+          - rid: 692368514488205315
+          - rid: 692368514488205316
+    - rid: 692368514488205315
+      type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_AnchoredPosition.x
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: -67.53198
+        - localeIdentifier:
+            m_Code: en
+          value: -53.8844
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: -61.884766
+    - rid: 692368514488205316
+      type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_SizeDelta.x
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: 99.9362
+        - localeIdentifier:
+            m_Code: en
+          value: 127.2313
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: 111.2306
+    - rid: 692368514488205323
+      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 1137666134}
+        m_TrackedProperties:
+          items:
+          - rid: 692368514488205324
+          - rid: 692368514488205325
+          - rid: 692368514488205326
+          - rid: 692368514488205327
+        m_UpdateType: 0
+    - rid: 692368514488205324
+      type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontSize
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: 20
+        - localeIdentifier:
+            m_Code: en
+          value: 16
+    - rid: 692368514488205325
+      type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontSizeBase
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: 20
+        - localeIdentifier:
+            m_Code: en
+          value: 16
+    - rid: 692368514488205326
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontAsset
+        m_TypeString: TMPro.TMP_FontAsset, Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 11400000, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: 11400000, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+    - rid: 692368514488205327
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_sharedMaterial
+        m_TypeString: UnityEngine.Material, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 5132732996156694399, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: -7662232666586179337, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+--- !u!114 &1137666133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137666130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:260850c1fa5abac4b9d2e4157fa012b2
+    m_TableEntryReference:
+      m_KeyId: 32240898638204928
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1137666134}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1137666134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137666130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: "\uD310\uB9E4 \uAC00\uACA9 : "
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+  m_sharedMaterial: {fileID: 5132732996156694399, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 20
+  m_fontSizeBase: 20
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1137666135
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137666130}
+  m_CullTransparentMesh: 1
 --- !u!1 &1143750034
 GameObject:
   m_ObjectHideFlags: 0
@@ -40311,8 +41594,10 @@ GameObject:
   - component: {fileID: 1147955673}
   - component: {fileID: 1147955675}
   - component: {fileID: 1147955674}
+  - component: {fileID: 1147955676}
+  - component: {fileID: 1147955677}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Train_Part_Information_Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40357,7 +41642,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '##############################################################################################################################################################################################################################################################################################################################################################'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b78e44a57ee848341a90cccae5c0bcd1, type: 2}
   m_sharedMaterial: {fileID: 6781648418189541948, guid: b78e44a57ee848341a90cccae5c0bcd1, type: 2}
@@ -40434,6 +41719,98 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1147955672}
   m_CullTransparentMesh: 1
+--- !u!114 &1147955676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147955672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1147955674}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1147955677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147955672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjects:
+  - rid: 692368514488205388
+  references:
+    version: 2
+    RefIds:
+    - rid: 692368514488205388
+      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 1147955674}
+        m_TrackedProperties:
+          items:
+          - rid: 692368514488205389
+          - rid: 692368514488205390
+        m_UpdateType: 0
+    - rid: 692368514488205389
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontAsset
+        m_TypeString: TMPro.TMP_FontAsset, Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 11400000, guid: b78e44a57ee848341a90cccae5c0bcd1, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: 11400000, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+    - rid: 692368514488205390
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_sharedMaterial
+        m_TypeString: UnityEngine.Material, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 6781648418189541948, guid: b78e44a57ee848341a90cccae5c0bcd1, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: -7662232666586179337, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
 --- !u!1 &1154523996
 GameObject:
   m_ObjectHideFlags: 0
@@ -40546,7 +41923,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -40557,7 +41934,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -40568,7 +41945,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 105
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -40579,7 +41956,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: -480
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -40590,7 +41967,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -40601,7 +41978,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -41218,7 +42595,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -41229,7 +42606,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -41240,7 +42617,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 215
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -41251,7 +42628,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: -590
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -41262,7 +42639,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -41273,7 +42650,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -43080,7 +44457,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -43091,7 +44468,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -43102,7 +44479,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 435
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -43113,7 +44490,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: -700
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -43124,7 +44501,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -43135,7 +44512,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -46513,6 +47890,256 @@ RectTransform:
   m_AnchoredPosition: {x: 12, y: 170}
   m_SizeDelta: {x: 280, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1309051743
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1309051744}
+  - component: {fileID: 1309051747}
+  - component: {fileID: 1309051746}
+  - component: {fileID: 1309051745}
+  m_Layer: 5
+  m_Name: 'Pride_Count_Text '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1309051744
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309051743}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1551165254}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 49.968018, y: 0}
+  m_SizeDelta: {x: 135.06, y: 40}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1309051745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309051743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjects:
+  - rid: 692368514488205317
+  - rid: 692368514488205320
+  references:
+    version: 2
+    RefIds:
+    - rid: 692368514488205317
+      type: {class: TrackedRectTransform, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 1309051744}
+        m_TrackedProperties:
+          items:
+          - rid: 692368514488205318
+          - rid: 692368514488205319
+    - rid: 692368514488205318
+      type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_AnchoredPosition.x
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: 49.968018
+        - localeIdentifier:
+            m_Code: en
+          value: 71.85
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: 55.614
+    - rid: 692368514488205319
+      type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_SizeDelta.x
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: 135.06
+        - localeIdentifier:
+            m_Code: en
+          value: 91.295
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: 123.77
+    - rid: 692368514488205320
+      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 1309051746}
+        m_TrackedProperties:
+          items:
+          - rid: 692368514488205321
+          - rid: 692368514488205322
+          - rid: 692368514488205328
+          - rid: 692368514488205329
+        m_UpdateType: 0
+    - rid: 692368514488205321
+      type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontSize
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: 20
+        - localeIdentifier:
+            m_Code: en
+          value: 16
+    - rid: 692368514488205322
+      type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontSizeBase
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: 20
+        - localeIdentifier:
+            m_Code: en
+          value: 16
+    - rid: 692368514488205328
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontAsset
+        m_TypeString: TMPro.TMP_FontAsset, Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 11400000, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: 11400000, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+    - rid: 692368514488205329
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_sharedMaterial
+        m_TypeString: UnityEngine.Material, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 5132732996156694399, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: -7662232666586179337, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+--- !u!114 &1309051746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309051743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: '###
+
+'
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+  m_sharedMaterial: {fileID: 5132732996156694399, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 20
+  m_fontSizeBase: 20
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1309051747
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309051743}
+  m_CullTransparentMesh: 1
 --- !u!1 &1309676558
 GameObject:
   m_ObjectHideFlags: 0
@@ -47000,6 +48627,43 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1312279195}
   m_CullTransparentMesh: 1
+--- !u!1 &1316883923
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1316883924}
+  m_Layer: 5
+  m_Name: Pride
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1316883924
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1316883923}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 765837802}
+  - {fileID: 878191733}
+  m_Father: {fileID: 1919581420}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 80, y: -74}
+  m_SizeDelta: {x: 235, y: 40}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1319950404
 GameObject:
   m_ObjectHideFlags: 0
@@ -47337,7 +49001,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -47348,7 +49012,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -47359,7 +49023,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 215
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -47370,7 +49034,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: -700
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -47381,7 +49045,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -47392,7 +49056,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -47967,7 +49631,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -47978,7 +49642,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -47989,7 +49653,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 325
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -48000,7 +49664,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: -700
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -48011,7 +49675,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -48022,7 +49686,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -48366,7 +50030,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -48377,7 +50041,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -48388,7 +50052,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 325
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -48399,7 +50063,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: -150
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -48410,7 +50074,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -48421,7 +50085,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -48572,8 +50236,8 @@ RectTransform:
   - {fileID: 767494407}
   - {fileID: 1227610620}
   - {fileID: 274739850}
-  - {fileID: 99863265}
   - {fileID: 1347493614}
+  - {fileID: 99863265}
   m_Father: {fileID: 1528513513}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -51290,6 +52954,8 @@ GameObject:
   - component: {fileID: 1409404096}
   - component: {fileID: 1409404098}
   - component: {fileID: 1409404097}
+  - component: {fileID: 1409404100}
+  - component: {fileID: 1409404099}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -51414,6 +53080,98 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1409404095}
   m_CullTransparentMesh: 1
+--- !u!114 &1409404099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1409404095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjects:
+  - rid: 692368514488205334
+  references:
+    version: 2
+    RefIds:
+    - rid: 692368514488205334
+      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 1409404097}
+        m_TrackedProperties:
+          items:
+          - rid: 692368514488205335
+          - rid: 692368514488205336
+        m_UpdateType: 0
+    - rid: 692368514488205335
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontAsset
+        m_TypeString: TMPro.TMP_FontAsset, Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 11400000, guid: b78e44a57ee848341a90cccae5c0bcd1, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: 11400000, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+    - rid: 692368514488205336
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_sharedMaterial
+        m_TypeString: UnityEngine.Material, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 6781648418189541948, guid: b78e44a57ee848341a90cccae5c0bcd1, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: -7662232666586179337, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+--- !u!114 &1409404100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1409404095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:260850c1fa5abac4b9d2e4157fa012b2
+    m_TableEntryReference:
+      m_KeyId: 32245122432356352
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1409404097}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &1411837513
 GameObject:
   m_ObjectHideFlags: 0
@@ -51781,6 +53539,8 @@ GameObject:
   - component: {fileID: 1419193647}
   - component: {fileID: 1419193649}
   - component: {fileID: 1419193648}
+  - component: {fileID: 1419193651}
+  - component: {fileID: 1419193650}
   m_Layer: 5
   m_Name: Informaiton_Text
   m_TagString: Untagged
@@ -51901,7 +53661,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1419193649
@@ -51912,6 +53672,110 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1419193646}
   m_CullTransparentMesh: 1
+--- !u!114 &1419193650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1419193646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjects:
+  - rid: 692368520459321393
+  references:
+    version: 2
+    RefIds:
+    - rid: 692368520459321393
+      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 1419193648}
+        m_TrackedProperties:
+          items:
+          - rid: 692368520459321394
+          - rid: 692368520459321395
+          - rid: 692368520459321396
+        m_UpdateType: 0
+    - rid: 692368520459321394
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontAsset
+        m_TypeString: TMPro.TMP_FontAsset, Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 11400000, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: 11400000, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+    - rid: 692368520459321395
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_sharedMaterial
+        m_TypeString: UnityEngine.Material, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 5132732996156694399, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: -7662232666586179337, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+    - rid: 692368520459321396
+      type: {class: BoolTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_hasFontAssetChanged
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: 1
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: 0
+--- !u!114 &1419193651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1419193646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1419193648}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &1420596130
 GameObject:
   m_ObjectHideFlags: 0
@@ -56586,6 +58450,43 @@ RectTransform:
   m_AnchoredPosition: {x: -390, y: 25}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1551165253
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1551165254}
+  m_Layer: 5
+  m_Name: Pride
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1551165254
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1551165253}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1682017896}
+  - {fileID: 1309051744}
+  m_Father: {fileID: 2081220560}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 80, y: -74.00006}
+  m_SizeDelta: {x: 235, y: 40}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1557533946
 GameObject:
   m_ObjectHideFlags: 0
@@ -57839,7 +59740,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -57850,7 +59751,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -57861,7 +59762,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 545
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -57872,7 +59773,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: -480
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -57883,7 +59784,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -57894,7 +59795,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -58542,7 +60443,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -58553,7 +60454,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -58564,7 +60465,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 215
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -58575,7 +60476,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: -260
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -58586,7 +60487,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -58597,7 +60498,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -58941,7 +60842,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -58952,7 +60853,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -58963,7 +60864,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 215
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -58974,7 +60875,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: -150
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -58985,7 +60886,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -58996,7 +60897,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -59112,7 +61013,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -59123,7 +61024,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -59134,7 +61035,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 325
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -59145,7 +61046,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: -370
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -59156,7 +61057,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -59167,7 +61068,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -59878,7 +61779,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -59889,7 +61790,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -59900,7 +61801,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 105
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -59911,7 +61812,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: -700
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -59922,7 +61823,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -59933,7 +61834,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -60049,7 +61950,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -60060,7 +61961,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -60071,7 +61972,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 545
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -60082,7 +61983,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: -370
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -60093,7 +61994,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -60104,7 +62005,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -60835,7 +62736,7 @@ RectTransform:
   - {fileID: 1891061969}
   - {fileID: 668159521}
   - {fileID: 2016182730}
-  - {fileID: 881509925}
+  - {fileID: 1088754740}
   - {fileID: 1600342803}
   m_Father: {fileID: 1370319115}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -60857,9 +62758,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Item_Icon: {fileID: 1891061970}
-  Item_Name: {fileID: 668159522}
-  Item_Information: {fileID: 2016182731}
-  Item_Pride: {fileID: 881509926}
+  Item_Name: {fileID: 668159525}
+  Item_Information: {fileID: 2016182734}
+  Item_Pride: {fileID: 61155612}
   UseWindow: {fileID: 1600342802}
   tooltiptype: 2
 --- !u!114 &1647159830
@@ -61307,7 +63208,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -61318,7 +63219,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -61329,7 +63230,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 215
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -61340,7 +63241,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: -810
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -61351,7 +63252,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -61362,7 +63263,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -61589,7 +63490,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -61600,7 +63501,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -61611,7 +63512,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 105
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -61622,7 +63523,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: -370
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -61633,7 +63534,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -61644,10 +63545,299 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
+--- !u!1 &1682017895
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1682017896}
+  - component: {fileID: 1682017900}
+  - component: {fileID: 1682017899}
+  - component: {fileID: 1682017898}
+  - component: {fileID: 1682017897}
+  m_Layer: 5
+  m_Name: Pride_Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1682017896
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682017895}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1551165254}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -67.53198, y: 0}
+  m_SizeDelta: {x: 99.9362, y: 40}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1682017897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682017895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjects:
+  - rid: 692368514488205314
+  - rid: 692368514488205323
+  references:
+    version: 2
+    RefIds:
+    - rid: 692368514488205314
+      type: {class: TrackedRectTransform, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 1682017896}
+        m_TrackedProperties:
+          items:
+          - rid: 692368514488205315
+          - rid: 692368514488205316
+    - rid: 692368514488205315
+      type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_AnchoredPosition.x
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: -67.53198
+        - localeIdentifier:
+            m_Code: en
+          value: -45.4135
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: -61.884766
+    - rid: 692368514488205316
+      type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_SizeDelta.x
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: 99.9362
+        - localeIdentifier:
+            m_Code: en
+          value: 144.1732
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: 111.2306
+    - rid: 692368514488205323
+      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 1682017899}
+        m_TrackedProperties:
+          items:
+          - rid: 692368514488205324
+          - rid: 692368514488205325
+          - rid: 692368514488205326
+          - rid: 692368514488205327
+        m_UpdateType: 0
+    - rid: 692368514488205324
+      type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontSize
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: 20
+        - localeIdentifier:
+            m_Code: en
+          value: 16
+    - rid: 692368514488205325
+      type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontSizeBase
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: 20
+        - localeIdentifier:
+            m_Code: en
+          value: 16
+    - rid: 692368514488205326
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontAsset
+        m_TypeString: TMPro.TMP_FontAsset, Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 11400000, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: 11400000, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+    - rid: 692368514488205327
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_sharedMaterial
+        m_TypeString: UnityEngine.Material, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 5132732996156694399, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: -7662232666586179337, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+--- !u!114 &1682017898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682017895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:260850c1fa5abac4b9d2e4157fa012b2
+    m_TableEntryReference:
+      m_KeyId: 32240780946034688
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1682017899}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1682017899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682017895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: "\uAD6C\uB9E4 \uAC00\uACA9 : "
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+  m_sharedMaterial: {fileID: 5132732996156694399, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 20
+  m_fontSizeBase: 20
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1682017900
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682017895}
+  m_CullTransparentMesh: 1
 --- !u!1 &1682317543
 GameObject:
   m_ObjectHideFlags: 0
@@ -61927,7 +64117,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -61938,7 +64128,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -61949,7 +64139,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 545
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -61960,7 +64150,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: -700
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -61971,7 +64161,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -61982,7 +64172,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -63701,7 +65891,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -63712,7 +65902,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -63723,7 +65913,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 435
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -63734,7 +65924,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: -480
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -63745,7 +65935,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -63756,7 +65946,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -64721,6 +66911,8 @@ GameObject:
   - component: {fileID: 1772956561}
   - component: {fileID: 1772956559}
   - component: {fileID: 1772956560}
+  - component: {fileID: 1772956562}
+  - component: {fileID: 1772956563}
   m_Layer: 5
   m_Name: Name_Text
   m_TagString: Untagged
@@ -64784,7 +66976,7 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4294967295
   m_fontSize: 18
-  m_fontSizeBase: 17
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 15
@@ -64844,6 +67036,98 @@ RectTransform:
   m_AnchoredPosition: {x: -132, y: -74}
   m_SizeDelta: {x: 150, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1772956562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1772956558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1772956560}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1772956563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1772956558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjects:
+  - rid: 692368520459321367
+  references:
+    version: 2
+    RefIds:
+    - rid: 692368520459321367
+      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 1772956560}
+        m_TrackedProperties:
+          items:
+          - rid: 692368520459321368
+          - rid: 692368520459321369
+        m_UpdateType: 0
+    - rid: 692368520459321368
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontAsset
+        m_TypeString: TMPro.TMP_FontAsset, Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 11400000, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: 11400000, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+    - rid: 692368520459321369
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_sharedMaterial
+        m_TypeString: UnityEngine.Material, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 5132732996156694399, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: -7662232666586179337, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
 --- !u!1 &1779015198
 GameObject:
   m_ObjectHideFlags: 0
@@ -68260,8 +70544,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Item_Icon: {fileID: 1947654595}
-  Item_Name: {fileID: 2007596313}
-  Item_Information: {fileID: 2048146999}
+  Item_Name: {fileID: 2007596316}
+  Item_Information: {fileID: 2048147002}
   Item_Pride: {fileID: 1105547351}
   UseWindow: {fileID: 887462579}
   tooltiptype: 0
@@ -68530,7 +70814,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1397038980}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.53846157
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -69121,6 +71405,8 @@ GameObject:
   - component: {fileID: 1900193853}
   - component: {fileID: 1900193855}
   - component: {fileID: 1900193854}
+  - component: {fileID: 1900193857}
+  - component: {fileID: 1900193856}
   m_Layer: 5
   m_Name: Train_Information_Text
   m_TagString: Untagged
@@ -69244,6 +71530,98 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1900193852}
   m_CullTransparentMesh: 1
+--- !u!114 &1900193856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1900193852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjects:
+  - rid: 692368514488205391
+  references:
+    version: 2
+    RefIds:
+    - rid: 692368514488205391
+      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 1900193854}
+        m_TrackedProperties:
+          items:
+          - rid: 692368514488205392
+          - rid: 692368514488205393
+        m_UpdateType: 0
+    - rid: 692368514488205392
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontAsset
+        m_TypeString: TMPro.TMP_FontAsset, Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 11400000, guid: b78e44a57ee848341a90cccae5c0bcd1, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: 11400000, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+    - rid: 692368514488205393
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_sharedMaterial
+        m_TypeString: UnityEngine.Material, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 6781648418189541948, guid: b78e44a57ee848341a90cccae5c0bcd1, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: -7662232666586179337, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+--- !u!114 &1900193857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1900193852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1900193854}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &1902840186
 GameObject:
   m_ObjectHideFlags: 0
@@ -69323,6 +71701,8 @@ GameObject:
   - component: {fileID: 1906661383}
   - component: {fileID: 1906661385}
   - component: {fileID: 1906661384}
+  - component: {fileID: 1906661387}
+  - component: {fileID: 1906661386}
   m_Layer: 5
   m_Name: Informaiton_Text
   m_TagString: Untagged
@@ -69454,6 +71834,98 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1906661382}
   m_CullTransparentMesh: 1
+--- !u!114 &1906661386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1906661382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjects:
+  - rid: 692368520459321380
+  references:
+    version: 2
+    RefIds:
+    - rid: 692368520459321380
+      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 1906661384}
+        m_TrackedProperties:
+          items:
+          - rid: 692368520459321381
+          - rid: 692368520459321382
+        m_UpdateType: 0
+    - rid: 692368520459321381
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontAsset
+        m_TypeString: TMPro.TMP_FontAsset, Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 11400000, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: 11400000, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+    - rid: 692368520459321382
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_sharedMaterial
+        m_TypeString: UnityEngine.Material, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 5132732996156694399, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: -7662232666586179337, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+--- !u!114 &1906661387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1906661382}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1906661384}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &1908676309
 GameObject:
   m_ObjectHideFlags: 0
@@ -69815,7 +72287,7 @@ RectTransform:
   - {fileID: 509462000}
   - {fileID: 1772956561}
   - {fileID: 210331031}
-  - {fileID: 765837802}
+  - {fileID: 1316883924}
   - {fileID: 1219870359}
   m_Father: {fileID: 1370319115}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -69845,9 +72317,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemIcon: {fileID: 0}
-  Train_Name: {fileID: 1772956560}
-  Train_Information: {fileID: 210331030}
-  Train_Pride: {fileID: 765837800}
+  Train_Name: {fileID: 1772956562}
+  Train_Information: {fileID: 210331033}
+  Train_Pride: {fileID: 878191735}
 --- !u!1 &1921991261
 GameObject:
   m_ObjectHideFlags: 0
@@ -71190,7 +73662,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -71201,7 +73673,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -71212,7 +73684,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 325
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -71223,7 +73695,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: -810
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -71234,7 +73706,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -71245,7 +73717,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -71361,7 +73833,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -71372,7 +73844,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -71383,7 +73855,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 435
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -71394,7 +73866,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: -260
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -71405,7 +73877,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -71416,7 +73888,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -72136,7 +74608,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -72147,7 +74619,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -72158,7 +74630,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 325
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -72169,7 +74641,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: -480
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -72180,7 +74652,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -72191,7 +74663,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -73047,7 +75519,7 @@ MonoBehaviour:
   inventory_director: {fileID: 1417894470}
   Check_Buy_Panel: {fileID: 1991461773}
   Check_Buy_Image: {fileID: 323746206}
-  Check_Buy_Name: {fileID: 912451596}
+  Check_Buy_Name: {fileID: 912451599}
   Check_Buy_Pride: {fileID: 1475219051}
   Check_Buy_Text: {fileID: 927612719}
   Check_Buy_Count: {fileID: 2046850219}
@@ -73255,6 +75727,8 @@ GameObject:
   - component: {fileID: 2007596312}
   - component: {fileID: 2007596314}
   - component: {fileID: 2007596313}
+  - component: {fileID: 2007596316}
+  - component: {fileID: 2007596315}
   m_Layer: 5
   m_Name: Name_Text
   m_TagString: Untagged
@@ -73367,7 +75841,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &2007596314
@@ -73378,6 +75852,110 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2007596311}
   m_CullTransparentMesh: 1
+--- !u!114 &2007596315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2007596311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjects:
+  - rid: 692368520459321397
+  references:
+    version: 2
+    RefIds:
+    - rid: 692368520459321397
+      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 2007596313}
+        m_TrackedProperties:
+          items:
+          - rid: 692368520459321398
+          - rid: 692368520459321399
+          - rid: 692368520459321400
+        m_UpdateType: 0
+    - rid: 692368520459321398
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontAsset
+        m_TypeString: TMPro.TMP_FontAsset, Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 11400000, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: 11400000, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+    - rid: 692368520459321399
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_sharedMaterial
+        m_TypeString: UnityEngine.Material, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 5132732996156694399, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: -7662232666586179337, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+    - rid: 692368520459321400
+      type: {class: BoolTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_hasFontAssetChanged
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: 1
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: 0
+--- !u!114 &2007596316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2007596311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2007596313}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &2016182729
 GameObject:
   m_ObjectHideFlags: 0
@@ -73389,6 +75967,8 @@ GameObject:
   - component: {fileID: 2016182730}
   - component: {fileID: 2016182732}
   - component: {fileID: 2016182731}
+  - component: {fileID: 2016182734}
+  - component: {fileID: 2016182733}
   m_Layer: 5
   m_Name: Informaiton_Text
   m_TagString: Untagged
@@ -73520,6 +76100,98 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2016182729}
   m_CullTransparentMesh: 1
+--- !u!114 &2016182733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2016182729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjects:
+  - rid: 692368520459321386
+  references:
+    version: 2
+    RefIds:
+    - rid: 692368520459321386
+      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 2016182731}
+        m_TrackedProperties:
+          items:
+          - rid: 692368520459321387
+          - rid: 692368520459321388
+        m_UpdateType: 0
+    - rid: 692368520459321387
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontAsset
+        m_TypeString: TMPro.TMP_FontAsset, Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 11400000, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: 11400000, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+    - rid: 692368520459321388
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_sharedMaterial
+        m_TypeString: UnityEngine.Material, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 5132732996156694399, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: -7662232666586179337, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+--- !u!114 &2016182734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2016182729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2016182731}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &2016201327
 GameObject:
   m_ObjectHideFlags: 0
@@ -74396,6 +77068,8 @@ GameObject:
   - component: {fileID: 2048146998}
   - component: {fileID: 2048147000}
   - component: {fileID: 2048146999}
+  - component: {fileID: 2048147002}
+  - component: {fileID: 2048147001}
   m_Layer: 5
   m_Name: Informaiton_Text
   m_TagString: Untagged
@@ -74527,6 +77201,98 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2048146997}
   m_CullTransparentMesh: 1
+--- !u!114 &2048147001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2048146997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjects:
+  - rid: 692368520459321401
+  references:
+    version: 2
+    RefIds:
+    - rid: 692368520459321401
+      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 2048146999}
+        m_TrackedProperties:
+          items:
+          - rid: 692368520459321402
+          - rid: 692368520459321403
+        m_UpdateType: 0
+    - rid: 692368520459321402
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontAsset
+        m_TypeString: TMPro.TMP_FontAsset, Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 11400000, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: 11400000, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+    - rid: 692368520459321403
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_sharedMaterial
+        m_TypeString: UnityEngine.Material, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 5132732996156694399, guid: d3bb4f216be10934ea55e6a2ae091e8e, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: -7662232666586179337, guid: a016e33d492dde74f8f27a284c6320bd, type: 2}
+--- !u!114 &2048147002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2048146997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2048146999}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &2048325284
 GameObject:
   m_ObjectHideFlags: 0
@@ -75330,7 +78096,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -75341,7 +78107,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -75352,7 +78118,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 105
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -75363,7 +78129,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: -810
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -75374,7 +78140,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -75385,7 +78151,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -75534,7 +78300,7 @@ RectTransform:
   - {fileID: 1963754424}
   - {fileID: 1072069129}
   - {fileID: 1906661383}
-  - {fileID: 374088480}
+  - {fileID: 1551165254}
   - {fileID: 2048325285}
   m_Father: {fileID: 1370319115}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -75594,9 +78360,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Item_Icon: {fileID: 1963754425}
-  Item_Name: {fileID: 1072069130}
-  Item_Information: {fileID: 1906661384}
-  Item_Pride: {fileID: 374088482}
+  Item_Name: {fileID: 1072069133}
+  Item_Information: {fileID: 1906661387}
+  Item_Pride: {fileID: 1309051746}
   UseWindow: {fileID: 2048325284}
   tooltiptype: 1
 --- !u!1 &2082499686
@@ -75711,7 +78477,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -75722,7 +78488,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 1
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -75733,7 +78499,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 105
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -75744,7 +78510,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: -150
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -75755,7 +78521,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
@@ -75766,7 +78532,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: ko
-          value: 100
+          value: 0
         - localeIdentifier:
             m_Code: ja-JP
           value: 0
