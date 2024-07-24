@@ -4,6 +4,7 @@ using System.Threading;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Localization.Components;
 
 public class TrainingRoom_Mercenary_Position_Card : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class TrainingRoom_Mercenary_Position_Card : MonoBehaviour
 
     public int Mercenary_Num;
     public GameObject Mercenary_Image;
-    public GameObject Mercenary_NameText;
+    public LocalizeStringEvent Mercenary_NameText;
     public GameObject Mercenary_CountText;
     public Button PlusButton;
     public Button MinusButton;
@@ -22,26 +23,30 @@ public class TrainingRoom_Mercenary_Position_Card : MonoBehaviour
     public Sprite[] Mercenary_Face_Image;
     bool PassiveFlag;
 
+    public GameObject customPrefab;
+
     private void Start()
     {
         MercenaryData_Object = GameObject.Find("MercenaryData");
         mercenaryData = MercenaryData_Object.GetComponent<Station_MercenaryData>();
         Mercenary_Count();
         Mercenary_Image.GetComponent<Image>().sprite = mercenaryData.SA_MercenaryData.Mercenary_Head_Image[Mercenary_Num];
-        Mercenary_NameText.GetComponent<TextMeshProUGUI>().text =
-            mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].Name;
+        Mercenary_NameText.StringReference.TableReference = "ExcelData_Table_St";
+        Mercenary_NameText.StringReference.TableEntryReference = "Mercenary_Name_" + Mercenary_Num;
+        //Mercenary_NameText.GetComponent<TextMeshProUGUI>().text =
+         //   mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].Name;
         if (!mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].DropDown)
         {
             dropDown.SetActive(false);
             PassiveFlag = false;
-            Mercenary_CountText.GetComponent<TextMeshProUGUI>().text = Mercenary_Num_Count.ToString() + "명";
+            Mercenary_CountText.GetComponent<TextMeshProUGUI>().text = Mercenary_Num_Count.ToString();
         }
         else
         {
             DropDown_Option(mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].Type);
             dropDown.SetActive(true);
             PassiveFlag = true;
-            Mercenary_CountText.GetComponent<TextMeshProUGUI>().text = Mercenary_Num_Count + "명<color=red> / 최대 1명</color>";
+            Mercenary_CountText.GetComponent<TextMeshProUGUI>().text = Mercenary_Num_Count + "<color=red> / Max : 1</color>";
         }
     }
 
@@ -61,11 +66,11 @@ public class TrainingRoom_Mercenary_Position_Card : MonoBehaviour
         Mercenary_Num_Count++;
         if (!PassiveFlag)
         {
-            Mercenary_CountText.GetComponent<TextMeshProUGUI>().text = Mercenary_Num_Count.ToString() + "명";
+            Mercenary_CountText.GetComponent<TextMeshProUGUI>().text = Mercenary_Num_Count.ToString() ;
         }
         else
         {
-            Mercenary_CountText.GetComponent<TextMeshProUGUI>().text = Mercenary_Num_Count + "명<color=red> / 최대 1명</color>";
+            Mercenary_CountText.GetComponent<TextMeshProUGUI>().text = Mercenary_Num_Count + "<color=red> / Max : 1</color>";
         }
     }
 
@@ -74,11 +79,11 @@ public class TrainingRoom_Mercenary_Position_Card : MonoBehaviour
         Mercenary_Num_Count--;
         if (!PassiveFlag)
         {
-            Mercenary_CountText.GetComponent<TextMeshProUGUI>().text = Mercenary_Num_Count.ToString() + "명";
+            Mercenary_CountText.GetComponent<TextMeshProUGUI>().text = Mercenary_Num_Count.ToString();
         }
         else
         {
-            Mercenary_CountText.GetComponent<TextMeshProUGUI>().text = Mercenary_Num_Count + "명<color=red> / 최대 1명</color>";
+            Mercenary_CountText.GetComponent<TextMeshProUGUI>().text = Mercenary_Num_Count + "<color=red> / Max : 1</color>";
         }
     }
 
