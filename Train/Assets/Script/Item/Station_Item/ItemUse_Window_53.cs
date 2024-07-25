@@ -4,6 +4,7 @@ using System.Net;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Localization.Components;
 
 public class ItemUse_Window_53 : MonoBehaviour
 {
@@ -20,17 +21,17 @@ public class ItemUse_Window_53 : MonoBehaviour
     ToggleGroup[] Material_ToggleGroup;
 
     public Image Conversion_Material_Image;
-    public TextMeshProUGUI Conversion_Material_Name_Text;
+    public LocalizeStringEvent Conversion_Material_Name_Text;
     public TextMeshProUGUI Conversion_Material_Count_Text;
     public Image Material_Image_1;
     public TextMeshProUGUI Material_Count_Text_1;
-    public TextMeshProUGUI Material_Name_Text_1;
+    public LocalizeStringEvent Material_Name_Text_1;
     public Image Material_Image_2;
     public TextMeshProUGUI Material_Count_Text_2;
-    public TextMeshProUGUI Material_Name_Text_2;
+    public LocalizeStringEvent Material_Name_Text_2;
     public GameObject[] Material_LockPanel_2;
 
-    public TextMeshProUGUI ConvertText;
+    public LocalizeStringEvent ConvertText;
     public Button Convert_Button;
 
     ItemDataObject Material_ToggleNum_ItemObject1;
@@ -46,7 +47,7 @@ public class ItemUse_Window_53 : MonoBehaviour
     [Header("변환 후의 윈도우")]
     public GameObject AfterConvertWindow;
     public Image Result_Icon_Img;
-    public TextMeshProUGUI Result_Name_Text;
+    public LocalizeStringEvent Result_Name_Text;
     public TextMeshProUGUI Result_Count_Text;
 
     public Sprite Empty_Sprite;
@@ -55,6 +56,11 @@ public class ItemUse_Window_53 : MonoBehaviour
     {
         itemData = itemData_object.GetComponent<Station_ItemData>();
         Convertion_Object = itemData.ConvertionMaterial_object;
+        {
+            ConvertText.StringReference.TableReference = "Station_Table_St";
+            Conversion_Material_Name_Text.StringReference.TableReference = "ItemData_Table_St";
+            Result_Name_Text.StringReference.TableReference = "ItemData_Table_St";
+        }
 
         Material_ToggleGroup = new ToggleGroup[ChoiceMaterial_Window.Length];
         for (int i = 0; i < ChoiceMaterial_Window.Length; i++)
@@ -77,14 +83,21 @@ public class ItemUse_Window_53 : MonoBehaviour
         ChoiceMaterial_ToggleStart();
         ChoiceMaterial_ItemList_ToggleStart();
         Conversion_Material_Image.sprite = Convertion_Object.Item_Sprite;
-        Conversion_Material_Name_Text.text = Convertion_Object.Item_Name;
+        Conversion_Material_Name_Text.StringReference.TableEntryReference = "Item_Name_" + Convertion_Object.Num;
+        //Conversion_Material_Name_Text.text = Convertion_Object.Item_Name;
         Conversion_Material_Count_Text.text = Convertion_Object.Item_Count.ToString();
-        Material_Image_1.sprite = Empty_Sprite;
-        Material_Name_Text_1.text = "버릴 재료";
-        Material_Count_Text_1.text = "";
-        Material_Image_2.sprite = Empty_Sprite;
-        Material_Name_Text_2.text = "바꿀 재료";
-        Material_Count_Text_2.text = "";
+        {
+            Material_Image_1.sprite = Empty_Sprite;
+            Material_Name_Text_1.StringReference.SetReference("Station_Table_St", "UI_Inventory_Use_ConvertMaterial_Init_0");
+            //Material_Name_Text_1.text = "버릴 재료";
+            Material_Count_Text_1.text = "";
+        }
+        {
+            Material_Image_2.sprite = Empty_Sprite;
+            Material_Name_Text_2.StringReference.SetReference("Station_Table_St", "UI_Inventory_Use_ConvertMaterial_Init_1");
+            //Material_Name_Text_2.text = "바꿀 재료";
+            Material_Count_Text_2.text = "";
+        }
         Material_ToggleNum1 = -1;
         Check_Button();
     }
@@ -162,18 +175,25 @@ public class ItemUse_Window_53 : MonoBehaviour
         if (anyToggleON)
         {
             Material_Image_1.sprite = Material_ToggleNum_ItemObject1.Item_Sprite;
-            Material_Name_Text_1.text = Material_ToggleNum_ItemObject1.Item_Name;
+            Material_Name_Text_1.StringReference.SetReference("ItemData_Table_St", "Item_Name_"+ Material_ToggleNum_ItemObject1.Num);
+            //Material_Name_Text_1.text = Material_ToggleNum_ItemObject1.Item_Name;
             Material_Count_Text_1.text = Material_ToggleNum_ItemObject1.Item_Count.ToString();
             ChoiceMaterial.transform.GetChild(1).GetComponent<Toggle>().interactable = true;
         }
         else
         {
-            Material_Image_1.sprite = Empty_Sprite;
-            Material_Image_2.sprite = Empty_Sprite;
-            Material_Name_Text_1.text = "버릴 재료";
-            Material_Count_Text_1.text = "";
-            Material_Name_Text_2.text = "바꿀 재료";
-            Material_Count_Text_2.text = "";
+            {
+                Material_Image_1.sprite = Empty_Sprite;
+                Material_Name_Text_1.StringReference.SetReference("Station_Table_St", "UI_Inventory_Use_ConvertMaterial_Init_0");
+                //Material_Name_Text_1.text = "버릴 재료";
+                Material_Count_Text_1.text = "";
+            }
+            {
+                Material_Image_2.sprite = Empty_Sprite;
+                Material_Name_Text_2.StringReference.SetReference("Station_Table_St", "UI_Inventory_Use_ConvertMaterial_Init_1");
+                //Material_Name_Text_2.text = "바꿀 재료";
+                Material_Count_Text_2.text = "";
+            }
 
             Material_ToggleNum_ItemObject1 = null;
             Material_ToggleNum_ItemObject2 = null;
@@ -202,7 +222,8 @@ public class ItemUse_Window_53 : MonoBehaviour
                 }
             }
             Material_Image_2.sprite = Material_ToggleNum_ItemObject2.Item_Sprite;
-            Material_Name_Text_2.text = Material_ToggleNum_ItemObject2.Item_Name;
+            Material_Name_Text_2.StringReference.SetReference("ItemData_Table_St", "Item_Name_"+ Material_ToggleNum_ItemObject2.Num);
+            //Material_Name_Text_2.text = Material_ToggleNum_ItemObject2.Item_Name;
             Material_Count_Text_2.text = Material_ToggleNum_ItemObject2.Item_Count.ToString();
         }
         Check_Button();
@@ -214,32 +235,37 @@ public class ItemUse_Window_53 : MonoBehaviour
         {
             if(Material_ToggleNum_ItemObject1 == null)
             {
-                ConvertText.text = ("변환에 사용할 재료를 선택하세요");
+                ConvertText.StringReference.TableEntryReference = "UI_Inventory_Use_ConvertMaterial_Information_0";
+                //ConvertText.text = ("변환에 사용할 재료를 선택하세요");
                 Convert_Button.interactable = false;
             }else{
                 if(Material_ToggleNum_ItemObject1.Item_Count >= convertCount)
                 {
                     if (Material_ToggleNum_ItemObject2 != null)
                     {
-                        ConvertText.text = ("변환 가능합니다!");
+                        ConvertText.StringReference.TableEntryReference = "UI_Inventory_Use_ConvertMaterial_Information_1";
+                        //ConvertText.text = ("변환 가능합니다!");
                         Convert_Button.interactable = true;
                     }
                     else
                     {
-                        ConvertText.text = ("변환할 재료를 선택하세요");
+                        ConvertText.StringReference.TableEntryReference = "UI_Inventory_Use_ConvertMaterial_Information_2";
+                        //ConvertText.text = ("변환할 재료를 선택하세요");
                         Convert_Button.interactable = false;
                     }
                 }
                 else
                 {
-                    ConvertText.text = ("재료 수가 부족합니다!");
+                    ConvertText.StringReference.TableEntryReference = "UI_Inventory_Use_ConvertMaterial_Information_3";
+                    //ConvertText.text = ("재료 수가 부족합니다!");
                     Convert_Button.interactable = false;
                 }
             }
         }
         else
         {
-            ConvertText.text = ("변환 재료가 부족합니다. (변환 재료 10개당 1개 변환 가능)");
+            ConvertText.StringReference.TableEntryReference = "UI_Inventory_Use_ConvertMaterial_Information_4";
+            //ConvertText.text = ("변환 재료가 부족합니다. (변환 재료 10개당 1개 변환 가능)");
             Convert_Button.interactable = false;
         }
     }
@@ -275,7 +301,8 @@ public class ItemUse_Window_53 : MonoBehaviour
         Material_ToggleNum_ItemObject2.Item_Count_UP(convertCount);
 
         Result_Icon_Img.sprite = Material_ToggleNum_ItemObject2.Item_Sprite;
-        Result_Name_Text.text = Material_ToggleNum_ItemObject2.Item_Name;
+        Result_Name_Text.StringReference.TableEntryReference = "Item_Name_" + Material_ToggleNum_ItemObject2.Num;
+        //Result_Name_Text.text = Material_ToggleNum_ItemObject2.Item_Name;
         Result_Count_Text.text = Material_ToggleNum_ItemObject2.Item_Count.ToString();
         AfterConvertWindow.SetActive(true);
     }
@@ -318,14 +345,18 @@ public class ItemUse_Window_53 : MonoBehaviour
 
         Conversion_Material_Count_Text.text = Convertion_Object.Item_Count.ToString();
 
-        Material_Image_1.sprite = Empty_Sprite;
-        Material_Image_2.sprite = Empty_Sprite;
-
-        Material_Name_Text_1.text = "버릴 재료";
-        Material_Count_Text_1.text = "";
-        Material_Name_Text_2.text = "바꿀 재료";
-        Material_Count_Text_2.text = "";
-
+        {
+            Material_Image_1.sprite = Empty_Sprite;
+            Material_Name_Text_1.StringReference.SetReference("Station_Table_St", "UI_Inventory_Use_ConvertMaterial_Init_0");
+            //Material_Name_Text_1.text = "버릴 재료";
+            Material_Count_Text_1.text = "";
+        }
+        {
+            Material_Image_2.sprite = Empty_Sprite;
+            Material_Name_Text_2.StringReference.SetReference("Station_Table_St", "UI_Inventory_Use_ConvertMaterial_Init_1");
+            //Material_Name_Text_2.text = "바꿀 재료";
+            Material_Count_Text_2.text = "";
+        }
         Material_ToggleNum_ItemObject1 = null;
         Material_ToggleNum_ItemObject2 = null;
     }

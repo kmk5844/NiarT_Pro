@@ -4,6 +4,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Localization.Components;
 
 public class Station_Inventory : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class Station_Inventory : MonoBehaviour
     public List<Transform> Transform_ItemList;
     [Header("UI_UseStatus")]
     public GameObject Item_UseStatus_WindowObject;
-    public TextMeshProUGUI Item_UseStatus_Name;
+    public LocalizeStringEvent Item_UseStatus_Name;
     public Image Item_UseStatus_Icon;
     public TextMeshProUGUI Item_UseStatus_Count_Text;
     public Button Item_UseStatus_YesButton;
@@ -42,6 +43,8 @@ public class Station_Inventory : MonoBehaviour
 
         UseWindowFlag = false;
         UseItemWindowFlag = false;
+
+        Item_UseStatus_Name.StringReference.TableReference = "ItemData_Table_St";
 
         for (int i = 0; i < Transform_ItemList.Count; i++)
         {
@@ -95,7 +98,7 @@ public class Station_Inventory : MonoBehaviour
     {
         UseWindowFlag = true;
 
-        Item_UseStatus_Name.text = itemobject.Item_Name;
+        Item_UseStatus_Name.StringReference.TableEntryReference = "Item_Name_" + itemobject.Num;
         Item_UseStatus_Icon.sprite = itemobject.Item_Sprite;
 
         if(itemobject.Num == 53)

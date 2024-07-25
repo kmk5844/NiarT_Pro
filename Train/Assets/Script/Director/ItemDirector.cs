@@ -71,8 +71,8 @@ public class ItemDirector : MonoBehaviour
         }
     }
 
-    public void Get_Supply_Item_Information(Sprite icon, string name, string information)
+    public void Get_Supply_Item_Information(ItemDataObject Item)
     {
-        uiDirector.ItemInformation_On(icon, name, information);
+        uiDirector.ItemInformation_On(Item);
     }
 }

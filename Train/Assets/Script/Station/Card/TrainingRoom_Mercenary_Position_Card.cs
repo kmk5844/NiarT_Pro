@@ -5,12 +5,14 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Localization.Components;
-
+using UnityEngine.Localization;
 public class TrainingRoom_Mercenary_Position_Card : MonoBehaviour
 {
     [SerializeField]
     private GameObject MercenaryData_Object;
     Station_MercenaryData mercenaryData;
+    [SerializeField]
+    private SA_LocalData SA_LocalData;
 
     public int Mercenary_Num;
     public GameObject Mercenary_Image;
@@ -23,10 +25,14 @@ public class TrainingRoom_Mercenary_Position_Card : MonoBehaviour
     public Sprite[] Mercenary_Face_Image;
     bool PassiveFlag;
 
-    public GameObject customPrefab;
+    int Local_Index;
+    [SerializeField]
+    LocalizedString LocalString;
 
     private void Start()
     {
+        Local_Index = SA_LocalData.Local_Index;
+
         MercenaryData_Object = GameObject.Find("MercenaryData");
         mercenaryData = MercenaryData_Object.GetComponent<Station_MercenaryData>();
         Mercenary_Count();
@@ -35,6 +41,7 @@ public class TrainingRoom_Mercenary_Position_Card : MonoBehaviour
         Mercenary_NameText.StringReference.TableEntryReference = "Mercenary_Name_" + Mercenary_Num;
         //Mercenary_NameText.GetComponent<TextMeshProUGUI>().text =
          //   mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].Name;
+
         if (!mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].DropDown)
         {
             dropDown.SetActive(false);
@@ -47,6 +54,18 @@ public class TrainingRoom_Mercenary_Position_Card : MonoBehaviour
             dropDown.SetActive(true);
             PassiveFlag = true;
             Mercenary_CountText.GetComponent<TextMeshProUGUI>().text = Mercenary_Num_Count + "<color=red> / Max : 1</color>";
+        }
+    }
+
+    private void Update()
+    {
+        if (mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].DropDown)
+        {
+            if (Local_Index != SA_LocalData.Local_Index)
+            {
+                DropDown_Option_Change(mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].Type);
+                Local_Index = SA_LocalData.Local_Index;
+            }
         }
     }
 
@@ -109,18 +128,52 @@ public class TrainingRoom_Mercenary_Position_Card : MonoBehaviour
         switch (M_type)
         {
             case "Engine_Driver":
-                optionList.Add("기차 속도 증가");
-                optionList.Add("연료 효율성 증가");
-                optionList.Add("기차 방어력 증가");
+                LocalString.SetReference("Station_Table_St", "Mercenary_Engine_Driver_Speed");
+                optionList.Add(LocalString.GetLocalizedString());
+                LocalString.SetReference("Station_Table_St", "Mercenary_Engine_Driver_Fuel");
+                optionList.Add(LocalString.GetLocalizedString());
+                LocalString.SetReference("Station_Table_St", "Mercenary_Engine_Driver_Def");
+                optionList.Add(LocalString.GetLocalizedString());
                 options.AddOptions(optionList);
                 options.value = mercenaryData.SA_MercenaryData.SA_Get_EngineDriver_Type_DropDown_Value();
                 break;
             case "Bard":
-                optionList.Add("유닛 체력 증가");
-                optionList.Add("유닛 공격력 증가");
-                optionList.Add("유닛 방어력 증가");
+                LocalString.SetReference("Station_Table_St", "Mercenary_Bard_HP");
+                optionList.Add(LocalString.GetLocalizedString());
+                LocalString.SetReference("Station_Table_St", "Mercenary_Bard_Atk");
+                optionList.Add(LocalString.GetLocalizedString());
+                LocalString.SetReference("Station_Table_St", "Mercenary_Bard_Def");
+                optionList.Add(LocalString.GetLocalizedString());
                 options.AddOptions(optionList);
                 options.value = mercenaryData.SA_MercenaryData.SA_Get_Bard_Type_DropDown_Value();
+                break;
+        }
+    }
+
+    private void DropDown_Option_Change(string M_type)
+    {
+        TMP_Dropdown options = dropDown.GetComponent<TMP_Dropdown>();
+        switch (M_type)
+        {
+            case "Engine_Driver":
+                LocalString.SetReference("Station_Table_St", "Mercenary_Engine_Driver_Speed");
+                options.options[0].text = LocalString.GetLocalizedString();
+                LocalString.SetReference("Station_Table_St", "Mercenary_Engine_Driver_Fuel");
+                options.options[1].text = LocalString.GetLocalizedString();
+                LocalString.SetReference("Station_Table_St", "Mercenary_Engine_Driver_Def");
+                options.options[2].text = LocalString.GetLocalizedString();
+
+                options.captionText.text = options.options[options.value].text;
+                break;
+            case "Bard":
+                LocalString.SetReference("Station_Table_St", "Mercenary_Bard_HP");
+                options.options[0].text = LocalString.GetLocalizedString();
+                LocalString.SetReference("Station_Table_St", "Mercenary_Bard_Atk");
+                options.options[1].text = LocalString.GetLocalizedString();
+                LocalString.SetReference("Station_Table_St", "Mercenary_Bard_Def");
+                options.options[2].text = LocalString.GetLocalizedString();
+
+                options.captionText.text = options.options[options.value].text;
                 break;
         }
     }

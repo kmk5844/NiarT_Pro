@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
+using UnityEngine.Localization.Components;
 
 public class Station_GameStart : MonoBehaviour
 {
@@ -34,7 +35,7 @@ public class Station_GameStart : MonoBehaviour
     public Button Button_ItemEmpty;
 
     public Button GameStart_Button;
-    public TextMeshProUGUI TrainText;
+    public LocalizeStringEvent GameStart_Information_Text;
 
     int Fuel_Count;
 
@@ -53,7 +54,8 @@ public class Station_GameStart : MonoBehaviour
         itemData = Item_DataObject.GetComponent<Station_ItemData>();
         itemEquip_object.GameStartDirector = GetComponent<Station_GameStart>();
         itemEquip_object.item_tooltip_object = itemTooltip_object;
-        for(int i = 0; i < Equiped_Button.Length; i++)
+        GameStart_Information_Text.StringReference.TableReference = "Station_Table_St";
+        for (int i = 0; i < Equiped_Button.Length; i++)
         {
             Equiped_ImageAndCount(i);
         }
@@ -113,12 +115,14 @@ public class Station_GameStart : MonoBehaviour
 
         if(Fuel_Count == 0)
         {
-            TrainText.text = "원활한 게임 플레이를 위해\n적어도 연료 기차 한 대가 필요합니다.";
+            GameStart_Information_Text.StringReference.TableEntryReference = "UI_GameStart_Start_Information_Text_0";
+            //TrainText.text = "원활한 게임 플레이를 위해\n최소 연료 기차 한 대가 필요합니다.";
             GameStart_Button.interactable = false;
         }
         else
         {
-            TrainText.text = "게임 시작이 가능합니다.";
+            GameStart_Information_Text.StringReference.TableEntryReference = "UI_GameStart_Start_Information_Text_1";
+            //TrainText.text = "게임 시작이 가능합니다.";
             GameStart_Button.interactable = true;
         }
     }

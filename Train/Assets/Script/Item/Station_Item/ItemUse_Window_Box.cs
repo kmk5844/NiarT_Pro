@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Localization.Components;
 
 public class ItemUse_Window_Box : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class ItemUse_Window_Box : MonoBehaviour
     ItemDataObject item;
 
     public Image Item_Icon;
-    public TextMeshProUGUI Item_Name;
+    public LocalizeStringEvent Item_Name;
     public TextMeshProUGUI Item_Count;
 
     bool Check = false;
@@ -26,6 +27,11 @@ public class ItemUse_Window_Box : MonoBehaviour
     List<ItemDataObject> Random_Unique_Box_ItemList;
     List<ItemDataObject> Random_Epic_Box_ItemList;
 
+
+    private void Start()
+    {
+        Item_Name.StringReference.TableReference = "ItemData_Table_St";
+    }
 
     public void Random_Box_Open(int num, GameObject InventoryDirector)
     {
@@ -56,7 +62,8 @@ public class ItemUse_Window_Box : MonoBehaviour
             item = Random_Material_ItemList[Random.Range(0, Random_Material_ItemList.Count)];
             int Add_ItemCount = Random.Range(1, 11);
             //Item_Icon = 설정
-            Item_Name.text = item.Item_Name;
+            Item_Name.StringReference.TableEntryReference = "Item_Name_" + item.Num;
+            //Item_Name.text = item.Item_Name;
             Item_Icon.sprite = item.Item_Sprite;
             Item_Count.text = Add_ItemCount.ToString();
             item.Item_Count_UP(Add_ItemCount);
@@ -87,7 +94,8 @@ public class ItemUse_Window_Box : MonoBehaviour
                 item = Random_Epic_Item_ItemList[Random.Range(0, Random_Epic_Item_ItemList.Count)];
             }*/
             //Item_Icon = 설정
-            Item_Name.text = item.Item_Name;
+            Item_Name.StringReference.TableEntryReference = "Item_Name_" + item.Num;
+            //Item_Name.text = item.Item_Name;
             Item_Icon.sprite = item.Item_Sprite;
             Item_Count.text = "1";
             item.Item_Count_UP();
@@ -114,7 +122,8 @@ public class ItemUse_Window_Box : MonoBehaviour
                 item = Random_Epic_Box_ItemList[Random.Range(0, Random_Epic_Box_ItemList.Count)];
             }
             //Item_Icon = 설정
-            Item_Name.text = item.Item_Name;
+            Item_Name.StringReference.TableEntryReference = "Item_Name_" + item.Num;
+            //Item_Name.text = item.Item_Name;
             Item_Icon.sprite = item.Item_Sprite;
             Item_Count.text = "1";
             item.Item_Count_UP();

@@ -35,7 +35,7 @@ public class DataManager : MonoBehaviour
     public SA_PlayerData playerData;
     public SA_TrainData trainData;
     public SA_MercenaryData mercenaryData;
-
+    public SA_LocalData localData;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,6 +47,7 @@ public class DataManager : MonoBehaviour
         playerData.Load();
         trainData.Load();
         mercenaryData.Load();
+        localData.Load();
     }
 
     public void Init()
@@ -54,5 +55,6 @@ public class DataManager : MonoBehaviour
         playerData.Init();
         trainData.Init();
         mercenaryData.Init();
+        localData.Init();
     }
 }

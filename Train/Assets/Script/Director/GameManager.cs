@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Localization.Settings;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -36,6 +38,7 @@ public class GameManager : MonoBehaviour
     public bool Demo;
     public SA_PlayerData PlayerData;
     public SA_StoryData StoryData;
+    public SA_LocalData LocalData;
     public List<int> Story_Equals_Stage; //ÀÓ½Ã·Î ³öµÐ°Í
 
     public void Start()
@@ -48,6 +51,7 @@ public class GameManager : MonoBehaviour
         {
             DataManager.Instance.Load();
         }
+        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[LocalData.Local_Index];
     }
 
     public void Update()
@@ -62,10 +66,10 @@ public class GameManager : MonoBehaviour
                 }
                 Game_Reset();
             }
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha9))
-        {
-            PlayerData.SA_GameWinReward(999999, 999999);
+            if (Input.GetKeyDown(KeyCode.Alpha9))
+            {
+                PlayerData.SA_GameWinReward(999999, 999999);
+            }
         }
     }
 
@@ -100,6 +104,7 @@ public class GameManager : MonoBehaviour
 
     public void Game_Reset()
     {
+        DataManager.Instance.Init();
         SceneManager.LoadScene(0);
     }
 }

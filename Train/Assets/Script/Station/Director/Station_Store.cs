@@ -5,7 +5,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Localization.Components;
-using static UnityEditor.Progress;
 
 public class Station_Store : MonoBehaviour
 {
@@ -40,7 +39,7 @@ public class Station_Store : MonoBehaviour
     int item_Count;
 
     [Header("기차 구매")] // 파츠 구매도 포함
-    int Store_Train_Num;
+    public int Store_Train_Num;
     public GameObject Store_Train_Part_Card;
 
     [Header("상점의 기차 구매")]
@@ -434,7 +433,7 @@ public class Station_Store : MonoBehaviour
             {
                 {
                     Check_Buy_Name.StringReference.TableReference = "ExcelData_Table_St";
-                    Check_Buy_Name.StringReference.TableEntryReference = "Train_Turret_Name_" + TrainAndMercenaryNum;
+                    Check_Buy_Name.StringReference.TableEntryReference = "Train_Turret_Name_" + (TrainAndMercenaryNum/ 10);
                     //Check_Buy_Name.text = trainData.EX_Game_Data.Information_Train_Turret_Part[TrainAndMercenaryNum].Turret_Part_Name;
                     Check_Buy_Pride.text = trainData.EX_Game_Data.Information_Train_Turret_Part[TrainAndMercenaryNum].Train_Buy_Cost.ToString();
                 }
@@ -444,7 +443,7 @@ public class Station_Store : MonoBehaviour
             {
                 {
                     Check_Buy_Name.StringReference.TableReference = "ExcelData_Table_St";
-                    Check_Buy_Name.StringReference.TableEntryReference = "Train_Booster_Name_" + TrainAndMercenaryNum;
+                    Check_Buy_Name.StringReference.TableEntryReference = "Train_Booster_Name_" + (TrainAndMercenaryNum/10);
                     //Check_Buy_Name.text = trainData.EX_Game_Data.Information_Train_Booster_Part[TrainAndMercenaryNum].Booster_Part_Name;
                     Check_Buy_Pride.text = trainData.EX_Game_Data.Information_Train_Booster_Part[TrainAndMercenaryNum].Train_Buy_Cost.ToString();
                 }

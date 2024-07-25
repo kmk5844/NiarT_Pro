@@ -390,11 +390,20 @@ public class StationDirector : MonoBehaviour
         UI_Store_Window[UI_Store_Num].GetComponent<RectTransform>().SetAsLastSibling();
         if(UI_Store_Num == 1)
         {
+            Director_Store.Store_Train_Num = UI_Store_Num;
             UI_Train_Lock_Panel[0].SetActive(Director_Store.Check_Part_Store_Lock(51));
         }
         else if(UI_Store_Num == 2)
         {
+            Director_Store.Store_Train_Num = UI_Store_Num;
             UI_Train_Lock_Panel[1].SetActive(Director_Store.Check_Part_Store_Lock(52));
+        }else if(UI_Store_Num == 0)
+        {
+            Director_Store.Store_Train_Num = UI_Store_Num;
+        }
+        else
+        {
+            Director_Store.Store_Train_Num = -1;
         }
 
         elapsedTime = 0f;

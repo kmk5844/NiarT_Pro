@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Localization.Components;
 
 public class UIDirector : MonoBehaviour
 {
@@ -32,8 +33,8 @@ public class UIDirector : MonoBehaviour
     [Header("Item UI")]
     public GameObject ItemInformation_Object;
     public Image ItemIcon_Image;
-    public TextMeshProUGUI ItemName_Text;
-    public TextMeshProUGUI ItemInformation_Text;
+    public LocalizeStringEvent ItemName_Text;
+    public LocalizeStringEvent ItemInformation_Text;
     bool ItemInformation_Object_Flag;
     float ItemInformation_Object_Time;
     float ItemInformation_Object_TimeDelay;
@@ -77,6 +78,9 @@ public class UIDirector : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         gamedirector = GameDirector_Object.GetComponent<GameDirector>();
+
+        ItemName_Text.StringReference.TableReference = "ItemData_Table_St";
+        ItemInformation_Text.StringReference.TableReference = "ItemData_Table_St";
 
         PauseFlag = false;
         OptionFlag = false;
@@ -227,11 +231,13 @@ public class UIDirector : MonoBehaviour
         }
     }
 
-    public void ItemInformation_On(Sprite itemIcon, string itemName, string itemInformation)
+    public void ItemInformation_On(ItemDataObject item)
     {
-        ItemIcon_Image.sprite = itemIcon;
-        ItemName_Text.text = itemName;
-        ItemInformation_Text.text = itemInformation;
+        ItemIcon_Image.sprite = item.Item_Sprite;
+        ItemName_Text.StringReference.TableEntryReference = "Item_Name_" + item.Num;
+        ItemInformation_Text.StringReference.TableEntryReference = "Item_Information_" + item.Num;
+        //ItemName_Text.text = itemName;
+        //ItemInformation_Text.text = itemInformation;
         if (!ItemInformation_Object_Flag)
         {
             StartCoroutine(ItemInformation_Object_On());

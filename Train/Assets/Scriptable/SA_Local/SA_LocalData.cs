@@ -12,5 +12,22 @@ public class SA_LocalData : ScriptableObject
     public void SA_Change_Local(int index)
     {
         local_index = index;
+        Save();
+    }
+
+    public void Save()
+    {
+        PlayerPrefs.SetInt("SA_LocalData_local_index", local_index);
+    }
+
+    public void Load()
+    {
+        local_index = PlayerPrefs.GetInt("SA_LocalData_local_index");
+    }
+
+    public void Init()
+    {
+        local_index = 0;
+        Save();
     }
 }
