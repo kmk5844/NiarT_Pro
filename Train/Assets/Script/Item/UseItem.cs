@@ -110,15 +110,19 @@ public class UseItem : MonoBehaviour
                 break;
             case 24:
                 StartCoroutine(monsterDirector.Item_Monster_FearFlag(5, 30));
+                player.Item_Instantiate_Flag(0, 30);
                 break;
             case 25:
                 StartCoroutine(monsterDirector.Item_Monster_GreedFlag(5, 30));
+                player.Item_Instantiate_Flag(1, 30);
                 break;
             case 26:
                 StartCoroutine(monsterDirector.Item_Use_Monster_CureseFlag(10, 30));
+                player.Item_Instantiate_Flag(2, 30);
                 break;
             case 27:
                 StartCoroutine(monsterDirector.Item_Use_Monster_GiantFlag(30, 30));
+                player.Item_Instantiate_Flag(3, 30);
                 break;
             case 28:
                 player.Item_Player_Giant_Scarecrow();

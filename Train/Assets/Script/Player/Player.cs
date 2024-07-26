@@ -53,6 +53,7 @@ public class Player : MonoBehaviour
 
     [Header("무기 오브젝트")]
     public GameObject GunObject;
+    Vector3 GunObject_Scale;
     Camera mainCam;
     private Vector3 mousePos;
     public AudioClip ShootSFX;
@@ -85,7 +86,7 @@ public class Player : MonoBehaviour
         respawnPosition = transform.position;
         isHealing = false;
         jumpFlag = false;
-        jumpdistance = 0.5f;
+        jumpdistance = 1f;
 
         playerBullet = playerData.Bullet;
         Player_HP = playerData.HP;
@@ -93,6 +94,8 @@ public class Player : MonoBehaviour
         Bullet_Atk = playerData.Atk;
         Bullet_Delay = playerData.Delay;
         moveSpeed = playerData.MoveSpeed;
+
+        GunObject_Scale = GunObject.transform.localScale;
 
         rotationOn = false;
         Max_HP = Player_HP; 
@@ -128,11 +131,11 @@ public class Player : MonoBehaviour
 
             if(rotZ >= -90 && rotZ <= 90)
             {
-                GunObject.transform.localScale = new Vector3(1, 1, 1);
+                GunObject.transform.localScale = new Vector3(GunObject_Scale.x, GunObject_Scale.y, GunObject_Scale.z);
             }
             else
             {
-                GunObject.transform.localScale = new Vector3(1, -1, 1);
+                GunObject.transform.localScale = new Vector3(GunObject_Scale.x, -1 * GunObject_Scale.y, GunObject_Scale.z);
             }
 
             if(mousePos.x > transform.position.x)
@@ -498,6 +501,11 @@ public class Player : MonoBehaviour
         GameObject Scarecrow = Resources.Load<GameObject>("ItemObject/Giant_ScarecrowObject");
         Scarecrow.GetComponent<Item_Shield>().HP = 1000;
         Instantiate(Scarecrow, new Vector2(pos, -0.95f), Quaternion.identity);
+    }
+
+    public void Item_Instantiate_Flag(int flagNum, float delayTime)
+    {
+        Destroy(Instantiate(Resources.Load<GameObject>("ItemObject/Flag" + flagNum), transform.position, Quaternion.identity), delayTime);
     }
 
     public void Item_Player_Spawn_Turret(int num)

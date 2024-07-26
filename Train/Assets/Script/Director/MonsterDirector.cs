@@ -145,7 +145,6 @@ public class MonsterDirector : MonoBehaviour
         item_MonsterCount -= count;
         yield return new WaitForSeconds(delayTime);
         item_MonsterCount += count;
-        Debug.Log("종료");
     }
 
     public IEnumerator Item_Monster_GreedFlag(int count, int delayTime)
@@ -153,7 +152,6 @@ public class MonsterDirector : MonoBehaviour
         item_MonsterCount += count;
         yield return new WaitForSeconds(delayTime);
         item_MonsterCount -= count;
-        Debug.Log("종료");
     }
 
     public IEnumerator Item_Use_Monster_CureseFlag(int Persent, int delayTime)
