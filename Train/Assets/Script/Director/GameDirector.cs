@@ -34,6 +34,7 @@ public class GameDirector : MonoBehaviour
     Vector2 cursorHotspot_Origin;
     Vector2 cursorHotspot_Aim;
 
+    [SerializeField]
     GameObject playerObject;
     [HideInInspector]
     public Player player;
