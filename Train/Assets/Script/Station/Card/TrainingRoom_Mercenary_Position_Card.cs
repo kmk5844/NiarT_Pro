@@ -27,7 +27,9 @@ public class TrainingRoom_Mercenary_Position_Card : MonoBehaviour
 
     int Local_Index;
     [SerializeField]
-    LocalizedString LocalString;
+    LocalizedString[] LocalString_EngineDriver;
+    [SerializeField]
+    LocalizedString[] LocalString_Bard;
 
     private void Start()
     {
@@ -128,22 +130,16 @@ public class TrainingRoom_Mercenary_Position_Card : MonoBehaviour
         switch (M_type)
         {
             case "Engine_Driver":
-                LocalString.SetReference("Station_Table_St", "Mercenary_Engine_Driver_Speed");
-                optionList.Add(LocalString.GetLocalizedString());
-                LocalString.SetReference("Station_Table_St", "Mercenary_Engine_Driver_Fuel");
-                optionList.Add(LocalString.GetLocalizedString());
-                LocalString.SetReference("Station_Table_St", "Mercenary_Engine_Driver_Def");
-                optionList.Add(LocalString.GetLocalizedString());
+                optionList.Add(LocalString_EngineDriver[0].GetLocalizedString());
+                optionList.Add(LocalString_EngineDriver[1].GetLocalizedString());
+                optionList.Add(LocalString_EngineDriver[2].GetLocalizedString());
                 options.AddOptions(optionList);
                 options.value = mercenaryData.SA_MercenaryData.SA_Get_EngineDriver_Type_DropDown_Value();
                 break;
             case "Bard":
-                LocalString.SetReference("Station_Table_St", "Mercenary_Bard_HP");
-                optionList.Add(LocalString.GetLocalizedString());
-                LocalString.SetReference("Station_Table_St", "Mercenary_Bard_Atk");
-                optionList.Add(LocalString.GetLocalizedString());
-                LocalString.SetReference("Station_Table_St", "Mercenary_Bard_Def");
-                optionList.Add(LocalString.GetLocalizedString());
+                optionList.Add(LocalString_Bard[0].GetLocalizedString());
+                optionList.Add(LocalString_Bard[1].GetLocalizedString());
+                optionList.Add(LocalString_Bard[2].GetLocalizedString());
                 options.AddOptions(optionList);
                 options.value = mercenaryData.SA_MercenaryData.SA_Get_Bard_Type_DropDown_Value();
                 break;
@@ -156,22 +152,16 @@ public class TrainingRoom_Mercenary_Position_Card : MonoBehaviour
         switch (M_type)
         {
             case "Engine_Driver":
-                LocalString.SetReference("Station_Table_St", "Mercenary_Engine_Driver_Speed");
-                options.options[0].text = LocalString.GetLocalizedString();
-                LocalString.SetReference("Station_Table_St", "Mercenary_Engine_Driver_Fuel");
-                options.options[1].text = LocalString.GetLocalizedString();
-                LocalString.SetReference("Station_Table_St", "Mercenary_Engine_Driver_Def");
-                options.options[2].text = LocalString.GetLocalizedString();
+                options.options[0].text = LocalString_EngineDriver[0].GetLocalizedString();
+                options.options[1].text = LocalString_EngineDriver[1].GetLocalizedString();
+                options.options[2].text = LocalString_EngineDriver[2].GetLocalizedString();
 
                 options.captionText.text = options.options[options.value].text;
                 break;
             case "Bard":
-                LocalString.SetReference("Station_Table_St", "Mercenary_Bard_HP");
-                options.options[0].text = LocalString.GetLocalizedString();
-                LocalString.SetReference("Station_Table_St", "Mercenary_Bard_Atk");
-                options.options[1].text = LocalString.GetLocalizedString();
-                LocalString.SetReference("Station_Table_St", "Mercenary_Bard_Def");
-                options.options[2].text = LocalString.GetLocalizedString();
+                options.options[0].text = LocalString_Bard[0].GetLocalizedString();
+                options.options[1].text = LocalString_Bard[1].GetLocalizedString();
+                options.options[2].text = LocalString_Bard[2].GetLocalizedString();
 
                 options.captionText.text = options.options[options.value].text;
                 break;
