@@ -14,6 +14,7 @@ public class Item_MiniDron : MonoBehaviour
     public int DronAtk;
     public float DronSpeed;
     Rigidbody2D MiniDronRid2d;
+    [SerializeField]
     GameObject SpriteObject;
     Vector2 SpriteObject_InitPos;
     BoxCollider2D DefaultDron_BoxCollider;
@@ -31,8 +32,11 @@ public class Item_MiniDron : MonoBehaviour
         if(type == MiniDronType.DefaultDron)
         {
             DefaultDron_BoxCollider.enabled = true;
-            RaserObject.SetActive(false);
-            MiniDronRid2d.velocity = new Vector2(5f, 0);
+            if(RaserObject != null)
+            {
+                RaserObject.SetActive(false);
+            }
+            MiniDronRid2d.velocity = new Vector2(2f, 0);
         }
         else
         {
@@ -43,7 +47,7 @@ public class Item_MiniDron : MonoBehaviour
         }
 
         UpDown = 1;
-        SpriteObject = transform.GetChild(0).gameObject;
+        //SpriteObject = transform.GetChild(0).gameObject;
         SpriteObject_InitPos = SpriteObject.transform.localPosition;
     }
 
@@ -51,11 +55,11 @@ public class Item_MiniDron : MonoBehaviour
     {
         if(type == MiniDronType.DefaultDron)
         {
-            if (SpriteObject.transform.localPosition.y > SpriteObject_InitPos.y + 2)
+            if (SpriteObject.transform.localPosition.y > SpriteObject_InitPos.y + 1)
             {
                 UpDown = -1;
             }
-            else if(SpriteObject.transform.localPosition.y < SpriteObject_InitPos.y- 2)
+            else if(SpriteObject.transform.localPosition.y < SpriteObject_InitPos.y- 1)
             {
                 UpDown = 1;
             }
