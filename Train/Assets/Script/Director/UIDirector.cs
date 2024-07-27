@@ -104,7 +104,6 @@ public class UIDirector : MonoBehaviour
                 if (Time.time > ItemInformation_Object_Time + ItemInformation_Object_TimeDelay)
                 {
                     StartCoroutine(ItemInformation_Object_Off());
-
                 }
             }
 
