@@ -121,6 +121,9 @@ public class ItemUse_Window_Box : MonoBehaviour
             {
                 item = Random_Epic_Box_ItemList[Random.Range(0, Random_Epic_Box_ItemList.Count)];
             }
+
+            item = ItemList.Item[57];
+
             //Item_Icon = ¼³Á¤
             Item_Name.StringReference.TableEntryReference = "Item_Name_" + item.Num;
             //Item_Name.text = item.Item_Name;

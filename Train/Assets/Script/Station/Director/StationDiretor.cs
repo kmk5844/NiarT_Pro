@@ -614,15 +614,4 @@ public class StationDirector : MonoBehaviour
         Store_Fortress_Content.anchoredPosition = new Vector2(-targetX, 0);
         isMoving = false;
     }
-
-    public void OnMouseOverEnter_MainMenu()
-    {
-        //.material.SetFloat("_OutlineEnabled", 1);
-
-    }
-
-    public void OnMouseOverExit_MainMenu()
-    {
-        //.material.SetFloat("_OutlineEnabled", 1);
-    }
 }

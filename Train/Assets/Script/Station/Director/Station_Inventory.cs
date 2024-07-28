@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Localization.Components;
+using System;
 
 public class Station_Inventory : MonoBehaviour
 {
@@ -28,7 +29,7 @@ public class Station_Inventory : MonoBehaviour
     int UI_UseItem_Num;
     public GameObject Item_UseItem_WindowObject;
     public List<GameObject> Item_UseItem_WindowObject_List;
-
+    public GameObject[] Item_UseIcon;  // 0 : 메인 화면, 1 : 일반, 2 : 박스, 3 : 재료
 
     ItemDataObject useItem;
     [HideInInspector]
@@ -67,6 +68,7 @@ public class Station_Inventory : MonoBehaviour
                 foreach (ItemDataObject itemDataObject in Data_ItemList.Common_Inventory_ItemList)
                 {
                     ItemObject.item = itemDataObject;
+                    Check_Item_Init_Use(1, itemDataObject);
                     Instantiate (ItemObject, Transform_ItemList[num]);
                 }
                 break;
@@ -74,6 +76,7 @@ public class Station_Inventory : MonoBehaviour
                 foreach (ItemDataObject itemDataObject in Data_ItemList.Box_Inventory_ItemList)
                 {
                     ItemObject.item = itemDataObject;
+                    Check_Item_Init_Use(2, itemDataObject);
                     Instantiate(ItemObject, Transform_ItemList[num]);
                 }
                 break;
@@ -81,6 +84,7 @@ public class Station_Inventory : MonoBehaviour
                 foreach (ItemDataObject itemDataObject in Data_ItemList.Material_Inventory_ItemList)
                 {
                     ItemObject.item = itemDataObject;
+                    Check_Item_Init_Use(3, itemDataObject);
                     Instantiate(ItemObject, Transform_ItemList[num]);
                 }
                 break;
@@ -178,7 +182,6 @@ public class Station_Inventory : MonoBehaviour
             {
                 Data_ItemList.Plus_Inventory_Item(item);
                 Instantiate(ItemObject, Transform_ItemList[num]);
-                Debug.Log(Transform_ItemList[num]);
             }
             else
             {
@@ -206,6 +209,7 @@ public class Station_Inventory : MonoBehaviour
                 }
             }
         }
+        Check_Item_Use();
         Data_ItemList.Check_ItemChangeFlag();
     }
 
@@ -268,6 +272,49 @@ public class Station_Inventory : MonoBehaviour
         for (int i = 0; i < Transform_ItemList.Count; i++)
         {
             Spawn_Item(i);
+        }
+    }
+
+    private void Check_Item_Init_Use(int Num, ItemDataObject item)
+    {
+        if (Item_UseIcon[Num].activeSelf != true)
+        {
+            if (item.Use_Flag && item.Item_Count > 0)
+            {
+                Item_UseIcon[Num].SetActive(true);
+
+                if (Item_UseIcon[0].activeSelf != true)
+                {
+                    Item_UseIcon[0].SetActive(true);
+                }
+            }
+        }
+    }
+
+    private void Check_Item_Use()
+    {
+        for(int i = 1; i < 4; i++)
+        {
+            Item_UseIcon[i].SetActive(false);
+            foreach (ItemList_Object item_object in Transform_ItemList[i].GetComponentsInChildren<ItemList_Object>())
+            {
+                if (Item_UseIcon[i].activeSelf != true)
+                {
+                    if (item_object.item.Use_Flag && item_object.item.Item_Count > 0)
+                    {
+                        Item_UseIcon[i].SetActive(true);
+                    }
+                }
+            }
+        }
+
+        if (Item_UseIcon[1].activeSelf || Item_UseIcon[2].activeSelf || Item_UseIcon[3].activeSelf)
+        {
+             Item_UseIcon[0].SetActive(true);
+        }
+        else
+        {
+             Item_UseIcon[0].SetActive(false);
         }
     }
 }

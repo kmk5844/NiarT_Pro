@@ -18,6 +18,7 @@ public class ItemList_Object : MonoBehaviour
     public Image item_icon_object;
     public TextMeshProUGUI item_object_text_count;
     public ItemList_Tooltip item_tooltip_object;
+    public GameObject item_use_object;
 
     bool item_information_Flag; // 정보 출력 플래그
     bool item_mouseOver_Flag; // 이미 올려져 있다는 플래그
@@ -31,6 +32,18 @@ public class ItemList_Object : MonoBehaviour
         item_use = item.Use_Flag;
         item_icon_object.sprite = item.Item_Sprite;
         item_object_text_count.text = item_count.ToString();
+
+        if(item_use_object != null)
+        {
+            if (item_use)
+            {
+                item_use_object.SetActive(true);
+            }
+            else
+            {
+                item_use_object.SetActive(false);
+            }
+        }
     }
 
     private void Update()
