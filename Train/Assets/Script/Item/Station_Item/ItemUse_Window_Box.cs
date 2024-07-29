@@ -95,7 +95,6 @@ public class ItemUse_Window_Box : MonoBehaviour
             }*/
             //Item_Icon = 설정
             Item_Name.StringReference.TableEntryReference = "Item_Name_" + item.Num;
-            //Item_Name.text = item.Item_Name;
             Item_Icon.sprite = item.Item_Sprite;
             Item_Count.text = "1";
             item.Item_Count_UP();
@@ -121,8 +120,6 @@ public class ItemUse_Window_Box : MonoBehaviour
             {
                 item = Random_Epic_Box_ItemList[Random.Range(0, Random_Epic_Box_ItemList.Count)];
             }
-
-            item = ItemList.Item[57];
 
             //Item_Icon = 설정
             Item_Name.StringReference.TableEntryReference = "Item_Name_" + item.Num;

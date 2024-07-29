@@ -12,7 +12,8 @@ public class Auto_Item_ScritableObject : EditorWindow
         EditorWindow.GetWindow(typeof(Auto_Item_ScritableObject));
     }
     string itemCount = "";
-
+    string itemCount_Num = "";
+    string itemCount_Single = "";
     private void OnGUI()
     {
         if (GUILayout.Button("Create Auto Item"))
@@ -38,6 +39,20 @@ public class Auto_Item_ScritableObject : EditorWindow
         {
             Init_ItemCount();
             Add_ItemCount(itemCount);
+        }
+
+
+        GUILayout.BeginHorizontal();
+        {
+            GUILayout.Label("아이템 넘버와 개수 적어주세요");
+            itemCount_Num = EditorGUILayout.TextField(itemCount_Num, GUILayout.Width(200));
+            itemCount_Single = EditorGUILayout.TextField(itemCount_Single, GUILayout.Width(200));
+        }
+        GUILayout.EndHorizontal();
+
+        if(GUILayout.Button("Count Auto ItemSingle"))
+        {
+            Add_ItemSingleCount(itemCount_Num, itemCount_Single);
         }
     }
 
@@ -104,6 +119,17 @@ public class Auto_Item_ScritableObject : EditorWindow
             item.Item_Count_UP(count);
             UnityEditor.EditorUtility.SetDirty(item);
         }
+    }
+
+    void Add_ItemSingleCount(string itemNum, string count_s)
+    {
+        int Num = int.Parse(itemNum);
+        int count = int.Parse(count_s);
+
+        ItemDataObject item = SA_ItemList.Item[Num];
+        item.Init();
+        item.Item_Count_UP(count);
+        UnityEditor.EditorUtility.SetDirty(item);
     }
 
     Information_Item_Type CheckItemType(string itemtype)

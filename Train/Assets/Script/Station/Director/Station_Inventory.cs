@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Localization.Components;
 using System;
+using static UnityEditor.Progress;
 
 public class Station_Inventory : MonoBehaviour
 {
@@ -281,11 +282,25 @@ public class Station_Inventory : MonoBehaviour
         {
             if (item.Use_Flag && item.Item_Count > 0)
             {
-                Item_UseIcon[Num].SetActive(true);
-
-                if (Item_UseIcon[0].activeSelf != true)
+                if (item.Num == 53)
                 {
-                    Item_UseIcon[0].SetActive(true);
+                    if(item.Item_Count >= 10)
+                    {
+                        Item_UseIcon[Num].SetActive(true);
+
+                        if (Item_UseIcon[0].activeSelf != true)
+                        {
+                            Item_UseIcon[0].SetActive(true);
+                        }
+                    }
+                }
+                else { 
+                    Item_UseIcon[Num].SetActive(true);
+
+                    if (Item_UseIcon[0].activeSelf != true)
+                    {
+                        Item_UseIcon[0].SetActive(true);
+                    }
                 }
             }
         }
@@ -302,7 +317,17 @@ public class Station_Inventory : MonoBehaviour
                 {
                     if (item_object.item.Use_Flag && item_object.item.Item_Count > 0)
                     {
-                        Item_UseIcon[i].SetActive(true);
+                        if(item_object.item.Num == 53)
+                        {
+                            if (item_object.item.Item_Count >= 10)
+                            {
+                                Item_UseIcon[i].SetActive(true);
+                            }
+                        }
+                        else
+                        {
+                            Item_UseIcon[i].SetActive(true);
+                        }
                     }
                 }
             }
