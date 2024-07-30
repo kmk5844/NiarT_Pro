@@ -88,7 +88,7 @@ public class Mercenary : MonoBehaviour
         Item_workCount_UP = 0;
         Move_X = 1f;
         MaxMove_X = 3f;
-        MinMove_X = -10.94f * (TrainCount - 1) - 5f;
+        MinMove_X = (-4.97f + (-10.94f * (TrainCount - 1)));
         Move_Y = -0.94f;
         transform.position = new Vector2(Random.Range(MinMove_X, MaxMove_X), Move_Y);
         Unit_Scale = transform.GetChild(0);
@@ -363,7 +363,7 @@ public class Mercenary : MonoBehaviour
     {
         if (collision.CompareTag("Monster_Bullet"))
         {
-            int damageTaken = Mathf.RoundToInt(collision.GetComponent<Bullet>().atk * era);
+            int damageTaken = Mathf.RoundToInt(collision.GetComponent<MonsterBullet>().atk * era);
             if (HP - damageTaken < 0)
             {
                 HP = 0;

@@ -8,7 +8,7 @@ public class Monster_1 : Monster
     [SerializeField]
     Vector3 monster_SpawnPos;
     Vector3 movement;
-    int xPos;
+    float xPos;
 
     [Header("속도, 최대 길이")] // 몬스터 무브를 변경해야할 가능성이 높음
     [SerializeField]
@@ -16,16 +16,22 @@ public class Monster_1 : Monster
     [SerializeField]
     float max_xPos;
 
+    bool isQuitting;
+    public GameObject Spawn_Item;
+
     protected override void Start()
     {
+        Monster_Num = 1;
+        Bullet = Resources.Load<GameObject>("Bullet/Monster/" + Monster_Num);
+
         base.Start();
-        transform.position = new Vector3(transform.position.x, -0.625f, transform.position.z);
         monster_SpawnPos = transform.position;
 
-        speed =  0.1f;
-        max_xPos = Random.Range(1, 3);
+        speed = Random.Range(0.3f, 1.2f);
+        max_xPos = Random.Range(1, 9);
 
-        xPos = -1;
+        xPos = -1f;
+        isQuitting = false;
         Check_ItemSpeedSpawn();
     }
 
@@ -36,17 +42,10 @@ public class Monster_1 : Monster
         Fire_Debuff();
         Check_ItemSpeedFlag();
 
-        if (monster_gametype == Monster_GameType.Fighting)
+        if(monster_gametype == Monster_GameType.Fighting)
         {
-            BulletFire(xPos);
-            if (xPos > 0)
-            {
-                transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-            }
-            else
-            {
-                transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-            }
+            BulletFire();
+            FlipMonster();
         }
 
         if (monster_gametype == Monster_GameType.GameEnding)
@@ -63,20 +62,46 @@ public class Monster_1 : Monster
             MonsterMove();
         }
     }
+    void BulletFire()
+    {
+        if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay))
+        {
+            GameObject bullet = Instantiate(Bullet, transform.position, transform.rotation, monster_Bullet_List);
+            bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, 10, 0);
+            lastTime = Time.time;
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        isQuitting = true;
+    }
+
+    private void OnDestroy()
+    {
+        if (!isQuitting)
+        {
+            if (monster_gametype == Monster_GameType.Fighting 
+                || monster_gametype == Monster_GameType.Stun_Bullet_Debuff
+                || monster_gametype == Monster_GameType.CowBoy_Debuff)
+            {
+                AfterDie_Spawn_Item();
+            }
+        }
+    }
 
     void MonsterMove()
     {
         if (monster_SpawnPos.x - max_xPos > transform.position.x)
         {
-            xPos = 1;
+            xPos = 1f;
         }
         else if (monster_SpawnPos.x + max_xPos < transform.position.x)
         {
-            xPos = -1;
+            xPos = -1f;
         }
         movement = new Vector3(xPos, 0f, 0f);
-        transform.Translate(movement * (speed - Item_Monster_Speed) * Time.deltaTime); 
-        // 기차의 거리에 맞춰야 한다.
+        transform.Translate(movement * (speed - Item_Monster_Speed) * Time.deltaTime);
     }
 
     void Check_ItemSpeedSpawn()
@@ -115,5 +140,10 @@ public class Monster_1 : Monster
                 Item_Monster_Speed_ChangeFlag = false;
             }
         }
+    }
+
+    public void AfterDie_Spawn_Item()
+    {
+        Instantiate(Spawn_Item, transform.position, Quaternion.identity);
     }
 }

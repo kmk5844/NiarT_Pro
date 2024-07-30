@@ -6,9 +6,11 @@ public class MonsterDirector : MonoBehaviour
 {
     // 스테이지 정보 나온 후, 스테이지에 따라 몬스터 변경해야함
     // 그리고 엑셀에 몬스터 정보도 나와야 한다.
+    [HideInInspector]
+    public bool Test_Flag;
+
     public Game_DataTable EX_GameData;
     public SA_PlayerData SA_PlayerData;
-    public bool TestMonsterCount;
 
     [Header("몬스터 정보 및 리스트")]
     public Transform Monster_List;
@@ -52,7 +54,7 @@ public class MonsterDirector : MonoBehaviour
     {
         GameDirector_SpawnFlag = false;
         Item_curseFlag = false;
-        if (TestMonsterCount)
+        if (Test_Flag)
         {
             MaxMonsterNum = 1;
         }
@@ -68,11 +70,11 @@ public class MonsterDirector : MonoBehaviour
 
         item_MonsterCount = 0;
         TrainCount = Train_List.childCount;
-        MaxPos_Sky = new Vector2(5f, 6f);
-        MinPos_Sky = new Vector2((-10f * TrainCount), 3f);
+        MaxPos_Sky = new Vector2(6f, 6f);
+        MinPos_Sky = new Vector2(-7.97f + (-10.94f * (TrainCount - 1)), 3f);
 
-        MaxPos_Ground = new Vector2(3f, -0.9f);
-        MinPos_Ground = new Vector2(((-10f * (TrainCount)+3)), -0.9f);
+        MaxPos_Ground = new Vector2(3.5f, -0.9f);
+        MinPos_Ground = new Vector2(-5.47f + (-10.94f * (TrainCount-1)), -0.9f);
         //몬스터 소환 위치가 달라진다.
         //기차 길이에 따라 정해야한다.
     }
@@ -111,12 +113,9 @@ public class MonsterDirector : MonoBehaviour
             Random_xPos = Random.Range(MinPos_Ground.x, MaxPos_Ground.x);
             Random_yPos = Random.Range(MinPos_Ground.y, MaxPos_Ground.y);
         }
-        GameObject Monster = Resources.Load<GameObject>("Monster/Monster_" + Monster_Num);
+        string monster_name = EX_GameData.Information_Monster[Monster_Num].Monster_Name;
+        GameObject Monster = Resources.Load<GameObject>("Monster/" + Monster_Num+ "_"+monster_name);
         Instantiate(Monster, new Vector3(Random_xPos, Random_yPos, 0), Quaternion.identity, Monster_List);
-        if (Item_curseFlag)
-        {
-
-        }
     }
 
     public void Get_Monster_List(List<int> GameDirector_Monster_List)

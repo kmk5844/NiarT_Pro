@@ -15,14 +15,28 @@ public class Monster_2 : Monster
     float speed;
     [SerializeField]
     float max_xPos;
+
+    [SerializeField]
+    float frequency;
+    [SerializeField]
+    float amplitude;
+
     protected override void Start()
     {
+        Monster_Num = 2;
+        Bullet = Resources.Load<GameObject>("Bullet/Monster/" + Monster_Num);
+
         base.Start();
-        transform.position = new Vector3(9, transform.position.y, transform.position.z);
-        speed = 5;
+
+        monster_SpawnPos = transform.position;
+
+        speed = Random.Range(0.5f, 2f);
+        max_xPos = Random.Range(1, 9);
+        frequency = Random.Range(5f, 10f);
+        amplitude = Random.Range(0.5f, 1f);
+
         xPos = -1f;
         Check_ItemSpeedSpawn();
-        StartCoroutine(DestoryAfterDelay());
     }
 
     protected override void Update()
@@ -31,14 +45,25 @@ public class Monster_2 : Monster
         Total_GameType();
         Fire_Debuff();
         Check_ItemSpeedFlag();
+
         if (monster_gametype == Monster_GameType.Fighting)
         {
-            BulletFire(0);
+            BulletFire();
+            FlipMonster();
         }
 
         if (monster_gametype == Monster_GameType.GameEnding)
         {
             Monster_Ending();
+        }
+    }
+    void BulletFire()
+    {
+        if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay))
+        {
+            GameObject bullet = Instantiate(Bullet, transform.position, transform.rotation, monster_Bullet_List);
+            bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, 10, 0);
+            lastTime = Time.time;
         }
     }
 
@@ -51,15 +76,19 @@ public class Monster_2 : Monster
         }
     }
 
-    private IEnumerator DestoryAfterDelay()
-    {
-        yield return new WaitForSeconds(5f);
-        Destroy(gameObject);
-    }
-
     void MonsterMove()
     {
-        movement = new Vector3(xPos, 0f, 0f);
+        float yPos = Mathf.Sin(Time.time * frequency) * amplitude;
+
+        if (monster_SpawnPos.x - max_xPos > transform.position.x)
+        {
+            xPos = 1f;
+        }
+        else if (monster_SpawnPos.x + max_xPos < transform.position.x)
+        {
+            xPos = -1f;
+        }
+        movement = new Vector3(xPos, yPos, 0f);
         transform.Translate(movement * (speed - Item_Monster_Speed) * Time.deltaTime);
     }
 

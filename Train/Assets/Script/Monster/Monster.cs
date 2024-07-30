@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 public class Monster : MonoBehaviour
 {
-    public int Monster_Num;
+    protected int Monster_Num;
     [Header("게임디렉터의 게임타입")]
     [SerializeField]
     protected Monster_GameType monster_gametype;
@@ -27,14 +27,13 @@ public class Monster : MonoBehaviour
     [Header("몬스터 총알 정보")]
     [SerializeField]
     protected GameObject Bullet;
-    int Bullet_Atk;
-    [SerializeField]
+    protected int Bullet_Atk;
+    protected float Bullet_Speed;
     protected float Bullet_Delay;
-    [SerializeField]
-    protected int Bullet_Slow;
-    float lastTime;
+    protected float Bullet_Slow;
+    protected float lastTime;
     //float bossLastTime;
-    Transform monster_Bullet_List;
+    protected Transform monster_Bullet_List;
 
     [Header("타겟")]
     [SerializeField]
@@ -64,8 +63,8 @@ public class Monster : MonoBehaviour
     bool Item_Curese_ChangeFlag;
     int Item_Curese_Persent;
 
-    float Item_Monster_Atk;
-    float Item_Monster_AtkDelay;
+    protected float Item_Monster_Atk;
+    protected float Item_Monster_AtkDelay;
     protected float Item_Monster_Speed;
     protected bool Item_Monster_Speed_ChangeFlag;
     protected bool Item_Monster_SpeedFlag;
@@ -92,12 +91,11 @@ public class Monster : MonoBehaviour
         Monster_HP = EX_GameData.Information_Monster[Monster_Num].Monster_HP;
         Monster_Score = EX_GameData.Information_Monster[Monster_Num].Monster_Score;
         Monster_Coin = EX_GameData.Information_Monster[Monster_Num].Monster_Coin;
-        Bullet = Resources.Load<GameObject>(EX_GameData.Information_Monster[Monster_Num].Monster_Bullet);
         Bullet_Atk = EX_GameData.Information_Monster[Monster_Num].Monster_Atk;
+        Bullet_Speed = EX_GameData.Information_Monster[Monster_Num].Monster_Bullet_Speed;
         Bullet_Delay = EX_GameData.Information_Monster[Monster_Num].Monster_Bullet_Delay;
         Bullet_Slow = EX_GameData.Information_Monster[Monster_Num].Monster_Bullet_Slow;
         monster_Bullet_List = GameObject.Find("Bullet_List").GetComponent<Transform>();
-        Target = EX_GameData.Information_Monster[Monster_Num].Monster_Target;
 
         player = GameObject.FindGameObjectWithTag("Player");
         End_Delay = Random.Range(0f, 1.5f);
@@ -307,16 +305,16 @@ public class Monster : MonoBehaviour
         fire_hit_Count++;
         fire_hit_flag = false;
     }
-
+/*
     protected void BulletFire(int x_scale = 0)
     {
         if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay))
         {
             GameObject bullet = Instantiate(Bullet, transform.position, transform.rotation, monster_Bullet_List);
-            bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, Target, x_scale);
+            bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, 10, x_scale);
             lastTime = Time.time;
         }
-    } // 공통적으로 적용해야 함. -> 변경 예정
+    } // 공통적으로 적용해야 함. -> 변경 예정*/
 
     protected void DemoBulletFire(int x_scale = 0)
     {
@@ -325,7 +323,7 @@ public class Monster : MonoBehaviour
             for(int i = 0; i < 3; i++)
             {
                 GameObject bullet = Instantiate(Bullet, transform.position, transform.rotation, monster_Bullet_List);
-                bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk, Bullet_Slow, Target, x_scale);
+                bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk, Bullet_Slow, 5, x_scale);
             }
             lastTime = Time.time;
         }
@@ -400,6 +398,7 @@ public class Monster : MonoBehaviour
         else
         {
             gameDirector.Game_Monster_Kill(Monster_Score, Monster_Coin);
+            //
             Destroy(gameObject);
         }
     }
@@ -417,6 +416,7 @@ public class Monster : MonoBehaviour
         else
         {
             gameDirector.Game_Monster_Kill(Monster_Score, Monster_Coin);
+            //
             Destroy(gameObject);
         }
     }
@@ -438,6 +438,7 @@ public class Monster : MonoBehaviour
         else
         {
             gameDirector.Game_Monster_Kill(Monster_Score, Monster_Coin);
+            //
             Destroy(gameObject);
         }
     }
@@ -455,6 +456,7 @@ public class Monster : MonoBehaviour
         else
         {
             gameDirector.Game_Monster_Kill(Monster_Score, Monster_Coin);
+            //
             Destroy(gameObject);
         }
     }
@@ -472,6 +474,7 @@ public class Monster : MonoBehaviour
         else
         {
             gameDirector.Game_Monster_Kill(Monster_Score, Monster_Coin);
+            //
             Destroy(gameObject);
         }
     }
@@ -489,6 +492,7 @@ public class Monster : MonoBehaviour
         else
         {
             gameDirector.Game_Monster_Kill(Monster_Score, Monster_Coin);
+            //
             Destroy(gameObject);
         }
         StartCoroutine(Item_Stun_Debuff(delayTime));
@@ -642,6 +646,7 @@ public class Monster : MonoBehaviour
         Item_Giant_ChangeFlag_Scale = true;
         Item_Giant_Persent = Persent;
     }
+
 }
 
 public enum Monster_GameType{

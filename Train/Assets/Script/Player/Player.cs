@@ -379,7 +379,7 @@ public class Player : MonoBehaviour
 
         if (collision.CompareTag("Monster_Bullet"))
         {
-            Bullet bullet = collision.GetComponent<Bullet>();
+            MonsterBullet bullet = collision.GetComponent<MonsterBullet>();
             MonsterHit(bullet.atk);
             Destroy(collision.gameObject);
         }

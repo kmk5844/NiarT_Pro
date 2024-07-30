@@ -38,15 +38,11 @@ public class ItemList_Object : MonoBehaviour
             if (item_use)
             {
                 item_use_object.SetActive(true);
-            }
-            else
-            {
-                item_use_object.SetActive(false);
-            }
 
-            if (item.Num == 53 && item_count >= 10)
-            {
-                item_use_object.SetActive(true);
+                if (item.Num == 53 && item_count < 10)
+                {
+                    item_use_object.SetActive(false);
+                }
             }
             else
             {

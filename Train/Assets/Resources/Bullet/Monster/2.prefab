@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 2284520680175412986}
   - component: {fileID: 2284520680175412989}
   - component: {fileID: -2744086448423873013}
-  - component: {fileID: 8635917909844719010}
-  - component: {fileID: 3488491615282625467}
+  - component: {fileID: 6269809221885246463}
+  - component: {fileID: 5558578991354902346}
   m_Layer: 10
   m_Name: 2
   m_TagString: Monster_Bullet
@@ -30,10 +30,10 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.68, y: 3.82, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7073751656571810682}
+  - {fileID: 5805485384082206722}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2284520680175412989
@@ -77,12 +77,12 @@ SpriteRenderer:
   m_SortingLayerID: -611559395
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6f650a9b1ed25874f94f253b2c2486ab, type: 3}
+  m_Sprite: {fileID: -91809063, guid: 21e4f0a0f7076e949a6fdaf11a90ecf6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.25, y: 0.34375}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -115,25 +115,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &8635917909844719010
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2284520680175412988}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d5c7e54f3515914eb71b88c93645d46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Speed: 10
-  atk: 30
-  slow: 1
-  target: 
-  Train_List: {fileID: 0}
-  Mercenary_List: {fileID: 0}
---- !u!70 &3488491615282625467
+--- !u!70 &6269809221885246463
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,13 +144,29 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0018666586, y: 0.01431195}
-  m_Size: {x: 0.048256874, y: 0.13853359}
+  m_Offset: {x: 0, y: -0.032467052}
+  m_Size: {x: 0.17285585, y: 0.24493411}
   m_Direction: 0
---- !u!1001 &3064233159631473295
+--- !u!114 &5558578991354902346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2284520680175412988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 368b917f86230aa42925c4e7a2cf4e94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 0
+  atk: 0
+  slow: 0
+  target: 
+--- !u!1001 &1746392008101235191
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -220,13 +218,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: MonsterTrail
       objectReference: {fileID: 0}
+    - target: {fileID: 8166783544433953828, guid: 178faf6730928ae459bfd458d91bc86d, type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
+      value: 0.39886856
+      objectReference: {fileID: 0}
+    - target: {fileID: 8336691327748361352, guid: 178faf6730928ae459bfd458d91bc86d, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8336691327748361352, guid: 178faf6730928ae459bfd458d91bc86d, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8336691327748361352, guid: 178faf6730928ae459bfd458d91bc86d, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 178faf6730928ae459bfd458d91bc86d, type: 3}
---- !u!4 &7073751656571810682 stripped
+--- !u!4 &5805485384082206722 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5236934807006853621, guid: 178faf6730928ae459bfd458d91bc86d, type: 3}
-  m_PrefabInstance: {fileID: 3064233159631473295}
+  m_PrefabInstance: {fileID: 1746392008101235191}
   m_PrefabAsset: {fileID: 0}

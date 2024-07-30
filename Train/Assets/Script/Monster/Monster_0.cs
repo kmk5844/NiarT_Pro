@@ -18,6 +18,9 @@ public class Monster_0 : Monster
 
     protected override void Start()
     {
+        Monster_Num = 0;
+        Bullet = Resources.Load<GameObject>("Bullet/Monster/" + Monster_Num);
+
         base.Start();
         monster_SpawnPos = transform.position;
 
@@ -53,6 +56,16 @@ public class Monster_0 : Monster
         if(monster_gametype == Monster_GameType.Fighting)
         {
             MonsterMove();
+        }
+    }
+
+    void BulletFire()
+    {
+        if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay))
+        {
+            GameObject bullet = Instantiate(Bullet, transform.position, transform.rotation, monster_Bullet_List);
+            bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, 10, 0);
+            lastTime = Time.time;
         }
     }
 

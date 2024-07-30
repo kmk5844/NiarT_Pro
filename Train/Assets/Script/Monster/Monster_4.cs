@@ -9,40 +9,35 @@ public class Monster_4 : Monster
     Vector3 monster_SpawnPos;
     Vector3 movement;
     float xPos;
-    float yPos;
 
     [Header("속도, 최대 길이")] // 몬스터 무브를 변경해야할 가능성이 높음
     [SerializeField]
     float speed;
     [SerializeField]
     float max_xPos;
-
-    float max_yPos;
-    bool spawn_Flag;
-
     protected override void Start()
     {
         base.Start();
-        spawn_Flag = false;
-        transform.position = new Vector3(21, 5, 0.25f);
-        monster_SpawnPos = transform.position;
-
+        transform.position = new Vector3(9, transform.position.y, transform.position.z);
         speed = 5;
-        max_yPos = 1;
-        max_xPos = 6;
-
         xPos = -1f;
-        yPos = 1f;
-
         Check_ItemSpeedSpawn();
+        StartCoroutine(DestoryAfterDelay());
     }
 
     protected override void Update()
     {
+        Monster_Num = 4;
+        Bullet = Resources.Load<GameObject>("Bullet/Monster/" + Monster_Num);
+
         base.Update();
         Total_GameType();
         Fire_Debuff();
         Check_ItemSpeedFlag();
+        if (monster_gametype == Monster_GameType.Fighting)
+        {
+            BulletFire();
+        }
 
         if (monster_gametype == Monster_GameType.GameEnding)
         {
@@ -53,45 +48,31 @@ public class Monster_4 : Monster
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-
         if (monster_gametype == Monster_GameType.Fighting)
         {
-            if (transform.position.x > max_xPos)
-            {
-                MonsterMove();
-            }
-            else
-            {
-                if (!spawn_Flag)
-                {
-                    speed = 0.5f;
-                    monster_SpawnPos = transform.position;
-                    spawn_Flag = true;
-                }
-                DemoBulletFire();
-                MonsterMove_H();
-            }
+            MonsterMove();
         }
+    }
+    void BulletFire()
+    {
+        if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay))
+        {
+            GameObject bullet = Instantiate(Bullet, transform.position, transform.rotation, monster_Bullet_List);
+            bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, 10, 0);
+            lastTime = Time.time;
+        }
+    }
+
+    private IEnumerator DestoryAfterDelay()
+    {
+        yield return new WaitForSeconds(5f);
+        Destroy(gameObject);
     }
 
     void MonsterMove()
     {
         movement = new Vector3(xPos, 0f, 0f);
-        transform.Translate(movement * speed * Time.deltaTime);
-    }
-
-    void MonsterMove_H()
-    {
-        if (monster_SpawnPos.y + max_yPos < transform.position.y)
-        {
-            yPos = -1f;
-        }
-        else if (monster_SpawnPos.y - max_yPos > transform.position.y)
-        {
-            yPos = 1f;
-        }
-        movement = new Vector3(0f, yPos, 0f);
-        transform.Translate(movement * speed * Time.deltaTime);
+        transform.Translate(movement * (speed - Item_Monster_Speed) * Time.deltaTime);
     }
 
     void Check_ItemSpeedSpawn()

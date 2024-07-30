@@ -3,10 +3,17 @@ using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Timeline;
 
 public class GameDirector : MonoBehaviour
 {
+    [Header("Test")]
+    public bool Test_Flag;
+    public bool Monster_Off_Flag;
+    public bool Mercenary_Off_Flag;
+    public int Test_Distance;
+    public List<int> Test_Monster_List;
+
+    [Header("게임 타입")]
     public GameType gameType;
     [Header("데이터 모음")]
     public SA_TrainData SA_TrainData;
@@ -117,7 +124,7 @@ public class GameDirector : MonoBehaviour
     int BGM_ID;
 
     //아이템부분
-    bool ItemFlag_14;
+    bool ItemFlag_14; // 골드 2배
 
     void Awake()
     {
@@ -146,8 +153,21 @@ public class GameDirector : MonoBehaviour
         TrainSpeedUP = 1;
         distance_time = 0.1f;
         ChangeCursor(true);
-        //
         ItemFlag_14 = false;
+        if (Test_Flag)
+        {
+            monsterDirector.Test_Flag = true;
+            Destination_Distance = Test_Distance;
+            if(Test_Monster_List.Count == 0)
+            {
+                Test_Monster_List.Add(0);
+            }
+
+            if (Monster_Off_Flag)
+            {
+                monsterDirector.Monster_List.gameObject.SetActive(false);
+            }
+        }
     }
 
     private void Start()
@@ -286,7 +306,15 @@ public class GameDirector : MonoBehaviour
                 Emerging_Monster.Add(num);
             }
         }
-        MonsterDirector.GetComponent<MonsterDirector>().Get_Monster_List(Emerging_Monster);
+
+        if (Test_Flag)
+        {
+            MonsterDirector.GetComponent<MonsterDirector>().Get_Monster_List(Test_Monster_List);
+        }
+        else
+        {
+            MonsterDirector.GetComponent<MonsterDirector>().Get_Monster_List(Emerging_Monster);
+        }
     }
     void Train_Init()
     {
@@ -354,7 +382,7 @@ public class GameDirector : MonoBehaviour
         EnginePower = TrainEnginePower + ((TrainEnginePower * (Level_EngineTier * 10)) / 100); // 클수록 유리
     }
 
-    public void Game_MonsterHit(int slow)
+    public void Game_MonsterHit(float slow)
     {
         TrainSpeed -= slow;
     }

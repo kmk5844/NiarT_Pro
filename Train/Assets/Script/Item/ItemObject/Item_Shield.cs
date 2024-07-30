@@ -15,7 +15,7 @@ public class Item_Shield : MonoBehaviour
     {
         if (collision.CompareTag("Monster_Bullet"))
         {
-            int monsterAtk = collision.GetComponent<Bullet>().atk;
+            int monsterAtk = collision.GetComponent<MonsterBullet>().atk;
             if (HP - monsterAtk < 0)
             {
                 Destroy(collision.gameObject);

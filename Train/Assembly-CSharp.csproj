@@ -63,7 +63,6 @@
     <Compile Include="Assets\_Test\testPlayer.cs" />
     <Compile Include="Assets\Script\Train\Turret\Intercept_Flare_Turret.cs" />
     <Compile Include="Assets\Scriptable\SA_Mercenary\SA_MercenaryData.cs" />
-    <Compile Include="Assets\Script\Bullet\FireBullet.cs" />
     <Compile Include="Assets\Epic Toon FX(3d effect)\Demo\Scripts\ETFXFireProjectile.cs" />
     <Compile Include="Assets\Scriptable\SA_Train\SA_TrainData.cs" />
     <Compile Include="Assets\Script\Bullet\Turret\Missile_TurretBullet.cs" />
@@ -82,7 +81,6 @@
     <Compile Include="Assets\Data_Game\Info_Item.cs" />
     <Compile Include="Assets\Script\Item\ItemObject\Item_Dagger.cs" />
     <Compile Include="Assets\Data_Level\Info_Level_Mercenary_Medic.cs" />
-    <Compile Include="Assets\Script\Bullet\StunBullet.cs" />
     <Compile Include="Assets\Script\Station\Card\Train_Part_Card.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Scripts\RandomSeed.cs" />
     <Compile Include="Assets\Resources\SPUM\Script\Plugin\Moments Recorder\Scripts\Gif\LzwEncoder.cs" />
@@ -92,13 +90,13 @@
     <Compile Include="Assets\Easy Save 3\Types\ES3UserType_SA_MercenaryData.cs" />
     <Compile Include="Assets\Resources\SPUM\Script\Ect\SpritePos.cs" />
     <Compile Include="Assets\Script\Train\Turret\BombBalloon_Turret.cs" />
+    <Compile Include="Assets\Script\Bullet\Player\StunBullet.cs" />
     <Compile Include="Assets\Resources\SPUM\Script\Plugin\Moments Recorder\Scripts\Gif\GifFrame.cs" />
     <Compile Include="Assets\Script\Item\ItemObject\Item_MiniDron.cs" />
     <Compile Include="Assets\Script\Station\Card\TrainingRoom_Mercenary_Position_Card.cs" />
     <Compile Include="Assets\Script\Mercenary\Before\Long_Ranged_Before.cs" />
     <Compile Include="Assets\Epic Toon FX(3d effect)\Scripts\ETFXLightFade.cs" />
     <Compile Include="Assets\Data_Level\Info_LevelCost.cs" />
-    <Compile Include="Assets\Script\Bullet\BloodBullet.cs" />
     <Compile Include="Assets\Script\Mercenary\CowBoy_Grap.cs" />
     <Compile Include="Assets\Script\Station\Card\TrainMaintenance_Train_Card.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Scripts\All1CreateUnifiedOutline.cs" />
@@ -108,6 +106,8 @@
     <Compile Include="Assets\Script\Mercenary\Before\Mercenary_Before.cs" />
     <Compile Include="Assets\Script\Item\Station_Item\ItemUse_Window_Box.cs" />
     <Compile Include="Assets\Resources\SPUM\Sprite_Editor(Beta)\Script\SpriteEyeSync.cs" />
+    <Compile Include="Assets\Script\Bullet\Player\MissilePlayerBullet.cs" />
+    <Compile Include="Assets\Script\Bullet\Player\PlayerBullet.cs" />
     <Compile Include="Assets\Script\Item\ItemObject\Item_RobotPlant_Robot.cs" />
     <Compile Include="Assets\Data_Level\Info_Level_Mercenary_Bard.cs" />
     <Compile Include="Assets\Epic Toon FX(3d effect)\Demo\Scripts\ETFXEffectCycler.cs" />
@@ -136,6 +136,7 @@
     <Compile Include="Assets\Script\Monster\Monster_3.cs" />
     <Compile Include="Assets\Script\Director\StoryDirector.cs" />
     <Compile Include="Assets\Script\Monster\Monster_0.cs" />
+    <Compile Include="Assets\Script\Bullet\Monster\Monster_Bullet_Player.cs" />
     <Compile Include="Assets\Script\Train\Turret\Intercept_Missile_Turret.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\DemoCircleExpositor.cs" />
     <Compile Include="Assets\Script\Story\Stroy_FadeOut.cs" />
@@ -155,8 +156,10 @@
     <Compile Include="Assets\Resources\SPUM\Script\SPUM_EyeSet.cs" />
     <Compile Include="Assets\Resources\SPUM\Script\SPUM_PreviewItem.cs" />
     <Compile Include="Assets\Resources\SPUM\Script\SPUM_Manager.cs" />
+    <Compile Include="Assets\Script\Bullet\Monster\Monster_Bullet_Down.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Scripts\AllIn1ShaderWindow.cs" />
     <Compile Include="Assets\Script\Mercenary\CowBoy.cs" />
+    <Compile Include="Assets\Script\Bullet\Monster\Monster_Bullet_None.cs" />
     <Compile Include="Assets\Data_Story\Story_Branch_Entity.cs" />
     <Compile Include="Assets\ItemCoolTime.cs" />
     <Compile Include="Assets\Script\Director\CharacterDirector.cs" />
@@ -172,6 +175,7 @@
     <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\All1ShaderDemoController.cs" />
     <Compile Include="Assets\Script\Item\Station_Item\ItemEquip_Object.cs" />
     <Compile Include="Assets\Script\Train\Booster_Train.cs" />
+    <Compile Include="Assets\Script\Bullet\Player\BouncingBullet.cs" />
     <Compile Include="Assets\Script\Director\GameDirector.cs" />
     <Compile Include="Assets\Data_Game\Info_Mercenary.cs" />
     <Compile Include="Assets\Script\Story\DialogSystem.cs" />
@@ -201,14 +205,13 @@
     <Compile Include="Assets\Script\Mercenary\Short_Ranged_KillZone.cs" />
     <Compile Include="Assets\Script\Mercenary\Medic.cs" />
     <Compile Include="Assets\Script\Bullet\Turret\Arrow_TurretBullet.cs" />
-    <Compile Include="Assets\Script\Bullet\MissilePlayerBullet.cs" />
     <Compile Include="Assets\Resources\SPUM\Sprite_Editor(Beta)\Script\SPUM_SpriteEditManager.cs" />
     <Compile Include="Assets\Script\Monster\Monster.cs" />
     <Compile Include="Assets\Script\Item\Station_Item\StoreList_Tooltip.cs" />
+    <Compile Include="Assets\Script\Bullet\Player\FireBullet.cs" />
     <Compile Include="Assets\Resources\SPUM\Sprite_SheetExporter(Beta)\Script\SPUM_Exporter.cs" />
     <Compile Include="Assets\Epic Toon FX(3d effect)\Demo\Scripts\ETFXEffectControllerPooled.cs" />
     <Compile Include="Assets\Script\Monster\Monster_1.cs" />
-    <Compile Include="Assets\Script\Bullet\PlayerBullet.cs" />
     <Compile Include="Assets\Script\Item\ItemObject\Item_Mini_Turret.cs" />
     <Compile Include="Assets\Epic Toon FX(3d effect)\Demo\Scripts\ETFXMouseOrbit.cs" />
     <Compile Include="Assets\Script\Train\Turret\Missile_Turret.cs" />
@@ -221,8 +224,10 @@
     <Compile Include="Assets\Script\Mercenary\Engineer.cs" />
     <Compile Include="Assets\Script\Bullet\Turret\Auto_TurretBullet.cs" />
     <Compile Include="Assets\Script\Mercenary\Before\Medic_Before.cs" />
+    <Compile Include="Assets\Script\Bullet\Monster\MonsterBullet.cs" />
     <Compile Include="Assets\Resources\SPUM\Script\Plugin\Moments Recorder\Scripts\Worker.cs" />
     <Compile Include="Assets\Data_Game\Info_Monster.cs" />
+    <Compile Include="Assets\Script\Monster\Boss\Monster_Boss_0.cs" />
     <Compile Include="Assets\Script\Station\Director\Station_GameStart.cs" />
     <Compile Include="Assets\Resources\SPUM\Sprite_Editor(Beta)\Script\SpriteSync.cs" />
     <Compile Include="Assets\Script\Bullet\Turret\Flare_Bomb.cs" />
@@ -235,9 +240,8 @@
     <Compile Include="Assets\Script\Item\SupplyMonster_Item.cs" />
     <Compile Include="Assets\Resources\SPUM\Script\Plugin\Moments Recorder\Scripts\Gif\GifEncoder.cs" />
     <Compile Include="Assets\Script\Item\Station_Item\ItemUse_Window_57.cs" />
-    <Compile Include="Assets\Script\Bullet\BouncingBullet.cs" />
-    <Compile Include="Assets\Script\Monster\Monster_6.cs" />
     <Compile Include="Assets\Resources\SPUM\Script\SPUM_SpriteButtonST.cs" />
+    <Compile Include="Assets\Script\Bullet\Monster\Monster_Bullet_LR_Streight.cs" />
     <Compile Include="Assets\Resources\SPUM\Sample\Script\PlayerManager.cs" />
     <Compile Include="Assets\Script\BackGround\ParallaxBackGround.cs" />
     <Compile Include="Assets\Script\Bullet\Turret\Balloon_TurretBullet.cs" />
@@ -247,7 +251,6 @@
     <Compile Include="Assets\Resources\SPUM\Script\SPUM_SpriteList.cs" />
     <Compile Include="Assets\Data_Game\Info_Player.cs" />
     <Compile Include="Assets\Resources\SPUM\Script\SPUM_PackageButton.cs" />
-    <Compile Include="Assets\Script\Bullet\FlashBangBullet.cs" />
     <Compile Include="Assets\Script\BackGround\ObjectMover.cs" />
     <Compile Include="Assets\Scriptable\SA_Item\SA_ItemList.cs" />
     <Compile Include="Assets\Script\Director\DebugLogManager.cs" />
@@ -257,9 +260,9 @@
     <Compile Include="Assets\Epic Toon FX(3d effect)\Scripts\ETFXPitchRandomizer.cs" />
     <Compile Include="Assets\Script\Director\MercenaryDirector.cs" />
     <Compile Include="Assets\Script\Mercenary\Mercenary.cs" />
-    <Compile Include="Assets\Script\Bullet\MonsterBullet.cs" />
     <Compile Include="Assets\Script\Item\ItemObject\Item_Claymore.cs" />
     <Compile Include="Assets\Scriptable\SA_Train_Turret\SA_TrainTurretData.cs" />
+    <Compile Include="Assets\Script\Bullet\Player\BloodBullet.cs" />
     <Compile Include="Assets\Script\Item\ItemObject\Item_Shield.cs" />
     <Compile Include="Assets\Resources\SPUM\Script\Plugin\Moments Recorder\Scripts\Gif\NeuQuant.cs" />
     <Compile Include="Assets\Script\Mercenary\Engine_Driver.cs" />
@@ -270,6 +273,7 @@
     <Compile Include="Assets\Script\Bullet\Turret\Ballon_Bomb.cs" />
     <Compile Include="Assets\Epic Toon FX(3d effect)\Scripts\ETFXRotation.cs" />
     <Compile Include="Assets\Script\Mercenary\Before\Bard_Before.cs" />
+    <Compile Include="Assets\Script\Bullet\Player\FlashBangBullet.cs" />
     <Compile Include="Assets\Script\Story\ArrowBlink.cs" />
     <Compile Include="Assets\Scriptable\SA_Item\SA_ItemData.cs" />
     <Compile Include="Assets\Data_Game\Info_Train.cs" />
@@ -281,7 +285,6 @@
     <Compile Include="Assets\Data_Level\Info_Level_Train_EngineTier.cs" />
     <Compile Include="Assets\Script\Train\Medic_Train.cs" />
     <Compile Include="Assets\Script\Item\Station_Item\ItemList_Object.cs" />
-    <Compile Include="Assets\Script\Monster\Monster_5.cs" />
     <Compile Include="Assets\Script\Mercenary\Short_Ranged.cs" />
     <Compile Include="Assets\Script\Mercenary\Bard.cs" />
     <Compile Include="Assets\Script\Train\Turret\Fire_Turret.cs" />
