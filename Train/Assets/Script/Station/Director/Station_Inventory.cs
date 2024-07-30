@@ -6,8 +6,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Localization.Components;
 using System;
-using static UnityEditor.Progress;
-
 public class Station_Inventory : MonoBehaviour
 {
     [Header("데이터 관리")]

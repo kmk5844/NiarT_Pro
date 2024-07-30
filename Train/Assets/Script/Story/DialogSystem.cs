@@ -48,16 +48,21 @@ public class DialogSystem : MonoBehaviour
 		{
 			if (EX_Story.Story[i].branch == branch && EX_Story.Story[i].Stage_Num == stageNum)
 			{
+				//0 -> 기본(영어) , 1 -> 한글 , 2 -> 일본
 				data.speakerIndex = EX_Story.Story[i].Speaker_Index;
-                if (SA_Local.Local_Index == 0)
+                if (SA_Local.Local_Index == 1)
                 {
                     data.name = EX_Story.Story[i].ko_name;
                     data.dialogue = EX_Story.Story[i].ko_dialog;
                 }
-                else if (SA_Local.Local_Index == 1)
+                else if (SA_Local.Local_Index == 0)
                 {
                     data.name = EX_Story.Story[i].en_name;
                     data.dialogue = EX_Story.Story[i].en_dialog;
+                }else if(SA_Local.Local_Index == 2)
+				{
+                    data.name = EX_Story.Story[i].jp_name;
+                    data.dialogue = EX_Story.Story[i].jp_dialog;
                 }
                 dialogs.Add(data);
                 index++;
