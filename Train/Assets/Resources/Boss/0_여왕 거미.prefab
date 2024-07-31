@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 375295091
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2044940301, guid: e2d4de4154d21ac4087a96715daa73d8, type: 3}
+  m_Sprite: {fileID: -1556020828, guid: 414d7b9acc214e74d883610b638e0e70, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -95,22 +95,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 7976047841580440944}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07ad535af14321641b1daa14275ba92f, type: 3}
+  m_Script: {fileID: 11500000, guid: 55656e83ba22baf4cb09ac37cf8212fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monster_gametype: 0
-  EX_GameData: {fileID: 11400000, guid: 3a83740cb85032c498c0bbd5b0a2ec9d, type: 2}
-  Monster_Name: 
-  Monster_HP: 0
-  Monster_Score: 0
-  Monster_Coin: 0
-  Bullet: {fileID: 0}
-  Target: 
-  sprite_List: []
-  fire_debuff_flag: 0
-  monster_SpawnPos: {x: 0, y: 0, z: 0}
-  speed: 0
-  max_xPos: 0
+  Boss_HP: 0
+  Boss_Atk: 0
+  Bullet_Speed: 0
+  Bullet_Slow: 0
+  Random_Patten_Num: 0
+  playType: 0
 --- !u!60 &542638795694761132
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -147,7 +140,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.7, y: 1.16}
+    oldSize: {x: 5.17, y: 3.42}
     newSize: {x: 1.7, y: 1.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
