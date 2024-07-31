@@ -1493,7 +1493,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6722813475846212485}
   - component: {fileID: 7184728552321678924}
-  - component: {fileID: 1895807870175748297}
   - component: {fileID: 7349363640902021753}
   - component: {fileID: 3785957863534254079}
   - component: {fileID: 1317093180122993461}
@@ -1547,45 +1546,6 @@ MonoBehaviour:
   UnitTypeChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1895807870175748297
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4588174132758622646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a7e1e200f275a24680f96fd9d4c7696, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Type: 3
-  SA_MercenaryData: {fileID: 11400000, guid: 001e50c30842bd2419afbe10369066e1, type: 2}
-  EX_Level_Data: {fileID: 11400000, guid: 44cb49c8f1fbe1d4b93aa11c2f1dd5e4, type: 2}
-  Unit_Scale: {fileID: 3775216390190924944}
-  act: 0
-  MaxMove_X: 0
-  MinMove_X: 0
-  HP: 0
-  MaxHP: 0
-  Stamina: 0
-  MaxStamina: 0
-  moveSpeed: 0
-  Refresh_Amount: 0
-  Refresh_Delay: 0
-  def: 0
-  useStamina: 0
-  isMedicTrainHealing: 0
-  isHealWithMedic: 0
-  unit: {fileID: 0}
-  work_HP: 0
-  work_Stamina: 0
-  work_Revive: 0
-  checkHP: 0
-  Heal_HpAmount: 0
-  Heal_StaminaAmount: 0
-  Heal_ReviveAmount: 0
-  Heal_HpParsent: 0
 --- !u!114 &7349363640902021753
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1598,9 +1558,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84bedad9b23f94c47b2228e5b3e06450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mercenary_type: 3
   medic_checkHpParsent: 0
-  medic_checkStaminaParsent: 0
 --- !u!50 &3785957863534254079
 Rigidbody2D:
   serializedVersion: 4
@@ -3606,7 +3564,7 @@ SortingGroup:
   m_GameObject: {fileID: 7823943033880878408}
   m_Enabled: 1
   m_SortingLayerID: -400100297
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 5
   m_SortAtRoot: 0
 --- !u!95 &5574237846839005814

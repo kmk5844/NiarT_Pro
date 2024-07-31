@@ -25,7 +25,7 @@ public class Station_GameStart : MonoBehaviour
     public GameObject Inventory_Window;
     public GameObject ItemCount_Window;
     public Image ItemImage;
-    public TextMeshProUGUI ItemNameText;
+    public LocalizeStringEvent ItemNameText;
     public TextMeshProUGUI CountText;
     public TextMeshProUGUI MaxText;
     public Button Button_Plus;
@@ -219,7 +219,11 @@ public class Station_GameStart : MonoBehaviour
         ItemDataObject item = itemData.SA_ItemList.Item[item_Num];
         Item_Count = 1;
         ItemImage.sprite = item.Item_Sprite;
-        ItemNameText.text = item.Item_Name;
+        //ItemNameText.text = item.Item_Name;
+
+        ItemNameText.StringReference.TableReference = "ItemData_Table_St";
+        ItemNameText.StringReference.TableEntryReference = "Item_Name_" + item.Num;
+
         CountText.text = Item_Count.ToString();
         itemObject_Count = item.Item_Count;
         Max_Count = item.Max_Equip;

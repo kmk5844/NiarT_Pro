@@ -127,7 +127,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1233821348895133526}
   - component: {fileID: 8126398702134575299}
-  - component: {fileID: 3486955564772272635}
   - component: {fileID: 4231695527149835816}
   - component: {fileID: 888842363938422929}
   - component: {fileID: 6294801586180447744}
@@ -181,39 +180,6 @@ MonoBehaviour:
   UnitTypeChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &3486955564772272635
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 352607221349834493}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0cc047c8b0736b4da3341b3e8083bfc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Type: 1
-  SA_MercenaryData: {fileID: 11400000, guid: 001e50c30842bd2419afbe10369066e1, type: 2}
-  EX_Level_Data: {fileID: 11400000, guid: 44cb49c8f1fbe1d4b93aa11c2f1dd5e4, type: 2}
-  Unit_Scale: {fileID: 1939077144249261221}
-  act: 0
-  HP: 0
-  MaxHP: 0
-  Stamina: 0
-  MaxStamina: 0
-  moveSpeed: 0
-  Refresh_Amount: 0
-  Refresh_Delay: 0
-  def: 0
-  def_constant: 100
-  useStamina: 0
-  isMedicTrainHealing: 0
-  isHealWithMedic: 0
-  unit_Attack: 0
-  unit_Attack_Delay: 0
-  workSpeed: 0
-  zeroFlag: 0
 --- !u!114 &4231695527149835816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,9 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84bedad9b23f94c47b2228e5b3e06450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mercenary_type: 1
   medic_checkHpParsent: 0
-  medic_checkStaminaParsent: 0
 --- !u!50 &888842363938422929
 Rigidbody2D:
   serializedVersion: 4
@@ -650,7 +614,7 @@ SortingGroup:
   m_GameObject: {fileID: 961419005452370238}
   m_Enabled: 1
   m_SortingLayerID: -400100297
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 5
   m_SortAtRoot: 0
 --- !u!95 &4931287261470913791
@@ -2685,7 +2649,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -400100297
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 20
   m_Sprite: {fileID: -1832909745, guid: 99406551b12bf734a90f2a1495914cc7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3682,7 +3646,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -400100297
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 29
   m_Sprite: {fileID: 21300000, guid: 3c69365409a4f6a4991c4c103b4c5f54, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -3947,7 +3911,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dbdf70ae975e2841ab1ed9533ca6ba0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Bullet: {fileID: 2284520680175412986, guid: 24b1378bcc20e304488073eb5de21758, type: 3}
+  BulletObj: {fileID: 0}
   isDelaying: 0
 --- !u!1 &7851049526673891286
 GameObject:
@@ -4398,7 +4362,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -400100297
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: -20
   m_Sprite: {fileID: -171767952, guid: 99406551b12bf734a90f2a1495914cc7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

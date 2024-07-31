@@ -242,7 +242,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2093586357987203163}
   - component: {fileID: 2214824152445457818}
-  - component: {fileID: 7224947746635056931}
   - component: {fileID: 3557384569150622489}
   - component: {fileID: 4505403057661608927}
   - component: {fileID: 4870240444110940055}
@@ -295,39 +294,6 @@ MonoBehaviour:
   UnitTypeChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7224947746635056931
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 417612359022358406}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6381faedd6b00774788d5fd673d1db4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Type: 2
-  SA_MercenaryData: {fileID: 11400000, guid: 001e50c30842bd2419afbe10369066e1, type: 2}
-  EX_Level_Data: {fileID: 11400000, guid: 44cb49c8f1fbe1d4b93aa11c2f1dd5e4, type: 2}
-  Unit_Scale: {fileID: 4867328003821383590}
-  act: 0
-  MaxMove_X: 0
-  MinMove_X: 0
-  HP: 0
-  MaxHP: 0
-  Stamina: 0
-  MaxStamina: 0
-  moveSpeed: 0
-  Refresh_Amount: 0
-  Refresh_Delay: 0
-  def: 0
-  def_constant: 100
-  useStamina: 0
-  isMedicTrainHealing: 0
-  isHealWithMedic: 0
-  unit_Attack: 0
-  unit_Attack_Delay: 0
 --- !u!114 &3557384569150622489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,9 +306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84bedad9b23f94c47b2228e5b3e06450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mercenary_type: 2
   medic_checkHpParsent: 0
-  medic_checkStaminaParsent: 0
 --- !u!50 &4505403057661608927
 Rigidbody2D:
   serializedVersion: 4
@@ -642,7 +606,7 @@ SortingGroup:
   m_GameObject: {fileID: 884319157869184709}
   m_Enabled: 1
   m_SortingLayerID: -400100297
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 5
   m_SortAtRoot: 0
 --- !u!95 &6265720480702964339
@@ -2560,7 +2524,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d84af36c0d61bd9429b47bce6857b49f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack_Flag: 0
 --- !u!61 &5359895378643253276
 BoxCollider2D:
   m_ObjectHideFlags: 0

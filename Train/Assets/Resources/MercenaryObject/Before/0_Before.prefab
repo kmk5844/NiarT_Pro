@@ -2508,7 +2508,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5226896364264823086}
   - component: {fileID: 7187937140196081268}
-  - component: {fileID: 7880124010119767278}
   - component: {fileID: 1070346597980360895}
   - component: {fileID: 3660143012582715426}
   m_Layer: 11
@@ -2560,39 +2559,6 @@ MonoBehaviour:
   UnitTypeChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7880124010119767278
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6840414920272980753}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05c8d8703420d9b4ea499c151b1610e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Type: 4
-  SA_MercenaryData: {fileID: 11400000, guid: 001e50c30842bd2419afbe10369066e1, type: 2}
-  EX_Level_Data: {fileID: 11400000, guid: 44cb49c8f1fbe1d4b93aa11c2f1dd5e4, type: 2}
-  Unit_Scale: {fileID: 231908454280979278}
-  act: 0
-  HP: 0
-  MaxHP: 0
-  Stamina: 0
-  MaxStamina: 0
-  moveSpeed: 0
-  Refresh_Amount: 0
-  Refresh_Delay: 0
-  def: 0
-  def_constant: 100
-  useStamina: 0
-  isMedicTrainHealing: 0
-  isHealWithMedic: 0
-  Driver_Type: 0
-  Level_Speed: 0
-  Level_Fuel: 0
-  Level_Def: 0
 --- !u!114 &1070346597980360895
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2605,9 +2571,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84bedad9b23f94c47b2228e5b3e06450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mercenary_type: 4
   medic_checkHpParsent: 0
-  medic_checkStaminaParsent: 0
 --- !u!70 &3660143012582715426
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -2802,7 +2766,7 @@ SortingGroup:
   m_GameObject: {fileID: 6944961387049521374}
   m_Enabled: 1
   m_SortingLayerID: -400100297
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 5
   m_SortAtRoot: 0
 --- !u!95 &4604227219527490914
