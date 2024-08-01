@@ -1,15 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Schema;
 using UnityEngine;
+using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
 
 public class Boss_0_Egg : MonoBehaviour
 {
+    public GameObject Egg_Object;
     public GameObject Baby_Spider_Object;
     Vector2 Init_Position;
-    Transform Monster_List;
 
     bool GroundFlag;
     bool isQuitting;
+    float value;
+    bool flag;
+    float Speed;
 
     private void Start()
     {
@@ -17,6 +22,8 @@ public class Boss_0_Egg : MonoBehaviour
         //Monster_List = GameObject.Find("Monster_List").transform;
         Init_Position = new Vector2(Random.Range(MonsterDirector.MinPos_Ground.x, MonsterDirector.MaxPos_Ground.x), MonsterDirector.MaxPos_Sky.y + 3f);
         transform.position = Init_Position;
+        flag = false;
+        Speed = Random.Range(0.5f, 1f);
     }
 
     private void OnApplicationQuit()
@@ -44,9 +51,31 @@ public class Boss_0_Egg : MonoBehaviour
             {
                 GroundFlag = true;
                 transform.position = new Vector2(transform.position.x, MonsterDirector.MinPos_Ground.y);
+                value = Speed * Time.deltaTime;
                 float DestroyTime = Random.Range(5f, 10f);
                 Destroy(gameObject, DestroyTime);
             }
+        }
+
+        if (GroundFlag)
+        {
+            if (Egg_Object.transform.localScale.x > 1.2f && !flag)
+            {
+                flag = true;
+                value = -Speed * Time.deltaTime;
+            }
+            else if (Egg_Object.transform.localScale.x < 1f && flag)
+            {
+                flag = false;
+                value = Speed * Time.deltaTime;
+            }
+
+            Egg_Object.transform.localScale =
+                new Vector3(
+                    Egg_Object.transform.localScale.x + value,
+                    Egg_Object.transform.localScale.x + value,
+                    Egg_Object.transform.localScale.x + value
+                );
         }
     }
 }
