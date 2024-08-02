@@ -18,5 +18,4 @@ public class Balloon_Target : MonoBehaviour
             bullet.monster_target = collision.transform;
         }
     }
-
 }

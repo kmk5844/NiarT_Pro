@@ -56,6 +56,17 @@ public class GameDirector : MonoBehaviour
     private int Reward_Point;
     [SerializeField]
     private int Destination_Distance; // 나중에 private변경
+    bool Data_BossFlag;
+    string Emerging_Boss_String;
+    [SerializeField]
+    private List<int> Emerging_Boss;
+    string Emerging_Boss_Monster_Count_String;
+    [SerializeField]
+    private List<int> Emerging_Boss_Monster_Count;
+    string Emerging_Boss_Distance_String;
+    [SerializeField]
+    private List<int> Emerging_Boss_Distance;
+    int BossCount;
 
     [Header("기차 리스트")]
     public Transform Train_List;
@@ -147,6 +158,7 @@ public class GameDirector : MonoBehaviour
         Stage_Init();
         Train_Init();
         RandomStartTime = Random.Range(5f, 8f);
+        BossCount = 0;
         lastSpeedTime = 0;
         distance_lastSpeedTime = 0;
         timeBet = 0.1f - (EnginePower * 0.001f); //엔진 파워에 따라 결정
@@ -158,6 +170,7 @@ public class GameDirector : MonoBehaviour
         {
             monsterDirector.Test_Flag = true;
             Destination_Distance = Test_Distance;
+
             if(Test_Monster_List.Count == 0)
             {
                 Test_Monster_List.Add(0);
@@ -174,6 +187,7 @@ public class GameDirector : MonoBehaviour
     {
         playerObject = GameObject.FindGameObjectWithTag("Player");
         player = playerObject.GetComponent<Player>();
+        uiDirector.Gameing_Text(Total_Score, Total_Coin);
         StartTime = Time.time;
         gameType = GameType.Playing;
         MMSoundManagerSoundPlayEvent.Trigger(DustWindBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID: BGM_ID);
@@ -198,13 +212,12 @@ public class GameDirector : MonoBehaviour
         if (gameType == GameType.Playing)
         {
             ChangeCursor(true);
-            uiDirector.Gameing_Text(Total_Score, Total_Coin);
             if (Time.time >= RandomStartTime + StartTime && !GameStartFlag)
             {
                 GameStartFlag = true;
                 monsterDirector.GameDirector_SpawnFlag = true;
                 SoundSequce(PlayBGM);
-            }else if (Time.time >= lastSpeedTime + timeBet && GameWinFlag == false)
+            }else if(Time.time >= lastSpeedTime + timeBet && GameWinFlag == false)
             {
                 if (MaxSpeed >= TrainSpeed)
                 {
@@ -249,6 +262,53 @@ public class GameDirector : MonoBehaviour
                     TrainDistance += (int)TrainSpeed;
                     distance_lastSpeedTime = Time.time;
                 }
+            }
+
+            if (Data_BossFlag)
+            {
+                if (BossCount < Emerging_Boss_Distance.Count)
+                {
+                    if (((float)TrainDistance / (float)Destination_Distance * 100f) > Emerging_Boss_Distance[BossCount])
+                    {
+                        gameType = GameType.Boss;
+                        monsterDirector.BossStart(Emerging_Boss_Monster_Count[BossCount]);
+                    }
+                }
+            }
+        }
+        else if(gameType == GameType.Boss)
+        {
+            ChangeCursor(true);
+            if (Time.time >= lastSpeedTime + timeBet && GameWinFlag == false)
+            {
+                if (MaxSpeed >= TrainSpeed)
+                {
+                    if (TrainFuel > 0)
+                    {
+                        TrainSpeed += TrainSpeedUP;
+                        TrainFuel -= Efficient;
+                    }
+                }
+                else
+                {
+                    if (TrainFuel > 0)
+                    {
+                        TrainFuel -= Efficient;
+                    }
+                }
+                lastSpeedTime = Time.time;
+            }
+
+            if (TrainFuel <= 0)
+            {
+                TrainFuel = 0;
+            }
+
+            if ((TrainSpeed <= 0 || player.Player_HP <= 0) && GameStartFlag && !GameLoseFlag)
+            {
+                TrainSpeed = 0;
+                GameLoseFlag = true;
+                Game_Lose();
             }
         }
         else if (gameType == GameType.Ending)
@@ -307,6 +367,43 @@ public class GameDirector : MonoBehaviour
             }
         }
 
+        Data_BossFlag = EX_GameData.Information_Stage[Stage_Num].Boss_Flag;
+        if (Data_BossFlag)
+        {
+            Emerging_Boss_String = EX_GameData.Information_Stage[Stage_Num].Emerging_Boss;
+            Emerging_Boss_Monster_Count_String = EX_GameData.Information_Stage[Stage_Num].Boss_Monster_Count;
+            Emerging_Boss_Distance_String = EX_GameData.Information_Stage[Stage_Num].Boss_Distance;
+
+            string[] Boss_String = Emerging_Boss_String.Split(',');
+            foreach(string M in Boss_String)
+            {
+                int num;
+                if(int.TryParse(M, out num))
+                {
+                    Emerging_Boss.Add(num);
+                }
+            }
+            string[] Boss_Count_String = Emerging_Boss_Monster_Count_String.Split(',');
+            foreach(string M in Boss_Count_String)
+            {
+                int num;
+                if(int.TryParse(M, out num)) { 
+                    Emerging_Boss_Monster_Count.Add(num);
+                }
+            }
+            string[] Boss_Distance_String = Emerging_Boss_Distance_String.Split(',');
+            foreach(string M in Boss_Distance_String)
+            {
+                int num;
+                if(int.TryParse(M, out num))
+                {
+                    Emerging_Boss_Distance.Add(num);
+                }
+            }
+            MonsterDirector.GetComponent<MonsterDirector>().Get_Boss_List(Emerging_Boss);
+        }
+
+
         if (Test_Flag)
         {
             MonsterDirector.GetComponent<MonsterDirector>().Get_Monster_List(Test_Monster_List);
@@ -314,6 +411,10 @@ public class GameDirector : MonoBehaviour
         else
         {
             MonsterDirector.GetComponent<MonsterDirector>().Get_Monster_List(Emerging_Monster);
+            if (Data_BossFlag)
+            {
+                MonsterDirector.GetComponent<MonsterDirector>().Get_Boss_List(Emerging_Boss);
+            }
         }
     }
     void Train_Init()
@@ -431,7 +532,24 @@ public class GameDirector : MonoBehaviour
         {
             Total_Coin += 2 * GetCoin;
         }
+        uiDirector.Gameing_Text(Total_Score, Total_Coin);
+    }
 
+    public void Gmae_Boss_Kill(int GetScore, int GetCoin)
+    {
+        Total_Score += GetScore;
+        if(!ItemFlag_14)
+        {
+            Total_Coin += GetCoin;
+        }
+        else
+        {
+            Total_Coin += 2 * GetCoin;
+        }
+        BossCount++;
+        monsterDirector.BossDie();
+        uiDirector.Gameing_Text(Total_Score, Total_Coin);
+        gameType = GameType.Playing;
     }
     private string Check_Score()
     {
@@ -592,6 +710,7 @@ public class GameDirector : MonoBehaviour
 
 public enum GameType{
     Playing,
+    Boss,
     Pause,
     Option,
     Ending,

@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class Boss_0_Skill1_Bullet : MonoBehaviour
 {
-    // Start is called before the first frame update
+
     void Start()
     {
-        transform.position = new Vector2(transform.position.x, transform.position.y + 10f);
-        Destroy(gameObject, 3f);
+        transform.position = new Vector2(transform.position.x, 3.9f);
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    public void BulletAniEnd()
     {
-        transform.Translate(0, -20 * Time.deltaTime, 0);
+        Destroy(gameObject);
     }
 }

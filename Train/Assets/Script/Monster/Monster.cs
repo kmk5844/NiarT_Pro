@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 public class Monster : MonoBehaviour
 {
     protected int Monster_Num;
-    [Header("게임디렉터의 게임타입")]
+    [Header("몬스터 게임타입")]
     [SerializeField]
     protected Monster_GameType monster_gametype;
     [Header("데이터 모음")]
@@ -32,12 +32,7 @@ public class Monster : MonoBehaviour
     protected float Bullet_Delay;
     protected float Bullet_Slow;
     protected float lastTime;
-    //float bossLastTime;
     protected Transform monster_Bullet_List;
-
-    [Header("타겟")]
-    [SerializeField]
-    protected string Target;
 
     GameObject HitDamage;
     [Header("서서히 만드는 스프라이트")]
@@ -83,7 +78,6 @@ public class Monster : MonoBehaviour
         lastTime = Time.time;
         mercenary_atk = 0;
         monster_gametype = Monster_GameType.Fighting;
-        //bossLastTime = 0f;
         gameDirector = GameObject.Find("GameDirector").GetComponent<GameDirector>();
         HitDamage = Resources.Load<GameObject>("Monster/Hit_Text");
 
@@ -305,16 +299,6 @@ public class Monster : MonoBehaviour
         fire_hit_Count++;
         fire_hit_flag = false;
     }
-/*
-    protected void BulletFire(int x_scale = 0)
-    {
-        if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay))
-        {
-            GameObject bullet = Instantiate(Bullet, transform.position, transform.rotation, monster_Bullet_List);
-            bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, 10, x_scale);
-            lastTime = Time.time;
-        }
-    } // 공통적으로 적용해야 함. -> 변경 예정*/
 
     protected void DemoBulletFire(int x_scale = 0)
     {
@@ -423,7 +407,7 @@ public class Monster : MonoBehaviour
 
     private void Damage_Monster_Trigger_Mercenary(Collider2D collision)
     {
-        if(collision.GetComponentInParent<Mercenary>().Type == mercenaryType.Short_Ranged)
+        if (collision.GetComponentInParent<Mercenary>().Type == mercenaryType.Short_Ranged)
         {
             mercenary_atk = collision.GetComponentInParent<Short_Ranged>().unit_Attack;
         }
@@ -431,7 +415,7 @@ public class Monster : MonoBehaviour
         HitDamage.GetComponent<Hit_Text_Damage>().Random_X = transform.position.x + Random.Range(-0.5f, 0.5f);
         HitDamage.GetComponent<Hit_Text_Damage>().Random_Y = transform.position.y + Random.Range(0.5f, 1.5f);
         Instantiate(HitDamage, monster_Bullet_List);
-        if (Monster_HP  - mercenary_atk > 0)
+        if (Monster_HP - mercenary_atk > 0)
         {
             Monster_HP -= mercenary_atk;
         }
@@ -646,7 +630,6 @@ public class Monster : MonoBehaviour
         Item_Giant_ChangeFlag_Scale = true;
         Item_Giant_Persent = Persent;
     }
-
 }
 
 public enum Monster_GameType{

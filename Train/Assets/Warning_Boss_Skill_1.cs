@@ -21,7 +21,7 @@ public class Warning_Boss_Skill_1 : MonoBehaviour
         Mark_Sprite = Mark_Object.GetComponent<SpriteRenderer>();
         BulletFlag = false;
         startTime = Time.time;
-        Mark_delayTime = 0.5f;
+        Mark_delayTime = 0.8f;
         Shadow_delaytTime = 1f;
     }
 

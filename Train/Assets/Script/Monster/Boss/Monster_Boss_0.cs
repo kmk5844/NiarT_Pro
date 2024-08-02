@@ -5,37 +5,21 @@ using System.Collections.Generic;
 using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 
-public class Monster_Boss_0 : MonoBehaviour
+public class Monster_Boss_0 : Boss
 {
-    public int Boss_HP;
-    public int Boss_Atk;
-
-    public float Bullet_Speed;
-    public float Bullet_Slow;
-
-    public int Random_Patten_Num;
-
     public Transform Fire_Zone;
-    public GameObject Boss_Bullet;
-    public Transform Target;
-    public Transform Bullet_List;
-
     public GameObject Boss_Egg_Object;
     public GameObject Warning;
     public GameObject Boss_SpiderWeb_Bullet;
 
-    Transform Player_pos;
-
     [SerializeField]
     Boss_PlayType playType;
-    PolygonCollider2D col;
 
-    Vector3 local_Scale;
     Vector3 Move_Init_Position;
     Vector3 Jump_Init_Position;
-    float xPos;
+    float move_xPos;
     Vector3 movement;
-    float speed;
+    float move_speed;
 
     float move_lastTime;
     float move_delayTime;
@@ -49,23 +33,20 @@ public class Monster_Boss_0 : MonoBehaviour
     int skillCount;
     int skillMaxCount;
 
-    private void Start()
+    protected override void Start()
     {
-        col = transform.GetComponent<PolygonCollider2D>();
-        Player_pos = GameObject.FindWithTag("Player").transform;
-        local_Scale = transform.localScale;
-        xPos = 1f;
-        speed = 3f;
+        Boss_Num = 0;
+        base.Start();
 
-        Bullet_List = GameObject.Find("Bullet_List").transform;
+        move_xPos = 1f;
+        move_speed = 3f;
 
         transform.position = new Vector2(MonsterDirector.MaxPos_Sky.x + 18f, MonsterDirector.MinPos_Ground.y);
         playType = Boss_PlayType.Spawn;
         col.enabled = false;
 
         skillMaxCount = 6;
-        move_delayTime = Random.Range(5f, 7f);
-        move_delayTime = 5f;
+        move_delayTime = 7f;
         attack_delayTime = 1.5f;
     }
 
@@ -98,21 +79,21 @@ public class Monster_Boss_0 : MonoBehaviour
         {
             if (Move_Init_Position.x - 1 > transform.position.x)
             {
-                xPos = 1f;
-                speed = Random.Range(3f, 5f);
+                move_xPos = 1f;
+                move_speed = Random.Range(3f, 5f);
             }
             else if (Move_Init_Position.x + 1 < transform.position.x)
             {
-                xPos = -1f;
-                speed = Random.Range(1f, 2f);
+                move_xPos = -1f;
+                move_speed = Random.Range(1f, 2f);
             }
-            movement = new Vector3(xPos, 0f, 0f);
-            transform.Translate(movement * speed * Time.deltaTime);
+            movement = new Vector3(move_xPos, 0f, 0f);
+            transform.Translate(movement * move_speed * Time.deltaTime);
 
             if(Time.time >= attack_lastTime + attack_delayTime)
             {
-                Boss_Bullet.GetComponent<Boss_0_Bullet>().targetPosition = Target.position;
-                Instantiate(Boss_Bullet, Fire_Zone.position, Quaternion.identity, Bullet_List);
+                Boss_Bullet.GetComponent<Boss_0_Bullet>().targetPosition = player_pos.position;
+                Instantiate(Boss_Bullet, Fire_Zone.position, Quaternion.identity, monster_Bullet_List);
                 attack_lastTime = Time.time;
             }
 
@@ -134,7 +115,7 @@ public class Monster_Boss_0 : MonoBehaviour
         if (playType == Boss_PlayType.Skill)
         {
             int skillNum = Random.Range(0, 3);
-            skillNum = 0;
+            skillNum = 2;
             if (skillNum == 0)
             {
                 StartCoroutine(Spawn_Egg_Skill());
@@ -216,17 +197,29 @@ public class Monster_Boss_0 : MonoBehaviour
             {
                 transform.position = Jump_Init_Position;
                 ToMove();
-                xPos = 1f;
-                speed = 8f;
+                move_xPos = 1f;
+                move_speed = 8f;
                 skillCount = 1;
                 //skillMaxCount = Random.Range(5, 9);
                 Debug.Log(skillMaxCount);
             }
         }
 
+        if (DieFlag)
+        {
+            if(playType != Boss_PlayType.Die)
+            {
+                playType = Boss_PlayType.Die;
+            }
+        }
+
+
         if (playType == Boss_PlayType.Die)
         {
-
+            Debug.Log("Á×À½");
+            movement = new Vector3(-1f, 0f, 0f);
+            transform.Translate(movement * 1.5f * Time.deltaTime);
+            Destroy(gameObject, 8f);
         }
     }
     IEnumerator HealCount()
@@ -286,7 +279,7 @@ public class Monster_Boss_0 : MonoBehaviour
             {
                 if(count < MaxCount)
                 {
-                    float xPos = Player_pos.position.x;
+                    float xPos = player_pos.position.x;
                     Instantiate(Warning, new Vector2(xPos, MonsterDirector.MinPos_Ground.y), Quaternion.identity);
                     count++;
 
@@ -307,7 +300,7 @@ public class Monster_Boss_0 : MonoBehaviour
     {
         for(int i = 0; i < 3; i++)
         {
-            Boss_SpiderWeb_Bullet.GetComponent<Boss_0_Skill3_Bullet>().FirePosition(Player_pos.position, Random.Range(-6f, 6f));
+            Boss_SpiderWeb_Bullet.GetComponent<Boss_0_Skill3_Bullet>().FirePosition(player_pos.position, Random.Range(-6f, 6f));
             Instantiate(Boss_SpiderWeb_Bullet, Fire_Zone.position, Quaternion.identity);
             yield return new WaitForSeconds(0.7f);
         }
@@ -319,7 +312,7 @@ public class Monster_Boss_0 : MonoBehaviour
     private void ToMove()
     {
         move_delayTime = Random.Range(10f, 15f);
-        move_delayTime = 30f;
+        move_delayTime = 5f;
         move_lastTime = Time.time; 
         playType = Boss_PlayType.Move;
     }

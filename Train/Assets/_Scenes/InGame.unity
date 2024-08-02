@@ -2028,8 +2028,8 @@ MonoBehaviour:
   Test_Flag: 1
   Monster_Off_Flag: 1
   Mercenary_Off_Flag: 0
-  Test_Distance: 9999999
-  Test_Monster_List: 0000000001000000020000000300000004000000
+  Test_Distance: 10000
+  Test_Monster_List: 00000000010000000200000003000000
   gameType: 0
   SA_TrainData: {fileID: 11400000, guid: a3127143b81d7aa4b87c2baa773295c2, type: 2}
   SA_TrainTurretData: {fileID: 11400000, guid: 4bbb9992a442d1f449a4c2e4eceb8eda, type: 2}
@@ -2046,6 +2046,9 @@ MonoBehaviour:
   Emerging_Monster: 
   Reward_Point: 0
   Destination_Distance: 0
+  Emerging_Boss: 
+  Emerging_Boss_Monster_Count: 
+  Emerging_Boss_Distance: 
   Train_List: {fileID: 5138825400518451174}
   TrainFuel: 0
   TrainSpeed: 0
@@ -5306,7 +5309,11 @@ MonoBehaviour:
   EX_GameData: {fileID: 11400000, guid: 3a83740cb85032c498c0bbd5b0a2ec9d, type: 2}
   SA_PlayerData: {fileID: 11400000, guid: 00cbb5f50188b374e85c8a529a52b4b0, type: 2}
   Monster_List: {fileID: 2125283571}
+  Boss_List: {fileID: 1233256303}
+  Emerging_Boss_List: 
   GameDirector_SpawnFlag: 0
+  GameDirector_BossFlag: 0
+  GameDirector_Boss_SpawnFlag: 0
   MaxMonsterNum: 2
   MonsterNum: 0
   Train_List: {fileID: 5138825400518451174}
@@ -13690,6 +13697,37 @@ Transform:
   - {fileID: 519142777}
   m_Father: {fileID: 17581160}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 30}
+--- !u!1 &1233256302
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1233256303}
+  m_Layer: 0
+  m_Name: Boss_List
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1233256303
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233256302}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1248448585
 GameObject:
   m_ObjectHideFlags: 0
@@ -24489,9 +24527,17 @@ PrefabInstance:
       propertyPath: Target
       value: 
       objectReference: {fileID: 1910264846}
+    - target: {fileID: 3404285601801881340, guid: b0251246cd728bf4b89c918c328ecf72, type: 3}
+      propertyPath: EX_GameData
+      value: 
+      objectReference: {fileID: 11400000, guid: 3a83740cb85032c498c0bbd5b0a2ec9d, type: 2}
     - target: {fileID: 4021044326650535214, guid: b0251246cd728bf4b89c918c328ecf72, type: 3}
       propertyPath: m_Name
       value: "0_\uC5EC\uC655 \uAC70\uBBF8"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4021044326650535214, guid: b0251246cd728bf4b89c918c328ecf72, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -25110,6 +25156,7 @@ SceneRoots:
   - {fileID: 1910264846}
   - {fileID: 836407011}
   - {fileID: 2125283571}
+  - {fileID: 1233256303}
   - {fileID: 488623577298631177}
   - {fileID: 1315201695}
   - {fileID: 5138825400518451174}

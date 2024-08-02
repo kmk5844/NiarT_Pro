@@ -14,7 +14,10 @@ public class MonsterDirector : MonoBehaviour
 
     [Header("몬스터 정보 및 리스트")]
     public Transform Monster_List;
+    public Transform Boss_List;
     List<int> Emerging_Monster_List;
+    [SerializeField]
+    List<int> Emerging_Boss_List;
 
     [Header("몬스터 공중 스폰 설정")]
     public static Vector2 MaxPos_Sky;
@@ -25,6 +28,9 @@ public class MonsterDirector : MonoBehaviour
     public static Vector2 MinPos_Ground;
 
     public bool GameDirector_SpawnFlag;
+    public bool GameDirector_BossFlag;
+    public bool GameDirector_Boss_SpawnFlag;
+
     bool isSpawing = false;
 
     [Header("몬스터 한도 설정")]
@@ -40,6 +46,8 @@ public class MonsterDirector : MonoBehaviour
     float Random_xPos;
     float Random_yPos;
 
+    int BossCount;
+
     //Item부분
     [HideInInspector]
     public static bool Item_curseFlag;
@@ -52,7 +60,10 @@ public class MonsterDirector : MonoBehaviour
 
     private void Awake()
     {
+        BossCount = 0;
         GameDirector_SpawnFlag = false;
+        GameDirector_BossFlag = false;
+        GameDirector_Boss_SpawnFlag = false;
         Item_curseFlag = false;
         if (Test_Flag)
         {
@@ -82,26 +93,48 @@ public class MonsterDirector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameDirector_SpawnFlag)
+        if (GameDirector_SpawnFlag && !GameDirector_BossFlag)
         {
             MonsterNum = Monster_List.childCount;
             if (MonsterNum < MaxMonsterNum + item_MonsterCount && !isSpawing)
             {
-                StartCoroutine(AppearMonster());
+                StartCoroutine(AppearMonster(false));
+            }
+        }
+
+        if(GameDirector_SpawnFlag && GameDirector_BossFlag)
+        {
+            MonsterNum = Monster_List.childCount;
+            if (MonsterNum < MaxMonsterNum && !isSpawing)
+            {
+                StartCoroutine(AppearMonster(false));
+            }
+
+            if (!GameDirector_Boss_SpawnFlag)
+            {
+                StartCoroutine(AppearMonster(true));
+                GameDirector_Boss_SpawnFlag = true;
             }
         }
     }
 
-    IEnumerator AppearMonster()
+    IEnumerator AppearMonster(bool Bossflag)
     {
         isSpawing = true;
         yield return new WaitForSeconds(Random.Range(1f, 6f));
-        int MonsterRandomIndex = Random.Range(0, Emerging_Monster_List.Count);
-        Check_Sky_OR_Ground_Monster(Emerging_Monster_List[MonsterRandomIndex]);
+        if (!Bossflag)
+        {
+            int MonsterRandomIndex = Random.Range(0, Emerging_Monster_List.Count);
+            Check_Sky_OR_Ground_Monster(Emerging_Monster_List[MonsterRandomIndex], Bossflag);
+        }
+        else
+        {
+            Check_Sky_OR_Ground_Monster(Emerging_Boss_List[BossCount], Bossflag);
+        }
         isSpawing = false;
     }
 
-    private void Check_Sky_OR_Ground_Monster(int Monster_Num)
+    private void Check_Sky_OR_Ground_Monster(int Monster_Num, bool bossFlag)
     {
         if (EX_GameData.Information_Monster[Monster_Num].Monster_Type == "Sky")
         {
@@ -113,14 +146,46 @@ public class MonsterDirector : MonoBehaviour
             Random_xPos = Random.Range(MinPos_Ground.x, MaxPos_Ground.x);
             Random_yPos = Random.Range(MinPos_Ground.y, MaxPos_Ground.y);
         }
-        string monster_name = EX_GameData.Information_Monster[Monster_Num].Monster_Name;
-        GameObject Monster = Resources.Load<GameObject>("Monster/" + Monster_Num+ "_"+monster_name);
-        Instantiate(Monster, new Vector3(Random_xPos, Random_yPos, 0), Quaternion.identity, Monster_List);
+        GameObject _Monster = null;
+        if (!bossFlag)
+        {
+            string monster_name = EX_GameData.Information_Monster[Monster_Num].Monster_Name;
+            _Monster = Resources.Load<GameObject>("Monster/" + Monster_Num+ "_"+ monster_name);
+            Instantiate(_Monster, new Vector3(Random_xPos, Random_yPos, 0), Quaternion.identity, Monster_List);
+
+        }
+        else
+        {
+            string monster_name = EX_GameData.Information_Boss[Monster_Num].Monster_Name;
+            _Monster = Resources.Load<GameObject>("Boss/" + Monster_Num + "_" + monster_name);
+            Instantiate(_Monster, new Vector3(Random_xPos, Random_yPos, 0), Quaternion.identity, Boss_List);
+        }
     }
 
     public void Get_Monster_List(List<int> GameDirector_Monster_List)
     {
         Emerging_Monster_List = GameDirector_Monster_List;
+    }
+
+    public void Get_Boss_List(List<int> GameDirector_Boss_List)
+    {
+        Emerging_Boss_List = GameDirector_Boss_List;
+    }
+
+    public void BossStart(int boss_monsterCount)
+    {
+        GameDirector_BossFlag = true;
+        GameDirector_Boss_SpawnFlag = false;
+        MaxMonsterNum = boss_monsterCount;
+        Debug.Log(MaxMonsterNum);
+    }
+
+    public void BossDie()
+    {
+        GameDirector_BossFlag = false;
+        GameDirector_Boss_SpawnFlag = false;
+        MaxMonsterNum = EX_GameData.Information_Stage[SA_PlayerData.Stage].Monster_Count;
+        BossCount++;
     }
 
     private void OnDrawGizmos()

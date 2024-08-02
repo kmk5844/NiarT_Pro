@@ -3219,7 +3219,7 @@ MonoBehaviour:
     Monster_Name: "\uC77C\uBC18 \uC57D\uD0C8\uC790"
     Monster_HP: 50
     Monster_Atk: 100
-    Monster_Bullet_Speed: 0
+    Monster_Bullet_Speed: 8
     Monster_Bullet_Delay: 3
     Monster_Bullet_Slow: 10
     Monster_Type: Sky
@@ -3229,7 +3229,7 @@ MonoBehaviour:
     Monster_Name: "\uBCF4\uAE09 \uC57D\uD0C8\uC790"
     Monster_HP: 80
     Monster_Atk: 100
-    Monster_Bullet_Speed: 0
+    Monster_Bullet_Speed: 8
     Monster_Bullet_Delay: 4
     Monster_Bullet_Slow: 10
     Monster_Type: Sky
@@ -3237,9 +3237,9 @@ MonoBehaviour:
     Monster_Coin: 100
   - Number: 2
     Monster_Name: "\uC815\uC608 \uC57D\uD0C8\uC790"
-    Monster_HP: 250
-    Monster_Atk: 300
-    Monster_Bullet_Speed: 0
+    Monster_HP: 100
+    Monster_Atk: 200
+    Monster_Bullet_Speed: 10
     Monster_Bullet_Delay: 2
     Monster_Bullet_Slow: 10
     Monster_Type: Sky
@@ -3248,8 +3248,8 @@ MonoBehaviour:
   - Number: 3
     Monster_Name: "\uC7A5\uBBF8"
     Monster_HP: 120
-    Monster_Atk: 500
-    Monster_Bullet_Speed: 0
+    Monster_Atk: 150
+    Monster_Bullet_Speed: 10
     Monster_Bullet_Delay: 7
     Monster_Bullet_Slow: 0
     Monster_Type: Ground
@@ -3259,129 +3259,140 @@ MonoBehaviour:
     Monster_Name: "\uAE4C\uB9C8\uADC0"
     Monster_HP: 60
     Monster_Atk: 500
-    Monster_Bullet_Speed: 0
+    Monster_Bullet_Speed: 10
     Monster_Bullet_Delay: 1
     Monster_Bullet_Slow: 10
     Monster_Type: Sky
     Monster_Score: 400
     Monster_Coin: 1000
   - Number: 5
-    Monster_Name: Boss
-    Monster_HP: 999999
+    Monster_Name: "\uAC70\uBBF8\uC54C"
+    Monster_HP: 30
     Monster_Atk: 0
     Monster_Bullet_Speed: 0
-    Monster_Bullet_Delay: 5
+    Monster_Bullet_Delay: 0
     Monster_Bullet_Slow: 0
+    Monster_Type: Ground
+    Monster_Score: 200
+    Monster_Coin: 100
+  - Number: 6
+    Monster_Name: "\uC544\uAE30 \uAC70\uBBF8"
+    Monster_HP: 50
+    Monster_Atk: 200
+    Monster_Bullet_Speed: 0
+    Monster_Bullet_Delay: 0
+    Monster_Bullet_Slow: 0
+    Monster_Type: Ground
+    Monster_Score: 200
+    Monster_Coin: 100
+  Information_Boss:
+  - Number: 0
+    Monster_Name: "\uC5EC\uC655 \uAC70\uBBF8"
+    Monster_HP: 50
+    Monster_Atk: 150
+    Monster_Bullet_Speed: 10
+    Monster_Bullet_Delay: 10
+    Monster_Bullet_Slow: 5
     Monster_Type: Ground
     Monster_Score: 9999999
     Monster_Coin: 9999999
-  - Number: 6
-    Monster_Name: 
-    Monster_HP: 0
-    Monster_Atk: 0
-    Monster_Bullet_Speed: 0
-    Monster_Bullet_Delay: 0
-    Monster_Bullet_Slow: 0
-    Monster_Type: 
-    Monster_Score: 0
-    Monster_Coin: 0
-  - Number: 7
-    Monster_Name: 
-    Monster_HP: 0
-    Monster_Atk: 0
-    Monster_Bullet_Speed: 0
-    Monster_Bullet_Delay: 0
-    Monster_Bullet_Slow: 0
-    Monster_Type: 
-    Monster_Score: 0
-    Monster_Coin: 0
-  - Number: 8
-    Monster_Name: 
-    Monster_HP: 0
-    Monster_Atk: 0
-    Monster_Bullet_Speed: 0
-    Monster_Bullet_Delay: 0
-    Monster_Bullet_Slow: 0
-    Monster_Type: 
-    Monster_Score: 0
-    Monster_Coin: 0
-  - Number: 9
-    Monster_Name: 
-    Monster_HP: 0
-    Monster_Atk: 0
-    Monster_Bullet_Speed: 0
-    Monster_Bullet_Delay: 0
-    Monster_Bullet_Slow: 0
-    Monster_Type: 
-    Monster_Score: 0
-    Monster_Coin: 0
   Information_Stage:
   - Number: 0
     Destination_Distance: 9999999
     Emerging_Monster: 0
-    Monster_Count: 10
+    Monster_Count: 7
     Reward_Point: 3
-    Reward_Item: 0
+    Reward_Item: 
+    Reward_ItemCount: 
     D_Grade: 100
     C_Grade: 200
     B_Grade: 400
     A_Grade: 800
     S_Grade: 1200
+    Boss_Flag: 0
+    Emerging_Boss: -1
+    Boss_Monster_Count: -1
+    Boss_Distance: -1
   - Number: 1
     Destination_Distance: 10000
     Emerging_Monster: 0,1
-    Monster_Count: 6
+    Monster_Count: 7
     Reward_Point: 3
-    Reward_Item: 0
+    Reward_Item: 
+    Reward_ItemCount: 
     D_Grade: 100
     C_Grade: 300
     B_Grade: 600
     A_Grade: 900
     S_Grade: 1500
+    Boss_Flag: 0
+    Emerging_Boss: -1
+    Boss_Monster_Count: -1
+    Boss_Distance: -1
   - Number: 2
     Destination_Distance: 180000
     Emerging_Monster: 0,1,2
     Monster_Count: 7
     Reward_Point: 4
-    Reward_Item: 0
+    Reward_Item: 
+    Reward_ItemCount: 
     D_Grade: 100
     C_Grade: 300
     B_Grade: 600
     A_Grade: 900
     S_Grade: 1500
+    Boss_Flag: 0
+    Emerging_Boss: -1
+    Boss_Monster_Count: -1
+    Boss_Distance: -1
   - Number: 3
     Destination_Distance: 210000
     Emerging_Monster: 0,2,3
-    Monster_Count: 8
+    Monster_Count: 7
     Reward_Point: 4
-    Reward_Item: 0
+    Reward_Item: 
+    Reward_ItemCount: 
     D_Grade: 100
     C_Grade: 500
     B_Grade: 900
     A_Grade: 1200
     S_Grade: 2000
+    Boss_Flag: 0
+    Emerging_Boss: -1
+    Boss_Monster_Count: -1
+    Boss_Distance: -1
   - Number: 4
     Destination_Distance: 230000
     Emerging_Monster: 0,1,2,3
     Monster_Count: 9
     Reward_Point: 4
-    Reward_Item: 0
+    Reward_Item: 
+    Reward_ItemCount: 
     D_Grade: 100
     C_Grade: 500
     B_Grade: 1000
     A_Grade: 1500
     S_Grade: 2200
+    Boss_Flag: 0
+    Emerging_Boss: -1
+    Boss_Monster_Count: -1
+    Boss_Distance: -1
   - Number: 5
-    Destination_Distance: 250000
-    Emerging_Monster: 4
-    Monster_Count: 1
+    Destination_Distance: 10000
+    Emerging_Monster: 0,1,2,3,4
+    Monster_Count: 9
     Reward_Point: 4
-    Reward_Item: 0
+    Reward_Item: 
+    Reward_ItemCount: 
     D_Grade: 100
     C_Grade: 200
     B_Grade: 300
     A_Grade: 400
     S_Grade: 500
+    Boss_Flag: 1
+    Emerging_Boss: 0
+    Boss_Monster_Count: 5
+    Boss_Distance: 90
   Information_Mercenary:
   - Number: 0
     Name: "\uAE30\uAD00\uC0AC"
