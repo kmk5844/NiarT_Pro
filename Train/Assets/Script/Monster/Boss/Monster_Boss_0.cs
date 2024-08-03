@@ -115,7 +115,7 @@ public class Monster_Boss_0 : Boss
         if (playType == Boss_PlayType.Skill)
         {
             int skillNum = Random.Range(0, 3);
-            skillNum = 2;
+            skillNum = 3;
             if (skillNum == 0)
             {
                 StartCoroutine(Spawn_Egg_Skill());
