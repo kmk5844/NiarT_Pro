@@ -41,7 +41,7 @@ public class Monster_Boss_0 : Boss
         move_xPos = 1f;
         move_speed = 3f;
 
-        transform.position = new Vector2(MonsterDirector.MaxPos_Sky.x + 18f, MonsterDirector.MinPos_Ground.y);
+        transform.position = new Vector2(MonsterDirector.MaxPos_Sky.x + 18f, 2f);
         playType = Boss_PlayType.Spawn;
         col.enabled = false;
 
