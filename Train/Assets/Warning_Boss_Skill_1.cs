@@ -2,6 +2,7 @@ using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Warning_Boss_Skill_1 : MonoBehaviour
 {
@@ -16,8 +17,12 @@ public class Warning_Boss_Skill_1 : MonoBehaviour
 
     bool BulletFlag;
 
+    int bullet_atk;
+    float bullet_slow;
+
     void Start()
     {
+        Skill_Bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(bullet_atk, bullet_slow, 0);
         Mark_Sprite = Mark_Object.GetComponent<SpriteRenderer>();
         BulletFlag = false;
         startTime = Time.time;
@@ -56,5 +61,11 @@ public class Warning_Boss_Skill_1 : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void GetBulletInformation(int Monster_Atk, float Monster_Slow)
+    {
+        bullet_atk = Monster_Atk;
+        bullet_slow = Monster_Slow;
     }
 }

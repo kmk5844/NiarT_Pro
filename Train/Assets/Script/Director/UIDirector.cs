@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Localization.Components;
+using PixelCrushers.DialogueSystem;
 
 public class UIDirector : MonoBehaviour
 {
@@ -40,6 +41,7 @@ public class UIDirector : MonoBehaviour
     float ItemInformation_Object_TimeDelay;
     public Transform Equiped_Item_List;
     Image[] Equiped_Item_Image;
+    public Image[] Equiped_CoolTime_Item_Image;
     TextMeshProUGUI[] Equiped_Item_Count;
 
     [Header("Item CoolTime UI")]
@@ -87,8 +89,6 @@ public class UIDirector : MonoBehaviour
 
         ItemInformation_Object_Flag = false;
         ItemInformation_Object_TimeDelay = 5f;
-
-        //DemoCheck(); // 나중에 데모 변경예정
     }
 
     private void Update()

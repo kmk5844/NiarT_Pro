@@ -1,20 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public class Boss_0_Bullet : MonoBehaviour
+public class Boss_0_Bullet : MonsterBullet
 {
     public Vector2 targetPosition;
     public Vector2 Bullet_Init_Position;
 
     float Bullet_Time;
-    float Min_Y;
     public Transform spriteRotation;
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         Bullet_Time = 0f;
         Bullet_Init_Position = transform.position;
-        Min_Y = MonsterDirector.MinPos_Ground.y;
+        targetPosition = player_target.position;
         Destroy(gameObject, 5f);
     }
 

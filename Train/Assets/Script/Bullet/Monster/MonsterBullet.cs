@@ -142,7 +142,7 @@ public class MonsterBullet : MonoBehaviour
         }
     }
 
-    public void Get_MonsterBullet_Information(int Monster_Atk, float Monster_Slow, int speed, int X_Scale = 0)
+    public void Get_MonsterBullet_Information(int Monster_Atk, float Monster_Slow, float speed, int X_Scale = 0)
     {
         atk = Monster_Atk;
         slow = Monster_Slow;

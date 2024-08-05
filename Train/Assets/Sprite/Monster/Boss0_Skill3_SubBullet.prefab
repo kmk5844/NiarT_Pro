@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 4741600989525399246}
   - component: {fileID: -2011269778219900863}
   - component: {fileID: -3762045115978218138}
-  m_Layer: 0
+  - component: {fileID: 2395940272138491690}
+  m_Layer: 10
   m_Name: Boss0_Skill3_SubBullet
-  m_TagString: Untagged
+  m_TagString: Monster_Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,6 +99,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7107fa19bd90cdc46b643cec6047f506, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Speed: 10
+  atk: 150
+  slow: 5
 --- !u!50 &-3762045115978218138
 Rigidbody2D:
   serializedVersion: 4
@@ -125,3 +129,38 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!58 &2395940272138491690
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5297925347612036169}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.05, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.12

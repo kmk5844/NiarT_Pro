@@ -2,16 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boss_0_Skill3_SubBullet : MonoBehaviour
+public class Boss_0_Skill3_SubBullet : MonsterBullet
 {
-    Rigidbody2D rid;
-    Vector2 dir;
-    float Speed;
-
-    private void Start()
+    protected override void Start()
     {
-        rid = GetComponent<Rigidbody2D>();
-        Speed = 12f;
+        base.Start();
         Bullet_Fire();
     }
 

@@ -15,6 +15,7 @@ public class Boss : MonoBehaviour
     protected string Monster_Name;
     [SerializeField]
     protected int Monster_HP;
+    protected int Monster_Max_HP;
     [SerializeField]
     protected int Monster_Score;
     [SerializeField]
@@ -51,6 +52,7 @@ public class Boss : MonoBehaviour
 
         Monster_Name = EX_GameData.Information_Boss[Boss_Num].Monster_Name;
         Monster_HP = EX_GameData.Information_Boss[Boss_Num].Monster_HP;
+        Monster_Max_HP = Monster_HP;
         Monster_Score = EX_GameData.Information_Boss[Boss_Num].Monster_Score;
         Monster_Coin = EX_GameData.Information_Boss[Boss_Num].Monster_Coin;
         Boss_Bullet = Resources.Load<GameObject>("Bullet/Monster/Boss" + Boss_Num);
@@ -85,7 +87,7 @@ public class Boss : MonoBehaviour
         else
         {
             gameDirector.Gmae_Boss_Kill(Monster_Score, Monster_Coin);
-            //
+            
             Change_DieFlag();
         }
     }
@@ -103,29 +105,7 @@ public class Boss : MonoBehaviour
         else
         {
             gameDirector.Gmae_Boss_Kill(Monster_Score, Monster_Coin);
-            //
-            Change_DieFlag();
-        }
-    }
-
-    private void Damage_Monster_Trigger_Mercenary(Collider2D collision)
-    {
-        if (collision.GetComponentInParent<Mercenary>().Type == mercenaryType.Short_Ranged)
-        {
-            mercenary_atk = collision.GetComponentInParent<Short_Ranged>().unit_Attack;
-        }
-        HitDamage.GetComponent<Hit_Text_Damage>().damage = mercenary_atk;
-        HitDamage.GetComponent<Hit_Text_Damage>().Random_X = transform.position.x + Random.Range(-0.5f, 0.5f);
-        HitDamage.GetComponent<Hit_Text_Damage>().Random_Y = transform.position.y + Random.Range(0.5f, 1.5f);
-        Instantiate(HitDamage, monster_Bullet_List);
-        if (Monster_HP - mercenary_atk > 0)
-        {
-            Monster_HP -= mercenary_atk;
-        }
-        else
-        {
-            gameDirector.Gmae_Boss_Kill(Monster_Score, Monster_Coin);
-            //
+            
             Change_DieFlag();
         }
     }
@@ -143,44 +123,6 @@ public class Boss : MonoBehaviour
         else
         {
             gameDirector.Gmae_Boss_Kill(Monster_Score, Monster_Coin);
-            //
-            Change_DieFlag();
-        }
-    }
-
-    private void Damage_Item_WireEntanglement(Collider2D collision)
-    {
-        HitDamage.GetComponent<Hit_Text_Damage>().damage = 2;
-        HitDamage.GetComponent<Hit_Text_Damage>().Random_X = transform.position.x + Random.Range(-0.5f, 0.5f);
-        HitDamage.GetComponent<Hit_Text_Damage>().Random_Y = transform.position.y + Random.Range(0.5f, 1.5f);
-        Instantiate(HitDamage, monster_Bullet_List);
-        if (Monster_HP - 2 > 0)
-        {
-            Monster_HP -= 2;
-        }
-        else
-        {
-            gameDirector.Gmae_Boss_Kill(Monster_Score, Monster_Coin);
-            //
-            Change_DieFlag();
-        }
-    }
-
-    public void Damage_Item_Stun_Bullet(int hit_atk, int delayTime)
-    {
-        HitDamage.GetComponent<Hit_Text_Damage>().damage = hit_atk;
-        HitDamage.GetComponent<Hit_Text_Damage>().Random_X = transform.position.x + Random.Range(-0.5f, 0.5f);
-        HitDamage.GetComponent<Hit_Text_Damage>().Random_Y = transform.position.y + Random.Range(0.5f, 1.5f);
-        Instantiate(HitDamage, monster_Bullet_List);
-        if (Monster_HP - hit_atk > 0)
-        {
-            Monster_HP -= hit_atk;
-        }
-        else
-        {
-            gameDirector.Gmae_Boss_Kill(Monster_Score, Monster_Coin);
-            //
-
             Change_DieFlag();
         }
     }
@@ -208,25 +150,6 @@ public class Boss : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag.Equals("Player_Bullet"))
-        {
-            if (collision.gameObject.name.Equals("Short_AttackCollider"))
-            {
-                Damage_Monster_Trigger_Mercenary(collision);
-            }
-        }
-        if (collision.gameObject.tag.Equals("Item"))
-        {
-            if (collision.gameObject.name.Equals("MiniDron(Clone)"))
-            {
-                int atk = collision.GetComponent<Item_MiniDron>().DronAtk;
-                Damage_Monster_BombAndDron(atk);
-            }
-        }
-    }
-
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag.Equals("Player_Bullet"))
@@ -238,14 +161,6 @@ public class Boss : MonoBehaviour
             if (collision.gameObject.name.Equals("Fire"))
             {
                 Fire_Hit(collision);
-            }
-        }
-
-        if (collision.gameObject.tag.Equals("Item"))
-        {
-            if (collision.gameObject.name.Equals("WireEntanglement(Clone)"))
-            {
-                Raser_Hit(collision, false);
             }
         }
     }
@@ -260,15 +175,6 @@ public class Boss : MonoBehaviour
                 raser_hit_time = Time.time;
             }
         }
-        else
-        {
-            if (Time.time > raser_hit_time + 0.5f)
-            {
-                Damage_Item_WireEntanglement(collision);
-                raser_hit_time = Time.time;
-            }
-        }
-
     }
 
     void Fire_Hit(Collider2D collision)
@@ -303,5 +209,36 @@ public class Boss : MonoBehaviour
             fire_hit_Count = 0;
         }
         Damage_Monster_Collsion(collision);
+        fire_hit_time = Time.time;
+    }
+
+    protected void Fire_Debuff()
+    {
+        if (fire_debuff_flag)
+        {
+            if (fire_hit_Count < 6) // 변경예정
+            {
+                if (!fire_hit_flag)
+                {
+                    StartCoroutine(Fire_Hit_Corutine());
+                }
+            }
+            else
+            {
+                fire_debuff_flag = false;
+            }
+        }
+    }
+
+    IEnumerator Fire_Hit_Corutine()
+    {
+        fire_hit_flag = true;
+        if (fire_hit_Count != 0)
+        {
+            Damage_Monster_BombAndDron(fire_hit_damage);
+        }
+        yield return new WaitForSeconds(1f);
+        fire_hit_Count++;
+        fire_hit_flag = false;
     }
 }

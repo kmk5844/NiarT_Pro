@@ -2,7 +2,6 @@ using JetBrains.Annotations;
 using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 
 public class Monster_Boss_0 : Boss
@@ -33,9 +32,16 @@ public class Monster_Boss_0 : Boss
     int skillCount;
     int skillMaxCount;
 
+    Animator ani;
+    bool aniFlag;
+    bool jumpAni;
+
     protected override void Start()
     {
         Boss_Num = 0;
+        ani = GetComponent<Animator>();
+        aniFlag = false;
+        jumpAni = false;
         base.Start();
 
         move_xPos = 1f;
@@ -45,16 +51,25 @@ public class Monster_Boss_0 : Boss
         playType = Boss_PlayType.Spawn;
         col.enabled = false;
 
-        skillMaxCount = 6;
-        move_delayTime = 7f;
+        skillCount = 1;
+        skillMaxCount = 5;
+        move_delayTime = 5f;
         attack_delayTime = 1.5f;
     }
 
     private void FixedUpdate()
     {
-        if(playType == Boss_PlayType.Spawn)
+        Fire_Debuff();
+
+        if (playType == Boss_PlayType.Spawn)
         {
-            if(transform.localScale.x > 0)
+            if (!aniFlag)
+            {
+                TriggerAnimation();
+                aniFlag = true;
+            }
+
+            if (transform.localScale.x > 0)
             {
                 transform.localScale = new Vector3(-local_Scale.x, local_Scale.y, local_Scale.z);
             }
@@ -63,7 +78,9 @@ public class Monster_Boss_0 : Boss
             if(transform.position.x < MonsterDirector.MinPos_Ground.x - 7f)
             {
                 playType = Boss_PlayType.Move;
-                if(transform.localScale.x < 0)
+                ResetAni();
+
+                if (transform.localScale.x < 0)
                 {
                     transform.localScale = new Vector3(local_Scale.x, local_Scale.y, local_Scale.z);
                 }
@@ -77,6 +94,12 @@ public class Monster_Boss_0 : Boss
 
         if(playType == Boss_PlayType.Move)
         {
+            if (!aniFlag)
+            {
+                TriggerAnimation();
+                aniFlag = true;
+            }
+
             if (Move_Init_Position.x - 1 > transform.position.x)
             {
                 move_xPos = 1f;
@@ -92,8 +115,8 @@ public class Monster_Boss_0 : Boss
 
             if(Time.time >= attack_lastTime + attack_delayTime)
             {
-                Boss_Bullet.GetComponent<Boss_0_Bullet>().targetPosition = player_pos.position;
-                Instantiate(Boss_Bullet, Fire_Zone.position, Quaternion.identity, monster_Bullet_List);
+                GameObject defaultBullet = Instantiate(Boss_Bullet, Fire_Zone.position, Quaternion.identity, monster_Bullet_List);
+                defaultBullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk, Bullet_Slow, 0);
                 attack_lastTime = Time.time;
             }
 
@@ -102,10 +125,13 @@ public class Monster_Boss_0 : Boss
                 if(skillCount < skillMaxCount)
                 {
                     playType = Boss_PlayType.Skill;
+                    ResetAni();
                 }
                 else
                 {
                     playType = Boss_PlayType.Jump_UP;
+                    ResetAni();
+
                     jump_Time = 0;
                     Jump_Init_Position = transform.position;
                 }
@@ -114,8 +140,13 @@ public class Monster_Boss_0 : Boss
         
         if (playType == Boss_PlayType.Skill)
         {
-            int skillNum = Random.Range(0, 3);
-            skillNum = 3;
+            if (!aniFlag)
+            {
+                TriggerAnimation();
+                aniFlag = true;
+            }
+
+            int skillNum = Random.Range(0, 4);
             if (skillNum == 0)
             {
                 StartCoroutine(Spawn_Egg_Skill());
@@ -132,27 +163,36 @@ public class Monster_Boss_0 : Boss
             }
             skillCount++;
             playType = Boss_PlayType.Skill_Using;
+            ResetAni();
         }
 
         if (playType == Boss_PlayType.Jump_UP)
         {
-            if(jump_Time < 1f)
+            if (!aniFlag)
             {
-                jump_Time += Time.deltaTime;
-                float t = jump_Time / 1f;
-
-                float x = Mathf.Lerp(Jump_Init_Position.x, Jump_Init_Position.x - 10, t);
-                float y = Mathf.Lerp(Jump_Init_Position.y, Jump_Init_Position.y + 8, t) + 10 * Mathf.Sin(Mathf.PI * (t/2));
-
-                transform.position = new Vector3(x, y, 0);
+                TriggerAnimation();
+                aniFlag = true;
             }
-            else
+
+            if (jumpAni)
             {
-                playType = Boss_PlayType.Jump_Healing;
-                jump_Time = 0;
-                heal_max_count = Random.Range(4, 8);
-                heal_max_count = 2;
-                Debug.Log(heal_max_count);
+                if (jump_Time < 1f)
+                {
+                    jump_Time += Time.deltaTime;
+                    float t = jump_Time / 1f;
+
+                    float x = Mathf.Lerp(Jump_Init_Position.x, Jump_Init_Position.x - 10, t);
+                    float y = Mathf.Lerp(Jump_Init_Position.y, Jump_Init_Position.y + 8, t) + 10 * Mathf.Sin(Mathf.PI * (t / 2));
+
+                    transform.position = new Vector3(x, y, 0);
+                }
+                else
+                {
+                    playType = Boss_PlayType.Jump_Healing;
+                    jump_Time = 0;
+                    heal_max_count = Random.Range(4, 8);
+                    jumpAni = false;
+                }
             }
         }
 
@@ -174,17 +214,24 @@ public class Monster_Boss_0 : Boss
             {
                 heal_count = 0;
                 playType = Boss_PlayType.Jump_DOWN;
+                ResetAni();
             }
         }
 
         if (playType == Boss_PlayType.Jump_DOWN)
         {
+            if (!aniFlag)
+            {
+                TriggerAnimation();
+                aniFlag = true;
+            }
+
             if (col.enabled == false)
             {
                 col.enabled = true;
             }
 
-            if (jump_Time + 0.5f < 1f)
+            if (jump_Time + 0.2f  < 1f)
             {
                 jump_Time += Time.deltaTime;
                 float t = Mathf.Clamp01(jump_Time / 1f);
@@ -199,9 +246,7 @@ public class Monster_Boss_0 : Boss
                 ToMove();
                 move_xPos = 1f;
                 move_speed = 8f;
-                skillCount = 1;
-                //skillMaxCount = Random.Range(5, 9);
-                Debug.Log(skillMaxCount);
+                skillMaxCount = Random.Range(5, 11);
             }
         }
 
@@ -210,13 +255,19 @@ public class Monster_Boss_0 : Boss
             if(playType != Boss_PlayType.Die)
             {
                 playType = Boss_PlayType.Die;
+                ResetAni();
             }
         }
 
 
         if (playType == Boss_PlayType.Die)
         {
-            Debug.Log("죽음");
+            if (!aniFlag)
+            {
+                TriggerAnimation();
+                aniFlag = true;
+            }
+
             movement = new Vector3(-1f, 0f, 0f);
             transform.Translate(movement * 1.5f * Time.deltaTime);
             Destroy(gameObject, 8f);
@@ -225,7 +276,9 @@ public class Monster_Boss_0 : Boss
     IEnumerator HealCount()
     {
         heal_flag = true;
-        Debug.Log("보스 힐!");
+        Monster_HP += (int)((Monster_Max_HP * 1) / 100f);
+        Debug.Log((Monster_Max_HP * 1) / 100f);
+        Debug.Log(Monster_HP);
         //보스 치유하는 코드
         if (heal_count != heal_max_count)
         {
@@ -262,7 +315,8 @@ public class Monster_Boss_0 : Boss
                 if (MonsterDirector.MinPos_Ground.x + (count * 1.8f) < MonsterDirector.MaxPos_Ground.x)
                 {
                     float xPos = MonsterDirector.MinPos_Ground.x + (count * 1.8f);
-                    Instantiate(Warning, new Vector2(xPos, MonsterDirector.MinPos_Ground.y), Quaternion.identity);
+                    GameObject WarningMark = Instantiate(Warning, new Vector2(xPos, MonsterDirector.MinPos_Ground.y), Quaternion.identity);
+                    WarningMark.GetComponent<Warning_Boss_Skill_1>().GetBulletInformation(Bullet_Atk, Bullet_Slow);
                     count++;
 
                     yield return new WaitForSeconds(0.2f);
@@ -280,7 +334,8 @@ public class Monster_Boss_0 : Boss
                 if(count < MaxCount)
                 {
                     float xPos = player_pos.position.x;
-                    Instantiate(Warning, new Vector2(xPos, MonsterDirector.MinPos_Ground.y), Quaternion.identity);
+                    GameObject WarningMark = Instantiate(Warning, new Vector2(xPos, MonsterDirector.MinPos_Ground.y), Quaternion.identity);
+                    WarningMark.GetComponent<Warning_Boss_Skill_1>().GetBulletInformation(Bullet_Atk, Bullet_Slow);
                     count++;
 
                     yield return new WaitForSeconds(0.05f);
@@ -300,7 +355,7 @@ public class Monster_Boss_0 : Boss
     {
         for(int i = 0; i < 3; i++)
         {
-            Boss_SpiderWeb_Bullet.GetComponent<Boss_0_Skill3_Bullet>().FirePosition(player_pos.position, Random.Range(-6f, 6f));
+            Boss_SpiderWeb_Bullet.GetComponent<Boss_0_Skill3_Bullet>().Fire_GetInformation(player_pos.position, Random.Range(-6f, 6f), Bullet_Atk, Bullet_Slow, 10f);
             Instantiate(Boss_SpiderWeb_Bullet, Fire_Zone.position, Quaternion.identity);
             yield return new WaitForSeconds(0.7f);
         }
@@ -309,12 +364,50 @@ public class Monster_Boss_0 : Boss
         ToMove();
     }
 
+    void TriggerAnimation()
+    {
+        if (playType == Boss_PlayType.Spawn || playType == Boss_PlayType.Move)
+        {
+            ani.SetTrigger("Move");
+        }
+
+        if (playType == Boss_PlayType.Skill)
+        {
+            ani.SetTrigger("Skill");
+        }
+
+        if(playType == Boss_PlayType.Jump_UP)
+        {
+            ani.SetTrigger("JumpUP");
+        }
+
+        if (playType == Boss_PlayType.Jump_DOWN)
+        {
+            ani.SetTrigger("JumpDown");
+        }
+
+        if (playType == Boss_PlayType.Die)
+        {
+            ani.SetTrigger("Die");
+        }
+    }
+
+    void ResetAni()
+    {
+        aniFlag = false;
+    }
+
+    public void JumpAni_End()
+    {
+        jumpAni = true;
+    }
+    
     private void ToMove()
     {
-        move_delayTime = Random.Range(10f, 15f);
-        move_delayTime = 5f;
+        move_delayTime = Random.Range(5f, 8f);
         move_lastTime = Time.time; 
         playType = Boss_PlayType.Move;
+        ResetAni();
     }
 
     enum Boss_PlayType

@@ -27,8 +27,10 @@ public class GameDirector : MonoBehaviour
     [Header("디렉터")]
     public GameObject MonsterDirector;
     public GameObject UI_DirectorObject;
+    public GameObject Item_DirectorObject;
     MonsterDirector monsterDirector;
     UIDirector uiDirector;
+    ItemDirector itemDirector;
     List<int> Train_Num;
     List<int> Train_Turret_Num;
     List<int> Train_Booster_Num;
@@ -54,6 +56,10 @@ public class GameDirector : MonoBehaviour
     private List<int> Emerging_Monster;
     [SerializeField]
     private int Reward_Point;
+    
+    string Reward_ItemNum;
+    string Reward_ItemCount;
+    
     [SerializeField]
     private int Destination_Distance; // 나중에 private변경
     bool Data_BossFlag;
@@ -149,6 +155,7 @@ public class GameDirector : MonoBehaviour
         SpawnTrainFlag = false;
         monsterDirector = MonsterDirector.GetComponent<MonsterDirector>();
         uiDirector = UI_DirectorObject.GetComponent<UIDirector>();
+        itemDirector = Item_DirectorObject.GetComponent<ItemDirector>();
 
         cursorOrigin = Resources.Load<Texture2D>("Cursor/Origin6464");
         cursorAim = Resources.Load<Texture2D>("Cursor/Aim6464");
@@ -354,9 +361,12 @@ public class GameDirector : MonoBehaviour
     {
         Emerging_Monster_String = EX_GameData.Information_Stage[Stage_Num].Emerging_Monster;
         Reward_Point = EX_GameData.Information_Stage[Stage_Num].Reward_Point;
+
+        Reward_ItemNum = EX_GameData.Information_Stage[Stage_Num].Reward_Item;
+        Reward_ItemCount = EX_GameData.Information_Stage[Stage_Num].Reward_ItemCount;
+
         Destination_Distance = EX_GameData.Information_Stage[Stage_Num].Destination_Distance;
         Emerging_Monster = new List<int>();
-
         string[] Monster_String = Emerging_Monster_String.Split(',');
         foreach(string M in Monster_String)
         {
@@ -584,6 +594,22 @@ public class GameDirector : MonoBehaviour
     {
         gameType = GameType.GameEnd;
         Time.timeScale = 0f;
+        string[] ItemList = Reward_ItemNum.Split(',');
+        string[] ItemList_Count = Reward_ItemCount.Split(",");
+        List<int> Item_List = new List<int>();
+        int ItemNum;
+        int ItemCount;
+        for(int i = 0; i < ItemList.Length; i++)
+        {
+            ItemNum = int.Parse(ItemList[i]);
+            Debug.Log(ItemNum);
+            ItemCount = int.Parse(ItemList_Count[i]);
+            Debug.Log(ItemCount);
+            Debug.Log(itemDirector);
+            itemDirector.itemList.Item[ItemNum].Item_Count_UP(ItemCount);
+            uiDirector.GetItemList_Num.Add(ItemNum);
+        }
+
         uiDirector.Open_Result_UI(WinFlag, Stage_Num, Total_Score, Total_Coin, Check_Score(), Reward_Point);
     }
 

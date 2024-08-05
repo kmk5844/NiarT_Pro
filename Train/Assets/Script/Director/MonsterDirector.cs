@@ -19,6 +19,10 @@ public class MonsterDirector : MonoBehaviour
     [SerializeField]
     List<int> Emerging_Boss_List;
 
+    [Header("보급 몬스터 정보 및 리스트")]
+    public Transform SupplyMonster_List;
+    public GameObject SupplyMonster_Object;
+
     [Header("몬스터 공중 스폰 설정")]
     public static Vector2 MaxPos_Sky;
     public static Vector2 MinPos_Sky;
@@ -32,11 +36,13 @@ public class MonsterDirector : MonoBehaviour
     public bool GameDirector_Boss_SpawnFlag;
 
     bool isSpawing = false;
+    bool isSupplySpawing = false;
 
     [Header("몬스터 한도 설정")]
     public int MaxMonsterNum;
     [SerializeField]
     int MonsterNum;
+    int SupplyMonsterNum;
     int item_MonsterCount;
 
     [Header("기차 정보")]
@@ -47,6 +53,7 @@ public class MonsterDirector : MonoBehaviour
     float Random_yPos;
 
     int BossCount;
+
 
     //Item부분
     [HideInInspector]
@@ -93,7 +100,41 @@ public class MonsterDirector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameDirector_SpawnFlag && !GameDirector_BossFlag)
+        if (GameDirector_SpawnFlag)
+        {
+            if (!GameDirector_BossFlag)
+            {
+                MonsterNum = Monster_List.childCount;
+                if (MonsterNum < MaxMonsterNum + item_MonsterCount && !isSpawing)
+                {
+                    StartCoroutine(AppearMonster(false));
+                }
+            }
+            else
+            {
+                MonsterNum = Monster_List.childCount;
+                if (MonsterNum < MaxMonsterNum && !isSpawing)
+                {
+                    StartCoroutine(AppearMonster(false));
+                }
+
+                if (!GameDirector_Boss_SpawnFlag)
+                {
+                    StartCoroutine(AppearMonster(true));
+                    GameDirector_Boss_SpawnFlag = true;
+                }
+            }
+
+            SupplyMonsterNum = SupplyMonster_List.childCount;
+            if(SupplyMonsterNum < 1 && !isSupplySpawing)
+            {
+                StartCoroutine(AppearSupplyMonster());
+            }
+
+        }
+
+
+/*        if (GameDirector_SpawnFlag && !GameDirector_BossFlag)
         {
             MonsterNum = Monster_List.childCount;
             if (MonsterNum < MaxMonsterNum + item_MonsterCount && !isSpawing)
@@ -116,6 +157,7 @@ public class MonsterDirector : MonoBehaviour
                 GameDirector_Boss_SpawnFlag = true;
             }
         }
+*/
     }
 
     IEnumerator AppearMonster(bool Bossflag)
@@ -132,6 +174,16 @@ public class MonsterDirector : MonoBehaviour
             Check_Sky_OR_Ground_Monster(Emerging_Boss_List[BossCount], Bossflag);
         }
         isSpawing = false;
+    }
+
+    IEnumerator AppearSupplyMonster()
+    {
+        isSupplySpawing = true;
+        yield return new WaitForSeconds(Random.Range(25f, 40f));
+        Random_xPos = Random.Range(MinPos_Sky.x, MaxPos_Sky.x);
+        Random_yPos = Random.Range(MinPos_Sky.y, MaxPos_Sky.y);
+        Instantiate(SupplyMonster_Object, new Vector3(Random_xPos, Random_yPos, 0), Quaternion.identity, SupplyMonster_List);
+        isSupplySpawing = false;
     }
 
     private void Check_Sky_OR_Ground_Monster(int Monster_Num, bool bossFlag)
@@ -177,7 +229,6 @@ public class MonsterDirector : MonoBehaviour
         GameDirector_BossFlag = true;
         GameDirector_Boss_SpawnFlag = false;
         MaxMonsterNum = boss_monsterCount;
-        Debug.Log(MaxMonsterNum);
     }
 
     public void BossDie()

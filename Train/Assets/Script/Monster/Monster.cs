@@ -300,19 +300,6 @@ public class Monster : MonoBehaviour
         fire_hit_flag = false;
     }
 
-    protected void DemoBulletFire(int x_scale = 0)
-    {
-        if (Time.time >= lastTime + Bullet_Delay)
-        {
-            for(int i = 0; i < 3; i++)
-            {
-                GameObject bullet = Instantiate(Bullet, transform.position, transform.rotation, monster_Bullet_List);
-                bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk, Bullet_Slow, 5, x_scale);
-            }
-            lastTime = Time.time;
-        }
-    }
-
     protected void FlipMonster()
     {
         if (player.transform.position.x - transform.position.x < 0f)

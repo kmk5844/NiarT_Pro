@@ -1,9 +1,12 @@
+using PixelCrushers.DialogueSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Boss_0_Skill3_Bullet : MonoBehaviour
 {
+    [SerializeField]
+    int Bullet_HP;
     [SerializeField]
     public Vector3 PlayerPos;
     [SerializeField]
@@ -14,6 +17,7 @@ public class Boss_0_Skill3_Bullet : MonoBehaviour
     Vector3 Pos;
     Vector3 Init_Pos;
     float Bullet_Time;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,9 +34,9 @@ public class Boss_0_Skill3_Bullet : MonoBehaviour
             float t = Bullet_Time / 1.5f;
 
             float x = Mathf.Lerp(Init_Pos.x, Pos.x, t);
-            float y = Mathf.Lerp(Init_Pos.y, Pos.y, t) + 2* Mathf.Sin(Mathf.PI *t/2);
+            float y = Mathf.Lerp(Init_Pos.y, Pos.y, t) + 2 * Mathf.Sin(Mathf.PI * t / 2); 
 
-            transform.position= new Vector3(x, y, 0);
+            transform.position = new Vector3(x, y, 0);
         }
         else
         {
@@ -47,9 +51,26 @@ public class Boss_0_Skill3_Bullet : MonoBehaviour
         }
     }
 
-    public void FirePosition(Vector3 Player, float _xPos) {
+    public void Fire_GetInformation(Vector3 Player, float _xPos, int _atk, float _slow, float _speed) {
         PlayerPos = Player;
-        Xpos = _xPos; 
+        Xpos = _xPos;
+        Sub_Bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(_atk, _slow, _speed);
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.GetComponent<PlayerBullet>() != null)
+        {
+            if(Bullet_HP - collision.GetComponent<PlayerBullet>().atk > 0)
+            {
+                Bullet_HP -= collision.GetComponent<PlayerBullet>().atk;
+                Destroy(collision.gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+                Destroy(collision.gameObject);
+            }
+        }
+    }
 }

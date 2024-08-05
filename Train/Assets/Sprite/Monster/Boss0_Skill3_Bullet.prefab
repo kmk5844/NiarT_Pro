@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 528852846811694756}
   - component: {fileID: 4741600989525399246}
   - component: {fileID: 6842915328712020258}
+  - component: {fileID: 7092175452429111476}
   m_Layer: 0
   m_Name: Boss0_Skill3_Bullet
   m_TagString: Untagged
@@ -97,6 +98,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5fa45e03774c30449d1241dd70ac124, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerPos: {x: 0, y: 0, z: 0}
-  Xpos: 0
+  Bullet_HP: 10
+  PlayerPos: {x: -11.658376, y: -0.09809999, z: 0}
+  Xpos: 1.44769
   Sub_Bullet: {fileID: 5297925347612036169, guid: baa85115dca472c40800d362267f09da, type: 3}
+--- !u!58 &7092175452429111476
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5297925347612036169}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.04, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.1

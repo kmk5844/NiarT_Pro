@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5066233605767742059}
   - component: {fileID: 4127216284601806033}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,9 +96,9 @@ GameObject:
   - component: {fileID: 1395404647019546537}
   - component: {fileID: 6802406743609845352}
   - component: {fileID: 8861618904496320840}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: Boss0
-  m_TagString: Untagged
+  m_TagString: Monster_Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -175,7 +175,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -193,6 +193,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86930f2b13cac2547960821702eecaaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPosition: {x: -6.7738943, y: -0.09587939}
+  Speed: 0
+  atk: 0
+  slow: 0
   Bullet_Init_Position: {x: 0, y: 0}
   spriteRotation: {fileID: 5066233605767742059}
