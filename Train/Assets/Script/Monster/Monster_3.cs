@@ -10,7 +10,6 @@ public class Monster_3 : Monster
     Vector3 movement;
     int xPos;
 
-    [Header("속도, 최대 길이")] // 몬스터 무브를 변경해야할 가능성이 높음
     [SerializeField]
     float speed;
     [SerializeField]
@@ -18,8 +17,10 @@ public class Monster_3 : Monster
 
     protected override void Start()
     {
+        Monster_Num = 3;
+        Bullet = Resources.Load<GameObject>("Bullet/Monster/" + Monster_Num);
+
         base.Start();
-        transform.position = new Vector3(transform.position.x, -0.625f, transform.position.z);
         monster_SpawnPos = transform.position;
 
         speed =  0.1f;
@@ -31,9 +32,6 @@ public class Monster_3 : Monster
 
     protected override void Update()
     {
-        Monster_Num = 3;
-        Bullet = Resources.Load<GameObject>("Bullet/Monster/" + Monster_Num);
-
         base.Update();
         Total_GameType();
         Fire_Debuff();
@@ -71,7 +69,7 @@ public class Monster_3 : Monster
     {
         if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay))
         {
-            GameObject bullet = Instantiate(Bullet, transform.position, transform.rotation, monster_Bullet_List);
+            GameObject bullet = Instantiate(Bullet, Fire_Zone.position, transform.rotation, monster_Bullet_List);
             bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, 10, xPos);
             lastTime = Time.time;
         }
@@ -80,13 +78,13 @@ public class Monster_3 : Monster
 
     void MonsterMove()
     {
-        if (monster_SpawnPos.x - max_xPos > transform.position.x)
-        {
-            xPos = 1;
-        }
-        else if (monster_SpawnPos.x + max_xPos < transform.position.x)
+        if(transform.position.x > MonsterDirector.MaxPos_Ground.x || monster_SpawnPos.x + max_xPos < transform.position.x)
         {
             xPos = -1;
+        }
+        else if(transform.position.x < MonsterDirector.MinPos_Ground.x || monster_SpawnPos.x - max_xPos > transform.position.x)
+        {
+            xPos = 1;
         }
         movement = new Vector3(xPos, 0f, 0f);
         transform.Translate(movement * (speed - Item_Monster_Speed) * Time.deltaTime); 

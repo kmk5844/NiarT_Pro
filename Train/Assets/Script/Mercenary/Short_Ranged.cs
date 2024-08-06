@@ -34,7 +34,7 @@ public class Short_Ranged : Mercenary
     protected override void Update()
     {
         base.Update();
-        if(Mer_GameType == GameType.Playing)
+        if(Mer_GameType == GameType.Playing || Mer_GameType == GameType.Boss)
         {
             if (HP <= 0 && act != Active.die)
             {
@@ -79,7 +79,7 @@ public class Short_Ranged : Mercenary
 
     private void FixedUpdate()
     {
-        if (Mer_GameType == GameType.Playing)
+        if (Mer_GameType == GameType.Playing || Mer_GameType == GameType.Boss)
         {
             if (act == Active.move)
             {

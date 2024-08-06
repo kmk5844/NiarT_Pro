@@ -13,11 +13,11 @@ public class Monster_Bullet_LR_Streight : MonsterBullet
 
     void Bullet_Fire()
     {
-        if(x_scale == 1)
+        if (x_scale == 1)
         {
             dir = new Vector3(1, 0, 0);
         }
-        else if(x_scale == -1)
+        else if (x_scale == -1)
         {
             dir = new Vector3(-1, 0, 0);
         }
@@ -25,4 +25,5 @@ public class Monster_Bullet_LR_Streight : MonsterBullet
         transform.rotation = Quaternion.LookRotation(Vector3.forward, rid.velocity);
         Destroy(gameObject, 5f);
     }
+ 
 }

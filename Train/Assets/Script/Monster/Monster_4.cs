@@ -17,23 +17,24 @@ public class Monster_4 : Monster
     float max_xPos;
     protected override void Start()
     {
+        Monster_Num = 4;
+        Bullet = Resources.Load<GameObject>("Bullet/Monster/" + Monster_Num);
+
         base.Start();
         transform.position = new Vector3(9, transform.position.y, transform.position.z);
-        speed = 5;
+        Bullet_Delay = 2f;
+        speed = 6;
         xPos = -1f;
         Check_ItemSpeedSpawn();
-        StartCoroutine(DestoryAfterDelay());
     }
 
     protected override void Update()
     {
-        Monster_Num = 4;
-        Bullet = Resources.Load<GameObject>("Bullet/Monster/" + Monster_Num);
-
         base.Update();
         Total_GameType();
         Fire_Debuff();
         Check_ItemSpeedFlag();
+
         if (monster_gametype == Monster_GameType.Fighting)
         {
             BulletFire();
@@ -57,22 +58,21 @@ public class Monster_4 : Monster
     {
         if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay))
         {
-            GameObject bullet = Instantiate(Bullet, transform.position, transform.rotation, monster_Bullet_List);
+            GameObject bullet = Instantiate(Bullet, Fire_Zone.position, transform.rotation, monster_Bullet_List);
             bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, 10, 0);
             lastTime = Time.time;
         }
-    }
-
-    private IEnumerator DestoryAfterDelay()
-    {
-        yield return new WaitForSeconds(5f);
-        Destroy(gameObject);
     }
 
     void MonsterMove()
     {
         movement = new Vector3(xPos, 0f, 0f);
         transform.Translate(movement * (speed - Item_Monster_Speed) * Time.deltaTime);
+
+        if(transform.position.x < MonsterDirector.MinPos_Ground.x - 8f)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void Check_ItemSpeedSpawn()

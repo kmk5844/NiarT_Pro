@@ -32,7 +32,7 @@ public class Medic : Mercenary
             non_combatant_Flip();
         }
 
-        if (Mer_GameType == GameType.Playing)
+        if (Mer_GameType == GameType.Playing || Mer_GameType == GameType.Boss)
         {
             if (HP <= 0 && act != Active.die)
             {
@@ -73,7 +73,7 @@ public class Medic : Mercenary
 
     private void FixedUpdate()
     {
-        if (Mer_GameType == GameType.Playing)
+        if (Mer_GameType == GameType.Playing || Mer_GameType == GameType.Boss)
         {
             if (act == Active.move)
             {

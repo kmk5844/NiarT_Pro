@@ -102,19 +102,26 @@ public class CowBoy_Grap : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!isGrappling)
+        if (collision.CompareTag("Monster"))
         {
-            if (collision.CompareTag("Monster"))
+            if (collision.GetComponent<Monster>() != null)
             {
-                if (unit.mercenaryActive_Check() == Active.move)
+                if (collision.GetComponent<Monster>().Monster_Type.Equals("Sky"))
                 {
-                    isGrappling = true;
-                    target = collision.gameObject;
-                    line.enabled = true;
-                    line.positionCount = 2;
+                    Debug.Log("¿€µø");
+                    if (!isGrappling)
+                    {
+                        if (unit.mercenaryActive_Check() == Active.move)
+                        {
+                            isGrappling = true;
+                            target = collision.gameObject;
+                            line.enabled = true;
+                            line.positionCount = 2;
 
-                    StartCoroutine(Grapple());
-                    target.GetComponent<Monster>().grapTrigger();
+                            StartCoroutine(Grapple());
+                            target.GetComponent<Monster>().grapTrigger();
+                        }
+                    }
                 }
             }
         }

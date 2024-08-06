@@ -204,7 +204,6 @@ public class MonsterDirector : MonoBehaviour
             string monster_name = EX_GameData.Information_Monster[Monster_Num].Monster_Name;
             _Monster = Resources.Load<GameObject>("Monster/" + Monster_Num+ "_"+ monster_name);
             Instantiate(_Monster, new Vector3(Random_xPos, Random_yPos, 0), Quaternion.identity, Monster_List);
-
         }
         else
         {

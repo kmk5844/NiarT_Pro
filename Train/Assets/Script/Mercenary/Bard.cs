@@ -42,7 +42,7 @@ public class Bard : Mercenary
             buffFlag = true;
         }
 
-        if(Mer_GameType == GameType.Playing)
+        if(Mer_GameType == GameType.Playing || Mer_GameType == GameType.Boss)
         {
             if(HP <= 0 && act != Active.die)
             {

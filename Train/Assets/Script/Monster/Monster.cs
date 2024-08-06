@@ -24,6 +24,8 @@ public class Monster : MonoBehaviour
     [SerializeField]
     protected int Monster_Coin;
 
+    public string Monster_Type;
+
     [Header("몬스터 총알 정보")]
     [SerializeField]
     protected GameObject Bullet;
@@ -33,6 +35,8 @@ public class Monster : MonoBehaviour
     protected float Bullet_Slow;
     protected float lastTime;
     protected Transform monster_Bullet_List;
+    [SerializeField]
+    protected Transform Fire_Zone;
 
     GameObject HitDamage;
     [Header("서서히 만드는 스프라이트")]
@@ -85,6 +89,7 @@ public class Monster : MonoBehaviour
         Monster_HP = EX_GameData.Information_Monster[Monster_Num].Monster_HP;
         Monster_Score = EX_GameData.Information_Monster[Monster_Num].Monster_Score;
         Monster_Coin = EX_GameData.Information_Monster[Monster_Num].Monster_Coin;
+        Monster_Type = EX_GameData.Information_Monster[Monster_Num].Monster_Type;
         Bullet_Atk = EX_GameData.Information_Monster[Monster_Num].Monster_Atk;
         Bullet_Speed = EX_GameData.Information_Monster[Monster_Num].Monster_Bullet_Speed;
         Bullet_Delay = EX_GameData.Information_Monster[Monster_Num].Monster_Bullet_Delay;

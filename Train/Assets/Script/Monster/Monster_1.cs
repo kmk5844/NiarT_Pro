@@ -66,7 +66,7 @@ public class Monster_1 : Monster
     {
         if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay))
         {
-            GameObject bullet = Instantiate(Bullet, transform.position, transform.rotation, monster_Bullet_List);
+            GameObject bullet = Instantiate(Bullet, Fire_Zone.position, transform.rotation, monster_Bullet_List);
             bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, 10, 0);
             lastTime = Time.time;
         }

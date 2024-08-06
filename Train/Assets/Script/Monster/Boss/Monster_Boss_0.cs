@@ -35,6 +35,7 @@ public class Monster_Boss_0 : Boss
     Animator ani;
     bool aniFlag;
     bool jumpAni;
+    Transform Monster_List;
 
     protected override void Start()
     {
@@ -43,7 +44,6 @@ public class Monster_Boss_0 : Boss
         aniFlag = false;
         jumpAni = false;
         base.Start();
-
         move_xPos = 1f;
         move_speed = 3f;
 
@@ -55,6 +55,7 @@ public class Monster_Boss_0 : Boss
         skillMaxCount = 5;
         move_delayTime = 5f;
         attack_delayTime = 1.5f;
+        Monster_List = GameObject.Find("Test_List").transform;
     }
 
     private void FixedUpdate()
@@ -297,7 +298,7 @@ public class Monster_Boss_0 : Boss
         int eggNum = Random.Range(1, 5);
         for (int i = 0; i < eggNum; i++)
         {
-            Instantiate(Boss_Egg_Object);
+            Instantiate(Boss_Egg_Object, Monster_List);
             yield return new WaitForSeconds(0.5f);
         }
 

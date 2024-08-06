@@ -1,6 +1,7 @@
 using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,11 +19,16 @@ public class DemoTutorial : MonoBehaviour
     public GameObject[] InGame;
     public GameObject[] Station;
     bool T_InGame_F_Station;
+
+    bool ClickFlag;
+
+    public TextMeshProUGUI nextText;
+
     // Start is called before the first frame update
     void Start()
     {
         MMSoundManagerSoundPlayEvent.Trigger(Tutorial_BGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true);
-
+        ClickFlag = true;
         PlayerStageNum = playerData.Stage;
 
         InGameCount = 0;
@@ -45,15 +51,26 @@ public class DemoTutorial : MonoBehaviour
         {
             Station[0].SetActive(true);
         }
+        StartCoroutine(ClickDelay());
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && ClickFlag)
         {
             ChangeImage();
+            StartCoroutine(ClickDelay());
         }
+    }
+
+    IEnumerator ClickDelay()
+    {
+        ClickFlag = false;
+        nextText.gameObject.SetActive(false);
+        yield return new WaitForSeconds(2f);
+        nextText.gameObject.SetActive(true);
+        ClickFlag = true;
     }
 
     void ChangeImage()

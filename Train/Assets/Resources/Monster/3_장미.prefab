@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2232520767303503360
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 85165302653892288}
+  m_Layer: 8
+  m_Name: FireZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &85165302653892288
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2232520767303503360}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.08, y: 0.402, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7976047841580440950}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7976047841580440944
 GameObject:
   m_ObjectHideFlags: 0
@@ -11,7 +42,7 @@ GameObject:
   - component: {fileID: 7976047841580440950}
   - component: {fileID: 7976047841580440945}
   - component: {fileID: 8311367403671185885}
-  - component: {fileID: 6079953032395248260}
+  - component: {fileID: 2959936311604507595}
   m_Layer: 8
   m_Name: "3_\uC7A5\uBBF8"
   m_TagString: Monster
@@ -31,7 +62,8 @@ Transform:
   m_LocalPosition: {x: 2.2117, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 85165302653892288}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7976047841580440945
@@ -105,12 +137,13 @@ MonoBehaviour:
   Monster_Score: 0
   Monster_Coin: 0
   Bullet: {fileID: 0}
+  Fire_Zone: {fileID: 85165302653892288}
   sprite_List: []
   fire_debuff_flag: 0
   monster_SpawnPos: {x: 0, y: 0, z: 0}
   speed: 0
   max_xPos: 0
---- !u!60 &6079953032395248260
+--- !u!60 &2959936311604507595
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,10 +175,10 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.06, y: -0.1}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.62947404, y: 0.7186179}
+    pivot: {x: 0.5, y: 0}
     oldSize: {x: 0.46, y: 0.55}
     newSize: {x: 0.49, y: 0.49}
     adaptiveTilingThreshold: 0.5
@@ -154,13 +187,18 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.0685792, y: 0.24844219}
-      - {x: -0.029464364, y: 0.2424435}
-      - {x: -0.101593375, y: 0.15556207}
-      - {x: -0.18141615, y: -0.06279685}
-      - {x: -0.054775, y: -0.2627089}
-      - {x: 0.07598317, y: -0.25269538}
-      - {x: 0.15125653, y: -0.09925131}
-      - {x: 0.18975338, y: 0.012756847}
-      - {x: 0.14875503, y: 0.13850553}
+    - - {x: 0.20997688, y: 0.22229432}
+      - {x: 0.16993043, y: 0.358876}
+      - {x: 0.15438004, y: 0.457752}
+      - {x: 0.09775209, y: 0.5255273}
+      - {x: -0.04107768, y: 0.5166281}
+      - {x: -0.11885281, y: 0.45772886}
+      - {x: -0.17438003, y: 0.4055272}
+      - {x: -0.20107767, y: 0.18559675}
+      - {x: -0.09763613, y: 0.2434878}
+      - {x: -0.077682585, y: 0.10899186}
+      - {x: -0.096674405, y: 0.055619918}
+      - {x: -0.011216685, y: 0.015573576}
+      - {x: 0.09775197, y: 0.06004634}
+      - {x: 0.17220157, y: 0.1667439}
   m_UseDelaunayMesh: 0
