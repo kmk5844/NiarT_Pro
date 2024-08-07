@@ -55,7 +55,12 @@ public class Monster_Boss_0 : Boss
         skillMaxCount = 5;
         move_delayTime = 5f;
         attack_delayTime = 1.5f;
-        Monster_List = GameObject.Find("Test_List").transform;
+        Monster_List = GameObject.Find("Monster_List").transform;
+    }
+
+    protected override void Update()
+    {
+        base.Update();
     }
 
     private void FixedUpdate()

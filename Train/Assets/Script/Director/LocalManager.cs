@@ -14,7 +14,6 @@ public class LocalManager : MonoBehaviour
     private void Awake()
     {
         Local_Max = LocalizationSettings.AvailableLocales.Locales.Count;
-        Debug.Log(Local_Max);
         SA_Local.Load();
         index = SA_Local.Local_Index; // Default가 한국어
         ChangeLocale();

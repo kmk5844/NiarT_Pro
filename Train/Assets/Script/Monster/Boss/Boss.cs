@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Boss : MonoBehaviour
 {
@@ -20,6 +22,8 @@ public class Boss : MonoBehaviour
     protected int Monster_Score;
     [SerializeField]
     protected int Monster_Coin;
+    [SerializeField]
+    protected Image Boss_Guage;
 
     [Header("보스 총알 정보")]
     [SerializeField]
@@ -41,8 +45,6 @@ public class Boss : MonoBehaviour
     bool fire_hit_flag;
     int fire_hit_damage;
     int fire_hit_Count;
-    int mercenary_atk;
-
 
     protected virtual void Start()
     {
@@ -56,6 +58,7 @@ public class Boss : MonoBehaviour
         Monster_Score = EX_GameData.Information_Boss[Boss_Num].Monster_Score;
         Monster_Coin = EX_GameData.Information_Boss[Boss_Num].Monster_Coin;
         Boss_Bullet = Resources.Load<GameObject>("Bullet/Monster/Boss" + Boss_Num);
+        Boss_Guage = gameDirector.BossGuage;
         Bullet_Atk = EX_GameData.Information_Boss[Boss_Num].Monster_Atk;
         Bullet_Speed = EX_GameData.Information_Boss[Boss_Num].Monster_Bullet_Speed;
         Bullet_Delay = EX_GameData.Information_Boss[Boss_Num].Monster_Bullet_Delay;
@@ -66,6 +69,12 @@ public class Boss : MonoBehaviour
         col = transform.GetComponent<PolygonCollider2D>();
         player_pos = GameObject.FindGameObjectWithTag("Player").transform;
     }
+
+    protected virtual void Update()
+    {
+       Boss_Guage.fillAmount = ((float)Monster_HP / (float)Monster_Max_HP);
+    }
+    
 
     private void Change_DieFlag()
     {

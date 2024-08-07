@@ -39,7 +39,7 @@ public class Monster : MonoBehaviour
     protected Transform Fire_Zone;
 
     GameObject HitDamage;
-    [Header("서서히 만드는 스프라이트")]
+    [Header("서서히 사라지는 스프라이트")]
     public List<SpriteRenderer> sprite_List;
 
     GameObject player; //플레이어 위치에 따라 플립하는 경우.
@@ -105,7 +105,10 @@ public class Monster : MonoBehaviour
         {
             for (int i = 0; i < transform.childCount; i++)
             {
-                sprite_List.Add(transform.GetChild(i).GetComponent<SpriteRenderer>());
+                if(transform.GetChild(i).GetComponent<SpriteRenderer>() != null)
+                {
+                    sprite_List.Add(transform.GetChild(i).GetComponent<SpriteRenderer>());
+                }
             }
         }
 
@@ -331,7 +334,7 @@ public class Monster : MonoBehaviour
 
     protected void Monster_Ending()
     {
-        if(Time.time > EndTime + End_Delay)
+        if (Time.time > EndTime + End_Delay)
         {
             if (!EndFlag)
             {
@@ -342,16 +345,17 @@ public class Monster : MonoBehaviour
             float elapsedTime = Time.time - EndTime;
             float alphaPercent = Mathf.Clamp01(elapsedTime / 2f);
 
-            foreach(SpriteRenderer sprite in sprite_List)
+            foreach (SpriteRenderer sprite in sprite_List)
             {
                 sprite.color = new Color(1, 1, 1, 1 - alphaPercent);
+                sprite.material.SetFloat("_OutlineAlpha", 1 - alphaPercent);
             }
 
-            if(elapsedTime >= 1f && !!DestoryFlag)
+            if (elapsedTime >= 1f && !!DestoryFlag)
             {
                 DestoryFlag = true;
                 Destroy(gameObject);
-            }   
+            }
         }
     }
 

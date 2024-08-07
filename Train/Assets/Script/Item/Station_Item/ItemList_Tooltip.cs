@@ -97,14 +97,14 @@ public class ItemList_Tooltip : MonoBehaviour
         }
         else if (tooltiptype == TooltipType.Store_Buy)
         {
-            Item_Pride.text = Pride.ToString();
+            Item_Pride.text = Pride.ToString() + "G";
             UseWindow.SetActive(true);
             UseWindow_Text.StringReference.TableEntryReference = "UI_ToolTip_Buy_LeftMouse";
             //UseWindow.GetComponentInChildren<TextMeshProUGUI>().text = "구매하시려면 좌클릭 눌러주세요";
         }
         else if(tooltiptype == TooltipType.Store_Sell)
         {
-            Item_Pride.text = Pride.ToString();
+            Item_Pride.text = Pride.ToString() + "G";
             //Item_Pride.text = "판매 가격 : " + Pride;
             UseWindow.SetActive(true);
             UseWindow_Text.StringReference.TableEntryReference = "UI_ToolTip_Sell_LeftMouse";

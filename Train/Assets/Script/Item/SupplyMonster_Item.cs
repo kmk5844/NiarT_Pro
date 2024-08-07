@@ -67,7 +67,16 @@ public class SupplyMonster_Item : MonoBehaviour
 
     private void Choice_Item()
     {
-        int num = Random.Range(0, 101);
+        int num = 0;
+        if (!Player.Item_GunFlag)
+        {
+            num = Random.Range(0, 101);
+        }
+        else
+        {
+            num = Random.Range(0, 96);
+        }
+
         if(num >= 0 && num < 70)
         {
             Item = common_supplylist[Random.Range(0, common_supplylist.Count)];

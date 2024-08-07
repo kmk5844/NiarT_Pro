@@ -1,12 +1,12 @@
 using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Tracing;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    GameObject gamedriectorObject;
+    GameObject gamedirector_object;
+    GameDirector gamedirector;
     GameType gameDirectorType;
 
     [SerializeField]
@@ -79,9 +79,14 @@ public class Player : MonoBehaviour
     int Item_Gun_Max_ClickCount;
     public GameObject Item_GunSpecial_Bullet;
 
+    [Header("상호작용 Key")]
+    public GameObject KeyObject;
+    Vector3 KeyObject_Scale;
+
     void Start()
     {
-        gamedriectorObject = GameObject.Find("GameDirector");
+        gamedirector_object = GameObject.Find("GameDirector");
+        gamedirector = gamedirector_object.GetComponent<GameDirector>();
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         respawnPosition = transform.position;
         isHealing = false;
@@ -96,6 +101,7 @@ public class Player : MonoBehaviour
         moveSpeed = playerData.MoveSpeed;
 
         GunObject_Scale = GunObject.transform.localScale;
+        KeyObject_Scale = KeyObject.transform.localScale;
 
         rotationOn = false;
         Max_HP = Player_HP; 
@@ -119,7 +125,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        gameDirectorType = gamedriectorObject.GetComponent<GameDirector>().gameType;
+        gameDirectorType = gamedirector.gameType;
 
         if (gameDirectorType == GameType.Playing || gameDirectorType == GameType.Boss ||gameDirectorType == GameType.Ending)
         {
@@ -136,16 +142,19 @@ public class Player : MonoBehaviour
             else
             {
                 GunObject.transform.localScale = new Vector3(GunObject_Scale.x, -1 * GunObject_Scale.y, GunObject_Scale.z);
+                //KeyObject.transform.localScale = KeyObject_Scale;
             }
 
-            if(mousePos.x > transform.position.x)
+            if (mousePos.x > transform.position.x)
             {
                 rotationOn = true;
+                KeyObject.transform.localScale = new Vector3(-KeyObject_Scale.x, KeyObject_Scale.y, KeyObject_Scale.z);
                 transform.rotation = Quaternion.Euler(0,-180,0);
             }
             else
             {
                 rotationOn = false;
+                KeyObject.transform.localScale = new Vector3(KeyObject_Scale.x, KeyObject_Scale.y, KeyObject_Scale.z);
                 transform.rotation = Quaternion.Euler(0, 0 ,0);
             }
 
@@ -170,10 +179,20 @@ public class Player : MonoBehaviour
             }
         }
 
-        try
+        if (gamedirector.SpawnTrainFlag && train != null)
         {
             if (train.Train_Type.Equals("Medic"))
             {
+                if (Check_HpParsent() < 50f && !isHealing)
+                {
+                    KeyObject.SetActive(true);
+                }
+                else
+                {
+                    KeyObject.SetActive(false);
+                }
+
+
                 if (Input.GetKeyDown(KeyCode.R) && Check_HpParsent() < 50f && !isHealing)
                 {
                     if (train.openMedicTrian)
@@ -194,11 +213,8 @@ public class Player : MonoBehaviour
                     }
                 }
             }
-        }catch
-        {
-            //Debug.Log("기차 생성 중");
         }
-
+       
 
         if (!isHealing) //치료가 아닐 때, 걸어다니면서 총을 쏨
         {

@@ -11,7 +11,6 @@ public class Mercenary_On_Board_Card : MonoBehaviour
     public Image Mercenary_BackGround;
     public Image Mercenary_Image;
     public Sprite[] Mercenary_BackGround_Image;
-    public Sprite[] Mercenary_Face_Image;
 
     private void Start()
     {
@@ -19,6 +18,6 @@ public class Mercenary_On_Board_Card : MonoBehaviour
         Image_Z.Rotate(0, 0, Random.Range(-12f, 12f));
 
         Mercenary_BackGround.sprite = Mercenary_BackGround_Image[Random.Range(0, Mercenary_BackGround_Image.Length)];
-        Mercenary_Image.sprite = Mercenary_Face_Image[Mercenary_Num];
+        Mercenary_Image.sprite = Resources.Load<Sprite>("Sprite/Mercenary/" + Mercenary_Num);
     }
 }

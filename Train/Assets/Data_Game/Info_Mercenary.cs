@@ -10,4 +10,5 @@ public class Info_Mercenary
     public bool Store;
     public bool Position;
     public bool DropDown;
+    public int Max_Mercenary;
 }

@@ -103,7 +103,7 @@ public class StoreList_Tooltip : MonoBehaviour
         }
         //Train_Name.text = storeName;
         //Train_Information.text = storeInformation;
-        Train_Pride.text = Pride.ToString();
+        Train_Pride.text = Pride.ToString() + "G";
 
         gameObject.SetActive(true);
     }

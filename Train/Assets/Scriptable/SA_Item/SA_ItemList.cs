@@ -56,7 +56,7 @@ public class SA_ItemList : ScriptableObject
     [SerializeField]
     private List<ItemDataObject> epic_supply_itemlist;
     public List<ItemDataObject> Epic_Supply_ItemList { get { return epic_supply_itemlist; } }
-    public void ItemList_Init()
+    public void Editor_ItemList_Init()
     {
         item.Clear();
         random_material_itemlist.Clear();
@@ -75,6 +75,14 @@ public class SA_ItemList : ScriptableObject
         rare_supply_itemlist.Clear();
         unique_supply_itemlist.Clear();
         epic_supply_itemlist.Clear();
+    }
+
+    public void PlayGame_ItemList_Init()
+    {
+        foreach(ItemDataObject _item in Item)
+        {
+            _item.Init();
+        }
     }
 
     public void ItemList_InsertObject(ItemDataObject newobjcet)

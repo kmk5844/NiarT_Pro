@@ -18,7 +18,7 @@ public class Auto_Item_ScritableObject : EditorWindow
     {
         if (GUILayout.Button("Create Auto Item"))
         {
-            SA_ItemList.ItemList_Init();
+            SA_ItemList.Editor_ItemList_Init();
             DeleteAllFilesInFolder();
             CreatObjectsFromList();
         }

@@ -34,8 +34,12 @@ public class DataManager : MonoBehaviour
 
     public SA_PlayerData playerData;
     public SA_TrainData trainData;
+    public SA_TrainTurretData turretData;
+    public SA_TrainBoosterData boosterData;
     public SA_MercenaryData mercenaryData;
     public SA_LocalData localData;
+    public SA_ItemList InventoryItem_Data;
+    public SA_ItemData PlayerItem_Data;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,15 +50,22 @@ public class DataManager : MonoBehaviour
     {
         playerData.Load();
         trainData.Load();
+        turretData.Load();
+        boosterData.Load();
         mercenaryData.Load();
         localData.Load();
+        PlayerItem_Data.Load();
     }
 
     public void Init()
     {
         playerData.Init();
         trainData.Init();
+        turretData.Init();
+        boosterData.Init();
         mercenaryData.Init();
         localData.Init();
+        InventoryItem_Data.PlayGame_ItemList_Init();
+        PlayerItem_Data.Init();
     }
 }

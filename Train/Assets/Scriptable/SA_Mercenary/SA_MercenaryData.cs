@@ -49,9 +49,6 @@ public class SA_MercenaryData : ScriptableObject
     private List<int> mercenary_buy_num;
     public List<int> Mercenary_Buy_Num { get { return mercenary_buy_num; } }
 
-    [SerializeField]
-    private Sprite[] mercenary_head_image;
-    public Sprite[] Mercenary_Head_Image { get { return mercenary_head_image; } }
     public void SA_Change_EngineDriver_Type(int DropDown_Num)
     {
         if(DropDown_Num == 0)

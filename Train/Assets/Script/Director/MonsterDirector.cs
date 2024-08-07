@@ -163,14 +163,16 @@ public class MonsterDirector : MonoBehaviour
     IEnumerator AppearMonster(bool Bossflag)
     {
         isSpawing = true;
-        yield return new WaitForSeconds(Random.Range(1f, 6f));
+
         if (!Bossflag)
         {
+            yield return new WaitForSeconds(Random.Range(1f, 6f));
             int MonsterRandomIndex = Random.Range(0, Emerging_Monster_List.Count);
             Check_Sky_OR_Ground_Monster(Emerging_Monster_List[MonsterRandomIndex], Bossflag);
         }
         else
         {
+            yield return new WaitForSeconds(6f);
             Check_Sky_OR_Ground_Monster(Emerging_Boss_List[BossCount], Bossflag);
         }
         isSpawing = false;

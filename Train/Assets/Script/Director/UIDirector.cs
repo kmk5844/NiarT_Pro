@@ -30,6 +30,11 @@ public class UIDirector : MonoBehaviour
     public TextMeshProUGUI Score_Text;
     public TextMeshProUGUI Coin_Text;
     public Slider Speed_Arrow;
+    public GameObject WarningObject;
+
+    [Header("Boss UI")]
+    public GameObject BossHP_Object;
+    public Image BossHP_Guage;
 
     [Header("Item UI")]
     public GameObject ItemInformation_Object;

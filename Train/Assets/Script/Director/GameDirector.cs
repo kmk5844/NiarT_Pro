@@ -3,6 +3,7 @@ using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameDirector : MonoBehaviour
 {
@@ -56,8 +57,10 @@ public class GameDirector : MonoBehaviour
     private List<int> Emerging_Monster;
     [SerializeField]
     private int Reward_Point;
-    
+
+    [SerializeField]
     string Reward_ItemNum;
+    [SerializeField]
     string Reward_ItemCount;
     
     [SerializeField]
@@ -140,6 +143,9 @@ public class GameDirector : MonoBehaviour
     bool Change_Win_BGM_Flag;
     int BGM_ID;
 
+    [HideInInspector]
+    public Image BossGuage;
+
     //아이템부분
     bool ItemFlag_14; // 골드 2배
 
@@ -161,6 +167,7 @@ public class GameDirector : MonoBehaviour
         cursorAim = Resources.Load<Texture2D>("Cursor/Aim6464");
         cursorHotspot_Origin = Vector2.zero;
         cursorHotspot_Aim = new Vector2(cursorAim.width / 2, cursorAim.height / 2);
+        BossGuage = uiDirector.BossHP_Guage;
 
         Stage_Init();
         Train_Init();
@@ -278,6 +285,7 @@ public class GameDirector : MonoBehaviour
                     if (((float)TrainDistance / (float)Destination_Distance * 100f) > Emerging_Boss_Distance[BossCount])
                     {
                         gameType = GameType.Boss;
+                        StartCoroutine(Boss_Waring_Mark());
                         monsterDirector.BossStart(Emerging_Boss_Monster_Count[BossCount]);
                     }
                 }
@@ -558,6 +566,7 @@ public class GameDirector : MonoBehaviour
         }
         BossCount++;
         monsterDirector.BossDie();
+        uiDirector.BossHP_Object.SetActive(false);
         uiDirector.Gameing_Text(Total_Score, Total_Coin);
         gameType = GameType.Playing;
     }
@@ -594,20 +603,23 @@ public class GameDirector : MonoBehaviour
     {
         gameType = GameType.GameEnd;
         Time.timeScale = 0f;
-        string[] ItemList = Reward_ItemNum.Split(',');
-        string[] ItemList_Count = Reward_ItemCount.Split(",");
-        List<int> Item_List = new List<int>();
-        int ItemNum;
-        int ItemCount;
-        for(int i = 0; i < ItemList.Length; i++)
+        if (WinFlag)
         {
-            ItemNum = int.Parse(ItemList[i]);
-            Debug.Log(ItemNum);
-            ItemCount = int.Parse(ItemList_Count[i]);
-            Debug.Log(ItemCount);
-            Debug.Log(itemDirector);
-            itemDirector.itemList.Item[ItemNum].Item_Count_UP(ItemCount);
-            uiDirector.GetItemList_Num.Add(ItemNum);
+            string[] ItemList = Reward_ItemNum.Split(',');
+            string[] ItemList_Count = Reward_ItemCount.Split(",");
+            List<int> Item_List = new List<int>();
+            int ItemNum;
+            int ItemCount;
+            for (int i = 0; i < ItemList.Length; i++)
+            {
+                ItemNum = int.Parse(ItemList[i]);
+                ItemCount = int.Parse(ItemList_Count[i]);
+                if(ItemNum != -1)
+                {
+                    itemDirector.itemList.Item[ItemNum].Item_Count_UP(ItemCount);
+                    uiDirector.GetItemList_Num.Add(ItemNum);
+                }
+            }
         }
 
         uiDirector.Open_Result_UI(WinFlag, Stage_Num, Total_Score, Total_Coin, Check_Score(), Reward_Point);
@@ -730,6 +742,34 @@ public class GameDirector : MonoBehaviour
         ItemFlag_14 = true;
         yield return new WaitForSeconds(delayTime);
         ItemFlag_14 = false;
+    }
+
+    IEnumerator Boss_Waring_Mark()
+    {
+        uiDirector.WarningObject.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        float fadeDuration = 1f;
+        float fadeElapsed = 0f;
+        Image warningImage = uiDirector.WarningObject.GetComponent<Image>();
+        Color originalColor = warningImage.color;
+
+        while (fadeElapsed < fadeDuration)
+        {
+            fadeElapsed += Time.deltaTime;
+            float alpha = Mathf.Lerp(1f, 0f, fadeElapsed / fadeDuration);
+            warningImage.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
+            yield return null;
+        }
+
+        // 완전히 투명하게 만든 후 WarningObject 비활성화
+        warningImage.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0f);
+
+        uiDirector.WarningObject.SetActive(false);
+        warningImage.color = new Color(originalColor.r, originalColor.g, originalColor.b, 1f);
+
+        yield return new WaitForSeconds(1.5f);
+        uiDirector.BossHP_Guage.fillAmount = 1f;
+        uiDirector.BossHP_Object.SetActive(true);
     }
 }
 

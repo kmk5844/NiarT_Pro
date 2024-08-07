@@ -630,7 +630,7 @@ public class Station_Fortress : MonoBehaviour
 
     public void Mercenary_Check_Button()
     {
-        if (Mercenary_TotalNum >= EngineTier_MaxMercenary)
+        if (Mercenary_TotalNum >= EngineTier_MaxMercenary) // 초과 할 때,
         {
             for(int i = 0; i < CardList.Count; i++)
             {
@@ -650,37 +650,35 @@ public class Station_Fortress : MonoBehaviour
                 }
             }
         }
-        else
+        else // 초과하지 않을 때
         {
-            for (int i = 0; i < CardList.Count; i++)
+            for(int i = 0; i < CardList.Count; i++)
             {
-                if (CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().Mercenary_Num == 0 || CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().Mercenary_Num == 5)
-                {
-                    if (CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().Mercenary_Num_Count == 1)
-                    {
-                        CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().Button_OpenClose(true);
-                    }
-                    else
-                    {
-                        CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().Button_OpenClose(false);
-                    }
-                }
-                else
+                int Count = CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().Mercenary_Num_Count;
+                int Max_Count = CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().Mercenary_Max_Count;
+                if (Count == 0)
                 {
                     CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().PlusButton.interactable = true;
+                    CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().MinusButton.interactable = false;
                 }
-            }
-
-            for (int i = 0; i < CardList.Count; i++)
-            {
-                if (CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().Mercenary_Num != 0)
+                else if(Count != 0)
                 {
-                    if (CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().Mercenary_Num_Count == 0)
+                    if(Max_Count != -1)
                     {
-                        CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().MinusButton.interactable = false;
+                        if(Count == Max_Count)
+                        {
+                            CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().PlusButton.interactable = false;
+                            CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().MinusButton.interactable = true;
+                        }
+                        else
+                        {
+                            CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().PlusButton.interactable = true;
+                            CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().MinusButton.interactable = true;
+                        }
                     }
                     else
                     {
+                        CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().PlusButton.interactable = true;
                         CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().MinusButton.interactable = true;
                     }
                 }

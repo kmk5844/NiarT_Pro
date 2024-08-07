@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,12 +16,13 @@ public class TrainingRoom_Mercenary_Position_Card : MonoBehaviour
     public GameObject Mercenary_Image;
     public LocalizeStringEvent Mercenary_NameText;
     public GameObject Mercenary_CountText;
+    public GameObject Mercenary_MaxText;
     public Button PlusButton;
     public Button MinusButton;
     public GameObject dropDown;
     public int Mercenary_Num_Count;
+    public int Mercenary_Max_Count;
     public Sprite[] Mercenary_Face_Image;
-    bool PassiveFlag;
 
     int Local_Index;
     [SerializeField]
@@ -38,24 +37,30 @@ public class TrainingRoom_Mercenary_Position_Card : MonoBehaviour
         MercenaryData_Object = GameObject.Find("MercenaryData");
         mercenaryData = MercenaryData_Object.GetComponent<Station_MercenaryData>();
         Mercenary_Count();
-        Mercenary_Image.GetComponent<Image>().sprite = mercenaryData.SA_MercenaryData.Mercenary_Head_Image[Mercenary_Num];
+        Mercenary_Image.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprite/Mercenary/" + Mercenary_Num);
         Mercenary_NameText.StringReference.TableReference = "ExcelData_Table_St";
         Mercenary_NameText.StringReference.TableEntryReference = "Mercenary_Name_" + Mercenary_Num;
-        //Mercenary_NameText.GetComponent<TextMeshProUGUI>().text =
-         //   mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].Name;
+
+        Mercenary_Max_Count = mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].Max_Mercenary;
 
         if (!mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].DropDown)
         {
             dropDown.SetActive(false);
-            PassiveFlag = false;
-            Mercenary_CountText.GetComponent<TextMeshProUGUI>().text = Mercenary_Num_Count.ToString();
         }
         else
         {
             DropDown_Option(mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].Type);
             dropDown.SetActive(true);
-            PassiveFlag = true;
-            Mercenary_CountText.GetComponent<TextMeshProUGUI>().text = Mercenary_Num_Count + "<color=red> / Max : 1</color>";
+        }
+        Mercenary_CountText.GetComponent<TextMeshProUGUI>().text = Mercenary_Num_Count.ToString();
+        if (mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].Max_Mercenary != -1)
+        {
+            Mercenary_MaxText.GetComponent<TextMeshProUGUI>().text = "/ Max " + Mercenary_Max_Count;
+        }
+        else
+        {
+            Mercenary_MaxText.SetActive(false);
+            Mercenary_CountText.transform.localPosition = new Vector3(-80, -75, 0);
         }
     }
 
@@ -85,41 +90,13 @@ public class TrainingRoom_Mercenary_Position_Card : MonoBehaviour
     public void Plus_Count()
     {
         Mercenary_Num_Count++;
-        if (!PassiveFlag)
-        {
-            Mercenary_CountText.GetComponent<TextMeshProUGUI>().text = Mercenary_Num_Count.ToString() ;
-        }
-        else
-        {
-            Mercenary_CountText.GetComponent<TextMeshProUGUI>().text = Mercenary_Num_Count + "<color=red> / Max : 1</color>";
-        }
+        Mercenary_CountText.GetComponent<TextMeshProUGUI>().text = Mercenary_Num_Count.ToString();
     }
 
     public void Minus_Count()
     {
         Mercenary_Num_Count--;
-        if (!PassiveFlag)
-        {
-            Mercenary_CountText.GetComponent<TextMeshProUGUI>().text = Mercenary_Num_Count.ToString();
-        }
-        else
-        {
-            Mercenary_CountText.GetComponent<TextMeshProUGUI>().text = Mercenary_Num_Count + "<color=red> / Max : 1</color>";
-        }
-    }
-
-    public void Button_OpenClose(bool flag)
-    {
-        if (flag)
-        {
-            PlusButton.interactable = false;
-            MinusButton.interactable = true;
-        }
-        else
-        {
-            PlusButton.interactable = true;
-            MinusButton.interactable = false;
-        }
+        Mercenary_CountText.GetComponent<TextMeshProUGUI>().text = Mercenary_Num_Count.ToString();
     }
 
     private void DropDown_Option(string M_type)
