@@ -137,6 +137,8 @@ public class GameDirector : MonoBehaviour
     [Header("BGM")]
     public AudioClip DustWindBGM;
     public AudioClip PlayBGM;
+    public AudioClip WarningSFX;
+    public AudioClip BossBGM;
     public AudioClip WinBGM;
     public AudioClip WinSFX;
     public AudioClip LoseSFX;
@@ -163,8 +165,8 @@ public class GameDirector : MonoBehaviour
         uiDirector = UI_DirectorObject.GetComponent<UIDirector>();
         itemDirector = Item_DirectorObject.GetComponent<ItemDirector>();
 
-        cursorOrigin = Resources.Load<Texture2D>("Cursor/Origin6464");
         cursorAim = Resources.Load<Texture2D>("Cursor/Aim6464");
+        cursorOrigin = Resources.Load<Texture2D>("Cursor/Origin6464");
         cursorHotspot_Origin = Vector2.zero;
         cursorHotspot_Aim = new Vector2(cursorAim.width / 2, cursorAim.height / 2);
         BossGuage = uiDirector.BossHP_Guage;
@@ -294,6 +296,7 @@ public class GameDirector : MonoBehaviour
         else if(gameType == GameType.Boss)
         {
             ChangeCursor(true);
+
             if (Time.time >= lastSpeedTime + timeBet && GameWinFlag == false)
             {
                 if (MaxSpeed >= TrainSpeed)
@@ -569,6 +572,7 @@ public class GameDirector : MonoBehaviour
         uiDirector.BossHP_Object.SetActive(false);
         uiDirector.Gameing_Text(Total_Score, Total_Coin);
         gameType = GameType.Playing;
+        SoundSequce(PlayBGM);
     }
     private string Check_Score()
     {
@@ -746,8 +750,13 @@ public class GameDirector : MonoBehaviour
 
     IEnumerator Boss_Waring_Mark()
     {
+        int Warning_ID = BGM_ID + 10;
+        MMSoundManagerSoundPlayEvent.Trigger(WarningSFX, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID: Warning_ID, fade:true, fadeInitialVolume: 0.5f, fadeDuration :0.3f);
         uiDirector.WarningObject.SetActive(true);
+        MMSoundManagerSoundFadeEvent.Trigger(MMSoundManagerSoundFadeEvent.Modes.StopFade, Warning_ID, 3f, 0f, new MMTweenType(MMTween.MMTweenCurve.EaseInCubic));
         yield return new WaitForSeconds(3f);
+        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, Warning_ID);
+        SoundSequce(BossBGM);
         float fadeDuration = 1f;
         float fadeElapsed = 0f;
         Image warningImage = uiDirector.WarningObject.GetComponent<Image>();
@@ -765,9 +774,11 @@ public class GameDirector : MonoBehaviour
         warningImage.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0f);
 
         uiDirector.WarningObject.SetActive(false);
-        warningImage.color = new Color(originalColor.r, originalColor.g, originalColor.b, 1f);
 
+        warningImage.color = new Color(originalColor.r, originalColor.g, originalColor.b, 1f);
         yield return new WaitForSeconds(1.5f);
+
+
         uiDirector.BossHP_Guage.fillAmount = 1f;
         uiDirector.BossHP_Object.SetActive(true);
     }

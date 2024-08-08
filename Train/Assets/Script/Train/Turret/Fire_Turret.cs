@@ -1,15 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.ParticleSystem;
 
 public class Fire_Turret : Turret
 {
     public GameObject Fire_Object;
-    public GameObject Fire_Effect;
     SpriteRenderer Fire_Turret_Image;
-    ParticleSystem Particle;
-    private ParticleSystem.MainModule mainModule;
 
     float Data_Attack_Delay;
     float train_Attacking_Delay;
@@ -33,8 +29,6 @@ public class Fire_Turret : Turret
         Change_Flag = false;
         Attack_Flag = true;
         LR_Flag = true;
-        Particle = Fire_Effect.GetComponent<ParticleSystem>();
-        mainModule = Particle.main;
         Fire_Object.GetComponent<Bullet>().atk = trainData.Train_Attack;
         lastTime = Time.time;
     }
@@ -63,7 +57,6 @@ public class Fire_Turret : Turret
             transform.Rotate(new Vector3(0, 0, -(train_Rotation_Delay + Item_Rotation_Delay)));
         }
         Fire_Check();
-        UpdateVelocityOverLifeTime();
     }
 
     void Fire_Check()
@@ -92,12 +85,10 @@ public class Fire_Turret : Turret
             if (Attack_Flag)
             {
                 Fire_Object.SetActive(true);
-                Particle.Play();
             }
             else
             {
                 Fire_Object.SetActive(false);
-                Particle.Stop();
             }
             Change_Flag = false;
         }
@@ -117,14 +108,5 @@ public class Fire_Turret : Turret
         {
             Fire_Turret_Image.flipY = false;
         }
-    }
-
-    private void UpdateVelocityOverLifeTime()
-    {
-        float Oribital_Z = Mathf.Lerp(0.8f, -0.8f, Turret_Z / Turret_Max_Z);
-        float Particle_Z = Mathf.Lerp(60f, -60f, Turret_Z / Turret_Max_Z);
-        var vel = Particle.velocityOverLifetime;
-        vel.orbitalY = Oribital_Z;
-        mainModule.startRotation = Particle_Z / 50f;
     }
 }

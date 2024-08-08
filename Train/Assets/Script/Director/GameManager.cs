@@ -41,11 +41,18 @@ public class GameManager : MonoBehaviour
     public SA_LocalData LocalData;
     public List<int> Story_Equals_Stage; //ÀÓ½Ã·Î ³öµÐ°Í
 
+    Texture2D cursorOrigin;
+    Vector2 cursorHotspot_Origin;
+
     public void Start()
     {
+        cursorOrigin = Resources.Load<Texture2D>("Cursor/Origin6464");
+        cursorHotspot_Origin = Vector2.zero;
+        Cursor.SetCursor(cursorOrigin, cursorHotspot_Origin, CursorMode.Auto);
         if (Demo)
         {
             DataManager.Instance.Init();
+
         }
         else
         {

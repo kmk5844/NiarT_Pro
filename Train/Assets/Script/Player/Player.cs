@@ -57,8 +57,13 @@ public class Player : MonoBehaviour
     Camera mainCam;
     private Vector3 mousePos;
     public AudioClip ShootSFX;
+    public AudioClip FlashBangSFX;
+    public AudioClip FireSFX;
+    public AudioClip LaserSFX;
     public List<GameObject> GunObject_List;
     int GunIndex;
+
+    private AudioSource _sfxSource;
 
     //아이템 부분
     [Header("아이템 장착 부분")]
@@ -318,6 +323,16 @@ public class Player : MonoBehaviour
         {
             GameObject bullet = Instantiate(playerBullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
             bullet.GetComponent<Bullet>().atk = Bullet_Atk + item_Atk;
+
+            if (GunIndex == 1)
+            {
+                MMSoundManagerSoundPlayEvent.Trigger(FlashBangSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+            }
+            else
+            {
+                MMSoundManagerSoundPlayEvent.Trigger(ShootSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+            }
+
             lastTime = Time.time;
             if (Item_Gun_CountFlag)
             {
@@ -328,7 +343,6 @@ public class Player : MonoBehaviour
                     Item_Gun_Default();
                 }
             }
-            MMSoundManagerSoundPlayEvent.Trigger(ShootSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         }
     }
 
@@ -336,10 +350,33 @@ public class Player : MonoBehaviour
     {
         if (OnOff)
         {
+            if(_sfxSource == null)
+            {
+                if (GunIndex == 4)
+                {
+                    _sfxSource = MMSoundManagerSoundPlayEvent.Trigger(LaserSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position, loop : true, ID: 21);
+                }
+                else if (GunIndex == 5)
+                {
+                    _sfxSource = MMSoundManagerSoundPlayEvent.Trigger(FireSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position, loop: true, ID: 22);
+                }
+            }
             Item_GunSpecial_Bullet.SetActive(true);
         }
         else
         {
+            if(_sfxSource != null)
+            {
+                if (GunIndex == 4)
+                {
+                    MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, 21, _sfxSource);
+                }
+                else if (GunIndex == 5)
+                {
+                    MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, 22, _sfxSource);
+                }
+                _sfxSource = null;
+            }
             Item_GunSpecial_Bullet.SetActive(false);
         }
     }

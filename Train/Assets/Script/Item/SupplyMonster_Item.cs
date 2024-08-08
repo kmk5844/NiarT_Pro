@@ -1,3 +1,4 @@
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,8 @@ public class SupplyMonster_Item : MonoBehaviour
     [SerializeField]
     ItemDataObject Item;
     UseItem useitemScript;
+
+    public AudioClip GetItemSFX;
 
     Vector2 SupplyItem_Position;
     bool bounceFlag;
@@ -103,6 +106,7 @@ public class SupplyMonster_Item : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            MMSoundManagerSoundPlayEvent.Trigger(GetItemSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
             useitemScript.Get_SupplyItem(Item.Num);
             Destroy(gameObject);
         }

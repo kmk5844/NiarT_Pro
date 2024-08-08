@@ -1,8 +1,10 @@
 using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.Components;
 using UnityEngine.UI;
 
 public class DemoTutorial : MonoBehaviour
@@ -14,10 +16,14 @@ public class DemoTutorial : MonoBehaviour
 
     public AudioClip Tutorial_BGM;
 
-    int InGameCount;
-    int StationCount;
-    public GameObject[] InGame;
-    public GameObject[] Station;
+    int Count;
+    int MaxCount;
+    public int InGame_Max_Num;
+    public int Station_Max_Num;
+
+    string st = "";
+    public LocalizeSpriteEvent Image;
+
     bool T_InGame_F_Station;
 
     bool ClickFlag;
@@ -31,8 +37,8 @@ public class DemoTutorial : MonoBehaviour
         ClickFlag = true;
         PlayerStageNum = playerData.Stage;
 
-        InGameCount = 0;
-        StationCount = 0;
+        Count = 0;
+        MaxCount = 0;
 
         if(PlayerStageNum == 0)
         {
@@ -43,14 +49,20 @@ public class DemoTutorial : MonoBehaviour
             T_InGame_F_Station = false;
         }
 
+        Image.AssetReference.TableReference = "Tutorial_Table_Asset";
+
         if (T_InGame_F_Station)
         {
-            InGame[0].SetActive(true);
+            st = "In_";
+            MaxCount = InGame_Max_Num;
         }
         else
         {
-            Station[0].SetActive(true);
+            st = "St_";
+            MaxCount = Station_Max_Num;
         }
+        Image.AssetReference.TableEntryReference = st + Count;
+
         StartCoroutine(ClickDelay());
     }
 
@@ -68,14 +80,24 @@ public class DemoTutorial : MonoBehaviour
     {
         ClickFlag = false;
         nextText.gameObject.SetActive(false);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.5f);
         nextText.gameObject.SetActive(true);
         ClickFlag = true;
     }
 
     void ChangeImage()
     {
-        if(T_InGame_F_Station) // InGame
+        Count++;
+        if (Count < MaxCount)
+        {
+            Image.AssetReference.TableEntryReference = st + Count;
+        }
+        else
+        {
+            storyData.End_Tutorial(PlayerStageNum);
+        }
+
+/*        if(T_InGame_F_Station) // InGame
         {
             InGameCount++;
             if(InGameCount < InGame.Length)
@@ -100,6 +122,6 @@ public class DemoTutorial : MonoBehaviour
             {
                 storyData.End_Tutorial(PlayerStageNum);
             }
-        }
+        }*/
     }
 }
