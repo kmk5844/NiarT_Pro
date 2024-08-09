@@ -1,5 +1,37 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7538185384902093416
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4741079927591269212}
+  m_Layer: 0
+  m_Name: Erffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4741079927591269212
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7538185384902093416}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.9, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8496580487025117722}
+  m_Father: {fileID: 7976047841580440950}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7907666104797928302
 GameObject:
   m_ObjectHideFlags: 0
@@ -64,7 +96,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3038813298022747462}
-  - {fileID: 8496580487025117722}
+  - {fileID: 4741079927591269212}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -0.667, z: 0}
 --- !u!212 &7976047841580440945
@@ -142,6 +174,7 @@ MonoBehaviour:
   Fire_Zone: {fileID: 3038813298022747462}
   sprite_List: []
   fire_debuff_flag: 0
+  StunEffect: {fileID: 6224767322669133730}
   monster_SpawnPos: {x: 0, y: 0, z: 0}
   speed: 0
   max_xPos: 0
@@ -213,11 +246,23 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 7976047841580440950}
+    m_TransformParent: {fileID: 4741079927591269212}
     m_Modifications:
     - target: {fileID: 4723959084696243623, guid: d362c476fa3f55845a300f03c1236090, type: 3}
       propertyPath: m_Name
       value: StunObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 7063304253784090655, guid: d362c476fa3f55845a300f03c1236090, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7063304253784090655, guid: d362c476fa3f55845a300f03c1236090, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7063304253784090655, guid: d362c476fa3f55845a300f03c1236090, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7063304253784090655, guid: d362c476fa3f55845a300f03c1236090, type: 3}
       propertyPath: m_LocalPosition.x
@@ -225,7 +270,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7063304253784090655, guid: d362c476fa3f55845a300f03c1236090, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.86
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7063304253784090655, guid: d362c476fa3f55845a300f03c1236090, type: 3}
       propertyPath: m_LocalPosition.z
@@ -264,6 +309,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d362c476fa3f55845a300f03c1236090, type: 3}
+--- !u!1 &6224767322669133730 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4723959084696243623, guid: d362c476fa3f55845a300f03c1236090, type: 3}
+  m_PrefabInstance: {fileID: 1723769405171278341}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8496580487025117722 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7063304253784090655, guid: d362c476fa3f55845a300f03c1236090, type: 3}

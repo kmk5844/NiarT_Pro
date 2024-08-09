@@ -178,6 +178,7 @@ public class GameDirector : MonoBehaviour
         lastSpeedTime = 0;
         distance_lastSpeedTime = 0;
         timeBet = 0.1f - (EnginePower * 0.001f); //엔진 파워에 따라 결정
+        Debug.Log(timeBet);
         TrainSpeedUP = 1;
         distance_time = 0.1f;
         ChangeCursor(true);
@@ -497,11 +498,11 @@ public class GameDirector : MonoBehaviour
     }
     public void Level()
     {
-        MaxSpeed = TrainMaxSpeed + ((TrainMaxSpeed * (Level_MaxSpeed *10)) / 100); // 많을 수록 유리
+        MaxSpeed = TrainMaxSpeed + ((TrainMaxSpeed * Level_MaxSpeed) / 100); // 많을 수록 유리
         MaxSpeed = MaxSpeed - (TrainWeight / 100000); //무게로 인해 speed 감소
 
-        Efficient = TrainEfficient - ((TrainEfficient * (Level_Efficient * 10)) / 100); // 적을 수록 유리
-        EnginePower = TrainEnginePower + ((TrainEnginePower * (Level_EngineTier * 10)) / 100); // 클수록 유리
+        Efficient = TrainEfficient - (Level_Efficient / 2); // 적을 수록 유리
+        EnginePower = (TrainEnginePower + Level_EngineTier);
     }
 
     public void Game_MonsterHit(float slow)

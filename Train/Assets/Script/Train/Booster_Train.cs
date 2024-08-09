@@ -22,6 +22,7 @@ public class Booster_Train : MonoBehaviour
     float lastTime;
     int count;
 
+    public GameObject effectObject;
 
     void Start()
     {
@@ -33,6 +34,7 @@ public class Booster_Train : MonoBehaviour
         UseFuel = trainData.Train_UseFuel;
         BoosterSpeedUP = trainData.Train_BoosterSpeedUP;
         Corutine_BoosterFlag = false;
+        effectObject.SetActive(false);
 
         timebet = 0.05f;
         lastTime = Time.time;
@@ -67,7 +69,6 @@ public class Booster_Train : MonoBehaviour
             if (WarningSpeed > SpeedPercent)
             {
                 BoosterFlag = true;
-                Debug.Log("부스터 ON");
                 lastTime = Time.time;
             }
         }
@@ -79,16 +80,16 @@ public class Booster_Train : MonoBehaviour
                 {
                     gameDirector.TrainSpeed += BoosterSpeedUP;
                     BoosterFuel -= UseFuel; // 소모량은 2배로 한다.
-                    Debug.Log("부스터 ONNNNNNNNN");
                     lastTime = Time.time;
+                    effectObject.SetActive(true);
                 }
                 else
                 {
                     BoosterFuel = 0;
                     FuelFlag = false;
                     BoosterFlag = false;
-                    Debug.Log("부스터 OFF");
                     lastTime = Time.time;
+                    effectObject.SetActive(false);
                 }
             }
         }

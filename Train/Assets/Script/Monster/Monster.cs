@@ -77,6 +77,8 @@ public class Monster : MonoBehaviour
     float default_LocalScale_Y;
     float default_LocalScale_Z;
 
+    public GameObject StunEffect;
+
     protected virtual void Start()
     {
         lastTime = Time.time;
@@ -148,6 +150,8 @@ public class Monster : MonoBehaviour
             Item_Monster_Speed_ChangeFlag = true;
             Item_Monster_SpeedFlag = true;
         }
+
+        StunEffect.SetActive(false);
     }
 
     protected virtual void Update()
@@ -275,7 +279,6 @@ public class Monster : MonoBehaviour
         }
         if(monster_gametype == Monster_GameType.Stun_Bullet_Debuff)
         {
-            Debug.Log("±âÀý");
         }
     }
 
@@ -484,7 +487,9 @@ public class Monster : MonoBehaviour
         {
             Monster_GameType BeforeGameType = monster_gametype;
             monster_gametype = Monster_GameType.Stun_Bullet_Debuff;
+            StunEffect.SetActive(true);
             yield return new WaitForSeconds(5);
+            StunEffect.SetActive(false);
             monster_gametype = BeforeGameType;
         }
     }
