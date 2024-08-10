@@ -17,7 +17,7 @@ public class Item_MiniDron : MonoBehaviour
     [SerializeField]
     GameObject SpriteObject;
     Vector2 SpriteObject_InitPos;
-    BoxCollider2D DefaultDron_BoxCollider;
+    public BoxCollider2D DefaultDron_BoxCollider;
     public GameObject RaserObject;
 
     void Start()
@@ -27,7 +27,7 @@ public class Item_MiniDron : MonoBehaviour
             DronAtk = 10;
         }
         MiniDronRid2d = GetComponent<Rigidbody2D>();
-        DefaultDron_BoxCollider = GetComponent<BoxCollider2D>();
+        //DefaultDron_BoxCollider = GetComponent<BoxCollider2D>();
 
         if(type == MiniDronType.DefaultDron)
         {
