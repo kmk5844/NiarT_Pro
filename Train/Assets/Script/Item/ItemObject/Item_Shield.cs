@@ -24,7 +24,7 @@ public class Item_Shield : MonoBehaviour
             else
             {
                 HP -= monsterAtk;
-                Debug.Log(monsterAtk);
+                //Debug.Log(monsterAtk);
             }
             Destroy(collision.gameObject);
         }
