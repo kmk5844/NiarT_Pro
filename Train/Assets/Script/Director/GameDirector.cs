@@ -178,7 +178,7 @@ public class GameDirector : MonoBehaviour
         lastSpeedTime = 0;
         distance_lastSpeedTime = 0;
         timeBet = 0.1f - (EnginePower * 0.001f); //엔진 파워에 따라 결정
-        Debug.Log(timeBet);
+        //Debug.Log(timeBet);
         TrainSpeedUP = 1;
         distance_time = 0.1f;
         ChangeCursor(true);

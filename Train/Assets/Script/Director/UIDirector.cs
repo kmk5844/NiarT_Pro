@@ -66,10 +66,6 @@ public class UIDirector : MonoBehaviour
     bool PauseFlag;
     bool OptionFlag;
 
-    [Header("데모버전에서만 버튼 추가")]
-    public Button Retry_Button;
-    public Button Station_Button;
-
     private void Awake()
     {
         Equiped_Item_Image = new Image[Equiped_Item_List.childCount];
@@ -311,19 +307,5 @@ public class UIDirector : MonoBehaviour
         
         ItemCoolTime_Object.GetComponent<ItemCoolTime>().SetSetting(item);
         Instantiate(ItemCoolTime_Object, ItemCoolTime_List);
-    }
-
-
-    private void DemoCheck()
-    {
-        if (gamedirector.Stage_Num == 5)
-        {
-            Retry_Button.interactable = false;
-            Station_Button.onClick.AddListener(() => Demo_Station());
-        }
-        else
-        {
-            Station_Button.onClick.AddListener(() => Click_Station());
-        }
     }
 }

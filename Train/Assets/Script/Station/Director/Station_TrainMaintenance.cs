@@ -738,7 +738,7 @@ public class Station_TrainMaintenance : MonoBehaviour
     private void Check_Init_TrainTurretPartCard()
     {
         RectTransform ContentSize = Turret_Part_Content.GetComponent<RectTransform>();
-        ContentSize.sizeDelta = new Vector2(500 * Train_Turret_Part_Change_Num.Count, ContentSize.sizeDelta.y);
+        ContentSize.sizeDelta = new Vector2(500 * Train_Turret_Part_Change_Num.Count, 0);
         foreach(int num in Train_Turret_Part_Change_Num)
         {
             if(trainData.SA_TrainTurretData.SA_Train_Turret_ChangeNum(num) == -1)
@@ -760,7 +760,7 @@ public class Station_TrainMaintenance : MonoBehaviour
     private void Check_Init_TrainBoosterPartCard()
     {
         RectTransform ContentSize = Booster_Part_Content.GetComponent<RectTransform>();
-        ContentSize.sizeDelta = new Vector2(500 * Train_Booster_Part_Change_Num.Count, ContentSize.sizeDelta.y);
+        ContentSize.sizeDelta = new Vector2(500 * Train_Booster_Part_Change_Num.Count, 0);
         foreach (int num in Train_Booster_Part_Change_Num)
         {
             if (trainData.SA_TrainBoosterData.SA_Train_Booster_ChangeNum(num) == -1)

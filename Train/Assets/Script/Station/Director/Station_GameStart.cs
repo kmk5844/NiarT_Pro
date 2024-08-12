@@ -115,12 +115,14 @@ public class Station_GameStart : MonoBehaviour
 
         if(Fuel_Count == 0)
         {
+            GameStart_Information_Text.GetComponent<TextMeshProUGUI>().color = Color.red;
             GameStart_Information_Text.StringReference.TableEntryReference = "UI_GameStart_Start_Information_Text_0";
             //TrainText.text = "원활한 게임 플레이를 위해\n최소 연료 기차 한 대가 필요합니다.";
             GameStart_Button.interactable = false;
         }
         else
         {
+            GameStart_Information_Text.GetComponent<TextMeshProUGUI>().color = Color.white;
             GameStart_Information_Text.StringReference.TableEntryReference = "UI_GameStart_Start_Information_Text_1";
             //TrainText.text = "게임 시작이 가능합니다.";
             GameStart_Button.interactable = true;

@@ -33,7 +33,7 @@ public class SA_StoryData : ScriptableObject
             case 4:
                 LoadingManager.LoadScene("Story");
                 break;
-            case 6:
+            case 8:
                 LoadingManager.LoadScene("Demo_End");
                 break;
         }
@@ -77,7 +77,7 @@ public class SA_StoryData : ScriptableObject
 
     public void End_Demo(int PlayerData)
     {
-        if (PlayerData == 5)
+        if (PlayerData == 8)
         {
             Debug.Log(PlayerData);
             LoadingManager.LoadScene("Demo_End");

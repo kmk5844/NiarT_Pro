@@ -85,6 +85,12 @@ public class Station_PlayerData : MonoBehaviour
         Player_Coin = SA_PlayerData.Coin;
     }
 
+    public void Player_Get_Point(int Point)
+    {
+        SA_PlayerData.SA_Get_Point(Point);
+        Player_Point = SA_PlayerData.Point;
+    }
+
     public int Check_Cost_Player(int num)
     {
         switch (num)

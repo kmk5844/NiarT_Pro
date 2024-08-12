@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class ItemUse_Window_57 : MonoBehaviour
 {
-    public SA_PlayerData playerData;
+    public Station_PlayerData playerData;
     public TextMeshProUGUI PlayerPoint;
 
     private void OnEnable()
     {
-        playerData.SA_Get_Point(1);
-        PlayerPoint.text = (playerData.Point - 1) + " - > <color=red>" + playerData.Point + "</color>";
+        playerData.Player_Get_Point(1);
+        PlayerPoint.text = (playerData.Player_Point - 1) + " - > <color=red>" + playerData.Player_Point + "</color>";
     }
 }

@@ -275,7 +275,9 @@ public class Mercenary : MonoBehaviour
         CoolTime_Guage_Object.SetActive(true);
         refreshStartTime = Time.time;
         Refresh_Delay = Random.Range(Min_Refresh_Delay, Max_Refresh_Delay);
-        if(Item_Refresh_DelayPercent == 0)
+        rb2D.velocity = Vector2.zero;
+
+        if (Item_Refresh_DelayPercent == 0)
         {
             Item_Refresh_Delay = 0;
         }

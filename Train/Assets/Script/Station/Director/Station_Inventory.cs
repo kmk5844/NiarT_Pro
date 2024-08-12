@@ -8,11 +8,10 @@ using UnityEngine.Localization.Components;
 using System;
 public class Station_Inventory : MonoBehaviour
 {
+    StationDirector stationDirector;
     [Header("单捞磐 包府")]
     [SerializeField]
     Station_ItemData Data_ItemList;
-    [SerializeField]
-    SA_PlayerData playerData;
     [Header("积己 包府")]
     public ItemList_Object ItemObject;
     public ItemList_Tooltip TooltipObject;
@@ -37,6 +36,8 @@ public class Station_Inventory : MonoBehaviour
 
     private void Start()
     {
+        stationDirector = GetComponentInParent<StationDirector>();
+
         UI_UseItem_Num = 0;
         ItemObject.Inventory_Director = GetComponent<Station_Inventory>();
         ItemObject.item_tooltip_object = TooltipObject;
@@ -242,6 +243,7 @@ public class Station_Inventory : MonoBehaviour
                 break;
         }
         UI_UseItem_Num = -1;
+        stationDirector.Check_CoinAndPoint();
     }
 
     public void Director_Init_Inventory()

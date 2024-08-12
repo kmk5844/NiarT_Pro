@@ -166,7 +166,7 @@ public class MonsterDirector : MonoBehaviour
 
         if (!Bossflag)
         {
-            yield return new WaitForSeconds(Random.Range(1f, 6f));
+            yield return new WaitForSeconds(Random.Range(1f, 4f));
             int MonsterRandomIndex = Random.Range(0, Emerging_Monster_List.Count);
             Check_Sky_OR_Ground_Monster(Emerging_Monster_List[MonsterRandomIndex], Bossflag);
         }
@@ -181,7 +181,7 @@ public class MonsterDirector : MonoBehaviour
     IEnumerator AppearSupplyMonster()
     {
         isSupplySpawing = true;
-        yield return new WaitForSeconds(Random.Range(25f, 40f));
+        yield return new WaitForSeconds(Random.Range(10f, 20f));
         Random_xPos = Random.Range(MinPos_Sky.x, MaxPos_Sky.x);
         Random_yPos = Random.Range(MinPos_Sky.y, MaxPos_Sky.y);
         Instantiate(SupplyMonster_Object, new Vector3(Random_xPos, Random_yPos, 0), Quaternion.identity, SupplyMonster_List);

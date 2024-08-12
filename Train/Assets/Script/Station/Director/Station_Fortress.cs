@@ -339,7 +339,14 @@ public class Station_Fortress : MonoBehaviour
                         "\n" + local_string[1].GetLocalizedString() + " : " + data_after.Level_Type_Fuel +
                         "\n" + local_string[2].GetLocalizedString() + " : " + data_after.Level_Type_Def;
                 Mercenary_Upgrade_Text[0].text = mercenaryData.EX_Level_Data.Level_Mercenary_Engine_Driver[mercenaryData.Level_Mercenary[i]].Upgrade_Cost + "G";
-                Mercenary_Upgrade_Text[1].text = Material_Max_Count.ToString();
+                if(Material_Max_Count > mercenaryData.EX_Level_Data.Level_Mercenary_Engine_Driver[mercenaryData.Level_Mercenary[i]].Material)
+                {
+                    Mercenary_Upgrade_Text[1].text = Material_Max_Count.ToString();
+                }
+                else
+                {
+                    Mercenary_Upgrade_Text[1].text = "<color=red>" + Material_Max_Count + "</color>";
+                }
                 Mercenary_Upgrade_Text[2].text = mercenaryData.EX_Level_Data.Level_Mercenary_Engine_Driver[mercenaryData.Level_Mercenary[i]].Material.ToString();
             }
         }
@@ -366,7 +373,14 @@ public class Station_Fortress : MonoBehaviour
                         "\n" + local_string[4].GetLocalizedString() + " : " + data_after.Repair_Amount +
                         "\n" + local_string[5].GetLocalizedString() + " : " + data_after.Repair_Train_Parsent;
                 Mercenary_Upgrade_Text[0].text = mercenaryData.EX_Level_Data.Level_Mercenary_Engineer[mercenaryData.Level_Mercenary[i]].Upgrade_Cost + "G";
-                Mercenary_Upgrade_Text[1].text = Material_Max_Count.ToString();
+                if (Material_Max_Count > mercenaryData.EX_Level_Data.Level_Mercenary_Engineer[mercenaryData.Level_Mercenary[i]].Material)
+                {
+                    Mercenary_Upgrade_Text[1].text = Material_Max_Count.ToString();
+                }
+                else
+                {
+                    Mercenary_Upgrade_Text[1].text = "<color=red>" + Material_Max_Count + "</color>";
+                }
                 Mercenary_Upgrade_Text[2].text = mercenaryData.EX_Level_Data.Level_Mercenary_Engineer[mercenaryData.Level_Mercenary[i]].Material.ToString();
             }
         }
@@ -391,7 +405,14 @@ public class Station_Fortress : MonoBehaviour
                         local_string[6].GetLocalizedString() + " : " + data_after.Unit_Attack +
                         "\n" + local_string[7].GetLocalizedString() + " : " + data_after.Unit_Atk_Delay;
                 Mercenary_Upgrade_Text[0].text = mercenaryData.EX_Level_Data.Level_Mercenary_Long_Ranged[mercenaryData.Level_Mercenary[i]].Upgrade_Cost + "G";
-                Mercenary_Upgrade_Text[1].text = Material_Max_Count.ToString();
+                if (Material_Max_Count > mercenaryData.EX_Level_Data.Level_Mercenary_Long_Ranged[mercenaryData.Level_Mercenary[i]].Material)
+                {
+                    Mercenary_Upgrade_Text[1].text = Material_Max_Count.ToString();
+                }
+                else
+                {
+                    Mercenary_Upgrade_Text[1].text = "<color=red>" + Material_Max_Count + "</color>";
+                }
                 Mercenary_Upgrade_Text[2].text = mercenaryData.EX_Level_Data.Level_Mercenary_Long_Ranged[mercenaryData.Level_Mercenary[i]].Material.ToString();
             }
         }
@@ -416,7 +437,14 @@ public class Station_Fortress : MonoBehaviour
                         local_string[6].GetLocalizedString() + " : " + data_after.Unit_Attack +
                         "\n" + local_string[7].GetLocalizedString() + " : " + data_after.Unit_Atk_Delay;
                 Mercenary_Upgrade_Text[0].text = mercenaryData.EX_Level_Data.Level_Mercenary_Short_Ranged[mercenaryData.Level_Mercenary[i]].Upgrade_Cost + "G";
-                Mercenary_Upgrade_Text[1].text = Material_Max_Count.ToString();
+                if (Material_Max_Count > mercenaryData.EX_Level_Data.Level_Mercenary_Short_Ranged[mercenaryData.Level_Mercenary[i]].Material)
+                {
+                    Mercenary_Upgrade_Text[1].text = Material_Max_Count.ToString();
+                }
+                else
+                {
+                    Mercenary_Upgrade_Text[1].text = "<color=red>" + Material_Max_Count + "</color>";
+                }
                 Mercenary_Upgrade_Text[2].text = mercenaryData.EX_Level_Data.Level_Mercenary_Short_Ranged[mercenaryData.Level_Mercenary[i]].Material.ToString();
             }
         }
@@ -441,7 +469,14 @@ public class Station_Fortress : MonoBehaviour
                        local_string[8].GetLocalizedString() + " : " + data_after.Heal_Hp_Amount +
                         "\n" + local_string[9].GetLocalizedString() + " : " + data_after.Heal_HP_Parsent;
                 Mercenary_Upgrade_Text[0].text = mercenaryData.EX_Level_Data.Level_Mercenary_Medic[mercenaryData.Level_Mercenary[i]].Upgrade_Cost + "G";
-                Mercenary_Upgrade_Text[1].text = Material_Max_Count.ToString();
+                if (Material_Max_Count > mercenaryData.EX_Level_Data.Level_Mercenary_Medic[mercenaryData.Level_Mercenary[i]].Material)
+                {
+                    Mercenary_Upgrade_Text[1].text = Material_Max_Count.ToString();
+                }
+                else
+                {
+                    Mercenary_Upgrade_Text[1].text = "<color=red>" + Material_Max_Count + "</color>";
+                }
                 Mercenary_Upgrade_Text[2].text = mercenaryData.EX_Level_Data.Level_Mercenary_Medic[mercenaryData.Level_Mercenary[i]].Material.ToString();
             }
         }
@@ -469,7 +504,14 @@ public class Station_Fortress : MonoBehaviour
                         "\n" + local_string[11].GetLocalizedString() + " : " + data_after.Level_Type_Atk_Buff +
                         "\n" + local_string[12].GetLocalizedString() + " : " + data_after.Level_Type_Def_Buff;
                 Mercenary_Upgrade_Text[0].text = mercenaryData.EX_Level_Data.Level_Mercenary_Bard[mercenaryData.Level_Mercenary[i]].Upgrade_Cost + "G";
-                Mercenary_Upgrade_Text[1].text = Material_Max_Count.ToString();
+                if (Material_Max_Count > mercenaryData.EX_Level_Data.Level_Mercenary_Bard[mercenaryData.Level_Mercenary[i]].Material)
+                {
+                    Mercenary_Upgrade_Text[1].text = Material_Max_Count.ToString();
+                }
+                else
+                {
+                    Mercenary_Upgrade_Text[1].text = "<color=red>" + Material_Max_Count + "</color>";
+                }
                 Mercenary_Upgrade_Text[2].text = mercenaryData.EX_Level_Data.Level_Mercenary_Bard[mercenaryData.Level_Mercenary[i]].Material.ToString();
             }
         }
@@ -490,7 +532,14 @@ public class Station_Fortress : MonoBehaviour
                 After_Mercenary_Information.text =
                     local_string[13].GetLocalizedString() + " : " + data_after.Max_WorkCount;
                 Mercenary_Upgrade_Text[0].text = mercenaryData.EX_Level_Data.Level_Mercenary_CowBoy[mercenaryData.Level_Mercenary[i]].Upgrade_Cost + "G";
-                Mercenary_Upgrade_Text[1].text = Material_Max_Count.ToString();
+                if (Material_Max_Count > mercenaryData.EX_Level_Data.Level_Mercenary_CowBoy[mercenaryData.Level_Mercenary[i]].Material)
+                {
+                    Mercenary_Upgrade_Text[1].text = Material_Max_Count.ToString();
+                }
+                else
+                {
+                    Mercenary_Upgrade_Text[1].text = "<color=red>" + Material_Max_Count + "</color>";
+                }
                 Mercenary_Upgrade_Text[2].text = mercenaryData.EX_Level_Data.Level_Mercenary_CowBoy[mercenaryData.Level_Mercenary[i]].Material.ToString();
             }
         }

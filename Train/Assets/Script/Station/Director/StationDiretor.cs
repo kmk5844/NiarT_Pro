@@ -106,9 +106,6 @@ public class StationDirector : MonoBehaviour
         Content_Fortress_Button.onClick.AddListener(ShowNextBackGround);
         Content_Store_Button.onClick.AddListener(ShowPerviousBackGround);
 
-
-
-
         // 기차 정비소와 인벤토리의 토글
         TrainMaintenance_ToggleStart();
         Inventory_ToggleStart();
