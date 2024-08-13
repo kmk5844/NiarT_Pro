@@ -80,6 +80,8 @@ public class StationDirector : MonoBehaviour
     int ui_Inventory_Num;
     [Header("BGM")]
     public AudioClip StationBGM;
+    bool Ban_Flag;
+    bool Option_Flag;
 
     private void Start()
     {
@@ -133,6 +135,10 @@ public class StationDirector : MonoBehaviour
                 {
                     Click_Information_Back_Button();
                 }
+                else if (Ban_Flag)
+                {
+                    Close_Ban_CoinPoint();
+                }
                 else
                 {
                     Click_Home_Button();
@@ -146,6 +152,10 @@ public class StationDirector : MonoBehaviour
                 }else if (ItemSell_InventoryFlag)
                 {
                     Click_ItemSellBackButton();
+                }
+                else if (Ban_Flag)
+                {
+                    Close_Ban_CoinPoint();
                 }
                 else
                 {
@@ -180,6 +190,12 @@ public class StationDirector : MonoBehaviour
                 {
                     Click_Home_Button();
                 }
+            }
+
+
+            if (Option_Flag)
+            {
+                Click_Option_Back_Button();
             }
         }
     }
@@ -511,11 +527,13 @@ public class StationDirector : MonoBehaviour
     public void Click_Option_Button()
     {
         Option_Object.SetActive(true);
+        Option_Flag = true;
     }
 
     public void Click_Option_Back_Button()
     {
         Option_Object.SetActive(false);
+        Option_Flag = false;
     }
 
     public void Click_MainMenu_Button()
@@ -545,11 +563,13 @@ public class StationDirector : MonoBehaviour
             Coin_Ban_Text.SetActive(false);
             Point_Ban_Text.SetActive(true);
         }
+        Ban_Flag = true;
     }
 
     public void Close_Ban_CoinPoint()
     {
         Ban_Panel.SetActive(false);
+        Ban_Flag = false;
     }
 
     public void Total_Init() {

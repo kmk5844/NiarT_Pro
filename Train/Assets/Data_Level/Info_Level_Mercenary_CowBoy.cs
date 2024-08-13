@@ -11,4 +11,5 @@ public class Info_Level_Mercenary_CowBoy
     public int Def;
     public int Upgrade_Cost;
     public int Material;
+    public int NextLevel_WorkCount;
 }

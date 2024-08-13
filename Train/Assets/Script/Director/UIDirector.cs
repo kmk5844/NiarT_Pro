@@ -62,6 +62,7 @@ public class UIDirector : MonoBehaviour
     public List<int> GetItemList_Num;
     public Transform GetItemList_Transform;
     public GameObject GetItemList_Object;
+    public ResultItem_Tooltip Tooltip_Object;
 
     bool PauseFlag;
     bool OptionFlag;
@@ -105,7 +106,6 @@ public class UIDirector : MonoBehaviour
         ItemInformation_Object_Flag = false;
         ItemInformation_Object_TimeDelay = 5f;
     }
-
     private void Update()
     {
         if(gamedirector.gameType == GameType.Ending || gamedirector.gameType == GameType.GameEnd)
@@ -167,8 +167,9 @@ public class UIDirector : MonoBehaviour
 
         for(int i = 0; i < GetItemList_Num.Count; i++)
         {
-            Image img = GetItemList_Object.GetComponentInChildren<Image>();
-            img.sprite = itemList.Item[GetItemList_Num[i]].Item_Sprite;
+            ResultObject _resultobject = GetItemList_Object.GetComponent<ResultObject>();
+            _resultobject.item = itemList.Item[GetItemList_Num[i]];
+            _resultobject.item_tooltip_object = Tooltip_Object;
             Instantiate(GetItemList_Object, GetItemList_Transform);
         }
 

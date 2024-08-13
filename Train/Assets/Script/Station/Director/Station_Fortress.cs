@@ -519,8 +519,12 @@ public class Station_Fortress : MonoBehaviour
         {
             var data_before = mercenaryData.EX_Level_Data.Level_Mercenary_CowBoy[mercenaryData.Level_Mercenary[i]];
             var data_after = mercenaryData.EX_Level_Data.Level_Mercenary_CowBoy[mercenaryData.Level_Mercenary[i] + 1];
+            int count_level = (mercenaryData.Level_Mercenary[i] / 2) + 1;
+
             Before_Mercenary_Information.text =
-                 local_string[13].GetLocalizedString() + " : " + data_before.Max_WorkCount;
+                 local_string[13].GetLocalizedString() + " : " + data_before.Max_WorkCount +
+                 "\n" + local_string[14].GetLocalizedString() + " " +data_before.NextLevel_WorkCount
+                 + " " + local_string[15].GetLocalizedString();
             if (mercenaryData.Level_Mercenary[i] + 1 == mercenaryData.Max_Mercenary[i] + 1)
             {
                 After_Mercenary_Information.text =

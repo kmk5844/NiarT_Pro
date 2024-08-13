@@ -512,8 +512,6 @@ public class Station_TrainMaintenance : MonoBehaviour
             Check_Change_Button_Interactable();
             Check_Part_Flag();
         }
-        Debug.Log(UI_Train_Turret_Flag);
-        Debug.Log(UI_Train_Booster_Flag);
     }
 
     public void Button_Train_Add()
@@ -632,19 +630,26 @@ public class Station_TrainMaintenance : MonoBehaviour
     {
         if (UI_Train_Num == 0)
         {
-            Change_Button.interactable = (ChangeFlag) ? false : false; ;
+            Change_Button.interactable = (ChangeFlag) ? false : false;
         }
         else
         {
             if(UI_TrainList.GetChild(UI_Train_Num).name == Toggle_Train_Num.ToString())
             {
-                Change_Button.interactable = (ChangeFlag) ? false : false; ;
+                Change_Button.interactable = (ChangeFlag) ? false : false;
             }
             else
             {
                 if(Toggle_Train_Num == 52 && trainData.Train_Num.Contains(52))
                 {
-                    Change_Button.interactable = (ChangeFlag) ? false : false; ;
+                    if(trainData.SA_TrainData.Train_Num[UI_Train_Num] == 52)
+                    {
+                        Change_Button.interactable = true;
+                    }
+                    else
+                    {
+                        Change_Button.interactable = false;
+                    }
                 }
                 else
                 {
