@@ -413,7 +413,7 @@ public class Station_TrainMaintenance : MonoBehaviour
     private void Check_Init_TrainCard()
     {
         RectTransform ContentSize = Train_Change_Content.GetComponent<RectTransform>();
-        ContentSize.sizeDelta = new Vector2(300 * Train_Change_Num.Count, ContentSize.sizeDelta.y);
+        ContentSize.sizeDelta = new Vector2(200 * Train_Change_Num.Count, ContentSize.sizeDelta.y);
         foreach (int num in Train_Change_Num)
         {
             if(trainData.SA_TrainData.SA_TrainChangeNum(num) == -1)
@@ -738,7 +738,7 @@ public class Station_TrainMaintenance : MonoBehaviour
     private void Check_Init_TrainTurretPartCard()
     {
         RectTransform ContentSize = Turret_Part_Content.GetComponent<RectTransform>();
-        ContentSize.sizeDelta = new Vector2(500 * Train_Turret_Part_Change_Num.Count, 0);
+        ContentSize.sizeDelta = new Vector2(360 * (Train_Turret_Part_Change_Num.Count - 1), 0);
         foreach(int num in Train_Turret_Part_Change_Num)
         {
             if(trainData.SA_TrainTurretData.SA_Train_Turret_ChangeNum(num) == -1)
@@ -760,7 +760,7 @@ public class Station_TrainMaintenance : MonoBehaviour
     private void Check_Init_TrainBoosterPartCard()
     {
         RectTransform ContentSize = Booster_Part_Content.GetComponent<RectTransform>();
-        ContentSize.sizeDelta = new Vector2(500 * Train_Booster_Part_Change_Num.Count, 0);
+        ContentSize.sizeDelta = new Vector2(360 * (Train_Booster_Part_Change_Num.Count - 1), 0);
         foreach (int num in Train_Booster_Part_Change_Num)
         {
             if (trainData.SA_TrainBoosterData.SA_Train_Booster_ChangeNum(num) == -1)
@@ -1010,9 +1010,9 @@ public class Station_TrainMaintenance : MonoBehaviour
                 train = trainData.EX_Game_Data.Information_Train_Turret_Part[trainData.SA_TrainTurretData.Train_Turret_Num[UI_Train_Turret_Num] + 1];
                 After_Text.text =
                     "  Lv : " + (trainData.SA_TrainTurretData.Train_Turret_Num[UI_Train_Turret_Num] + 2) % 10
-                    + "\nHP : <color=red>" + train.Train_HP
-                    + "\n</color>Weight : <color=red>" + train.Train_Weight
-                    + "\n</color>Armor : <color=red>" + train.Train_Armor;
+                    + "\nHP : <color=green>" + train.Train_HP
+                    + "\n</color>Weight : <color=green>" + train.Train_Weight
+                    + "\n</color>Armor : <color=green>" + train.Train_Armor;
             }
             else if (trainData.SA_TrainTurretData.Train_Turret_Num[UI_Train_Turret_Num] % 10 == 9)
             {
@@ -1047,9 +1047,9 @@ public class Station_TrainMaintenance : MonoBehaviour
                 train = trainData.EX_Game_Data.Information_Train_Booster_Part[trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num]];
                 After_Text.text =
                     "  Lv : " + (trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num] + 2) % 10
-                    + "\nHP : <color=red>" + train.Train_HP
-                    + "\n</color>Weight : <color=red>" + train.Train_Weight
-                    + "\n</color>Armor : <color=red>" + train.Train_Armor;
+                    + "\nHP : <color=green>" + train.Train_HP
+                    + "\n</color>Weight : <color=green>" + train.Train_Weight
+                    + "\n</color>Armor : <color=green>" + train.Train_Armor;
             }
             else if (trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num] % 10 == 9)
             {
@@ -1086,9 +1086,9 @@ public class Station_TrainMaintenance : MonoBehaviour
                 train = trainData.EX_Game_Data.Information_Train[trainData.Train_Num[UI_Train_Num] + 1];
                 After_Text.text =
                     "  Lv : " + (trainData.Train_Num[UI_Train_Num] + 2) % 10
-                    + "\nHP : <color=red>" + train.Train_HP
-                    + "\n</color>Weight : <color=red>" + train.Train_Weight
-                    + "\n</color>Armor : <color=red>" + train.Train_Armor;
+                    + "\nHP : <color=green>" + train.Train_HP
+                    + "\n</color>Weight : <color=green>" + train.Train_Weight
+                    + "\n</color>Armor : <color=green>" + train.Train_Armor;
             }
             else if (trainData.Train_Num[UI_Train_Num] % 10 == 9)
             {
