@@ -35,12 +35,12 @@ public class Turret : MonoBehaviour
         if (flag)
         {
             Item_Attack_Delay += delay;
-            Debug.Log("attack : " + (Item_Attack_Delay + train_Attack_Delay));
+            //Debug.Log("attack : " + (Item_Attack_Delay + train_Attack_Delay));
         }
         else
         {
             Item_Attack_Delay -= delay;
-            Debug.Log("attack : " + (Item_Attack_Delay + train_Attack_Delay));
+            //Debug.Log("attack : " + (Item_Attack_Delay + train_Attack_Delay));
         }
     }
 
@@ -50,12 +50,12 @@ public class Turret : MonoBehaviour
         if (flag)
         {
             Item_Rotation_Delay += delay;
-            Debug.Log("rotation : " + (Item_Rotation_Delay + train_Rotation_Delay));
+            //Debug.Log("rotation : " + (Item_Rotation_Delay + train_Rotation_Delay));
         }
         else
         {
             Item_Rotation_Delay -= delay;
-            Debug.Log("rotation : " + (Item_Rotation_Delay + train_Rotation_Delay));
+            //Debug.Log("rotation : " + (Item_Rotation_Delay + train_Rotation_Delay));
         }
     }
 
