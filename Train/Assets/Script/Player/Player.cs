@@ -647,15 +647,15 @@ public class Player : MonoBehaviour
     {
         GameObject Dagger = Resources.Load<GameObject>("ItemObject/Dagger");
         yield return new WaitForSeconds(delayTime + 1);
-        Instantiate(Dagger, new Vector2(transform.position.x, transform.position.y + 0.5f), Quaternion.Euler(0, 0, 180), Player_Bullet_List);
+        Instantiate(Dagger, new Vector2(transform.position.x, transform.position.y ), Quaternion.Euler(0, 0, 180), Player_Bullet_List);
         yield return new WaitForSeconds(delayTime);
-        Instantiate(Dagger, new Vector2(transform.position.x, transform.position.y + 0.5f), Quaternion.Euler(0, 0, 135), Player_Bullet_List);
+        Instantiate(Dagger, new Vector2(transform.position.x, transform.position.y ), Quaternion.Euler(0, 0, 135), Player_Bullet_List);
         yield return new WaitForSeconds(delayTime);
-        Instantiate(Dagger, new Vector2(transform.position.x, transform.position.y + 0.5f), Quaternion.Euler(0, 0, 90), Player_Bullet_List);
+        Instantiate(Dagger, new Vector2(transform.position.x, transform.position.y ), Quaternion.Euler(0, 0, 90), Player_Bullet_List);
         yield return new WaitForSeconds(delayTime);
-        Instantiate(Dagger, new Vector2(transform.position.x, transform.position.y + 0.5f), Quaternion.Euler(0, 0, 45), Player_Bullet_List);
+        Instantiate(Dagger, new Vector2(transform.position.x, transform.position.y ), Quaternion.Euler(0, 0, 45), Player_Bullet_List);
         yield return new WaitForSeconds(delayTime);
-        Instantiate(Dagger, new Vector2(transform.position.x, transform.position.y + 0.5f), Quaternion.Euler(0, 0, 0), Player_Bullet_List);
+        Instantiate(Dagger, new Vector2(transform.position.x, transform.position.y ), Quaternion.Euler(0, 0, 0), Player_Bullet_List);
     }
 
     public IEnumerator Item_Change_Bullet(string BulletName, int delayTime)

@@ -33,7 +33,7 @@ public class Hit_Text_Damage : MonoBehaviour
 
         // 딜레이 시간 동안 텍스트 페이드 아웃
         float alphaPercent = ElapsedTime / DelayTime;
-        text.alpha = 0.7f - alphaPercent;
+        text.alpha = 1f - alphaPercent;
 
         // 텍스트가 완전히 사라지면 GameObject 파괴
         if (ElapsedTime >= DelayTime)

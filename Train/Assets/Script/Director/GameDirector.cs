@@ -150,7 +150,6 @@ public class GameDirector : MonoBehaviour
 
     //아이템부분
     bool ItemFlag_14; // 골드 2배
-
     void Awake()
     {
         gameType = GameType.Playing;
@@ -267,9 +266,18 @@ public class GameDirector : MonoBehaviour
 
             if ((TrainSpeed <= 0 || player.Player_HP <= 0) && GameStartFlag && !GameLoseFlag)
             {
+                int LoseNum = 0;
+                if(TrainSpeed <= 0)
+                {
+                    LoseNum = 0;
+                }
+                else if(player.Player_HP <= 0)
+                {
+                    LoseNum = 1;
+                }
                 TrainSpeed = 0;
                 GameLoseFlag = true;
-                Game_Lose();
+                Game_Lose(LoseNum);
             }
 
             if (!GameWinFlag || !GameLoseFlag)
@@ -325,9 +333,18 @@ public class GameDirector : MonoBehaviour
 
             if ((TrainSpeed <= 0 || player.Player_HP <= 0) && GameStartFlag && !GameLoseFlag)
             {
+                int LoseNum = 0;
+                if (TrainSpeed <= 0)
+                {
+                    LoseNum = 0;
+                }
+                else if (player.Player_HP <= 0)
+                {
+                    LoseNum = 1;
+                }
                 TrainSpeed = 0;
                 GameLoseFlag = true;
-                Game_Lose();
+                Game_Lose(LoseNum);
             }
         }
         else if (gameType == GameType.Ending)
@@ -604,7 +621,7 @@ public class GameDirector : MonoBehaviour
         return "F";
     }
 
-    private void Change_Game_End(bool WinFlag) // 이겼을 때
+    private void Change_Game_End(bool WinFlag, int LoseNum = -1) // 이겼을 때
     {
         gameType = GameType.GameEnd;
         Time.timeScale = 0f;
@@ -627,7 +644,7 @@ public class GameDirector : MonoBehaviour
             }
         }
 
-        uiDirector.Open_Result_UI(WinFlag, Stage_Num, Total_Score, Total_Coin, Check_Score(), Reward_Point);
+        uiDirector.Open_Result_UI(WinFlag, Stage_Num, Total_Score, Total_Coin, Check_Score(), Reward_Point, LoseNum);
     }
 
     private void Game_Win()
@@ -637,9 +654,9 @@ public class GameDirector : MonoBehaviour
         SA_PlayerData.SA_GameWinReward(Total_Coin, Reward_Point);
     }
 
-    private void Game_Lose()
+    private void Game_Lose(int losenum)
     {
-        Change_Game_End(false);
+        Change_Game_End(false, losenum);
         MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, BGM_ID);
         MMSoundManagerSoundPlayEvent.Trigger(LoseSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         SA_PlayerData.SA_GameLoseReward(Total_Coin);

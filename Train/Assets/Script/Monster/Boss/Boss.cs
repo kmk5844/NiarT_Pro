@@ -24,6 +24,7 @@ public class Boss : MonoBehaviour
     protected int Monster_Coin;
     [SerializeField]
     protected Image Boss_Guage;
+    public string Monster_Type;
 
     [Header("보스 총알 정보")]
     [SerializeField]
@@ -57,6 +58,7 @@ public class Boss : MonoBehaviour
         Monster_Max_HP = Monster_HP;
         Monster_Score = EX_GameData.Information_Boss[Boss_Num].Monster_Score;
         Monster_Coin = EX_GameData.Information_Boss[Boss_Num].Monster_Coin;
+        Monster_Type = EX_GameData.Information_Boss[Boss_Num].Monster_Type;
         Boss_Bullet = Resources.Load<GameObject>("Bullet/Monster/Boss" + Boss_Num);
         Boss_Guage = gameDirector.BossGuage;
         Bullet_Atk = EX_GameData.Information_Boss[Boss_Num].Monster_Atk;

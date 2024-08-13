@@ -24,8 +24,8 @@ public class LoadingManager : MonoBehaviour
         {
             Time.timeScale = 1f;
         }
-
-        StartCoroutine(LoadScene_LoadingBar());
+        SceneManager.LoadSceneAsync(nextScene);
+        // StartCoroutine(LoadScene_LoadingBar());
     }
 
     public static void LoadScene(string sceneName)

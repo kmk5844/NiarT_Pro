@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [CreateAssetMenu(fileName = "SA_StoryData", menuName = "Scriptable/StoryData", order = 5)]
 public class SA_StoryData : ScriptableObject
@@ -67,10 +68,12 @@ public class SA_StoryData : ScriptableObject
         switch (PlayerData)
         {
             case 0:
-                LoadingManager.LoadScene("CharacterSelect");
+                SceneManager.LoadSceneAsync("InGame");
+                //LoadingManager.LoadScene("InGame");
                 break;
             case 2:
-                LoadingManager.LoadScene("Station");
+                SceneManager.LoadSceneAsync("Station");
+                //LoadingManager.LoadScene("Station");
                 break;
         }
     }
@@ -79,7 +82,6 @@ public class SA_StoryData : ScriptableObject
     {
         if (PlayerData == 8)
         {
-            Debug.Log(PlayerData);
             LoadingManager.LoadScene("Demo_End");
         }
     }

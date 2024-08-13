@@ -531,9 +531,9 @@ public class Monster : MonoBehaviour
         }
         if (collision.gameObject.tag.Equals("Item"))
         {
-            if (collision.gameObject.name.Equals("MiniDron(Clone)"))
+            if (collision.gameObject.name.Equals("MiniDron_Col"))
             {
-                int atk = collision.GetComponent<Item_MiniDron>().DronAtk;
+                int atk = collision.GetComponentInParent<Item_MiniDron>().DronAtk;
                 Damage_Monster_BombAndDron(atk);
             }
         }

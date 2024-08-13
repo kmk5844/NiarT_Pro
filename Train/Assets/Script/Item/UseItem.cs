@@ -209,7 +209,10 @@ public class UseItem : MonoBehaviour
             case 68:
             case 69:
                 coolTime_Flag = false;
-                uiDirector.GetItemList_Num.Add(num);
+                if (!uiDirector.GetItemList_Num.Contains(num))
+                {
+                    uiDirector.GetItemList_Num.Add(num);
+                }
                 itemList.Item[num].Item_Count_UP();
                 break;
         }

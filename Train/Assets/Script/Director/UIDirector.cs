@@ -66,6 +66,14 @@ public class UIDirector : MonoBehaviour
     bool PauseFlag;
     bool OptionFlag;
 
+    [HideInInspector]
+    public bool LoseFlag;
+    [HideInInspector]
+    public int LoseText_Num;
+
+    [Header("키 튜토리얼")]
+    public GameObject KeyTutorial_Object;
+
     private void Awake()
     {
         Equiped_Item_Image = new Image[Equiped_Item_List.childCount];
@@ -81,10 +89,16 @@ public class UIDirector : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         gamedirector = GameDirector_Object.GetComponent<GameDirector>();
+        if(gamedirector.SA_PlayerData.Stage != 0)
+        {
+            KeyTutorial_Object.SetActive(false);
+        }
+
 
         ItemName_Text.StringReference.TableReference = "ItemData_Table_St";
         ItemInformation_Text.StringReference.TableReference = "ItemData_Table_St";
 
+        LoseFlag = false;   
         PauseFlag = false;
         OptionFlag = false;
 
@@ -130,7 +144,7 @@ public class UIDirector : MonoBehaviour
         Distance_Bar.value = gamedirector.Check_Distance();
     }
 
-    public void Open_Result_UI(bool Win, int StageNum, int Score, int Coin, string Score_Grade,int Point)
+    public void Open_Result_UI(bool Win, int StageNum, int Score, int Coin, string Score_Grade, int Point, int LoseNum = -1)
     {
         Result_Text_List[0].text = (StageNum + 1).ToString();
         Result_Text_List[1].text = Score.ToString(); // + "점";
@@ -144,10 +158,13 @@ public class UIDirector : MonoBehaviour
         }
         else
         {
+            LoseFlag = true;
+            LoseText_Num = LoseNum;
             Result_Text_List[3].text = "F";
             Result_Text_List[4].gameObject.SetActive(false);
             Result_Image.sprite = Result_Lose_Image;
         }
+
         for(int i = 0; i < GetItemList_Num.Count; i++)
         {
             Image img = GetItemList_Object.GetComponentInChildren<Image>();
@@ -304,7 +321,6 @@ public class UIDirector : MonoBehaviour
 
     public void ItemCoolTime_Instantiate(ItemDataObject item)
     {
-        
         ItemCoolTime_Object.GetComponent<ItemCoolTime>().SetSetting(item);
         Instantiate(ItemCoolTime_Object, ItemCoolTime_List);
     }

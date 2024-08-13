@@ -11,6 +11,7 @@ public class ItemUse_Window_53 : MonoBehaviour
     [Header("데이터 관리")]
     public GameObject itemData_object; 
     Station_ItemData itemData;
+    public Station_Inventory inventory;
 
     [Header("변환 전의 윈도우")]
     public GameObject BeforeConvertWindow;
@@ -305,6 +306,8 @@ public class ItemUse_Window_53 : MonoBehaviour
         //Result_Name_Text.text = Material_ToggleNum_ItemObject2.Item_Name;
         Result_Count_Text.text = Material_ToggleNum_ItemObject2.Item_Count.ToString();
         AfterConvertWindow.SetActive(true);
+        inventory.Check_ItemList(false, Material_ToggleNum_ItemObject1, convertCount);
+        inventory.Check_ItemList(true, Material_ToggleNum_ItemObject2, convertCount);
     }
 
     public void Button_Check()

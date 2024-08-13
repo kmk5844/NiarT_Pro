@@ -6,6 +6,14 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Localization.Settings;
 using System;
 
+[Serializable]
+public class storyStage
+{
+    public int stageNum;
+    public bool StartFlag;
+    public bool EndFlag;
+}
+
 public class GameManager : MonoBehaviour
 {
     #region ½Ì±ÛÅæ
@@ -39,7 +47,7 @@ public class GameManager : MonoBehaviour
     public SA_PlayerData PlayerData;
     public SA_StoryData StoryData;
     public SA_LocalData LocalData;
-    public List<int> Story_Equals_Stage; //ÀÓ½Ã·Î ³öµÐ°Í
+    public List<storyStage> story_List;
 
     Texture2D cursorOrigin;
     Vector2 cursorHotspot_Origin;
@@ -82,9 +90,11 @@ public class GameManager : MonoBehaviour
 
     public void Start_Enter()
     {
-        if (Story_Equals_Stage.Contains(PlayerData.Stage))
+        int index = story_List.FindIndex(x => x.stageNum == PlayerData.Stage);
+        if (index != -1 && !story_List[index].StartFlag)
         {
             StoryData.Start_Story(PlayerData.Stage);
+            story_List[index].StartFlag = true;
         }
         else
         {
@@ -94,9 +104,11 @@ public class GameManager : MonoBehaviour
 
     public void End_Enter()
     {
-        if (Story_Equals_Stage.Contains(PlayerData.Stage))
+        int index = story_List.FindIndex(x => x.stageNum == PlayerData.Stage);
+        if (index != -1 && !story_List[index].EndFlag)
         {
             StoryData.End_Story(PlayerData.Stage);
+            story_List[index].EndFlag = true;
         }
         else
         {
@@ -109,9 +121,19 @@ public class GameManager : MonoBehaviour
         StoryData.End_Demo(PlayerData.Stage);
     }
 
+    void StoryFlag_Init()
+    {
+        for(int i = 0; i < story_List.Count; i++)
+        {
+            story_List[i].StartFlag = false;
+            story_List[i].EndFlag = false;
+        }
+    }
+
     public void Game_Reset()
     {
         DataManager.Instance.Init();
+        StoryFlag_Init();
         SceneManager.LoadScene(0);
     }
 }

@@ -61,7 +61,7 @@ public class Monster_Boss_0 : Boss
         }
         catch
         {
-            //Debug.Log("테스트 진행 중");
+            Debug.Log("테스트 진행 중");
         }
     }
 
@@ -160,6 +160,7 @@ public class Monster_Boss_0 : Boss
             }
 
             int skillNum = Random.Range(0, 4);
+            skillNum = 1;
             if (skillNum == 0)
             {
                 StartCoroutine(Spawn_Egg_Skill());
@@ -290,8 +291,8 @@ public class Monster_Boss_0 : Boss
     {
         heal_flag = true;
         Monster_HP += (int)((Monster_Max_HP * 1) / 100f);
-/*        Debug.Log((Monster_Max_HP * 1) / 100f);
-        Debug.Log(Monster_HP);*/
+        Debug.Log((Monster_Max_HP * 1) / 100f);
+        Debug.Log(Monster_HP);
         //보스 치유하는 코드
         if (heal_count != heal_max_count)
         {
@@ -307,7 +308,7 @@ public class Monster_Boss_0 : Boss
 
     IEnumerator Spawn_Egg_Skill()
     {
-        int eggNum = Random.Range(4, 10);
+        int eggNum = Random.Range(1, 5);
         for (int i = 0; i < eggNum; i++)
         {
             Instantiate(Boss_Egg_Object, Monster_List);
@@ -332,14 +333,14 @@ public class Monster_Boss_0 : Boss
                     WarningMark.GetComponent<Warning_Boss_Skill_1>().GetBulletInformation(Bullet_Atk, Bullet_Slow);
                     count++;
 
-                    yield return new WaitForSeconds(0.1f);
+                    yield return new WaitForSeconds(0.2f);
                 }
                 else
                 {
                     break;
                 }
             }
-        }else if (num == 1)
+        } else if (num == 1)
         {
             int MaxCount = 15;
             while (true)

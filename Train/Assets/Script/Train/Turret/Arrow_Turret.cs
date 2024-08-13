@@ -128,7 +128,7 @@ public class Arrow_Turret : Turret
     {
         if (collision.CompareTag("Monster"))
         {
-            if (collision.GetComponent<Monster>().Monster_Type.Equals("Sky") || collision.GetComponent<Monster>().Monster_Type.Equals("Boss"))
+            if (collision.GetComponent<Monster>().Monster_Type.Equals("Sky") || collision.GetComponent<Boss>().Monster_Type.Equals("Boss"))
             {
                 if (Target == null)
                 {
@@ -142,7 +142,7 @@ public class Arrow_Turret : Turret
     {
         if (collision.CompareTag("Monster"))
         {
-            if (collision.GetComponent<Monster>().Monster_Type.Equals("Sky") || collision.GetComponent<Monster>().Monster_Type.Equals("Boss"))
+            if (collision.GetComponent<Monster>().Monster_Type.Equals("Sky") || collision.GetComponent<Boss>().Monster_Type.Equals("Boss"))
             {
                 if (Target == null)
                 {
@@ -160,7 +160,7 @@ public class Arrow_Turret : Turret
     {
         if (collision.CompareTag("Monster"))
         {
-            if (collision.GetComponent<Monster>().Monster_Type.Equals("Sky") || collision.GetComponent<Monster>().Monster_Type.Equals("Boss"))
+            if (collision.GetComponent<Monster>().Monster_Type.Equals("Sky") || collision.GetComponent<Boss>().Monster_Type.Equals("Boss"))
             {
                 if (collision.transform == Target)
                 {
