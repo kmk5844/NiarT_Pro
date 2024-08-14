@@ -51,7 +51,7 @@ public class BouncingBullet : Bullet
     {
         if (collision.gameObject.CompareTag("Monster"))
         {
-            collision.gameObject.GetComponent<Monster>().Damage_Monster_BombAndDron(atk/3);
+            collision.gameObject.GetComponent<Monster>().Damage_Monster_BombAndDron(atk - 10);
             Count++;
             Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 15);
             TargetFlag = false;

@@ -102,6 +102,7 @@ public class Station_Fortress : MonoBehaviour
             {
                 PlayerUP_Text[0].text = "Lv." + playerData.Level_Player_Atk + " / " + playerData.Cost_Player_Atk + " Point";
             }
+
             if (playerData.Level_Player_AtkDelay == playerData.Max_Player_AtkDelay)
             {
                 PlayerUP_Text[1].text = "Lv.MAX";
@@ -111,6 +112,7 @@ public class Station_Fortress : MonoBehaviour
             {
                 PlayerUP_Text[1].text = "Lv." + playerData.Level_Player_AtkDelay + " / " + playerData.Cost_Player_AtkDelay + " Point";
             }
+
             if (playerData.Level_Player_HP == playerData.Max_Player_HP)
             {
                 PlayerUP_Text[2].text = "Lv.MAX";
@@ -120,6 +122,7 @@ public class Station_Fortress : MonoBehaviour
             {
                 PlayerUP_Text[2].text = "Lv." + playerData.Level_Player_HP + " / " + playerData.Cost_Player_HP + " Point";
             }
+
             if (playerData.Level_Player_Armor == playerData.Max_Player_Armor)
             {
                 PlayerUP_Text[3].text = "Lv.MAX";
@@ -129,6 +132,7 @@ public class Station_Fortress : MonoBehaviour
             {
                 PlayerUP_Text[3].text = "Lv." + playerData.Level_Player_Armor + " / " + playerData.Cost_Player_Armor + " Point";
             }
+
             if (playerData.Level_Player_Speed == playerData.Max_Player_Speed)
             {
                 PlayerUP_Text[4].text = "Lv.MAX";
@@ -339,7 +343,7 @@ public class Station_Fortress : MonoBehaviour
                         "\n" + local_string[1].GetLocalizedString() + " : " + data_after.Level_Type_Fuel +
                         "\n" + local_string[2].GetLocalizedString() + " : " + data_after.Level_Type_Def;
                 Mercenary_Upgrade_Text[0].text = mercenaryData.EX_Level_Data.Level_Mercenary_Engine_Driver[mercenaryData.Level_Mercenary[i]].Upgrade_Cost + "G";
-                if(Material_Max_Count > mercenaryData.EX_Level_Data.Level_Mercenary_Engine_Driver[mercenaryData.Level_Mercenary[i]].Material)
+                if(Material_Max_Count >= mercenaryData.EX_Level_Data.Level_Mercenary_Engine_Driver[mercenaryData.Level_Mercenary[i]].Material)
                 {
                     Mercenary_Upgrade_Text[1].text = Material_Max_Count.ToString();
                 }
@@ -373,7 +377,7 @@ public class Station_Fortress : MonoBehaviour
                         "\n" + local_string[4].GetLocalizedString() + " : " + data_after.Repair_Amount +
                         "\n" + local_string[5].GetLocalizedString() + " : " + data_after.Repair_Train_Parsent;
                 Mercenary_Upgrade_Text[0].text = mercenaryData.EX_Level_Data.Level_Mercenary_Engineer[mercenaryData.Level_Mercenary[i]].Upgrade_Cost + "G";
-                if (Material_Max_Count > mercenaryData.EX_Level_Data.Level_Mercenary_Engineer[mercenaryData.Level_Mercenary[i]].Material)
+                if (Material_Max_Count >= mercenaryData.EX_Level_Data.Level_Mercenary_Engineer[mercenaryData.Level_Mercenary[i]].Material)
                 {
                     Mercenary_Upgrade_Text[1].text = Material_Max_Count.ToString();
                 }
@@ -405,7 +409,7 @@ public class Station_Fortress : MonoBehaviour
                         local_string[6].GetLocalizedString() + " : " + data_after.Unit_Attack +
                         "\n" + local_string[7].GetLocalizedString() + " : " + data_after.Unit_Atk_Delay;
                 Mercenary_Upgrade_Text[0].text = mercenaryData.EX_Level_Data.Level_Mercenary_Long_Ranged[mercenaryData.Level_Mercenary[i]].Upgrade_Cost + "G";
-                if (Material_Max_Count > mercenaryData.EX_Level_Data.Level_Mercenary_Long_Ranged[mercenaryData.Level_Mercenary[i]].Material)
+                if (Material_Max_Count >= mercenaryData.EX_Level_Data.Level_Mercenary_Long_Ranged[mercenaryData.Level_Mercenary[i]].Material)
                 {
                     Mercenary_Upgrade_Text[1].text = Material_Max_Count.ToString();
                 }
@@ -437,7 +441,7 @@ public class Station_Fortress : MonoBehaviour
                         local_string[6].GetLocalizedString() + " : " + data_after.Unit_Attack +
                         "\n" + local_string[7].GetLocalizedString() + " : " + data_after.Unit_Atk_Delay;
                 Mercenary_Upgrade_Text[0].text = mercenaryData.EX_Level_Data.Level_Mercenary_Short_Ranged[mercenaryData.Level_Mercenary[i]].Upgrade_Cost + "G";
-                if (Material_Max_Count > mercenaryData.EX_Level_Data.Level_Mercenary_Short_Ranged[mercenaryData.Level_Mercenary[i]].Material)
+                if (Material_Max_Count >= mercenaryData.EX_Level_Data.Level_Mercenary_Short_Ranged[mercenaryData.Level_Mercenary[i]].Material)
                 {
                     Mercenary_Upgrade_Text[1].text = Material_Max_Count.ToString();
                 }
@@ -469,7 +473,7 @@ public class Station_Fortress : MonoBehaviour
                        local_string[8].GetLocalizedString() + " : " + data_after.Heal_Hp_Amount +
                         "\n" + local_string[9].GetLocalizedString() + " : " + data_after.Heal_HP_Parsent;
                 Mercenary_Upgrade_Text[0].text = mercenaryData.EX_Level_Data.Level_Mercenary_Medic[mercenaryData.Level_Mercenary[i]].Upgrade_Cost + "G";
-                if (Material_Max_Count > mercenaryData.EX_Level_Data.Level_Mercenary_Medic[mercenaryData.Level_Mercenary[i]].Material)
+                if (Material_Max_Count >= mercenaryData.EX_Level_Data.Level_Mercenary_Medic[mercenaryData.Level_Mercenary[i]].Material)
                 {
                     Mercenary_Upgrade_Text[1].text = Material_Max_Count.ToString();
                 }
@@ -504,7 +508,7 @@ public class Station_Fortress : MonoBehaviour
                         "\n" + local_string[11].GetLocalizedString() + " : " + data_after.Level_Type_Atk_Buff +
                         "\n" + local_string[12].GetLocalizedString() + " : " + data_after.Level_Type_Def_Buff;
                 Mercenary_Upgrade_Text[0].text = mercenaryData.EX_Level_Data.Level_Mercenary_Bard[mercenaryData.Level_Mercenary[i]].Upgrade_Cost + "G";
-                if (Material_Max_Count > mercenaryData.EX_Level_Data.Level_Mercenary_Bard[mercenaryData.Level_Mercenary[i]].Material)
+                if (Material_Max_Count >= mercenaryData.EX_Level_Data.Level_Mercenary_Bard[mercenaryData.Level_Mercenary[i]].Material)
                 {
                     Mercenary_Upgrade_Text[1].text = Material_Max_Count.ToString();
                 }
@@ -536,7 +540,7 @@ public class Station_Fortress : MonoBehaviour
                 After_Mercenary_Information.text =
                     local_string[13].GetLocalizedString() + " : " + data_after.Max_WorkCount;
                 Mercenary_Upgrade_Text[0].text = mercenaryData.EX_Level_Data.Level_Mercenary_CowBoy[mercenaryData.Level_Mercenary[i]].Upgrade_Cost + "G";
-                if (Material_Max_Count > mercenaryData.EX_Level_Data.Level_Mercenary_CowBoy[mercenaryData.Level_Mercenary[i]].Material)
+                if (Material_Max_Count >= mercenaryData.EX_Level_Data.Level_Mercenary_CowBoy[mercenaryData.Level_Mercenary[i]].Material)
                 {
                     Mercenary_Upgrade_Text[1].text = Material_Max_Count.ToString();
                 }

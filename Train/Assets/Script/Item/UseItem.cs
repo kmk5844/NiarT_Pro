@@ -60,7 +60,7 @@ public class UseItem : MonoBehaviour
                 mercenaryDirector.Item_Use_Fatigue_Reliever(1, 10 ,30);
                 break;
             case 11:
-                StartCoroutine(player.Item_Player_AtkUP(5, 15));
+                StartCoroutine(player.Item_Player_AtkUP(5, 20));
                 break;
             case 12:
                 //플레이어 상태이상 제거;
@@ -78,7 +78,7 @@ public class UseItem : MonoBehaviour
                 mercenaryDirector.Item_Use_Snack(10);
                 break;
             case 17:
-                StartCoroutine(player.Item_Player_DoubleAtkUP(6));
+                StartCoroutine(player.Item_Player_DoubleAtkUP(5));
                 break;
             case 18:
                 player.Item_Player_Spawn_Claymore();

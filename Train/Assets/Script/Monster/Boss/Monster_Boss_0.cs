@@ -160,7 +160,6 @@ public class Monster_Boss_0 : Boss
             }
 
             int skillNum = Random.Range(0, 4);
-            skillNum = 1;
             if (skillNum == 0)
             {
                 StartCoroutine(Spawn_Egg_Skill());

@@ -16,6 +16,7 @@ public class GameDirector : MonoBehaviour
 
     [Header("게임 타입")]
     public GameType gameType;
+    GameType Before_GameType;
     [Header("데이터 모음")]
     public SA_TrainData SA_TrainData;
     public SA_TrainTurretData SA_TrainTurretData;
@@ -213,14 +214,15 @@ public class GameDirector : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (gameType == GameType.Playing)
+            if (gameType == GameType.Playing || gameType == GameType.Boss)
             {
+                Before_GameType = gameType;
                 gameType = GameType.Pause;
                 Time.timeScale = 0f;
             }
             else if (gameType == GameType.Pause)
             {
-                gameType = GameType.Playing;
+                gameType = Before_GameType;
                 Time.timeScale = 1f;
             }
         }

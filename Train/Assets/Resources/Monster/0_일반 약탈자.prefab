@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 7538185384902093416}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.9, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -72,9 +72,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7976047841580440950}
-  - component: {fileID: 7976047841580440945}
+  - component: {fileID: 3102294194950935420}
   - component: {fileID: 4220511369484635780}
   - component: {fileID: -3259779365467001941}
+  - component: {fileID: 1844775356560762191}
   m_Layer: 8
   m_Name: "0_\uC77C\uBC18 \uC57D\uD0C8\uC790"
   m_TagString: Monster
@@ -99,7 +100,7 @@ Transform:
   - {fileID: 4741079927591269212}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -0.667, z: 0}
---- !u!212 &7976047841580440945
+--- !u!212 &3102294194950935420
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,12 +141,12 @@ SpriteRenderer:
   m_SortingLayerID: 375295091
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1832871352, guid: c54a3e543c1bcde4588a7d5dd473f7b4, type: 3}
+  m_Sprite: {fileID: -1579107026, guid: 961a27df6f5cf154998a20604baf6283, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.49, y: 0.49}
+  m_Size: {x: 1.19, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -210,12 +211,12 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.05, y: 0.3}
+  m_Offset: {x: -0.05, y: -0.03}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.41571152, y: 0.10432231}
-    oldSize: {x: 0.8, y: 0.79}
-    newSize: {x: 0.49, y: 0.49}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.19, y: 1}
+    newSize: {x: 1.19, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -240,6 +241,27 @@ PolygonCollider2D:
       - {x: 0.027167745, y: -0.334404}
       - {x: 0.08475497, y: -0.32484394}
   m_UseDelaunayMesh: 0
+--- !u!95 &1844775356560762191
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7976047841580440944}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ba595e672ad0d4744a196af74cd63ed1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1723769405171278341
 PrefabInstance:
   m_ObjectHideFlags: 0

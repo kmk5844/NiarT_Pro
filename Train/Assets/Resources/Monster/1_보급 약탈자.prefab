@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 3298821476191781750}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.9, z: 0}
+  m_LocalPosition: {x: 0, y: 0.65, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -73,8 +73,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7976047841580440950}
   - component: {fileID: 7976047841580440945}
-  - component: {fileID: -854146462781172301}
+  - component: {fileID: -4160803287482103724}
   - component: {fileID: 4024666424673410767}
+  - component: {fileID: 3441936903811426721}
   m_Layer: 8
   m_Name: "1_\uBCF4\uAE09 \uC57D\uD0C8\uC790"
   m_TagString: Monster
@@ -140,7 +141,7 @@ SpriteRenderer:
   m_SortingLayerID: 375295091
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: -713827982, guid: 6e364840172be4646a652ea76e94ad7e, type: 3}
+  m_Sprite: {fileID: -1923869428, guid: 3d99df4842eee134c950b6cf18343702, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -151,7 +152,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-854146462781172301
+--- !u!114 &-4160803287482103724
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -160,7 +161,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7976047841580440944}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c274d8b729d90064cb7ae25bcf46dcdf, type: 3}
+  m_Script: {fileID: 11500000, guid: 25fbb14e38790374a99a5755632d0980, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   monster_gametype: 0
@@ -211,11 +212,11 @@ PolygonCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.19}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.4278409, y: 0.34569746}
-    oldSize: {x: 0.81, y: 1.08}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.19, y: 1.27}
     newSize: {x: 0.49, y: 0.49}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -244,6 +245,27 @@ PolygonCollider2D:
       - {x: 0.14627373, y: 0.27148822}
       - {x: 0.062737286, y: -0.05520988}
   m_UseDelaunayMesh: 0
+--- !u!95 &3441936903811426721
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7976047841580440944}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 87c75a4a125b17e4f9d8fe6179cfcedd, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &395212173072749947
 PrefabInstance:
   m_ObjectHideFlags: 0

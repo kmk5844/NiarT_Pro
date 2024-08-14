@@ -131,14 +131,23 @@ public class Raser_Turret : Turret
     {
         if (collision.CompareTag("Monster"))
         {
-            if (collision.GetComponent<Monster>().Monster_Type.Equals("Sky") || collision.GetComponent<Boss>().Monster_Type.Equals("Boss"))
+            if (collision.GetComponent<Monster>().Monster_Type.Equals("Sky"))
+            {
+                if (collision.GetComponent<Monster>() != null)
+                {
+                    if (Target == null)
+                    {
+                        Target = collision.transform;
+                    }
+                }
+            }
+            else if (collision.GetComponent<Boss>() != null)
             {
                 if (Target == null)
                 {
                     Target = collision.transform;
                 }
             }
-
         }
     }
 
@@ -146,7 +155,21 @@ public class Raser_Turret : Turret
     {
         if (collision.CompareTag("Monster"))
         {
-            if (collision.GetComponent<Monster>().Monster_Type.Equals("Sky") || collision.GetComponent<Boss>().Monster_Type.Equals("Boss"))
+            if (collision.GetComponent<Monster>() != null)
+            {
+                if (collision.GetComponent<Monster>().Monster_Type.Equals("Sky"))
+                {
+                    if (Target == null)
+                    {
+                        Target = collision.transform;
+                    }
+                    if (collision.transform != Target)
+                    {
+                        return;
+                    }
+                }
+            }
+            else if (collision.GetComponent<Boss>() != null)
             {
                 if (Target == null)
                 {
@@ -164,7 +187,17 @@ public class Raser_Turret : Turret
     {
         if (collision.CompareTag("Monster"))
         {
-            if (collision.GetComponent<Monster>().Monster_Type.Equals("Sky") || collision.GetComponent<Boss>().Monster_Type.Equals("Boss")) 
+            if (collision.GetComponent<Monster>() != null)
+            {
+                if (collision.GetComponent<Monster>().Monster_Type.Equals("Sky"))
+                {
+                    if (collision.transform == Target)
+                    {
+                        Target = null;
+                    }
+                }
+            }
+            else if (collision.GetComponent<Boss>() != null)
             {
                 if (collision.transform == Target)
                 {

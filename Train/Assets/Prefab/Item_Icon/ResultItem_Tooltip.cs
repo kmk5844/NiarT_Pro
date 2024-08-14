@@ -4,7 +4,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Localization.Components;
 using UnityEngine.UI;
-using static ItemList_Tooltip;
 
 public class ResultItem_Tooltip : MonoBehaviour
 {

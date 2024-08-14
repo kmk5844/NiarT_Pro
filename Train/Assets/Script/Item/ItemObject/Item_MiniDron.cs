@@ -24,7 +24,7 @@ public class Item_MiniDron : MonoBehaviour
     {
         if (DronAtk == 0)
         {
-            DronAtk = 10;
+            DronAtk = 30;
         }
         MiniDronRid2d = GetComponent<Rigidbody2D>();
         //DefaultDron_BoxCollider = GetComponent<BoxCollider2D>();
@@ -41,7 +41,7 @@ public class Item_MiniDron : MonoBehaviour
         else
         {
             DefaultDron_BoxCollider.enabled = false;
-            RaserObject.GetComponent<Raser_TurretBullet>().atk = DronAtk;
+            RaserObject.GetComponent<Raser_TurretBullet>().atk = DronAtk / 2;
             RaserObject.SetActive(true);
             MiniDronRid2d.velocity = new Vector2(0, -0.5f);
         }

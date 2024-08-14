@@ -446,7 +446,7 @@ public class Monster : MonoBehaviour
 
     private void Damage_Item_WireEntanglement(Collider2D collision)
     {
-        HitDamage.GetComponent<Hit_Text_Damage>().damage = 2;
+        HitDamage.GetComponent<Hit_Text_Damage>().damage = 5;
         HitDamage.GetComponent<Hit_Text_Damage>().Random_X = transform.position.x + Random.Range(-0.5f, 0.5f);
         HitDamage.GetComponent<Hit_Text_Damage>().Random_Y = transform.position.y + Random.Range(0.5f, 1.5f);
         Instantiate(HitDamage, monster_Bullet_List);
@@ -559,7 +559,6 @@ public class Monster : MonoBehaviour
             {
                 Raser_Hit(collision, false);
             }
-
         }
     }
 

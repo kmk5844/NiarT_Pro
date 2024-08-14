@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     private GameObject playerBullet;
     [SerializeField]
     int Bullet_Atk;
+    int Default_Atk;
     [SerializeField]
     float Bullet_Delay;
     public Transform Bullet_Fire_Transform;
@@ -403,6 +404,7 @@ public class Player : MonoBehaviour
         int Level_Speed = playerData.Level_Player_Speed;
 
         Bullet_Atk = Bullet_Atk + (((Bullet_Atk * Level_Atk * 10)) / 100);
+        Default_Atk = Bullet_Atk;
         Bullet_Delay = Bullet_Delay - (((Bullet_Delay * Level_AtkDelay)) / 100);
         Player_HP = Player_HP + (((Player_HP * Level_HP) * 10) / 100);
         Player_Armor = Player_Armor + (((Player_Armor * Level_Armor) * 10) / 100);
@@ -426,7 +428,7 @@ public class Player : MonoBehaviour
     {
         if (collision.CompareTag("Respawn"))
         {
-            Player_HP -= 200;
+            Player_HP -= (((Player_HP *10) / 100) + 50);  
             transform.position = new Vector3(respawnPosition.x, 1, 0); ;
         }
 
@@ -683,7 +685,7 @@ public class Player : MonoBehaviour
                 GunIndex = 2;
                 GunObject_List[GunIndex].SetActive(true);
                 Bullet_Fire_Transform = GunObject_List[GunIndex].GetComponent<Transform>().GetChild(0);
-                Bullet_Atk = 2;
+                Bullet_Atk = 10;
                 Bullet_Delay = 0.1f;
                 Item_Gun_TimeFlag = true;
                 Item_Gun_ClickTime = 0f;
@@ -694,7 +696,7 @@ public class Player : MonoBehaviour
                 GunObject_List[GunIndex].SetActive(true);
                 Bullet_Fire_Transform = GunObject_List[GunIndex].GetComponent<Transform>().GetChild(0);
                 playerBullet = Resources.Load<GameObject>("Bullet/Player/Special/Missile_Player_Bullet");
-                Bullet_Atk = 20;
+                Bullet_Atk = 35;
                 Item_Gun_CountFlag = true;
                 Item_Gun_ClickCount = 0;
                 Item_Gun_Max_ClickCount = max;
@@ -703,7 +705,7 @@ public class Player : MonoBehaviour
                 GunIndex = 4;
                 GunObject_List[GunIndex].SetActive(true);
                 Item_GunSpecial_Bullet = GunObject_List[GunIndex].GetComponent<Transform>().GetChild(0).gameObject;
-                Item_GunSpecial_Bullet.GetComponent<Bullet>().atk = 2;
+                Item_GunSpecial_Bullet.GetComponent<Bullet>().atk = 8;
                 Item_Gun_TimeFlag = true;
                 Item_Gun_ClickTime = 0f;
                 Item_Gun_Max_ClickTime = max;
@@ -712,7 +714,7 @@ public class Player : MonoBehaviour
                 GunIndex = 5;
                 GunObject_List[GunIndex].SetActive(true);
                 Item_GunSpecial_Bullet = GunObject_List[GunIndex].GetComponent<Transform>().GetChild(0).gameObject;
-                Item_GunSpecial_Bullet.GetComponent<Bullet>().atk = 3;
+                Item_GunSpecial_Bullet.GetComponent<Bullet>().atk = 10;
                 Item_Gun_TimeFlag = true;
                 Item_Gun_ClickTime = 0f;
                 Item_Gun_Max_ClickTime = max;
@@ -729,14 +731,15 @@ public class Player : MonoBehaviour
         GunObject_List[GunIndex].SetActive(false);
         switch (GunIndex) {
             case 1:
+                Bullet_Atk = Default_Atk;
                 playerBullet = playerData.Bullet;
                 break;
             case 2:
-                Bullet_Atk = playerData.Atk;
+                Bullet_Atk = Default_Atk;
                 Bullet_Delay = playerData.Delay;
                 break;
             case 3:
-                Bullet_Atk = playerData.Atk;
+                Bullet_Atk = Default_Atk;
                 playerBullet = playerData.Bullet;
                 break;
             case 4:
