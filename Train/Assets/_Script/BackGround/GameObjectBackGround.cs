@@ -26,8 +26,8 @@ public class GameObjectBackground : MonoBehaviour
     private void Start()
     {
         spawnRate = Random.Range(2f, 6f);
-        B_minX = (-10.94f * gamedirector.SA_TrainData.Train_Num.Count) - 5f;
-        W_minX = (-10.94f * gamedirector.SA_TrainData.Train_Num.Count) - 5f;
+        B_minX = (-10.94f * gamedirector.SA_TrainData.Train_Num.Count) - 10f;
+        W_minX = (-10.94f * gamedirector.SA_TrainData.Train_Num.Count) - 10f;
     }
 
     private void Update()

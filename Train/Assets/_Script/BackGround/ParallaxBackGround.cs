@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 public class parallex : MonoBehaviour
 {
-    public bool Brain_Flag;
+    public bool Track_Flag;
     public float Mat_Speed;
 
     public GameObject GameDirector_Object;
@@ -33,14 +33,14 @@ public class parallex : MonoBehaviour
         Player = GameObject.FindWithTag("Player").transform;
         GameDirector = GameDirector_Object.GetComponent<GameDirector>();
         cam = Camera.main.transform;
-        if (Brain_Flag)
+/*        if (Brain_Flag)
         {
             transform.GetComponent<CinemachineBrain>().enabled = true;
         }
         else
         {
             transform.GetComponent<CinemachineBrain>().enabled = false;
-        }
+        }*/
 
         int backCount = transform.childCount;
         mat = new Material[backCount];
@@ -72,14 +72,13 @@ public class parallex : MonoBehaviour
         {
             backSpeed[i] = 1 - (backgrounds[i].transform.position.z - cam.position.z) / farthestBack;
         }
-
     }
 
     private void LateUpdate()
     {
         if (GameDirector.gameType == GameType.Playing || GameDirector.gameType == GameType.Ending || GameDirector.gameType == GameType.Boss)
         {
-            if (!Brain_Flag)
+            if (!Track_Flag)
             {
                 float speed = Mat_Speed * parallaxSpeed;
                 offset += (Time.deltaTime * speed + (GameDirector.TrainSpeed / 20000f)) / 10f;
@@ -99,7 +98,12 @@ public class parallex : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (!Brain_Flag)
+        if (!Track_Flag)
+        {
+            transform.position = new Vector3(cam.position.x, transform.position.y, transform.position.z);
+        }
+
+/*        if (!Brain_Flag)
         {
             if (!cam.transform.GetComponent<CameraFollow>().CameraFlag)
             {
@@ -109,6 +113,6 @@ public class parallex : MonoBehaviour
             {
                 transform.position = new Vector3(cam.transform.GetComponent<CameraFollow>().V_Cam_X, transform.position.y, transform.position.z);
             }
-        }
+        }*/
     }
 }

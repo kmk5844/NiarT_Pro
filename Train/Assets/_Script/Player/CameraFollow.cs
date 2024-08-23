@@ -27,13 +27,11 @@ public class CameraFollow : MonoBehaviour
     public bool CameraFlag;
 
     //Item 부분
-    public GameObject mapCamera;
 
     void Start()
     {
         CameraFlag = false;
         Cam_Trans = GetComponent<Transform>();
-        mapCamera.SetActive(false);
         trainCam_Count = -1;
         max_trainCam_Count = TrainCam_List.childCount;
         Cam_Trans.position = new Vector3(Player.transform.position.x, CameraOffset.y, Cam_Trans.position.z);
@@ -41,7 +39,7 @@ public class CameraFollow : MonoBehaviour
 
     private void Update()
     { 
-        if (Input.GetKeyDown(KeyCode.Z))
+/*        if (Input.GetKeyDown(KeyCode.Z))
         {
             prev_Cam();
             CameraFlag = true;
@@ -60,7 +58,7 @@ public class CameraFollow : MonoBehaviour
                 Player_Cam();
                 CameraFlag = false;
             }
-        }
+        }*/
         Vector3 postion = new Vector3(Player.transform.position.x + CameraOffset.x, CameraOffset.y, Player.transform.position.z + CameraOffset.z);
         offset = Vector3.Lerp(Cam_Trans.position, postion, Time.deltaTime * CameraSpeed * 5);
     }
@@ -122,13 +120,5 @@ public class CameraFollow : MonoBehaviour
         V_Cam = TrainCam_List.GetChild(trainCam_Count).gameObject;
         V_Cam.gameObject.SetActive(true);
         V_Cam_X = V_Cam.transform.position.x;
-    }
-
-    //Item부분
-    public IEnumerator Item_Camera_Map(int delaytime)
-    {
-        mapCamera.SetActive(true);
-        yield return new WaitForSeconds(delaytime);
-        mapCamera.SetActive(false);
     }
 }

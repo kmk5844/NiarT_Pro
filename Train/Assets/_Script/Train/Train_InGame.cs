@@ -196,7 +196,7 @@ public class Train_InGame : MonoBehaviour
                 Train_BoosterSpeedUP = trainData.Information_Train_Booster_Part[Train_Num2].Train_BoosterSpeedUP;
                 break;
             case "Medic":
-                Train_Heal = trainData.Information_Train[Train_Num].Train_Heal;
+                Train_Heal = trainData.Information_Train[Train_Num].Train_Special;
                 Max_Train_Heal = Train_Heal;
                 break;
         }

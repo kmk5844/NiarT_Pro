@@ -189,7 +189,7 @@ public class Player : MonoBehaviour
         {
             if (train.Train_Type.Equals("Medic"))
             {
-                if (Check_HpParsent() < 50f && !isHealing)
+                if (Check_HpParsent() < 75f && !isHealing)
                 {
                     KeyObject.SetActive(true);
                 }
@@ -199,7 +199,7 @@ public class Player : MonoBehaviour
                 }
 
 
-                if (Input.GetKeyDown(KeyCode.R) && Check_HpParsent() < 50f && !isHealing)
+                if (Input.GetKeyDown(KeyCode.R) && Check_HpParsent() < 75f && !isHealing)
                 {
                     if (train.openMedicTrian)
                     {
@@ -271,11 +271,11 @@ public class Player : MonoBehaviour
         }
         else // 치료중일 때, 조작키 허용X
         {
-            if (Check_HpParsent() <= 70f && !train.isHealing)
+            if (Check_HpParsent() < 75f && !train.isHealing)
             {
                 StartCoroutine(train.Train_Healing());
             }
-            else if (Check_HpParsent() >= 70f || !train.openMedicTrian)
+            else if (Check_HpParsent() >= 75f || !train.openMedicTrian)
             {
                 OnOff_Sprite(false);
                 isHealing = false;
@@ -387,11 +387,13 @@ public class Player : MonoBehaviour
         if (flag)
         {
             transform.GetChild(0).gameObject.SetActive(false);
+            transform.GetComponent<CapsuleCollider2D>().enabled = false;
             GunObject.SetActive(false);
         }
         else
         {
             transform.GetChild(0).gameObject.SetActive(true);
+            transform.GetComponent<CapsuleCollider2D>().enabled = true;
             GunObject.SetActive(true);
         }
     }

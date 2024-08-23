@@ -154,7 +154,6 @@ public class UseItem : MonoBehaviour
                 player.Item_Player_Spawn_Dron(0);
                 break;
             case 37:
-                StartCoroutine(Camera.main.GetComponent<CameraFollow>().Item_Camera_Map(15));
                 break;
             case 38:
                 mercenaryDirector.Item_Use_Bear(2, 30);
