@@ -107,6 +107,7 @@
     <Compile Include="Assets\Resources\SPUM\Script\Ect\ColorSelect.cs" />
     <Compile Include="Assets\_Script\Monster\Hit_Text_Damage.cs" />
     <Compile Include="Assets\Resources\SPUM\Sprite_Editor(Beta)\Script\SpriteEyeSync.cs" />
+    <Compile Include="Assets\_Script\Train\Supply_Train.cs" />
     <Compile Include="Assets\_Script\Bullet\Monster\Boss\Boss0\Boss_0_Bullet.cs" />
     <Compile Include="Assets\_Script\Train\Medic_Train.cs" />
     <Compile Include="Assets\_Script\Item\Station_Item\ItemBuy_Object.cs" />
@@ -199,6 +200,7 @@
     <Compile Include="Assets\_Scriptable\SA_Train_Booster\SA_TrainBoosterData.cs" />
     <Compile Include="Assets\_Script\Monster\Monster.cs" />
     <Compile Include="Assets\_Script\Bullet\Monster\Monster_Bullet_LR_Parabola.cs" />
+    <Compile Include="Assets\_Script\Train\Supply_Train_Item.cs" />
     <Compile Include="Assets\_Script\Bullet\Monster\Boss\Boss0\Boss_0_Skill3_SubBullet.cs" />
     <Compile Include="Assets\_Script\Station\Director\Station_Store.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Scripts\SetAtlasUvs.cs" />
@@ -224,6 +226,7 @@
     <Compile Include="Assets\_Script\Train\Turret\Intercept_Flare_Turret.cs" />
     <Compile Include="Assets\_Script\Mercenary\Before\Engine_Driver_Before.cs" />
     <Compile Include="Assets\_Script\Monster\Boss\Monster_Boss_0.cs" />
+    <Compile Include="Assets\_Script\Train\Dash_Train.cs" />
     <Compile Include="Assets\_Script\Monster\Monster_6.cs" />
     <Compile Include="Assets\_Script\Train\Train_InGame.cs" />
     <Compile Include="Assets\_Data_Level\Info_Level_Mercenary_Long_Ranged.cs" />
@@ -289,6 +292,7 @@
     <Compile Include="Assets\_Data_Level\Info_Level.cs" />
     <Compile Include="Assets\_Data_Level\Info_Level_Mercenary_Engine_Driver.cs" />
     <Compile Include="Assets\_Prefab\Item_Icon\ResultObject.cs" />
+    <Compile Include="Assets\_Script\Train\Supply_Train_Dron.cs" />
     <Compile Include="Assets\_Script\Monster\Monster_4.cs" />
     <Compile Include="Assets\Resources\SPUM\Script\Plugin\Moments Recorder\Scripts\Gif\NeuQuant.cs" />
     <Compile Include="Assets\Epic Toon FX(3d effect)\Scripts\ETFXRotation.cs" />
@@ -356,11 +360,14 @@
     <None Include="Assets\Epic Toon FX(3d effect)\Upgrade\URP Compatibility.txt" />
     <None Include="Assets\HovlStudio\HSFiles\Shaders\Blend_LinePath.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
+    <None Include="Assets\SC Post Effects\Shaders\Blurring.hlsl" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\HovlStudio\HSFiles\Shaders\AddTrail.shader" />
     <None Include="Assets\HovlStudio\HSFiles\Shaders\Scroll.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets\ParticleEffectForUGUI-main\ParticleEffectForUGUI-main\Shaders\UIAdditive.shader" />
+    <None Include="Assets\SC Post Effects\Shaders\Blending.hlsl" />
+    <None Include="Assets\SC Post Effects\Shaders\SCPE.hlsl" />
     <None Include="Assets\HovlStudio\HSFiles\Shaders\Add_CenterGlow.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
@@ -1353,6 +1360,10 @@
       <Project>{7173179F-7F75-36E1-672A-14A66AE26C52}</Project>
       <Name>Lofelt.NiceVibrations</Name>
     </ProjectReference>
+    <ProjectReference Include="sc.posteffects.editor.csproj">
+      <Project>{765797D2-B831-7A65-9A9E-FC61DD71AC3D}</Project>
+      <Name>sc.posteffects.editor</Name>
+    </ProjectReference>
     <ProjectReference Include="MoreMountains.Feedbacks.TextMeshPro.csproj">
       <Project>{7392DA52-5E41-89D8-D11C-6644B8EDC11D}</Project>
       <Name>MoreMountains.Feedbacks.TextMeshPro</Name>
@@ -1376,6 +1387,10 @@
     <ProjectReference Include="MoreMountains.Feedbacks.MMTools.csproj">
       <Project>{00AC42E3-BBBC-9AE0-87D5-DD358CE64438}</Project>
       <Name>MoreMountains.Feedbacks.MMTools</Name>
+    </ProjectReference>
+    <ProjectReference Include="sc.posteffects.runtime.csproj">
+      <Project>{2CAF4B7C-3194-0E23-9772-E521404DF47A}</Project>
+      <Name>sc.posteffects.runtime</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

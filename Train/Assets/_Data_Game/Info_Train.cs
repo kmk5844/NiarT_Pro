@@ -12,7 +12,7 @@ public class Info_Train
     public int Train_Efficient;
     public int Train_Engine_Power;
     public int Train_Fuel;
-    public int Train_Special;
+    public string Train_Special;
     public int Train_Buy_Cost;
     public int Train_Upgrade_Cost;
     public string Train_Information;

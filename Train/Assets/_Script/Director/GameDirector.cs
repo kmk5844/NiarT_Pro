@@ -10,7 +10,6 @@ public class GameDirector : MonoBehaviour
     [Header("Test")]
     public bool Test_Flag;
     public bool Monster_Off_Flag;
-    public bool Mercenary_Off_Flag;
     public int Test_Distance;
     public List<int> Test_Monster_List;
 
@@ -196,6 +195,7 @@ public class GameDirector : MonoBehaviour
             if (Monster_Off_Flag)
             {
                 monsterDirector.Monster_List.gameObject.SetActive(false);
+                monsterDirector.SupplyMonster_List.gameObject.SetActive(false);
             }
         }
     }

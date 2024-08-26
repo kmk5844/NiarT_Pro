@@ -19,8 +19,8 @@ public class Medic_Train : MonoBehaviour
     void Start()
     {
         medicTrain = GetComponentInParent<Train_InGame>();
-        Heal_Amount = medicTrain.Heal_Amount;
-        Heal_timeBet = medicTrain.Heal_timeBet;
+        Heal_Amount = medicTrain.Train_Heal_Amount;
+        Heal_timeBet = medicTrain.Train_Heal_timeBet;
         isMercenaryHealing = false; //용병 전용
     }
 
@@ -28,7 +28,7 @@ public class Medic_Train : MonoBehaviour
     void Update()
     {
         isPlayerHealing = medicTrain.isHealing;
-        isOpen = medicTrain.openMedicTrian;
+        isOpen = medicTrain.Not_DestoryTrain;
 
         if (!isPlayerHealing && !isMercenaryHealing)
         {
@@ -43,7 +43,7 @@ public class Medic_Train : MonoBehaviour
 
         if (isMercenaryHealing)
         {
-            if(col.Check_HpParsent() >= 60f || !medicTrain.openMedicTrian) //파괴되거나 용병 60퍼 이상 치료가 되면 내보냄.
+            if(col.Check_HpParsent() >= 60f || !medicTrain.Not_DestoryTrain) //파괴되거나 용병 60퍼 이상 치료가 되면 내보냄.
             {
                 isMercenaryHealing = false;
                 col.transform.gameObject.SetActive(true);

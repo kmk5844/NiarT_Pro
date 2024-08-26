@@ -6,25 +6,50 @@ using UnityEngine.UI;
 
 public class UI_Train_Guage : MonoBehaviour
 {
+    int num;
+
     Train_InGame Train_Data;
     public Image HP_Guage;
     public Image Special_Guage;
     public GameObject ON_Object;
     Turret turret;
     Booster_Train booster;
+    Dash_Train dash;
+    Supply_Train supply;
 
     float timer;
 
     void Start()
     {
         Train_Data = GetComponentInParent<Train_InGame>();
+        num = 0;
+        if (Train_Data.Train_Type.Equals("Medic"))
+        {
+            num = 1;
+        }
         if (Train_Data.Train_Type.Equals("Turret"))
         {
+            num = 2;
             turret = Train_Data.GetComponentInChildren<Turret>();
         }
         if (Train_Data.Train_Type.Equals("Booster"))
         {
+            num = 3;
             booster = Train_Data.GetComponentInChildren<Booster_Train>();
+        }
+        if (Train_Data.Train_Type.Equals("Self_Turret"))
+        {
+            num = 4;
+        }
+        if (Train_Data.Train_Type.Equals("Supply"))
+        {
+            num = 5;
+            supply = Train_Data.GetComponentInChildren<Supply_Train>();
+        }
+        if (Train_Data.Train_Type.Equals("Dash"))
+        {
+            num = 6;
+            dash = Train_Data.GetComponentInChildren<Dash_Train>();
         }
     }
 
@@ -45,24 +70,39 @@ public class UI_Train_Guage : MonoBehaviour
             ON_Object.SetActive(false);
         }
 
+        Check_fillAmount();
+    }
 
-        if (Train_Data.Train_Type.Equals("Medic"))
+    void Check_fillAmount()
+    {
+        if(num == 0)
+        {
+            Special_Guage.fillAmount = 0f;
+        }
+        else if(num == 1)
         {
             float HealAmout = Train_Data.Train_Heal / Train_Data.Max_Train_Heal;
             Special_Guage.fillAmount = HealAmout;
         }
-        else if (Train_Data.Train_Type.Equals("Turret"))
+        else if(num == 2)
         {
             Special_Guage.fillAmount = turret.Bullet_Delay_Percent();
+
         }
-        else if (Train_Data.Train_Type.Equals("Booster"))
+        else if(num == 3)
         {
             float FuelAmout = booster.BoosterFuel / booster.Data_BoosterFuel;
             Special_Guage.fillAmount = FuelAmout;
-        }
-        else
+        }else if(num == 5)
         {
-            Special_Guage.fillAmount = 0f;
+            float FuelAmout = (float)supply.SupplyTrain_Fuel / (float)supply.Max_SupplyTrain_Fuel;
+            Special_Guage.fillAmount = FuelAmout;
         }
+        else if(num == 6)
+        {
+            float FuelAmout = (float)dash.DashTrain_Fuel / (float)dash.Max_DashTrain_Fuel;
+            Special_Guage.fillAmount = FuelAmout;
+        }
+
     }
 }

@@ -20,7 +20,6 @@ public class Booster_Train : MonoBehaviour
 
     float timebet;
     float lastTime;
-    int count;
 
     public GameObject effectObject;
 

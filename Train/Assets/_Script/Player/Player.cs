@@ -133,55 +133,23 @@ public class Player : MonoBehaviour
     {
         gameDirectorType = gamedirector.gameType;
 
-        if (gameDirectorType == GameType.Playing || gameDirectorType == GameType.Boss ||gameDirectorType == GameType.Ending)
+        if (gameDirectorType == GameType.Playing || gameDirectorType == GameType.Boss)
         {
-            mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
-
-            Vector3 rot = mousePos - GunObject.transform.position;
-            float rotZ = Mathf.Atan2(rot.y, rot.x) * Mathf.Rad2Deg;
-            GunObject.transform.rotation = Quaternion.Euler(0, 0, rotZ);
-
-            if(rotZ >= -90 && rotZ <= 90)
+            if (Input.GetMouseButtonDown(0))
             {
-                GunObject.transform.localScale = new Vector3(GunObject_Scale.x, GunObject_Scale.y, GunObject_Scale.z);
-            }
-            else
-            {
-                GunObject.transform.localScale = new Vector3(GunObject_Scale.x, -1 * GunObject_Scale.y, GunObject_Scale.z);
-                //KeyObject.transform.localScale = KeyObject_Scale;
+                isMouseDown = true;
             }
 
-            if (mousePos.x > transform.position.x)
+            if (Input.GetMouseButtonUp(0))
             {
-                rotationOn = true;
-                KeyObject.transform.localScale = new Vector3(-KeyObject_Scale.x, KeyObject_Scale.y, KeyObject_Scale.z);
-                transform.rotation = Quaternion.Euler(0,-180,0);
+                isMouseDown = false;
             }
-            else
+        }
+        else if (gameDirectorType == GameType.Ending)
+        {
+            if (isMouseDown)
             {
-                rotationOn = false;
-                KeyObject.transform.localScale = new Vector3(KeyObject_Scale.x, KeyObject_Scale.y, KeyObject_Scale.z);
-                transform.rotation = Quaternion.Euler(0, 0 ,0);
-            }
-
-            if(gameDirectorType == GameType.Playing || gameDirectorType == GameType.Boss)
-            {
-                if (Input.GetMouseButtonDown(0))
-                {
-                    isMouseDown = true;
-                }
-
-                if (Input.GetMouseButtonUp(0))
-                {
-                    isMouseDown = false;
-                }
-            }
-            else if(gameDirectorType == GameType.Ending)
-            {
-                if (isMouseDown)
-                {
-                    isMouseDown = false;
-                }
+                isMouseDown = false;
             }
         }
 
@@ -198,10 +166,9 @@ public class Player : MonoBehaviour
                     KeyObject.SetActive(false);
                 }
 
-
                 if (Input.GetKeyDown(KeyCode.R) && Check_HpParsent() < 75f && !isHealing)
                 {
-                    if (train.openMedicTrian)
+                    if (train.Not_DestoryTrain)
                     {
                         if (!train.GetComponentInChildren<Medic_Train>().isMercenaryHealing)
                         {
@@ -218,9 +185,44 @@ public class Player : MonoBehaviour
                         //파괴되어 사용할 수 없습니다.
                     }
                 }
+            }else if (train.Train_Type.Equals("Dash"))
+            {
+                if (train.GetComponentInChildren<Dash_Train>().UseFlag)
+                {
+                    KeyObject.SetActive(true);
+                }
+                else
+                {
+                    KeyObject.SetActive(false);
+                }
+
+                if(Input.GetKeyDown(KeyCode.R) && train.GetComponentInChildren<Dash_Train>().UseFlag)
+                {
+                    train.GetComponentInChildren<Dash_Train>().UseDash();
+                    StartCoroutine(Item_Player_SpeedUP(train.Train_Dash_PalyerAmount, train.Train_Dash_Second));
+                }
+            }else if (train.Train_Type.Equals("Supply"))
+            {
+                if (train.GetComponentInChildren<Supply_Train>().UseFlag)
+                {
+                    KeyObject.SetActive(true);
+                }
+                else
+                {
+                    KeyObject.SetActive(false);
+                }
+
+                if(Input.GetKeyDown(KeyCode.R) && train.GetComponentInChildren<Supply_Train>().UseFlag){
+                    train.GetComponentInChildren<Supply_Train>().UseSupply();
+                }
+            }
+            else
+            {
+                KeyObject.SetActive(false);
             }
         }
-       
+
+
 
         if (!isHealing) //치료가 아닐 때, 걸어다니면서 총을 쏨
         {
@@ -275,19 +277,11 @@ public class Player : MonoBehaviour
             {
                 StartCoroutine(train.Train_Healing());
             }
-            else if (Check_HpParsent() >= 75f || !train.openMedicTrian)
+            else if (Check_HpParsent() >= 75f || !train.Not_DestoryTrain)
             {
                 OnOff_Sprite(false);
                 isHealing = false;
             }
-        }
-    }
-
-    void FixedUpdate()
-    {
-        if (!isHealing) { //치료 중이 아닐 때, 움직임.
-            float h = Input.GetAxisRaw("Horizontal");
-            rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
         }
 
         if (rigid.velocity.x > moveSpeed)
@@ -300,16 +294,58 @@ public class Player : MonoBehaviour
             //moveX = -1;
             rigid.velocity = new Vector2(moveSpeed * (-1), rigid.velocity.y);
         }
+    }
+
+    void FixedUpdate()
+    {
+        if (!isHealing) { //치료 중이 아닐 때, 움직임.
+            float h = Input.GetAxisRaw("Horizontal");
+            rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
+        }
+
+        if (gameDirectorType == GameType.Playing || gameDirectorType == GameType.Boss || gameDirectorType == GameType.Ending)
+        {
+            mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
+
+            Vector3 rot = mousePos - GunObject.transform.position;
+            float rotZ = Mathf.Atan2(rot.y, rot.x) * Mathf.Rad2Deg;
+            GunObject.transform.rotation = Quaternion.Euler(0, 0, rotZ);
+
+            if (rotZ >= -90 && rotZ <= 90)
+            {
+                GunObject.transform.localScale = new Vector3(GunObject_Scale.x, GunObject_Scale.y, GunObject_Scale.z);
+            }
+            else
+            {
+                GunObject.transform.localScale = new Vector3(GunObject_Scale.x, -1 * GunObject_Scale.y, GunObject_Scale.z);
+                //KeyObject.transform.localScale = KeyObject_Scale;
+            }
+
+            if (mousePos.x > transform.position.x)
+            {
+                rotationOn = true;
+                KeyObject.transform.localScale = new Vector3(-KeyObject_Scale.x, KeyObject_Scale.y, KeyObject_Scale.z);
+                transform.rotation = Quaternion.Euler(0, -180, 0);
+            }
+            else
+            {
+                rotationOn = false;
+                KeyObject.transform.localScale = new Vector3(KeyObject_Scale.x, KeyObject_Scale.y, KeyObject_Scale.z);
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
+
+            
+        }
 
         Debug.DrawRay(rigid.position, Vector3.down * jumpdistance, Color.green);
         RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, jumpdistance, LayerMask.GetMask("Platform"));
-        
-        if(rayHit.collider != null)
+
+        if (rayHit.collider != null)
         {
             train = rayHit.collider.GetComponentInParent<Train_InGame>();
         }
 
-        if(rayHit.collider != null && rayHit.distance >= jumpFlagDistance)
+        if (rayHit.collider != null && rayHit.distance >= jumpFlagDistance)
         {
             jumpFlag = false;
         }

@@ -38,33 +38,33 @@ public class CameraFollow : MonoBehaviour
     }
 
     private void Update()
-    { 
-/*        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            prev_Cam();
-            CameraFlag = true;
-        }
+    {
+        /*        if (Input.GetKeyDown(KeyCode.Z))
+                {
+                    prev_Cam();
+                    CameraFlag = true;
+                }
 
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            next_Cam();
-            CameraFlag = true;
-        }
+                if (Input.GetKeyDown(KeyCode.C))
+                {
+                    next_Cam();
+                    CameraFlag = true;
+                }
 
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            if(trainCam_Count != -1)
-            {
-                Player_Cam();
-                CameraFlag = false;
-            }
-        }*/
-        Vector3 postion = new Vector3(Player.transform.position.x + CameraOffset.x, CameraOffset.y, Player.transform.position.z + CameraOffset.z);
-        offset = Vector3.Lerp(Cam_Trans.position, postion, Time.deltaTime * CameraSpeed * 5);
+                if (Input.GetKeyDown(KeyCode.X))
+                {
+                    if(trainCam_Count != -1)
+                    {
+                        Player_Cam();
+                        CameraFlag = false;
+                    }
+                }*/
     }
 
     void FixedUpdate()
     {
+        Vector3 postion = new Vector3(Player.transform.position.x + CameraOffset.x, CameraOffset.y, Player.transform.position.z + CameraOffset.z);
+        offset = Vector3.Lerp(Cam_Trans.position, postion, Time.deltaTime * CameraSpeed);
         Cam_Trans.position = offset;
     }
 

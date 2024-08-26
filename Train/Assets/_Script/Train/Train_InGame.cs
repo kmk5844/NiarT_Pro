@@ -28,46 +28,62 @@ public class Train_InGame : MonoBehaviour
 
     public string Train_Type;
     //엔진
+    [Header("엔진")]
     public int Train_MaxSpeed;
     public int Train_Efficient;
     public int Train_Engine_Power;
     //연료
+    [Header("연료")]
     public int Train_Fuel;
     //포탑
+    [Header("포탑")]
     public int Train_Attack;
     public float Train_Attack_Delay;
     //부스터
+    [Header("부스터")]
     public int Train_WarningSpeed;
     public int Train_BoosterFuel;
     public int Train_UseFuel;
     public int Train_BoosterSpeedUP;
     public int Train_BoosterTime;
+    //특수 스트링
+    [Header("특수 파라미터")]
+    public string Train_Special;
+    public bool Not_DestoryTrain;
+
+
     //의무실
+    [Header("의무실")]
     public float Train_Heal;
     [HideInInspector]
     public float Max_Train_Heal;
-    
+    public int Train_Heal_Amount;
+    public int Train_Heal_timeBet;
+    [Header("의무실 특수 플래그")]
+    public bool isHealing;
+    [Header("수동 포탑")]
+    public int Train_Self_Attack;
+    public float Train_Self_Attack_Delay;
+    [Header("연락실")]
+    public int Train_Supply_UseFuel;
+    public int Train_Supply_Grade;
+    public int Train_Supply_Count;
+    [Header("대쉬 보드")]
+    public int Train_Dash_UseFuel;
+    public float Train_Dash_PalyerAmount;
+    public int Train_Dash_Second;
+
     public bool isReparing;
     public bool isRepairable;
-    [Header("방어 상수")]
     float era;
-    [SerializeField]
     float def_constant;
-    [Header("힐링기차")]
-    public int Heal_Amount;
-    public int Heal_timeBet;
-    public bool isHealing;
-    public bool openMedicTrian;
     Player player;
     [HideInInspector]
     public GameObject gameDirector;
 
-    //UI부분
-    bool WarningFlag;
-
     private void Awake()
     {
-        openMedicTrian = false;
+        Not_DestoryTrain = false;
         isHealing = false;
         isRepairable = true;
         gameDirector = GameObject.Find("GameDirector");
@@ -75,7 +91,7 @@ public class Train_InGame : MonoBehaviour
 
         TurretFlag = false;
         BoosterFlag = false;
-        era = 100;
+        def_constant = 100;
         gameObject.name = gameObject.name.Replace("(Clone)", "");
         string[] name = gameObject.name.Split('_');
 
@@ -124,7 +140,7 @@ public class Train_InGame : MonoBehaviour
     {
         era = 1f - (float)Train_Armor / def_constant; //만약에 방어력 증가해주는 기관사 타게 된다면 변경 가능성이 큼
         HP_Parsent = (float)Train_HP / (float)Max_Train_HP * 100f;
-        //여기서 만약 기차가 파괴 당할 시 쓰면 좋은 함수
+        //여기서 만약 기차가 파괴 시 쓰면 좋은 함수 (업데이트 문이라면 조심)
 
         if (Train_HP <= 0)
         {
@@ -152,11 +168,11 @@ public class Train_InGame : MonoBehaviour
         {
             if(Train_HP == 0 || Train_Heal ==0)
             {
-                openMedicTrian = false;
+                Not_DestoryTrain = false;
             }
             else
             {
-                openMedicTrian = true;
+                Not_DestoryTrain = true;
             } 
         }
     }
@@ -196,8 +212,23 @@ public class Train_InGame : MonoBehaviour
                 Train_BoosterSpeedUP = trainData.Information_Train_Booster_Part[Train_Num2].Train_BoosterSpeedUP;
                 break;
             case "Medic":
-                Train_Heal = trainData.Information_Train[Train_Num].Train_Special;
+                string[] trainData_Special_String = trainData.Information_Train[Train_Num].Train_Special.Split(',');
+                Train_Heal = int.Parse(trainData_Special_String[0]);
+                Train_Heal_Amount = int.Parse(trainData_Special_String[1]);
+                Train_Heal_timeBet = int.Parse(trainData_Special_String[2]);
                 Max_Train_Heal = Train_Heal;
+                break;
+            case "Dash":
+                trainData_Special_String = trainData.Information_Train[Train_Num].Train_Special.Split(',');
+                Train_Dash_UseFuel = int.Parse(trainData_Special_String[0]);
+                Train_Dash_PalyerAmount = float.Parse(trainData_Special_String[1]);
+                Train_Dash_Second = int.Parse(trainData_Special_String[2]);
+                break;
+            case "Supply":
+                trainData_Special_String = trainData.Information_Train[Train_Num].Train_Special.Split(',');
+                Train_Supply_UseFuel = int.Parse(trainData_Special_String[0]);
+                Train_Supply_Grade = int.Parse(trainData_Special_String[1]);
+                Train_Supply_Count = int.Parse(trainData_Special_String[2]);
                 break;
         }
     }
@@ -236,16 +267,16 @@ public class Train_InGame : MonoBehaviour
     {
         isHealing = true;
 
-        if (Train_Heal - Heal_Amount < 0)
+        if (Train_Heal - Train_Heal_Amount < 0)
         {
             Train_Heal = 0;
         }
         else
         {
-            Train_Heal -= Heal_Amount;
+            Train_Heal -= Train_Heal_Amount;
         }
-        player.Player_HP += Heal_Amount;
-        yield return new WaitForSeconds(Heal_timeBet);
+        player.Player_HP += Train_Heal_Amount;
+        yield return new WaitForSeconds(Train_Heal_timeBet);
 
         isHealing = false;
     }

@@ -2234,11 +2234,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 988a4545c26a638439eee60f86ceee3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Test_Flag: 0
-  Monster_Off_Flag: 0
-  Mercenary_Off_Flag: 0
+  Test_Flag: 1
+  Monster_Off_Flag: 1
   Test_Distance: 999999
-  Test_Monster_List: 03000000
+  Test_Monster_List: 02000000
   gameType: 0
   SA_TrainData: {fileID: 11400000, guid: a3127143b81d7aa4b87c2baa773295c2, type: 2}
   SA_TrainTurretData: {fileID: 11400000, guid: 4bbb9992a442d1f449a4c2e4eceb8eda, type: 2}
@@ -11280,7 +11279,6 @@ GameObject:
   - component: {fileID: 963194232}
   - component: {fileID: 963194230}
   - component: {fileID: 963194231}
-  - component: {fileID: 963194233}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -11356,7 +11354,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: 2}
+  m_LocalPosition: {x: 0, y: 3, z: -0.63}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11378,7 +11376,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 1910264844}
   CameraOffset: {x: 0, y: 5, z: -10}
-  CameraSpeed: 8
+  CameraSpeed: 4
   V_Cam_X: 0
   TrainCam_List: {fileID: 1018480111}
   CameraFlag: 0
@@ -11395,13 +11393,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AssetsPPU: 32
-  m_RefResolutionX: 1920
-  m_RefResolutionY: 1080
+  m_RefResolutionX: 960
+  m_RefResolutionY: 540
   m_UpscaleRT: 0
   m_PixelSnapping: 0
-  m_CropFrameX: 0
-  m_CropFrameY: 0
-  m_StretchFill: 0
+  m_CropFrameX: 1
+  m_CropFrameY: 1
+  m_StretchFill: 1
 --- !u!114 &963194231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11433,9 +11431,9 @@ MonoBehaviour:
   m_Priority: 10
   m_StandbyUpdate: 1
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 1910264846}
+  m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 40
+    FieldOfView: 1
     OrthographicSize: 8
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -11453,58 +11451,6 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1527713862}
---- !u!114 &963194233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 963194225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShowDebugText: 0
-  m_ShowCameraFrustum: 1
-  m_IgnoreTimeScale: 0
-  m_WorldUpOverride: {fileID: 0}
-  m_UpdateMethod: 0
-  m_BlendUpdateMethod: 0
-  m_DefaultBlend:
-    m_Style: 1
-    m_Time: 0.3
-    m_CustomCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0.9103699
-        inSlope: 2
-        outSlope: 2
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-  m_CustomBlends: {fileID: 0}
-  m_CameraCutEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_CameraActivatedEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &970979921
 GameObject:
   m_ObjectHideFlags: 0
@@ -16315,7 +16261,7 @@ Transform:
   m_GameObject: {fileID: 1349219857}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.33549458, y: 2.1331108, z: 1.9873297}
+  m_LocalPosition: {x: -0.33549458, y: 2.1331108, z: -0.6426702}
   m_LocalScale: {x: 5, y: 1.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -21361,7 +21307,7 @@ Transform:
   m_GameObject: {fileID: 1920978281}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.33549458, y: 2.1331108, z: 1.9873297}
+  m_LocalPosition: {x: -0.33549458, y: 2.1331108, z: -0.6426702}
   m_LocalScale: {x: 5, y: 1.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -26898,6 +26844,10 @@ PrefabInstance:
     - target: {fileID: 2316260380355213949, guid: 1b6a752fcc997d548bb2cbf3b60b16c6, type: 3}
       propertyPath: m_Name
       value: Supply_Item
+      objectReference: {fileID: 0}
+    - target: {fileID: 2316260380355213949, guid: 1b6a752fcc997d548bb2cbf3b60b16c6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4995085579108224071, guid: 1b6a752fcc997d548bb2cbf3b60b16c6, type: 3}
       propertyPath: Item
