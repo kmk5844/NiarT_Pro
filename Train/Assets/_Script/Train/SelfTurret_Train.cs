@@ -1,3 +1,4 @@
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,9 +29,11 @@ public class SelfTurret_Train : MonoBehaviour
 
     public Transform TurretObject;
     Transform FireZone;
+    GameObject Bullet_Object;
     Vector3 TurretObject_Scale;
     Camera mainCam;
     Vector3 mousePos;
+    public AudioClip Shoot_SFX;
 
     private void Start()
     {
@@ -50,6 +53,7 @@ public class SelfTurret_Train : MonoBehaviour
 
         TurretObject_Scale = TurretObject.localScale;
         FireZone = TurretObject.GetChild(0);
+        Bullet_Object = Resources.Load<GameObject>("Bullet/Player/Self_Turret_Bullet");
 
         timebet = 0.05f;
         lastTime = Time.time;
@@ -152,7 +156,10 @@ public class SelfTurret_Train : MonoBehaviour
     {
         if(Time.time >= atk_lastTime + Turret_AtkDelay)
         {
-            Debug.Log("น฿ป็");
+            Bullet_Object.GetComponent<Bullet>().atk = Turret_Atk;
+            Instantiate(Bullet_Object, FireZone.position, Quaternion.identity);
+            MMSoundManagerSoundPlayEvent.Trigger(Shoot_SFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+
             atk_lastTime = Time.time;
         }
     }

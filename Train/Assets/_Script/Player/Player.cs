@@ -89,6 +89,7 @@ public class Player : MonoBehaviour
     [Header("상호작용 Key")]
     public GameObject KeyObject;
     Vector3 KeyObject_Scale;
+    int KeyCount;
 
     void Start()
     {
@@ -122,6 +123,7 @@ public class Player : MonoBehaviour
         isSelfTurretAtacking = false;
 
         GunIndex = 0;
+        KeyCount = 0;
 
         item_Atk = 0;
         item_Delay = 0;
@@ -170,14 +172,15 @@ public class Player : MonoBehaviour
                     KeyObject.SetActive(false);
                 }
 
-                if (Input.GetKeyDown(KeyCode.R) && Check_HpParsent() < 75f && !isHealing)
+                if (Input.GetKeyDown(KeyCode.R) && Check_HpParsent() < 75f && !isHealing && KeyCount == 0)
                 {
                     if (train.Not_DestoryTrain)
                     {
                         if (!train.GetComponentInChildren<Medic_Train>().isMercenaryHealing)
                         {
-                            isHealing = true;
                             OnOff_Sprite(true);
+                            isHealing = true;
+                            KeyCount = 1;
                         }
                         else
                         {
@@ -245,16 +248,36 @@ public class Player : MonoBehaviour
 
         if (isHealing) // 치료 중
         {
+            IEnumerator train_Heal;
+            train_Heal = train.Train_Healing();
+
             if (Check_HpParsent() < 75f && !train.isHealing)
             {
-                StartCoroutine(train.Train_Healing());
+                if (KeyCount == 1)
+                {
+                    KeyCount = 2;
+                }
+                StartCoroutine(train_Heal);
             }
             else if (Check_HpParsent() >= 75f || !train.Not_DestoryTrain)
             {
                 OnOff_Sprite(false);
                 isHealing = false;
             }
-        }else if (isSelfTurretAtacking) // 터렛 공격 중
+
+            if(Input.GetKeyUp(KeyCode.R) && KeyCount == 2) {
+                KeyCount = 3;
+            }
+            else if (Input.GetKeyDown(KeyCode.R) && KeyCount == 3)
+            {
+                StopCoroutine(train_Heal);
+                OnOff_Sprite(false);
+                train.isHealing = false;
+                isHealing = false;
+                KeyCount = 0;
+            }
+        }
+        else if (isSelfTurretAtacking) // 터렛 공격 중
         {
             if (!train.GetComponentInChildren<SelfTurret_Train>().isAtacking)
             {
