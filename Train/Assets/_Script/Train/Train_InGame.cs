@@ -62,8 +62,10 @@ public class Train_InGame : MonoBehaviour
     [Header("의무실 특수 플래그")]
     public bool isHealing;
     [Header("수동 포탑")]
+    public int Train_Self_UseFuel;
     public int Train_Self_Attack;
     public float Train_Self_Attack_Delay;
+    public int Train_Self_Second;
     [Header("연락실")]
     public int Train_Supply_UseFuel;
     public int Train_Supply_Grade;
@@ -153,7 +155,7 @@ public class Train_InGame : MonoBehaviour
                     Destroy_Train(1);
                     break;
                 case "Turret":
-                    Destroy_Train(0);
+                    Destroy_Train(1);
                     break;
                 case "Medic":
                     Destroy_Train(1);
@@ -218,6 +220,13 @@ public class Train_InGame : MonoBehaviour
                 Train_Heal_timeBet = int.Parse(trainData_Special_String[2]);
                 Max_Train_Heal = Train_Heal;
                 break;
+            case "Self_Turret":
+                trainData_Special_String = trainData.Information_Train[Train_Num].Train_Special.Split(',');
+                Train_Self_UseFuel = int.Parse(trainData_Special_String[0]);
+                Train_Self_Attack = int.Parse(trainData_Special_String[1]);
+                Train_Self_Attack_Delay = float.Parse(trainData_Special_String[2]);
+                Train_Self_Second = int.Parse(trainData_Special_String[3]);
+                break;
             case "Dash":
                 trainData_Special_String = trainData.Information_Train[Train_Num].Train_Special.Split(',');
                 Train_Dash_UseFuel = int.Parse(trainData_Special_String[0]);
@@ -246,7 +255,7 @@ public class Train_InGame : MonoBehaviour
         }
     }
 
-    private void Destroy_Train(int i) // 0 -> 특수 / 1 -> 일반 / 2 -> 배달
+    private void Destroy_Train(int i) // 0 -> 특수 / 1 -> 일반 / 2 -> 퀘스트
     {
         if(i == 0)
         {

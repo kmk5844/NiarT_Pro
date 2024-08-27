@@ -18,15 +18,15 @@ public class Supply_Train_Dron : MonoBehaviour
     float[] Supply_Pos_X; 
 
     Rigidbody2D rid;
-    Vector3 spawnPosition = new Vector3(MonsterDirector.MinPos_Sky.x - 15f, MonsterDirector.MaxPos_Sky.y + 2f);
+    Vector3 spawnPosition = new Vector3(MonsterDirector.MinPos_Sky.x - 15f, MonsterDirector.MaxPos_Sky.y + 3f);
 
     public GameObject SupplyItem_Objcet;
 
     private void Start()
     {
-        transform.position = spawnPosition;    
+        transform.position = spawnPosition;
         rid = GetComponent<Rigidbody2D>();
-        rid.velocity = new Vector2(8f, 0f);
+        rid.velocity = new Vector2(9f, 0f);
 
         Supply_Pos_X = new float[Data_SupplyCount];
         item = new ItemDataObject[Data_SupplyCount];
@@ -41,7 +41,7 @@ public class Supply_Train_Dron : MonoBehaviour
 
     private void Update()
     {
-        if(SupplyCount < Data_SupplyCount)
+        if (SupplyCount < Data_SupplyCount)
         {
             if (transform.position.x > Supply_Pos_X[SupplyCount])
             {
@@ -57,6 +57,12 @@ public class Supply_Train_Dron : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        float offset = Mathf.Sin(Time.time * 10f) * 0.03f;
+        transform.position = new Vector3(transform.position.x, transform.position.y + offset, transform.position.z);
+    }
+
     public void SupplyDron_SetData(int num, int count)
     {
         gradeNum = num;
@@ -67,37 +73,71 @@ public class Supply_Train_Dron : MonoBehaviour
     {
         int Random_num = 0;
         int Random_Rarity = 0;
+        int Random_Rarity_probability = Random.Range(0, 101);
 
         if(gradeNum == 1)
         {
-            Random_Rarity = Random.Range(0, 2);
+            if(Random_Rarity_probability >= 0 && Random_Rarity_probability < 80)
+            {
+                Random_Rarity = 0;
+            }else if(Random_Rarity_probability >= 80 && Random_Rarity_probability <= 100)
+            {
+                Random_Rarity = 1;
+            }
         }else if(gradeNum == 2)
         {
-            Random_Rarity = Random.Range(0, 3);
-        }else if(gradeNum == 3)
+            if (Random_Rarity_probability >= 0 && Random_Rarity_probability < 50)
+            {
+                Random_Rarity = 0;
+            }
+            else if (Random_Rarity_probability >= 50 && Random_Rarity_probability < 95)
+            {
+                Random_Rarity = 1;
+            }else if(Random_Rarity_probability >= 95 && Random_Rarity_probability <= 100)
+            {
+                Random_Rarity = 2;
+            }
+        }
+        else if(gradeNum == 3)
         {
-            Random_Rarity = Random.Range(0, 4);
+            if (Random_Rarity_probability >= 0 && Random_Rarity_probability < 50)
+            {
+                Random_Rarity = 1;
+            }
+            else if (Random_Rarity_probability >= 50 && Random_Rarity_probability < 90)
+            {
+                Random_Rarity = 2;
+            }
+            else if (Random_Rarity_probability >= 90 && Random_Rarity_probability <= 100)
+            {
+                Random_Rarity = 3;
+            }
         }
 
-        if(Random_Rarity == 0)
-        {
-            Random_num = Random.Range(0, itemList.Common_Supply_ItemList.Count);
-            return itemList.Common_Supply_ItemList[Random_num];
-        }
-        else if(Random_Rarity == 1)
-        {
-            Random_num = Random.Range(0, itemList.Rare_Supply_ItemList.Count);
-            return itemList.Rare_Supply_ItemList[Random_num];
-        }else if(Random_Rarity == 2)
-        {
-            Random_num = Random.Range(0, itemList.Unique_Supply_ItemList.Count);
-            return itemList.Unique_Supply_ItemList[Random_num];
+        { // Random_ Rarity = 0-> Common / 1-> Rare / 2-> Unique / 3-> Epic
+            if (Random_Rarity == 0)
+            {
+                Random_num = Random.Range(0, itemList.Common_Supply_ItemList.Count);
+                return itemList.Common_Supply_ItemList[Random_num];
+            }
+            else if (Random_Rarity == 1)
+            {
+                Random_num = Random.Range(0, itemList.Rare_Supply_ItemList.Count);
+                return itemList.Rare_Supply_ItemList[Random_num];
+            }
+            else if (Random_Rarity == 2)
+            {
+                Random_num = Random.Range(0, itemList.Unique_Supply_ItemList.Count);
+                return itemList.Unique_Supply_ItemList[Random_num];
 
-        }else if(Random_Rarity == 3)
-        {
-            Random_num = Random.Range(0, itemList.Epic_Supply_ItemList.Count);
-            return itemList.Epic_Supply_ItemList[Random_num];
+            }
+            else if (Random_Rarity == 3)
+            {
+                Random_num = Random.Range(0, itemList.Epic_Supply_ItemList.Count);
+                return itemList.Epic_Supply_ItemList[Random_num];
+            }
+            return itemList.Common_Supply_ItemList[1];
         }
-        return itemList.Common_Supply_ItemList[1];
+
     }
 }

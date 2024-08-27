@@ -48,8 +48,9 @@ public class Player : MonoBehaviour
     float jumpdistance;
     float jumpFlagDistance;
 
-    [Header("의무실")]
+    [Header("상호작용")]
     public bool isHealing;
+    public bool isSelfTurretAtacking;
     Vector3 respawnPosition;
 
     [Header("무기 오브젝트")]
@@ -116,6 +117,9 @@ public class Player : MonoBehaviour
         Player_Bullet_List = GameObject.Find("Bullet_List").GetComponent<Transform>();
         Level();
         era = 1f - (float)Player_Armor / def_constant;
+
+        isHealing = false;
+        isSelfTurretAtacking = false;
 
         GunIndex = 0;
 
@@ -215,6 +219,23 @@ public class Player : MonoBehaviour
                 if(Input.GetKeyDown(KeyCode.R) && train.GetComponentInChildren<Supply_Train>().UseFlag){
                     train.GetComponentInChildren<Supply_Train>().UseSupply();
                 }
+            }else if (train.Train_Type.Equals("Self_Turret"))
+            {
+                if (train.GetComponentInChildren<SelfTurret_Train>().UseFlag)
+                {
+                    KeyObject.SetActive(true);
+                }
+                else
+                {
+                    KeyObject.SetActive(false);
+                }
+
+                if (Input.GetKeyDown(KeyCode.R) && train.GetComponentInChildren<SelfTurret_Train>().UseFlag)
+                {
+                    StartCoroutine(train.GetComponentInChildren<SelfTurret_Train>().UseSelfTurret());
+                    OnOff_Sprite(true);
+                    isSelfTurretAtacking = true;
+                }
             }
             else
             {
@@ -222,14 +243,30 @@ public class Player : MonoBehaviour
             }
         }
 
-
-
-        if (!isHealing) //치료가 아닐 때, 걸어다니면서 총을 쏨
+        if (isHealing) // 치료 중
+        {
+            if (Check_HpParsent() < 75f && !train.isHealing)
+            {
+                StartCoroutine(train.Train_Healing());
+            }
+            else if (Check_HpParsent() >= 75f || !train.Not_DestoryTrain)
+            {
+                OnOff_Sprite(false);
+                isHealing = false;
+            }
+        }else if (isSelfTurretAtacking) // 터렛 공격 중
+        {
+            if (!train.GetComponentInChildren<SelfTurret_Train>().isAtacking)
+            {
+                OnOff_Sprite(false);
+                isSelfTurretAtacking = false;
+            }
+        }
+        else // 일반
         {
             if (Input.GetButtonUp("Horizontal"))
             {
                 rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.5f, rigid.velocity.y);
-
             }
 
             if (Input.GetButtonDown("Jump") && !jumpFlag)
@@ -242,7 +279,7 @@ public class Player : MonoBehaviour
                 if (Item_Gun_TimeFlag)
                 {
                     Item_Gun_ClickTime += Time.deltaTime;
-                    if(Item_Gun_ClickTime > Item_Gun_Max_ClickTime)
+                    if (Item_Gun_ClickTime > Item_Gun_Max_ClickTime)
                     {
                         Item_Gun_Default();
                     }
@@ -271,18 +308,6 @@ public class Player : MonoBehaviour
                 }
             }
         }
-        else // 치료중일 때, 조작키 허용X
-        {
-            if (Check_HpParsent() < 75f && !train.isHealing)
-            {
-                StartCoroutine(train.Train_Healing());
-            }
-            else if (Check_HpParsent() >= 75f || !train.Not_DestoryTrain)
-            {
-                OnOff_Sprite(false);
-                isHealing = false;
-            }
-        }
 
         if (rigid.velocity.x > moveSpeed)
         {
@@ -298,7 +323,9 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!isHealing) { //치료 중이 아닐 때, 움직임.
+        if (isHealing) { }
+        else if (isSelfTurretAtacking) { }
+        else {
             float h = Input.GetAxisRaw("Horizontal");
             rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
         }
@@ -333,8 +360,6 @@ public class Player : MonoBehaviour
                 KeyObject.transform.localScale = new Vector3(KeyObject_Scale.x, KeyObject_Scale.y, KeyObject_Scale.z);
                 transform.rotation = Quaternion.Euler(0, 0, 0);
             }
-
-            
         }
 
         Debug.DrawRay(rigid.position, Vector3.down * jumpdistance, Color.green);
@@ -423,6 +448,8 @@ public class Player : MonoBehaviour
         if (flag)
         {
             transform.GetChild(0).gameObject.SetActive(false);
+            transform.GetComponent<Rigidbody2D>().velocity = new Vector2(0,0);
+            transform.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
             transform.GetComponent<CapsuleCollider2D>().enabled = false;
             GunObject.SetActive(false);
         }
@@ -430,6 +457,7 @@ public class Player : MonoBehaviour
         {
             transform.GetChild(0).gameObject.SetActive(true);
             transform.GetComponent<CapsuleCollider2D>().enabled = true;
+            transform.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
             GunObject.SetActive(true);
         }
     }

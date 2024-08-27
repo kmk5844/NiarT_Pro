@@ -24,7 +24,6 @@ public class Supply_Train : MonoBehaviour
         gameDirector = SupplyTrain.gameDirector.GetComponent<GameDirector>();
 
         SupplyTrain_Fuel = 0;
-        SupplyTrain_Fuel = SupplyTrain.Train_Supply_UseFuel;
         Max_SupplyTrain_Fuel = SupplyTrain.Train_Supply_UseFuel;
 
         FuelFlag = false;

@@ -14,6 +14,7 @@ public class UI_Train_Guage : MonoBehaviour
     public GameObject ON_Object;
     Turret turret;
     Booster_Train booster;
+    SelfTurret_Train self_turret;
     Dash_Train dash;
     Supply_Train supply;
 
@@ -40,6 +41,7 @@ public class UI_Train_Guage : MonoBehaviour
         if (Train_Data.Train_Type.Equals("Self_Turret"))
         {
             num = 4;
+            self_turret = Train_Data.GetComponentInChildren<SelfTurret_Train>();
         }
         if (Train_Data.Train_Type.Equals("Supply"))
         {
@@ -87,13 +89,17 @@ public class UI_Train_Guage : MonoBehaviour
         else if(num == 2)
         {
             Special_Guage.fillAmount = turret.Bullet_Delay_Percent();
-
         }
         else if(num == 3)
         {
             float FuelAmout = booster.BoosterFuel / booster.Data_BoosterFuel;
             Special_Guage.fillAmount = FuelAmout;
-        }else if(num == 5)
+        }else if(num == 4)
+        {
+            float FuelAmout = (float)self_turret.SelfTurretTrain_Fuel / (float)self_turret.Max_SelfTurretTrain_Fuel;
+            Special_Guage.fillAmount = FuelAmout;
+        }
+        else if(num == 5)
         {
             float FuelAmout = (float)supply.SupplyTrain_Fuel / (float)supply.Max_SupplyTrain_Fuel;
             Special_Guage.fillAmount = FuelAmout;
@@ -103,6 +109,5 @@ public class UI_Train_Guage : MonoBehaviour
             float FuelAmout = (float)dash.DashTrain_Fuel / (float)dash.Max_DashTrain_Fuel;
             Special_Guage.fillAmount = FuelAmout;
         }
-
     }
 }
