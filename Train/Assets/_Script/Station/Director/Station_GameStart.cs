@@ -10,6 +10,9 @@ using UnityEngine.Localization.Components;
 public class Station_GameStart : MonoBehaviour
 {
     [Header("데이터 모음")]
+    public GameObject Player_DataObject;
+    Station_PlayerData playerData;
+    SA_StageList stageData;
     public GameObject Train_DataObject;
     Station_TrainData trainData;
     public GameObject Item_DataObject;
@@ -20,8 +23,9 @@ public class Station_GameStart : MonoBehaviour
     public ItemList_Tooltip itemTooltip_object;
     public Transform ItemList_Window;
     public Button[] Equiped_Button;
+    public TextMeshProUGUI Stage_Text;
 
-
+    [Header("아이템")]
     public GameObject Inventory_Window;
     public GameObject ItemCount_Window;
     public Image ItemImage;
@@ -34,6 +38,9 @@ public class Station_GameStart : MonoBehaviour
     public Button Button_ItemCountChange;
     public Button Button_ItemEmpty;
 
+    public Transform RouteMap_Content;
+    public GameObject LevelStage_Object;
+    public GameObject FullMap_Window;
     public Button GameStart_Button;
     public LocalizeStringEvent GameStart_Information_Text;
 
@@ -47,14 +54,36 @@ public class Station_GameStart : MonoBehaviour
 
     [HideInInspector]
     public bool EquipItemFlag;
+    [HideInInspector]
+    public bool FullMapFlag;
 
     private void Start()
     {
         trainData = Train_DataObject.GetComponent<Station_TrainData>();
         itemData = Item_DataObject.GetComponent<Station_ItemData>();
+        playerData = Player_DataObject.GetComponent<Station_PlayerData>();
+        stageData = playerData.SA_StageList;
         itemEquip_object.GameStartDirector = GetComponent<Station_GameStart>();
         itemEquip_object.item_tooltip_object = itemTooltip_object;
         GameStart_Information_Text.StringReference.TableReference = "Station_Table_St";
+        Stage_Text.text = "Stage " + playerData.SA_PlayerData.Stage;
+        EquipItemFlag = false;
+        FullMapFlag = false;
+
+        RouteMap_Content.GetComponent<RectTransform>().sizeDelta = new Vector2((330 * (stageData.Stage.Count+ 4)), 425);
+        for (int i = 0; i < stageData.Stage.Count; i++)
+        {
+            Vector2 pos = new Vector2(825 + (330 * i), -425f / 2);
+            LevelStage_Object.GetComponent<StageButton_Route>().stageData = stageData.Stage[i];
+            if(i == stageData.Stage.Count - 1)
+            {
+                LevelStage_Object.GetComponent<StageButton_Route>().RoadObject.SetActive(false);
+            }
+            GameObject obj = Instantiate(LevelStage_Object, RouteMap_Content);
+            
+            obj.transform.localPosition = pos;
+        }
+
         for (int i = 0; i < Equiped_Button.Length; i++)
         {
             Equiped_ImageAndCount(i);
@@ -98,8 +127,6 @@ public class Station_GameStart : MonoBehaviour
             }
             Instantiate(itemEquip_object, ItemList_Window);
         }
-
-
     }
 
     public void Check_Train()
@@ -122,7 +149,7 @@ public class Station_GameStart : MonoBehaviour
         }
         else
         {
-            GameStart_Information_Text.GetComponent<TextMeshProUGUI>().color = Color.white;
+            GameStart_Information_Text.GetComponent<TextMeshProUGUI>().color = Color.black;
             GameStart_Information_Text.StringReference.TableEntryReference = "UI_GameStart_Start_Information_Text_1";
             //TrainText.text = "게임 시작이 가능합니다.";
             GameStart_Button.interactable = true;
@@ -271,6 +298,17 @@ public class Station_GameStart : MonoBehaviour
         ItemCount_Window.SetActive(false);
         Button_ItemCountChange.onClick.RemoveAllListeners();
         Button_Equip.onClick.RemoveAllListeners();
+    }
+    public void Open_FullMapWindow()
+    {
+        FullMapFlag = true;
+        FullMap_Window.SetActive(true);
+    }
+
+    public void Close_FullMapWindow()
+    {
+        FullMapFlag = false;
+        FullMap_Window.SetActive(false);
     }
 
     public void CountPlus()

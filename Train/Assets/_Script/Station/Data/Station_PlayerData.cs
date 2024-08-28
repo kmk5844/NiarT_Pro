@@ -10,6 +10,7 @@ public class Station_PlayerData : MonoBehaviour
     //public Train_DataTable EX_Game_Data;
     public Level_DataTable EX_Level_Data;
     public SA_PlayerData SA_PlayerData;
+    public SA_StageList SA_StageList;
 
     [Header("플레이어 데이터")]
     public int Level_Player_Atk;

@@ -61,7 +61,6 @@ public class StationDirector : MonoBehaviour
 
     [Header("Click Lobby -> GameStart")]
     public GameObject UI_GameStart;
-    public TextMeshProUGUI Stage_Text;
 
     [Header("Coin&Point")]
     public TextMeshProUGUI[] Coin_Text;
@@ -95,7 +94,6 @@ public class StationDirector : MonoBehaviour
             Coin_Text[i].text = playerData.Player_Coin.ToString();
             Point_Text[i].text = playerData.Player_Point.ToString();
         }
-        Stage_Text.text = "Stage " + playerData.SA_PlayerData.Stage; 
 
         ui_num = 0;
         ui_store_num = 0;
@@ -185,6 +183,10 @@ public class StationDirector : MonoBehaviour
                 if (Director_GameStart.EquipItemFlag)
                 {
                     Director_GameStart.Close_Inventory_Window();
+                }
+                else if (Director_GameStart.FullMapFlag)
+                {
+                    Director_GameStart.Close_FullMapWindow();
                 }
                 else
                 {
