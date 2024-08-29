@@ -77,6 +77,81 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &783192939007573756
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5957443138834132094}
+  - component: {fileID: 8233239853552213164}
+  - component: {fileID: 5706445763564663732}
+  m_Layer: 5
+  m_Name: SelectMark
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &5957443138834132094
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 783192939007573756}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7583970949317123675}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 149}
+  m_SizeDelta: {x: 59.9176, y: 58.7386}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &8233239853552213164
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 783192939007573756}
+  m_CullTransparentMesh: 1
+--- !u!114 &5706445763564663732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 783192939007573756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &2023872299781064944
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,7 +169,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1062030835083622074
 RectTransform:
   m_ObjectHideFlags: 0
@@ -240,12 +315,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f12603eb12bc2f142b1b54a82f53d1f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamestartDirection: {fileID: 0}
   stageData: {fileID: 0}
+  stageData_Num: 0
   StageNum_Text: {fileID: 0}
   RoadObject: {fileID: 0}
   LockPanel: {fileID: 0}
   GradeObject: {fileID: 0}
   Grade_Image: []
+  MarkObject: {fileID: 0}
 --- !u!1 &6358254455685868438
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,6 +494,7 @@ RectTransform:
   - {fileID: 1062030835083622074}
   - {fileID: 7400518130574962276}
   - {fileID: 3986646394801184800}
+  - {fileID: 5957443138834132094}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -450,7 +529,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 0
+  m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -471,7 +550,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 1666626978728878566}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
@@ -487,7 +566,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f12603eb12bc2f142b1b54a82f53d1f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamestartDirection: {fileID: 0}
   stageData: {fileID: 11400000, guid: 76ba343f645718d43b11693567d5691d, type: 2}
+  stageData_Num: 0
   StageNum_Text: {fileID: 4257644634069941071}
   RoadObject: {fileID: 2023872299781064944}
   LockPanel: {fileID: 7944361489274996313}
@@ -499,6 +580,7 @@ MonoBehaviour:
   - {fileID: 435570901, guid: ea0499cb0d461e24d88844a2267b1b19, type: 3}
   - {fileID: 666305371, guid: bf259a917f1092e49a4d6d13ad88eff3, type: 3}
   - {fileID: 747493548, guid: 1532ad1527f2bf349a19b326b83f0932, type: 3}
+  MarkObject: {fileID: 783192939007573756}
 --- !u!1 &7944361489274996313
 GameObject:
   m_ObjectHideFlags: 0

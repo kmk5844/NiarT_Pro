@@ -38,9 +38,13 @@ public class Station_GameStart : MonoBehaviour
     public Button Button_ItemCountChange;
     public Button Button_ItemEmpty;
 
+    [Header("스테이지 선택")]
     public Transform RouteMap_Content;
     public GameObject LevelStage_Object;
+    GameObject[] LevelStage_Button;
+    public GameObject[] FullMap_Stage_Button;
     public GameObject FullMap_Window;
+    public Button[] prevAndnextRoute_Button;
     public Button GameStart_Button;
     public LocalizeStringEvent GameStart_Information_Text;
 
@@ -57,6 +61,9 @@ public class Station_GameStart : MonoBehaviour
     [HideInInspector]
     public bool FullMapFlag;
 
+    public int Select_StageNum;
+    int Last_StageNum;
+
     private void Start()
     {
         trainData = Train_DataObject.GetComponent<Station_TrainData>();
@@ -66,29 +73,89 @@ public class Station_GameStart : MonoBehaviour
         itemEquip_object.GameStartDirector = GetComponent<Station_GameStart>();
         itemEquip_object.item_tooltip_object = itemTooltip_object;
         GameStart_Information_Text.StringReference.TableReference = "Station_Table_St";
-        Stage_Text.text = "Stage " + playerData.SA_PlayerData.Stage;
+        Select_StageNum = playerData.SA_PlayerData.Stage;
+        Last_StageNum = -1;
         EquipItemFlag = false;
         FullMapFlag = false;
 
         RouteMap_Content.GetComponent<RectTransform>().sizeDelta = new Vector2((330 * (stageData.Stage.Count+ 4)), 425);
+        LevelStage_Button = new GameObject[stageData.Stage.Count];
         for (int i = 0; i < stageData.Stage.Count; i++)
         {
             Vector2 pos = new Vector2(825 + (330 * i), -425f / 2);
             LevelStage_Object.GetComponent<StageButton_Route>().stageData = stageData.Stage[i];
-            if(i == stageData.Stage.Count - 1)
-            {
-                LevelStage_Object.GetComponent<StageButton_Route>().RoadObject.SetActive(false);
-            }
+            LevelStage_Object.GetComponent<StageButton_Route>().gamestartDirection = this;
             GameObject obj = Instantiate(LevelStage_Object, RouteMap_Content);
-            
             obj.transform.localPosition = pos;
+            obj.name = "Stage_Button_" + stageData.Stage[i].Stage_Num;
+            if (i == stageData.Stage.Count - 1)
+            {
+                obj.GetComponent<StageButton_Route>().RoadObject.SetActive(false);
+            }
+            LevelStage_Button[i] = obj;
         }
+
+        StageButton_Click(Select_StageNum);
 
         for (int i = 0; i < Equiped_Button.Length; i++)
         {
             Equiped_ImageAndCount(i);
         }
         Spawn_Item();
+    }
+
+    public void StageButton_Click(int num)
+    {
+        Last_StageNum = Select_StageNum;
+        Select_StageNum = num;
+        Vector2 pos = new Vector2(-LevelStage_Button[num].transform.localPosition.x + 820, RouteMap_Content.localPosition.y);
+        RouteMap_Content.localPosition = pos;
+        if (Last_StageNum != -1)
+        {
+            LevelStage_Button[Last_StageNum].GetComponent<StageButton_Route>().MarkObject.SetActive(false);
+        }
+
+        LevelStage_Button[num].GetComponent<StageButton_Route>().MarkObject.SetActive(true);
+        Chnage_Stage_Information();
+        CheckRoute_Button();
+    }
+
+    public void Chnage_Stage_Information()
+    {
+        Stage_Text.text = "Stage " + Select_StageNum;
+    }
+
+    public void PrevRoute_Button()
+    {
+        int num = Select_StageNum - 1;
+        StageButton_Click(num);
+    }
+
+    public void NextRoute_Button()
+    {
+        int num = Select_StageNum + 1;
+        StageButton_Click(num);
+    }
+
+    void CheckRoute_Button()
+    {
+        if(Select_StageNum == 0)
+        {
+            prevAndnextRoute_Button[0].interactable = false;
+        }
+        else
+        {
+            prevAndnextRoute_Button[0].interactable = true;
+        }
+
+        if (Select_StageNum == playerData.SA_PlayerData.Stage)
+        {
+            prevAndnextRoute_Button[1].interactable = false;
+        }
+        else
+        {
+            prevAndnextRoute_Button[1].interactable = true;
+        }
     }
 
     private void Equiped_ImageAndCount(int buttonNum)
