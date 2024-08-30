@@ -90,7 +90,7 @@ public class UIDirector : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         gamedirector = GameDirector_Object.GetComponent<GameDirector>();
-        if(gamedirector.SA_PlayerData.Stage != 0)
+        if(gamedirector.SA_PlayerData.Select_Stage != 0)
         {
             KeyTutorial_Object.SetActive(false);
         }

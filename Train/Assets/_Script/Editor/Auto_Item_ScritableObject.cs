@@ -228,6 +228,7 @@ public class Auto_Item_ScritableObject : EditorWindow
             stageObject.Auto_Stage_Insert(
                 stage.Number,
                 stage.Destination_Distance,
+                stage.Emerging_Monster,
                 stage.Monster_Count,
                 stage.Reward_Point,
                 stage.Reward_Item,

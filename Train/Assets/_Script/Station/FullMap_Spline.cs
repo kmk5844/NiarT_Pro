@@ -1,3 +1,5 @@
+using Newtonsoft.Json.Serialization;
+using Radishmouse;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,24 +9,49 @@ public class FullMap_Spline : MonoBehaviour
 {
     public Station_GameStart gameStartDirection;
     public SA_StageList sa_stagelist;
-    public GameObject[] FullMap_StageButton_Object;
+    public GameObject FullMap_StageButton_Object;
+    Vector3[] pos;
+    FullMap_StageButton[] stageButton;
 
-    private void OnEnable()
+    int lastIndex;
+
+    private void Start()
     {
-        SplineInstantiate sp = GetComponent<SplineInstantiate>();
-        FullMap_StageButton_Object = new GameObject[sa_stagelist.Stage.Count];
+        UILineRenderer ui_line = GetComponent<UILineRenderer>();
+        pos = new Vector3[ui_line.points.Length];
+        for(int i = 0; i < ui_line.points.Length; i++)
+        {
+            pos[i] = ui_line.points[i];
+        }
+        lastIndex = gameStartDirection.Select_StageNum;
+        CreateObject();
+    }
+
+    void CreateObject()
+    {
+        Vector3 lastPosition;
+        stageButton = new FullMap_StageButton[sa_stagelist.Stage.Count];
 
         for (int i = 0; i < sa_stagelist.Stage.Count; i++)
         {
-            FullMap_StageButton_Object[i] = sp.transform.GetChild(0).GetChild(i).gameObject;
+            lastPosition = pos[i];
+            GameObject obj = Instantiate(FullMap_StageButton_Object, transform);
+            obj.transform.localPosition = lastPosition;
+            stageButton[i] = obj.GetComponent<FullMap_StageButton>();
+            stageButton[i].gamestartDirection = gameStartDirection;
+            stageButton[i].stageData = sa_stagelist.Stage[i];
+            stageButton[i].Load();
+            if(lastIndex == i)
+            {
+                stageButton[i].SelectStage_MarkObject.SetActive(true);
+            }
         }
+    }
 
-        for(int i = 0; i < sa_stagelist.Stage.Count; i++)
-        {
-            FullMap_StageButton_Object[i].GetComponent<FullMap_StageButton>().gamestartDirection = gameStartDirection;
-            FullMap_StageButton_Object[i].GetComponent<FullMap_StageButton>().stageData = sa_stagelist.Stage[i];
-            FullMap_StageButton_Object[i].GetComponent<FullMap_StageButton>().Load();
-        }
-        FullMap_StageButton_Object[gameStartDirection.Select_StageNum].GetComponent<FullMap_StageButton>().SelectStage_MarkObject.SetActive(true);
+    public void OpenFullMap()
+    {
+        stageButton[lastIndex].SelectStage_MarkObject.SetActive(false);
+        stageButton[gameStartDirection.Select_StageNum].SelectStage_MarkObject.SetActive(true);
+        lastIndex = gameStartDirection.Select_StageNum;
     }
 }

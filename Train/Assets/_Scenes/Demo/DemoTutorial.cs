@@ -35,7 +35,7 @@ public class DemoTutorial : MonoBehaviour
     {
         MMSoundManagerSoundPlayEvent.Trigger(Tutorial_BGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true);
         ClickFlag = true;
-        PlayerStageNum = playerData.Stage;
+        PlayerStageNum = playerData.New_Stage;
 
         Count = 0;
         MaxCount = 0;

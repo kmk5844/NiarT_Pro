@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class StageDataObject : ScriptableObject
@@ -11,6 +12,11 @@ public class StageDataObject : ScriptableObject
     [SerializeField]
     private int destination_distance;
     public int Destination_Distance { get {  return destination_distance; } }
+
+    [SerializeField]
+    private string emerging_monster;
+    public string Emerging_Monster { get {  return emerging_monster; } }
+
     [SerializeField]
     private int monster_count;
     public int Monster_Count {  get { return monster_count; } }
@@ -27,17 +33,9 @@ public class StageDataObject : ScriptableObject
     private string reward_itemcount;
     public string Reward_Itemcount { get { return reward_itemcount; } }
 
-    public struct _Grade_Score
-    {
-        public int d_grade;
-        public int c_grade;
-        public int b_grade;
-        public int a_grade;
-        public int s_grade;
-    }
     [SerializeField]
-    _Grade_Score grade_score;
-    public _Grade_Score Grade_Score { get { return grade_score; } } 
+    List<int> grade_score;
+    public List<int> Grade_Score { get { return grade_score; } } 
 
     [SerializeField]
     bool boss_flag;
@@ -78,13 +76,14 @@ public class StageDataObject : ScriptableObject
     }
 
     public void Auto_Stage_Insert(
-        int _stage_num, int _destination_distance, int _monster_count, 
+        int _stage_num, int _destination_distance, string _emerging_monster,int _monster_count, 
         int _reward_point, string _reward_item, string _reward_itemcount,
         int _d, int _c, int _b, int _a, int _s, bool _boss_flag, string _emerging_boss,
         string _boss_monster_count, string _boss_distance
         )
     {
         stage_num = _stage_num;
+        emerging_monster = _emerging_monster;
         destination_distance = _destination_distance;
         monster_count = _monster_count;
         reward_point = _destination_distance;
@@ -92,11 +91,12 @@ public class StageDataObject : ScriptableObject
         reward_item = _reward_item;
         reward_itemcount = _reward_itemcount;
 
-        grade_score.d_grade = _d;
-        grade_score.c_grade = _c;
-        grade_score.b_grade = _b;
-        grade_score.a_grade = _a;
-        grade_score.s_grade = _s;
+        grade_score = new List<int>();
+        grade_score.Add(_d);
+        grade_score.Add(_c);
+        grade_score.Add(_b);
+        grade_score.Add(_a);
+        grade_score.Add(_s);
 
         boss_flag = _boss_flag;
         emerging_boss = _emerging_boss;
@@ -113,6 +113,145 @@ public class StageDataObject : ScriptableObject
         {
             stage_openflag = false;
         }
+    }
 
+    public void New_Stage_Chage()
+    {
+        if (!stage_openflag)
+        {
+            stage_openflag = true;
+        }
+        Save();
+    }
+
+
+    public void GameEnd(bool WinAndLoseFlag, int Score, string grade = "F")
+    {
+        if (!player_firstplay)
+        {
+            player_firstplay = true;
+        }
+        
+        if(player_score < Score)
+        {
+            player_score = Score;
+        }
+
+        int beforeNum = -1;
+        int gradeNum = -1;
+
+        switch (player_grade)
+        {
+            case Grade.S:
+                beforeNum = 4;
+                break;
+            case Grade.A:
+                beforeNum = 3;
+                break;
+            case Grade.B:
+                beforeNum = 2;
+                break;
+            case Grade.C:
+                beforeNum = 1;
+                break;
+            case Grade.D:
+                beforeNum = 0;
+                break;
+            case Grade.F:
+                beforeNum = -1;
+                break;
+        }
+
+        if (WinAndLoseFlag)
+        {
+            switch (grade)
+            {
+                case "S":
+                    gradeNum = 4;
+                    break;
+                case "A":
+                    gradeNum = 3;
+                    break;
+                case "B":
+                    gradeNum = 2;
+                    break;
+                case "C":
+                    gradeNum = 1;
+                    break;
+                case "D":
+                    gradeNum = 0;
+                    break;
+                case "F":
+                    gradeNum = -1;
+                    break;
+            }
+
+            if(gradeNum > beforeNum)
+            {
+                if (gradeNum == 4)
+                {
+                    player_grade = Grade.S;
+                }
+                else if (gradeNum == 3)
+                {
+                    player_grade = Grade.A;
+                }
+                else if (gradeNum == 2)
+                {
+                    player_grade = Grade.B;
+                }
+                else if(gradeNum == 1)
+                {
+                    player_grade = Grade.C;
+                }else if(gradeNum == 0)
+                {
+                    player_grade = Grade.D;
+                }else if(gradeNum == -1)
+                {
+                    player_grade = Grade.F;
+                }
+            }
+        }
+        else
+        {
+            if(beforeNum == -1)
+            {
+                player_grade = Grade.F;
+            }
+        }
+
+        Save();
+    }
+
+    public void Save()
+    {
+        ES3.Save(name + "_stage_openflag", stage_openflag);
+        ES3.Save(name + "_player_firstplay", player_firstplay);
+        ES3.Save(name + "_player_score", player_score);
+        ES3.Save(name + "_player_grade", player_grade);
+    }
+
+    public void Load()
+    {
+        player_firstplay = ES3.Load(name + "_stage_openflag", player_firstplay);
+        player_score = ES3.Load(name + "_stage_openflag", player_score);
+        player_grade = ES3.Load(name + "_stage_openflag", player_grade);
+        stage_openflag = ES3.Load(name + "_stage_openflag", stage_openflag);
+    }
+
+    public void Init()
+    {
+        player_firstplay = false;
+        player_score = 0;
+        player_grade = Grade.F;
+        if (stage_num == 0)
+        {
+            stage_openflag = true;
+        }
+        else
+        {
+            stage_openflag = false;
+        }
+        Save();
     }
 }

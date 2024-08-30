@@ -54,12 +54,24 @@ public class SA_PlayerData : ScriptableObject
 
     [Header("스테이지")]
     [SerializeField]
-    private int stage;
-    public int Stage { get { return stage; } }
+    private int new_stage;
+    public int New_Stage { get { return new_stage; } }
+    [SerializeField]
+    private int select_stage;
+    public int Select_Stage { get { return  select_stage; } }
+
+
 
     public void SA_GameWinReward(int R_Coin, int R_Point)
     {
-        stage++;
+        if (select_stage == 0 && new_stage == 0) // 바로 스토리 넘어가는 특수상황일 경우
+        {
+            select_stage = 1;
+            new_stage = 1;
+        }else if (select_stage == new_stage)
+        {
+            new_stage++;
+        }
         coin += R_Coin;
         point += R_Point;
         Save();
@@ -101,6 +113,12 @@ public class SA_PlayerData : ScriptableObject
         Save();
     }
 
+    public void SA_SelectLevel(int num)
+    {
+        select_stage = num;
+        Save();
+    }
+
     private void Save()
     {
         PlayerPrefs.SetInt("SA_PlayerData_Data_level_atk", level_atk);
@@ -110,7 +128,8 @@ public class SA_PlayerData : ScriptableObject
         PlayerPrefs.SetInt("SA_PlayerData_Data_levle_speed", level_speed);
         PlayerPrefs.SetInt("SA_PlayerData_Data_coin", coin);
         PlayerPrefs.SetInt("SA_PlayerData_Data_point", point);
-        PlayerPrefs.SetInt("SA_PlayerData_Data_stage", stage);
+        PlayerPrefs.SetInt("SA_PlayerData_Data_new_stage", new_stage);
+        PlayerPrefs.SetInt("SA_PlayerData_Data_select_stage", select_stage);
     }
 
     public void Load()
@@ -122,7 +141,8 @@ public class SA_PlayerData : ScriptableObject
         level_speed = PlayerPrefs.GetInt("SA_PlayerData_Data_levle_speed");
         coin = PlayerPrefs.GetInt("SA_PlayerData_Data_coin");
         point = PlayerPrefs.GetInt("SA_PlayerData_Data_point");
-        stage = PlayerPrefs.GetInt("SA_PlayerData_Data_stage");
+        new_stage = PlayerPrefs.GetInt("SA_PlayerData_Data_new_stage");
+        new_stage = PlayerPrefs.GetInt("SA_PlayerData_Data_select_stage");
     }
 
     public void Init()
@@ -134,7 +154,10 @@ public class SA_PlayerData : ScriptableObject
         level_speed = 0;
         coin = 0;
         point = 0;
-        stage = 0;
+        new_stage = 0;
+
+        select_stage = 0;
+
         Save();
     }
 

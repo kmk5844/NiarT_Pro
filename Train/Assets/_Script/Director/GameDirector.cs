@@ -21,6 +21,8 @@ public class GameDirector : MonoBehaviour
     public SA_TrainTurretData SA_TrainTurretData;
     public SA_TrainBoosterData SA_TrainBoosterData;
     public SA_MercenaryData SA_MercenaryData;
+    public SA_StageList SA_StageList;
+    StageDataObject StageData;
     public SA_PlayerData SA_PlayerData;
     public Game_DataTable EX_GameData;
     public Level_DataTable EX_LevelData;
@@ -153,7 +155,8 @@ public class GameDirector : MonoBehaviour
     void Awake()
     {
         gameType = GameType.Playing;
-        Stage_Num = SA_PlayerData.Stage;
+        Stage_Num = SA_PlayerData.Select_Stage;
+        StageData = SA_StageList.Stage[Stage_Num];
         BGM_ID = 30;
         Change_Win_BGM_Flag = false;
         GameStartFlag = false;
@@ -390,13 +393,13 @@ public class GameDirector : MonoBehaviour
     }
     void Stage_Init()
     {
-        Emerging_Monster_String = EX_GameData.Information_Stage[Stage_Num].Emerging_Monster;
-        Reward_Point = EX_GameData.Information_Stage[Stage_Num].Reward_Point;
+        Emerging_Monster_String = StageData.Emerging_Monster;
+        Reward_Point = StageData.Reward_Point;
 
-        Reward_ItemNum = EX_GameData.Information_Stage[Stage_Num].Reward_Item;
-        Reward_ItemCount = EX_GameData.Information_Stage[Stage_Num].Reward_ItemCount;
+        Reward_ItemNum = StageData.Reward_Item;
+        Reward_ItemCount = StageData.Reward_Itemcount;
 
-        Destination_Distance = EX_GameData.Information_Stage[Stage_Num].Destination_Distance;
+        Destination_Distance = StageData.Destination_Distance;
         Emerging_Monster = new List<int>();
         string[] Monster_String = Emerging_Monster_String.Split(',');
         foreach(string M in Monster_String)
@@ -408,12 +411,12 @@ public class GameDirector : MonoBehaviour
             }
         }
 
-        Data_BossFlag = EX_GameData.Information_Stage[Stage_Num].Boss_Flag;
+        Data_BossFlag = StageData.Boss_Flag;
         if (Data_BossFlag)
         {
-            Emerging_Boss_String = EX_GameData.Information_Stage[Stage_Num].Emerging_Boss;
-            Emerging_Boss_Monster_Count_String = EX_GameData.Information_Stage[Stage_Num].Boss_Monster_Count;
-            Emerging_Boss_Distance_String = EX_GameData.Information_Stage[Stage_Num].Boss_Distance;
+            Emerging_Boss_String = StageData.Emerging_boss;
+            Emerging_Boss_Monster_Count_String = StageData.Boss_Monster_Count;
+            Emerging_Boss_Distance_String = StageData.Boss_Distance;
 
             string[] Boss_String = Emerging_Boss_String.Split(',');
             foreach(string M in Boss_String)
@@ -596,27 +599,26 @@ public class GameDirector : MonoBehaviour
     }
     private string Check_Score()
     {
-        if (Total_Score >= EX_GameData.Information_Stage[Stage_Num].S_Grade)
+        if (Total_Score >= StageData.Grade_Score[4])
         {
             return "S";
         }
-        else if (EX_GameData.Information_Stage[Stage_Num].S_Grade > Total_Score && Total_Score >= EX_GameData.Information_Stage[Stage_Num].A_Grade)
+        else if (StageData.Grade_Score[4] > Total_Score && Total_Score >= StageData.Grade_Score[3])
         {
             return "A";
         }
-        else if (EX_GameData.Information_Stage[Stage_Num].A_Grade > Total_Score && Total_Score >= EX_GameData.Information_Stage[Stage_Num].B_Grade)
+        else if (StageData.Grade_Score[3] > Total_Score && Total_Score >= StageData.Grade_Score[2])
         {
             return "B";
         }
-        else if (EX_GameData.Information_Stage[Stage_Num].B_Grade > Total_Score && Total_Score >= EX_GameData.Information_Stage[Stage_Num].C_Grade)
+        else if (StageData.Grade_Score[2] > Total_Score && Total_Score >= StageData.Grade_Score[1])
         {
             return "C";
         }
-        else if (EX_GameData.Information_Stage[Stage_Num].C_Grade > Total_Score && Total_Score >= EX_GameData.Information_Stage[Stage_Num].D_Grade)
-        {
+        else if (StageData.Grade_Score[1] > Total_Score && Total_Score >= StageData.Grade_Score[0]){
             return "D";
         }
-        else if (EX_GameData.Information_Stage[Stage_Num].D_Grade > Total_Score)
+        else if (StageData.Grade_Score[0] > Total_Score)
         {
             return "F";
         }
@@ -653,6 +655,11 @@ public class GameDirector : MonoBehaviour
     {
         Change_Game_End(true);
         MMSoundManagerSoundPlayEvent.Trigger(WinSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+        StageData.GameEnd(true, Total_Score,Check_Score());
+        if(SA_PlayerData.New_Stage == SA_PlayerData.Select_Stage)
+        {
+            SA_StageList.Stage[Stage_Num + 1].New_Stage_Chage();
+        }
         SA_PlayerData.SA_GameWinReward(Total_Coin, Reward_Point);
     }
 
@@ -661,6 +668,7 @@ public class GameDirector : MonoBehaviour
         Change_Game_End(false, losenum);
         MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, BGM_ID);
         MMSoundManagerSoundPlayEvent.Trigger(LoseSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+        StageData.GameEnd(false, Total_Score);
         SA_PlayerData.SA_GameLoseReward(Total_Coin);
     }
 

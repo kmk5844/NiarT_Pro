@@ -44,6 +44,7 @@ public class Station_GameStart : MonoBehaviour
     GameObject[] LevelStage_Button;
     public GameObject[] FullMap_Stage_Button;
     public GameObject FullMap_Window;
+    public FullMap_Director FullMap_Director;
     public Button[] prevAndnextRoute_Button;
     public Button GameStart_Button;
     public LocalizeStringEvent GameStart_Information_Text;
@@ -60,6 +61,7 @@ public class Station_GameStart : MonoBehaviour
     public bool EquipItemFlag;
     [HideInInspector]
     public bool FullMapFlag;
+    bool FullMap_FirstOpenFlag;
 
     public int Select_StageNum;
     int Last_StageNum;
@@ -73,7 +75,7 @@ public class Station_GameStart : MonoBehaviour
         itemEquip_object.GameStartDirector = GetComponent<Station_GameStart>();
         itemEquip_object.item_tooltip_object = itemTooltip_object;
         GameStart_Information_Text.StringReference.TableReference = "Station_Table_St";
-        Select_StageNum = playerData.SA_PlayerData.Stage;
+        Select_StageNum = playerData.SA_PlayerData.New_Stage;
         Last_StageNum = -1;
         EquipItemFlag = false;
         FullMapFlag = false;
@@ -148,7 +150,7 @@ public class Station_GameStart : MonoBehaviour
             prevAndnextRoute_Button[0].interactable = true;
         }
 
-        if (Select_StageNum == playerData.SA_PlayerData.Stage)
+        if (Select_StageNum == playerData.SA_PlayerData.New_Stage)
         {
             prevAndnextRoute_Button[1].interactable = false;
         }
@@ -225,6 +227,7 @@ public class Station_GameStart : MonoBehaviour
 
     public void Click_GameStart()
     {
+        playerData.SA_PlayerData.SA_SelectLevel(Select_StageNum);
         LoadingManager.LoadScene("CharacterSelect");
     }
 
@@ -369,6 +372,14 @@ public class Station_GameStart : MonoBehaviour
     public void Open_FullMapWindow()
     {
         FullMapFlag = true;
+        if (FullMap_FirstOpenFlag)
+        {
+            FullMap_Director.OpenFullMap();
+        }
+        else
+        {
+            FullMap_FirstOpenFlag = true;
+        }
         FullMap_Window.SetActive(true);
     }
 

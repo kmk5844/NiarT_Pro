@@ -90,10 +90,10 @@ public class GameManager : MonoBehaviour
 
     public void Start_Enter()
     {
-        int index = story_List.FindIndex(x => x.stageNum == PlayerData.Stage);
+        int index = story_List.FindIndex(x => x.stageNum == PlayerData.New_Stage);
         if (index != -1 && !story_List[index].StartFlag)
         {
-            StoryData.Start_Story(PlayerData.Stage);
+            StoryData.Start_Story(PlayerData.New_Stage);
             story_List[index].StartFlag = true;
         }
         else
@@ -104,10 +104,10 @@ public class GameManager : MonoBehaviour
 
     public void End_Enter()
     {
-        int index = story_List.FindIndex(x => x.stageNum == PlayerData.Stage);
+        int index = story_List.FindIndex(x => x.stageNum == PlayerData.New_Stage);
         if (index != -1 && !story_List[index].EndFlag)
         {
-            StoryData.End_Story(PlayerData.Stage);
+            StoryData.End_Story(PlayerData.New_Stage);
             story_List[index].EndFlag = true;
         }
         else
@@ -118,7 +118,7 @@ public class GameManager : MonoBehaviour
 
     public void Demo_End_Enter()
     {
-        StoryData.End_Demo(PlayerData.Stage);
+        StoryData.End_Demo(PlayerData.New_Stage);
     }
 
     void StoryFlag_Init()

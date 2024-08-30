@@ -79,13 +79,17 @@ public class Monster_1 : Monster
 
     private void OnDestroy()
     {
+        
         if (!isQuitting)
         {
-            if (monster_gametype == Monster_GameType.Fighting 
-                || monster_gametype == Monster_GameType.Stun_Bullet_Debuff
-                || monster_gametype == Monster_GameType.CowBoy_Debuff)
+            if(gameDirector.gameType != GameType.GameEnd)
             {
-                AfterDie_Spawn_Item();
+                if (monster_gametype == Monster_GameType.Fighting
+                    || monster_gametype == Monster_GameType.Stun_Bullet_Debuff
+                    || monster_gametype == Monster_GameType.CowBoy_Debuff)
+                {
+                    AfterDie_Spawn_Item();
+                }
             }
         }
     }

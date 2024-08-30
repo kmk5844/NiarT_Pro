@@ -78,7 +78,7 @@ public class MonsterDirector : MonoBehaviour
         }
         else
         {
-            MaxMonsterNum = EX_GameData.Information_Stage[SA_PlayerData.Stage].Monster_Count;
+            MaxMonsterNum = EX_GameData.Information_Stage[SA_PlayerData.Select_Stage].Monster_Count;
         }
     }
     // Start is called before the first frame update
@@ -236,7 +236,7 @@ public class MonsterDirector : MonoBehaviour
     {
         GameDirector_BossFlag = false;
         GameDirector_Boss_SpawnFlag = false;
-        MaxMonsterNum = EX_GameData.Information_Stage[SA_PlayerData.Stage].Monster_Count;
+        MaxMonsterNum = EX_GameData.Information_Stage[SA_PlayerData.Select_Stage].Monster_Count;
         BossCount++;
     }
 

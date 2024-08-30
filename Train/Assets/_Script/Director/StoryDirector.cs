@@ -30,10 +30,10 @@ public class StoryDirector : MonoBehaviour
 
     private void Awake()
     {
-        int index = EX_StoryData.Story_Branch.FindIndex(x => x.Stage_Index.Equals(SA_PlayerData.Stage));
+        int index = EX_StoryData.Story_Branch.FindIndex(x => x.Stage_Index.Equals(SA_PlayerData.New_Stage));
         int Branch_Value = EX_StoryData.Story_Branch[index].Branch_Index;
         GameObject Branch = BranchList[Branch_Value]; // stageNum에 따라 Branch 값을 가져온다.
-        Branch.GetComponent<DialogSystem>().Story_Init(gameObject, SA_PlayerData.Stage , Branch_Value);
+        Branch.GetComponent<DialogSystem>().Story_Init(gameObject, SA_PlayerData.New_Stage, Branch_Value);
         GameObject Branch_Canvas = Instantiate(Branch, Canvas);
         Branch_Canvas.transform.SetSiblingIndex(1);
         gameObject.GetComponent<Dialog>().dialogSystem = Branch_Canvas.GetComponent<DialogSystem>();

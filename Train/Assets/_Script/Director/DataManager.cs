@@ -38,6 +38,7 @@ public class DataManager : MonoBehaviour
     public SA_TrainBoosterData boosterData;
     public SA_MercenaryData mercenaryData;
     public SA_LocalData localData;
+    public SA_StageList stageData;
     public SA_ItemList InventoryItem_Data;
     public SA_ItemData PlayerItem_Data;
     // Start is called before the first frame update
@@ -65,6 +66,7 @@ public class DataManager : MonoBehaviour
         boosterData.Init();
         mercenaryData.Init();
         localData.Init();
+        stageData.PlayGame_StageList_Init();
         InventoryItem_Data.PlayGame_ItemList_Init();
         PlayerItem_Data.Init();
     }

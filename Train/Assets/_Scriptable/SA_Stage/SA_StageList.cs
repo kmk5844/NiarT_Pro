@@ -18,7 +18,10 @@ public class SA_StageList : ScriptableObject
 
     public void PlayGame_StageList_Init()
     {
-        //√ ±‚»≠;
+        for(int i = 0; i < stage.Count; i++)
+        {
+            stage[i].Init();
+        }
     }
 
     public void StageList_InsterObject(StageDataObject newobject)

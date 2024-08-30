@@ -43,7 +43,7 @@ public class Monster : MonoBehaviour
     public List<SpriteRenderer> sprite_List;
 
     GameObject player; //플레이어 위치에 따라 플립하는 경우.
-    GameDirector gameDirector; // 리워드 접수해야함.
+    protected GameDirector gameDirector; // 리워드 접수해야함.
 
     protected float EndTime;
     protected bool EndFlag;

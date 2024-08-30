@@ -70,6 +70,7 @@
     <Compile Include="Assets\Epic Toon FX(3d effect)\Demo\Scripts\ETFXFireProjectile.cs" />
     <Compile Include="Assets\_Script\Director\LocalManager.cs" />
     <Compile Include="Assets\Resources\SPUM\Script\Plugin\Moments Recorder\Scripts\ReflectionUtils.cs" />
+    <Compile Include="Assets\_Script\Station\FullMap_Director.cs" />
     <Compile Include="Assets\AllIn1SpriteShader\Demo\Scripts\DemoRandomColorSwap.cs" />
     <Compile Include="Assets\Epic Toon FX(3d effect)\Demo\Scripts\ETFXProjectileScript.cs" />
     <Compile Include="Assets\_Script\Mercenary\Mercenary.cs" />
@@ -88,7 +89,6 @@
     <Compile Include="Assets\Epic Toon FX(3d effect)\Demo\Scripts\VFX Library\ParticleEffectsLibrary.cs" />
     <Compile Include="Assets\_Script\Bullet\Monster\Monster_Bullet_None.cs" />
     <Compile Include="Assets\Easy Save 3\Types\ES3UserType_SA_MercenaryData.cs" />
-    <Compile Include="Assets\_Script\Station\FullMap_Zoom.cs" />
     <Compile Include="Assets\Resources\SPUM\Script\Ect\SpritePos.cs" />
     <Compile Include="Assets\_Script\Bullet\Turret\Missile_TurretBullet.cs" />
     <Compile Include="Assets\_Script\Director\DataManager.cs" />
@@ -171,6 +171,7 @@
     <Compile Include="Assets\_Script\Station\Card\Store_Mercenary_Card.cs" />
     <Compile Include="Assets\_Script\Director\StoryDirector.cs" />
     <Compile Include="Assets\_Data_Game\Info_Monster.cs" />
+    <Compile Include="Assets\UILineRenderer\UILineRenderer.cs" />
     <Compile Include="Assets\_Script\Item\ItemObject\Item_Claymore_Bomb.cs" />
     <Compile Include="Assets\_Script\Station\Card\PassiveUpgrade_Card_Event.cs" />
     <Compile Include="Assets\_Script\Item\Station_Item\ItemUse_Window_Box.cs" />
@@ -199,8 +200,8 @@
     <Compile Include="Assets\_Script\Mercenary\Before\Bard_Before.cs" />
     <Compile Include="Assets\_Script\Bullet\Turret\Flare_TurretBullet.cs" />
     <Compile Include="Assets\_Script\Director\MercenaryDirector.cs" />
-    <Compile Include="Assets\_Script\Item\Station_Item\ItemEquip_Object.cs" />
     <Compile Include="Assets\_Scriptable\SA_Train_Booster\SA_TrainBoosterData.cs" />
+    <Compile Include="Assets\_Script\Item\Station_Item\ItemEquip_Object.cs" />
     <Compile Include="Assets\_Script\Monster\Monster.cs" />
     <Compile Include="Assets\_Script\Bullet\Monster\Monster_Bullet_LR_Parabola.cs" />
     <Compile Include="Assets\_Script\Train\Supply_Train_Item.cs" />
@@ -266,9 +267,9 @@
     <Compile Include="Assets\Resources\SPUM\Script\Plugin\Moments Recorder\Scripts\Worker.cs" />
     <Compile Include="Assets\_Data_Level\Info_Level_Mercenary_Bard.cs" />
     <Compile Include="Assets\_Prefab\Item_Icon\ResultItem_Tooltip.cs" />
-    <Compile Include="Assets\_Animation\Logo\LogoEnd.cs" />
     <Compile Include="Assets\Resources\SPUM\Sprite_Editor(Beta)\Script\SpriteSync.cs" />
     <Compile Include="Assets\_Script\BackGround\ObjectMover.cs" />
+    <Compile Include="Assets\_Animation\Logo\LogoEnd.cs" />
     <Compile Include="Assets\_Script\Station\Card\TrainingRoom_Mercenary_Position_Card.cs" />
     <Compile Include="Assets\_Script\Bullet\Monster\Monster_Bullet_Player.cs" />
     <Compile Include="Assets\_Script\Director\ItemDirector.cs" />
@@ -1242,12 +1243,12 @@
       <HintPath>Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="Unity.Localization">
-      <HintPath>Library\ScriptAssemblies\Unity.Localization.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Localization">
+      <HintPath>Library\ScriptAssemblies\Unity.Localization.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.2D.PixelPerfect.Editor">
