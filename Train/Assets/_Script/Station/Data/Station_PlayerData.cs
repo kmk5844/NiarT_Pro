@@ -7,7 +7,7 @@ using UnityEngine;
 public class Station_PlayerData : MonoBehaviour
 {
     [Header("플레이어 데이터 모아놓은 스크립터블")]
-    //public Train_DataTable EX_Game_Data;
+    public Game_DataTable EX_Game_Data;
     public Level_DataTable EX_Level_Data;
     public SA_PlayerData SA_PlayerData;
     public SA_StageList SA_StageList;

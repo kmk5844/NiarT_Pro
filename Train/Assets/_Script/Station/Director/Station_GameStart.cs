@@ -48,9 +48,11 @@ public class Station_GameStart : MonoBehaviour
     public Button[] prevAndnextRoute_Button;
     public Button GameStart_Button;
     public LocalizeStringEvent GameStart_Information_Text;
+    public TextMeshProUGUI Score_Text;
+    public Image[] Reward_Image;
+    public GameObject[] Clear_Object;
 
     int Fuel_Count;
-
     int Item_Count; // 가지고 나갈 갯수
     int Max_Count; // 최대 갯수
     int itemObject_Count; // 게임오브젝트가 가지고 있는 갯수
@@ -125,6 +127,52 @@ public class Station_GameStart : MonoBehaviour
     public void Chnage_Stage_Information()
     {
         Stage_Text.text = "Stage " + Select_StageNum;
+        Score_Text.text = "Score : " + stageData.Stage[Select_StageNum].Player_Score;
+        string[] ItemList = stageData.Stage[Select_StageNum].Reward_Item.Split(',');
+        int itemNum;
+        for(int i = 0; i <  ItemList.Length; i++)
+        {
+            itemNum = int.Parse(ItemList[i]);
+            if(itemNum == -1)
+            {
+                Reward_Image[i].sprite = itemData.SA_ItemList.EmptyItem.Item_Sprite;
+            }
+            else
+            {
+                Reward_Image[i].sprite = itemData.SA_ItemList.Item[itemNum].Item_Sprite;
+            }
+        }
+        for(int i = 0; i < Clear_Object.Length; i++)
+        {
+                Clear_Object[i].SetActive(false);
+        }
+        int grade_num = Check_PlayerGrade();
+        if(grade_num != -1)
+        {
+            for(int i = 0; i < grade_num + 1; i++)
+            {
+                Clear_Object[i].SetActive(true);
+            }
+        }
+    }
+
+    int Check_PlayerGrade()
+    {
+        switch (stageData.Stage[Select_StageNum].Player_Grade) {
+            case StageDataObject.Grade.S:
+                return 4;
+            case StageDataObject.Grade.A:
+                return 3;
+            case StageDataObject.Grade.B:
+                return 2;
+            case StageDataObject.Grade.C:
+                return 1;
+            case StageDataObject.Grade.D:
+                return 0;
+            case StageDataObject.Grade.F:
+                return -1;
+        }
+        return -1;
     }
 
     public void PrevRoute_Button()

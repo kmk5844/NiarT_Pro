@@ -22,6 +22,8 @@ public class UIDirector : MonoBehaviour
     public GameObject Option_UI;
 
     [Header("Game UI")]
+    public Image Player_Head;
+    public Sprite[] Player_Head_Sprite;
     public Image Player_HP_Bar;
     public Slider Distance_Bar;
     public Image TotalFuel_Bar;
@@ -89,6 +91,7 @@ public class UIDirector : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        Player_Head.sprite = Player_Head_Sprite[player.PlayerNum];
         gamedirector = GameDirector_Object.GetComponent<GameDirector>();
         if(gamedirector.SA_PlayerData.Select_Stage != 0)
         {

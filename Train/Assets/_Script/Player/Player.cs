@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     GameObject gamedirector_object;
     GameDirector gamedirector;
     GameType gameDirectorType;
+    Player_Chage playerchageDirector;
+    public int PlayerNum;
 
     [SerializeField]
     private SA_PlayerData playerData;
@@ -95,6 +97,7 @@ public class Player : MonoBehaviour
     {
         gamedirector_object = GameObject.Find("GameDirector");
         gamedirector = gamedirector_object.GetComponent<GameDirector>();
+        playerchageDirector = GetComponent<Player_Chage>();
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         respawnPosition = transform.position;
         isHealing = false;
@@ -107,6 +110,9 @@ public class Player : MonoBehaviour
         Bullet_Atk = playerData.Atk;
         Bullet_Delay = playerData.Delay;
         moveSpeed = playerData.MoveSpeed;
+        PlayerNum = playerData.Player_Num;
+        playerchageDirector.ChangePlayer(PlayerNum);
+        Bullet_Fire_Transform = playerchageDirector.Set_FireZone(PlayerNum);
 
         GunObject_Scale = GunObject.transform.localScale;
         KeyObject_Scale = KeyObject.transform.localScale;
@@ -406,8 +412,19 @@ public class Player : MonoBehaviour
     {
         if (Time.time >= lastTime + (Bullet_Delay + item_Delay))
         {
-            GameObject bullet = Instantiate(playerBullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
+            GameObject bullet = playerBullet;
             bullet.GetComponent<Bullet>().atk = Bullet_Atk + item_Atk;
+            if(PlayerNum == 1) //페요테
+            {
+                for (int i = 0; i < 5; i++) // 5개의 샷건 탄환을 발사
+                {
+                    Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
+                }
+            }
+            else
+            {
+                Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
+            }
 
             if (GunIndex == 1)
             {

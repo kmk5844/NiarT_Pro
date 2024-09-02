@@ -64,7 +64,8 @@ public class GameDirector : MonoBehaviour
     string Reward_ItemNum;
     [SerializeField]
     string Reward_ItemCount;
-    
+    int Reward_Num;
+
     [SerializeField]
     private int Destination_Distance; // 나중에 private변경
     bool Data_BossFlag;
@@ -398,6 +399,7 @@ public class GameDirector : MonoBehaviour
 
         Reward_ItemNum = StageData.Reward_Item;
         Reward_ItemCount = StageData.Reward_Itemcount;
+        Reward_Num = -1;
 
         Destination_Distance = StageData.Destination_Distance;
         Emerging_Monster = new List<int>();
@@ -601,28 +603,55 @@ public class GameDirector : MonoBehaviour
     {
         if (Total_Score >= StageData.Grade_Score[4])
         {
+            Reward_Num = 4;
             return "S";
         }
         else if (StageData.Grade_Score[4] > Total_Score && Total_Score >= StageData.Grade_Score[3])
         {
+            Reward_Num = 3;
             return "A";
         }
         else if (StageData.Grade_Score[3] > Total_Score && Total_Score >= StageData.Grade_Score[2])
         {
+            Reward_Num = 2;
             return "B";
         }
         else if (StageData.Grade_Score[2] > Total_Score && Total_Score >= StageData.Grade_Score[1])
         {
+            Reward_Num = 1;
             return "C";
         }
         else if (StageData.Grade_Score[1] > Total_Score && Total_Score >= StageData.Grade_Score[0]){
+            Reward_Num = 0;
             return "D";
         }
         else if (StageData.Grade_Score[0] > Total_Score)
         {
+            Reward_Num = -1;
             return "F";
         }
+        Reward_Num = -1;
         return "F";
+    }
+
+    private int Check_StageDataGrade()
+    {
+        switch (StageData.Player_Grade) {
+
+            case StageDataObject.Grade.S:
+                return 4;
+            case StageDataObject.Grade.A:
+                return 3;
+            case StageDataObject.Grade.B:
+                return 2;
+            case StageDataObject.Grade.C:
+                return 1;
+            case StageDataObject.Grade.D:
+                return 0;
+            case StageDataObject.Grade.F:
+                return -1;
+        }
+        return -1;
     }
 
     private void Change_Game_End(bool WinFlag, int LoseNum = -1) // 이겼을 때
@@ -636,14 +665,35 @@ public class GameDirector : MonoBehaviour
             List<int> Item_List = new List<int>();
             int ItemNum;
             int ItemCount;
-            for (int i = 0; i < ItemList.Length; i++)
+            if (!StageData.Player_FirstPlay)
             {
-                ItemNum = int.Parse(ItemList[i]);
-                ItemCount = int.Parse(ItemList_Count[i]);
-                if(ItemNum != -1)
+                for (int i = 0; i < Reward_Num + 1; i++)
                 {
-                    itemDirector.itemList.Item[ItemNum].Item_Count_UP(ItemCount);
-                    uiDirector.GetItemList_Num.Add(ItemNum);
+                    ItemNum = int.Parse(ItemList[i]);
+                    ItemCount = int.Parse(ItemList_Count[i]);
+                    if (ItemNum != -1)
+                    {
+                        itemDirector.itemList.Item[ItemNum].Item_Count_UP(ItemCount);
+                        uiDirector.GetItemList_Num.Add(ItemNum);
+                    }
+                }
+            }
+            else
+            {
+                int BeforeGradeNum = Check_StageDataGrade();
+                if(BeforeGradeNum < Reward_Num)
+                {
+                    for(int i = BeforeGradeNum + 1; i < Reward_Num + 1; i++)
+                    {
+                        ItemNum = int.Parse(ItemList[i]);
+                        ItemCount = int.Parse(ItemList_Count[i]);
+                        Debug.Log(ItemList[i]);
+                        if (ItemNum != -1)
+                        {
+                            itemDirector.itemList.Item[ItemNum].Item_Count_UP(ItemCount);
+                            uiDirector.GetItemList_Num.Add(ItemNum);
+                        }
+                    }
                 }
             }
         }
@@ -653,9 +703,10 @@ public class GameDirector : MonoBehaviour
 
     private void Game_Win()
     {
+        string grade = Check_Score();
         Change_Game_End(true);
+        StageData.GameEnd(true, Total_Score, grade);
         MMSoundManagerSoundPlayEvent.Trigger(WinSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
-        StageData.GameEnd(true, Total_Score,Check_Score());
         if(SA_PlayerData.New_Stage == SA_PlayerData.Select_Stage)
         {
             SA_StageList.Stage[Stage_Num + 1].New_Stage_Chage();

@@ -7,6 +7,10 @@ using UnityEngine;
 public class SA_ItemList : ScriptableObject
 {
     [SerializeField]
+    private ItemDataObject emptyitem;
+    public ItemDataObject EmptyItem { get { return emptyitem;  } }
+
+    [SerializeField]
     private List<ItemDataObject> item;
     public List<ItemDataObject> Item { get { return item; } }
 
@@ -83,6 +87,11 @@ public class SA_ItemList : ScriptableObject
         {
             _item.Init();
         }
+    }
+
+    public void ItemList_EmptyObject(ItemDataObject item)
+    {
+        emptyitem = item;
     }
 
     public void ItemList_InsertObject(ItemDataObject newobjcet)

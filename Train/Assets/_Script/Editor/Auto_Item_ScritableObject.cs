@@ -96,9 +96,34 @@ public class Auto_Item_ScritableObject : EditorWindow
     void CreatObjectsFromList_Item()
     {
         List<Info_Item> itemList = DataTable.Information_Item;
-        foreach(Info_Item item in itemList)
+
+        //Empty ItemObject
+        ItemDataObject itemObject = ScriptableObject.CreateInstance<ItemDataObject>();
+        itemObject.Auto_Item_Insert(
+            -1,
+            "Empty Item",
+            "비어있는 아이템",
+            Information_Item_Type.Empty,
+            "비어있는 아이템",
+            Information_Item_Box_Type.Empty,
+            Information_Item_Rarity_Type.Empty,
+            false,
+            false,
+            false,
+            0,
+            0,
+            false,
+            0,
+            0,
+            0
+            );
+        AssetDatabase.CreateAsset(itemObject, "Assets/_Scriptable/SA_Item/Item_Object/EmptyItemObject.asset");
+        AssetDatabase.SaveAssets();
+        SA_ItemList_.ItemList_EmptyObject(itemObject);
+
+        foreach (Info_Item item in itemList)
         {
-            ItemDataObject itemObject = ScriptableObject.CreateInstance<ItemDataObject>();
+            itemObject = ScriptableObject.CreateInstance<ItemDataObject>();
             itemObject.Auto_Item_Insert(
                 item.Num,
                 item.Item_Id.Replace("^", ""),

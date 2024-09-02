@@ -29,9 +29,12 @@ public class SA_StoryData : ScriptableObject
                 LoadingManager.LoadScene("Story");
                 break;
             case 2:
+                LoadingManager.LoadScene("Demo_Tutorial");
+                break;
+            case 5:
                 LoadingManager.LoadScene("Story");
                 break;
-            case 4:
+            case 6:
                 LoadingManager.LoadScene("Story");
                 break;
             case 8:
@@ -53,13 +56,12 @@ public class SA_StoryData : ScriptableObject
             case 1:
                 LoadingManager.LoadScene("InGame");
                 break;
-            case 2:
-                LoadingManager.LoadScene("Demo_Tutorial");
-                break;
-            case 4:
+            case 5:
                 LoadingManager.LoadScene("Station");
                 break;
-
+            case 6:
+                LoadingManager.LoadScene("Station");
+                break;
         }
     }
     

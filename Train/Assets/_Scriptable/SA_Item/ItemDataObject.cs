@@ -146,7 +146,8 @@ public enum Information_Item_Type {
 public enum Information_Item_Box_Type { 
     Item,
     Material,
-    None
+    None,
+    Empty
 }
 
 public enum Information_Item_Rarity_Type
@@ -155,7 +156,7 @@ public enum Information_Item_Rarity_Type
     Rare,
     Unique,
     Epic,
-
-
+    Empty,
+    
     Error
 }

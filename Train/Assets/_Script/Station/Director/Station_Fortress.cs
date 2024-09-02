@@ -1,6 +1,4 @@
-using JetBrains.Annotations;
-using System;
-using System.Collections;
+using UnityEngine.Localization.Components;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -23,8 +21,12 @@ public class Station_Fortress : MonoBehaviour
     List<int> Mercenary_Position_NumList;// 배치하고 있는 리스트
 
     [Header("플레이어 업그레이드 윈도우")]
+    public LocalizeStringEvent Player_Name;
     public TextMeshProUGUI[] PlayerUP_Text;
     public Button [] PlayerUP_Button;
+    int playerNum;
+    public Image PlayerHead;
+    public Sprite[] PlayerHead_Image;
 
     public TextMeshProUGUI[] Player_Information;
 
@@ -73,6 +75,9 @@ public class Station_Fortress : MonoBehaviour
         Mercenary_Buy_NumList = mercenaryData.SA_MercenaryData.Mercenary_Buy_Num;
         Mercenary_Position_NumList = mercenaryData.SA_MercenaryData.Mercenary_Num;
         //플레이어 업그레이드 윈도우
+        playerNum = 0;
+        Player_Name.StringReference.TableReference = "ExcelData_Table_St";
+        Player_Name.StringReference.TableEntryReference = "Player_Name_" + playerNum;
         Player_Information_Text();
         Player_Button_Text(true);
         //용병 업그레이드 윈도우
@@ -210,11 +215,39 @@ public class Station_Fortress : MonoBehaviour
 
     private void Player_Information_Text()
     {
-        Player_Information[0].text = playerData.SA_PlayerData.Atk + "<color=red> + " + (playerData.SA_PlayerData.Atk * playerData.Level_Player_Atk * 10) / 100 + "</color>";
-        Player_Information[1].text = playerData.SA_PlayerData.Delay + "<color=red> + " + ((playerData.SA_PlayerData.Delay * playerData.Level_Player_AtkDelay) / 100) + "</color>";
-        Player_Information[2].text = playerData.SA_PlayerData.Armor + "<color=red> + " + ((playerData.SA_PlayerData.Armor * playerData.Level_Player_Armor * 10) / 100) + "</color>";
-        Player_Information[3].text = playerData.SA_PlayerData.MoveSpeed + "<color=red> + " + ((playerData.SA_PlayerData.MoveSpeed * playerData.Level_Player_Speed) / 100) + "</color>";
-        Player_Information[4].text = playerData.SA_PlayerData.HP + "<color=red> + " + ((playerData.SA_PlayerData.HP * playerData.Level_Player_HP * 10) / 100) + "</color>";
+        PlayerHead.sprite = PlayerHead_Image[playerNum];
+        Player_Name.StringReference.TableEntryReference = "Player_Name_" + playerNum;
+        Player_Information[0].text = playerData.EX_Game_Data.Information_Player[playerNum].Player_Atk + "<color=red> + " + (playerData.EX_Game_Data.Information_Player[playerNum].Player_Atk * playerData.Level_Player_Atk * 10) / 100 + "</color>";
+        Player_Information[1].text = playerData.EX_Game_Data.Information_Player[playerNum].Player_Delay + "<color=red> + " + ((playerData.EX_Game_Data.Information_Player[playerNum].Player_Delay * playerData.Level_Player_AtkDelay) / 100) + "</color>";
+        Player_Information[2].text = playerData.EX_Game_Data.Information_Player[playerNum].Player_Armor + "<color=red> + " + ((playerData.EX_Game_Data.Information_Player[playerNum].Player_Armor * playerData.Level_Player_Armor * 10) / 100) + "</color>";
+        Player_Information[3].text = playerData.EX_Game_Data.Information_Player[playerNum].Player_MoveSpeed + "<color=red> + " + ((playerData.EX_Game_Data.Information_Player[playerNum].Player_MoveSpeed * playerData.Level_Player_Speed) / 100) + "</color>";
+        Player_Information[4].text = playerData.EX_Game_Data.Information_Player[playerNum].Player_HP + "<color=red> + " + ((playerData.EX_Game_Data.Information_Player[playerNum].Player_HP * playerData.Level_Player_HP * 10) / 100) + "</color>";
+    }
+
+    public void Click_Player_Next()
+    {
+        if(playerData.EX_Game_Data.Information_Player.Count - 1 != playerNum)
+        {
+            playerNum++;
+        }
+        else
+        {
+            playerNum = 0;
+        }
+        Player_Information_Text();
+    }
+
+    public void Click_Player_Prev()
+    {
+        if(playerNum != 0)
+        {
+            playerNum--;
+        }
+        else
+        {
+            playerNum = playerData.EX_Game_Data.Information_Player.Count - 1;
+        }
+        Player_Information_Text();
     }
 
     public void Click_Player_Upgrade(int i)//LevelNum : 0 = Atk / 1= AtkDealy / 2 = HP / 3 = Armor / 4 = Speed

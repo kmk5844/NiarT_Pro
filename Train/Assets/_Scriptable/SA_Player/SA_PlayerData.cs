@@ -24,7 +24,6 @@ public class SA_PlayerData : ScriptableObject
     public int HP { get { return EX_GameData.Information_Player[Player_Num].Player_HP; } }
     [SerializeField]
     public float MoveSpeed { get { return EX_GameData.Information_Player[Player_Num].Player_MoveSpeed; } }
-    //public Sprite Gun { get { return gun; } }
     [SerializeField]
     public GameObject Bullet { get { return Resources.Load<GameObject>(EX_GameData.Information_Player[Player_Num].Player_Bullet); } }
 
@@ -60,7 +59,9 @@ public class SA_PlayerData : ScriptableObject
     private int select_stage;
     public int Select_Stage { get { return  select_stage; } }
 
-
+    [SerializeField]
+    private bool[] character_lockoff;
+    public bool[] Character_LockOff {  get {  return character_lockoff; } }
 
     public void SA_GameWinReward(int R_Coin, int R_Point)
     {
@@ -119,6 +120,15 @@ public class SA_PlayerData : ScriptableObject
         Save();
     }
 
+    public void SA_CharecterCheck()
+    {
+        if(new_stage == 5)
+        {
+            character_lockoff[1] = true;
+        }
+        Save();
+    }
+
     private void Save()
     {
         PlayerPrefs.SetInt("SA_PlayerData_Data_level_atk", level_atk);
@@ -130,6 +140,7 @@ public class SA_PlayerData : ScriptableObject
         PlayerPrefs.SetInt("SA_PlayerData_Data_point", point);
         PlayerPrefs.SetInt("SA_PlayerData_Data_new_stage", new_stage);
         PlayerPrefs.SetInt("SA_PlayerData_Data_select_stage", select_stage);
+        ES3.Save<bool[]>("SA_PlayerData_Data_LockOff", character_lockoff);
     }
 
     public void Load()
@@ -143,10 +154,13 @@ public class SA_PlayerData : ScriptableObject
         point = PlayerPrefs.GetInt("SA_PlayerData_Data_point");
         new_stage = PlayerPrefs.GetInt("SA_PlayerData_Data_new_stage");
         new_stage = PlayerPrefs.GetInt("SA_PlayerData_Data_select_stage");
+        character_lockoff = ES3.Load<bool[]>("SA_PlayerData_Data_LockOff");
     }
 
     public void Init()
     {
+        player_num = 0;
+
         level_atk = 0;
         level_atkdelay = 0;
         level_hp = 0;
@@ -157,6 +171,12 @@ public class SA_PlayerData : ScriptableObject
         new_stage = 0;
 
         select_stage = 0;
+
+        Character_LockOff[0] = true;
+        for(int i = 1; i < 5; i++)
+        {
+            Character_LockOff[i] = false;
+        }
 
         Save();
     }
