@@ -90,10 +90,6 @@ public class ItemDirector : MonoBehaviour
                 uiDirector.Item_EquipedIcon(num, itemList.Item[itemData.Equiped_Item[num]].Item_Sprite, itemData.Equiped_Item_Count[num]);
             }
         }
-        else
-        {
-            Debug.Log("사용 아이템이 비어있습니다.");
-        }
     }
 
     public void Get_Supply_Item_Information(ItemDataObject Item)

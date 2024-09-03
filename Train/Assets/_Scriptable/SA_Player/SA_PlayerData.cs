@@ -27,6 +27,12 @@ public class SA_PlayerData : ScriptableObject
     [SerializeField]
     public GameObject Bullet { get { return Resources.Load<GameObject>(EX_GameData.Information_Player[Player_Num].Player_Bullet); } }
 
+    [SerializeField]
+    public string Skill_CoolTime {  get { return EX_GameData.Information_Player[Player_Num].Player_Skill_CoolTime; } }
+
+    [SerializeField]
+    public string Skill_During { get { return EX_GameData.Information_Player[Player_Num].Player_Skill_During; } }
+
     [Header("·¹º§")]
     [SerializeField]
     private int level_atk;

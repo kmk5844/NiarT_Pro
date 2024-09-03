@@ -804,7 +804,7 @@ public class GameDirector : MonoBehaviour
         }
     }
 
-    public void Item_Use_Train_Turret_All_SpeedUP(float persent, int delayTime)
+    public void Item_Use_Train_Turret_All_SpeedUP(float persent, float delayTime)
     {
         for(int i = 0; i < Train_List.childCount; i++)
         {
@@ -813,11 +813,11 @@ public class GameDirector : MonoBehaviour
         }
     }
 
-    public IEnumerator Item_Train_SpeedUp(int delayTime)
+    public IEnumerator Item_Train_SpeedUp(float delayTime, float SpeedUp = 0.5f)
     {
-        TrainSpeedUP += 0.5f;
+        TrainSpeedUP += SpeedUp;
         yield return new WaitForSeconds(delayTime);
-        TrainSpeedUP -= 0.5f;
+        TrainSpeedUP -= SpeedUp;
     }
 
     public IEnumerator Item_Coin_Double(int delayTime)

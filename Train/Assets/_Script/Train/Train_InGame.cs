@@ -302,7 +302,7 @@ public class Train_InGame : MonoBehaviour
         Train_HP += (int)(Max_Train_HP * (persent / 100f));
     }
 
-    public IEnumerator Item_Train_Turret_SpeedUP(float persent, int delayTime)
+    public IEnumerator Item_Train_Turret_SpeedUP(float persent, float delayTime)
     {
         if (Train_Type.Equals("Turret")){
             transform.GetComponentInChildren<Turret>().Item_Turret_Attack_Speed_UP(persent, true);

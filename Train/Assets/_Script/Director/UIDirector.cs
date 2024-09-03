@@ -51,9 +51,15 @@ public class UIDirector : MonoBehaviour
     public Image[] Equiped_CoolTime_Item_Image;
     TextMeshProUGUI[] Equiped_Item_Count;
 
-    [Header("Item CoolTime UI")]
+    [Header("CoolTime UI")]
+    public Transform CoolTime_List;
     public GameObject ItemCoolTime_Object;
-    public Transform ItemCoolTime_List;
+    public GameObject SkillCoolTime_Object;
+
+    [Header("Skill UI")]
+    public Transform Equiped_Skill_List;
+    public Image[] Equiped_Skill_Image;
+    public Image[] Equiped_CoolTime_Skill_Image;
 
     [Header("Result UI 관련된 텍스트 및 아이템")]
     public TextMeshProUGUI[] Result_Text_List; //0. Stage, 1. Score, 2. Gold, 3. Rank 4. Point
@@ -86,6 +92,12 @@ public class UIDirector : MonoBehaviour
         {
             Equiped_Item_Image[i] = Equiped_Item_List.GetChild(i).GetComponent<Image>();
             Equiped_Item_Count[i] = Equiped_Item_List.GetChild(i).GetComponentInChildren<TextMeshProUGUI>();
+        }
+
+        Equiped_Skill_Image = new Image[Equiped_Item_List.childCount];
+        for(int i = 0; i < Equiped_Skill_List.childCount; i++)
+        {
+            Equiped_Skill_Image[i] = Equiped_Skill_List.GetChild(i).GetComponent<Image>();
         }
     }
     private void Start()
@@ -326,6 +338,12 @@ public class UIDirector : MonoBehaviour
     public void ItemCoolTime_Instantiate(ItemDataObject item)
     {
         ItemCoolTime_Object.GetComponent<ItemCoolTime>().SetSetting(item);
-        Instantiate(ItemCoolTime_Object, ItemCoolTime_List);
+        Instantiate(ItemCoolTime_Object, CoolTime_List);
+    }
+
+    public void SkillCoolTime_Instantiate(int skillNum, float during)
+    {
+        SkillCoolTime_Object.GetComponent<SkillCoolTime>().SetSetting(Equiped_Skill_Image[skillNum].sprite, during);
+        Instantiate(SkillCoolTime_Object, CoolTime_List);
     }
 }

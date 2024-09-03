@@ -40,7 +40,7 @@ public class MercenaryDirector : MonoBehaviour
             StartCoroutine(Check_Live_Unit());
         }
 
-        if (Input.GetKeyDown(KeyCode.Q) && !isEngineerCall)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !isEngineerCall)
         {
             Engineer_Call();
         }

@@ -1,6 +1,7 @@
 using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -88,6 +89,9 @@ public class Player : MonoBehaviour
     int Item_Gun_Max_ClickCount;
     public GameObject Item_GunSpecial_Bullet;
 
+    bool MariGold_Skill_Flag;
+    bool MariGold_Skill_Fire_Flag;
+
     [Header("상호작용 Key")]
     public GameObject KeyObject;
     Vector3 KeyObject_Scale;
@@ -139,6 +143,8 @@ public class Player : MonoBehaviour
         Item_Gun_ClickTime = 0;
         Item_Gun_CountFlag = false;
         Item_Gun_ClickCount = 0;
+
+        MariGold_Skill_Flag = false;
     }
 
     private void Update()
@@ -414,7 +420,15 @@ public class Player : MonoBehaviour
         {
             GameObject bullet = playerBullet;
             bullet.GetComponent<Bullet>().atk = Bullet_Atk + item_Atk;
-            if(PlayerNum == 1) //페요테
+            if(PlayerNum == 0)
+            {
+                Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
+                if (MariGold_Skill_Flag && !MariGold_Skill_Fire_Flag)
+                {
+                    StartCoroutine(MariGold_Skill_BulletFire());
+                }
+            }
+            else if(PlayerNum == 1) //페요테
             {
                 for (int i = 0; i < 5; i++) // 5개의 샷건 탄환을 발사
                 {
@@ -858,5 +872,26 @@ public class Player : MonoBehaviour
         GunIndex = 0;
         GunObject_List[GunIndex].SetActive(true);
         Bullet_Fire_Transform = GunObject_List[GunIndex].GetComponent<Transform>().GetChild(0);
+    }
+
+    public IEnumerator MariGold_Skill2(float during)
+    {
+        MariGold_Skill_Flag = true;
+        yield return new WaitForSeconds(during);
+        MariGold_Skill_Flag = false;
+    }
+
+    IEnumerator MariGold_Skill_BulletFire()
+    {
+        MariGold_Skill_Fire_Flag = true;
+        GameObject bullet = playerBullet;
+        bullet.GetComponent<Bullet>().atk = Bullet_Atk + item_Atk;
+        yield return new WaitForSeconds(0.1f);
+        Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
+        MMSoundManagerSoundPlayEvent.Trigger(ShootSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+        yield return new WaitForSeconds(0.1f);
+        Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
+        MMSoundManagerSoundPlayEvent.Trigger(ShootSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+        MariGold_Skill_Fire_Flag = false;
     }
 }

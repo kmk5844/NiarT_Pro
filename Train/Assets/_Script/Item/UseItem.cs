@@ -44,10 +44,10 @@ public class UseItem : MonoBehaviour
                 gameDirector.Item_Use_Train_Heal_HP(10);
                 break;
             case 6:
-                gameDirector.Item_Use_Train_Heal_HP(20);
+                gameDirector.Item_Use_Train_Heal_HP(15);
                 break;
             case 7:
-                StartCoroutine(gameDirector.Item_Train_SpeedUp(15));
+                StartCoroutine(gameDirector.Item_Train_SpeedUp(15f));
                 break;
             case 8:
                 StartCoroutine(player.Item_Player_SpeedUP(1.5f, 20));
@@ -72,7 +72,7 @@ public class UseItem : MonoBehaviour
                 StartCoroutine(gameDirector.Item_Coin_Double(30));
                 break;
             case 15:
-                gameDirector.Item_Use_Train_Turret_All_SpeedUP(10, 10);
+                gameDirector.Item_Use_Train_Turret_All_SpeedUP(10, 7);
                 break;
             case 16:
                 mercenaryDirector.Item_Use_Snack(10);
@@ -159,7 +159,7 @@ public class UseItem : MonoBehaviour
                 mercenaryDirector.Item_Use_Bear(2, 30);
                 break;
             case 39:
-                gameDirector.Item_Use_Train_Turret_All_SpeedUP(20, 20);
+                gameDirector.Item_Use_Train_Turret_All_SpeedUP(20, 12);
                 break;
             case 40:
                 player.Item_Player_Spawn_Turret(1);
