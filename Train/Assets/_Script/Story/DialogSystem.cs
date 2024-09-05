@@ -4,16 +4,20 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
+using UnityEditor.Localization.Plugins.XLIFF.V20;
+using System;
 
 public class DialogSystem : MonoBehaviour
 {
 	[SerializeField]
-	private GameObject StroyDirector_Objcet;
-	StoryDirector stroydirector;
+	private GameObject StoryDirector_Objcet;
+	StoryDirector storydirector;
 
     private bool SkipHit_Flag;
     private bool AutoHit_Flag;
+    private bool BackHit_Flag;
 	private bool Auto_Flag;
+    private bool Back_Flag;
 	private float delay;
 
 	[SerializeField]
@@ -27,8 +31,7 @@ public class DialogSystem : MonoBehaviour
 	[SerializeField]
 	private	Speaker[] speakers;		// 대화에 참여하는 캐릭터들의 UI
 	[SerializeField]
-	private	List<DialogData> dialogs;                   // 현재 분기의 대사 목록 배열
-
+	private	List<DialogData> dialogs;               // 현재 분기의 대사 목록 배열
 
     [SerializeField]
 	private	bool			isAutoStart = true;			// 자동 시작 여부
@@ -38,49 +41,53 @@ public class DialogSystem : MonoBehaviour
 	private	float			typingSpeed = 0.05f;			// 텍스트 타이핑 효과의 재생 속도
 	private	bool			isTypingEffect = false;     // 텍스트 타이핑 효과를 재생중인지
 
-	private void Awake()
+    private void Awake()
 	{
-        stroydirector = StroyDirector_Objcet.GetComponent<StoryDirector>();
-		delay = stroydirector.delayTime;
-        int index = 0;
-        DialogData data = new DialogData();
+        storydirector = StoryDirector_Objcet.GetComponent<StoryDirector>();
+		delay = storydirector.delayTime;
+        Check_Local();
+/*        int index = 0;
+        DialogData _data = new DialogData();
         for (int i = 0; i < EX_Story.Story.Count; i++)
-		{
-			if (EX_Story.Story[i].branch == branch && EX_Story.Story[i].Stage_Num == stageNum)
-			{
-				//0 -> 기본(영어) , 1 -> 한글 , 2 -> 일본
-				data.speakerIndex = EX_Story.Story[i].Speaker_Index;
+        {
+            if (EX_Story.Story[i].branch == branch && EX_Story.Story[i].Stage_Num == stageNum)
+            {
+                //0 -> 기본(영어) , 1 -> 한글 , 2 -> 일본
+                _data.speakerIndex = EX_Story.Story[i].Speaker_Index;
                 if (SA_Local.Local_Index == 1)
                 {
-                    data.name = EX_Story.Story[i].ko_name;
-                    data.dialogue = EX_Story.Story[i].ko_dialog;
+                    _data.name = EX_Story.Story[i].ko_name;
+                    _data.dialogue = EX_Story.Story[i].ko_dialog;
                 }
                 else if (SA_Local.Local_Index == 0)
                 {
-                    data.name = EX_Story.Story[i].en_name;
-                    data.dialogue = EX_Story.Story[i].en_dialog;
-                }else if(SA_Local.Local_Index == 2)
-				{
-                    data.name = EX_Story.Story[i].jp_name;
-                    data.dialogue = EX_Story.Story[i].jp_dialog;
+                    _data.name = EX_Story.Story[i].en_name;
+                    _data.dialogue = EX_Story.Story[i].en_dialog;
                 }
-                dialogs.Add(data);
+                else if (SA_Local.Local_Index == 2)
+                {
+                    _data.name = EX_Story.Story[i].jp_name;
+                    _data.dialogue = EX_Story.Story[i].jp_dialog;
+                }
+                dialogs.Add(_data);
                 index++;
-			}
-		}
-		Setup();
+            }
+        }*/
+        Setup();
 	}
 
     private void Update()
     {
-		SkipHit_Flag = stroydirector.SkipHit_Flag;
-        AutoHit_Flag = stroydirector.AutoHit_Flag;
-        Auto_Flag = stroydirector.Auto_Flag;
+        SkipHit_Flag = storydirector.skipHit_Flag;
+        AutoHit_Flag = storydirector.toggleHit_Flag;
+        BackHit_Flag = storydirector.backHit_Flag;
+        Auto_Flag = storydirector.Auto_Flag;
+        Back_Flag = storydirector.BackLog_Flag;
     }
 
-	public void Story_Init(GameObject StoryDirector_Object, int StageNum, int Branch)
+    public void Story_Init(GameObject StoryDirector_Object, int StageNum, int Branch)
 	{
-		StroyDirector_Objcet = StoryDirector_Object;
+        StoryDirector_Objcet = StoryDirector_Object;
 		stageNum = StageNum;
 		branch = Branch;
     }
@@ -98,6 +105,7 @@ public class DialogSystem : MonoBehaviour
 
 	public bool UpdateDialog()
 	{
+
 		// 대사 분기가 시작될 때 1회만 호출
 		if ( isFirst == true )
 		{
@@ -109,59 +117,65 @@ public class DialogSystem : MonoBehaviour
 			isFirst = false;
 		}
 
-        if (Input.GetMouseButtonDown(0) && !SkipHit_Flag && !AutoHit_Flag)
+        if (!Back_Flag)
         {
-            if (isTypingEffect == true)
+            if (Input.GetMouseButtonDown(0) && !SkipHit_Flag && !AutoHit_Flag && !BackHit_Flag)
             {
-                isTypingEffect = false;
 
-                // 타이핑 효과를 중지하고, 현재 대사 전체를 출력한다
-                StopCoroutine("OnTypingText");
-                speakers[currentSpeakerIndex].textDialogue.text = dialogs[currentDialogIndex].dialogue;
-                // 대사가 완료되었을 때 출력되는 커서 활성화
-                speakers[currentSpeakerIndex].objectArrow.SetActive(true);
-
-                return false;
-            }
-
-            // 대사가 남아있을 경우 다음 대사 진행
-            if (dialogs.Count > currentDialogIndex + 1)
-            {
-                SetNextDialog();
-            }
-            // 대사가 더 이상 없을 경우 모든 오브젝트를 비활성화하고 true 반환
-            else
-            {
-                // 현재 대화에 참여했던 모든 캐릭터, 대화 관련 UI를 보이지 않게 비활성화
-                for (int i = 0; i < speakers.Length; ++i)
+                if (isTypingEffect == true)
                 {
-                    SetActiveObjects(speakers[i], false);
-                    // SetActiveObjects()에 캐릭터 이미지를 보이지 않게 하는 부분이 없기 때문에 별도로 호출
-                    speakers[i].player_able.gameObject.SetActive(false);
+                    isTypingEffect = false;
+
+                    // 타이핑 효과를 중지하고, 현재 대사 전체를 출력한다
+                    StopCoroutine("OnTypingText");
+                    speakers[currentSpeakerIndex].textDialogue.text = dialogs[currentDialogIndex].dialogue;
+                    // 대사가 완료되었을 때 출력되는 커서 활성화
+                    speakers[currentSpeakerIndex].objectArrow.SetActive(true);
+
+                    storydirector.Instantiate_BackLog(currentDialogIndex);
+
+                    return false;
                 }
 
-                return true;
-            }
-		}
-
-		if(Auto_Flag && !isTypingEffect)
-		{
-            // 대사가 남아있을 경우 다음 대사 진행
-            if (dialogs.Count > currentDialogIndex + 1)
-            {
-                SetNextDialog();
-            }
-            // 대사가 더 이상 없을 경우 모든 오브젝트를 비활성화하고 true 반환
-            else
-            {
-                // 현재 대화에 참여했던 모든 캐릭터, 대화 관련 UI를 보이지 않게 비활성화
-                for (int i = 0; i < speakers.Length; ++i)
+                // 대사가 남아있을 경우 다음 대사 진행
+                if (dialogs.Count > currentDialogIndex + 1)
                 {
-                    SetActiveObjects(speakers[i], false);
-                    // SetActiveObjects()에 캐릭터 이미지를 보이지 않게 하는 부분이 없기 때문에 별도로 호출
-                    speakers[i].player_able.gameObject.SetActive(false);
+                    SetNextDialog();
                 }
-                return true;
+                // 대사가 더 이상 없을 경우 모든 오브젝트를 비활성화하고 true 반환
+                else
+                {
+                    // 현재 대화에 참여했던 모든 캐릭터, 대화 관련 UI를 보이지 않게 비활성화
+                    for (int i = 0; i < speakers.Length; ++i)
+                    {
+                        SetActiveObjects(speakers[i], false);
+                        // SetActiveObjects()에 캐릭터 이미지를 보이지 않게 하는 부분이 없기 때문에 별도로 호출
+                        speakers[i].player_able.gameObject.SetActive(false);
+                    }
+
+                    return true;
+                }
+            }
+
+            if (Auto_Flag && !isTypingEffect)
+            {
+                // 대사가 남아있을 경우 다음 대사 진행
+                if (dialogs.Count > currentDialogIndex + 1)
+                {
+                    SetNextDialog();
+                }
+                // 대사가 더 이상 없을 경우 모든 오브젝트를 비활성화하고 true 반환
+                else
+                {
+                    // 현재 대화에 참여했던 모든 캐릭터, 대화 관련 UI를 보이지 않게 비활성화
+                    for (int i = 0; i < speakers.Length; ++i)
+                    {
+                        SetActiveObjects(speakers[i], false);
+                        // SetActiveObjects()에 캐릭터 이미지를 보이지 않게 하는 부분이 없기 때문에 별도로 호출
+                        speakers[i].player_able.gameObject.SetActive(false);
+                    }
+                    return true;
+                }
             }
         }
 
@@ -232,6 +246,45 @@ public class DialogSystem : MonoBehaviour
 
 		// 대사가 완료되었을 때 출력되는 커서 활성화
 		speakers[currentSpeakerIndex].objectArrow.SetActive(true);
+
+        storydirector.Instantiate_BackLog(currentDialogIndex);
+
+    }
+
+    public void Get_Dialogs()
+	{
+		storydirector.BackLog = dialogs;
+	}
+
+	public void Check_Local()
+	{
+        int index = 0;
+        DialogData _data = new DialogData();
+        for (int i = 0; i < EX_Story.Story.Count; i++)
+        {
+            if (EX_Story.Story[i].branch == branch && EX_Story.Story[i].Stage_Num == stageNum)
+            {
+                //0 -> 기본(영어) , 1 -> 한글 , 2 -> 일본
+                _data.speakerIndex = EX_Story.Story[i].Speaker_Index;
+                if (SA_Local.Local_Index == 1)
+                {
+                    _data.name = EX_Story.Story[i].ko_name;
+                    _data.dialogue = EX_Story.Story[i].ko_dialog;
+                }
+                else if (SA_Local.Local_Index == 0)
+                {
+                    _data.name = EX_Story.Story[i].en_name;
+                    _data.dialogue = EX_Story.Story[i].en_dialog;
+                }
+                else if (SA_Local.Local_Index == 2)
+                {
+                    _data.name = EX_Story.Story[i].jp_name;
+                    _data.dialogue = EX_Story.Story[i].jp_dialog;
+                }
+                dialogs.Add(_data);
+                index++;
+            }
+        }
     }
 }
 

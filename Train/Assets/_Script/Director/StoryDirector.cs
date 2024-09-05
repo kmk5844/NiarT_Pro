@@ -21,12 +21,23 @@ public class StoryDirector : MonoBehaviour
     private Button SkipButton;
     [SerializeField]
     private Toggle AutoToggle;
-    public bool SkipHit_Flag;
-    public bool AutoHit_Flag;
+    [SerializeField]
+    private Button BackLogButton;
+
+    public bool skipHit_Flag;
+    public bool toggleHit_Flag;
+    public bool backHit_Flag;
     public bool Auto_Flag;
+    public bool BackLog_Flag;
     public float delayTime;
 
     public GameObject[] BranchList;
+    public List<DialogData> BackLog;
+    DialogSystem branch_DialogSystem;
+
+    public GameObject BackLog_Window;
+    public Transform BackLog_Content;
+    public GameObject BackLog_Object;
 
     private void Awake()
     {
@@ -36,13 +47,17 @@ public class StoryDirector : MonoBehaviour
         Branch.GetComponent<DialogSystem>().Story_Init(gameObject, SA_PlayerData.New_Stage, Branch_Value);
         GameObject Branch_Canvas = Instantiate(Branch, Canvas);
         Branch_Canvas.transform.SetSiblingIndex(1);
-        gameObject.GetComponent<Dialog>().dialogSystem = Branch_Canvas.GetComponent<DialogSystem>();
+        branch_DialogSystem = Branch_Canvas.GetComponent<DialogSystem>();
+        gameObject.GetComponent<Dialog>().dialogSystem = branch_DialogSystem;
+        BackLog = new List<DialogData>();
+        branch_DialogSystem.Get_Dialogs();
     }
     // Start is called before the first frame update
     void Start()
     {
         MMSoundManagerSoundPlayEvent.Trigger(StoryBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true);
         SkipButton.onClick.AddListener(() => Click_Skip_Button());
+        BackLogButton.onClick.AddListener(() => Click_BackLog_Button());
         AutoToggle.onValueChanged.AddListener((value) => Click_Auto_Toggle(value));
 
         EventTrigger buttonTrigger = SkipButton.gameObject.AddComponent<EventTrigger>();
@@ -70,26 +85,50 @@ public class StoryDirector : MonoBehaviour
         toggleExit.eventID = EventTriggerType.PointerExit;
         toggleExit.callback.AddListener((data) => { OnAutoToggleExit(); });
         toggleTrigger.triggers.Add(toggleExit);
+
+        EventTrigger backLogTrigger = BackLogButton.gameObject.AddComponent<EventTrigger>();
+
+        EventTrigger.Entry backlogEntry = new EventTrigger.Entry();
+        backlogEntry.eventID = EventTriggerType.PointerEnter;
+        backlogEntry.callback.AddListener((data) => { OnBackLogEnter(); });
+        backLogTrigger.triggers.Add(backlogEntry);
+
+        EventTrigger.Entry backlogExit = new EventTrigger.Entry();
+        backlogExit.eventID = EventTriggerType.PointerExit;
+        backlogExit.callback.AddListener((data) => { OnBackLogExit(); });
+        backLogTrigger.triggers.Add(backlogExit);
     }
     private void OnSkipButtonEnter()
     {
-        SkipHit_Flag = true;
+        skipHit_Flag = true;
     }
 
     private void OnSkipButtonExit()
     {
-        SkipHit_Flag = false;
+        skipHit_Flag = false;
     }
 
     private void OnAutoToggleEnter()
     {
-        AutoHit_Flag = true;
+        toggleHit_Flag = true;
     }
 
     private void OnAutoToggleExit()
     {
-        AutoHit_Flag = false;
+        toggleHit_Flag = false;
     }
+
+    private void OnBackLogEnter()
+    {
+        backHit_Flag = true;
+    }
+
+    private void OnBackLogExit()
+    {
+        backHit_Flag = false;
+    }
+
+    
 
     private void Click_Auto_Toggle(bool isOn)
     {
@@ -106,5 +145,26 @@ public class StoryDirector : MonoBehaviour
     private void Click_Skip_Button()
     {
         GameManager.Instance.End_Enter();
+    }
+
+    private void Click_BackLog_Button()
+    {
+        BackLog_Flag = true;
+        BackLog_Window.SetActive(true);
+    }
+
+    public void Click_BackLog_Back_Button()
+    {
+        BackLog_Window.SetActive(false);
+        BackLog_Flag = false;
+
+    }
+
+    public void Instantiate_BackLog(int num)
+    {
+        Vector2 pos = BackLog_Content.GetComponent<RectTransform>().sizeDelta;
+        BackLog_Content.GetComponent<RectTransform>().sizeDelta = new Vector2 (pos.x, pos.y + 135);
+        GameObject Back = Instantiate(BackLog_Object, BackLog_Content);
+        Back.GetComponent<BackLog_object>().SetString(BackLog[num].name, BackLog[num].dialogue);
     }
 }

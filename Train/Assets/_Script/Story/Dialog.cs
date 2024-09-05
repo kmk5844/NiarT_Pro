@@ -16,4 +16,3 @@ public class Dialog : MonoBehaviour
         Fade.SetActive(true);
 	}
 }
-
