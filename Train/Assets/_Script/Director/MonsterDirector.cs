@@ -88,7 +88,7 @@ public class MonsterDirector : MonoBehaviour
 
         item_MonsterCount = 0;
         TrainCount = Train_List.childCount;
-        MaxPos_Sky = new Vector2(6f, 6f);
+        MaxPos_Sky = new Vector2(6f, 9f);
         MinPos_Sky = new Vector2(-7.97f + (-10.94f * (TrainCount - 1)), 3f);
 
         MaxPos_Ground = new Vector2(3.5f, -0.9f);

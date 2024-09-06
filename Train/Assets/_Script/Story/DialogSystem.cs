@@ -16,8 +16,10 @@ public class DialogSystem : MonoBehaviour
     private bool SkipHit_Flag;
     private bool AutoHit_Flag;
     private bool BackHit_Flag;
+    private bool OptionHit_Flag;
 	private bool Auto_Flag;
     private bool Back_Flag;
+    private bool Option_Flag;
 	private float delay;
 
 	[SerializeField]
@@ -81,8 +83,10 @@ public class DialogSystem : MonoBehaviour
         SkipHit_Flag = storydirector.skipHit_Flag;
         AutoHit_Flag = storydirector.toggleHit_Flag;
         BackHit_Flag = storydirector.backHit_Flag;
+        OptionHit_Flag = storydirector.optionHit_Flag;
         Auto_Flag = storydirector.Auto_Flag;
         Back_Flag = storydirector.BackLog_Flag;
+        Option_Flag = storydirector.Option_Flag;
     }
 
     public void Story_Init(GameObject StoryDirector_Object, int StageNum, int Branch)
@@ -117,9 +121,9 @@ public class DialogSystem : MonoBehaviour
 			isFirst = false;
 		}
 
-        if (!Back_Flag)
+        if (!Back_Flag && !Option_Flag)
         {
-            if (Input.GetMouseButtonDown(0) && !SkipHit_Flag && !AutoHit_Flag && !BackHit_Flag)
+            if (Input.GetMouseButtonDown(0) && !SkipHit_Flag && !AutoHit_Flag && !BackHit_Flag && !OptionHit_Flag)
             {
 
                 if (isTypingEffect == true)
@@ -281,6 +285,7 @@ public class DialogSystem : MonoBehaviour
                     _data.name = EX_Story.Story[i].jp_name;
                     _data.dialogue = EX_Story.Story[i].jp_dialog;
                 }
+                _data.backLog_Color = EX_Story.Story[i].BackLog_Color;
                 dialogs.Add(_data);
                 index++;
             }
@@ -306,5 +311,7 @@ public struct DialogData
 	public	string	name;			// 캐릭터 이름
 	[TextArea(3, 5)]
 	public	string	dialogue;		// 대사
+    [HideInInspector]
+    public string backLog_Color;
 }
 

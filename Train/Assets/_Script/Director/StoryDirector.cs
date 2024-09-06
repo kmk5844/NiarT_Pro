@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using MoreMountains.Tools;
+using TMPro;
 
 public class StoryDirector : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class StoryDirector : MonoBehaviour
     private SA_StoryData SA_StoryData;
     [SerializeField]
     private SA_PlayerData SA_PlayerData;
+    [SerializeField]
+    private SA_LocalData sa_localdata;
 
     public AudioClip StoryBGM; 
 
@@ -23,12 +26,19 @@ public class StoryDirector : MonoBehaviour
     private Toggle AutoToggle;
     [SerializeField]
     private Button BackLogButton;
+    [SerializeField]
+    private Button OptionButton;
+
+    public TextMeshProUGUI Stage_Title;
+    public TextMeshProUGUI Stage_Num;
 
     public bool skipHit_Flag;
     public bool toggleHit_Flag;
     public bool backHit_Flag;
+    public bool optionHit_Flag;
     public bool Auto_Flag;
     public bool BackLog_Flag;
+    public bool Option_Flag;
     public float delayTime;
 
     public GameObject[] BranchList;
@@ -39,6 +49,27 @@ public class StoryDirector : MonoBehaviour
     public Transform BackLog_Content;
     public GameObject BackLog_Object;
 
+    private void Update()
+    {
+        if(Input.GetKeyUp(KeyCode.Escape))
+        {
+            if (!Option_Flag && !BackLog_Flag)
+            {
+                Click_Option_Button();
+            }
+            else if (Option_Flag && !BackLog_Flag)
+            {
+                Click_Option_Back_Button();
+            }
+
+            if (BackLog_Flag)
+            {
+                Click_BackLog_Back_Button();
+            }
+        }
+    }
+
+    public GameObject Option_Window;
     private void Awake()
     {
         int index = EX_StoryData.Story_Branch.FindIndex(x => x.Stage_Index.Equals(SA_PlayerData.New_Stage));
@@ -51,6 +82,22 @@ public class StoryDirector : MonoBehaviour
         gameObject.GetComponent<Dialog>().dialogSystem = branch_DialogSystem;
         BackLog = new List<DialogData>();
         branch_DialogSystem.Get_Dialogs();
+        if(sa_localdata.Local_Index == 0)
+        {
+            //영어
+            Stage_Title.text = EX_StoryData.Story_Branch[index].Story_Title_En;
+        }
+        else if (sa_localdata.Local_Index == 1)
+        {
+            Stage_Title.text = EX_StoryData.Story_Branch[index].Story_Title_Kr  ;
+            //한글
+        }else if (sa_localdata.Local_Index == 2)
+        {
+            Stage_Title.text = EX_StoryData.Story_Branch[index].Story_Title_Jp;
+            //일본어
+        }
+        Stage_Num.text = "Story " + EX_StoryData.Story_Branch[index].Story_Title_Num;
+        
     }
     // Start is called before the first frame update
     void Start()
@@ -58,6 +105,7 @@ public class StoryDirector : MonoBehaviour
         MMSoundManagerSoundPlayEvent.Trigger(StoryBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true);
         SkipButton.onClick.AddListener(() => Click_Skip_Button());
         BackLogButton.onClick.AddListener(() => Click_BackLog_Button());
+        OptionButton.onClick.AddListener(() => Click_Option_Button());
         AutoToggle.onValueChanged.AddListener((value) => Click_Auto_Toggle(value));
 
         EventTrigger buttonTrigger = SkipButton.gameObject.AddComponent<EventTrigger>();
@@ -97,6 +145,19 @@ public class StoryDirector : MonoBehaviour
         backlogExit.eventID = EventTriggerType.PointerExit;
         backlogExit.callback.AddListener((data) => { OnBackLogExit(); });
         backLogTrigger.triggers.Add(backlogExit);
+
+
+        EventTrigger OptionTrigger = OptionButton.gameObject.AddComponent<EventTrigger>();
+
+        EventTrigger.Entry OptionEntry = new EventTrigger.Entry();
+        OptionEntry.eventID = EventTriggerType.PointerEnter;
+        OptionEntry.callback.AddListener((data) => { OnOptionEnter(); });
+        OptionTrigger.triggers.Add(OptionEntry);
+
+        EventTrigger.Entry OptionExit = new EventTrigger.Entry();
+        OptionExit.eventID = EventTriggerType.PointerExit;
+        OptionExit.callback.AddListener((data) => { OnOptionExit(); });
+        OptionTrigger.triggers.Add(OptionExit);
     }
     private void OnSkipButtonEnter()
     {
@@ -128,7 +189,15 @@ public class StoryDirector : MonoBehaviour
         backHit_Flag = false;
     }
 
-    
+    private void OnOptionEnter()
+    {
+        optionHit_Flag = true;
+    }
+
+    private void OnOptionExit()
+    {
+        optionHit_Flag = false;
+    }
 
     private void Click_Auto_Toggle(bool isOn)
     {
@@ -160,11 +229,23 @@ public class StoryDirector : MonoBehaviour
 
     }
 
+    private void Click_Option_Button()
+    {
+        Option_Flag = true;
+        Option_Window.SetActive(true);
+    }
+
+    public void Click_Option_Back_Button()
+    {
+        Option_Flag = false;
+        Option_Window.SetActive(false);
+    }
+
     public void Instantiate_BackLog(int num)
     {
         Vector2 pos = BackLog_Content.GetComponent<RectTransform>().sizeDelta;
         BackLog_Content.GetComponent<RectTransform>().sizeDelta = new Vector2 (pos.x, pos.y + 135);
         GameObject Back = Instantiate(BackLog_Object, BackLog_Content);
-        Back.GetComponent<BackLog_object>().SetString(BackLog[num].name, BackLog[num].dialogue);
+        Back.GetComponent<BackLog_object>().SetString(BackLog[num].name, BackLog[num].dialogue, BackLog[num].backLog_Color);
     }
 }

@@ -108,7 +108,7 @@ public class CowBoy_Grap : MonoBehaviour
             {
                 if (collision.GetComponent<Monster>().Monster_Type.Equals("Sky"))
                 {
-                    Debug.Log("작동");
+                    //Debug.Log("작동");
                     if (!isGrappling)
                     {
                         if (unit.mercenaryActive_Check() == Active.move)

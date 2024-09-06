@@ -110,6 +110,7 @@ public class Long_RangedShoot : MonoBehaviour
             if (Target == null)
             {
                 Target = collision.transform;
+                lastTime = Time.time;
             }
         }
     }

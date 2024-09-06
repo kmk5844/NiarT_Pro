@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -63,6 +64,10 @@ public class Mercenary : MonoBehaviour
     public Image HP_Guage;
     public GameObject CoolTime_Guage_Object;
     public Image CoolTime_Guage;
+    public GameObject Count_Guage_Object;
+    public Image Count_Guage;
+    int count;
+    bool countFlag;
 
     //ItemºÎºÐ
     protected int Item_workCount_UP;
@@ -107,6 +112,17 @@ public class Mercenary : MonoBehaviour
         HP_Guage.fillAmount = 1f;
         CoolTime_Guage_Object.SetActive(false);
         CoolTime_Guage.fillAmount = 0f;
+        Count_Guage.fillAmount = 1f;
+
+        if(Max_workCount == 0)
+        {
+            countFlag = false;
+        }
+        else
+        {
+            countFlag = true;
+        }
+        Count_Guage_Object.SetActive(countFlag);
     }
 
     protected virtual void Update()
@@ -131,6 +147,14 @@ public class Mercenary : MonoBehaviour
         }
 
         HP_Guage.fillAmount = Check_HpParsent() / 100f;
+        if (countFlag)
+        {
+            if (Max_workCount - workCount != count)
+            {
+                count = Max_workCount - workCount;
+                Count_Guage.fillAmount = ((float)count / (float)Max_workCount);
+            }
+        }
     }
 
     protected void Combatant_Move()

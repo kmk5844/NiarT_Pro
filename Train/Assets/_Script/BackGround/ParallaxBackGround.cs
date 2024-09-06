@@ -33,14 +33,6 @@ public class parallex : MonoBehaviour
         Player = GameObject.FindWithTag("Player").transform;
         GameDirector = GameDirector_Object.GetComponent<GameDirector>();
         cam = Camera.main.transform;
-/*        if (Brain_Flag)
-        {
-            transform.GetComponent<CinemachineBrain>().enabled = true;
-        }
-        else
-        {
-            transform.GetComponent<CinemachineBrain>().enabled = false;
-        }*/
 
         int backCount = transform.childCount;
         mat = new Material[backCount];

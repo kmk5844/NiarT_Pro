@@ -8,9 +8,9 @@ public class BackLog_object : MonoBehaviour
     public TextMeshProUGUI Name_text;
     public TextMeshProUGUI Dialog_text;
 
-    public void SetString(string name, string dialog)
+    public void SetString(string name, string dialog, string _color)
     {
-        Name_text.text = name + " : ";
+        Name_text.text = "<color=#"+ _color + "> "+ name + " : ";
         Dialog_text.text = dialog;
     }
 }

@@ -430,7 +430,14 @@ public class Player : MonoBehaviour
             }
             else if(PlayerNum == 1) //페요테
             {
-                for (int i = 0; i < 5; i++) // 5개의 샷건 탄환을 발사
+                if (!Item_GunFlag)
+                {
+                    for (int i = 0; i < 5; i++) // 5개의 샷건 탄환을 발사
+                    {
+                        Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
+                    }
+                }
+                else
                 {
                     Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
                 }
