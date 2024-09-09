@@ -4,7 +4,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
-using UnityEditor.Localization.Plugins.XLIFF.V20;
 using System;
 
 public class DialogSystem : MonoBehaviour

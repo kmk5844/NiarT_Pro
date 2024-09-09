@@ -21,6 +21,13 @@ public class UIDirector : MonoBehaviour
     public GameObject Result_UI;
     public GameObject Option_UI;
 
+    [Header("Playing UI")]
+    public Image Player_Blood;
+    Color Player_Blood_Color;
+    bool isBloodFlag;
+    float blood_delayTime;
+    float blood_lastTime;
+
     [Header("Game UI")]
     public Image Player_Head;
     public Sprite[] Player_Head_Sprite;
@@ -85,6 +92,8 @@ public class UIDirector : MonoBehaviour
 
     private void Awake()
     {
+        isBloodFlag = false;
+        blood_delayTime = 0.4f;
         Equiped_Item_Image = new Image[Equiped_Item_List.childCount];
         Equiped_Item_Count = new TextMeshProUGUI[Equiped_Item_List.childCount];
 
@@ -105,7 +114,8 @@ public class UIDirector : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         Player_Head.sprite = Player_Head_Sprite[player.PlayerNum];
         gamedirector = GameDirector_Object.GetComponent<GameDirector>();
-        if(gamedirector.SA_PlayerData.Select_Stage != 0)
+        Player_Blood_Color = Player_Blood.GetComponent<Image>().color;
+        if (gamedirector.SA_PlayerData.Select_Stage != 0)
         {
             KeyTutorial_Object.SetActive(false);
         }
@@ -148,7 +158,17 @@ public class UIDirector : MonoBehaviour
                     Click_Option_Exit();
                 }
             }
+
+            if (isBloodFlag)
+            {
+                if (Time.time > blood_lastTime + blood_delayTime)
+                {
+                    StartCoroutine(Blood_Off());
+                }
+            }
         }
+
+
 
         Player_HP_Bar.fillAmount = player.Check_HpParsent() / 100f;
         TotalFuel_Bar.fillAmount = gamedirector.Check_Fuel();
@@ -345,5 +365,62 @@ public class UIDirector : MonoBehaviour
     {
         SkillCoolTime_Object.GetComponent<SkillCoolTime>().SetSetting(Equiped_Skill_Image[skillNum].sprite, during);
         Instantiate(SkillCoolTime_Object, CoolTime_List);
+    }
+
+    public void Player_Blood_Ani()
+    {
+        if (!isBloodFlag)
+        {
+            StartCoroutine(Blood_On());
+        }
+        else
+        {
+            blood_lastTime = Time.time;
+        }
+    }
+
+    IEnumerator Blood_On()
+    {
+        float duration = 0.1f;
+        float elapsedTime = 0f;
+
+        Player_Blood.gameObject.SetActive(true);
+        isBloodFlag = true;
+        blood_lastTime = Time.time;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / duration);
+            Player_Blood_Color.a = Mathf.Lerp(0f, 1f, t);
+            Player_Blood.color = Player_Blood_Color;
+            yield return null;
+        }
+    }
+
+    IEnumerator Blood_Off()
+    {
+        float duration = 0.1f;
+        float elapsedTime = 0f;
+
+        isBloodFlag = false;
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / duration);
+            Player_Blood_Color.a = Mathf.Lerp(1f, 0f, t);
+            Player_Blood.color = Player_Blood_Color;
+            if (ItemInformation_Object_Flag)
+            {
+                StartCoroutine(Blood_On());
+                break;
+            }
+            yield return null;
+        }
+
+        if (!ItemInformation_Object_Flag)
+        {
+            Player_Blood.gameObject.SetActive(false);
+        }
     }
 }

@@ -1,8 +1,8 @@
 using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.LowLevel;
 
 public class Player : MonoBehaviour
 {
@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     GameDirector gamedirector;
     GameType gameDirectorType;
     Player_Chage playerchageDirector;
+    UIDirector uidirector;
     public int PlayerNum;
 
     [SerializeField]
@@ -101,6 +102,7 @@ public class Player : MonoBehaviour
     {
         gamedirector_object = GameObject.Find("GameDirector");
         gamedirector = gamedirector_object.GetComponent<GameDirector>();
+        uidirector = gamedirector.UI_DirectorObject.GetComponent<UIDirector>();
         playerchageDirector = GetComponent<Player_Chage>();
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         respawnPosition = transform.position;
@@ -563,6 +565,7 @@ public class Player : MonoBehaviour
         {
             MonsterBullet bullet = collision.GetComponent<MonsterBullet>();
             MonsterHit(bullet.atk);
+            uidirector.Player_Blood_Ani();
             Destroy(collision.gameObject);
         }
     }

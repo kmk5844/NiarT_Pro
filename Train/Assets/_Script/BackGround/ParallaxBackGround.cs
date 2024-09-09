@@ -6,9 +6,6 @@ using UnityEngine.UIElements;
 
 public class parallex : MonoBehaviour
 {
-    public bool Track_Flag;
-    public float Mat_Speed;
-
     public GameObject GameDirector_Object;
     GameDirector GameDirector;
     Transform cam;
@@ -49,7 +46,6 @@ public class parallex : MonoBehaviour
     }
 
 
-
     void BackSpeedCalculate(int backCount)
     {
         for (int i = 0; i < backCount; i++)
@@ -70,41 +66,17 @@ public class parallex : MonoBehaviour
     {
         if (GameDirector.gameType == GameType.Playing || GameDirector.gameType == GameType.Ending || GameDirector.gameType == GameType.Boss)
         {
-            if (!Track_Flag)
+            for (int i = 0; i < backgrounds.Length; i++)
             {
-                float speed = Mat_Speed * parallaxSpeed;
+                float speed = backSpeed[i] * parallaxSpeed;
                 offset += (Time.deltaTime * speed + (GameDirector.TrainSpeed / 20000f)) / 10f;
-                mat[0].SetTextureOffset("_MainTex", new Vector2(offset, 0) * speed);
-            }
-            else
-            {
-                for (int i = 0; i < backgrounds.Length; i++)
-                {
-                    float speed = backSpeed[i] * parallaxSpeed;
-                    offset += (Time.deltaTime * speed + (GameDirector.TrainSpeed / 20000f)) / 10f;
-                    mat[i].SetTextureOffset("_MainTex", new Vector2(offset, 0) * speed);
-                }
+                mat[i].SetTextureOffset("_MainTex", new Vector2(offset, 0) * speed);
             }
         }
 
     }
     private void FixedUpdate()
     {
-        if (!Track_Flag)
-        {
             transform.position = new Vector3(cam.position.x, transform.position.y, transform.position.z);
-        }
-
-/*        if (!Brain_Flag)
-        {
-            if (!cam.transform.GetComponent<CameraFollow>().CameraFlag)
-            {
-                transform.position = new Vector3(cam.position.x, transform.position.y, transform.position.z);
-            }
-            else
-            {
-                transform.position = new Vector3(cam.transform.GetComponent<CameraFollow>().V_Cam_X, transform.position.y, transform.position.z);
-            }
-        }*/
     }
 }

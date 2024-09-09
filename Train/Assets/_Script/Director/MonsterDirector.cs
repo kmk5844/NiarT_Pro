@@ -91,8 +91,8 @@ public class MonsterDirector : MonoBehaviour
         MaxPos_Sky = new Vector2(6f, 9f);
         MinPos_Sky = new Vector2(-7.97f + (-10.94f * (TrainCount - 1)), 3f);
 
-        MaxPos_Ground = new Vector2(3.5f, -0.9f);
-        MinPos_Ground = new Vector2(-5.47f + (-10.94f * (TrainCount-1)), -0.9f);
+        MaxPos_Ground = new Vector2(3.5f, -1.19f);
+        MinPos_Ground = new Vector2(-5.47f + (-10.94f * (TrainCount-1)), -1.19f);
         //몬스터 소환 위치가 달라진다.
         //기차 길이에 따라 정해야한다.
     }

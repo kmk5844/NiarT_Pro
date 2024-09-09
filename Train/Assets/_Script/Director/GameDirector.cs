@@ -28,9 +28,12 @@ public class GameDirector : MonoBehaviour
     public Level_DataTable EX_LevelData;
 
     [Header("디렉터")]
-    public GameObject MonsterDirector;
+    public GameObject MonsterDirector_Object;
     public GameObject UI_DirectorObject;
     public GameObject Item_DirectorObject;
+    public PolygonCollider2D CameraConfiler;
+    public FillDirector fill_director;
+    Vector2[] newPoint;
     MonsterDirector monsterDirector;
     UIDirector uiDirector;
     ItemDirector itemDirector;
@@ -46,6 +49,7 @@ public class GameDirector : MonoBehaviour
     Vector2 cursorHotspot_Origin;
     Vector2 cursorHotspot_Aim;
 
+    [Header("플레이어")]
     [SerializeField]
     GameObject playerObject;
     [HideInInspector]
@@ -164,9 +168,10 @@ public class GameDirector : MonoBehaviour
         GameWinFlag = false;
         GameLoseFlag = false;
         SpawnTrainFlag = false;
-        monsterDirector = MonsterDirector.GetComponent<MonsterDirector>();
+        monsterDirector = MonsterDirector_Object.GetComponent<MonsterDirector>();
         uiDirector = UI_DirectorObject.GetComponent<UIDirector>();
         itemDirector = Item_DirectorObject.GetComponent<ItemDirector>();
+        fill_director = GetComponent<FillDirector>();
 
         cursorAim = Resources.Load<Texture2D>("Cursor/Aim6464");
         cursorOrigin = Resources.Load<Texture2D>("Cursor/Origin6464");
@@ -176,6 +181,16 @@ public class GameDirector : MonoBehaviour
 
         Stage_Init();
         Train_Init();
+
+        newPoint = new Vector2[4];
+        {
+            newPoint[0] = new Vector2(3.5f + 20f, -4);
+            newPoint[1] = new Vector2(3.5f + 20f, 14.5f);
+            newPoint[2] = new Vector2(-5.47f + (-10.94f * (Train_Count - 1)) - 20f, 14.5f);
+            newPoint[3] = new Vector2(-5.47f + (-10.94f * (Train_Count - 1)) - 20f, -4);
+        }
+        CameraConfiler.points = newPoint;
+
         RandomStartTime = Random.Range(5f, 8f);
         BossCount = 0;
         lastSpeedTime = 0;
@@ -446,20 +461,20 @@ public class GameDirector : MonoBehaviour
                     Emerging_Boss_Distance.Add(num);
                 }
             }
-            MonsterDirector.GetComponent<MonsterDirector>().Get_Boss_List(Emerging_Boss);
+            MonsterDirector_Object.GetComponent<MonsterDirector>().Get_Boss_List(Emerging_Boss);
         }
 
 
         if (Test_Flag)
         {
-            MonsterDirector.GetComponent<MonsterDirector>().Get_Monster_List(Test_Monster_List);
+            MonsterDirector_Object.GetComponent<MonsterDirector>().Get_Monster_List(Test_Monster_List);
         }
         else
         {
-            MonsterDirector.GetComponent<MonsterDirector>().Get_Monster_List(Emerging_Monster);
+            MonsterDirector_Object.GetComponent<MonsterDirector>().Get_Monster_List(Emerging_Monster);
             if (Data_BossFlag)
             {
-                MonsterDirector.GetComponent<MonsterDirector>().Get_Boss_List(Emerging_Boss);
+                MonsterDirector_Object.GetComponent<MonsterDirector>().Get_Boss_List(Emerging_Boss);
             }
         }
     }
