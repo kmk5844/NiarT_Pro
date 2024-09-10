@@ -98,6 +98,8 @@ public class Player : MonoBehaviour
     Vector3 KeyObject_Scale;
     int KeyCount;
 
+    Animator ani;
+
     void Start()
     {
         gamedirector_object = GameObject.Find("GameDirector");
@@ -105,6 +107,7 @@ public class Player : MonoBehaviour
         uidirector = gamedirector.UI_DirectorObject.GetComponent<UIDirector>();
         playerchageDirector = GetComponent<Player_Chage>();
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        ani = GetComponent<Animator>();
         respawnPosition = transform.position;
         isHealing = false;
         jumpFlag = false;
@@ -304,11 +307,17 @@ public class Player : MonoBehaviour
             if (Input.GetButtonUp("Horizontal"))
             {
                 rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.5f, rigid.velocity.y);
+                ani.SetBool("Move", false);
+            }else if (Input.GetButton("Horizontal"))
+            {
+                ani.SetBool("Move", true);
             }
+
 
             if (Input.GetButtonDown("Jump") && !jumpFlag)
             {
                 rigid.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+                ani.SetTrigger("Jump");
             }
 
             if (isMouseDown)
@@ -425,6 +434,7 @@ public class Player : MonoBehaviour
             if(PlayerNum == 0)
             {
                 Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
+                ani.SetTrigger("Shoot_0");
                 if (MariGold_Skill_Flag && !MariGold_Skill_Fire_Flag)
                 {
                     StartCoroutine(MariGold_Skill_BulletFire());
@@ -438,6 +448,7 @@ public class Player : MonoBehaviour
                     {
                         Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
                     }
+                    ani.SetTrigger("Shoot_1");
                 }
                 else
                 {
@@ -901,6 +912,7 @@ public class Player : MonoBehaviour
         MMSoundManagerSoundPlayEvent.Trigger(ShootSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         yield return new WaitForSeconds(0.1f);
         Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
+        ani.SetTrigger("Shoot_0");
         MMSoundManagerSoundPlayEvent.Trigger(ShootSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         MariGold_Skill_Fire_Flag = false;
     }
