@@ -5,11 +5,12 @@ using static UnityEngine.ParticleSystem;
 
 public class Engine_Smoke_Effect : MonoBehaviour
 {
-    public GameObject ParticleObject;
+    public ParticleSystem ParticleObject;
     GameDirector gameDirector;
-    ParticleSystem Particle;
     private ParticleSystem.MainModule mainModule;
+    /* ParticleSystem Particle;
 
+ */
     float Speed;
     float MaxSpeed;
 
@@ -17,52 +18,37 @@ public class Engine_Smoke_Effect : MonoBehaviour
     void Start()
     {
         gameDirector = GameObject.Find("GameDirector").GetComponent<GameDirector>();
-        Particle = ParticleObject.GetComponent<ParticleSystem>();
-        mainModule = Particle.main;
+        MaxSpeed = gameDirector.MaxSpeed;
+        mainModule = ParticleObject.GetComponent<ParticleSystem>().main;
     }
 
     // Update is called once per frame
     void Update()
     {
-        MaxSpeed = gameDirector.MaxSpeed;
         Speed = gameDirector.TrainSpeed;
-/*        UpdateStartLifeTime();
-        UpdateRoation();
-        UpdateStartSpeed();
-        UpdateGravity();*/
 
         if (gameDirector.gameType == GameType.Ending)
         {
-            ChangeColor();
+            ChangeEnd();
+        }
+        else
+        {
+            UpdateStartLifeTime();
         }
     }
 
-    private void ChangeColor()
+    private void ChangeEnd()
     {
         mainModule.startColor = Color.black;
-    }
-/*
-    private void UpdateRoation()
-    {
-        float rotation = Mathf.Lerp(-90f, -3f, Speed / MaxSpeed);
-        ParticleObject.transform.rotation = Quaternion.Euler(rotation, -90, -90);
+        mainModule.startLifetime = 5;
+        mainModule.simulationSpeed = 1;
     }
 
     private void UpdateStartLifeTime()
     {
-        float startLifetime = Mathf.Lerp(5f, 20f, Speed / MaxSpeed);
+        float startLifetime = Mathf.Lerp(1f, 8f, Speed / MaxSpeed);
         mainModule.startLifetime = startLifetime;
+        float simulationSpeed = Mathf.Lerp(2f, 6f, Speed / MaxSpeed);
+        mainModule.simulationSpeed = simulationSpeed;
     }
-
-    private void UpdateStartSpeed()
-    {
-        float startSpeedTime = Mathf.Lerp(1f,5f, Speed/MaxSpeed);
-        mainModule.startSpeed = startSpeedTime;
-    }
-
-    private void UpdateGravity()
-    {
-        float gravityModifier = Mathf.Lerp(0f, -0.003f, Speed / MaxSpeed);
-        mainModule.gravityModifier = gravityModifier;
-    }*/
 }

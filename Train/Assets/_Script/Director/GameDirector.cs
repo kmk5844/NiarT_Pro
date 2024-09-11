@@ -64,6 +64,7 @@ public class GameDirector : MonoBehaviour
     [SerializeField]
     private int Reward_Point;
 
+
     [SerializeField]
     string Reward_ItemNum;
     [SerializeField]
@@ -136,10 +137,10 @@ public class GameDirector : MonoBehaviour
     float distance_lastSpeedTime;
     float distance_time;
 
-    [Header("Train_Cam")]
-    public Transform TrainCamList;
-    public GameObject TrainCam_Prefeb;
-    public GameObject Station;
+    [Header("Satation")]
+    public GameObject Station_Object;
+    bool isStationHideFlag;
+    bool isStationShowFlag;
 
     [Header("BGM")]
     public AudioClip DustWindBGM;
@@ -168,6 +169,8 @@ public class GameDirector : MonoBehaviour
         GameWinFlag = false;
         GameLoseFlag = false;
         SpawnTrainFlag = false;
+        isStationHideFlag = false;
+        isStationShowFlag = false;
         monsterDirector = MonsterDirector_Object.GetComponent<MonsterDirector>();
         uiDirector = UI_DirectorObject.GetComponent<UIDirector>();
         itemDirector = Item_DirectorObject.GetComponent<ItemDirector>();
@@ -191,7 +194,7 @@ public class GameDirector : MonoBehaviour
         }
         CameraConfiler.points = newPoint;
 
-        RandomStartTime = Random.Range(5f, 8f);
+        RandomStartTime = Random.Range(12f, 15f);
         BossCount = 0;
         lastSpeedTime = 0;
         distance_lastSpeedTime = 0;
@@ -249,6 +252,12 @@ public class GameDirector : MonoBehaviour
         if (gameType == GameType.Playing)
         {
             ChangeCursor(true);
+            if(Time.time >= StartTime + 0.1f && !isStationHideFlag)
+            {
+                isStationHideFlag = true;
+                StartCoroutine(Hide_And_Show_Station(true));
+            }
+
             if (Time.time >= RandomStartTime + StartTime && !GameStartFlag)
             {
                 GameStartFlag = true;
@@ -378,7 +387,7 @@ public class GameDirector : MonoBehaviour
                 Change_Win_BGM_Flag = true;
             }
 
-            if (Time.time >= lastSpeedTime + 0.025f)
+            if (Time.time >= lastSpeedTime + 0.03f)
             {
                 if (TrainSpeed > 0)
                 {
@@ -391,9 +400,10 @@ public class GameDirector : MonoBehaviour
                 lastSpeedTime = Time.time;
             }
 
-            if(TrainSpeed <= 40 && TrainSpeed > 35)
+            if(TrainSpeed <= 90f && TrainSpeed > 88f && !isStationShowFlag)
             {
-                Station.SetActive(true);
+                isStationShowFlag = true;
+                StartCoroutine(Hide_And_Show_Station(false));
             }
 
             if(TrainSpeed == 0)
@@ -519,7 +529,6 @@ public class GameDirector : MonoBehaviour
             TrainMaxSpeed += train.Train_MaxSpeed;
             TrainEfficient += train.Train_Efficient;
             TrainEnginePower += train.Train_Engine_Power;
-            Instantiate_TrainCam(TrainObject);
         }
 
         Train_Count = Train_List.childCount;
@@ -771,14 +780,6 @@ public class GameDirector : MonoBehaviour
             Cursor.SetCursor(cursorOrigin, cursorHotspot_Origin, CursorMode.Auto);
         }
     }
-
-    private void Instantiate_TrainCam(GameObject Train)
-    {
-        GameObject Cam = Instantiate(TrainCam_Prefeb, TrainCamList);
-        Cam.GetComponent<CinemachineVirtualCamera>().Follow = Train.transform;
-        Cam.GetComponent<CinemachineVirtualCamera>().LookAt = Train.transform;
-        Cam.name = Train.name.Replace("(Clone)", "") + "_Cam";
-    }
     public void SoundSequce(AudioClip audio)
     {
         StartCoroutine(Change_Sound(audio));
@@ -875,6 +876,44 @@ public class GameDirector : MonoBehaviour
 
         uiDirector.BossHP_Guage.fillAmount = 1f;
         uiDirector.BossHP_Object.SetActive(true);
+    }
+
+    IEnumerator Hide_And_Show_Station(bool flag)
+    {
+        float StartX;
+        float TargetX;
+        float duration;
+
+        if (flag)
+        {
+            StartX = 6f;
+            TargetX = -36f;
+            duration = 4f;
+        }
+        else
+        {
+            StartX = 36f;
+            TargetX = 6f;
+            duration = 3f;
+        }
+
+        float elpsedTime = 0f;
+        Station_Object.transform.localPosition = new Vector2(StartX, Station_Object.transform.localPosition.y);
+        Station_Object.SetActive(true);
+
+        while (elpsedTime < duration)
+        {
+            elpsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elpsedTime / duration);
+            float newX = Mathf.Lerp(StartX, TargetX, t);
+            Station_Object.transform.localPosition = new Vector2(newX, Station_Object.transform.localPosition.y);
+            yield return null;
+        }
+
+        if (flag)
+        {
+            Station_Object.SetActive(false);
+        }
     }
 }
 

@@ -42,6 +42,9 @@ public class Monster : MonoBehaviour
     [Header("서서히 사라지는 스프라이트")]
     public List<SpriteRenderer> sprite_List;
 
+    [Header("잔상")]
+    public GameObject AfterImage_Particle;
+
     GameObject player; //플레이어 위치에 따라 플립하는 경우.
     protected GameDirector gameDirector; // 리워드 접수해야함.
 
@@ -316,10 +319,12 @@ public class Monster : MonoBehaviour
         if (player.transform.position.x - transform.position.x < 0f)
         {
             transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            AfterImage_Particle.transform.localScale = new Vector3(1, 1, 1);
         }
         else
         {
             transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            AfterImage_Particle.transform.localScale = new Vector3(-1, 1, 1);
         }
     } // 공통적으로 적용해야 함
 
@@ -359,6 +364,11 @@ public class Monster : MonoBehaviour
                 DestoryFlag = true;
                 Destroy(gameObject);
             }
+        }
+
+        if (AfterImage_Particle.GetComponent<ParticleSystem>().isPlaying)
+        {
+            AfterImage_Particle.GetComponent<ParticleSystem>().Stop();
         }
     }
 
