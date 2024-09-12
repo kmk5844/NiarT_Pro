@@ -12,6 +12,8 @@ public class SelfTurret_Train : MonoBehaviour
     [HideInInspector]
     public int Max_SelfTurretTrain_Fuel;
 
+    bool changeFlag;
+
     bool FuelFlag;
     public bool UseFlag;
     public bool isAtacking;
@@ -49,6 +51,7 @@ public class SelfTurret_Train : MonoBehaviour
         Turret_AtkDelay = SelfTurretTrain.Train_Self_Attack_Delay;
         Turret_Second = SelfTurretTrain.Train_Self_Second;
 
+        changeFlag = false;
         FuelFlag = false;
         UseFlag = false;
         isAtacking = false;
@@ -63,15 +66,21 @@ public class SelfTurret_Train : MonoBehaviour
             Player_Part[i] = Player_Object.transform.GetChild(i).GetComponent<SpriteRenderer>();
         }
 
-        gameDirector.player.GetComponent<Player_Chage>().ChangePlayer_NoneGun(gameDirector.player.PlayerNum, Player_Part);
         Player_Object.SetActive(false);
 
         timebet = 0.05f;
         lastTime = Time.time;
     }
 
+
     private void Update()
     {
+        if (!changeFlag)
+        {
+            gameDirector.player.GetComponent<Player_Chage>().ChangePlayer_NoneGun(gameDirector.player.PlayerNum, Player_Part);
+            changeFlag = true;
+        }
+
         if (gameDirector.gameType == GameType.Playing || gameDirector.gameType == GameType.Boss)
         {
             if (!FuelFlag)
@@ -107,6 +116,8 @@ public class SelfTurret_Train : MonoBehaviour
                 {
                     isMouseDown = false;
                 }
+
+
             }
             else
             {
@@ -157,10 +168,12 @@ public class SelfTurret_Train : MonoBehaviour
     {
         UseFlag = false;
         isAtacking = true;
+        Player_Object.SetActive(true);
         atk_lastTime = Time.time;
         yield return new WaitForSeconds(10);
         isAtacking = false;
         FuelFlag = false;
+        Player_Object.SetActive(false);
         SelfTurretTrain_Fuel = 0;
         lastTime = Time.time;
     }
