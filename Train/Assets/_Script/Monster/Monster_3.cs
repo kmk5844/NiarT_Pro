@@ -6,7 +6,6 @@ using UnityEngine;
 public class Monster_3 : Monster
 {
     [SerializeField]
-    Vector3 monster_SpawnPos;
     Vector3 movement;
     int xPos;
 
@@ -21,13 +20,18 @@ public class Monster_3 : Monster
         Bullet = Resources.Load<GameObject>("Bullet/Monster/" + Monster_Num);
 
         base.Start();
-        monster_SpawnPos = transform.position;
+        MonsterDirector_Pos = transform.localPosition;
+        Spawn_Init_Pos =
+            new Vector2(MonsterDirector_Pos.x + Random.Range(-5f, -2f),
+                MonsterDirector.MinPos_Ground.y - 5f);
+        transform.localPosition = Spawn_Init_Pos;
 
         speed =  0.1f;
         max_xPos = Random.Range(1, 3);
 
         xPos = -1;
         Check_ItemSpeedSpawn();
+        StartCoroutine(SpawnMonster());
     }
 
     protected override void Update()
@@ -65,6 +69,28 @@ public class Monster_3 : Monster
         }
     }
 
+    IEnumerator SpawnMonster()
+    {
+        float elapsedTime = 0;
+        float duration = 1.2f;
+        float height = Random.Range(3f, 5f);
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / duration);
+
+            float xPos = Mathf.Lerp(Spawn_Init_Pos.x, MonsterDirector_Pos.x, t);
+            float yPos = Mathf.Sin(Mathf.PI * t) * height + Mathf.Lerp(Spawn_Init_Pos.y, MonsterDirector_Pos.y, t); ;
+            transform.localPosition = new Vector2(xPos, yPos);
+            //Debug.Log(yPos);
+
+            yield return null;
+        }
+        transform.localPosition = MonsterDirector_Pos;
+        monster_gametype = Monster_GameType.Fighting;
+    }
+
     void BulletFire()
     {
         if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay))
@@ -78,11 +104,11 @@ public class Monster_3 : Monster
 
     void MonsterMove()
     {
-        if(transform.position.x > MonsterDirector.MaxPos_Ground.x || monster_SpawnPos.x + max_xPos < transform.position.x)
+        if(transform.position.x > MonsterDirector.MaxPos_Ground.x || MonsterDirector_Pos.x + max_xPos < transform.position.x)
         {
             xPos = -1;
         }
-        else if(transform.position.x < MonsterDirector.MinPos_Ground.x || monster_SpawnPos.x - max_xPos > transform.position.x)
+        else if(transform.position.x < MonsterDirector.MinPos_Ground.x || MonsterDirector_Pos.x - max_xPos > transform.position.x)
         {
             xPos = 1;
         }

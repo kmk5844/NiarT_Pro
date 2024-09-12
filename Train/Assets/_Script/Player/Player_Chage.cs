@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Player_Chage : MonoBehaviour
 {
+    public bool isPlayable;
+
     [Header("스프라이트 모음")]
     public Sprite[] MariGold_Sprite;
     public Sprite[] Peyote_Sprite;
@@ -29,6 +32,27 @@ public class Player_Chage : MonoBehaviour
                 Foot[0].sprite = Peyote_Sprite[1];
                 Foot[1].sprite = Peyote_Sprite[2];
                 Gun[1].SetActive(true);
+                break;
+        }
+    }
+
+    public void ChangePlayer_NoneGun(int num, SpriteRenderer[] playerBody)
+    {
+        switch (num)
+        {
+            case 0:
+                playerBody[0].sprite = MariGold_Sprite[0]; // Body
+                playerBody[1].sprite = MariGold_Sprite[1]; // Foot_L
+                playerBody[2].sprite = MariGold_Sprite[2]; // Foot_R
+                playerBody[3].sprite = MariGold_Sprite[3]; // Arm_L
+                playerBody[4].sprite = MariGold_Sprite[4]; // Arm_R
+                break;
+            case 1:
+                playerBody[0].sprite = Peyote_Sprite[0]; // Body
+                playerBody[1].sprite = Peyote_Sprite[1]; // Foot_L
+                playerBody[2].sprite = Peyote_Sprite[2]; // Foot_R
+                playerBody[3].sprite = Peyote_Sprite[3]; // Arm_L
+                playerBody[4].sprite = Peyote_Sprite[4]; // Arm_R
                 break;
         }
     }

@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class Monster_4 : Monster
 {
-    [SerializeField]
-    Vector3 monster_SpawnPos;
     Vector3 movement;
     float xPos;
 
@@ -21,11 +19,12 @@ public class Monster_4 : Monster
         Bullet = Resources.Load<GameObject>("Bullet/Monster/" + Monster_Num);
 
         base.Start();
-        transform.position = new Vector3(9, transform.position.y, transform.position.z);
+        transform.position = new Vector3(20, transform.position.y, transform.position.z);
         Bullet_Delay = 2f;
         speed = 6;
         xPos = -1f;
         Check_ItemSpeedSpawn();
+        monster_gametype = Monster_GameType.Fighting;
     }
 
     protected override void Update()

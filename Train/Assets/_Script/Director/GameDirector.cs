@@ -194,7 +194,7 @@ public class GameDirector : MonoBehaviour
         }
         CameraConfiler.points = newPoint;
 
-        RandomStartTime = Random.Range(12f, 15f);
+        RandomStartTime = Random.Range(6f, 8f);
         BossCount = 0;
         lastSpeedTime = 0;
         distance_lastSpeedTime = 0;

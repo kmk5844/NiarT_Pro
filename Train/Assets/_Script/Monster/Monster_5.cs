@@ -6,7 +6,6 @@ public class Monster_5 : Monster
 {
     public GameObject Egg_Object;
     public GameObject Baby_Spider_Object;
-    Vector2 Init_Position;
 
     bool GroundFlag;
     float Bounce_value;
@@ -24,11 +23,12 @@ public class Monster_5 : Monster
         base.Start();
         GroundFlag = false;
         MonsterList = transform.parent.transform;
-        Init_Position = new Vector2(Random.Range(MonsterDirector.MinPos_Ground.x, MonsterDirector.MaxPos_Ground.x), MonsterDirector.MaxPos_Sky.y + 3f);
-        transform.position = Init_Position;
+        Spawn_Init_Pos = new Vector2(Random.Range(MonsterDirector.MinPos_Ground.x, MonsterDirector.MaxPos_Ground.x), MonsterDirector.MaxPos_Sky.y + 3f);
+        transform.position = Spawn_Init_Pos;
         Bounce_flag = false;
         lastTime = 0;
         Bounce_Speed = Random.Range(0.5f, 1f);
+        //monster_gametype = Monster_GameType.Fighting;
     }
 
     protected override void Update()

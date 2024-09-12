@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Monster_6 : Monster
 {
-    [SerializeField]
-    Vector3 monster_SpawnPos;
     Vector3 movement;
 
     [SerializeField]
@@ -26,14 +24,16 @@ public class Monster_6 : Monster
         typeTime = 0f;
         Bullet = Resources.Load<GameObject>("Bullet/Monster/" + Monster_Num);
         base.Start();
+
         //monsterType = monster6_Type.move;
-        monster_SpawnPos = transform.position;
+        MonsterDirector_Pos = transform.localPosition;
 
         xPos = -1;
         moveSpeed = 2f;
         max_xPos = 3f;
         monsterScale = transform.localScale;
         Check_ItemSpeedSpawn();
+        monster_gametype = Monster_GameType.Fighting;
     }
 
     protected override void Update()
@@ -126,16 +126,16 @@ public class Monster_6 : Monster
             transform.localScale = new Vector3(-monsterScale.x, monsterScale.y, monsterScale.z);
         }
 
-        if (transform.position.x > MonsterDirector.MaxPos_Ground.x || monster_SpawnPos.x + max_xPos < transform.position.x)
+        if (transform.position.x > MonsterDirector.MaxPos_Ground.x || MonsterDirector_Pos.x + max_xPos < transform.position.x)
         {
             xPos = -1;
-            monster_SpawnPos = transform.position;
+            MonsterDirector_Pos = transform.position;
             max_xPos = Random.Range(1f, 4f);
         }
-        else if (transform.position.x < MonsterDirector.MinPos_Ground.x || monster_SpawnPos.x - max_xPos > transform.position.x)
+        else if (transform.position.x < MonsterDirector.MinPos_Ground.x || MonsterDirector_Pos.x - max_xPos > transform.position.x)
         {
             xPos = 1;
-            monster_SpawnPos = transform.position;
+            MonsterDirector_Pos = transform.position;
             max_xPos = Random.Range(1f, 4f);
         }
 

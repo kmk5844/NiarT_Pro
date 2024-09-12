@@ -25,6 +25,8 @@ public class Monster : MonoBehaviour
     protected int Monster_Coin;
 
     public string Monster_Type;
+    protected Vector2 MonsterDirector_Pos; //몬스터 디렉터에게 받고 지정된 위치
+    protected Vector2 Spawn_Init_Pos;  // 스폰 후 초기 위치
 
     [Header("몬스터 총알 정보")]
     [SerializeField]
@@ -86,7 +88,7 @@ public class Monster : MonoBehaviour
     {
         lastTime = Time.time;
         mercenary_atk = 0;
-        monster_gametype = Monster_GameType.Fighting;
+        monster_gametype = Monster_GameType.SpwanStart;
         gameDirector = GameObject.Find("GameDirector").GetComponent<GameDirector>();
         HitDamage = Resources.Load<GameObject>("Monster/Hit_Text");
 
@@ -153,7 +155,6 @@ public class Monster : MonoBehaviour
             Item_Monster_Speed_ChangeFlag = true;
             Item_Monster_SpeedFlag = true;
         }
-
         StunEffect.SetActive(false);
     }
 

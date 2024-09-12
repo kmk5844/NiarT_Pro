@@ -14,8 +14,9 @@ public class SelfTurret_Train : MonoBehaviour
 
     bool FuelFlag;
     public bool UseFlag;
-
     public bool isAtacking;
+    public GameObject Player_Object;
+    SpriteRenderer[] Player_Part;
 
     int Turret_Atk;
     float Turret_AtkDelay;
@@ -27,6 +28,7 @@ public class SelfTurret_Train : MonoBehaviour
     float atk_lastTime;
     bool isMouseDown;
 
+    public Transform Turret_column;
     public Transform TurretObject;
     Transform FireZone;
     GameObject Bullet_Object;
@@ -54,6 +56,15 @@ public class SelfTurret_Train : MonoBehaviour
         TurretObject_Scale = TurretObject.localScale;
         FireZone = TurretObject.GetChild(0);
         Bullet_Object = Resources.Load<GameObject>("Bullet/Player/Self_Turret_Bullet");
+
+        Player_Part = new SpriteRenderer[Player_Object.transform.childCount];
+        for(int i = 0; i < Player_Object.transform.childCount; i++)
+        {
+            Player_Part[i] = Player_Object.transform.GetChild(i).GetComponent<SpriteRenderer>();
+        }
+
+        gameDirector.player.GetComponent<Player_Chage>().ChangePlayer_NoneGun(gameDirector.player.PlayerNum, Player_Part);
+        Player_Object.SetActive(false);
 
         timebet = 0.05f;
         lastTime = Time.time;
@@ -131,11 +142,13 @@ public class SelfTurret_Train : MonoBehaviour
 
             if(rotZ >= -90 && rotZ <= 90)
             {
+                Turret_column.transform.localScale = new Vector3(1, 1, 1);
                 TurretObject.transform.localScale = new Vector3(TurretObject_Scale.x, TurretObject_Scale.y, TurretObject_Scale.z);
             }
             else
             {
-                TurretObject.transform.localScale = new Vector3(TurretObject_Scale.x, -1 * TurretObject_Scale.y, TurretObject_Scale.z);
+                Turret_column.transform.localScale = new Vector3(-1, 1, 1);
+                TurretObject.transform.localScale = new Vector3(TurretObject_Scale.x * -1, TurretObject_Scale.y * -1, TurretObject_Scale.z);
             }
         }
     }
@@ -145,7 +158,7 @@ public class SelfTurret_Train : MonoBehaviour
         UseFlag = false;
         isAtacking = true;
         atk_lastTime = Time.time;
-        yield return new WaitForSeconds(Turret_Second);
+        yield return new WaitForSeconds(10);
         isAtacking = false;
         FuelFlag = false;
         SelfTurretTrain_Fuel = 0;

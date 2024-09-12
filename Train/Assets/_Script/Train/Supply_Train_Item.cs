@@ -15,6 +15,9 @@ public class Supply_Train_Item : MonoBehaviour
     Vector2 SupplyItem_Position;
     bool bounceFlag;
 
+    public Sprite Box;
+    SpriteRenderer _sprite;
+
     Material mat;
 
     private void Start()
@@ -24,7 +27,8 @@ public class Supply_Train_Item : MonoBehaviour
         bounceFlag = false;
 
         SupplyItem_Position = new Vector2(transform.position.x, MonsterDirector.MinPos_Ground.y + 0.25f);
-        mat = GetComponent<SpriteRenderer>().material;
+        _sprite = GetComponent<SpriteRenderer>();
+        mat = _sprite.material;
         Check_Mat();
     }
 
@@ -39,6 +43,7 @@ public class Supply_Train_Item : MonoBehaviour
             else
             {
                 bounceFlag = true;
+                _sprite.sprite = Box;
             }
         }
         else

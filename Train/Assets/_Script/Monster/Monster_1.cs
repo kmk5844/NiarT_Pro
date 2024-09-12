@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class Monster_1 : Monster
 {
-    [SerializeField]
-    Vector3 monster_SpawnPos;
     Vector3 movement;
     float xPos;
 
@@ -25,7 +23,12 @@ public class Monster_1 : Monster
         Bullet = Resources.Load<GameObject>("Bullet/Monster/" + Monster_Num);
 
         base.Start();
-        monster_SpawnPos = transform.position;
+        MonsterDirector_Pos = transform.localPosition;
+        Spawn_Init_Pos =
+            new Vector2(MonsterDirector_Pos.x + Random.Range(-10f, 10f),
+                MonsterDirector.MaxPos_Sky.y + 5f);
+        transform.localPosition = Spawn_Init_Pos;
+
 
         speed = Random.Range(0.3f, 1.2f);
         max_xPos = Random.Range(1, 9);
@@ -33,6 +36,7 @@ public class Monster_1 : Monster
         xPos = -1f;
         isQuitting = false;
         Check_ItemSpeedSpawn();
+        StartCoroutine(SpawnMonster());
     }
 
     protected override void Update()
@@ -62,6 +66,26 @@ public class Monster_1 : Monster
             MonsterMove();
         }
     }
+    IEnumerator SpawnMonster()
+    {
+        float elapsedTime = 0;
+        float duration = Random.Range(1f, 3f);
+        float height = Random.Range(-1f, -3f);
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / duration);
+
+            float xPos = Mathf.Lerp(Spawn_Init_Pos.x, MonsterDirector_Pos.x, t);
+            float yPos = Mathf.Sin(Mathf.PI * t) * height + Mathf.Lerp(Spawn_Init_Pos.y, MonsterDirector_Pos.y, t); ;
+            transform.localPosition = new Vector2(xPos, yPos);
+
+            yield return null;
+        }
+        monster_gametype = Monster_GameType.Fighting;
+    }
+
     void BulletFire()
     {
         if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay))
@@ -84,7 +108,8 @@ public class Monster_1 : Monster
         {
             if(gameDirector.gameType != GameType.GameEnd)
             {
-                if (monster_gametype == Monster_GameType.Fighting
+                if (monster_gametype == Monster_GameType.SpwanStart
+                    ||monster_gametype == Monster_GameType.Fighting
                     || monster_gametype == Monster_GameType.Stun_Bullet_Debuff
                     || monster_gametype == Monster_GameType.CowBoy_Debuff)
                 {
@@ -96,11 +121,11 @@ public class Monster_1 : Monster
 
     void MonsterMove()
     {
-        if (monster_SpawnPos.x - max_xPos > transform.position.x)
+        if (MonsterDirector_Pos.x - max_xPos > transform.position.x)
         {
             xPos = 1f;
         }
-        else if (monster_SpawnPos.x + max_xPos < transform.position.x)
+        else if (MonsterDirector_Pos.x + max_xPos < transform.position.x)
         {
             xPos = -1f;
         }

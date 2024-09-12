@@ -9,6 +9,7 @@ public class SkillDirector : MonoBehaviour
     public SA_PlayerData playerData;
     public GameDirector gameDirector;
     public UIDirector uiDirector;
+    public Sprite[] Skill_Sprite;
     string skill_cooltime_string;
     string skill_during_string;
     float[] skill_cooltime;
@@ -33,7 +34,7 @@ public class SkillDirector : MonoBehaviour
             SkillFlag[i] = false;
             skill_cooltime[i] = float.Parse(cool[i]);
             skill_during[i] = float.Parse(dur[i]);
-            uiDirector.Equiped_Skill_Image[i].sprite = Resources.Load<Sprite>("Skill_Icon/" + PlayerNum + "/" + i);
+            uiDirector.Equiped_Skill_Image[i].sprite = Skill_Sprite[(2 * PlayerNum) + i];
         }
     }
 
