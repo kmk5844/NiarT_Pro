@@ -422,7 +422,14 @@ public class Station_Store : MonoBehaviour
                     }
                     else
                     {
-                        Check_Buy_Name.StringReference.TableEntryReference = "Train_Name_" + (TrainAndMercenaryNum/10);
+                        if(TrainAndMercenaryNum < 50)
+                        {
+                            Check_Buy_Name.StringReference.TableEntryReference = "Train_Name_" + (TrainAndMercenaryNum/10);
+                        }
+                        else
+                        {
+                            Check_Buy_Name.StringReference.TableEntryReference = "Train_Name_" + TrainAndMercenaryNum;
+                        }
                     }
                     //Check_Buy_Name.text = trainData.EX_Game_Data.Information_Train[TrainAndMercenaryNum].Train_Name;
                     Check_Buy_Pride.text = trainData.EX_Game_Data.Information_Train[TrainAndMercenaryNum].Train_Buy_Cost.ToString();

@@ -30,7 +30,15 @@ public class TrainMaintenance_Train_Card : MonoBehaviour
         }
         else
         {
-            Train_NameText.StringReference.TableEntryReference = "Train_Name_" + (Train_Num / 10);
+            if(Train_Num < 50)
+            {
+                Train_NameText.StringReference.TableEntryReference = "Train_Name_" + (Train_Num / 10);
+            }
+            else
+            {
+                Train_NameText.StringReference.TableEntryReference = "Train_Name_" + Train_Num;
+
+            }
         }
 
 

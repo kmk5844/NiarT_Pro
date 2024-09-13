@@ -86,7 +86,14 @@ public class Store_Train_Card : MonoBehaviour, IPointerClickHandler
             train_information = trainData.EX_Game_Data.Information_Train[Train_Num].Train_Information;
             train_pride = trainData.EX_Game_Data.Information_Train[Train_Num].Train_Buy_Cost;
             
-            Train_NameText.StringReference.TableEntryReference = "Train_Name_" + (Train_Num/10);
+            if(Train_Num < 50)
+            {
+                Train_NameText.StringReference.TableEntryReference = "Train_Name_" + (Train_Num/10);
+            }
+            else
+            {
+                Train_NameText.StringReference.TableEntryReference = "Train_Name_" + Train_Num;
+            }
             //Train_NameText.GetComponent<TextMeshProUGUI>().text = train_name;
         }
     }

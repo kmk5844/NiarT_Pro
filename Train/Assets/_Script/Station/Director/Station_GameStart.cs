@@ -77,7 +77,6 @@ public class Station_GameStart : MonoBehaviour
         itemEquip_object.GameStartDirector = GetComponent<Station_GameStart>();
         itemEquip_object.item_tooltip_object = itemTooltip_object;
         GameStart_Information_Text.StringReference.TableReference = "Station_Table_St";
-        Select_StageNum = playerData.SA_PlayerData.New_Stage;
         Last_StageNum = -1;
         EquipItemFlag = false;
         FullMapFlag = false;
@@ -99,6 +98,7 @@ public class Station_GameStart : MonoBehaviour
             LevelStage_Button[i] = obj;
         }
 
+        Select_StageNum = playerData.SA_PlayerData.New_Stage;
         StageButton_Click(Select_StageNum);
 
         for (int i = 0; i < Equiped_Button.Length; i++)

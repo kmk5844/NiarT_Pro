@@ -7,7 +7,6 @@ public class Monster_Bullet_LR_Streight : MonsterBullet
     protected override void Start()
     {
         base.Start();
-        Speed = 8;
         Bullet_Fire();
     }
 

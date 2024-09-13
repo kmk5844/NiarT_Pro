@@ -55,7 +55,10 @@ public class Player : MonoBehaviour
     [Header("상호작용")]
     public bool isHealing;
     public bool isSelfTurretAtacking;
-    Vector3 respawnPosition;
+    [HideInInspector]
+    public Vector3 maxRespawnPosition;
+    [HideInInspector]
+    public Vector3 minRespawnPosition;
 
     [Header("무기 오브젝트")]
     public GameObject GunObject;
@@ -108,7 +111,6 @@ public class Player : MonoBehaviour
         playerchageDirector = GetComponent<Player_Chage>();
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         ani = GetComponent<Animator>();
-        respawnPosition = transform.position;
         isHealing = false;
         jumpFlag = false;
         jumpdistance = 1f;
@@ -568,8 +570,15 @@ public class Player : MonoBehaviour
     {
         if (collision.CompareTag("Respawn"))
         {
-            Player_HP -= (((Player_HP *10) / 100) + 50);  
-            transform.position = new Vector3(respawnPosition.x, 1, 0); ;
+            Player_HP -= (((Player_HP *10) / 100) + 50);
+            if(transform.position.x > 0)
+            {
+                transform.position = new Vector3(maxRespawnPosition.x, 1, 0);
+            }
+            else
+            {
+                transform.position = new Vector3(minRespawnPosition.x, 1, 0);
+            }
         }
 
         if (collision.CompareTag("Monster_Bullet"))
@@ -907,10 +916,10 @@ public class Player : MonoBehaviour
         MariGold_Skill_Fire_Flag = true;
         GameObject bullet = playerBullet;
         bullet.GetComponent<Bullet>().atk = Bullet_Atk + item_Atk;
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.08f);
         Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
         MMSoundManagerSoundPlayEvent.Trigger(ShootSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.08f);
         Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
         ani.SetTrigger("Shoot_0");
         MMSoundManagerSoundPlayEvent.Trigger(ShootSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);

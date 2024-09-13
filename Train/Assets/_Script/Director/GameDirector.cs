@@ -226,6 +226,10 @@ public class GameDirector : MonoBehaviour
     {
         playerObject = GameObject.FindGameObjectWithTag("Player");
         player = playerObject.GetComponent<Player>();
+
+        player.maxRespawnPosition = new Vector3(-0.43f, 0f, 0);
+        player.minRespawnPosition = new Vector3(-10.94f * (Train_Num.Count - 1), 0f, 0);
+
         uiDirector.Gameing_Text(Total_Score, Total_Coin);
         StartTime = Time.time;
         gameType = GameType.Playing;

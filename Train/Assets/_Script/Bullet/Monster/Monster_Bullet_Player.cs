@@ -7,7 +7,7 @@ public class Monster_Bullet_2 : MonsterBullet
     protected override void Start()
     {
         base.Start();
-        Speed = 8;
+        Speed = 11;
         Bullet_Fire();
     }
 

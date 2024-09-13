@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Alpha9))
             {
-                PlayerData.SA_GameWinReward(999999, 999999);
+                PlayerData.SA_Test();
             }
         }
     }

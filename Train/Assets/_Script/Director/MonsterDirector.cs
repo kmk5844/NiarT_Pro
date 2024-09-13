@@ -8,6 +8,8 @@ public class MonsterDirector : MonoBehaviour
     // 그리고 엑셀에 몬스터 정보도 나와야 한다.
     [HideInInspector]
     public bool Test_Flag;
+    [SerializeField]
+    int Test_MonsterCount;
 
     public Game_DataTable EX_GameData;
     public SA_PlayerData SA_PlayerData;
@@ -74,7 +76,7 @@ public class MonsterDirector : MonoBehaviour
         Item_curseFlag = false;
         if (Test_Flag)
         {
-            MaxMonsterNum = 1;
+            MaxMonsterNum = Test_MonsterCount;
         }
         else
         {
@@ -166,22 +168,22 @@ public class MonsterDirector : MonoBehaviour
 
         if (!Bossflag)
         {
-            yield return new WaitForSeconds(Random.Range(1f, 4f));
+            yield return new WaitForSeconds(Random.Range(0.7f, 2f));
             int MonsterRandomIndex = Random.Range(0, Emerging_Monster_List.Count);
             Check_Sky_OR_Ground_Monster(Emerging_Monster_List[MonsterRandomIndex], Bossflag);
         }
         else
         {
-            yield return new WaitForSeconds(6f);
+            yield return new WaitForSeconds(2f);
             Check_Sky_OR_Ground_Monster(Emerging_Boss_List[BossCount], Bossflag);
         }
         isSpawing = false;
     }
 
-    IEnumerator AppearSupplyMonster()
+    IEnumerator AppearSupplyMonster() 
     {
         isSupplySpawing = true;
-        yield return new WaitForSeconds(Random.Range(10f, 20f));
+        yield return new WaitForSeconds(Random.Range(15f, 20f));
         Random_xPos = Random.Range(MinPos_Sky.x, MaxPos_Sky.x);
         Random_yPos = Random.Range(MinPos_Sky.y, MaxPos_Sky.y);
         Instantiate(SupplyMonster_Object, new Vector3(Random_xPos, Random_yPos, 0), Quaternion.identity, SupplyMonster_List);

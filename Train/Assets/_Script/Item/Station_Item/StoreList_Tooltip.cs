@@ -92,8 +92,16 @@ public class StoreList_Tooltip : MonoBehaviour
             }
             else
             {
-                Train_Name.StringReference.TableEntryReference = "Train_Name_" + (Store_Num/10);
-                Train_Information.StringReference.TableEntryReference = "Train_Information_" + (Store_Num/10);
+                if(Store_Num < 50)
+                {
+                    Train_Name.StringReference.TableEntryReference = "Train_Name_" + (Store_Num/10);
+                    Train_Information.StringReference.TableEntryReference = "Train_Information_" + (Store_Num/10);
+                }
+                else
+                {
+                    Train_Name.StringReference.TableEntryReference = "Train_Name_" + Store_Num;
+                    Train_Information.StringReference.TableEntryReference = "Train_Information_" + Store_Num;
+                }
             }
         }
         else // 용병이라면

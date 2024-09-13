@@ -265,7 +265,14 @@ public class Station_TrainMaintenance : MonoBehaviour
         }
         else
         {
-            UI_Train_Information_Text.StringReference.TableEntryReference = "Train_Information_" + (trainNum / 10);
+            if(trainNum < 50)
+            {
+                UI_Train_Information_Text.StringReference.TableEntryReference = "Train_Information_" + (trainNum / 10);
+            }
+            else
+            {
+                UI_Train_Information_Text.StringReference.TableEntryReference = "Train_Information_" + trainNum;
+            }
           /*  UI_Train_Information_Text.text = trainData.EX_Game_Data.Information_Train[trainNum].Train_Information.Replace("\\n", "\n")
                + trainData.EX_Game_Data.Information_Train[trainNum].Train_Select_Information.Replace("\\n", "\n").Replace("\\t", "\t");*/
         }

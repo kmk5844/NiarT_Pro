@@ -25,8 +25,10 @@ public class Station_Fortress : MonoBehaviour
     public TextMeshProUGUI[] PlayerUP_Text;
     public Button [] PlayerUP_Button;
     int playerNum;
+    int lockoff_playerNum;
     public Image PlayerHead;
     public Sprite[] PlayerHead_Image;
+    
 
     public TextMeshProUGUI[] Player_Information;
 
@@ -76,6 +78,9 @@ public class Station_Fortress : MonoBehaviour
         Mercenary_Position_NumList = mercenaryData.SA_MercenaryData.Mercenary_Num;
         //플레이어 업그레이드 윈도우
         playerNum = 0;
+
+        lockoff_playerNum = playerData.SA_PlayerData.SA_CheckCharecter_Num(); 
+
         Player_Name.StringReference.TableReference = "ExcelData_Table_St";
         Player_Name.StringReference.TableEntryReference = "Player_Name_" + playerNum;
         Player_Information_Text();
@@ -226,7 +231,7 @@ public class Station_Fortress : MonoBehaviour
 
     public void Click_Player_Next()
     {
-        if(playerData.EX_Game_Data.Information_Player.Count - 1 != playerNum)
+        if(lockoff_playerNum - 1!= playerNum)
         {
             playerNum++;
         }
@@ -245,7 +250,7 @@ public class Station_Fortress : MonoBehaviour
         }
         else
         {
-            playerNum = playerData.EX_Game_Data.Information_Player.Count - 1;
+            playerNum = lockoff_playerNum - 1;
         }
         Player_Information_Text();
     }

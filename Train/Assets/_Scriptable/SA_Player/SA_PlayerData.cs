@@ -84,6 +84,14 @@ public class SA_PlayerData : ScriptableObject
         Save();
     }
 
+    public void SA_Test()
+    {
+        new_stage++;
+        coin = 999999;
+        point = 999999;
+        Save();
+    }
+
     public void SA_GameLoseReward(int R_Coin)
     {
         coin += R_Coin;
@@ -133,6 +141,23 @@ public class SA_PlayerData : ScriptableObject
             character_lockoff[1] = true;
         }
         Save();
+    }
+
+    public int SA_CheckCharecter_Num()
+    {
+        int i = 0;
+        foreach(bool flag in character_lockoff)
+        {
+            if (flag)
+            {
+                i++;
+            }
+            else
+            {
+                break;
+            }
+        }
+        return i;
     }
 
     private void Save()

@@ -158,14 +158,6 @@ public class UIDirector : MonoBehaviour
                     Click_Option_Exit();
                 }
             }
-
-            if (isBloodFlag)
-            {
-                if (Time.time > blood_lastTime + blood_delayTime)
-                {
-                    StartCoroutine(Blood_Off());
-                }
-            }
         }
 
 
@@ -369,19 +361,12 @@ public class UIDirector : MonoBehaviour
 
     public void Player_Blood_Ani()
     {
-        if (!isBloodFlag)
-        {
-            StartCoroutine(Blood_On());
-        }
-        else
-        {
-            blood_lastTime = Time.time;
-        }
+        StartCoroutine(Blood_On());
     }
 
     IEnumerator Blood_On()
     {
-        float duration = 0.1f;
+        float duration = 0.2f;
         float elapsedTime = 0f;
 
         Player_Blood.gameObject.SetActive(true);
@@ -396,25 +381,14 @@ public class UIDirector : MonoBehaviour
             Player_Blood.color = Player_Blood_Color;
             yield return null;
         }
-    }
 
-    IEnumerator Blood_Off()
-    {
-        float duration = 0.1f;
-        float elapsedTime = 0f;
-
-        isBloodFlag = false;
+        elapsedTime = 0f;
         while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;
             float t = Mathf.Clamp01(elapsedTime / duration);
             Player_Blood_Color.a = Mathf.Lerp(1f, 0f, t);
             Player_Blood.color = Player_Blood_Color;
-            if (ItemInformation_Object_Flag)
-            {
-                StartCoroutine(Blood_On());
-                break;
-            }
             yield return null;
         }
 
@@ -422,5 +396,7 @@ public class UIDirector : MonoBehaviour
         {
             Player_Blood.gameObject.SetActive(false);
         }
+        isBloodFlag = false;
+
     }
 }

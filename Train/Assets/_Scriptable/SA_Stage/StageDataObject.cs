@@ -85,7 +85,7 @@ public class StageDataObject : ScriptableObject
         emerging_monster = _emerging_monster;
         destination_distance = _destination_distance;
         monster_count = _monster_count;
-        reward_point = _destination_distance;
+        reward_point = _reward_point;
 
         reward_item = _reward_item;
         reward_itemcount = _reward_itemcount;
