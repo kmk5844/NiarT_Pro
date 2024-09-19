@@ -14,7 +14,6 @@ public class Monster_0 : Monster
     [SerializeField]
     float max_xPos;
 
-
     protected override void Start()
     {
         Monster_Num = 0;
@@ -76,7 +75,7 @@ public class Monster_0 : Monster
             float t = Mathf.Clamp01(elapsedTime / duration);
 
             float xPos = Mathf.Lerp(Spawn_Init_Pos.x, MonsterDirector_Pos.x, t);
-            float yPos = Mathf.Sin(Mathf.PI * t) * height + Mathf.Lerp(Spawn_Init_Pos.y, MonsterDirector_Pos.y, t); ;
+            float yPos = Mathf.Sin(Mathf.PI * t) * height + Mathf.Lerp(Spawn_Init_Pos.y, MonsterDirector_Pos.y, t);
             transform.localPosition = new Vector2(xPos, yPos);
             //Debug.Log(yPos);
 

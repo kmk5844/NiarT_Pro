@@ -12,7 +12,7 @@ public class Monster_Bullet_None : MonsterBullet
 
     void Bullet_Fire()
     {
-        float Rx = Random.Range(player_target.position.x - 20, player_target.position.x + 20);
+        float Rx = Random.Range(player_target.position.x - 10, player_target.position.x + 10);
         dir = (new Vector3(Rx, -1, 0) - transform.position).normalized;
         rid.velocity = new Vector2(dir.x, dir.y).normalized * Speed;
         transform.rotation = Quaternion.LookRotation(Vector3.forward, rid.velocity);

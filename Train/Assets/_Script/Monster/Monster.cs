@@ -283,6 +283,7 @@ public class Monster : MonoBehaviour
         }
         if(monster_gametype == Monster_GameType.Stun_Bullet_Debuff)
         {
+
         }
     }
 
