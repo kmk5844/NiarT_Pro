@@ -18,7 +18,7 @@ public class Monster_7 : Monster
     protected override void Start()
     {
         Monster_Num = 7;
-        Bullet = Resources.Load<GameObject>("Bullet/Monster/" + Monster_Num);
+        BulletObject = Resources.Load<GameObject>("Bullet/Monster/" + Monster_Num);
         ani = GetComponent<Animator>();
         moveType = Monster7_State.BeforeFighting;
 
@@ -154,7 +154,7 @@ public class Monster_7 : Monster
 
     public void BulletFire()
     {
-        GameObject bullet = Instantiate(Bullet, Fire_Zone.position, transform.rotation, monster_Bullet_List);
+        GameObject bullet = Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
         bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, Bullet_Speed, 0);
     }
 

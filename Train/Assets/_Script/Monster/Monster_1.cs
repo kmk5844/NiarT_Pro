@@ -20,7 +20,7 @@ public class Monster_1 : Monster
     protected override void Start()
     {
         Monster_Num = 1;
-        Bullet = Resources.Load<GameObject>("Bullet/Monster/" + Monster_Num);
+        BulletObject = Resources.Load<GameObject>("Bullet/Monster/" + Monster_Num);
 
         base.Start();
         MonsterDirector_Pos = transform.localPosition;
@@ -90,7 +90,7 @@ public class Monster_1 : Monster
     {
         if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay))
         {
-            GameObject bullet = Instantiate(Bullet, Fire_Zone.position, transform.rotation, monster_Bullet_List);
+            GameObject bullet = Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
             bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, Bullet_Speed, 0);
             lastTime = Time.time;
         }

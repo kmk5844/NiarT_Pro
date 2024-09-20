@@ -30,7 +30,7 @@ public class Monster : MonoBehaviour
 
     [Header("몬스터 총알 정보")]
     [SerializeField]
-    protected GameObject Bullet;
+    protected GameObject BulletObject;
     protected int Bullet_Atk;
     protected float Bullet_Speed;
     protected float Bullet_Delay;
@@ -46,6 +46,7 @@ public class Monster : MonoBehaviour
 
     [Header("잔상")]
     public GameObject AfterImage_Particle;
+    float AfterImage_Particle_LocalScale;
 
     GameObject player; //플레이어 위치에 따라 플립하는 경우.
     protected GameDirector gameDirector; // 리워드 접수해야함.
@@ -102,6 +103,8 @@ public class Monster : MonoBehaviour
         Bullet_Delay = EX_GameData.Information_Monster[Monster_Num].Monster_Bullet_Delay;
         Bullet_Slow = EX_GameData.Information_Monster[Monster_Num].Monster_Bullet_Slow;
         monster_Bullet_List = GameObject.Find("Bullet_List").GetComponent<Transform>();
+
+        AfterImage_Particle_LocalScale = AfterImage_Particle.transform.localScale.x;
 
         player = GameObject.FindGameObjectWithTag("Player");
         End_Delay = Random.Range(0f, 1.5f);
@@ -321,12 +324,12 @@ public class Monster : MonoBehaviour
         if (player.transform.position.x - transform.position.x < 0f)
         {
             transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-            AfterImage_Particle.transform.localScale = new Vector3(1, 1, 1);
+            AfterImage_Particle.transform.localScale = new Vector3(-AfterImage_Particle_LocalScale, 1, 1);
         }
         else
         {
             transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-            AfterImage_Particle.transform.localScale = new Vector3(-1, 1, 1);
+            AfterImage_Particle.transform.localScale = new Vector3(AfterImage_Particle_LocalScale, 1, 1);
         }
     } // 공통적으로 적용해야 함
 

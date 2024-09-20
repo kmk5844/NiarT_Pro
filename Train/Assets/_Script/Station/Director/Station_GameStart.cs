@@ -85,7 +85,7 @@ public class Station_GameStart : MonoBehaviour
         LevelStage_Button = new GameObject[stageData.Stage.Count];
         for (int i = 0; i < stageData.Stage.Count; i++)
         {
-            Vector2 pos = new Vector2(825 + (330 * i), -425f / 2);
+            Vector2 pos = new Vector2(910 + (330 * i), -500f / 2);
             LevelStage_Object.GetComponent<StageButton_Route>().stageData = stageData.Stage[i];
             LevelStage_Object.GetComponent<StageButton_Route>().gamestartDirection = this;
             GameObject obj = Instantiate(LevelStage_Object, RouteMap_Content);
@@ -112,7 +112,7 @@ public class Station_GameStart : MonoBehaviour
     {
         Last_StageNum = Select_StageNum;
         Select_StageNum = num;
-        Vector2 pos = new Vector2(-LevelStage_Button[num].transform.localPosition.x + 820, RouteMap_Content.localPosition.y);
+        Vector2 pos = new Vector2(-LevelStage_Button[num].transform.localPosition.x + 910, RouteMap_Content.localPosition.y);
         RouteMap_Content.localPosition = pos;
         if (Last_StageNum != -1)
         {
@@ -123,10 +123,9 @@ public class Station_GameStart : MonoBehaviour
         Chnage_Stage_Information();
         CheckRoute_Button();
     }
-
     public void Chnage_Stage_Information()
     {
-        Stage_Text.text = "Stage " + Select_StageNum;
+        Stage_Text.text = "Stage " + (Select_StageNum + 1);
         Score_Text.text = "Score : " + stageData.Stage[Select_StageNum].Player_Score;
         string[] ItemList = stageData.Stage[Select_StageNum].Reward_Item.Split(',');
         int itemNum;
@@ -266,7 +265,7 @@ public class Station_GameStart : MonoBehaviour
         }
         else
         {
-            GameStart_Information_Text.GetComponent<TextMeshProUGUI>().color = Color.black;
+            GameStart_Information_Text.GetComponent<TextMeshProUGUI>().color = Color.white;
             GameStart_Information_Text.StringReference.TableEntryReference = "UI_GameStart_Start_Information_Text_1";
             //TrainText.text = "게임 시작이 가능합니다.";
             GameStart_Button.interactable = true;

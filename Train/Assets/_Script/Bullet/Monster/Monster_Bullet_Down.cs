@@ -25,4 +25,6 @@ public class Monster_Bullet_Down : MonsterBullet
         transform.rotation = Quaternion.LookRotation(Vector3.forward, rid.velocity);
         Destroy(gameObject, 5f);
     }
+
+
 }

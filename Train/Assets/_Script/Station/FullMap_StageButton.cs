@@ -11,7 +11,6 @@ public class FullMap_StageButton : MonoBehaviour
     public StageDataObject stageData;
     public int stageData_Num;
 
-    public TextMeshProUGUI StageNum_Text;
     public GameObject LockPanel;
     Button Btn;
     public GameObject GradeObject;
@@ -21,12 +20,10 @@ public class FullMap_StageButton : MonoBehaviour
 
     public void Load()
     {
-        StageNum_Text.text = stageData.Stage_Num.ToString();
         Btn = GetComponent<Button>();
         if (stageData != null)
         {
             stageData_Num = stageData.Stage_Num;
-            StageNum_Text.text = stageData.Stage_Num.ToString();
             if (!stageData.Stage_OpenFlag)
             {
                 LockPanel.SetActive(true);

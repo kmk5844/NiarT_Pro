@@ -191,7 +191,7 @@ public class Player : MonoBehaviour
                     KeyObject.SetActive(false);
                 }
 
-                if (Input.GetKeyDown(KeyCode.R) && Check_HpParsent() < 75f && !isHealing && KeyCount == 0)
+                if (Input.GetKeyDown(KeyCode.F) && Check_HpParsent() < 75f && !isHealing && KeyCount == 0)
                 {
                     if (train.Not_DestoryTrain)
                     {
@@ -222,7 +222,7 @@ public class Player : MonoBehaviour
                     KeyObject.SetActive(false);
                 }
 
-                if(Input.GetKeyDown(KeyCode.R) && train.GetComponentInChildren<Dash_Train>().UseFlag)
+                if(Input.GetKeyDown(KeyCode.F) && train.GetComponentInChildren<Dash_Train>().UseFlag)
                 {
                     train.GetComponentInChildren<Dash_Train>().UseDash();
                     StartCoroutine(Item_Player_SpeedUP(train.Train_Dash_PalyerAmount, train.Train_Dash_Second));
@@ -238,7 +238,7 @@ public class Player : MonoBehaviour
                     KeyObject.SetActive(false);
                 }
 
-                if(Input.GetKeyDown(KeyCode.R) && train.GetComponentInChildren<Supply_Train>().UseFlag){
+                if(Input.GetKeyDown(KeyCode.F) && train.GetComponentInChildren<Supply_Train>().UseFlag){
                     train.GetComponentInChildren<Supply_Train>().UseSupply();
                 }
             }else if (train.Train_Type.Equals("Self_Turret"))
@@ -252,7 +252,7 @@ public class Player : MonoBehaviour
                     KeyObject.SetActive(false);
                 }
 
-                if (Input.GetKeyDown(KeyCode.R) && train.GetComponentInChildren<SelfTurret_Train>().UseFlag)
+                if (Input.GetKeyDown(KeyCode.F) && train.GetComponentInChildren<SelfTurret_Train>().UseFlag)
                 {
                     StartCoroutine(train.GetComponentInChildren<SelfTurret_Train>().UseSelfTurret());
                     OnOff_Sprite(true);
@@ -284,10 +284,10 @@ public class Player : MonoBehaviour
                 isHealing = false;
             }
 
-            if(Input.GetKeyUp(KeyCode.R) && KeyCount == 2) {
+            if(Input.GetKeyUp(KeyCode.F) && KeyCount == 2) {
                 KeyCount = 3;
             }
-            else if (Input.GetKeyDown(KeyCode.R) && KeyCount == 3)
+            else if (Input.GetKeyDown(KeyCode.F) && KeyCount == 3)
             {
                 StopCoroutine(train_Heal);
                 OnOff_Sprite(false);

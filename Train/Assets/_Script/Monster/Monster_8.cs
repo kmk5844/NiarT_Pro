@@ -10,7 +10,7 @@ public class Monster_8 : Monster
     protected override void Start()
     {
         Monster_Num = 8;
-        Bullet = Resources.Load<GameObject>("Bullet/Monster/" + Monster_Num);
+        BulletObject = Resources.Load<GameObject>("Bullet/Monster/" + Monster_Num);
         
         base.Start();
         isBombFlag = false; 
@@ -38,14 +38,16 @@ public class Monster_8 : Monster
         if (WarningMark.GetComponent<Warning_Mark_Ani>().aniFlag && !isBulletFlag)
         {
             isBulletFlag = true;
-            /*Instantiate(Bullet);
-            Instantiate(Bullet);
-            Instantiate(Bullet);
-            Instantiate(Bullet);*/
-            Debug.Log("ÃÑ¾Ë¹ß»ç1");
-            Debug.Log("ÃÑ¾Ë¹ß»ç2");
-            Debug.Log("ÃÑ¾Ë¹ß»ç3");
-            Debug.Log("ÃÑ¾Ë¹ß»ç4");
+            BulletObject.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, Bullet_Speed, 0);
+            BulletObject.GetComponent<Monster_Bullet_Angle>().SetAngle_And_Fire(30);
+            Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
+            BulletObject.GetComponent<Monster_Bullet_Angle>().SetAngle_And_Fire(10);
+            Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
+            BulletObject.GetComponent<Monster_Bullet_Angle>().SetAngle_And_Fire(-10);
+            Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
+            BulletObject.GetComponent<Monster_Bullet_Angle>().SetAngle_And_Fire(-30);
+            Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
+            StartCoroutine(monsterDestory());
         }
 
         if (monster_gametype == Monster_GameType.GameEnding)
@@ -72,5 +74,11 @@ public class Monster_8 : Monster
             yield return null;
         }
         isBombFlag = true;
+    }
+
+    IEnumerator monsterDestory()
+    {
+        yield return new WaitForSeconds(0.05f);
+        Destroy(gameObject);
     }
 }
