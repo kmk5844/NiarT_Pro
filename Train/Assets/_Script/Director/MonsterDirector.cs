@@ -168,7 +168,7 @@ public class MonsterDirector : MonoBehaviour
 
         if (!Bossflag)
         {
-            yield return new WaitForSeconds(Random.Range(0.7f, 1.2f));
+            yield return new WaitForSeconds(Random.Range(1f, 1.4f));
             int MonsterRandomIndex = Random.Range(0, Emerging_Monster_List.Count);
             Check_Sky_OR_Ground_Monster(Emerging_Monster_List[MonsterRandomIndex], Bossflag);
         }

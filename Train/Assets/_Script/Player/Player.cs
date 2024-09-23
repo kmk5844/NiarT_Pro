@@ -92,6 +92,7 @@ public class Player : MonoBehaviour
     public static int Item_Gun_ClickCount;
     int Item_Gun_Max_ClickCount;
     public GameObject Item_GunSpecial_Bullet;
+    bool Item_GunSpecial_BulletFlag;
 
     bool MariGold_Skill_Flag;
     bool MariGold_Skill_Fire_Flag;
@@ -446,9 +447,13 @@ public class Player : MonoBehaviour
             {
                 if (!Item_GunFlag)
                 {
-                    for (int i = 0; i < 5; i++) // 5°³ÀÇ ¼¦°Ç ÅºÈ¯À» ¹ß»ç
+                    Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
+                    if (!Item_GunSpecial_BulletFlag)
                     {
-                        Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
+                        for (int i = 0; i < 4; i++) // 5°³ÀÇ ¼¦°Ç ÅºÈ¯À» ¹ß»ç
+                        {
+                            Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
+                        }
                     }
                     ani.SetTrigger("Shoot_1");
                 }
@@ -769,9 +774,10 @@ public class Player : MonoBehaviour
 
     public IEnumerator Item_Player_Giant_GunAndBullet(float delayTime)
     {
-        playerBullet.transform.localScale = new Vector3(4f, 4f, 4f);
+        Vector3 GiantBullet = new Vector3(1f, 1f, 1f);
+        playerBullet.transform.localScale = playerBullet.transform.localScale + GiantBullet;
         yield return new WaitForSeconds(delayTime);
-        playerBullet.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
+        playerBullet.transform.localScale = playerBullet.transform.localScale - GiantBullet;
     }
 
     public void Item_Player_Spawn_Claymore()
@@ -812,8 +818,10 @@ public class Player : MonoBehaviour
 
     public IEnumerator Item_Change_Bullet(string BulletName, int delayTime)
     {
+        Item_GunSpecial_BulletFlag = true;
         playerBullet = Resources.Load<GameObject>("Bullet/Player/Special/" + BulletName);
         yield return new WaitForSeconds(delayTime);
+        Item_GunSpecial_BulletFlag = false;
         playerBullet = playerData.Bullet;
     }
 

@@ -51,6 +51,7 @@ MonoBehaviour:
   Train_Num: 0
   Train_Num2: 0
   Train_HP: 0
+  HP_Parsent: 0
   Max_Train_HP: 0
   Train_Weight: 0
   Train_Armor: 0
@@ -66,14 +67,25 @@ MonoBehaviour:
   Train_UseFuel: 0
   Train_BoosterSpeedUP: 0
   Train_BoosterTime: 0
+  Train_Special: 
+  Not_DestoryTrain: 0
   Train_Heal: 0
+  Max_Train_Heal: 0
+  Train_Heal_Amount: 0
+  Train_Heal_timeBet: 0
+  isHealing: 0
+  Train_Self_UseFuel: 0
+  Train_Self_Attack: 0
+  Train_Self_Attack_Delay: 0
+  Train_Self_Second: 0
+  Train_Supply_UseFuel: 0
+  Train_Supply_Grade: 0
+  Train_Supply_Count: 0
+  Train_Dash_UseFuel: 0
+  Train_Dash_PalyerAmount: 0
+  Train_Dash_Second: 0
   isReparing: 0
   isRepairable: 0
-  def_constant: 100
-  Heal_Amount: 0
-  Heal_timeBet: 0
-  isHealing: 0
-  openMedicTrian: 0
   gameDirector: {fileID: 0}
 --- !u!1 &6478914489543421460
 GameObject:
@@ -148,7 +160,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1130603629
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 1245310678, guid: c0e381c26fc032345a9cd6d082355198, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -218,6 +230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 191f0d7b2abf8784fa1c03125716f845, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Hit_Effect: {fileID: 1127513611347690, guid: 7ecf4f53a98334b45a52b99dde5b9406, type: 3}
 --- !u!1001 &936819887103865431
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -7,7 +7,8 @@ public class Hit_TrainFloor : MonoBehaviour
 {
     Train_InGame train;
     FillDirector fill_Director;
-
+    public GameObject Hit_Effect;
+   
     private void Start()
     {
         train = transform.GetComponentInParent<Train_InGame>();
@@ -21,6 +22,7 @@ public class Hit_TrainFloor : MonoBehaviour
             MonsterBullet bullet = collision.gameObject.GetComponent<MonsterBullet>();
             fill_Director.PlayFill(0);
             train.Train_MonsterHit(bullet);
+            Instantiate(Hit_Effect, collision.transform.localPosition, Quaternion.identity);
             Destroy(collision.gameObject);
         }
     }

@@ -110,8 +110,16 @@ public class Monster : MonoBehaviour
         End_Delay = Random.Range(0f, 1.5f);
         EndFlag = false;
         DestoryFlag = false;
-        sprite_List.Add(GetComponent<SpriteRenderer>());
-        if(transform.childCount != 0)
+        if (GetComponent<SpriteRenderer>() != null)
+        {
+            sprite_List.Add(GetComponent<SpriteRenderer>());
+        }
+        else
+        {
+            sprite_List.Add(GetComponentInChildren<SpriteRenderer>());
+        }
+
+        if (transform.childCount != 0)
         {
             for (int i = 0; i < transform.childCount; i++)
             {
@@ -352,6 +360,7 @@ public class Monster : MonoBehaviour
             if (!EndFlag)
             {
                 EndFlag = true;
+                gameObject.tag = "Finish";
                 EndTime = Time.time;
             }
 

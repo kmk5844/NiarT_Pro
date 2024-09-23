@@ -30,7 +30,7 @@ public class TrainingRoom_Mercenary_Position_Card : MonoBehaviour
     [SerializeField]
     LocalizedString[] LocalString_Bard;
 
-    private void Start()
+    private void Awake()
     {
         Local_Index = SA_LocalData.Local_Index;
 

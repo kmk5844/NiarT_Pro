@@ -81,11 +81,11 @@ public class Station_GameStart : MonoBehaviour
         EquipItemFlag = false;
         FullMapFlag = false;
 
-        RouteMap_Content.GetComponent<RectTransform>().sizeDelta = new Vector2((330 * (stageData.Stage.Count+ 4)), 425);
+        RouteMap_Content.GetComponent<RectTransform>().sizeDelta = new Vector2(1820 + (520 * (stageData.Stage.Count-1)), 425);
         LevelStage_Button = new GameObject[stageData.Stage.Count];
         for (int i = 0; i < stageData.Stage.Count; i++)
         {
-            Vector2 pos = new Vector2(910 + (330 * i), -500f / 2);
+            Vector2 pos = new Vector2(910 + (520 * i), -500f / 2);
             LevelStage_Object.GetComponent<StageButton_Route>().stageData = stageData.Stage[i];
             LevelStage_Object.GetComponent<StageButton_Route>().gamestartDirection = this;
             GameObject obj = Instantiate(LevelStage_Object, RouteMap_Content);
@@ -313,7 +313,7 @@ public class Station_GameStart : MonoBehaviour
         Button_ItemCountChange.onClick.AddListener(() => Open_ItemCountWindow
             (itemData.SA_Player_ItemData.Equiped_Item[num]));
         Button_ItemEmpty.onClick.AddListener(() => Click_EmptyItem(num));
-        GameStart_Button.gameObject.SetActive(false);
+        GameStart_Button.interactable = false;
     }
 
     public void Close_Inventory_Window()
@@ -342,7 +342,7 @@ public class Station_GameStart : MonoBehaviour
         Button_ItemCountChange.onClick.RemoveAllListeners();
         Button_ItemEmpty.onClick.RemoveAllListeners();
         Equipment_Button_Num = -1;
-        GameStart_Button.gameObject.SetActive(true);
+        GameStart_Button.interactable = true;
     }
 
     private void Click_EmptyItem(int num)

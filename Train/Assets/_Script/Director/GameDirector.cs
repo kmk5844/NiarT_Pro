@@ -737,7 +737,14 @@ public class GameDirector : MonoBehaviour
         MMSoundManagerSoundPlayEvent.Trigger(WinSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         if(SA_PlayerData.New_Stage == SA_PlayerData.Select_Stage)
         {
-            SA_StageList.Stage[Stage_Num + 1].New_Stage_Chage();
+            try
+            {
+                SA_StageList.Stage[Stage_Num + 1].New_Stage_Chage();
+            }
+            catch
+            {
+                Debug.Log("Á¾·á");
+            }
         }
         SA_PlayerData.SA_GameWinReward(Total_Coin, Reward_Point);
     }

@@ -94,7 +94,7 @@ public class Mercenary : MonoBehaviour
         Move_X = 1f;
         MaxMove_X = 3f;
         MinMove_X = (-4.97f + (-10.94f * (TrainCount - 1)));
-        Move_Y = -0.94f;
+        Move_Y = -1.2f;
         transform.position = new Vector2(Random.Range(MinMove_X, MaxMove_X), Move_Y);
         Unit_Scale = transform.GetChild(0);
         Unit_Scale_X = Unit_Scale.localScale.x;

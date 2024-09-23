@@ -29,9 +29,9 @@ Transform:
   m_GameObject: {fileID: 459414478558023235}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.17364816, w: 0.9848078}
-  m_LocalPosition: {x: 5.15, y: 1.84, z: 3.15}
-  m_LocalScale: {x: 5.0186005, y: 0.47090003, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 8.98, y: 3.23, z: 3.15}
+  m_LocalScale: {x: 6, y: 0.6, z: 1.2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5258633398670015140}
   m_Father: {fileID: 2207494975834606578}
@@ -147,7 +147,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.2, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -158,7 +158,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.6, y: 4}
   m_EdgeRadius: 0
 --- !u!114 &804953166441238720
 MonoBehaviour:
@@ -242,15 +242,25 @@ MonoBehaviour:
   Train_UseFuel: 0
   Train_BoosterSpeedUP: 0
   Train_BoosterTime: 0
+  Train_Special: 
+  Not_DestoryTrain: 0
   Train_Heal: 0
   Max_Train_Heal: 0
+  Train_Heal_Amount: 0
+  Train_Heal_timeBet: 0
+  isHealing: 0
+  Train_Self_UseFuel: 0
+  Train_Self_Attack: 0
+  Train_Self_Attack_Delay: 0
+  Train_Self_Second: 0
+  Train_Supply_UseFuel: 0
+  Train_Supply_Grade: 0
+  Train_Supply_Count: 0
+  Train_Dash_UseFuel: 0
+  Train_Dash_PalyerAmount: 0
+  Train_Dash_Second: 0
   isReparing: 0
   isRepairable: 0
-  def_constant: 100
-  Heal_Amount: 0
-  Heal_timeBet: 0
-  isHealing: 0
-  openMedicTrian: 0
   gameDirector: {fileID: 0}
 --- !u!1 &1641104533380139922
 GameObject:
@@ -279,8 +289,8 @@ Transform:
   m_GameObject: {fileID: 1641104533380139922}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.70710677, w: 0.7071068}
-  m_LocalPosition: {x: -0.39840823, y: 0.013226125, z: -3.15}
-  m_LocalScale: {x: 2.123593, y: 0.2988881, z: 1}
+  m_LocalPosition: {x: -1, y: 0, z: 0}
+  m_LocalScale: {x: 4, y: 0.5, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3850652602904298019}
@@ -324,7 +334,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -611559395
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: 613796106, guid: 02f3256d6517deb4f8c0141bb63554de, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -431,7 +441,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1130603629
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: -895924742, guid: 630a42dc1f8946948b07d7eb55b93f89, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -501,6 +511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 191f0d7b2abf8784fa1c03125716f845, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Hit_Effect: {fileID: 1127513611347690, guid: 7ecf4f53a98334b45a52b99dde5b9406, type: 3}
 --- !u!1 &4563824547414643636
 GameObject:
   m_ObjectHideFlags: 0
@@ -605,7 +616,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1130603629
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 2
   m_Sprite: {fileID: 2117667410, guid: ac043db09c60e0d4194a912a29a38a67, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -691,7 +702,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1130603629
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: 128399617, guid: ac043db09c60e0d4194a912a29a38a67, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

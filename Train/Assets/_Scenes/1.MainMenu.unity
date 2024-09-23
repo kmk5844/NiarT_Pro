@@ -1738,51 +1738,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &977313613 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6823127282293121084, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
-  m_PrefabInstance: {fileID: 1075133640}
-  m_PrefabAsset: {fileID: 0}
---- !u!224 &977313614 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 5204168185279379227, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
-  m_PrefabInstance: {fileID: 1075133640}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &977313617
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 977313613}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TrackedObjects:
-  - rid: 6737227927904583711
-  references:
-    version: 2
-    RefIds:
-    - rid: 6737227927904583711
-      type: {class: TrackedRectTransform, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
-      data:
-        m_Target: {fileID: 977313614}
-        m_TrackedProperties:
-          items:
-          - rid: 6737227927904583712
-    - rid: 6737227927904583712
-      type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
-      data:
-        m_PropertyPath: m_AnchorMax.y
-        m_VariantData:
-        - localeIdentifier:
-            m_Code: en
-          value: 0
-        - localeIdentifier:
-            m_Code: ja-JP
-          value: 1
 --- !u!1001 &1075133640
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1793,7 +1748,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1513142046776765955, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2070064483997894984, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -1837,7 +1792,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4448315160994008746, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4674809418349394798, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
       propertyPath: m_IsActive
@@ -1925,7 +1880,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5204168185279379227, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5204168185279379227, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5204168185279379227, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5635962536043184934, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1947,16 +1910,21 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8654009335280444110, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
+      propertyPath: m_text
+      value: 'Programer(+Game Designer) : Kim MinGyu
+
+
+        2D Artist(+Art Director)
+        : Son YuJin
+
+
+        2D Pixel Artist : Choi SoHyun'
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2989128056605979414, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1524720809}
-    - targetCorrespondingSourceObject: {fileID: 6823127282293121084, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 977313617}
     - targetCorrespondingSourceObject: {fileID: 5342746043576901883, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1627729946}
@@ -2495,51 +2463,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!1 &1524720805 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2989128056605979414, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
-  m_PrefabInstance: {fileID: 1075133640}
-  m_PrefabAsset: {fileID: 0}
---- !u!224 &1524720806 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 1513142046776765955, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
-  m_PrefabInstance: {fileID: 1075133640}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1524720809
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1524720805}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TrackedObjects:
-  - rid: 6737227927904583709
-  references:
-    version: 2
-    RefIds:
-    - rid: 6737227927904583709
-      type: {class: TrackedRectTransform, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
-      data:
-        m_Target: {fileID: 1524720806}
-        m_TrackedProperties:
-          items:
-          - rid: 6737227927904583710
-    - rid: 6737227927904583710
-      type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
-      data:
-        m_PropertyPath: m_AnchorMax.y
-        m_VariantData:
-        - localeIdentifier:
-            m_Code: en
-          value: 0
-        - localeIdentifier:
-            m_Code: ja-JP
-          value: 1
 --- !u!1 &1532038045
 GameObject:
   m_ObjectHideFlags: 0
@@ -2644,15 +2567,15 @@ RectTransform:
   m_GameObject: {fileID: 1553479608}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 634323337}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 519, y: 315.30002}
-  m_SizeDelta: {x: 260, y: 126}
+  m_AnchoredPosition: {x: 705, y: 135}
+  m_SizeDelta: {x: 203.125, y: 375}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1553479610
 MonoBehaviour:

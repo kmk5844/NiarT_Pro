@@ -10,8 +10,8 @@ public class Station_Fortress : MonoBehaviour
    [Header("데이터 모음")]
     public GameObject Player_DataObject;
     Station_PlayerData playerData;
-    public GameObject Train_DataObject;
-    Station_TrainData trainData;
+    //public GameObject Train_DataObject;
+    public Station_TrainData trainData;
     public GameObject Mercenary_DataObject;
     Station_MercenaryData mercenaryData;
     public GameObject Item_DataObject;
@@ -71,7 +71,9 @@ public class Station_Fortress : MonoBehaviour
     {
         //데이터 수집
         playerData = Player_DataObject.GetComponent<Station_PlayerData>();
-        trainData = Train_DataObject.GetComponent<Station_TrainData>();
+        //trainData = Train_DataObject.GetComponent<Station_TrainData>();
+        EngineTier_MaxMercenary = trainData.Max_Train_MaxMercenary;
+        Debug.Log(EngineTier_MaxMercenary);
         mercenaryData = Mercenary_DataObject.GetComponent<Station_MercenaryData>();
         itemData = Item_DataObject.GetComponent<Station_ItemData>();
         Mercenary_Buy_NumList = mercenaryData.SA_MercenaryData.Mercenary_Buy_Num;
@@ -223,7 +225,7 @@ public class Station_Fortress : MonoBehaviour
         PlayerHead.sprite = PlayerHead_Image[playerNum];
         Player_Name.StringReference.TableEntryReference = "Player_Name_" + playerNum;
         Player_Information[0].text = playerData.EX_Game_Data.Information_Player[playerNum].Player_Atk + "<color=red> + " + (playerData.EX_Game_Data.Information_Player[playerNum].Player_Atk * playerData.Level_Player_Atk * 10) / 100 + "</color>";
-        Player_Information[1].text = playerData.EX_Game_Data.Information_Player[playerNum].Player_Delay + "<color=red> + " + ((playerData.EX_Game_Data.Information_Player[playerNum].Player_Delay * playerData.Level_Player_AtkDelay) / 100) + "</color>";
+        Player_Information[1].text = playerData.EX_Game_Data.Information_Player[playerNum].Player_Delay + "<color=red> - " + ((playerData.EX_Game_Data.Information_Player[playerNum].Player_Delay * playerData.Level_Player_AtkDelay) / 100) + "</color>";
         Player_Information[2].text = playerData.EX_Game_Data.Information_Player[playerNum].Player_Armor + "<color=red> + " + ((playerData.EX_Game_Data.Information_Player[playerNum].Player_Armor * playerData.Level_Player_Armor * 10) / 100) + "</color>";
         Player_Information[3].text = playerData.EX_Game_Data.Information_Player[playerNum].Player_MoveSpeed + "<color=red> + " + ((playerData.EX_Game_Data.Information_Player[playerNum].Player_MoveSpeed * playerData.Level_Player_Speed) / 100) + "</color>";
         Player_Information[4].text = playerData.EX_Game_Data.Information_Player[playerNum].Player_HP + "<color=red> + " + ((playerData.EX_Game_Data.Information_Player[playerNum].Player_HP * playerData.Level_Player_HP * 10) / 100) + "</color>";
@@ -614,7 +616,7 @@ public class Station_Fortress : MonoBehaviour
     // 용병 배치
     public void Director_Init_MercenaryPosition()
     {
-        EngineTier_MaxMercenary = trainData.Max_Train_MaxMercenary;
+        EngineTier_MaxMercenary = trainData.Max_Train_MaxMercenary; 
         Mercenary_Position_Max_Text();
         Mercenary_Buy_NumList = mercenaryData.SA_MercenaryData.Mercenary_Buy_Num;
         if (Mercenary_Position_Content.childCount != Mercenary_Buy_NumList.Count)
@@ -725,42 +727,24 @@ public class Station_Fortress : MonoBehaviour
 
     public void Mercenary_Check_Button()
     {
-        if (Mercenary_TotalNum >= EngineTier_MaxMercenary) // 초과 할 때,
+        if (Mercenary_TotalNum < EngineTier_MaxMercenary) // 초과 하지 않을 때,
         {
-            for(int i = 0; i < CardList.Count; i++)
-            {
-                CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().PlusButton.interactable = false;
-            }
-
             for (int i = 0; i < CardList.Count; i++)
-            {
-                int Mercenary_Count = CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().Mercenary_Num_Count;
-                if (Mercenary_Count == 0)
-                {
-                    CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().MinusButton.interactable = false;
-                }
-                else
-                {
-                    CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().MinusButton.interactable = true;
-                }
-            }
-        }
-        else // 초과하지 않을 때
-        {
-            for(int i = 0; i < CardList.Count; i++)
             {
                 int Count = CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().Mercenary_Num_Count;
                 int Max_Count = CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().Mercenary_Max_Count;
+                Debug.Log(Count);
+                Debug.Log(Max_Count);
                 if (Count == 0)
                 {
                     CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().PlusButton.interactable = true;
                     CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().MinusButton.interactable = false;
                 }
-                else if(Count != 0)
+                else if (Count != 0)
                 {
-                    if(Max_Count != -1)
+                    if (Max_Count != -1)
                     {
-                        if(Count == Max_Count)
+                        if (Count == Max_Count)
                         {
                             CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().PlusButton.interactable = false;
                             CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().MinusButton.interactable = true;
@@ -776,6 +760,26 @@ public class Station_Fortress : MonoBehaviour
                         CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().PlusButton.interactable = true;
                         CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().MinusButton.interactable = true;
                     }
+                }
+            }
+        }
+        else // 초과할 때
+        {
+            for (int i = 0; i < CardList.Count; i++)
+            {
+                CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().PlusButton.interactable = false;
+            }
+
+            for (int i = 0; i < CardList.Count; i++)
+            {
+                int Mercenary_Count = CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().Mercenary_Num_Count;
+                if (Mercenary_Count == 0)
+                {
+                    CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().MinusButton.interactable = false;
+                }
+                else
+                {
+                    CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().MinusButton.interactable = true;
                 }
             }
         }
