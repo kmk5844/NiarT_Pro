@@ -90,20 +90,27 @@ public class SA_TrainData : ScriptableObject
 
     public int SA_TrainChangeNum(int trainNum)
     {
-        switch (trainNum / 10)
+        if(trainNum >= 50)
         {
-            case 0:
-                return level_trainnumber_00;
-            case 1:
-                return level_trainnumber_10;
-            case 2:
-                return level_trainnumber_20;
-            case 3:
-                return level_trainnumber_30;
-            case 4:
-                return level_trainnumber_40;
-            default:
-                return -1;
+            return trainNum;
+        }
+        else
+        {
+            switch (trainNum / 10)
+            {
+                case 0:
+                    return level_trainnumber_00;
+                case 1:
+                    return level_trainnumber_10;
+                case 2:
+                    return level_trainnumber_20;
+                case 3:
+                    return level_trainnumber_30;
+                case 4:
+                    return level_trainnumber_40;
+                default:
+                    return -1;
+            }
         }
     }
 
@@ -128,6 +135,7 @@ public class SA_TrainData : ScriptableObject
 
     public void SA_Train_Add(int TrainNum)
     {
+        Debug.Log(TrainNum);
         train_num.Add(TrainNum);
         Save();
     }

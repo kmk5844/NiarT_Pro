@@ -136,7 +136,7 @@ public class SA_PlayerData : ScriptableObject
 
     public void SA_CharecterCheck()
     {
-        if(new_stage == 5)
+        if(new_stage == 4)
         {
             character_lockoff[1] = true;
         }

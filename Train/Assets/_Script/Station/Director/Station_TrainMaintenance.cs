@@ -420,7 +420,7 @@ public class Station_TrainMaintenance : MonoBehaviour
     private void Check_Init_TrainCard()
     {
         RectTransform ContentSize = Train_Change_Content.GetComponent<RectTransform>();
-        ContentSize.sizeDelta = new Vector2(300 * Train_Change_Num.Count, ContentSize.sizeDelta.y);
+        ContentSize.sizeDelta = new Vector2(400 * (Train_Change_Num.Count-1), ContentSize.sizeDelta.y);
         foreach (int num in Train_Change_Num)
         {
             if(trainData.SA_TrainData.SA_TrainChangeNum(num) == -1)

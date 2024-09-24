@@ -73,7 +73,7 @@ public class Station_Fortress : MonoBehaviour
         playerData = Player_DataObject.GetComponent<Station_PlayerData>();
         //trainData = Train_DataObject.GetComponent<Station_TrainData>();
         EngineTier_MaxMercenary = trainData.Max_Train_MaxMercenary;
-        Debug.Log(EngineTier_MaxMercenary);
+        //Debug.Log(EngineTier_MaxMercenary);
         mercenaryData = Mercenary_DataObject.GetComponent<Station_MercenaryData>();
         itemData = Item_DataObject.GetComponent<Station_ItemData>();
         Mercenary_Buy_NumList = mercenaryData.SA_MercenaryData.Mercenary_Buy_Num;
@@ -733,8 +733,6 @@ public class Station_Fortress : MonoBehaviour
             {
                 int Count = CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().Mercenary_Num_Count;
                 int Max_Count = CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().Mercenary_Max_Count;
-                Debug.Log(Count);
-                Debug.Log(Max_Count);
                 if (Count == 0)
                 {
                     CardList[i].GetComponent<TrainingRoom_Mercenary_Position_Card>().PlusButton.interactable = true;

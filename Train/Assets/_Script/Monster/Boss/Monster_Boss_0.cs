@@ -29,7 +29,9 @@ public class Monster_Boss_0 : Boss
     int heal_count;
     int heal_max_count;
 
+    [SerializeField]
     int skillCount;
+    [SerializeField]
     int skillMaxCount;
 
     Animator ani;
@@ -260,6 +262,7 @@ public class Monster_Boss_0 : Boss
                 move_xPos = 1f;
                 move_speed = 8f;
                 skillMaxCount = Random.Range(5, 11);
+                skillCount = 0;
             }
         }
 
@@ -290,8 +293,8 @@ public class Monster_Boss_0 : Boss
     {
         heal_flag = true;
         Monster_HP += (int)((Monster_Max_HP * 1) / 100f);
-        Debug.Log((Monster_Max_HP * 1) / 100f);
-        Debug.Log(Monster_HP);
+        //Debug.Log((Monster_Max_HP * 1) / 100f);
+        //Debug.Log(Monster_HP);
         //보스 치유하는 코드
         if (heal_count != heal_max_count)
         {
