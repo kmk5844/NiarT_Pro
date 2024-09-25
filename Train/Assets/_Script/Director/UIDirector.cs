@@ -58,6 +58,10 @@ public class UIDirector : MonoBehaviour
     public Image[] Equiped_CoolTime_Item_Image;
     TextMeshProUGUI[] Equiped_Item_Count;
 
+    [Header("Pause + Item UI")]
+    public GameObject itemobject_pause;
+    public Transform GetItemList_Transform_Pause;
+
     [Header("CoolTime UI")]
     public Transform CoolTime_List;
     public GameObject ItemCoolTime_Object;
@@ -75,7 +79,7 @@ public class UIDirector : MonoBehaviour
     public Sprite Result_Lose_Image;
 
     public List<int> GetItemList_Num;
-    public Transform GetItemList_Transform;
+    public Transform GetItemList_Transform_Result;
     public GameObject GetItemList_Object;
     public ResultItem_Tooltip Tooltip_Object;
 
@@ -197,7 +201,7 @@ public class UIDirector : MonoBehaviour
             ResultObject _resultobject = GetItemList_Object.GetComponent<ResultObject>();
             _resultobject.item = itemList.Item[GetItemList_Num[i]];
             _resultobject.item_tooltip_object = Tooltip_Object;
-            Instantiate(GetItemList_Object, GetItemList_Transform);
+            Instantiate(GetItemList_Object, GetItemList_Transform_Result);
         }
 
         Game_UI.SetActive(false);
@@ -261,6 +265,12 @@ public class UIDirector : MonoBehaviour
         gamedirector.GameType_Option(false);
         OptionFlag = false;
         Option_UI.SetActive(false);
+    }
+
+    public void View_ItemList(Sprite sprite)
+    {
+        GameObject item = Instantiate(itemobject_pause, GetItemList_Transform_Pause);
+        item.GetComponent<Image>().sprite = sprite;
     }
 
     public void Item_EquipedIcon(int equiped_num, Sprite img, int Count)

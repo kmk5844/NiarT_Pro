@@ -92,6 +92,11 @@ public class Station_PlayerData : MonoBehaviour
         Player_Point = SA_PlayerData.Point;
     }
 
+    public void Player_Check_EquipedItem(int Item_Num)
+    {
+       
+    }
+
     public int Check_Cost_Player(int num)
     {
         switch (num)

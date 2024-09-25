@@ -45,6 +45,27 @@ public class SA_ItemData : ScriptableObject
         Save();
     }
 
+    public void Check_AfterSell_EquipItem(int num)
+    {
+        int equipNum = -1;
+        bool flag = false;
+        foreach(int itemNum in equiped_item)
+        {
+            equipNum++;
+            if(itemNum == num)
+            {
+                flag = true;
+                break;
+            }
+        }
+
+        if (flag)
+        {
+            Empty_Item(equipNum);
+        }
+        Save();
+    }
+
     public void Save()
     {
         ES3.Save<List<int>>(name + "_Equiped_Item", equiped_item);

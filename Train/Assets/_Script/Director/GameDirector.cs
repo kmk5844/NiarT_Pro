@@ -784,7 +784,7 @@ public class GameDirector : MonoBehaviour
     {
         if (flag) // 게임 진행 중일 때
         {
-            Cursor.SetCursor(cursorAim, cursorHotspot_Aim, CursorMode.Auto);
+            Cursor.SetCursor(cursorAim, cursorHotspot_Aim, CursorMode.ForceSoftware);
         }
         else // Pause했을 때
         {

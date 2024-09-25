@@ -507,6 +507,8 @@ public class StationDirector : MonoBehaviour
         }
         else if (ui_num == 2 || ui_num == 3)
         {
+            ui_store_num = 0;
+            Director_Store.Store_Train_Num = 0;
             UI_StoreAndFortress.gameObject.SetActive(false);
             UI_Store_Window[0].GetComponent<RectTransform>().SetAsLastSibling();
             UI_Fortress_Window[0].GetComponent<RectTransform>().SetAsLastSibling();
@@ -577,6 +579,7 @@ public class StationDirector : MonoBehaviour
     public void Total_Init() {
         Director_TrainMaintenance.Director_Init_TrainChange();
         Director_TrainMaintenance.Director_Init_TrainPartChange();
+        Director_TrainMaintenance.Direcotr_Init_TrainUpgrade();
         ui_store_num = 0;
         UI_Store_Window[0].GetComponent<RectTransform>().SetAsLastSibling();
         UI_Fortress_Window[0].GetComponent<RectTransform>().SetAsLastSibling();

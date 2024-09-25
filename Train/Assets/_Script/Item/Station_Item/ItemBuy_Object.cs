@@ -13,10 +13,12 @@ public class ItemBuy_Object : MonoBehaviour
     public string item_information;
     public int item_pride;
     public bool item_use;
+    int item_Count;
 
     [Header("정보 표시")]
     public Image item_icon_object;
     public ItemList_Tooltip item_tooltip_object;
+    public TextMeshProUGUI item_count_text;
 
     bool item_information_Flag; // 정보 출력 플래그
     bool item_mouseOver_Flag; // 이미 올려져 있다는 플래그
@@ -29,10 +31,18 @@ public class ItemBuy_Object : MonoBehaviour
         item_pride = item.Item_Buy_Pride;
         item_use = item.Use_Flag;
         item_icon_object.sprite = item.Item_Sprite;
+        item_Count= item.Item_Count;
+        item_count_text.text = item_Count.ToString();
     }
 
     private void Update()
     {
+        if(item_Count != item.Item_Count)
+        {
+            item_Count = item.Item_Count;
+            item_count_text.text = item_Count.ToString();
+        }
+
         if (StationDirector.TooltipFlag)
         {
             if (item_information_Flag)

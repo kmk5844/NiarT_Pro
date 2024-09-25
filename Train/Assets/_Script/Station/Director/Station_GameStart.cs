@@ -492,5 +492,8 @@ public class Station_GameStart : MonoBehaviour
             Destroy(_item.gameObject);
         }
         Spawn_Item();
+        Equiped_ImageAndCount(0);
+        Equiped_ImageAndCount(1);
+        Equiped_ImageAndCount(2);
     }
 }

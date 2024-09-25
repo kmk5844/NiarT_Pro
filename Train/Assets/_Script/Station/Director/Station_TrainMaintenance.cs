@@ -1011,6 +1011,7 @@ public class Station_TrainMaintenance : MonoBehaviour
     public void Direcotr_Init_TrainUpgrade()
     {
         Check_Upgrade_Button_Interactable();
+        Upgrade_Before_After_Text();
     }
 
     public void Click_Button_Upgrade()

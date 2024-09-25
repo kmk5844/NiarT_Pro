@@ -173,4 +173,9 @@ public class Station_ItemData : MonoBehaviour
             itemChangeFlag = true;
         }
     }
+
+    public void Check_EquipedItem(int ItemData_Num)
+    {
+        SA_Player_ItemData.Check_AfterSell_EquipItem(ItemData_Num);
+    }
 }

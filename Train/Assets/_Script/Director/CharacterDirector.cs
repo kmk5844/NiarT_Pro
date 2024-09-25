@@ -33,4 +33,9 @@ public class CharacterDirector : MonoBehaviour
         yield return new WaitForSeconds(1f);
         LoadingManager.LoadScene("InGame");
     }
+
+    public void Station_Button()
+    {
+        LoadingManager.LoadScene("Station");
+    }
 }

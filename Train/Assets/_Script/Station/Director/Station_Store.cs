@@ -396,6 +396,7 @@ public class Station_Store : MonoBehaviour
                 }
             }
         }
+        itemData.Check_EquipedItem(item.Num);
         itemData.Check_ItemChangeFlag();
         Check_Player_Coin_Point();
         Close_Buy_Window();
@@ -591,7 +592,6 @@ public class Station_Store : MonoBehaviour
                 Button_ItemCount_Plus.interactable = false;
             }
             // 자신이 가지고 있는 골드로 제한
-
 
         }
         else
