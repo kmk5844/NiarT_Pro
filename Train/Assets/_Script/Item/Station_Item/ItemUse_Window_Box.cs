@@ -71,14 +71,14 @@ public class ItemUse_Window_Box : MonoBehaviour
         }
         else if(num == 55)
         {
-            int RarityNum = Random.Range(0, 100);
+            int RarityNum = Random.Range(0, 101);
             
             if (RarityNum >= 0 && RarityNum < 80)
             {
                 int rand = Random.Range(0, Random_Rare_Item_ItemList.Count);
                 item = Random_Common_Item_ItemList[rand];
             }
-            else if (RarityNum >= 90 && RarityNum < 100)
+            else if (RarityNum >= 80 && RarityNum < 100)
             {
                 int rand = Random.Range(0, Random_Rare_Item_ItemList.Count);
                 item = Random_Rare_Item_ItemList[rand];

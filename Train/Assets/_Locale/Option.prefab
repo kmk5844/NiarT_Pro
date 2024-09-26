@@ -2071,7 +2071,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.9801799, g: 1, b: 0, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -2092,7 +2092,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4924148228826431111}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: MoreMountains.Feedbacks.MMF_Player, MoreMountains.Feedbacks
+        m_MethodName: PlayFeedbacks
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3816987703380627452
 GameObject:
   m_ObjectHideFlags: 0
@@ -2438,6 +2450,16 @@ MonoBehaviour:
   isCreditFlag: 0
   KeyBoard_Object: {fileID: 5694202765658917525}
   Credit_Object: {fileID: 2551249636623996104}
+  BGM_Slider: {fileID: 4302079718551187021}
+  SFX_Slider: {fileID: 7389829529790507318}
+  BGM_Icon_Image: {fileID: 4924148228826431111}
+  SFX_Icon_Image: {fileID: 7054301328177389720}
+  BGM_Sprite:
+  - {fileID: -221288541, guid: bc3eb989e9635a443a0da4e541f46dc8, type: 3}
+  - {fileID: -707677522, guid: a187b528a7a1ce1448f563f293434e4d, type: 3}
+  SFX_Sprite:
+  - {fileID: 1546094966, guid: bc3eb989e9635a443a0da4e541f46dc8, type: 3}
+  - {fileID: 672821393, guid: a187b528a7a1ce1448f563f293434e4d, type: 3}
 --- !u!1 &4674809418349394798
 GameObject:
   m_ObjectHideFlags: 0
@@ -3682,7 +3704,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.368
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -3716,7 +3738,7 @@ MonoBehaviour:
   MaxVolume: 1
   Mode: 1
   ChangeModeOnTrackFade: 0
-  ChangeModeOnMute: 0
+  ChangeModeOnMute: 1
   ChangeModeOnUnmute: 0
   ChangeModeOnTrackVolumeChange: 0
   ModeSwitchBufferTime: 0.1
@@ -3737,7 +3759,7 @@ MonoBehaviour:
   MaxVolume: 1
   Mode: 0
   ChangeModeOnTrackFade: 0
-  ChangeModeOnMute: 0
+  ChangeModeOnMute: 1
   ChangeModeOnUnmute: 0
   ChangeModeOnTrackVolumeChange: 0
   ModeSwitchBufferTime: 0.1
@@ -3810,8 +3832,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: English
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f81dc22457f027c45a517a7d4595fb74, type: 2}
+  m_sharedMaterial: {fileID: -6474523265463759579, guid: f81dc22457f027c45a517a7d4595fb74, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4318,7 +4340,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.9801799, g: 1, b: 0, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -4339,7 +4361,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7054301328177389720}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: MoreMountains.Feedbacks.MMF_Player, MoreMountains.Feedbacks
+        m_MethodName: PlayFeedbacks
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6823127282293121084
 GameObject:
   m_ObjectHideFlags: 0

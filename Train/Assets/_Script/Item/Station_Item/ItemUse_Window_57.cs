@@ -8,9 +8,9 @@ public class ItemUse_Window_57 : MonoBehaviour
     public Station_PlayerData playerData;
     public TextMeshProUGUI PlayerPoint;
 
-    private void OnEnable()
+    public void GetPoint(int i)
     {
-        playerData.Player_Get_Point(1);
-        PlayerPoint.text = (playerData.Player_Point - 1) + " - > <color=red>" + playerData.Player_Point + "</color>";
+        playerData.Player_Get_Point(i);
+        PlayerPoint.text = (playerData.Player_Point - i) + " - > <color=red>" + playerData.Player_Point + "</color>";
     }
 }

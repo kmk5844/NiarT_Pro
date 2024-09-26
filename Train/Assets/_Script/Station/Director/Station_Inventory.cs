@@ -19,6 +19,7 @@ public class Station_Inventory : MonoBehaviour
     public List<Transform> Transform_ItemList;
     [Header("UI_UseStatus")]
     public GameObject Item_UseStatus_WindowObject;
+    public Button tem_UseStatus_AllButton;
     public LocalizeStringEvent Item_UseStatus_Name;
     public Image Item_UseStatus_Icon;
     public TextMeshProUGUI Item_UseStatus_Count_Text;
@@ -101,9 +102,26 @@ public class Station_Inventory : MonoBehaviour
     public void UseItemStatus_Click(ItemDataObject itemobject)
     {
         UseWindowFlag = true;
+        tem_UseStatus_AllButton.gameObject.SetActive(false);
 
         Item_UseStatus_Name.StringReference.TableEntryReference = "Item_Name_" + itemobject.Num;
         Item_UseStatus_Icon.sprite = itemobject.Item_Sprite;
+
+        // 한번에 까는 버튼 추가
+        if (itemobject.Num == 54 || itemobject.Num == 55 || itemobject.Num == 56)
+        {
+            tem_UseStatus_AllButton.gameObject.SetActive(true);
+            tem_UseStatus_AllButton.onClick.AddListener(() => UseItemStatus_AllButton(itemobject));
+        }
+        else if(itemobject.Num == 57)
+        {
+            tem_UseStatus_AllButton.gameObject.SetActive(true);
+            tem_UseStatus_AllButton.onClick.AddListener(() => UseItemStatus_AllButton(itemobject));
+        }
+        else
+        {
+            tem_UseStatus_AllButton.gameObject.SetActive(false);
+        }
 
         if(itemobject.Num == 53)
         {
@@ -113,6 +131,8 @@ public class Station_Inventory : MonoBehaviour
         {
             Item_UseStatus_Count_Text.text = "1";
         }
+
+        // 낱개 사용 시, 버튼
         Item_UseStatus_YesButton.onClick.AddListener(() => UseItemStatus_YesButton(itemobject));
         Item_UseStatus_WindowObject.SetActive(true);
     }
@@ -143,13 +163,44 @@ public class Station_Inventory : MonoBehaviour
             case 57:
                 UI_UseItem_Num = 2;
                 Item_UseItem_WindowObject_List[2].SetActive(true);
+                Item_UseItem_WindowObject_List[2].GetComponent<ItemUse_Window_57>().GetPoint(1);
                 item.Item_Count_Down();
                 Check_ItemList(false, item);
                 break;
         }
         Item_UseStatus_YesButton.onClick.RemoveAllListeners();
+        tem_UseStatus_AllButton.onClick.RemoveAllListeners();
     }
 
+    public void UseItemStatus_AllButton(ItemDataObject item)
+    {
+        UseWindowFlag = false;
+        UseItemWindowFlag = true;
+
+        Item_UseStatus_WindowObject.SetActive(false);
+        Item_UseItem_WindowObject.SetActive(true);
+        switch (item.Num)
+        {
+            case 54:
+            case 55:
+            case 56:
+                UI_UseItem_Num = 4;
+                Item_UseItem_WindowObject_List[3].SetActive(true);
+                Item_UseItem_WindowObject_List[3].GetComponent<ItemUse_Window_Box_All>().Random_Box_All_Open(item.Num, item.Item_Count, gameObject);
+                item.Item_Count_Down(item.Item_Count);
+                Check_ItemList(false, item);
+                break;
+            case 57:
+                UI_UseItem_Num = 2;
+                Item_UseItem_WindowObject_List[2].SetActive(true);
+                Item_UseItem_WindowObject_List[2].GetComponent<ItemUse_Window_57>().GetPoint(item.Item_Count);
+                item.Item_Count_Down(item.Item_Count);
+                Check_ItemList(false, item);
+                break;
+        }
+        Item_UseStatus_YesButton.onClick.RemoveAllListeners();
+        tem_UseStatus_AllButton.onClick.RemoveAllListeners();
+    }
 
     public void Check_ItemList(bool Flag, ItemDataObject item, int addnum = 1)
     {
@@ -240,6 +291,11 @@ public class Station_Inventory : MonoBehaviour
             case 2:
                 Item_UseItem_WindowObject.SetActive(false);
                 Item_UseItem_WindowObject_List[2].SetActive(false);
+                break;
+            case 4:
+                Item_UseItem_WindowObject.SetActive(false);
+                Item_UseItem_WindowObject_List[3].SetActive(false);
+                Item_UseItem_WindowObject_List[3].GetComponent<ItemUse_Window_Box_All>().Item_BoxAll_Init();
                 break;
         }
         UI_UseItem_Num = -1;

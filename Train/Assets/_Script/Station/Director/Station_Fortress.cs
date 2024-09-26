@@ -16,6 +16,8 @@ public class Station_Fortress : MonoBehaviour
     Station_MercenaryData mercenaryData;
     public GameObject Item_DataObject;
     Station_ItemData itemData;
+    public GameObject Inventory_Director;
+    Station_Inventory inventorydirector;
 
     List<int> Mercenary_Buy_NumList;// 구매한 리스트
     List<int> Mercenary_Position_NumList;// 배치하고 있는 리스트
@@ -76,6 +78,7 @@ public class Station_Fortress : MonoBehaviour
         //Debug.Log(EngineTier_MaxMercenary);
         mercenaryData = Mercenary_DataObject.GetComponent<Station_MercenaryData>();
         itemData = Item_DataObject.GetComponent<Station_ItemData>();
+        inventorydirector = Inventory_Director.GetComponent<Station_Inventory>();
         Mercenary_Buy_NumList = mercenaryData.SA_MercenaryData.Mercenary_Buy_Num;
         Mercenary_Position_NumList = mercenaryData.SA_MercenaryData.Mercenary_Num;
         //플레이어 업그레이드 윈도우
@@ -605,6 +608,7 @@ public class Station_Fortress : MonoBehaviour
             mercenaryData.Mercenary_Level_Up(Mercenary_Upgrade_Num);
             Mercenary_Upgrade_Content.GetChild(Mercenary_Upgrade_ToggleNum).GetComponent<TrainingRoom_Mercenary_Upgrade_Card>().Card_LevleUP();
             Check_Player_Coin_Point();
+            inventorydirector.Check_ItemList(false, itemData.Mercenary_Material_object);
             Mercenary_Upgrade_Information_Text(Mercenary_Upgrade_Num);
         }
         else
