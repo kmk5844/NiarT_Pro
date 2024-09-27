@@ -19,6 +19,8 @@ public class StageButton_Route : MonoBehaviour
     public Sprite[] Grade_Image; // S, A, B, C, D, F
     public GameObject MarkObject;
 
+    public GameObject BossObject;
+
     private void Start()
     {
         stageButton = GetComponent<Button>();
@@ -29,11 +31,13 @@ public class StageButton_Route : MonoBehaviour
             if (!stageData.Stage_OpenFlag)
             {
                 LockPanel.SetActive(true);
+                RoadObject.GetComponent<Image>().color = new Color(0f, 0f, 0f, 170f / 255f);
                 stageButton.enabled= false;
             }
             else
             {
                 LockPanel.SetActive(false);
+                RoadObject.GetComponent<Image>().color = new Color(1f,1f,1f,1f);
                 stageButton.enabled = true;
             }
 
@@ -62,6 +66,15 @@ public class StageButton_Route : MonoBehaviour
                         GradeImg.sprite = Grade_Image[5];
                         break;
                 }
+            }
+
+            if (stageData.Boss_Flag)
+            {
+                BossObject.SetActive(true);
+            }
+            else
+            {
+                BossObject.SetActive(false);
             }
             stageButton.onClick.AddListener(StageButton_Click);
         }

@@ -18,6 +18,8 @@ public class FullMap_StageButton : MonoBehaviour
     public Sprite[] Grade_Image;
     public GameObject SelectStage_MarkObject;
 
+    public GameObject Boss_Object;
+
     public void Load()
     {
         Btn = GetComponent<Button>();
@@ -61,6 +63,16 @@ public class FullMap_StageButton : MonoBehaviour
                         break;
                 }
             }
+
+            if (stageData.Boss_Flag)
+            {
+                Boss_Object.SetActive(true);
+            }
+            else
+            {
+                Boss_Object.SetActive(false);
+            }
+
             Btn.onClick.AddListener(FullMap_StageButton_Click);
         }
     }
