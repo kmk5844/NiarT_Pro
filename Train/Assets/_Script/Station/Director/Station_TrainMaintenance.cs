@@ -738,8 +738,8 @@ public class Station_TrainMaintenance : MonoBehaviour
             Booster_Part_ToggleStart();
         }
 
-        ScrollRect_Turret_Part.normalizedPosition = Vector2.zero;
-        ScrollRect_Booster_Part.normalizedPosition = Vector2.zero;
+        ScrollRect_Turret_Part.normalizedPosition = Vector2.right;
+        ScrollRect_Booster_Part.normalizedPosition = Vector2.right;
         for (int i = 0; i < Turret_Part_Toggle.Count; i++)
         {
             Turret_Part_Toggle[i].isOn = false;

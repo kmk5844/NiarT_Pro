@@ -28,6 +28,6 @@ public class Item_Claymore_Bomb : MonoBehaviour
         }
 
         //여기서 폭탄 애니메이션 
-        Destroy(Claymore, 3f);
+        Destroy(Claymore, 1f);
     }
 }

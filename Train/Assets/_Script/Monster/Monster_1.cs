@@ -83,7 +83,10 @@ public class Monster_1 : Monster
 
             yield return null;
         }
-        monster_gametype = Monster_GameType.Fighting;
+        if (monster_gametype != Monster_GameType.CowBoy_Debuff)
+        {
+            monster_gametype = Monster_GameType.Fighting;
+        }
     }
 
     void BulletFire()

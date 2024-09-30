@@ -106,7 +106,7 @@ public class ItemUse_Window_Box_All : MonoBehaviour
 
     public void Item_BoxAll_Init()
     {
-        for(int i = 0; i < ItemList_Transform.childCount -1; i++)
+        for(int i = 0; i < ItemList_Transform.childCount; i++)
         {
             Destroy(ItemList_Transform.GetChild(i).gameObject);
         }

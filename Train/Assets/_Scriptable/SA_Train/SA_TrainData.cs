@@ -135,7 +135,6 @@ public class SA_TrainData : ScriptableObject
 
     public void SA_Train_Add(int TrainNum)
     {
-        Debug.Log(TrainNum);
         train_num.Add(TrainNum);
         Save();
     }

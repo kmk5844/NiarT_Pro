@@ -126,7 +126,7 @@ public class UseItem : MonoBehaviour
                 player.Item_Instantiate_Flag(3, 30);
                 break;
             case 28:
-                player.Item_Player_Giant_Scarecrow();
+                player.Item_Player_Giant_Tent();
                 break;
             case 29:
                 player.Item_Player_Spawn_Turret(0);

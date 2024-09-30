@@ -14,7 +14,7 @@ public class CowBoy_Grap : MonoBehaviour
     bool isGrappling;
     bool isRetracting;
     Vector2 NonTargetPos;
-    GameObject target;
+    public GameObject target;
     private void Start()
     {
         isCounting = false;

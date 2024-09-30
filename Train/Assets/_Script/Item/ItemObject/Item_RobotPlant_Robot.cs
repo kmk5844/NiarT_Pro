@@ -80,8 +80,10 @@ public class Item_RobotPlant_Robot : MonoBehaviour
     IEnumerator Robot_Bomb()
     {
         BombFlag = true;
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(2);
         BombObject.SetActive(true);
+        yield return new WaitForSeconds(0.2f);
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

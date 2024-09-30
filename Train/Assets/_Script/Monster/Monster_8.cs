@@ -71,9 +71,17 @@ public class Monster_8 : Monster
             float yPos = Mathf.Lerp(Spawn_Init_Pos.y, MonsterDirector_Pos.y,t);
             xPos += Mathf.Sin(t * Mathf.PI * 2 * shakeFrequency) * shakeAmplitude;
             transform.localPosition = new Vector2(xPos, yPos);
+            if (monster_gametype == Monster_GameType.CowBoy_Debuff)
+            {
+                break;
+            }
             yield return null;
         }
-        isBombFlag = true;
+        if (monster_gametype != Monster_GameType.CowBoy_Debuff)
+        {
+            monster_gametype = Monster_GameType.Fighting;
+            isBombFlag = true;
+        }
     }
 
     IEnumerator monsterDestory()

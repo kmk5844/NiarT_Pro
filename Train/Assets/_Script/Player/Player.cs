@@ -704,32 +704,32 @@ public class Player : MonoBehaviour
         Instantiate(ballon,transform.position, Quaternion.identity, Player_Bullet_List);
     }
 
-    public void Item_Player_Giant_Scarecrow()
+    public void Item_Player_Giant_Tent()
     {
         Check_Pos();
         float pos = Random.Range(minGroundPos.x, maxGroundPos.x);
-        GameObject Scarecrow = Resources.Load<GameObject>("ItemObject/Giant_ScarecrowObject");
-        Scarecrow.GetComponent<Item_Shield>().HP = 1000;
-        Instantiate(Scarecrow, new Vector2(pos, -0.95f), Quaternion.identity);
+        GameObject tent = Resources.Load<GameObject>("ItemObject/Giant_TentObject");
+        tent.GetComponent<Item_Shield>().HP = 1000;
+        Instantiate(tent, new Vector2(pos, -1.2f), Quaternion.identity);
     }
 
     public void Item_Instantiate_Flag(int flagNum, float delayTime)
     {
-        Destroy(Instantiate(Resources.Load<GameObject>("ItemObject/Flag" + flagNum), transform.position, Quaternion.identity), delayTime);
+        Destroy(Instantiate(Resources.Load<GameObject>("ItemObject/Flag" + flagNum), new Vector2(transform.position.x, -0.45f), Quaternion.identity), delayTime);
     }
 
     public void Item_Player_Spawn_Turret(int num)
     {
         Check_Pos();
-        float pos = Random.Range(minGroundPos.x, maxGroundPos.x);
+        float pos = Random.Range(minGroundPos.x + 3.5f, maxGroundPos.x - 3.5f);
         switch (num)
         {
             case 0:
-                Instantiate(Resources.Load<GameObject>("ItemObject/Mini_Auto_Turret"), new Vector2(pos, -0.3f), Quaternion.identity);
+                Instantiate(Resources.Load<GameObject>("ItemObject/Mini_Auto_Turret"), new Vector2(pos, -0.55f), Quaternion.identity);
                 break;
             case 1:
                 GameObject Plant = Resources.Load<GameObject>("ItemObject/RobotPlant");
-                Instantiate(Plant, new Vector2(pos, -0.2f), Quaternion.identity);
+                Instantiate(Plant, new Vector2(pos, -0.45f), Quaternion.identity);
                 break;
         }
     }
@@ -741,17 +741,16 @@ public class Player : MonoBehaviour
         {
             case 0:
                 GameObject MiniDron = Resources.Load<GameObject>("ItemObject/MiniDron");
-                MiniDron.GetComponent<Item_MiniDron>().DronAtk = 10;
+                MiniDron.GetComponent<Item_MiniDron>().DronAtk = 15;
                 Vector2 pos = new Vector2(minSkyPos.x - 2, (minSkyPos.y + maxSkyPos.y) / 2);
                 Instantiate(MiniDron, pos, Quaternion.identity);
                 break;
             case 1:
                 GameObject MiniRaserDron = Resources.Load<GameObject>("ItemObject/MiniRaserDron");
-                MiniRaserDron.GetComponent<Item_MiniDron>().DronAtk = 2;
-                pos = new Vector2(minSkyPos.x, maxSkyPos.y + 1);
+                MiniRaserDron.GetComponent<Item_MiniDron>().DronAtk = 6;
+                pos = new Vector2(minSkyPos.x -2, maxSkyPos.y + 1);
                 Instantiate(MiniRaserDron, pos, Quaternion.identity);
                 break;
-
         }
 }
     public void Item_Player_Spawn_Shield(int num)
@@ -792,13 +791,13 @@ public class Player : MonoBehaviour
         {
             Pos = transform.position.x - 1;
         }
-        Instantiate(ClaymoreObject, new Vector2(Pos, -0.4f),Quaternion.identity);
+        Instantiate(ClaymoreObject, new Vector2(Pos, -0.7f),Quaternion.identity);
     }
 
     public void Item_Player_Spawn_WireEntanglement()
     {
         GameObject WireEntanglementObject = Resources.Load<GameObject>("ItemObject/WireEntanglement");
-        Instantiate(WireEntanglementObject, new Vector2(transform.position.x, -0.4f), Quaternion.identity);
+        Instantiate(WireEntanglementObject, new Vector2(transform.position.x, -0.65f), Quaternion.identity);
     }
 
     public IEnumerator Item_Player_Dagger(float delayTime)
