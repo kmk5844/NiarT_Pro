@@ -132,7 +132,6 @@ public class MonsterDirector : MonoBehaviour
             {
                 StartCoroutine(AppearSupplyMonster());
             }
-
         }
 
 
@@ -186,7 +185,10 @@ public class MonsterDirector : MonoBehaviour
         yield return new WaitForSeconds(Random.Range(15f, 20f));
         Random_xPos = Random.Range(MinPos_Sky.x, MaxPos_Sky.x);
         Random_yPos = Random.Range(MinPos_Sky.y, MaxPos_Sky.y);
-        Instantiate(SupplyMonster_Object, new Vector3(Random_xPos, Random_yPos, 0), Quaternion.identity, SupplyMonster_List);
+        if (GameDirector_SpawnFlag == true)
+        {
+            Instantiate(SupplyMonster_Object, new Vector3(Random_xPos, Random_yPos, 0), Quaternion.identity, SupplyMonster_List);
+        }
         isSupplySpawing = false;
     }
 
@@ -207,13 +209,19 @@ public class MonsterDirector : MonoBehaviour
         {
             string monster_name = EX_GameData.Information_Monster[Monster_Num].Monster_Name;
             _Monster = Resources.Load<GameObject>("Monster/" + Monster_Num+ "_"+ monster_name);
-            Instantiate(_Monster, new Vector3(Random_xPos, Random_yPos, 0), Quaternion.identity, Monster_List);
+            if (GameDirector_SpawnFlag == true)
+            {
+                Instantiate(_Monster, new Vector3(Random_xPos, Random_yPos, 0), Quaternion.identity, Monster_List);
+            }
         }
         else
         {
             string monster_name = EX_GameData.Information_Boss[Monster_Num].Monster_Name;
             _Monster = Resources.Load<GameObject>("Boss/" + Monster_Num + "_" + monster_name);
-            Instantiate(_Monster, new Vector3(Random_xPos, Random_yPos, 0), Quaternion.identity, Boss_List);
+            if(GameDirector_SpawnFlag == true)
+            {
+                Instantiate(_Monster, new Vector3(Random_xPos, Random_yPos, 0), Quaternion.identity, Boss_List);
+            }
         }
     }
 

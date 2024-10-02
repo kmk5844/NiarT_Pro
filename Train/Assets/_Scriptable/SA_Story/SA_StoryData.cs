@@ -37,8 +37,14 @@ public class SA_StoryData : ScriptableObject
             case 4:
                 LoadingManager.LoadScene("Story");
                 break;
+            case 5:
+                LoadingManager.LoadScene("Story");
+                break;
+            case 7:
+                LoadingManager.LoadScene("Story");
+                break;
             case 8:
-                LoadingManager.LoadScene("Demo_End");
+                LoadingManager.LoadScene("Story");
                 break;
         }
     }
@@ -64,6 +70,15 @@ public class SA_StoryData : ScriptableObject
                 break;
             case 4:
                 LoadingManager.LoadScene("Station");
+                break;
+            case 5:
+                LoadingManager.LoadScene("Station");
+                break;
+            case 7:
+                LoadingManager.LoadScene("Station");
+                break;
+            case 8:
+                LoadingManager.LoadScene("Demo_End");
                 break;
         }
     }

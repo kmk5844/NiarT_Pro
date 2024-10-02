@@ -25,7 +25,7 @@ public class Monster_1 : Monster
         base.Start();
         MonsterDirector_Pos = transform.localPosition;
         Spawn_Init_Pos =
-            new Vector2(MonsterDirector_Pos.x + Random.Range(-10f, 10f),
+                new Vector2(MonsterDirector_Pos.x + Random.Range(4, 12f),
                 MonsterDirector.MaxPos_Sky.y + 5f);
         transform.localPosition = Spawn_Init_Pos;
 

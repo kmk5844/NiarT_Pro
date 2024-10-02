@@ -213,13 +213,16 @@ public class DialogSystem : MonoBehaviour
 
 		// 캐릭터 알파 값 변경
 		Color color = speaker.player_able.color;
+
+        Color UnvisibleColor = new Color(100f / 250f, 100f / 250f, 100f / 250f);
+
 		if(speaker.alpha_zero == true)
 		{
-            color.a = visible == true ? 1 : 0f;
+            color = visible == true ? Color.white : new Color(0f, 0f, 0f, 0f);
         }
         else
 		{
-            color.a = visible == true ? 1 : 0.2f;
+            color = visible == true ? Color.white : UnvisibleColor;
         }
         speaker.player_able.color = color;
 	}
