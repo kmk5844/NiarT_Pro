@@ -49,7 +49,7 @@ public class StationDirector : MonoBehaviour
     public GameObject UI_StoreAndFortress;
     public GameObject[] UI_Store_Window;
     public GameObject[] UI_Train_Lock_Panel;
-    public GameObject[] UI_Store_BackButton;
+    //public GameObject[] UI_Store_BackButton;
     public GameObject[] UI_Fortress_Window;
     bool ItemSell_InventoryFlag;
     public static bool TooltipFlag;
@@ -162,7 +162,14 @@ public class StationDirector : MonoBehaviour
             }
             else if (ui_num == 3)
             {
-                Click_Home_Button();
+                if (Ban_Flag)
+                {
+                    Close_Ban_CoinPoint();
+                }
+                else
+                {
+                    Click_Home_Button();
+                }
             }else if(ui_num == 4)
             {
                 if (Director_Inventory.UseWindowFlag)
@@ -369,7 +376,6 @@ public class StationDirector : MonoBehaviour
         else // 아이템 판매 전용
         {
             ItemSell_InventoryFlag = true;
-            UI_Store_BackButton[ui_store_num].SetActive(false);
             UI_Store_Window[UI_Store_Num].SetActive(true);
             Director_Store.ItemSellFlag = true;
         }
@@ -379,7 +385,6 @@ public class StationDirector : MonoBehaviour
     {
         ItemSell_InventoryFlag = false;
         Director_Store.Director_Tooltip_Off();
-        UI_Store_BackButton[ui_store_num].SetActive(true);
         UI_Store_Window[5].SetActive(false);
         Director_Store.ItemSellFlag = false;
     }

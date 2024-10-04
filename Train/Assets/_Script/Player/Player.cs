@@ -125,6 +125,7 @@ public class Player : MonoBehaviour
         PlayerNum = playerData.Player_Num;
         playerchageDirector.ChangePlayer(PlayerNum);
         Bullet_Fire_Transform = playerchageDirector.Set_FireZone(PlayerNum);
+        //GetComponentInChildren<InputManager>().FireZoneTransform = Bullet_Fire_Transform;
 
         GunObject_Scale = GunObject.transform.localScale;
         KeyObject_Scale = KeyObject.transform.localScale;
@@ -169,6 +170,15 @@ public class Player : MonoBehaviour
             if (Input.GetMouseButtonUp(0))
             {
                 isMouseDown = false;
+            }
+
+            if (isMouseDown)
+            {
+                gamedirector.ChangeCursor(true, true);
+            }
+            else
+            {
+                gamedirector.ChangeCursor(true, false);
             }
         }
         else if (gameDirectorType == GameType.Ending)

@@ -65,7 +65,7 @@ public class DataManager : MonoBehaviour
         turretData.Init();
         boosterData.Init();
         mercenaryData.Init();
-        localData.Init();
+        //localData.Init();
         stageData.PlayGame_StageList_Init();
         InventoryItem_Data.PlayGame_ItemList_Init();
         PlayerItem_Data.Init();

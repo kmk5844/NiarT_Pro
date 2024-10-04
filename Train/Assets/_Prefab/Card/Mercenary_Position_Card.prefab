@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3270967543062447620}
   - component: {fileID: 4356789792639346971}
+  - component: {fileID: 2420495309601346057}
   m_Layer: 0
   m_Name: Item
   m_TagString: Untagged
@@ -85,8 +86,33 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2420495309601346057}
+        m_TargetAssemblyTypeName: ButtonSound, Assembly-CSharp
+        m_MethodName: btnSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
+--- !u!114 &2420495309601346057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 232623315318334984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f43f73ee983569b43808fe023b28e3dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 66d1415e81c3f1740962ec25bc68c396, type: 3}
 --- !u!1 &634954088968144490
 GameObject:
   m_ObjectHideFlags: 0
@@ -1285,6 +1311,7 @@ GameObject:
   - component: {fileID: 2419379217432217713}
   - component: {fileID: 4984268016399363886}
   - component: {fileID: 6710267360881341006}
+  - component: {fileID: 5621417722980556117}
   m_Layer: 0
   m_Name: Button_+
   m_TagString: Untagged
@@ -1393,6 +1420,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5621417722980556117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5029291995248863431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f43f73ee983569b43808fe023b28e3dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 66d1415e81c3f1740962ec25bc68c396, type: 3}
 --- !u!1 &5161782039076535097
 GameObject:
   m_ObjectHideFlags: 0
@@ -1480,6 +1520,7 @@ GameObject:
   - component: {fileID: 8291975273476956272}
   - component: {fileID: 140656630629493911}
   - component: {fileID: 4367887319407264924}
+  - component: {fileID: 9059734389670335410}
   m_Layer: 0
   m_Name: Dropdown
   m_TagString: Untagged
@@ -1600,9 +1641,9 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Station_TranningRoom, Assembly-CSharp
-        m_MethodName: Mercenary_Position_EngineDriver_DropDown
+      - m_Target: {fileID: 9059734389670335410}
+        m_TargetAssemblyTypeName: ButtonSound, Assembly-CSharp
+        m_MethodName: btnSound
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1613,6 +1654,19 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_AlphaFadeSpeed: 0.15
+--- !u!114 &9059734389670335410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5752099189149303332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f43f73ee983569b43808fe023b28e3dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 66d1415e81c3f1740962ec25bc68c396, type: 3}
 --- !u!1 &6689133327990122926
 GameObject:
   m_ObjectHideFlags: 0
@@ -1625,6 +1679,7 @@ GameObject:
   - component: {fileID: 6214088900680563998}
   - component: {fileID: 5983144088318967438}
   - component: {fileID: 1815039673621656834}
+  - component: {fileID: 2323369223570988939}
   m_Layer: 0
   m_Name: Button_-
   m_TagString: Untagged
@@ -1733,6 +1788,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2323369223570988939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6689133327990122926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f43f73ee983569b43808fe023b28e3dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 66d1415e81c3f1740962ec25bc68c396, type: 3}
 --- !u!1 &6707953808630128773
 GameObject:
   m_ObjectHideFlags: 0
@@ -2022,7 +2090,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 22.15
+  m_fontSize: 24.55
   m_fontSizeBase: 28
   m_fontWeight: 400
   m_enableAutoSizing: 1

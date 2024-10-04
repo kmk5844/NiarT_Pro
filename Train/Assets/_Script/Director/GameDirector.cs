@@ -45,7 +45,8 @@ public class GameDirector : MonoBehaviour
     GameObject TrainObject;
 
     Texture2D cursorOrigin;
-    Texture2D cursorAim;
+    Texture2D cursorAim_UnAtk;
+    Texture2D cursorAim_Atk;
     Vector2 cursorHotspot_Origin;
     Vector2 cursorHotspot_Aim;
 
@@ -176,10 +177,11 @@ public class GameDirector : MonoBehaviour
         itemDirector = Item_DirectorObject.GetComponent<ItemDirector>();
         fill_director = GetComponent<FillDirector>();
 
-        cursorAim = Resources.Load<Texture2D>("Cursor/Aim6464");
+        cursorAim_UnAtk = Resources.Load<Texture2D>("Cursor/Aim6464_UnAttack");
+        cursorAim_Atk = Resources.Load<Texture2D>("Cursor/Aim6464_Attack");
         cursorOrigin = Resources.Load<Texture2D>("Cursor/Origin6464");
         cursorHotspot_Origin = Vector2.zero;
-        cursorHotspot_Aim = new Vector2(cursorAim.width / 2, cursorAim.height / 2);
+        cursorHotspot_Aim = new Vector2(cursorAim_UnAtk.width / 2, cursorAim_UnAtk.height / 2);
         BossGuage = uiDirector.BossHP_Guage;
 
         Stage_Init();
@@ -780,11 +782,18 @@ public class GameDirector : MonoBehaviour
         return (float)TrainFuel / (float)Total_TrainFuel;
     }
 
-    private void ChangeCursor(bool flag)
+    public void ChangeCursor(bool flag , bool atkFlag = false)
     {
         if (flag) // 게임 진행 중일 때
         {
-            Cursor.SetCursor(cursorAim, cursorHotspot_Aim, CursorMode.ForceSoftware);
+            if (!atkFlag)
+            {
+                Cursor.SetCursor(cursorAim_UnAtk, cursorHotspot_Aim, CursorMode.ForceSoftware);
+            }
+            else
+            {
+                Cursor.SetCursor(cursorAim_Atk, cursorHotspot_Aim, CursorMode.ForceSoftware);
+            }
         }
         else // Pause했을 때
         {

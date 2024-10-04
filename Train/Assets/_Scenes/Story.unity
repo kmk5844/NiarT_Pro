@@ -1135,6 +1135,7 @@ GameObject:
   - component: {fileID: 483978053}
   - component: {fileID: 483978052}
   - component: {fileID: 483978051}
+  - component: {fileID: 483978054}
   m_Layer: 5
   m_Name: OptionButton
   m_TagString: Untagged
@@ -1243,6 +1244,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 483978049}
   m_CullTransparentMesh: 1
+--- !u!114 &483978054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 483978049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f43f73ee983569b43808fe023b28e3dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 66d1415e81c3f1740962ec25bc68c396, type: 3}
 --- !u!1 &488421929
 GameObject:
   m_ObjectHideFlags: 0
@@ -1853,6 +1867,7 @@ GameObject:
   - component: {fileID: 976492279}
   - component: {fileID: 976492278}
   - component: {fileID: 976492277}
+  - component: {fileID: 976492280}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -1973,6 +1988,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 976492275}
   m_CullTransparentMesh: 1
+--- !u!114 &976492280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 976492275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f43f73ee983569b43808fe023b28e3dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 66d1415e81c3f1740962ec25bc68c396, type: 3}
 --- !u!1 &990658357
 GameObject:
   m_ObjectHideFlags: 0
@@ -2315,6 +2343,7 @@ GameObject:
   - component: {fileID: 1272507345}
   - component: {fileID: 1272507344}
   - component: {fileID: 1272507343}
+  - component: {fileID: 1272507347}
   m_Layer: 5
   m_Name: BackLog
   m_TagString: Untagged
@@ -2469,6 +2498,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1272507341}
   m_CullTransparentMesh: 1
+--- !u!114 &1272507347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1272507341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f43f73ee983569b43808fe023b28e3dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 66d1415e81c3f1740962ec25bc68c396, type: 3}
 --- !u!1 &1357313255
 GameObject:
   m_ObjectHideFlags: 0
@@ -4163,6 +4205,7 @@ GameObject:
   - component: {fileID: 2089555203}
   - component: {fileID: 2089555202}
   - component: {fileID: 2089555201}
+  - component: {fileID: 2089555204}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -4283,6 +4326,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2089555199}
   m_CullTransparentMesh: 1
+--- !u!114 &2089555204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2089555199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f43f73ee983569b43808fe023b28e3dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 66d1415e81c3f1740962ec25bc68c396, type: 3}
 --- !u!1 &2112782048
 GameObject:
   m_ObjectHideFlags: 0
@@ -4478,6 +4534,7 @@ GameObject:
   - component: {fileID: 8051676268751273210}
   - component: {fileID: 5487827297247656265}
   - component: {fileID: 4652208304881890254}
+  - component: {fileID: 8051676268751273211}
   m_Layer: 5
   m_Name: Skip
   m_TagString: Untagged
@@ -5395,7 +5452,19 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8140553495106341704}
+        m_TargetAssemblyTypeName: ButtonSound, Assembly-CSharp
+        m_MethodName: btnSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 0
 --- !u!1 &7245135147794648049
 GameObject:
@@ -5408,6 +5477,7 @@ GameObject:
   - component: {fileID: 6939674392213219554}
   - component: {fileID: 7159973442907369527}
   - component: {fileID: 8140553495106341703}
+  - component: {fileID: 8140553495106341704}
   m_Layer: 5
   m_Name: Auto
   m_TagString: Untagged
@@ -5474,6 +5544,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8051676268751273211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2598647978469147109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f43f73ee983569b43808fe023b28e3dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 66d1415e81c3f1740962ec25bc68c396, type: 3}
 --- !u!61 &8140553495106341703
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5519,6 +5602,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 151.17334, y: 50.978455}
   m_EdgeRadius: 0
+--- !u!114 &8140553495106341704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7245135147794648049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f43f73ee983569b43808fe023b28e3dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 66d1415e81c3f1740962ec25bc68c396, type: 3}
 --- !u!1 &8349396853456383368
 GameObject:
   m_ObjectHideFlags: 0
