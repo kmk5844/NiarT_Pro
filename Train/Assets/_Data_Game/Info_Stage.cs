@@ -4,7 +4,7 @@ public class Info_Stage
     public int Number;
     public int Destination_Distance;
     public string Emerging_Monster;
-    public int Monster_Count;
+    public string Monster_Count;
     public int Reward_Point;
     public string Reward_Item;
     public string Reward_ItemCount;

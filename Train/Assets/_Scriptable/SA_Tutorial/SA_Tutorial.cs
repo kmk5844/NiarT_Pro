@@ -1,0 +1,88 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "SA_TutorialData", menuName = "Scriptable/SA_Tutorial", order = 11)]
+public class SA_Tutorial : ScriptableObject
+{
+    [SerializeField]  
+    private bool tu_gamestart;
+    public bool Tu_GameStart {  get { return tu_gamestart; } }
+
+    [SerializeField]
+    private bool tu_station;
+    public bool Tu_Station { get {  return tu_station; } }
+
+    [SerializeField]
+    private bool tu_main;
+    public bool TuMain { get { return tu_main; } }  
+
+    [SerializeField]
+    private bool tu_store;
+    public bool Tu_Store {  get { return tu_store; } }
+
+    [SerializeField]
+    private bool tu_traning;
+    public bool Tu_Tranning { get { return tu_traning; } }
+
+
+    [SerializeField]
+    private bool tu_mapselect;
+    public bool Tu_MapSelect { get {  return tu_mapselect; } }
+
+    public void ChangeFlag(int i)
+    {
+        if (i == 0)
+        {
+            tu_gamestart = true;
+        }
+        else if (i == 1)
+        {
+            tu_station = true;
+        }
+        else if (i == 2)
+        {
+            tu_main = true;
+        } else if (i == 3)
+        {
+            tu_store = true;
+        } else if (i == 4)
+        {
+            tu_traning = true;
+        }else if(i == 5)
+        {
+            tu_mapselect = true;
+        }
+        Save();
+    }
+
+
+    public void Init()
+    {
+        tu_gamestart = false;
+        tu_station = false;
+        tu_mapselect = false;
+        Save();
+    }
+
+
+    public void Save()
+    {
+        ES3.Save("tu_gamestart_flag", tu_gamestart);
+        ES3.Save("tu_station_flag", tu_station);
+        ES3.Save("tu_main_flag", tu_main);
+        ES3.Save("tu_store_flag", tu_store);
+        ES3.Save("tu_traning_flag", tu_traning);
+        ES3.Save("tu_mapselect_flag", tu_mapselect);
+    }
+
+    public void Load()
+    {
+        tu_gamestart = ES3.Load<bool>("tu_gamestart_flag");
+        tu_station = ES3.Load<bool>("tu_station_flag");
+        tu_main = ES3.Load<bool>("tu_main_flag");
+        tu_store = ES3.Load<bool>("tu_store_flag");
+        tu_traning = ES3.Load<bool>("tu_traning_flag");
+        tu_mapselect = ES3.Load<bool>("tu_mapselect_flag");
+    }
+}

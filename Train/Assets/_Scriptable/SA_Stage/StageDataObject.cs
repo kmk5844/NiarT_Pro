@@ -17,8 +17,8 @@ public class StageDataObject : ScriptableObject
     public string Emerging_Monster { get {  return emerging_monster; } }
 
     [SerializeField]
-    private int monster_count;
-    public int Monster_Count {  get { return monster_count; } }
+    private string monster_count;
+    public string Monster_Count { get { return monster_count; } }
 
     [SerializeField]
     private int reward_point;
@@ -75,7 +75,7 @@ public class StageDataObject : ScriptableObject
     }
 
     public void Auto_Stage_Insert(
-        int _stage_num, int _destination_distance, string _emerging_monster,int _monster_count, 
+        int _stage_num, int _destination_distance, string _emerging_monster,string _monster_count, 
         int _reward_point, string _reward_item, string _reward_itemcount,
         int _d, int _c, int _b, int _a, int _s, bool _boss_flag, string _emerging_boss,
         string _boss_monster_count, string _boss_distance

@@ -60,8 +60,11 @@ public class GameDirector : MonoBehaviour
     [SerializeField]
     public int Stage_Num;
     string Emerging_Monster_String;
+    string Emerging_MonsterCount_String;
     [SerializeField]
     private List<int> Emerging_Monster;
+    [SerializeField]
+    private List<int> Emerging_MonsterCount;
     [SerializeField]
     private int Reward_Point;
 
@@ -146,13 +149,20 @@ public class GameDirector : MonoBehaviour
     [Header("BGM")]
     public AudioClip DustWindBGM;
     public AudioClip PlayBGM;
-    public AudioClip WarningSFX;
     public AudioClip BossBGM;
     public AudioClip WinBGM;
-    public AudioClip WinSFX;
-    public AudioClip LoseSFX;
     bool Change_Win_BGM_Flag;
     int BGM_ID;
+
+    [Header("SFX")]
+    public AudioClip TrainStartSFX; // ID : 100;
+    public AudioClip TrainLoopSFX;
+    public AudioClip TrainStopSFX;
+    public AudioClip WarningSFX; // ID : 40;
+    public AudioClip WinSFX;
+    public AudioClip LoseSFX;
+    int Change_Train_ID;
+    int TrainSFX_ID; // ID : 100;
 
     [HideInInspector]
     public Image BossGuage;
@@ -165,6 +175,7 @@ public class GameDirector : MonoBehaviour
         Stage_Num = SA_PlayerData.Select_Stage;
         StageData = SA_StageList.Stage[Stage_Num];
         BGM_ID = 30;
+        TrainSFX_ID = 100;
         Change_Win_BGM_Flag = false;
         GameStartFlag = false;
         GameWinFlag = false;
@@ -235,7 +246,9 @@ public class GameDirector : MonoBehaviour
         uiDirector.Gameing_Text(Total_Score, Total_Coin);
         StartTime = Time.time;
         gameType = GameType.Playing;
+        
         MMSoundManagerSoundPlayEvent.Trigger(DustWindBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID: BGM_ID);
+        StartCoroutine(TrainStart_SFX());
     }
 
     void Update()
@@ -390,6 +403,9 @@ public class GameDirector : MonoBehaviour
             if (!Change_Win_BGM_Flag)
             {
                 SoundSequce(WinBGM);
+                MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, TrainSFX_ID + 1);
+                MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, TrainSFX_ID + 1);
+                MMSoundManagerSoundPlayEvent.Trigger(TrainStopSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
                 Change_Win_BGM_Flag = true;
             }
 
@@ -426,6 +442,7 @@ public class GameDirector : MonoBehaviour
     void Stage_Init()
     {
         Emerging_Monster_String = StageData.Emerging_Monster;
+        Emerging_MonsterCount_String = StageData.Monster_Count;
         Reward_Point = StageData.Reward_Point;
 
         Reward_ItemNum = StageData.Reward_Item;
@@ -434,15 +451,29 @@ public class GameDirector : MonoBehaviour
 
         Destination_Distance = StageData.Destination_Distance;
         Emerging_Monster = new List<int>();
+        Emerging_MonsterCount = new List<int>();
         string[] Monster_String = Emerging_Monster_String.Split(',');
-        foreach(string M in Monster_String)
+        string[] MonsterCount_String = Emerging_MonsterCount_String.Split(",");
+        for(int i = 0; i < Monster_String.Length; i++)
+        {
+            int num1;
+            int num2;
+
+            num1 = int.Parse(Monster_String[i]);
+            num2 = int.Parse(MonsterCount_String[i]);
+
+            Emerging_Monster.Add(num1);
+            Emerging_MonsterCount.Add(num2);
+        }
+        
+        /*foreach(string M in Monster_String)
         {
             int num;
             if(int.TryParse(M, out num))
             {
                 Emerging_Monster.Add(num);
             }
-        }
+        }*/
 
         Data_BossFlag = StageData.Boss_Flag;
         if (Data_BossFlag)
@@ -483,11 +514,13 @@ public class GameDirector : MonoBehaviour
 
         if (Test_Flag)
         {
-            MonsterDirector_Object.GetComponent<MonsterDirector>().Get_Monster_List(Test_Monster_List);
+            List<int> NullObject = new List<int>();
+            NullObject.Add(1);
+            MonsterDirector_Object.GetComponent<MonsterDirector>().Get_Monster_List(Test_Monster_List, NullObject);
         }
         else
         {
-            MonsterDirector_Object.GetComponent<MonsterDirector>().Get_Monster_List(Emerging_Monster);
+            MonsterDirector_Object.GetComponent<MonsterDirector>().Get_Monster_List(Emerging_Monster, Emerging_MonsterCount);
             if (Data_BossFlag)
             {
                 MonsterDirector_Object.GetComponent<MonsterDirector>().Get_Boss_List(Emerging_Boss);
@@ -736,7 +769,9 @@ public class GameDirector : MonoBehaviour
         string grade = Check_Score();
         Change_Game_End(true);
         StageData.GameEnd(true, Total_Score, grade);
+
         MMSoundManagerSoundPlayEvent.Trigger(WinSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+        
         if(SA_PlayerData.New_Stage == SA_PlayerData.Select_Stage)
         {
             try
@@ -934,6 +969,15 @@ public class GameDirector : MonoBehaviour
         {
             Station_Object.SetActive(false);
         }
+    }
+    
+    IEnumerator TrainStart_SFX()
+    {
+        MMSoundManagerSoundPlayEvent.Trigger(TrainStartSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position, loop: false, ID: TrainSFX_ID);
+        yield return MMCoroutine.WaitFor(TrainStartSFX.length - 1.4f);
+        MMSoundManagerSoundPlayEvent.Trigger(TrainLoopSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position, loop: true, ID: TrainSFX_ID+1);
+        yield return MMCoroutine.WaitFor(1.8f);
+        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, TrainSFX_ID);
     }
 }
 

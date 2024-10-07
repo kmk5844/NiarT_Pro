@@ -16,8 +16,14 @@ public class MonsterDirector : MonoBehaviour
 
     [Header("몬스터 정보 및 리스트")]
     public Transform Monster_List;
+
+    [SerializeField]
+    Transform[] Test_Monster_List;
+
+
     public Transform Boss_List;
     List<int> Emerging_Monster_List;
+    List<int> Emerging_MonsterCount_List;
     [SerializeField]
     List<int> Emerging_Boss_List;
 
@@ -74,14 +80,7 @@ public class MonsterDirector : MonoBehaviour
         GameDirector_BossFlag = false;
         GameDirector_Boss_SpawnFlag = false;
         Item_curseFlag = false;
-        if (Test_Flag)
-        {
-            MaxMonsterNum = Test_MonsterCount;
-        }
-        else
-        {
-            MaxMonsterNum = EX_GameData.Information_Stage[SA_PlayerData.Select_Stage].Monster_Count;
-        }
+
     }
     // Start is called before the first frame update
     void Start()
@@ -107,6 +106,7 @@ public class MonsterDirector : MonoBehaviour
             if (!GameDirector_BossFlag)
             {
                 MonsterNum = Monster_List.childCount;
+
                 if (MonsterNum < MaxMonsterNum + item_MonsterCount && !isSpawing)
                 {
                     StartCoroutine(AppearMonster(false));
@@ -164,12 +164,14 @@ public class MonsterDirector : MonoBehaviour
     IEnumerator AppearMonster(bool Bossflag)
     {
         isSpawing = true;
-
         if (!Bossflag)
         {
             yield return new WaitForSeconds(Random.Range(1f, 1.4f));
             int MonsterRandomIndex = Random.Range(0, Emerging_Monster_List.Count);
-            Check_Sky_OR_Ground_Monster(Emerging_Monster_List[MonsterRandomIndex], Bossflag);
+            if (Test_Monster_List[MonsterRandomIndex].childCount != Emerging_MonsterCount_List[MonsterRandomIndex])
+            {
+                Check_Sky_OR_Ground_Monster(Emerging_Monster_List[MonsterRandomIndex], Bossflag, MonsterRandomIndex);
+            }
         }
         else
         {
@@ -192,7 +194,7 @@ public class MonsterDirector : MonoBehaviour
         isSupplySpawing = false;
     }
 
-    private void Check_Sky_OR_Ground_Monster(int Monster_Num, bool bossFlag)
+    private void Check_Sky_OR_Ground_Monster(int Monster_Num, bool bossFlag, int index = -1)
     {
         if (EX_GameData.Information_Monster[Monster_Num].Monster_Type == "Sky")
         {
@@ -211,7 +213,7 @@ public class MonsterDirector : MonoBehaviour
             _Monster = Resources.Load<GameObject>("Monster/" + Monster_Num+ "_"+ monster_name);
             if (GameDirector_SpawnFlag == true)
             {
-                Instantiate(_Monster, new Vector3(Random_xPos, Random_yPos, 0), Quaternion.identity, Monster_List);
+                Instantiate(_Monster, new Vector3(Random_xPos, Random_yPos, 0), Quaternion.identity, Test_Monster_List[index]);
             }
         }
         else
@@ -225,9 +227,29 @@ public class MonsterDirector : MonoBehaviour
         }
     }
 
-    public void Get_Monster_List(List<int> GameDirector_Monster_List)
+    public void Get_Monster_List(List<int> GameDirector_Monster_List, List<int>GameDirector_MonsterCount_List)
     {
         Emerging_Monster_List = GameDirector_Monster_List;
+        Emerging_MonsterCount_List = GameDirector_MonsterCount_List;
+        Test_Monster_List = new Transform[Emerging_Monster_List.Count];
+        for(int i = 0; i < Emerging_Monster_List.Count; i++)
+        {
+            GameObject gm = new GameObject();
+            gm.name = "Monster_" + Emerging_Monster_List[i] + "_List";
+            Test_Monster_List[i] = gm.transform;
+        }
+
+        if (Test_Flag)
+        {
+            MaxMonsterNum = Test_MonsterCount;
+        }
+        else
+        {
+            MaxMonsterNum = 0;
+            foreach(int M in Emerging_MonsterCount_List) {
+                MaxMonsterNum += M;
+            }
+        }
     }
 
     public void Get_Boss_List(List<int> GameDirector_Boss_List)
@@ -246,7 +268,11 @@ public class MonsterDirector : MonoBehaviour
     {
         GameDirector_BossFlag = false;
         GameDirector_Boss_SpawnFlag = false;
-        MaxMonsterNum = EX_GameData.Information_Stage[SA_PlayerData.Select_Stage].Monster_Count;
+        MaxMonsterNum = 0;
+        foreach (int M in Emerging_MonsterCount_List)
+        {
+            MaxMonsterNum += M;
+        }
         BossCount++;
     }
 
