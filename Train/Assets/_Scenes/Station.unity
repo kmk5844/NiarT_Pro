@@ -7334,7 +7334,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ecca2aadf3e675b4480825ab0f29804f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 09ead87c76ee6b449bc4bf76775a1cbd, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9832,6 +9832,7 @@ RectTransform:
   - {fileID: 348409975}
   - {fileID: 1232629561}
   - {fileID: 2033454668}
+  - {fileID: 1442554155}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -14236,7 +14237,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &353697111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15735,7 +15736,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 381156049}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2143538554}
+        m_TargetAssemblyTypeName: TutorialDirector, Assembly-CSharp
+        m_MethodName: CheckButton
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &381156048
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -19478,6 +19491,18 @@ MonoBehaviour:
       - m_Target: {fileID: 340841305}
         m_TargetAssemblyTypeName: StationDirector, Assembly-CSharp
         m_MethodName: ClickLobbyButton
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2143538554}
+        m_TargetAssemblyTypeName: TutorialDirector, Assembly-CSharp
+        m_MethodName: CheckButton
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -26576,6 +26601,18 @@ MonoBehaviour:
       - m_Target: {fileID: 340841305}
         m_TargetAssemblyTypeName: StationDirector, Assembly-CSharp
         m_MethodName: ClickLobbyButton
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2143538554}
+        m_TargetAssemblyTypeName: TutorialDirector, Assembly-CSharp
+        m_MethodName: CheckButton
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -34346,6 +34383,18 @@ MonoBehaviour:
       - m_Target: {fileID: 340841305}
         m_TargetAssemblyTypeName: StationDirector, Assembly-CSharp
         m_MethodName: ClickLobbyButton
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2143538554}
+        m_TargetAssemblyTypeName: TutorialDirector, Assembly-CSharp
+        m_MethodName: CheckButton
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -42315,6 +42364,18 @@ MonoBehaviour:
       - m_Target: {fileID: 340841305}
         m_TargetAssemblyTypeName: StationDirector, Assembly-CSharp
         m_MethodName: ClickLobbyButton
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2143538554}
+        m_TargetAssemblyTypeName: TutorialDirector, Assembly-CSharp
+        m_MethodName: CheckButton
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -55330,6 +55391,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2143538554}
+        m_TargetAssemblyTypeName: TutorialDirector, Assembly-CSharp
+        m_MethodName: CheckButton
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1202155208
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68077,6 +68150,41 @@ RectTransform:
   m_AnchoredPosition: {x: 166, y: 90}
   m_SizeDelta: {x: 280, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1442554154
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1442554155}
+  m_Layer: 5
+  m_Name: Tutorial_List
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1442554155
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1442554154}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 242370005}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1443017421
 GameObject:
   m_ObjectHideFlags: 0
@@ -70473,7 +70581,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 65127e6681238a941980512cd41b90e8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 63b0aa075cc35ed448f5fd517bd66d22, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -83300,6 +83408,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2143538554}
+        m_TargetAssemblyTypeName: TutorialDirector, Assembly-CSharp
+        m_MethodName: CheckButton
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1767102008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89640,6 +89760,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2143538554}
+        m_TargetAssemblyTypeName: TutorialDirector, Assembly-CSharp
+        m_MethodName: CheckButton
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1921991264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93164,7 +93296,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1991356710}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2143538554}
+        m_TargetAssemblyTypeName: TutorialDirector, Assembly-CSharp
+        m_MethodName: CheckButton
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1991356712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93885,7 +94029,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 70, y: 40}
-  m_SizeDelta: {x: 26.5, y: 26.5}
+  m_SizeDelta: {x: 27, y: 27}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2010437519
 MonoBehaviour:
@@ -93907,7 +94051,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 881533607, guid: 4184d048122975544a622cd470c49f7c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f1e7603eec864a940894bfc8bd829e33, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -96621,7 +96765,7 @@ MonoBehaviour:
           value: 0
         - localeIdentifier:
             m_Code: en
-          value: 0
+          value: 1
     - rid: 692368471962681680
       type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
       data:
@@ -96635,7 +96779,7 @@ MonoBehaviour:
           value: 0
         - localeIdentifier:
             m_Code: en
-          value: 0
+          value: 1
     - rid: 692368471962681681
       type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
       data:
@@ -96649,7 +96793,7 @@ MonoBehaviour:
           value: 0
         - localeIdentifier:
             m_Code: en
-          value: 0
+          value: 105
     - rid: 692368471962681682
       type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
       data:
@@ -96663,7 +96807,7 @@ MonoBehaviour:
           value: 0
         - localeIdentifier:
             m_Code: en
-          value: 0
+          value: -150
     - rid: 692368471962681683
       type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
       data:
@@ -96677,7 +96821,7 @@ MonoBehaviour:
           value: 0
         - localeIdentifier:
             m_Code: en
-          value: 0
+          value: 100
     - rid: 692368471962681684
       type: {class: FloatTrackedProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
       data:
@@ -96691,7 +96835,7 @@ MonoBehaviour:
           value: 0
         - localeIdentifier:
             m_Code: en
-          value: 0
+          value: 100
 --- !u!1 &2083161843
 GameObject:
   m_ObjectHideFlags: 0
@@ -97874,6 +98018,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2143538554}
+        m_TargetAssemblyTypeName: TutorialDirector, Assembly-CSharp
+        m_MethodName: CheckButton
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2137684537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98179,6 +98335,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorialData: {fileID: 11400000, guid: e474f0d58c15e3948852b0e9406b577a, type: 2}
+  TutorialList: {fileID: 1442554155}
+  Tutorial_Flag: 
+  Tutorial_Object: {fileID: 4796470036306568838, guid: 81facbdc43e089740887c21f277834ba, type: 3}
 --- !u!1 &2145922465
 GameObject:
   m_ObjectHideFlags: 0

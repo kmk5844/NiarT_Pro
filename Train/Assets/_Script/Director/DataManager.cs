@@ -41,6 +41,7 @@ public class DataManager : MonoBehaviour
     public SA_StageList stageData;
     public SA_ItemList InventoryItem_Data;
     public SA_ItemData PlayerItem_Data;
+    public SA_Tutorial tutorialData;
     // Start is called before the first frame update
     void Start()
     {
@@ -69,5 +70,6 @@ public class DataManager : MonoBehaviour
         stageData.PlayGame_StageList_Init();
         InventoryItem_Data.PlayGame_ItemList_Init();
         PlayerItem_Data.Init();
+        tutorialData.Init();
     }
 }

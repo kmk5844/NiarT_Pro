@@ -6580,6 +6580,7 @@ MonoBehaviour:
   EX_GameData: {fileID: 11400000, guid: 3a83740cb85032c498c0bbd5b0a2ec9d, type: 2}
   SA_PlayerData: {fileID: 11400000, guid: 00cbb5f50188b374e85c8a529a52b4b0, type: 2}
   Monster_List: {fileID: 2125283571}
+  Test_Monster_List: []
   Boss_List: {fileID: 1233256303}
   Emerging_Boss_List: 
   SupplyMonster_List: {fileID: 1812168578}
@@ -7273,6 +7274,7 @@ GameObject:
   - component: {fileID: 578020599}
   - component: {fileID: 578020601}
   - component: {fileID: 578020600}
+  - component: {fileID: 578020602}
   m_Layer: 5
   m_Name: GameEnd
   m_TagString: Untagged
@@ -7297,7 +7299,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 300, y: 150}
+  m_SizeDelta: {x: 370, y: 170}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &578020600
 MonoBehaviour:
@@ -7319,7 +7321,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 453002288, guid: 77c058b8b29191f4f9d049fc2f84ade8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7337,6 +7339,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 578020598}
   m_CullTransparentMesh: 1
+--- !u!95 &578020602
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578020598}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ee1a3537ce4c0554cb561e246d2c1b14, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &594923466
 GameObject:
   m_ObjectHideFlags: 0

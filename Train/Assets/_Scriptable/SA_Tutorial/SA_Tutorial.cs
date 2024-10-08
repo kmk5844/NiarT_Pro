@@ -14,8 +14,8 @@ public class SA_Tutorial : ScriptableObject
     public bool Tu_Station { get {  return tu_station; } }
 
     [SerializeField]
-    private bool tu_main;
-    public bool TuMain { get { return tu_main; } }  
+    private bool tu_maintenance;
+    public bool Tu_Maintenance { get { return tu_maintenance; } }  
 
     [SerializeField]
     private bool tu_store;
@@ -23,7 +23,7 @@ public class SA_Tutorial : ScriptableObject
 
     [SerializeField]
     private bool tu_traning;
-    public bool Tu_Tranning { get { return tu_traning; } }
+    public bool Tu_Traning { get { return tu_traning; } }
 
 
     [SerializeField]
@@ -32,24 +32,24 @@ public class SA_Tutorial : ScriptableObject
 
     public void ChangeFlag(int i)
     {
-        if (i == 0)
+        if (i == -1)
         {
             tu_gamestart = true;
         }
-        else if (i == 1)
+        else if (i == 0)
         {
             tu_station = true;
         }
-        else if (i == 2)
+        else if (i == 1)
         {
-            tu_main = true;
-        } else if (i == 3)
+            tu_maintenance = true;
+        } else if (i == 2)
         {
             tu_store = true;
-        } else if (i == 4)
+        } else if (i == 3)
         {
             tu_traning = true;
-        }else if(i == 5)
+        }else if(i == 4)
         {
             tu_mapselect = true;
         }
@@ -61,6 +61,9 @@ public class SA_Tutorial : ScriptableObject
     {
         tu_gamestart = false;
         tu_station = false;
+        tu_maintenance = false;
+        tu_store = false;
+        tu_traning = false;
         tu_mapselect = false;
         Save();
     }
@@ -70,7 +73,7 @@ public class SA_Tutorial : ScriptableObject
     {
         ES3.Save("tu_gamestart_flag", tu_gamestart);
         ES3.Save("tu_station_flag", tu_station);
-        ES3.Save("tu_main_flag", tu_main);
+        ES3.Save("tu_maintenance_flag", tu_maintenance);
         ES3.Save("tu_store_flag", tu_store);
         ES3.Save("tu_traning_flag", tu_traning);
         ES3.Save("tu_mapselect_flag", tu_mapselect);
@@ -80,7 +83,7 @@ public class SA_Tutorial : ScriptableObject
     {
         tu_gamestart = ES3.Load<bool>("tu_gamestart_flag");
         tu_station = ES3.Load<bool>("tu_station_flag");
-        tu_main = ES3.Load<bool>("tu_main_flag");
+        tu_maintenance = ES3.Load<bool>("tu_maintenance_flag");
         tu_store = ES3.Load<bool>("tu_store_flag");
         tu_traning = ES3.Load<bool>("tu_traning_flag");
         tu_mapselect = ES3.Load<bool>("tu_mapselect_flag");

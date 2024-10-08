@@ -11,6 +11,7 @@ public class DemoTutorial : MonoBehaviour
 {
     public SA_PlayerData playerData;
     public SA_StoryData storyData;
+    public SA_Tutorial tutorialData;
     int PlayerStageNum;
     //-> 그걸 이용해서 bool 판단
 
@@ -19,12 +20,9 @@ public class DemoTutorial : MonoBehaviour
     int Count;
     int MaxCount;
     public int InGame_Max_Num;
-    public int Station_Max_Num;
 
     string st = "";
     public LocalizeSpriteEvent Image;
-
-    bool T_InGame_F_Station;
 
     bool ClickFlag;
 
@@ -40,27 +38,11 @@ public class DemoTutorial : MonoBehaviour
         Count = 0;
         MaxCount = 0;
 
-        if(PlayerStageNum == 0)
-        {
-            T_InGame_F_Station = true;
-        }
-        else
-        {
-            T_InGame_F_Station = false;
-        }
-
         Image.AssetReference.TableReference = "Tutorial_Table_Asset";
 
-        if (T_InGame_F_Station)
-        {
-            st = "In_";
-            MaxCount = InGame_Max_Num;
-        }
-        else
-        {
-            st = "St_";
-            MaxCount = Station_Max_Num;
-        }
+        st = "In_";
+        MaxCount = InGame_Max_Num;
+
         Image.AssetReference.TableEntryReference = st + Count;
 
         StartCoroutine(ClickDelay());
@@ -95,6 +77,7 @@ public class DemoTutorial : MonoBehaviour
         else
         {
             storyData.End_Tutorial(PlayerStageNum);
+            tutorialData.ChangeFlag(-1);
         }
 
 /*        if(T_InGame_F_Station) // InGame

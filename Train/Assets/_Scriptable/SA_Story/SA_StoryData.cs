@@ -63,7 +63,7 @@ public class SA_StoryData : ScriptableObject
                 LoadingManager.LoadScene("InGame");
                 break;
             case 2:
-                LoadingManager.LoadScene("Demo_Tutorial");
+                LoadingManager.LoadScene("Station");
                 break;
             case 3:
                 LoadingManager.LoadScene("Station");
@@ -89,11 +89,6 @@ public class SA_StoryData : ScriptableObject
         {
             case 0:
                 SceneManager.LoadSceneAsync("InGame");
-                //LoadingManager.LoadScene("InGame");
-                break;
-            case 2:
-                SceneManager.LoadSceneAsync("Station");
-                //LoadingManager.LoadScene("Station");
                 break;
         }
     }
