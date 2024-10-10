@@ -354,7 +354,6 @@ public class GameDirector : MonoBehaviour
         else if(gameType == GameType.Boss)
         {
             ChangeCursor(true);
-
             if (Time.time >= lastSpeedTime + timeBet && GameWinFlag == false)
             {
                 if (MaxSpeed >= TrainSpeed)
@@ -407,6 +406,7 @@ public class GameDirector : MonoBehaviour
                 MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, TrainSFX_ID + 1);
                 MMSoundManagerSoundPlayEvent.Trigger(TrainStopSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
                 Change_Win_BGM_Flag = true;
+                StartCoroutine(uiDirector.GameClear());
             }
 
             if (Time.time >= lastSpeedTime + 0.03f)

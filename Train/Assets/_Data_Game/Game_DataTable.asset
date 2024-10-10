@@ -4069,6 +4069,7 @@ MonoBehaviour:
     Monster_Type: Sky
     Monster_Score: 100
     Monster_Coin: 150
+    Monster_CountFlag: 1
   - Number: 1
     Monster_Name: "\uBCF4\uAE09 \uC57D\uD0C8\uC790"
     Monster_HP: 50
@@ -4079,6 +4080,7 @@ MonoBehaviour:
     Monster_Type: Sky
     Monster_Score: 150
     Monster_Coin: 190
+    Monster_CountFlag: 0
   - Number: 2
     Monster_Name: "\uC815\uC608 \uC57D\uD0C8\uC790"
     Monster_HP: 40
@@ -4089,6 +4091,7 @@ MonoBehaviour:
     Monster_Type: Sky
     Monster_Score: 200
     Monster_Coin: 250
+    Monster_CountFlag: 1
   - Number: 3
     Monster_Name: "\uC7A5\uBBF8"
     Monster_HP: 30
@@ -4099,6 +4102,7 @@ MonoBehaviour:
     Monster_Type: Ground
     Monster_Score: 200
     Monster_Coin: 200
+    Monster_CountFlag: 1
   - Number: 4
     Monster_Name: "\uAE4C\uB9C8\uADC0"
     Monster_HP: 20
@@ -4109,6 +4113,7 @@ MonoBehaviour:
     Monster_Type: Sky
     Monster_Score: 300
     Monster_Coin: 550
+    Monster_CountFlag: 1
   - Number: 5
     Monster_Name: "\uAC70\uBBF8\uC54C"
     Monster_HP: 40
@@ -4119,6 +4124,7 @@ MonoBehaviour:
     Monster_Type: Ground
     Monster_Score: 50
     Monster_Coin: 50
+    Monster_CountFlag: 0
   - Number: 6
     Monster_Name: "\uC544\uAE30 \uAC70\uBBF8"
     Monster_HP: 70
@@ -4129,6 +4135,7 @@ MonoBehaviour:
     Monster_Type: Ground
     Monster_Score: 400
     Monster_Coin: 550
+    Monster_CountFlag: 1
   - Number: 7
     Monster_Name: "\uD3ED\uC8FC \uC57D\uD0C8\uC790"
     Monster_HP: 60
@@ -4139,6 +4146,7 @@ MonoBehaviour:
     Monster_Type: Ground
     Monster_Score: 200
     Monster_Coin: 400
+    Monster_CountFlag: 1
   - Number: 8
     Monster_Name: "\uC790\uD3ED \uD30C\uB9AC"
     Monster_HP: 20
@@ -4149,6 +4157,7 @@ MonoBehaviour:
     Monster_Type: Sky
     Monster_Score: 300
     Monster_Coin: 300
+    Monster_CountFlag: 1
   - Number: 9
     Monster_Name: "\uCE7C\uB0A0 \uAE30\uC0DD\uCDA9"
     Monster_HP: 20
@@ -4159,6 +4168,7 @@ MonoBehaviour:
     Monster_Type: Ground
     Monster_Score: 500
     Monster_Coin: 1000
+    Monster_CountFlag: 1
   Information_Boss:
   - Number: 0
     Monster_Name: "\uC5EC\uC655 \uAC70\uBBF8"
@@ -4168,21 +4178,21 @@ MonoBehaviour:
     Monster_Bullet_Delay: 0
     Monster_Bullet_Slow: 10
     Monster_Type: Boss
-    Monster_Score: 10000
+    Monster_Score: 30000
     Monster_Coin: 7000
   Information_Stage:
   - Number: 0
     Destination_Distance: 120000
     Emerging_Monster: 0
-    Monster_Count: 5
+    Monster_Count: 6
     Reward_Point: 1
     Reward_Item: -1,-1,-1,-1,54
     Reward_ItemCount: 0,0,0,0,1
     D_Grade: 100
-    C_Grade: 200
-    B_Grade: 400
-    A_Grade: 800
-    S_Grade: 1200
+    C_Grade: 1000
+    B_Grade: 1800
+    A_Grade: 2500
+    S_Grade: 3500
     Boss_Flag: 0
     Emerging_Boss: -1
     Boss_Monster_Count: -1
@@ -4190,15 +4200,15 @@ MonoBehaviour:
   - Number: 1
     Destination_Distance: 140000
     Emerging_Monster: 0,7
-    Monster_Count: 5,2
+    Monster_Count: 6,3
     Reward_Point: 1
     Reward_Item: -1,-1,54,55,56
     Reward_ItemCount: 0,0,1,1,1
     D_Grade: 100
-    C_Grade: 300
-    B_Grade: 600
-    A_Grade: 900
-    S_Grade: 1500
+    C_Grade: 1000
+    B_Grade: 2000
+    A_Grade: 2500
+    S_Grade: 4000
     Boss_Flag: 0
     Emerging_Boss: -1
     Boss_Monster_Count: -1
@@ -4211,10 +4221,10 @@ MonoBehaviour:
     Reward_Item: -1,-1,-1,-1,54
     Reward_ItemCount: 0,0,0,0,1
     D_Grade: 100
-    C_Grade: 300
-    B_Grade: 600
-    A_Grade: 900
-    S_Grade: 1500
+    C_Grade: 1500
+    B_Grade: 2500
+    A_Grade: 4000
+    S_Grade: 6000
     Boss_Flag: 0
     Emerging_Boss: -1
     Boss_Monster_Count: -1
@@ -4227,10 +4237,10 @@ MonoBehaviour:
     Reward_Item: -1,-1,-1,-1,54
     Reward_ItemCount: 0,0,0,0,1
     D_Grade: 100
-    C_Grade: 500
-    B_Grade: 900
-    A_Grade: 1200
-    S_Grade: 2000
+    C_Grade: 1500
+    B_Grade: 3500
+    A_Grade: 5000
+    S_Grade: 7000
     Boss_Flag: 0
     Emerging_Boss: -1
     Boss_Monster_Count: -1
@@ -4243,10 +4253,10 @@ MonoBehaviour:
     Reward_Item: -1,-1,-1,-1,54
     Reward_ItemCount: 0,0,0,0,2
     D_Grade: 100
-    C_Grade: 500
-    B_Grade: 1000
-    A_Grade: 1500
-    S_Grade: 2200
+    C_Grade: 2000
+    B_Grade: 3000
+    A_Grade: 6000
+    S_Grade: 8000
     Boss_Flag: 0
     Emerging_Boss: -1
     Boss_Monster_Count: -1
@@ -4259,10 +4269,10 @@ MonoBehaviour:
     Reward_Item: -1,-1,-1,54,55
     Reward_ItemCount: 0,0,0,2,1
     D_Grade: 100
-    C_Grade: 500
-    B_Grade: 1000
-    A_Grade: 1500
-    S_Grade: 2200
+    C_Grade: 2000
+    B_Grade: 5000
+    A_Grade: 7000
+    S_Grade: 9000
     Boss_Flag: 0
     Emerging_Boss: -1
     Boss_Monster_Count: -1
@@ -4275,10 +4285,10 @@ MonoBehaviour:
     Reward_Item: -1,-1,-1,-1,54
     Reward_ItemCount: 0,0,0,0,3
     D_Grade: 100
-    C_Grade: 500
-    B_Grade: 1000
-    A_Grade: 1500
-    S_Grade: 2200
+    C_Grade: 2000
+    B_Grade: 5000
+    A_Grade: 9000
+    S_Grade: 10000
     Boss_Flag: 0
     Emerging_Boss: -1
     Boss_Monster_Count: -1
@@ -4291,10 +4301,10 @@ MonoBehaviour:
     Reward_Item: -1,-1,54,55,56
     Reward_ItemCount: 0,0,3,2,1
     D_Grade: 100
-    C_Grade: 500
-    B_Grade: 1000
-    A_Grade: 1500
-    S_Grade: 2200
+    C_Grade: 30000
+    B_Grade: 32000
+    A_Grade: 33000
+    S_Grade: 35000
     Boss_Flag: 1
     Emerging_Boss: 0
     Boss_Monster_Count: 6

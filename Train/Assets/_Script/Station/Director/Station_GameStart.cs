@@ -24,6 +24,7 @@ public class Station_GameStart : MonoBehaviour
     public Transform ItemList_Window;
     public Button[] Equiped_Button;
     public TextMeshProUGUI Stage_Text;
+    public GameObject[] Click_Image;
 
     [Header("아이템")]
     public GameObject Inventory_Window;
@@ -35,8 +36,8 @@ public class Station_GameStart : MonoBehaviour
     public Button Button_Plus;
     public Button Button_Minus;
     public Button Button_Equip;
-    public Button Button_ItemCountChange;
-    public Button Button_ItemEmpty;
+    public Button[] Button_ItemCountChange;
+    public Button[] Button_ItemEmpty;
 
     [Header("스테이지 선택")]
     public Transform RouteMap_Content;
@@ -58,9 +59,10 @@ public class Station_GameStart : MonoBehaviour
     int itemObject_Count; // 게임오브젝트가 가지고 있는 갯수
 
     int Equipment_Button_Num;
-
     [HideInInspector]
-    public bool EquipItemFlag;
+    public bool EquipItemListFlag;
+    [HideInInspector]
+    public bool EquipItemWindowFlag;
     [HideInInspector]
     public bool FullMapFlag;
     bool FullMap_FirstOpenFlag;
@@ -78,7 +80,8 @@ public class Station_GameStart : MonoBehaviour
         itemEquip_object.item_tooltip_object = itemTooltip_object;
         GameStart_Information_Text.StringReference.TableReference = "Station_Table_St";
         Last_StageNum = -1;
-        EquipItemFlag = false;
+        EquipItemListFlag = false;
+        EquipItemWindowFlag = false;
         FullMapFlag = false;
 
         RouteMap_Content.GetComponent<RectTransform>().sizeDelta = new Vector2(1820 + (520 * (stageData.Stage.Count-1)), 425);
@@ -104,7 +107,12 @@ public class Station_GameStart : MonoBehaviour
         for (int i = 0; i < Equiped_Button.Length; i++)
         {
             Equiped_ImageAndCount(i);
+
         }
+
+        Button_ItemCountChange[0].onClick.AddListener(() => Open_ItemCountWindow(0, true));
+        Button_ItemCountChange[1].onClick.AddListener(() => Open_ItemCountWindow(1, true));
+        Button_ItemCountChange[2].onClick.AddListener(() => Open_ItemCountWindow(2, true));
         Spawn_Item();
     }
 
@@ -214,11 +222,15 @@ public class Station_GameStart : MonoBehaviour
         {
             Equiped_Button[buttonNum].GetComponent<Image>().sprite = itemData.SA_Player_ItemData.EmptyObject.Item_Sprite;
             Equiped_Button[buttonNum].GetComponentInChildren<TextMeshProUGUI>().text = "";
+            Button_ItemCountChange[buttonNum].gameObject.SetActive(false);
+            Button_ItemEmpty[buttonNum].gameObject.SetActive(false);
         }
         else
         {
             Equiped_Button[buttonNum].GetComponent<Image>().sprite = itemData.SA_ItemList.Item[num].Item_Sprite;
             Equiped_Button[buttonNum].GetComponentInChildren<TextMeshProUGUI>().text = itemData.SA_Player_ItemData.Equiped_Item_Count[buttonNum].ToString();
+            Button_ItemCountChange[buttonNum].gameObject.SetActive(true);
+            Button_ItemEmpty[buttonNum].gameObject.SetActive(true);
         }
     }
 
@@ -280,13 +292,18 @@ public class Station_GameStart : MonoBehaviour
 
     public void Open_Inventory_Window(int num)
     {
+        if (EquipItemListFlag)
+        {
+            Click_Image[Equipment_Button_Num].SetActive(false);
+        }
         Equipment_Button_Num = num;
+        Click_Image[num].SetActive(true);
         StartCoroutine(Open_Inventory_Window_Ani(num));
     }
 
     IEnumerator Open_Inventory_Window_Ani(int num)
     {
-        EquipItemFlag = true;
+        EquipItemListFlag = true;
 
         RectTransform Item_Window = Inventory_Window.GetComponent<RectTransform>();
         float startX = Item_Window.anchoredPosition.x;
@@ -306,19 +323,20 @@ public class Station_GameStart : MonoBehaviour
         }
         else
         {
-            Button_ItemCountChange.onClick.RemoveAllListeners(); // 버그 방지용 (이거 없이도 작동이 되긴 되나 버그 방지용으로 만듦)
-            Button_ItemEmpty.onClick.RemoveAllListeners();
+            //Button_ItemCountChange.onClick.RemoveAllListeners(); // 버그 방지용 (이거 없이도 작동이 되긴 되나 버그 방지용으로 만듦)
+            //Button_ItemEmpty.onClick.RemoveAllListeners();
         }
 
-        Button_ItemCountChange.onClick.AddListener(() => Open_ItemCountWindow
-            (itemData.SA_Player_ItemData.Equiped_Item[num]));
-        Button_ItemEmpty.onClick.AddListener(() => Click_EmptyItem(num));
+/*        Button_ItemCountChange.onClick.AddListener(() => Open_ItemCountWindow
+            (itemData.SA_Player_ItemData.Equiped_Item[num]));*/
+        //Button_ItemEmpty.onClick.AddListener(() => Click_EmptyItem(num));
         GameStart_Button.interactable = false;
     }
 
     public void Close_Inventory_Window()
     {
-        EquipItemFlag = false;
+        EquipItemListFlag = false;
+        Click_Image[Equipment_Button_Num].SetActive(false);
         StartCoroutine(Close_Inventory_Window_Ani());
     }
 
@@ -339,13 +357,13 @@ public class Station_GameStart : MonoBehaviour
             yield return null;
         }
 
-        Button_ItemCountChange.onClick.RemoveAllListeners();
-        Button_ItemEmpty.onClick.RemoveAllListeners();
+        //Button_ItemCountChange.onClick.RemoveAllListeners();
+        //Button_ItemEmpty.onClick.RemoveAllListeners();
         Equipment_Button_Num = -1;
         GameStart_Button.interactable = true;
     }
 
-    private void Click_EmptyItem(int num)
+    public void Click_EmptyItem(int num)
     {
         foreach (ItemEquip_Object itemList_Object in ItemList_Window.GetComponentsInChildren<ItemEquip_Object>())
         {
@@ -360,8 +378,19 @@ public class Station_GameStart : MonoBehaviour
         Equiped_ImageAndCount(num);
     }
 
-    public void Open_ItemCountWindow(int item_Num)
+    public void Open_ItemCountWindow(int Num, bool flag) // Ture면 버튼, False면 아이템
     {
+        EquipItemWindowFlag = true;
+        int item_Num = 0;
+        if (flag)
+        {
+            Equipment_Button_Num = Num;
+            item_Num = itemData.SA_Player_ItemData.Equiped_Item[Equipment_Button_Num];
+        }
+        else
+        {
+            item_Num = Num;
+        }
         ItemDataObject item = itemData.SA_ItemList.Item[item_Num];
         Item_Count = 1;
         ItemImage.sprite = item.Item_Sprite;
@@ -412,8 +441,9 @@ public class Station_GameStart : MonoBehaviour
 
     public void Close_ItemCountWindow()
     {
+        EquipItemWindowFlag = false;
         ItemCount_Window.SetActive(false);
-        Button_ItemCountChange.onClick.RemoveAllListeners();
+        //Button_ItemCountChange.onClick.RemoveAllListeners();
         Button_Equip.onClick.RemoveAllListeners();
     }
     public void Open_FullMapWindow()

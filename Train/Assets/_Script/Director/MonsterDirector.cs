@@ -49,7 +49,7 @@ public class MonsterDirector : MonoBehaviour
     [Header("몬스터 한도 설정")]
     public int MaxMonsterNum;
     [SerializeField]
-    int MonsterNum;
+    public static int MonsterNum;
     int SupplyMonsterNum;
     int item_MonsterCount;
 
@@ -76,6 +76,7 @@ public class MonsterDirector : MonoBehaviour
     private void Awake()
     {
         BossCount = 0;
+        MonsterNum = 0;
         GameDirector_SpawnFlag = false;
         GameDirector_BossFlag = false;
         GameDirector_Boss_SpawnFlag = false;
@@ -101,12 +102,12 @@ public class MonsterDirector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log(MonsterNum);
         if (GameDirector_SpawnFlag)
         {
             if (!GameDirector_BossFlag)
             {
-                MonsterNum = Monster_List.childCount;
-
+                //MonsterNum = Monster_List.childCount;
                 if (MonsterNum < MaxMonsterNum + item_MonsterCount && !isSpawing)
                 {
                     StartCoroutine(AppearMonster(false));
@@ -114,7 +115,7 @@ public class MonsterDirector : MonoBehaviour
             }
             else
             {
-                MonsterNum = Monster_List.childCount;
+                //MonsterNum = Monster_List.childCount;
                 if (MonsterNum < MaxMonsterNum && !isSpawing)
                 {
                     StartCoroutine(AppearMonster(false));

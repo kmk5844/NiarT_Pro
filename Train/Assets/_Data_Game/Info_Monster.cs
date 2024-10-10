@@ -11,4 +11,5 @@ public class Info_Monster
     public string Monster_Type;
     public int Monster_Score;
     public int Monster_Coin;
+    public bool Monster_CountFlag;
 }

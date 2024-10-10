@@ -26,7 +26,7 @@ public class MonsterBullet : MonoBehaviour
         rid = GetComponent<Rigidbody2D>();
         player_target = GameObject.FindGameObjectWithTag("Player").transform;
         Train_List = GameObject.Find("Train_List").transform;
-        Mercenary_List = GameObject.Find("Mercenary_List").transform;
+        //Mercenary_List = GameObject.Find("Mercenary_List").transform;
     }
 
 /*    private void Bullet_Monster()

@@ -41,6 +41,9 @@ public class UIDirector : MonoBehaviour
     public Slider Speed_Arrow;
     public GameObject WarningObject;
 
+    [Header("Clear UI")]
+    public GameObject Clear_UI;
+
     [Header("Boss UI")]
     public GameObject BossHP_Object;
     public Image BossHP_Guage;
@@ -407,6 +410,12 @@ public class UIDirector : MonoBehaviour
             Player_Blood.gameObject.SetActive(false);
         }
         isBloodFlag = false;
+    }
 
+    public IEnumerator GameClear()
+    {
+        Clear_UI.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        Clear_UI.SetActive(false);
     }
 }

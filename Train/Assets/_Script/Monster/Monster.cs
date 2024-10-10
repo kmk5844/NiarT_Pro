@@ -23,6 +23,8 @@ public class Monster : MonoBehaviour
     protected int Monster_Score;
     [SerializeField]
     protected int Monster_Coin;
+    [SerializeField]
+    protected bool Monster_CountFlag;
 
     public string Monster_Type;
     protected Vector2 MonsterDirector_Pos; //몬스터 디렉터에게 받고 지정된 위치
@@ -98,10 +100,16 @@ public class Monster : MonoBehaviour
         Monster_Score = EX_GameData.Information_Monster[Monster_Num].Monster_Score;
         Monster_Coin = EX_GameData.Information_Monster[Monster_Num].Monster_Coin;
         Monster_Type = EX_GameData.Information_Monster[Monster_Num].Monster_Type;
+        Monster_CountFlag = EX_GameData.Information_Monster[Monster_Num].Monster_CountFlag;
         Bullet_Atk = EX_GameData.Information_Monster[Monster_Num].Monster_Atk;
         Bullet_Speed = EX_GameData.Information_Monster[Monster_Num].Monster_Bullet_Speed;
         Bullet_Delay = EX_GameData.Information_Monster[Monster_Num].Monster_Bullet_Delay;
         Bullet_Slow = EX_GameData.Information_Monster[Monster_Num].Monster_Bullet_Slow;
+        if (Monster_CountFlag)
+        {
+            MonsterDirector.MonsterNum++;
+        }
+
         monster_Bullet_List = GameObject.Find("Bullet_List").GetComponent<Transform>();
 
         AfterImage_Particle_LocalScale = AfterImage_Particle.transform.localScale.x;
@@ -293,9 +301,7 @@ public class Monster : MonoBehaviour
             }
         }
         if(monster_gametype == Monster_GameType.Stun_Bullet_Debuff)
-        {
-
-        }
+        { }
     }
 
     protected void Fire_Debuff()
@@ -404,9 +410,8 @@ public class Monster : MonoBehaviour
         }
         else
         {
-            gameDirector.Game_Monster_Kill(Monster_Score, Monster_Coin);
-            //
-            Destroy(gameObject);
+            MonsterDie();
+
         }
     }
     private void Damage_Monster_Trigger(Collider2D collision)
@@ -422,9 +427,8 @@ public class Monster : MonoBehaviour
         }
         else
         {
-            gameDirector.Game_Monster_Kill(Monster_Score, Monster_Coin);
             //
-            Destroy(gameObject);
+            MonsterDie();
         }
     }
 
@@ -444,9 +448,7 @@ public class Monster : MonoBehaviour
         }
         else
         {
-            gameDirector.Game_Monster_Kill(Monster_Score, Monster_Coin);
-            //
-            Destroy(gameObject);
+            MonsterDie();
         }
     }
 
@@ -462,9 +464,8 @@ public class Monster : MonoBehaviour
         }
         else
         {
-            gameDirector.Game_Monster_Kill(Monster_Score, Monster_Coin);
-            //
-            Destroy(gameObject);
+            MonsterDie();
+
         }
     }
 
@@ -480,9 +481,8 @@ public class Monster : MonoBehaviour
         }
         else
         {
-            gameDirector.Game_Monster_Kill(Monster_Score, Monster_Coin);
-            //
-            Destroy(gameObject);
+            MonsterDie();
+
         }
     }
 
@@ -498,9 +498,8 @@ public class Monster : MonoBehaviour
         }
         else
         {
-            gameDirector.Game_Monster_Kill(Monster_Score, Monster_Coin);
-            //
-            Destroy(gameObject);
+            MonsterDie();
+
         }
         StartCoroutine(Item_Stun_Debuff(delayTime));
     }
@@ -653,6 +652,17 @@ public class Monster : MonoBehaviour
         Item_Giant_ChangeFlag = true;
         Item_Giant_ChangeFlag_Scale = true;
         Item_Giant_Persent = Persent;
+    }
+
+    public void MonsterDie()
+    {
+        gameDirector.Game_Monster_Kill(Monster_Score, Monster_Coin);
+
+        if (Monster_CountFlag)
+        {
+            MonsterDirector.MonsterNum -= 1;
+        }
+        Destroy(gameObject);
     }
 }
 

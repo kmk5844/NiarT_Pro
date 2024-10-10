@@ -187,7 +187,10 @@ public class StationDirector : MonoBehaviour
             }
             else if (ui_num == 5)
             {
-                if (Director_GameStart.EquipItemFlag)
+                if (Director_GameStart.EquipItemWindowFlag)
+                {
+                    Director_GameStart.Close_ItemCountWindow();
+                }else if (Director_GameStart.EquipItemListFlag)
                 {
                     Director_GameStart.Close_Inventory_Window();
                 }

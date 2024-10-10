@@ -2647,10 +2647,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 988a4545c26a638439eee60f86ceee3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Test_Flag: 0
+  Test_Flag: 1
   Monster_Off_Flag: 0
   Test_Distance: 999999
-  Test_Monster_List: 08000000
+  Test_Monster_List: 07000000
   gameType: 0
   SA_TrainData: {fileID: 11400000, guid: a3127143b81d7aa4b87c2baa773295c2, type: 2}
   SA_TrainTurretData: {fileID: 11400000, guid: 4bbb9992a442d1f449a4c2e4eceb8eda, type: 2}
@@ -6589,7 +6589,6 @@ MonoBehaviour:
   GameDirector_BossFlag: 0
   GameDirector_Boss_SpawnFlag: 0
   MaxMonsterNum: 2
-  MonsterNum: 0
   Train_List: {fileID: 5138825400518451174}
 --- !u!1 &555944709
 GameObject:
@@ -7276,7 +7275,7 @@ GameObject:
   - component: {fileID: 578020600}
   - component: {fileID: 578020602}
   m_Layer: 5
-  m_Name: GameEnd
+  m_Name: Clear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24103,6 +24102,7 @@ MonoBehaviour:
   Coin_Text: {fileID: 1104493923}
   Speed_Arrow: {fileID: 1444048066}
   WarningObject: {fileID: 639805569}
+  Clear_UI: {fileID: 578020598}
   BossHP_Object: {fileID: 340540501}
   BossHP_Guage: {fileID: 1918713174}
   ItemInformation_Object: {fileID: 2133584740}
@@ -29466,7 +29466,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2521869787981609781
 Transform:
   m_ObjectHideFlags: 0
