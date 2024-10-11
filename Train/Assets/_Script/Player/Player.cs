@@ -160,7 +160,7 @@ public class Player : MonoBehaviour
     {
         gameDirectorType = gamedirector.gameType;
 
-        if (gameDirectorType == GameType.Playing || gameDirectorType == GameType.Boss)
+        if (gameDirectorType == GameType.Starting ||  gameDirectorType == GameType.Playing || gameDirectorType == GameType.Boss)
         {
             if (Input.GetMouseButtonDown(0))
             {
