@@ -171,7 +171,7 @@ public class GameDirector : MonoBehaviour
     bool ItemFlag_14; // °ñµå 2¹è
     void Awake()
     {
-        gameType = GameType.Playing;
+        gameType = GameType.Starting;
         Stage_Num = SA_PlayerData.Select_Stage;
         StageData = SA_StageList.Stage[Stage_Num];
         BGM_ID = 30;
@@ -245,7 +245,7 @@ public class GameDirector : MonoBehaviour
 
         uiDirector.Gameing_Text(Total_Score, Total_Coin);
         StartTime = Time.time;
-        gameType = GameType.Playing;
+        gameType = GameType.Starting;
         
         MMSoundManagerSoundPlayEvent.Trigger(DustWindBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID: BGM_ID);
         StartCoroutine(TrainStart_SFX());
@@ -268,7 +268,15 @@ public class GameDirector : MonoBehaviour
             }
         }
 
-        if (gameType == GameType.Playing)
+        if(gameType == GameType.Starting)
+        {
+            if(Time.time >= StartTime + 1f)
+            {
+                gameType = GameType.Playing;
+                StartTime = Time.time;
+            }
+
+        }else if (gameType == GameType.Playing)
         {
             ChangeCursor(true);
             if(Time.time >= StartTime + 0.1f && !isStationHideFlag)
@@ -983,6 +991,7 @@ public class GameDirector : MonoBehaviour
 
 
 public enum GameType{
+    Starting,
     Playing,
     Boss,
     Pause,

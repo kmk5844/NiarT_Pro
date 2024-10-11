@@ -57,7 +57,7 @@ public class UseItem : MonoBehaviour
                 StartCoroutine(player.Item_Player_Heal_HP_Auto(1f, 10));
                 break;
             case 10:
-                mercenaryDirector.Item_Use_Fatigue_Reliever(1, 10 ,30);
+                mercenaryDirector.Item_Use_Fatigue_Reliever(1, 10 ,20);
                 break;
             case 11:
                 StartCoroutine(player.Item_Player_AtkUP(5, 20));
@@ -69,7 +69,7 @@ public class UseItem : MonoBehaviour
                 player.Item_Player_Ballon_Bullet();
                 break;
             case 14:
-                StartCoroutine(gameDirector.Item_Coin_Double(30));
+                StartCoroutine(gameDirector.Item_Coin_Double(15));
                 break;
             case 15:
                 gameDirector.Item_Use_Train_Turret_All_SpeedUP(10, 7);
@@ -98,32 +98,32 @@ public class UseItem : MonoBehaviour
         switch (num)
         {
             case 20:
-                StartCoroutine(player.Item_Change_Bullet("Blood_Bullet", 15));
+                StartCoroutine(player.Item_Change_Bullet("Blood_Bullet", 10));
                 break;
             case 21:
-                StartCoroutine(player.Item_Change_Bullet("Bouncing_Bullet", 15));
+                StartCoroutine(player.Item_Change_Bullet("Bouncing_Bullet", 10));
                 break;
             case 22:
-                StartCoroutine(player.Item_Change_Bullet("Fire_Bullet", 15));
+                StartCoroutine(player.Item_Change_Bullet("Fire_Bullet", 10));
                 break;
             case 23:
                 StartCoroutine(player.Item_Player_Dagger(0.5f));
                 break;
             case 24:
-                StartCoroutine(monsterDirector.Item_Monster_FearFlag(5, 30));
-                player.Item_Instantiate_Flag(0, 30);
+                StartCoroutine(monsterDirector.Item_Monster_FearFlag(5, 20));
+                player.Item_Instantiate_Flag(0, 20);
                 break;
             case 25:
-                StartCoroutine(monsterDirector.Item_Monster_GreedFlag(5, 30));
-                player.Item_Instantiate_Flag(1, 30);
+                StartCoroutine(monsterDirector.Item_Monster_GreedFlag(5, 20));
+                player.Item_Instantiate_Flag(1, 20);
                 break;
             case 26:
-                StartCoroutine(monsterDirector.Item_Use_Monster_CureseFlag(10, 30));
-                player.Item_Instantiate_Flag(2, 30);
+                StartCoroutine(monsterDirector.Item_Use_Monster_CureseFlag(10, 20));
+                player.Item_Instantiate_Flag(2, 20);
                 break;
             case 27:
-                StartCoroutine(monsterDirector.Item_Use_Monster_GiantFlag(30, 30));
-                player.Item_Instantiate_Flag(3, 30);
+                StartCoroutine(monsterDirector.Item_Use_Monster_GiantFlag(30, 20));
+                player.Item_Instantiate_Flag(3, 20);
                 break;
             case 28:
                 player.Item_Player_Giant_Tent();
@@ -167,9 +167,9 @@ public class UseItem : MonoBehaviour
                 break;
             case 41:
                 player.Item_Player_Minus_HP(20);
-                StartCoroutine(player.Item_Player_SpeedUP(2f, 30));
-                StartCoroutine(player.Item_Player_AtkUP(30, 30));
-                StartCoroutine(player.Item_Player_AtkDelayDown(0.5f, 30));
+                StartCoroutine(player.Item_Player_SpeedUP(2f, 10));
+                StartCoroutine(player.Item_Player_AtkUP(30, 10));
+                StartCoroutine(player.Item_Player_AtkDelayDown(0.5f, 10));
                 break;
             case 42:
                 player.Item_Player_Spawn_Dron(1);

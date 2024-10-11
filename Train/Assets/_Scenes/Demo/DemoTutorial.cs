@@ -51,7 +51,7 @@ public class DemoTutorial : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && ClickFlag)
+        if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)) && ClickFlag)
         {
             ChangeImage();
             StartCoroutine(ClickDelay());

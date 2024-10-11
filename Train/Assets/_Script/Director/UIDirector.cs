@@ -415,7 +415,7 @@ public class UIDirector : MonoBehaviour
     public IEnumerator GameClear()
     {
         Clear_UI.SetActive(true);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3f);
         Clear_UI.SetActive(false);
     }
 }

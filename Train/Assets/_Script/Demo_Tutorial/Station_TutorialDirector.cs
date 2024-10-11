@@ -32,7 +32,7 @@ public class Station_TutorialDirector : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0) && ClickFlag)
+        if((Input.GetMouseButtonDown(0)|| Input.GetKeyDown(KeyCode.Space)) && ClickFlag)
         {
             ChangeImage();
             if (Count < MaxCount)

@@ -122,7 +122,7 @@ public class DialogSystem : MonoBehaviour
 
         if (!Back_Flag && !Option_Flag)
         {
-            if (Input.GetMouseButtonDown(0) && !SkipHit_Flag && !AutoHit_Flag && !BackHit_Flag && !OptionHit_Flag)
+            if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)) && !SkipHit_Flag && !AutoHit_Flag && !BackHit_Flag && !OptionHit_Flag)
             {
 
                 if (isTypingEffect == true)
