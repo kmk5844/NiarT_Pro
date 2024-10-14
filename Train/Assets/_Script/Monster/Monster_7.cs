@@ -23,10 +23,10 @@ public class Monster_7 : Monster
         moveType = Monster7_State.BeforeFighting;
 
         base.Start();
-        MonsterDirector_Pos = new Vector2(transform.localPosition.x, transform.localPosition.y -2f);
+        MonsterDirector_Pos = new Vector2(transform.localPosition.x, transform.localPosition.y -1f);
         Spawn_Init_Pos =
             new Vector2(MonsterDirector.MaxPos_Ground.x + 15f,
-             MonsterDirector.MaxPos_Ground.y - 2f);
+             MonsterDirector.MaxPos_Ground.y - 1f);
         transform.localPosition = Spawn_Init_Pos;
 
         speed = 5f; // 추후에 랜덤으로 바뀔 예정
@@ -101,7 +101,7 @@ public class Monster_7 : Monster
     IEnumerator SpawnMonster()
     {
         float elapsedTime = 0;
-        float duration = 2f;
+        float duration = 1.5f;
     
         while (elapsedTime < duration)
         {

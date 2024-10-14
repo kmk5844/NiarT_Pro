@@ -42,7 +42,7 @@ public class Monster_5 : Monster
     {
         if(transform.position.y > MonsterDirector.MinPos_Ground.y)
         {
-            transform.Translate(0, -12f* Time.deltaTime, 0);
+            transform.Translate(0, -15f* Time.deltaTime, 0);
         }
         else
         {

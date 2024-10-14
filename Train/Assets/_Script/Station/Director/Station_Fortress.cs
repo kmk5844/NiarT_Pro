@@ -227,8 +227,8 @@ public class Station_Fortress : MonoBehaviour
     {
         PlayerHead.sprite = PlayerHead_Image[playerNum];
         Player_Name.StringReference.TableEntryReference = "Player_Name_" + playerNum;
-        Player_Information[0].text = playerData.EX_Game_Data.Information_Player[playerNum].Player_Atk + "<color=red> + " + (playerData.EX_Game_Data.Information_Player[playerNum].Player_Atk * playerData.Level_Player_Atk * 10) / 100 + "</color>";
-        Player_Information[1].text = playerData.EX_Game_Data.Information_Player[playerNum].Player_Delay + "<color=red> - " + ((playerData.EX_Game_Data.Information_Player[playerNum].Player_Delay * playerData.Level_Player_AtkDelay) / 100) + "</color>";
+        Player_Information[0].text = playerData.EX_Game_Data.Information_Player[playerNum].Player_Atk + "<color=red> + " + (playerData.EX_Game_Data.Information_Player[playerNum].Player_Atk * playerData.Level_Player_Atk * 5) / 100 + "</color>";
+        Player_Information[1].text = playerData.EX_Game_Data.Information_Player[playerNum].Player_Delay + "<color=red> - " + ((playerData.EX_Game_Data.Information_Player[playerNum].Player_Delay * playerData.Level_Player_AtkDelay) / 200) + "</color>";
         Player_Information[2].text = playerData.EX_Game_Data.Information_Player[playerNum].Player_Armor + "<color=red> + " + ((playerData.EX_Game_Data.Information_Player[playerNum].Player_Armor * playerData.Level_Player_Armor * 10) / 100) + "</color>";
         Player_Information[3].text = playerData.EX_Game_Data.Information_Player[playerNum].Player_MoveSpeed + "<color=red> + " + ((playerData.EX_Game_Data.Information_Player[playerNum].Player_MoveSpeed * playerData.Level_Player_Speed) / 100) + "</color>";
         Player_Information[4].text = playerData.EX_Game_Data.Information_Player[playerNum].Player_HP + "<color=red> + " + ((playerData.EX_Game_Data.Information_Player[playerNum].Player_HP * playerData.Level_Player_HP * 10) / 100) + "</color>";

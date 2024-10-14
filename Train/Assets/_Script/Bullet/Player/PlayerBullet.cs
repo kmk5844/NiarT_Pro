@@ -10,7 +10,7 @@ public class PlayerBullet : Bullet
         base.Start();
         if (ShotGunFlag)
         {
-            Speed = Random.Range(30f, 50f);
+            Speed = Random.Range(40f, 55f);
         }
         Bullet_Player();
     }
@@ -31,7 +31,7 @@ public class PlayerBullet : Bullet
         else
         {
             // 무작위 각도를 추가하기 위해 회전 벡터를 사용
-            float angleOffset = Random.Range(-12f, 12f); // 무작위 각도 범위 설정 (-10도에서 10도 사이)
+            float angleOffset = Random.Range(-9f, 9f); // 무작위 각도 범위 설정 (-10도에서 10도 사이)
             dir = Quaternion.Euler(0, 0, angleOffset) * dir;
 
             // 총알 회전 설정

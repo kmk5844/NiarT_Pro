@@ -172,6 +172,11 @@ public class Player : MonoBehaviour
                 isMouseDown = false;
             }
 
+            if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                isMouseDown = false;
+            }
+
             if (isMouseDown)
             {
                 gamedirector.ChangeCursor(true, true);
@@ -389,7 +394,7 @@ public class Player : MonoBehaviour
             rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
         }
 
-        if (gameDirectorType == GameType.Playing || gameDirectorType == GameType.Boss || gameDirectorType == GameType.Ending)
+        if (gameDirectorType == GameType.Starting || gameDirectorType == GameType.Playing || gameDirectorType == GameType.Boss || gameDirectorType == GameType.Ending)
         {
             mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
 
@@ -560,9 +565,9 @@ public class Player : MonoBehaviour
         int Level_Armor = playerData.Level_Player_Armor;
         int Level_Speed = playerData.Level_Player_Speed;
 
-        Bullet_Atk = Bullet_Atk + (((Bullet_Atk * Level_Atk * 10)) / 100);
+        Bullet_Atk = Bullet_Atk + (((Bullet_Atk * Level_Atk * 5)) / 100);
         Default_Atk = Bullet_Atk;
-        Bullet_Delay = Bullet_Delay - (((Bullet_Delay * Level_AtkDelay)) / 100);
+        Bullet_Delay = Bullet_Delay - (((Bullet_Delay * Level_AtkDelay)) / 200);
         Player_HP = Player_HP + (((Player_HP * Level_HP) * 10) / 100);
         Player_Armor = Player_Armor + (((Player_Armor * Level_Armor) * 10) / 100);
         moveSpeed = moveSpeed + (((moveSpeed * Level_Speed)) / 100);

@@ -168,8 +168,8 @@ public class UseItem : MonoBehaviour
             case 41:
                 player.Item_Player_Minus_HP(20);
                 StartCoroutine(player.Item_Player_SpeedUP(2f, 10));
-                StartCoroutine(player.Item_Player_AtkUP(30, 10));
-                StartCoroutine(player.Item_Player_AtkDelayDown(0.5f, 10));
+                StartCoroutine(player.Item_Player_AtkUP(15, 10));
+                StartCoroutine(player.Item_Player_AtkDelayDown(0.25f, 10));
                 break;
             case 42:
                 player.Item_Player_Spawn_Dron(1);

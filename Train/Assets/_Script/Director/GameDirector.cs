@@ -255,7 +255,7 @@ public class GameDirector : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (gameType == GameType.Playing || gameType == GameType.Boss)
+            if (gameType == GameType.Starting || gameType == GameType.Playing || gameType == GameType.Boss)
             {
                 Before_GameType = gameType;
                 gameType = GameType.Pause;

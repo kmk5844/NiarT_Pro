@@ -69,7 +69,7 @@ public class Monster_1 : Monster
     IEnumerator SpawnMonster()
     {
         float elapsedTime = 0;
-        float duration = Random.Range(1f, 3f);
+        float duration = Random.Range(0.5f, 1f);
         float height = Random.Range(-1f, -3f);
 
         while (elapsedTime < duration)
