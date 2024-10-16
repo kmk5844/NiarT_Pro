@@ -28,6 +28,7 @@ public class ItemList_Tooltip : MonoBehaviour
         Store_Buy,
         Store_Sell,
         Equip,
+        Reward
     }
 
     public TooltipType tooltiptype;
@@ -117,6 +118,10 @@ public class ItemList_Tooltip : MonoBehaviour
             UseWindow.SetActive(true);
             UseWindow_Text.StringReference.TableEntryReference = "UI_ToolTip_Equip_LeftMouse";
             //UseWindow.GetComponentInChildren<TextMeshProUGUI>().text = "장착하시려면 좌클릭 눌러주세요";
+        }else if(tooltiptype == TooltipType.Reward)
+        {
+            Item_Pride.text = "";
+            UseWindow.SetActive(false);
         }
 
         gameObject.SetActive(true);

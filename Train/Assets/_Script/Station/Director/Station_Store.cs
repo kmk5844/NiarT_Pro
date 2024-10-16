@@ -38,6 +38,8 @@ public class Station_Store : MonoBehaviour
     public Button Button_ItemCount_Minus;
     int item_Count;
 
+    public Button Sell_AllButton;
+
     [Header("기차 구매")] // 파츠 구매도 포함
     public int Store_Train_Num;
     public GameObject Store_Train_Part_Card;
@@ -381,10 +383,18 @@ public class Station_Store : MonoBehaviour
         Check_Init_ItemSell();
     }
 
-    private void Store_Sell_Item(ItemDataObject item)
+    private void Store_Sell_Item(ItemDataObject item, bool AllFlag)
     {
-        playerData.Player_Get_Coin(item.Item_Sell_Pride * item_Count);
-        item.Item_Count_Down(item_Count);
+        if (!AllFlag)
+        {
+            playerData.Player_Get_Coin(item.Item_Sell_Pride * item_Count);
+            item.Item_Count_Down(item_Count);
+        }
+        else
+        {
+            playerData.Player_Get_Coin(item.Item_Sell_Pride * item.Item_Count);
+            item.Item_Count_Down(item.Item_Count);
+        }
         foreach(ItemSell_Object itemObject in Item_Sell_Window.GetComponentsInChildren<ItemSell_Object>())
         {
             if(itemObject.item == item)
@@ -407,7 +417,9 @@ public class Station_Store : MonoBehaviour
         Store_BuyAndSell_Window_Flag = true;
         Check_Buy_Panel_Num = i;
         Check_Buy_Panel.SetActive(true);
-        if(i == 0)
+        Sell_AllButton.gameObject.SetActive(false);
+
+        if (i == 0)
         {
             //Check_Buy_Text.text = "구매하시겠습니까?";
             Check_Buy_Image.sprite = Defualt_Store_Sprite;
@@ -494,6 +506,7 @@ public class Station_Store : MonoBehaviour
             Button_ItemCount_Plus.onClick.AddListener(() => Click_ItemCount_Plus(item, Flag));
             Button_ItemCount_Minus.onClick.AddListener(() => Click_ItemCount_Minus(item, Flag));
             Buy_YesButton.onClick.AddListener(() => Store_Buy_Item(item));
+            Sell_AllButton.gameObject.SetActive(false);
         }
         else
         {
@@ -504,7 +517,9 @@ public class Station_Store : MonoBehaviour
             Check_Buy_Text.StringReference.TableEntryReference = "UI_Store_Item_Sell";
             Button_ItemCount_Plus.onClick.AddListener(() => Click_ItemCount_Plus(item, Flag));
             Button_ItemCount_Minus.onClick.AddListener(() => Click_ItemCount_Minus(item, Flag));
-            Buy_YesButton.onClick.AddListener(()=> Store_Sell_Item(item));
+            Buy_YesButton.onClick.AddListener(()=> Store_Sell_Item(item, false));
+            Sell_AllButton.gameObject.SetActive(true);
+            Sell_AllButton.onClick.AddListener(() => Store_Sell_Item(item, true));
         }
     }
 
@@ -537,6 +552,7 @@ public class Station_Store : MonoBehaviour
             Buy_YesButton.onClick.RemoveAllListeners();
             Button_ItemCount_Plus.onClick.RemoveAllListeners();
             Button_ItemCount_Minus.onClick.RemoveAllListeners();
+            Sell_AllButton.onClick.RemoveAllListeners();
         }
     }
 

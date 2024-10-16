@@ -64,24 +64,24 @@ public class parallex : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (GameDirector.gameType == GameType.Playing ||GameDirector.gameType == GameType.Boss)
+        if (GameDirector.gameType == GameType.Playing ||GameDirector.gameType == GameType.Boss|| GameDirector.gameType == GameType.Ending)
         {
             for (int i = 0; i < backgrounds.Length; i++)
             {
                 float speed = backSpeed[i] * parallaxSpeed;
-                offset += (Time.deltaTime * speed + (GameDirector.TrainSpeed / 20000f)) / 10f;
+                offset += (Time.deltaTime * speed + (GameDirector.TrainSpeed / 100000f));
                 mat[i].SetTextureOffset("_MainTex", new Vector2(offset, 0) * speed);
             }
-        }else if (GameDirector.gameType == GameType.Ending)
+        }else if(GameDirector.gameType == GameType.Ending)
         {
+            float EndingSpeed = 0.1f;
             for (int i = 0; i < backgrounds.Length; i++)
             {
-                float speed = backSpeed[i] * parallaxSpeed;
-                offset += (Time.deltaTime * speed + (GameDirector.TrainSpeed / 20000f)) / 10f;
-                mat[i].SetTextureOffset("_MainTex", new Vector2(offset, 0) * speed/2);
+                float speed = backSpeed[i] * EndingSpeed;
+                offset += (Time.deltaTime * speed + (GameDirector.TrainSpeed / 100000f));
+                mat[i].SetTextureOffset("_MainTex", new Vector2(offset, 0) * speed);
             }
         }
-
     }
     private void FixedUpdate()
     {

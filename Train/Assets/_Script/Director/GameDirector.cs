@@ -259,11 +259,15 @@ public class GameDirector : MonoBehaviour
             {
                 Before_GameType = gameType;
                 gameType = GameType.Pause;
+                MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Pause, BGM_ID);
+                MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Pause, TrainSFX_ID);
                 Time.timeScale = 0f;
             }
             else if (gameType == GameType.Pause)
             {
                 gameType = Before_GameType;
+                MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Resume, BGM_ID);
+                MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Resume, TrainSFX_ID);
                 Time.timeScale = 1f;
             }
         }
@@ -410,9 +414,10 @@ public class GameDirector : MonoBehaviour
             if (!Change_Win_BGM_Flag)
             {
                 SoundSequce(WinBGM);
-                MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, TrainSFX_ID + 1);
-                MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, TrainSFX_ID + 1);
-                MMSoundManagerSoundPlayEvent.Trigger(TrainStopSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+                MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, TrainSFX_ID);
+                MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, TrainSFX_ID);
+                TrainSFX_ID += 1;
+                MMSoundManagerSoundPlayEvent.Trigger(TrainStopSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position, ID:TrainSFX_ID);
                 Change_Win_BGM_Flag = true;
                 StartCoroutine(uiDirector.GameClear());
             }
@@ -430,7 +435,7 @@ public class GameDirector : MonoBehaviour
                 lastSpeedTime = Time.time;
             }
 
-            if(TrainSpeed <= 90f && TrainSpeed > 88f && !isStationShowFlag)
+            if(TrainSpeed <= 75f && TrainSpeed > 73f && !isStationShowFlag)
             {
                 isStationShowFlag = true;
                 StartCoroutine(Hide_And_Show_Station(false));
@@ -798,9 +803,12 @@ public class GameDirector : MonoBehaviour
     {
         Change_Game_End(false, losenum);
         MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, BGM_ID);
+        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, TrainSFX_ID);
         MMSoundManagerSoundPlayEvent.Trigger(LoseSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         StageData.GameEnd(false, Total_Score);
         SA_PlayerData.SA_GameLoseReward(Total_Coin);
+        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, BGM_ID);
+        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, TrainSFX_ID);
     }
 
     public void GameType_Option(bool flag)
@@ -945,32 +953,41 @@ public class GameDirector : MonoBehaviour
     {
         float StartX;
         float TargetX;
-        float duration;
+        float Speed;
 
         if (flag)
         {
             StartX = 6f;
             TargetX = -36f;
-            duration = 4f;
         }
         else
         {
             StartX = 36f;
             TargetX = 6f;
-            duration = 3f;
         }
 
-        float elpsedTime = 0f;
         Station_Object.transform.localPosition = new Vector2(StartX, Station_Object.transform.localPosition.y);
         Station_Object.SetActive(true);
 
-        while (elpsedTime < duration)
+        if (flag)
         {
-            elpsedTime += Time.deltaTime;
-            float t = Mathf.Clamp01(elpsedTime / duration);
-            float newX = Mathf.Lerp(StartX, TargetX, t);
-            Station_Object.transform.localPosition = new Vector2(newX, Station_Object.transform.localPosition.y);
-            yield return null;
+        float fac = 0.001f;
+            while (Station_Object.transform.localPosition.x > -36f)
+            {
+                Speed = Time.deltaTime * fac + (TrainSpeed / 5000f);
+                Station_Object.transform.localPosition = new Vector2(Station_Object.transform.localPosition.x - Speed, Station_Object.transform.localPosition.y);
+                yield return null;
+            }
+        }
+        else
+        {
+        float fac = 0.6f;
+            while (Station_Object.transform.localPosition.x > 6f)
+            {
+                Speed = Time.deltaTime * fac + (TrainSpeed / 4000f);
+                Station_Object.transform.localPosition = new Vector2(Station_Object.transform.localPosition.x - Speed, Station_Object.transform.localPosition.y);
+                yield return null;
+            }
         }
 
         if (flag)
@@ -983,9 +1000,17 @@ public class GameDirector : MonoBehaviour
     {
         MMSoundManagerSoundPlayEvent.Trigger(TrainStartSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position, loop: false, ID: TrainSFX_ID);
         yield return MMCoroutine.WaitFor(TrainStartSFX.length - 1.4f);
-        MMSoundManagerSoundPlayEvent.Trigger(TrainLoopSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position, loop: true, ID: TrainSFX_ID+1);
+        TrainSFX_ID += 1;
+        MMSoundManagerSoundPlayEvent.Trigger(TrainLoopSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position, loop: true, ID: TrainSFX_ID);
         yield return MMCoroutine.WaitFor(1.8f);
-        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, TrainSFX_ID);
+        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, TrainSFX_ID-1);
+    }
+
+    public IEnumerator Train_MasSpeedChange(int Add_Speed,float During)
+    {
+        MaxSpeed += Add_Speed;
+        yield return new WaitForSeconds(During);
+        MaxSpeed -= Add_Speed;
     }
 }
 

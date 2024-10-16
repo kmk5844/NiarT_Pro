@@ -50,7 +50,8 @@ public class Station_GameStart : MonoBehaviour
     public Button GameStart_Button;
     public LocalizeStringEvent GameStart_Information_Text;
     public TextMeshProUGUI Score_Text;
-    public Image[] Reward_Image;
+
+    public ItemList_Grade[] Reward_Image;
     public GameObject[] Clear_Object;
 
     int Fuel_Count;
@@ -142,11 +143,13 @@ public class Station_GameStart : MonoBehaviour
             itemNum = int.Parse(ItemList[i]);
             if(itemNum == -1)
             {
-                Reward_Image[i].sprite = itemData.SA_ItemList.EmptyItem.Item_Sprite;
+                Reward_Image[i].Item = itemData.SA_ItemList.EmptyItem;
+                Reward_Image[i].item_Change_Flag = true;
             }
             else
             {
-                Reward_Image[i].sprite = itemData.SA_ItemList.Item[itemNum].Item_Sprite;
+                Reward_Image[i].Item = itemData.SA_ItemList.Item[itemNum];
+                Reward_Image[i].item_Change_Flag = true;
             }
         }
         for(int i = 0; i < Clear_Object.Length; i++)

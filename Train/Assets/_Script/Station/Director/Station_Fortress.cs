@@ -651,7 +651,7 @@ public class Station_Fortress : MonoBehaviour
     public void Check_Init_MercenaryPositionCard()
     {
         RectTransform ContentSize = Mercenary_Position_Content.GetComponent<RectTransform>();
-        ContentSize.sizeDelta = new Vector2(200 * Mercenary_Buy_NumList.Count, ContentSize.sizeDelta.y);
+        ContentSize.sizeDelta = new Vector2(272 + (272 * (Mercenary_Buy_NumList.Count - 1)), ContentSize.sizeDelta.y);
         foreach (int num in Mercenary_Buy_NumList)
         {
             Mercenary_Position_Card.GetComponent<TrainingRoom_Mercenary_Position_Card>().Mercenary_Num = num;

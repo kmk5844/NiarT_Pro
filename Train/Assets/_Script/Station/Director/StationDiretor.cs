@@ -112,7 +112,7 @@ public class StationDirector : MonoBehaviour
     }
     private void Update()
     {
-        if(ui_num == 2 || ui_num == 4)
+        if(ui_num == 2 || ui_num == 4 || ui_num == 5)
         {
             TooltipFlag = true;
         }
