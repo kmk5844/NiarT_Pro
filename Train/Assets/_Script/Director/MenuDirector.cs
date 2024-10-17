@@ -5,15 +5,19 @@ using UnityEngine;
 
 public class MenuDirector : MonoBehaviour
 {
+    public GameObject UI_StoryCheck;
+    public GameObject UI_Story_Init_Warning_Check;
     public GameObject UI_Option;
     public GameObject Demo;
     public AudioClip MainMenuBgm;
 
+    bool storyFlag;
     bool optionFlag;
     bool InfiniteFlag;
 
     private void Start()
     {
+        storyFlag = false;
         optionFlag = false;
         InfiniteFlag = false;
         MMSoundManagerSoundPlayEvent.Trigger(MainMenuBgm, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true);
@@ -23,7 +27,7 @@ public class MenuDirector : MonoBehaviour
     {
         if(Input.GetKeyUp(KeyCode.Escape))
         {
-            if (InfiniteFlag)
+            if (InfiniteFlag || storyFlag)
             {
                 Click_Back_Button();
             }
@@ -32,13 +36,26 @@ public class MenuDirector : MonoBehaviour
             {
                 Click_Option_Back();
             }
+        }
+    }
 
+    public void Click_Story_Check()
+    {
+        if (!DataManager.Instance.playerData.FirstFlag)
+        {
+            DataManager.Instance.playerData.SA_CheckFirstFlag();
+            GameManager.Instance.BeforeStation_Enter();
+        }
+        else
+        {
+            storyFlag = true;
+            UI_StoryCheck.SetActive(true);
         }
     }
 
     public void Click_Stroy_Mode()
     {
-        GameManager.Instance.Start_Enter();
+        GameManager.Instance.BeforeStation_Enter();
     }
 
     public void Click_Infinite_Mode()
@@ -49,8 +66,22 @@ public class MenuDirector : MonoBehaviour
 
     public void Click_Back_Button()
     {
-        InfiniteFlag = false;
-        Demo.SetActive(false);
+        if (storyFlag)
+        {
+            storyFlag = false;
+            UI_StoryCheck.SetActive(false);
+        }
+
+        if (InfiniteFlag)
+        {
+            InfiniteFlag = false;
+            Demo.SetActive(false);
+        }
+    }
+
+    public void Click_Init()
+    {
+        GameManager.Instance.Game_Reset();
     }
 
     public void Click_Option_Mode()

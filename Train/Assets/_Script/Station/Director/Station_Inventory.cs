@@ -39,7 +39,7 @@ public class Station_Inventory : MonoBehaviour
     {
         stationDirector = GetComponentInParent<StationDirector>();
 
-        UI_UseItem_Num = 0;
+        UI_UseItem_Num = -1;
         ItemObject.Inventory_Director = GetComponent<Station_Inventory>();
         ItemObject.item_tooltip_object = TooltipObject;
 
@@ -85,7 +85,6 @@ public class Station_Inventory : MonoBehaviour
                 foreach (ItemDataObject itemDataObject in Data_ItemList.Material_Inventory_ItemList)
                 {
                     ItemObject.item = itemDataObject;
-                    Check_Item_Init_Use(3, itemDataObject);
                     Instantiate(ItemObject, Transform_ItemList[num]);
                 }
                 break;
@@ -123,15 +122,6 @@ public class Station_Inventory : MonoBehaviour
             tem_UseStatus_AllButton.gameObject.SetActive(false);
         }
 
-        if(itemobject.Num == 53)
-        {
-            Item_UseStatus_Count_Text.text = "10";
-        }
-        else
-        {
-            Item_UseStatus_Count_Text.text = "1";
-        }
-
         // 낱개 사용 시, 버튼
         Item_UseStatus_YesButton.onClick.AddListener(() => UseItemStatus_YesButton(itemobject));
         Item_UseStatus_WindowObject.SetActive(true);
@@ -146,24 +136,24 @@ public class Station_Inventory : MonoBehaviour
         Item_UseItem_WindowObject.SetActive(true);
         switch (item.Num)
         {
-            case 53:
+/*            case 53:
                 UI_UseItem_Num = 0;
                 Item_UseItem_WindowObject_List[0].SetActive(true);
                 useItem = item;
-                break;
+                break;*/
             case 54:
             case 55:
             case 56:
-                UI_UseItem_Num = 1;
-                Item_UseItem_WindowObject_List[1].SetActive(true);
-                Item_UseItem_WindowObject_List[1].GetComponent<ItemUse_Window_Box>().Random_Box_Open(item.Num, gameObject);
+                UI_UseItem_Num = 0;
+                Item_UseItem_WindowObject_List[0].SetActive(true);
+                Item_UseItem_WindowObject_List[0].GetComponent<ItemUse_Window_Box>().Random_Box_Open(item.Num, gameObject);
                 item.Item_Count_Down();
                 Check_ItemList(false, item);
                 break;
             case 57:
-                UI_UseItem_Num = 2;
-                Item_UseItem_WindowObject_List[2].SetActive(true);
-                Item_UseItem_WindowObject_List[2].GetComponent<ItemUse_Window_57>().GetPoint(1);
+                UI_UseItem_Num = 1;
+                Item_UseItem_WindowObject_List[1].SetActive(true);
+                Item_UseItem_WindowObject_List[1].GetComponent<ItemUse_Window_57>().GetPoint(1);
                 item.Item_Count_Down();
                 Check_ItemList(false, item);
                 break;
@@ -185,15 +175,15 @@ public class Station_Inventory : MonoBehaviour
             case 55:
             case 56:
                 UI_UseItem_Num = 4;
-                Item_UseItem_WindowObject_List[3].SetActive(true);
-                Item_UseItem_WindowObject_List[3].GetComponent<ItemUse_Window_Box_All>().Random_Box_All_Open(item.Num, item.Item_Count, gameObject);
+                Item_UseItem_WindowObject_List[2].SetActive(true);
+                Item_UseItem_WindowObject_List[2].GetComponent<ItemUse_Window_Box_All>().Random_Box_All_Open(item.Num, item.Item_Count, gameObject);
                 item.Item_Count_Down(item.Item_Count);
                 Check_ItemList(false, item);
                 break;
             case 57:
                 UI_UseItem_Num = 2;
-                Item_UseItem_WindowObject_List[2].SetActive(true);
-                Item_UseItem_WindowObject_List[2].GetComponent<ItemUse_Window_57>().GetPoint(item.Item_Count);
+                Item_UseItem_WindowObject_List[1].SetActive(true);
+                Item_UseItem_WindowObject_List[1].GetComponent<ItemUse_Window_57>().GetPoint(item.Item_Count);
                 item.Item_Count_Down(item.Item_Count);
                 Check_ItemList(false, item);
                 break;
@@ -278,30 +268,28 @@ public class Station_Inventory : MonoBehaviour
         UseItemWindowFlag = false;
         switch (UI_UseItem_Num)
         {
+/*            case 0:
+                Item_UseItem_WindowObject.SetActive(false);
+                Item_UseItem_WindowObject_List[0].SetActive(false);
+
+                break;*/
             case 0:
                 Item_UseItem_WindowObject.SetActive(false);
                 Item_UseItem_WindowObject_List[0].SetActive(false);
-                Item_UseItem_WindowObject_List[0].GetComponent<ItemUse_Window_53>().Item_53_Init();
-                Check_ItemList(false, useItem);
                 break;
             case 1:
                 Item_UseItem_WindowObject.SetActive(false);
                 Item_UseItem_WindowObject_List[1].SetActive(false);
                 break;
-            case 2:
-                Item_UseItem_WindowObject.SetActive(false);
-                Item_UseItem_WindowObject_List[2].SetActive(false);
-                break;
             case 4:
                 Item_UseItem_WindowObject.SetActive(false);
-                Item_UseItem_WindowObject_List[3].SetActive(false);
-                Item_UseItem_WindowObject_List[3].GetComponent<ItemUse_Window_Box_All>().Item_BoxAll_Init();
+                Item_UseItem_WindowObject_List[2].SetActive(false);
+                Item_UseItem_WindowObject_List[2].GetComponent<ItemUse_Window_Box_All>().Item_BoxAll_Init();
                 break;
         }
         UI_UseItem_Num = -1;
         stationDirector.Check_CoinAndPoint();
     }
-
     public void Director_Init_Inventory()
     {
         foreach (ItemList_Object _itemObejct in Transform_ItemList[0].GetComponentsInChildren<ItemList_Object>())
@@ -338,25 +326,11 @@ public class Station_Inventory : MonoBehaviour
         {
             if (item.Use_Flag && item.Item_Count > 0)
             {
-                if (item.Num == 53)
+                Item_UseIcon[Num].SetActive(true);
+
+                if (Item_UseIcon[0].activeSelf != true)
                 {
-                    if(item.Item_Count >= 10)
-                    {
-                        Item_UseIcon[Num].SetActive(true);
-
-                        if (Item_UseIcon[0].activeSelf != true)
-                        {
-                            Item_UseIcon[0].SetActive(true);
-                        }
-                    }
-                }
-                else { 
-                    Item_UseIcon[Num].SetActive(true);
-
-                    if (Item_UseIcon[0].activeSelf != true)
-                    {
-                        Item_UseIcon[0].SetActive(true);
-                    }
+                    Item_UseIcon[0].SetActive(true);
                 }
             }
         }
@@ -364,7 +338,7 @@ public class Station_Inventory : MonoBehaviour
 
     private void Check_Item_Use()
     {
-        for(int i = 1; i < 4; i++)
+        for(int i = 1; i < 3; i++)
         {
             Item_UseIcon[i].SetActive(false);
             foreach (ItemList_Object item_object in Transform_ItemList[i].GetComponentsInChildren<ItemList_Object>())
@@ -373,23 +347,13 @@ public class Station_Inventory : MonoBehaviour
                 {
                     if (item_object.item.Use_Flag && item_object.item.Item_Count > 0)
                     {
-                        if(item_object.item.Num == 53)
-                        {
-                            if (item_object.item.Item_Count >= 10)
-                            {
-                                Item_UseIcon[i].SetActive(true);
-                            }
-                        }
-                        else
-                        {
-                            Item_UseIcon[i].SetActive(true);
-                        }
+                        Item_UseIcon[i].SetActive(true);
                     }
                 }
             }
         }
 
-        if (Item_UseIcon[1].activeSelf || Item_UseIcon[2].activeSelf || Item_UseIcon[3].activeSelf)
+        if (Item_UseIcon[1].activeSelf || Item_UseIcon[2].activeSelf)
         {
              Item_UseIcon[0].SetActive(true);
         }

@@ -10,6 +10,11 @@ public class SA_PlayerData : ScriptableObject
 {
     [SerializeField]
     Game_DataTable EX_GameData;
+
+    [SerializeField]
+    private bool firstflag;
+    public bool FirstFlag { get { return firstflag; } }
+
     [SerializeField]
     private int player_num;
     public int Player_Num { get { return player_num; } }
@@ -64,6 +69,10 @@ public class SA_PlayerData : ScriptableObject
     [SerializeField]
     private int select_stage;
     public int Select_Stage { get { return  select_stage; } }
+    [SerializeField]
+    private int story_num;
+    public int Story_Num { get { return story_num; } }
+
 
     [SerializeField]
     private bool[] character_lockoff;
@@ -160,37 +169,51 @@ public class SA_PlayerData : ScriptableObject
         return i;
     }
 
+    public void SA_CheckFirstFlag()
+    {
+        if (!firstflag)
+        {
+            firstflag = true;
+            Save();
+        }
+    }
+
     private void Save()
     {
-        PlayerPrefs.SetInt("SA_PlayerData_Data_level_atk", level_atk);
-        PlayerPrefs.SetInt("SA_PlayerData_Data_level_atkdelay", level_atkdelay);
-        PlayerPrefs.SetInt("SA_PlayerData_Data_level_player_hp", level_hp);
-        PlayerPrefs.SetInt("SA_PlayerData_Data_level_player_armor", level_armor);
-        PlayerPrefs.SetInt("SA_PlayerData_Data_levle_speed", level_speed);
-        PlayerPrefs.SetInt("SA_PlayerData_Data_coin", coin);
-        PlayerPrefs.SetInt("SA_PlayerData_Data_point", point);
-        PlayerPrefs.SetInt("SA_PlayerData_Data_new_stage", new_stage);
-        PlayerPrefs.SetInt("SA_PlayerData_Data_select_stage", select_stage);
+        ES3.Save<bool>("SA_PlayerData_Data_FirstFlag", firstflag);
+        ES3.Save<int>("SA_PlayerData_Data_level_atk", level_atk);
+        ES3.Save<int>("SA_PlayerData_Data_level_atkdelay", level_atkdelay);
+        ES3.Save<int>("SA_PlayerData_Data_level_player_hp", level_hp);
+        ES3.Save<int>("SA_PlayerData_Data_level_player_armor", level_armor);
+        ES3.Save<int>("SA_PlayerData_Data_levle_speed", level_speed);
+        ES3.Save<int>("SA_PlayerData_Data_coin", coin);
+        ES3.Save<int>("SA_PlayerData_Data_point", point);
+        ES3.Save<int>("SA_PlayerData_Data_new_stage", new_stage);
+        ES3.Save<int>("SA_PlayerData_Data_select_stage", select_stage);
         ES3.Save<bool[]>("SA_PlayerData_Data_LockOff", character_lockoff);
     }
 
     public void Load()
-    {
-        level_atk = PlayerPrefs.GetInt("SA_PlayerData_Data_level_atk");
-        level_atkdelay = PlayerPrefs.GetInt("SA_PlayerData_Data_level_atkdelay");
-        level_hp = PlayerPrefs.GetInt("SA_PlayerData_Data_level_player_hp");
-        level_armor = PlayerPrefs.GetInt("SA_PlayerData_Data_level_player_armor");
-        level_speed = PlayerPrefs.GetInt("SA_PlayerData_Data_levle_speed");
-        coin = PlayerPrefs.GetInt("SA_PlayerData_Data_coin");
-        point = PlayerPrefs.GetInt("SA_PlayerData_Data_point");
-        new_stage = PlayerPrefs.GetInt("SA_PlayerData_Data_new_stage");
-        new_stage = PlayerPrefs.GetInt("SA_PlayerData_Data_select_stage");
+    { 
+        firstflag = ES3.Load<bool>("SA_PlayerData_Data_FirstFlag");
+      
+        level_atk = ES3.Load<int>("SA_PlayerData_Data_level_atk");
+        level_atkdelay = ES3.Load<int>("SA_PlayerData_Data_level_atkdelay");
+        level_hp = ES3.Load<int>("SA_PlayerData_Data_level_player_hp");
+        level_armor = ES3.Load<int>("SA_PlayerData_Data_level_player_armor");
+        level_speed = ES3.Load<int>("SA_PlayerData_Data_levle_speed");
+        coin = ES3.Load<int>("SA_PlayerData_Data_coin");
+        point = ES3.Load<int>("SA_PlayerData_Data_point");
+        new_stage = ES3.Load<int>("SA_PlayerData_Data_new_stage");
+        new_stage = ES3.Load<int>("SA_PlayerData_Data_select_stage");
         character_lockoff = ES3.Load<bool[]>("SA_PlayerData_Data_LockOff");
     }
 
     public void Init()
     {
         player_num = 0;
+
+        firstflag = false;
 
         level_atk = 0;
         level_atkdelay = 0;

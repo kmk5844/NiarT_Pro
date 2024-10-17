@@ -6,6 +6,6 @@ public class Stroy_FadeOut : MonoBehaviour
 {
     public void FadeOUt()
     {
-        GameManager.Instance.End_Enter();
+        GameManager.Instance.Story_End();
     }
 }

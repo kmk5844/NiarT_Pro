@@ -44,6 +44,8 @@ public class GameManager : MonoBehaviour
     #endregion
 
     public bool Demo;
+    public Game_DataTable gameData;
+
     public SA_PlayerData PlayerData;
     public SA_StoryData StoryData;
     public SA_LocalData LocalData;
@@ -88,17 +90,59 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void BeforeGameStart_Enter()
+    {
+        int index = story_List.FindIndex(x => x.stageNum == PlayerData.New_Stage);
+        if (index != -1 && !story_List[index].StartFlag)
+        {
+            LoadingManager.LoadScene(gameData.Information_Scene[index].BeforeGameStart_Button);
+            story_List[index].StartFlag = true;
+        }
+        else
+        {
+            LoadingManager.LoadScene("InGame");
+        }
+    }
+
+    public void BeforeStation_Enter()
+    {
+        int index = story_List.FindIndex(x => x.stageNum == PlayerData.New_Stage);
+        if (index != -1 && !story_List[index].StartFlag)
+        {
+            LoadingManager.LoadScene(gameData.Information_Scene[index].BeforeStation_Button);
+            story_List[index].StartFlag = true;
+        }
+        else
+        {
+            LoadingManager.LoadScene("Station");
+        }
+    }
+
+    public void Story_End()
+    {
+        int index = story_List.FindIndex(x => x.stageNum == PlayerData.New_Stage);
+        if (index != -1 && !story_List[index].EndFlag)
+        {
+            LoadingManager.LoadScene(gameData.Information_Scene[index].Story_End);
+            story_List[index].EndFlag = true;
+        }
+        else
+        {
+            LoadingManager.LoadScene("Station");
+        }
+    }
+/*
     public void Start_Enter()
     {
         int index = story_List.FindIndex(x => x.stageNum == PlayerData.New_Stage);
         if (index != -1 && !story_List[index].StartFlag)
         {
-            StoryData.Start_Story(PlayerData.New_Stage);
+            LoadingManager.LoadScene(gameData.Information_Scene[index].Scene_Start);
             story_List[index].StartFlag = true;
         }
         else
         {
-            StoryData.Start_Story(-1);
+            LoadingManager.LoadScene("Station");
         }
     }
 
@@ -107,14 +151,14 @@ public class GameManager : MonoBehaviour
         int index = story_List.FindIndex(x => x.stageNum == PlayerData.New_Stage);
         if (index != -1 && !story_List[index].EndFlag)
         {
-            StoryData.End_Story(PlayerData.New_Stage);
+            LoadingManager.LoadScene(gameData.Information_Scene[index].Scene_End);
             story_List[index].EndFlag = true;
         }
         else
         {
-            StoryData.End_Story(-1);
+            LoadingManager.LoadScene("Station");
         }
-    }
+    }*/
 
     public void Demo_End_Enter()
     {

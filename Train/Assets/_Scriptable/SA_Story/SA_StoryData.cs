@@ -15,7 +15,7 @@ public class SA_StoryData : ScriptableObject
         final_story_index++;
     }
 
-    public void Start_Story(int PlayerData)
+/*    public void Start_Story(int PlayerData)
     {
         switch (PlayerData)
         {
@@ -81,7 +81,7 @@ public class SA_StoryData : ScriptableObject
                 LoadingManager.LoadScene("Demo_End");
                 break;
         }
-    }
+    }*/
     
     public void End_Tutorial(int PlayerData)
     {

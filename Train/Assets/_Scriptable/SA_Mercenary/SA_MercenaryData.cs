@@ -199,7 +199,7 @@ public class SA_MercenaryData : ScriptableObject
         level_short_ranged = ES3.Load<int>("SA_Mercenary_Data_Data_level_short_ranged");
         level_medic = ES3.Load<int>("SA_Mercenary_Data_Data_level_medic");
         //데모버전 이후
-        bard_type = ES3.Load<Bard_Type>("SA_Mercenary_Data_engine_driver_type");
+        bard_type = ES3.Load<Bard_Type>("SA_Mercenary_Data_bard_type");
         level_medic = ES3.Load<int>("SA_Mercenary_Data_Data_level_bard");
         level_cowboy = ES3.Load<int>("SA_Mercenary_Data_Data_level_cowboy");
     }

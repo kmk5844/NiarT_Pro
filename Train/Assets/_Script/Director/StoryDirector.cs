@@ -213,7 +213,7 @@ public class StoryDirector : MonoBehaviour
 
     private void Click_Skip_Button()
     {
-        GameManager.Instance.End_Enter();
+        GameManager.Instance.Story_End();
     }
 
     private void Click_BackLog_Button()

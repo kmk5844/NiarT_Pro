@@ -23,10 +23,14 @@ public class StationDirector : MonoBehaviour
     Station_Inventory Director_Inventory;
     [SerializeField]
     Station_GameStart Director_GameStart;
+    [SerializeField]
+    Station_Conversion Direcotr_Conversion;
 
     [Header("Lobby")]
     public GameObject UI_Lobby;
     public GameObject UI_BackGround;
+
+    //1
     [Header("Click Lobby -> Train Maintenance")]
     public GameObject UI_TrainMaintenance;
     public ToggleGroup UI_TrainMaintenance_Toggle;
@@ -44,7 +48,9 @@ public class StationDirector : MonoBehaviour
     public Button Content_Fortress_Button;
     public Button Content_Store_Button;
     bool isMoving = false;
-
+    
+    //2 : store
+    //3 : Fortress
     [Header("Click Lobby -> Store&Fortress")]
     public GameObject UI_StoreAndFortress;
     public GameObject[] UI_Store_Window;
@@ -54,13 +60,20 @@ public class StationDirector : MonoBehaviour
     bool ItemSell_InventoryFlag;
     public static bool TooltipFlag;
 
+    //4 : Inventory
     [Header("Click Lobby -> Inventory")]
     public GameObject UI_Inventory;
     public Toggle[] UI_Inventory_Toggle;
     public GameObject[] UI_Inventory_Window;
 
+    //5 : GameStart
     [Header("Click Lobby -> GameStart")]
     public GameObject UI_GameStart;
+
+    //6: Converstion
+    [Header("Click Lobby -> Conversion")]
+    public GameObject UI_Conversion;
+
 
     [Header("Coin&Point")]
     public TextMeshProUGUI[] Coin_Text;
@@ -183,7 +196,6 @@ public class StationDirector : MonoBehaviour
                 {
                     Click_Home_Button();
                 }
-
             }
             else if (ui_num == 5)
             {
@@ -200,6 +212,15 @@ public class StationDirector : MonoBehaviour
                 }
                 else
                 {
+                    Click_Home_Button();
+                }
+            }else if(ui_num == 6)
+            {
+                if (Direcotr_Conversion.AfterConversionFlag)
+                {
+                    Direcotr_Conversion.Button_Check();
+                }
+                else { 
                     Click_Home_Button();
                 }
             }
@@ -329,42 +350,41 @@ public class StationDirector : MonoBehaviour
 
     public void ClickLobbyButton(int num)
     {
-        if (num == 5)
+        UI_Lobby.gameObject.SetActive(false);
+        UI_BackGround.gameObject.SetActive(true);
+        switch (num)
         {
-            UI_GameStart.SetActive(true);
-            Director_GameStart.Check_Train();
-            ui_num = 5;
-        }
-        else
-        {
-            UI_Lobby.gameObject.SetActive(false);
-            UI_BackGround.gameObject.SetActive(true);
-            switch (num)
-            {
-                case 1:
-                    UI_TrainMaintenance.gameObject.SetActive(true);
-                    ui_num = 1;
-                    Check_CoinAndPoint();
-                    break;
-                case 2:
-                    Director_Store.Check_AfterBuy_MercenaryCard();
-                    Store_Fortress_Content.anchoredPosition = new Vector2(0, 0);
-                    UI_StoreAndFortress.gameObject.SetActive(true);
-                    ui_num = 2;
-                    Check_CoinAndPoint();
-                    break;
-                case 3:
-
-                    Store_Fortress_Content.anchoredPosition = new Vector2(-1920, 0);
-                    UI_StoreAndFortress.gameObject.SetActive(true);
-                    ui_num = 3;
-                    Check_CoinAndPoint();
-                    break;
-                case 4:
-                    UI_Inventory.gameObject.SetActive(true);
-                    ui_num = 4;
-                    break;
-            }
+            case 1:
+                UI_TrainMaintenance.gameObject.SetActive(true);
+                ui_num = 1;
+                Check_CoinAndPoint();
+                break;
+            case 2:
+                Director_Store.Check_AfterBuy_MercenaryCard();
+                Store_Fortress_Content.anchoredPosition = new Vector2(0, 0);
+                UI_StoreAndFortress.gameObject.SetActive(true);
+                ui_num = 2;
+                Check_CoinAndPoint();
+                break;
+            case 3:
+                Store_Fortress_Content.anchoredPosition = new Vector2(-1920, 0);
+                UI_StoreAndFortress.gameObject.SetActive(true);
+                ui_num = 3;
+                Check_CoinAndPoint();
+                break;
+            case 4:
+                UI_Inventory.gameObject.SetActive(true);
+                ui_num = 4;
+                break;
+            case 5:
+                UI_GameStart.SetActive(true);
+                Director_GameStart.Check_Train();
+                ui_num = 5;
+                break;
+            case 6:
+                UI_Conversion.SetActive(true);
+                ui_num = 6;
+                break;
         }
         Total_Init();
     }
@@ -439,8 +459,6 @@ public class StationDirector : MonoBehaviour
             yield return null;
         }
     }
-
-
 
     public void Click_FortressButton(int UI_Fortress_Num)
     {
@@ -529,6 +547,11 @@ public class StationDirector : MonoBehaviour
         else if (ui_num == 5)
         {
             UI_GameStart.gameObject.SetActive(false);
+        }else if(ui_num == 6)
+        {
+            Direcotr_Conversion.Item_53_Init();
+            UI_Conversion.gameObject.SetActive(false);
+            //Check_ItemList(false, useItem);
         }
         UI_BackGround.gameObject.SetActive(false);
 

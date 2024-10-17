@@ -233,7 +233,7 @@ public class UIDirector : MonoBehaviour
 
     public void Click_Station()
     {
-        GameManager.Instance.Start_Enter();
+        GameManager.Instance.BeforeStation_Enter();
         //LoadingManager.LoadScene("Station");
     }
 

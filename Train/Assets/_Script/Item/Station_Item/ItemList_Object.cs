@@ -39,10 +39,10 @@ public class ItemList_Object : MonoBehaviour
             {
                 item_use_object.SetActive(true);
 
-                if (item.Num == 53 && item_count < 10)
+/*                if (item.Num == 53 && item_count < 10)
                 {
                     item_use_object.SetActive(false);
-                }
+                }*/
             }
             else
             {
@@ -105,14 +105,15 @@ public class ItemList_Object : MonoBehaviour
         if(item_count != 0)
         {
             item_object_text_count.text = item_count.ToString();
-            if(item.Num == 53 && item_count >= 10)
+            /*if(item.Num == 53 && item_count >= 10)
             {
                 item_use_object.SetActive(true);
             }
             else
             {
                 item_use_object.SetActive(false);
-            }
+            }*/
+            item_use_object.SetActive(false);
             return true;
         }
         else if(item_count == 0)
