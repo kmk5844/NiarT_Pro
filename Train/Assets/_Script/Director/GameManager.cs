@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Localization.Settings;
@@ -45,9 +43,9 @@ public class GameManager : MonoBehaviour
 
     public bool Demo;
     public Game_DataTable gameData;
+    public Story_DataTable storyData;
 
     public SA_PlayerData PlayerData;
-    public SA_StoryData StoryData;
     public SA_LocalData LocalData;
     public List<storyStage> story_List;
 
@@ -62,7 +60,6 @@ public class GameManager : MonoBehaviour
         if (Demo)
         {
             DataManager.Instance.Init();
-
         }
         else
         {
@@ -131,38 +128,10 @@ public class GameManager : MonoBehaviour
             LoadingManager.LoadScene("Station");
         }
     }
-/*
-    public void Start_Enter()
-    {
-        int index = story_List.FindIndex(x => x.stageNum == PlayerData.New_Stage);
-        if (index != -1 && !story_List[index].StartFlag)
-        {
-            LoadingManager.LoadScene(gameData.Information_Scene[index].Scene_Start);
-            story_List[index].StartFlag = true;
-        }
-        else
-        {
-            LoadingManager.LoadScene("Station");
-        }
-    }
-
-    public void End_Enter()
-    {
-        int index = story_List.FindIndex(x => x.stageNum == PlayerData.New_Stage);
-        if (index != -1 && !story_List[index].EndFlag)
-        {
-            LoadingManager.LoadScene(gameData.Information_Scene[index].Scene_End);
-            story_List[index].EndFlag = true;
-        }
-        else
-        {
-            LoadingManager.LoadScene("Station");
-        }
-    }*/
 
     public void Demo_End_Enter()
     {
-        StoryData.End_Demo(PlayerData.New_Stage);
+        LoadingManager.LoadScene("Demo_End");
     }
 
     void StoryFlag_Init()

@@ -11,8 +11,6 @@ public class StoryDirector : MonoBehaviour
     [SerializeField]
     private Story_DataTable EX_StoryData;
     [SerializeField]
-    private SA_StoryData SA_StoryData;
-    [SerializeField]
     private SA_PlayerData SA_PlayerData;
     [SerializeField]
     private SA_LocalData sa_localdata;
@@ -48,6 +46,9 @@ public class StoryDirector : MonoBehaviour
     public GameObject BackLog_Window;
     public Transform BackLog_Content;
     public GameObject BackLog_Object;
+    public GameObject Option_Window;
+
+    public Image BackGround_Image;
 
     private void Update()
     {
@@ -69,11 +70,11 @@ public class StoryDirector : MonoBehaviour
         }
     }
 
-    public GameObject Option_Window;
     private void Awake()
     {
-        int index = EX_StoryData.Story_Branch.FindIndex(x => x.Stage_Index.Equals(SA_PlayerData.New_Stage));
+        int index = 0;//EX_StoryData.Story_Branch.FindIndex(x => x.Stage_Index.Equals(SA_PlayerData.New_Stage));
         int Branch_Value = EX_StoryData.Story_Branch[index].Branch_Index;
+        BackGround_Image.sprite = Resources.Load<Sprite>("Story/BackGround/" + EX_StoryData.Story_Branch[index].BackGround);
         GameObject Branch = BranchList[Branch_Value]; // stageNum에 따라 Branch 값을 가져온다.
         Branch.GetComponent<DialogSystem>().Story_Init(gameObject, SA_PlayerData.New_Stage, Branch_Value);
         GameObject Branch_Canvas = Instantiate(Branch, Canvas);
@@ -96,8 +97,7 @@ public class StoryDirector : MonoBehaviour
             Stage_Title.text = EX_StoryData.Story_Branch[index].Story_Title_Jp;
             //일본어
         }
-        Stage_Num.text = "Story " + EX_StoryData.Story_Branch[index].Story_Title_Num;
-        
+        //Stage_Num.text = "Story " + EX_StoryData.Story_Branch[index].Story_Title_Num;
     }
     // Start is called before the first frame update
     void Start()

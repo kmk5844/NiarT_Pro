@@ -1,3 +1,4 @@
+using PixelCrushers.DialogueSystem.Articy.Articy_4_0;
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
@@ -14,15 +15,20 @@ public class Auto_Item_ScritableObject : EditorWindow
     string itemCount_Num = "";
     string itemCount_Single = "";
 
-    bool showBtn = true;
+    private string[] Type = { "Item", "Stage", "Story" };
+
+    //bool showBtn = true;
+    int selectType;
+
     public Game_DataTable DataTable;
     public SA_ItemList SA_ItemList_;
     public SA_StageList SA_StageList_;
    
     private void OnGUI()
     {
-        showBtn = EditorGUILayout.Toggle("Item", showBtn);
-        if (showBtn )
+        selectType = EditorGUILayout.Popup("Type", selectType, Type);
+        //showBtn = EditorGUILayout.Toggle("Item", showBtn);
+        if (selectType == 0)
         {
             SA_ItemList_ = (SA_ItemList)EditorGUILayout.ObjectField("SA_ItemList_", SA_ItemList_, typeof(SA_ItemList), false);
             if (GUILayout.Button("Create Auto Item"))
@@ -63,7 +69,7 @@ public class Auto_Item_ScritableObject : EditorWindow
                 Add_ItemSingleCount(itemCount_Num, itemCount_Single);
             }
         }
-        else
+        else if (selectType == 1)
         {
             SA_StageList_ = (SA_StageList)EditorGUILayout.ObjectField("SA_StageList_", SA_StageList_, typeof(SA_StageList), false);
 
@@ -73,6 +79,9 @@ public class Auto_Item_ScritableObject : EditorWindow
                 DeleteAllFilesInFolder_Stage();
                 CreatObjectFromList_Stage();
             }
+        }else if(selectType == 2)
+        {
+
         }
 
 

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
 using System;
+using MoreMountains.Tools;
 
 public class DialogSystem : MonoBehaviour
 {
@@ -108,7 +109,6 @@ public class DialogSystem : MonoBehaviour
 
 	public bool UpdateDialog()
 	{
-
 		// 대사 분기가 시작될 때 1회만 호출
 		if ( isFirst == true )
 		{
@@ -124,7 +124,6 @@ public class DialogSystem : MonoBehaviour
         {
             if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)) && !SkipHit_Flag && !AutoHit_Flag && !BackHit_Flag && !OptionHit_Flag)
             {
-
                 if (isTypingEffect == true)
                 {
                     isTypingEffect = false;
@@ -193,10 +192,14 @@ public class DialogSystem : MonoBehaviour
 		currentDialogIndex ++;
 		// 현재 화자 순번 설정
 		currentSpeakerIndex = dialogs[currentDialogIndex].speakerIndex;
-		// 현재 화자의 대화 관련 오브젝트 활성화
+        // 현재 화자의 대화 관련 오브젝트 활성화
 		SetActiveObjects(speakers[currentSpeakerIndex], true);
-		// 현재 화자 이름 텍스트 설정
-		speakers[currentSpeakerIndex].textName.text = dialogs[currentDialogIndex].name;
+
+        //커스텀 작동
+        CheckCustom();
+
+        // 현재 화자 이름 텍스트 설정
+        speakers[currentSpeakerIndex].textName.text = dialogs[currentDialogIndex].name;
 		// 현재 화자의 대사 텍스트 설정
 		//speakers[currentSpeakerIndex].textDialogue.text = dialogs[currentDialogIndex].dialogue;
 		StartCoroutine("OnTypingText");
@@ -288,8 +291,48 @@ public class DialogSystem : MonoBehaviour
                     _data.dialogue = EX_Story.Story[i].jp_dialog;
                 }
                 _data.backLog_Color = EX_Story.Story[i].BackLog_Color;
+                _data.Sound = EX_Story.Story[i].Sound;
+                _data.Player_Animation = EX_Story.Story[i].Player_Animation;
+                _data.ChatBox_Animation = EX_Story.Story[i].ChatBox_Animation;
+                _data.Sprite = EX_Story.Story[i].Sprite;
+                _data.etc = EX_Story.Story[i].Etc;
                 dialogs.Add(_data);
                 index++;
+            }
+        }
+    }
+
+    private void CheckCustom()
+    {
+        if(dialogs[currentDialogIndex].Sound != "")
+        {
+            AudioClip sound = Resources.Load<AudioClip>("Story/Sound/" + dialogs[currentDialogIndex].Sound);
+            MMSoundManagerSoundPlayEvent.Trigger(sound, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+        }
+
+        if (dialogs[currentDialogIndex].Sprite != "")
+        {
+            Sprite ChangeSprite = Resources.Load<Sprite>("Story/Sprite/" + dialogs[currentDialogIndex].Sprite);
+            speakers[currentSpeakerIndex].player_able.sprite = ChangeSprite;
+        }
+
+        if (dialogs[currentDialogIndex].Player_Animation != "")
+        {
+            Animator ani = speakers[currentSpeakerIndex].player_able.GetComponent<Animator>();
+            ani.SetTrigger(dialogs[currentDialogIndex].Player_Animation);
+        }
+
+        if (dialogs[currentDialogIndex].ChatBox_Animation != "")
+        {
+            Animator ani = speakers[currentSpeakerIndex].imageDialog.GetComponent<Animator>();
+
+            if (ani != null && ani.isActiveAndEnabled)
+            {
+                ani.SetTrigger(dialogs[currentDialogIndex].ChatBox_Animation);
+            }
+            else
+            {
+                Debug.LogError("Animator is either null or not enabled");
             }
         }
     }
@@ -312,8 +355,13 @@ public struct DialogData
 	public	int		speakerIndex;	// 이름과 대사를 출력할 현재 DialogSystem의 speakers 배열 순번
 	public	string	name;			// 캐릭터 이름
 	[TextArea(3, 5)]
-	public	string	dialogue;		// 대사
+	public	string dialogue;		// 대사
     [HideInInspector]
     public string backLog_Color;
+    public string Sound;
+    public string Sprite;
+    public string Player_Animation;
+    public string ChatBox_Animation;
+    public string etc;
 }
 

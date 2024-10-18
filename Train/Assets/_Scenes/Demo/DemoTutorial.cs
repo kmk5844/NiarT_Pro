@@ -5,12 +5,12 @@ using System.Xml.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Localization.Components;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class DemoTutorial : MonoBehaviour
 {
     public SA_PlayerData playerData;
-    public SA_StoryData storyData;
     public SA_Tutorial tutorialData;
     int PlayerStageNum;
     //-> 그걸 이용해서 bool 판단
@@ -76,7 +76,8 @@ public class DemoTutorial : MonoBehaviour
         }
         else
         {
-            storyData.End_Tutorial(PlayerStageNum);
+            SceneManager.LoadSceneAsync("InGame");
+
             tutorialData.ChangeFlag(-1);
         }
 
