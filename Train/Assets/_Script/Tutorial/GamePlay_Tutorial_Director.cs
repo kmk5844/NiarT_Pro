@@ -9,6 +9,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
     bool T_Flag;
     float clickTime;
     bool clickFlag;
+    public GameObject ScarecrowObject;
 
     private void Start()
     {
@@ -106,16 +107,16 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
 
             if(player.T_FireCount > 5)
             {
-                tutorialList = Tutorial_List.End;
+                tutorialList = Tutorial_List.T_Fire_Kill;
                 T_Flag = true;
             }
         }
 
-        if(tutorialList == Tutorial_List.End)
+        if(tutorialList == Tutorial_List.T_Fire_Kill)
         {
             if (T_Flag)
             {
-                Debug.Log("Á¾·á");
+                Instantiate(ScarecrowObject);
                 T_Flag = false;
             }
         }

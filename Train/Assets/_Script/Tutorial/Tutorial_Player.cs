@@ -51,6 +51,8 @@ public class Tutorial_Player : MonoBehaviour
         ani = GetComponent<Animator>();
         jumpFlag = false;
         jumpdistance = 1f;
+        Bullet_Delay = 0.5f;
+        Bullet_Atk = 30;
         GunObject_Scale = GunObject.transform.localScale;
         KeyObject_Scale = KeyObject.transform.localScale;
     }
@@ -183,7 +185,7 @@ public class Tutorial_Player : MonoBehaviour
                 StartCoroutine(MariGold_Skill_BulletFire());
             }
 
-            MMSoundManagerSoundPlayEvent.Trigger(ShootSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+            //MMSoundManagerSoundPlayEvent.Trigger(ShootSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
 
             lastTime = Time.time;
         }
