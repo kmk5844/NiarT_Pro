@@ -291,6 +291,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &216521378
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 216521379}
+  m_Layer: 0
+  m_Name: StoryManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &216521379
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 216521378}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 811.8396, y: 579.7558, z: 25.363375}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &531850438
 GameObject:
   m_ObjectHideFlags: 0
@@ -441,6 +472,7 @@ MonoBehaviour:
   InventoryItem_Data: {fileID: 11400000, guid: 130b52d5086f48c44a1ab80708de4492, type: 2}
   PlayerItem_Data: {fileID: 11400000, guid: 1c47d5df70f8ca5419c8ebdc0adcab92, type: 2}
   tutorialData: {fileID: 11400000, guid: e474f0d58c15e3948852b0e9406b577a, type: 2}
+  storyData: {fileID: 11400000, guid: 34afbce22f4b404438435989d8fdccaf, type: 2}
 --- !u!4 &747994418
 Transform:
   m_ObjectHideFlags: 0
@@ -485,36 +517,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 160218004e8af024e8bbaadf3844b541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Demo: 1
+  Demo: 0
   gameData: {fileID: 11400000, guid: 3a83740cb85032c498c0bbd5b0a2ec9d, type: 2}
   storyData: {fileID: 11400000, guid: b8af22cb28fb5d34aa1677af812607be, type: 2}
   PlayerData: {fileID: 11400000, guid: 00cbb5f50188b374e85c8a529a52b4b0, type: 2}
   LocalData: {fileID: 11400000, guid: 33c6f16a2b657084092465b679016321, type: 2}
-  story_List:
-  - stageNum: 0
-    StartFlag: 0
-    EndFlag: 0
-  - stageNum: 1
-    StartFlag: 0
-    EndFlag: 0
-  - stageNum: 2
-    StartFlag: 0
-    EndFlag: 0
-  - stageNum: 3
-    StartFlag: 0
-    EndFlag: 0
-  - stageNum: 4
-    StartFlag: 0
-    EndFlag: 0
-  - stageNum: 5
-    StartFlag: 0
-    EndFlag: 0
-  - stageNum: 7
-    StartFlag: 0
-    EndFlag: 0
-  - stageNum: 8
-    StartFlag: 0
-    EndFlag: 0
+  StoryData: {fileID: 11400000, guid: 34afbce22f4b404438435989d8fdccaf, type: 2}
 --- !u!4 &818390840
 Transform:
   m_ObjectHideFlags: 0
@@ -971,6 +979,7 @@ SceneRoots:
   - {fileID: 1513694712}
   - {fileID: 1564072268}
   - {fileID: 818390840}
+  - {fileID: 216521379}
   - {fileID: 747994418}
   - {fileID: 1490321498}
   - {fileID: 1137501734}

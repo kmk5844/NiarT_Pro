@@ -6,7 +6,8 @@ using UnityEngine;
 public class Info_Scene
 {
     public int New_Stage;
-    public string BeforeGameStart_Button;
     public string BeforeStation_Button;
-    public string Story_End;
+    public string BeforeGameStart_Button;
+    public int BeforeStation_StoryIndex;
+    public int BeforeGameStart_StoryIndex;
 }

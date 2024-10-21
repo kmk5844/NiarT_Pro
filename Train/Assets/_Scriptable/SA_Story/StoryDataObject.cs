@@ -50,7 +50,7 @@ public class StoryDataObject : ScriptableObject
         }
     }
 
-    public void StoryData_Insert(int _story_num, int _branch_index, string _background, string _story_end, string _story_title_kr, string _story_title_en, string _story_title_jp)
+    public void Auto_StoryData_Insert(int _story_num, int _branch_index, string _background, string _story_end, string _story_title_kr, string _story_title_en, string _story_title_jp)
     {
         story_num = _story_num;
         branch_index = _branch_index;
@@ -73,11 +73,13 @@ public class StoryDataObject : ScriptableObject
 
     public void save()
     {
-
+        ES3.Save<bool>("Player_Start_Flag", start_flag);
+        ES3.Save<bool>("Player_End_Flag", end_flag);
     }
 
     public void Load()
     {
-
+        start_flag = ES3.Load<bool>("Player_Start_Flag");
+        end_flag = ES3.Load<bool>("Player_End_Flag");
     }
 }

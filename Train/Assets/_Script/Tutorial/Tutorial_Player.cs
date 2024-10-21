@@ -8,7 +8,7 @@ public class Tutorial_Player : MonoBehaviour
 {
     Animator ani;
     Rigidbody2D rigid;
-    bool jumpFlag;
+    public bool jumpFlag;
     float moveSpeed = 7;
     float jumpSpeed = 8.5f;
     float jumpdistance = 1f;
@@ -33,8 +33,12 @@ public class Tutorial_Player : MonoBehaviour
 
     [Header("튜토리얼 플래그")]
     public bool T_MoveFlag;
+    public bool T_Move_Flag_A;
+    public bool T_Move_Flag_D;   
     public bool T_JumpFlag;
+    public int T_JumpCount;
     public bool T_FireFlag;
+    public int T_FireCount;
 
 
     void Start()
@@ -97,23 +101,31 @@ public class Tutorial_Player : MonoBehaviour
             {
                 rigid.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
                 ani.SetTrigger("Jump");
+                T_JumpCount++;
             }
         }
 
         if (isMouseDown)
         {
             BulletFire();
+            T_FireCount++;
         }
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-
         if (T_MoveFlag)
         {
             float h = Input.GetAxisRaw("Horizontal");
-            rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
+            if(h < 0f && T_Move_Flag_A)
+            {
+                rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
+            }
+            else if(h > 0f && T_Move_Flag_D)
+            {
+                rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
+            }
         }
 
         Debug.DrawRay(rigid.position, Vector3.down * jumpdistance, Color.green);

@@ -290,7 +290,8 @@ public class Station_GameStart : MonoBehaviour
     public void Click_GameStart()
     {
         playerData.SA_PlayerData.SA_SelectLevel(Select_StageNum);
-        LoadingManager.LoadScene("CharacterSelect");
+        GameManager.Instance.BeforeGameStart_Enter();
+        //LoadingManager.LoadScene("CharacterSelect");
     }
 
     public void Open_Inventory_Window(int num)

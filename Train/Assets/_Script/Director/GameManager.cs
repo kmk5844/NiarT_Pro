@@ -3,14 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Localization.Settings;
 using System;
-
-[Serializable]
-public class storyStage
-{
-    public int stageNum;
-    public bool StartFlag;
-    public bool EndFlag;
-}
+using static PixelCrushers.AnimatorSaver;
 
 public class GameManager : MonoBehaviour
 {
@@ -47,7 +40,7 @@ public class GameManager : MonoBehaviour
 
     public SA_PlayerData PlayerData;
     public SA_LocalData LocalData;
-    public List<storyStage> story_List;
+    public SA_StoryLIst StoryData;
 
     Texture2D cursorOrigin;
     Vector2 cursorHotspot_Origin;
@@ -85,43 +78,92 @@ public class GameManager : MonoBehaviour
                 PlayerData.SA_Test();
             }
         }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha0))
+            {
+                if (Time.timeScale == 0)
+                {
+                    Time.timeScale = 1;
+                }
+                Game_Reset();
+            }
+        }
     }
 
     public void BeforeGameStart_Enter()
     {
-        int index = story_List.FindIndex(x => x.stageNum == PlayerData.New_Stage);
-        if (index != -1 && !story_List[index].StartFlag)
+        if (gameData.Information_Scene[PlayerData.New_Stage].BeforeGameStart_Button.Equals("Story"))
         {
-            LoadingManager.LoadScene(gameData.Information_Scene[index].BeforeGameStart_Button);
-            story_List[index].StartFlag = true;
+            int index = gameData.Information_Scene[PlayerData.New_Stage].BeforeGameStart_StoryIndex;
+            if (!StoryData.StoryList[index].Start_Flag)
+            {
+                LoadingManager.LoadScene("Story");
+                StoryData.StoryList[index].ChangeFlag(true);
+            }
+            else
+            {
+                LoadingManager.LoadScene("InGame");
+            }
         }
         else
         {
             LoadingManager.LoadScene("InGame");
         }
+
+        /*        int index = StoryData.StoryList.FindIndex(x => x.Story_Num == PlayerData.New_Stage);
+                if (index != -1 && !StoryData.StoryList[index].Start_Flag)
+                {
+                    //PlayerData.SA_Story(gameData.Information_Scene[index].BeforeGameStart_StoryIndex);
+                    LoadingManager.LoadScene(gameData.Information_Scene[index].BeforeGameStart_Button);
+                }
+                else
+                {
+                    LoadingManager.LoadScene("InGame");
+                }*/
     }
 
     public void BeforeStation_Enter()
     {
-        int index = story_List.FindIndex(x => x.stageNum == PlayerData.New_Stage);
-        if (index != -1 && !story_List[index].StartFlag)
+        if (gameData.Information_Scene[PlayerData.New_Stage].BeforeStation_Button.Equals("Story"))
         {
-            LoadingManager.LoadScene(gameData.Information_Scene[index].BeforeStation_Button);
-            story_List[index].StartFlag = true;
+            int index = gameData.Information_Scene[PlayerData.New_Stage].BeforeStation_StoryIndex;
+            if (!StoryData.StoryList[index].Start_Flag)
+            {
+                LoadingManager.LoadScene("Story");
+                StoryData.StoryList[index].ChangeFlag(true);
+            }
+            else
+            {
+                LoadingManager.LoadScene("Station");
+            }
         }
         else
         {
             LoadingManager.LoadScene("Station");
         }
+
+        /*        int index = StoryData.StoryList.FindIndex(x => x.Story_Num == PlayerData.New_Stage);
+                if (index != -1 && !StoryData.StoryList[index].Start_Flag)
+                {
+                    //PlayerData.SA_Story(gameData.Information_Scene[index].BeforeStation_StoryIndex);
+                    LoadingManager.LoadScene(gameData.Information_Scene[index].BeforeStation_Button);
+                    StoryData.StoryList[index].ChangeFlag(true);
+                }
+                else
+                {
+                    LoadingManager.LoadScene("Station");
+                }*/
     }
 
     public void Story_End()
     {
-        int index = story_List.FindIndex(x => x.stageNum == PlayerData.New_Stage);
-        if (index != -1 && !story_List[index].EndFlag)
+        int index = StoryData.StoryList.FindIndex(x => x.Story_Num == PlayerData.New_Stage);
+        if (index != -1 && !StoryData.StoryList[index].End_Flag)
         {
-            LoadingManager.LoadScene(gameData.Information_Scene[index].Story_End);
-            story_List[index].EndFlag = true;
+            LoadingManager.LoadScene(storyData.Story_Branch[index].Story_End);
+            PlayerData.SA_StoryEnd();
+            StoryData.StoryList[index].ChangeFlag(false);
         }
         else
         {
@@ -136,10 +178,9 @@ public class GameManager : MonoBehaviour
 
     void StoryFlag_Init()
     {
-        for(int i = 0; i < story_List.Count; i++)
+        for(int i = 0; i < StoryData.StoryList.Count; i++)
         {
-            story_List[i].StartFlag = false;
-            story_List[i].EndFlag = false;
+            StoryData.StoryList[i].Init();
         }
     }
 

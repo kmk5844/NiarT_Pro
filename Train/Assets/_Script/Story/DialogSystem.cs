@@ -48,6 +48,7 @@ public class DialogSystem : MonoBehaviour
         storydirector = StoryDirector_Objcet.GetComponent<StoryDirector>();
 		delay = storydirector.delayTime;
         Check_Local();
+
 /*        int index = 0;
         DialogData _data = new DialogData();
         for (int i = 0; i < EX_Story.Story.Count; i++)
@@ -190,7 +191,7 @@ public class DialogSystem : MonoBehaviour
 		SetActiveObjects(speakers[currentSpeakerIndex], false);
 		// 다음 대사를 진행하도록 
 		currentDialogIndex ++;
-		// 현재 화자 순번 설정
+        // 현재 화자 순번 설정
 		currentSpeakerIndex = dialogs[currentDialogIndex].speakerIndex;
         // 현재 화자의 대화 관련 오브젝트 활성화
 		SetActiveObjects(speakers[currentSpeakerIndex], true);

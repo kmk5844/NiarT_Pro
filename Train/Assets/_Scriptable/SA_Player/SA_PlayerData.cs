@@ -69,10 +69,11 @@ public class SA_PlayerData : ScriptableObject
     [SerializeField]
     private int select_stage;
     public int Select_Stage { get { return  select_stage; } }
+
+    [Header("Ω∫≈‰∏Æ")]
     [SerializeField]
     private int story_num;
     public int Story_Num { get { return story_num; } }
-
 
     [SerializeField]
     private bool[] character_lockoff;
@@ -178,6 +179,12 @@ public class SA_PlayerData : ScriptableObject
         }
     }
 
+    public void SA_StoryEnd()
+    {
+        story_num++;
+        Save();
+    }
+
     private void Save()
     {
         ES3.Save<bool>("SA_PlayerData_Data_FirstFlag", firstflag);
@@ -189,8 +196,8 @@ public class SA_PlayerData : ScriptableObject
         ES3.Save<int>("SA_PlayerData_Data_coin", coin);
         ES3.Save<int>("SA_PlayerData_Data_point", point);
         ES3.Save<int>("SA_PlayerData_Data_new_stage", new_stage);
-        ES3.Save<int>("SA_PlayerData_Data_select_stage", select_stage);
         ES3.Save<bool[]>("SA_PlayerData_Data_LockOff", character_lockoff);
+        ES3.Save<int>("SA_PlayerData_Data_Story_Num", story_num);
     }
 
     public void Load()
@@ -205,8 +212,9 @@ public class SA_PlayerData : ScriptableObject
         coin = ES3.Load<int>("SA_PlayerData_Data_coin");
         point = ES3.Load<int>("SA_PlayerData_Data_point");
         new_stage = ES3.Load<int>("SA_PlayerData_Data_new_stage");
-        new_stage = ES3.Load<int>("SA_PlayerData_Data_select_stage");
+        select_stage = new_stage;
         character_lockoff = ES3.Load<bool[]>("SA_PlayerData_Data_LockOff");
+        story_num = ES3.Load<int>("SA_PlayerData_Data_Story_Num");
     }
 
     public void Init()
@@ -225,7 +233,7 @@ public class SA_PlayerData : ScriptableObject
         new_stage = 0;
 
         select_stage = 0;
-
+        story_num = 0;
         Character_LockOff[0] = true;
         for(int i = 1; i < 5; i++)
         {
