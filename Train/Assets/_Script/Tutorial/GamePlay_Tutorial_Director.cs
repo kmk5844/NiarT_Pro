@@ -4,21 +4,43 @@ using UnityEngine;
 
 public class GamePlay_Tutorial_Director : MonoBehaviour
 {
+    public Tutorial_UIDirector uiDirector;
     public Tutorial_Player player;
     public Tutorial_List tutorialList;
     bool T_Flag;
-    float clickTime;
+    public float clickTime;
     bool clickFlag;
     public GameObject ScarecrowObject;
+    GameObject scarecrow;
+    bool scarecrow_DestoryFlag;
+
+    public GameObject SpawnItemObject;
+    public GameObject TrainObject;
 
     private void Start()
     {
+        scarecrow_DestoryFlag = false;
         T_Flag = true;
-        tutorialList = Tutorial_List.T_Move_A;
+        tutorialList = Tutorial_List.T_UI_Information;
     }
 
     private void Update()
     {
+        if(tutorialList == Tutorial_List.T_UI_Information)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                uiDirector.nextTutorial();
+            }
+
+            if (uiDirector.checkFlag())
+            {
+                uiDirector.lastTutorial();
+                tutorialList = Tutorial_List.T_Move_A;
+                T_Flag = true;
+            }
+        }
+
         if(tutorialList == Tutorial_List.T_Move_A)
         {
             if (T_Flag)
@@ -43,9 +65,10 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
                 clickFlag = false;
             }
 
-            if(clickTime > 1.5f)
+            if (clickTime > 1.5f)
             {
                 tutorialList = Tutorial_List.T_Move_D;
+                clickFlag = false;
                 clickTime = 0f;
                 T_Flag = true;
             }
@@ -67,7 +90,6 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
             if (clickFlag)
             {
                 clickTime += Time.deltaTime;
-
             }
 
             if (Input.GetKeyUp(KeyCode.D))
@@ -116,25 +138,127 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
         {
             if (T_Flag)
             {
-                Instantiate(ScarecrowObject);
+                scarecrow = Instantiate(ScarecrowObject);
                 T_Flag = false;
+            }
+
+            if(scarecrow == null && !scarecrow_DestoryFlag)
+            {
+                scarecrow_DestoryFlag = true;
+                uiDirector.skill_changeIcon(true);
+                tutorialList = Tutorial_List.T_Skill_E;
+                T_Flag = true;
+            }
+        }
+
+        if(tutorialList == Tutorial_List.T_Skill_Q)
+        {
+            if (T_Flag)
+            {
+                player.T_Skill_Q = true;
+                T_Flag = false; 
+            }
+
+            if(player.T_Skill_Q_End)
+            {
+                uiDirector.skill_changeIcon(false);
+                tutorialList = Tutorial_List.T_Skill_E;
+                T_Flag = true;
+            }
+        }
+
+        if(tutorialList == Tutorial_List.T_Skill_E)
+        {
+            if (T_Flag)
+            {
+                player.T_Skill_E = true;
+                T_Flag = false;
+            }
+
+            if (player.T_Skill_E_End)
+            {
+                tutorialList = Tutorial_List.T_Spawn_Item;
+                T_Flag = true;
+            }
+        }
+
+        if(tutorialList == Tutorial_List.T_Spawn_Item)
+        {
+            if (T_Flag)
+            {
+                Instantiate(SpawnItemObject);
+                T_Flag = false;
+            }
+
+            if (player.T_SpawnItem_Flag)
+            {
+                uiDirector.item_changeIcon(true);
+                tutorialList = Tutorial_List.T_Use_Item;
+                T_Flag = true;
+            }
+        }
+
+        if(tutorialList == Tutorial_List.T_Use_Item)
+        {
+            if (T_Flag)
+            {
+                player.T_UseItem = true;
+                T_Flag = false;
+            }
+
+            if (player.T_UseItem_Flag)
+            {
+                uiDirector.item_changeIcon(false);
+                tutorialList = Tutorial_List.T_Train;
+                T_Flag = true;
+            }
+        }
+
+        if(tutorialList == Tutorial_List.T_Train)
+        {
+            if (T_Flag)
+            {
+                TrainObject.SetActive(true);
+                player.T_Train = true;
+                T_Flag = false;
+            }
+
+            if (player.T_Train_Flag)
+            {
+                Debug.Log("End");
             }
         }
     }
 
+    public void UseItem(ItemDataObject item)
+    {
+        if(item.Num == 41)
+        {
+            player.PlayerHP_Item(false);
+            StartCoroutine(player.Item_41());
+        }else if(item.Num == 2)
+        {
+            player.PlayerHP_Item(true);
+        }
+    }
 
     public enum Tutorial_List
     {
         Start,
 
+        T_UI_Information,
         T_Move_A,
         T_Move_D,
         T_Jump,
         T_Fire,
         T_Fire_Kill,
-
+        T_Skill_Q,
+        T_Skill_E,
+        T_Spawn_Item,
+        T_Use_Item,
+        T_Train,
+        T_GameSystem,
         End,
-
         Refresh,
     }
 }

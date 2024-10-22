@@ -170,7 +170,7 @@ public class SelfTurret_Train : MonoBehaviour
         isAtacking = true;
         Player_Object.SetActive(true);
         atk_lastTime = Time.time;
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(20);
         isAtacking = false;
         FuelFlag = false;
         Player_Object.SetActive(false);

@@ -9,6 +9,9 @@ public class Tutorial_Player : MonoBehaviour
     Animator ani;
     Rigidbody2D rigid;
     public bool jumpFlag;
+
+    public int PlayerHP; 
+
     float moveSpeed = 7;
     float jumpSpeed = 8.5f;
     float jumpdistance = 1f;
@@ -22,6 +25,7 @@ public class Tutorial_Player : MonoBehaviour
     public GameObject KeyObject;
     public GameObject bullet;
 
+    Tutorial_Train train;
     bool rotationOn;
     bool isMouseDown;
     Vector3 KeyObject_Scale;
@@ -39,6 +43,15 @@ public class Tutorial_Player : MonoBehaviour
     public int T_JumpCount;
     public bool T_FireFlag;
     public int T_FireCount;
+    public bool T_Skill_Q;
+    public bool T_Skill_Q_End;
+    public bool T_Skill_E;
+    public bool T_Skill_E_End;
+    public bool T_SpawnItem_Flag;
+    public bool T_UseItem;
+    public bool T_UseItem_Flag;
+    public bool T_Train;
+    public bool T_Train_Flag;
 
 
     void Start()
@@ -50,11 +63,21 @@ public class Tutorial_Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         ani = GetComponent<Animator>();
         jumpFlag = false;
+        PlayerHP = 5000;
         jumpdistance = 1f;
         Bullet_Delay = 0.5f;
         Bullet_Atk = 30;
         GunObject_Scale = GunObject.transform.localScale;
         KeyObject_Scale = KeyObject.transform.localScale;
+
+        T_Skill_Q_End = false;
+        T_Skill_E_End = false;
+        T_SpawnItem_Flag = false;
+        T_UseItem = false;
+        T_UseItem_Flag = false;
+        T_Train = false;
+        T_Train_Flag = false;
+
     }
 
     private void Update()
@@ -69,6 +92,11 @@ public class Tutorial_Player : MonoBehaviour
             if (Input.GetMouseButtonUp(0))
             {
                 isMouseDown = false;
+            }
+
+            if (isMouseDown)
+            {
+                BulletFire();
             }
         }
 
@@ -96,7 +124,6 @@ public class Tutorial_Player : MonoBehaviour
             }
         }
 
-
         if (T_JumpFlag)
         {
             if (Input.GetButtonDown("Jump") && !jumpFlag)
@@ -107,10 +134,41 @@ public class Tutorial_Player : MonoBehaviour
             }
         }
 
-        if (isMouseDown)
+        if (T_Skill_E)
         {
-            BulletFire();
-            T_FireCount++;
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                MariGold_Skill(1);
+            }
+        }
+
+        if (T_UseItem && !T_UseItem_Flag)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                PlayerHP_Item(true);
+                T_UseItem_Flag = true;
+            }
+        }
+
+        if (T_Train)
+        {
+            if (Input.GetKeyDown(KeyCode.F) && train.Player_Interaction_Flag && !T_Train_Flag)
+            {
+                train.UseTurret();
+            }
+        }
+
+        if(train != null)
+        {
+            if (train.Player_Interaction_Flag && train.interactionFlag && !T_Train_Flag)
+            {
+                KeyObject.SetActive(true);
+            }
+            else
+            {
+                KeyObject.SetActive(false);
+            }
         }
     }
 
@@ -132,6 +190,12 @@ public class Tutorial_Player : MonoBehaviour
 
         Debug.DrawRay(rigid.position, Vector3.down * jumpdistance, Color.green);
         RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, jumpdistance, LayerMask.GetMask("Platform"));
+
+        if (rayHit.collider != null)
+        {
+            train = rayHit.collider.GetComponentInParent<Tutorial_Train>();
+        }
+
 
         if (rayHit.collider != null && rayHit.distance >= jumpFlagDistance)
         {
@@ -180,6 +244,8 @@ public class Tutorial_Player : MonoBehaviour
 
             Instantiate(bullet, FireZone.position, Quaternion.identity);
             ani.SetTrigger("Shoot_0");
+            T_FireCount++;
+
             if (MariGold_Skill_Flag && !MariGold_Skill_Fire_Flag)
             {
                 StartCoroutine(MariGold_Skill_BulletFire());
@@ -190,6 +256,49 @@ public class Tutorial_Player : MonoBehaviour
             lastTime = Time.time;
         }
     }
+    void MariGold_Skill(int num)
+    {
+        if (num == 0)
+        {
+            //StartCoroutine(gameDirector.Train_MasSpeedChange(200, skill_during[num]));
+            //StartCoroutine(gameDirector.Item_Train_SpeedUp(skill_during[num], 1.5f));
+        }
+        else if (num == 1)
+        {
+            StartCoroutine(MariGold_Skill2(5));
+        }
+    }
+
+    public void PlayerHP_Item(bool _Flag)
+    {
+        if (_Flag)
+        {
+            PlayerHP += (5000 / 100) * 20;
+        }
+        else
+        {
+            PlayerHP -= (5000 / 100) * 40;
+        }
+    }
+
+    public IEnumerator Item_41()
+    {
+        moveSpeed = 8;
+        Bullet_Delay = 0.4f;
+        yield return new WaitForSeconds(5f);
+        moveSpeed = 7;
+        Bullet_Delay = 0.5f;
+        T_SpawnItem_Flag = true;
+    }
+
+    IEnumerator MariGold_Skill2(float during)
+    {
+        MariGold_Skill_Flag = true;
+        yield return new WaitForSeconds(during);
+        T_Skill_E_End = true;
+        MariGold_Skill_Flag = false;
+    }
+
 
     IEnumerator MariGold_Skill_BulletFire()
     {

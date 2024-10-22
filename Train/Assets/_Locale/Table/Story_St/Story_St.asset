@@ -17,8 +17,51 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 61c00dc8f67ed484ab25fac7b3699e91, type: 2}
   - {fileID: 11400000, guid: db5acce2dc91760498e067f6050e0a45, type: 2}
   - {fileID: 11400000, guid: 09b052834b0548e4896610da4a3332f2, type: 2}
-  m_Extensions: []
+  m_Extensions:
+  - rid: 7293032539230830614
   m_Group: String Table
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 7293032539230830614
+      type: {class: CsvExtension, ns: UnityEditor.Localization.Plugins.CSV, asm: Unity.Localization.Editor}
+      data:
+        m_Collection: {fileID: 11400000}
+        m_ColumnsList:
+        - rid: 7293032539230830615
+        - rid: 7293032539230830616
+        - rid: 7293032539230830617
+        - rid: 7293032539230830618
+        m_ConnectedFile: "C:/Users/\uD50C\uB808\uC774 \uBA54\uD53C\uC2A4\uD1A0\uC648\uCE20/Desktop/Story_St.csv"
+    - rid: 7293032539230830615
+      type: {class: KeyIdColumns, ns: UnityEditor.Localization.Plugins.CSV.Columns, asm: Unity.Localization.Editor}
+      data:
+        m_IncludeId: 1
+        m_IncludeSharedComments: 1
+        m_KeyFieldName: Key
+        m_IdFieldName: Id
+        m_CommentFieldName: Shared Comments
+    - rid: 7293032539230830616
+      type: {class: LocaleColumns, ns: UnityEditor.Localization.Plugins.CSV.Columns, asm: Unity.Localization.Editor}
+      data:
+        m_LocaleIdentifier:
+          m_Code: en
+        m_FieldName: English(en)
+        m_CommentFieldName: English(en) Comments
+        m_IncludeComments: 1
+    - rid: 7293032539230830617
+      type: {class: LocaleColumns, ns: UnityEditor.Localization.Plugins.CSV.Columns, asm: Unity.Localization.Editor}
+      data:
+        m_LocaleIdentifier:
+          m_Code: ko
+        m_FieldName: Korean(ko)
+        m_CommentFieldName: Korean(ko) Comments
+        m_IncludeComments: 1
+    - rid: 7293032539230830618
+      type: {class: LocaleColumns, ns: UnityEditor.Localization.Plugins.CSV.Columns, asm: Unity.Localization.Editor}
+      data:
+        m_LocaleIdentifier:
+          m_Code: ja-JP
+        m_FieldName: Japanese (Japan)(ja-JP)
+        m_CommentFieldName: Japanese (Japan)(ja-JP) Comments
+        m_IncludeComments: 1

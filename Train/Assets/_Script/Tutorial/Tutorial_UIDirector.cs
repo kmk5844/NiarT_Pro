@@ -1,0 +1,114 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class Tutorial_UIDirector : MonoBehaviour
+{
+    public Tutorial_Player Player;
+
+    public List<GameObject> GameUI;
+    public List<GameObject> GameUI_Information;
+    int count;
+    int MaxCount;
+
+    public Sprite[] Tutorial_Icon_Sprite;
+    public Image[] Item_Icon;
+    public Image[] Skill_Icon;
+    public GameObject item_Icon_Count_Object;
+
+    public Image PlayerHP_Image;
+    public TextMeshProUGUI Score_Text;
+    public TextMeshProUGUI Gold_Text;
+    public TextMeshProUGUI Speed_Text;
+    public Slider Speed_Arrow;
+    public TextMeshProUGUI Fuel;
+    public Image Fuel_Image;
+
+
+    private void Start()
+    {
+        foreach(Image image in Item_Icon)
+        {
+            image.sprite = Tutorial_Icon_Sprite[0];
+        }
+        item_Icon_Count_Object.SetActive(false);
+
+        foreach (GameObject game in GameUI) {
+            game.SetActive(false);
+        }
+
+        foreach (GameObject gameInfo in GameUI_Information){
+            gameInfo.SetActive(false);
+        }
+
+        count = 0;
+        Score_Text.text = "0";
+        Gold_Text.text = "0";
+        Speed_Text.text = "0 Km/H";
+        Fuel.text = "100%";
+        MaxCount = GameUI.Count;
+    }
+
+    public void nextTutorial()
+    {
+        GameUI[count].SetActive(true);
+        if(count == 0)
+        {
+            GameUI_Information[count].SetActive(true);
+        }
+        else
+        {
+            if(count < MaxCount - 1)
+            {
+                GameUI_Information[count - 1].SetActive(false);
+                GameUI_Information[count].SetActive(true);
+            }
+        }
+        count++;
+    }
+
+    public void item_changeIcon(bool flag)
+    {
+        if (flag)
+        {
+            Item_Icon[0].sprite = Tutorial_Icon_Sprite[1];
+            item_Icon_Count_Object.SetActive(true);
+        }
+        else
+        {
+            Item_Icon[0].sprite = Tutorial_Icon_Sprite[0];
+            item_Icon_Count_Object.SetActive(false);
+        }
+    }
+
+    public void skill_changeIcon(bool flag)
+    {
+        if (flag)
+        {
+            Skill_Icon[0].sprite = Tutorial_Icon_Sprite[2];
+        }
+        else
+        {
+            Skill_Icon[0].sprite = Tutorial_Icon_Sprite[2];
+        }
+    }
+
+    public void lastTutorial()
+    {
+        GameUI_Information[GameUI_Information.Count-1].SetActive(false);
+    }
+
+    public bool checkFlag()
+    {
+        if(count == MaxCount)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+}
