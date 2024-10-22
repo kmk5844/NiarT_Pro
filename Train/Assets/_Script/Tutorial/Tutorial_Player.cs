@@ -10,7 +10,9 @@ public class Tutorial_Player : MonoBehaviour
     Rigidbody2D rigid;
     public bool jumpFlag;
 
-    public int PlayerHP; 
+    public int PlayerHP;
+    [HideInInspector]
+    public int Max_PlayerHP;
 
     float moveSpeed = 7;
     float jumpSpeed = 8.5f;
@@ -53,7 +55,11 @@ public class Tutorial_Player : MonoBehaviour
     public bool T_Train;
     public bool T_Train_Flag;
 
-
+    private void Awake()
+    {
+        PlayerHP = 5000;
+        Max_PlayerHP = 5000;
+    }
     void Start()
     {
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
@@ -63,7 +69,6 @@ public class Tutorial_Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         ani = GetComponent<Animator>();
         jumpFlag = false;
-        PlayerHP = 5000;
         jumpdistance = 1f;
         Bullet_Delay = 0.5f;
         Bullet_Atk = 30;
@@ -298,7 +303,6 @@ public class Tutorial_Player : MonoBehaviour
         T_Skill_E_End = true;
         MariGold_Skill_Flag = false;
     }
-
 
     IEnumerator MariGold_Skill_BulletFire()
     {

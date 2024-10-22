@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class Tutorial_UIDirector : MonoBehaviour
 {
     public Tutorial_Player Player;
+    public GamePlay_Tutorial_Director tutorialDirector;
 
     public List<GameObject> GameUI;
     public List<GameObject> GameUI_Information;
@@ -23,7 +24,7 @@ public class Tutorial_UIDirector : MonoBehaviour
     public TextMeshProUGUI Gold_Text;
     public TextMeshProUGUI Speed_Text;
     public Slider Speed_Arrow;
-    public TextMeshProUGUI Fuel;
+    public TextMeshProUGUI Fuel_Text;
     public Image Fuel_Image;
 
 
@@ -44,11 +45,19 @@ public class Tutorial_UIDirector : MonoBehaviour
         }
 
         count = 0;
-        Score_Text.text = "0";
-        Gold_Text.text = "0";
-        Speed_Text.text = "0 Km/H";
-        Fuel.text = "100%";
+
         MaxCount = GameUI.Count;
+    }
+
+    private void Update()
+    {
+        PlayerHP_Image.fillAmount = ((float)Player.PlayerHP / (float)Player.Max_PlayerHP);
+        Score_Text.text = tutorialDirector.score.ToString();
+        Gold_Text.text = tutorialDirector.gold.ToString();
+        Speed_Text.text = (int)tutorialDirector.speed + " Km/H";
+        float fuelPersent = (float)(tutorialDirector.Fuel / (float)tutorialDirector.Max_Fuel);
+        Fuel_Text.text = (int)(fuelPersent * 100) + "%";
+        Fuel_Image.fillAmount = fuelPersent;
     }
 
     public void nextTutorial()

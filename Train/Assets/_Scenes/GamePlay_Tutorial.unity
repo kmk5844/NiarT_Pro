@@ -1757,6 +1757,12 @@ MonoBehaviour:
   ScarecrowObject: {fileID: 613234371044370849, guid: f68ec115325a12347b3714bcb2eed950, type: 3}
   SpawnItemObject: {fileID: 578532809695804850, guid: e510aa362f662e84491d150f7ed83f2c, type: 3}
   TrainObject: {fileID: 5702192453284101110}
+  score: 0
+  gold: 0
+  speed: 0
+  Max_Speed: 0
+  Fuel: 0
+  Max_Fuel: 0
 --- !u!1 &622551278
 GameObject:
   m_ObjectHideFlags: 0
@@ -3573,6 +3579,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37fe13bebb8e6e548a5583bf07b145ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Player: {fileID: 1649843513}
+  tutorialDirector: {fileID: 620092028}
   GameUI:
   - {fileID: 119114076}
   - {fileID: 2022360389}
@@ -3595,11 +3603,12 @@ MonoBehaviour:
   - {fileID: 1805329455}
   - {fileID: 381097618}
   item_Icon_Count_Object: {fileID: 1617344417}
+  PlayerHP_Image: {fileID: 1433364219}
   Score_Text: {fileID: 1673484359}
   Gold_Text: {fileID: 1882620135}
   Speed_Text: {fileID: 961085951}
   Speed_Arrow: {fileID: 1109999842}
-  Fuel: {fileID: 829384823}
+  Fuel_Text: {fileID: 829384823}
   Fuel_Image: {fileID: 1387389565}
 --- !u!1 &1037121589
 GameObject:
@@ -6618,6 +6627,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpFlag: 0
   PlayerHP: 0
+  Max_PlayerHP: 0
   GunObject: {fileID: 1600925904}
   FireZone: {fileID: 1825746385}
   ShootSFX: {fileID: 0}

@@ -8,9 +8,11 @@ public class Scarecrow_Object : MonoBehaviour
     public int Monster_Score;
     public int Monster_Coin;
     GameObject HitDamage;
+    GamePlay_Tutorial_Director director;
 
     private void Start()
     {
+        director = GameObject.Find("TutorialDirector").GetComponent<GamePlay_Tutorial_Director>();
         MonsterHP = 100;
         Monster_Score = 100;
         Monster_Coin = 100;
@@ -40,6 +42,7 @@ public class Scarecrow_Object : MonoBehaviour
             }
             else
             {
+                director.Get_Score(Monster_Score, Monster_Coin);
                 Destroy(gameObject);
             }
         }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class GamePlay_Tutorial_Director : MonoBehaviour
 {
@@ -17,8 +18,27 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
     public GameObject SpawnItemObject;
     public GameObject TrainObject;
 
+    public int score;
+    public int gold;
+
+    public float speed;
+    public float Max_Speed;
+
+    public float Fuel;
+    [HideInInspector]
+    public float Max_Fuel;
+
+    private void Awake()
+    {
+        Fuel = 50000;
+        Max_Fuel = Fuel;
+        Max_Speed = 280;
+    }
+
     private void Start()
     {
+        score = 0;
+        gold = 0;
         scarecrow_DestoryFlag = false;
         T_Flag = true;
         tutorialList = Tutorial_List.T_UI_Information;
@@ -127,7 +147,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
                 T_Flag = false;
             }
 
-            if(player.T_FireCount > 5)
+            if(player.T_FireCount > 2)
             {
                 tutorialList = Tutorial_List.T_Fire_Kill;
                 T_Flag = true;
@@ -146,7 +166,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
             {
                 scarecrow_DestoryFlag = true;
                 uiDirector.skill_changeIcon(true);
-                tutorialList = Tutorial_List.T_Skill_E;
+                tutorialList = Tutorial_List.T_Skill_Q;
                 T_Flag = true;
             }
         }
@@ -155,9 +175,35 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
         {
             if (T_Flag)
             {
-                player.T_Skill_Q = true;
                 T_Flag = false; 
             }
+
+/*            if (!player.T_Skill_Q)
+            {
+                if (speed < Max_Speed)
+                {
+                    speed += (Time.deltaTime * 1f);
+                    Fuel -= (Time.deltaTime * 1f);
+                }
+                else
+                {
+                    Fuel -= (Time.deltaTime * 1f);
+                    player.T_Skill_Q = true;
+                }
+            }
+            else
+            {
+                if(speed < Max_Speed)
+                {
+                    speed += (Time.deltaTime * 2f);
+                    Fuel -= (Time.deltaTime * 1f);
+                }
+                else
+                {
+                    Fuel -= (Time.deltaTime * 1f);
+                }
+            }*/
+
 
             if(player.T_Skill_Q_End)
             {
@@ -240,6 +286,12 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
         {
             player.PlayerHP_Item(true);
         }
+    }
+
+    public void Get_Score(int _score, int _gold)
+    {
+        score += _score;
+        gold += _gold;
     }
 
     public enum Tutorial_List
