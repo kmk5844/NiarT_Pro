@@ -10,7 +10,7 @@ public class Tutorial_SpawnItem : MonoBehaviour
 
     GamePlay_Tutorial_Director tutorialDirector;
 
-    Vector2 SupplyItem_Position;
+    float SupplyItem_Position;
     bool bounceFlag;
     public Sprite Box;
     SpriteRenderer _sprite;
@@ -22,6 +22,7 @@ public class Tutorial_SpawnItem : MonoBehaviour
         tutorialDirector = GameObject.Find("TutorialDirector").GetComponent<GamePlay_Tutorial_Director>();
         transform.position = new Vector2(0.5f, 14.5f);
         bounceFlag = false;
+        SupplyItem_Position = -1f;
         _sprite = GetComponent<SpriteRenderer>();
         mat = _sprite.material;
         Check_Mat();
@@ -32,9 +33,9 @@ public class Tutorial_SpawnItem : MonoBehaviour
     {
         if (!bounceFlag)
         {
-            if (transform.position.y > SupplyItem_Position.y)
+            if (transform.position.y > SupplyItem_Position)
             {
-                transform.Translate(2.5f * Vector2.down * Time.deltaTime);
+                transform.Translate(4f * Vector2.down * Time.deltaTime);
             }
             else
             {

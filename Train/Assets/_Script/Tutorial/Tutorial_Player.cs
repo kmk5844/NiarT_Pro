@@ -6,6 +6,8 @@ using static PixelCrushers.DialogueSystem.UnityGUI.GUIProgressBar;
 
 public class Tutorial_Player : MonoBehaviour
 {
+    public Tutorial_UIDirector UIDirector;
+
     Animator ani;
     Rigidbody2D rigid;
     public bool jumpFlag;
@@ -39,13 +41,12 @@ public class Tutorial_Player : MonoBehaviour
 
     [Header("튜토리얼 플래그")]
     public bool T_MoveFlag;
-    public bool T_Move_Flag_A;
-    public bool T_Move_Flag_D;   
     public bool T_JumpFlag;
     public int T_JumpCount;
     public bool T_FireFlag;
     public int T_FireCount;
     public bool T_Skill_Q;
+    public bool T_Skill_Q_Click;
     public bool T_Skill_Q_End;
     public bool T_Skill_E;
     public bool T_Skill_E_End;
@@ -75,6 +76,7 @@ public class Tutorial_Player : MonoBehaviour
         GunObject_Scale = GunObject.transform.localScale;
         KeyObject_Scale = KeyObject.transform.localScale;
 
+        T_Skill_Q_Click = false;
         T_Skill_Q_End = false;
         T_Skill_E_End = false;
         T_SpawnItem_Flag = false;
@@ -139,11 +141,21 @@ public class Tutorial_Player : MonoBehaviour
             }
         }
 
-        if (T_Skill_E)
+        if (T_Skill_Q && !T_Skill_Q_End)
+        {
+            if (Input.GetKeyDown(KeyCode.Q) && !T_Skill_Q_Click)
+            {
+                MariGold_Skill(0);
+                UIDirector.skill_coolTime(0);
+            }
+        }
+
+        if (T_Skill_E && !T_Skill_E_End)
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
                 MariGold_Skill(1);
+                UIDirector.skill_coolTime(1);
             }
         }
 
@@ -183,11 +195,11 @@ public class Tutorial_Player : MonoBehaviour
         if (T_MoveFlag)
         {
             float h = Input.GetAxisRaw("Horizontal");
-            if(h < 0f && T_Move_Flag_A)
+            if(h < 0f)
             {
                 rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
             }
-            else if(h > 0f && T_Move_Flag_D)
+            else if(h > 0f)
             {
                 rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
             }
@@ -265,8 +277,7 @@ public class Tutorial_Player : MonoBehaviour
     {
         if (num == 0)
         {
-            //StartCoroutine(gameDirector.Train_MasSpeedChange(200, skill_during[num]));
-            //StartCoroutine(gameDirector.Item_Train_SpeedUp(skill_during[num], 1.5f));
+            MariGold_Skill1();
         }
         else if (num == 1)
         {
@@ -282,18 +293,23 @@ public class Tutorial_Player : MonoBehaviour
         }
         else
         {
-            PlayerHP -= (5000 / 100) * 40;
+            PlayerHP -= (5000 / 100) * 30;
         }
     }
 
     public IEnumerator Item_41()
     {
         moveSpeed = 8;
-        Bullet_Delay = 0.4f;
+        Bullet_Delay = 0.35f;
         yield return new WaitForSeconds(5f);
         moveSpeed = 7;
         Bullet_Delay = 0.5f;
         T_SpawnItem_Flag = true;
+    }
+
+    void MariGold_Skill1()
+    {
+        T_Skill_Q_Click = true;
     }
 
     IEnumerator MariGold_Skill2(float during)
@@ -316,5 +332,20 @@ public class Tutorial_Player : MonoBehaviour
         ani.SetTrigger("Shoot_0");
         MMSoundManagerSoundPlayEvent.Trigger(ShootSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         MariGold_Skill_Fire_Flag = false;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Monster_Bullet"))
+        {
+            PlayerHP -= 200;
+            Destroy(collision.gameObject);
+        }
+
+        if (collision.CompareTag("Respawn"))
+        {
+            PlayerHP -= 100;
+            transform.position = Vector3.zero;
+        }
     }
 }

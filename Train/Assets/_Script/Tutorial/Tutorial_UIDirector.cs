@@ -17,6 +17,7 @@ public class Tutorial_UIDirector : MonoBehaviour
     public Sprite[] Tutorial_Icon_Sprite;
     public Image[] Item_Icon;
     public Image[] Skill_Icon;
+    public Image[] Skill_Icon_CoolTime;
     public GameObject item_Icon_Count_Object;
 
     public Image PlayerHP_Image;
@@ -26,7 +27,13 @@ public class Tutorial_UIDirector : MonoBehaviour
     public Slider Speed_Arrow;
     public TextMeshProUGUI Fuel_Text;
     public Image Fuel_Image;
-
+    public Slider Distance_UI;
+    public GameObject ClearObject;
+    [Header("게임 튜토리얼")]
+    public GameObject GameTutorial_Window;
+    public TextMeshProUGUI Title_Text;
+    public TextMeshProUGUI Information_Text;
+    public GameObject Compelte_Object;
 
     private void Start()
     {
@@ -55,9 +62,11 @@ public class Tutorial_UIDirector : MonoBehaviour
         Score_Text.text = tutorialDirector.score.ToString();
         Gold_Text.text = tutorialDirector.gold.ToString();
         Speed_Text.text = (int)tutorialDirector.speed + " Km/H";
+        Speed_Arrow.value = tutorialDirector.speed/tutorialDirector.Max_Speed;
         float fuelPersent = (float)(tutorialDirector.Fuel / (float)tutorialDirector.Max_Fuel);
         Fuel_Text.text = (int)(fuelPersent * 100) + "%";
         Fuel_Image.fillAmount = fuelPersent;
+        Distance_UI.value = (float)tutorialDirector.distance / (float)tutorialDirector.max_distance;
     }
 
     public void nextTutorial()
@@ -100,8 +109,13 @@ public class Tutorial_UIDirector : MonoBehaviour
         }
         else
         {
-            Skill_Icon[0].sprite = Tutorial_Icon_Sprite[2];
+            Skill_Icon[1].sprite = Tutorial_Icon_Sprite[3];
         }
+    }
+
+    public void skill_coolTime(int i)
+    {
+        Skill_Icon_CoolTime[i].fillAmount = 1f;
     }
 
     public void lastTutorial()

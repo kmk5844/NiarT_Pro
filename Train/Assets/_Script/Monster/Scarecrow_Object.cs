@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Scarecrow_Object : MonoBehaviour
@@ -9,23 +7,74 @@ public class Scarecrow_Object : MonoBehaviour
     public int Monster_Coin;
     GameObject HitDamage;
     GamePlay_Tutorial_Director director;
+    public bool Monster_Type;
+    bool Monster_BonceFlag;
+    float rand_speed;
+    float rand_distance;
+    float lastTime;
+    float Bullet_Delay;
+    public GameObject bullet;
 
     private void Start()
     {
         director = GameObject.Find("TutorialDirector").GetComponent<GamePlay_Tutorial_Director>();
-        MonsterHP = 100;
-        Monster_Score = 100;
-        Monster_Coin = 100;
-        transform.position = new Vector2(-13, 16);
+        if (!Monster_Type)
+        {
+            MonsterHP = 100;
+            Monster_Score = 100;
+            Monster_Coin = 100;
+            transform.position = new Vector2(-13, 16);
+        }
+        else
+        {
+            MonsterHP = 80;
+            Monster_Score = 200;
+            Monster_Coin = 200;
+            rand_speed = Random.Range(10f, 14f);
+            rand_distance = Random.Range(0.5f, 1f);
+            transform.position = new Vector2(transform.position.x, 16);
+        }
+        Monster_BonceFlag = false;
+        Bullet_Delay = 3f;
+
         HitDamage = Resources.Load<GameObject>("Monster/Hit_Text");
     }
 
     private void LateUpdate()
     {
-        if(transform.position.y > -0.25f)
+        if (!Monster_Type)
         {
-            transform.Translate(0, -15f * Time.deltaTime, 0);
+            if (transform.position.y > -0.25f)
+            {
+                transform.Translate(0, -15f * Time.deltaTime, 0);
+            }
         }
+        else
+        {
+            if(transform.position.y > 10f)
+            {
+                transform.Translate(0, -15f * Time.deltaTime, 0);
+            }
+            else
+            {
+                Monster_BonceFlag = true;
+
+            }
+        }
+
+        if (Monster_BonceFlag)
+        {
+            float offset = Mathf.Sin(Time.time * rand_speed) * rand_distance; // 2 : 스피드, 1.0f 이동거리
+            Vector2 movement = new Vector2(0f, offset);
+            transform.Translate(movement * Time.deltaTime);
+
+            if (Time.time >= lastTime + Bullet_Delay)
+            {
+                Instantiate(bullet, transform.position, Quaternion.identity);
+                lastTime = Time.time;
+            }
+        }
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -42,7 +91,7 @@ public class Scarecrow_Object : MonoBehaviour
             }
             else
             {
-                director.Get_Score(Monster_Score, Monster_Coin);
+                director.Get_Score(Monster_Score, Monster_Coin, Monster_Type);
                 Destroy(gameObject);
             }
         }

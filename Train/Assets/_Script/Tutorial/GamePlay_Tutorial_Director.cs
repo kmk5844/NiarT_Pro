@@ -10,9 +10,14 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
     public Tutorial_List tutorialList;
     bool T_Flag;
     public float clickTime;
-    bool clickFlag;
-    public GameObject ScarecrowObject;
-    GameObject scarecrow;
+    public GameObject ScarecrowObject_Ground;
+    GameObject scarecrow_ground;
+
+    public GameObject ScarecrowObject_Sky;
+    GameObject[] scarecrow_sky;
+
+    int Scarecrow_count;
+    
     bool scarecrow_DestoryFlag;
 
     public GameObject SpawnItemObject;
@@ -28,11 +33,17 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
     [HideInInspector]
     public float Max_Fuel;
 
+    public float distance;
+    public float max_distance;
+
+    bool ClearFlag;
+
     private void Awake()
     {
-        Fuel = 50000;
+        Fuel = 60000;
         Max_Fuel = Fuel;
         Max_Speed = 280;
+        max_distance = 14;
     }
 
     private void Start()
@@ -56,71 +67,40 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
             if (uiDirector.checkFlag())
             {
                 uiDirector.lastTutorial();
-                tutorialList = Tutorial_List.T_Move_A;
-                T_Flag = true;
+               
+                if (!ClearFlag)
+                {
+                    StartCoroutine(Clear(Tutorial_List.T_Move));
+                    distance++;//1
+                    ClearFlag = true;
+                }
+                //T_Flag = true;
             }
         }
 
-        if(tutorialList == Tutorial_List.T_Move_A)
+        if(tutorialList == Tutorial_List.T_Move)
         {
             if (T_Flag)
             {
                 player.T_MoveFlag = true;
-                player.T_Move_Flag_A = true;
                 T_Flag = false;
             }
 
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                clickFlag = true;
-            }
-
-            if (clickFlag)
+            if (Input.GetButton("Horizontal"))
             {
                 clickTime += Time.deltaTime;
-
             }
 
-            if (Input.GetKeyUp(KeyCode.A)) { 
-                clickFlag = false;
-            }
-
-            if (clickTime > 1.5f)
+            if (clickTime > 2f)
             {
-                tutorialList = Tutorial_List.T_Move_D;
-                clickFlag = false;
                 clickTime = 0f;
-                T_Flag = true;
-            }
-        }
-
-        if(tutorialList == Tutorial_List.T_Move_D)
-        {
-            if (T_Flag)
-            {
-                player.T_Move_Flag_D = true;
-                T_Flag = false;
-            }
-
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                clickFlag = true;
-            }
-
-            if (clickFlag)
-            {
-                clickTime += Time.deltaTime;
-            }
-
-            if (Input.GetKeyUp(KeyCode.D))
-            {
-                clickFlag = false;
-            }
-
-            if (clickTime > 1.5f)
-            {
-                tutorialList = Tutorial_List.T_Jump;
-                T_Flag = true;
+                if (!ClearFlag)
+                {
+                    StartCoroutine(Clear(Tutorial_List.T_Jump));
+                    distance++;//2
+                    ClearFlag = true;
+                }
+                //T_Flag = true;
             }
         }
 
@@ -134,8 +114,12 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
 
             if(player.T_JumpCount > 2 && !player.jumpFlag)
             {
-                tutorialList = Tutorial_List.T_Fire;
-                T_Flag = true;
+                if (!ClearFlag)
+                {
+                    StartCoroutine(Clear(Tutorial_List.T_Fire));
+                    distance++;//3
+                    ClearFlag = true;
+                }
             }
         }
 
@@ -149,8 +133,12 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
 
             if(player.T_FireCount > 2)
             {
-                tutorialList = Tutorial_List.T_Fire_Kill;
-                T_Flag = true;
+                if (!ClearFlag)
+                {
+                    StartCoroutine(Clear(Tutorial_List.T_Fire_Kill));
+                    distance++;//4
+                    ClearFlag = true;
+                }
             }
         }
 
@@ -158,16 +146,20 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
         {
             if (T_Flag)
             {
-                scarecrow = Instantiate(ScarecrowObject);
+                scarecrow_ground = Instantiate(ScarecrowObject_Ground);
                 T_Flag = false;
             }
 
-            if(scarecrow == null && !scarecrow_DestoryFlag)
+            if(scarecrow_ground == null && !scarecrow_DestoryFlag && !T_Flag)
             {
                 scarecrow_DestoryFlag = true;
                 uiDirector.skill_changeIcon(true);
-                tutorialList = Tutorial_List.T_Skill_Q;
-                T_Flag = true;
+                if (!ClearFlag)
+                {
+                    StartCoroutine(Clear(Tutorial_List.T_Skill_Q));
+                    distance++;//5
+                    ClearFlag = true;
+                }
             }
         }
 
@@ -175,41 +167,48 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
         {
             if (T_Flag)
             {
+                speed += 150;
                 T_Flag = false; 
             }
 
-/*            if (!player.T_Skill_Q)
+            if (!player.T_Skill_Q)
             {
                 if (speed < Max_Speed)
                 {
-                    speed += (Time.deltaTime * 1f);
-                    Fuel -= (Time.deltaTime * 1f);
+                    speed += (Time.deltaTime * 20f);
+                    Fuel -= (Time.deltaTime * 1000f);
                 }
                 else
                 {
-                    Fuel -= (Time.deltaTime * 1f);
+                    Fuel -= (Time.deltaTime * 1000f);
                     player.T_Skill_Q = true;
                 }
             }
             else
             {
-                if(speed < Max_Speed)
+                if (player.T_Skill_Q_Click)
                 {
-                    speed += (Time.deltaTime * 2f);
-                    Fuel -= (Time.deltaTime * 1f);
+                    if (speed < Max_Speed + 200)
+                    {
+                        speed += (Time.deltaTime * 40f);
+                        Fuel -= (Time.deltaTime * 1000f);
+                    }
+                    else
+                    {
+                        player.T_Skill_Q_End = true;
+                    }
                 }
-                else
-                {
-                    Fuel -= (Time.deltaTime * 1f);
-                }
-            }*/
+            }
 
-
-            if(player.T_Skill_Q_End)
+            if (player.T_Skill_Q_End)
             {
                 uiDirector.skill_changeIcon(false);
-                tutorialList = Tutorial_List.T_Skill_E;
-                T_Flag = true;
+                if (!ClearFlag)
+                {
+                    StartCoroutine(Clear(Tutorial_List.T_Skill_E));
+                    distance++;//6
+                    ClearFlag = true;
+                }
             }
         }
 
@@ -223,8 +222,12 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
 
             if (player.T_Skill_E_End)
             {
-                tutorialList = Tutorial_List.T_Spawn_Item;
-                T_Flag = true;
+                if (!ClearFlag)
+                {
+                    StartCoroutine(Clear(Tutorial_List.T_Spawn_Item));
+                    distance++;//7
+                    ClearFlag = true;
+                }
             }
         }
 
@@ -239,8 +242,12 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
             if (player.T_SpawnItem_Flag)
             {
                 uiDirector.item_changeIcon(true);
-                tutorialList = Tutorial_List.T_Use_Item;
-                T_Flag = true;
+                if (!ClearFlag)
+                {
+                    StartCoroutine(Clear(Tutorial_List.T_Use_Item));
+                    distance++;//8
+                    ClearFlag = true;
+                }
             }
         }
 
@@ -255,8 +262,12 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
             if (player.T_UseItem_Flag)
             {
                 uiDirector.item_changeIcon(false);
-                tutorialList = Tutorial_List.T_Train;
-                T_Flag = true;
+                if (!ClearFlag)
+                {
+                    StartCoroutine(Clear(Tutorial_List.T_Train));
+                    distance++;//9
+                    ClearFlag = true;
+                }
             }
         }
 
@@ -271,7 +282,120 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
 
             if (player.T_Train_Flag)
             {
+                scarecrow_sky = new GameObject[5];
+                if (!ClearFlag)
+                {
+                    StartCoroutine(Clear(Tutorial_List.T_Monster));
+                    distance++;//10
+                    ClearFlag = true;
+                }
+            }
+        }
+
+        if(tutorialList == Tutorial_List.T_Monster)
+        {
+            if (T_Flag)
+            {
+                for(int i = 0; i < 5; i++)
+                {
+                    scarecrow_sky[i] = Instantiate(ScarecrowObject_Sky, new Vector2(0 - (6 * i), 16), Quaternion.identity);
+                    Scarecrow_count++;
+                }
+                T_Flag = false;
+            }
+
+            if(Scarecrow_count == 0 && !T_Flag)
+            {
+                if (!ClearFlag)
+                {
+                    StartCoroutine(Clear(Tutorial_List.T_Fuel));
+                    distance++;//11
+                    ClearFlag = true;
+                }
+            }
+        }
+
+        if (tutorialList == Tutorial_List.T_Fuel)
+        {
+            if (T_Flag)
+            {
+                T_Flag = false;
+            }
+
+            if (Fuel > 0)
+            {
+                Fuel -= (Time.deltaTime * 3000f);
+            }
+            else
+            {
+                if (!ClearFlag)
+                {
+                    StartCoroutine(Clear(Tutorial_List.T_Lose));
+                    distance++;//12
+                    ClearFlag = true;
+                }
+            }
+        }
+
+        if(tutorialList == Tutorial_List.T_Lose)
+        {
+            if (T_Flag)
+            {
+                T_Flag = false;
+            }
+
+            if(player.PlayerHP > 0)
+            {
+                player.PlayerHP -= (int)(Time.deltaTime * 1000f);
+                speed = 480f;
+            }
+            else
+            {
+                if(speed > 0)
+                {
+                    
+                    speed -= (Time.deltaTime * 100f);
+                }
+                else
+                {
+                    if (!ClearFlag)
+                    {
+                        StartCoroutine(Clear(Tutorial_List.T_Win));
+                        distance++;//13
+                        ClearFlag = true;
+                    }
+                }
+            }
+        }
+
+        if (tutorialList == Tutorial_List.T_Win)
+        {
+            if (T_Flag)
+            {
+                T_Flag = false;
+            }
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                distance++;//14
+            }
+
+            if(distance > max_distance)
+            {
+                if (!ClearFlag)
+                {
+                    StartCoroutine(Clear(Tutorial_List.End));
+                    ClearFlag = true;
+                }
+            }
+        }
+
+        if(tutorialList == Tutorial_List.End)
+        {
+            if (T_Flag)
+            {
                 Debug.Log("End");
+                T_Flag = false;
             }
         }
     }
@@ -288,19 +412,44 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
         }
     }
 
-    public void Get_Score(int _score, int _gold)
+    public void Get_Score(int _score, int _gold, bool flag)
     {
         score += _score;
         gold += _gold;
+        if (flag)
+        {
+            Scarecrow_count--;
+        }
     }
+
+    public IEnumerator Tutorial_Train_MaxSpeed_Change(int addSpeed, float during)
+    {
+        speed += addSpeed;
+        yield return new WaitForSeconds(during);
+        speed -= addSpeed;
+    }
+
+    IEnumerator Clear(Tutorial_List list)
+    {
+        uiDirector.ClearObject.SetActive(true);
+        uiDirector.Compelte_Object.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        uiDirector.Title_Text.text = distance.ToString();
+        yield return new WaitForSeconds(0.5f);
+        uiDirector.Compelte_Object.SetActive(false);
+        uiDirector.ClearObject.SetActive(false);
+        tutorialList = list;
+        T_Flag = true;
+        ClearFlag = false;
+    }
+
 
     public enum Tutorial_List
     {
         Start,
 
         T_UI_Information,
-        T_Move_A,
-        T_Move_D,
+        T_Move,
         T_Jump,
         T_Fire,
         T_Fire_Kill,
@@ -309,8 +458,11 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
         T_Spawn_Item,
         T_Use_Item,
         T_Train,
-        T_GameSystem,
+        T_Monster,
+        T_Fuel,
+        T_Lose,
+        T_Win,
+
         End,
-        Refresh,
     }
 }
