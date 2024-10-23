@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.Components;
 using UnityEngine.UI;
 
 public class Tutorial_UIDirector : MonoBehaviour
@@ -31,13 +32,18 @@ public class Tutorial_UIDirector : MonoBehaviour
     public GameObject ClearObject;
     [Header("게임 튜토리얼")]
     public GameObject GameTutorial_Window;
-    public TextMeshProUGUI Title_Text;
-    public TextMeshProUGUI Information_Text;
+    public LocalizeStringEvent Title_Text;
+    public LocalizeStringEvent Information_Text;
     public GameObject Compelte_Object;
 
     private void Start()
     {
-        foreach(Image image in Item_Icon)
+        Title_Text.StringReference.TableReference = "Tutorial_St";
+        Information_Text.StringReference.TableReference = "Tutorial_St";
+        Title_Text.StringReference.TableEntryReference = "Tutorial_Game_Title_0";
+        Information_Text.StringReference.TableEntryReference = "Tutorial_Game_Information_0";
+
+        foreach (Image image in Item_Icon)
         {
             image.sprite = Tutorial_Icon_Sprite[0];
         }
@@ -133,5 +139,11 @@ public class Tutorial_UIDirector : MonoBehaviour
         {
             return false;
         }
+    }
+
+    public void changeText(int index)
+    {
+        Title_Text.StringReference.TableEntryReference = "Tutorial_Game_Title_"+ index;
+        Information_Text.StringReference.TableEntryReference = "Tutorial_Game_Information_"+ index;
     }
 }
