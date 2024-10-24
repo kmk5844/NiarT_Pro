@@ -36,6 +36,9 @@ public class Tutorial_UIDirector : MonoBehaviour
     public LocalizeStringEvent Information_Text;
     public GameObject Compelte_Object;
 
+    public bool UI_Information_Click_Flag;
+    public GameObject Click_Text_object;
+
     private void Start()
     {
         Title_Text.StringReference.TableReference = "Tutorial_St";
@@ -60,6 +63,7 @@ public class Tutorial_UIDirector : MonoBehaviour
         count = 0;
 
         MaxCount = GameUI.Count;
+        UI_Information_Click_Flag = true;
     }
 
     private void Update()
@@ -77,7 +81,12 @@ public class Tutorial_UIDirector : MonoBehaviour
 
     public void nextTutorial()
     {
-        GameUI[count].SetActive(true);
+        
+        if(count < MaxCount)
+        {
+            GameUI[count].SetActive(true);
+        }
+
         if(count == 0)
         {
             GameUI_Information[count].SetActive(true);
@@ -91,6 +100,19 @@ public class Tutorial_UIDirector : MonoBehaviour
             }
         }
         count++;
+        if(count < MaxCount)
+        {
+            StartCoroutine(WaitTime());
+        }
+    }
+
+    public IEnumerator WaitTime()
+    {
+        UI_Information_Click_Flag = false;
+        Click_Text_object.SetActive(false);
+        yield return new WaitForSeconds(2f);
+        Click_Text_object.SetActive(true);
+        UI_Information_Click_Flag = true;
     }
 
     public void item_changeIcon(bool flag)
@@ -127,6 +149,7 @@ public class Tutorial_UIDirector : MonoBehaviour
     public void lastTutorial()
     {
         GameUI_Information[GameUI_Information.Count-1].SetActive(false);
+        Click_Text_object.SetActive(false);
     }
 
     public bool checkFlag()

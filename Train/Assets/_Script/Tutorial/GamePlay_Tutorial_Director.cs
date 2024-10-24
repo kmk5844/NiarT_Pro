@@ -35,15 +35,27 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
 
     public int distance;
     public int max_distance;
-
     bool ClearFlag;
+
+    public GameObject[] EmphasisObejct;
+    /*{
+    0. PlayerHP
+    1. Itme
+    2. Distance
+    3. Speed
+    4. Fuel
+    5. Train_SpecialGuage
+    6. 스킬 Q
+    7. 스킬 E
+    }*/
+    bool arrowFlag;
 
     private void Awake()
     {
         Fuel = 60000;
         Max_Fuel = Fuel;
         Max_Speed = 280;
-        max_distance = 14;
+        max_distance = 13;
     }
 
     private void Start()
@@ -59,10 +71,14 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
     {
         if(tutorialList == Tutorial_List.T_UI_Information)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (uiDirector.UI_Information_Click_Flag)
             {
-                uiDirector.nextTutorial();
+                if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
+                {
+                    uiDirector.nextTutorial();
+                }
             }
+            
 
             if (uiDirector.checkFlag())
             {
@@ -168,7 +184,8 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
             if (T_Flag)
             {
                 speed += 150;
-                T_Flag = false; 
+                EmphasisObejct[3].SetActive(true);
+                T_Flag = false;
             }
 
             if (!player.T_Skill_Q)
@@ -186,8 +203,19 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
             }
             else
             {
+
+                if (!EmphasisObejct[6].activeSelf)
+                {
+                    EmphasisObejct[6].SetActive(true);
+                }
+
                 if (player.T_Skill_Q_Click)
                 {
+                    if (EmphasisObejct[6].activeSelf)
+                    {
+                        EmphasisObejct[6].SetActive(false);
+                    }
+
                     if (speed < Max_Speed + 200)
                     {
                         speed += (Time.deltaTime * 40f);
@@ -206,6 +234,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
                 if (!ClearFlag)
                 {
                     distance++;//6
+                    EmphasisObejct[3].SetActive(false);
                     StartCoroutine(Clear(Tutorial_List.T_Skill_E));
                     ClearFlag = true;
                 }
@@ -217,6 +246,8 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
             if (T_Flag)
             {
                 player.T_Skill_E = true;
+                EmphasisObejct[7].SetActive(true);
+
                 T_Flag = false;
             }
 
@@ -225,6 +256,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
                 if (!ClearFlag)
                 {
                     distance++;//7
+                    EmphasisObejct[7].SetActive(false);
                     StartCoroutine(Clear(Tutorial_List.T_Spawn_Item));
                     ClearFlag = true;
                 }
@@ -256,6 +288,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
             if (T_Flag)
             {
                 player.T_UseItem = true;
+                EmphasisObejct[1].SetActive(true);
                 T_Flag = false;
             }
 
@@ -265,6 +298,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
                 if (!ClearFlag)
                 {
                     distance++;//9
+                    EmphasisObejct[1].SetActive(false);
                     StartCoroutine(Clear(Tutorial_List.T_Train));
                     ClearFlag = true;
                 }
@@ -275,8 +309,9 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
         {
             if (T_Flag)
             {
-                TrainObject.SetActive(true);
+                TrainObject.SetActive(true); // 특수 게이지는 이미 활성화 되어있음
                 player.T_Train = true;
+                EmphasisObejct[4].SetActive(true);
                 T_Flag = false;
             }
 
@@ -286,6 +321,8 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
                 if (!ClearFlag)
                 {
                     distance++;//10
+                    EmphasisObejct[4].SetActive(false);
+                    EmphasisObejct[5].SetActive(false);   
                     StartCoroutine(Clear(Tutorial_List.T_Monster));
                     ClearFlag = true;
                 }
@@ -301,6 +338,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
                     scarecrow_sky[i] = Instantiate(ScarecrowObject_Sky, new Vector2(0 - (6 * i), 16), Quaternion.identity);
                     Scarecrow_count++;
                 }
+                EmphasisObejct[3].SetActive(true);
                 T_Flag = false;
             }
 
@@ -309,6 +347,8 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
                 if (!ClearFlag)
                 {
                     distance++;//11
+                    EmphasisObejct[3].SetActive(false);
+
                     StartCoroutine(Clear(Tutorial_List.T_Fuel));
                     ClearFlag = true;
                 }
@@ -319,6 +359,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
         {
             if (T_Flag)
             {
+                EmphasisObejct[4].SetActive(true);
                 T_Flag = false;
             }
 
@@ -331,6 +372,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
                 if (!ClearFlag)
                 {
                     distance++;//12
+                    EmphasisObejct[4].SetActive(false);
                     StartCoroutine(Clear(Tutorial_List.T_Lose));
                     ClearFlag = true;
                 }
@@ -341,17 +383,22 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
         {
             if (T_Flag)
             {
+                EmphasisObejct[0].SetActive(true);
                 T_Flag = false;
             }
 
             if(player.PlayerHP > 0)
             {
                 player.PlayerHP -= (int)(Time.deltaTime * 1000f);
-                speed = 480f;
             }
             else
             {
-                if(speed > 0)
+                if (EmphasisObejct[0].activeSelf)
+                {
+                    EmphasisObejct[0].SetActive(false);
+                    EmphasisObejct[3].SetActive(true);
+                }
+                if (speed > 0)
                 {
                     
                     speed -= (Time.deltaTime * 100f);
@@ -361,6 +408,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
                     if (!ClearFlag)
                     {
                         distance++;//13
+                        EmphasisObejct[3].SetActive(false);
                         StartCoroutine(Clear(Tutorial_List.T_Win));
                         ClearFlag = true;
                     }
@@ -372,19 +420,27 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
         {
             if (T_Flag)
             {
+                EmphasisObejct[2].SetActive(true);
+                StartCoroutine(uiDirector.WaitTime());
                 T_Flag = false;
             }
 
-            if (Input.GetMouseButtonDown(0))
+            if (uiDirector.UI_Information_Click_Flag)
             {
-                distance++;//14
+                if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
+                {
+                    distance++;//14
+                }
             }
+            
 
             if(distance > max_distance)
             {
                 if (!ClearFlag)
                 {
                     StartCoroutine(Clear(Tutorial_List.End));
+                    uiDirector.Click_Text_object.SetActive(false);
+                    EmphasisObejct[2].SetActive(false);
                     ClearFlag = true;
                 }
             }
@@ -394,8 +450,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
         {
             if (T_Flag)
             {
-                Debug.Log("End");
-                T_Flag = false;
+                LoadingManager.LoadScene("InGame");
             }
         }
     }
@@ -434,13 +489,16 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
         uiDirector.ClearObject.SetActive(true);
         uiDirector.Compelte_Object.SetActive(true);
         yield return new WaitForSeconds(1f);
-
+        if (distance > max_distance)
+        {
+            uiDirector.GameTutorial_Window.SetActive(false);
+        }
         uiDirector.changeText(distance);
         //uiDirector.Title_Text.text = distance.ToString();
-        
         yield return new WaitForSeconds(0.5f);
         uiDirector.Compelte_Object.SetActive(false);
         uiDirector.ClearObject.SetActive(false);
+
         tutorialList = list;
         T_Flag = true;
         ClearFlag = false;
