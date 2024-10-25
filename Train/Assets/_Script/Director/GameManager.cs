@@ -128,21 +128,36 @@ public class GameManager : MonoBehaviour
         if (gameData.Information_Scene[PlayerData.New_Stage].BeforeStation_Button.Equals("Story"))
         {
             int index = gameData.Information_Scene[PlayerData.New_Stage].BeforeStation_StoryIndex;
-            if (!StoryData.StoryList[index].Start_Flag)
+
+            if (!DataManager.Instance.playerData.FirstFlag)
             {
-                LoadingManager.LoadScene("Story");
-                StoryData.StoryList[index].ChangeFlag(true);
+                if (!StoryData.StoryList[index].Start_Flag)
+                {
+                    LoadingManager.LoadScene("Story");
+                    StoryData.StoryList[index].ChangeFlag(true);
+                }
+                else
+                {
+                    LoadingManager.LoadScene("GamePlay_Tutorial");
+                }
             }
             else
             {
-                LoadingManager.LoadScene("Station");
+                if (!StoryData.StoryList[index].Start_Flag)
+                {
+                    LoadingManager.LoadScene("Story");
+                    StoryData.StoryList[index].ChangeFlag(true);
+                }
+                else
+                {
+                    LoadingManager.LoadScene("Station");
+                }
             }
         }
         else
         {
             LoadingManager.LoadScene("Station");
         }
-
         /*        int index = StoryData.StoryList.FindIndex(x => x.Story_Num == PlayerData.New_Stage);
                 if (index != -1 && !StoryData.StoryList[index].Start_Flag)
                 {

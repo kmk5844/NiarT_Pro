@@ -14,7 +14,6 @@ public class Scarecrow_Object : MonoBehaviour
     float lastTime;
     float Bullet_Delay;
     public GameObject bullet;
-
     private void Start()
     {
         director = GameObject.Find("TutorialDirector").GetComponent<GamePlay_Tutorial_Director>();
@@ -35,7 +34,8 @@ public class Scarecrow_Object : MonoBehaviour
             transform.position = new Vector2(transform.position.x, 16);
         }
         Monster_BonceFlag = false;
-        Bullet_Delay = 3f;
+        Bullet_Delay = Random.Range(3f, 5f);
+        lastTime = Time.time - 3f;
 
         HitDamage = Resources.Load<GameObject>("Monster/Hit_Text");
     }

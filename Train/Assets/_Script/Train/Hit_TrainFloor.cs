@@ -1,3 +1,4 @@
+using Cinemachine;
 using MoreMountains.Feedbacks;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,13 +7,14 @@ using UnityEngine;
 public class Hit_TrainFloor : MonoBehaviour
 {
     Train_InGame train;
-    FillDirector fill_Director;
     public GameObject Hit_Effect;
-   
+    GameObject impulse_Object;
+    CinemachineImpulseSource impulseSource;
     private void Start()
     {
         train = transform.GetComponentInParent<Train_InGame>();
-        fill_Director = train.gameDirector.GetComponent<GameDirector>().fill_director;
+        impulse_Object = GameObject.Find("ImpulseObject");
+        impulseSource = impulse_Object.GetComponent<CinemachineImpulseSource>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -20,7 +22,7 @@ public class Hit_TrainFloor : MonoBehaviour
         if (collision.CompareTag("Monster_Bullet"))
         {
             MonsterBullet bullet = collision.gameObject.GetComponent<MonsterBullet>();
-            fill_Director.PlayFill(0);
+            CameraShakeManager.instance.CameraShake(impulseSource);  
             train.Train_MonsterHit(bullet);
             Instantiate(Hit_Effect, collision.transform.localPosition, Quaternion.identity);
             Destroy(collision.gameObject);

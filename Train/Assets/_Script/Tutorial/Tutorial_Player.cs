@@ -6,6 +6,7 @@ using static PixelCrushers.DialogueSystem.UnityGUI.GUIProgressBar;
 
 public class Tutorial_Player : MonoBehaviour
 {
+    public GamePlay_Tutorial_Director gameDirector;
     public Tutorial_UIDirector UIDirector;
 
     Animator ani;
@@ -94,6 +95,7 @@ public class Tutorial_Player : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 isMouseDown = true;
+
             }
 
             if (Input.GetMouseButtonUp(0))
@@ -103,7 +105,18 @@ public class Tutorial_Player : MonoBehaviour
 
             if (isMouseDown)
             {
+                if (gameDirector.aimFlag)
+                {
+                    gameDirector.ChangeCursor(true, true);
+                }
                 BulletFire();
+            }
+            else
+            {
+                if (gameDirector.aimFlag)
+                {
+                    gameDirector.ChangeCursor(true, false);
+                }
             }
         }
 
@@ -268,7 +281,7 @@ public class Tutorial_Player : MonoBehaviour
                 StartCoroutine(MariGold_Skill_BulletFire());
             }
 
-            //MMSoundManagerSoundPlayEvent.Trigger(ShootSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+            MMSoundManagerSoundPlayEvent.Trigger(ShootSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
 
             lastTime = Time.time;
         }

@@ -327,9 +327,7 @@ public class UIDirector : MonoBehaviour
             ItemInformation.anchoredPosition = new Vector2(newX, ItemInformation.anchoredPosition.y);
             yield return null;
         }
-
     }
-
     IEnumerator ItemInformation_Object_Off()
     {
         RectTransform ItemInformation = ItemInformation_Object.GetComponent<RectTransform>();
