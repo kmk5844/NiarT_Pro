@@ -9,7 +9,7 @@ public class Medic_Train : MonoBehaviour
     public GameObject[] On_Off_Object;
 
     int Heal_Amount;
-    int Heal_timeBet;
+    float Heal_timeBet;
     bool isPlayerHealing;
     public bool isMercenaryHealing;
     bool isHeal;

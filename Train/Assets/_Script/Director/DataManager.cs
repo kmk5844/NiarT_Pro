@@ -43,11 +43,7 @@ public class DataManager : MonoBehaviour
     public SA_ItemData PlayerItem_Data;
     public SA_Tutorial tutorialData;
     public SA_StoryLIst storyData;
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
 
     public void Load()
     {

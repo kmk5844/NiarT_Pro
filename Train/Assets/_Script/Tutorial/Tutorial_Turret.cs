@@ -1,3 +1,4 @@
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,7 @@ public class Tutorial_Turret : MonoBehaviour
     Vector3 mousePos;
 
     bool mouseButtonDonw_Flag;
+    public AudioClip ShootSFX;
 
     private void Start()
     {
@@ -89,6 +91,7 @@ public class Tutorial_Turret : MonoBehaviour
         if(Time.time >= lastTime + atkDelay)
         {
             Instantiate(bullet, FireZone.position, Quaternion.identity);
+            MMSoundManagerSoundPlayEvent.Trigger(ShootSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
             lastTime = Time.time;
         }
     }

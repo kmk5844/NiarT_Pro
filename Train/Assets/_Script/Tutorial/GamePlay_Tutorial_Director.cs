@@ -8,8 +8,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
 {
     public Tutorial_UIDirector uiDirector;
     public Tutorial_Player player;
-    [SerializeField]
-    GameType gameType;
+    public GameType_T gameType;
     public Tutorial_List tutorialList;
     bool T_Flag;
     public float clickTime;
@@ -84,7 +83,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
         scarecrow_DestoryFlag = false;
         T_Flag = true;
         aimFlag = false;
-        gameType = GameType.Tutorial;
+        gameType = GameType_T.Tutorial;
         tutorialList = Tutorial_List.T_UI_Information;
         ChangeCursor(false);
         MMSoundManagerSoundPlayEvent.Trigger(TutorialBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true);
@@ -92,7 +91,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
 
     private void Update()
     {
-        if(gameType == GameType.Pause)
+        if(gameType == GameType_T.Pause)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
@@ -113,17 +112,17 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
                             ChangeCursor(true);
                         }
                         uiDirector.pause_Close_Button();
-                        gameType = GameType.Tutorial;
+                        gameType = GameType_T.Tutorial;
                         Time.timeScale = 1;
                     }
                 }
             }
         }
-        else if(gameType == GameType.Tutorial)
+        else if(gameType == GameType_T.Tutorial)
         {
             if(Input.GetKeyDown(KeyCode.Escape))
             {
-                gameType = GameType.Pause;
+                gameType = GameType_T.Pause;
                 uiDirector.pause_Open_Button();
                 ChangeCursor(false);
                 Time.timeScale = 0;
@@ -593,7 +592,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
             Cursor.SetCursor(cursorOrigin, cursorHotspot_Origin, CursorMode.Auto);
         }
     }
-    enum GameType
+    public enum GameType_T
     { 
         Tutorial,
         Pause

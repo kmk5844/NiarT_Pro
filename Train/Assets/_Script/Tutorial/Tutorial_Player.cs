@@ -2,6 +2,7 @@ using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static GamePlay_Tutorial_Director;
 using static PixelCrushers.DialogueSystem.UnityGUI.GUIProgressBar;
 
 public class Tutorial_Player : MonoBehaviour
@@ -103,19 +104,22 @@ public class Tutorial_Player : MonoBehaviour
                 isMouseDown = false;
             }
 
-            if (isMouseDown)
+            if(gameDirector.gameType == GameType_T.Tutorial)
             {
-                if (gameDirector.aimFlag)
+                if (isMouseDown)
                 {
-                    gameDirector.ChangeCursor(true, true);
+                    if (gameDirector.aimFlag)
+                    {
+                        gameDirector.ChangeCursor(true, true);
+                    }
+                    BulletFire();
                 }
-                BulletFire();
-            }
-            else
-            {
-                if (gameDirector.aimFlag)
+                else
                 {
-                    gameDirector.ChangeCursor(true, false);
+                    if (gameDirector.aimFlag)
+                    {
+                        gameDirector.ChangeCursor(true, false);
+                    }
                 }
             }
         }

@@ -79,6 +79,10 @@ public class SA_PlayerData : ScriptableObject
     private bool[] character_lockoff;
     public bool[] Character_LockOff {  get {  return character_lockoff; } }
 
+    [SerializeField]
+    private bool station_tutorial;
+    public bool Station_Tutorial {  get { return station_tutorial; } }
+
     public void SA_GameWinReward(int R_Coin, int R_Point)
     {
         if (select_stage == 0 && new_stage == 0) // 바로 스토리 넘어가는 특수상황일 경우
@@ -198,6 +202,7 @@ public class SA_PlayerData : ScriptableObject
         ES3.Save<int>("SA_PlayerData_Data_new_stage", new_stage);
         ES3.Save<bool[]>("SA_PlayerData_Data_LockOff", character_lockoff);
         ES3.Save<int>("SA_PlayerData_Data_Story_Num", story_num);
+        ES3.Save<bool>("SA_PlayerData_Data_Station_Tutorial", station_tutorial);
     }
 
     public void Load()
@@ -215,6 +220,7 @@ public class SA_PlayerData : ScriptableObject
         select_stage = new_stage;
         character_lockoff = ES3.Load<bool[]>("SA_PlayerData_Data_LockOff");
         story_num = ES3.Load<int>("SA_PlayerData_Data_Story_Num");
+        station_tutorial = ES3.Load<bool>("SA_PlayerData_Data_Station_Tutorial");
     }
 
     public void Init()
@@ -235,7 +241,8 @@ public class SA_PlayerData : ScriptableObject
         select_stage = 0;
         story_num = 0;
         Character_LockOff[0] = true;
-        for(int i = 1; i < 5; i++)
+        station_tutorial = false;
+        for (int i = 1; i < 5; i++)
         {
             Character_LockOff[i] = false;
         }

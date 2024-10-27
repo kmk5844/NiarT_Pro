@@ -58,7 +58,7 @@ public class Train_InGame : MonoBehaviour
     [HideInInspector]
     public float Max_Train_Heal;
     public int Train_Heal_Amount;
-    public int Train_Heal_timeBet;
+    public float Train_Heal_timeBet;
     [Header("의무실 특수 플래그")]
     public bool isHealing;
     [Header("수동 포탑")]
@@ -217,7 +217,7 @@ public class Train_InGame : MonoBehaviour
                 string[] trainData_Special_String = trainData.Information_Train[Train_Num].Train_Special.Split(',');
                 Train_Heal = int.Parse(trainData_Special_String[0]);
                 Train_Heal_Amount = int.Parse(trainData_Special_String[1]);
-                Train_Heal_timeBet = int.Parse(trainData_Special_String[2]);
+                Train_Heal_timeBet = float.Parse(trainData_Special_String[2]);
                 Max_Train_Heal = Train_Heal;
                 break;
             case "Self_Turret":
