@@ -30,6 +30,10 @@ public class SA_Tutorial : ScriptableObject
     private bool tu_mapselect;
     public bool Tu_MapSelect { get {  return tu_mapselect; } }
 
+    [SerializeField]
+    private bool tu_translate;
+    public bool Tu_Translate { get { return tu_translate; } }
+
     public void ChangeFlag(int i)
     {
         if (i == -1)
@@ -52,6 +56,9 @@ public class SA_Tutorial : ScriptableObject
         }else if(i == 4)
         {
             tu_mapselect = true;
+        }else if(i == 5)
+        {
+            tu_translate = true;
         }
         Save();
     }
@@ -65,6 +72,7 @@ public class SA_Tutorial : ScriptableObject
         tu_store = false;
         tu_traning = false;
         tu_mapselect = false;
+        tu_translate = false;
         Save();
     }
 
@@ -77,6 +85,7 @@ public class SA_Tutorial : ScriptableObject
         ES3.Save("tu_store_flag", tu_store);
         ES3.Save("tu_traning_flag", tu_traning);
         ES3.Save("tu_mapselect_flag", tu_mapselect);
+        ES3.Save("tu_translate_flag", tu_translate);
     }
 
     public void Load()
@@ -87,5 +96,6 @@ public class SA_Tutorial : ScriptableObject
         tu_store = ES3.Load<bool>("tu_store_flag");
         tu_traning = ES3.Load<bool>("tu_traning_flag");
         tu_mapselect = ES3.Load<bool>("tu_mapselect_flag");
+        tu_translate = ES3.Load<bool>("tu_translate_flag");
     }
 }

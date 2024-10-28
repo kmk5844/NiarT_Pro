@@ -12,22 +12,16 @@ public class Station_TutorialDirector : MonoBehaviour
     int Count;
     int MaxCount;
 
-    string st = "";
-    public LocalizeSpriteEvent StationImage;
+    public GameObject[] TutorialObject;
 
     bool ClickFlag;
     public TextMeshProUGUI nextText;
 
-    [SerializeField]
-    station_type tutorialType;
-
     private void Start()
     {
         Count = 0;
+        MaxCount = TutorialObject.Length;
         ClickFlag = true;
-        StationImage.AssetReference.TableReference = "Tutorial_Table_Asset";
-        CheckType();
-        StationImage.AssetReference.TableEntryReference = st + Count;
     }
 
     private void Update()
@@ -47,7 +41,8 @@ public class Station_TutorialDirector : MonoBehaviour
         Count++;
         if(Count < MaxCount)
         {
-            StationImage.AssetReference.TableEntryReference = st + Count;
+            TutorialObject[Count-1].SetActive(false);
+            //StationImage.AssetReference.TableEntryReference = st + Count;
         }
         else
         {
@@ -64,72 +59,9 @@ public class Station_TutorialDirector : MonoBehaviour
         ClickFlag = true;
     }
 
-    void CheckType()
-    {
-        switch (tutorialType)
-        {
-            case station_type.station:
-                Tutorial_Index = 0;
-                st = "Station_";
-                MaxCount = 5;
-                break;
-            case station_type.maintenance:
-                Tutorial_Index = 1;
-                st = "Main_";
-                MaxCount = 4;
-                break;
-            case station_type.store:
-                Tutorial_Index = 2;
-                st = "Store_";
-                MaxCount = 2;
-                break;
-            case station_type.traning:
-                Tutorial_Index = 3;
-                st = "Traning_";
-                MaxCount = 6;
-                break;
-            case station_type.map:
-                Tutorial_Index = 4;
-                st = "Map_";
-                MaxCount = 5;
-                break;
-        }
-    }
-
     void TutorialEnd()
     {
         tutorialData.ChangeFlag(Tutorial_Index);
         gameObject.SetActive(false);
-    }
-
-    public void Tutorial_CheckIndex(int i)
-    {
-        switch (i)
-        {
-            case 0:
-                tutorialType = station_type.station;
-                break;
-            case 1:
-                tutorialType = station_type.maintenance;
-                break;
-            case 2:
-                tutorialType = station_type.store;
-                break;
-            case 3:
-                tutorialType = station_type.traning;
-                break;
-            case 4:
-                tutorialType = station_type.map;
-                break;
-        }
-    }
-
-    public enum station_type
-    {
-        station,
-        maintenance,
-        store,
-        traning,
-        map
     }
 }

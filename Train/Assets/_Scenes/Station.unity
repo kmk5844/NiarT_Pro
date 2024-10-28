@@ -14641,7 +14641,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &353697111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20243,7 +20243,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 683327897}
   m_Direction: 0
   m_Value: 1
-  m_Size: 0.9997177
+  m_Size: 0.49985886
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -25711,6 +25711,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2143538554}
+        m_TargetAssemblyTypeName: TutorialDirector, Assembly-CSharp
+        m_MethodName: CheckButton
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 5
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &602377586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30421,7 +30433,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: en
-          value: 0.0002822876
+          value: 0.50014114
         - localeIdentifier:
             m_Code: ja-JP
           value: 0.00013025232
@@ -69061,7 +69073,7 @@ MonoBehaviour:
         m_VariantData:
         - localeIdentifier:
             m_Code: en
-          value: 1
+          value: 0.53846157
         - localeIdentifier:
             m_Code: ja-JP
           value: 1
@@ -75105,7 +75117,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1515718808
 RectTransform:
   m_ObjectHideFlags: 0
@@ -81339,6 +81351,8 @@ GameObject:
   - component: {fileID: 1630190289}
   - component: {fileID: 1630190291}
   - component: {fileID: 1630190290}
+  - component: {fileID: 1630190292}
+  - component: {fileID: 1630190293}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -81462,6 +81476,104 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1630190288}
   m_CullTransparentMesh: 1
+--- !u!114 &1630190292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630190288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:260850c1fa5abac4b9d2e4157fa012b2
+    m_TableEntryReference:
+      m_KeyId: 32611411088756736
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1630190290}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &1630190293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630190288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjects:
+  - rid: 7293032675386327042
+  references:
+    version: 2
+    RefIds:
+    - rid: 7293032675386327042
+      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
+      data:
+        m_Target: {fileID: 1630190290}
+        m_TrackedProperties:
+          items:
+          - rid: 7293032675386327043
+          - rid: 7293032675386327044
+        m_UpdateType: 0
+    - rid: 7293032675386327043
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_fontAsset
+        m_TypeString: TMPro.TMP_FontAsset, Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: en
+          value: {fileID: 11400000, guid: e0927d97c48665541a250bbf81756cdc, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: 11400000, guid: 194a7a087ea730042abfaf39226db056, type: 2}
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 11400000, guid: e0927d97c48665541a250bbf81756cdc, type: 2}
+    - rid: 7293032675386327044
+      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
+      data:
+        m_PropertyPath: m_sharedMaterial
+        m_TypeString: UnityEngine.Material, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_VariantData:
+        - localeIdentifier:
+            m_Code: en
+          value: {fileID: 6781648418189541948, guid: e0927d97c48665541a250bbf81756cdc, type: 2}
+        - localeIdentifier:
+            m_Code: ja-JP
+          value: {fileID: 2572762510154028185, guid: 194a7a087ea730042abfaf39226db056, type: 2}
+        - localeIdentifier:
+            m_Code: ko
+          value: {fileID: 6781648418189541948, guid: e0927d97c48665541a250bbf81756cdc, type: 2}
 --- !u!1 &1630482771
 GameObject:
   m_ObjectHideFlags: 0
@@ -92091,7 +92203,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1397038980}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.53846157
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -103130,7 +103242,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1224743bde95e64992b75aec1afac6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 11400000, guid: 00cbb5f50188b374e85c8a529a52b4b0, type: 2}
+  tutorialData: {fileID: 11400000, guid: e474f0d58c15e3948852b0e9406b577a, type: 2}
+  TutorialList: {fileID: 1442554155}
+  Tutorial_Flag: 
+  Tutorial_Object:
+  - {fileID: 1419406106612030915, guid: 81facbdc43e089740887c21f277834ba, type: 3}
+  - {fileID: 1419406106612030915, guid: b9c5711bbd4bbea45be801620a619ff2, type: 3}
+  - {fileID: 1419406106612030915, guid: 0edee29e36b0b7c47a027a667ae6867b, type: 3}
+  - {fileID: 1419406106612030915, guid: 4973985592b12084b97cd1d6861a6a63, type: 3}
+  - {fileID: 1419406106612030915, guid: def1e57c5ffedf2409aa6f5efff5d40f, type: 3}
+  - {fileID: 1419406106612030915, guid: 8cfb8ff36a76e794d9a110454b8fac15, type: 3}
 --- !u!1 &2145922465
 GameObject:
   m_ObjectHideFlags: 0
