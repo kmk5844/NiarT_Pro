@@ -18,6 +18,9 @@ public class UI_Train_Guage : MonoBehaviour
     Dash_Train dash;
     Supply_Train supply;
 
+    public Image LevelImage;
+    public Sprite[] Level;
+
     float timer;
 
     void Start()
@@ -47,11 +50,6 @@ public class UI_Train_Guage : MonoBehaviour
         {
             num = 5;
             supply = Train_Data.GetComponentInChildren<Supply_Train>();
-        }
-        if (Train_Data.Train_Type.Equals("Dash"))
-        {
-            num = 6;
-            dash = Train_Data.GetComponentInChildren<Dash_Train>();
         }
     }
 
@@ -102,11 +100,6 @@ public class UI_Train_Guage : MonoBehaviour
         else if(num == 5)
         {
             float FuelAmout = (float)supply.SupplyTrain_Fuel / (float)supply.Max_SupplyTrain_Fuel;
-            Special_Guage.fillAmount = FuelAmout;
-        }
-        else if(num == 6)
-        {
-            float FuelAmout = (float)dash.DashTrain_Fuel / (float)dash.Max_DashTrain_Fuel;
             Special_Guage.fillAmount = FuelAmout;
         }
     }

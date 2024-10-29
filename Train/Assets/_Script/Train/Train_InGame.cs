@@ -227,12 +227,12 @@ public class Train_InGame : MonoBehaviour
                 Train_Self_Attack_Delay = float.Parse(trainData_Special_String[2]);
                 Train_Self_Second = int.Parse(trainData_Special_String[3]);
                 break;
-            case "Dash":
+/*            case "Dash":
                 trainData_Special_String = trainData.Information_Train[Train_Num].Train_Special.Split(',');
                 Train_Dash_UseFuel = int.Parse(trainData_Special_String[0]);
                 Train_Dash_PalyerAmount = float.Parse(trainData_Special_String[1]);
                 Train_Dash_Second = int.Parse(trainData_Special_String[2]);
-                break;
+                break;*/
             case "Supply":
                 trainData_Special_String = trainData.Information_Train[Train_Num].Train_Special.Split(',');
                 Train_Supply_UseFuel = int.Parse(trainData_Special_String[0]);
