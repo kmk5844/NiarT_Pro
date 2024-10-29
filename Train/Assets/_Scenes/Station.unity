@@ -14641,7 +14641,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &353697111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59655,6 +59655,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: Option_BackGround
       objectReference: {fileID: 0}
+    - target: {fileID: 3823284208416058604, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3823284208416058604, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3823284208416058604, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1232629562}
+    - target: {fileID: 3823284208416058604, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3823284208416058604, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnDropDownClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 3823284208416058604, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: OptionDirector, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3823284208416058604, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 3952440882347873613, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -59819,6 +59847,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6169566051064886810, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
+      propertyPath: canvas
+      value: 
+      objectReference: {fileID: 242370004}
+    - target: {fileID: 6169566051064886810, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 1682317545}
     - target: {fileID: 8095403556746962328, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -59882,7 +59918,8 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3823284208416058604, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:

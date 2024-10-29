@@ -1,6 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class OptionDirector : MonoBehaviour
@@ -18,13 +19,40 @@ public class OptionDirector : MonoBehaviour
     public Sprite[] BGM_Sprite;
     public Sprite[] SFX_Sprite;
 
+    [Header("스크린")]
+    public TMP_Dropdown resolutionDropdown;
+
+    public Sprite[] DropDown_Sprite;
+    Image DropDown_Image;
+
+    FullScreenMode screenMode;
+    List<Resolution> resolutions = new List<Resolution>();
+    public int resoutionNum;
+
     void Start()
     {
+        DropDown_Image = resolutionDropdown.GetComponent<Image>();
+
+        InitScreen();
         isKeyBoardFlag = false;
         isCreditFlag = false;
         BGM_Slider.onValueChanged.AddListener(Check_BGM_Audio_Value);
         SFX_Slider.onValueChanged.AddListener(Check_SFX_Audio_Value);
     }
+
+    private void Update()
+    {
+        if (resolutionDropdown.transform.childCount > 3)
+        {
+            DropDown_Image.sprite = DropDown_Sprite[1];
+        }
+        else
+        {
+            DropDown_Image.sprite = DropDown_Sprite[0];
+        }
+    }
+
+
     private void OnDisable()
     {
         isKeyBoardFlag = false;
@@ -59,7 +87,7 @@ public class OptionDirector : MonoBehaviour
 
     public void Check_BGM_Audio_Value(float value)
     {
-        if(value < 0.00011)
+        if (value < 0.00011)
         {
             BGM_Icon_Image.sprite = BGM_Sprite[1];
         }
@@ -79,5 +107,93 @@ public class OptionDirector : MonoBehaviour
         {
             SFX_Icon_Image.sprite = SFX_Sprite[0];
         }
+    }
+
+    //Screen구역
+    void InitScreen()
+    {
+        for (int i = 0; i < Screen.resolutions.Length; i++)
+        {
+            if (CheckMinimumResolution(Screen.resolutions[i].width)
+                && Check16To9Ratio(Screen.resolutions[i].width, Screen.resolutions[i].height))
+            {
+                if (Screen.resolutions[i].refreshRateRatio.numerator == 60)
+                {
+                    resolutions.Add(Screen.resolutions[i]);
+                }
+            }
+        }
+
+        resolutionDropdown.options.Clear();
+
+        int optionNum = 0;
+        for (int i = 0; i < resolutions.Count; i++)
+        {
+            Resolution Window_Screen = resolutions[i];
+            Resolution Full_Screen = resolutions[i];
+
+            TMP_Dropdown.OptionData Window_Option = new TMP_Dropdown.OptionData();
+            TMP_Dropdown.OptionData Full_Option = new TMP_Dropdown.OptionData();
+            Window_Option.text = Window_Screen.width + " * " + Window_Screen.height + " " +
+              Mathf.CeilToInt(Window_Screen.refreshRateRatio.numerator) + "hz(Windowed)";
+            Full_Option.text = Full_Screen.width + " * " + Full_Screen.height + " " +
+              Mathf.CeilToInt(Full_Screen.refreshRateRatio.numerator) + "hz(Full)";
+            resolutionDropdown.options.Add(Window_Option);
+            resolutionDropdown.options.Add(Full_Option);
+
+            if (Window_Screen.width == Screen.width && Window_Screen.height == Screen.height)
+            {
+                if (!Screen.fullScreenMode.Equals(FullScreenMode.FullScreenWindow))
+                {
+                    resolutionDropdown.value = optionNum;
+                }
+            }
+            optionNum++;
+            if (Full_Screen.width == Screen.width && Full_Screen.height == Screen.height)
+            {
+                if (Screen.fullScreenMode.Equals(FullScreenMode.FullScreenWindow))
+                {
+                    resolutionDropdown.value = optionNum;
+                }
+            }
+            optionNum++;
+        }
+
+        resolutionDropdown.RefreshShownValue();
+    }
+
+    public void DropboxOptionChange(int x)
+    {
+        resoutionNum = x;
+        if (x % 2 == 0)
+        {
+            screenMode = FullScreenMode.Windowed;
+        }
+        else if (x % 2 == 1)
+        {
+            screenMode = FullScreenMode.FullScreenWindow;
+        }
+
+        DropDown_Image.sprite = DropDown_Sprite[0];
+
+        Screen.SetResolution(resolutions[resoutionNum / 2].width,
+            resolutions[resoutionNum / 2].height,
+            screenMode);
+    }
+
+    bool CheckMinimumResolution(int width)
+    {
+        if (width >= 1024)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    bool Check16To9Ratio(int width, int height)
+    {
+        float aspectRatio = (float)width / height;
+        return Mathf.Approximately(aspectRatio, 16.0f / 9.0f);
     }
 }

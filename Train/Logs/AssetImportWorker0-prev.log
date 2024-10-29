@@ -15,7 +15,7 @@ D:/Unity Folder/NiarT_Pro_Fork/Train
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-61022
+61335
 Successfully changed project path to: D:/Unity Folder/NiarT_Pro_Fork/Train
 D:/Unity Folder/NiarT_Pro_Fork/Train
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
@@ -49,12 +49,12 @@ D:/Unity Folder/NiarT_Pro_Fork/Train
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [7372] Host "[IP] 192.168.0.4 [Port] 0 [Flags] 2 [Guid] 389547060 [EditorId] 389547060 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-BCEC88D) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+Player connection [30404] Host "[IP] 192.168.0.4 [Port] 0 [Flags] 2 [Guid] 776699221 [EditorId] 776699221 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-BCEC88D) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
 
-Player connection [7372] Host "[IP] 192.168.0.4 [Port] 0 [Flags] 2 [Guid] 389547060 [EditorId] 389547060 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-BCEC88D) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [30404] Host "[IP] 192.168.0.4 [Port] 0 [Flags] 2 [Guid] 776699221 [EditorId] 776699221 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-BCEC88D) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
 
 [Physics::Module] Initialized MultithreadedJobDispatcher with 5 workers.
-Refreshing native plugins compatible for Editor in 11.58 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 13.92 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2022.3.19f1 (244b723c30a6)
 [Subsystems] Discovering subsystems at path D:/Unity Version/Unity 2022.3.19f1/Editor/Data/Resources/UnitySubsystems
@@ -71,44 +71,44 @@ Initialize mono
 Mono path[0] = 'D:/Unity Version/Unity 2022.3.19f1/Editor/Data/Managed'
 Mono path[1] = 'D:/Unity Version/Unity 2022.3.19f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'D:/Unity Version/Unity 2022.3.19f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56596
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56488
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: D:/Unity Version/Unity 2022.3.19f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.004087 seconds.
-- Loaded All Assemblies, in  0.361 seconds
+Registered in 0.009233 seconds.
+- Loaded All Assemblies, in  0.672 seconds
 Native extension for WindowsStandalone target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.286 seconds
-Domain Reload Profiling: 646ms
-	BeginReloadAssembly (118ms)
+- Finished resetting the current domain, in  0.316 seconds
+Domain Reload Profiling: 987ms
+	BeginReloadAssembly (178ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (0ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
 		CreateAndSetChildDomain (1ms)
-	RebuildCommonClasses (35ms)
-	RebuildNativeTypeToScriptingClass (12ms)
-	initialDomainReloadingComplete (52ms)
-	LoadAllAssembliesAndSetupDomain (144ms)
-		LoadAssemblies (117ms)
+	RebuildCommonClasses (68ms)
+	RebuildNativeTypeToScriptingClass (19ms)
+	initialDomainReloadingComplete (220ms)
+	LoadAllAssembliesAndSetupDomain (187ms)
+		LoadAssemblies (167ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (142ms)
-			TypeCache.Refresh (141ms)
-				TypeCache.ScanAssembly (127ms)
+		AnalyzeDomain (181ms)
+			TypeCache.Refresh (179ms)
+				TypeCache.ScanAssembly (165ms)
 			ScanForSourceGeneratedMonoScriptInfo (0ms)
 			ResolveRequiredComponents (0ms)
-	FinalizeReload (286ms)
+	FinalizeReload (316ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (224ms)
+		SetupLoadedEditorAssemblies (240ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (8ms)
-			SetLoadedEditorAssemblies (8ms)
+			InitializePlatformSupportModulesInManaged (9ms)
+			SetLoadedEditorAssemblies (9ms)
 			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (2ms)
-			ProcessInitializeOnLoadAttributes (156ms)
-			ProcessInitializeOnLoadMethodAttributes (50ms)
+			BeforeProcessingInitializeOnLoad (3ms)
+			ProcessInitializeOnLoadAttributes (168ms)
+			ProcessInitializeOnLoadMethodAttributes (52ms)
 			AfterProcessingInitializeOnLoad (0ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
@@ -117,56 +117,56 @@ Domain Reload Profiling: 646ms
 Worker process is ready to serve import requests
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.747 seconds
-Refreshing native plugins compatible for Editor in 3.57 ms, found 3 plugins.
+- Loaded All Assemblies, in  0.798 seconds
+Refreshing native plugins compatible for Editor in 3.47 ms, found 3 plugins.
 Native extension for WindowsStandalone target not found
 Package Manager log level set to [2]
 [Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
 [Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
 [Package Manager] Cannot connect to Unity Package Manager local server
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.801 seconds
-Domain Reload Profiling: 1548ms
-	BeginReloadAssembly (147ms)
+- Finished resetting the current domain, in  0.815 seconds
+Domain Reload Profiling: 1613ms
+	BeginReloadAssembly (154ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (6ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
 		CreateAndSetChildDomain (21ms)
-	RebuildCommonClasses (35ms)
+	RebuildCommonClasses (36ms)
 	RebuildNativeTypeToScriptingClass (12ms)
 	initialDomainReloadingComplete (39ms)
-	LoadAllAssembliesAndSetupDomain (512ms)
-		LoadAssemblies (341ms)
+	LoadAllAssembliesAndSetupDomain (556ms)
+		LoadAssemblies (345ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (257ms)
-			TypeCache.Refresh (199ms)
-				TypeCache.ScanAssembly (179ms)
-			ScanForSourceGeneratedMonoScriptInfo (28ms)
+		AnalyzeDomain (301ms)
+			TypeCache.Refresh (242ms)
+				TypeCache.ScanAssembly (222ms)
+			ScanForSourceGeneratedMonoScriptInfo (29ms)
 			ResolveRequiredComponents (28ms)
-	FinalizeReload (801ms)
+	FinalizeReload (816ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (582ms)
+		SetupLoadedEditorAssemblies (589ms)
 			LogAssemblyErrors (0ms)
 			InitializePlatformSupportModulesInManaged (5ms)
-			SetLoadedEditorAssemblies (5ms)
+			SetLoadedEditorAssemblies (6ms)
 			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (76ms)
-			ProcessInitializeOnLoadAttributes (458ms)
-			ProcessInitializeOnLoadMethodAttributes (33ms)
+			BeforeProcessingInitializeOnLoad (77ms)
+			ProcessInitializeOnLoadAttributes (460ms)
+			ProcessInitializeOnLoadMethodAttributes (38ms)
 			AfterProcessingInitializeOnLoad (3ms)
 			EditorAssembliesLoaded (1ms)
 		ExecutionOrderSort2 (0ms)
 		AwakeInstancesAfterBackupRestoration (7ms)
 Shader 'MoreMountains/MMRipple': fallback shader 'Particle/AlphaBlended' not found
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.04 seconds
-Refreshing native plugins compatible for Editor in 4.02 ms, found 3 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.05 seconds
+Refreshing native plugins compatible for Editor in 3.64 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 5561 Unused Serialized files (Serialized files now loaded: 0)
 Unloading 112 unused Assets / (1.8 MB). Loaded Objects now: 6075.
 Memory consumption went from 388.8 MB to 387.0 MB.
-Total: 4.257900 ms (FindLiveObjects: 0.470700 ms CreateObjectMapping: 0.484100 ms MarkObjects: 2.947600 ms  DeleteObjects: 0.354500 ms)
+Total: 4.084600 ms (FindLiveObjects: 0.426300 ms CreateObjectMapping: 0.377900 ms MarkObjects: 2.930100 ms  DeleteObjects: 0.349300 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
@@ -183,9 +183,2504 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Import Request.
-  Time since last request: 1296395.267221 seconds.
-  path: Assets/_Locale/Table/Tutorial_St/Tutorial_St_ko.asset
-  artifactKey: Guid(87e4623558561c34c846057223e158a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/_Locale/Table/Tutorial_St/Tutorial_St_ko.asset using Guid(87e4623558561c34c846057223e158a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd132eebe890ee52bb9076cc73866db88') in 0.023687 seconds
+  Time since last request: 1297023.891425 seconds.
+  path: Assets/_Font/KR/_NeoDunggeunmoPro-Regular-Black SDF.asset
+  artifactKey: Guid(e0927d97c48665541a250bbf81756cdc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Font/KR/_NeoDunggeunmoPro-Regular-Black SDF.asset using Guid(e0927d97c48665541a250bbf81756cdc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '304a69cb3a135eeeb67a6f55ce454d00') in 0.192470 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 6
+========================================================================
+Received Import Request.
+  Time since last request: 0.000030 seconds.
+  path: Assets/_Font/KR/_NeoDunggeunmoPro-Regular SDF.asset
+  artifactKey: Guid(b78e44a57ee848341a90cccae5c0bcd1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Font/KR/_NeoDunggeunmoPro-Regular SDF.asset using Guid(b78e44a57ee848341a90cccae5c0bcd1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '55c5f061cdbcde5b392e7f88375770d9') in 0.069600 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 6
+========================================================================
+Received Import Request.
+  Time since last request: 75.708919 seconds.
+  path: Assets/_Font/KR/_NeoDunggeunmoPro-Regular SDF.asset
+  artifactKey: Guid(b78e44a57ee848341a90cccae5c0bcd1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Font/KR/_NeoDunggeunmoPro-Regular SDF.asset using Guid(b78e44a57ee848341a90cccae5c0bcd1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd6bd3704360b82ed6d5c82cc4403b006') in 0.247992 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 6
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.462 seconds
+Refreshing native plugins compatible for Editor in 3.33 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.885 seconds
+Domain Reload Profiling: 1346ms
+	BeginReloadAssembly (151ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (5ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (37ms)
+	RebuildCommonClasses (32ms)
+	RebuildNativeTypeToScriptingClass (12ms)
+	initialDomainReloadingComplete (26ms)
+	LoadAllAssembliesAndSetupDomain (240ms)
+		LoadAssemblies (282ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (36ms)
+			TypeCache.Refresh (6ms)
+				TypeCache.ScanAssembly (0ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (29ms)
+	FinalizeReload (885ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (473ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (5ms)
+			SetLoadedEditorAssemblies (5ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (72ms)
+			ProcessInitializeOnLoadAttributes (349ms)
+			ProcessInitializeOnLoadMethodAttributes (39ms)
+			AfterProcessingInitializeOnLoad (3ms)
+			EditorAssembliesLoaded (1ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (11ms)
+Shader 'MoreMountains/MMRipple': fallback shader 'Particle/AlphaBlended' not found
+Refreshing native plugins compatible for Editor in 3.47 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 5432 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 54 unused Assets / (1.8 MB). Loaded Objects now: 6132.
+Memory consumption went from 369.8 MB to 367.9 MB.
+Total: 3.731400 ms (FindLiveObjects: 0.454400 ms CreateObjectMapping: 0.453900 ms MarkObjects: 2.518100 ms  DeleteObjects: 0.304100 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 6d391050e5a25f67b0a2c618074f2cd9 -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 139.903100 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab
+  artifactKey: Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab using Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5d7bad8e8e513e2039a5dcbfeac0eb73') in 0.544850 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 180
+========================================================================
+Received Import Request.
+  Time since last request: 0.000021 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab
+  artifactKey: Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab using Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8ca0e9b0f65a1464db6fa728c699ab50') in 0.475615 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 0.000031 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab
+  artifactKey: Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab using Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '28fcc9b2495eeffad494f1aaa59d031d') in 0.431619 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 186
+========================================================================
+Received Import Request.
+  Time since last request: 0.000019 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ab4c94a99ec06daf0f8fa631e30af3c7') in 0.415839 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 179
+========================================================================
+Received Import Request.
+  Time since last request: 0.000028 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab
+  artifactKey: Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab using Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2f0ea59b8cf479e45f0847c0f5440134') in 0.410988 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 134
+========================================================================
+Received Import Request.
+  Time since last request: 0.000022 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Store.prefab
+  artifactKey: Guid(0edee29e36b0b7c47a027a667ae6867b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Store.prefab using Guid(0edee29e36b0b7c47a027a667ae6867b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ef0ca524cf0040ee04ccd59de15c2474') in 0.418234 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 82
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.510 seconds
+Refreshing native plugins compatible for Editor in 3.39 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.862 seconds
+Domain Reload Profiling: 1372ms
+	BeginReloadAssembly (157ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (5ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (40ms)
+	RebuildCommonClasses (34ms)
+	RebuildNativeTypeToScriptingClass (13ms)
+	initialDomainReloadingComplete (26ms)
+	LoadAllAssembliesAndSetupDomain (280ms)
+		LoadAssemblies (300ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (61ms)
+			TypeCache.Refresh (15ms)
+				TypeCache.ScanAssembly (5ms)
+			ScanForSourceGeneratedMonoScriptInfo (15ms)
+			ResolveRequiredComponents (30ms)
+	FinalizeReload (863ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (461ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (4ms)
+			SetLoadedEditorAssemblies (5ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (72ms)
+			ProcessInitializeOnLoadAttributes (336ms)
+			ProcessInitializeOnLoadMethodAttributes (40ms)
+			AfterProcessingInitializeOnLoad (3ms)
+			EditorAssembliesLoaded (1ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (11ms)
+Shader 'MoreMountains/MMRipple': fallback shader 'Particle/AlphaBlended' not found
+Refreshing native plugins compatible for Editor in 3.46 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 5432 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 54 unused Assets / (1.8 MB). Loaded Objects now: 6147.
+Memory consumption went from 371.9 MB to 370.1 MB.
+Total: 3.891000 ms (FindLiveObjects: 0.446500 ms CreateObjectMapping: 0.472000 ms MarkObjects: 2.666800 ms  DeleteObjects: 0.304800 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 6d391050e5a25f67b0a2c618074f2cd9 -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 52.096356 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab
+  artifactKey: Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab using Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dc4c824c2f5961e6283243ae0771f95d') in 0.512233 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 180
+========================================================================
+Received Import Request.
+  Time since last request: 0.000021 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab
+  artifactKey: Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab using Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1bb9aa9ea8dce1cfae616d67328d34b0') in 0.465371 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 0.000027 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab
+  artifactKey: Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab using Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '89fdf870fd6d54d6d7cf0301103a4e8e') in 0.411118 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 186
+========================================================================
+Received Import Request.
+  Time since last request: 0.000019 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cb334f9a06b81d33fc5f72f6aca5dd20') in 0.423017 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 179
+========================================================================
+Received Import Request.
+  Time since last request: 0.000034 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab
+  artifactKey: Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab using Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2a29411593b1609df90555a14685d38e') in 0.409457 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 134
+========================================================================
+Received Import Request.
+  Time since last request: 0.000021 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Store.prefab
+  artifactKey: Guid(0edee29e36b0b7c47a027a667ae6867b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Store.prefab using Guid(0edee29e36b0b7c47a027a667ae6867b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '80d85ddb61bc2aba39cee3f1baa09491') in 0.409176 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 82
+========================================================================
+Received Import Request.
+  Time since last request: 12.392951 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab
+  artifactKey: Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab using Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '19967a43ff076d06d749c73bddca60de') in 0.502782 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 9.405426 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Store.prefab
+  artifactKey: Guid(0edee29e36b0b7c47a027a667ae6867b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Store.prefab using Guid(0edee29e36b0b7c47a027a667ae6867b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0f6a489fbe972f21312b226759044986') in 0.411744 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 82
+========================================================================
+Received Import Request.
+  Time since last request: 6.653184 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ac0b6e679f9f076582eab24cc5d1e6c7') in 0.412707 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 179
+========================================================================
+Received Import Request.
+  Time since last request: 2.831660 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab
+  artifactKey: Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab using Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7821b0bd117e06b4d364b8b54516f42f') in 0.424048 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 134
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.475 seconds
+Refreshing native plugins compatible for Editor in 3.14 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.910 seconds
+Domain Reload Profiling: 1385ms
+	BeginReloadAssembly (153ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (5ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (39ms)
+	RebuildCommonClasses (33ms)
+	RebuildNativeTypeToScriptingClass (12ms)
+	initialDomainReloadingComplete (29ms)
+	LoadAllAssembliesAndSetupDomain (247ms)
+		LoadAssemblies (288ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (37ms)
+			TypeCache.Refresh (6ms)
+				TypeCache.ScanAssembly (0ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (30ms)
+	FinalizeReload (911ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (503ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (4ms)
+			SetLoadedEditorAssemblies (4ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (72ms)
+			ProcessInitializeOnLoadAttributes (366ms)
+			ProcessInitializeOnLoadMethodAttributes (53ms)
+			AfterProcessingInitializeOnLoad (3ms)
+			EditorAssembliesLoaded (1ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (11ms)
+Shader 'MoreMountains/MMRipple': fallback shader 'Particle/AlphaBlended' not found
+Refreshing native plugins compatible for Editor in 3.22 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 5432 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 54 unused Assets / (1.8 MB). Loaded Objects now: 6162.
+Memory consumption went from 373.9 MB to 372.0 MB.
+Total: 4.918800 ms (FindLiveObjects: 0.465300 ms CreateObjectMapping: 0.553100 ms MarkObjects: 3.568800 ms  DeleteObjects: 0.330600 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 6d391050e5a25f67b0a2c618074f2cd9 -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.513 seconds
+Refreshing native plugins compatible for Editor in 4.12 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.929 seconds
+Domain Reload Profiling: 1442ms
+	BeginReloadAssembly (158ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (6ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (35ms)
+	RebuildCommonClasses (33ms)
+	RebuildNativeTypeToScriptingClass (12ms)
+	initialDomainReloadingComplete (26ms)
+	LoadAllAssembliesAndSetupDomain (283ms)
+		LoadAssemblies (304ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (60ms)
+			TypeCache.Refresh (15ms)
+				TypeCache.ScanAssembly (6ms)
+			ScanForSourceGeneratedMonoScriptInfo (14ms)
+			ResolveRequiredComponents (29ms)
+	FinalizeReload (930ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (506ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (5ms)
+			SetLoadedEditorAssemblies (5ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (75ms)
+			ProcessInitializeOnLoadAttributes (371ms)
+			ProcessInitializeOnLoadMethodAttributes (48ms)
+			AfterProcessingInitializeOnLoad (3ms)
+			EditorAssembliesLoaded (1ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (11ms)
+Shader 'MoreMountains/MMRipple': fallback shader 'Particle/AlphaBlended' not found
+Refreshing native plugins compatible for Editor in 4.79 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 5433 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 54 unused Assets / (1.8 MB). Loaded Objects now: 6177.
+Memory consumption went from 376.1 MB to 374.2 MB.
+Total: 4.194700 ms (FindLiveObjects: 0.502300 ms CreateObjectMapping: 0.457000 ms MarkObjects: 2.857200 ms  DeleteObjects: 0.377000 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 6d391050e5a25f67b0a2c618074f2cd9 -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.487 seconds
+Refreshing native plugins compatible for Editor in 3.13 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.890 seconds
+Domain Reload Profiling: 1376ms
+	BeginReloadAssembly (154ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (5ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (38ms)
+	RebuildCommonClasses (33ms)
+	RebuildNativeTypeToScriptingClass (13ms)
+	initialDomainReloadingComplete (26ms)
+	LoadAllAssembliesAndSetupDomain (260ms)
+		LoadAssemblies (303ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (37ms)
+			TypeCache.Refresh (6ms)
+				TypeCache.ScanAssembly (0ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (29ms)
+	FinalizeReload (890ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (468ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (5ms)
+			SetLoadedEditorAssemblies (5ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (72ms)
+			ProcessInitializeOnLoadAttributes (342ms)
+			ProcessInitializeOnLoadMethodAttributes (41ms)
+			AfterProcessingInitializeOnLoad (3ms)
+			EditorAssembliesLoaded (1ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (11ms)
+Shader 'MoreMountains/MMRipple': fallback shader 'Particle/AlphaBlended' not found
+Refreshing native plugins compatible for Editor in 3.25 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 5433 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 54 unused Assets / (1.8 MB). Loaded Objects now: 6192.
+Memory consumption went from 377.9 MB to 376.1 MB.
+Total: 4.423400 ms (FindLiveObjects: 0.585300 ms CreateObjectMapping: 0.518200 ms MarkObjects: 2.985300 ms  DeleteObjects: 0.333700 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 6d391050e5a25f67b0a2c618074f2cd9 -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.492 seconds
+Refreshing native plugins compatible for Editor in 3.17 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.882 seconds
+Domain Reload Profiling: 1373ms
+	BeginReloadAssembly (152ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (6ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (36ms)
+	RebuildCommonClasses (33ms)
+	RebuildNativeTypeToScriptingClass (12ms)
+	initialDomainReloadingComplete (25ms)
+	LoadAllAssembliesAndSetupDomain (268ms)
+		LoadAssemblies (287ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (59ms)
+			TypeCache.Refresh (14ms)
+				TypeCache.ScanAssembly (5ms)
+			ScanForSourceGeneratedMonoScriptInfo (14ms)
+			ResolveRequiredComponents (29ms)
+	FinalizeReload (882ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (460ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (5ms)
+			SetLoadedEditorAssemblies (5ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (72ms)
+			ProcessInitializeOnLoadAttributes (336ms)
+			ProcessInitializeOnLoadMethodAttributes (40ms)
+			AfterProcessingInitializeOnLoad (3ms)
+			EditorAssembliesLoaded (1ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (11ms)
+Shader 'MoreMountains/MMRipple': fallback shader 'Particle/AlphaBlended' not found
+Refreshing native plugins compatible for Editor in 3.26 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 5433 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 54 unused Assets / (1.8 MB). Loaded Objects now: 6207.
+Memory consumption went from 379.9 MB to 378.1 MB.
+Total: 3.847400 ms (FindLiveObjects: 0.434200 ms CreateObjectMapping: 0.417100 ms MarkObjects: 2.669400 ms  DeleteObjects: 0.325700 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 6d391050e5a25f67b0a2c618074f2cd9 -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.506 seconds
+Refreshing native plugins compatible for Editor in 3.17 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.896 seconds
+Domain Reload Profiling: 1401ms
+	BeginReloadAssembly (180ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (5ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (53ms)
+	RebuildCommonClasses (33ms)
+	RebuildNativeTypeToScriptingClass (12ms)
+	initialDomainReloadingComplete (25ms)
+	LoadAllAssembliesAndSetupDomain (255ms)
+		LoadAssemblies (308ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (37ms)
+			TypeCache.Refresh (6ms)
+				TypeCache.ScanAssembly (0ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (29ms)
+	FinalizeReload (896ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (468ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (5ms)
+			SetLoadedEditorAssemblies (5ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (75ms)
+			ProcessInitializeOnLoadAttributes (341ms)
+			ProcessInitializeOnLoadMethodAttributes (40ms)
+			AfterProcessingInitializeOnLoad (3ms)
+			EditorAssembliesLoaded (1ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (10ms)
+Shader 'MoreMountains/MMRipple': fallback shader 'Particle/AlphaBlended' not found
+Refreshing native plugins compatible for Editor in 3.62 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 5433 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 54 unused Assets / (1.8 MB). Loaded Objects now: 6222.
+Memory consumption went from 381.9 MB to 380.0 MB.
+Total: 4.189600 ms (FindLiveObjects: 0.424500 ms CreateObjectMapping: 0.383600 ms MarkObjects: 2.938900 ms  DeleteObjects: 0.441300 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 6d391050e5a25f67b0a2c618074f2cd9 -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.478 seconds
+Refreshing native plugins compatible for Editor in 3.17 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.900 seconds
+Domain Reload Profiling: 1377ms
+	BeginReloadAssembly (151ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (5ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (34ms)
+	RebuildCommonClasses (34ms)
+	RebuildNativeTypeToScriptingClass (13ms)
+	initialDomainReloadingComplete (26ms)
+	LoadAllAssembliesAndSetupDomain (253ms)
+		LoadAssemblies (295ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (38ms)
+			TypeCache.Refresh (6ms)
+				TypeCache.ScanAssembly (0ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (29ms)
+	FinalizeReload (900ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (462ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (5ms)
+			SetLoadedEditorAssemblies (5ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (72ms)
+			ProcessInitializeOnLoadAttributes (338ms)
+			ProcessInitializeOnLoadMethodAttributes (39ms)
+			AfterProcessingInitializeOnLoad (3ms)
+			EditorAssembliesLoaded (1ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (11ms)
+Shader 'MoreMountains/MMRipple': fallback shader 'Particle/AlphaBlended' not found
+Refreshing native plugins compatible for Editor in 3.45 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 5433 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 54 unused Assets / (1.8 MB). Loaded Objects now: 6237.
+Memory consumption went from 383.8 MB to 382.0 MB.
+Total: 5.345900 ms (FindLiveObjects: 0.480200 ms CreateObjectMapping: 0.512000 ms MarkObjects: 4.022300 ms  DeleteObjects: 0.330000 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 6d391050e5a25f67b0a2c618074f2cd9 -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.484 seconds
+Refreshing native plugins compatible for Editor in 3.50 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.892 seconds
+Domain Reload Profiling: 1375ms
+	BeginReloadAssembly (153ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (5ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (38ms)
+	RebuildCommonClasses (34ms)
+	RebuildNativeTypeToScriptingClass (13ms)
+	initialDomainReloadingComplete (26ms)
+	LoadAllAssembliesAndSetupDomain (257ms)
+		LoadAssemblies (298ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (38ms)
+			TypeCache.Refresh (6ms)
+				TypeCache.ScanAssembly (0ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (30ms)
+	FinalizeReload (892ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (467ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (5ms)
+			SetLoadedEditorAssemblies (5ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (74ms)
+			ProcessInitializeOnLoadAttributes (341ms)
+			ProcessInitializeOnLoadMethodAttributes (39ms)
+			AfterProcessingInitializeOnLoad (3ms)
+			EditorAssembliesLoaded (1ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (10ms)
+Shader 'MoreMountains/MMRipple': fallback shader 'Particle/AlphaBlended' not found
+Refreshing native plugins compatible for Editor in 3.48 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 5433 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 54 unused Assets / (1.8 MB). Loaded Objects now: 6252.
+Memory consumption went from 385.7 MB to 383.9 MB.
+Total: 3.932300 ms (FindLiveObjects: 0.460600 ms CreateObjectMapping: 0.436000 ms MarkObjects: 2.733400 ms  DeleteObjects: 0.301100 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 6d391050e5a25f67b0a2c618074f2cd9 -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 535.210667 seconds.
+  path: Assets/_Font/JP/_JP_Neo둥근모_B_x12y16pxMaruMonica SDF 1.asset
+  artifactKey: Guid(194a7a087ea730042abfaf39226db056) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Font/JP/_JP_Neo둥근모_B_x12y16pxMaruMonica SDF 1.asset using Guid(194a7a087ea730042abfaf39226db056) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '90c433fbce0139972a0fc602a37196fa') in 0.175101 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 6
+========================================================================
+Received Import Request.
+  Time since last request: 0.000018 seconds.
+  path: Assets/_Font/KR/_NeoDunggeunmoPro-Regular-Black SDF.asset
+  artifactKey: Guid(e0927d97c48665541a250bbf81756cdc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Font/KR/_NeoDunggeunmoPro-Regular-Black SDF.asset using Guid(e0927d97c48665541a250bbf81756cdc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aebdc8a616bbde3c484fd21b84b38b80') in 0.067477 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 6
+========================================================================
+Received Import Request.
+  Time since last request: 0.000022 seconds.
+  path: Assets/_Font/JP/_JP_Neo둥근모_x12y16pxMaruMonica SDF.asset
+  artifactKey: Guid(fd564312cf1c6ef4ebc9f74e0f6f8b2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Font/JP/_JP_Neo둥근모_x12y16pxMaruMonica SDF.asset using Guid(fd564312cf1c6ef4ebc9f74e0f6f8b2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cf86de6e0d64d2609d22412c1ffcd9c4') in 0.066848 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 6
+========================================================================
+Received Import Request.
+  Time since last request: 16.600106 seconds.
+  path: Assets/_Font/JP/_JP_Neo둥근모_x12y16pxMaruMonica SDF.asset
+  artifactKey: Guid(fd564312cf1c6ef4ebc9f74e0f6f8b2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Font/JP/_JP_Neo둥근모_x12y16pxMaruMonica SDF.asset using Guid(fd564312cf1c6ef4ebc9f74e0f6f8b2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '396cc5ac7d5fa8110f603d5406cb0792') in 0.204056 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 6
+========================================================================
+Received Import Request.
+  Time since last request: 29.673006 seconds.
+  path: Assets/_Font/JP/_JP_Neo둥근모_x12y16pxMaruMonica SDF.asset
+  artifactKey: Guid(fd564312cf1c6ef4ebc9f74e0f6f8b2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Font/JP/_JP_Neo둥근모_x12y16pxMaruMonica SDF.asset using Guid(fd564312cf1c6ef4ebc9f74e0f6f8b2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '16d7a9b731a899d7f67fbc22738b9ddc') in 0.067122 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 6
+========================================================================
+Received Import Request.
+  Time since last request: 0.000017 seconds.
+  path: Assets/_Font/KR/_NeoDunggeunmoPro-Regular-Black SDF.asset
+  artifactKey: Guid(e0927d97c48665541a250bbf81756cdc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Font/KR/_NeoDunggeunmoPro-Regular-Black SDF.asset using Guid(e0927d97c48665541a250bbf81756cdc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5c4a5967a393e50b73a734217f8edee7') in 0.199626 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 6
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.488 seconds
+Refreshing native plugins compatible for Editor in 3.54 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.952 seconds
+Domain Reload Profiling: 1440ms
+	BeginReloadAssembly (155ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (5ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (39ms)
+	RebuildCommonClasses (34ms)
+	RebuildNativeTypeToScriptingClass (12ms)
+	initialDomainReloadingComplete (26ms)
+	LoadAllAssembliesAndSetupDomain (260ms)
+		LoadAssemblies (303ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (37ms)
+			TypeCache.Refresh (6ms)
+				TypeCache.ScanAssembly (0ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (29ms)
+	FinalizeReload (953ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (533ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (4ms)
+			SetLoadedEditorAssemblies (5ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (77ms)
+			ProcessInitializeOnLoadAttributes (403ms)
+			ProcessInitializeOnLoadMethodAttributes (40ms)
+			AfterProcessingInitializeOnLoad (3ms)
+			EditorAssembliesLoaded (1ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (11ms)
+Shader 'MoreMountains/MMRipple': fallback shader 'Particle/AlphaBlended' not found
+Refreshing native plugins compatible for Editor in 3.69 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 5432 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 54 unused Assets / (1.8 MB). Loaded Objects now: 6267.
+Memory consumption went from 387.3 MB to 385.5 MB.
+Total: 4.669000 ms (FindLiveObjects: 0.544600 ms CreateObjectMapping: 0.580000 ms MarkObjects: 3.197500 ms  DeleteObjects: 0.345700 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 6d391050e5a25f67b0a2c618074f2cd9 -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 15.078789 seconds.
+  path: Assets/_Font/KR/_NeoDunggeunmoPro-Regular-Black SDF.asset
+  artifactKey: Guid(e0927d97c48665541a250bbf81756cdc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Font/KR/_NeoDunggeunmoPro-Regular-Black SDF.asset using Guid(e0927d97c48665541a250bbf81756cdc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5c0f87ad9c0ec9e2c35882c86d0bfb61') in 0.274298 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 6
+========================================================================
+Received Import Request.
+  Time since last request: 72.562588 seconds.
+  path: Assets/_Scenes/GamePlay_Tutorial.unity
+  artifactKey: Guid(a44e3a27e54795f4294bc2f996a76797) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Scenes/GamePlay_Tutorial.unity using Guid(a44e3a27e54795f4294bc2f996a76797) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '850456cb53c05e34fb824e72fa083d02') in 0.000753 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.484 seconds
+Refreshing native plugins compatible for Editor in 3.28 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.929 seconds
+Domain Reload Profiling: 1413ms
+	BeginReloadAssembly (152ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (5ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (37ms)
+	RebuildCommonClasses (38ms)
+	RebuildNativeTypeToScriptingClass (13ms)
+	initialDomainReloadingComplete (26ms)
+	LoadAllAssembliesAndSetupDomain (256ms)
+		LoadAssemblies (295ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (39ms)
+			TypeCache.Refresh (7ms)
+				TypeCache.ScanAssembly (0ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (31ms)
+	FinalizeReload (929ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (498ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (5ms)
+			SetLoadedEditorAssemblies (4ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (76ms)
+			ProcessInitializeOnLoadAttributes (365ms)
+			ProcessInitializeOnLoadMethodAttributes (44ms)
+			AfterProcessingInitializeOnLoad (3ms)
+			EditorAssembliesLoaded (1ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (12ms)
+Shader 'MoreMountains/MMRipple': fallback shader 'Particle/AlphaBlended' not found
+Refreshing native plugins compatible for Editor in 3.95 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 5432 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 54 unused Assets / (1.8 MB). Loaded Objects now: 6282.
+Memory consumption went from 389.3 MB to 387.5 MB.
+Total: 4.566700 ms (FindLiveObjects: 0.479300 ms CreateObjectMapping: 0.491800 ms MarkObjects: 3.251600 ms  DeleteObjects: 0.343000 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 6d391050e5a25f67b0a2c618074f2cd9 -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 75.068839 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Arrow.prefab
+  artifactKey: Guid(a80498367fcfc7a4db94606b21b26312) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Arrow.prefab using Guid(a80498367fcfc7a4db94606b21b26312) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bbae4163b55703dd4377cd895fd84fef') in 0.030588 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 8
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.520 seconds
+Refreshing native plugins compatible for Editor in 3.17 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.888 seconds
+Domain Reload Profiling: 1408ms
+	BeginReloadAssembly (155ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (6ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (38ms)
+	RebuildCommonClasses (34ms)
+	RebuildNativeTypeToScriptingClass (13ms)
+	initialDomainReloadingComplete (28ms)
+	LoadAllAssembliesAndSetupDomain (290ms)
+		LoadAssemblies (308ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (62ms)
+			TypeCache.Refresh (17ms)
+				TypeCache.ScanAssembly (7ms)
+			ScanForSourceGeneratedMonoScriptInfo (14ms)
+			ResolveRequiredComponents (30ms)
+	FinalizeReload (889ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (466ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (5ms)
+			SetLoadedEditorAssemblies (5ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (74ms)
+			ProcessInitializeOnLoadAttributes (339ms)
+			ProcessInitializeOnLoadMethodAttributes (40ms)
+			AfterProcessingInitializeOnLoad (3ms)
+			EditorAssembliesLoaded (1ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (13ms)
+Shader 'MoreMountains/MMRipple': fallback shader 'Particle/AlphaBlended' not found
+Refreshing native plugins compatible for Editor in 3.32 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 5432 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 54 unused Assets / (1.8 MB). Loaded Objects now: 6297.
+Memory consumption went from 391.3 MB to 389.4 MB.
+Total: 3.583300 ms (FindLiveObjects: 0.440400 ms CreateObjectMapping: 0.385900 ms MarkObjects: 2.459600 ms  DeleteObjects: 0.296300 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 6d391050e5a25f67b0a2c618074f2cd9 -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 164.810545 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab
+  artifactKey: Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab using Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a5cf3d4adc4386b4c1965a1508e071c5') in 0.518660 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 180
+========================================================================
+Received Import Request.
+  Time since last request: 6.308277 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab
+  artifactKey: Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab using Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '596994a3b08527a077cb886520a52690') in 0.419316 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 180
+========================================================================
+Received Import Request.
+  Time since last request: 7.000489 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab
+  artifactKey: Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab using Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '129de8b81f313a312ae247f64d9c22b9') in 0.414993 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 186
+========================================================================
+Received Import Request.
+  Time since last request: 4.436509 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab
+  artifactKey: Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab using Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dd599dfa08d967b9009c8ba96bd0f642') in 0.416216 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 186
+========================================================================
+Received Import Request.
+  Time since last request: 1.991405 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab
+  artifactKey: Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab using Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3a53c35c9107b778debc4d82dba588ab') in 0.417575 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 186
+========================================================================
+Received Import Request.
+  Time since last request: 3.430281 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab
+  artifactKey: Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab using Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7875bdd541d48e2a7b881ad5d0c8ae07') in 0.415886 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 186
+========================================================================
+Received Import Request.
+  Time since last request: 10.097125 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab
+  artifactKey: Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab using Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '28088362bf156f607e1190c4838e0a03') in 0.435973 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 186
+========================================================================
+Received Import Request.
+  Time since last request: 2.586579 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab
+  artifactKey: Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab using Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '54444d7acbca01c0a713c7e2b3c8f61b') in 0.430319 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 186
+========================================================================
+Received Import Request.
+  Time since last request: 1.196601 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab
+  artifactKey: Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab using Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f615c581880eb2ef7b09941606bf9ea1') in 0.429375 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 186
+========================================================================
+Received Import Request.
+  Time since last request: 1.006358 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab
+  artifactKey: Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab using Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1fe83d6ec41c2c854888a7fcb0d9ebda') in 0.427621 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 186
+========================================================================
+Received Import Request.
+  Time since last request: 1.389188 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab
+  artifactKey: Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab using Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '18ee0263dd08d1d76066980288a0b2cf') in 0.435396 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 186
+========================================================================
+Received Import Request.
+  Time since last request: 3.405836 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab
+  artifactKey: Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab using Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '22513d97e9bd2009c6e50ac6a32676f5') in 0.428318 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 186
+========================================================================
+Received Import Request.
+  Time since last request: 3.199327 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab
+  artifactKey: Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab using Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '63d75cb97a296a0b533080945124e7df') in 0.431392 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 186
+========================================================================
+Received Import Request.
+  Time since last request: 11.941971 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab
+  artifactKey: Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab using Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'edbd5ff92ade486253f6e7fedb7b2c22') in 0.411914 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 186
+========================================================================
+Received Import Request.
+  Time since last request: 15.958932 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab
+  artifactKey: Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab using Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '556d4c86ba2d6acf83d814327635a6c9') in 0.417863 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 186
+========================================================================
+Received Import Request.
+  Time since last request: 8.264006 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab
+  artifactKey: Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab using Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fa32b246a0ef504a7925cd6487eb4d78') in 0.472039 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 186
+========================================================================
+Received Import Request.
+  Time since last request: 5.165398 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab
+  artifactKey: Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab using Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '090296ec89be1dc164474d157a793a42') in 0.416275 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 186
+========================================================================
+Received Import Request.
+  Time since last request: 7.497499 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab
+  artifactKey: Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab using Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5a615c0dbb748f1e161b50efcf6040d3') in 0.413324 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 3.233665 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab
+  artifactKey: Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab using Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a9a8824a06faca6d8fc9e38d37d337fc') in 0.414378 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 0.797182 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab
+  artifactKey: Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab using Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7422d29b83db8f250a66551090c9faac') in 0.414608 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 0.977980 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab
+  artifactKey: Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab using Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dce5e3cf971beb3ae5eafac737dcf59c') in 0.413894 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 1.210187 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab
+  artifactKey: Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab using Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'abaf2c9551a16674b673c15357aac2c1') in 0.412021 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 0.992240 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab
+  artifactKey: Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab using Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a8a7d81783aab7a4a689e50e3809151a') in 0.414028 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 1.410140 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab
+  artifactKey: Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab using Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '70826e6c5e7935919fdaaf09500a59b2') in 0.495292 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 2.925794 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab
+  artifactKey: Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab using Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '46f4eed14576a965e542fd0933fd5d2a') in 0.413414 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 16.338405 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab
+  artifactKey: Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab using Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6c623c3722bdb085d45732a7d2ecb4e6') in 0.416237 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 6.058720 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab
+  artifactKey: Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab using Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '06495b9cdfc3865acd0f8236413f36f2') in 0.463216 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 46.189154 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab
+  artifactKey: Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab using Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1ef9edb03ee0201307e88f7d7bd49da4') in 0.462303 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 3.173831 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab
+  artifactKey: Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab using Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1aa59db205e6b9525de7bfaff8e45a4e') in 0.462868 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 4.566466 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab
+  artifactKey: Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab using Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0ad17e3fdd9cba0adc87e35faf33b02e') in 0.477245 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 6.384855 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab
+  artifactKey: Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab using Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4c12f1344a109f5904bb5e28a6b22877') in 0.460090 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 22.344944 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab
+  artifactKey: Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab using Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8366d2e37a09aa6eab75758cfb6f4b3a') in 0.409749 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 186
+========================================================================
+Received Import Request.
+  Time since last request: 2.591034 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab
+  artifactKey: Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab using Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a8e6d49c5d515d60ae8198483114fa47') in 0.410555 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 186
+========================================================================
+Received Import Request.
+  Time since last request: 2.003927 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab
+  artifactKey: Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab using Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ad07278a3b9279f319dab222faf9d966') in 0.408668 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 186
+========================================================================
+Received Import Request.
+  Time since last request: 59.004879 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab
+  artifactKey: Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab using Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '567ed877797d8878160e1c7ec10be829') in 0.413649 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 186
+========================================================================
+Received Import Request.
+  Time since last request: 3.221494 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab
+  artifactKey: Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab using Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cb6d4bb277d07f6381191ac564e9184f') in 0.410257 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 186
+========================================================================
+Received Import Request.
+  Time since last request: 11.047823 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Arrow.prefab
+  artifactKey: Guid(a80498367fcfc7a4db94606b21b26312) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Arrow.prefab using Guid(a80498367fcfc7a4db94606b21b26312) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '05af0a628d3b135cf097e49b5eaf57d4') in 0.002128 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 8
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab
+  artifactKey: Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab using Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c65e1ed025ec9d2a2756041657ce5f63') in 0.414692 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 0.804409 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Arrow.prefab
+  artifactKey: Guid(a80498367fcfc7a4db94606b21b26312) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Arrow.prefab using Guid(a80498367fcfc7a4db94606b21b26312) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '27fd4c4c8b47f41148e0824652b9e3a7') in 0.002164 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 8
+========================================================================
+Received Import Request.
+  Time since last request: 0.000013 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab
+  artifactKey: Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab using Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e4ad98fab3964d29f3ba1a939092390e') in 0.415294 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 2.432534 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab
+  artifactKey: Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab using Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '10b5e1e4f1750d0161b62dae0eb1d5fe') in 0.412891 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 192
+========================================================================
+Received Import Request.
+  Time since last request: 5.520689 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab
+  artifactKey: Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab using Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '25ade1c2684b51f5b6e3af8322a14daa') in 0.423582 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 192
+========================================================================
+Received Import Request.
+  Time since last request: 1.988415 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab
+  artifactKey: Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab using Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '73eb4057e82ed278fedad7421d0a26de') in 0.415310 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 192
+========================================================================
+Received Import Request.
+  Time since last request: 2.417785 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab
+  artifactKey: Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab using Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6646789051068034023cb6ece04c801b') in 0.417339 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 192
+========================================================================
+Received Import Request.
+  Time since last request: 1.389601 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab
+  artifactKey: Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab using Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0d0c52c7b225502a77db9844c35034bb') in 0.415463 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 192
+========================================================================
+Received Import Request.
+  Time since last request: 1.187508 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab
+  artifactKey: Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab using Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1e23b36d9bb1ee0a1c0af5f1a7d86a29') in 0.414199 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 192
+========================================================================
+Received Import Request.
+  Time since last request: 3.204960 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab
+  artifactKey: Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab using Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '037c14ece5873b1f1aa25250498940ee') in 0.414650 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 192
+========================================================================
+Received Import Request.
+  Time since last request: 1.206411 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab
+  artifactKey: Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab using Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1c8a6f5644e0cf09e154741c4dcfc256') in 0.415919 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 197
+========================================================================
+Received Import Request.
+  Time since last request: 3.417749 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab
+  artifactKey: Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab using Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e7c763118faa9d85a190cc4d7a650df2') in 0.410469 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 197
+========================================================================
+Received Import Request.
+  Time since last request: 5.225628 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab
+  artifactKey: Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab using Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f8be71c1e12d9b82c91e145a09c51fb2') in 0.413612 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 197
+========================================================================
+Received Import Request.
+  Time since last request: 11.529131 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab
+  artifactKey: Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab using Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '10fe8ca0e3721940159588ce3aadfda2') in 0.411643 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 197
+========================================================================
+Received Import Request.
+  Time since last request: 44.799318 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '773d00b9f558b8835bb5c8c1a04cde09') in 0.410695 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 179
+========================================================================
+Received Import Request.
+  Time since last request: 7.908158 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0ab6eb00f150f359c3a37e93d2fc27a8') in 0.413481 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 185
+========================================================================
+Received Import Request.
+  Time since last request: 2.594095 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '862a836f67af23f01d198ca4db1ecbcf') in 0.412777 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 185
+========================================================================
+Received Import Request.
+  Time since last request: 1.610012 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0421906155a086a47a66680defe63bd7') in 0.417626 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 185
+========================================================================
+Received Import Request.
+  Time since last request: 3.225588 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8ed25c6d572ef75629f8c3ff296fcaf6') in 0.413397 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 185
+========================================================================
+Received Import Request.
+  Time since last request: 1.212508 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '486e948c78fddc0707449290eb37be1c') in 0.416013 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 190
+========================================================================
+Received Import Request.
+  Time since last request: 2.193373 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '12bd404f65fb50357e1b4e4a719e21a4') in 0.411018 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 190
+========================================================================
+Received Import Request.
+  Time since last request: 1.399715 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '71df281537355a4340d9fb91f08f5c16') in 0.411961 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 190
+========================================================================
+Received Import Request.
+  Time since last request: 1.608298 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7914490f5295527f8e4a55fc644cf68a') in 0.411906 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 190
+========================================================================
+Received Import Request.
+  Time since last request: 8.081366 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b79d1310cc2a1442dcbea86ad7bc5ab3') in 0.411685 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 190
+========================================================================
+Received Import Request.
+  Time since last request: 2.414905 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '22c039041c4db40c26e61b79e7da8fba') in 0.414916 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 190
+========================================================================
+Received Import Request.
+  Time since last request: 4.836519 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f73ba0909ad09c4f6ad6edf49bd5fd97') in 0.413556 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 190
+========================================================================
+Received Import Request.
+  Time since last request: 22.266841 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a6d145cc9fe19eb83b2ed210973ec3ff') in 0.412315 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 195
+========================================================================
+Received Import Request.
+  Time since last request: 1.998879 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0cccd40732d7147bc6ecc726663232da') in 0.413132 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 195
+========================================================================
+Received Import Request.
+  Time since last request: 1.600027 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '28f55e6380021b861f5a90f7926d8b65') in 0.411678 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 195
+========================================================================
+Received Import Request.
+  Time since last request: 1.606687 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '24196194a69c0b3442ba0b2ca869dade') in 0.413725 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 195
+========================================================================
+Received Import Request.
+  Time since last request: 12.962423 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5bebd340fe2202b3257fb627f5134b96') in 0.409912 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 195
+========================================================================
+Received Import Request.
+  Time since last request: 3.425380 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1749dc128c0bb32116878463172da439') in 0.414014 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 195
+========================================================================
+Received Import Request.
+  Time since last request: 4.825532 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e8c1e9cc6a25b77b0007ed1104595316') in 0.419827 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 195
+========================================================================
+Received Import Request.
+  Time since last request: 10.530720 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '73fba4fb610fda2973ed8bb2d05a6cda') in 0.413541 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 200
+========================================================================
+Received Import Request.
+  Time since last request: 1.187467 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c182d5ac49d94091ca163470981f993f') in 0.463394 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 200
+========================================================================
+Received Import Request.
+  Time since last request: 0.935904 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c709a936015b0fc292694e45aa4d1cf2') in 0.412584 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 200
+========================================================================
+Received Import Request.
+  Time since last request: 2.416630 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd4cec2e14867a42637f300ddb111d2f0') in 0.412599 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 200
+========================================================================
+Received Import Request.
+  Time since last request: 6.249000 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7c3b60af2067799775624653346a13ff') in 0.413484 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 200
+========================================================================
+Received Import Request.
+  Time since last request: 19.340842 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e52c6a9333ef1d075e46ecb50703c032') in 0.410982 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 200
+========================================================================
+Received Import Request.
+  Time since last request: 10.809348 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '999539aff8baebff7bf98244ae05dc0a') in 0.431636 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 205
+========================================================================
+Received Import Request.
+  Time since last request: 1.979587 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7525fce20e49c7b0b95cb838805537a2') in 0.419749 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 205
+========================================================================
+Received Import Request.
+  Time since last request: 1.192521 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '042d6b81fa1497504c83ade0d2f6df58') in 0.415171 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 205
+========================================================================
+Received Import Request.
+  Time since last request: 2.412497 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e8c905c210e66a294bcbbe18142a2a25') in 0.410820 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 205
+========================================================================
+Received Import Request.
+  Time since last request: 3.621645 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd6bdaf5097e0d6dc497b8b20e2063a6c') in 0.411094 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 205
+========================================================================
+Received Import Request.
+  Time since last request: 3.474636 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '495f4a4ca19d7a61b6a9e73901386ce2') in 0.412826 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 210
+========================================================================
+Received Import Request.
+  Time since last request: 1.590809 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '67e606e4a8ecc3b65e70b18d90ffbd8d') in 0.415428 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 210
+========================================================================
+Received Import Request.
+  Time since last request: 1.810961 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '93470d29e32fa2e43d2b913687e98275') in 0.409163 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 210
+========================================================================
+Received Import Request.
+  Time since last request: 1.807227 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '234f30894590aeb683194243eba5646b') in 0.410671 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 210
+========================================================================
+Received Import Request.
+  Time since last request: 6.250604 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd15343f73d2a8b4cb5731305da5c4525') in 0.409777 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 210
+========================================================================
+Received Import Request.
+  Time since last request: 1.618872 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'aaf3c81677c0efbd612fafb89c34c3ab') in 0.427536 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 210
+========================================================================
+Received Import Request.
+  Time since last request: 2.185376 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '45f42bde70ddc326e7b6984c66d94473') in 0.412172 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 210
+========================================================================
+Received Import Request.
+  Time since last request: 11.088103 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4e787e321b8a5a98745c9883cf563760') in 0.410661 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 210
+========================================================================
+Received Import Request.
+  Time since last request: 76.121919 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab
+  artifactKey: Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab using Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd091d7f7d94d8ab0df3487527c5dd0c1') in 0.461124 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 134
+========================================================================
+Received Import Request.
+  Time since last request: 11.125568 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab
+  artifactKey: Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab using Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '399be94733c88b3a97d10a125f1a64e1') in 0.422810 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 140
+========================================================================
+Received Import Request.
+  Time since last request: 11.904371 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab
+  artifactKey: Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab using Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '40fa274b433da1340ef5370f8263b884') in 0.412708 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 140
+========================================================================
+Received Import Request.
+  Time since last request: 1.406276 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab
+  artifactKey: Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab using Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9f5552ad706c3d9952bb5800315128c7') in 0.409753 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 140
+========================================================================
+Received Import Request.
+  Time since last request: 6.856885 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab
+  artifactKey: Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab using Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2c139a2c53a43593feadcb0972e140b2') in 0.411246 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 140
+========================================================================
+Received Import Request.
+  Time since last request: 124.855902 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab
+  artifactKey: Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab using Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '767d2afc52ffc4bf80f2db5116796b28') in 0.415918 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 140
+========================================================================
+Received Import Request.
+  Time since last request: 26.421687 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab
+  artifactKey: Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab using Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'db7024e4e73c7bad5693f1412a0b2651') in 0.415355 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 140
+========================================================================
+Received Import Request.
+  Time since last request: 6.136668 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab
+  artifactKey: Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab using Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9fd0e93e627fdb27aa60f97ee1a3b02a') in 0.488021 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 145
+========================================================================
+Received Import Request.
+  Time since last request: 3.557098 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab
+  artifactKey: Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab using Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2f88f75b57256a4c6994efee8908b2b3') in 0.412893 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 145
+========================================================================
+Received Import Request.
+  Time since last request: 2.609983 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab
+  artifactKey: Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab using Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'daba89a082059ad7307a1824ac1f0fc6') in 0.412894 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 145
+========================================================================
+Received Import Request.
+  Time since last request: 1.808804 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab
+  artifactKey: Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab using Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9ee91ecb0b6b30e10dde7ec39798812b') in 0.413653 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 145
+========================================================================
+Received Import Request.
+  Time since last request: 3.212408 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab
+  artifactKey: Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab using Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '064725b02f54d5f39bd61634bbdf56e2') in 0.413009 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 145
+========================================================================
+Received Import Request.
+  Time since last request: 5.217444 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab
+  artifactKey: Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab using Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cdac17d55015c898ab4b760a50add784') in 0.420462 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 145
+========================================================================
+Received Import Request.
+  Time since last request: 40.359341 seconds.
+  path: Assets/_Scenes/Station.unity
+  artifactKey: Guid(0eee2feee58df58479704392022b0ca5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Scenes/Station.unity using Guid(0eee2feee58df58479704392022b0ca5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '82a430b89e536da06552ffeb3ccd3986') in 0.000533 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 110.107184 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab
+  artifactKey: Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab using Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '021b38e375dc55bf721bea88598ae256') in 0.417551 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 20.521889 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab
+  artifactKey: Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab using Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '07e35748de942deb06606ea7e2271dd9') in 0.415831 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 26.793921 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab
+  artifactKey: Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab using Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e219252f9542e6ab59af23d957cbf4c3') in 0.413414 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 70.882215 seconds.
+  path: Assets/_Locale/Table/ExcelData_St/ExcelData_Table_St.asset
+  artifactKey: Guid(bdec7369acd43e64491305c05c4cd84e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Locale/Table/ExcelData_St/ExcelData_Table_St.asset using Guid(bdec7369acd43e64491305c05c4cd84e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6275841de9848607cbd9612b46600e39') in 0.002736 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 1
+========================================================================
+Received Import Request.
+  Time since last request: 119.107164 seconds.
+  path: Assets/_Locale/Table/Tutorial_St/Tutorial_St_en.asset
+  artifactKey: Guid(70c1251dc28744f4f825fe2f727cb06d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Locale/Table/Tutorial_St/Tutorial_St_en.asset using Guid(70c1251dc28744f4f825fe2f727cb06d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7f50f09b0e4055e79fb307fe76cec833') in 0.007566 seconds
 Number of updated asset objects reloaded before import = 0
 Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000021 seconds.
+  path: Assets/_Locale/Table/Tutorial_St/Tutorial_St_ko.asset
+  artifactKey: Guid(87e4623558561c34c846057223e158a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Locale/Table/Tutorial_St/Tutorial_St_ko.asset using Guid(87e4623558561c34c846057223e158a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c60976ad425550113585fa81f91df580') in 0.001705 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/_Locale/Table/Tutorial_St/Tutorial_St_ja-JP.asset
+  artifactKey: Guid(ae7015094f2825440a7c3d30200c32e9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Locale/Table/Tutorial_St/Tutorial_St_ja-JP.asset using Guid(ae7015094f2825440a7c3d30200c32e9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '30b206dd098f096c6c4bb36c2f1d6f6b') in 0.002061 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 583.450992 seconds.
+  path: Assets/_Locale/Table/Tutorial_St/Tutorial_St_en.asset
+  artifactKey: Guid(70c1251dc28744f4f825fe2f727cb06d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Locale/Table/Tutorial_St/Tutorial_St_en.asset using Guid(70c1251dc28744f4f825fe2f727cb06d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '16ddb42e8e83bb6f7b5468cc746ccdfd') in 0.002271 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000020 seconds.
+  path: Assets/_Locale/Table/Tutorial_St/Tutorial_St_ko.asset
+  artifactKey: Guid(87e4623558561c34c846057223e158a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Locale/Table/Tutorial_St/Tutorial_St_ko.asset using Guid(87e4623558561c34c846057223e158a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8a699621bcf29744f73e2bf5099acece') in 0.001774 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 0.000016 seconds.
+  path: Assets/_Locale/Table/Tutorial_St/Tutorial_St_ja-JP.asset
+  artifactKey: Guid(ae7015094f2825440a7c3d30200c32e9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Locale/Table/Tutorial_St/Tutorial_St_ja-JP.asset using Guid(ae7015094f2825440a7c3d30200c32e9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ef57b3b69d6b6ee66de6854ef2614bb0') in 0.001900 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 83.460903 seconds.
+  path: Assets/_Locale/Table/Tutorial_St/Tutorial_St_ko.asset
+  artifactKey: Guid(87e4623558561c34c846057223e158a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Locale/Table/Tutorial_St/Tutorial_St_ko.asset using Guid(87e4623558561c34c846057223e158a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '80d4c8113dbc49944080244c23621704') in 0.001778 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 84.752733 seconds.
+  path: Assets/_Locale/Table/Tutorial_St/Tutorial_St_en.asset
+  artifactKey: Guid(70c1251dc28744f4f825fe2f727cb06d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Locale/Table/Tutorial_St/Tutorial_St_en.asset using Guid(70c1251dc28744f4f825fe2f727cb06d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '84f3458628959c9241c6a0c35b9d1d27') in 0.002018 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 1354.547938 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab
+  artifactKey: Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Main.prefab using Guid(b9c5711bbd4bbea45be801620a619ff2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ff50d3b2d7d1193c28a133bd8223a1f5') in 0.428257 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 22.651076 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab
+  artifactKey: Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab using Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3e3cebf4835977197da4eea0e7b2aee9') in 0.497432 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 21.706654 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab
+  artifactKey: Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab using Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '21f13d7d01eb4caed49a0824f3e68be1') in 0.469969 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 11.831389 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab
+  artifactKey: Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab using Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e25938fcaa9f799a7a9bf4bbbc2af36e') in 0.464606 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 176.127141 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab
+  artifactKey: Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab using Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3dc9c8abda387c2346eb3d0c5a0178c3') in 0.464511 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 1.934591 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab
+  artifactKey: Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab using Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c33f85459558e16b31ae86ea4c575d77') in 0.463286 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 3.972818 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab
+  artifactKey: Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab using Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd897a5b4b09610b7e6bd8153aae89984') in 0.465706 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 128.601080 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab
+  artifactKey: Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab using Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '14cd38bf1a1ff8ec8b6672dbfec5a156') in 0.484468 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 71.037411 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab
+  artifactKey: Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab using Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '03318aa0bc1a61498e224ddc192969b9') in 0.467361 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 10.158440 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab
+  artifactKey: Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab using Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eeeb7903762aa6fb71bee1b14eeaec5e') in 0.460951 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 10.570407 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab
+  artifactKey: Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab using Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6b59dd217606c62c5d8674e1d82b1873') in 0.468068 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 1.136268 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab
+  artifactKey: Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab using Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9e8db7c430c0247341718aa6bc86ab16') in 0.466154 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 3.189754 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab
+  artifactKey: Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab using Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd20fe1e201d7bbf86cb6d99c85f03601') in 0.467632 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 2.946852 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab
+  artifactKey: Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Map.prefab using Guid(def1e57c5ffedf2409aa6f5efff5d40f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eba7d3f84a5d23e313c536a541b9836f') in 0.465868 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 191
+========================================================================
+Received Import Request.
+  Time since last request: 25.522443 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab
+  artifactKey: Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab using Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2053d1fadb601e6a94b0f9e01fdf2fa1') in 0.411923 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 197
+========================================================================
+Received Import Request.
+  Time since last request: 30.796595 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab
+  artifactKey: Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab using Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e1fa58d1fd2c8c7e701df5f22433041d') in 0.411414 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 197
+========================================================================
+Received Import Request.
+  Time since last request: 12.825092 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab
+  artifactKey: Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab using Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9aa42ee1441ea93acc6ba7e5d029c3cf') in 0.411002 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 202
+========================================================================
+Received Import Request.
+  Time since last request: 4.019824 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab
+  artifactKey: Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab using Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '16dc7652a1625ea9f2d7c7e164d1fc25') in 0.406465 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 202
+========================================================================
+Received Import Request.
+  Time since last request: 16.130610 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab
+  artifactKey: Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab using Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a714a76e7f797fb92b499916a3ab3532') in 0.429152 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 202
+========================================================================
+Received Import Request.
+  Time since last request: 3.832168 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab
+  artifactKey: Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab using Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '91519b3541b74235fb6ffd40e52d0acd') in 0.412135 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 207
+========================================================================
+Received Import Request.
+  Time since last request: 1.606046 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab
+  artifactKey: Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab using Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '36627488cf402f84bcc378ae2274da9f') in 0.414099 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 207
+========================================================================
+Received Import Request.
+  Time since last request: 3.512206 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab
+  artifactKey: Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab using Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f3812342a01b5ba45da8f7c011695a3b') in 0.414534 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 212
+========================================================================
+Received Import Request.
+  Time since last request: 1.200530 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab
+  artifactKey: Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab using Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bf600767dbe5787a2c29de394a76a751') in 0.438306 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 212
+========================================================================
+Received Import Request.
+  Time since last request: 1.996155 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab
+  artifactKey: Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab using Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e791b6c7fa92ed42a78e1ab643bd9f9d') in 0.412502 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 212
+========================================================================
+Received Import Request.
+  Time since last request: 3.203508 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab
+  artifactKey: Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab using Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '047fe7379ac9266cd6848ab91b974959') in 0.410701 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 212
+========================================================================
+Received Import Request.
+  Time since last request: 63.794664 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab
+  artifactKey: Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab using Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '941245871e0fd1ecf0856376b7cf8017') in 0.415322 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 212
+========================================================================
+Received Import Request.
+  Time since last request: 24.935866 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab
+  artifactKey: Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab using Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '088360115449a7f13d2932103bc58aa6') in 0.417106 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 212
+========================================================================
+Received Import Request.
+  Time since last request: 232.587400 seconds.
+  path: Assets/_Font/JP/_JP_Neo둥근모_x12y16pxMaruMonica SDF.asset
+  artifactKey: Guid(fd564312cf1c6ef4ebc9f74e0f6f8b2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Font/JP/_JP_Neo둥근모_x12y16pxMaruMonica SDF.asset using Guid(fd564312cf1c6ef4ebc9f74e0f6f8b2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '22e841e5dee273e4653c6ac54bd2ee50') in 0.112068 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 6
+========================================================================
+Received Import Request.
+  Time since last request: 108.056690 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab
+  artifactKey: Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab using Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8fe2628533e806c92b4b0f508ad87e4f') in 0.417608 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 212
+========================================================================
+Received Import Request.
+  Time since last request: 20.711169 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab
+  artifactKey: Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Station.prefab using Guid(81facbdc43e089740887c21f277834ba) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4c8ed2950ec2929d00439753557b81a4') in 0.419725 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 212
+========================================================================
+Received Import Request.
+  Time since last request: 9.563391 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Store.prefab
+  artifactKey: Guid(0edee29e36b0b7c47a027a667ae6867b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Store.prefab using Guid(0edee29e36b0b7c47a027a667ae6867b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '65f576b48271f057db2ff9f609c378cd') in 0.435342 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 82
+========================================================================
+Received Import Request.
+  Time since last request: 60.598416 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '63e9ad9091712cf3bed718316822c30d') in 0.417215 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 210
+========================================================================
+Received Import Request.
+  Time since last request: 13.044704 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1def61241e7cf8d3a37b443c9f1c32a0') in 0.416207 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 210
+========================================================================
+Received Import Request.
+  Time since last request: 21.631633 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2213cd3c3c33f7ae62a2c6e775fd0c3e') in 0.413457 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 210
+========================================================================
+Received Import Request.
+  Time since last request: 3.026517 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '013d35090b65f301a2e7938d24e605b9') in 0.415873 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 210
+========================================================================
+Received Import Request.
+  Time since last request: 12.645101 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '581d97f956e0732834c0fcda0faef6e3') in 0.418336 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 210
+========================================================================
+Received Import Request.
+  Time since last request: 3.235559 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8edf5074de07eb592929c7a3d3097a05') in 0.416415 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 210
+========================================================================
+Received Import Request.
+  Time since last request: 11.111745 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5301c4e2f93208daee984c77f36123b6') in 0.416972 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 210
+========================================================================
+Received Import Request.
+  Time since last request: 10.247647 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '020a3a3922256be4c1f8add3896fa540') in 0.413955 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 210
+========================================================================
+Received Import Request.
+  Time since last request: 23.897828 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '52451180b52bf788c522c57ab2f0dee4') in 0.431228 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 210
+========================================================================
+Received Import Request.
+  Time since last request: 10.396596 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4093af6da821990c2a333df631e3cef1') in 0.616520 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 210
+========================================================================
+Received Import Request.
+  Time since last request: 4.426657 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '473871f68914daac807a078d8d6e215b') in 0.437997 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 210
+========================================================================
+Received Import Request.
+  Time since last request: 6.826741 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab
+  artifactKey: Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Traning.prefab using Guid(4973985592b12084b97cd1d6861a6a63) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e637c74d602da2690e8ae4e10f02ff67') in 0.483603 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 210
+========================================================================
+Received Import Request.
+  Time since last request: 6.806916 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab
+  artifactKey: Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab using Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '24b4e1db259be21f78c5279445733271') in 0.413782 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 145
+========================================================================
+Received Import Request.
+  Time since last request: 24.969679 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab
+  artifactKey: Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab using Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '44068c2832caef0f065c64c352980b09') in 0.415794 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 145
+========================================================================
+Received Import Request.
+  Time since last request: 16.509467 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab
+  artifactKey: Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab using Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c20e03b515e1301b463c7564217f936b') in 0.415559 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 145
+========================================================================
+Received Import Request.
+  Time since last request: 7.622848 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab
+  artifactKey: Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab using Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5e4f02170976f4ce3aec6675897d6645') in 0.410608 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 145
+========================================================================
+Received Import Request.
+  Time since last request: 6.159882 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab
+  artifactKey: Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab using Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '29138c33806d9d3cbb8c6c6982e12603') in 0.412564 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 145
+========================================================================
+Received Import Request.
+  Time since last request: 1.596859 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab
+  artifactKey: Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab using Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '44eae0d5f5825188e293e30557c025fe') in 0.417008 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 145
+========================================================================
+Received Import Request.
+  Time since last request: 3.434544 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab
+  artifactKey: Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab using Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2ffebf35672bd5efe62ab6c6122d403b') in 0.426966 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 145
+========================================================================
+Received Import Request.
+  Time since last request: 5.312520 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab
+  artifactKey: Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab using Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '478820dc0253a7589cc091f167819287') in 0.412876 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 145
+========================================================================
+Received Import Request.
+  Time since last request: 4.485615 seconds.
+  path: Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab
+  artifactKey: Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Prefab/Tutorial/station_Tutorial_object/Tu_Translate.prefab using Guid(8cfb8ff36a76e794d9a110454b8fac15) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '42df9f9c4acdc869850612a4a6895d85') in 0.412683 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 145
+========================================================================
+Received Prepare
+Begin MonoManager ReloadAssembly
+Symbol file LoadedFromMemory is not a mono symbol file
+- Loaded All Assemblies, in  0.505 seconds
+Refreshing native plugins compatible for Editor in 3.31 ms, found 3 plugins.
+Native extension for WindowsStandalone target not found
+[Package Manager] Server::EnsureServerProcessIsRunning -- launch failed, reason: Unity was launched with the -noUpm command-line argument
+[Package Manager] UpmClient::Send -- Unable to send message (not connected to UPM process).
+[Package Manager] Cannot connect to Unity Package Manager local server
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.932 seconds
+Domain Reload Profiling: 1437ms
+	BeginReloadAssembly (162ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (6ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (41ms)
+	RebuildCommonClasses (34ms)
+	RebuildNativeTypeToScriptingClass (13ms)
+	initialDomainReloadingComplete (27ms)
+	LoadAllAssembliesAndSetupDomain (268ms)
+		LoadAssemblies (314ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (37ms)
+			TypeCache.Refresh (6ms)
+				TypeCache.ScanAssembly (0ms)
+			ScanForSourceGeneratedMonoScriptInfo (0ms)
+			ResolveRequiredComponents (29ms)
+	FinalizeReload (933ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (478ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (5ms)
+			SetLoadedEditorAssemblies (4ms)
+			RefreshPlugins (0ms)
+			BeforeProcessingInitializeOnLoad (75ms)
+			ProcessInitializeOnLoadAttributes (349ms)
+			ProcessInitializeOnLoadMethodAttributes (40ms)
+			AfterProcessingInitializeOnLoad (3ms)
+			EditorAssembliesLoaded (1ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (12ms)
+Shader 'MoreMountains/MMRipple': fallback shader 'Particle/AlphaBlended' not found
+Refreshing native plugins compatible for Editor in 4.13 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 5432 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 54 unused Assets / (1.8 MB). Loaded Objects now: 6312.
+Memory consumption went from 393.3 MB to 391.4 MB.
+Total: 4.351300 ms (FindLiveObjects: 0.493800 ms CreateObjectMapping: 0.569400 ms MarkObjects: 2.948500 ms  DeleteObjects: 0.338400 ms)
+
+Prepare: number of updated asset objects reloaded= 0
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:CustomObjectIndexerAttribute: 6d391050e5a25f67b0a2c618074f2cd9 -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:SearchIndexIgnoredProperties: e643bd26f0fe6173181afceb89e7c659 -> 
+  custom:AudioImporter_EditorPlatform: d09bf68614088b80899f8185d706f6e7 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 2275.493875 seconds.
+  path: Assets/_Font/JP/_JP_Neo둥근모_x12y16pxMaruMonica SDF.asset
+  artifactKey: Guid(fd564312cf1c6ef4ebc9f74e0f6f8b2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Font/JP/_JP_Neo둥근모_x12y16pxMaruMonica SDF.asset using Guid(fd564312cf1c6ef4ebc9f74e0f6f8b2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2929aaf3c97005a4917c973c9f9af8d6') in 0.149265 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 6
+========================================================================
+Received Import Request.
+  Time since last request: 42.902321 seconds.
+  path: Assets/_Sprite/신버전UI/Tutorial/JP_정거장2.png
+  artifactKey: Guid(a936dc2d768e3f24eb7615d8c785c5d1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Sprite/신버전UI/Tutorial/JP_정거장2.png using Guid(a936dc2d768e3f24eb7615d8c785c5d1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'acbf7f45d6240fcedb1c7fff5ad66880') in 0.038500 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 2.045485 seconds.
+  path: Assets/_Sprite/신버전UI/Tutorial/JP_정거장.png
+  artifactKey: Guid(a936dc2d768e3f24eb7615d8c785c5d1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Sprite/신버전UI/Tutorial/JP_정거장.png using Guid(a936dc2d768e3f24eb7615d8c785c5d1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '590751fdf3cf3f703330930803d550e5') in 0.034416 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 3.606761 seconds.
+  path: Assets/_Sprite/신버전UI/Tutorial/JP_정거장.png
+  artifactKey: Guid(a936dc2d768e3f24eb7615d8c785c5d1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Sprite/신버전UI/Tutorial/JP_정거장.png using Guid(a936dc2d768e3f24eb7615d8c785c5d1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e918b27508ff44bce16c2305ce927db2') in 0.019958 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 3
+========================================================================
+Received Import Request.
+  Time since last request: 807.280594 seconds.
+  path: Assets/Resources/SPUM/Sprite_SheetExporter(Beta)/Scene
+  artifactKey: Guid(14899901960274296918ac36027e3de2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/SPUM/Sprite_SheetExporter(Beta)/Scene using Guid(14899901960274296918ac36027e3de2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '652370f79cf2708089063b07433851e7') in 0.000775 seconds
+Number of updated asset objects reloaded before import = 5
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 0.173894 seconds.
+  path: Assets/Epic Toon FX(3d effect)/Demo/Scenes
+  artifactKey: Guid(ed778f5da234f754799a14d29278b200) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Epic Toon FX(3d effect)/Demo/Scenes using Guid(ed778f5da234f754799a14d29278b200) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '30374316d11fe2edbd88cc8abdf9558e') in 0.000513 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 4.153630 seconds.
+  path: Assets/_Scenes/LoadingScene.unity
+  artifactKey: Guid(fb4669728d170f743b91e02d4cbc1b5a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Scenes/LoadingScene.unity using Guid(fb4669728d170f743b91e02d4cbc1b5a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '54058176b7caa043a06222a710234578') in 0.000552 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
+========================================================================
+Received Import Request.
+  Time since last request: 2.914809 seconds.
+  path: Assets/Unity-Logs-Viewer/ReporterDocumentation/scene.png
+  artifactKey: Guid(31f8aee177daaf645b9d0694e6fc50c5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Unity-Logs-Viewer/ReporterDocumentation/scene.png using Guid(31f8aee177daaf645b9d0694e6fc50c5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2384b7d632acbf9f5362bd8c877f3dc5') in 0.015396 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 2
+========================================================================
+Received Import Request.
+  Time since last request: 21.549268 seconds.
+  path: Assets/_Scenes/TestScreen.unity
+  artifactKey: Guid(1dba628b46eadd8409987a859f022f11) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/_Scenes/TestScreen.unity using Guid(1dba628b46eadd8409987a859f022f11) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e3d32d560a864d2b71349172c0aa7e62') in 0.000602 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 0
