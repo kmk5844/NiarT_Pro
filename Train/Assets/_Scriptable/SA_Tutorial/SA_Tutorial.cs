@@ -5,10 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SA_TutorialData", menuName = "Scriptable/SA_Tutorial", order = 11)]
 public class SA_Tutorial : ScriptableObject
 {
-    [SerializeField]  
-    private bool tu_gamestart;
-    public bool Tu_GameStart {  get { return tu_gamestart; } }
-
     [SerializeField]
     private bool tu_station;
     public bool Tu_Station { get {  return tu_station; } }
@@ -36,11 +32,7 @@ public class SA_Tutorial : ScriptableObject
 
     public void ChangeFlag(int i)
     {
-        if (i == -1)
-        {
-            tu_gamestart = true;
-        }
-        else if (i == 0)
+        if (i == 0)
         {
             tu_station = true;
         }
@@ -66,7 +58,6 @@ public class SA_Tutorial : ScriptableObject
 
     public void Init()
     {
-        tu_gamestart = false;
         tu_station = false;
         tu_maintenance = false;
         tu_store = false;
@@ -79,7 +70,6 @@ public class SA_Tutorial : ScriptableObject
 
     public void Save()
     {
-        ES3.Save("tu_gamestart_flag", tu_gamestart);
         ES3.Save("tu_station_flag", tu_station);
         ES3.Save("tu_maintenance_flag", tu_maintenance);
         ES3.Save("tu_store_flag", tu_store);
@@ -90,7 +80,6 @@ public class SA_Tutorial : ScriptableObject
 
     public void Load()
     {
-        tu_gamestart = ES3.Load<bool>("tu_gamestart_flag");
         tu_station = ES3.Load<bool>("tu_station_flag");
         tu_maintenance = ES3.Load<bool>("tu_maintenance_flag");
         tu_store = ES3.Load<bool>("tu_store_flag");

@@ -14,11 +14,11 @@ public class TutorialDirector : MonoBehaviour
     [SerializeField]
     public GameObject[] Tutorial_Object;
 
-    void Start()
+    void Awake()
     {
         Tutorial_CheckFlag = false;
-        tutorialData.Init();
-        //tutorialData.Load();
+        //tutorialData.Init();
+        tutorialData.Load();
         AddFlag();
         Instantiate_Tutorial_Check();
     }

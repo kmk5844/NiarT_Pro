@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class Station_TutorialDirector : MonoBehaviour
 {
     public SA_Tutorial tutorialData;
+    [SerializeField]
     int Tutorial_Index;
     int Count;
     int MaxCount;
