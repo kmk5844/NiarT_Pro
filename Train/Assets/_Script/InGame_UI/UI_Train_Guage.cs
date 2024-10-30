@@ -26,6 +26,7 @@ public class UI_Train_Guage : MonoBehaviour
     void Start()
     {
         Train_Data = GetComponentInParent<Train_InGame>();
+        
         num = 0;
         if (Train_Data.Train_Type.Equals("Medic"))
         {
@@ -51,6 +52,9 @@ public class UI_Train_Guage : MonoBehaviour
             num = 5;
             supply = Train_Data.GetComponentInChildren<Supply_Train>();
         }
+
+        int level = Train_Data.CheckLevel();
+        LevelImage.sprite = Level[level];
     }
 
     void Update()

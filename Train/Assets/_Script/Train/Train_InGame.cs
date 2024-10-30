@@ -179,6 +179,18 @@ public class Train_InGame : MonoBehaviour
         }
     }
 
+    public int CheckLevel()
+    {
+        if(Train_Num == 51 || Train_Num == 52)
+        {
+            return Train_Num2 % 10;
+        }
+        else
+        {
+            return Train_Num % 10;
+        }
+    }
+
     void CheckType()
     {
         Train_MaxSpeed = 0;
