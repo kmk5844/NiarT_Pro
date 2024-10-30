@@ -416,18 +416,27 @@ public class Monster : MonoBehaviour
     }
     private void Damage_Monster_Trigger(Collider2D collision)
     {
-        int hit_atk = collision.gameObject.GetComponent<Bullet>().atk;
+        int hit_atk;
+        if (collision.gameObject.GetComponent<Bullet>())
+        {
+            hit_atk = collision.gameObject.GetComponent<Bullet>().atk;
+        }
+        else
+        {
+            hit_atk = collision.gameObject.GetComponent<MonsterBullet>().atk;
+            hit_atk /= 4;
+        }
+    
         HitDamage.GetComponent<Hit_Text_Damage>().damage = hit_atk;
         HitDamage.GetComponent<Hit_Text_Damage>().Random_X = transform.position.x + Random.Range(-0.5f, 0.5f);
         HitDamage.GetComponent<Hit_Text_Damage>().Random_Y = transform.position.y + Random.Range(0.5f, 1.5f);
         Instantiate(HitDamage, monster_Bullet_List);
         if (Monster_HP - hit_atk > 0)
         {
-            Monster_HP -= collision.gameObject.GetComponent<Bullet>().atk;
+            Monster_HP -= hit_atk;
         }
         else
         {
-            //
             MonsterDie();
         }
     }
@@ -465,7 +474,6 @@ public class Monster : MonoBehaviour
         else
         {
             MonsterDie();
-
         }
     }
 
@@ -531,7 +539,8 @@ public class Monster : MonoBehaviour
                 if (collision.gameObject.name.Equals("Fire_Arrow(Clone)"))
                 {
                     FireArrow_Hit(collision);
-                }else if (collision.gameObject.name.Equals("Fire_Bullet(Clone)"))
+                }
+                else if (collision.gameObject.name.Equals("Fire_Bullet(Clone)"))
                 {
                     FireArrow_Hit(collision);
                 }
@@ -558,6 +567,14 @@ public class Monster : MonoBehaviour
             {
                 int atk = collision.GetComponentInParent<Item_MiniDron>().DronAtk;
                 Damage_Monster_BombAndDron(atk);
+            }
+        }
+        if (collision.gameObject.tag.Equals("Monster_Bullet"))
+        {
+            if (collision.gameObject.name.Equals("9(Clone)") && Monster_Num != 9)
+            {
+                Damage_Monster_Trigger(collision);
+                Destroy(collision.gameObject);
             }
         }
     }

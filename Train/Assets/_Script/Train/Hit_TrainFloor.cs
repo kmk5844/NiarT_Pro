@@ -24,7 +24,9 @@ public class Hit_TrainFloor : MonoBehaviour
             MonsterBullet bullet = collision.gameObject.GetComponent<MonsterBullet>();
             CameraShakeManager.instance.CameraShake(impulseSource);  
             train.Train_MonsterHit(bullet);
-            Instantiate(Hit_Effect, collision.transform.localPosition, Quaternion.identity);
+            if (!collision.gameObject.name.Equals("BombCollider")){
+                Instantiate(Hit_Effect, collision.transform.localPosition, Quaternion.identity);
+            }
             Destroy(collision.gameObject);
         }
     }
