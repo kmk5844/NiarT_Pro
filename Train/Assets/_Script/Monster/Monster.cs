@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using Language.Lua;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -87,10 +88,13 @@ public class Monster : MonoBehaviour
 
     public GameObject StunEffect;
 
+    public float monster_xPos;
+
     protected virtual void Start()
     {
         lastTime = Time.time;
         mercenary_atk = 0;
+        monster_xPos = 0;
         monster_gametype = Monster_GameType.SpwanStart;
         gameDirector = GameObject.Find("GameDirector").GetComponent<GameDirector>();
         HitDamage = Resources.Load<GameObject>("Monster/Hit_Text");
@@ -680,6 +684,16 @@ public class Monster : MonoBehaviour
             MonsterDirector.MonsterNum -= 1;
         }
         Destroy(gameObject);
+    }
+
+    public int getMonsterAtk()
+    {
+        return Bullet_Atk;
+    }
+
+    public float getMonsterBulletSpeed()
+    {
+        return Bullet_Speed;
     }
 }
 

@@ -46,11 +46,13 @@ public class Monster_9 : Monster
         base.Update();
         Total_GameType();
         Fire_Debuff();
+        FlipMonster();
+
         Check_ItemSpeedFlag();
 
         if (monster_gametype == Monster_GameType.Fighting)
         {
-            if(attackFlag == false)
+            if (attackFlag == false)
             {
                 AttackTrigger();
             }
@@ -83,7 +85,7 @@ public class Monster_9 : Monster
     }
 
     void AttackTrigger()
-    { 
+    {
         if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay))
         {
             Random_BulletCount = Random.Range(2, 6);
@@ -94,11 +96,11 @@ public class Monster_9 : Monster
 
     void _BulletFire()
     {
-        for(int i = 0; i < Random_BulletCount; i++)
+        for (int i = 0; i < Random_BulletCount; i++)
         {
             GameObject bullet = BulletObject;
             Bullet_Speed = Random.Range(15f, 25f);
-            float Bullet_Angle = Random.Range(180f,-180f);
+            float Bullet_Angle = Random.Range(180f, -180f);
             bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, Bullet_Speed, xPos);
             bullet.GetComponent<Monster_Bullet_Angle>().SetAngle_And_Fire(Bullet_Angle);
             Instantiate(bullet, Fire_Zone.position, transform.rotation, monster_Bullet_List);

@@ -608,6 +608,20 @@ public class Player : MonoBehaviour
             uidirector.Player_Blood_Ani();
             Destroy(collision.gameObject);
         }
+
+        if (collision.CompareTag("Monster_ShortAttack"))
+        {
+            Monster_ShortAtk shor_info = collision.GetComponent<Monster_ShortAtk>();
+            MonsterHit(shor_info.Atk);
+            uidirector.Player_Blood_Ani();
+            ShortAtk_PlayerEffect(shor_info.xPos, shor_info.Force);
+        }
+    }
+
+    void ShortAtk_PlayerEffect(float xPos, float force)
+    {
+        Vector2 v = new Vector2(xPos, 0.9f);
+        rigid.AddForce(v * force, ForceMode2D.Impulse);
     }
 
     public float Check_HpParsent()

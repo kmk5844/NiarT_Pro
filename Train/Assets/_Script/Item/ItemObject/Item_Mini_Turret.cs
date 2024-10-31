@@ -12,6 +12,7 @@ public class Item_Mini_Turret : MonoBehaviour
     float train_Attack_Delay;
     float lastTime;
     public float Z;
+    public bool Default_Turret;
 
     void Start()
     {
@@ -19,7 +20,10 @@ public class Item_Mini_Turret : MonoBehaviour
         BulletObject.GetComponent<Bullet>().atk = 5;
         train_Attack_Delay = 0.35f;
         lastTime = 0;
-        Destroy(MiniTurret, 10f);
+        if (!Default_Turret)
+        {
+           Destroy(MiniTurret, 10f);
+        }
     }
     void Update()
     {
@@ -36,7 +40,7 @@ public class Item_Mini_Turret : MonoBehaviour
         if (Target_Flag)
         {
             Vector3 rot = Target.position - transform.position;
-            float rotZ = Mathf.Atan2(rot.y, rot.x) * Mathf.Rad2Deg;
+            float rotZ = Mathf.Atan2(rot.y + 0.5f, rot.x) * Mathf.Rad2Deg;
             Z = Quaternion.Euler(0, 0, rotZ).eulerAngles.z - transform.rotation.eulerAngles.z;
 
             if (Z > 180f)

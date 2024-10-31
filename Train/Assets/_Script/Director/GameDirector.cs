@@ -167,6 +167,8 @@ public class GameDirector : MonoBehaviour
     [HideInInspector]
     public Image BossGuage;
 
+    public GameObject MiniTurretObject;
+
     //아이템부분
     bool ItemFlag_14; // 골드 2배
     void Awake()
@@ -243,10 +245,13 @@ public class GameDirector : MonoBehaviour
         player.maxRespawnPosition = new Vector3(-0.43f, 0f, 0);
         player.minRespawnPosition = new Vector3(-10.94f * (Train_Num.Count - 1), 0f, 0);
 
+        float Random_Turret_X = Random.Range(player.minRespawnPosition.x, player.maxRespawnPosition.x);
+        Instantiate(MiniTurretObject, new Vector2(Random_Turret_X, -0.58f), Quaternion.identity);
+
         uiDirector.Gameing_Text(Total_Score, Total_Coin);
         StartTime = Time.time;
         gameType = GameType.Starting;
-        
+
         MMSoundManagerSoundPlayEvent.Trigger(DustWindBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID: BGM_ID);
         StartCoroutine(TrainStart_SFX());
     }

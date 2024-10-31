@@ -44,6 +44,8 @@ public class Monster_10 : Monster
         base.Update();
         Total_GameType();
         Fire_Debuff();
+        FlipMonster();
+
         Check_ItemSpeedFlag();
 
         if (monster_gametype == Monster_GameType.Fighting)
