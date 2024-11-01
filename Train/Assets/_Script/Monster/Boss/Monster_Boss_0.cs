@@ -292,7 +292,7 @@ public class Monster_Boss_0 : Boss
     IEnumerator HealCount()
     {
         heal_flag = true;
-        Monster_HP += (int)((Monster_Max_HP * 1) / 100f);
+        Monster_HP += (int)((Monster_Max_HP * 0.5f) / 100f);
         //Debug.Log((Monster_Max_HP * 1) / 100f);
         //Debug.Log(Monster_HP);
         //보스 치유하는 코드
@@ -438,11 +438,8 @@ public class Monster_Boss_0 : Boss
         Die
     }
 
-    enum Boss_Patern
-    {
-        Spawn_Egg,
+/*        Spawn_Egg,
         Mcus_Rampage,
         Mcus_Rampage_Player,
-        Spider_Web,
-    }
+        Spider_Web,*/
 }

@@ -10,7 +10,7 @@ public class Monster_11 : Monster
 
     [SerializeField]
     float speed;
-    GameObject Player;
+    GameObject player;
 
     Animator ani;
     public bool attackFlag;
@@ -20,7 +20,7 @@ public class Monster_11 : Monster
     {
         Monster_Num = 11;
         ani = GetComponent<Animator>();
-        Player = GameObject.FindWithTag("Player");
+        player = GameObject.FindWithTag("Player");
         base.Start();
         MonsterDirector_Pos = transform.localPosition;
         Spawn_Init_Pos =
@@ -123,12 +123,12 @@ public class Monster_11 : Monster
             xPos = 1;
         }*/
 
-        if(Player.transform.position.x - 1f > transform.position.x)
+        if(player.transform.position.x - 1f > transform.position.x)
         {
             xPos = 1;
 
         }
-        else if(Player.transform.position.x + 1f < transform.position.x)
+        else if(player.transform.position.x + 1f < transform.position.x)
         {
             xPos = -1;
         }
@@ -136,11 +136,11 @@ public class Monster_11 : Monster
         monster_xPos = xPos;
         movement = new Vector3(xPos, 0f, 0f);
 
-        if (Player.transform.position.x - 1f > transform.position.x)
+        if (player.transform.position.x - 1f > transform.position.x)
         {
             movement = new Vector3(xPos, 0f, 0f);
         }
-        else if (Player.transform.position.x + 1f < transform.position.x)
+        else if (player.transform.position.x + 1f < transform.position.x)
         {
             movement = new Vector3(xPos, 0f, 0f);
         }

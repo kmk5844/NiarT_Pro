@@ -9,6 +9,7 @@ public class Item_Mini_Turret : MonoBehaviour
     public Transform FireObject;
     public Transform BulletObject;
     Transform Target;
+    Transform BulletList;
     float train_Attack_Delay;
     float lastTime;
     public float Z;
@@ -19,6 +20,7 @@ public class Item_Mini_Turret : MonoBehaviour
         Target_Flag = false;
         BulletObject.GetComponent<Bullet>().atk = 5;
         train_Attack_Delay = 0.35f;
+        BulletList = GameObject.Find("Bullet_List").transform;
         lastTime = 0;
         if (!Default_Turret)
         {
@@ -72,7 +74,7 @@ public class Item_Mini_Turret : MonoBehaviour
     {
         if (Time.time >= lastTime + train_Attack_Delay)
         {
-            Instantiate(BulletObject, FireObject.position, FireObject.rotation);
+            Instantiate(BulletObject, FireObject.position, FireObject.rotation, BulletList);
             lastTime = Time.time;
         }
     }

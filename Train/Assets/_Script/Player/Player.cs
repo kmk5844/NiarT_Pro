@@ -11,11 +11,13 @@ public class Player : MonoBehaviour
     GameType gameDirectorType;
     Player_Chage playerchageDirector;
     UIDirector uidirector;
+    
     public int PlayerNum;
 
     [SerializeField]
     private SA_PlayerData playerData;
-
+    [SerializeField]
+    private Player_Debuff playerDebuff;
     Train_InGame train;
 
     [Header("무기")]
@@ -605,7 +607,11 @@ public class Player : MonoBehaviour
         {
             MonsterBullet bullet = collision.GetComponent<MonsterBullet>();
             MonsterHit(bullet.atk);
-            uidirector.Player_Blood_Ani();
+            if(bullet.bulletType != MonsterBulletType.Nomal)
+            {
+                playerDebuff.GetDebuff(bullet.bulletType);
+            }
+            Blood_Effect();
             Destroy(collision.gameObject);
         }
 
@@ -613,7 +619,7 @@ public class Player : MonoBehaviour
         {
             Monster_ShortAtk shor_info = collision.GetComponent<Monster_ShortAtk>();
             MonsterHit(shor_info.Atk);
-            uidirector.Player_Blood_Ani();
+            Blood_Effect();
             ShortAtk_PlayerEffect(shor_info.xPos, shor_info.Force);
         }
     }
@@ -667,6 +673,17 @@ public class Player : MonoBehaviour
                     break;
             }
         }
+    }
+
+    public void Blood_Effect()
+    {
+        uidirector.Player_Blood_Ani();
+        ani.SetTrigger("Hurt");
+    }
+
+    public int GetMaxHP()
+    {
+        return Max_HP;
     }
 
     //Item 부분

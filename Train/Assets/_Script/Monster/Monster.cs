@@ -49,7 +49,8 @@ public class Monster : MonoBehaviour
 
     [Header("잔상")]
     public GameObject AfterImage_Particle;
-    float AfterImage_Particle_LocalScale;
+    float AfterImage_Particle_LocalScale_X;
+    float AfterImage_Particle_LocalScale_Y;
 
     GameObject player; //플레이어 위치에 따라 플립하는 경우.
     protected GameDirector gameDirector; // 리워드 접수해야함.
@@ -116,7 +117,8 @@ public class Monster : MonoBehaviour
 
         monster_Bullet_List = GameObject.Find("Bullet_List").GetComponent<Transform>();
 
-        AfterImage_Particle_LocalScale = AfterImage_Particle.transform.localScale.x;
+        AfterImage_Particle_LocalScale_X = AfterImage_Particle.transform.localScale.x;
+        AfterImage_Particle_LocalScale_Y = AfterImage_Particle.transform.localScale.y;
 
         player = GameObject.FindGameObjectWithTag("Player");
         End_Delay = Random.Range(0f, 1.5f);
@@ -339,15 +341,15 @@ public class Monster : MonoBehaviour
 
     protected void FlipMonster()
     {
-        if (player.transform.position.x - transform.position.x < 0f)
+        if (player.transform.position.x  - transform.position.x < 0f)
         {
             transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-            AfterImage_Particle.transform.localScale = new Vector3(-AfterImage_Particle_LocalScale, 1, 1);
+            AfterImage_Particle.transform.localScale = new Vector3(-AfterImage_Particle_LocalScale_X, AfterImage_Particle_LocalScale_Y, 1);
         }
         else
         {
             transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-            AfterImage_Particle.transform.localScale = new Vector3(AfterImage_Particle_LocalScale, 1, 1);
+            AfterImage_Particle.transform.localScale = new Vector3(AfterImage_Particle_LocalScale_X, AfterImage_Particle_LocalScale_Y, 1);
         }
     } // 공통적으로 적용해야 함
 
