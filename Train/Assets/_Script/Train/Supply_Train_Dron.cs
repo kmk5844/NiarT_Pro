@@ -76,26 +76,28 @@ public class Supply_Train_Dron : MonoBehaviour
 
         if(gradeNum == 1)
         {
-            if(Random_Rarity_probability >= 0 && Random_Rarity_probability < 80)
+            Random_Rarity = 0;
+
+/*            if (Random_Rarity_probability >= 0 && Random_Rarity_probability < 80)
             {
                 Random_Rarity = 0;
             }else if(Random_Rarity_probability >= 80 && Random_Rarity_probability <= 100)
             {
                 Random_Rarity = 1;
-            }
+            }*/
         }else if(gradeNum == 2)
         {
             if (Random_Rarity_probability >= 0 && Random_Rarity_probability < 50)
             {
                 Random_Rarity = 0;
             }
-            else if (Random_Rarity_probability >= 50 && Random_Rarity_probability < 95)
+            else if (Random_Rarity_probability >= 95 && Random_Rarity_probability < 100)
             {
                 Random_Rarity = 1;
-            }else if(Random_Rarity_probability >= 95 && Random_Rarity_probability <= 100)
+            }/*else if(Random_Rarity_probability >= 95 && Random_Rarity_probability <= 100)
             {
                 Random_Rarity = 2;
-            }
+            }*/
         }
         else if(gradeNum == 3)
         {
@@ -103,11 +105,11 @@ public class Supply_Train_Dron : MonoBehaviour
             {
                 Random_Rarity = 1;
             }
-            else if (Random_Rarity_probability >= 50 && Random_Rarity_probability < 90)
+            else if (Random_Rarity_probability >= 70 && Random_Rarity_probability < 95)
             {
                 Random_Rarity = 2;
             }
-            else if (Random_Rarity_probability >= 90 && Random_Rarity_probability <= 100)
+            else if (Random_Rarity_probability >= 95 && Random_Rarity_probability <= 100)
             {
                 Random_Rarity = 3;
             }

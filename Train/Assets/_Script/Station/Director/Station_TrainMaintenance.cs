@@ -28,6 +28,8 @@ public class Station_TrainMaintenance : MonoBehaviour
     int UI_Train_Booster_Num;
     bool UI_Train_Turret_Flag;
     bool UI_Train_Booster_Flag;
+    public TextMeshProUGUI UI_TrainLevel_Text;
+    public TextMeshProUGUI UI_TrainMax_Text;
 
     [Header("패시브 업그레이드 윈도우")]
     public TextMeshProUGUI[] Passive_Text;
@@ -86,6 +88,7 @@ public class Station_TrainMaintenance : MonoBehaviour
         playerData = Player_DataObject.GetComponent<Station_PlayerData>();
         itemData = Item_DataObject.GetComponent<Station_ItemData>();
         Engine_Tier_Max_Train = trainData.Max_Train_MaxTrain;
+        UI_TrainMax_Text.text = "Train MAX : " + Engine_Tier_Max_Train;
         Train_Change_Num = trainData.Train_Change_Num;
         Train_Turret_Part_Change_Num = trainData.Train_Turret_Part_Change_Num;
         Train_Booster_Part_Change_Num = trainData.Train_Booster_Part_Change_Num;
@@ -223,6 +226,33 @@ public class Station_TrainMaintenance : MonoBehaviour
         Upgrade_Before_After_Text();
     } //버튼에 참조
 
+    public void UI_TrainLevel()
+    {
+        if (trainData.Train_Num[UI_Train_Num] == 51)
+        {
+            Info_Train_Turret_Part train = trainData.EX_Game_Data.Information_Train_Turret_Part[trainData.SA_TrainTurretData.Train_Turret_Num[UI_Train_Turret_Num]];
+
+            UI_TrainLevel_Text.text =
+               "  Lv." + (trainData.SA_TrainTurretData.Train_Turret_Num[UI_Train_Turret_Num] + 1) % 10;
+              
+        }
+        else if (trainData.Train_Num[UI_Train_Num] == 52)
+        {
+            Info_Train_Booster_Part train = trainData.EX_Game_Data.Information_Train_Booster_Part[trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num]];
+
+            UI_TrainLevel_Text.text =
+                " Lv." + (trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num] + 1) % 10;
+        }
+        else
+        {
+            Info_Train train = trainData.EX_Game_Data.Information_Train[trainData.Train_Num[UI_Train_Num]];
+
+            UI_TrainLevel_Text.text =
+                "  Lv." + (trainData.Train_Num[UI_Train_Num] + 1) % 10;
+        }
+    }
+
+
     void Button_TrainNum(int Num)
     {
         int beforeNum = UI_Train_Num;
@@ -332,6 +362,7 @@ public class Station_TrainMaintenance : MonoBehaviour
                 else
                 {
                     Passive_Text[0].text = "Lv." + trainData.Level_Train_EngineTier + "\n" + trainData.Cost_Train_EngineTier + "G";
+
                 }
             }
             else if (num == 1)
@@ -615,6 +646,7 @@ public class Station_TrainMaintenance : MonoBehaviour
     private void Check_Trian_Add()
     {
         Engine_Tier_Max_Train = trainData.Max_Train_MaxTrain;
+        UI_TrainMax_Text.text = "Train MAX : " + Engine_Tier_Max_Train;
         Cost_Add_Text.text = trainData.EX_Level_Data.Level_Max_EngineTier[trainData.Train_Num.Count].Cost_Add_Train.ToString() + "G";
         if (ChangeFlag)
         {
@@ -1188,6 +1220,7 @@ public class Station_TrainMaintenance : MonoBehaviour
             }
             Upgrade_Text[2].text = trainData.EX_Game_Data.Information_Train[trainData.Train_Num[UI_Train_Num]].Material.ToString();
         }
+        UI_TrainLevel();
     }
 
     private void Upgrade_Train_TrainMaintenance()
