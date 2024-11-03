@@ -1131,7 +1131,6 @@ public class Station_TrainMaintenance : MonoBehaviour
                 After_Text.text = "  Max";
             }
             Material_Image.sprite = itemData.Turret_Train_Material_object.Item_Sprite;
-            Upgrade_Text[0].text = trainData.EX_Game_Data.Information_Train_Turret_Part[trainData.SA_TrainTurretData.Train_Turret_Num[UI_Train_Turret_Num]].Train_Upgrade_Cost + "G";
             int Material_InChnace_Count = trainData.EX_Game_Data.Information_Train_Turret_Part[trainData.SA_TrainTurretData.Train_Turret_Num[UI_Train_Turret_Num]].Material;
             int Material_Inventory_Count = itemData.Turret_Train_Material_object.Item_Count;
             if (Material_Inventory_Count >= Material_InChnace_Count)
@@ -1169,7 +1168,6 @@ public class Station_TrainMaintenance : MonoBehaviour
             }
 
             Material_Image.sprite = itemData.Booster_Train_Material_object.Item_Sprite;
-            Upgrade_Text[0].text = trainData.EX_Game_Data.Information_Train_Booster_Part[trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num]].Train_Upgrade_Cost + "G";
             int Material_InChnace_Count = trainData.EX_Game_Data.Information_Train_Booster_Part[trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num]].Material;
             int Material_Inventory_Count = itemData.Booster_Train_Material_object.Item_Count;
             if (Material_Inventory_Count >= Material_InChnace_Count)
@@ -1207,7 +1205,6 @@ public class Station_TrainMaintenance : MonoBehaviour
                 After_Text.text = "  Max";
             }
             Material_Image.sprite = itemData.Common_Train_Material_object.Item_Sprite;
-            Upgrade_Text[0].text = trainData.EX_Game_Data.Information_Train[trainData.Train_Num[UI_Train_Num]].Train_Upgrade_Cost + "G";
             int Material_InChnace_Count = trainData.EX_Game_Data.Information_Train[trainData.Train_Num[UI_Train_Num]].Material;
             int Material_Inventory_Count = itemData.Common_Train_Material_object.Item_Count;
             if (Material_Inventory_Count >= Material_InChnace_Count)
@@ -1270,18 +1267,59 @@ public class Station_TrainMaintenance : MonoBehaviour
             }
         }
         Check_Player_Coin_Point();
+        Check_Upgrade_Button_Interactable();
     }
 
     private void Check_Upgrade_Button_Interactable()
     {
-        if(trainData.Train_Num[UI_Train_Num] < 50 || trainData.Train_Num[UI_Train_Num] == 51 || trainData.Train_Num[UI_Train_Num] == 52)
+        if (trainData.Train_Num[UI_Train_Num] < 50)
+        {
+            if(trainData.EX_Game_Data.Information_Train[trainData.Train_Num[UI_Train_Num]].Train_Upgrade_Cost != -100)
+            {
+                Upgrade_Text[0].text = trainData.EX_Game_Data.Information_Train[trainData.Train_Num[UI_Train_Num]].Train_Upgrade_Cost + "G";
+                Upgrade_Button.interactable = true;
+            }
+            else
+            {
+                Upgrade_Text[0].text = "MAX";
+                Upgrade_Button.interactable = false;
+            }
+        }else if (trainData.Train_Num[UI_Train_Num] == 52)
+        {
+            if (trainData.EX_Game_Data.Information_Train_Booster_Part[trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num]].Train_Upgrade_Cost != -100)
+            {
+                 Upgrade_Text[0].text = trainData.EX_Game_Data.Information_Train_Booster_Part[trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num]].Train_Upgrade_Cost + "G";
+                Upgrade_Button.interactable = true;
+            }
+            else
+            {
+                Upgrade_Text[0].text = "MAX";
+                Upgrade_Button.interactable = false;
+            }
+        }
+        else if (trainData.Train_Num[UI_Train_Num]== 51)
+        {
+            if(trainData.EX_Game_Data.Information_Train_Turret_Part[trainData.SA_TrainTurretData.Train_Turret_Num[UI_Train_Turret_Num]].Train_Upgrade_Cost != -100)
+            {
+                Upgrade_Text[0].text = trainData.EX_Game_Data.Information_Train_Turret_Part[trainData.SA_TrainTurretData.Train_Turret_Num[UI_Train_Turret_Num]].Train_Upgrade_Cost + "G";
+                Upgrade_Button.interactable = true;
+            }
+            else
+            {
+                Upgrade_Text[0].text = "MAX";
+                Upgrade_Button.interactable = false;
+            }
+        }
+
+
+/*        if(trainData.Train_Num[UI_Train_Num] < 50 || trainData.Train_Num[UI_Train_Num] == 51 || trainData.Train_Num[UI_Train_Num] == 52)
         {
             Upgrade_Button.interactable = true;
         }
         else
         {
             Upgrade_Button.interactable = false;
-        }
+        }*/
     }
 
     private void Check_Player_Coin_Point()
