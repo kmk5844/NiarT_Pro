@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class Monster_Boss_1 : Boss
 {
     public Transform Fire_Zone;
+    public GameObject TentacleObject;
+    public GameObject Tentacle_Bomb_Object;
+    public GameObject HowlingObject;
+    GameObject player;
 
     [SerializeField]
     Boss_PlayType playType;
@@ -12,7 +17,6 @@ public class Monster_Boss_1 : Boss
     bool aniFlag;
 
     Vector3 Move_Init_Position;
-    Vector3 Jump_Init_Position;
     float move_xPos;
     Vector3 movement;
     float move_speed;
@@ -30,12 +34,12 @@ public class Monster_Boss_1 : Boss
         base.Start();
         move_xPos = 1f;
         move_speed = 3f;
-
+        player = GameObject.FindWithTag("Player");
         transform.position = new Vector3(MonsterDirector.MaxPos_Sky.x + 18f, 0.79f, 56);
         playType = Boss_PlayType.Spawn;
 
-        move_delayTime = 6f;
-        attack_delayTime = 1.5f;
+        move_delayTime = 10f;
+        attack_delayTime = 1f;
     }
 
     protected override void Update()
@@ -93,13 +97,16 @@ public class Monster_Boss_1 : Boss
             //공격
             if (Time.time >= attack_lastTime + attack_delayTime)
             {
-                playType = Boss_PlayType.Attack;
-                ResetAni();
+                BulletFire();
+
+        /*                playType = Boss_PlayType.Attack;
+                        ResetAni();*/
             }
 
             //스킬
             if (Time.time >= move_lastTime + move_delayTime)
             {
+                //move_lastTime = Time.time;
                 playType = Boss_PlayType.Skill;
                 ResetAni();
             }
@@ -112,6 +119,7 @@ public class Monster_Boss_1 : Boss
                 TriggerAnimation();
                 aniFlag = true;
             }
+
 
             playType = Boss_PlayType.Attack_Using;
             ResetAni();
@@ -126,26 +134,79 @@ public class Monster_Boss_1 : Boss
             }
 
             int skillNum = Random.Range(0, 4);
+            
             if (skillNum == 0)
             {
-                Debug.Log("스킬1");
+                StartCoroutine(skill_Tentacle(0));
             }
             else if (skillNum == 1)
             {
-                Debug.Log("스킬2");
+                StartCoroutine(skill_Tentacle(1));
             }
             else if (skillNum == 2)
             {
-                Debug.Log("스킬3");
+                StartCoroutine(skill_Tentacle(2));
             }
             else if (skillNum == 3)
             {
-                Debug.Log("스킬4");
+                StartCoroutine(skill_Tentacle(3));
             }
 
             playType = Boss_PlayType.Skill_Using;
             ResetAni();
         }
+    }
+
+    IEnumerator skill_Tentacle(int skill)
+    {
+        float xPos;
+        Vector2 pos;
+        if(skill == 0)
+        {
+            TentacleObject.GetComponent<Boss1_TentacleObject>().SetSkillNum(0);
+            for (int i = 0; i < 15; i++)
+            {
+                xPos = Random.Range(MonsterDirector.MinPos_Ground.x, MonsterDirector.MaxPos_Ground.x);
+                pos = new Vector2(xPos, -1.2f);
+                Instantiate(TentacleObject, pos, Quaternion.identity, monster_Bullet_List);
+                yield return new WaitForSeconds(0.15f);
+            }
+        }else if(skill == 1)
+        {
+            TentacleObject.GetComponent<Boss1_TentacleObject>().SetSkillNum(1);
+            Quaternion rot = Quaternion.Euler(0f, 0f, -30f);
+            for (int i = 0; i < 8; i++)
+            {
+                xPos = MonsterDirector.MinPos_Ground.x + (i * 3.3f);
+                pos = new Vector2(xPos, -1.2f);
+                Instantiate(TentacleObject, pos, rot, monster_Bullet_List);
+                yield return new WaitForSeconds(0.2f);
+            }
+        }else if(skill == 2)
+        {
+            TentacleObject.GetComponent<Boss1_TentacleObject>().SetSkillNum(2);
+            for(int i = 0; i < 20; i++)
+            {
+                Quaternion rot = Quaternion.Euler(0f, 0f, Random.Range(-30f, 30f));
+                xPos = Random.Range(MonsterDirector.MinPos_Ground.x, MonsterDirector.MaxPos_Ground.x);
+                pos = new Vector2(xPos, -1.2f);
+                Instantiate(TentacleObject, pos, rot, monster_Bullet_List);
+                yield return new WaitForSeconds(0.15f);
+            }
+        }else if(skill == 3)
+        {
+            TentacleObject.GetComponent<Boss1_TentacleObject>().SetSkillNum(3);
+            float playerPos = player.transform.position.x;
+            for(int i =  -2; i < 3; i++)
+            {
+                xPos = playerPos + (i * 3.5f);
+                pos = new Vector2(xPos, -1.2f);
+                Instantiate(TentacleObject, pos, Quaternion.identity, monster_Bullet_List);
+            }
+            yield return new WaitForSeconds(0.5f);
+        }
+        yield return new WaitForSeconds(0.5f);
+        ToMove();
     }
 
     void ResetAni()
@@ -177,7 +238,6 @@ public class Monster_Boss_1 : Boss
         playType = Boss_PlayType.Move;
         ResetAni();
     }
-
 
     enum Boss_PlayType
     {

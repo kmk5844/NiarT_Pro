@@ -617,10 +617,10 @@ public class Player : MonoBehaviour
 
         if (collision.CompareTag("Monster_ShortAttack"))
         {
-            Monster_ShortAtk shor_info = collision.GetComponent<Monster_ShortAtk>();
-            MonsterHit(shor_info.Atk);
+            Monster_ShortAtk short_info = collision.GetComponent<Monster_ShortAtk>();
+            MonsterHit(short_info.Atk);
             Blood_Effect();
-            ShortAtk_PlayerEffect(shor_info.xPos, shor_info.Force);
+            ShortAtk_PlayerEffect(short_info.xPos, short_info.Force);
         }
     }
 

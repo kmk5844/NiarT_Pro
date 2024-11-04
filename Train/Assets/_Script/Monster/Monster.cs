@@ -52,7 +52,7 @@ public class Monster : MonoBehaviour
     float AfterImage_Particle_LocalScale_X;
     float AfterImage_Particle_LocalScale_Y;
 
-    GameObject player; //플레이어 위치에 따라 플립하는 경우.
+    protected GameObject player; //플레이어 위치에 따라 플립하는 경우.
     protected GameDirector gameDirector; // 리워드 접수해야함.
 
     protected float EndTime;

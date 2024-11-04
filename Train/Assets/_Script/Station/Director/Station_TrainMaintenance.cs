@@ -1288,7 +1288,7 @@ public class Station_TrainMaintenance : MonoBehaviour
         {
             if (trainData.EX_Game_Data.Information_Train_Booster_Part[trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num]].Train_Upgrade_Cost != -100)
             {
-                 Upgrade_Text[0].text = trainData.EX_Game_Data.Information_Train_Booster_Part[trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num]].Train_Upgrade_Cost + "G";
+                Upgrade_Text[0].text = trainData.EX_Game_Data.Information_Train_Booster_Part[trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num]].Train_Upgrade_Cost + "G";
                 Upgrade_Button.interactable = true;
             }
             else

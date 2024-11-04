@@ -10,7 +10,6 @@ public class Monster_11 : Monster
 
     [SerializeField]
     float speed;
-    GameObject player;
 
     Animator ani;
     public bool attackFlag;
@@ -20,7 +19,6 @@ public class Monster_11 : Monster
     {
         Monster_Num = 11;
         ani = GetComponent<Animator>();
-        player = GameObject.FindWithTag("Player");
         base.Start();
         MonsterDirector_Pos = transform.localPosition;
         Spawn_Init_Pos =

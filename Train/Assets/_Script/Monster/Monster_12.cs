@@ -10,7 +10,6 @@ public class Monster_12 : Monster
 
     [SerializeField]
     float speed;
-    GameObject player;
 
     Animator ani;
     public bool attackFlag;

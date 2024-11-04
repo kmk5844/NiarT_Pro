@@ -59,7 +59,7 @@ public class Boss : MonoBehaviour
         Monster_Score = EX_GameData.Information_Boss[Boss_Num].Monster_Score;
         Monster_Coin = EX_GameData.Information_Boss[Boss_Num].Monster_Coin;
         Monster_Type = EX_GameData.Information_Boss[Boss_Num].Monster_Type;
-        Boss_Bullet = Resources.Load<GameObject>("Bullet/Monster/Boss" + Boss_Num);
+        Boss_Bullet = Resources.Load<GameObject>("Bullet/Monster/BossBullet/" + Boss_Num);
         Boss_Guage = gameDirector.BossGuage;
         Bullet_Atk = EX_GameData.Information_Boss[Boss_Num].Monster_Atk;
         Bullet_Speed = EX_GameData.Information_Boss[Boss_Num].Monster_Bullet_Speed;
