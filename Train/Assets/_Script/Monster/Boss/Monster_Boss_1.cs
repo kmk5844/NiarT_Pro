@@ -93,36 +93,18 @@ public class Monster_Boss_1 : Boss
             movement = new Vector3(move_xPos, 0f, 0f);
             transform.Translate(movement * move_speed * Time.deltaTime);
 
-
             //공격
             if (Time.time >= attack_lastTime + attack_delayTime)
             {
                 BulletFire();
-
-        /*                playType = Boss_PlayType.Attack;
-                        ResetAni();*/
             }
 
             //스킬
             if (Time.time >= move_lastTime + move_delayTime)
             {
-                //move_lastTime = Time.time;
                 playType = Boss_PlayType.Skill;
                 ResetAni();
             }
-        }
-
-        if(playType == Boss_PlayType.Attack)
-        {
-            if (!aniFlag)
-            {
-                TriggerAnimation();
-                aniFlag = true;
-            }
-
-
-            playType = Boss_PlayType.Attack_Using;
-            ResetAni();
         }
 
         if (playType == Boss_PlayType.Skill)
@@ -218,7 +200,14 @@ public class Monster_Boss_1 : Boss
     {
         if (playType == Boss_PlayType.Spawn || playType == Boss_PlayType.Move)
         {
+            ani.ResetTrigger("Skill");
             ani.SetTrigger("Move");
+        }
+
+        if (playType == Boss_PlayType.Skill)
+        {
+            ani.ResetTrigger("Move");
+            ani.SetTrigger("Skill");
         }
     }
 
@@ -233,7 +222,7 @@ public class Monster_Boss_1 : Boss
     //공격 애니메이션 종료 후, 삽입.
     public void ToMove()
     {
-        move_delayTime = Random.Range(5f, 8f);
+        move_delayTime = Random.Range(8f, 12f);
         move_lastTime = Time.time;
         playType = Boss_PlayType.Move;
         ResetAni();
@@ -243,8 +232,6 @@ public class Monster_Boss_1 : Boss
     {
         Spawn,
         Move,
-        Attack,
-        Attack_Using,
         Skill,
         Skill_Using,
         Die
