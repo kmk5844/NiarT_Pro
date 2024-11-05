@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Monster_Bullet_2 : MonsterBullet
+public class Monster_Bullet_Player : MonsterBullet
 {
     protected override void Start()
     {
         base.Start();
-        Speed = 11;
         Bullet_Fire();
     }
 

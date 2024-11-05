@@ -5,7 +5,6 @@ using UnityEngine.UIElements;
 
 public class Monster_10 : Monster
 {
-
     [SerializeField]
     Vector3 movement;
     int xPos;

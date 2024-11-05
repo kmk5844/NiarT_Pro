@@ -55,5 +55,4 @@ public enum MonsterBulletType
 {
     Nomal,
     Poison,
-
 }

@@ -125,8 +125,6 @@ public class GameDirector : MonoBehaviour
     float StartTime;
     float RandomStartTime;
 
-    GameObject Respawn;
-
     int Level_EngineTier; // km/h을 증가하는 엔진 파워
     int Level_MaxSpeed; // 멕스 스피드 조절
     int Level_Efficient; // 기름 효율성
@@ -246,7 +244,10 @@ public class GameDirector : MonoBehaviour
         player.minRespawnPosition = new Vector3(-10.94f * (Train_Num.Count - 1), 0f, 0);
 
         float Random_Turret_X = Random.Range(player.minRespawnPosition.x, player.maxRespawnPosition.x);
-        Instantiate(MiniTurretObject, new Vector2(Random_Turret_X, -0.58f), Quaternion.identity);
+        if (!Test_Flag)
+        {
+            Instantiate(MiniTurretObject, new Vector2(Random_Turret_X, -0.58f), Quaternion.identity);
+        }
 
         uiDirector.Gameing_Text(Total_Score, Total_Coin);
         StartTime = Time.time;
@@ -590,9 +591,6 @@ public class GameDirector : MonoBehaviour
 
         Train_Count = Train_List.childCount;
         Trains = new Train_InGame[Train_Count];
-        Respawn = GameObject.FindGameObjectWithTag("Respawn");
-        Respawn.transform.localScale = new Vector3(25 * Train_Count, 1, 0);
-        Respawn.transform.position = new Vector3(Train_List.GetChild(Train_Count / 2).transform.position.x, -3, 0);
 
         Level_EngineTier = SA_TrainData.Level_Train_EngineTier;
         Level_MaxSpeed = SA_TrainData.Level_Train_MaxSpeed;

@@ -94,8 +94,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2284520680175412986}
   - component: {fileID: -2744086448423873013}
-  - component: {fileID: 422696860991329501}
   - component: {fileID: 8466625988305838830}
+  - component: {fileID: 422696860991329501}
   m_Layer: 10
   m_Name: 1
   m_TagString: Monster_Bullet
@@ -147,21 +147,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &422696860991329501
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2284520680175412988}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a1b2da864b9b16458b7aeded567db50, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Speed: 0
-  atk: 0
-  slow: 0
 --- !u!70 &8466625988305838830
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -197,6 +182,22 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.04, y: 0.14}
   m_Direction: 0
+--- !u!114 &422696860991329501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2284520680175412988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a1b2da864b9b16458b7aeded567db50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 0
+  atk: 0
+  slow: 0
+  bulletType: 0
 --- !u!1001 &8594857692833513785
 PrefabInstance:
   m_ObjectHideFlags: 0

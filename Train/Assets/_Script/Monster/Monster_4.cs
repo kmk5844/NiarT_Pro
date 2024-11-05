@@ -20,8 +20,6 @@ public class Monster_4 : Monster
 
         base.Start();
         transform.position = new Vector3(20, transform.position.y, transform.position.z);
-        Bullet_Delay = 2f;
-        speed = 10f;
         xPos = -1f;
         Check_ItemSpeedSpawn();
         monster_gametype = Monster_GameType.Fighting;
@@ -86,7 +84,6 @@ public class Monster_4 : Monster
         {
             Item_Mosnter_SpeedPersent = MonsterDirector.Item_giantPersent_Spawn;
             Item_Monster_Speed += speed * (Item_Mosnter_SpeedPersent / 100f);
-
         }
         else
         {

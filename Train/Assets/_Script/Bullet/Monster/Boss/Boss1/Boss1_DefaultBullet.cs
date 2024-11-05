@@ -6,12 +6,26 @@ public class Boss1_DefaultBullet : MonsterBullet
 {
     GameObject BombParticle;
     float force;
+    float delayTime;
+    Animator ani;
+
+
     protected override void Start()
     {
         BombParticle = Resources.Load<GameObject>("Bullet/10_Effect");
         base.Start();
         force = Random.Range(5f, 7f);
-        rid.AddForce(Vector2.one * force, ForceMode2D.Impulse);
+        delayTime = Random.Range(0.2f, 5f);
+        ani = GetComponent<Animator>();
+        Vector2 forcePos = new Vector2(1f, 1.2f);
+        rid.AddForce(forcePos * force, ForceMode2D.Impulse);
+        StartCoroutine(BombDelay());
+    }
+
+    IEnumerator BombDelay()
+    {
+        yield return new WaitForSeconds(delayTime);
+        ani.SetTrigger("Bomb");
     }
 
     public void BombDestory()
@@ -19,5 +33,4 @@ public class Boss1_DefaultBullet : MonsterBullet
         Instantiate(BombParticle, transform.localPosition, Quaternion.identity);
         Destroy(gameObject);
     }
-
 }

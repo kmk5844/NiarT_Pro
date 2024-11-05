@@ -143,6 +143,8 @@ public class Monster_Boss_1 : Boss
     {
         float xPos;
         Vector2 pos;
+        yield return new WaitForSeconds(1.5f);
+
         if(skill == 0)
         {
             TentacleObject.GetComponent<Boss1_TentacleObject>().SetSkillNum(0);
@@ -200,14 +202,12 @@ public class Monster_Boss_1 : Boss
     {
         if (playType == Boss_PlayType.Spawn || playType == Boss_PlayType.Move)
         {
-            ani.ResetTrigger("Skill");
-            ani.SetTrigger("Move");
+            ani.SetBool("Skill", false);
         }
 
         if (playType == Boss_PlayType.Skill)
         {
-            ani.ResetTrigger("Move");
-            ani.SetTrigger("Skill");
+            ani.SetBool("Skill", true);
         }
     }
 

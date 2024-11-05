@@ -49,8 +49,8 @@ public class Monster : MonoBehaviour
 
     [Header("잔상")]
     public GameObject AfterImage_Particle;
-    float AfterImage_Particle_LocalScale_X;
-    float AfterImage_Particle_LocalScale_Y;
+    protected float AfterImage_Particle_LocalScale_X;
+    protected float AfterImage_Particle_LocalScale_Y;
 
     protected GameObject player; //플레이어 위치에 따라 플립하는 경우.
     protected GameDirector gameDirector; // 리워드 접수해야함.

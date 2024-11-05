@@ -444,6 +444,11 @@ public class Player : MonoBehaviour
         {
             jumpFlag = true;
         }
+
+        if(transform.position.y < -3f)
+        {
+            Respawn();
+        }
     }
     void BulletFire()
     {
@@ -588,21 +593,21 @@ public class Player : MonoBehaviour
         }
     }
 
+    void Respawn()
+    {
+        Player_HP -= (((Player_HP * 10) / 100) + 50);
+        if (transform.position.x > 0)
+        {
+            transform.position = new Vector3(maxRespawnPosition.x, 1, 0);
+        }
+        else
+        {
+            transform.position = new Vector3(minRespawnPosition.x, 1, 0);
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Respawn"))
-        {
-            Player_HP -= (((Player_HP *10) / 100) + 50);
-            if(transform.position.x > 0)
-            {
-                transform.position = new Vector3(maxRespawnPosition.x, 1, 0);
-            }
-            else
-            {
-                transform.position = new Vector3(minRespawnPosition.x, 1, 0);
-            }
-        }
-
         if (collision.CompareTag("Monster_Bullet"))
         {
             MonsterBullet bullet = collision.GetComponent<MonsterBullet>();
