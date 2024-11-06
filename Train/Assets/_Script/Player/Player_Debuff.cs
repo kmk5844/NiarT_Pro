@@ -12,6 +12,7 @@ public class Player_Debuff : MonoBehaviour
     bool PlayerStatus_poisonFlag;
     bool poisonFlag;
 
+    public GameObject PosionEffect;
     private void Start()
     {
         player = GetComponentInParent<Player>();
@@ -24,9 +25,20 @@ public class Player_Debuff : MonoBehaviour
     {
         if (PlayerStatus_poisonFlag)
         {
+            if(!PosionEffect.activeSelf)
+            {
+                PosionEffect.SetActive(true);
+            }
             if (!poisonFlag)
             {
                 StartCoroutine(CorutineDebuff());
+            }
+        }
+        else
+        {
+            if (PosionEffect.activeSelf)
+            {
+                PosionEffect.SetActive(false);
             }
         }
     }
