@@ -129,29 +129,59 @@ public class GameManager : MonoBehaviour
         {
             int index = gameData.Information_Scene[PlayerData.New_Stage].BeforeStation_StoryIndex;
 
-            if (!DataManager.Instance.playerData.FirstFlag)
+            if (!StoryData.StoryList[index].Start_Flag)
             {
-                if (!StoryData.StoryList[index].Start_Flag)
+                LoadingManager.LoadScene("Story");
+                StoryData.StoryList[index].ChangeFlag(true);
+            }
+            else
+            {
+                LoadingManager.LoadScene("GamePlay_Tutorial");
+            }
+
+            /*        if (!DataManager.Instance.playerData.FirstFlag)
+                    {
+                        if (!StoryData.StoryList[index].Start_Flag)
+                        {
+                            LoadingManager.LoadScene("Story");
+                            StoryData.StoryList[index].ChangeFlag(true);
+                        }
+                        else
+                        {
+                            LoadingManager.LoadScene("GamePlay_Tutorial");
+                        }
+                    }
+                    else
+                    {
+                        if (!StoryData.StoryList[index].Start_Flag)
+                        {
+                            LoadingManager.LoadScene("Story");
+                            StoryData.StoryList[index].ChangeFlag(true);
+                        }
+                        else
+                        {
+                            LoadingManager.LoadScene("Station");
+                        }
+                    }*/
+        }
+        else if (gameData.Information_Scene[PlayerData.New_Stage].BeforeStation_Button.Equals("CutScene"))
+        {
+            int index = gameData.Information_Scene[PlayerData.New_Stage].BeforeStation_StoryIndex;
+            
+            if (!DataManager.Instance.playerData.FirstFlag) //튜토리얼 진행 전.
+            {
+                if (!StoryData.StoryList[index].Start_Flag) // 스토리 진행 전,
                 {
-                    LoadingManager.LoadScene("Story");
-                    StoryData.StoryList[index].ChangeFlag(true);
+                    LoadingManager.LoadScene("CutScene");
                 }
-                else
+                else // 스토리 진행 후,
                 {
                     LoadingManager.LoadScene("GamePlay_Tutorial");
                 }
             }
-            else
+            else // 튜토리얼 진행 후,
             {
-                if (!StoryData.StoryList[index].Start_Flag)
-                {
-                    LoadingManager.LoadScene("Story");
-                    StoryData.StoryList[index].ChangeFlag(true);
-                }
-                else
-                {
-                    LoadingManager.LoadScene("Station");
-                }
+                LoadingManager.LoadScene("Station");
             }
         }
         else

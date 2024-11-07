@@ -189,6 +189,12 @@ public class SA_PlayerData : ScriptableObject
         Save();
     }
 
+    public void SA_StoryNum_Chnage(int i)
+    {
+        story_num = i;
+        Save();
+    }
+
     private void Save()
     {
         ES3.Save<bool>("SA_PlayerData_Data_FirstFlag", firstflag);
