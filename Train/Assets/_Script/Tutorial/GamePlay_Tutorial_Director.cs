@@ -91,6 +91,15 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown("]"))
+        {
+            if (!DataManager.Instance.playerData.FirstFlag)
+            {
+                DataManager.Instance.playerData.SA_CheckFirstFlag();
+            }
+            LoadingManager.LoadScene("InGame");
+        }
+
         if(gameType == GameType_T.Pause)
         {
             if (Input.GetKeyDown(KeyCode.Escape))

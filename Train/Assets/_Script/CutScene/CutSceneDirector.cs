@@ -28,6 +28,16 @@ public class CutSceneDirector : MonoBehaviour
         MMSoundManagerSoundPlayEvent.Trigger(CutSceneBGM, MMSoundManager.MMSoundManagerTracks.Music, transform.position);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown("]"))
+        {
+            DataManager.Instance.playerData.SA_StoryNum_Chnage(0);
+            SceneManager.LoadScene("Story");
+            DataManager.Instance.storyData.StoryList[0].ChangeFlag(true);
+        }
+    }
+
     public void ChnageText()
     {
         text.StringReference.TableEntryReference = "Cut_" + i;
@@ -40,11 +50,6 @@ public class CutSceneDirector : MonoBehaviour
         DataManager.Instance.playerData.SA_StoryNum_Chnage(0);
         SceneManager.LoadScene("Story");
         DataManager.Instance.storyData.StoryList[0].ChangeFlag(true);
-    }
-
-    public void BookSound()
-    {
-       
     }
 
     public void SFX(int i)

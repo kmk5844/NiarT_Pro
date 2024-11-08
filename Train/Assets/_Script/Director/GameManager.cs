@@ -103,12 +103,12 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                LoadingManager.LoadScene("InGame");
+                LoadingManager.LoadScene("CharacterSelect");
             }
         }
         else
         {
-            LoadingManager.LoadScene("InGame");
+            LoadingManager.LoadScene("CharacterSelect");
         }
 
         /*        int index = StoryData.StoryList.FindIndex(x => x.Story_Num == PlayerData.New_Stage);
@@ -136,7 +136,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                LoadingManager.LoadScene("GamePlay_Tutorial");
+                LoadingManager.LoadScene("Station");
             }
 
             /*        if (!DataManager.Instance.playerData.FirstFlag)
