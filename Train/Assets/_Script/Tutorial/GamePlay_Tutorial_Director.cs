@@ -461,7 +461,8 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
 
                 if(player.PlayerHP > 0)
                 {
-                    player.PlayerHP -= (int)(Time.deltaTime * 1000f);
+                    float damagePerSecond = 1000f;
+                    player.PlayerHP -= (int)(damagePerSecond * Time.deltaTime);
                 }
                 else
                 {

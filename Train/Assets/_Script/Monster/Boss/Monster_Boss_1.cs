@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 public class Monster_Boss_1 : Boss
 {
@@ -51,7 +50,7 @@ public class Monster_Boss_1 : Boss
     {
         Fire_Debuff();
 
-        if(playType == Boss_PlayType.Spawn)
+        if (playType == Boss_PlayType.Spawn)
         {
             transform.Translate(-12f * Time.deltaTime, 0, 0);
 
@@ -72,7 +71,7 @@ public class Monster_Boss_1 : Boss
             }
         }
 
-        if(playType == Boss_PlayType.Move)
+        if (playType == Boss_PlayType.Move)
         {
             if (!aniFlag)
             {
@@ -116,7 +115,7 @@ public class Monster_Boss_1 : Boss
             }
 
             int skillNum = Random.Range(0, 4);
-            
+
             if (skillNum == 0)
             {
                 StartCoroutine(skill_Tentacle(0));
@@ -136,6 +135,30 @@ public class Monster_Boss_1 : Boss
 
             playType = Boss_PlayType.Skill_Using;
             ResetAni();
+        }
+
+        if (DieFlag)
+        {
+            if (playType != Boss_PlayType.Die)
+            {
+                playType = Boss_PlayType.Die;
+                ResetAni();
+            }
+        }
+
+
+        if (playType == Boss_PlayType.Die)
+        {
+            if (!aniFlag)
+            {
+                TriggerAnimation();
+                aniFlag = true;
+            }
+
+            movement = new Vector3(1f, 0f, 0f);
+            transform.position = new Vector3(transform.position.x, transform.position.y-0.3f, transform.position.z);
+            transform.Translate(movement * 4f * Time.deltaTime);
+            Destroy(gameObject, 8f);
         }
     }
 
@@ -208,6 +231,11 @@ public class Monster_Boss_1 : Boss
         if (playType == Boss_PlayType.Skill)
         {
             ani.SetBool("Skill", true);
+        }
+
+        if (playType == Boss_PlayType.Die)
+        {
+            ani.SetTrigger("Die");
         }
     }
 

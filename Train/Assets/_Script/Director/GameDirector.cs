@@ -766,7 +766,6 @@ public class GameDirector : MonoBehaviour
                     {
                         ItemNum = int.Parse(ItemList[i]);
                         ItemCount = int.Parse(ItemList_Count[i]);
-                        Debug.Log(ItemList[i]);
                         if (ItemNum != -1)
                         {
                             itemDirector.itemList.Item[ItemNum].Item_Count_UP(ItemCount);

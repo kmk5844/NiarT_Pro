@@ -83,6 +83,8 @@ public class Train_InGame : MonoBehaviour
     [HideInInspector]
     public GameObject gameDirector;
 
+    public int UI_Level;
+
     private void Awake()
     {
         Not_DestoryTrain = false;
@@ -177,6 +179,7 @@ public class Train_InGame : MonoBehaviour
                 Not_DestoryTrain = true;
             } 
         }
+        UI_Level = CheckLevel();
     }
 
     public int CheckLevel()

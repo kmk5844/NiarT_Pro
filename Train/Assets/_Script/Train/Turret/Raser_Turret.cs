@@ -16,7 +16,7 @@ public class Raser_Turret : Turret
     {
         base.Start();
         rotation_TurretFlag = true;
-        train_Rotation_Delay = 0.05f;
+        train_Rotation_Delay = 0.03f;
 
         Target_Flag = false;
         raser = transform.GetChild(0).gameObject;

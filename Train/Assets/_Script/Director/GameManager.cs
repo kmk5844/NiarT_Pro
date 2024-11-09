@@ -47,6 +47,12 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
+        // V-Sync를 비활성화하여 FPS 제한을 방지
+        QualitySettings.vSyncCount = 0;
+
+        // 프레임 레이트를 60으로 설정
+        Application.targetFrameRate = 60;
+
         cursorOrigin = Resources.Load<Texture2D>("Cursor/Origin6464");
         cursorHotspot_Origin = Vector2.zero;
         Cursor.SetCursor(cursorOrigin, cursorHotspot_Origin, CursorMode.Auto);
@@ -138,36 +144,11 @@ public class GameManager : MonoBehaviour
             {
                 LoadingManager.LoadScene("Station");
             }
-
-            /*        if (!DataManager.Instance.playerData.FirstFlag)
-                    {
-                        if (!StoryData.StoryList[index].Start_Flag)
-                        {
-                            LoadingManager.LoadScene("Story");
-                            StoryData.StoryList[index].ChangeFlag(true);
-                        }
-                        else
-                        {
-                            LoadingManager.LoadScene("GamePlay_Tutorial");
-                        }
-                    }
-                    else
-                    {
-                        if (!StoryData.StoryList[index].Start_Flag)
-                        {
-                            LoadingManager.LoadScene("Story");
-                            StoryData.StoryList[index].ChangeFlag(true);
-                        }
-                        else
-                        {
-                            LoadingManager.LoadScene("Station");
-                        }
-                    }*/
         }
         else if (gameData.Information_Scene[PlayerData.New_Stage].BeforeStation_Button.Equals("CutScene"))
         {
             int index = gameData.Information_Scene[PlayerData.New_Stage].BeforeStation_StoryIndex;
-            
+
             if (!DataManager.Instance.playerData.FirstFlag) //튜토리얼 진행 전.
             {
                 if (!StoryData.StoryList[index].Start_Flag) // 스토리 진행 전,
@@ -183,6 +164,10 @@ public class GameManager : MonoBehaviour
             {
                 LoadingManager.LoadScene("Station");
             }
+        }
+        else if (gameData.Information_Scene[PlayerData.New_Stage].BeforeStation_Button.Equals("Demo_End"))
+        {
+            LoadingManager.LoadScene("Demo_End");
         }
         else
         {

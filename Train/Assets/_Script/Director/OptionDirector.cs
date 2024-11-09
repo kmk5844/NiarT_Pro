@@ -183,7 +183,7 @@ public class OptionDirector : MonoBehaviour
 
     bool CheckMinimumResolution(int width)
     {
-        if (width >= 1024)
+        if (width >= 1280)
         {
             return true;
         }
@@ -194,6 +194,8 @@ public class OptionDirector : MonoBehaviour
     bool Check16To9Ratio(int width, int height)
     {
         float aspectRatio = (float)width / height;
-        return Mathf.Approximately(aspectRatio, 16.0f / 9.0f);
+        float targetRatio = 16.0f / 9.0f;
+        float tolerance = 0.19f;  // 허용 오차 범위 설정
+        return Mathf.Abs(aspectRatio - targetRatio) < tolerance;
     }
 }

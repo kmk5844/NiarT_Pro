@@ -48,7 +48,7 @@ public class TutorialDirector : MonoBehaviour
     {
         for (int i = 0; i < Tutorial_Flag.Count; i++)
         {
-            GameObject gm = Instantiate(Tutorial_Object[i], TutorialList);
+            GameObject gm = TutorialList.GetChild(i).gameObject;
             gm.GetComponent<Station_TutorialDirector>();
             if (!Tutorial_Flag[i])
             {

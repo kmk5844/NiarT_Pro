@@ -18,7 +18,7 @@ public class Arrow_Turret : Turret
     {
         base.Start();
         rotation_TurretFlag = true;
-        train_Rotation_Delay = 0.75f;
+        train_Rotation_Delay = 0.6f;
 
         BulletObject_Fire.name = "Fire_Arrow";
         Target_Flag = false;
