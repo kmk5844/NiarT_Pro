@@ -189,6 +189,12 @@ public class SA_PlayerData : ScriptableObject
         Save();
     }
 
+    public void SA_StoryUnEnd()
+    {
+        story_num--;
+        Save();
+    }
+
     public void SA_StoryNum_Chnage(int i)
     {
         story_num = i;

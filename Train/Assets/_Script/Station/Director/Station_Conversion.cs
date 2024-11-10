@@ -8,6 +8,9 @@ using UnityEngine.Localization.Components;
 
 public class Station_Conversion : MonoBehaviour
 {
+    [SerializeField]
+    private int RequireItemCount;
+
     [Header("데이터 관리")]
     public GameObject itemData_object; 
     Station_ItemData itemData;
@@ -57,6 +60,7 @@ public class Station_Conversion : MonoBehaviour
 
     private void Start()
     {
+        RequireItemCount = 5;
         AfterConversionFlag = false;
         itemData = itemData_object.GetComponent<Station_ItemData>();
         Convertion_Object = itemData.ConvertionMaterial_object;
@@ -235,7 +239,7 @@ public class Station_Conversion : MonoBehaviour
 
     private void Check_Button()
     {
-        if (Convertion_Object.Item_Count >= 10 * convertCount)
+        if (Convertion_Object.Item_Count >= RequireItemCount * convertCount)
         {
             if(Material_ToggleNum_ItemObject1 == null)
             {
@@ -300,7 +304,7 @@ public class Station_Conversion : MonoBehaviour
 
     private void Button_Convert()
     {
-        Convertion_Object.Item_Count_Down(10 * convertCount);
+        Convertion_Object.Item_Count_Down(RequireItemCount * convertCount);
         Material_ToggleNum_ItemObject1.Item_Count_Down(convertCount);
         Material_ToggleNum_ItemObject2.Item_Count_UP(convertCount);
 
