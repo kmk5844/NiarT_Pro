@@ -52,6 +52,10 @@ public class DataManager : MonoBehaviour
         turretData.Load();
         boosterData.Load();
         mercenaryData.Load();
+
+        stageData.PlayGame_StageList_Load();
+        storyData.PlayGame_StoryList_Load();
+
         localData.Load();
         PlayerItem_Data.Load();
     }

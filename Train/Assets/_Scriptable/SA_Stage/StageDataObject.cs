@@ -224,18 +224,18 @@ public class StageDataObject : ScriptableObject
 
     public void Save()
     {
-        ES3.Save(name + "_stage_openflag", stage_openflag);
-        ES3.Save(name + "_player_firstplay", player_firstplay);
-        ES3.Save(name + "_player_score", player_score);
-        ES3.Save(name + "_player_grade", player_grade);
+        ES3.Save("Stage_" + stage_num + "_stage_openflag", stage_openflag);
+        ES3.Save("Stage_" + stage_num + "_player_firstplay", player_firstplay);
+        ES3.Save("Stage_" + stage_num + "_player_score", player_score);
+        ES3.Save("Stage_" + stage_num + "_player_grade", player_grade);
     }
 
     public void Load()
     {
-        player_firstplay = ES3.Load(name + "_stage_openflag", player_firstplay);
-        player_score = ES3.Load(name + "_stage_openflag", player_score);
-        player_grade = ES3.Load(name + "_stage_openflag", player_grade);
-        stage_openflag = ES3.Load(name + "_stage_openflag", stage_openflag);
+        stage_openflag = ES3.Load("Stage_" + stage_num + "_stage_openflag", stage_openflag);
+        player_firstplay = ES3.Load("Stage_" + stage_num + "_player_firstplay", player_firstplay);
+        player_score = ES3.Load("Stage_" + stage_num + "_player_score", player_score);
+        player_grade = ES3.Load("Stage_" + stage_num + "_player_grade", player_grade);
     }
 
     public void Init()

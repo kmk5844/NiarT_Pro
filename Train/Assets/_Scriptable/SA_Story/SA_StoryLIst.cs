@@ -26,6 +26,14 @@ public class SA_StoryLIst : ScriptableObject
         }
     }
 
+    public void PlayGame_StoryList_Load()
+    {
+        for (int i = 0; i < storylist.Count; i++)
+        {
+            storylist[i].Load();
+        }
+    }
+
     public void StoryList_InsertObject(StoryDataObject newobject)
     {
         storylist.Add(newobject);

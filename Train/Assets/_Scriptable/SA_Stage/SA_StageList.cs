@@ -24,6 +24,14 @@ public class SA_StageList : ScriptableObject
         }
     }
 
+    public void PlayGame_StageList_Load()
+    {
+        for(int i = 0; i < stage.Count;i++)
+        {
+            stage[i].Load();
+        }
+    }
+
     public void StageList_InsterObject(StageDataObject newobject)
     {
         stage.Add(newobject);

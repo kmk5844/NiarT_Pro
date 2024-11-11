@@ -136,11 +136,6 @@ public class Station_Inventory : MonoBehaviour
         Item_UseItem_WindowObject.SetActive(true);
         switch (item.Num)
         {
-/*            case 53:
-                UI_UseItem_Num = 0;
-                Item_UseItem_WindowObject_List[0].SetActive(true);
-                useItem = item;
-                break;*/
             case 54:
             case 55:
             case 56:
@@ -174,7 +169,7 @@ public class Station_Inventory : MonoBehaviour
             case 54:
             case 55:
             case 56:
-                UI_UseItem_Num = 4;
+                UI_UseItem_Num = 3;
                 Item_UseItem_WindowObject_List[2].SetActive(true);
                 Item_UseItem_WindowObject_List[2].GetComponent<ItemUse_Window_Box_All>().Random_Box_All_Open(item.Num, item.Item_Count, gameObject);
                 item.Item_Count_Down(item.Item_Count);
@@ -266,6 +261,7 @@ public class Station_Inventory : MonoBehaviour
     public void UseItemWindow_BackButton()
     {
         UseItemWindowFlag = false;
+        Debug.Log(UI_UseItem_Num);
         switch (UI_UseItem_Num)
         {
 /*            case 0:
@@ -273,15 +269,19 @@ public class Station_Inventory : MonoBehaviour
                 Item_UseItem_WindowObject_List[0].SetActive(false);
 
                 break;*/
-            case 0:
+            case 0: // 박스 한개
                 Item_UseItem_WindowObject.SetActive(false);
                 Item_UseItem_WindowObject_List[0].SetActive(false);
                 break;
-            case 1:
+            case 1: // 스킬북 한개
                 Item_UseItem_WindowObject.SetActive(false);
                 Item_UseItem_WindowObject_List[1].SetActive(false);
                 break;
-            case 4:
+            case 2: // 스킬북 여러개
+                Item_UseItem_WindowObject.SetActive(false);
+                Item_UseItem_WindowObject_List[1].SetActive(false);
+                break;
+            case 3: // 박스 여러개
                 Item_UseItem_WindowObject.SetActive(false);
                 Item_UseItem_WindowObject_List[2].SetActive(false);
                 Item_UseItem_WindowObject_List[2].GetComponent<ItemUse_Window_Box_All>().Item_BoxAll_Init();
