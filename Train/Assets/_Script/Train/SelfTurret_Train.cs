@@ -116,8 +116,6 @@ public class SelfTurret_Train : MonoBehaviour
                 {
                     isMouseDown = false;
                 }
-
-
             }
             else
             {

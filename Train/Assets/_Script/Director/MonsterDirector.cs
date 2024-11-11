@@ -81,7 +81,6 @@ public class MonsterDirector : MonoBehaviour
         GameDirector_BossFlag = false;
         GameDirector_Boss_SpawnFlag = false;
         Item_curseFlag = false;
-
     }
     // Start is called before the first frame update
     void Start()
@@ -167,7 +166,7 @@ public class MonsterDirector : MonoBehaviour
         isSpawing = true;
         if (!Bossflag)
         {
-            yield return new WaitForSeconds(Random.Range(0.8f, 1.1f));
+            yield return new WaitForSeconds(Random.Range(0.5f, 0.8f));
             int MonsterRandomIndex = Random.Range(0, Emerging_Monster_List.Count);
             if (Test_Monster_List[MonsterRandomIndex].childCount != Emerging_MonsterCount_List[MonsterRandomIndex])
             {
@@ -176,7 +175,7 @@ public class MonsterDirector : MonoBehaviour
         }
         else
         {
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1f);
             Check_Sky_OR_Ground_Monster(Emerging_Boss_List[BossCount], Bossflag);
         }
         isSpawing = false;
@@ -185,7 +184,7 @@ public class MonsterDirector : MonoBehaviour
     IEnumerator AppearSupplyMonster() 
     {
         isSupplySpawing = true;
-        yield return new WaitForSeconds(Random.Range(10f, 15f));
+        yield return new WaitForSeconds(Random.Range(7f, 9f));
         Random_xPos = Random.Range(MinPos_Sky.x, MaxPos_Sky.x);
         Random_yPos = Random.Range(MinPos_Sky.y, MaxPos_Sky.y);
         if (GameDirector_SpawnFlag == true)

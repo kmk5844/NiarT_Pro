@@ -15,7 +15,7 @@ public class Auto_Turret : Turret
         base.Start();
 
         rotation_TurretFlag = true;
-        train_Rotation_Delay = 0.6f;
+        train_Rotation_Delay = 2f;
 
         Target_Flag = false;
         BulletObject.GetComponent<Bullet>().atk = trainData.Train_Attack;

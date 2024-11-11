@@ -62,7 +62,14 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            DataManager.Instance.Load();
+            if (!ES3.KeyExists("SA_PlayerData_Data_FirstFlag"))
+            {
+                DataManager.Instance.Init();
+            }
+            else
+            {
+                DataManager.Instance.Load();
+            }
         }
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[LocalData.Local_Index];
     }
@@ -202,7 +209,7 @@ public class GameManager : MonoBehaviour
 
     public void Story_End()
     {
-        int index = StoryData.StoryList.FindIndex(x => x.Story_Num == PlayerData.New_Stage);
+        int index = StoryData.StoryList.FindIndex(x => x.Story_Num == PlayerData.Story_Num);
         if (index != -1 && !StoryData.StoryList[index].End_Flag)
         {
             LoadingManager.LoadScene(storyData.Story_Branch[index].Story_End);

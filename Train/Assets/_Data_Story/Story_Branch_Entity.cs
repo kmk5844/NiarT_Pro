@@ -9,4 +9,7 @@ public class Story_Branch_Entity
     public string Story_Title_Kr;
     public string Story_Title_En;
     public string Story_Title_Jp;
+    public string Story_Sub_Kr;
+    public string Story_Sub_En;
+    public string Story_Sub_Jp;
 }

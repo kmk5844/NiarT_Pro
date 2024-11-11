@@ -207,12 +207,11 @@ public class GameDirector : MonoBehaviour
         }
         CameraConfiler.points = newPoint;
 
-        RandomStartTime = Random.Range(6f, 8f);
+        RandomStartTime = Random.Range(8f, 10f);
         BossCount = 0;
         lastSpeedTime = 0;
         distance_lastSpeedTime = 0;
-        timeBet = 0.1f - (EnginePower * 0.001f); //엔진 파워에 따라 결정
-        //Debug.Log(timeBet);
+        timeBet = 0.1f - (EnginePower * 0.002f); //엔진 파워에 따라 결정
         TrainSpeedUP = 1;
         distance_time = 0.1f;
         ChangeCursor(true);
@@ -428,7 +427,7 @@ public class GameDirector : MonoBehaviour
                 StartCoroutine(uiDirector.GameClear());
             }
 
-            if (Time.time >= lastSpeedTime + 0.03f)
+            if (Time.time >= lastSpeedTime + 0.025f)
             {
                 if (TrainSpeed > 0)
                 {
@@ -973,20 +972,34 @@ public class GameDirector : MonoBehaviour
 
         if (flag)
         {
-        float fac = 0.001f;
-            while (Station_Object.transform.localPosition.x > -36f)
+            float fac = 11f;
+            while (Station_Object.transform.localPosition.x > TargetX)
             {
-                Speed = Time.deltaTime * fac + (TrainSpeed / 5000f);
+                if(Time.timeScale != 0)
+                {
+                    Speed = Time.deltaTime * fac + (TrainSpeed / 1000f);
+                }
+                else
+                {
+                    Speed = 0;
+                }
                 Station_Object.transform.localPosition = new Vector2(Station_Object.transform.localPosition.x - Speed, Station_Object.transform.localPosition.y);
                 yield return null;
             }
         }
         else
         {
-        float fac = 0.6f;
-            while (Station_Object.transform.localPosition.x > 6f)
+            float fac = 10f;
+            while (Station_Object.transform.localPosition.x > TargetX)
             {
-                Speed = Time.deltaTime * fac + (TrainSpeed / 4000f);
+                if (Time.timeScale != 0)
+                {
+                    Speed = Time.deltaTime * fac + (TrainSpeed / 1000f);
+                }
+                else
+                {
+                    Speed = 0;
+                }
                 Station_Object.transform.localPosition = new Vector2(Station_Object.transform.localPosition.x - Speed, Station_Object.transform.localPosition.y);
                 yield return null;
             }

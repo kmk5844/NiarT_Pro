@@ -88,14 +88,18 @@ public class StoryDirector : MonoBehaviour
         {
             //영어
             Stage_Title.text = EX_StoryData.Story_Branch[index].Story_Title_En;
+            Stage_Num.text = EX_StoryData.Story_Branch[index].Story_Sub_En;
         }
         else if (sa_localdata.Local_Index == 1)
         {
             Stage_Title.text = EX_StoryData.Story_Branch[index].Story_Title_Kr  ;
+            Stage_Num.text = EX_StoryData.Story_Branch[index].Story_Sub_Kr;
             //한글
-        }else if (sa_localdata.Local_Index == 2)
+        }
+        else if (sa_localdata.Local_Index == 2)
         {
             Stage_Title.text = EX_StoryData.Story_Branch[index].Story_Title_Jp;
+            Stage_Num.text = EX_StoryData.Story_Branch[index].Story_Sub_Jp;
             //일본어
         }
         //Stage_Num.text = "Story " + EX_StoryData.Story_Branch[index].Story_Title_Num;

@@ -22,7 +22,6 @@ public class CutSceneDirector : MonoBehaviour
     int i;
     private void Start()
     {
-        Cursor.visible = false;
         i = 0;
         text.StringReference.TableReference = "CutScene_St";
         MMSoundManagerSoundPlayEvent.Trigger(CutSceneBGM, MMSoundManager.MMSoundManagerTracks.Music, transform.position);
@@ -46,7 +45,6 @@ public class CutSceneDirector : MonoBehaviour
 
     public void EndCutScene()
     {
-        Cursor.visible = true;
         DataManager.Instance.playerData.SA_StoryNum_Chnage(0);
         SceneManager.LoadScene("Story");
         DataManager.Instance.storyData.StoryList[0].ChangeFlag(true);
