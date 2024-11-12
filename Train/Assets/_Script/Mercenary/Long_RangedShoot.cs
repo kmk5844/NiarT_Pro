@@ -44,7 +44,7 @@ public class Long_RangedShoot : MonoBehaviour
             if (Target_Flag)
             {
                 Vector3 rot = Target.position - transform.position;
-                float rotZ = Mathf.Atan2(rot.y, rot.x) * Mathf.Rad2Deg;
+                float rotZ = Mathf.Atan2(rot.y + 0.1f, rot.x) * Mathf.Rad2Deg;
 
                 if (rotZ >= -90 && rotZ <= 90)
                 {
@@ -58,11 +58,11 @@ public class Long_RangedShoot : MonoBehaviour
 
                 if (Quaternion.Euler(0, 0, rotZ).eulerAngles.z - transform.rotation.eulerAngles.z > 0.5f)
                 {
-                    transform.Rotate(new Vector3(0, 0, 0.7f));
+                    transform.Rotate(new Vector3(0, 0, 3f));
                 }
                 else if (Quaternion.Euler(0, 0, rotZ).eulerAngles.z - transform.rotation.eulerAngles.z < -0.5f)
                 {
-                    transform.Rotate(new Vector3(0, 0, -0.7f));
+                    transform.Rotate(new Vector3(0, 0, -3f));
                 }
                 else
                 {

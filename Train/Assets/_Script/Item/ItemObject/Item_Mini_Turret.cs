@@ -18,8 +18,8 @@ public class Item_Mini_Turret : MonoBehaviour
     void Start()
     {
         Target_Flag = false;
-        BulletObject.GetComponent<Bullet>().atk = 5;
-        train_Attack_Delay = 0.35f;
+        BulletObject.GetComponent<Bullet>().atk = 10;
+        train_Attack_Delay = 0.3f;
         BulletList = GameObject.Find("Bullet_List").transform;
         lastTime = 0;
         if (!Default_Turret)
@@ -42,7 +42,7 @@ public class Item_Mini_Turret : MonoBehaviour
         if (Target_Flag)
         {
             Vector3 rot = Target.position - transform.position;
-            float rotZ = Mathf.Atan2(rot.y + 0.5f, rot.x) * Mathf.Rad2Deg;
+            float rotZ = Mathf.Atan2(rot.y + 0.2f, rot.x) * Mathf.Rad2Deg;
             Z = Quaternion.Euler(0, 0, rotZ).eulerAngles.z - transform.rotation.eulerAngles.z;
 
             if (Z > 180f)
@@ -56,11 +56,11 @@ public class Item_Mini_Turret : MonoBehaviour
 
             if (Z > 1)
             {
-                transform.Rotate(new Vector3(0, 0, 0.75f));
+                transform.Rotate(new Vector3(0, 0, 2f));
             }
             else if (Z < -1)
             {
-                transform.Rotate(new Vector3(0, 0, -0.75f));
+                transform.Rotate(new Vector3(0, 0, -2f));
             }
             else
             {
