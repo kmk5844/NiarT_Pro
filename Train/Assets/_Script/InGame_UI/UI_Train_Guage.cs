@@ -53,7 +53,7 @@ public class UI_Train_Guage : MonoBehaviour
             supply = Train_Data.GetComponentInChildren<Supply_Train>();
         }
 
-        int level = Train_Data.UI_Level;
+        int level = Train_Data.CheckLevel();
         LevelImage.sprite = Level[level];
     }
 

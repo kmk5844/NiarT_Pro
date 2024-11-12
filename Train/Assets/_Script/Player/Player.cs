@@ -595,7 +595,11 @@ public class Player : MonoBehaviour
 
     void Respawn()
     {
-        Player_HP -= (((Player_HP * 10) / 100) + 50);
+        if(gamedirector.gameType != GameType.Ending)
+        {
+            Player_HP -= (((Player_HP * 10) / 100) + 50);
+        }
+
         if (transform.position.x > 0)
         {
             transform.position = new Vector3(maxRespawnPosition.x, 1, 0);
@@ -893,7 +897,7 @@ public class Player : MonoBehaviour
                 GunIndex = 2;
                 GunObject_List[GunIndex].SetActive(true);
                 Bullet_Fire_Transform = GunObject_List[GunIndex].GetComponent<Transform>().GetChild(0);
-                Bullet_Atk = 10;
+                Bullet_Atk = 15;
                 Bullet_Delay = 0.1f;
                 Item_Gun_TimeFlag = true;
                 Item_Gun_ClickTime = 0f;
@@ -904,7 +908,7 @@ public class Player : MonoBehaviour
                 GunObject_List[GunIndex].SetActive(true);
                 Bullet_Fire_Transform = GunObject_List[GunIndex].GetComponent<Transform>().GetChild(0);
                 playerBullet = Resources.Load<GameObject>("Bullet/Player/Special/Missile_Player_Bullet");
-                Bullet_Atk = 35;
+                Bullet_Atk = 60;
                 Item_Gun_CountFlag = true;
                 Item_Gun_ClickCount = 0;
                 Item_Gun_Max_ClickCount = max;
@@ -913,7 +917,7 @@ public class Player : MonoBehaviour
                 GunIndex = 4;
                 GunObject_List[GunIndex].SetActive(true);
                 Item_GunSpecial_Bullet = GunObject_List[GunIndex].GetComponent<Transform>().GetChild(0).gameObject;
-                Item_GunSpecial_Bullet.GetComponent<Bullet>().atk = 8;
+                Item_GunSpecial_Bullet.GetComponent<Bullet>().atk = 40;
                 Item_Gun_TimeFlag = true;
                 Item_Gun_ClickTime = 0f;
                 Item_Gun_Max_ClickTime = max;
@@ -922,7 +926,7 @@ public class Player : MonoBehaviour
                 GunIndex = 5;
                 GunObject_List[GunIndex].SetActive(true);
                 Item_GunSpecial_Bullet = GunObject_List[GunIndex].GetComponent<Transform>().GetChild(0).gameObject;
-                Item_GunSpecial_Bullet.GetComponent<Bullet>().atk = 10;
+                Item_GunSpecial_Bullet.GetComponent<Bullet>().atk = 70;
                 Item_Gun_TimeFlag = true;
                 Item_Gun_ClickTime = 0f;
                 Item_Gun_Max_ClickTime = max;
