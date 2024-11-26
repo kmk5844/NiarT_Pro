@@ -1,8 +1,6 @@
 using MoreMountains.Tools;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class GamePlay_Tutorial_Director : MonoBehaviour
 {
@@ -66,7 +64,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
         Fuel = 60000;
         Max_Fuel = Fuel;
         Max_Speed = 280;
-        max_distance = 13;
+        max_distance = 10;
 
         cursorAim_UnAtk = Resources.Load<Texture2D>("Cursor/Aim6464_UnAttack");
         cursorAim_Atk = Resources.Load<Texture2D>("Cursor/Aim6464_Attack");
@@ -155,7 +153,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
                     if (!ClearFlag)
                     {
                         distance++;//1
-                        StartCoroutine(Clear(Tutorial_List.T_Move));
+                        StartCoroutine(Clear(Tutorial_List.T_Fire_Kill));
                         ClearFlag = true;
                     }
                     //T_Flag = true;
@@ -192,6 +190,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
             {
                 if (T_Flag)
                 {
+                    player.T_MoveFlag = true;
                     player.T_JumpFlag = true;
                     T_Flag = false;
                 }
@@ -213,6 +212,8 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
                 {
                     aimFlag = true;
                     ChangeCursor(true);
+                    player.T_MoveFlag = true;
+                    player.T_JumpFlag = true;
                     player.T_FireFlag = true;
                     T_Flag = false;
                 }
@@ -232,6 +233,11 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
             {
                 if (T_Flag)
                 {
+                    aimFlag = true;
+                    ChangeCursor(true);
+                    player.T_MoveFlag = true;
+                    player.T_JumpFlag = true;
+                    player.T_FireFlag = true;
                     scarecrow_ground = Instantiate(ScarecrowObject_Ground);
                     T_Flag = false;
                 }

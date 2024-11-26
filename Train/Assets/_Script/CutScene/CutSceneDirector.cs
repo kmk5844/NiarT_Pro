@@ -29,11 +29,9 @@ public class CutSceneDirector : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown("]"))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            DataManager.Instance.playerData.SA_StoryNum_Chnage(0);
-            SceneManager.LoadScene("Story");
-            DataManager.Instance.storyData.StoryList[0].ChangeFlag(true);
+            End();
         }
     }
 
@@ -44,6 +42,10 @@ public class CutSceneDirector : MonoBehaviour
     }
 
     public void EndCutScene()
+    {
+        End();
+    }
+    void End()
     {
         DataManager.Instance.playerData.SA_StoryNum_Chnage(0);
         SceneManager.LoadScene("Story");
