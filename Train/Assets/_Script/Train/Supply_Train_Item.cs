@@ -38,7 +38,7 @@ public class Supply_Train_Item : MonoBehaviour
         {
             if(transform.position.y > SupplyItem_Position.y)
             {
-                transform.Translate(2.5f * Vector2.down * Time.deltaTime);
+                transform.Translate(7f * Vector2.down * Time.deltaTime);
             }
             else
             {

@@ -8,6 +8,7 @@ using UnityEngine.UIElements;
 
 public class Monster : MonoBehaviour
 {
+    Collider2D col;
     protected int Monster_Num;
     [Header("몬스터 게임타입")]
     [SerializeField]
@@ -97,6 +98,8 @@ public class Monster : MonoBehaviour
         mercenary_atk = 0;
         monster_xPos = 0;
         monster_gametype = Monster_GameType.SpwanStart;
+        col = GetComponent<Collider2D>();
+
         gameDirector = GameObject.Find("GameDirector").GetComponent<GameDirector>();
         HitDamage = Resources.Load<GameObject>("Monster/Hit_Text");
 
@@ -367,7 +370,7 @@ public class Monster : MonoBehaviour
 
     protected void Monster_Ending()
     {
-        if (Time.time > EndTime + End_Delay)
+       /* if (Time.time > EndTime + End_Delay)
         {
             if (!EndFlag)
             {
@@ -395,7 +398,7 @@ public class Monster : MonoBehaviour
         if (AfterImage_Particle.GetComponent<ParticleSystem>().isPlaying)
         {
             AfterImage_Particle.GetComponent<ParticleSystem>().Stop();
-        }
+        }*/
     }
 
     public void grapTrigger()
@@ -685,7 +688,8 @@ public class Monster : MonoBehaviour
         {
             MonsterDirector.MonsterNum -= 1;
         }
-        Destroy(gameObject);
+        col.enabled = false;
+        //Destroy(gameObject);
     }
 
     public int getMonsterAtk()

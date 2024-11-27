@@ -20,7 +20,6 @@ public class MonsterDirector : MonoBehaviour
     [SerializeField]
     Transform[] Test_Monster_List;
 
-
     public Transform Boss_List;
     List<int> Emerging_Monster_List;
     List<int> Emerging_MonsterCount_List;
@@ -42,13 +41,15 @@ public class MonsterDirector : MonoBehaviour
     public bool GameDirector_SpawnFlag;
     public bool GameDirector_BossFlag;
     public bool GameDirector_Boss_SpawnFlag;
+    //종료 시
+    public bool GameDirector_EndingFlag;
+    public bool GameDirecotr_AllDieFlag;
 
     bool isSpawing = false;
     bool isSupplySpawing = false;
 
     [Header("몬스터 한도 설정")]
     public int MaxMonsterNum;
-    [SerializeField]
     public static int MonsterNum;
     int SupplyMonsterNum;
     int item_MonsterCount;
@@ -80,6 +81,8 @@ public class MonsterDirector : MonoBehaviour
         GameDirector_SpawnFlag = false;
         GameDirector_BossFlag = false;
         GameDirector_Boss_SpawnFlag = false;
+        GameDirector_EndingFlag = false;
+        GameDirecotr_AllDieFlag = false;
         Item_curseFlag = false;
     }
     // Start is called before the first frame update
@@ -102,39 +105,56 @@ public class MonsterDirector : MonoBehaviour
     void Update()
     {
         //Debug.Log(MonsterNum);
-        if (GameDirector_SpawnFlag)
+        if (!GameDirector_EndingFlag)
         {
-            if (!GameDirector_BossFlag)
+            if (GameDirector_SpawnFlag)
             {
-                //MonsterNum = Monster_List.childCount;
-                if (MonsterNum < MaxMonsterNum + item_MonsterCount && !isSpawing)
+                if (!GameDirector_BossFlag)
                 {
-                    StartCoroutine(AppearMonster(false));
+                    //MonsterNum = Monster_List.childCount;
+                    if (MonsterNum < MaxMonsterNum + item_MonsterCount && !isSpawing)
+                    {
+                        StartCoroutine(AppearMonster(false));
+                    }
                 }
-            }
-            else
-            {
-                //MonsterNum = Monster_List.childCount;
-                if (MonsterNum < MaxMonsterNum && !isSpawing)
+                else
                 {
-                    StartCoroutine(AppearMonster(false));
+                    //MonsterNum = Monster_List.childCount;
+                    if (MonsterNum < MaxMonsterNum && !isSpawing)
+                    {
+                        StartCoroutine(AppearMonster(false));
+                    }
+
+                    if (!GameDirector_Boss_SpawnFlag)
+                    {
+                        StartCoroutine(AppearMonster(true));
+                        GameDirector_Boss_SpawnFlag = true;
+                    }
                 }
 
-                if (!GameDirector_Boss_SpawnFlag)
+                SupplyMonsterNum = SupplyMonster_List.childCount;
+                if (SupplyMonsterNum < 1 && !isSupplySpawing)
                 {
-                    StartCoroutine(AppearMonster(true));
-                    GameDirector_Boss_SpawnFlag = true;
+                    StartCoroutine(AppearSupplyMonster());
                 }
-            }
-
-            SupplyMonsterNum = SupplyMonster_List.childCount;
-            if(SupplyMonsterNum < 1 && !isSupplySpawing)
-            {
-                StartCoroutine(AppearSupplyMonster());
             }
         }
-
-
+        else
+        {
+            if (!GameDirector_SpawnFlag)
+            {
+                SupplyMonsterNum = SupplyMonster_List.childCount;
+                if(SupplyMonsterNum == 0 && MonsterNum <= 0)
+                {
+                    if (!GameDirecotr_AllDieFlag)
+                    {
+                        GameDirecotr_AllDieFlag = true;
+                    }
+                }
+            }
+            Debug.Log("monsterNum : " + MonsterNum);
+            Debug.Log("supply : " + SupplyMonsterNum);
+        }
 /*        if (GameDirector_SpawnFlag && !GameDirector_BossFlag)
         {
             MonsterNum = Monster_List.childCount;

@@ -46,7 +46,7 @@ public class Monster_13 : Monster
         Fire_Debuff();
         Check_ItemSpeedFlag();
 
-        if (monster_gametype == Monster_GameType.Fighting)
+        if (monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
         {
             if (!AttackFlag) {
                 Attack();
@@ -62,7 +62,7 @@ public class Monster_13 : Monster
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-        if(monster_gametype == Monster_GameType.Fighting)
+        if(monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
         {
             MonsterMove();
         }
@@ -122,12 +122,15 @@ public class Monster_13 : Monster
                 break;
             }
 
-            if(t >= 0.4f && !BulletFlag)
-            {
-                GameObject bullet = Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
-                bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, Bullet_Speed, 0);
-                StartCoroutine(BulletFire(bullet));
-                BulletFlag = true;
+            if (monster_gametype != Monster_GameType.GameEnding)
+            { 
+                if (t >= 0.4f && !BulletFlag)
+                {
+                    GameObject bullet = Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
+                    bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, Bullet_Speed, 0);
+                    StartCoroutine(BulletFire(bullet));
+                    BulletFlag = true;
+                }
             }
            
             Vector2 newPos;

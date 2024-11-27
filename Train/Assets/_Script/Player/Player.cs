@@ -162,7 +162,7 @@ public class Player : MonoBehaviour
     {
         gameDirectorType = gamedirector.gameType;
 
-        if (gameDirectorType == GameType.Starting ||  gameDirectorType == GameType.Playing || gameDirectorType == GameType.Boss)
+        if (gameDirectorType == GameType.Starting ||  gameDirectorType == GameType.Playing || gameDirectorType == GameType.Boss || gameDirectorType == GameType.Ending)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -188,7 +188,7 @@ public class Player : MonoBehaviour
                 gamedirector.ChangeCursor(true, false);
             }
         }
-        else if (gameDirectorType == GameType.Ending)
+        else if (gameDirectorType == GameType.GameEnd)
         {
             if (isMouseDown)
             {

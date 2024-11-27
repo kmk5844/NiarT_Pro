@@ -64,7 +64,7 @@ public class parallex : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (GameDirector.gameType == GameType.Playing ||GameDirector.gameType == GameType.Boss|| GameDirector.gameType == GameType.Ending)
+        if (GameDirector.gameType == GameType.Playing ||GameDirector.gameType == GameType.Boss || GameDirector.gameType == GameType.Ending)
         {
             for (int i = 0; i < backgrounds.Length; i++)
             {
@@ -72,7 +72,7 @@ public class parallex : MonoBehaviour
                 offset += (Time.deltaTime * speed + (GameDirector.TrainSpeed / 10000f));
                 mat[i].SetTextureOffset("_MainTex", new Vector2(offset, 0) * speed);
             }
-        }else if(GameDirector.gameType == GameType.Ending)
+        }/*else if()
         {
             float EndingSpeed = 0.1f;
             for (int i = 0; i < backgrounds.Length; i++)
@@ -81,10 +81,10 @@ public class parallex : MonoBehaviour
                 offset += (Time.deltaTime * speed + (GameDirector.TrainSpeed / 10000f));
                 mat[i].SetTextureOffset("_MainTex", new Vector2(offset, 0) * speed);
             }
-        }
+        }*/
     }
     private void FixedUpdate()
     {
-            transform.position = new Vector3(cam.position.x, transform.position.y, transform.position.z);
+        transform.position = new Vector3(cam.position.x, transform.position.y, transform.position.z);
     }
 }

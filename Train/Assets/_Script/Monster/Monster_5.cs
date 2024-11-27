@@ -76,10 +76,13 @@ public class Monster_5 : Monster
                     Egg_Object.transform.localScale.x + Bounce_value
                 );
 
-            if (Time.time > EgglastTime + DestroyTime)
+            if (monster_gametype != Monster_GameType.GameEnding)
             {
-                Instantiate(Baby_Spider_Object, transform.position, Quaternion.identity, MonsterList);
-                Destroy(gameObject);
+                if (Time.time > EgglastTime + DestroyTime)
+                {
+                    Instantiate(Baby_Spider_Object, transform.position, Quaternion.identity, MonsterList);
+                    Destroy(gameObject);
+                }
             }
         }
     }

@@ -63,7 +63,7 @@ public class Monster_3 : Monster
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-        if(monster_gametype == Monster_GameType.Fighting)
+        if(monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
         {
             MonsterMove();
         }

@@ -39,14 +39,17 @@ public class Monster_8 : Monster
         {
             isBulletFlag = true;
             BulletObject.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, Bullet_Speed, 0);
-            BulletObject.GetComponent<Monster_Bullet_Angle>().SetAngle_And_Fire(30);
-            Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
-            BulletObject.GetComponent<Monster_Bullet_Angle>().SetAngle_And_Fire(10);
-            Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
-            BulletObject.GetComponent<Monster_Bullet_Angle>().SetAngle_And_Fire(-10);
-            Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
-            BulletObject.GetComponent<Monster_Bullet_Angle>().SetAngle_And_Fire(-30);
-            Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
+            if(monster_gametype != Monster_GameType.GameEnding)
+            {
+                BulletObject.GetComponent<Monster_Bullet_Angle>().SetAngle_And_Fire(30);
+                Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
+                BulletObject.GetComponent<Monster_Bullet_Angle>().SetAngle_And_Fire(10);
+                Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
+                BulletObject.GetComponent<Monster_Bullet_Angle>().SetAngle_And_Fire(-10);
+                Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
+                BulletObject.GetComponent<Monster_Bullet_Angle>().SetAngle_And_Fire(-30);
+                Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
+            }
             StartCoroutine(monsterDestory());
         }
 

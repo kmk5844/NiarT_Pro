@@ -75,7 +75,7 @@ public class Monster_9 : Monster
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-        if (monster_gametype == Monster_GameType.Fighting)
+        if (monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
         {
             if (!attackFlag)
             {
@@ -96,16 +96,18 @@ public class Monster_9 : Monster
 
     void _BulletFire()
     {
-        for (int i = 0; i < Random_BulletCount; i++)
+        if(monster_gametype != Monster_GameType.GameEnding)
         {
-            GameObject bullet = BulletObject;
-            Bullet_Speed = Random.Range(15f, 25f);
-            float Bullet_Angle = Random.Range(180f, -180f);
-            bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, Bullet_Speed, xPos);
-            bullet.GetComponent<Monster_Bullet_Angle>().SetAngle_And_Fire(Bullet_Angle);
-            Instantiate(bullet, Fire_Zone.position, transform.rotation, monster_Bullet_List);
+            for (int i = 0; i < Random_BulletCount; i++)
+            {
+                GameObject bullet = BulletObject;
+                Bullet_Speed = Random.Range(15f, 25f);
+                float Bullet_Angle = Random.Range(180f, -180f);
+                bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, Bullet_Speed, xPos);
+                bullet.GetComponent<Monster_Bullet_Angle>().SetAngle_And_Fire(Bullet_Angle);
+                Instantiate(bullet, Fire_Zone.position, transform.rotation, monster_Bullet_List);
+            }
         }
-
         lastTime = Time.time;
         attackFlag = false;
     }

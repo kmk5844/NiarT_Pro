@@ -414,42 +414,53 @@ public class GameDirector : MonoBehaviour
         }
         else if (gameType == GameType.Ending)
         {
-            ChangeCursor(false);
+
             monsterDirector.GameDirector_SpawnFlag = false;
-            if (!Change_Win_BGM_Flag)
-            {
-                SoundSequce(WinBGM);
-                MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, TrainSFX_ID);
-                MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, TrainSFX_ID);
-                TrainSFX_ID += 1;
-                MMSoundManagerSoundPlayEvent.Trigger(TrainStopSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position, ID:TrainSFX_ID);
-                Change_Win_BGM_Flag = true;
-                StartCoroutine(uiDirector.GameClear());
-            }
 
-            if (Time.time >= lastSpeedTime + 0.025f)
+            if (!monsterDirector.GameDirector_EndingFlag)
             {
-                if (TrainSpeed > 0)
+                monsterDirector.GameDirector_EndingFlag = true;
+            }
+            else
+            {
+                if (monsterDirector.GameDirecotr_AllDieFlag)
                 {
-                    TrainSpeed -= TrainSpeedUP;
-                }
-                else
-                {
-                    TrainSpeed = 0;
-                }
-                lastSpeedTime = Time.time;
-            }
+                    if (!Change_Win_BGM_Flag)
+                    {
+                        SoundSequce(WinBGM);
+                        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, TrainSFX_ID);
+                        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, TrainSFX_ID);
+                        TrainSFX_ID += 1;
+                        MMSoundManagerSoundPlayEvent.Trigger(TrainStopSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position, ID: TrainSFX_ID);
+                        Change_Win_BGM_Flag = true;
+                        StartCoroutine(uiDirector.GameClear());
+                    }
 
-            if(TrainSpeed <= 75f && TrainSpeed > 73f && !isStationShowFlag)
-            {
-                isStationShowFlag = true;
-                StartCoroutine(Hide_And_Show_Station(false));
-            }
+                    if (Time.time >= lastSpeedTime + 0.025f)
+                    {
+                        if (TrainSpeed > 0)
+                        {
+                            TrainSpeed -= TrainSpeedUP;
+                        }
+                        else
+                        {
+                            TrainSpeed = 0;
+                        }
+                        lastSpeedTime = Time.time;
+                    }
 
-            if(TrainSpeed == 0)
-            {
-                gameType = GameType.GameEnd;
-                Game_Win();
+                    if (TrainSpeed <= 74f && TrainSpeed > 72f && !isStationShowFlag)
+                    {
+                        isStationShowFlag = true;
+                        StartCoroutine(Hide_And_Show_Station(false));
+                    }
+
+                    if (TrainSpeed == 0)
+                    {
+                        gameType = GameType.GameEnd;
+                        Game_Win();
+                    }
+                }
             }
         }
         else

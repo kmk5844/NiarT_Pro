@@ -50,7 +50,7 @@ public class Monster_7 : Monster
 
     protected override void FixedUpdate()
     {
-        if(monster_gametype == Monster_GameType.Fighting)
+        if(monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
         {
             if(moveType == Monster7_State.back)
             {
@@ -129,10 +129,13 @@ public class Monster_7 : Monster
             float xPos = Mathf.Lerp(jump_Pos.x, jumpAfter_Pos.x , t);
             float yPos = Mathf.Sin(Mathf.PI * t) * height + jump_Pos.y;
 
-            if(t>= 0.5f && !bulletFlag)
+            if(monster_gametype != Monster_GameType.GameEnding)
             {
-                bulletFlag = true;
-                BulletFire();
+                if(t>= 0.5f && !bulletFlag)
+                {
+                    bulletFlag = true;
+                    BulletFire();
+                }
             }
 
             transform.localPosition = new Vector2(xPos, yPos);

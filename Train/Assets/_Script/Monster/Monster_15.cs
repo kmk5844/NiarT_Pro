@@ -45,7 +45,7 @@ public class Monster_15 : Monster
 
         Check_ItemSpeedFlag();
 
-        if (monster_gametype == Monster_GameType.Fighting)
+        if (monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
         {
             if (xPos > 0)
             {
@@ -66,7 +66,7 @@ public class Monster_15 : Monster
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-        if (monster_gametype == Monster_GameType.Fighting)
+        if (monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
         {
             MonsterMove();
         }

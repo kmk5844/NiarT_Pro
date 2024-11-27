@@ -57,7 +57,7 @@ public class Monster_0 : Monster
     {
         base.FixedUpdate();
 
-        if (monster_gametype == Monster_GameType.Fighting)
+        if (monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
         {
             MonsterMove();
         }
