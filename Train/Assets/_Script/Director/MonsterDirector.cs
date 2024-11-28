@@ -152,8 +152,6 @@ public class MonsterDirector : MonoBehaviour
                     }
                 }
             }
-            Debug.Log("monsterNum : " + MonsterNum);
-            Debug.Log("supply : " + SupplyMonsterNum);
         }
 /*        if (GameDirector_SpawnFlag && !GameDirector_BossFlag)
         {

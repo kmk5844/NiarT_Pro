@@ -32,7 +32,7 @@ public class Monster_15 : Monster
 
         xPos = -1;
         Check_ItemSpeedSpawn();
-        StartCoroutine(SpawnMonster());
+        Monster_coroutine = StartCoroutine(SpawnMonster());
     }
 
     // Update is called once per frame
@@ -55,11 +55,6 @@ public class Monster_15 : Monster
             {
                 transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
-        }
-
-        if (monster_gametype == Monster_GameType.GameEnding)
-        {
-            Monster_Ending();
         }
     }
 
@@ -126,6 +121,7 @@ public class Monster_15 : Monster
         }
         transform.localPosition = MonsterDirector_Pos;
         monster_gametype = Monster_GameType.Fighting;
+        Monster_coroutine = null;
     }
 
     void Check_ItemSpeedFlag()

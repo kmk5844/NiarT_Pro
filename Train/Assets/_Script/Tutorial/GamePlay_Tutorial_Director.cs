@@ -467,7 +467,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
 
                 if(player.PlayerHP > 0)
                 {
-                    float damagePerSecond = 1000f;
+                    float damagePerSecond = 1200f;
                     player.PlayerHP -= (int)(damagePerSecond * Time.deltaTime);
                 }
                 else
@@ -479,11 +479,15 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
                     }
                     if (speed > 0)
                     {
-                    
-                        speed -= (Time.deltaTime * 100f);
+                        speed -= (Time.deltaTime * 120f);
                     }
                     else
                     {
+                        if(speed != 0)
+                        {
+                            speed = 0;
+                        }
+                          
                         if (!ClearFlag)
                         {
                             distance++;//13

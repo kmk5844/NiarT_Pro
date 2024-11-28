@@ -47,11 +47,6 @@ public class Monster_6 : Monster
         {
             BulletFire();
         }
-
-        if (monster_gametype == Monster_GameType.GameEnding)
-        {
-            Monster_Ending();
-        }
     }
 
     protected override void FixedUpdate()
@@ -107,11 +102,6 @@ public class Monster_6 : Monster
                     jumpTime = 0f;
                 }
             }*/
-        }
-
-        if(monster_gametype == Monster_GameType.GameEnding)
-        {
-            Monster_Ending();
         }
     }
 

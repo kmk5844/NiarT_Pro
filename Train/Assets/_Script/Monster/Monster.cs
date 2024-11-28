@@ -12,7 +12,7 @@ public class Monster : MonoBehaviour
     protected int Monster_Num;
     [Header("몬스터 게임타입")]
     [SerializeField]
-    protected Monster_GameType monster_gametype;
+    public Monster_GameType monster_gametype;
     [Header("데이터 모음")]
     public Game_DataTable EX_GameData;
 
@@ -27,6 +27,7 @@ public class Monster : MonoBehaviour
     protected int Monster_Coin;
     [SerializeField]
     protected bool Monster_CountFlag;
+    protected Coroutine Monster_coroutine;
 
     public string Monster_Type;
     protected Vector2 MonsterDirector_Pos; //몬스터 디렉터에게 받고 지정된 위치
@@ -45,13 +46,13 @@ public class Monster : MonoBehaviour
     protected Transform Fire_Zone;
 
     GameObject HitDamage;
-    [Header("서서히 사라지는 스프라이트")]
-    public List<SpriteRenderer> sprite_List;
 
     [Header("잔상")]
     public GameObject AfterImage_Particle;
     protected float AfterImage_Particle_LocalScale_X;
     protected float AfterImage_Particle_LocalScale_Y;
+
+    GameObject Monster_Kill_Particle;
 
     protected GameObject player; //플레이어 위치에 따라 플립하는 경우.
     protected GameDirector gameDirector; // 리워드 접수해야함.
@@ -59,7 +60,6 @@ public class Monster : MonoBehaviour
     protected float EndTime;
     protected bool EndFlag;
     protected bool DestoryFlag;
-    float End_Delay;
 
     float raser_hit_time;
     float fire_hit_time;
@@ -89,7 +89,6 @@ public class Monster : MonoBehaviour
     float default_LocalScale_Z;
 
     public GameObject StunEffect;
-
     public float monster_xPos;
 
     protected virtual void Start()
@@ -102,6 +101,7 @@ public class Monster : MonoBehaviour
 
         gameDirector = GameObject.Find("GameDirector").GetComponent<GameDirector>();
         HitDamage = Resources.Load<GameObject>("Monster/Hit_Text");
+        Monster_Kill_Particle = Resources.Load<GameObject>("Monster/Monster_Kill_Effect");
 
         Monster_Name = EX_GameData.Information_Monster[Monster_Num].Monster_Name;
         Monster_HP = EX_GameData.Information_Monster[Monster_Num].Monster_HP;
@@ -124,28 +124,8 @@ public class Monster : MonoBehaviour
         AfterImage_Particle_LocalScale_Y = AfterImage_Particle.transform.localScale.y;
 
         player = GameObject.FindGameObjectWithTag("Player");
-        End_Delay = Random.Range(0f, 1.5f);
         EndFlag = false;
         DestoryFlag = false;
-        if (GetComponent<SpriteRenderer>() != null)
-        {
-            sprite_List.Add(GetComponent<SpriteRenderer>());
-        }
-        else
-        {
-            sprite_List.Add(GetComponentInChildren<SpriteRenderer>());
-        }
-
-        if (transform.childCount != 0)
-        {
-            for (int i = 0; i < transform.childCount; i++)
-            {
-                if(transform.GetChild(i).GetComponent<SpriteRenderer>() != null)
-                {
-                    sprite_List.Add(transform.GetChild(i).GetComponent<SpriteRenderer>());
-                }
-            }
-        }
 
         default_LocalScale_X = transform.localScale.x;
         default_LocalScale_Y = transform.localScale.y;
@@ -367,40 +347,6 @@ public class Monster : MonoBehaviour
             }
         }
     }
-
-    protected void Monster_Ending()
-    {
-       /* if (Time.time > EndTime + End_Delay)
-        {
-            if (!EndFlag)
-            {
-                EndFlag = true;
-                gameObject.tag = "Finish";
-                EndTime = Time.time;
-            }
-
-            float elapsedTime = Time.time - EndTime;
-            float alphaPercent = Mathf.Clamp01(elapsedTime / 2f);
-
-            foreach (SpriteRenderer sprite in sprite_List)
-            {
-                sprite.color = new Color(1, 1, 1, 1 - alphaPercent);
-                sprite.material.SetFloat("_OutlineAlpha", 1 - alphaPercent);
-            }
-
-            if (elapsedTime >= 1f && !!DestoryFlag)
-            {
-                DestoryFlag = true;
-                Destroy(gameObject);
-            }
-        }
-
-        if (AfterImage_Particle.GetComponent<ParticleSystem>().isPlaying)
-        {
-            AfterImage_Particle.GetComponent<ParticleSystem>().Stop();
-        }*/
-    }
-
     public void grapTrigger()
     {
         monster_gametype = Monster_GameType.CowBoy_Debuff;
@@ -682,14 +628,75 @@ public class Monster : MonoBehaviour
 
     public void MonsterDie()
     {
+        Monster_HP = 0;
+        monster_gametype = Monster_GameType.Die;
         gameDirector.Game_Monster_Kill(Monster_Score, Monster_Coin);
-
+        Instantiate(Monster_Kill_Particle, transform.localPosition, Quaternion.identity);
         if (Monster_CountFlag)
         {
             MonsterDirector.MonsterNum -= 1;
         }
         col.enabled = false;
-        //Destroy(gameObject);
+        start_DieCoroutine();
+    }
+
+    void start_DieCoroutine()
+    {
+        if(Monster_coroutine != null)
+        {
+            StopCoroutine(Monster_coroutine);
+        }
+
+        if (Monster_Type == "Sky")
+        {
+            StartCoroutine(DieCorutine(true));
+        }
+        else if (Monster_Type == "Ground")
+        {
+            StartCoroutine(DieCorutine(false));
+        }
+    }
+
+    IEnumerator DieCorutine(bool type)
+    {
+        float elapsedTime = 0;
+        float PosX = transform.localPosition.x;
+        float PosY = transform.localPosition.y;
+
+        if (type) //하늘
+        {
+            float duration = 0.8f;
+
+            while (elapsedTime < duration)
+            {
+                elapsedTime += Time.deltaTime;
+                float t = Mathf.Clamp01(elapsedTime / duration);
+
+                float xPos = Mathf.Lerp(PosX, PosX  - 20f, t);
+                float yPos = Mathf.Sin(Mathf.PI * t) + Mathf.Lerp(PosY, MonsterDirector.MinPos_Ground.y -5f, t);
+                transform.localPosition = new Vector2(xPos, yPos);
+                yield return null;
+            }
+        }
+        else // 땅
+        {
+            float duration = 0.6f;
+            while (elapsedTime < duration)
+            {
+                elapsedTime += Time.deltaTime;
+                float t = Mathf.Clamp01(elapsedTime / duration);
+
+                float xPos = Mathf.Lerp(PosX, PosX - 1f, t);
+                float yPos = Mathf.Sin(Mathf.PI * t) * 3 + Mathf.Lerp(PosY, MonsterDirector.MinPos_Ground.y - 5f, t);
+                float zRot = Mathf.Lerp(0, 20, t);
+                transform.localPosition = new Vector2(xPos, yPos);
+                transform.localRotation = Quaternion.Euler(0, 0, zRot);  
+
+                yield return null;
+            }
+        }
+        yield return new WaitForSeconds(0.1f);
+        Destroy(gameObject);
     }
 
     public int getMonsterAtk()
@@ -709,5 +716,5 @@ public enum Monster_GameType{
     CowBoy_Debuff,
     Stun_Bullet_Debuff,
     Die,
-    GameEnding,
+    GameEnding, // 게임 마무리 할 때 필요함.
 }

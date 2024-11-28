@@ -32,7 +32,7 @@ public class Monster_7 : Monster
         speed = 5f; // 추후에 랜덤으로 바뀔 예정
 
         Check_ItemSpeedSpawn();
-        StartCoroutine(SpawnMonster());
+        Monster_coroutine = StartCoroutine(SpawnMonster());
     }
 
     protected override void Update()
@@ -41,11 +41,6 @@ public class Monster_7 : Monster
         Total_GameType();
         Fire_Debuff();
         Check_ItemSpeedFlag();
-
-        if (monster_gametype == Monster_GameType.GameEnding)
-        {
-            Monster_Ending();
-        }
     }
 
     protected override void FixedUpdate()
@@ -78,7 +73,7 @@ public class Monster_7 : Monster
                     jump_Pos = transform.localPosition;
                     moveType = Monster7_State.jump;
                     ani.SetTrigger("Jump_Ani");
-                    StartCoroutine(Jump());
+                    Monster_coroutine = StartCoroutine(Jump());
                 }
             }
 
@@ -113,6 +108,7 @@ public class Monster_7 : Monster
         }
         monster_gametype = Monster_GameType.Fighting;
         moveType = Monster7_State.back;
+        Monster_coroutine = null;
     }
 
     IEnumerator Jump()
@@ -152,6 +148,7 @@ public class Monster_7 : Monster
         }
 
         moveType = Monster7_State.back;
+        Monster_coroutine = null;
 
     }
 

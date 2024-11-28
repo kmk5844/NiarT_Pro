@@ -31,7 +31,7 @@ public class Monster_0 : Monster
 
         xPos = -1f;
         Check_ItemSpeedSpawn();
-        StartCoroutine(SpawnMonster());
+        Monster_coroutine = StartCoroutine(SpawnMonster());
     }
 
     protected override void Update()
@@ -45,11 +45,6 @@ public class Monster_0 : Monster
         {
             BulletFire();
             FlipMonster();
-        }
-        
-        if(monster_gametype == Monster_GameType.GameEnding)
-        {
-            Monster_Ending();
         }
     }
 
@@ -85,6 +80,7 @@ public class Monster_0 : Monster
         {
             monster_gametype = Monster_GameType.Fighting;
         }
+        Monster_coroutine = null;
     }
 
     void BulletFire()

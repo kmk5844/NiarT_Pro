@@ -116,7 +116,7 @@ public class Tutorial_UIDirector : MonoBehaviour
     {
         UI_Information_Click_Flag = false;
         Click_Text_object.SetActive(false);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         Click_Text_object.SetActive(true);
         UI_Information_Click_Flag = true;
     }

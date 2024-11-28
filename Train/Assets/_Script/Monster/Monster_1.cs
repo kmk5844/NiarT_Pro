@@ -14,8 +14,8 @@ public class Monster_1 : Monster
     [SerializeField]
     float max_xPos;
 
-    bool isQuitting;
     public GameObject Spawn_Item;
+    bool Spawn_Itme_Flag;
 
     protected override void Start()
     {
@@ -34,9 +34,9 @@ public class Monster_1 : Monster
         max_xPos = Random.Range(1, 9);
 
         xPos = -1f;
-        isQuitting = false;
+        Spawn_Itme_Flag = false;
         Check_ItemSpeedSpawn();
-        StartCoroutine(SpawnMonster());
+        Monster_coroutine = StartCoroutine(SpawnMonster());
     }
 
     protected override void Update()
@@ -52,9 +52,10 @@ public class Monster_1 : Monster
             FlipMonster();
         }
 
-        if (monster_gametype == Monster_GameType.GameEnding)
+        if(Monster_HP <= 0 && !Spawn_Itme_Flag)
         {
-            Monster_Ending();
+            Spawn_Itme_Flag = true;
+            AfterDie_Spawn_Item();
         }
     }
 
@@ -87,6 +88,7 @@ public class Monster_1 : Monster
         {
             monster_gametype = Monster_GameType.Fighting;
         }
+        Monster_coroutine = null;
     }
 
     void BulletFire()
@@ -96,29 +98,6 @@ public class Monster_1 : Monster
             GameObject bullet = Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
             bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, Bullet_Speed, 0);
             lastTime = Time.time;
-        }
-    }
-
-    private void OnApplicationQuit()
-    {
-        isQuitting = true;
-    }
-
-    private void OnDestroy()
-    {
-        
-        if (!isQuitting)
-        {
-            if(gameDirector.gameType != GameType.GameEnd)
-            {
-                if (monster_gametype == Monster_GameType.SpwanStart
-                    ||monster_gametype == Monster_GameType.Fighting
-                    || monster_gametype == Monster_GameType.Stun_Bullet_Debuff
-                    || monster_gametype == Monster_GameType.CowBoy_Debuff)
-                {
-                    AfterDie_Spawn_Item();
-                }
-            }
         }
     }
 
@@ -147,7 +126,6 @@ public class Monster_1 : Monster
         {
             Item_Mosnter_SpeedPersent = MonsterDirector.Item_giantPersent_Spawn;
             Item_Monster_Speed += speed * (Item_Mosnter_SpeedPersent / 100f);
-
         }
         else
         {

@@ -36,11 +36,6 @@ public class Monster_4 : Monster
         {
             BulletFire();
         }
-
-        if (monster_gametype == Monster_GameType.GameEnding)
-        {
-            Monster_Ending();
-        }
     }
 
     protected override void FixedUpdate()
@@ -65,9 +60,6 @@ public class Monster_4 : Monster
     {
         movement = new Vector3(xPos, 0f, 0f);
         transform.Translate(movement * (speed - Item_Monster_Speed) * Time.deltaTime);
-        
-        Debug.Log(speed);
-        Debug.Log(movement);
         if(transform.position.x < MonsterDirector.MinPos_Ground.x - 8f)
         {
             MonsterDirector.MonsterNum--;

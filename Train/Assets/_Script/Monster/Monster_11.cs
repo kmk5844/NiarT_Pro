@@ -30,7 +30,7 @@ public class Monster_11 : Monster
 
         xPos = -1;
         Check_ItemSpeedSpawn();
-        StartCoroutine(SpawnMonster());
+        Monster_coroutine = StartCoroutine(SpawnMonster());
     }
 
     protected override void Update()
@@ -55,11 +55,6 @@ public class Monster_11 : Monster
             {
                 transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
-        }
-
-        if (monster_gametype == Monster_GameType.GameEnding)
-        {
-            Monster_Ending();
         }
     }
 

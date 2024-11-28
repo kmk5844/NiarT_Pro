@@ -43,7 +43,7 @@ public class Monster_12 : Monster
 
         xPos = -1;
         Check_ItemSpeedSpawn();
-        StartCoroutine(SpawnMonster());
+        Monster_coroutine = StartCoroutine(SpawnMonster());
     }
 
     protected override void Update()
@@ -91,11 +91,6 @@ public class Monster_12 : Monster
                 WarningMark.SetActive(false);
                 BulletFire();
             }
-        }
-
-        if (monster_gametype == Monster_GameType.GameEnding)
-        {
-            Monster_Ending();
         }
     }
 
@@ -237,6 +232,7 @@ public class Monster_12 : Monster
         }
         transform.localPosition = MonsterDirector_Pos;
         monster_gametype = Monster_GameType.Fighting;
+        Monster_coroutine = null;
     }
 
     void Check_ItemSpeedFlag()

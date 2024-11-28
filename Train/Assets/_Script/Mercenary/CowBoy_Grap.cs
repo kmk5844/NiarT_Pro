@@ -29,7 +29,7 @@ public class CowBoy_Grap : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (target == null && isGrappling)
+/*        if (target == null && isGrappling)
         {
             NonTargetPos = line.GetPosition(1);
             isRetracting = false;
@@ -38,6 +38,21 @@ public class CowBoy_Grap : MonoBehaviour
                 StartCoroutine(NonGrapple());
             }
         }
+*/
+        if(target != null)
+        {
+            if (target.GetComponent<Monster>().monster_gametype == Monster_GameType.Die && isGrappling)
+            {
+                NonTargetPos = line.GetPosition(1);
+                isRetracting = false;
+                if (!isRetracting)
+                {
+                    StartCoroutine(NonGrapple());
+                    target = null;
+                }
+            }
+        }
+
 
         if (isRetracting)
         {
@@ -48,7 +63,7 @@ public class CowBoy_Grap : MonoBehaviour
     IEnumerator Grapple()
     {
         float t = 0;
-        float time = 5;
+        float time = 3;
 
         line.SetPosition(0, transform.position);
         line.SetPosition(1, transform.position);
@@ -71,7 +86,7 @@ public class CowBoy_Grap : MonoBehaviour
     IEnumerator NonGrapple()
     {
         float t = 0;
-        float time = 5;
+        float time = 3;
 
         Vector2 newPos;
         for(;t < time; t += grappleCollectSpeed * Time.deltaTime)
@@ -108,7 +123,6 @@ public class CowBoy_Grap : MonoBehaviour
             {
                 if (collision.GetComponent<Monster>().Monster_Type.Equals("Sky"))
                 {
-                    //Debug.Log("¿€µø");
                     if (!isGrappling)
                     {
                         if (unit.mercenaryActive_Check() == Active.move)

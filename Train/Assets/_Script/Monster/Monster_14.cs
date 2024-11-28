@@ -36,11 +36,6 @@ public class Monster_14 : Monster
         {
             BulletFire();
         }
-
-        if (monster_gametype == Monster_GameType.GameEnding)
-        {
-            Monster_Ending();
-        }
     }
 
     protected override void FixedUpdate()

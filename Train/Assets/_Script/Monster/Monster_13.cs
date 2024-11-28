@@ -36,7 +36,7 @@ public class Monster_13 : Monster
         AttackFlag = false;
         xPos = -1f;
         Check_ItemSpeedSpawn();
-        StartCoroutine(SpawnMonster());
+        Monster_coroutine = StartCoroutine(SpawnMonster());
     }
 
     protected override void Update()
@@ -51,11 +51,6 @@ public class Monster_13 : Monster
             if (!AttackFlag) {
                 Attack();
             }
-        }
-
-        if(monster_gametype == Monster_GameType.GameEnding)
-        {
-            Monster_Ending();
         }
     }
 
@@ -73,7 +68,7 @@ public class Monster_13 : Monster
         if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay))
         {
             AttackFlag = true;
-            StartCoroutine(FireCorutine());
+            Monster_coroutine = StartCoroutine(FireCorutine());
         }
     }
 
@@ -149,6 +144,7 @@ public class Monster_13 : Monster
         }
         AttackFlag = false;
         lastTime = Time.time;
+        Monster_coroutine = null;
     }
 
     IEnumerator SpawnMonster()
@@ -174,6 +170,7 @@ public class Monster_13 : Monster
             monster_gametype = Monster_GameType.Fighting;
         }
         Init_Move = transform.localPosition;
+        Monster_coroutine = null;
     }
 
     IEnumerator BulletFire(GameObject _Bullet)

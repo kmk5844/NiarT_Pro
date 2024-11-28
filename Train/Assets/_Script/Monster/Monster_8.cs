@@ -20,7 +20,7 @@ public class Monster_8 : Monster
                 MonsterDirector.MaxPos_Sky.y + 5f);
         transform.localPosition = Spawn_Init_Pos;
 
-        StartCoroutine(SpawnMonster());
+        Monster_coroutine = StartCoroutine(SpawnMonster());
     }
     protected override void Update()
     {
@@ -52,11 +52,6 @@ public class Monster_8 : Monster
             }
             StartCoroutine(monsterDestory());
         }
-
-        if (monster_gametype == Monster_GameType.GameEnding)
-        {
-            Monster_Ending();
-        }
     }
 
     IEnumerator SpawnMonster()
@@ -85,6 +80,7 @@ public class Monster_8 : Monster
             monster_gametype = Monster_GameType.Fighting;
             isBombFlag = true;
         }
+        Monster_coroutine = null;
     }
 
     IEnumerator monsterDestory()
