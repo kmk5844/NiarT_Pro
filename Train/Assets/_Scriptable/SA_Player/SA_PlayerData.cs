@@ -83,12 +83,16 @@ public class SA_PlayerData : ScriptableObject
     private bool station_tutorial;
     public bool Station_Tutorial {  get { return station_tutorial; } }
 
+    [SerializeField]
+    private QuestDataObject substageobject;
+    public QuestDataObject SubStageObject { get {  return substageobject; } }
+
     public void SA_GameWinReward(int R_Coin, int R_Point)
     {
         if (select_stage == 0 && new_stage == 0) // 바로 스토리 넘어가는 특수상황일 경우
         {
-            select_stage = 1;
             new_stage = 1;
+            select_stage = 1;
         }else if (select_stage == new_stage)
         {
             new_stage++;
@@ -145,6 +149,12 @@ public class SA_PlayerData : ScriptableObject
     public void SA_SelectLevel(int num)
     {
         select_stage = num;
+        Save();
+    }
+
+    public void SA_SelectSubStage(QuestDataObject quest)
+    {
+        substageobject = quest;
         Save();
     }
 
@@ -215,6 +225,8 @@ public class SA_PlayerData : ScriptableObject
         ES3.Save<bool[]>("SA_PlayerData_Data_LockOff", character_lockoff);
         ES3.Save<int>("SA_PlayerData_Data_Story_Num", story_num);
         ES3.Save<bool>("SA_PlayerData_Data_Station_Tutorial", station_tutorial);
+
+        ES3.Save<QuestDataObject>("SA_PlayerData_Data_QuestDataObject", substageobject);
     }
 
     public void Load()
@@ -233,6 +245,8 @@ public class SA_PlayerData : ScriptableObject
         character_lockoff = ES3.Load<bool[]>("SA_PlayerData_Data_LockOff");
         story_num = ES3.Load<int>("SA_PlayerData_Data_Story_Num");
         station_tutorial = ES3.Load<bool>("SA_PlayerData_Data_Station_Tutorial");
+
+        substageobject = ES3.Load<QuestDataObject>("SA_PlayerData_Data_QuestDataObject");
     }
 
     public void Init()

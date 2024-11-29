@@ -15,13 +15,14 @@ public class Auto_ScritableObject : EditorWindow
     string itemCount_Num = "";
     string itemCount_Single = "";
 
-    private string[] Type = { "Item", "Stage", "Story" };
+    private string[] Type = { "Item", "Stage", "Quest" ,"Story" };
 
     //bool showBtn = true;
     int selectType;
 
     public Game_DataTable DataTable_Game;
     public Story_DataTable DataTable_Story;
+    public Quest_DataTable DataTable_Quest;
     public SA_ItemList SA_ItemList_;
     public SA_StageList SA_StageList_;
     public SA_StoryLIst SA_StoryList_;
@@ -30,6 +31,7 @@ public class Auto_ScritableObject : EditorWindow
     {
         DataTable_Game = (Game_DataTable)EditorGUILayout.ObjectField("GameDataTable_", DataTable_Game, typeof(Game_DataTable), false);
         DataTable_Story = (Story_DataTable)EditorGUILayout.ObjectField("StoryDataTable_", DataTable_Story, typeof(Story_DataTable), false);
+        DataTable_Quest = (Quest_DataTable)EditorGUILayout.ObjectField("QuestDataTable_", DataTable_Quest, typeof(Quest_DataTable), false);
 
         selectType = EditorGUILayout.Popup("Type", selectType, Type);
         //showBtn = EditorGUILayout.Toggle("Item", showBtn);
@@ -85,6 +87,14 @@ public class Auto_ScritableObject : EditorWindow
                 CreatObjectFromList_Stage();
             }
         }else if(selectType == 2)
+        {
+            if(GUILayout.Button("Create Auto Quest"))
+            {
+                DeleteAllFilesInFolder_Quest();
+                CreatObjectFromList_Quest();
+            }
+        }
+        else if(selectType == 3)
         {
             SA_StoryList_ = (SA_StoryLIst)EditorGUILayout.ObjectField("SA_StoryList_", SA_StoryList_, typeof(SA_StoryLIst), false);
 
@@ -293,6 +303,195 @@ public class Auto_ScritableObject : EditorWindow
             SA_StageList_.StageList_InsterObject(stageObject);
         }
         UnityEditor.EditorUtility.SetDirty(SA_StageList_);
+    }
+    //quest
+    public static void DeleteAllFilesInFolder_Quest()
+    {
+        string[] filePaths = Directory.GetDirectories("Assets/_Scriptable/SA_Quest/Quest_Object");
+        foreach(string filePath in filePaths)
+        {
+            Directory.Delete(filePath, true);
+        }
+        AssetDatabase.Refresh();
+    }
+
+    void CreatObjectFromList_Quest()
+    {
+        List<Info_Q_Information> Q_Destination = DataTable_Quest.Q_Destination;
+        List<Info_Q_Information> Q_Material = DataTable_Quest.Q_Material;
+        List<Info_Q_Information> Q_Monster = DataTable_Quest.Q_Monster;
+        List<Info_Q_Information> Q_Escort = DataTable_Quest.Q_Escort;
+        List<Info_Q_Information> Q_Convoy = DataTable_Quest.Q_Convoy;
+        List<Info_Q_Information> Q_Boss = DataTable_Quest.Q_Boss;
+        foreach(Info_Q_Information Q_Des in Q_Destination)
+        {
+            QuestDataObject questObject = ScriptableObject.CreateInstance<QuestDataObject>();
+            questObject.Auto_SubStage_Insert(
+                Q_Des.Stage_Num,
+                Q_Des.SubStage_Num,
+                CheckSubStageType(Q_Des.SubStage_Type),
+                Q_Des.Distance,
+                Q_Des.Emerging_Monster,
+                Q_Des.Monster_Count,
+                Q_Des.Open_SubStageNum,
+                Q_Des.SubStage_Status
+                );
+
+            string guide1 = "Assets/_Scriptable/SA_Quest/Quest_Object/1_Destination/Stage" + Q_Des.Stage_Num;
+
+            if (!Directory.Exists(guide1)){
+                Directory.CreateDirectory(guide1);
+            }
+            AssetDatabase.CreateAsset(questObject, guide1 + "/QDO_SubStage_" + "1_" + Q_Des.Stage_Num + "_" + Q_Des.SubStage_Num + "_" + Q_Des.SubStage_Type + ".asset");
+            AssetDatabase.SaveAssets();
+        }
+
+        foreach (Info_Q_Information Q_Mat in Q_Material)
+        {
+            QuestDataObject questObject = ScriptableObject.CreateInstance<QuestDataObject>();
+            questObject.Auto_SubStage_Insert(
+                Q_Mat.Stage_Num,
+                Q_Mat.SubStage_Num,
+                CheckSubStageType(Q_Mat.SubStage_Type),
+                Q_Mat.Distance,
+                Q_Mat.Emerging_Monster,
+                Q_Mat.Monster_Count,
+                Q_Mat.Open_SubStageNum,
+                Q_Mat.SubStage_Status
+                );
+
+            string guide1 = "Assets/_Scriptable/SA_Quest/Quest_Object/2_Material/Stage" + Q_Mat.Stage_Num;
+
+            if (!Directory.Exists(guide1))
+            {
+                Directory.CreateDirectory(guide1);
+            }
+            AssetDatabase.CreateAsset(questObject, guide1 + "/QDO_SubStage_" + "2_" + Q_Mat.Stage_Num + "_" + Q_Mat.SubStage_Num + "_" + Q_Mat.SubStage_Type + ".asset");
+            AssetDatabase.SaveAssets();
+        }
+
+        foreach (Info_Q_Information Q_Mon in Q_Monster)
+        {
+            QuestDataObject questObject = ScriptableObject.CreateInstance<QuestDataObject>();
+            questObject.Auto_SubStage_Insert(
+                Q_Mon.Stage_Num,
+                Q_Mon.SubStage_Num,
+                CheckSubStageType(Q_Mon.SubStage_Type),
+                Q_Mon.Distance,
+                Q_Mon.Emerging_Monster,
+                Q_Mon.Monster_Count,
+                Q_Mon.Open_SubStageNum,
+                Q_Mon.SubStage_Status
+                );
+
+            string guide1 = "Assets/_Scriptable/SA_Quest/Quest_Object/3_Monster/Stage" + Q_Mon.Stage_Num;
+
+            if (!Directory.Exists(guide1))
+            {
+                Directory.CreateDirectory(guide1);
+            }
+            AssetDatabase.CreateAsset(questObject, guide1 + "/QDO_SubStage_" + "3_" + Q_Mon.Stage_Num + "_" + Q_Mon.SubStage_Num + "_" + Q_Mon.SubStage_Type + ".asset");
+            AssetDatabase.SaveAssets();
+        }
+
+
+        foreach (Info_Q_Information Q_Esc in Q_Escort)
+        {
+            QuestDataObject questObject = ScriptableObject.CreateInstance<QuestDataObject>();
+            questObject.Auto_SubStage_Insert(
+                Q_Esc.Stage_Num,
+                Q_Esc.SubStage_Num,
+                CheckSubStageType(Q_Esc.SubStage_Type),
+                Q_Esc.Distance,
+                Q_Esc.Emerging_Monster,
+                Q_Esc.Monster_Count,
+                Q_Esc.Open_SubStageNum,
+                Q_Esc.SubStage_Status
+                );
+
+            string guide1 = "Assets/_Scriptable/SA_Quest/Quest_Object/4_Escort/Stage" + Q_Esc.Stage_Num;
+
+            if (!Directory.Exists(guide1))
+            {
+                Directory.CreateDirectory(guide1);
+            }
+            AssetDatabase.CreateAsset(questObject, guide1 + "/QDO_SubStage_" + "4_" + Q_Esc.Stage_Num + "_" + Q_Esc.SubStage_Num + "_" + Q_Esc.SubStage_Type + ".asset");
+            AssetDatabase.SaveAssets();
+        }
+
+        foreach (Info_Q_Information Q_Con in Q_Convoy)
+        {
+            QuestDataObject questObject = ScriptableObject.CreateInstance<QuestDataObject>();
+            questObject.Auto_SubStage_Insert(
+                Q_Con.Stage_Num,
+                Q_Con.SubStage_Num,
+                CheckSubStageType(Q_Con.SubStage_Type),
+                Q_Con.Distance,
+                Q_Con.Emerging_Monster,
+                Q_Con.Monster_Count,
+                Q_Con.Open_SubStageNum,
+                Q_Con.SubStage_Status
+                );
+
+            string guide1 = "Assets/_Scriptable/SA_Quest/Quest_Object/5_Convoy/Stage" + Q_Con.Stage_Num;
+
+            if (!Directory.Exists(guide1))
+            {
+                Directory.CreateDirectory(guide1);
+            }
+            AssetDatabase.CreateAsset(questObject, guide1 + "/QDO_SubStage_" + "5_" + Q_Con.Stage_Num + "_" + Q_Con.SubStage_Num + "_" + Q_Con.SubStage_Type + ".asset");
+            AssetDatabase.SaveAssets();
+        }
+
+        foreach (Info_Q_Information Q_Bos in Q_Boss)
+        {
+            QuestDataObject questObject = ScriptableObject.CreateInstance<QuestDataObject>();
+            questObject.Auto_SubStage_Insert(
+                Q_Bos.Stage_Num,
+                Q_Bos.SubStage_Num,
+                CheckSubStageType(Q_Bos.SubStage_Type),
+                Q_Bos.Distance,
+                Q_Bos.Emerging_Monster,
+                Q_Bos.Monster_Count,
+                Q_Bos.Open_SubStageNum,
+                Q_Bos.SubStage_Status
+                );
+
+            string guide1 = "Assets/_Scriptable/SA_Quest/Quest_Object/6_Boss/Stage" + Q_Bos.Stage_Num;
+
+            if (!Directory.Exists(guide1))
+            {
+                Directory.CreateDirectory(guide1);
+            }
+            AssetDatabase.CreateAsset(questObject, guide1 + "/QDO_SubStage_" + "6_" + Q_Bos.Stage_Num + "_" + Q_Bos.SubStage_Num + "_" + Q_Bos.SubStage_Type + ".asset");
+            AssetDatabase.SaveAssets();
+        }
+    }
+
+    SubStageType CheckSubStageType(string type)
+    {
+        switch (type)
+        {
+            case "Nomal":
+                return SubStageType.Nomal;
+            case "Hard":
+                return SubStageType.Hard;
+            case "HardCore":
+                return SubStageType.HardCore;
+            case "Boss":
+                return SubStageType.Boss;
+            case "Oasis":
+                return SubStageType.Oasis;
+            case "Treasure":
+                return SubStageType.Treasure;
+            case "Store":
+                return SubStageType.Store;
+            case "Maintenance":
+                return SubStageType.Maintenance;
+            case "SimpleStation":
+                return SubStageType.SimpleStation;
+        }
+        return SubStageType.Error;
     }
 
 

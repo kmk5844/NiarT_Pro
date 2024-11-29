@@ -23,6 +23,11 @@ public class GameDirector : MonoBehaviour
     public SA_MercenaryData SA_MercenaryData;
     public SA_StageList SA_StageList;
     StageDataObject StageData;
+
+    //새로운 스테이지 정보
+    QuestDataObject SubStageData;
+
+
     public SA_PlayerData SA_PlayerData;
     public Game_DataTable EX_GameData;
     public Level_DataTable EX_LevelData;
@@ -173,7 +178,10 @@ public class GameDirector : MonoBehaviour
     {
         gameType = GameType.Starting;
         Stage_Num = SA_PlayerData.Select_Stage;
-        StageData = SA_StageList.Stage[Stage_Num];
+
+        //StageData = SA_StageList.Stage[Stage_Num];
+        SubStageData = SA_PlayerData.SubStageObject;
+
         BGM_ID = 30;
         TrainSFX_ID = 100;
         Change_Win_BGM_Flag = false;
@@ -470,15 +478,22 @@ public class GameDirector : MonoBehaviour
     }
     void Stage_Init()
     {
-        Emerging_Monster_String = StageData.Emerging_Monster;
-        Emerging_MonsterCount_String = StageData.Monster_Count;
-        Reward_Point = StageData.Reward_Point;
+        //Emerging_Monster_String = StageData.Emerging_Monster;
+        Emerging_Monster_String = SubStageData.Emerging_Monster;
+        //Emerging_MonsterCount_String = StageData.Monster_Count;
+        Emerging_MonsterCount_String = SubStageData.Monster_Count;
+        //Reward_Point = StageData.Reward_Point;
+        Reward_Point = 0;
 
-        Reward_ItemNum = StageData.Reward_Item;
-        Reward_ItemCount = StageData.Reward_Itemcount;
+        //Reward_ItemNum = StageData.Reward_Item;
+        //Reward_ItemCount = StageData.Reward_Itemcount;
+        Reward_ItemNum = "-1,-1,-1,-1,-1";
+        Reward_ItemNum = "0,0,0,0,0";
         Reward_Num = -1;
 
-        Destination_Distance = StageData.Destination_Distance;
+        //Destination_Distance = StageData.Destination_Distance;
+        Destination_Distance = SubStageData.Distance;
+
         Emerging_Monster = new List<int>();
         Emerging_MonsterCount = new List<int>();
         string[] Monster_String = Emerging_Monster_String.Split(',');
@@ -494,7 +509,7 @@ public class GameDirector : MonoBehaviour
             Emerging_Monster.Add(num1);
             Emerging_MonsterCount.Add(num2);
         }
-        
+
         /*foreach(string M in Monster_String)
         {
             int num;
@@ -504,39 +519,45 @@ public class GameDirector : MonoBehaviour
             }
         }*/
 
-        Data_BossFlag = StageData.Boss_Flag;
-        if (Data_BossFlag)
+        //Data_BossFlag = StageData.Boss_Flag;
+       
+        if (SubStageData.SubStage_Type == SubStageType.Boss)
         {
-            Emerging_Boss_String = StageData.Emerging_boss;
-            Emerging_Boss_Monster_Count_String = StageData.Boss_Monster_Count;
-            Emerging_Boss_Distance_String = StageData.Boss_Distance;
+            Data_BossFlag = true;
+            /*            Emerging_Boss_String = StageData.Emerging_boss;
+                        Emerging_Boss_Monster_Count_String = StageData.Boss_Monster_Count;
+                        Emerging_Boss_Distance_String = StageData.Boss_Distance;*/
 
-            string[] Boss_String = Emerging_Boss_String.Split(',');
-            foreach(string M in Boss_String)
+            string[] Boss_String = SubStageData.SubStage_Status.Split(',');
+            Emerging_Boss.Add(int.Parse(Boss_String[0]));
+            Emerging_Boss_Distance.Add(int.Parse(Boss_String[1]));
+            Emerging_Boss_Monster_Count.Add(int.Parse(Boss_String[2]));
+        /*    foreach (string M in Boss_String)
             {
                 int num;
-                if(int.TryParse(M, out num))
+                if (int.TryParse(M, out num))
                 {
                     Emerging_Boss.Add(num);
                 }
             }
             string[] Boss_Count_String = Emerging_Boss_Monster_Count_String.Split(',');
-            foreach(string M in Boss_Count_String)
+            foreach (string M in Boss_Count_String)
             {
                 int num;
-                if(int.TryParse(M, out num)) { 
+                if (int.TryParse(M, out num))
+                {
                     Emerging_Boss_Monster_Count.Add(num);
                 }
             }
             string[] Boss_Distance_String = Emerging_Boss_Distance_String.Split(',');
-            foreach(string M in Boss_Distance_String)
+            foreach (string M in Boss_Distance_String)
             {
                 int num;
-                if(int.TryParse(M, out num))
+                if (int.TryParse(M, out num))
                 {
                     Emerging_Boss_Distance.Add(num);
                 }
-            }
+            }*/
             MonsterDirector_Object.GetComponent<MonsterDirector>().Get_Boss_List(Emerging_Boss);
         }
 
@@ -754,7 +775,7 @@ public class GameDirector : MonoBehaviour
             List<int> Item_List = new List<int>();
             int ItemNum;
             int ItemCount;
-            if (!StageData.Player_FirstPlay)
+            /*if (!StageData.Player_FirstPlay)
             {
                 for (int i = 0; i < Reward_Num + 1; i++)
                 {
@@ -783,7 +804,7 @@ public class GameDirector : MonoBehaviour
                         }
                     }
                 }
-            }
+            }*/
         }
 
         uiDirector.Open_Result_UI(WinFlag, Stage_Num, Total_Score, Total_Coin, Check_Score(), Reward_Point, LoseNum);
