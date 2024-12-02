@@ -178,14 +178,14 @@ public class UIDirector : MonoBehaviour
         Distance_Bar.value = gamedirector.Check_Distance();
     }
 
-    public void Open_Result_UI(bool Win, int StageNum, int Score, int Coin, string Score_Grade, int Point, int LoseNum = -1)
+    public void Open_Result_UI(bool Win, int StageNum, int Score, int Coin, /*string Score_Grade,*/ int Point, int LoseNum = -1)
     {
         Result_Text_List[0].text = (StageNum + 1).ToString();
         Result_Text_List[1].text = Score.ToString(); // + "Á¡";
         Result_Text_List[2].text = Coin.ToString(); // + "¿ø";
         if (Win)
         {
-            Result_Text_List[3].text = Score_Grade;
+            //Result_Text_List[3].text = Score_Grade;
             Result_Text_List[4].text = Point.ToString();
             Result_Text_List[4].gameObject.SetActive(true);
             Result_Image.sprite = Result_Win_Image;

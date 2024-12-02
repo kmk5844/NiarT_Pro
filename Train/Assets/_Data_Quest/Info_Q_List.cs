@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class Info_Q_List
 {
-    public int StageNum;
+    public string Stage_Mission;
     public string Quest_Type;
     public string Quest_Information;
     public string Quest_State;

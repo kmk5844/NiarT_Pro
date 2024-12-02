@@ -136,9 +136,9 @@ public class Station_GameStart : MonoBehaviour
     {
         Stage_Text.text = "Stage " + (Select_StageNum + 1);
         Score_Text.text = "Score : " + stageData.Stage[Select_StageNum].Player_Score;
-        string[] ItemList = stageData.Stage[Select_StageNum].Reward_Item.Split(',');
-        int itemNum;
-        for(int i = 0; i <  ItemList.Length; i++)
+/*        string[] ItemList = stageData.Stage[Select_StageNum].Reward_Item.Split(',');
+        int itemNum;*/
+/*        for(int i = 0; i <  ItemList.Length; i++)
         {
             itemNum = int.Parse(ItemList[i]);
             if(itemNum == -1)
@@ -151,22 +151,22 @@ public class Station_GameStart : MonoBehaviour
                 Reward_Image[i].Item = itemData.SA_ItemList.Item[itemNum];
                 Reward_Image[i].item_Change_Flag = true;
             }
-        }
+        }*/
         for(int i = 0; i < Clear_Object.Length; i++)
         {
                 Clear_Object[i].SetActive(false);
         }
-        int grade_num = Check_PlayerGrade();
+/*        int grade_num = Check_PlayerGrade();
         if(grade_num != -1)
         {
             for(int i = 0; i < grade_num + 1; i++)
             {
                 Clear_Object[i].SetActive(true);
             }
-        }
+        }*/
     }
 
-    int Check_PlayerGrade()
+/*    int Check_PlayerGrade()
     {
         switch (stageData.Stage[Select_StageNum].Player_Grade) {
             case StageDataObject.Grade.S:
@@ -183,7 +183,7 @@ public class Station_GameStart : MonoBehaviour
                 return -1;
         }
         return -1;
-    }
+    }*/
 
     public void PrevRoute_Button()
     {
@@ -290,7 +290,14 @@ public class Station_GameStart : MonoBehaviour
     public void Click_GameStart()
     {
         playerData.SA_PlayerData.SA_SelectLevel(Select_StageNum);
-        GameManager.Instance.BeforeGameStart_Enter();
+        SceneManager.LoadScene("MissionSelect");
+
+        /*try
+        { 
+            GameManager.Instance.BeforeGameStart_Enter();
+        }
+        catch {
+        }*/
         //LoadingManager.LoadScene("CharacterSelect");
     }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,57 +10,62 @@ public class StageDataObject : ScriptableObject
     public int Stage_Num { get { return stage_num; } }
 
     [SerializeField]
-    private int destination_distance;
-    public int Destination_Distance { get {  return destination_distance; } }
+    private List<int> missionlist;
+    public List<int> MissionList {  get { return missionlist; } }
 
-    [SerializeField]
-    private string emerging_monster;
-    public string Emerging_Monster { get {  return emerging_monster; } }
+    /*    [SerializeField]
+        private int destination_distance;
+        public int Destination_Distance { get {  return destination_distance; } }
 
-    [SerializeField]
-    private string monster_count;
-    public string Monster_Count { get { return monster_count; } }
+        [SerializeField]
+        private string emerging_monster;
+        public string Emerging_Monster { get {  return emerging_monster; } }
 
-    [SerializeField]
-    private int reward_point;
-    public int Reward_Point {  get { return reward_point; } }
+        [SerializeField]
+        private string monster_count;
+        public string Monster_Count { get { return monster_count; } }
 
-    [SerializeField]
-    private string reward_item;
-    public string Reward_Item { get {  return reward_item; } }
+        [SerializeField]
+        private int reward_point;
+        public int Reward_Point {  get { return reward_point; } }
 
-    [SerializeField]
-    private string reward_itemcount;
-    public string Reward_Itemcount { get { return reward_itemcount; } }
+        [SerializeField]
+        private string reward_item;
+        public string Reward_Item { get {  return reward_item; } }
 
-    [SerializeField]
-    List<int> grade_score;
-    public List<int> Grade_Score { get { return grade_score; } } 
+        [SerializeField]
+        private string reward_itemcount;
+        public string Reward_Itemcount { get { return reward_itemcount; } }
 
-    [SerializeField]
-    bool boss_flag;
-    public bool Boss_Flag { get { return boss_flag; } }
+        [SerializeField]
+        List<int> grade_score;
+        public List<int> Grade_Score { get { return grade_score; } } 
 
-    [SerializeField]
-    string emerging_boss;
-    public string Emerging_boss { get {  return emerging_boss; } }
+        [SerializeField]
+        bool boss_flag;
+        public bool Boss_Flag { get { return boss_flag; } }
 
-    [SerializeField]
-    string boss_monster_count;
-    public string Boss_Monster_Count { get { return boss_monster_count; } }
+        [SerializeField]
+        string emerging_boss;
+        public string Emerging_boss { get {  return emerging_boss; } }
 
-    [SerializeField]
-    string boss_distance;
-    public string Boss_Distance { get {  return boss_distance; } }
+        [SerializeField]
+        string boss_monster_count;
+        public string Boss_Monster_Count { get { return boss_monster_count; } }
 
+        [SerializeField]
+        string boss_distance;
+        public string Boss_Distance { get {  return boss_distance; } }
+
+
+
+        [SerializeField]
+        Grade player_grade;
+
+        public Grade Player_Grade { get { return player_grade; } }*/
     [SerializeField]
     int player_score;
     public int Player_Score { get { return player_score; } }
-
-    [SerializeField]
-    Grade player_grade;
-
-    public Grade Player_Grade { get { return player_grade; } }
 
     [SerializeField]
     bool player_firstplay;
@@ -69,12 +75,35 @@ public class StageDataObject : ScriptableObject
     bool stage_openflag;
     public bool Stage_OpenFlag {  get {  return stage_openflag; } }
     
-    public enum Grade
+/*    public enum Grade
     {
         F, D, C, B, A, S
+    }*/
+
+    public void Auto_Stage_Insert(int _stage_num, string _missionList)
+    {
+        stage_num = _stage_num;
+        player_firstplay = false;
+
+        string[] _missionList_Split = _missionList.Split(',');
+        missionlist = new List<int>();
+        for (int i = 0; i < _missionList_Split.Length; i++)
+        {
+            int k = int.Parse(_missionList_Split[i]);
+            missionlist.Add(k);
+        }
+
+        if (_stage_num == 0)
+        {
+            stage_openflag = true;
+        }
+        else
+        {
+            stage_openflag = false;
+        }
     }
 
-    public void Auto_Stage_Insert(
+/*    public void Auto_Stage_Insert(
         int _stage_num, int _destination_distance, string _emerging_monster,string _monster_count, 
         int _reward_point, string _reward_item, string _reward_itemcount,
         int _d, int _c, int _b, int _a, int _s, bool _boss_flag, string _emerging_boss,
@@ -112,7 +141,7 @@ public class StageDataObject : ScriptableObject
         {
             stage_openflag = false;
         }
-    }
+    }*/
 
     public void New_Stage_Chage()
     {
@@ -123,8 +152,7 @@ public class StageDataObject : ScriptableObject
         Save();
     }
 
-
-    public void GameEnd(bool WinAndLoseFlag, int Score, string grade = "F")
+    public void GameEnd(bool WinAndLoseFlag, int Score)//, string grade = "F")
     {
         if (!player_firstplay)
         {
@@ -136,10 +164,10 @@ public class StageDataObject : ScriptableObject
             player_score = Score;
         }
 
-        int beforeNum = -1;
+/*        int beforeNum = -1;
         int gradeNum = -1;
 
-        switch (player_grade)
+*//*        switch (player_grade)
         {
             case Grade.S:
                 beforeNum = 4;
@@ -159,11 +187,11 @@ public class StageDataObject : ScriptableObject
             case Grade.F:
                 beforeNum = -1;
                 break;
-        }
+        }*//*
 
         if (WinAndLoseFlag)
         {
-            switch (grade)
+*//*            switch (grade)
             {
                 case "S":
                     gradeNum = 4;
@@ -183,9 +211,9 @@ public class StageDataObject : ScriptableObject
                 case "F":
                     gradeNum = -1;
                     break;
-            }
+            }*/
 
-            if(gradeNum > beforeNum)
+/*            if(gradeNum > beforeNum)
             {
                 if (gradeNum == 4)
                 {
@@ -209,7 +237,7 @@ public class StageDataObject : ScriptableObject
                 {
                     player_grade = Grade.F;
                 }
-            }
+            }*//*
         }
         else
         {
@@ -218,7 +246,7 @@ public class StageDataObject : ScriptableObject
                 player_grade = Grade.F;
             }
         }
-
+*/
         Save();
     }
 
@@ -227,7 +255,7 @@ public class StageDataObject : ScriptableObject
         ES3.Save("Stage_" + stage_num + "_stage_openflag", stage_openflag);
         ES3.Save("Stage_" + stage_num + "_player_firstplay", player_firstplay);
         ES3.Save("Stage_" + stage_num + "_player_score", player_score);
-        ES3.Save("Stage_" + stage_num + "_player_grade", player_grade);
+        //ES3.Save("Stage_" + stage_num + "_player_grade", player_grade);
     }
 
     public void Load()
@@ -235,14 +263,14 @@ public class StageDataObject : ScriptableObject
         stage_openflag = ES3.Load("Stage_" + stage_num + "_stage_openflag", stage_openflag);
         player_firstplay = ES3.Load("Stage_" + stage_num + "_player_firstplay", player_firstplay);
         player_score = ES3.Load("Stage_" + stage_num + "_player_score", player_score);
-        player_grade = ES3.Load("Stage_" + stage_num + "_player_grade", player_grade);
+        //player_grade = ES3.Load("Stage_" + stage_num + "_player_grade", player_grade);
     }
 
     public void Init()
     {
         player_firstplay = false;
         player_score = 0;
-        player_grade = Grade.F;
+        //player_grade = Grade.F;
         if (stage_num == 0)
         {
             stage_openflag = true;

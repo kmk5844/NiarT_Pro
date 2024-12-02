@@ -70,6 +70,11 @@ public class SA_PlayerData : ScriptableObject
     private int select_stage;
     public int Select_Stage { get { return  select_stage; } }
 
+    [Header("미션")]
+    [SerializeField]  
+    private int mission_num;
+    public int Mission_Num {  get { return mission_num; } }
+
     [Header("스토리")]
     [SerializeField]
     private int story_num;
@@ -211,6 +216,12 @@ public class SA_PlayerData : ScriptableObject
         Save();
     }
 
+    public void SA_ClickMission(int i)
+    {
+        mission_num = i;
+        Save();
+    }
+
     private void Save()
     {
         ES3.Save<bool>("SA_PlayerData_Data_FirstFlag", firstflag);
@@ -222,11 +233,12 @@ public class SA_PlayerData : ScriptableObject
         ES3.Save<int>("SA_PlayerData_Data_coin", coin);
         ES3.Save<int>("SA_PlayerData_Data_point", point);
         ES3.Save<int>("SA_PlayerData_Data_new_stage", new_stage);
+        ES3.Save<int>("SA_PlayerData_Data_mission_num", mission_num);
         ES3.Save<bool[]>("SA_PlayerData_Data_LockOff", character_lockoff);
         ES3.Save<int>("SA_PlayerData_Data_Story_Num", story_num);
         ES3.Save<bool>("SA_PlayerData_Data_Station_Tutorial", station_tutorial);
 
-        ES3.Save<QuestDataObject>("SA_PlayerData_Data_QuestDataObject", substageobject);
+        //ES3.Save<QuestDataObject>("SA_PlayerData_Data_QuestDataObject", substageobject);
     }
 
     public void Load()
@@ -242,11 +254,12 @@ public class SA_PlayerData : ScriptableObject
         point = ES3.Load<int>("SA_PlayerData_Data_point");
         new_stage = ES3.Load<int>("SA_PlayerData_Data_new_stage");
         select_stage = new_stage;
+        mission_num = ES3.Load<int>("SA_PlayerData_Data_mission_num");
         character_lockoff = ES3.Load<bool[]>("SA_PlayerData_Data_LockOff");
         story_num = ES3.Load<int>("SA_PlayerData_Data_Story_Num");
         station_tutorial = ES3.Load<bool>("SA_PlayerData_Data_Station_Tutorial");
 
-        substageobject = ES3.Load<QuestDataObject>("SA_PlayerData_Data_QuestDataObject");
+        //substageobject = ES3.Load<QuestDataObject>("SA_PlayerData_Data_QuestDataObject");
     }
 
     public void Init()

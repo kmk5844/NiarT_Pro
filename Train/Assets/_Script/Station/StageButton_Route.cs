@@ -45,7 +45,7 @@ public class StageButton_Route : MonoBehaviour
             {
                 GradeObject.SetActive(true);
                 GradeImg = GradeObject.GetComponent<Image>();
-                switch (stageData.Player_Grade)
+/*                switch (stageData.Player_Grade)
                 {
                     case StageDataObject.Grade.S:
                         GradeImg.sprite = Grade_Image[0];
@@ -65,17 +65,17 @@ public class StageButton_Route : MonoBehaviour
                     case StageDataObject.Grade.F:
                         GradeImg.sprite = Grade_Image[5];
                         break;
-                }
+                }*/
             }
 
-            if (stageData.Boss_Flag)
+/*            if (stageData.Boss_Flag)
             {
                 BossObject.SetActive(true);
             }
             else
             {
                 BossObject.SetActive(false);
-            }
+            }*/
             stageButton.onClick.AddListener(StageButton_Click);
         }
     }

@@ -41,7 +41,7 @@ public class FullMap_StageButton : MonoBehaviour
             {
                 GradeObject.SetActive(true);
                 GradeImg = GradeObject.GetComponent<Image>();
-                switch (stageData.Player_Grade)
+/*                switch (stageData.Player_Grade)
                 {
                     case StageDataObject.Grade.S:
                         GradeImg.sprite = Grade_Image[0];
@@ -61,13 +61,13 @@ public class FullMap_StageButton : MonoBehaviour
                     case StageDataObject.Grade.F:
                         GradeImg.sprite = Grade_Image[5];
                         break;
-                }
+                }*/
             }
 
-            if (stageData.Boss_Flag)
+/*            if (stageData.Boss_Flag)
             {
                 Boss_Object.SetActive(true);
-            }
+            }*/
             else
             {
                 Boss_Object.SetActive(false);

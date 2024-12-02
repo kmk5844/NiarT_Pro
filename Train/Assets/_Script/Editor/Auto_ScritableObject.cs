@@ -86,7 +86,8 @@ public class Auto_ScritableObject : EditorWindow
                 DeleteAllFilesInFolder_Stage();
                 CreatObjectFromList_Stage();
             }
-        }else if(selectType == 2)
+        }
+        else if(selectType == 2)
         {
             if(GUILayout.Button("Create Auto Quest"))
             {
@@ -276,12 +277,13 @@ public class Auto_ScritableObject : EditorWindow
     void CreatObjectFromList_Stage()
     {
         List<Info_Stage> StageList = DataTable_Game.Information_Stage;
-        foreach(Info_Stage stage in StageList)
+        foreach (Info_Stage stage in StageList)
         {
             StageDataObject stageObject = ScriptableObject.CreateInstance<StageDataObject>();
             stageObject.Auto_Stage_Insert(
                 stage.Number,
-                stage.Destination_Distance,
+                stage.MissionList);
+/*                stage.Destination_Distance,
                 stage.Emerging_Monster,
                 stage.Monster_Count,
                 stage.Reward_Point,
@@ -297,7 +299,7 @@ public class Auto_ScritableObject : EditorWindow
                 stage.Boss_Monster_Count,
                 stage.Boss_Distance
                 );
-
+*/
             AssetDatabase.CreateAsset(stageObject, "Assets/_Scriptable/SA_Stage/Stage_Object/SDO_Stage_" + stage.Number + ".asset");
             AssetDatabase.SaveAssets();
             SA_StageList_.StageList_InsterObject(stageObject);

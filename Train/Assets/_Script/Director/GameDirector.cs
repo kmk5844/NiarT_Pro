@@ -709,7 +709,7 @@ public class GameDirector : MonoBehaviour
         gameType = GameType.Playing;
         SoundSequce(PlayBGM);
     }
-    private string Check_Score()
+/*    private string Check_Score()
     {
         if (Total_Score >= StageData.Grade_Score[4])
         {
@@ -731,7 +731,8 @@ public class GameDirector : MonoBehaviour
             Reward_Num = 1;
             return "C";
         }
-        else if (StageData.Grade_Score[1] > Total_Score && Total_Score >= StageData.Grade_Score[0]){
+        else if (StageData.Grade_Score[1] > Total_Score && Total_Score >= StageData.Grade_Score[0])
+        {
             Reward_Num = 0;
             return "D";
         }
@@ -742,11 +743,11 @@ public class GameDirector : MonoBehaviour
         }
         Reward_Num = -1;
         return "F";
-    }
+    }*/
 
-    private int Check_StageDataGrade()
+/*    private int Check_StageDataGrade()
     {
-        switch (StageData.Player_Grade) {
+       switch (StageData.Player_Grade) {
 
             case StageDataObject.Grade.S:
                 return 4;
@@ -761,20 +762,20 @@ public class GameDirector : MonoBehaviour
             case StageDataObject.Grade.F:
                 return -1;
         }
-        return -1;
-    }
+return -1;
+    }*/
 
-    private void Change_Game_End(bool WinFlag, int LoseNum = -1) // ¿Ã∞Â¿ª ∂ß
+private void Change_Game_End(bool WinFlag, int LoseNum = -1) // ¿Ã∞Â¿ª ∂ß
     {
         gameType = GameType.GameEnd;
         Time.timeScale = 0f;
         if (WinFlag)
         {
-            string[] ItemList = Reward_ItemNum.Split(',');
+/*            string[] ItemList = Reward_ItemNum.Split(',');
             string[] ItemList_Count = Reward_ItemCount.Split(",");
             List<int> Item_List = new List<int>();
             int ItemNum;
-            int ItemCount;
+            int ItemCount;*/
             /*if (!StageData.Player_FirstPlay)
             {
                 for (int i = 0; i < Reward_Num + 1; i++)
@@ -807,14 +808,14 @@ public class GameDirector : MonoBehaviour
             }*/
         }
 
-        uiDirector.Open_Result_UI(WinFlag, Stage_Num, Total_Score, Total_Coin, Check_Score(), Reward_Point, LoseNum);
+        uiDirector.Open_Result_UI(WinFlag, Stage_Num, Total_Score, Total_Coin, /*Check_Score(),*/ Reward_Point, LoseNum);
     }
 
     private void Game_Win()
     {
-        string grade = Check_Score();
+        //string grade = Check_Score();
         Change_Game_End(true);
-        StageData.GameEnd(true, Total_Score, grade);
+        StageData.GameEnd(true, Total_Score);//, grade);
 
         MMSoundManagerSoundPlayEvent.Trigger(WinSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         

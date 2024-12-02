@@ -20,7 +20,7 @@ public class ItemList_Grade : MonoBehaviour
 
     private void Update()
     {
-        if (item_Change_Flag)
+/*        if (item_Change_Flag)
         {
             item_Change_Flag = false;
             ItemImage.sprite = Item.Item_Sprite;
@@ -53,7 +53,7 @@ public class ItemList_Grade : MonoBehaviour
                 item_mouseOver_Flag = false;
                 ItemList_ToolTip_object.Tooltip_Off();
             }
-        }
+        }*/
 
     }
 
