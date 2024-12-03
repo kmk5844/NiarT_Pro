@@ -9,54 +9,54 @@ namespace ES3Types
 	{
 		public static ES3Type Instance = null;
 
-		public ES3UserType_QuestDataObject() : base(typeof(QuestDataObject)){ Instance = this; priority = 1; }
+		public ES3UserType_QuestDataObject() : base(typeof(MissionDataObject)){ Instance = this; priority = 1; }
 
 
 		protected override void WriteScriptableObject(object obj, ES3Writer writer)
 		{
-			var instance = (QuestDataObject)obj;
+			var instance = (MissionDataObject)obj;
 			
-			writer.WritePrivateField("stage_num", instance);
-			writer.WritePrivateField("substage_num", instance);
-			writer.WritePrivateField("substage_type", instance);
-			writer.WritePrivateField("distance", instance);
-			writer.WritePrivateField("emerging_monster", instance);
-			writer.WritePrivateField("monster_count", instance);
-			writer.WritePrivateField("open_substagenum", instance);
-			writer.WritePrivateField("substage_status", instance);
+			writer.WritePrivateField("stage_num", instance.Stage_Num);
+			writer.WritePrivateField("substage_num", instance.SubStage_Num);
+			writer.WritePrivateField("substage_type", instance.SubStage_Type);
+			writer.WritePrivateField("distance", instance.Distance);
+			writer.WritePrivateField("emerging_monster", instance.Emerging_Monster);
+			writer.WritePrivateField("monster_count", instance.Monster_Count);
+			writer.WritePrivateField("open_substagenum", instance.Open_SubStageNum);
+			writer.WritePrivateField("substage_status", instance.SubStage_Status);
 		}
 
 		protected override void ReadScriptableObject<T>(ES3Reader reader, object obj)
 		{
-			var instance = (QuestDataObject)obj;
+			var instance = (MissionDataObject)obj;
 			foreach(string propertyName in reader.Properties)
 			{
 				switch(propertyName)
 				{
 					
 					case "stage_num":
-					instance = (QuestDataObject)reader.SetPrivateField("stage_num", reader.Read<System.Int32>(), instance);
+					instance = (MissionDataObject)reader.SetPrivateField("stage_num", reader.Read<System.Int32>(), instance);
 					break;
 					case "substage_num":
-					instance = (QuestDataObject)reader.SetPrivateField("substage_num", reader.Read<System.Int32>(), instance);
+					instance = (MissionDataObject)reader.SetPrivateField("substage_num", reader.Read<System.Int32>(), instance);
 					break;
 					case "substage_type":
-					instance = (QuestDataObject)reader.SetPrivateField("substage_type", reader.Read<SubStageType>(), instance);
+					instance = (MissionDataObject)reader.SetPrivateField("substage_type", reader.Read<SubStageType>(), instance);
 					break;
 					case "distance":
-					instance = (QuestDataObject)reader.SetPrivateField("distance", reader.Read<System.Int32>(), instance);
+					instance = (MissionDataObject)reader.SetPrivateField("distance", reader.Read<System.Int32>(), instance);
 					break;
 					case "emerging_monster":
-					instance = (QuestDataObject)reader.SetPrivateField("emerging_monster", reader.Read<System.String>(), instance);
+					instance = (MissionDataObject)reader.SetPrivateField("emerging_monster", reader.Read<System.String>(), instance);
 					break;
 					case "monster_count":
-					instance = (QuestDataObject)reader.SetPrivateField("monster_count", reader.Read<System.String>(), instance);
+					instance = (MissionDataObject)reader.SetPrivateField("monster_count", reader.Read<System.String>(), instance);
 					break;
 					case "open_substagenum":
-					instance = (QuestDataObject)reader.SetPrivateField("open_substagenum", reader.Read<System.String>(), instance);
+					instance = (MissionDataObject)reader.SetPrivateField("open_substagenum", reader.Read<System.String>(), instance);
 					break;
 					case "substage_status":
-					instance = (QuestDataObject)reader.SetPrivateField("substage_status", reader.Read<System.String>(), instance);
+					instance = (MissionDataObject)reader.SetPrivateField("substage_status", reader.Read<System.String>(), instance);
 					break;
 					default:
 						reader.Skip();
@@ -71,7 +71,7 @@ namespace ES3Types
 	{
 		public static ES3Type Instance;
 
-		public ES3UserType_QuestDataObjectArray() : base(typeof(QuestDataObject[]), ES3UserType_QuestDataObject.Instance)
+		public ES3UserType_QuestDataObjectArray() : base(typeof(MissionDataObject[]), ES3UserType_QuestDataObject.Instance)
 		{
 			Instance = this;
 		}

@@ -25,12 +25,12 @@ public class GameDirector : MonoBehaviour
     StageDataObject StageData;
 
     //새로운 스테이지 정보
-    QuestDataObject SubStageData;
-
+    MissionDataObject SubStageData;
 
     public SA_PlayerData SA_PlayerData;
     public Game_DataTable EX_GameData;
     public Level_DataTable EX_LevelData;
+    public SA_MissionData SA_MissionData;
 
     [Header("디렉터")]
     public GameObject MonsterDirector_Object;
@@ -62,8 +62,9 @@ public class GameDirector : MonoBehaviour
     public Player player;
 
     [Header("스테이지 정보")]
-    [SerializeField]
+    public int Mission_Num;
     public int Stage_Num;
+    public int Select_Sub_Num;
     string Emerging_Monster_String;
     string Emerging_MonsterCount_String;
     [SerializeField]
@@ -177,10 +178,12 @@ public class GameDirector : MonoBehaviour
     void Awake()
     {
         gameType = GameType.Starting;
-        Stage_Num = SA_PlayerData.Select_Stage;
 
-        //StageData = SA_StageList.Stage[Stage_Num];
-        SubStageData = SA_PlayerData.SubStageObject;
+        Mission_Num = SA_PlayerData.Mission_Num;
+        Stage_Num = SA_PlayerData.Select_Stage;
+        Select_Sub_Num = SA_PlayerData.Select_Sub_Stage;
+        
+        SubStageData = SA_MissionData.missionStage(Mission_Num, Stage_Num, Select_Sub_Num);
 
         BGM_ID = 30;
         TrainSFX_ID = 100;

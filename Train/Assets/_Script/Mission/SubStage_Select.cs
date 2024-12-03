@@ -5,9 +5,11 @@ using UnityEngine;
 public class SubStage_Select : MonoBehaviour
 {
     public bool MainAndSubFlag;
-    public QuestDataObject questData;
+    public MissionDataObject missionData;
     
     SubStageSelectDirector subStageSelectDirector;
+    //SA_PlayerData playerData;
+
 
     private void Start()
     {
@@ -18,6 +20,12 @@ public class SubStage_Select : MonoBehaviour
         else
         {
             subStageSelectDirector = gameObject.GetComponentInParent<SubStageSelectDirector>();
+            //playerData = subStageSelectDirector.playerData;
         }
+    }
+
+    public void ClickSubStage()
+    {
+        subStageSelectDirector.Open_SelectSubStage_Information(missionData);
     }
 }

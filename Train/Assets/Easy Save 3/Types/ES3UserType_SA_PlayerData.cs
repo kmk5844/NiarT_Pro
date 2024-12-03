@@ -4,7 +4,7 @@ using UnityEngine;
 namespace ES3Types
 {
 	[UnityEngine.Scripting.Preserve]
-	[ES3PropertiesAttribute("EX_GameData", "player_num", "level_atk", "level_atkdelay", "level_hp", "level_armor", "level_speed", "coin", "point", "stage")]
+	[ES3PropertiesAttribute("EX_GameData", "player_num", "level_atk", "level_atkdelay", "level_hp", "level_armor", "level_speed", "coin", "point", "select_stage")]
 	public class ES3UserType_SA_PlayerData : ES3ScriptableObjectType
 	{
 		public static ES3Type Instance = null;
@@ -25,7 +25,7 @@ namespace ES3Types
 			writer.WritePrivateField("level_speed", instance);
 			writer.WritePrivateField("coin", instance);
 			writer.WritePrivateField("point", instance);
-			writer.WritePrivateField("stage", instance);
+			writer.WritePrivateField("select_stage", instance);
 		}
 
 		protected override void ReadScriptableObject<T>(ES3Reader reader, object obj)
@@ -63,8 +63,8 @@ namespace ES3Types
 					case "point":
 					instance = (SA_PlayerData)reader.SetPrivateField("point", reader.Read<System.Int32>(), instance);
 					break;
-					case "stage":
-					instance = (SA_PlayerData)reader.SetPrivateField("stage", reader.Read<System.Int32>(), instance);
+					case "select_stage":
+					instance = (SA_PlayerData)reader.SetPrivateField("select_stage", reader.Read<System.Int32>(), instance);
 					break;
 					default:
 						reader.Skip();
