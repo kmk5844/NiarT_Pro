@@ -22,10 +22,14 @@ public class GameDirector : MonoBehaviour
     public SA_TrainBoosterData SA_TrainBoosterData;
     public SA_MercenaryData SA_MercenaryData;
     public SA_StageList SA_StageList;
-    StageDataObject StageData;
+    //StageDataObject StageData;
 
     //새로운 스테이지 정보
+    [SerializeField]
     MissionDataObject SubStageData;
+    //다음에 해금할 스테이지 정보
+    [SerializeField]
+    List<int> NextSubStageNum;
 
     public SA_PlayerData SA_PlayerData;
     public Game_DataTable EX_GameData;
@@ -182,8 +186,18 @@ public class GameDirector : MonoBehaviour
         Mission_Num = SA_PlayerData.Mission_Num;
         Stage_Num = SA_PlayerData.Select_Stage;
         Select_Sub_Num = SA_PlayerData.Select_Sub_Stage;
-        
+
+/*        Mission_Num = 0;
+        Stage_Num = 0;
+        Select_Sub_Num = 1;
+*/
         SubStageData = SA_MissionData.missionStage(Mission_Num, Stage_Num, Select_Sub_Num);
+        NextSubStageNum = new List<int>();
+        string[] nextSubStageList = SubStageData.Open_SubStageNum.Split(',');
+        foreach(string sub in nextSubStageList)
+        {
+            NextSubStageNum.Add(int.Parse(sub));
+        }
 
         BGM_ID = 30;
         TrainSFX_ID = 100;
@@ -814,11 +828,21 @@ private void Change_Game_End(bool WinFlag, int LoseNum = -1) // 이겼을 때
         uiDirector.Open_Result_UI(WinFlag, Stage_Num, Total_Score, Total_Coin, /*Check_Score(),*/ Reward_Point, LoseNum);
     }
 
+    void SubStage_LockOff()
+    {
+        foreach(int substageNum in NextSubStageNum)
+        {
+            MissionDataObject mission = SA_MissionData.missionStage(Mission_Num, Stage_Num, substageNum);
+            mission.SubStageLockOff();
+        }
+    }
+
     private void Game_Win()
     {
         //string grade = Check_Score();
         Change_Game_End(true);
-        StageData.GameEnd(true, Total_Score);//, grade);
+        SubStage_LockOff();
+        //StageData.GameEnd(true, Total_Score);//, grade);
 
         MMSoundManagerSoundPlayEvent.Trigger(WinSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         
@@ -842,7 +866,7 @@ private void Change_Game_End(bool WinFlag, int LoseNum = -1) // 이겼을 때
         MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, BGM_ID);
         MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, TrainSFX_ID);
         MMSoundManagerSoundPlayEvent.Trigger(LoseSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
-        StageData.GameEnd(false, Total_Score);
+        //StageData.GameEnd(false, Total_Score);
         SA_PlayerData.SA_GameLoseReward(Total_Coin);
         MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, BGM_ID);
         MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, TrainSFX_ID);

@@ -36,26 +36,26 @@ public class SA_MissionData : ScriptableObject
 
         if(missionList.mainstageNum == MainStageNum)
         {
-            if(missionNum == 1)
+            if(missionNum == 0)
             {
                 missionList.Q_Des.Add(mission);
-            }else if(missionNum == 2)
+            }else if(missionNum == 1)
             {
                 missionList.Q_Mat.Add(mission);
             }
-            else if (missionNum == 3)
+            else if (missionNum == 2)
             {
                 missionList.Q_Mon.Add(mission);
             }
-            else if (missionNum == 4)
+            else if (missionNum == 3)
             {
                 missionList.Q_Esc.Add(mission);
             }
-            else if (missionNum == 5)
+            else if (missionNum == 4)
             {
                 missionList.Q_Con.Add(mission);
             }
-            else if (missionNum == 6)
+            else if (missionNum == 5)
             {
                 missionList.Q_Bos.Add(mission);
             }
@@ -65,27 +65,27 @@ public class SA_MissionData : ScriptableObject
     public MissionDataObject missionStage(int missionNum, int StageNum, int SubStageNum)
     {
         var missionList = stagelist.Find(x => x.mainstageNum == StageNum);
-        if (missionNum == 1)
+        if (missionNum == 0)
         {
             return missionList.Q_Des[SubStageNum];
         }
-        else if (missionNum == 2)
+        else if (missionNum == 1)
         {
             return missionList.Q_Mat[SubStageNum];
         }
-        else if (missionNum == 3)
+        else if (missionNum == 2)
         {
             return missionList.Q_Mon[SubStageNum];
         }
-        else if (missionNum == 4)
+        else if (missionNum == 3)
         {
             return missionList.Q_Esc[SubStageNum];
         }
-        else if (missionNum == 5)
+        else if (missionNum == 4)
         {
             return missionList.Q_Con[SubStageNum];
         }
-        else if (missionNum == 6)
+        else if (missionNum == 5)
         {
             return missionList.Q_Bos[SubStageNum];
         }

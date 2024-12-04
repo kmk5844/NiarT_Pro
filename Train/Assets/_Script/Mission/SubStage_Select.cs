@@ -1,15 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SubStage_Select : MonoBehaviour
 {
     public bool MainAndSubFlag;
-    public MissionDataObject missionData;
-    
+
+    public int MissionNum;
+    public int StageNum;
+    public int SubStageNum;
+
+    [SerializeField]
+    MissionDataObject missionData;
+    [SerializeField]
     SubStageSelectDirector subStageSelectDirector;
+
+    public List<Button> nextStage;
     //SA_PlayerData playerData;
 
+    private void Awake()
+    {
+        GetComponent<Button>().onClick.AddListener(ClickSubStage);
+    }
 
     private void Start()
     {
@@ -19,8 +32,16 @@ public class SubStage_Select : MonoBehaviour
         }
         else
         {
-            subStageSelectDirector = gameObject.GetComponentInParent<SubStageSelectDirector>();
-            //playerData = subStageSelectDirector.playerData;
+            subStageSelectDirector = GetComponentInParent<SubStageSelectDirector>();
+            missionData = subStageSelectDirector.missionData.missionStage(MissionNum, StageNum, SubStageNum);
+            if (missionData.StageOpenFlag)
+            {
+                GetComponent<Button>().interactable = true;
+            }
+            else
+            {
+                GetComponent<Button>().interactable = false;
+            }
         }
     }
 

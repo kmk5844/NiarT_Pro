@@ -36,6 +36,10 @@ public class MissionDataObject : ScriptableObject
     private string substage_status;
     public string SubStage_Status { get { return substage_status; } }
 
+    [SerializeField]
+    private bool stageopenflag;
+    public bool StageOpenFlag { get { return stageopenflag; } }
+
     public void Auto_SubStage_Insert(
         int _stage_num, int _substage_num, SubStageType _substage_type,
         int _distance, string _emerging_monster, string _monster_count,
@@ -49,6 +53,39 @@ public class MissionDataObject : ScriptableObject
         monster_count = _monster_count;
         open_substagenum = _open_substagenum;
         substage_status = _substage_status;
+
+        if (substage_num == 0)
+        {
+            stageopenflag = true;
+        }
+        else
+        {
+            stageopenflag = false;
+        }
+
+        Save();
+    }
+
+    public void SubStageLockOff()
+    {
+        stageopenflag = true;
+        Debug.Log(substage_num + " :  " + stageopenflag);
+        Save();
+    }
+
+    void Init()
+    {
+
+    }
+
+    void Save()
+    {
+
+    }
+
+    void Load()
+    {
+
     }
 }
 

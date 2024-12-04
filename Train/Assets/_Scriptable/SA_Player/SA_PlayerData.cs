@@ -96,14 +96,14 @@ public class SA_PlayerData : ScriptableObject
 
     public void SA_GameWinReward(int R_Coin, int R_Point)
     {
-        if (select_stage == 0 && new_stage == 0) // 바로 스토리 넘어가는 특수상황일 경우
+/*        if (select_stage == 0 && new_stage == 0) // 바로 스토리 넘어가는 특수상황일 경우
         {
             new_stage = 1;
             select_stage = 1;
         }else if (select_stage == new_stage)
         {
             new_stage++;
-        }
+        }*/
         coin += R_Coin;
         point += R_Point;
         Save();

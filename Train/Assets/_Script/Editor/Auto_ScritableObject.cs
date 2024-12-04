@@ -347,15 +347,15 @@ public class Auto_ScritableObject : EditorWindow
                 Q_Des.SubStage_Status
                 );
 
-            string guide1 = "Assets/_Scriptable/SA_Mission/Mission_Object/1_Destination/Stage" + Q_Des.Stage_Num;
+            string guide1 = "Assets/_Scriptable/SA_Mission/Mission_Object/0_Destination/Stage" + Q_Des.Stage_Num;
 
             if (!Directory.Exists(guide1)){
                 Directory.CreateDirectory(guide1);
             }
-            AssetDatabase.CreateAsset(questObject, guide1 + "/QDO_SubStage_" + "1_" + Q_Des.Stage_Num + "_" + Q_Des.SubStage_Num + "_" + Q_Des.SubStage_Type + ".asset");
+            AssetDatabase.CreateAsset(questObject, guide1 + "/QDO_SubStage_" + "0_" + Q_Des.Stage_Num + "_" + Q_Des.SubStage_Num + "_" + Q_Des.SubStage_Type + ".asset");
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
-            SA_MissionData_.Add_List(Q_Des.Stage_Num, 1, questObject);
+            SA_MissionData_.Add_List(Q_Des.Stage_Num, 0, questObject);
         }
 
         foreach (Info_Q_Information Q_Mat in Q_Material)
@@ -372,16 +372,16 @@ public class Auto_ScritableObject : EditorWindow
                 Q_Mat.SubStage_Status
                 );
 
-            string guide1 = "Assets/_Scriptable/SA_Mission/Mission_Object/2_Material/Stage" + Q_Mat.Stage_Num;
+            string guide1 = "Assets/_Scriptable/SA_Mission/Mission_Object/1_Material/Stage" + Q_Mat.Stage_Num;
 
             if (!Directory.Exists(guide1))
             {
                 Directory.CreateDirectory(guide1);
             }
-            AssetDatabase.CreateAsset(questObject, guide1 + "/QDO_SubStage_" + "2_" + Q_Mat.Stage_Num + "_" + Q_Mat.SubStage_Num + "_" + Q_Mat.SubStage_Type + ".asset");
+            AssetDatabase.CreateAsset(questObject, guide1 + "/QDO_SubStage_" + "1_" + Q_Mat.Stage_Num + "_" + Q_Mat.SubStage_Num + "_" + Q_Mat.SubStage_Type + ".asset");
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
-            SA_MissionData_.Add_List(Q_Mat.Stage_Num, 2, questObject);
+            SA_MissionData_.Add_List(Q_Mat.Stage_Num, 1, questObject);
 
         }
 
@@ -399,16 +399,16 @@ public class Auto_ScritableObject : EditorWindow
                 Q_Mon.SubStage_Status
                 );
 
-            string guide1 = "Assets/_Scriptable/SA_Mission/Mission_Object/3_Monster/Stage" + Q_Mon.Stage_Num;
+            string guide1 = "Assets/_Scriptable/SA_Mission/Mission_Object/2_Monster/Stage" + Q_Mon.Stage_Num;
 
             if (!Directory.Exists(guide1))
             {
                 Directory.CreateDirectory(guide1);
             }
-            AssetDatabase.CreateAsset(questObject, guide1 + "/QDO_SubStage_" + "3_" + Q_Mon.Stage_Num + "_" + Q_Mon.SubStage_Num + "_" + Q_Mon.SubStage_Type + ".asset");
+            AssetDatabase.CreateAsset(questObject, guide1 + "/QDO_SubStage_" + "2_" + Q_Mon.Stage_Num + "_" + Q_Mon.SubStage_Num + "_" + Q_Mon.SubStage_Type + ".asset");
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
-            SA_MissionData_.Add_List(Q_Mon.Stage_Num, 3, questObject);
+            SA_MissionData_.Add_List(Q_Mon.Stage_Num, 2, questObject);
         }
 
 
@@ -426,16 +426,16 @@ public class Auto_ScritableObject : EditorWindow
                 Q_Esc.SubStage_Status
                 );
 
-            string guide1 = "Assets/_Scriptable/SA_Mission/Mission_Object/4_Escort/Stage" + Q_Esc.Stage_Num;
+            string guide1 = "Assets/_Scriptable/SA_Mission/Mission_Object/3_Escort/Stage" + Q_Esc.Stage_Num;
 
             if (!Directory.Exists(guide1))
             {
                 Directory.CreateDirectory(guide1);
             }
-            AssetDatabase.CreateAsset(questObject, guide1 + "/QDO_SubStage_" + "4_" + Q_Esc.Stage_Num + "_" + Q_Esc.SubStage_Num + "_" + Q_Esc.SubStage_Type + ".asset");
+            AssetDatabase.CreateAsset(questObject, guide1 + "/QDO_SubStage_" + "3_" + Q_Esc.Stage_Num + "_" + Q_Esc.SubStage_Num + "_" + Q_Esc.SubStage_Type + ".asset");
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
-            SA_MissionData_.Add_List(Q_Esc.Stage_Num, 4, questObject);
+            SA_MissionData_.Add_List(Q_Esc.Stage_Num, 3, questObject);
         }
 
         foreach (Info_Q_Information Q_Con in Q_Convoy)
@@ -452,16 +452,16 @@ public class Auto_ScritableObject : EditorWindow
                 Q_Con.SubStage_Status
                 );
 
-            string guide1 = "Assets/_Scriptable/SA_Mission/Mission_Object/5_Convoy/Stage" + Q_Con.Stage_Num;
+            string guide1 = "Assets/_Scriptable/SA_Mission/Mission_Object/4_Convoy/Stage" + Q_Con.Stage_Num;
 
             if (!Directory.Exists(guide1))
             {
                 Directory.CreateDirectory(guide1);
             }
-            AssetDatabase.CreateAsset(questObject, guide1 + "/QDO_SubStage_" + "5_" + Q_Con.Stage_Num + "_" + Q_Con.SubStage_Num + "_" + Q_Con.SubStage_Type + ".asset");
+            AssetDatabase.CreateAsset(questObject, guide1 + "/QDO_SubStage_" + "4_" + Q_Con.Stage_Num + "_" + Q_Con.SubStage_Num + "_" + Q_Con.SubStage_Type + ".asset");
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
-            SA_MissionData_.Add_List(Q_Con.Stage_Num, 5, questObject);
+            SA_MissionData_.Add_List(Q_Con.Stage_Num, 4, questObject);
         }
 
         foreach (Info_Q_Information Q_Bos in Q_Boss)
@@ -478,16 +478,16 @@ public class Auto_ScritableObject : EditorWindow
                 Q_Bos.SubStage_Status
                 );
 
-            string guide1 = "Assets/_Scriptable/SA_Mission/Mission_Object/6_Boss/Stage" + Q_Bos.Stage_Num;
+            string guide1 = "Assets/_Scriptable/SA_Mission/Mission_Object/5_Boss/Stage" + Q_Bos.Stage_Num;
 
             if (!Directory.Exists(guide1))
             {
                 Directory.CreateDirectory(guide1);
             }
-            AssetDatabase.CreateAsset(questObject, guide1 + "/QDO_SubStage_" + "6_" + Q_Bos.Stage_Num + "_" + Q_Bos.SubStage_Num + "_" + Q_Bos.SubStage_Type + ".asset");
+            AssetDatabase.CreateAsset(questObject, guide1 + "/QDO_SubStage_" + "5_" + Q_Bos.Stage_Num + "_" + Q_Bos.SubStage_Num + "_" + Q_Bos.SubStage_Type + ".asset");
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
-            SA_MissionData_.Add_List(Q_Bos.Stage_Num, 6, questObject);
+            SA_MissionData_.Add_List(Q_Bos.Stage_Num, 5, questObject);
         }
         UnityEditor.EditorUtility.SetDirty(SA_MissionData_);
     }

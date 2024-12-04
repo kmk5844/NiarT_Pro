@@ -81,6 +81,9 @@ public class UIDirector : MonoBehaviour
     public Sprite Result_Win_Image;
     public Sprite Result_Lose_Image;
 
+    [Header("SubSelectStage UI")]
+    public GameObject UIObject_SubSelectStage;
+
     public List<int> GetItemList_Num;
     public Transform GetItemList_Transform_Result;
     public GameObject GetItemList_Object;
@@ -233,7 +236,12 @@ public class UIDirector : MonoBehaviour
 
     public void Click_Station()
     {
-        GameManager.Instance.BeforeStation_Enter();
+        UIObject_SubSelectStage.SetActive(true);
+        if(Time.timeScale == 0)
+        {
+            Time.timeScale = 1;
+        }
+        //GameManager.Instance.BeforeStation_Enter();
         //LoadingManager.LoadScene("Station");
     }
 
