@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
@@ -10,15 +11,21 @@ public class SA_MissionData : ScriptableObject
     List<MissionList> stagelist;
     public List<MissionList> StageList { get { return stagelist; } }
 
+    [SerializeField]
+    List<bool> mainstage_clearflag;
+    public List<bool> MainStage_ClearFlag {  get { return mainstage_clearflag; } }
+
 
     public void Editor_MissionList_Init(int maxStage)
     {
         stagelist.Clear();
+        mainstage_clearflag.Clear();
         for (int i = 0; i < maxStage; i++)
         {
             MissionList newMissionList = new MissionList
             {
                 mainstageNum = i,
+                CelarFlag = false,
                 Q_Des = new List<MissionDataObject>(),
                 Q_Mat = new List<MissionDataObject>(),
                 Q_Mon = new List<MissionDataObject>(),
@@ -27,6 +34,7 @@ public class SA_MissionData : ScriptableObject
                 Q_Bos = new List<MissionDataObject>(),
             };
             stagelist.Add(newMissionList);
+            mainstage_clearflag.Add(false);
         }
     }
 
@@ -91,12 +99,34 @@ public class SA_MissionData : ScriptableObject
         }
         return null;
     }
+
+    public void End_SubStage(int MainStageNum)
+    {
+        mainstage_clearflag[MainStageNum] = true;
+        Save();
+    }
+
+    void Init()
+    {
+        
+    }
+
+    void Save()
+    {
+
+    }
+
+    void Load()
+    {
+
+    }
 }
 
 [System.Serializable]
 public struct MissionList
 {
     public int mainstageNum;
+    public bool CelarFlag;
     public List<MissionDataObject> Q_Des;
     public List<MissionDataObject> Q_Mat;
     public List<MissionDataObject> Q_Mon;

@@ -21,8 +21,6 @@ public class MissionSelectDirector : MonoBehaviour
 
     [Header("SubSelectDirector")]
     public GameObject SubStageSelectObject;
-
-
     private void Awake()
     {
         mainStageNum = playerData.Select_Stage;

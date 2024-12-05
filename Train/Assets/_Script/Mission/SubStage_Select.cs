@@ -5,7 +5,13 @@ using UnityEngine.UI;
 
 public class SubStage_Select : MonoBehaviour
 {
-    public bool MainAndSubFlag;
+    enum stageType
+    { Main,
+      Sub,
+      Next }; // Main : 0 Sub : 1 NextMain : 2
+
+    [SerializeField]
+    stageType selectSubStageType;
 
     public int MissionNum;
     public int StageNum;
@@ -26,11 +32,11 @@ public class SubStage_Select : MonoBehaviour
 
     private void Start()
     {
-        if (MainAndSubFlag)
+        if (selectSubStageType == stageType.Main)
         {
             subStageSelectDirector = null;
         }
-        else
+        else if(selectSubStageType == stageType.Sub)
         {
             subStageSelectDirector = GetComponentInParent<SubStageSelectDirector>();
             missionData = subStageSelectDirector.missionData.missionStage(MissionNum, StageNum, SubStageNum);
@@ -42,11 +48,33 @@ public class SubStage_Select : MonoBehaviour
             {
                 GetComponent<Button>().interactable = false;
             }
+        }else if(selectSubStageType == stageType.Next)
+        {
+            subStageSelectDirector = GetComponentInParent<SubStageSelectDirector>();
+            if (!subStageSelectDirector.missionData.MainStage_ClearFlag[StageNum])
+            {
+                GetComponent<Button>().interactable = false;
+            }
+            else
+            {
+                GetComponent<Button>().interactable = true;
+            }
         }
     }
 
     public void ClickSubStage()
     {
-        subStageSelectDirector.Open_SelectSubStage_Information(missionData);
+        if (selectSubStageType == stageType.Main)
+        {
+            Debug.Log("정거장");
+        }
+        else if (selectSubStageType == stageType.Sub)
+        {
+            subStageSelectDirector.Open_SelectSubStage_Information(missionData);
+        }
+        else if (selectSubStageType == stageType.Next)
+        {
+            Debug.Log("정거장");
+        }
     }
 }

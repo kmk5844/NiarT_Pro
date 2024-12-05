@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SubStageSelectDirector : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class SubStageSelectDirector : MonoBehaviour
     public SA_StageList stageList;
     public Quest_DataTable EX_QuestData;
     public SA_MissionData missionData;
+    Station_ItemData itemListData;
+
     MissionDataObject SelectSubStageData;
 
     [Header("UI")]
@@ -19,6 +22,32 @@ public class SubStageSelectDirector : MonoBehaviour
 
     public GameObject UI_SubStageInformationWindow;
     public TextMeshProUGUI UI_SubStageInformationText;
+
+    [Header("아이템 관리")]
+    public Transform Inventory_ItemList;
+    public GameObject Inventory_ItemObject;
+    public ItemList_Tooltip Inventory_ItemTooltip;
+    public Image[] Equip_Item_Image;
+    public Transform Inventory_DragItemList;
+    public GameObject Inventory_DragObject;
+    public ItemDataObject Draging_Item;
+    public bool DragFlag;
+
+    private void Start()
+    {
+        DragFlag = false;
+        itemListData = GetComponent<Station_ItemData>();
+
+        foreach(ItemDataObject item in itemListData.Equipment_Inventory_ItemList)
+        {
+            Inventory_DragObject.GetComponent<Image>().sprite = item.Item_Sprite;
+            GameObject drag = Instantiate(Inventory_DragObject, Inventory_DragItemList);
+            drag.SetActive(false);
+            Inventory_ItemObject.GetComponent<ItemEquip_Object>().SetSetting(item, Inventory_ItemTooltip, drag, this);
+            Instantiate(Inventory_ItemObject, Inventory_ItemList);
+        }
+    }
+
 
     public void OnEnable()
     {
@@ -49,6 +78,6 @@ public class SubStageSelectDirector : MonoBehaviour
     public void Start_SelectSubStage()
     {
         playerData.SA_SelectSubStage(SelectSubStageData.SubStage_Num);
-        SceneManager.LoadScene("InGame");
+        SceneManager.LoadScene("CharacterSelect");
     }
 }

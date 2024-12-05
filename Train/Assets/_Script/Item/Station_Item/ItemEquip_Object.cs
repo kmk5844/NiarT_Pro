@@ -1,3 +1,4 @@
+using PixelCrushers.DialogueSystem.Articy.Articy_4_0;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -6,7 +7,8 @@ using UnityEngine.UI;
 
 public class ItemEquip_Object : MonoBehaviour
 {
-    public Station_GameStart GameStartDirector;
+    public Station_GameStart GameStartDirector; // 제거 예정
+    public SubStageSelectDirector SubDirector;
     public ItemDataObject item;
 
     public string item_name;
@@ -16,6 +18,7 @@ public class ItemEquip_Object : MonoBehaviour
     public int item_max;
     public bool item_equip;
     public GameObject Item_Panel;
+    public GameObject Item_DragImage;
 
     [Header("정보 표시")]
     public Image item_icon_object;
@@ -24,6 +27,10 @@ public class ItemEquip_Object : MonoBehaviour
 
     bool item_information_Flag; // 정보 출력 플래그
     bool item_mouseOver_Flag; // 이미 올려져 있다는 플래그
+
+    float mouseHoldTime;
+    bool mouseHold;
+    bool mouseDrag;
 
     private void Start()
     {
@@ -53,18 +60,47 @@ public class ItemEquip_Object : MonoBehaviour
                 item_mouseOver_Flag = false;
             }
         }
+
+        if (mouseHold)
+        {
+            mouseHoldTime += Time.deltaTime;
+        }
+
+        if(mouseHoldTime > 0.5f)
+        {
+            mouseDrag = true;
+            Item_DragImage.SetActive(true);
+        }
+        else
+        {
+            mouseDrag = false;
+        }
+
+        if (mouseDrag)
+        {
+            Item_DragImage.transform.position = Input.mousePosition;
+            SubDirector.Draging_Item = item;
+        }
+    }
+
+    public void SetSetting(ItemDataObject _item, ItemList_Tooltip _Tooltip, GameObject _Item_DragImage, SubStageSelectDirector _SubDirector)
+    {
+        item = _item;
+        item_tooltip_object = _Tooltip;
+        Item_DragImage = _Item_DragImage;
+        SubDirector = _SubDirector;
     }
 
     public void Change_EquipFlag()
     {
-        if (item_equip)
+/*        if (item_equip)
         {
             Item_Panel.SetActive(true);
         }
         else
         {
             Item_Panel.SetActive(false);
-        }
+        }*/
     }
 
     public void OnMouseEnter()
@@ -77,11 +113,33 @@ public class ItemEquip_Object : MonoBehaviour
         item_information_Flag = false;
     }
 
+    public void OnMouseDown()
+    {
+        mouseHold = true;
+        SubDirector.DragFlag = true;
+    }
+
+    public void OnMouseUp()
+    {
+        mouseHoldTime = 0;
+        Item_DragImage.SetActive(false);
+        SubDirector.DragFlag = false;
+        mouseHold = false;
+        mouseDrag = false;
+    }
+
     public void OnMouseClick()
     {
-        if(!item_equip)
+/*        if (!item_equip)
         {
-            GameStartDirector.Open_ItemCountWindow(item.Num, false);
-        }
+            try
+            {
+                GameStartDirector.Open_ItemCountWindow(item.Num, false);
+            }
+            catch
+            {
+                Debug.Log("정거장 전용 스크립트");
+            }
+        }*/
     }
 }

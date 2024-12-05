@@ -782,17 +782,28 @@ public class GameDirector : MonoBehaviour
 return -1;
     }*/
 
-private void Change_Game_End(bool WinFlag, int LoseNum = -1) // ¿Ã∞Â¿ª ∂ß
+private void Change_Game_End(bool WinFlag, bool subStage_Last,int LoseNum = -1) // ¿Ã∞Â¿ª ∂ß
     {
         gameType = GameType.GameEnd;
         Time.timeScale = 0f;
-        if (WinFlag)
+
+        if (!subStage_Last)
         {
-/*            string[] ItemList = Reward_ItemNum.Split(',');
-            string[] ItemList_Count = Reward_ItemCount.Split(",");
-            List<int> Item_List = new List<int>();
-            int ItemNum;
-            int ItemCount;*/
+            uiDirector.Open_SubSelect();
+        }
+        else
+        {
+            uiDirector.Open_Result_UI(WinFlag, Stage_Num, Total_Score, Total_Coin, /*Check_Score(),*/ Reward_Point, LoseNum);
+        }
+
+        if (WinFlag && subStage_Last)
+        {
+            SA_PlayerData.SA_GameWinReward(Total_Coin, Reward_Point);
+            /*            string[] ItemList = Reward_ItemNum.Split(',');
+                        string[] ItemList_Count = Reward_ItemCount.Split(",");
+                        List<int> Item_List = new List<int>();
+                        int ItemNum;
+                        int ItemCount;*/
             /*if (!StageData.Player_FirstPlay)
             {
                 for (int i = 0; i < Reward_Num + 1; i++)
@@ -824,25 +835,41 @@ private void Change_Game_End(bool WinFlag, int LoseNum = -1) // ¿Ã∞Â¿ª ∂ß
                 }
             }*/
         }
+    }
 
-        uiDirector.Open_Result_UI(WinFlag, Stage_Num, Total_Score, Total_Coin, /*Check_Score(),*/ Reward_Point, LoseNum);
+    void SubStage_Clear()
+    {
+        SubStageData.SubStage_Clear();
     }
 
     void SubStage_LockOff()
     {
+        bool checkFlag = false;
         foreach(int substageNum in NextSubStageNum)
         {
-            MissionDataObject mission = SA_MissionData.missionStage(Mission_Num, Stage_Num, substageNum);
-            mission.SubStageLockOff();
+            if (substageNum != -1)
+            {
+                MissionDataObject mission = SA_MissionData.missionStage(Mission_Num, Stage_Num, substageNum);
+                mission.SubStageLockOff();
+
+            }
+            else
+            {
+                checkFlag = true;
+                SA_MissionData.End_SubStage(Stage_Num);
+            }
         }
+
+        Change_Game_End(true, checkFlag);
     }
 
     private void Game_Win()
     {
         //string grade = Check_Score();
-        Change_Game_End(true);
-        SubStage_LockOff();
         //StageData.GameEnd(true, Total_Score);//, grade);
+        //Change_Game_End(true);
+        SubStage_Clear();
+        SubStage_LockOff();
 
         MMSoundManagerSoundPlayEvent.Trigger(WinSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         
@@ -857,12 +884,12 @@ private void Change_Game_End(bool WinFlag, int LoseNum = -1) // ¿Ã∞Â¿ª ∂ß
                 Debug.Log("¡æ∑·");
             }
         }
-        SA_PlayerData.SA_GameWinReward(Total_Coin, Reward_Point);
+
     }
 
     private void Game_Lose(int losenum)
     {
-        Change_Game_End(false, losenum);
+        Change_Game_End(false, false ,losenum);
         MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, BGM_ID);
         MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, TrainSFX_ID);
         MMSoundManagerSoundPlayEvent.Trigger(LoseSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);

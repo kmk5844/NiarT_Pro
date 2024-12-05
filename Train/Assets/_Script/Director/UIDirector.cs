@@ -234,10 +234,19 @@ public class UIDirector : MonoBehaviour
         Coin_Text.text = Coin.ToString();
     }
 
-    public void Click_Station()
+    public void Open_SubSelect()
     {
         UIObject_SubSelectStage.SetActive(true);
-        if(Time.timeScale == 0)
+        if (Time.timeScale == 0)
+        {
+            Time.timeScale = 1;
+        }
+    }
+
+    public void Click_Station()
+    {
+        SceneManager.LoadScene("Station");
+        if (Time.timeScale == 0)
         {
             Time.timeScale = 1;
         }

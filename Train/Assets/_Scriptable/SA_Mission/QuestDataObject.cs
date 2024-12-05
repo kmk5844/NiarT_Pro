@@ -37,6 +37,10 @@ public class MissionDataObject : ScriptableObject
     public string SubStage_Status { get { return substage_status; } }
 
     [SerializeField]
+    private bool stageclearflag;
+    public bool StageClearFlag {  get { return stageclearflag; } }
+
+    [SerializeField]
     private bool stageopenflag;
     public bool StageOpenFlag { get { return stageopenflag; } }
 
@@ -66,10 +70,15 @@ public class MissionDataObject : ScriptableObject
         Save();
     }
 
+    public void SubStage_Clear()
+    {
+        stageclearflag = true;
+        Save();
+    }
+
     public void SubStageLockOff()
     {
         stageopenflag = true;
-        Debug.Log(substage_num + " :  " + stageopenflag);
         Save();
     }
 
