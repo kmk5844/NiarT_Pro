@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -27,18 +28,28 @@ public class SubStageSelectDirector : MonoBehaviour
     public Transform Inventory_ItemList;
     public GameObject Inventory_ItemObject;
     public ItemList_Tooltip Inventory_ItemTooltip;
-    public Image[] Equip_Item_Image;
+    public ItemEquip_Object[] Equip_ItemObject;
     public Transform Inventory_DragItemList;
     public GameObject Inventory_DragObject;
+    public GameObject DragingItemObject;
     public ItemDataObject Draging_Item;
-    public bool DragFlag;
+    [HideInInspector]
+    public bool HoldAndDragFlag;
+    [HideInInspector]
+    public float mouseHoldAndDragNotTime;
+    [HideInInspector]
+    public int DragItemCount;
+    [HideInInspector]
+    public ItemDataObject EmptyItemObject;
+    public GameObject BeforeHoldItem;
+    public GameObject EndHoldItem;
 
-    private void Start()
+    private void Awake()
     {
-        DragFlag = false;
         itemListData = GetComponent<Station_ItemData>();
+        DragItemCount = 0;
 
-        foreach(ItemDataObject item in itemListData.Equipment_Inventory_ItemList)
+        foreach (ItemDataObject item in itemListData.Equipment_Inventory_ItemList)
         {
             Inventory_DragObject.GetComponent<Image>().sprite = item.Item_Sprite;
             GameObject drag = Instantiate(Inventory_DragObject, Inventory_DragItemList);
@@ -46,8 +57,43 @@ public class SubStageSelectDirector : MonoBehaviour
             Inventory_ItemObject.GetComponent<ItemEquip_Object>().SetSetting(item, Inventory_ItemTooltip, drag, this);
             Instantiate(Inventory_ItemObject, Inventory_ItemList);
         }
+
+        int itemNum = 0;
+        for(int i = 0; i < 3; i++)
+        {
+            itemNum = itemListData.SA_Player_ItemData.Equiped_Item[i];
+            ItemDataObject equiped_item;
+            if (itemNum == -1)
+            {
+                equiped_item = itemListData.SA_Player_ItemData.EmptyObject;
+            }
+            else
+            {
+                equiped_item = itemListData.SA_ItemList.Item[itemNum];
+            }
+            Inventory_DragObject.GetComponent<Image>().sprite = equiped_item.Item_Sprite;
+            GameObject drag = Instantiate(Inventory_DragObject, Inventory_DragItemList);
+            drag.SetActive(false);
+            Equip_ItemObject[i].SetSetting(equiped_item, Inventory_ItemTooltip, drag, this);
+        }
+        EmptyItemObject = itemListData.SA_Player_ItemData.EmptyObject;
     }
 
+    public void Update()
+    {
+        if (HoldAndDragFlag)
+        {
+            if(mouseHoldAndDragNotTime < 0.003f)
+            {
+                mouseHoldAndDragNotTime += Time.deltaTime;
+            }
+            else
+            {
+                Draging_Item = null;
+                HoldAndDragFlag = false;
+            }
+        }
+    }
 
     public void OnEnable()
     {
@@ -62,7 +108,6 @@ public class SubStageSelectDirector : MonoBehaviour
         GameObject StageListObject = Resources.Load<GameObject>("UI_SubStageList/" + selectStageNum + "_Stage/" + missionNum);
         Instantiate(StageListObject, UI_Content.transform);
     }
-
     public void Open_SelectSubStage_Information(MissionDataObject mission)
     {
         UI_SubStageInformationWindow.SetActive(true);
@@ -79,5 +124,16 @@ public class SubStageSelectDirector : MonoBehaviour
     {
         playerData.SA_SelectSubStage(SelectSubStageData.SubStage_Num);
         SceneManager.LoadScene("CharacterSelect");
+    }
+
+    public void OpenCount()
+    {
+        Debug.Log("À¯¾ÆÀÌ ¿ÀÇÂ");
+    }
+
+
+    public void ChangeItem(int objectNum, ItemDataObject item, int itemCount)
+    {
+
     }
 }
