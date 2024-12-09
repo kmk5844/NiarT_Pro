@@ -5,6 +5,10 @@ using UnityEngine;
 public class MissionDataObject : ScriptableObject
 {
     [SerializeField]
+    private int mission_num;
+    public int Mission_Num {  get { return mission_num; } }
+
+    [SerializeField]
     private int stage_num;
     public int Stage_Num { get { return stage_num; } }
     
@@ -45,10 +49,12 @@ public class MissionDataObject : ScriptableObject
     public bool StageOpenFlag { get { return stageopenflag; } }
 
     public void Auto_SubStage_Insert(
+        int _mission_num,
         int _stage_num, int _substage_num, SubStageType _substage_type,
         int _distance, string _emerging_monster, string _monster_count,
         string  _open_substagenum, string _substage_status)
     {
+        mission_num = _mission_num;
         stage_num = _stage_num;
         substage_num = _substage_num;
         substage_type = _substage_type;
@@ -82,19 +88,30 @@ public class MissionDataObject : ScriptableObject
         Save();
     }
 
-    void Init()
+    public void Init()
     {
-
+        stageclearflag = false;
+        if (substage_num == 0)
+        {
+            stageopenflag = true;
+        }
+        else
+        {
+            stageopenflag = false;
+        }
+        Save();
     }
 
     void Save()
     {
-
+        ES3.Save<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_ClearFlag", stageclearflag);
+        ES3.Save<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_OpenFlag", stageopenflag);
     }
 
-    void Load()
+    public void Load()
     {
-
+        stageclearflag = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_ClearFlag");
+        stageopenflag = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_OpenFlag");
     }
 }
 

@@ -1,15 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ItemEquip_Object : MonoBehaviour
 {
     public bool EquipAndInventory; //Equip == True, Inventory : 
-    [SerializeField]
-    int EquipObjectNum = -1;
+    public int EquipObjectNum = -1;
     public Station_GameStart GameStartDirector; // 제거 예정
     public SubStageSelectDirector SubDirector;
     public ItemDataObject item;
@@ -93,6 +91,7 @@ public class ItemEquip_Object : MonoBehaviour
         item_tooltip_object = _Tooltip;
         Item_DragImage = _Item_DragImage;
         SubDirector = _SubDirector;
+        Equip_Item();
     }
 
 /*    public void DragSetting(ItemDataObject _item, GameObject _Item_DragImage)
@@ -111,20 +110,27 @@ public class ItemEquip_Object : MonoBehaviour
         item_use = item.Use_Flag;
         item_max = item.Max_Equip;
         item_icon_object.sprite = item.Item_Sprite;
-        item_object_text_count.text = item_count.ToString();
+        if (!EquipAndInventory)
+        {
+            item_object_text_count.text = item_count.ToString();
+        }
+        else
+        {
+            if (SubDirector.itemListData.SA_Player_ItemData.Equiped_Item[EquipObjectNum] == -1)
+            {
+                item_object_text_count.text = "";
+            }
+            else {
+                item_object_text_count.text = SubDirector.itemListData.SA_Player_ItemData.Equiped_Item_Count[EquipObjectNum].ToString();
+            }
+        }
     }
 
-    void Init_Item()
+    public void Init_Item()
     {
-        item = null;
-        item_name = "";
-        item_information = "";
-        item_count = 0;
-        item_use = false;
-        item_max = 0;
-        item_icon_object.sprite = null;
-        item_object_text_count.text = "#";
-        Item_DragImage = null;
+        item = SubDirector.itemListData.SA_Player_ItemData.EmptyObject;
+        SubDirector.itemListData.SA_Player_ItemData.Empty_Item(EquipObjectNum);
+        Equip_Item();
     }
 
     public void Change_EquipFlag()
@@ -149,13 +155,11 @@ public class ItemEquip_Object : MonoBehaviour
 
                 item = SubDirector.Draging_Item;
                 Item_DragImage = SubDirector.DragingItemObject;
-                Equip_Item();
+                SubDirector.OpenItemCountWindow(this, true);
                 SubDirector.DragItemCount++;
-
-
-                //SubDirector.Draging_Item = null;
             }
         }
+
         if (item != SubDirector.EmptyItemObject)
         {
             if (item != null)
@@ -201,10 +205,6 @@ public class ItemEquip_Object : MonoBehaviour
             Item_DragImage.SetActive(false);
         }
 
-        if (EquipDragFlag)
-        {
-            Init_Item();
-        }
         mouseHold = false;
         mouseDrag = false;
     }

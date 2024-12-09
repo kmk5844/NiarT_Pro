@@ -337,6 +337,7 @@ public class Auto_ScritableObject : EditorWindow
         {
             MissionDataObject questObject = ScriptableObject.CreateInstance<MissionDataObject>();
             questObject.Auto_SubStage_Insert(
+                0,
                 Q_Des.Stage_Num,
                 Q_Des.SubStage_Num,
                 CheckSubStageType(Q_Des.SubStage_Type),
@@ -362,6 +363,7 @@ public class Auto_ScritableObject : EditorWindow
         {
             MissionDataObject questObject = ScriptableObject.CreateInstance<MissionDataObject>();
             questObject.Auto_SubStage_Insert(
+                1,
                 Q_Mat.Stage_Num,
                 Q_Mat.SubStage_Num,
                 CheckSubStageType(Q_Mat.SubStage_Type),
@@ -389,6 +391,7 @@ public class Auto_ScritableObject : EditorWindow
         {
             MissionDataObject questObject = ScriptableObject.CreateInstance<MissionDataObject>();
             questObject.Auto_SubStage_Insert(
+                2,
                 Q_Mon.Stage_Num,
                 Q_Mon.SubStage_Num,
                 CheckSubStageType(Q_Mon.SubStage_Type),
@@ -416,6 +419,7 @@ public class Auto_ScritableObject : EditorWindow
         {
             MissionDataObject questObject = ScriptableObject.CreateInstance<MissionDataObject>();
             questObject.Auto_SubStage_Insert(
+                3,
                 Q_Esc.Stage_Num,
                 Q_Esc.SubStage_Num,
                 CheckSubStageType(Q_Esc.SubStage_Type),
@@ -442,6 +446,7 @@ public class Auto_ScritableObject : EditorWindow
         {
             MissionDataObject questObject = ScriptableObject.CreateInstance<MissionDataObject>();
             questObject.Auto_SubStage_Insert(
+                4,
                 Q_Con.Stage_Num,
                 Q_Con.SubStage_Num,
                 CheckSubStageType(Q_Con.SubStage_Type),
@@ -468,6 +473,7 @@ public class Auto_ScritableObject : EditorWindow
         {
             MissionDataObject questObject = ScriptableObject.CreateInstance<MissionDataObject>();
             questObject.Auto_SubStage_Insert(
+                5,
                 Q_Bos.Stage_Num,
                 Q_Bos.SubStage_Num,
                 CheckSubStageType(Q_Bos.SubStage_Type),

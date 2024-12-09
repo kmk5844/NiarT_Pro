@@ -1,7 +1,9 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -13,9 +15,10 @@ public class SubStageSelectDirector : MonoBehaviour
     public SA_StageList stageList;
     public Quest_DataTable EX_QuestData;
     public SA_MissionData missionData;
-    Station_ItemData itemListData;
+    public Station_ItemData itemListData;
 
     MissionDataObject SelectSubStageData;
+    int SelectSubStageNum;
 
     [Header("UI")]
     public TextMeshProUGUI UI_MissionInformation;
@@ -24,11 +27,23 @@ public class SubStageSelectDirector : MonoBehaviour
     public GameObject UI_SubStageInformationWindow;
     public TextMeshProUGUI UI_SubStageInformationText;
 
+    [Header("UI_ItemCount")]
+    public GameObject UI_ItemCount;
+    public Image UI_ItemIcon;
+    public Slider UI_ItemCountSlider;
+    public TextMeshProUGUI UI_ItemCountText;
+    public Button UI_ItemCount_YesButton;
+    public Button UI_ItemCount_NoButton;
+    ItemEquip_Object Count_ItemEquipObjcet;
+    UnityEngine.Events.UnityAction listner;
+
+
     [Header("아이템 관리")]
     public Transform Inventory_ItemList;
     public GameObject Inventory_ItemObject;
     public ItemList_Tooltip Inventory_ItemTooltip;
     public ItemEquip_Object[] Equip_ItemObject;
+    public Button[] ChangeCount_ItemObject;
     public Transform Inventory_DragItemList;
     public GameObject Inventory_DragObject;
     public GameObject DragingItemObject;
@@ -44,9 +59,10 @@ public class SubStageSelectDirector : MonoBehaviour
     public GameObject BeforeHoldItem;
     public GameObject EndHoldItem;
 
-    private void Awake()
+
+    private void Start()
     {
-        itemListData = GetComponent<Station_ItemData>();
+        //itemListData = GetComponent<Station_ItemData>();
         DragItemCount = 0;
 
         foreach (ItemDataObject item in itemListData.Equipment_Inventory_ItemList)
@@ -77,6 +93,7 @@ public class SubStageSelectDirector : MonoBehaviour
             Equip_ItemObject[i].SetSetting(equiped_item, Inventory_ItemTooltip, drag, this);
         }
         EmptyItemObject = itemListData.SA_Player_ItemData.EmptyObject;
+
     }
 
     public void Update()
@@ -113,6 +130,7 @@ public class SubStageSelectDirector : MonoBehaviour
         UI_SubStageInformationWindow.SetActive(true);
         UI_SubStageInformationText.text = "stage type : " + mission.SubStage_Type + "\nstage distance : " + mission.Distance;
         SelectSubStageData = mission;
+        SelectSubStageNum = mission.SubStage_Num;
     }
 
     public void Close_SelectSubStage_Information()
@@ -122,18 +140,56 @@ public class SubStageSelectDirector : MonoBehaviour
 
     public void Start_SelectSubStage()
     {
-        playerData.SA_SelectSubStage(SelectSubStageData.SubStage_Num);
+        playerData.SA_SelectSubStage(SelectSubStageNum);
+        //Debug.Log(SelectSubStageData.SubStage_Num);
         SceneManager.LoadScene("CharacterSelect");
     }
 
-    public void OpenCount()
+    public void OpenItemCountWindow(ItemEquip_Object item, bool Flag)
     {
-        Debug.Log("유아이 오픈");
+        Count_ItemEquipObjcet = item;
+        UI_ItemIcon.sprite = Count_ItemEquipObjcet.item.Item_Sprite;
+        UI_ItemCountSlider.minValue = 1;
+        if(Count_ItemEquipObjcet.item.Max_Equip > Count_ItemEquipObjcet.item.Item_Count)
+        {
+            UI_ItemCountSlider.maxValue = Count_ItemEquipObjcet.item.Item_Count;
+        }
+        else
+        {
+            UI_ItemCountSlider.maxValue = Count_ItemEquipObjcet.item.Max_Equip;
+        }
+        UI_ItemCountSlider.value = 1;
+        UI_ItemCount.SetActive(true);
+        listner = () => ItemCount_YesButton(Count_ItemEquipObjcet, Flag);
+        UI_ItemCount_YesButton.onClick.AddListener(listner);
+    }
+    public void CloseItemCountWindow()
+    {
+        UI_ItemCount.SetActive(false);
+        UI_ItemCount_YesButton.onClick.RemoveListener(listner);
     }
 
-
-    public void ChangeItem(int objectNum, ItemDataObject item, int itemCount)
+    public void OpenCountChange(int objectNum)
     {
+        OpenItemCountWindow(Equip_ItemObject[objectNum],false);
+    }
 
+    public void ItemCount_YesButton(ItemEquip_Object item, bool Flag)
+    {
+        int itemCount = (int)UI_ItemCountSlider.value;
+        int listIndex = itemListData.SA_Player_ItemData.Equiped_Item.IndexOf(item.item.Num);
+        if (Flag)
+        {
+            if (listIndex != -1)
+            {
+                if (item.EquipObjectNum != listIndex)
+                {
+                    Equip_ItemObject[listIndex].Init_Item();
+                }
+            }
+        }
+        itemListData.SA_Player_ItemData.Equip_Item(item.EquipObjectNum, item.item, itemCount);
+        item.Equip_Item(); //장착 아이템 오브젝트 정보 변경
+        CloseItemCountWindow();
     }
 }

@@ -68,7 +68,14 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                DataManager.Instance.Load();
+                try
+                {
+                    DataManager.Instance.Load();
+                }
+                catch
+                {
+                    DataManager.Instance.Init();
+                }
             }
         }
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[LocalData.Local_Index];

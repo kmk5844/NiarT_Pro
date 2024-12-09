@@ -16,6 +16,7 @@ public class SubStage_Select : MonoBehaviour
     public int MissionNum;
     public int StageNum;
     public int SubStageNum;
+    public GameObject ClearObjcet;
 
     [SerializeField]
     MissionDataObject missionData;
@@ -40,6 +41,16 @@ public class SubStage_Select : MonoBehaviour
         {
             subStageSelectDirector = GetComponentInParent<SubStageSelectDirector>();
             missionData = subStageSelectDirector.missionData.missionStage(MissionNum, StageNum, SubStageNum);
+
+            if (missionData.StageClearFlag)
+            {
+                ClearObjcet.SetActive(true);
+            }
+            else
+            {
+                ClearObjcet.SetActive(false);
+            }
+
             if (missionData.StageOpenFlag)
             {
                 GetComponent<Button>().interactable = true;

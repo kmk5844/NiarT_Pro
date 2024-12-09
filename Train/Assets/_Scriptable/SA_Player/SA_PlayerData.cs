@@ -75,6 +75,7 @@ public class SA_PlayerData : ScriptableObject
     public int Select_Stage { get { return  select_stage; } }
 
     [Header("서브 스테이지")]
+    [SerializeField]
     private int select_sub_stage;
     public int Select_Sub_Stage { get { return select_sub_stage; } }
 
@@ -162,6 +163,7 @@ public class SA_PlayerData : ScriptableObject
     public void SA_SelectSubStage(int substagenum)
     {
         select_sub_stage = substagenum;
+        //Debug.Log(select_sub_stage);
         Save();
     }
 

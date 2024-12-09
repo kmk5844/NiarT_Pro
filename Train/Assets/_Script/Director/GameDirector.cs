@@ -793,6 +793,7 @@ private void Change_Game_End(bool WinFlag, bool subStage_Last,int LoseNum = -1) 
         }
         else
         {
+
             uiDirector.Open_Result_UI(WinFlag, Stage_Num, Total_Score, Total_Coin, /*Check_Score(),*/ Reward_Point, LoseNum);
         }
 

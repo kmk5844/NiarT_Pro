@@ -43,6 +43,7 @@ public class DataManager : MonoBehaviour
     public SA_ItemData PlayerItem_Data;
     public SA_Tutorial tutorialData;
     public SA_StoryLIst storyData;
+    public SA_MissionData missionData;
 
 
     public void Load()
@@ -58,6 +59,7 @@ public class DataManager : MonoBehaviour
 
         localData.Load();
         PlayerItem_Data.Load();
+        missionData.Load();
     }
 
     public void Init()
@@ -73,5 +75,6 @@ public class DataManager : MonoBehaviour
         InventoryItem_Data.PlayGame_ItemList_Init();
         PlayerItem_Data.Init();
         tutorialData.Init();
+        missionData.Init();
     }
 }

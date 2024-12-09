@@ -13,19 +13,18 @@ public class SA_MissionData : ScriptableObject
 
     [SerializeField]
     List<bool> mainstage_clearflag;
-    public List<bool> MainStage_ClearFlag {  get { return mainstage_clearflag; } }
+    public List<bool> MainStage_ClearFlag { get { return mainstage_clearflag; } }
 
 
     public void Editor_MissionList_Init(int maxStage)
     {
         stagelist.Clear();
-        mainstage_clearflag.Clear();
+        //mainstage_clearflag.Clear();
         for (int i = 0; i < maxStage; i++)
         {
             MissionList newMissionList = new MissionList
             {
                 mainstageNum = i,
-                CelarFlag = false,
                 Q_Des = new List<MissionDataObject>(),
                 Q_Mat = new List<MissionDataObject>(),
                 Q_Mon = new List<MissionDataObject>(),
@@ -103,22 +102,77 @@ public class SA_MissionData : ScriptableObject
     public void End_SubStage(int MainStageNum)
     {
         mainstage_clearflag[MainStageNum] = true;
-        Save();
+        Save(MainStageNum);
     }
 
-    void Init()
+    public void Init()
     {
-        
+        for(int i = 0; i < stagelist.Count; i++)
+        {
+            mainstage_clearflag[i] = false;
+            foreach (MissionDataObject mission in stagelist[i].Q_Des)
+            {
+                mission.Init();
+            }
+            foreach (MissionDataObject mission in stagelist[i].Q_Mat)
+            {
+                mission.Init();
+            }
+            foreach (MissionDataObject mission in stagelist[i].Q_Mon)
+            {
+                mission.Init();
+            }
+            foreach (MissionDataObject mission in stagelist[i].Q_Esc)
+            {
+                mission.Init();
+            }
+            foreach (MissionDataObject mission in stagelist[i].Q_Con)
+            {
+                mission.Init();
+            }
+            foreach (MissionDataObject mission in stagelist[i].Q_Bos)
+            {
+                mission.Init();
+            }
+            Save(i);
+        }
     }
 
-    void Save()
+    void Save(int i)
     {
-
+        ES3.Save<bool>("SA_MissionData_" + i + "_clearData", mainstage_clearflag[i]);
     }
 
-    void Load()
+    public void Load()
     {
-
+        for(int i = 0; i < stagelist.Count; i++)
+        {
+            mainstage_clearflag[i] = ES3.Load<bool>("SA_MissionData_" + i + "_clearData");
+            foreach(MissionDataObject mission in stagelist[i].Q_Des)
+            {
+                mission.Load();
+            }
+            foreach (MissionDataObject mission in stagelist[i].Q_Mat)
+            {
+                mission.Load();
+            }
+            foreach (MissionDataObject mission in stagelist[i].Q_Mon)
+            {
+                mission.Load();
+            }
+            foreach (MissionDataObject mission in stagelist[i].Q_Esc)
+            {
+                mission.Load();
+            }
+            foreach (MissionDataObject mission in stagelist[i].Q_Con)
+            {
+                mission.Load();
+            }
+            foreach (MissionDataObject mission in stagelist[i].Q_Bos)
+            {
+                mission.Load();
+            }
+        }
     }
 }
 
@@ -126,7 +180,6 @@ public class SA_MissionData : ScriptableObject
 public struct MissionList
 {
     public int mainstageNum;
-    public bool CelarFlag;
     public List<MissionDataObject> Q_Des;
     public List<MissionDataObject> Q_Mat;
     public List<MissionDataObject> Q_Mon;
