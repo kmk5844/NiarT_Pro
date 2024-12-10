@@ -70,6 +70,7 @@ public class SA_PlayerData : ScriptableObject
     [SerializeField]
     private int new_stage;
     public int New_Stage { get { return new_stage; } }
+
     [SerializeField]
     private int select_stage;
     public int Select_Stage { get { return  select_stage; } }
@@ -118,9 +119,9 @@ public class SA_PlayerData : ScriptableObject
         Save();
     }
 
-    public void SA_GameLoseReward(int R_Coin)
+    public void SA_GameLoseCoin(float R_CoinPercent)
     {
-        coin += R_Coin;
+        coin -= (int)(coin * (R_CoinPercent / 100f)); 
         Save();
     }
 
@@ -163,7 +164,14 @@ public class SA_PlayerData : ScriptableObject
     public void SA_SelectSubStage(int substagenum)
     {
         select_sub_stage = substagenum;
-        //Debug.Log(select_sub_stage);
+        //
+        //
+        //
+        //
+        //억지로 프레임 수를 늘려서 저장할 수 있도록 텀을 넣어주는.
+        //
+        //
+        //
         Save();
     }
 

@@ -787,15 +787,22 @@ private void Change_Game_End(bool WinFlag, bool subStage_Last,int LoseNum = -1) 
         gameType = GameType.GameEnd;
         Time.timeScale = 0f;
 
-        if (!subStage_Last)
+        if (WinFlag)
         {
-            uiDirector.Open_SubSelect();
+            if (!subStage_Last)
+            {
+                uiDirector.Open_SubSelect();
+            }
+            else
+            {
+                uiDirector.Open_Result_UI(WinFlag, Stage_Num, Total_Score, Total_Coin, /*Check_Score(),*/ Reward_Point, LoseNum);
+            }
         }
         else
         {
-
             uiDirector.Open_Result_UI(WinFlag, Stage_Num, Total_Score, Total_Coin, /*Check_Score(),*/ Reward_Point, LoseNum);
         }
+
 
         if (WinFlag && subStage_Last)
         {
@@ -895,9 +902,10 @@ private void Change_Game_End(bool WinFlag, bool subStage_Last,int LoseNum = -1) 
         MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, TrainSFX_ID);
         MMSoundManagerSoundPlayEvent.Trigger(LoseSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         //StageData.GameEnd(false, Total_Score);
-        SA_PlayerData.SA_GameLoseReward(Total_Coin);
+        SA_PlayerData.SA_GameLoseCoin(20f);
         MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, BGM_ID);
         MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, TrainSFX_ID);
+        SA_MissionData.SubStage_Lose(Stage_Num, Mission_Num);
     }
 
     public void GameType_Option(bool flag)

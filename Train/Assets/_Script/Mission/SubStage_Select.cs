@@ -78,6 +78,7 @@ public class SubStage_Select : MonoBehaviour
         if (selectSubStageType == stageType.Main)
         {
             Debug.Log("¡§∞≈¿Â");
+            //subStageSelectDirector.
         }
         else if (selectSubStageType == stageType.Sub)
         {

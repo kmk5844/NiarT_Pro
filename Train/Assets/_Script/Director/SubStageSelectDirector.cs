@@ -27,6 +27,10 @@ public class SubStageSelectDirector : MonoBehaviour
     public GameObject UI_SubStageInformationWindow;
     public TextMeshProUGUI UI_SubStageInformationText;
 
+    public GameObject UI_MissionCancelWindow;
+    int stageNum;
+    int missionNum;
+
     [Header("UI_ItemCount")]
     public GameObject UI_ItemCount;
     public Image UI_ItemIcon;
@@ -131,6 +135,7 @@ public class SubStageSelectDirector : MonoBehaviour
         UI_SubStageInformationText.text = "stage type : " + mission.SubStage_Type + "\nstage distance : " + mission.Distance;
         SelectSubStageData = mission;
         SelectSubStageNum = mission.SubStage_Num;
+        playerData.SA_SelectSubStage(SelectSubStageNum);
     }
 
     public void Close_SelectSubStage_Information()
@@ -140,9 +145,15 @@ public class SubStageSelectDirector : MonoBehaviour
 
     public void Start_SelectSubStage()
     {
-        playerData.SA_SelectSubStage(SelectSubStageNum);
-        //Debug.Log(SelectSubStageData.SubStage_Num);
-        SceneManager.LoadScene("CharacterSelect");
+        if(SceneManager.GetActiveScene().name != "CharacterSelect")
+        {
+            SceneManager.LoadScene("CharacterSelect");
+        }
+        else
+        {
+            this.gameObject.SetActive(false);
+            UI_SubStageInformationWindow.SetActive(false);
+        }
     }
 
     public void OpenItemCountWindow(ItemEquip_Object item, bool Flag)
@@ -191,5 +202,24 @@ public class SubStageSelectDirector : MonoBehaviour
         itemListData.SA_Player_ItemData.Equip_Item(item.EquipObjectNum, item.item, itemCount);
         item.Equip_Item(); //장착 아이템 오브젝트 정보 변경
         CloseItemCountWindow();
+    }
+
+    public void ClickMissionCancel()
+    {
+        UI_MissionCancelWindow.SetActive(true);
+        stageNum = playerData.Select_Stage;
+        missionNum = playerData.Mission_Num;
+    }
+
+    public void Yes_MissionCancel()
+    {
+        playerData.SA_GameLoseCoin(60f);
+        missionData.SubStage_Lose(stageNum, missionNum);
+        SceneManager.LoadScene("Station");
+    }
+
+    public void No_MissionCancel()
+    { 
+        UI_MissionCancelWindow.SetActive(false);
     }
 }

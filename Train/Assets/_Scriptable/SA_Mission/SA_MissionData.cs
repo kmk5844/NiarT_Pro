@@ -105,6 +105,49 @@ public class SA_MissionData : ScriptableObject
         Save(MainStageNum);
     }
 
+    public void SubStage_Lose(int MainStageNum, int MissionNum)
+    {
+        switch(MissionNum)
+        {
+            case 0:
+                foreach(MissionDataObject mission in stagelist[MainStageNum].Q_Des)
+                {
+                    mission.Init();
+                }
+                break;
+            case 1:
+                foreach (MissionDataObject mission in stagelist[MainStageNum].Q_Mat)
+                {
+                    mission.Init();
+                }
+                break;
+            case 2:
+                foreach (MissionDataObject mission in stagelist[MainStageNum].Q_Mon)
+                {
+                    mission.Init();
+                }
+                break;
+            case 3:
+                foreach (MissionDataObject mission in stagelist[MainStageNum].Q_Esc)
+                {
+                    mission.Init();
+                }
+                break;
+            case 4:
+                foreach (MissionDataObject mission in stagelist[MainStageNum].Q_Con)
+                {
+                    mission.Init();
+                }
+                break;
+            case 5:
+                foreach (MissionDataObject mission in stagelist[MainStageNum].Q_Bos)
+                {
+                    mission.Init();
+                }
+                break;
+        }
+    }
+
     public void Init()
     {
         for(int i = 0; i < stagelist.Count; i++)

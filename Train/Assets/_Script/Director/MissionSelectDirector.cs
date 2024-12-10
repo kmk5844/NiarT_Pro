@@ -20,6 +20,9 @@ public class MissionSelectDirector : MonoBehaviour
 
     [Header("SubSelectDirector")]
     public GameObject SubStageSelectObject;
+
+    public GameObject SelectMissionObject;
+
     private void Awake()
     {
         mainStageNum = playerData.Select_Stage;
@@ -60,10 +63,13 @@ public class MissionSelectDirector : MonoBehaviour
             buttonList[i].gameObject.SetActive(true);
             buttonList[i].Mission_SetData(missionNum, EX_QuestData.Q_List[missionInformation_Num].Quest_Type, EX_QuestData.Q_List[missionInformation_Num].Quest_Information, EX_QuestData.Q_List[missionInformation_Num].Quest_Reward);
         }
+
+        SelectMissionObject.GetComponent<SelectMission>().SetDataSetting(playerData, EX_QuestData);
     }
 
     public void Open_SubSelectObject()
     {
+        Instantiate(SelectMissionObject);
         SubStageSelectObject.SetActive(true);
     }
 }
