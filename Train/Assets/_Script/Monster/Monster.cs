@@ -28,6 +28,7 @@ public class Monster : MonoBehaviour
     [SerializeField]
     protected bool Monster_CountFlag;
     protected Coroutine Monster_coroutine;
+    public bool Monster_MissionFlag = false;
 
     public string Monster_Type;
     protected Vector2 MonsterDirector_Pos; //몬스터 디렉터에게 받고 지정된 위치
@@ -631,6 +632,10 @@ public class Monster : MonoBehaviour
         Monster_HP = 0;
         monster_gametype = Monster_GameType.Die;
         gameDirector.Game_Monster_Kill(Monster_Score, Monster_Coin);
+        if (Monster_MissionFlag)
+        {
+            gameDirector.Game_Mission_Kill();
+        }
         Instantiate(Monster_Kill_Particle, transform.localPosition, Quaternion.identity);
         if (Monster_CountFlag)
         {

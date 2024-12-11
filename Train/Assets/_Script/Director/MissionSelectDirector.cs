@@ -45,10 +45,11 @@ public class MissionSelectDirector : MonoBehaviour
         {
             do
             {
-                int x = Random.Range(0, missionList_Index.Count + 1);
-                if (!RandomMission.Contains(x))
+                int x = Random.Range(0, missionList_Index.Count);
+                int y = missionList_Index[x];
+                if (!RandomMission.Contains(y))
                 {
-                    RandomMission.Add(x);
+                    RandomMission.Add(y);
                     count++;
                 }
             } while (count < 3);
@@ -69,7 +70,8 @@ public class MissionSelectDirector : MonoBehaviour
 
     public void Open_SubSelectObject()
     {
-        Instantiate(SelectMissionObject);
+        GameObject game_obj = Instantiate(SelectMissionObject);
+        game_obj.name = "SelectMission";
         SubStageSelectObject.SetActive(true);
     }
 }

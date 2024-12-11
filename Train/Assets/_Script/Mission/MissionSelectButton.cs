@@ -19,6 +19,7 @@ public class MissionSelectButton : MonoBehaviour
     public string MissionInformation;
     public int MissionReward;
 
+    
 
     public void Mission_SetData(int _missionNum, string type, string information, int reward)
     {

@@ -2443,6 +2443,8 @@ MonoBehaviour:
   Item_DirectorObject: {fileID: 878257224}
   CameraConfiler: {fileID: 1770909225}
   fill_director: {fileID: 0}
+  MissionDirector_Object: {fileID: 1128313787}
+  lastFlag: 0
   playerObject: {fileID: 0}
   player: {fileID: 0}
   Mission_Num: 2
@@ -3705,6 +3707,7 @@ Transform:
   - {fileID: 1935013892}
   - {fileID: 878257225}
   - {fileID: 967875822}
+  - {fileID: 1128313788}
   - {fileID: 437622085}
   - {fileID: 945371508}
   m_Father: {fileID: 0}
@@ -6196,10 +6199,12 @@ MonoBehaviour:
   Test_MonsterCount: 10
   EX_GameData: {fileID: 11400000, guid: 3a83740cb85032c498c0bbd5b0a2ec9d, type: 2}
   SA_PlayerData: {fileID: 11400000, guid: 00cbb5f50188b374e85c8a529a52b4b0, type: 2}
+  missionDirector: {fileID: 1128313789}
   Monster_List: {fileID: 2125283571}
   Test_Monster_List: []
   Boss_List: {fileID: 1233256303}
   Emerging_Boss_List: 
+  missionFlag: 0
   SupplyMonster_List: {fileID: 1812168578}
   SupplyMonster_Object: {fileID: 7976047841580440944, guid: d1a7039526afdc5438ba911cc5748f9f, type: 3}
   GameDirector_SpawnFlag: 0
@@ -14711,6 +14716,53 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1128313787
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1128313788}
+  - component: {fileID: 1128313789}
+  m_Layer: 0
+  m_Name: MissionDirector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1128313788
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1128313787}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 355936109}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1128313789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1128313787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35444a4737c669f4a99e37c324cd3bc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectmission: {fileID: 0}
+  monsterDirector: {fileID: 550142803}
+  monsterCount: 0
 --- !u!1 &1130360707
 GameObject:
   m_ObjectHideFlags: 0

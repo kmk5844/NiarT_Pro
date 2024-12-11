@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class SelectMission : MonoBehaviour
@@ -14,18 +16,25 @@ public class SelectMission : MonoBehaviour
     string FindString;
 
     [SerializeField]
-    string StageMission;
+    public string StageMission;
     string MissionType_String;
     [SerializeField]
-    MissionType MissionType;
+    public MissionType MissionType;
     [SerializeField]
-    string MissionInformation;
+    public string MissionInformation;
     [SerializeField]
-    string MissionState;
+    public string MissionState;
     [SerializeField]
-    int MissionReward;
+    public int MissionReward;
 
-    public void Start()
+    public MissionMaterial_State M_Material;
+    public MissionMonster_State M_Monster;
+    public MissionEscort_State M_Escort;
+    public MissionConvoy_State M_Convoy;
+
+    public int monsterCount;
+
+    private void Start()
     {
         DontDestroyOnLoad(gameObject);
         stageNum = playerData.Select_Stage;
@@ -33,6 +42,7 @@ public class SelectMission : MonoBehaviour
         FindString = stageNum + ","+ missionNum;
         SetMissionSetting();
         SetMissionType();
+        SetMissionState();
     }
 
     public void SetDataSetting(SA_PlayerData _playerData, Quest_DataTable _missionDataTable)
@@ -81,6 +91,186 @@ public class SelectMission : MonoBehaviour
             case "Boss":
                 MissionType = MissionType.Boss;
                 break;
+        }
+    }
+
+    public bool CheckMission(bool LastFlag)
+    {
+        if (!LastFlag) // 마지막이 아닐 때
+        {
+            if (MissionType == MissionType.Destination)
+            {
+                Debug.Log("목적지 무사히 달성하기");
+                return true;
+            }
+            else if (MissionType == MissionType.Material)
+            {
+                Debug.Log("재료 모으기");
+                //재료 카운트 추가
+                return true;
+            }
+            else if (MissionType == MissionType.Monster)
+            {
+                //문제 없음.
+                return true;
+            }
+            else if (MissionType == MissionType.Escort)
+            {
+                Debug.Log("호위하기");
+                //진행 -> 게임 디렉터에서 체크할 예정
+                return true;
+            }
+            else if (MissionType == MissionType.Convoy)
+            {
+                Debug.Log("호송하기");
+                //진행 -> 게임 디렉터에서 체크할 예정
+                return true;
+            }
+            else if (MissionType == MissionType.Boss)
+            {
+                Debug.Log("보스 죽이기");
+                //보스 카운트 추가
+                return true;
+            }
+        }
+        else // 마지막일 때
+        {
+            if (MissionType == MissionType.Destination)
+            {
+                //조건 없이 도착
+                return true;
+            }
+            else if (MissionType == MissionType.Material)
+            {
+                //재료 체크 후 bool 체크
+                return true;
+            }
+            else if (MissionType == MissionType.Monster)
+            {
+                if(monsterCount > M_Monster.MonsterCount)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+                //몬스터 체크 후 bool 체크
+            }
+            else if (MissionType == MissionType.Escort)
+            {
+                //만약 게임 도중에 부서지거나 망가지면 게임디렉터에서 패배 확정
+                //문제가 없다면 true로 계속 진행
+                return true;
+            }
+            else if (MissionType == MissionType.Convoy)
+            {                
+                //만약 게임 도중에 부서지거나 망가지면 게임디렉터에서 패배 확정
+                //문제가 없다면 true로 계속 진행
+                return true;
+            }
+            else if (MissionType == MissionType.Boss)
+            {
+                //보스 체크 후 bool 체크
+                return true;
+            }
+        }
+        return false;
+    }
+
+    void SetMissionState()
+    {
+        string[] _state = MissionState.Split(',');
+        switch (MissionType)
+        {
+            case MissionType.Destination:
+                break;
+            case MissionType.Material:
+                int _num = int.Parse(_state[0]);
+                int _count = int.Parse(_state[1]);
+                M_Material.SetSetting(_num, _count);
+                break;
+            case MissionType.Monster:
+                _num = int.Parse(_state[0]);
+                _count = int.Parse(_state[1]);
+                M_Monster.SetSetting(_num, _count);
+                break;
+            case MissionType.Escort:
+                _num = int.Parse(_state[0]);
+                int _hp = int.Parse(_state[1]);
+                M_Escort.SetSetting(_num, _hp);
+                break;
+            case MissionType.Convoy:
+                _num = int.Parse(_state[0]);
+                _hp = int.Parse(_state[1]);
+                bool _flag = bool.Parse(_state[2]);
+                M_Convoy.SetSetting(_num, _hp, _flag);
+                break;
+            case MissionType.Boss:
+                break;
+        }
+    }
+
+    public void Mission_Sucesses()
+    {
+        playerData.SA_Get_Coin(MissionReward);
+        Destroy(this.gameObject);
+    }
+
+    public void Mission_Fail()
+    {
+        Destroy(this.gameObject);
+    }
+
+    [Serializable]
+    public struct MissionMaterial_State
+    {
+        public int ItemNum;
+        public int ItemCount;
+
+        public void SetSetting(int _num, int _count)
+        {
+            ItemNum = _num;
+            ItemCount = _count;
+        }
+    }
+
+    [Serializable]
+    public struct MissionMonster_State
+    {
+        public int MonsterNum;
+        public int MonsterCount;
+
+        public void SetSetting(int _num, int _count)
+        {
+            MonsterNum = _num;
+            MonsterCount = _count;
+        }
+    }
+
+    [Serializable]
+    public struct MissionEscort_State
+    {
+        public int EscortNum;
+        public int EscortHP;
+        public void SetSetting(int _num, int _hp)
+        {
+            EscortNum = _num;
+            EscortHP = _hp;
+        }
+    }
+
+    [Serializable]
+    public struct MissionConvoy_State
+    {
+        public  int ConvoyNum;
+        public  int ConvoyHP;
+        public  bool ConvoyBool; // true 기차, false 화물적재물
+        public void SetSetting(int _num, int _hp, bool _flag)
+        {
+            ConvoyNum = _num;
+            ConvoyHP = _hp;
+            ConvoyBool = _flag;
         }
     }
 }

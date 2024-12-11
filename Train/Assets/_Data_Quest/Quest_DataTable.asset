@@ -18,6 +18,16 @@ MonoBehaviour:
     Quest_Information: "\uBB34\uC0AC\uD788 \uBAA9\uC801\uC9C0\uAE4C\uC9C0 \uB3C4\uCC29\uD558\uC138\uC694"
     Quest_State: -1
     Quest_Reward: 100000
+  - Stage_Mission: 0,2
+    Quest_Type: Monster
+    Quest_Information: "0\uBC88 \uBAAC\uC2A4\uD130\uB97C 20\uBC88 \uC7A1\uC544\uC8FC\uC138\uC694."
+    Quest_State: 0,20
+    Quest_Reward: 200000
+  - Stage_Mission: 0,5
+    Quest_Type: Boss
+    Quest_Information: "\uC5EC\uC655\uAC70\uBBF8\uB97C \uC7A1\uC544\uC8FC\uC138\uC694"
+    Quest_State: 0
+    Quest_Reward: 300000
   - Stage_Mission: 1,0
     Quest_Type: Destination
     Quest_Information: "\uBB34\uC0AC\uD788 \uBAA9\uC801\uC9C0\uAE4C\uC9C0 \uB3C4\uCC29\uD558\uC138\uC694"
@@ -523,7 +533,7 @@ MonoBehaviour:
     Distance: 40000
     Emerging_Monster: 0
     Monster_Count: 10
-    Open_SubStageNum: 5
+    Open_SubStageNum: 1
     SubStage_Status: 
   - Stage_Num: 0
     SubStage_Num: 1
@@ -531,7 +541,7 @@ MonoBehaviour:
     Distance: 40001
     Emerging_Monster: 0
     Monster_Count: 10
-    Open_SubStageNum: 6
+    Open_SubStageNum: 2
     SubStage_Status: 
   - Stage_Num: 0
     SubStage_Num: 2
@@ -539,7 +549,7 @@ MonoBehaviour:
     Distance: 40002
     Emerging_Monster: 0
     Monster_Count: 10
-    Open_SubStageNum: 7
+    Open_SubStageNum: 3
     SubStage_Status: 
   - Stage_Num: 0
     SubStage_Num: 3
@@ -547,48 +557,8 @@ MonoBehaviour:
     Distance: 40003
     Emerging_Monster: 0
     Monster_Count: 10
-    Open_SubStageNum: 8,9
+    Open_SubStageNum: -1
     SubStage_Status: 0,90,5
-  - Stage_Num: 0
-    SubStage_Num: 4
-    SubStage_Type: Oasis
-    Distance: -1
-    Emerging_Monster: -1
-    Monster_Count: -1
-    Open_SubStageNum: -1
-    SubStage_Status: 
-  - Stage_Num: 0
-    SubStage_Num: 5
-    SubStage_Type: Treasure
-    Distance: -1
-    Emerging_Monster: -1
-    Monster_Count: -1
-    Open_SubStageNum: -1
-    SubStage_Status: 
-  - Stage_Num: 0
-    SubStage_Num: 6
-    SubStage_Type: Store
-    Distance: -1
-    Emerging_Monster: -1
-    Monster_Count: -1
-    Open_SubStageNum: -1
-    SubStage_Status: 
-  - Stage_Num: 0
-    SubStage_Num: 7
-    SubStage_Type: Maintenance
-    Distance: -1
-    Emerging_Monster: -1
-    Monster_Count: -1
-    Open_SubStageNum: -1
-    SubStage_Status: 
-  - Stage_Num: 0
-    SubStage_Num: 8
-    SubStage_Type: SimpleStation
-    Distance: -1
-    Emerging_Monster: -1
-    Monster_Count: -1
-    Open_SubStageNum: -1
-    SubStage_Status: 
   - Stage_Num: 1
     SubStage_Num: 0
     SubStage_Type: Nomal
@@ -1174,7 +1144,7 @@ MonoBehaviour:
     Distance: 40000
     Emerging_Monster: 0
     Monster_Count: 10
-    Open_SubStageNum: 5
+    Open_SubStageNum: 1
     SubStage_Status: 
   - Stage_Num: 0
     SubStage_Num: 1
@@ -1182,7 +1152,7 @@ MonoBehaviour:
     Distance: 40001
     Emerging_Monster: 0
     Monster_Count: 10
-    Open_SubStageNum: 6
+    Open_SubStageNum: 2
     SubStage_Status: 
   - Stage_Num: 0
     SubStage_Num: 2
@@ -1190,7 +1160,7 @@ MonoBehaviour:
     Distance: 40002
     Emerging_Monster: 0
     Monster_Count: 10
-    Open_SubStageNum: 7
+    Open_SubStageNum: 3
     SubStage_Status: 
   - Stage_Num: 0
     SubStage_Num: 3
@@ -1198,48 +1168,8 @@ MonoBehaviour:
     Distance: 40003
     Emerging_Monster: 0
     Monster_Count: 10
-    Open_SubStageNum: 8,9
+    Open_SubStageNum: -1
     SubStage_Status: 0,90,5
-  - Stage_Num: 0
-    SubStage_Num: 4
-    SubStage_Type: Oasis
-    Distance: -1
-    Emerging_Monster: -1
-    Monster_Count: -1
-    Open_SubStageNum: -1
-    SubStage_Status: 
-  - Stage_Num: 0
-    SubStage_Num: 5
-    SubStage_Type: Treasure
-    Distance: -1
-    Emerging_Monster: -1
-    Monster_Count: -1
-    Open_SubStageNum: -1
-    SubStage_Status: 
-  - Stage_Num: 0
-    SubStage_Num: 6
-    SubStage_Type: Store
-    Distance: -1
-    Emerging_Monster: -1
-    Monster_Count: -1
-    Open_SubStageNum: -1
-    SubStage_Status: 
-  - Stage_Num: 0
-    SubStage_Num: 7
-    SubStage_Type: Maintenance
-    Distance: -1
-    Emerging_Monster: -1
-    Monster_Count: -1
-    Open_SubStageNum: -1
-    SubStage_Status: 
-  - Stage_Num: 0
-    SubStage_Num: 8
-    SubStage_Type: SimpleStation
-    Distance: -1
-    Emerging_Monster: -1
-    Monster_Count: -1
-    Open_SubStageNum: -1
-    SubStage_Status: 
   - Stage_Num: 1
     SubStage_Num: 0
     SubStage_Type: Nomal

@@ -42,10 +42,12 @@ public class GameDirector : MonoBehaviour
     public GameObject Item_DirectorObject;
     public PolygonCollider2D CameraConfiler;
     public FillDirector fill_director;
+    public GameObject MissionDirector_Object;
     Vector2[] newPoint;
     MonsterDirector monsterDirector;
     UIDirector uiDirector;
     ItemDirector itemDirector;
+    MissionDirector missionDirector;
     List<int> Train_Num;
     List<int> Train_Turret_Num;
     List<int> Train_Booster_Num;
@@ -58,6 +60,8 @@ public class GameDirector : MonoBehaviour
     Texture2D cursorAim_Atk;
     Vector2 cursorHotspot_Origin;
     Vector2 cursorHotspot_Aim;
+    [HideInInspector]
+    public bool lastFlag;
 
     [Header("플레이어")]
     [SerializeField]
@@ -211,6 +215,7 @@ public class GameDirector : MonoBehaviour
         monsterDirector = MonsterDirector_Object.GetComponent<MonsterDirector>();
         uiDirector = UI_DirectorObject.GetComponent<UIDirector>();
         itemDirector = Item_DirectorObject.GetComponent<ItemDirector>();
+        missionDirector = MissionDirector_Object.GetComponent<MissionDirector>();
         fill_director = GetComponent<FillDirector>();
 
         cursorAim_UnAtk = Resources.Load<Texture2D>("Cursor/Aim6464_UnAttack");
@@ -708,6 +713,11 @@ public class GameDirector : MonoBehaviour
         uiDirector.Gameing_Text(Total_Score, Total_Coin);
     }
 
+    public void Game_Mission_Kill()
+    {
+        missionDirector.MonsterCount();
+    }
+
     public void Gmae_Boss_Kill(int GetScore, int GetCoin)
     {
         Total_Score += GetScore;
@@ -787,20 +797,49 @@ private void Change_Game_End(bool WinFlag, bool subStage_Last,int LoseNum = -1) 
         gameType = GameType.GameEnd;
         Time.timeScale = 0f;
 
+        if (!lastFlag)
+        {
+        }
+
         if (WinFlag)
         {
+            missionDirector.Adjustment_Mission(); // 정보 갱신하기.
             if (!subStage_Last)
             {
-                uiDirector.Open_SubSelect();
+                bool flag = missionDirector.selectmission.CheckMission(lastFlag);
+                if (flag) // 문제 없다.
+                {
+                    Debug.Log("작동 완료" + flag);
+                    uiDirector.Open_SubSelect();
+                }
+                else
+                {
+                    //문제가 발생했으니 결과창을 띄운다
+                    Debug.Log("작업 해야됨" + flag);
+                    missionDirector.selectmission.Mission_Fail();
+                    uiDirector.Open_Result_UI(false, Stage_Num, Total_Score, Total_Coin, /*Check_Score(),*/ Reward_Point, LoseNum);
+                }
             }
             else
             {
-                uiDirector.Open_Result_UI(WinFlag, Stage_Num, Total_Score, Total_Coin, /*Check_Score(),*/ Reward_Point, LoseNum);
+                bool flag = missionDirector.selectmission.CheckMission(lastFlag);
+                if (flag) { // 통과다
+                    Debug.Log("마지막 작동 완료" + flag);
+                    missionDirector.selectmission.Mission_Sucesses();
+                    uiDirector.Open_Result_UI(true, Stage_Num, Total_Score, Total_Coin, /*Check_Score(),*/ Reward_Point, LoseNum);
+                }
+                else // 실패다
+                {
+                    Debug.Log("작업 해야됨 - 실패로 간주하고 초기화해야됨" );
+                    missionDirector.selectmission.Mission_Fail();
+                    uiDirector.Open_Result_UI(false, Stage_Num, Total_Score, Total_Coin, /*Check_Score(),*/ Reward_Point, LoseNum);
+                }
             }
         }
-        else
+        else // 패배했을 때...
         {
-            uiDirector.Open_Result_UI(WinFlag, Stage_Num, Total_Score, Total_Coin, /*Check_Score(),*/ Reward_Point, LoseNum);
+            missionDirector.selectmission.Mission_Fail();
+            uiDirector.Open_Result_UI(false, Stage_Num, Total_Score, Total_Coin, /*Check_Score(),*/ Reward_Point, LoseNum);
         }
 
 
@@ -852,23 +891,21 @@ private void Change_Game_End(bool WinFlag, bool subStage_Last,int LoseNum = -1) 
 
     void SubStage_LockOff()
     {
-        bool checkFlag = false;
         foreach(int substageNum in NextSubStageNum)
         {
             if (substageNum != -1)
             {
                 MissionDataObject mission = SA_MissionData.missionStage(Mission_Num, Stage_Num, substageNum);
                 mission.SubStageLockOff();
-
             }
             else
             {
-                checkFlag = true;
+                lastFlag = true;
                 SA_MissionData.End_SubStage(Stage_Num);
             }
         }
 
-        Change_Game_End(true, checkFlag);
+        Change_Game_End(true, lastFlag);
     }
 
     private void Game_Win()
@@ -878,7 +915,6 @@ private void Change_Game_End(bool WinFlag, bool subStage_Last,int LoseNum = -1) 
         //Change_Game_End(true);
         SubStage_Clear();
         SubStage_LockOff();
-
         MMSoundManagerSoundPlayEvent.Trigger(WinSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         
         if(SA_PlayerData.New_Stage == SA_PlayerData.Select_Stage)
@@ -892,7 +928,6 @@ private void Change_Game_End(bool WinFlag, bool subStage_Last,int LoseNum = -1) 
                 Debug.Log("종료");
             }
         }
-
     }
 
     private void Game_Lose(int losenum)

@@ -124,10 +124,11 @@ public class SubStageSelectDirector : MonoBehaviour
         int missionInformation_Num = EX_QuestData.Q_List.FindIndex(x => x.Stage_Mission.Equals(searchString));
 
         UI_MissionInformation.text = EX_QuestData.Q_List[missionInformation_Num].Quest_Information;
-        selectStageNum = 0;
-        missionNum = 0;
         GameObject StageListObject = Resources.Load<GameObject>("UI_SubStageList/" + selectStageNum + "_Stage/" + missionNum);
-        Instantiate(StageListObject, UI_Content.transform);
+        if(UI_Content.transform.childCount < 1)
+        {
+            Instantiate(StageListObject, UI_Content.transform);
+        }
     }
     public void Open_SelectSubStage_Information(MissionDataObject mission)
     {

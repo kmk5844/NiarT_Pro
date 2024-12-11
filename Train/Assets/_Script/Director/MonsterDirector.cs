@@ -13,10 +13,10 @@ public class MonsterDirector : MonoBehaviour
 
     public Game_DataTable EX_GameData;
     public SA_PlayerData SA_PlayerData;
+    public MissionDirector missionDirector;
 
     [Header("몬스터 정보 및 리스트")]
     public Transform Monster_List;
-
     [SerializeField]
     Transform[] Test_Monster_List;
 
@@ -25,6 +25,9 @@ public class MonsterDirector : MonoBehaviour
     List<int> Emerging_MonsterCount_List;
     [SerializeField]
     List<int> Emerging_Boss_List;
+
+    [Header("퀘스트")]
+    public bool missionFlag = false;
 
     [Header("보급 몬스터 정보 및 리스트")]
     public Transform SupplyMonster_List;
@@ -62,7 +65,6 @@ public class MonsterDirector : MonoBehaviour
     float Random_yPos;
 
     int BossCount;
-
 
     //Item부분
     [HideInInspector]
@@ -229,6 +231,11 @@ public class MonsterDirector : MonoBehaviour
         {
             string monster_name = EX_GameData.Information_Monster[Monster_Num].Monster_Name;
             _Monster = Resources.Load<GameObject>("Monster/" + Monster_Num+ "_"+ monster_name);
+            if (missionFlag)
+            {
+                _Monster.GetComponent<Monster>().Monster_MissionFlag = missionDirector.CheckMonster(Monster_Num);
+            }
+
             if (GameDirector_SpawnFlag == true)
             {
                 Instantiate(_Monster, new Vector3(Random_xPos, Random_yPos, 0), Quaternion.identity, Test_Monster_List[index]);
@@ -238,12 +245,19 @@ public class MonsterDirector : MonoBehaviour
         {
             string monster_name = EX_GameData.Information_Boss[Monster_Num].Monster_Name;
             _Monster = Resources.Load<GameObject>("Boss/" + Monster_Num + "_" + monster_name);
-            if(GameDirector_SpawnFlag == true)
+            if (missionFlag)
+            {
+                _Monster.GetComponent<Monster>().Monster_MissionFlag = missionDirector.CheckMonster(Monster_Num);
+            }
+
+            if (GameDirector_SpawnFlag == true)
             {
                 Instantiate(_Monster, new Vector3(Random_xPos, Random_yPos, 0), Quaternion.identity, Boss_List);
             }
         }
     }
+
+
 
     public void Get_Monster_List(List<int> GameDirector_Monster_List, List<int>GameDirector_MonsterCount_List)
     {
