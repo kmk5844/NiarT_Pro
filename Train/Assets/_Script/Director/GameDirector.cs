@@ -82,7 +82,6 @@ public class GameDirector : MonoBehaviour
     [SerializeField]
     private int Reward_Point;
 
-
     [SerializeField]
     string Reward_ItemNum;
     [SerializeField]
@@ -648,9 +647,14 @@ public class GameDirector : MonoBehaviour
         Level_EngineTier = SA_TrainData.Level_Train_EngineTier;
         Level_MaxSpeed = SA_TrainData.Level_Train_MaxSpeed;
         Level_Efficient = SA_TrainData.Level_Train_Efficient;
-        Total_TrainFuel = TrainFuel;
         Level();
         SpawnTrainFlag = true;
+
+        Total_TrainFuel = TrainFuel;
+        if (Select_Sub_Num != 0)
+        {
+            TrainFuel = ES3.Load<int>("Train_Curret_Fuel");
+        }
     }
     public void Level()
     {
@@ -713,7 +717,7 @@ public class GameDirector : MonoBehaviour
         uiDirector.Gameing_Text(Total_Score, Total_Coin);
     }
 
-    public void Game_Mission_Kill()
+    public void Mission_Monster_Kill()
     {
         missionDirector.MonsterCount();
     }
@@ -736,152 +740,71 @@ public class GameDirector : MonoBehaviour
         gameType = GameType.Playing;
         SoundSequce(PlayBGM);
     }
-/*    private string Check_Score()
-    {
-        if (Total_Score >= StageData.Grade_Score[4])
+    /*    private string Check_Score()
         {
-            Reward_Num = 4;
-            return "S";
-        }
-        else if (StageData.Grade_Score[4] > Total_Score && Total_Score >= StageData.Grade_Score[3])
-        {
-            Reward_Num = 3;
-            return "A";
-        }
-        else if (StageData.Grade_Score[3] > Total_Score && Total_Score >= StageData.Grade_Score[2])
-        {
-            Reward_Num = 2;
-            return "B";
-        }
-        else if (StageData.Grade_Score[2] > Total_Score && Total_Score >= StageData.Grade_Score[1])
-        {
-            Reward_Num = 1;
-            return "C";
-        }
-        else if (StageData.Grade_Score[1] > Total_Score && Total_Score >= StageData.Grade_Score[0])
-        {
-            Reward_Num = 0;
-            return "D";
-        }
-        else if (StageData.Grade_Score[0] > Total_Score)
-        {
+            if (Total_Score >= StageData.Grade_Score[4])
+            {
+                Reward_Num = 4;
+                return "S";
+            }
+            else if (StageData.Grade_Score[4] > Total_Score && Total_Score >= StageData.Grade_Score[3])
+            {
+                Reward_Num = 3;
+                return "A";
+            }
+            else if (StageData.Grade_Score[3] > Total_Score && Total_Score >= StageData.Grade_Score[2])
+            {
+                Reward_Num = 2;
+                return "B";
+            }
+            else if (StageData.Grade_Score[2] > Total_Score && Total_Score >= StageData.Grade_Score[1])
+            {
+                Reward_Num = 1;
+                return "C";
+            }
+            else if (StageData.Grade_Score[1] > Total_Score && Total_Score >= StageData.Grade_Score[0])
+            {
+                Reward_Num = 0;
+                return "D";
+            }
+            else if (StageData.Grade_Score[0] > Total_Score)
+            {
+                Reward_Num = -1;
+                return "F";
+            }
             Reward_Num = -1;
             return "F";
-        }
-        Reward_Num = -1;
-        return "F";
-    }*/
+        }*/
 
-/*    private int Check_StageDataGrade()
+    /*    private int Check_StageDataGrade()
+        {
+           switch (StageData.Player_Grade) {
+
+                case StageDataObject.Grade.S:
+                    return 4;
+                case StageDataObject.Grade.A:
+                    return 3;
+                case StageDataObject.Grade.B:
+                    return 2;
+                case StageDataObject.Grade.C:
+                    return 1;
+                case StageDataObject.Grade.D:
+                    return 0;
+                case StageDataObject.Grade.F:
+                    return -1;
+            }
+    return -1;
+        }*/
+
+    private void Game_Win()
     {
-       switch (StageData.Player_Grade) {
-
-            case StageDataObject.Grade.S:
-                return 4;
-            case StageDataObject.Grade.A:
-                return 3;
-            case StageDataObject.Grade.B:
-                return 2;
-            case StageDataObject.Grade.C:
-                return 1;
-            case StageDataObject.Grade.D:
-                return 0;
-            case StageDataObject.Grade.F:
-                return -1;
-        }
-return -1;
-    }*/
-
-private void Change_Game_End(bool WinFlag, bool subStage_Last,int LoseNum = -1) // 이겼을 때
-    {
-        gameType = GameType.GameEnd;
-        Time.timeScale = 0f;
-
-        if (!lastFlag)
-        {
-        }
-
-        if (WinFlag)
-        {
-            missionDirector.Adjustment_Mission(); // 정보 갱신하기.
-            if (!subStage_Last)
-            {
-                bool flag = missionDirector.selectmission.CheckMission(lastFlag);
-                if (flag) // 문제 없다.
-                {
-                    Debug.Log("작동 완료" + flag);
-                    uiDirector.Open_SubSelect();
-                }
-                else
-                {
-                    //문제가 발생했으니 결과창을 띄운다
-                    Debug.Log("작업 해야됨" + flag);
-                    missionDirector.selectmission.Mission_Fail();
-                    uiDirector.Open_Result_UI(false, Stage_Num, Total_Score, Total_Coin, /*Check_Score(),*/ Reward_Point, LoseNum);
-                }
-            }
-            else
-            {
-                bool flag = missionDirector.selectmission.CheckMission(lastFlag);
-                if (flag) { // 통과다
-                    Debug.Log("마지막 작동 완료" + flag);
-                    missionDirector.selectmission.Mission_Sucesses();
-                    uiDirector.Open_Result_UI(true, Stage_Num, Total_Score, Total_Coin, /*Check_Score(),*/ Reward_Point, LoseNum);
-                }
-                else // 실패다
-                {
-                    Debug.Log("작업 해야됨 - 실패로 간주하고 초기화해야됨" );
-                    missionDirector.selectmission.Mission_Fail();
-                    uiDirector.Open_Result_UI(false, Stage_Num, Total_Score, Total_Coin, /*Check_Score(),*/ Reward_Point, LoseNum);
-                }
-            }
-        }
-        else // 패배했을 때...
-        {
-            missionDirector.selectmission.Mission_Fail();
-            uiDirector.Open_Result_UI(false, Stage_Num, Total_Score, Total_Coin, /*Check_Score(),*/ Reward_Point, LoseNum);
-        }
-
-
-        if (WinFlag && subStage_Last)
-        {
-            SA_PlayerData.SA_GameWinReward(Total_Coin, Reward_Point);
-            /*            string[] ItemList = Reward_ItemNum.Split(',');
-                        string[] ItemList_Count = Reward_ItemCount.Split(",");
-                        List<int> Item_List = new List<int>();
-                        int ItemNum;
-                        int ItemCount;*/
-            /*if (!StageData.Player_FirstPlay)
-            {
-                for (int i = 0; i < Reward_Num + 1; i++)
-                {
-                    ItemNum = int.Parse(ItemList[i]);
-                    ItemCount = int.Parse(ItemList_Count[i]);
-                    if (ItemNum != -1)
-                    {
-                        itemDirector.itemList.Item[ItemNum].Item_Count_UP(ItemCount);
-                        uiDirector.GetItemList_Num.Add(ItemNum);
-                    }
-                }
-            }
-            else
-            {
-                int BeforeGradeNum = Check_StageDataGrade();
-                if(BeforeGradeNum < Reward_Num)
-                {
-                    for(int i = BeforeGradeNum + 1; i < Reward_Num + 1; i++)
-                    {
-                        ItemNum = int.Parse(ItemList[i]);
-                        ItemCount = int.Parse(ItemList_Count[i]);
-                        if (ItemNum != -1)
-                        {
-                            itemDirector.itemList.Item[ItemNum].Item_Count_UP(ItemCount);
-                            uiDirector.GetItemList_Num.Add(ItemNum);
-                        }
-                    }
-                }
-            }*/
-        }
+        //string grade = Check_Score();
+        //StageData.GameEnd(true, Total_Score);//, grade);
+        //Change_Game_End(true);
+        GameEnd_SavePlayerData();
+        SubStage_Clear();
+        SubStage_LockOff();
+        MMSoundManagerSoundPlayEvent.Trigger(WinSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
     }
 
     void SubStage_Clear()
@@ -904,20 +827,102 @@ private void Change_Game_End(bool WinFlag, bool subStage_Last,int LoseNum = -1) 
                 SA_MissionData.End_SubStage(Stage_Num);
             }
         }
-
         Change_Game_End(true, lastFlag);
     }
 
-    private void Game_Win()
+    private void Change_Game_End(bool WinFlag, bool subStage_Last, int LoseNum = -1) // 이겼을 때
     {
-        //string grade = Check_Score();
-        //StageData.GameEnd(true, Total_Score);//, grade);
-        //Change_Game_End(true);
-        SubStage_Clear();
-        SubStage_LockOff();
-        MMSoundManagerSoundPlayEvent.Trigger(WinSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
-        
-        if(SA_PlayerData.New_Stage == SA_PlayerData.Select_Stage)
+        gameType = GameType.GameEnd;
+        Time.timeScale = 0f;
+
+
+        if (WinFlag)
+        {
+            missionDirector.Adjustment_Mission(); // 정보 갱신하기.
+            if (!subStage_Last)
+            {
+                bool flag = missionDirector.selectmission.CheckMission(lastFlag);
+                if (flag) // 문제 없다.
+                {
+                    Debug.Log("작동 완료" + flag);
+                    uiDirector.Open_SubSelect();
+                    SA_PlayerData.SA_GameWinReward(false, Total_Coin);
+                }
+                else
+                {
+                    //문제가 발생했으니 결과창을 띄운다
+                    Debug.Log("작업 해야됨" + flag);
+                    missionDirector.selectmission.Mission_Fail();
+                    uiDirector.Open_Result_UI(false, Stage_Num, Total_Score, Total_Coin, /*Check_Score(),*/ Reward_Point, LoseNum);
+                }
+            }
+            else
+            {
+                bool flag = missionDirector.selectmission.CheckMission(lastFlag);
+                if (flag)
+                { // 통과다
+                    Debug.Log("마지막 작동 완료" + flag);
+                    missionDirector.selectmission.Mission_Sucesses();
+                    uiDirector.Open_Result_UI(true, Stage_Num, Total_Score, Total_Coin, /*Check_Score(),*/ Reward_Point, LoseNum);
+                    SA_PlayerData.SA_GameWinReward(true, Total_Coin);
+                    LastSubStageClear();
+                }
+                else // 실패다
+                {
+                    Debug.Log("작업 해야됨 - 실패로 간주하고 초기화해야됨");
+                    missionDirector.selectmission.Mission_Fail();
+                    uiDirector.Open_Result_UI(false, Stage_Num, Total_Score, Total_Coin, /*Check_Score(),*/ Reward_Point, LoseNum);
+                }
+            }
+        }
+        else // 패배했을 때...
+        {
+            missionDirector.selectmission.Mission_Fail();
+            uiDirector.Open_Result_UI(false, Stage_Num, Total_Score, Total_Coin, /*Check_Score(),*/ Reward_Point, LoseNum);
+        }
+        /*
+                if (WinFlag && subStage_Last)
+                {
+                   string[] ItemList = Reward_ItemNum.Split(',');
+                                string[] ItemList_Count = Reward_ItemCount.Split(",");
+                                List<int> Item_List = new List<int>();
+                                int ItemNum;
+                                int ItemCount;
+                    if (!StageData.Player_FirstPlay)
+                    {
+                        for (int i = 0; i < Reward_Num + 1; i++)
+                        {
+                            ItemNum = int.Parse(ItemList[i]);
+                            ItemCount = int.Parse(ItemList_Count[i]);
+                            if (ItemNum != -1)
+                            {
+                                itemDirector.itemList.Item[ItemNum].Item_Count_UP(ItemCount);
+                                uiDirector.GetItemList_Num.Add(ItemNum);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        int BeforeGradeNum = Check_StageDataGrade();
+                        if(BeforeGradeNum < Reward_Num)
+                        {
+                            for(int i = BeforeGradeNum + 1; i < Reward_Num + 1; i++)
+                            {
+                                ItemNum = int.Parse(ItemList[i]);
+                                ItemCount = int.Parse(ItemList_Count[i]);
+                                if (ItemNum != -1)
+                                {
+                                    itemDirector.itemList.Item[ItemNum].Item_Count_UP(ItemCount);
+                                    uiDirector.GetItemList_Num.Add(ItemNum);
+                                }
+                            }
+                        }
+                    }*/
+    }
+
+    private void LastSubStageClear()
+    {
+        if (SA_PlayerData.New_Stage == SA_PlayerData.Select_Stage)
         {
             try
             {
@@ -1157,6 +1162,22 @@ private void Change_Game_End(bool WinFlag, bool subStage_Last,int LoseNum = -1) 
         MaxSpeed += Add_Speed;
         yield return new WaitForSeconds(During);
         MaxSpeed -= Add_Speed;
+    }
+
+    public void GameEnd_SavePlayerData()
+    {
+        player.GameEnd_PlayerSave();
+        GameEnd_TrainSave_Fuel();
+        for(int i = 0; i < Train_List.childCount; i++)
+        {
+            Train_List.GetChild(i).GetComponent<Train_InGame>().GameEnd_TrainSave();
+        }
+    }
+
+
+    void GameEnd_TrainSave_Fuel()
+    {
+        ES3.Save<int>("Train_Curret_Fuel", TrainFuel);
     }
 }
 

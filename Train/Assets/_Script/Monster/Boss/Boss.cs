@@ -25,6 +25,7 @@ public class Boss : MonoBehaviour
     [SerializeField]
     protected Image Boss_Guage;
     public string Monster_Type;
+    public bool Boss_MissionFlag = false;
 
     [Header("보스 총알 정보")]
     [SerializeField]
@@ -97,9 +98,7 @@ public class Boss : MonoBehaviour
         }
         else
         {
-            gameDirector.Gmae_Boss_Kill(Monster_Score, Monster_Coin);
-            
-            Change_DieFlag();
+            BossDie();
         }
     }
     private void Damage_Monster_Trigger(Collider2D collision)
@@ -115,9 +114,7 @@ public class Boss : MonoBehaviour
         }
         else
         {
-            gameDirector.Gmae_Boss_Kill(Monster_Score, Monster_Coin);
-            
-            Change_DieFlag();
+            BossDie();
         }
     }
 
@@ -133,9 +130,18 @@ public class Boss : MonoBehaviour
         }
         else
         {
-            gameDirector.Gmae_Boss_Kill(Monster_Score, Monster_Coin);
-            Change_DieFlag();
+            BossDie();
         }
+    }
+
+    void BossDie()
+    {
+        if (Boss_MissionFlag && !DieFlag)
+        {
+            gameDirector.Mission_Monster_Kill();
+        }
+        gameDirector.Gmae_Boss_Kill(Monster_Score, Monster_Coin);
+        Change_DieFlag();
     }
 
     private void OnCollisionEnter2D(Collision2D collision) // 공통적으로 적용해야됨.

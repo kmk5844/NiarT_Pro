@@ -135,7 +135,22 @@ public class Train_InGame : MonoBehaviour
             Train_Weight = trainData.Information_Train[Train_Num].Train_Weight;
             Train_Armor = trainData.Information_Train[Train_Num].Train_Armor;
         }
-        Train_HP = Max_Train_HP;
+
+        if(gameDirector.GetComponent<GameDirector>().Select_Sub_Num == 0)
+        {
+            Train_HP = Max_Train_HP;
+        }
+        else
+        {
+            try
+            {
+                Train_HP = ES3.Load<int>("Train_Curret_HP_" + gameObject.name);
+            }
+            catch
+            {
+                Train_HP = Max_Train_HP;
+            }
+        }
         Train_Type = trainData.Information_Train[Train_Num].Train_Type;
         CheckType();
     }
@@ -326,5 +341,11 @@ public class Train_InGame : MonoBehaviour
             transform.GetComponentInChildren<Turret>().Item_Turret_Attack_Speed_UP(persent, false);
             transform.GetComponentInChildren<Turret>().Item_Turret_Rotattion_Speed_UP(persent, false);
         }
+    }
+
+    //save ¿˙¿Â
+    public void GameEnd_TrainSave()
+    {
+        ES3.Save<int>("Train_Curret_HP_" + gameObject.name, Train_HP);
     }
 }

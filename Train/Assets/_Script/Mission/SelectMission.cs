@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -31,8 +32,11 @@ public class SelectMission : MonoBehaviour
     public MissionMonster_State M_Monster;
     public MissionEscort_State M_Escort;
     public MissionConvoy_State M_Convoy;
+    public MissionBoss_State M_Boss;
+    
 
     public int monsterCount;
+    public int bossCount;
 
     private void Start()
     {
@@ -128,8 +132,7 @@ public class SelectMission : MonoBehaviour
             }
             else if (MissionType == MissionType.Boss)
             {
-                Debug.Log("보스 죽이기");
-                //보스 카운트 추가
+                //문제 없음
                 return true;
             }
         }
@@ -147,7 +150,7 @@ public class SelectMission : MonoBehaviour
             }
             else if (MissionType == MissionType.Monster)
             {
-                if(monsterCount > M_Monster.MonsterCount)
+                if(monsterCount >= M_Monster.MonsterCount)
                 {
                     return true;
                 }
@@ -171,8 +174,14 @@ public class SelectMission : MonoBehaviour
             }
             else if (MissionType == MissionType.Boss)
             {
-                //보스 체크 후 bool 체크
-                return true;
+                if(bossCount >= M_Boss.BossCount)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
         return false;
@@ -207,6 +216,9 @@ public class SelectMission : MonoBehaviour
                 M_Convoy.SetSetting(_num, _hp, _flag);
                 break;
             case MissionType.Boss:
+                _num = int.Parse(_state[0]);
+                _count = int.Parse(_state[1]);
+                M_Boss.SetSetting(_num, _count);
                 break;
         }
     }
@@ -271,6 +283,19 @@ public class SelectMission : MonoBehaviour
             ConvoyNum = _num;
             ConvoyHP = _hp;
             ConvoyBool = _flag;
+        }
+    }
+
+    [Serializable]
+    public struct MissionBoss_State
+    {
+        public int BossNum;
+        public int BossCount;
+
+        public void SetSetting(int _num, int _count)
+        {
+            BossNum = _num;
+            BossCount = _count;
         }
     }
 }

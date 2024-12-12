@@ -119,7 +119,15 @@ public class Player : MonoBehaviour
         jumpdistance = 1f;
 
         playerBullet = playerData.Bullet;
-        Player_HP = playerData.HP;
+        if(gamedirector.Select_Sub_Num == 0)
+        {
+            Player_HP = playerData.HP;
+        }
+        else
+        {
+            Player_HP = ES3.Load<int>("Player_Curret_HP");
+        }
+        Max_HP = playerData.HP;
         Player_Armor = playerData.Armor;
         Bullet_Atk = playerData.Atk;
         Bullet_Delay = playerData.Delay;
@@ -133,7 +141,6 @@ public class Player : MonoBehaviour
         KeyObject_Scale = KeyObject.transform.localScale;
 
         rotationOn = false;
-        Max_HP = Player_HP; 
         lastTime = 0;
         rigid = GetComponent<Rigidbody2D>();
         Player_Bullet_List = GameObject.Find("Bullet_List").GetComponent<Transform>();
@@ -986,5 +993,9 @@ public class Player : MonoBehaviour
         ani.SetTrigger("Shoot_0");
         MMSoundManagerSoundPlayEvent.Trigger(ShootSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         MariGold_Skill_Fire_Flag = false;
+    }
+
+    public void GameEnd_PlayerSave() {
+        ES3.Save<int>("Player_Curret_HP", Player_HP);
     }
 }

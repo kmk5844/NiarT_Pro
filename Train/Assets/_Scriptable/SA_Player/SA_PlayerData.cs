@@ -96,9 +96,10 @@ public class SA_PlayerData : ScriptableObject
 
     
 
-    public void SA_GameWinReward(int R_Coin, int R_Point)
+    public void SA_GameWinReward(bool lastStage, int R_Coin)
     {
-/*        if (select_stage == 0 && new_stage == 0) // 바로 스토리 넘어가는 특수상황일 경우
+        /*
+         if (select_stage == 0 && new_stage == 0) // 바로 스토리 넘어가는 특수상황일 경우
         {
             new_stage = 1;
             select_stage = 1;
@@ -106,14 +107,21 @@ public class SA_PlayerData : ScriptableObject
         {
             new_stage++;
         }*/
+        if (lastStage) // lastStage가 이라면
+        {
+            if (select_stage == new_stage)
+            {
+                new_stage++;
+            }
+        }
         coin += R_Coin;
-        point += R_Point;
+        //point += R_Point;
         Save();
     }
 
     public void SA_Test()
     {
-        new_stage++;
+        //new_stage++;
         coin = 999999;
         point = 999999;
         Save();
@@ -164,14 +172,10 @@ public class SA_PlayerData : ScriptableObject
     public void SA_SelectSubStage(int substagenum)
     {
         select_sub_stage = substagenum;
-        //
-        //
-        //
-        //
-        //억지로 프레임 수를 늘려서 저장할 수 있도록 텀을 넣어주는.
-        //
-        //
-        //
+        Save();
+        select_sub_stage = substagenum;
+        Save();
+        select_sub_stage = substagenum;
         Save();
     }
 

@@ -634,7 +634,7 @@ public class Monster : MonoBehaviour
         gameDirector.Game_Monster_Kill(Monster_Score, Monster_Coin);
         if (Monster_MissionFlag)
         {
-            gameDirector.Game_Mission_Kill();
+            gameDirector.Mission_Monster_Kill();
         }
         Instantiate(Monster_Kill_Particle, transform.localPosition, Quaternion.identity);
         if (Monster_CountFlag)

@@ -24,7 +24,7 @@ public class MissionDirector : MonoBehaviour
 
                 break;
             case MissionType.Monster:
-                monsterDirector.missionFlag = true;
+                monsterDirector.missionFlag_monster = true;
                 break;
             case MissionType.Escort:
 
@@ -33,7 +33,7 @@ public class MissionDirector : MonoBehaviour
 
                 break;
             case MissionType.Boss:
-
+                monsterDirector.missionFlag_boss = true;
                 break;
         }
     }
@@ -50,10 +50,23 @@ public class MissionDirector : MonoBehaviour
         }
     }
 
+    //Boss
+    public bool CheckBoss(int BossNum)
+    {
+        if(selectmission.M_Boss.BossNum == BossNum)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public void MonsterCount()
     {
         monsterCount++;
-        Debug.Log(monsterCount);
+        Debug.Log("카운터 작동");
     }
 
     public void Adjustment_Mission()
@@ -70,13 +83,12 @@ public class MissionDirector : MonoBehaviour
                 selectmission.monsterCount += monsterCount;
                 break;
             case MissionType.Escort:
-
                 break;
             case MissionType.Convoy:
 
                 break;
             case MissionType.Boss:
-
+                selectmission.bossCount += monsterCount;
                 break;
         }
     }

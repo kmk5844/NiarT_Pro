@@ -33,11 +33,7 @@ public class SubStage_Select : MonoBehaviour
 
     private void Start()
     {
-        if (selectSubStageType == stageType.Main)
-        {
-            subStageSelectDirector = null;
-        }
-        else if(selectSubStageType == stageType.Sub)
+        if(selectSubStageType == stageType.Sub)
         {
             subStageSelectDirector = GetComponentInParent<SubStageSelectDirector>();
             missionData = subStageSelectDirector.missionData.missionStage(MissionNum, StageNum, SubStageNum);
@@ -45,10 +41,12 @@ public class SubStage_Select : MonoBehaviour
             if (missionData.StageClearFlag)
             {
                 ClearObjcet.SetActive(true);
+                GetComponent<Button>().enabled = false;
             }
             else
             {
                 ClearObjcet.SetActive(false);
+                GetComponent<Button>().enabled = true;
             }
 
             if (missionData.StageOpenFlag)
@@ -75,18 +73,9 @@ public class SubStage_Select : MonoBehaviour
 
     public void ClickSubStage()
     {
-        if (selectSubStageType == stageType.Main)
-        {
-            Debug.Log("정거장");
-            //subStageSelectDirector.
-        }
-        else if (selectSubStageType == stageType.Sub)
+        if (selectSubStageType == stageType.Sub)
         {
             subStageSelectDirector.Open_SelectSubStage_Information(missionData);
-        }
-        else if (selectSubStageType == stageType.Next)
-        {
-            Debug.Log("정거장");
         }
     }
 }

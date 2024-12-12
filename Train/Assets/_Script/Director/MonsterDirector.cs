@@ -27,7 +27,8 @@ public class MonsterDirector : MonoBehaviour
     List<int> Emerging_Boss_List;
 
     [Header("퀘스트")]
-    public bool missionFlag = false;
+    public bool missionFlag_monster = false;
+    public bool missionFlag_boss = false;
 
     [Header("보급 몬스터 정보 및 리스트")]
     public Transform SupplyMonster_List;
@@ -231,7 +232,7 @@ public class MonsterDirector : MonoBehaviour
         {
             string monster_name = EX_GameData.Information_Monster[Monster_Num].Monster_Name;
             _Monster = Resources.Load<GameObject>("Monster/" + Monster_Num+ "_"+ monster_name);
-            if (missionFlag)
+            if (missionFlag_monster)
             {
                 _Monster.GetComponent<Monster>().Monster_MissionFlag = missionDirector.CheckMonster(Monster_Num);
             }
@@ -245,9 +246,10 @@ public class MonsterDirector : MonoBehaviour
         {
             string monster_name = EX_GameData.Information_Boss[Monster_Num].Monster_Name;
             _Monster = Resources.Load<GameObject>("Boss/" + Monster_Num + "_" + monster_name);
-            if (missionFlag)
-            {
-                _Monster.GetComponent<Monster>().Monster_MissionFlag = missionDirector.CheckMonster(Monster_Num);
+
+            if (missionFlag_boss)
+            { 
+                _Monster.GetComponent<Boss>().Boss_MissionFlag = missionDirector.CheckBoss(Monster_Num);
             }
 
             if (GameDirector_SpawnFlag == true)
