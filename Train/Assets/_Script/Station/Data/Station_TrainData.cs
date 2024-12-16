@@ -15,6 +15,8 @@ public class Station_TrainData : MonoBehaviour
     [Header("기차 데이터")]
     public List<int> Train_Num;
     public int Level_Train_EngineTier;
+    public int Level_Train_MaxTrain;
+    public int Level_Train_MaxMercenary;
     public int Level_Train_MaxSpeed;
     public int Level_Train_Armor;
     public int Level_Train_Efficient;
@@ -23,15 +25,16 @@ public class Station_TrainData : MonoBehaviour
     public int Max_Train_MaxSpeed;
     public int Max_Train_Armor;
     public int Max_Train_Efficient;
+    public int Max_Train_MaxMercenary;
+    public int Max_Train_MaxTrain;
 
     public int Cost_Train_EngineTier;
+    public int Cost_Train_MaxTrain;
+    public int Cost_Train_MaxMercenary;
     public int Cost_Train_MaxSpeed;
     public int Cost_Train_Armor;
     public int Cost_Train_Efficient;
 
-    [Header("엔진 티어에 따라 달라지는 Max")]
-    public int Max_Train_MaxMercenary;
-    public int Max_Train_MaxTrain;
 
     [Header("기존 상점 리스트")]
     public List<int> Train_Store_Num;
@@ -59,6 +62,8 @@ public class Station_TrainData : MonoBehaviour
         Check_Store_Turret_Part();
         Check_Store_Booster_Part();
         Max_Train_EngineTier = EX_Level_Data.Information_Level[Data_Index("Level_Train_EngineTier")].Max_Level;
+        Max_Train_MaxTrain = EX_Level_Data.Information_Level[Data_Index("Level_train_MaxTrain")].Max_Level;
+        Max_Train_MaxMercenary = EX_Level_Data.Information_Level[Data_Index("Level_Train_MaxMercenary")].Max_Level;
         Max_Train_MaxSpeed = EX_Level_Data.Information_Level[Data_Index("Level_Train_MaxSpeed")].Max_Level;
         Max_Train_Armor = EX_Level_Data.Information_Level[Data_Index("Level_Train_Armor")].Max_Level;
         Max_Train_Efficient = EX_Level_Data.Information_Level[Data_Index("Level_Train_Efficient")].Max_Level;
@@ -68,17 +73,18 @@ public class Station_TrainData : MonoBehaviour
     {
         Train_Num = SA_TrainData.Train_Num;
         Level_Train_EngineTier = SA_TrainData.Level_Train_EngineTier;
+        Level_Train_MaxTrain = SA_TrainData.Level_Train_MaxTrain;
+        Level_Train_MaxMercenary = SA_TrainData.Level_Train_MaxMercenary;
         Level_Train_MaxSpeed = SA_TrainData.Level_Train_MaxSpeed;
         Level_Train_Armor = SA_TrainData.Level_Train_Armor;
         Level_Train_Efficient = SA_TrainData.Level_Train_Efficient;
 
         Cost_Train_EngineTier = EX_Level_Data.Information_LevelCost[Level_Train_EngineTier].Cost_Level_Train_EngineTier;
+        Cost_Train_MaxTrain = EX_Level_Data.Information_LevelCost[Level_Train_MaxTrain].Cost_Level_Train_MaxTrain;
+        Cost_Train_MaxMercenary = EX_Level_Data.Information_LevelCost[Level_Train_MaxMercenary].Cost_Level_Train_MaxMercenary;
         Cost_Train_MaxSpeed = EX_Level_Data.Information_LevelCost[Level_Train_MaxSpeed].Cost_Level_Train_MaxSpeed;
         Cost_Train_Armor = EX_Level_Data.Information_LevelCost[Level_Train_Armor].Cost_Level_Train_Armor;
         Cost_Train_Efficient = EX_Level_Data.Information_LevelCost[Level_Train_Efficient].Cost_Level_Train_Efficient;
-
-        Max_Train_MaxMercenary = EX_Level_Data.Level_Max_EngineTier[Level_Train_EngineTier].Max_Mercenary;
-        Max_Train_MaxTrain = EX_Level_Data.Level_Max_EngineTier[Level_Train_EngineTier].Max_Train;
     }
 
     public void Check_Store_Train()
@@ -160,10 +166,14 @@ public class Station_TrainData : MonoBehaviour
             case 0:
                 return Cost_Train_EngineTier;
             case 1:
-                return Cost_Train_MaxSpeed;
+                return Cost_Train_MaxTrain;
             case 2:
-                return Cost_Train_Armor;
+                return Cost_Train_MaxMercenary;
             case 3:
+                return Cost_Train_MaxSpeed;
+            case 4:
+                return Cost_Train_Armor;
+            case 5:
                 return Cost_Train_Efficient;
         }
         return -1;

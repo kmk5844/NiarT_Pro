@@ -36,6 +36,7 @@ public class MissionSelectButton : MonoBehaviour
     public void ClickMission()
     {
         playerData.SA_ClickMission(missionNum);
+        playerData.SA_MissionPlaying(true);
         missionSelectDirector.Open_SubSelectObject();
     }
 }

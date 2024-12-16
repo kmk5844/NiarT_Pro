@@ -26,6 +26,14 @@ public class StationDirector : MonoBehaviour
     [SerializeField]
     Station_Conversion Direcotr_Conversion;
 
+    [Header("특수 플래그")]
+    [SerializeField]
+    bool mainTenanceFlag;
+    [SerializeField]
+    bool storeFlag;
+    [SerializeField]
+    bool simplestationFlag;
+
     [Header("Lobby")]
     public GameObject UI_Lobby;
     public GameObject UI_BackGround;
@@ -69,11 +77,11 @@ public class StationDirector : MonoBehaviour
     //5 : GameStart
     [Header("Click Lobby -> GameStart")]
     public GameObject UI_GameStart;
+    public GameObject UI_GameMapSelect;
 
     //6: Converstion
     [Header("Click Lobby -> Conversion")]
     public GameObject UI_Conversion;
-
 
     [Header("Coin&Point")]
     public TextMeshProUGUI[] Coin_Text;
@@ -377,8 +385,15 @@ public class StationDirector : MonoBehaviour
                 ui_num = 4;
                 break;
             case 5:
-                UI_GameStart.SetActive(true);
-                Director_GameStart.Check_Train();
+                if(mainTenanceFlag || storeFlag || simplestationFlag)
+                {
+                    UI_GameMapSelect.SetActive(true);
+                }
+                else
+                {
+                    UI_GameStart.SetActive(true);
+                    Director_GameStart.Check_Train();
+                }
                 ui_num = 5;
                 break;
             case 6:
@@ -546,7 +561,14 @@ public class StationDirector : MonoBehaviour
         }
         else if (ui_num == 5)
         {
-            UI_GameStart.gameObject.SetActive(false);
+            if (mainTenanceFlag || storeFlag || simplestationFlag)
+            {
+                UI_GameMapSelect.SetActive(false);
+            }
+            else
+            {
+                UI_GameStart.SetActive(false);
+            }
         }else if(ui_num == 6)
         {
             Direcotr_Conversion.Item_53_Init();

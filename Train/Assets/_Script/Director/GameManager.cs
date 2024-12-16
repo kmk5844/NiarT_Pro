@@ -93,10 +93,6 @@ public class GameManager : MonoBehaviour
                 }
                 Game_Reset();
             }
-            if (Input.GetKeyDown(KeyCode.Alpha9))
-            {
-                PlayerData.SA_Test();
-            }
         }
         else
         {
@@ -123,12 +119,14 @@ public class GameManager : MonoBehaviour
             }
             else
             {
-                LoadingManager.LoadScene("CharacterSelect");
+                //LoadingManager.LoadScene("CharacterSelect");
+                LoadingManager.LoadScene("MissionSelect");
             }
         }
         else
         {
-            LoadingManager.LoadScene("CharacterSelect");
+            //LoadingManager.LoadScene("CharacterSelect");
+            LoadingManager.LoadScene("MissionSelect");
         }
 
         /*        int index = StoryData.StoryList.FindIndex(x => x.Story_Num == PlayerData.New_Stage);
@@ -199,7 +197,14 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            LoadingManager.LoadScene("Station");
+            if (!PlayerData.Mission_Playing)
+            {
+                LoadingManager.LoadScene("Station");
+            }
+            else
+            {
+                LoadingManager.LoadScene("MissionSelect");
+            }
         }
         /*        int index = StoryData.StoryList.FindIndex(x => x.Story_Num == PlayerData.New_Stage);
                 if (index != -1 && !StoryData.StoryList[index].Start_Flag)

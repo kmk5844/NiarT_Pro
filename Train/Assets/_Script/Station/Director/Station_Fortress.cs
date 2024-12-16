@@ -58,7 +58,7 @@ public class Station_Fortress : MonoBehaviour
     public GameObject Mercenary_Position_Card;
     public GameObject Mercenary_On_Board_Card;
     public TextMeshProUGUI Mercenary_Position_Information;
-    int EngineTier_MaxMercenary;
+    int MaxMercenary;
     int Mercenary_TotalNum;
     [SerializeField]
     List<GameObject> CardList;
@@ -74,7 +74,7 @@ public class Station_Fortress : MonoBehaviour
         //데이터 수집
         playerData = Player_DataObject.GetComponent<Station_PlayerData>();
         //trainData = Train_DataObject.GetComponent<Station_TrainData>();
-        EngineTier_MaxMercenary = trainData.Max_Train_MaxMercenary;
+        MaxMercenary = trainData.Max_Train_MaxMercenary + 1;
         //Debug.Log(EngineTier_MaxMercenary);
         mercenaryData = Mercenary_DataObject.GetComponent<Station_MercenaryData>();
         itemData = Item_DataObject.GetComponent<Station_ItemData>();
@@ -115,7 +115,7 @@ public class Station_Fortress : MonoBehaviour
             }
             else
             {
-                PlayerUP_Text[0].text = "Lv." + playerData.Level_Player_Atk + " / " + playerData.Cost_Player_Atk + " Point";
+                PlayerUP_Text[0].text = "Lv." + playerData.Level_Player_Atk + " / " + playerData.Cost_Player_Atk + " G";
             }
 
             if (playerData.Level_Player_AtkDelay == playerData.Max_Player_AtkDelay)
@@ -125,7 +125,7 @@ public class Station_Fortress : MonoBehaviour
             }
             else
             {
-                PlayerUP_Text[1].text = "Lv." + playerData.Level_Player_AtkDelay + " / " + playerData.Cost_Player_AtkDelay + " Point";
+                PlayerUP_Text[1].text = "Lv." + playerData.Level_Player_AtkDelay + " / " + playerData.Cost_Player_AtkDelay + " G";
             }
 
             if (playerData.Level_Player_HP == playerData.Max_Player_HP)
@@ -135,7 +135,7 @@ public class Station_Fortress : MonoBehaviour
             }
             else
             {
-                PlayerUP_Text[2].text = "Lv." + playerData.Level_Player_HP + " / " + playerData.Cost_Player_HP + " Point";
+                PlayerUP_Text[2].text = "Lv." + playerData.Level_Player_HP + " / " + playerData.Cost_Player_HP + " G";
             }
 
             if (playerData.Level_Player_Armor == playerData.Max_Player_Armor)
@@ -145,7 +145,7 @@ public class Station_Fortress : MonoBehaviour
             }
             else
             {
-                PlayerUP_Text[3].text = "Lv." + playerData.Level_Player_Armor + " / " + playerData.Cost_Player_Armor + " Point";
+                PlayerUP_Text[3].text = "Lv." + playerData.Level_Player_Armor + " / " + playerData.Cost_Player_Armor + " G";
             }
 
             if (playerData.Level_Player_Speed == playerData.Max_Player_Speed)
@@ -155,7 +155,7 @@ public class Station_Fortress : MonoBehaviour
             }
             else
             {
-                PlayerUP_Text[4].text = "Lv." + playerData.Level_Player_Speed + " / " + playerData.Cost_Player_Speed + " Point";
+                PlayerUP_Text[4].text = "Lv." + playerData.Level_Player_Speed + " / " + playerData.Cost_Player_Speed + " G";
             }
         }
         else
@@ -169,7 +169,7 @@ public class Station_Fortress : MonoBehaviour
                 }
                 else
                 {
-                    PlayerUP_Text[0].text = "Lv." + playerData.Level_Player_Atk + " / " + playerData.Cost_Player_Atk + " Point";
+                    PlayerUP_Text[0].text = "Lv." + playerData.Level_Player_Atk + " / " + playerData.Cost_Player_Atk + " G";
                 }
             }
             else if (num == 1)
@@ -181,7 +181,7 @@ public class Station_Fortress : MonoBehaviour
                 }
                 else
                 {
-                    PlayerUP_Text[1].text = "Lv." + playerData.Level_Player_AtkDelay + " / " + playerData.Cost_Player_AtkDelay + " Point";
+                    PlayerUP_Text[1].text = "Lv." + playerData.Level_Player_AtkDelay + " / " + playerData.Cost_Player_AtkDelay + " G";
                 }
             }
             else if (num == 2)
@@ -193,7 +193,7 @@ public class Station_Fortress : MonoBehaviour
                 }
                 else
                 {
-                    PlayerUP_Text[2].text = "Lv." + playerData.Level_Player_HP + " / " + playerData.Cost_Player_HP + " Point";
+                    PlayerUP_Text[2].text = "Lv." + playerData.Level_Player_HP + " / " + playerData.Cost_Player_HP + " G";
                 }
             }
             else if (num == 3)
@@ -205,7 +205,7 @@ public class Station_Fortress : MonoBehaviour
                 }
                 else
                 {
-                    PlayerUP_Text[3].text = "Lv." + playerData.Level_Player_Armor + " / " + playerData.Cost_Player_Armor + " Point";
+                    PlayerUP_Text[3].text = "Lv." + playerData.Level_Player_Armor + " / " + playerData.Cost_Player_Armor + " G";
                 }
             }
             else if (num == 4)
@@ -217,7 +217,7 @@ public class Station_Fortress : MonoBehaviour
                 }
                 else
                 {
-                    PlayerUP_Text[4].text = "Lv." + playerData.Level_Player_Speed + " / " + playerData.Cost_Player_Speed + " Point";
+                    PlayerUP_Text[4].text = "Lv." + playerData.Level_Player_Speed + " / " + playerData.Cost_Player_Speed + " G";
                 }
             }
         }
@@ -262,9 +262,9 @@ public class Station_Fortress : MonoBehaviour
 
     public void Click_Player_Upgrade(int i)//LevelNum : 0 = Atk / 1= AtkDealy / 2 = HP / 3 = Armor / 4 = Speed
     {
-        if (playerData.Player_Point >= playerData.Check_Cost_Player(i))
+        if (playerData.Player_Coin >= playerData.Check_Cost_Player(i))
         {
-            playerData.Player_Use_Point(playerData.Check_Cost_Player(i));
+            playerData.Player_Buy_Coin(playerData.Check_Cost_Player(i));
             playerData.Player_Level_Up(i);
             Check_Player_Coin_Point();
             Player_Information_Text();
@@ -620,7 +620,7 @@ public class Station_Fortress : MonoBehaviour
     // 용병 배치
     public void Director_Init_MercenaryPosition()
     {
-        EngineTier_MaxMercenary = trainData.Max_Train_MaxMercenary; 
+        MaxMercenary = trainData.Max_Train_MaxMercenary + 1;
         Mercenary_Position_Max_Text();
         Mercenary_Buy_NumList = mercenaryData.SA_MercenaryData.Mercenary_Buy_Num;
         if (Mercenary_Position_Content.childCount != Mercenary_Buy_NumList.Count)
@@ -697,7 +697,7 @@ public class Station_Fortress : MonoBehaviour
 
     private void Mercenary_Position_Max_Text()
     {
-        Mercenary_Position_Information.text = EngineTier_MaxMercenary.ToString();
+        Mercenary_Position_Information.text = MaxMercenary.ToString();
     }
     private void Mercenary_Position_List_Init_Card()
     {
@@ -731,7 +731,7 @@ public class Station_Fortress : MonoBehaviour
 
     public void Mercenary_Check_Button()
     {
-        if (Mercenary_TotalNum < EngineTier_MaxMercenary) // 초과 하지 않을 때,
+        if (Mercenary_TotalNum < MaxMercenary) // 초과 하지 않을 때,
         {
             for (int i = 0; i < CardList.Count; i++)
             {

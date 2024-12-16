@@ -835,7 +835,6 @@ public class GameDirector : MonoBehaviour
         gameType = GameType.GameEnd;
         Time.timeScale = 0f;
 
-
         if (WinFlag)
         {
             missionDirector.Adjustment_Mission(); // 정보 갱신하기.
@@ -851,8 +850,10 @@ public class GameDirector : MonoBehaviour
                 else
                 {
                     //문제가 발생했으니 결과창을 띄운다
+                    //미션 실패다.
                     Debug.Log("작업 해야됨" + flag);
                     missionDirector.selectmission.Mission_Fail();
+                    SA_PlayerData.SA_MissionPlaying(false);
                     uiDirector.Open_Result_UI(false, Stage_Num, Total_Score, Total_Coin, /*Check_Score(),*/ Reward_Point, LoseNum);
                 }
             }
@@ -860,24 +861,27 @@ public class GameDirector : MonoBehaviour
             {
                 bool flag = missionDirector.selectmission.CheckMission(lastFlag);
                 if (flag)
-                { // 통과다
+                { // 미션 통과다
                     Debug.Log("마지막 작동 완료" + flag);
                     missionDirector.selectmission.Mission_Sucesses();
                     uiDirector.Open_Result_UI(true, Stage_Num, Total_Score, Total_Coin, /*Check_Score(),*/ Reward_Point, LoseNum);
                     SA_PlayerData.SA_GameWinReward(true, Total_Coin);
+                    SA_PlayerData.SA_MissionPlaying(false);
                     LastSubStageClear();
                 }
-                else // 실패다
+                else // 미션 실패다
                 {
                     Debug.Log("작업 해야됨 - 실패로 간주하고 초기화해야됨");
                     missionDirector.selectmission.Mission_Fail();
+                    SA_PlayerData.SA_MissionPlaying(false);
                     uiDirector.Open_Result_UI(false, Stage_Num, Total_Score, Total_Coin, /*Check_Score(),*/ Reward_Point, LoseNum);
                 }
             }
         }
-        else // 패배했을 때...
+        else // 패배했을 때... //체력 부족 및 기차가 멈췄을 때,
         {
             missionDirector.selectmission.Mission_Fail();
+            SA_PlayerData.SA_MissionPlaying(false);
             uiDirector.Open_Result_UI(false, Stage_Num, Total_Score, Total_Coin, /*Check_Score(),*/ Reward_Point, LoseNum);
         }
         /*

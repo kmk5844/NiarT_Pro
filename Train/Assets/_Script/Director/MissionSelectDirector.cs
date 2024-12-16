@@ -68,6 +68,18 @@ public class MissionSelectDirector : MonoBehaviour
         SelectMissionObject.GetComponent<SelectMission>().SetDataSetting(playerData, EX_QuestData);
     }
 
+    private void Start()
+    {
+        if (!playerData.Mission_Playing)
+        {
+            SubStageSelectObject.SetActive(false);
+        }
+        else
+        {
+            SubStageSelectObject.SetActive(true);
+        }
+    }
+
     public void Open_SubSelectObject()
     {
         GameObject game_obj = Instantiate(SelectMissionObject);

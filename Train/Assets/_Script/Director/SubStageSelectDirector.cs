@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,6 +16,7 @@ public class SubStageSelectDirector : MonoBehaviour
 
     MissionDataObject SelectSubStageData;
     int SelectSubStageNum;
+    List<int> NextSubStageNum;
 
     [Header("UI")]
     public TextMeshProUGUI UI_MissionInformation;
@@ -36,7 +38,6 @@ public class SubStageSelectDirector : MonoBehaviour
     public Button UI_ItemCount_NoButton;
     ItemEquip_Object Count_ItemEquipObjcet;
     UnityEngine.Events.UnityAction listner;
-
 
     [Header("아이템 관리")]
     public Transform Inventory_ItemList;
@@ -133,6 +134,7 @@ public class SubStageSelectDirector : MonoBehaviour
         SelectSubStageData = mission;
         SelectSubStageNum = mission.SubStage_Num;
         playerData.SA_SelectSubStage(SelectSubStageNum);
+        SpecialStage_Check();
     }
 
     public void Close_SelectSubStage_Information()
@@ -142,14 +144,50 @@ public class SubStageSelectDirector : MonoBehaviour
 
     public void Start_SelectSubStage()
     {
-        if(SceneManager.GetActiveScene().name != "CharacterSelect")
+        if(SelectSubStageData.SubStage_Type == SubStageType.SimpleStation)
         {
-            SceneManager.LoadScene("CharacterSelect");
+            SpeacialStage_Clear();
+            SpecialStage_LockOff();
+            SceneManager.LoadScene("SimpleStation");
         }
-        else
+        else // 전투
         {
-            this.gameObject.SetActive(false);
-            UI_SubStageInformationWindow.SetActive(false);
+            if (SceneManager.GetActiveScene().name != "CharacterSelect")
+            {
+                SceneManager.LoadScene("CharacterSelect");
+            }
+            else
+            {
+                this.gameObject.SetActive(false);
+                UI_SubStageInformationWindow.SetActive(false);
+            }
+        }
+    }
+
+    void SpeacialStage_Clear()
+    {
+        SelectSubStageData.SubStage_Clear();
+    }
+
+    void SpecialStage_LockOff()
+    {
+        foreach(int subStageNum in NextSubStageNum)
+        {
+            if(subStageNum != -1)
+            {
+                MissionDataObject mission = missionData.missionStage(missionNum, stageNum, subStageNum);
+                mission.SubStageLockOff();
+            }
+        }
+    }
+
+    void SpecialStage_Check()
+    {
+        string[] nextSubStageList = SelectSubStageData.Open_SubStageNum.Split(',');
+        NextSubStageNum.Clear();
+        foreach (string sub in nextSubStageList)
+        {
+            NextSubStageNum.Add(int.Parse(sub));
         }
     }
 

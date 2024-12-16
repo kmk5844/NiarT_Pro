@@ -77,9 +77,12 @@ public class SA_PlayerData : ScriptableObject
 
     [Header("서브 스테이지")]
     [SerializeField]
+    private bool mission_playing;
+    public bool Mission_Playing { get {  return mission_playing; } }
+
+    [SerializeField]
     private int select_sub_stage;
     public int Select_Sub_Stage { get { return select_sub_stage; } }
-
 
     [Header("스토리")]
     [SerializeField]
@@ -238,6 +241,12 @@ public class SA_PlayerData : ScriptableObject
         Save();
     }
 
+    public void SA_MissionPlaying(bool flag)
+    {
+        mission_playing = flag;
+        Save();
+    }
+
     private void Save()
     {
         ES3.Save<bool>("SA_PlayerData_Data_FirstFlag", firstflag);
@@ -253,6 +262,7 @@ public class SA_PlayerData : ScriptableObject
         ES3.Save<bool[]>("SA_PlayerData_Data_LockOff", character_lockoff);
         ES3.Save<int>("SA_PlayerData_Data_Story_Num", story_num);
         ES3.Save<bool>("SA_PlayerData_Data_Station_Tutorial", station_tutorial);
+        ES3.Save<bool>("SA_PlayerData_Data_MissionPlaying", mission_playing);
     }
 
     public void Load()
@@ -272,6 +282,7 @@ public class SA_PlayerData : ScriptableObject
         character_lockoff = ES3.Load<bool[]>("SA_PlayerData_Data_LockOff");
         story_num = ES3.Load<int>("SA_PlayerData_Data_Story_Num");
         station_tutorial = ES3.Load<bool>("SA_PlayerData_Data_Station_Tutorial");
+        mission_playing = ES3.Load<bool>("SA_PlayerData_Data_MissionPlaying");
     }
 
     public void Init()
@@ -297,7 +308,7 @@ public class SA_PlayerData : ScriptableObject
         {
             Character_LockOff[i] = false;
         }
-
+        mission_playing = false;
         Save();
     }
 
