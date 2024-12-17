@@ -864,10 +864,11 @@ public class GameDirector : MonoBehaviour
                 { // 미션 통과다
                     Debug.Log("마지막 작동 완료" + flag);
                     missionDirector.selectmission.Mission_Sucesses();
+                    
                     uiDirector.Open_Result_UI(true, Stage_Num, Total_Score, Total_Coin, /*Check_Score(),*/ Reward_Point, LoseNum);
+                    LastSubStageClear();
                     SA_PlayerData.SA_GameWinReward(true, Total_Coin);
                     SA_PlayerData.SA_MissionPlaying(false);
-                    LastSubStageClear();
                 }
                 else // 미션 실패다
                 {
@@ -926,11 +927,15 @@ public class GameDirector : MonoBehaviour
 
     private void LastSubStageClear()
     {
+        Debug.Log("ㅇㅇ");
+
         if (SA_PlayerData.New_Stage == SA_PlayerData.Select_Stage)
         {
+                Debug.Log("ㅇㅇㅇ");
             try
             {
                 SA_StageList.Stage[Stage_Num + 1].New_Stage_Chage();
+                Debug.Log("ㅇㅇㅇㅇ");
             }
             catch
             {

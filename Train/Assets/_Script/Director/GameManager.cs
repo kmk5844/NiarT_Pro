@@ -41,6 +41,9 @@ public class GameManager : MonoBehaviour
     public SA_PlayerData PlayerData;
     public SA_LocalData LocalData;
     public SA_StoryLIst StoryData;
+    public Quest_DataTable QuestData;
+
+    public GameObject SelectMissionObject;
 
     Texture2D cursorOrigin;
     Vector2 cursorHotspot_Origin;
@@ -78,11 +81,20 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[LocalData.Local_Index];
+        if (PlayerData.Mission_Playing)
+        {
+            SelectMissionObject.GetComponent<SelectMission>().SetDataSetting(PlayerData, QuestData);
+            GameObject gm = Instantiate(SelectMissionObject);
+            gm.name = "SelectMission";
+        }
     }
 
     public void Update()
     {
+
+
         if (Demo)
         {
             if (Input.GetKeyDown(KeyCode.Alpha0))
@@ -90,6 +102,12 @@ public class GameManager : MonoBehaviour
                 if (Time.timeScale == 0)
                 {
                     Time.timeScale = 1;
+                }
+
+                if (GameObject.Find("SelectMission"))
+                {
+                    GameObject gm = GameObject.Find("SelectMission");
+                    Destroy(gm);
                 }
                 Game_Reset();
             }
@@ -101,6 +119,12 @@ public class GameManager : MonoBehaviour
                 if (Time.timeScale == 0)
                 {
                     Time.timeScale = 1;
+                }
+
+                if (GameObject.Find("SelectMission"))
+                {
+                    GameObject gm = GameObject.Find("SelectMission");
+                    Destroy(gm);
                 }
                 Game_Reset();
             }
@@ -143,7 +167,7 @@ public class GameManager : MonoBehaviour
 
     public void BeforeStation_Enter()
     {
-        if (gameData.Information_Scene[PlayerData.New_Stage].BeforeStation_Button.Equals("Story"))
+  /*      if (gameData.Information_Scene[PlayerData.New_Stage].BeforeStation_Button.Equals("Story"))
         {
             int index = gameData.Information_Scene[PlayerData.New_Stage].BeforeStation_StoryIndex;
 
@@ -160,11 +184,11 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    LoadingManager.LoadScene("Station");
+                    LoadingManager.LoadScene("MissionSelect");
                 }
             }
         }
-        else if (gameData.Information_Scene[PlayerData.New_Stage].BeforeStation_Button.Equals("CutScene"))
+        else*/ if (gameData.Information_Scene[PlayerData.New_Stage].BeforeStation_Button.Equals("CutScene"))
         {
             int index = gameData.Information_Scene[PlayerData.New_Stage].BeforeStation_StoryIndex;
 
@@ -188,7 +212,14 @@ public class GameManager : MonoBehaviour
             }
             else // 튜토리얼 진행 후,
             {
-                LoadingManager.LoadScene("Station");
+                if (!PlayerData.Mission_Playing)
+                {
+                    LoadingManager.LoadScene("Station");
+                }
+                else
+                {
+                    LoadingManager.LoadScene("MissionSelect");
+                }
             }
         }
         else if (gameData.Information_Scene[PlayerData.New_Stage].BeforeStation_Button.Equals("Demo_End"))

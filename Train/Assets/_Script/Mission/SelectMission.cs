@@ -1,8 +1,6 @@
-using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class SelectMission : MonoBehaviour
@@ -33,7 +31,6 @@ public class SelectMission : MonoBehaviour
     public MissionEscort_State M_Escort;
     public MissionConvoy_State M_Convoy;
     public MissionBoss_State M_Boss;
-    
 
     public int monsterCount;
     public int bossCount;

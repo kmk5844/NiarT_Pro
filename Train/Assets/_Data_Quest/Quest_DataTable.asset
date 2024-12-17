@@ -17,32 +17,22 @@ MonoBehaviour:
     Quest_Type: Destination
     Quest_Information: "\uBB34\uC0AC\uD788 \uBAA9\uC801\uC9C0\uAE4C\uC9C0 \uB3C4\uCC29\uD558\uC138\uC694"
     Quest_State: -1
-    Quest_Reward: 100000
-  - Stage_Mission: 0,2
-    Quest_Type: Monster
-    Quest_Information: "0\uBC88 \uBAAC\uC2A4\uD130\uB97C 20\uBC88 \uC7A1\uC544\uC8FC\uC138\uC694."
-    Quest_State: 0,9999
-    Quest_Reward: 200000
-  - Stage_Mission: 0,5
-    Quest_Type: Boss
-    Quest_Information: "\uC5EC\uC655\uAC70\uBBF8\uB97C \uC7A1\uC544\uC8FC\uC138\uC694"
-    Quest_State: 0,1
-    Quest_Reward: 300000
+    Quest_Reward: 50000
   - Stage_Mission: 1,0
     Quest_Type: Destination
     Quest_Information: "\uBB34\uC0AC\uD788 \uBAA9\uC801\uC9C0\uAE4C\uC9C0 \uB3C4\uCC29\uD558\uC138\uC694"
     Quest_State: -1
-    Quest_Reward: 200000
-  - Stage_Mission: 1,1
-    Quest_Type: Material
-    Quest_Information: "70\uBC88 \uC544\uC774\uD15C\uC744 10\uAC1C\uB97C \uBAA8\uC544\uC8FC\uC138\uC694."
-    Quest_State: 70,10
-    Quest_Reward: 300000
-  - Stage_Mission: 1,2
+    Quest_Reward: 55000
+  - Stage_Mission: 2,0
+    Quest_Type: Destination
+    Quest_Information: "\uBB34\uC0AC\uD788 \uBAA9\uC801\uC9C0\uAE4C\uC9C0 \uB3C4\uCC29\uD558\uC138\uC694"
+    Quest_State: -1
+    Quest_Reward: 60000
+  - Stage_Mission: 2,2
     Quest_Type: Monster
-    Quest_Information: "0\uBC88 \uBAAC\uC2A4\uD130\uB97C 20\uBC88 \uC7A1\uC544\uC8FC\uC138\uC694."
-    Quest_State: 0,20
-    Quest_Reward: 400000
+    Quest_Information: "0\uBC88 \uBAAC\uC2A4\uD130\uB97C 100\uB9C8\uB9AC \uC7A1\uC544\uC8FC\uC138\uC694."
+    Quest_State: 0,100
+    Quest_Reward: 100000
   - Stage_Mission: 1,3
     Quest_Type: Escort
     Quest_Information: "8\uBC88 NPC\uB97C \uD638\uC704\uD558\uC138\uC694 (\uCCB4\uB825
@@ -103,210 +93,106 @@ MonoBehaviour:
     SubStage_Status: 
   - Stage_Num: 0
     SubStage_Num: 1
-    SubStage_Type: Hard
-    Distance: 40001
+    SubStage_Type: Nomal
+    Distance: 40000
     Emerging_Monster: 0
     Monster_Count: 10
-    Open_SubStageNum: 2,3
+    Open_SubStageNum: -1
     SubStage_Status: 
-  - Stage_Num: 0
+  - Stage_Num: 1
+    SubStage_Num: 0
+    SubStage_Type: Nomal
+    Distance: 40000
+    Emerging_Monster: 0
+    Monster_Count: 10
+    Open_SubStageNum: 1,3
+    SubStage_Status: 
+  - Stage_Num: 1
+    SubStage_Num: 1
+    SubStage_Type: Nomal
+    Distance: 45000
+    Emerging_Monster: 0
+    Monster_Count: 10
+    Open_SubStageNum: 2
+    SubStage_Status: 
+  - Stage_Num: 1
     SubStage_Num: 2
-    SubStage_Type: HardCore
-    Distance: 40002
+    SubStage_Type: Nomal
+    Distance: 45000
+    Emerging_Monster: 0
+    Monster_Count: 10
+    Open_SubStageNum: -1
+    SubStage_Status: 
+  - Stage_Num: 1
+    SubStage_Num: 3
+    SubStage_Type: Nomal
+    Distance: 50000
     Emerging_Monster: 0
     Monster_Count: 10
     Open_SubStageNum: 4
     SubStage_Status: 
-  - Stage_Num: 0
-    SubStage_Num: 3
-    SubStage_Type: Nomal
-    Distance: 40000
-    Emerging_Monster: 0
-    Monster_Count: 10
-    Open_SubStageNum: 4,5
-    SubStage_Status: 
-  - Stage_Num: 0
+  - Stage_Num: 1
     SubStage_Num: 4
-    SubStage_Type: Hard
-    Distance: 40001
-    Emerging_Monster: 0
-    Monster_Count: 10
-    Open_SubStageNum: 6
-    SubStage_Status: 
-  - Stage_Num: 0
-    SubStage_Num: 5
     SubStage_Type: Nomal
-    Distance: 40000
-    Emerging_Monster: 0
-    Monster_Count: 10
-    Open_SubStageNum: 6
-    SubStage_Status: 
-  - Stage_Num: 0
-    SubStage_Num: 6
-    SubStage_Type: Hard
-    Distance: 40001
-    Emerging_Monster: 0
-    Monster_Count: 10
-    Open_SubStageNum: 7
-    SubStage_Status: 
-  - Stage_Num: 0
-    SubStage_Num: 7
-    SubStage_Type: HardCore
-    Distance: 40002
-    Emerging_Monster: 0
-    Monster_Count: 10
-    Open_SubStageNum: 8
-    SubStage_Status: 
-  - Stage_Num: 0
-    SubStage_Num: 8
-    SubStage_Type: Boss
-    Distance: 40003
+    Distance: 50000
     Emerging_Monster: 0
     Monster_Count: 10
     Open_SubStageNum: -1
-    SubStage_Status: 0,90,5
-  - Stage_Num: 1
+    SubStage_Status: 
+  - Stage_Num: 2
     SubStage_Num: 0
     SubStage_Type: Nomal
     Distance: 40000
     Emerging_Monster: 0
     Monster_Count: 10
-    Open_SubStageNum: 5
-    SubStage_Status: 
-  - Stage_Num: 1
-    SubStage_Num: 1
-    SubStage_Type: Hard
-    Distance: 40001
-    Emerging_Monster: 0
-    Monster_Count: 10
-    Open_SubStageNum: 6
-    SubStage_Status: 
-  - Stage_Num: 1
-    SubStage_Num: 2
-    SubStage_Type: HardCore
-    Distance: 40002
-    Emerging_Monster: 0
-    Monster_Count: 10
-    Open_SubStageNum: 7
-    SubStage_Status: 
-  - Stage_Num: 1
-    SubStage_Num: 3
-    SubStage_Type: Boss
-    Distance: 40003
-    Emerging_Monster: 0
-    Monster_Count: 10
-    Open_SubStageNum: 8,9
-    SubStage_Status: 0,90,5
-  - Stage_Num: 1
-    SubStage_Num: 4
-    SubStage_Type: Oasis
-    Distance: -1
-    Emerging_Monster: -1
-    Monster_Count: -1
-    Open_SubStageNum: -1
-    SubStage_Status: 
-  - Stage_Num: 1
-    SubStage_Num: 5
-    SubStage_Type: Treasure
-    Distance: -1
-    Emerging_Monster: -1
-    Monster_Count: -1
-    Open_SubStageNum: -1
-    SubStage_Status: 
-  - Stage_Num: 1
-    SubStage_Num: 6
-    SubStage_Type: Store
-    Distance: -1
-    Emerging_Monster: -1
-    Monster_Count: -1
-    Open_SubStageNum: -1
-    SubStage_Status: 
-  - Stage_Num: 1
-    SubStage_Num: 7
-    SubStage_Type: Maintenance
-    Distance: -1
-    Emerging_Monster: -1
-    Monster_Count: -1
-    Open_SubStageNum: -1
-    SubStage_Status: 
-  - Stage_Num: 1
-    SubStage_Num: 8
-    SubStage_Type: SimpleStation
-    Distance: -1
-    Emerging_Monster: -1
-    Monster_Count: -1
-    Open_SubStageNum: -1
+    Open_SubStageNum: 1,5
     SubStage_Status: 
   - Stage_Num: 2
-    SubStage_Num: 0
+    SubStage_Num: 1
     SubStage_Type: Nomal
-    Distance: 40009
+    Distance: 45000
     Emerging_Monster: 0
     Monster_Count: 10
-    Open_SubStageNum: 5
+    Open_SubStageNum: 2
     SubStage_Status: 
   - Stage_Num: 2
-    SubStage_Num: 1
+    SubStage_Num: 2
+    SubStage_Type: Nomal
+    Distance: 50000
+    Emerging_Monster: 0
+    Monster_Count: 10
+    Open_SubStageNum: 3
+    SubStage_Status: 
+  - Stage_Num: 2
+    SubStage_Num: 3
+    SubStage_Type: Nomal
+    Distance: 55000
+    Emerging_Monster: 0
+    Monster_Count: 10
+    Open_SubStageNum: 4
+    SubStage_Status: 
+  - Stage_Num: 2
+    SubStage_Num: 4
+    SubStage_Type: Nomal
+    Distance: 60000
+    Emerging_Monster: 0
+    Monster_Count: 10
+    Open_SubStageNum: -1
+    SubStage_Status: 
+  - Stage_Num: 2
+    SubStage_Num: 5
     SubStage_Type: Hard
-    Distance: 40010
+    Distance: 60000
     Emerging_Monster: 0
     Monster_Count: 10
     Open_SubStageNum: 6
     SubStage_Status: 
   - Stage_Num: 2
-    SubStage_Num: 2
-    SubStage_Type: HardCore
-    Distance: 40011
-    Emerging_Monster: 0
-    Monster_Count: 10
-    Open_SubStageNum: 7
-    SubStage_Status: 
-  - Stage_Num: 2
-    SubStage_Num: 3
-    SubStage_Type: Boss
-    Distance: 40012
-    Emerging_Monster: 0
-    Monster_Count: 10
-    Open_SubStageNum: 8,9
-    SubStage_Status: 
-  - Stage_Num: 2
-    SubStage_Num: 4
-    SubStage_Type: Oasis
-    Distance: -1
-    Emerging_Monster: -1
-    Monster_Count: -1
-    Open_SubStageNum: -1
-    SubStage_Status: 
-  - Stage_Num: 2
-    SubStage_Num: 5
-    SubStage_Type: Treasure
-    Distance: -1
-    Emerging_Monster: -1
-    Monster_Count: -1
-    Open_SubStageNum: -1
-    SubStage_Status: 
-  - Stage_Num: 2
     SubStage_Num: 6
-    SubStage_Type: Store
-    Distance: -1
-    Emerging_Monster: -1
-    Monster_Count: -1
-    Open_SubStageNum: -1
-    SubStage_Status: 
-  - Stage_Num: 2
-    SubStage_Num: 7
-    SubStage_Type: Maintenance
-    Distance: -1
-    Emerging_Monster: -1
-    Monster_Count: -1
-    Open_SubStageNum: -1
-    SubStage_Status: 
-  - Stage_Num: 2
-    SubStage_Num: 8
-    SubStage_Type: SimpleStation
-    Distance: -1
-    Emerging_Monster: -1
-    Monster_Count: -1
+    SubStage_Type: Hard
+    Distance: 65000
+    Emerging_Monster: 0
+    Monster_Count: 10
     Open_SubStageNum: -1
     SubStage_Status: 
   Q_Material:
@@ -527,7 +413,7 @@ MonoBehaviour:
     Open_SubStageNum: -1
     SubStage_Status: 
   Q_Monster:
-  - Stage_Num: 0
+  - Stage_Num: 2
     SubStage_Num: 0
     SubStage_Type: Nomal
     Distance: 40000
@@ -535,172 +421,52 @@ MonoBehaviour:
     Monster_Count: 10
     Open_SubStageNum: 1
     SubStage_Status: 
-  - Stage_Num: 0
+  - Stage_Num: 2
     SubStage_Num: 1
-    SubStage_Type: Hard
-    Distance: 40001
+    SubStage_Type: Nomal
+    Distance: 45000
     Emerging_Monster: 0
     Monster_Count: 10
-    Open_SubStageNum: 2
+    Open_SubStageNum: 2,5
     SubStage_Status: 
-  - Stage_Num: 0
+  - Stage_Num: 2
     SubStage_Num: 2
-    SubStage_Type: HardCore
-    Distance: 40002
+    SubStage_Type: Nomal
+    Distance: 50000
     Emerging_Monster: 0
     Monster_Count: 10
     Open_SubStageNum: 3
     SubStage_Status: 
-  - Stage_Num: 0
+  - Stage_Num: 2
     SubStage_Num: 3
-    SubStage_Type: Boss
-    Distance: 40003
-    Emerging_Monster: 0
-    Monster_Count: 10
-    Open_SubStageNum: -1
-    SubStage_Status: 0,90,5
-  - Stage_Num: 1
-    SubStage_Num: 0
     SubStage_Type: Nomal
-    Distance: 40000
+    Distance: 55000
     Emerging_Monster: 0
     Monster_Count: 10
-    Open_SubStageNum: 5
+    Open_SubStageNum: 4
     SubStage_Status: 
-  - Stage_Num: 1
-    SubStage_Num: 1
-    SubStage_Type: Hard
-    Distance: 40001
-    Emerging_Monster: 0
-    Monster_Count: 10
-    Open_SubStageNum: 6
-    SubStage_Status: 
-  - Stage_Num: 1
-    SubStage_Num: 2
-    SubStage_Type: HardCore
-    Distance: 40002
-    Emerging_Monster: 0
-    Monster_Count: 10
-    Open_SubStageNum: 7
-    SubStage_Status: 
-  - Stage_Num: 1
-    SubStage_Num: 3
-    SubStage_Type: Boss
-    Distance: 40003
-    Emerging_Monster: 0
-    Monster_Count: 10
-    Open_SubStageNum: 8,9
-    SubStage_Status: 0,90,5
-  - Stage_Num: 1
+  - Stage_Num: 2
     SubStage_Num: 4
-    SubStage_Type: Oasis
-    Distance: -1
-    Emerging_Monster: -1
-    Monster_Count: -1
-    Open_SubStageNum: -1
-    SubStage_Status: 
-  - Stage_Num: 1
-    SubStage_Num: 5
-    SubStage_Type: Treasure
-    Distance: -1
-    Emerging_Monster: -1
-    Monster_Count: -1
-    Open_SubStageNum: -1
-    SubStage_Status: 
-  - Stage_Num: 1
-    SubStage_Num: 6
-    SubStage_Type: Store
-    Distance: -1
-    Emerging_Monster: -1
-    Monster_Count: -1
-    Open_SubStageNum: -1
-    SubStage_Status: 
-  - Stage_Num: 1
-    SubStage_Num: 7
-    SubStage_Type: Maintenance
-    Distance: -1
-    Emerging_Monster: -1
-    Monster_Count: -1
-    Open_SubStageNum: -1
-    SubStage_Status: 
-  - Stage_Num: 1
-    SubStage_Num: 8
-    SubStage_Type: SimpleStation
-    Distance: -1
-    Emerging_Monster: -1
-    Monster_Count: -1
-    Open_SubStageNum: -1
-    SubStage_Status: 
-  - Stage_Num: 2
-    SubStage_Num: 0
-    SubStage_Type: Nomal
-    Distance: 40009
+    SubStage_Type: Hard
+    Distance: 60000
     Emerging_Monster: 0
     Monster_Count: 10
-    Open_SubStageNum: 5
+    Open_SubStageNum: -1
     SubStage_Status: 
   - Stage_Num: 2
-    SubStage_Num: 1
-    SubStage_Type: Hard
-    Distance: 40010
+    SubStage_Num: 5
+    SubStage_Type: Nomal
+    Distance: 60000
     Emerging_Monster: 0
     Monster_Count: 10
     Open_SubStageNum: 6
     SubStage_Status: 
   - Stage_Num: 2
-    SubStage_Num: 2
-    SubStage_Type: HardCore
-    Distance: 40011
-    Emerging_Monster: 0
-    Monster_Count: 10
-    Open_SubStageNum: 7
-    SubStage_Status: 
-  - Stage_Num: 2
-    SubStage_Num: 3
-    SubStage_Type: Boss
-    Distance: 40012
-    Emerging_Monster: 0
-    Monster_Count: 10
-    Open_SubStageNum: 8,9
-    SubStage_Status: 
-  - Stage_Num: 2
-    SubStage_Num: 4
-    SubStage_Type: Oasis
-    Distance: -1
-    Emerging_Monster: -1
-    Monster_Count: -1
-    Open_SubStageNum: -1
-    SubStage_Status: 
-  - Stage_Num: 2
-    SubStage_Num: 5
-    SubStage_Type: Treasure
-    Distance: -1
-    Emerging_Monster: -1
-    Monster_Count: -1
-    Open_SubStageNum: -1
-    SubStage_Status: 
-  - Stage_Num: 2
     SubStage_Num: 6
-    SubStage_Type: Store
-    Distance: -1
-    Emerging_Monster: -1
-    Monster_Count: -1
-    Open_SubStageNum: -1
-    SubStage_Status: 
-  - Stage_Num: 2
-    SubStage_Num: 7
-    SubStage_Type: Maintenance
-    Distance: -1
-    Emerging_Monster: -1
-    Monster_Count: -1
-    Open_SubStageNum: -1
-    SubStage_Status: 
-  - Stage_Num: 2
-    SubStage_Num: 8
-    SubStage_Type: SimpleStation
-    Distance: -1
-    Emerging_Monster: -1
-    Monster_Count: -1
+    SubStage_Type: HardCore
+    Distance: 65000
+    Emerging_Monster: 0
+    Monster_Count: 10
     Open_SubStageNum: -1
     SubStage_Status: 
   Q_Escort:

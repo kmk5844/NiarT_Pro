@@ -16,6 +16,7 @@ public class SubStageSelectDirector : MonoBehaviour
 
     MissionDataObject SelectSubStageData;
     int SelectSubStageNum;
+    [SerializeField]
     List<int> NextSubStageNum;
 
     [Header("UI")]
@@ -184,7 +185,15 @@ public class SubStageSelectDirector : MonoBehaviour
     void SpecialStage_Check()
     {
         string[] nextSubStageList = SelectSubStageData.Open_SubStageNum.Split(',');
-        NextSubStageNum.Clear();
+        if(NextSubStageNum == null)
+        {
+            NextSubStageNum = new List<int>();
+        }
+        else
+        {
+            NextSubStageNum.Clear();
+        }
+        
         foreach (string sub in nextSubStageList)
         {
             NextSubStageNum.Add(int.Parse(sub));
@@ -248,8 +257,11 @@ public class SubStageSelectDirector : MonoBehaviour
 
     public void Yes_MissionCancel()
     {
+        playerData.SA_MissionPlaying(false);
         playerData.SA_GameLoseCoin(60f);
         missionData.SubStage_Lose(stageNum, missionNum);
+        GameObject gm = GameObject.Find("SelectMission");
+        Destroy(gm);
         SceneManager.LoadScene("Station");
     }
 

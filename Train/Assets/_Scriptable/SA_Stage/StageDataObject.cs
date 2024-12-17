@@ -63,13 +63,13 @@ public class StageDataObject : ScriptableObject
         Grade player_grade;
 
         public Grade Player_Grade { get { return player_grade; } }*/
-    [SerializeField]
+/*    [SerializeField]
     int player_score;
     public int Player_Score { get { return player_score; } }
 
     [SerializeField]
     bool player_firstplay;
-    public bool Player_FirstPlay { get { return player_firstplay; } }
+    public bool Player_FirstPlay { get { return player_firstplay; } }*/
 
     [SerializeField]
     bool stage_openflag;
@@ -83,8 +83,8 @@ public class StageDataObject : ScriptableObject
     public void Auto_Stage_Insert(int _stage_num, string _missionList)
     {
         stage_num = _stage_num;
-        player_firstplay = false;
-
+        //player_firstplay = false;
+        
         string[] _missionList_Split = _missionList.Split(',');
         missionlist = new List<int>();
         for (int i = 0; i < _missionList_Split.Length; i++)
@@ -152,19 +152,19 @@ public class StageDataObject : ScriptableObject
         Save();
     }
 
-    public void GameEnd(bool WinAndLoseFlag, int Score)//, string grade = "F")
+    public void GameEnd(bool WinAndLoseFlag)//, int Score)//, string grade = "F")
     {
-        if (!player_firstplay)
+/*        if (!player_firstplay)
         {
             player_firstplay = true;
-        }
-        
+        }*/
+/*        
         if(player_score < Score)
         {
             player_score = Score;
         }
 
-/*        int beforeNum = -1;
+        int beforeNum = -1;
         int gradeNum = -1;
 
 *//*        switch (player_grade)
@@ -253,23 +253,23 @@ public class StageDataObject : ScriptableObject
     public void Save()
     {
         ES3.Save("Stage_" + stage_num + "_stage_openflag", stage_openflag);
-        ES3.Save("Stage_" + stage_num + "_player_firstplay", player_firstplay);
-        ES3.Save("Stage_" + stage_num + "_player_score", player_score);
+        //ES3.Save("Stage_" + stage_num + "_player_firstplay", player_firstplay);
+        //ES3.Save("Stage_" + stage_num + "_player_score", player_score);
         //ES3.Save("Stage_" + stage_num + "_player_grade", player_grade);
     }
 
     public void Load()
     {
         stage_openflag = ES3.Load("Stage_" + stage_num + "_stage_openflag", stage_openflag);
-        player_firstplay = ES3.Load("Stage_" + stage_num + "_player_firstplay", player_firstplay);
-        player_score = ES3.Load("Stage_" + stage_num + "_player_score", player_score);
+        //player_firstplay = ES3.Load("Stage_" + stage_num + "_player_firstplay", player_firstplay);
+        //player_score = ES3.Load("Stage_" + stage_num + "_player_score", player_score);
         //player_grade = ES3.Load("Stage_" + stage_num + "_player_grade", player_grade);
     }
-
+    
     public void Init()
     {
-        player_firstplay = false;
-        player_score = 0;
+        //player_firstplay = false;
+        //player_score = 0;
         //player_grade = Grade.F;
         if (stage_num == 0)
         {

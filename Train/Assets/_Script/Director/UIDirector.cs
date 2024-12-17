@@ -245,12 +245,12 @@ public class UIDirector : MonoBehaviour
 
     public void Click_Station()
     {
-        SceneManager.LoadScene("Station");
+        GameManager.Instance.BeforeStation_Enter();
+        //SceneManager.LoadScene("Station");
         if (Time.timeScale == 0)
         {
             Time.timeScale = 1;
         }
-        //GameManager.Instance.BeforeStation_Enter();
         //LoadingManager.LoadScene("Station");
     }
 

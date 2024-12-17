@@ -135,7 +135,7 @@ public class Station_GameStart : MonoBehaviour
     public void Chnage_Stage_Information()
     {
         Stage_Text.text = "Stage " + (Select_StageNum + 1);
-        Score_Text.text = "Score : " + stageData.Stage[Select_StageNum].Player_Score;
+        //Score_Text.text = "Score : " + stageData.Stage[Select_StageNum].Player_Score;
 /*        string[] ItemList = stageData.Stage[Select_StageNum].Reward_Item.Split(',');
         int itemNum;*/
 /*        for(int i = 0; i <  ItemList.Length; i++)

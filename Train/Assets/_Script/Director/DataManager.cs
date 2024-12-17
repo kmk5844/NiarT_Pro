@@ -45,7 +45,6 @@ public class DataManager : MonoBehaviour
     public SA_StoryLIst storyData;
     public SA_MissionData missionData;
 
-
     public void Load()
     {
         playerData.Load();

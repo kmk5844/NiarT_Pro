@@ -37,11 +37,11 @@ public class FullMap_StageButton : MonoBehaviour
                 GetComponent<Button>().enabled = true;
             }
 
-            if (stageData.Player_FirstPlay)
+/*            if (stageData.Player_FirstPlay)
             {
                 GradeObject.SetActive(true);
                 GradeImg = GradeObject.GetComponent<Image>();
-/*                switch (stageData.Player_Grade)
+*//*                switch (stageData.Player_Grade)
                 {
                     case StageDataObject.Grade.S:
                         GradeImg.sprite = Grade_Image[0];
@@ -61,17 +61,17 @@ public class FullMap_StageButton : MonoBehaviour
                     case StageDataObject.Grade.F:
                         GradeImg.sprite = Grade_Image[5];
                         break;
-                }*/
-            }
+                }*//*
+            }*/
 
 /*            if (stageData.Boss_Flag)
             {
                 Boss_Object.SetActive(true);
             }*/
-            else
+/*            else
             {
                 Boss_Object.SetActive(false);
-            }
+            }*/
 
             Btn.onClick.AddListener(FullMap_StageButton_Click);
         }

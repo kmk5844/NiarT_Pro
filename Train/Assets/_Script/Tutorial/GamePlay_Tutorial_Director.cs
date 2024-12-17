@@ -95,7 +95,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
             {
                 DataManager.Instance.playerData.SA_CheckFirstFlag();
             }
-            LoadingManager.LoadScene("InGame");
+            LoadingManager.LoadScene("MissionSelect");
         }
 
         if(gameType == GameType_T.Pause)
@@ -537,7 +537,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
                     {
                         DataManager.Instance.playerData.SA_CheckFirstFlag();
                     }
-                    LoadingManager.LoadScene("InGame");
+                    LoadingManager.LoadScene("MissionSelect");
                 }
             }
         }
