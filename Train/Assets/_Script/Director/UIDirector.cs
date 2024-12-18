@@ -97,9 +97,8 @@ public class UIDirector : MonoBehaviour
     [HideInInspector]
     public int LoseText_Num;
 
-    [Header("키 튜토리얼")]
-    public GameObject KeyTutorial_Object;
-
+    [Header("미션 정보")]
+    public TextMeshProUGUI missionTextInformation_text;
     private void Awake()
     {
         isBloodFlag = false;
@@ -125,11 +124,6 @@ public class UIDirector : MonoBehaviour
         Player_Head.sprite = Player_Head_Sprite[player.PlayerNum];
         gamedirector = GameDirector_Object.GetComponent<GameDirector>();
         Player_Blood_Color = Player_Blood.GetComponent<Image>().color;
-        if (gamedirector.SA_PlayerData.Select_Stage != 0)
-        {
-            KeyTutorial_Object.SetActive(false);
-        }
-
 
         ItemName_Text.StringReference.TableReference = "ItemData_Table_St";
         ItemInformation_Text.StringReference.TableReference = "ItemData_Table_St";
@@ -230,7 +224,7 @@ public class UIDirector : MonoBehaviour
 
     public void Gameing_Text(int Score, int Coin)
     {
-        Score_Text.text = Score.ToString();
+        //Score_Text.text = Score.ToString();
         Coin_Text.text = Coin.ToString();
     }
 
@@ -432,5 +426,10 @@ public class UIDirector : MonoBehaviour
         Clear_UI.SetActive(true);
         yield return new WaitForSeconds(3f);
         Clear_UI.SetActive(false);
+    }
+
+    public void CheckMissionInformation(string inf)
+    {
+        missionTextInformation_text.text = inf;
     }
 }

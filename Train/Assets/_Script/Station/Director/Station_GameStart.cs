@@ -78,7 +78,7 @@ public class Station_GameStart : MonoBehaviour
         playerData = Player_DataObject.GetComponent<Station_PlayerData>();
         stageData = playerData.SA_StageList;
         itemEquip_object.GameStartDirector = GetComponent<Station_GameStart>();
-        itemEquip_object.item_tooltip_object = itemTooltip_object;
+        //itemEquip_object.item_tooltip_object = itemTooltip_object;
         GameStart_Information_Text.StringReference.TableReference = "Station_Table_St";
         Last_StageNum = -1;
         EquipItemListFlag = false;

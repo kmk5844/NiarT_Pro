@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,15 +17,19 @@ public class SubStage_Select : MonoBehaviour
     public int MissionNum;
     public int StageNum;
     public int SubStageNum;
-    public GameObject ClearObjcet;
+    public Sprite OpenStageSprite;
 
+    [Header("Information")]
+    public GameObject InformationObject;
+    public TextMeshProUGUI type_text;
+    public TextMeshProUGUI distance_text;
+
+
+    [Header("µ•¿Ã≈Õ")]
     [SerializeField]
     MissionDataObject missionData;
     [SerializeField]
     SubStageSelectDirector subStageSelectDirector;
-
-    public List<Button> nextStage;
-    //SA_PlayerData playerData;
 
     private void Awake()
     {
@@ -33,24 +38,29 @@ public class SubStage_Select : MonoBehaviour
 
     private void Start()
     {
-        if(selectSubStageType == stageType.Sub)
+        if (selectSubStageType == stageType.Sub)
         {
             subStageSelectDirector = GetComponentInParent<SubStageSelectDirector>();
             missionData = subStageSelectDirector.missionData.missionStage(MissionNum, StageNum, SubStageNum);
+            InformationObject.SetActive(false);
+            type_text.text = "Type : " + missionData.SubStage_Type;
+            distance_text.text = "Distance : " + missionData.Distance;
 
             if (missionData.StageClearFlag)
             {
-                ClearObjcet.SetActive(true);
+                Color customColor = new Color(0.45f, 0.11f, 0.11f);
+                GetComponent<Image>().color = customColor;
                 GetComponent<Button>().enabled = false;
             }
             else
             {
-                ClearObjcet.SetActive(false);
+                GetComponent<Image>().color = Color.white;
                 GetComponent<Button>().enabled = true;
             }
 
             if (missionData.StageOpenFlag)
             {
+                GetComponent<Image>().sprite = OpenStageSprite;
                 GetComponent<Button>().interactable = true;
             }
             else
@@ -71,11 +81,17 @@ public class SubStage_Select : MonoBehaviour
         }
     }
 
-    public void ClickSubStage()
+    public void ClickSubStage()                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
     {
         if (selectSubStageType == stageType.Sub)
         {
-            subStageSelectDirector.Open_SelectSubStage_Information(missionData);
+            InformationObject.SetActive(true);
         }
+    }
+
+    public void ClickNextItem()
+    {
+        subStageSelectDirector.Open_SelectSubStage(missionData);
+        subStageSelectDirector.Open_ItemTab();
     }
 }

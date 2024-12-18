@@ -6,6 +6,7 @@ using UnityEngine;
 public class MissionDirector : MonoBehaviour
 {
     public SelectMission selectmission;
+    public UIDirector uiDirector;
     public MonsterDirector monsterDirector;
 
     [SerializeField]
@@ -36,6 +37,7 @@ public class MissionDirector : MonoBehaviour
                 monsterDirector.missionFlag_boss = true;
                 break;
         }
+        uiDirector.CheckMissionInformation(selectmission.MissionInformation);
     }
     //몬스터
     public bool CheckMonster(int MonsterNum)
@@ -66,7 +68,7 @@ public class MissionDirector : MonoBehaviour
     public void MonsterCount()
     {
         monsterCount++;
-        Debug.Log("카운터 작동");
+        //Debug.Log("카운터 작동");
     }
 
     public void Adjustment_Mission()

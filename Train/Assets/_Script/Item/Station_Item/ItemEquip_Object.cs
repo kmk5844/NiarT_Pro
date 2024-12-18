@@ -24,7 +24,7 @@ public class ItemEquip_Object : MonoBehaviour
     [Header("정보 표시")]
     public Image item_icon_object;
     public TextMeshProUGUI item_object_text_count;
-    public ItemList_Tooltip item_tooltip_object;
+    //public ItemList_Tooltip item_tooltip_object;
 
     bool item_information_Flag; // 정보 출력 플래그
     bool item_mouseOver_Flag; // 이미 올려져 있다는 플래그
@@ -45,9 +45,9 @@ public class ItemEquip_Object : MonoBehaviour
     {
         if (item_information_Flag)
         {
-            if(item != null)
+            if (item != null)
             {
-                item_tooltip_object.Tooltip_ON(item.Item_Sprite, item.Num, item_use, item_max);
+                SubDirector.ItemInformation_Setting(item.Item_Sprite, item.name, item_information);
                 item_mouseOver_Flag = true;
             }
         }
@@ -55,7 +55,7 @@ public class ItemEquip_Object : MonoBehaviour
         {
             if (item_mouseOver_Flag)
             {
-                item_tooltip_object.Tooltip_Off();
+                //SubDirector.Tooltip_Off();
                 item_mouseOver_Flag = false;
             }
         }
@@ -88,7 +88,7 @@ public class ItemEquip_Object : MonoBehaviour
     public void SetSetting(ItemDataObject _item, ItemList_Tooltip _Tooltip, GameObject _Item_DragImage, SubStageSelectDirector _SubDirector)
     {
         item = _item;
-        item_tooltip_object = _Tooltip;
+        //item_tooltip_object = _Tooltip;
         Item_DragImage = _Item_DragImage;
         SubDirector = _SubDirector;
         Equip_Item();

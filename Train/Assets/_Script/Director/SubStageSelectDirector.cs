@@ -21,14 +21,23 @@ public class SubStageSelectDirector : MonoBehaviour
 
     [Header("UI")]
     public TextMeshProUGUI UI_MissionInformation;
-    public GameObject UI_Content;
+    public TextMeshProUGUI UI_MainStageText;
 
-    public GameObject UI_SubStageInformationWindow;
-    public TextMeshProUGUI UI_SubStageInformationText;
-
+    public GameObject UI_MapTab;
+    public GameObject UI_SubStageSelect;
+    public GameObject UI_ItemTab;
     public GameObject UI_MissionCancelWindow;
+
+    public Button UI_NextButton;
+    public Button UI_PrevButton;
+
     int stageNum;
     int missionNum;
+
+    [Header("UI_ItemInformation")]
+    public Image UI_Info_ItemIcon;
+    public TextMeshProUGUI UI_Info_ItemNameText;
+    public TextMeshProUGUI UI_Info_ItemInformationText;
 
     [Header("UI_ItemCount")]
     public GameObject UI_ItemCount;
@@ -38,7 +47,7 @@ public class SubStageSelectDirector : MonoBehaviour
     public Button UI_ItemCount_YesButton;
     public Button UI_ItemCount_NoButton;
     ItemEquip_Object Count_ItemEquipObjcet;
-    UnityEngine.Events.UnityAction listner;
+    UnityEngine.Events.UnityAction listner_Button;
 
     [Header("아이템 관리")]
     public Transform Inventory_ItemList;
@@ -60,7 +69,6 @@ public class SubStageSelectDirector : MonoBehaviour
     public ItemDataObject EmptyItemObject;
     public GameObject BeforeHoldItem;
     public GameObject EndHoldItem;
-
 
     private void Start()
     {
@@ -95,7 +103,13 @@ public class SubStageSelectDirector : MonoBehaviour
             Equip_ItemObject[i].SetSetting(equiped_item, Inventory_ItemTooltip, drag, this);
         }
         EmptyItemObject = itemListData.SA_Player_ItemData.EmptyObject;
+        UI_Info_ItemIcon.sprite = EmptyItemObject.Item_Sprite;
+        UI_Info_ItemNameText.text = "???";
+        UI_Info_ItemInformationText.text = "???";
+        UI_MainStageText.text = "Stage" + (playerData.Select_Stage + 1);
 
+        UI_NextButton.interactable = false;
+        UI_PrevButton.interactable = false;
     }
 
     public void Update()
@@ -123,24 +137,33 @@ public class SubStageSelectDirector : MonoBehaviour
 
         UI_MissionInformation.text = EX_QuestData.Q_List[missionInformation_Num].Quest_Information;
         GameObject StageListObject = Resources.Load<GameObject>("UI_SubStageList/" + selectStageNum + "_Stage/" + missionNum);
-        if(UI_Content.transform.childCount < 1)
+        if(UI_SubStageSelect.transform.childCount < 1)
         {
-            Instantiate(StageListObject, UI_Content.transform);
+            Instantiate(StageListObject, UI_SubStageSelect.transform);
         }
     }
-    public void Open_SelectSubStage_Information(MissionDataObject mission)
+    public void Open_SelectSubStage(MissionDataObject mission)
     {
-        UI_SubStageInformationWindow.SetActive(true);
-        UI_SubStageInformationText.text = "stage type : " + mission.SubStage_Type + "\nstage distance : " + mission.Distance;
         SelectSubStageData = mission;
         SelectSubStageNum = mission.SubStage_Num;
         playerData.SA_SelectSubStage(SelectSubStageNum);
         SpecialStage_Check();
     }
 
-    public void Close_SelectSubStage_Information()
+    public void Open_ItemTab()
     {
-        UI_SubStageInformationWindow.SetActive(false);
+        UI_ItemTab.SetActive(true);
+        UI_MapTab.SetActive(false);
+        UI_NextButton.interactable = false;
+        UI_PrevButton.interactable = true;
+    }
+
+    public void Open_SelectSubStage()
+    {
+        UI_ItemTab.SetActive(false);
+        UI_MapTab.SetActive(true);
+        UI_NextButton.interactable = true;
+        UI_PrevButton.interactable = false;
     }
 
     public void Start_SelectSubStage()
@@ -160,7 +183,7 @@ public class SubStageSelectDirector : MonoBehaviour
             else
             {
                 this.gameObject.SetActive(false);
-                UI_SubStageInformationWindow.SetActive(false);
+                UI_ItemTab.SetActive(false);
             }
         }
     }
@@ -204,7 +227,7 @@ public class SubStageSelectDirector : MonoBehaviour
     {
         Count_ItemEquipObjcet = item;
         UI_ItemIcon.sprite = Count_ItemEquipObjcet.item.Item_Sprite;
-        UI_ItemCountSlider.minValue = 1;
+        UI_ItemCountSlider.minValue = 0;
         if(Count_ItemEquipObjcet.item.Max_Equip > Count_ItemEquipObjcet.item.Item_Count)
         {
             UI_ItemCountSlider.maxValue = Count_ItemEquipObjcet.item.Item_Count;
@@ -213,15 +236,20 @@ public class SubStageSelectDirector : MonoBehaviour
         {
             UI_ItemCountSlider.maxValue = Count_ItemEquipObjcet.item.Max_Equip;
         }
-        UI_ItemCountSlider.value = 1;
+        UI_ItemCountSlider.value = 0;
+
+        UI_ItemCountText.text = 0 + " / " + (int)UI_ItemCountSlider.maxValue;
+        UI_ItemCountSlider.onValueChanged.AddListener(ItemCount_ChangeText);
+
         UI_ItemCount.SetActive(true);
-        listner = () => ItemCount_YesButton(Count_ItemEquipObjcet, Flag);
-        UI_ItemCount_YesButton.onClick.AddListener(listner);
+        listner_Button = () => ItemCount_YesButton(Count_ItemEquipObjcet, Flag);
+        UI_ItemCount_YesButton.onClick.AddListener(listner_Button);
     }
     public void CloseItemCountWindow()
     {
         UI_ItemCount.SetActive(false);
-        UI_ItemCount_YesButton.onClick.RemoveListener(listner);
+        UI_ItemCountSlider.onValueChanged.RemoveListener(ItemCount_ChangeText);
+        UI_ItemCount_YesButton.onClick.RemoveListener(listner_Button);
     }
 
     public void OpenCountChange(int objectNum)
@@ -232,22 +260,34 @@ public class SubStageSelectDirector : MonoBehaviour
     public void ItemCount_YesButton(ItemEquip_Object item, bool Flag)
     {
         int itemCount = (int)UI_ItemCountSlider.value;
-        int listIndex = itemListData.SA_Player_ItemData.Equiped_Item.IndexOf(item.item.Num);
-        if (Flag)
+        if(itemCount == 0)
         {
-            if (listIndex != -1)
+            CloseItemCountWindow();
+        }
+        else
+        {
+            int listIndex = itemListData.SA_Player_ItemData.Equiped_Item.IndexOf(item.item.Num);
+            if (Flag)
             {
-                if (item.EquipObjectNum != listIndex)
+                if (listIndex != -1)
                 {
-                    Equip_ItemObject[listIndex].Init_Item();
+                    if (item.EquipObjectNum != listIndex)
+                    {
+                        Equip_ItemObject[listIndex].Init_Item();
+                    }
                 }
             }
+            itemListData.SA_Player_ItemData.Equip_Item(item.EquipObjectNum, item.item, itemCount);
+            item.Equip_Item(); //장착 아이템 오브젝트 정보 변경
+            CloseItemCountWindow();
         }
-        itemListData.SA_Player_ItemData.Equip_Item(item.EquipObjectNum, item.item, itemCount);
-        item.Equip_Item(); //장착 아이템 오브젝트 정보 변경
-        CloseItemCountWindow();
     }
 
+    void ItemCount_ChangeText(float value)
+    {
+        UI_ItemCountText.text = value + " / " + (int)UI_ItemCountSlider.maxValue;
+    }
+ 
     public void ClickMissionCancel()
     {
         UI_MissionCancelWindow.SetActive(true);
@@ -268,5 +308,12 @@ public class SubStageSelectDirector : MonoBehaviour
     public void No_MissionCancel()
     { 
         UI_MissionCancelWindow.SetActive(false);
+    }
+
+    public void ItemInformation_Setting(Sprite itemSprite, string itemName, string ItemInfo)
+    {
+        UI_Info_ItemIcon.sprite = itemSprite;
+        UI_Info_ItemNameText.text = itemName;
+        UI_Info_ItemInformationText.text = ItemInfo;
     }
 }
