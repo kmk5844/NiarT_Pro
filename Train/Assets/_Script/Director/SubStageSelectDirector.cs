@@ -28,11 +28,19 @@ public class SubStageSelectDirector : MonoBehaviour
     public GameObject UI_ItemTab;
     public GameObject UI_MissionCancelWindow;
 
+    public Button UI_Title_StageButton;
+    public Button UI_Title_ItemButton;
+
     public Button UI_NextButton;
     public Button UI_PrevButton;
 
     int stageNum;
     int missionNum;
+
+    [Header("UI_StageInformation")]
+    public GameObject StageInitButton;
+    public GameObject InformationObject;
+
 
     [Header("UI_ItemInformation")]
     public Image UI_Info_ItemIcon;
@@ -110,6 +118,7 @@ public class SubStageSelectDirector : MonoBehaviour
 
         UI_NextButton.interactable = false;
         UI_PrevButton.interactable = false;
+        StageInitButton.SetActive(false);
     }
 
     public void Update()
@@ -137,7 +146,7 @@ public class SubStageSelectDirector : MonoBehaviour
 
         UI_MissionInformation.text = EX_QuestData.Q_List[missionInformation_Num].Quest_Information;
         GameObject StageListObject = Resources.Load<GameObject>("UI_SubStageList/" + selectStageNum + "_Stage/" + missionNum);
-        if(UI_SubStageSelect.transform.childCount < 1)
+        if(UI_SubStageSelect.transform.childCount < 2)
         {
             Instantiate(StageListObject, UI_SubStageSelect.transform);
         }
@@ -154,6 +163,8 @@ public class SubStageSelectDirector : MonoBehaviour
     {
         UI_ItemTab.SetActive(true);
         UI_MapTab.SetActive(false);
+        UI_Title_StageButton.interactable = false;
+        UI_Title_ItemButton.interactable = true;
         UI_NextButton.interactable = false;
         UI_PrevButton.interactable = true;
     }
@@ -162,6 +173,8 @@ public class SubStageSelectDirector : MonoBehaviour
     {
         UI_ItemTab.SetActive(false);
         UI_MapTab.SetActive(true);
+        UI_Title_StageButton.interactable = true;
+        UI_Title_ItemButton.interactable = false;
         UI_NextButton.interactable = true;
         UI_PrevButton.interactable = false;
     }
@@ -315,5 +328,18 @@ public class SubStageSelectDirector : MonoBehaviour
         UI_Info_ItemIcon.sprite = itemSprite;
         UI_Info_ItemNameText.text = itemName;
         UI_Info_ItemInformationText.text = ItemInfo;
+    }
+
+    public void ClickSubStage(GameObject _informationObject)
+    {
+        InformationObject = _informationObject;
+        StageInitButton.SetActive(true);
+    }
+
+    public void CancelSubStage()
+    {
+        InformationObject.SetActive(false);
+        InformationObject = null;
+        StageInitButton.SetActive(false);
     }
 }

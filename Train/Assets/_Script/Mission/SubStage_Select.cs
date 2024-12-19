@@ -19,11 +19,10 @@ public class SubStage_Select : MonoBehaviour
     public int SubStageNum;
     public Sprite OpenStageSprite;
 
-    [Header("Information")]
+    [Header("Item_Information")]
     public GameObject InformationObject;
     public TextMeshProUGUI type_text;
     public TextMeshProUGUI distance_text;
-
 
     [Header("µ•¿Ã≈Õ")]
     [SerializeField]
@@ -38,9 +37,9 @@ public class SubStage_Select : MonoBehaviour
 
     private void Start()
     {
+        subStageSelectDirector = GetComponentInParent<SubStageSelectDirector>();
         if (selectSubStageType == stageType.Sub)
         {
-            subStageSelectDirector = GetComponentInParent<SubStageSelectDirector>();
             missionData = subStageSelectDirector.missionData.missionStage(MissionNum, StageNum, SubStageNum);
             InformationObject.SetActive(false);
             type_text.text = "Type : " + missionData.SubStage_Type;
@@ -69,7 +68,6 @@ public class SubStage_Select : MonoBehaviour
             }
         }else if(selectSubStageType == stageType.Next)
         {
-            subStageSelectDirector = GetComponentInParent<SubStageSelectDirector>();
             if (!subStageSelectDirector.missionData.MainStage_ClearFlag[StageNum])
             {
                 GetComponent<Button>().interactable = false;
@@ -85,6 +83,11 @@ public class SubStage_Select : MonoBehaviour
     {
         if (selectSubStageType == stageType.Sub)
         {
+            if(subStageSelectDirector.InformationObject != null)
+            {
+                subStageSelectDirector.CancelSubStage();
+            }
+            subStageSelectDirector.ClickSubStage(InformationObject);
             InformationObject.SetActive(true);
         }
     }
@@ -93,5 +96,6 @@ public class SubStage_Select : MonoBehaviour
     {
         subStageSelectDirector.Open_SelectSubStage(missionData);
         subStageSelectDirector.Open_ItemTab();
+        InformationObject.SetActive(false);
     }
 }

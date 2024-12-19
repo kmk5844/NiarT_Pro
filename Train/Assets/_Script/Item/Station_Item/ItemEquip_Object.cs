@@ -18,7 +18,6 @@ public class ItemEquip_Object : MonoBehaviour
     public bool item_use;
     public int item_max;
     public bool item_equip;
-    public GameObject Item_Panel;
     public GameObject Item_DragImage;
 
     [Header("정보 표시")]

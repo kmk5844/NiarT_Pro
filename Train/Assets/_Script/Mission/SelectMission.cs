@@ -35,6 +35,9 @@ public class SelectMission : MonoBehaviour
     public int monsterCount;
     public int bossCount;
 
+    [Header("stageSelect")]
+    public GameObject StageInitButton;
+
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
