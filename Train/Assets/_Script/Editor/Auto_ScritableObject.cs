@@ -345,7 +345,8 @@ public class Auto_ScritableObject : EditorWindow
                 Q_Des.Emerging_Monster,
                 Q_Des.Monster_Count,
                 Q_Des.Open_SubStageNum,
-                Q_Des.SubStage_Status
+                Q_Des.SubStage_Status,
+                Q_Des.NextStageFlag
                 );
 
             string guide1 = "Assets/_Scriptable/SA_Mission/Mission_Object/0_Destination/Stage" + Q_Des.Stage_Num;
@@ -371,7 +372,8 @@ public class Auto_ScritableObject : EditorWindow
                 Q_Mat.Emerging_Monster,
                 Q_Mat.Monster_Count,
                 Q_Mat.Open_SubStageNum,
-                Q_Mat.SubStage_Status
+                Q_Mat.SubStage_Status,
+                Q_Mat.NextStageFlag
                 );
 
             string guide1 = "Assets/_Scriptable/SA_Mission/Mission_Object/1_Material/Stage" + Q_Mat.Stage_Num;
@@ -399,7 +401,8 @@ public class Auto_ScritableObject : EditorWindow
                 Q_Mon.Emerging_Monster,
                 Q_Mon.Monster_Count,
                 Q_Mon.Open_SubStageNum,
-                Q_Mon.SubStage_Status
+                Q_Mon.SubStage_Status,
+                Q_Mon.NextStageFlag
                 );
 
             string guide1 = "Assets/_Scriptable/SA_Mission/Mission_Object/2_Monster/Stage" + Q_Mon.Stage_Num;
@@ -427,7 +430,8 @@ public class Auto_ScritableObject : EditorWindow
                 Q_Esc.Emerging_Monster,
                 Q_Esc.Monster_Count,
                 Q_Esc.Open_SubStageNum,
-                Q_Esc.SubStage_Status
+                Q_Esc.SubStage_Status,
+                Q_Esc.NextStageFlag
                 );
 
             string guide1 = "Assets/_Scriptable/SA_Mission/Mission_Object/3_Escort/Stage" + Q_Esc.Stage_Num;
@@ -454,7 +458,8 @@ public class Auto_ScritableObject : EditorWindow
                 Q_Con.Emerging_Monster,
                 Q_Con.Monster_Count,
                 Q_Con.Open_SubStageNum,
-                Q_Con.SubStage_Status
+                Q_Con.SubStage_Status,
+                Q_Con.NextStageFlag
                 );
 
             string guide1 = "Assets/_Scriptable/SA_Mission/Mission_Object/4_Convoy/Stage" + Q_Con.Stage_Num;
@@ -481,7 +486,8 @@ public class Auto_ScritableObject : EditorWindow
                 Q_Bos.Emerging_Monster,
                 Q_Bos.Monster_Count,
                 Q_Bos.Open_SubStageNum,
-                Q_Bos.SubStage_Status
+                Q_Bos.SubStage_Status,
+                Q_Bos.NextStageFlag
                 );
 
             string guide1 = "Assets/_Scriptable/SA_Mission/Mission_Object/5_Boss/Stage" + Q_Bos.Stage_Num;

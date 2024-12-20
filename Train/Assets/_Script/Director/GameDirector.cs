@@ -189,11 +189,10 @@ public class GameDirector : MonoBehaviour
         Mission_Num = SA_PlayerData.Mission_Num;
         Stage_Num = SA_PlayerData.Select_Stage;
         Select_Sub_Num = SA_PlayerData.Select_Sub_Stage;
-
-/*        Mission_Num = 0;
-        Stage_Num = 0;
-        Select_Sub_Num = 1;
-*/
+        /*        Mission_Num = 0;
+                Stage_Num = 0;
+                Select_Sub_Num = 1;
+        */
         SubStageData = SA_MissionData.missionStage(Mission_Num, Stage_Num, Select_Sub_Num);
         NextSubStageNum = new List<int>();
         string[] nextSubStageList = SubStageData.Open_SubStageNum.Split(',');
@@ -816,6 +815,7 @@ public class GameDirector : MonoBehaviour
     {
         foreach(int substageNum in NextSubStageNum)
         {
+            Debug.Log(substageNum);
             if (substageNum != -1)
             {
                 MissionDataObject mission = SA_MissionData.missionStage(Mission_Num, Stage_Num, substageNum);
@@ -927,15 +927,11 @@ public class GameDirector : MonoBehaviour
 
     private void LastSubStageClear()
     {
-        Debug.Log("しし");
-
         if (SA_PlayerData.New_Stage == SA_PlayerData.Select_Stage)
         {
-                Debug.Log("ししし");
             try
             {
                 SA_StageList.Stage[Stage_Num + 1].New_Stage_Chage();
-                Debug.Log("しししし");
             }
             catch
             {

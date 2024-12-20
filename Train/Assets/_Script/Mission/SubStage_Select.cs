@@ -1,3 +1,4 @@
+using Microsoft.Win32.SafeHandles;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -7,8 +8,7 @@ using UnityEngine.UI;
 public class SubStage_Select : MonoBehaviour
 {
     enum stageType
-    { Main,
-      Sub,
+    { Sub,
       Next }; // Main : 0 Sub : 1 NextMain : 2
 
     [SerializeField]
@@ -18,6 +18,7 @@ public class SubStage_Select : MonoBehaviour
     public int StageNum;
     public int SubStageNum;
     public Sprite OpenStageSprite;
+    public GameObject LastSelectObject;
 
     [Header("Item_Information")]
     public GameObject InformationObject;
@@ -30,6 +31,8 @@ public class SubStage_Select : MonoBehaviour
     [SerializeField]
     SubStageSelectDirector subStageSelectDirector;
 
+    bool startFlag = false;
+
     private void Awake()
     {
         GetComponent<Button>().onClick.AddListener(ClickSubStage);
@@ -38,12 +41,22 @@ public class SubStage_Select : MonoBehaviour
     private void Start()
     {
         subStageSelectDirector = GetComponentInParent<SubStageSelectDirector>();
+        missionData = subStageSelectDirector.missionData.missionStage(MissionNum, StageNum, SubStageNum);
+        InformationObject.SetActive(false);
+        type_text.text = "Type : " + missionData.SubStage_Type;
+        distance_text.text = "Distance : " + missionData.Distance;
+
+        if (!missionData.NextStageFlag)
+        {
+            selectSubStageType = stageType.Sub;
+        }
+        else
+        {
+            selectSubStageType= stageType.Next;
+        }
+
         if (selectSubStageType == stageType.Sub)
         {
-            missionData = subStageSelectDirector.missionData.missionStage(MissionNum, StageNum, SubStageNum);
-            InformationObject.SetActive(false);
-            type_text.text = "Type : " + missionData.SubStage_Type;
-            distance_text.text = "Distance : " + missionData.Distance;
 
             if (missionData.StageClearFlag)
             {
@@ -68,32 +81,46 @@ public class SubStage_Select : MonoBehaviour
             }
         }else if(selectSubStageType == stageType.Next)
         {
-            if (!subStageSelectDirector.missionData.MainStage_ClearFlag[StageNum])
+            if (missionData.StageOpenFlag)
             {
-                GetComponent<Button>().interactable = false;
+                GetComponent<Image>().sprite = OpenStageSprite;
+                GetComponent<Button>().interactable = true;
             }
             else
             {
-                GetComponent<Button>().interactable = true;
+                GetComponent<Button>().interactable = false;
+            }
+        }
+        startFlag = true;
+    }
+    private void OnEnable()
+    {
+        if (startFlag)
+        {
+            if (subStageSelectDirector.selectNum == SubStageNum)
+            {
+                LastSelectObject.SetActive(true);
+            }
+            else
+            {
+                LastSelectObject.SetActive(false);
             }
         }
     }
 
     public void ClickSubStage()                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
     {
-        if (selectSubStageType == stageType.Sub)
+        if(subStageSelectDirector.InformationObject != null)
         {
-            if(subStageSelectDirector.InformationObject != null)
-            {
-                subStageSelectDirector.CancelSubStage();
-            }
-            subStageSelectDirector.ClickSubStage(InformationObject);
-            InformationObject.SetActive(true);
+            subStageSelectDirector.CancelSubStage();
         }
+        subStageSelectDirector.ClickSubStage(InformationObject);
+        InformationObject.SetActive(true);
     }
 
     public void ClickNextItem()
     {
+        subStageSelectDirector.selectNum = missionData.SubStage_Num;
         subStageSelectDirector.Open_SelectSubStage(missionData);
         subStageSelectDirector.Open_ItemTab();
         InformationObject.SetActive(false);

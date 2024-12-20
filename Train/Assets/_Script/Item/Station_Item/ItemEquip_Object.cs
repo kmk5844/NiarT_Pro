@@ -19,6 +19,7 @@ public class ItemEquip_Object : MonoBehaviour
     public int item_max;
     public bool item_equip;
     public GameObject Item_DragImage;
+    public GameObject Item_MouseOver_Frame;
 
     [Header("정보 표시")]
     public Image item_icon_object;
@@ -37,7 +38,7 @@ public class ItemEquip_Object : MonoBehaviour
 
     private void Start()
     {
-        Change_EquipFlag();
+        Item_MouseOver_Frame.SetActive(false);
     }
 
     private void Update()
@@ -46,16 +47,17 @@ public class ItemEquip_Object : MonoBehaviour
         {
             if (item != null)
             {
-                SubDirector.ItemInformation_Setting(item.Item_Sprite, item.name, item_information);
+                SubDirector.ItemInformation_Setting(item.Item_Sprite, item.Num);
                 item_mouseOver_Flag = true;
+                Item_MouseOver_Frame.SetActive(true);
             }
         }
         else
         {
             if (item_mouseOver_Flag)
             {
-                //SubDirector.Tooltip_Off();
                 item_mouseOver_Flag = false;
+                Item_MouseOver_Frame.SetActive(false);
             }
         }
 
@@ -84,21 +86,13 @@ public class ItemEquip_Object : MonoBehaviour
         }
     }
 
-    public void SetSetting(ItemDataObject _item, ItemList_Tooltip _Tooltip, GameObject _Item_DragImage, SubStageSelectDirector _SubDirector)
+    public void SetSetting(ItemDataObject _item, GameObject _Item_DragImage, SubStageSelectDirector _SubDirector)
     {
         item = _item;
-        //item_tooltip_object = _Tooltip;
         Item_DragImage = _Item_DragImage;
         SubDirector = _SubDirector;
         Equip_Item();
     }
-
-/*    public void DragSetting(ItemDataObject _item, GameObject _Item_DragImage)
-    {
-        item = _item;
-        Item_DragImage = _Item_DragImage;
-        Equip_Item();
-    }*/
 
     public void Equip_Item()
     {
@@ -130,18 +124,6 @@ public class ItemEquip_Object : MonoBehaviour
         item = SubDirector.itemListData.SA_Player_ItemData.EmptyObject;
         SubDirector.itemListData.SA_Player_ItemData.Empty_Item(EquipObjectNum);
         Equip_Item();
-    }
-
-    public void Change_EquipFlag()
-    {
-/*        if (item_equip)
-        {
-            Item_Panel.SetActive(true);
-        }
-        else
-        {
-            Item_Panel.SetActive(false);
-        }*/
     }
 
     public void OnMouseEnter()

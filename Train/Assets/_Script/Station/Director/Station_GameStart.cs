@@ -381,7 +381,6 @@ public class Station_GameStart : MonoBehaviour
             if (itemList_Object.item.Num == itemData.SA_Player_ItemData.Equiped_Item[num])
             {
                 itemList_Object.item_equip = false;
-                itemList_Object.Change_EquipFlag();
                 break;
             }
         }
@@ -428,7 +427,6 @@ public class Station_GameStart : MonoBehaviour
                 if (itemList_Object.item.Num == itemData.SA_Player_ItemData.Equiped_Item[Equipment_Button_Num])
                 {
                     itemList_Object.item_equip = false;
-                    itemList_Object.Change_EquipFlag();
                     break;
                 }
             }
@@ -441,7 +439,6 @@ public class Station_GameStart : MonoBehaviour
             if(itemList_Object.item == item)
             {
                 itemList_Object.item_equip = true;
-                itemList_Object.Change_EquipFlag();
                 break;
             }
         }

@@ -37,6 +37,10 @@ public class MissionDataObject : ScriptableObject
     public string Open_SubStageNum { get { return open_substagenum; } }
 
     [SerializeField]
+    private bool nextstageflag;
+    public bool NextStageFlag {  get { return nextstageflag; } }
+
+    [SerializeField]
     private string substage_status;
     public string SubStage_Status { get { return substage_status; } }
 
@@ -52,7 +56,7 @@ public class MissionDataObject : ScriptableObject
         int _mission_num,
         int _stage_num, int _substage_num, SubStageType _substage_type,
         int _distance, string _emerging_monster, string _monster_count,
-        string  _open_substagenum, string _substage_status)
+        string  _open_substagenum, string _substage_status, bool _nextstageflag)
     {
         mission_num = _mission_num;
         stage_num = _stage_num;
@@ -63,6 +67,7 @@ public class MissionDataObject : ScriptableObject
         monster_count = _monster_count;
         open_substagenum = _open_substagenum;
         substage_status = _substage_status;
+        nextstageflag = _nextstageflag;
 
         if (substage_num == 0)
         {

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.Components;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -36,16 +37,16 @@ public class SubStageSelectDirector : MonoBehaviour
 
     int stageNum;
     int missionNum;
+    public int selectNum;
 
     [Header("UI_StageInformation")]
     public GameObject StageInitButton;
     public GameObject InformationObject;
 
-
     [Header("UI_ItemInformation")]
     public Image UI_Info_ItemIcon;
-    public TextMeshProUGUI UI_Info_ItemNameText;
-    public TextMeshProUGUI UI_Info_ItemInformationText;
+    public LocalizeStringEvent UI_Info_ItemNameText;
+    public LocalizeStringEvent UI_Info_ItemInformationText;
 
     [Header("UI_ItemCount")]
     public GameObject UI_ItemCount;
@@ -60,7 +61,6 @@ public class SubStageSelectDirector : MonoBehaviour
     [Header("아이템 관리")]
     public Transform Inventory_ItemList;
     public GameObject Inventory_ItemObject;
-    public ItemList_Tooltip Inventory_ItemTooltip;
     public ItemEquip_Object[] Equip_ItemObject;
     public Button[] ChangeCount_ItemObject;
     public Transform Inventory_DragItemList;
@@ -82,13 +82,14 @@ public class SubStageSelectDirector : MonoBehaviour
     {
         //itemListData = GetComponent<Station_ItemData>();
         DragItemCount = 0;
+        selectNum = -1;
 
         foreach (ItemDataObject item in itemListData.Equipment_Inventory_ItemList)
         {
             Inventory_DragObject.GetComponent<Image>().sprite = item.Item_Sprite;
             GameObject drag = Instantiate(Inventory_DragObject, Inventory_DragItemList);
             drag.SetActive(false);
-            Inventory_ItemObject.GetComponent<ItemEquip_Object>().SetSetting(item, Inventory_ItemTooltip, drag, this);
+            Inventory_ItemObject.GetComponent<ItemEquip_Object>().SetSetting(item, drag, this);
             Instantiate(Inventory_ItemObject, Inventory_ItemList);
         }
 
@@ -108,12 +109,15 @@ public class SubStageSelectDirector : MonoBehaviour
             Inventory_DragObject.GetComponent<Image>().sprite = equiped_item.Item_Sprite;
             GameObject drag = Instantiate(Inventory_DragObject, Inventory_DragItemList);
             drag.SetActive(false);
-            Equip_ItemObject[i].SetSetting(equiped_item, Inventory_ItemTooltip, drag, this);
+            Equip_ItemObject[i].SetSetting(equiped_item, drag, this);
         }
         EmptyItemObject = itemListData.SA_Player_ItemData.EmptyObject;
         UI_Info_ItemIcon.sprite = EmptyItemObject.Item_Sprite;
-        UI_Info_ItemNameText.text = "???";
-        UI_Info_ItemInformationText.text = "???";
+        UI_Info_ItemNameText.StringReference.TableReference = "ItemData_Table_St";
+        UI_Info_ItemInformationText.StringReference.TableReference = "ItemData_Table_St";
+        UI_Info_ItemNameText.StringReference.TableEntryReference = "Item_Name_-1";
+        UI_Info_ItemInformationText.StringReference.TableEntryReference = "Item_Information_-1";
+
         UI_MainStageText.text = "Stage" + (playerData.Select_Stage + 1);
 
         UI_NextButton.interactable = false;
@@ -323,11 +327,11 @@ public class SubStageSelectDirector : MonoBehaviour
         UI_MissionCancelWindow.SetActive(false);
     }
 
-    public void ItemInformation_Setting(Sprite itemSprite, string itemName, string ItemInfo)
+    public void ItemInformation_Setting(Sprite itemSprite, int itemNum)
     {
         UI_Info_ItemIcon.sprite = itemSprite;
-        UI_Info_ItemNameText.text = itemName;
-        UI_Info_ItemInformationText.text = ItemInfo;
+        UI_Info_ItemNameText.StringReference.TableEntryReference = "Item_Name_" + itemNum;
+        UI_Info_ItemInformationText.StringReference.TableEntryReference = "Item_Information_" + itemNum;
     }
 
     public void ClickSubStage(GameObject _informationObject)
