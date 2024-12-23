@@ -1,7 +1,9 @@
 using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MissionSelectDirector : MonoBehaviour
@@ -20,8 +22,16 @@ public class MissionSelectDirector : MonoBehaviour
 
     [Header("SubSelectDirector")]
     public GameObject SubStageSelectObject;
-
     public GameObject SelectMissionObject;
+
+    [Header("Station")]
+    public GameObject StationBackCheckWindow;
+    public TextMeshProUGUI PlayerGold;
+
+    [Header("Option")]
+    bool OptionFlag;
+    public GameObject Option;
+
 
     private void Awake()
     {
@@ -66,10 +76,13 @@ public class MissionSelectDirector : MonoBehaviour
         }
 
         SelectMissionObject.GetComponent<SelectMission>().SetDataSetting(playerData, EX_QuestData);
+
+        PlayerGold.text = playerData.Coin.ToString();
     }
 
     private void Start()
     {
+        OptionFlag = false;
         if (!playerData.Mission_Playing)
         {
             SubStageSelectObject.SetActive(false);
@@ -80,10 +93,52 @@ public class MissionSelectDirector : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!OptionFlag)
+            {
+                OpenOption_Button();
+            }
+            else
+            {
+                CloseOption_Button();
+            }
+        }
+    }
+
     public void Open_SubSelectObject()
     {
         GameObject game_obj = Instantiate(SelectMissionObject);
         game_obj.name = "SelectMission";
         SubStageSelectObject.SetActive(true);
+    }
+
+    public void OpenOption_Button()
+    {
+        OptionFlag = true;
+        Option.SetActive(true);
+    }
+
+    public void CloseOption_Button()
+    {
+        OptionFlag = false;
+        Option.SetActive(false);
+    }
+
+    public void OpenBUutton_Station()
+    {
+        StationBackCheckWindow.SetActive(true);
+    }
+
+    public void YesButton_Station()
+    {
+        SceneManager.LoadScene("Station");
+    }
+
+    public void NoButton_Station()
+    {
+        StationBackCheckWindow.SetActive(false);
     }
 }

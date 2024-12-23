@@ -166,6 +166,7 @@ MonoBehaviour:
   EmptyItemObject: {fileID: 0}
   BeforeHoldItem: {fileID: 0}
   EndHoldItem: {fileID: 0}
+  Option: {fileID: 0}
 --- !u!114 &8996883058988183626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2189,7 +2190,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 602216202002448750}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3334196747273305283}
+        m_TargetAssemblyTypeName: SubStageSelectDirector, Assembly-CSharp
+        m_MethodName: OpenOption
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3013153549586908288
 GameObject:
   m_ObjectHideFlags: 0

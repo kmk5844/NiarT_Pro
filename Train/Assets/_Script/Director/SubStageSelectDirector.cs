@@ -78,6 +78,9 @@ public class SubStageSelectDirector : MonoBehaviour
     public GameObject BeforeHoldItem;
     public GameObject EndHoldItem;
 
+    [Header("Option")]
+    public GameObject Option;
+
     private void Start()
     {
         //itemListData = GetComponent<Station_ItemData>();
@@ -345,5 +348,10 @@ public class SubStageSelectDirector : MonoBehaviour
         InformationObject.SetActive(false);
         InformationObject = null;
         StageInitButton.SetActive(false);
+    }
+
+    public void OpenOption()
+    {
+        Option.SetActive(true);
     }
 }
