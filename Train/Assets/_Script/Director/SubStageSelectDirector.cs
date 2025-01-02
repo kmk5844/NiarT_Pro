@@ -14,6 +14,8 @@ public class SubStageSelectDirector : MonoBehaviour
     public Quest_DataTable EX_QuestData;
     public SA_MissionData missionData;
     public Station_ItemData itemListData;
+    Animator ani;
+
 
     MissionDataObject SelectSubStageData;
     int SelectSubStageNum;
@@ -53,6 +55,7 @@ public class SubStageSelectDirector : MonoBehaviour
     public Image UI_ItemIcon;
     public Slider UI_ItemCountSlider;
     public TextMeshProUGUI UI_ItemCountText;
+    public TextMeshProUGUI UI_ItemMaxText;
     public Button UI_ItemCount_YesButton;
     public Button UI_ItemCount_NoButton;
     ItemEquip_Object Count_ItemEquipObjcet;
@@ -84,6 +87,7 @@ public class SubStageSelectDirector : MonoBehaviour
     private void Start()
     {
         //itemListData = GetComponent<Station_ItemData>();
+        ani = GetComponent<Animator>();
         DragItemCount = 0;
         selectNum = -1;
 
@@ -158,6 +162,7 @@ public class SubStageSelectDirector : MonoBehaviour
             Instantiate(StageListObject, UI_SubStageSelect.transform);
         }
     }
+
     public void Open_SelectSubStage(MissionDataObject mission)
     {
         SelectSubStageData = mission;
@@ -168,8 +173,7 @@ public class SubStageSelectDirector : MonoBehaviour
 
     public void Open_ItemTab()
     {
-        UI_ItemTab.SetActive(true);
-        UI_MapTab.SetActive(false);
+        ani.SetBool("Select",true);
         UI_Title_StageButton.interactable = false;
         UI_Title_ItemButton.interactable = true;
         UI_NextButton.interactable = false;
@@ -178,8 +182,7 @@ public class SubStageSelectDirector : MonoBehaviour
 
     public void Open_SelectSubStage()
     {
-        UI_ItemTab.SetActive(false);
-        UI_MapTab.SetActive(true);
+        ani.SetBool("Select", false);
         UI_Title_StageButton.interactable = true;
         UI_Title_ItemButton.interactable = false;
         UI_NextButton.interactable = true;
@@ -258,7 +261,9 @@ public class SubStageSelectDirector : MonoBehaviour
         }
         UI_ItemCountSlider.value = 0;
 
-        UI_ItemCountText.text = 0 + " / " + (int)UI_ItemCountSlider.maxValue;
+        UI_ItemCountText.color = Color.black;
+        UI_ItemCountText.text = "0";
+        UI_ItemMaxText.text = ((int)UI_ItemCountSlider.maxValue).ToString();
         UI_ItemCountSlider.onValueChanged.AddListener(ItemCount_ChangeText);
 
         UI_ItemCount.SetActive(true);
@@ -305,7 +310,15 @@ public class SubStageSelectDirector : MonoBehaviour
 
     void ItemCount_ChangeText(float value)
     {
-        UI_ItemCountText.text = value + " / " + (int)UI_ItemCountSlider.maxValue;
+        if(value <= 0)
+        {
+            UI_ItemCountText.color = Color.black;
+        }
+        else
+        {
+            UI_ItemCountText.color = Color.red;
+        }
+        UI_ItemCountText.text = value.ToString();
     }
  
     public void ClickMissionCancel()

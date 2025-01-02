@@ -176,10 +176,6 @@ public class SA_PlayerData : ScriptableObject
     {
         select_sub_stage = substagenum;
         Save();
-        select_sub_stage = substagenum;
-        Save();
-        select_sub_stage = substagenum;
-        Save();
     }
 
     public void SA_CharecterCheck()

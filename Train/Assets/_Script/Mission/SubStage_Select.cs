@@ -120,8 +120,14 @@ public class SubStage_Select : MonoBehaviour
 
     public void ClickNextItem()
     {
+        StartCoroutine(DelayAni());
+    }
+
+    IEnumerator DelayAni()
+    {
         subStageSelectDirector.selectNum = missionData.SubStage_Num;
         subStageSelectDirector.Open_SelectSubStage(missionData);
+        yield return new WaitForSeconds(0.1f);
         subStageSelectDirector.Open_ItemTab();
         InformationObject.SetActive(false);
     }

@@ -843,7 +843,7 @@ public class GameDirector : MonoBehaviour
                 bool flag = missionDirector.selectmission.CheckMission(lastFlag);
                 if (flag) // 문제 없다.
                 {
-                    Debug.Log("작동 완료" + flag);
+                    //Debug.Log("작동 완료" + flag);
                     uiDirector.Open_SubSelect();
                     SA_PlayerData.SA_GameWinReward(false, Total_Coin);
                 }
@@ -851,7 +851,7 @@ public class GameDirector : MonoBehaviour
                 {
                     //문제가 발생했으니 결과창을 띄운다
                     //미션 실패다.
-                    Debug.Log("작업 해야됨" + flag);
+                    //Debug.Log("작업 해야됨" + flag);
                     missionDirector.selectmission.Mission_Fail();
                     SA_PlayerData.SA_MissionPlaying(false);
                     uiDirector.Open_Result_UI(false, Stage_Num, Total_Score, Total_Coin, /*Check_Score(),*/ Reward_Point, LoseNum);
@@ -862,7 +862,7 @@ public class GameDirector : MonoBehaviour
                 bool flag = missionDirector.selectmission.CheckMission(lastFlag);
                 if (flag)
                 { // 미션 통과다
-                    Debug.Log("마지막 작동 완료" + flag);
+                    //Debug.Log("마지막 작동 완료" + flag);
                     missionDirector.selectmission.Mission_Sucesses();
                     
                     uiDirector.Open_Result_UI(true, Stage_Num, Total_Score, Total_Coin, /*Check_Score(),*/ Reward_Point, LoseNum);
@@ -872,7 +872,7 @@ public class GameDirector : MonoBehaviour
                 }
                 else // 미션 실패다
                 {
-                    Debug.Log("작업 해야됨 - 실패로 간주하고 초기화해야됨");
+                    //Debug.Log("작업 해야됨 - 실패로 간주하고 초기화해야됨");
                     missionDirector.selectmission.Mission_Fail();
                     SA_PlayerData.SA_MissionPlaying(false);
                     uiDirector.Open_Result_UI(false, Stage_Num, Total_Score, Total_Coin, /*Check_Score(),*/ Reward_Point, LoseNum);

@@ -14,13 +14,10 @@ public class MissionSelectButton : MonoBehaviour
     public TextMeshProUGUI MissionInformation_Text;
     public TextMeshProUGUI MissionReward_Text;
 
-
     public int missionNum;
     public string MissionType;
     public string MissionInformation;
     public int MissionReward;
-
-    
 
     public void Mission_SetData(int _missionNum, string type, string information, int reward)
     {
@@ -38,6 +35,6 @@ public class MissionSelectButton : MonoBehaviour
     {
         playerData.SA_ClickMission(missionNum);
         playerData.SA_MissionPlaying(true);
-        missionSelectDirector.Open_SubSelectObject();
+        StartCoroutine(missionSelectDirector.MissionDataSet());
     }
 }
