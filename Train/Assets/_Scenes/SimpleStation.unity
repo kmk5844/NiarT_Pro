@@ -27092,10 +27092,14 @@ MonoBehaviour:
   - {fileID: 817460948}
   - {fileID: 1039604066}
   - {fileID: 1844891204}
+  - {fileID: 1844891204}
+  - {fileID: 1844891204}
   Passive_Button:
   - {fileID: 1550247404}
   - {fileID: 367879261}
   - {fileID: 926659212}
+  - {fileID: 852711361}
+  - {fileID: 852711361}
   - {fileID: 852711361}
   Change_Button: {fileID: 544051458}
   Add_Button: {fileID: 1590387319}
@@ -69742,6 +69746,8 @@ MonoBehaviour:
   SA_TrainBoosterData: {fileID: 11400000, guid: 4363c186a89963b4ebe76576964493cb, type: 2}
   Train_Num: 
   Level_Train_EngineTier: 0
+  Level_Train_MaxTrain: 0
+  Level_Train_MaxMercenary: 0
   Level_Train_MaxSpeed: 0
   Level_Train_Armor: 0
   Level_Train_Efficient: 0
@@ -69749,12 +69755,14 @@ MonoBehaviour:
   Max_Train_MaxSpeed: 0
   Max_Train_Armor: 0
   Max_Train_Efficient: 0
+  Max_Train_MaxMercenary: 0
+  Max_Train_MaxTrain: 0
   Cost_Train_EngineTier: 0
+  Cost_Train_MaxTrain: 0
+  Cost_Train_MaxMercenary: 0
   Cost_Train_MaxSpeed: 0
   Cost_Train_Armor: 0
   Cost_Train_Efficient: 0
-  Max_Train_MaxMercenary: 0
-  Max_Train_MaxTrain: 0
   Train_Store_Num: 
   Train_Change_Num: 
   Train_Turret_Store_Num: 
@@ -92136,6 +92144,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SubStageSelect
       objectReference: {fileID: 0}
+    - target: {fileID: 102820313685313645, guid: 023d499a56a91754ca9e28280a427df7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2217582834594406030, guid: 023d499a56a91754ca9e28280a427df7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -92183,7 +92195,7 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 023d499a56a91754ca9e28280a427df7, type: 3}
 --- !u!1 &1830787271 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 98368266829558206, guid: 023d499a56a91754ca9e28280a427df7, type: 3}
+  m_CorrespondingSourceObject: {fileID: 102820313685313645, guid: 023d499a56a91754ca9e28280a427df7, type: 3}
   m_PrefabInstance: {fileID: 1830787270}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1843574845

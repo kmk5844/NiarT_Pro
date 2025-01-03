@@ -22,6 +22,7 @@ public class MissionSelectDirector : MonoBehaviour
 
     [SerializeField]
     List<int> RandomMission;
+
     public List<MissionSelectButton> buttonList;
 
     [Header("SubSelectDirector")]
@@ -42,7 +43,6 @@ public class MissionSelectDirector : MonoBehaviour
     {
         missionselectAni_Director = MissionSelectObject_UI.GetComponentInParent<missionSelect_Trigger>();
         missionselectAni = MissionSelectObject_UI.GetComponentInParent<Animator>();
-
         mainStageNum = playerData.Select_Stage;
         missionList_Index = new List<int>();
         RandomMission = new List<int>();
@@ -157,7 +157,6 @@ public class MissionSelectDirector : MonoBehaviour
             int missionNum = RandomMission[i];
             string searchString = mainStageNum + "," + missionNum;
             int missionInformation_Num = EX_QuestData.Q_List.FindIndex(x => x.Stage_Mission.Equals(searchString));
-
             buttonList[i].gameObject.SetActive(true);
             buttonList[i].Mission_SetData(missionNum, EX_QuestData.Q_List[missionInformation_Num].Quest_Type, EX_QuestData.Q_List[missionInformation_Num].Quest_Information, EX_QuestData.Q_List[missionInformation_Num].Quest_Reward);
         }

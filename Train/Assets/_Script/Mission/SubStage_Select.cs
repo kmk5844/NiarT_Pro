@@ -125,6 +125,8 @@ public class SubStage_Select : MonoBehaviour
 
     IEnumerator DelayAni()
     {
+        subStageSelectDirector.missionNum = missionData.Mission_Num;
+        subStageSelectDirector.stageNum = missionData.Stage_Num;
         subStageSelectDirector.selectNum = missionData.SubStage_Num;
         subStageSelectDirector.Open_SelectSubStage(missionData);
         yield return new WaitForSeconds(0.1f);
