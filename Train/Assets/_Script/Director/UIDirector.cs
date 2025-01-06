@@ -99,6 +99,8 @@ public class UIDirector : MonoBehaviour
 
     [Header("미션 정보")]
     public TextMeshProUGUI missionTextInformation_text;
+    public TextMeshProUGUI missionCountText_text;
+
     private void Awake()
     {
         isBloodFlag = false;

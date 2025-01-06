@@ -947,7 +947,7 @@ public class GameDirector : MonoBehaviour
         MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, TrainSFX_ID);
         MMSoundManagerSoundPlayEvent.Trigger(LoseSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         //StageData.GameEnd(false, Total_Score);
-        SA_PlayerData.SA_GameLoseCoin(20f);
+        SA_PlayerData.SA_GameLoseCoin(60f);
         MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, BGM_ID);
         MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, TrainSFX_ID);
         SA_MissionData.SubStage_Lose(Stage_Num, Mission_Num);

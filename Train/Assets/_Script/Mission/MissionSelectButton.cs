@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MissionSelectButton : MonoBehaviour
 {
@@ -19,6 +20,10 @@ public class MissionSelectButton : MonoBehaviour
     public string MissionInformation;
     public int MissionReward;
 
+    [Header("미션 이미지")]
+    public Image missionImage;
+    public Sprite[] missionSpriteList;
+
     public void Mission_SetData(int _missionNum, string type, string information, int reward)
     {
         missionNum = _missionNum;
@@ -29,6 +34,7 @@ public class MissionSelectButton : MonoBehaviour
         MissionType_Text.text = MissionType;
         MissionInformation_Text.text = MissionInformation;
         MissionReward_Text.text = MissionReward.ToString() + "G";
+        missionImage.sprite = missionSpriteList[missionNum];
     }
     
     public void ClickMission()

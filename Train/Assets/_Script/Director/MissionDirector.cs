@@ -9,6 +9,8 @@ public class MissionDirector : MonoBehaviour
     public UIDirector uiDirector;
     public MonsterDirector monsterDirector;
 
+
+    bool countFlag;
     [SerializeField]
     int monsterCount;
 
@@ -25,6 +27,7 @@ public class MissionDirector : MonoBehaviour
 
                 break;
             case MissionType.Monster:
+                countFlag = true;
                 monsterDirector.missionFlag_monster = true;
                 break;
             case MissionType.Escort:
@@ -34,10 +37,21 @@ public class MissionDirector : MonoBehaviour
 
                 break;
             case MissionType.Boss:
+                countFlag = true;
                 monsterDirector.missionFlag_boss = true;
                 break;
         }
         uiDirector.CheckMissionInformation(selectmission.MissionInformation);
+        
+        if (countFlag)
+        {
+            monsterCount = selectmission.monsterCount;
+            uiDirector.missionCountText_text.text = "Count : " + monsterCount;
+        }
+        else
+        {
+            uiDirector.missionCountText_text.text = "";
+        }
     }
     //몬스터
     public bool CheckMonster(int MonsterNum)
@@ -68,7 +82,7 @@ public class MissionDirector : MonoBehaviour
     public void MonsterCount()
     {
         monsterCount++;
-        //Debug.Log("카운터 작동");
+        uiDirector.missionCountText_text.text = "Count : " + monsterCount;
     }
 
     public void Adjustment_Mission()

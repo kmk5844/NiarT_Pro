@@ -32,6 +32,7 @@ public class SubStage_Select : MonoBehaviour
     SubStageSelectDirector subStageSelectDirector;
 
     bool startFlag = false;
+    public Sprite[] temporarilySprite;
 
     private void Awake()
     {
@@ -44,7 +45,34 @@ public class SubStage_Select : MonoBehaviour
         missionData = subStageSelectDirector.missionData.missionStage(MissionNum, StageNum, SubStageNum);
         InformationObject.SetActive(false);
         type_text.text = "Type : " + missionData.SubStage_Type;
-        distance_text.text = "Distance : " + missionData.Distance;
+        if(missionData.Distance != -1)
+        {
+            distance_text.text = "Distance : " + missionData.Distance;
+        }
+        else
+        {
+            distance_text.text = "";
+        }
+
+
+        switch (missionData.SubStage_Type)
+        {
+            case SubStageType.Nomal:
+                GetComponent<Image>().sprite = temporarilySprite[0];
+                break;
+            case SubStageType.Hard:
+                GetComponent<Image>().sprite = temporarilySprite[1];
+                break;
+            case SubStageType.HardCore:
+                GetComponent<Image>().sprite = temporarilySprite[2];
+                break;
+            case SubStageType.Boss:
+                GetComponent<Image>().sprite = temporarilySprite[3];
+                break;
+            case SubStageType.SimpleStation:
+                GetComponent<Image>().sprite = temporarilySprite[4];
+                break;
+        }
 
         if (!missionData.NextStageFlag)
         {
@@ -57,11 +85,10 @@ public class SubStage_Select : MonoBehaviour
 
         if (selectSubStageType == stageType.Sub)
         {
-
             if (missionData.StageClearFlag)
             {
-                Color customColor = new Color(0.45f, 0.11f, 0.11f);
-                GetComponent<Image>().color = customColor;
+/*                Color customColor = new Color(0.45f, 0.11f, 0.11f);
+                GetComponent<Image>().color = customColor;*/
                 GetComponent<Button>().enabled = false;
             }
             else
@@ -72,7 +99,6 @@ public class SubStage_Select : MonoBehaviour
 
             if (missionData.StageOpenFlag)
             {
-                GetComponent<Image>().sprite = OpenStageSprite;
                 GetComponent<Button>().interactable = true;
             }
             else
@@ -83,7 +109,6 @@ public class SubStage_Select : MonoBehaviour
         {
             if (missionData.StageOpenFlag)
             {
-                GetComponent<Image>().sprite = OpenStageSprite;
                 GetComponent<Button>().interactable = true;
             }
             else

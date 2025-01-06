@@ -180,7 +180,7 @@ public class SA_PlayerData : ScriptableObject
 
     public void SA_CharecterCheck()
     {
-        if(new_stage == 4)
+        if(new_stage == 99)//페요테 해제
         {
             character_lockoff[1] = true;
         }

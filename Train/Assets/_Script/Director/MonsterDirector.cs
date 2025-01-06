@@ -187,7 +187,7 @@ public class MonsterDirector : MonoBehaviour
         isSpawing = true;
         if (!Bossflag)
         {
-            yield return new WaitForSeconds(Random.Range(0.5f, 0.8f));
+            yield return new WaitForSeconds(Random.Range(0.3f, 0.6f));
             int MonsterRandomIndex = Random.Range(0, Emerging_Monster_List.Count);
             if (Test_Monster_List[MonsterRandomIndex].childCount != Emerging_MonsterCount_List[MonsterRandomIndex])
             {

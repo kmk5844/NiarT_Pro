@@ -191,7 +191,6 @@ public class SubStageSelectDirector : MonoBehaviour
 
     public void Start_SelectSubStage()
     {
-        Debug.Log(SelectSubStageData.SubStage_Type);
         if(SelectSubStageData.SubStage_Type == SubStageType.SimpleStation)
         {
             SpeacialStage_Clear();
@@ -223,11 +222,7 @@ public class SubStageSelectDirector : MonoBehaviour
         {
             if(subStageNum != -1)
             {
-                Debug.Log(missionNum);
-                Debug.Log(stageNum);
-                Debug.Log(subStageNum);
                 MissionDataObject mission = missionData.missionStage(missionNum, stageNum, subStageNum);
-                Debug.Log(mission.name);
                 mission.SubStageLockOff();
             }
         }
