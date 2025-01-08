@@ -9,21 +9,18 @@ public class OptionDirector : MonoBehaviour
     public bool isKeyBoardFlag;
     public bool isCreditFlag;
 
+    public GameObject Setting_Menu;
+    public GameObject Setting_Sound;
+    public GameObject Setting_Screen;
+
     public GameObject KeyBoard_Object;
     public GameObject Credit_Object;
 
     public Slider BGM_Slider;
     public Slider SFX_Slider;
-    public Image BGM_Icon_Image;
-    public Image SFX_Icon_Image;
-    public Sprite[] BGM_Sprite;
-    public Sprite[] SFX_Sprite;
 
     [Header("스크린")]
     public TMP_Dropdown resolutionDropdown;
-
-    public Sprite[] DropDown_Sprite;
-    Image DropDown_Image;
 
     FullScreenMode screenMode;
     List<Resolution> resolutions = new List<Resolution>();
@@ -31,27 +28,12 @@ public class OptionDirector : MonoBehaviour
 
     void Start()
     {
-        DropDown_Image = resolutionDropdown.GetComponent<Image>();
-
         InitScreen();
         isKeyBoardFlag = false;
         isCreditFlag = false;
-        BGM_Slider.onValueChanged.AddListener(Check_BGM_Audio_Value);
-        SFX_Slider.onValueChanged.AddListener(Check_SFX_Audio_Value);
+        //BGM_Slider.onValueChanged.AddListener(Check_BGM_Audio_Value);
+        //SFX_Slider.onValueChanged.AddListener(Check_SFX_Audio_Value);
     }
-
-    private void Update()
-    {
-        if (resolutionDropdown.transform.childCount > 3)
-        {
-            DropDown_Image.sprite = DropDown_Sprite[1];
-        }
-        else
-        {
-            DropDown_Image.sprite = DropDown_Sprite[0];
-        }
-    }
-
 
     private void OnDisable()
     {
@@ -87,26 +69,26 @@ public class OptionDirector : MonoBehaviour
 
     public void Check_BGM_Audio_Value(float value)
     {
-        if (value < 0.00011)
+/*        if (value < 0.00011)
         {
             BGM_Icon_Image.sprite = BGM_Sprite[1];
         }
         else
         {
             BGM_Icon_Image.sprite = BGM_Sprite[0];
-        }
+        }*/
     }
 
     public void Check_SFX_Audio_Value(float value)
     {
-        if (value < 0.00011)
+/*        if (value < 0.00011)
         {
             SFX_Icon_Image.sprite = SFX_Sprite[1];
         }
         else
         {
             SFX_Icon_Image.sprite = SFX_Sprite[0];
-        }
+        }*/
     }
 
     //Screen구역
@@ -174,8 +156,6 @@ public class OptionDirector : MonoBehaviour
             screenMode = FullScreenMode.FullScreenWindow;
         }
 
-        DropDown_Image.sprite = DropDown_Sprite[0];
-
         Screen.SetResolution(resolutions[resoutionNum / 2].width,
             resolutions[resoutionNum / 2].height,
             screenMode);
@@ -197,5 +177,39 @@ public class OptionDirector : MonoBehaviour
         float targetRatio = 16.0f / 9.0f;
         float tolerance = 0.19f;  // 허용 오차 범위 설정
         return Mathf.Abs(aspectRatio - targetRatio) < tolerance;
+    }
+
+    //setting 선택
+    public void Click_SettingButton(int i)
+    {
+        if(i == 0)
+        {
+            Setting_Menu.SetActive(true);
+            Setting_Sound.SetActive(false);
+            Setting_Screen.SetActive(false);
+        }else if(i == 1)
+        {
+            Setting_Menu.SetActive(false);
+            Setting_Sound.SetActive(true);
+            Setting_Screen.SetActive(false);
+        }
+        else if(i == 2)
+        {
+            Setting_Menu.SetActive(false);
+            Setting_Sound.SetActive(false);
+            Setting_Screen.SetActive(true);
+        }
+    }
+
+    //메인메뉴로 돌아가기
+    public void Click_MainMenu()
+    {
+        LoadingManager.LoadScene("1.MainMenu");
+    }
+
+    //게임 종료
+    public void Click_GameEnd()
+    {
+        Application.Quit();
     }
 }

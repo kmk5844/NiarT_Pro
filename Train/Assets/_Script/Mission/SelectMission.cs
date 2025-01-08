@@ -47,6 +47,7 @@ public class SelectMission : MonoBehaviour
         SetMissionSetting();
         SetMissionType();
         SetMissionState();
+        Load(MissionType);
     }
 
     public void SetDataSetting(SA_PlayerData _playerData, Quest_DataTable _missionDataTable)
@@ -226,11 +227,13 @@ public class SelectMission : MonoBehaviour
     public void Mission_Sucesses()
     {
         playerData.SA_Get_Coin(MissionReward);
+        MissionEnd(MissionType);
         Destroy(this.gameObject);
     }
 
     public void Mission_Fail()
     {
+        MissionEnd(MissionType);
         Destroy(this.gameObject);
     }
 
@@ -296,6 +299,74 @@ public class SelectMission : MonoBehaviour
         {
             BossNum = _num;
             BossCount = _count;
+        }
+    }
+
+    public void Save(MissionType mission)
+    {
+        if(mission == MissionType.Monster)
+        {
+            ES3.Save<int>("SelectMission_MonsterCount", monsterCount);
+            Debug.Log("몬스터 카운트 저장 완료!");
+        }else if(mission == MissionType.Boss)
+        {
+            ES3.Save<int>("SelectMission_BossCount", bossCount);
+            Debug.Log("보스 카운트 저장 완료!");
+        }
+    }
+
+    public void Load(MissionType mission)
+    {
+        if (mission == MissionType.Monster)
+        {
+            if (!ES3.KeyExists("SelectMission_MonsterCount"))
+            {
+                Debug.Log("체크 몬스터 카운트");
+                Save(mission);
+            }
+
+            int num = ES3.Load<int>("SelectMission_MonsterCount");
+            if(num == -1)
+            {
+                monsterCount = 0;
+            }
+            else
+            {
+                monsterCount = num;
+            }
+        }
+        else if (mission == MissionType.Boss)
+        {
+            if (!ES3.KeyExists("SelectMission_BossCount"))
+            {
+                bossCount = -1;
+                Debug.Log("체크 보스 카운트");
+                Save(mission);
+            }
+
+            int num= ES3.Load<int>("SelectMission_BossCount");
+            if(num == -1)
+            {
+                bossCount = 0;
+            }
+            else
+            {
+                bossCount = num;
+            }
+        }
+    }
+
+    public void MissionEnd(MissionType mission)
+    {
+        if(mission == MissionType.Monster)
+        {
+            monsterCount = -1;
+            Save(mission);
+        }
+        else if(mission == MissionType.Boss)
+        {
+            bossCount = -1;
+            Save(mission);
         }
     }
 }

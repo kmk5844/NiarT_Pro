@@ -9,10 +9,9 @@ public class MissionDirector : MonoBehaviour
     public UIDirector uiDirector;
     public MonsterDirector monsterDirector;
 
-
     bool countFlag;
     [SerializeField]
-    int monsterCount;
+    int monsterCount; // 몬스터와 보스와 같이, 카운팅
 
     void Start()
     {
@@ -85,6 +84,11 @@ public class MissionDirector : MonoBehaviour
         uiDirector.missionCountText_text.text = "Count : " + monsterCount;
     }
 
+    public void stageEnd()
+    {
+        selectmission.Save(selectmission.MissionType);
+    }
+
     public void Adjustment_Mission()
     {
         switch (selectmission.MissionType)
@@ -107,5 +111,6 @@ public class MissionDirector : MonoBehaviour
                 selectmission.bossCount += monsterCount;
                 break;
         }
+        stageEnd();
     }
 }
