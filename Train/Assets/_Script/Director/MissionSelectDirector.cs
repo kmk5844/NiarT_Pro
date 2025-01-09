@@ -34,7 +34,7 @@ public class MissionSelectDirector : MonoBehaviour
     public TextMeshProUGUI PlayerGold;
 
     [Header("Option")]
-    bool OptionFlag;
+    public bool OptionFlag;
     public GameObject Option;
 
     int count = 0;

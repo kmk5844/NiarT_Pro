@@ -16,7 +16,6 @@ public class SubStageSelectDirector : MonoBehaviour
     public Station_ItemData itemListData;
     Animator ani;
 
-
     MissionDataObject SelectSubStageData;
     int SelectSubStageNum;
     [SerializeField]
@@ -91,14 +90,7 @@ public class SubStageSelectDirector : MonoBehaviour
         DragItemCount = 0;
         selectNum = -1;
 
-        foreach (ItemDataObject item in itemListData.Equipment_Inventory_ItemList)
-        {
-            Inventory_DragObject.GetComponent<Image>().sprite = item.Item_Sprite;
-            GameObject drag = Instantiate(Inventory_DragObject, Inventory_DragItemList);
-            drag.SetActive(false);
-            Inventory_ItemObject.GetComponent<ItemEquip_Object>().SetSetting(item, drag, this);
-            Instantiate(Inventory_ItemObject, Inventory_ItemList);
-        }
+        Instantiate_Item();
 
         int itemNum = 0;
         for(int i = 0; i < 3; i++)
@@ -366,5 +358,27 @@ public class SubStageSelectDirector : MonoBehaviour
     public void OpenOption()
     {
         Option.SetActive(true);
+    }
+
+    //구매 및 판매시, 발동
+    public void Check_Item()
+    {
+        foreach(ItemEquip_Object item in Inventory_ItemList.GetComponentsInChildren<ItemEquip_Object>())
+        {
+            Destroy(item.gameObject);
+        }
+        Instantiate_Item();
+    }
+
+    private void Instantiate_Item()
+    {
+        foreach (ItemDataObject item in itemListData.Equipment_Inventory_ItemList)
+        {
+            Inventory_DragObject.GetComponent<Image>().sprite = item.Item_Sprite;
+            GameObject drag = Instantiate(Inventory_DragObject, Inventory_DragItemList);
+            drag.SetActive(false);
+            Inventory_ItemObject.GetComponent<ItemEquip_Object>().SetSetting(item, drag, this);
+            Instantiate(Inventory_ItemObject, Inventory_ItemList);
+        }
     }
 }

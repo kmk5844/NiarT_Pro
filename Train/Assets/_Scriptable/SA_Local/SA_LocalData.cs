@@ -9,6 +9,10 @@ public class SA_LocalData : ScriptableObject
     private int local_index;
     public int Local_Index { get { return local_index; } }
 
+    [SerializeField]
+    private List<string> local_language;
+    public List<string> Local_Language { get { return local_language; } }
+
     public void SA_Change_Local(int index)
     {
         local_index = index;

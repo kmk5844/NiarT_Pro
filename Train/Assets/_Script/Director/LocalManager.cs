@@ -2,46 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
+using UnityEngine.UI;
 
 public class LocalManager : MonoBehaviour
 {
-    [SerializeField]
-    SA_LocalData SA_Local;
+    public SA_LocalData SA_Local;
     bool isChanging;
-    int index;
+    public int index;
     int Local_Max;
 
     private void Awake()
     {
         Local_Max = LocalizationSettings.AvailableLocales.Locales.Count;
         SA_Local.Load();
-        index = SA_Local.Local_Index; // Default가 한국어
+        index = SA_Local.Local_Index; // Default가 영어
         ChangeLocale();
     }
 
-    public void Click_Next_Local()
+    public void clickOption(int x)
     {
-        if(index + 1 == Local_Max)
-        {
-            index = 0;
-        }
-        else
-        {
-            index++;
-        }
-        ChangeLocale();
-    }
-
-    public void Click_Prev_Local()
-    {
-        if(index == 0)
-        {
-            index = Local_Max - 1;
-        }
-        else
-        {
-            index--;
-        }
+        index = x;
         ChangeLocale();
     }
 

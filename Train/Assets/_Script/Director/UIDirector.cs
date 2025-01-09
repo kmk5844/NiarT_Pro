@@ -89,7 +89,6 @@ public class UIDirector : MonoBehaviour
     public GameObject GetItemList_Object;
     public ResultItem_Tooltip Tooltip_Object;
 
-    bool PauseFlag;
     bool OptionFlag;
 
     [HideInInspector]
@@ -131,7 +130,6 @@ public class UIDirector : MonoBehaviour
         ItemInformation_Text.StringReference.TableReference = "ItemData_Table_St";
 
         LoseFlag = false;   
-        PauseFlag = false;
         OptionFlag = false;
 
         ItemInformation_Object_Flag = false;
@@ -155,14 +153,7 @@ public class UIDirector : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                if (!OptionFlag)
-                {
-                    ON_OFF_Pause_UI(PauseFlag);
-                }
-                else
-                {
-                    Click_Option_Exit();
-                }
+                ON_OFF_Option_UI(OptionFlag);
             }
         }
 
@@ -210,17 +201,17 @@ public class UIDirector : MonoBehaviour
         Result_UI.SetActive(true);
     }
 
-    public void ON_OFF_Pause_UI(bool Flag)
+    public void ON_OFF_Option_UI(bool Flag)
     {
         if (Flag)
         {
-            PauseFlag = false;
-            Pause_UI.SetActive(false);
+            OptionFlag = false;
+            Option_UI.SetActive(false);
         }
         else
         {
-            PauseFlag = true;
-            Pause_UI.SetActive(true);
+            OptionFlag = true;
+            Option_UI.SetActive(true);
         }
     }
 

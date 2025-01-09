@@ -2273,6 +2273,7 @@ MonoBehaviour:
   SelectMissionObject: {fileID: 8750023650433660751, guid: a9a4936c63ba53945b41129ea2d534b6, type: 3}
   StationBackCheckWindow: {fileID: 754949521}
   PlayerGold: {fileID: 411132040}
+  OptionFlag: 0
   Option: {fileID: 276053907}
 --- !u!4 &779603211
 Transform:
@@ -2340,7 +2341,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ReferenceResolution: {x: 640, y: 480}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -3960,7 +3961,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC815\uAC70\uC7A5\uC73C\uB85C?"
+  m_text: "\uC815\uAC70\uC7A5\uC73C\uB85C \uB3CC\uC544\uAC00\uAE30"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 10e4c79730818e14f881f7d78cd4eed0, type: 2}
   m_sharedMaterial: {fileID: 6434882401615742907, guid: 10e4c79730818e14f881f7d78cd4eed0, type: 2}
@@ -5165,6 +5166,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4749024061826713485, guid: 023d499a56a91754ca9e28280a427df7, type: 3}
+      propertyPath: m_text
+      value: "\uBBF8\uC158 \uCDE8\uC18C"
+      objectReference: {fileID: 0}
     - target: {fileID: 5172885744664833151, guid: 023d499a56a91754ca9e28280a427df7, type: 3}
       propertyPath: m_text
       value: "\uC18C\uC9C0\uAE08\uC758 60% \uACE8\uB4DC\uAC00 \uCC28\uAC10\uC774
@@ -5202,6 +5207,18 @@ PrefabInstance:
     - target: {fileID: 6079612427521864166, guid: 023d499a56a91754ca9e28280a427df7, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7229126119612326730, guid: 023d499a56a91754ca9e28280a427df7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 779603210}
+    - target: {fileID: 7229126119612326730, guid: 023d499a56a91754ca9e28280a427df7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OpenOption_Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 7229126119612326730, guid: 023d499a56a91754ca9e28280a427df7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: MissionSelectDirector, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7711590371279170013, guid: 023d499a56a91754ca9e28280a427df7, type: 3}
       propertyPath: m_fontColor.b

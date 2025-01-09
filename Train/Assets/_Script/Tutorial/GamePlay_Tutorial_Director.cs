@@ -95,33 +95,26 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
             {
                 DataManager.Instance.playerData.SA_CheckFirstFlag();
             }
-            LoadingManager.LoadScene("MissionSelect");
+            LoadingManager.LoadScene("Station");
         }
 
         if(gameType == GameType_T.Pause)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                if (uiDirector.pause_Flag)
+                if (uiDirector.option_Flag)
                 {
-                    if (uiDirector.option_Flag)
+                    if (!aimFlag)
                     {
-                        uiDirector.option_Close_Button();
+                        ChangeCursor(false);
                     }
                     else
                     {
-                        if (!aimFlag)
-                        {
-                            ChangeCursor(false);
-                        }
-                        else
-                        {
-                            ChangeCursor(true);
-                        }
-                        uiDirector.pause_Close_Button();
-                        gameType = GameType_T.Tutorial;
-                        Time.timeScale = 1;
+                        ChangeCursor(true);
                     }
+                    uiDirector.option_Close_Button();
+                    gameType = GameType_T.Tutorial;
+                    Time.timeScale = 1;
                 }
             }
         }
@@ -130,7 +123,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.Escape))
             {
                 gameType = GameType_T.Pause;
-                uiDirector.pause_Open_Button();
+                uiDirector.option_Open_Button();
                 ChangeCursor(false);
                 Time.timeScale = 0;
             }
@@ -537,7 +530,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
                     {
                         DataManager.Instance.playerData.SA_CheckFirstFlag();
                     }
-                    LoadingManager.LoadScene("MissionSelect");
+                    LoadingManager.LoadScene("Station");
                 }
             }
         }
@@ -635,5 +628,23 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
         T_Lose,
         T_Win,
         T_End,
+    }
+    //UI Option Close
+    public void optionClose()
+    {
+        if (uiDirector.option_Flag)
+        {
+            if (!aimFlag)
+            {
+                ChangeCursor(false);
+            }
+            else
+            {
+                ChangeCursor(true);
+            }
+            uiDirector.option_Close_Button();
+            gameType = GameType_T.Tutorial;
+            Time.timeScale = 1;
+        }
     }
 }

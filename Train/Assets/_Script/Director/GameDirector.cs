@@ -1179,10 +1179,17 @@ public class GameDirector : MonoBehaviour
         }
     }
 
-
     void GameEnd_TrainSave_Fuel()
     {
         ES3.Save<int>("Train_Curret_Fuel", TrainFuel);
+    }
+
+    public void closeOption()
+    {
+        gameType = Before_GameType;
+        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Resume, BGM_ID);
+        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Resume, TrainSFX_ID);
+        Time.timeScale = 1f;
     }
 }
 

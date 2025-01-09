@@ -39,9 +39,7 @@ public class Tutorial_UIDirector : MonoBehaviour
     public bool UI_Information_Click_Flag;
     public GameObject Click_Text_object;
 
-    public GameObject Pause_UI;
     public GameObject Option_UI;
-    public bool pause_Flag;
     public bool option_Flag;
 
 
@@ -175,19 +173,6 @@ public class Tutorial_UIDirector : MonoBehaviour
         Title_Text.StringReference.TableEntryReference = "Tutorial_Game_Title_"+ index;
         Information_Text.StringReference.TableEntryReference = "Tutorial_Game_Information_"+ index;
     }
-
-    public void pause_Open_Button()
-    {
-        pause_Flag = true;
-        Pause_UI.SetActive(true);
-    }
-
-    public void pause_Close_Button()
-    {
-        pause_Flag = false;
-        Pause_UI.SetActive(false);
-    }
-
     public void option_Open_Button()
     {
         option_Flag = true;
@@ -198,17 +183,5 @@ public class Tutorial_UIDirector : MonoBehaviour
     {
         option_Flag = false;
         Option_UI.SetActive(false);
-    }
-
-    public void mainMenu_Button()
-    {
-        LoadingManager.LoadScene("1.MainMenu");
-
-    }
-
-    public void exit_Button()
-    {
-        Application.Quit();
-
     }
 }

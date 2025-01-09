@@ -6,12 +6,23 @@ using UnityEngine.UI;
 
 public class OptionDirector : MonoBehaviour
 {
+    [Header("씬마다 다르게 적용할 필요가 있을 때")]
+    public bool StationButtonOFF;
+
+    [Header("UI")]
     public bool isKeyBoardFlag;
     public bool isCreditFlag;
 
     public GameObject Setting_Menu;
     public GameObject Setting_Sound;
     public GameObject Setting_Screen;
+
+    public GameObject Setting_Menu_StationButton;
+    public GameObject Setting_Menu_MainMenuButton;
+
+    public GameObject Check_Stage_Window;
+    public GameObject Check_MainMenu_Window;
+    public GameObject Check_GameEnd_Window;
 
     public GameObject KeyBoard_Object;
     public GameObject Credit_Object;
@@ -21,14 +32,22 @@ public class OptionDirector : MonoBehaviour
 
     [Header("스크린")]
     public TMP_Dropdown resolutionDropdown;
+    public int resoutionNum;
 
     FullScreenMode screenMode;
     List<Resolution> resolutions = new List<Resolution>();
-    public int resoutionNum;
+
+    [Header("언어")]
+    public TMP_Dropdown localDropdown;
+    LocalManager localManager;
+
 
     void Start()
     {
+        localManager = GetComponent<LocalManager>();
         InitScreen();
+        InitLocal();
+        CheckOptionFlag();
         isKeyBoardFlag = false;
         isCreditFlag = false;
         //BGM_Slider.onValueChanged.AddListener(Check_BGM_Audio_Value);
@@ -41,6 +60,13 @@ public class OptionDirector : MonoBehaviour
         isCreditFlag = false;
         KeyBoard_Object.SetActive(false);
         Credit_Object.SetActive(false);
+        Click_SettingButton(0);
+        CheckWindow_NoButton();
+    }
+
+    public void Click_OptionClose()
+    {
+        this.gameObject.SetActive(false);
     }
 
     public void Click_OpenKeyBoard()
@@ -90,6 +116,29 @@ public class OptionDirector : MonoBehaviour
             SFX_Icon_Image.sprite = SFX_Sprite[0];
         }*/
     }
+    //setting 선택
+    public void Click_SettingButton(int i)
+    {
+        if (i == 0)
+        {
+            Setting_Menu.SetActive(true);
+            Setting_Sound.SetActive(false);
+            Setting_Screen.SetActive(false);
+        }
+        else if (i == 1)
+        {
+            Setting_Menu.SetActive(false);
+            Setting_Sound.SetActive(true);
+            Setting_Screen.SetActive(false);
+        }
+        else if (i == 2)
+        {
+            Setting_Menu.SetActive(false);
+            Setting_Sound.SetActive(false);
+            Setting_Screen.SetActive(true);
+        }
+    }
+
 
     //Screen구역
     void InitScreen()
@@ -144,7 +193,7 @@ public class OptionDirector : MonoBehaviour
         resolutionDropdown.RefreshShownValue();
     }
 
-    public void DropboxOptionChange(int x)
+    public void DropboxOptionChange_Screen(int x)
     {
         resoutionNum = x;
         if (x % 2 == 0)
@@ -179,37 +228,87 @@ public class OptionDirector : MonoBehaviour
         return Mathf.Abs(aspectRatio - targetRatio) < tolerance;
     }
 
-    //setting 선택
-    public void Click_SettingButton(int i)
+    //언어 기본세팅
+    void InitLocal()
     {
-        if(i == 0)
+        localDropdown.options.Clear();
+
+        foreach (string st in localManager.SA_Local.Local_Language)
         {
-            Setting_Menu.SetActive(true);
-            Setting_Sound.SetActive(false);
-            Setting_Screen.SetActive(false);
-        }else if(i == 1)
-        {
-            Setting_Menu.SetActive(false);
-            Setting_Sound.SetActive(true);
-            Setting_Screen.SetActive(false);
+            TMP_Dropdown.OptionData opt = new TMP_Dropdown.OptionData();
+            opt.text = st;
+            localDropdown.options.Add(opt);
         }
-        else if(i == 2)
-        {
-            Setting_Menu.SetActive(false);
-            Setting_Sound.SetActive(false);
-            Setting_Screen.SetActive(true);
-        }
+        localDropdown.value = localManager.index;
+    }
+
+    public void DropboxOptionChange_Local(int x)
+    {
+        localManager.clickOption(x);
+    }
+
+    //스테이지 돌아가기
+    public void Click_Stage()
+    {
+        Check_Stage_Window.SetActive(true);
     }
 
     //메인메뉴로 돌아가기
     public void Click_MainMenu()
     {
-        LoadingManager.LoadScene("1.MainMenu");
+        Check_MainMenu_Window.SetActive(true);
     }
 
     //게임 종료
     public void Click_GameEnd()
     {
-        Application.Quit();
+        Check_GameEnd_Window.SetActive(true);
+    }
+
+    public void CheckWindow_YesButton()
+    {
+        if (Check_Stage_Window.activeSelf)
+        {
+            Debug.Log("스테이지 돌아가기");
+        }
+
+        if (Check_MainMenu_Window.activeSelf)
+        {
+            LoadingManager.LoadScene("1.MainMenu");
+        }
+
+        if (Check_GameEnd_Window.activeSelf)
+        {
+            Application.Quit();
+        }
+    }
+
+    public void CheckWindow_NoButton()
+    {
+        if (Check_Stage_Window.activeSelf)
+        {
+            Check_Stage_Window.SetActive(false);
+        }
+
+        if (Check_MainMenu_Window.activeSelf)
+        {
+            Check_MainMenu_Window.SetActive(false);
+        }
+
+        if (Check_GameEnd_Window.activeSelf)
+        {
+            Check_GameEnd_Window.SetActive(false);
+        }
+    }
+
+
+
+    public void CheckOptionFlag()
+    {
+        if (StationButtonOFF)
+        {
+            Setting_Menu_StationButton.SetActive(false);
+            Setting_Menu_MainMenuButton.GetComponent<RectTransform>().localPosition = new Vector3(0, -70, 0);
+        }
     }
 }
