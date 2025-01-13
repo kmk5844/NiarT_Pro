@@ -124,6 +124,14 @@ public class SubStageSelectDirector : MonoBehaviour
         StageInitButton.SetActive(false);
     }
 
+    private void OnDisable()
+    {
+        if (UI_MissionCancelWindow.activeSelf)
+        {
+            UI_MissionCancelWindow.SetActive(false);
+        }
+    }
+
     public void Update()
     {
         if (HoldAndDragFlag)
@@ -166,6 +174,7 @@ public class SubStageSelectDirector : MonoBehaviour
     public void Open_ItemTab()
     {
         ani.SetBool("Select",true);
+        ani.SetTrigger("AniTrigger");
         UI_Title_StageButton.interactable = false;
         UI_Title_ItemButton.interactable = true;
         UI_NextButton.interactable = false;
@@ -175,6 +184,7 @@ public class SubStageSelectDirector : MonoBehaviour
     public void Open_SelectSubStage()
     {
         ani.SetBool("Select", false);
+        ani.SetTrigger("AniTrigger");
         UI_Title_StageButton.interactable = true;
         UI_Title_ItemButton.interactable = false;
         UI_NextButton.interactable = true;

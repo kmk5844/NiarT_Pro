@@ -31,8 +31,11 @@ public class StationDirector : MonoBehaviour
     bool mainTenanceFlag;
     [SerializeField]
     bool storeFlag;
+    public bool simplestationFlag;
     [SerializeField]
-    bool simplestationFlag;
+    private GameObject SubStageSelectObject;
+    [HideInInspector]
+    public SubStageSelectDirector Director_SubStageSelectDirector;
 
     [Header("Lobby")]
     public GameObject UI_Lobby;
@@ -102,6 +105,14 @@ public class StationDirector : MonoBehaviour
     public AudioClip StationBGM;
     bool Ban_Flag;
     bool Option_Flag;
+
+    private void Awake()
+    {
+        if (simplestationFlag)
+        {
+             Director_SubStageSelectDirector = SubStageSelectObject.GetComponent<SubStageSelectDirector>();
+        }
+    }
 
     private void Start()
     {
@@ -643,6 +654,10 @@ public class StationDirector : MonoBehaviour
             Director_Store.Director_Init_ItemSell();
             Director_Inventory.Director_Init_Inventory();
             Director_GameStart.Director_Init_EquipItem();
+            if (simplestationFlag)
+            {
+                Director_SubStageSelectDirector.Check_Item();
+            }
             Station_ItemData.itemChangeFlag = false;
         }
     }

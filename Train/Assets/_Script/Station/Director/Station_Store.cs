@@ -18,6 +18,7 @@ public class Station_Store : MonoBehaviour
     public GameObject Item_DataObject;
     Station_ItemData itemData;
 
+    public StationDirector stationDirector; 
     public Station_Inventory inventory_director;
 
     [Header("구매 윈도우")]
@@ -330,6 +331,11 @@ public class Station_Store : MonoBehaviour
             playerData.Player_Buy_Coin(item.Item_Buy_Pride * item_Count);
             item.Item_Count_UP(item_Count);
             itemData.Plus_Inventory_Item(item);
+            if (stationDirector.simplestationFlag)
+            {
+                stationDirector.Director_SubStageSelectDirector.itemListData.Plus_Inventory_Item(item);
+            }
+
             {
                 foreach (ItemSell_Object Sell_Object in Item_Sell_Window.GetComponentsInChildren<ItemSell_Object>())
                 {
@@ -401,6 +407,10 @@ public class Station_Store : MonoBehaviour
                 if(!itemObject.Check_ItemCount())
                 {
                     itemData.Minus_Inventory_Item(item);
+                    if (stationDirector.simplestationFlag)
+                    {
+                        stationDirector.Director_SubStageSelectDirector.itemListData.Minus_Inventory_Item(item);
+                    }
                     Destroy(itemObject.gameObject);
                 }
             }
