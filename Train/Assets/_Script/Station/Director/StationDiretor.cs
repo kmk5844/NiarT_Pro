@@ -9,6 +9,8 @@ using MoreMountains.Tools;
 
 public class StationDirector : MonoBehaviour
 {
+    public Station_Player Player;
+
     public GameObject Player_DataObject; // 골드와 포인트 확인
     public GameObject Train_DataObject; // 게임에서 나타낼 기차
     Station_PlayerData playerData;
@@ -101,10 +103,14 @@ public class StationDirector : MonoBehaviour
     public bool Item_Buy_Sell;
     int ui_Maintenance_Num;
     int ui_Inventory_Num;
+
     [Header("BGM")]
     public AudioClip StationBGM;
     bool Ban_Flag;
     bool Option_Flag;
+
+    [Header("게임")]
+    public GameObject[] GameNotice;
 
     private void Awake()
     {
@@ -371,6 +377,8 @@ public class StationDirector : MonoBehaviour
     {
         UI_Lobby.gameObject.SetActive(false);
         UI_BackGround.gameObject.SetActive(true);
+        Player.OpenUIFlag = true;
+
         switch (num)
         {
             case 1:
@@ -551,6 +559,7 @@ public class StationDirector : MonoBehaviour
     public void Click_Home_Button()
     {
         Total_Init();
+        Player.OpenUIFlag = false;
 
         if (ui_num == 1)
         {
@@ -703,5 +712,10 @@ public class StationDirector : MonoBehaviour
 
         Store_Fortress_Content.anchoredPosition = new Vector2(-targetX, 0);
         isMoving = false;
+    }
+
+    public void activeNotice(int i, bool flag)
+    {
+        GameNotice[i].SetActive(flag);
     }
 }

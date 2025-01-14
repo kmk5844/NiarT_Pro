@@ -11,7 +11,14 @@ public class Station_BackGround_Cloud : MonoBehaviour
     float speed;
     void Start()
     {
-        _material = GetComponent<Image>().material;
+        try
+        {
+            _material = GetComponent<Image>().material;
+        }
+        catch
+        {
+            _material = GetComponent<MeshRenderer>().material;
+        }
         _material.SetTextureOffset("_MainTex", Vector2.zero);
     }
 
