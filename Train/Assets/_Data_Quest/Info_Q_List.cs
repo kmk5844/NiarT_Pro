@@ -10,4 +10,5 @@ public class Info_Q_List
     public string Quest_Information;
     public string Quest_State;
     public int Quest_Reward;
+    public int Quest_Fail;
 }

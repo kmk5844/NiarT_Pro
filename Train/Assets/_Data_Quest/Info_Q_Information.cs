@@ -12,6 +12,7 @@ public class Info_Q_Information
     public string Emerging_Monster;
     public string Monster_Count;
     public string Open_SubStageNum;
+    public bool StartBranchFlag;
     public bool NextStageFlag;
     public string SubStage_Status;
 }

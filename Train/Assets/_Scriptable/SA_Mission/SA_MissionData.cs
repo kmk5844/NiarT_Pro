@@ -19,7 +19,7 @@ public class SA_MissionData : ScriptableObject
     public void Editor_MissionList_Init(int maxStage)
     {
         stagelist.Clear();
-        //mainstage_clearflag.Clear();
+        mainstage_clearflag.Clear();
         for (int i = 0; i < maxStage; i++)
         {
             MissionList newMissionList = new MissionList
