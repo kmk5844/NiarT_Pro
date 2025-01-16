@@ -87,8 +87,6 @@ public class SubStage_Select : MonoBehaviour
         {
             if (missionData.StageClearFlag)
             {
-/*                Color customColor = new Color(0.45f, 0.11f, 0.11f);
-                GetComponent<Image>().color = customColor;*/
                 GetComponent<Button>().enabled = false;
             }
             else

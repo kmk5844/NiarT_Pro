@@ -346,6 +346,7 @@ public class Auto_ScritableObject : EditorWindow
                 Q_Des.Monster_Count,
                 Q_Des.Open_SubStageNum,
                 Q_Des.SubStage_Status,
+                Q_Des.StartStageFlag,
                 Q_Des.NextStageFlag
                 );
 
@@ -373,6 +374,7 @@ public class Auto_ScritableObject : EditorWindow
                 Q_Mat.Monster_Count,
                 Q_Mat.Open_SubStageNum,
                 Q_Mat.SubStage_Status,
+                Q_Mat.StartStageFlag,
                 Q_Mat.NextStageFlag
                 );
 
@@ -402,6 +404,7 @@ public class Auto_ScritableObject : EditorWindow
                 Q_Mon.Monster_Count,
                 Q_Mon.Open_SubStageNum,
                 Q_Mon.SubStage_Status,
+                Q_Mon.StartStageFlag,
                 Q_Mon.NextStageFlag
                 );
 
@@ -431,6 +434,7 @@ public class Auto_ScritableObject : EditorWindow
                 Q_Esc.Monster_Count,
                 Q_Esc.Open_SubStageNum,
                 Q_Esc.SubStage_Status,
+                Q_Esc.StartStageFlag,
                 Q_Esc.NextStageFlag
                 );
 
@@ -459,6 +463,7 @@ public class Auto_ScritableObject : EditorWindow
                 Q_Con.Monster_Count,
                 Q_Con.Open_SubStageNum,
                 Q_Con.SubStage_Status,
+                Q_Con.StartStageFlag,
                 Q_Con.NextStageFlag
                 );
 
@@ -487,6 +492,7 @@ public class Auto_ScritableObject : EditorWindow
                 Q_Bos.Monster_Count,
                 Q_Bos.Open_SubStageNum,
                 Q_Bos.SubStage_Status,
+                Q_Bos.StartStageFlag,
                 Q_Bos.NextStageFlag
                 );
 
