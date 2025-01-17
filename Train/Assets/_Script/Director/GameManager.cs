@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
     public SA_PlayerData PlayerData;
     public SA_LocalData LocalData;
     public SA_StoryLIst StoryData;
+    public SA_MissionData MissionData;
     public Quest_DataTable QuestData;
 
     public GameObject SelectMissionObject;
@@ -85,7 +86,7 @@ public class GameManager : MonoBehaviour
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[LocalData.Local_Index];
         if (PlayerData.Mission_Playing)
         {
-            SelectMissionObject.GetComponent<SelectMission>().SetDataSetting(PlayerData, QuestData);
+            SelectMissionObject.GetComponent<SelectMission>().SetDataSetting(PlayerData, QuestData, MissionData);
             GameObject gm = Instantiate(SelectMissionObject);
             gm.name = "SelectMission";
         }
@@ -93,8 +94,6 @@ public class GameManager : MonoBehaviour
 
     public void Update()
     {
-
-
         if (Demo)
         {
             if (Input.GetKeyDown(KeyCode.Alpha0))

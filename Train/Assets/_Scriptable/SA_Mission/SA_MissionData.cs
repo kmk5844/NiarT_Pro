@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
@@ -15,6 +16,13 @@ public class SA_MissionData : ScriptableObject
     List<bool> mainstage_clearflag;
     public List<bool> MainStage_ClearFlag { get { return mainstage_clearflag; } }
 
+    [SerializeField]
+    int monstercount;
+    public int MonsterCount { get {  return monstercount; } }
+
+    [SerializeField]
+    int bosscount;
+    public int BossCount { get { return bosscount; } }
 
     public void Editor_MissionList_Init(int maxStage)
     {
@@ -179,11 +187,55 @@ public class SA_MissionData : ScriptableObject
             }
             Save(i);
         }
+        monstercount = -1;
+        bosscount = -1;
+        foreach(MissionType mission in Enum.GetValues(typeof(MissionType)))
+        {
+            SelectMission_Save(mission);
+        }
     }
 
     void Save(int i)
     {
         ES3.Save<bool>("SA_MissionData_" + i + "_clearData", mainstage_clearflag[i]);
+    }
+
+    public void SelectMission_SetData(MissionType mission, int num)
+    {
+        if (mission == MissionType.Monster)
+        {
+            monstercount = num;
+        }
+        else if (mission == MissionType.Boss)
+        {
+            bosscount = num;
+        }
+    }
+
+    public void SelectMission_Save(MissionType mission)
+    {
+        if (mission == MissionType.Monster)
+        {
+            ES3.Save<int>("SelectMission_MonsterCount", monstercount);
+            //Debug.Log("몬스터 카운트 저장 완료!");
+        }
+        else if (mission == MissionType.Boss)
+        {
+            ES3.Save<int>("SelectMission_BossCount", bosscount);
+            //Debug.Log("보스 카운트 저장 완료!");
+        }
+    }
+
+    public void SelectMission_Load(MissionType mission)
+    {
+        if (mission == MissionType.Monster)
+        {
+            monstercount = ES3.Load<int>("SelectMission_MonsterCount");
+        }
+        else if (mission == MissionType.Boss)
+        {
+            bosscount = ES3.Load<int>("SelectMission_BossCount");
+        }
     }
 
     public void Load()

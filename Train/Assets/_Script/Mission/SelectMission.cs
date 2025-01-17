@@ -9,6 +9,8 @@ public class SelectMission : MonoBehaviour
     SA_PlayerData playerData;
     [SerializeField]
     Quest_DataTable missionDataTable;
+    [SerializeField]
+    SA_MissionData missionData;
 
     int stageNum;
     int missionNum;
@@ -50,10 +52,11 @@ public class SelectMission : MonoBehaviour
         Load(MissionType);
     }
 
-    public void SetDataSetting(SA_PlayerData _playerData, Quest_DataTable _missionDataTable)
+    public void SetDataSetting(SA_PlayerData _playerData, Quest_DataTable _missionDataTable, SA_MissionData _missionData)
     {
         playerData = _playerData;
         missionDataTable = _missionDataTable;
+        missionData = _missionData;
     }
 
     void SetMissionSetting()
@@ -105,7 +108,7 @@ public class SelectMission : MonoBehaviour
         {
             if (MissionType == MissionType.Destination)
             {
-                Debug.Log("목적지 무사히 달성하기");
+                //Debug.Log("목적지 무사히 달성하기");
                 return true;
             }
             else if (MissionType == MissionType.Material)
@@ -302,30 +305,24 @@ public class SelectMission : MonoBehaviour
         }
     }
 
-    public void Save(MissionType mission)
+    public void Save(MissionType mission, int monsterCount)
     {
-        if(mission == MissionType.Monster)
-        {
-            ES3.Save<int>("SelectMission_MonsterCount", monsterCount);
-            Debug.Log("몬스터 카운트 저장 완료!");
-        }else if(mission == MissionType.Boss)
-        {
-            ES3.Save<int>("SelectMission_BossCount", bossCount);
-            Debug.Log("보스 카운트 저장 완료!");
-        }
+        missionData.SelectMission_SetData(mission, monsterCount);
+        missionData.SelectMission_Save(mission);
     }
 
     public void Load(MissionType mission)
     {
+        missionData.SelectMission_Load(mission);
+
         if (mission == MissionType.Monster)
         {
             if (!ES3.KeyExists("SelectMission_MonsterCount"))
             {
-                Debug.Log("체크 몬스터 카운트");
-                Save(mission);
+                MissionEnd(mission); // 초기화 전용.
             }
 
-            int num = ES3.Load<int>("SelectMission_MonsterCount");
+            int num = missionData.MonsterCount;
             if(num == -1)
             {
                 monsterCount = 0;
@@ -339,12 +336,10 @@ public class SelectMission : MonoBehaviour
         {
             if (!ES3.KeyExists("SelectMission_BossCount"))
             {
-                bossCount = -1;
-                Debug.Log("체크 보스 카운트");
-                Save(mission);
+                MissionEnd(mission); // 초기화 전용.
             }
 
-            int num= ES3.Load<int>("SelectMission_BossCount");
+            int num = missionData.BossCount;
             if(num == -1)
             {
                 bossCount = 0;
@@ -361,12 +356,12 @@ public class SelectMission : MonoBehaviour
         if(mission == MissionType.Monster)
         {
             monsterCount = -1;
-            Save(mission);
+            Save(mission, monsterCount);
         }
         else if(mission == MissionType.Boss)
         {
             bossCount = -1;
-            Save(mission);
+            Save(mission, monsterCount);
         }
     }
 }

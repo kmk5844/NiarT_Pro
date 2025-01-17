@@ -14,6 +14,7 @@ public class MissionSelectDirector : MonoBehaviour
 
     public SA_PlayerData playerData;
     public SA_StageList stageList;
+    public SA_MissionData missionData;
     public Quest_DataTable EX_QuestData;
     int mainStageNum;
     [Header("UI")]
@@ -72,7 +73,7 @@ public class MissionSelectDirector : MonoBehaviour
                 }
             } while (count < 3);
         }
-        SelectMissionObject.GetComponent<SelectMission>().SetDataSetting(playerData, EX_QuestData);
+        SelectMissionObject.GetComponent<SelectMission>().SetDataSetting(playerData, EX_QuestData, missionData);
 
         PlayerGold.text = playerData.Coin.ToString();
     }

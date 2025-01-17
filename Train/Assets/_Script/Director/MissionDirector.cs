@@ -86,7 +86,7 @@ public class MissionDirector : MonoBehaviour
 
     public void stageEnd()
     {
-        selectmission.Save(selectmission.MissionType);
+        selectmission.Save(selectmission.MissionType, monsterCount);
     }
 
     public void Adjustment_Mission()
