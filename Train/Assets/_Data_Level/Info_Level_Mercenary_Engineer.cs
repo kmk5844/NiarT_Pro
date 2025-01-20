@@ -8,7 +8,7 @@ public class Info_Level_Mercenary_Engineer
     public float Min_Refresh_Delay;
     public float Max_Refresh_Delay;
     public int Def;
-    public int Repair_Delay;
+    public float Repair_Delay;
     public int Repair_Amount;
     public int Repair_Train_Parsent;
     public int Upgrade_Cost;

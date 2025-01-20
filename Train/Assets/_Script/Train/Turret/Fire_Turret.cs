@@ -20,11 +20,11 @@ public class Fire_Turret : Turret
     {
         base.Start();
         rotation_TurretFlag = true;
-        train_Rotation_Delay = 1.2f;
+        train_Rotation_Delay = 2f;
         Fire_Turret_Image = GetComponent<SpriteRenderer>();
 
         Data_Attack_Delay = train_Attack_Delay;
-        train_Attacking_Delay = 5;
+        train_Attacking_Delay = 6;
 
         Change_Flag = false;
         Attack_Flag = true;

@@ -16,14 +16,14 @@ public class Raser_Turret : Turret
     {
         base.Start();
         rotation_TurretFlag = true;
-        train_Rotation_Delay = 1f;
+        train_Rotation_Delay = 1.5f;
 
         Target_Flag = false;
         raser = transform.GetChild(0).gameObject;
         raser.GetComponent<Bullet>().atk = trainData.Train_Attack;
         Data_Attack_Delay = train_Attack_Delay;
-        train_Attacking_Delay = 4;
-        lastTime = Time.time + 12;
+        train_Attacking_Delay = 3;
+        lastTime = Time.time + 10;
     }
     void Update()
     {

@@ -12,7 +12,7 @@ public class Engineer : Mercenary
     float train_HpParsent;
 
     [SerializeField]
-    private int repairDelay;
+    private float repairDelay;
     [SerializeField]
     private int repairAmount;
     [SerializeField]
