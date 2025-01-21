@@ -1,6 +1,4 @@
-using Microsoft.Win32.SafeHandles;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -153,7 +151,14 @@ public class SubStage_Select : MonoBehaviour
         subStageSelectDirector.selectNum = missionData.SubStage_Num;
         subStageSelectDirector.Open_SelectSubStage(missionData);
         yield return new WaitForSeconds(0.1f);
-        subStageSelectDirector.Open_ItemTab();
+        if (missionData.ReadyFlag)
+        {
+            subStageSelectDirector.Open_ReadyTab();
+        }
+        else
+        {
+            subStageSelectDirector.Open_SpecialStage();
+        }
         InformationObject.SetActive(false);
     }
 }

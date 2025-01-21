@@ -49,6 +49,10 @@ public class MissionDataObject : ScriptableObject
     public string SubStage_Status { get { return substage_status; } }
 
     [SerializeField]
+    private bool readyflag;
+    public bool ReadyFlag { get { return  readyflag; } }
+
+    [SerializeField]
     private bool stageclearflag;
     public bool StageClearFlag {  get { return stageclearflag; } }
 
@@ -73,7 +77,7 @@ public class MissionDataObject : ScriptableObject
         substage_status = _substage_status;
         startstageflag = _stagestartflag;
         nextstageflag = _nextstageflag;
-
+        CheckReadyFlag();
         if (_stagestartflag)
         {
             stageopenflag = true;
@@ -122,6 +126,25 @@ public class MissionDataObject : ScriptableObject
     {
         stageclearflag = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_ClearFlag");
         stageopenflag = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_OpenFlag");
+    }
+
+    void CheckReadyFlag()
+    {
+        switch (substage_type)
+        {
+            case SubStageType.Nomal:
+                readyflag = true;
+                break;
+            case SubStageType.Hard:
+                readyflag = true;
+                break;
+            case SubStageType.HardCore:
+                readyflag = true;
+                break;
+            case SubStageType.SimpleStation:
+                readyflag = false;
+                break;
+        }
     }
 }
 

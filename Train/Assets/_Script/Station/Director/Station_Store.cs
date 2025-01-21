@@ -333,7 +333,7 @@ public class Station_Store : MonoBehaviour
             itemData.Plus_Inventory_Item(item);
             if (stationDirector.simplestationFlag)
             {
-                stationDirector.Director_SubStageSelectDirector.itemListData.Plus_Inventory_Item(item);
+                stationDirector.Director_PlayerReadyDirector.itemListData.Plus_Inventory_Item(item);
             }
 
             {
@@ -409,7 +409,7 @@ public class Station_Store : MonoBehaviour
                     itemData.Minus_Inventory_Item(item);
                     if (stationDirector.simplestationFlag)
                     {
-                        stationDirector.Director_SubStageSelectDirector.itemListData.Minus_Inventory_Item(item);
+                        stationDirector.Director_PlayerReadyDirector.itemListData.Minus_Inventory_Item(item);
                     }
                     Destroy(itemObject.gameObject);
                 }

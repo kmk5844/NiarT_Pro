@@ -9,7 +9,7 @@ public class ItemEquip_Object : MonoBehaviour
     public bool EquipAndInventory; //Equip == True, Inventory : 
     public int EquipObjectNum = -1;
     public Station_GameStart GameStartDirector; // 제거 예정
-    public SubStageSelectDirector SubDirector;
+    public PlayerReadyDirector playerReadyDirector;
     public ItemDataObject item;
 
     public string item_name;
@@ -34,8 +34,6 @@ public class ItemEquip_Object : MonoBehaviour
     bool mouseHold;
     bool mouseDrag;
 
-    bool EquipDragFlag;
-
     private void Start()
     {
         Item_MouseOver_Frame.SetActive(false);
@@ -47,7 +45,7 @@ public class ItemEquip_Object : MonoBehaviour
         {
             if (item != null)
             {
-                SubDirector.ItemInformation_Setting(item.Item_Sprite, item.Num);
+                playerReadyDirector.ItemInformation_Setting(item.Item_Sprite, item.Num);
                 item_mouseOver_Flag = true;
                 Item_MouseOver_Frame.SetActive(true);
             }
@@ -72,25 +70,26 @@ public class ItemEquip_Object : MonoBehaviour
             {
                 mouseDrag = true;
                 Item_DragImage.SetActive(true);
-                SubDirector.DragingItemObject = Item_DragImage;
+                playerReadyDirector.DragingItemObject = Item_DragImage;
             }
             else
             {
                 mouseDrag = false;
             }
         }
+
         if (mouseDrag)
         {
             Item_DragImage.transform.position = Input.mousePosition;
-            SubDirector.Draging_Item = item;
+            playerReadyDirector.Draging_Item = item;
         }
     }
 
-    public void SetSetting(ItemDataObject _item, GameObject _Item_DragImage, SubStageSelectDirector _SubDirector)
+    public void SetSetting(ItemDataObject _item, GameObject _Item_DragImage, PlayerReadyDirector _playerReadyDirector)
     {
         item = _item;
         Item_DragImage = _Item_DragImage;
-        SubDirector = _SubDirector;
+        playerReadyDirector = _playerReadyDirector;
         Equip_Item();
     }
 
@@ -109,39 +108,39 @@ public class ItemEquip_Object : MonoBehaviour
         }
         else
         {
-            if (SubDirector.itemListData.SA_Player_ItemData.Equiped_Item[EquipObjectNum] == -1)
+            if (playerReadyDirector.itemListData.SA_Player_ItemData.Equiped_Item[EquipObjectNum] == -1)
             {
                 item_object_text_count.text = "";
             }
             else {
-                item_object_text_count.text = SubDirector.itemListData.SA_Player_ItemData.Equiped_Item_Count[EquipObjectNum].ToString();
+                item_object_text_count.text = playerReadyDirector.itemListData.SA_Player_ItemData.Equiped_Item_Count[EquipObjectNum].ToString();
             }
         }
     }
 
     public void Init_Item()
     {
-        item = SubDirector.itemListData.SA_Player_ItemData.EmptyObject;
-        SubDirector.itemListData.SA_Player_ItemData.Empty_Item(EquipObjectNum);
+        item = playerReadyDirector.itemListData.SA_Player_ItemData.EmptyObject;
+        playerReadyDirector.itemListData.SA_Player_ItemData.Empty_Item(EquipObjectNum);
         Equip_Item();
     }
 
     public void OnMouseEnter()
     {
-        if (EquipAndInventory && SubDirector.Draging_Item != null)
+        if (EquipAndInventory && playerReadyDirector.Draging_Item != null)
         {
-            if (SubDirector.DragItemCount < 1)
+            if (playerReadyDirector.DragItemCount < 1)
             {
-                SubDirector.EndHoldItem = this.gameObject;
+                playerReadyDirector.EndHoldItem = this.gameObject;
 
-                item = SubDirector.Draging_Item;
-                Item_DragImage = SubDirector.DragingItemObject;
-                SubDirector.OpenItemCountWindow(this, true);
-                SubDirector.DragItemCount++;
+                item = playerReadyDirector.Draging_Item;
+                Item_DragImage = playerReadyDirector.DragingItemObject;
+                playerReadyDirector.OpenItemCountWindow(this, true);
+                playerReadyDirector.DragItemCount++;
             }
         }
 
-        if (item != SubDirector.EmptyItemObject)
+        if (item != playerReadyDirector.EmptyItemObject)
         {
             if (item != null)
             {
@@ -150,9 +149,10 @@ public class ItemEquip_Object : MonoBehaviour
         }
     }
 
+
     public void OnMouseExit()
     {
-        if (item != SubDirector.EmptyItemObject)
+        if (item != playerReadyDirector.EmptyItemObject)
         {
             if (item != null)
             {
@@ -163,23 +163,19 @@ public class ItemEquip_Object : MonoBehaviour
 
     public void OnMouseDown()
     {
-        if (item != SubDirector.EmptyItemObject)
+        if (item != playerReadyDirector.EmptyItemObject)
         {
             mouseHold = true;
-            SubDirector.BeforeHoldItem = this.gameObject;
-            if (EquipAndInventory)
-            {
-                EquipDragFlag = true;
-            }
+            playerReadyDirector.BeforeHoldItem = this.gameObject;
         }
     }
 
     public void OnMouseUp()
     {
         mouseHoldTime = 0;
-        SubDirector.HoldAndDragFlag = true;
-        SubDirector.mouseHoldAndDragNotTime = 0f;
-        SubDirector.DragItemCount = 0;
+        playerReadyDirector.HoldAndDragFlag = true;
+        playerReadyDirector.mouseHoldAndDragNotTime = 0f;
+        playerReadyDirector.DragItemCount = 0;
 
         if (Item_DragImage != null)
         {

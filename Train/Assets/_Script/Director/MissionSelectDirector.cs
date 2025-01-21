@@ -26,6 +26,12 @@ public class MissionSelectDirector : MonoBehaviour
 
     public List<MissionSelectButton> buttonList;
 
+    [Header("Test")]
+    public GameObject MissionSelect;
+
+    [Header("ReadyDirector")]
+    public GameObject ReadyObject;
+
     [Header("SubSelectDirector")]
     public GameObject SubStageSelectObject;
     public GameObject SelectMissionObject;
@@ -115,7 +121,9 @@ public class MissionSelectDirector : MonoBehaviour
         GameObject game_obj = Instantiate(SelectMissionObject);
         game_obj.name = "SelectMission";
         yield return new WaitForSeconds(0.8f);
-        missionselectAni_Director.Close_MissionSelect();
+        //missionselectAni_Director.Close_MissionSelect();
+        MissionSelect.SetActive(false);
+        ReadyObject.SetActive(true);
         //SubStageSelectObject.SetActive(true);
     }
 

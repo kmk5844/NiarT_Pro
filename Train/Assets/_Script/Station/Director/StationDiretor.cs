@@ -37,7 +37,7 @@ public class StationDirector : MonoBehaviour
     [SerializeField]
     private GameObject SubStageSelectObject;
     [HideInInspector]
-    public SubStageSelectDirector Director_SubStageSelectDirector;
+    public PlayerReadyDirector Director_PlayerReadyDirector;
 
     [Header("Lobby")]
     public GameObject UI_Lobby;
@@ -116,7 +116,7 @@ public class StationDirector : MonoBehaviour
     {
         if (simplestationFlag)
         {
-             Director_SubStageSelectDirector = SubStageSelectObject.GetComponent<SubStageSelectDirector>();
+            Director_PlayerReadyDirector = SubStageSelectObject.GetComponent<PlayerReadyDirector>();
         }
     }
 
@@ -665,7 +665,7 @@ public class StationDirector : MonoBehaviour
             Director_GameStart.Director_Init_EquipItem();
             if (simplestationFlag)
             {
-                Director_SubStageSelectDirector.Check_Item();
+                Director_PlayerReadyDirector.Check_Item();
             }
             Station_ItemData.itemChangeFlag = false;
         }
