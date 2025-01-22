@@ -9,6 +9,13 @@ public class PlayerReadyDirector : MonoBehaviour
 {
     public Station_ItemData itemListData;
 
+    [Header("UI_Window")]
+    public GameObject[] UI_Window;
+    int windowCount;
+    public GameObject UI_SubStageSelect;
+
+    [Header("----------------Item------------------")]
+    [Space(10)]
     [Header("UI_ItemInformation")]
     public Image UI_Info_ItemIcon;
     public LocalizeStringEvent UI_Info_ItemNameText;
@@ -36,6 +43,8 @@ public class PlayerReadyDirector : MonoBehaviour
     public ItemDataObject Draging_Item;
 
     public bool HoldAndDragFlag;
+    public bool CheckFlag;
+    public bool mouseOnEquipedFlag;
     [HideInInspector]
     public float mouseHoldAndDragNotTime;
     [HideInInspector]
@@ -47,7 +56,12 @@ public class PlayerReadyDirector : MonoBehaviour
 
     void Start()
     {
-        DragItemCount = 0;
+        windowCount = 0;
+        UI_Window[0].SetActive(true);
+        UI_Window[1].SetActive(false);
+        UI_Window[2].SetActive(false);
+
+        DragItemCount = 0;      
         Instantiate_Item();
 
         int itemNum = 0;
@@ -78,6 +92,20 @@ public class PlayerReadyDirector : MonoBehaviour
 
     void Update()
     {
+        if (CheckFlag)
+        {
+            //true는 이미 작동 중이다.
+            if (!mouseOnEquipedFlag)
+            {
+                if (BeforeHoldItem.GetComponent<ItemEquip_Object>().EquipAndInventory)
+                {
+                    BeforeHoldItem.GetComponent<ItemEquip_Object>().Init_Item();
+                }
+            }
+            mouseOnEquipedFlag = false;
+            CheckFlag = false;
+        }
+
         if (HoldAndDragFlag)
         {
             if (mouseHoldAndDragNotTime < 0.001f)
@@ -95,7 +123,6 @@ public class PlayerReadyDirector : MonoBehaviour
     public void OpenItemCountWindow(ItemEquip_Object item, bool Flag)
     {
         Count_ItemEquipObjcet = item;
-        Debug.Log(Count_ItemEquipObjcet);
         UI_ItemIcon.sprite = Count_ItemEquipObjcet.item.Item_Sprite;
         UI_ItemCountSlider.minValue = 0;
         if (Count_ItemEquipObjcet.item.Max_Equip > Count_ItemEquipObjcet.item.Item_Count)
@@ -185,6 +212,8 @@ public class PlayerReadyDirector : MonoBehaviour
         UI_Info_ItemInformationText.StringReference.TableEntryReference = "Item_Information_" + itemNum;
     }
 
+
+
     //구매 및 판매시, 발동
     public void Check_Item()
     {
@@ -205,5 +234,46 @@ public class PlayerReadyDirector : MonoBehaviour
             Inventory_ItemObject.GetComponent<ItemEquip_Object>().SetSetting(item, drag, this);
             Instantiate(Inventory_ItemObject, Inventory_ItemList);
         }
+    }
+
+
+    //UI Change Button
+
+    public void NextButton()
+    {
+        if(windowCount < 2)
+        {
+            windowCount++;
+            UI_Window[windowCount - 1].SetActive(false);
+            UI_Window[windowCount].SetActive(true);
+        }
+        else
+        {
+            windowCount = 0;
+            UI_Window[2].SetActive(false);
+            UI_Window[0].SetActive(true);
+        }
+    }
+
+    public void PrevButton()
+    {
+        if(windowCount > 0)
+        {
+            windowCount--;
+            UI_Window[windowCount + 1].SetActive(false);
+            UI_Window[windowCount].SetActive(true);
+        }
+        else
+        {
+            windowCount = 2;
+            UI_Window[0].SetActive(false);
+            UI_Window[2].SetActive(true);
+        }
+    }
+
+    public void ItemTab_StartButton()
+    {
+        gameObject.SetActive(false);
+        UI_SubStageSelect.SetActive(true);
     }
 }

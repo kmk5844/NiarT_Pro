@@ -153,7 +153,7 @@ public class SubStage_Select : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         if (missionData.ReadyFlag)
         {
-            subStageSelectDirector.Open_ReadyTab();
+            subStageSelectDirector.Start_SelectSubStage();
         }
         else
         {

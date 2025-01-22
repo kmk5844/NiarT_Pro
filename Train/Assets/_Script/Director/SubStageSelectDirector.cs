@@ -13,7 +13,6 @@ public class SubStageSelectDirector : MonoBehaviour
     public SA_StageList stageList;
     public Quest_DataTable EX_QuestData;
     public SA_MissionData missionData;
-    Animator ani;
 
     MissionDataObject SelectSubStageData;
     int SelectSubStageNum;
@@ -43,7 +42,6 @@ public class SubStageSelectDirector : MonoBehaviour
     private void Start()
     {
         //itemListData = GetComponent<Station_ItemData>();
-        ani = GetComponent<Animator>();
         selectNum = -1;
 
         UI_MainStageText.text = "Stage" + (playerData.Select_Stage + 1);
@@ -80,18 +78,6 @@ public class SubStageSelectDirector : MonoBehaviour
         SelectSubStageNum = mission.SubStage_Num;
         playerData.SA_SelectSubStage(SelectSubStageNum);
         SpecialStage_Check();
-    }
-
-    public void Open_ReadyTab()
-    {
-        ani.SetBool("Select",true);
-        ani.SetTrigger("AniTrigger");
-    }
-
-    public void Open_SelectSubStage()
-    {
-        ani.SetBool("Select", false);
-        ani.SetTrigger("AniTrigger");
     }
 
     public void Open_SpecialStage()

@@ -129,12 +129,18 @@ public class ItemEquip_Object : MonoBehaviour
     {
         if (EquipAndInventory && playerReadyDirector.Draging_Item != null)
         {
-            if (playerReadyDirector.DragItemCount < 1)
+            item = playerReadyDirector.Draging_Item;
+            Item_DragImage = playerReadyDirector.DragingItemObject;
+
+            if (playerReadyDirector.HoldAndDragFlag)
+            {
+                playerReadyDirector.DragItemCount++;
+                playerReadyDirector.mouseOnEquipedFlag = true;
+            }
+
+            if (playerReadyDirector.DragItemCount == 3)
             {
                 playerReadyDirector.EndHoldItem = this.gameObject;
-
-                item = playerReadyDirector.Draging_Item;
-                Item_DragImage = playerReadyDirector.DragingItemObject;
                 playerReadyDirector.OpenItemCountWindow(this, true);
                 playerReadyDirector.DragItemCount++;
             }
@@ -166,7 +172,11 @@ public class ItemEquip_Object : MonoBehaviour
         if (item != playerReadyDirector.EmptyItemObject)
         {
             mouseHold = true;
+
             playerReadyDirector.BeforeHoldItem = this.gameObject;
+            playerReadyDirector.DragItemCount = 0;
+
+            playerReadyDirector.DragItemCount++; // +1
         }
     }
 
@@ -175,14 +185,22 @@ public class ItemEquip_Object : MonoBehaviour
         mouseHoldTime = 0;
         playerReadyDirector.HoldAndDragFlag = true;
         playerReadyDirector.mouseHoldAndDragNotTime = 0f;
-        playerReadyDirector.DragItemCount = 0;
 
         if (Item_DragImage != null)
         {
             Item_DragImage.SetActive(false);
         }
 
+        playerReadyDirector.DragItemCount++; // +1
+        StartCoroutine(CheckDelay());
+
         mouseHold = false;
         mouseDrag = false;
+    }
+
+    IEnumerator CheckDelay()
+    {
+        yield return new WaitForSeconds(0.00001f);
+        playerReadyDirector.CheckFlag = true;
     }
 }
