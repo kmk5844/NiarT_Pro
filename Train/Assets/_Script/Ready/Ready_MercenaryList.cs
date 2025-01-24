@@ -18,12 +18,21 @@ public class Ready_MercenaryList : MonoBehaviour
     int mercenary_pride_Upgrade;
     public Button[] MercenaryButtonList;
     TextMeshProUGUI[] MercenaryButtonList_Text;
+    Sprite mer_sprite;
 
     public bool BuyFlag;
 
+    //드래그 드랍 전용
+    public GameObject MercenaryDragObject_List;
+    float mouseHoldTime;
+    bool holdCheckFlag;
+    bool MouseHold;
+    bool mouseDrag;
+
     private void Start()
     {
-        Mercenary_Image.sprite = Resources.Load<Sprite>("Sprite/Mercenary/" + Mercenary_Num);
+        mer_sprite = Resources.Load<Sprite>("Sprite/Mercenary/" + Mercenary_Num);
+        Mercenary_Image.sprite = mer_sprite;
         mercenary_pride_Buy = mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].Mercenary_Pride;
 
         MercenaryButtonList_Text = new TextMeshProUGUI[MercenaryButtonList.Length];
@@ -35,6 +44,28 @@ public class Ready_MercenaryList : MonoBehaviour
 
         mercenary_pride_Upgrade = mercenaryData.Check_Cost_Mercenary(Mercenary_Num);
         Mercenary_Button_Check();
+    }
+
+    private void Update()
+    {
+        if (MouseHold)
+        {
+            mouseHoldTime += Time.deltaTime;
+        }
+
+        if (!mouseDrag)
+        {
+            if (mouseHoldTime > 0.1f)
+            {
+                mouseDrag = true;
+                MercenaryDragObject_List.GetComponent<Image>().sprite = mer_sprite;
+                MercenaryDragObject_List.SetActive(true);
+            }
+        }
+        else
+        {
+            MercenaryDragObject_List.transform.position = Input.mousePosition;
+        }
     }
 
     public void ChangeState(int num)
@@ -127,5 +158,23 @@ public class Ready_MercenaryList : MonoBehaviour
             MercenaryButtonList[2].interactable = false;
             MercenaryButtonList_Text[2].text = "X";
         }
+    }
+
+    public void OnMouseDown()
+    {
+        if (BuyFlag)
+        {
+            MouseHold = true;
+            Director.MercenaryLIst_Mercenary_Num = Mercenary_Num;
+        }
+    }
+
+    public void OnMouseUp()
+    {
+        mouseHoldTime = 0f;
+        MercenaryDragObject_List.SetActive(false);
+        Director.MercenaryChange();
+        MouseHold = false;
+        mouseDrag = false;
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -7,6 +8,7 @@ using UnityEngine.UI;
 
 public class PlayerReadyDirector : MonoBehaviour
 {
+    public Station_TrainData trainData;
     public Station_PlayerData playerData;
     public Station_ItemData itemListData;
     public Station_MercenaryData MercenaryData;
@@ -23,7 +25,16 @@ public class PlayerReadyDirector : MonoBehaviour
     public GameObject MercenaryList_Ride_Object;
     public GameObject MercenaryList_Object;
 
+
+    public List<Ready_MercenaryList_Ride> __LIST__MercenaryList_Ride_Object;
     public List<GameObject> __LIST__MercenaryList_Object;
+    TMP_Dropdown DropDown_EngineDriver_Type;
+    TMP_Dropdown DropDown_Bard_Type;
+
+    [Header("µå·¡±×")]
+    public GameObject MercenaryDragObject_Director;
+    public int MercenaryLIst_Mercenary_Num;
+    public int Mercenary_Ride_List_Index;
 
     [Header("----------------Item------------------")]
     [Space(10)]
@@ -73,6 +84,9 @@ public class PlayerReadyDirector : MonoBehaviour
         UI_Window[2].SetActive(false);
 
         //Mercenary
+        MercenaryLIst_Mercenary_Num = -5;
+        Mercenary_Ride_List_Index = -5;
+        Instantiate_MercenaryList_Ride_Object();
         Instantiate_MercenaryList_Object();
 
         //Item
@@ -115,11 +129,50 @@ public class PlayerReadyDirector : MonoBehaviour
         }
     }
     //--------------------------------------------------Mercenary
+
+    void Instantiate_MercenaryList_Ride_Object()
+    {
+        int MaxMercenary = trainData.Level_Train_MaxMercenary + 1;
+        MercenaryList_Ride_Object.GetComponent<Ready_MercenaryList_Ride>().Director = this;
+        MercenaryList_Ride_Object.GetComponent<Ready_MercenaryList_Ride>().mercenaryData = MercenaryData;
+        List<int> Mercenary_NumList = MercenaryData.SA_MercenaryData.Mercenary_Num;
+        GameObject M_L_R_Object;
+        for (int i = 0; i < MaxMercenary; i++)
+        {
+            MercenaryList_Ride_Object.GetComponent<Ready_MercenaryList_Ride>().List_Index = i;
+            if (i < Mercenary_NumList.Count)
+            {
+                MercenaryList_Ride_Object.GetComponent<Ready_MercenaryList_Ride>().Mercenary_Num = Mercenary_NumList[i];
+                M_L_R_Object = Instantiate(MercenaryList_Ride_Object, MercenaryList_Ride_Transform);
+
+                if (Mercenary_NumList[i] == 0)
+                {
+                    DropDown_EngineDriver_Type = M_L_R_Object.GetComponent<Ready_MercenaryList_Ride>().dropDown.GetComponent<TMP_Dropdown>();
+                    DropDown_EngineDriver_Type.onValueChanged.AddListener(Mercenary_Position_EngineDriver_DropDown);
+
+                }else if (Mercenary_NumList[i] == 5)
+                {
+                    DropDown_Bard_Type = M_L_R_Object.GetComponent<Ready_MercenaryList_Ride>().dropDown.GetComponent<TMP_Dropdown>();
+                    DropDown_Bard_Type.onValueChanged.AddListener(Mercenary_Position_Bard_DropDown);
+                }
+            }
+            else
+            {
+                MercenaryData.SA_MercenaryData.SA_Mercenary_Num_Plus(-1);
+                MercenaryList_Ride_Object.GetComponent<Ready_MercenaryList_Ride>().Mercenary_Num = -1;
+                M_L_R_Object = Instantiate(MercenaryList_Ride_Object, MercenaryList_Ride_Transform);
+            }
+            __LIST__MercenaryList_Ride_Object.Add(M_L_R_Object.GetComponent<Ready_MercenaryList_Ride>());
+        }
+    }
+
+
     void Instantiate_MercenaryList_Object()
     {
         MercenaryList_Object.GetComponent<Ready_MercenaryList>().Director = this;
         MercenaryList_Object.GetComponent<Ready_MercenaryList>().playerData = playerData;
         MercenaryList_Object.GetComponent<Ready_MercenaryList>().mercenaryData = MercenaryData;
+        MercenaryList_Object.GetComponent<Ready_MercenaryList>().MercenaryDragObject_List = MercenaryDragObject_Director;
         foreach(int num in MercenaryData.Mercenary_Store_Num)
         {
             MercenaryList_Object.GetComponent<Ready_MercenaryList>().Mercenary_Num = num;
@@ -159,6 +212,27 @@ public class PlayerReadyDirector : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    public void MercenaryChange()
+    {
+        if(MercenaryLIst_Mercenary_Num!= -5 && Mercenary_Ride_List_Index != -5)
+        {
+            __LIST__MercenaryList_Ride_Object[Mercenary_Ride_List_Index].ChangeMercenary(MercenaryLIst_Mercenary_Num);
+            MercenaryData.SA_MercenaryData.SA_Mercenary_Change(Mercenary_Ride_List_Index, MercenaryLIst_Mercenary_Num);
+        }
+        MercenaryLIst_Mercenary_Num = -5;
+        Mercenary_Ride_List_Index = -5;
+    }
+
+    public void Mercenary_Position_EngineDriver_DropDown(int value)
+    {
+        MercenaryData.SA_MercenaryData.SA_Change_EngineDriver_Type(value);
+    }
+
+    public void Mercenary_Position_Bard_DropDown(int value)
+    {
+        MercenaryData.SA_MercenaryData.SA_Change_Bard_Type(value);
     }
 
     //--------------------------------------------------Item

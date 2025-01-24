@@ -126,6 +126,12 @@ public class SA_MercenaryData : ScriptableObject
         Save();
     }
 
+    public void SA_Mercenary_Change(int index, int MercenaryNum)
+    {
+        mercenary_num[index] = MercenaryNum;
+        Save();
+    }
+
     public void SA_Mercenary_Num_Remove(int i)
     {
         mercenary_num.Remove(i);
