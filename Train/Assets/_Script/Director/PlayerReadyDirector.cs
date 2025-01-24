@@ -7,12 +7,23 @@ using UnityEngine.UI;
 
 public class PlayerReadyDirector : MonoBehaviour
 {
+    public Station_PlayerData playerData;
     public Station_ItemData itemListData;
+    public Station_MercenaryData MercenaryData;
 
     [Header("UI_Window")]
     public GameObject[] UI_Window;
     int windowCount;
     public GameObject UI_SubStageSelect;
+
+    [Header("-------------Mercenary----------------")]
+    [Space(10)]
+    public Transform MercenaryList_Ride_Transform;
+    public Transform MercenaryList_Transform;
+    public GameObject MercenaryList_Ride_Object;
+    public GameObject MercenaryList_Object;
+
+    public List<GameObject> __LIST__MercenaryList_Object;
 
     [Header("----------------Item------------------")]
     [Space(10)]
@@ -61,37 +72,21 @@ public class PlayerReadyDirector : MonoBehaviour
         UI_Window[1].SetActive(false);
         UI_Window[2].SetActive(false);
 
-        DragItemCount = 0;      
-        Instantiate_Item();
+        //Mercenary
+        Instantiate_MercenaryList_Object();
 
-        int itemNum = 0;
-        for (int i = 0; i < 3; i++)
-        {
-            itemNum = itemListData.SA_Player_ItemData.Equiped_Item[i];
-            ItemDataObject equiped_item;
-            if (itemNum == -1)
-            {
-                equiped_item = itemListData.SA_Player_ItemData.EmptyObject;
-            }
-            else
-            {
-                equiped_item = itemListData.SA_ItemList.Item[itemNum];
-            }
-            Inventory_DragObject.GetComponent<Image>().sprite = equiped_item.Item_Sprite;
-            GameObject drag = Instantiate(Inventory_DragObject, Inventory_DragItemList);
-            drag.SetActive(false);
-            Equip_ItemObject[i].SetSetting(equiped_item, drag, this);
-        }
+        //Item
+        DragItemCount = 0;
         EmptyItemObject = itemListData.SA_Player_ItemData.EmptyObject;
-        UI_Info_ItemIcon.sprite = EmptyItemObject.Item_Sprite;
-        UI_Info_ItemNameText.StringReference.TableReference = "ItemData_Table_St";
-        UI_Info_ItemInformationText.StringReference.TableReference = "ItemData_Table_St";
-        UI_Info_ItemNameText.StringReference.TableEntryReference = "Item_Name_-1";
-        UI_Info_ItemInformationText.StringReference.TableEntryReference = "Item_Information_-1";
+        Instantiate_Item();
+        Instantiate_Equip_Item();
+        Init_Item_Information();
+
     }
 
     void Update()
     {
+        //--------------------------------------------------Item
         if (CheckFlag)
         {
             //true는 이미 작동 중이다.
@@ -119,6 +114,54 @@ public class PlayerReadyDirector : MonoBehaviour
             }
         }
     }
+    //--------------------------------------------------Mercenary
+    void Instantiate_MercenaryList_Object()
+    {
+        MercenaryList_Object.GetComponent<Ready_MercenaryList>().Director = this;
+        MercenaryList_Object.GetComponent<Ready_MercenaryList>().playerData = playerData;
+        MercenaryList_Object.GetComponent<Ready_MercenaryList>().mercenaryData = MercenaryData;
+        foreach(int num in MercenaryData.Mercenary_Store_Num)
+        {
+            MercenaryList_Object.GetComponent<Ready_MercenaryList>().Mercenary_Num = num;
+            if (MercenaryData.SA_MercenaryData.Mercenary_Buy_Num.Contains(num) == true)
+            {
+                MercenaryList_Object.GetComponent<Ready_MercenaryList>().BuyFlag = true;
+            }
+            else
+            {
+                MercenaryList_Object.GetComponent<Ready_MercenaryList>().BuyFlag = false;
+            }
+            GameObject M_L_Object = Instantiate(MercenaryList_Object, MercenaryList_Transform);
+            M_L_Object.name = num.ToString();
+            __LIST__MercenaryList_Object.Add(M_L_Object);
+        }
+    }
+
+    public void Click_MercenaryList_State(int num)
+    {
+        switch (num) { 
+            case 0:
+                foreach (GameObject list_obj in __LIST__MercenaryList_Object)
+                {
+                    list_obj.GetComponent<Ready_MercenaryList>().ChangeState(0);
+                }
+                break;
+            case 1:
+                foreach (GameObject list_obj in __LIST__MercenaryList_Object)
+                {
+                    list_obj.GetComponent<Ready_MercenaryList>().ChangeState(1);
+                }
+                break;
+            case 2:
+                foreach (GameObject list_obj in __LIST__MercenaryList_Object)
+                {
+                    list_obj.GetComponent<Ready_MercenaryList>().ChangeState(2);
+                }
+                break;
+        }
+    }
+
+    //--------------------------------------------------Item
 
     public void OpenItemCountWindow(ItemEquip_Object item, bool Flag)
     {
@@ -212,18 +255,6 @@ public class PlayerReadyDirector : MonoBehaviour
         UI_Info_ItemInformationText.StringReference.TableEntryReference = "Item_Information_" + itemNum;
     }
 
-
-
-    //구매 및 판매시, 발동
-    public void Check_Item()
-    {
-        foreach (ItemEquip_Object item in Inventory_ItemList.GetComponentsInChildren<ItemEquip_Object>())
-        {
-            Destroy(item.gameObject);
-        }
-        Instantiate_Item();
-    }
-
     private void Instantiate_Item()
     {
         foreach (ItemDataObject item in itemListData.Equipment_Inventory_ItemList)
@@ -234,6 +265,47 @@ public class PlayerReadyDirector : MonoBehaviour
             Inventory_ItemObject.GetComponent<ItemEquip_Object>().SetSetting(item, drag, this);
             Instantiate(Inventory_ItemObject, Inventory_ItemList);
         }
+    }
+
+    void Instantiate_Equip_Item()
+    {
+        int itemNum = 0;
+        for (int i = 0; i < 3; i++)
+        {
+            itemNum = itemListData.SA_Player_ItemData.Equiped_Item[i];
+            ItemDataObject equiped_item;
+            if (itemNum == -1)
+            {
+                equiped_item = itemListData.SA_Player_ItemData.EmptyObject;
+            }
+            else
+            {
+                equiped_item = itemListData.SA_ItemList.Item[itemNum];
+            }
+            Inventory_DragObject.GetComponent<Image>().sprite = equiped_item.Item_Sprite;
+            GameObject drag = Instantiate(Inventory_DragObject, Inventory_DragItemList);
+            drag.SetActive(false);
+            Equip_ItemObject[i].SetSetting(equiped_item, drag, this);
+        }
+    }
+
+    void Init_Item_Information()
+    {
+        UI_Info_ItemIcon.sprite = EmptyItemObject.Item_Sprite;
+        UI_Info_ItemNameText.StringReference.TableReference = "ItemData_Table_St";
+        UI_Info_ItemInformationText.StringReference.TableReference = "ItemData_Table_St";
+        UI_Info_ItemNameText.StringReference.TableEntryReference = "Item_Name_-1";
+        UI_Info_ItemInformationText.StringReference.TableEntryReference = "Item_Information_-1";
+    }
+
+    //구매 및 판매시, 발동
+    public void Check_Item()
+    {
+        foreach (ItemEquip_Object item in Inventory_ItemList.GetComponentsInChildren<ItemEquip_Object>())
+        {
+            Destroy(item.gameObject);
+        }
+        Instantiate_Item();
     }
 
 
@@ -275,5 +347,11 @@ public class PlayerReadyDirector : MonoBehaviour
     {
         gameObject.SetActive(false);
         UI_SubStageSelect.SetActive(true);
+    }
+
+    //구매 시, 코인 변경 체크
+    public void check_PlayerCoin()
+    {
+        Debug.Log("코인 변경 및 체크");
     }
 }
