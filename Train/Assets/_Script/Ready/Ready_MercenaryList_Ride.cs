@@ -43,7 +43,7 @@ public class Ready_MercenaryList_Ride : MonoBehaviour
         Mercenary_Image.sprite = Resources.Load<Sprite>("Sprite/Mercenary/" + Mercenary_Num);
         Mercenary_Name.StringReference.TableEntryReference = "Mercenary_Name_" + Mercenary_Num;
 
-        if (Mercenary_Num == -1 || !mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].DropDown)
+        if (Mercenary_Num == -1 || !mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].Passive)
         {
             dropDown.SetActive(false);
         }
@@ -58,7 +58,7 @@ public class Ready_MercenaryList_Ride : MonoBehaviour
     {
         if(Mercenary_Num != -1)
         {
-            if (mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].DropDown)
+            if (mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].Passive)
             {
                 if (Local_Index != SA_LocalData.Local_Index)
                 {
@@ -80,11 +80,12 @@ public class Ready_MercenaryList_Ride : MonoBehaviour
 
     public void ChangeMercenary(int Mer_Num)
     {
+        int Before_Mercenary_Num = Mercenary_Num;
         Mercenary_Num = Mer_Num;
         Mercenary_Image.sprite = Resources.Load<Sprite>("Sprite/Mercenary/" + Mercenary_Num);
         Mercenary_Name.StringReference.TableEntryReference = "Mercenary_Name_" + Mercenary_Num;
 
-        if (Mercenary_Num == -1 || !mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].DropDown)
+        if (Mercenary_Num == -1 || !mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].Passive)
         {
             dropDown.SetActive(false);
         }
@@ -93,13 +94,17 @@ public class Ready_MercenaryList_Ride : MonoBehaviour
             DropDown_Option(mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].Type);
             dropDown.SetActive(true);
         }
+        mercenaryData.SA_MercenaryData.SA_Mercenary_Change(List_Index, Mer_Num);
+        Director.Check_MercenaryList(Before_Mercenary_Num);
+        Director.Check_Mercenary_Max();
     }
 
     private void DropDown_Option(string M_type)
     {
+        dropDown.GetComponent<TMP_Dropdown>().ClearOptions();
         TMP_Dropdown options = dropDown.GetComponent<TMP_Dropdown>();
         List<string> optionList = new List<string>();
-
+        Director.ChangeDrowDown_Option(options, M_type);
         switch (M_type)
         {
             case "Engine_Driver":
@@ -118,6 +123,7 @@ public class Ready_MercenaryList_Ride : MonoBehaviour
                 break;
         }
     }
+
     private void DropDown_Option_Change(string M_type)
     {
         TMP_Dropdown options = dropDown.GetComponent<TMP_Dropdown>();
@@ -148,7 +154,6 @@ public class Ready_MercenaryList_Ride : MonoBehaviour
     public void Mercenary_Quit_Button()
     {
         ChangeMercenary(-1);
-        mercenaryData.SA_MercenaryData.SA_Mercenary_Change(List_Index, -1);
     }
 
     public void OnMouseEnter()

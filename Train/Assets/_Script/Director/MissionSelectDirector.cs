@@ -40,10 +40,6 @@ public class MissionSelectDirector : MonoBehaviour
     public GameObject StationBackCheckWindow;
     public TextMeshProUGUI PlayerGold;
 
-    [Header("Option")]
-    public bool OptionFlag;
-    public GameObject Option;
-
     int count = 0;
 
     private void Awake()
@@ -86,7 +82,6 @@ public class MissionSelectDirector : MonoBehaviour
 
     private void Start()
     {
-        OptionFlag = false;
         if (!playerData.Mission_Playing)
         {
             missionselectAni.enabled = true;
@@ -100,22 +95,6 @@ public class MissionSelectDirector : MonoBehaviour
             SubStageSelectObject.SetActive(true);
         }
     }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (!OptionFlag)
-            {
-                OpenOption_Button();
-            }
-            else
-            {
-                CloseOption_Button();
-            }
-        }
-    }
-
     public IEnumerator MissionDataSet()
     {
         GameObject game_obj = Instantiate(SelectMissionObject);
@@ -132,17 +111,6 @@ public class MissionSelectDirector : MonoBehaviour
         SubStageSelectObject.SetActive(true);
     }
 
-    public void OpenOption_Button()
-    {
-        OptionFlag = true;
-        Option.SetActive(true);
-    }
-
-    public void CloseOption_Button()
-    {
-        OptionFlag = false;
-        Option.SetActive(false);
-    }
 
     public void OpenBUutton_Station()
     {

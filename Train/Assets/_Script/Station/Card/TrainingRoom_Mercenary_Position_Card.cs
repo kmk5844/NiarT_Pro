@@ -43,7 +43,7 @@ public class TrainingRoom_Mercenary_Position_Card : MonoBehaviour
 
         Mercenary_Max_Count = mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].Max_Mercenary;
 
-        if (!mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].DropDown)
+        if (!mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].Passive)
         {
             dropDown.SetActive(false);
         }
@@ -66,7 +66,7 @@ public class TrainingRoom_Mercenary_Position_Card : MonoBehaviour
 
     private void Update()
     {
-        if (mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].DropDown)
+        if (mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].Passive)
         {
             if (Local_Index != SA_LocalData.Local_Index)
             {

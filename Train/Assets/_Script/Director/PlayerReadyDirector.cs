@@ -5,6 +5,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Localization.Components;
 using UnityEngine.UI;
+using static PixelCrushers.DialogueSystem.ActOnDialogueEvent;
+using static UnityEditor.Progress;
 
 public class PlayerReadyDirector : MonoBehaviour
 {
@@ -18,6 +20,11 @@ public class PlayerReadyDirector : MonoBehaviour
     int windowCount;
     public GameObject UI_SubStageSelect;
 
+    [Header("-----------------UI-------------------")]
+    public GameObject OptionObject;
+    bool Option_Flag;
+
+
     [Header("-------------Mercenary----------------")]
     [Space(10)]
     public Transform MercenaryList_Ride_Transform;
@@ -25,16 +32,23 @@ public class PlayerReadyDirector : MonoBehaviour
     public GameObject MercenaryList_Ride_Object;
     public GameObject MercenaryList_Object;
 
-
     public List<Ready_MercenaryList_Ride> __LIST__MercenaryList_Ride_Object;
-    public List<GameObject> __LIST__MercenaryList_Object;
-    TMP_Dropdown DropDown_EngineDriver_Type;
-    TMP_Dropdown DropDown_Bard_Type;
+    public List<Ready_MercenaryList> __LIST__MercenaryList_Object;
+    TMP_Dropdown dropDown;
 
     [Header("드래그")]
     public GameObject MercenaryDragObject_Director;
     public int MercenaryLIst_Mercenary_Num;
     public int Mercenary_Ride_List_Index;
+
+    [Header("정보")]
+    public GameObject Mercenary_Information_Object;
+    bool Mercenary_Information_Flag;
+    public TextMeshProUGUI GoldText;
+    public TextMeshProUGUI RideText;
+
+    public GameObject Mercenary_GoldBen_Object;
+    bool Mercenary_GoldBen_Flag;
 
     [Header("----------------Item------------------")]
     [Space(10)]
@@ -78,16 +92,19 @@ public class PlayerReadyDirector : MonoBehaviour
 
     void Start()
     {
+        Option_Flag = false;
         windowCount = 0;
         UI_Window[0].SetActive(true);
         UI_Window[1].SetActive(false);
         UI_Window[2].SetActive(false);
 
         //Mercenary
+        Check_PlayerCoin();
         MercenaryLIst_Mercenary_Num = -5;
         Mercenary_Ride_List_Index = -5;
         Instantiate_MercenaryList_Ride_Object();
         Instantiate_MercenaryList_Object();
+        Check_Mercenary_Max();
 
         //Item
         DragItemCount = 0;
@@ -100,6 +117,30 @@ public class PlayerReadyDirector : MonoBehaviour
 
     void Update()
     {
+        //--------------------------------------------------UI
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (Mercenary_Information_Flag)
+            {
+                Click_Close_Mercenary_Information();
+            }else if (Mercenary_GoldBen_Flag)
+            {
+                Close_Mercenary_GoldBne_Window();
+            }
+            else
+            {
+                if (!Option_Flag)
+                {
+                    OpenOption_Button();
+                }
+                else
+                {
+                    CloseOption_Button();
+                }
+            }
+
+        }
+
         //--------------------------------------------------Item
         if (CheckFlag)
         {
@@ -144,16 +185,15 @@ public class PlayerReadyDirector : MonoBehaviour
             {
                 MercenaryList_Ride_Object.GetComponent<Ready_MercenaryList_Ride>().Mercenary_Num = Mercenary_NumList[i];
                 M_L_R_Object = Instantiate(MercenaryList_Ride_Object, MercenaryList_Ride_Transform);
+                dropDown = M_L_R_Object.GetComponent<Ready_MercenaryList_Ride>().dropDown.GetComponent<TMP_Dropdown>();
 
                 if (Mercenary_NumList[i] == 0)
                 {
-                    DropDown_EngineDriver_Type = M_L_R_Object.GetComponent<Ready_MercenaryList_Ride>().dropDown.GetComponent<TMP_Dropdown>();
-                    DropDown_EngineDriver_Type.onValueChanged.AddListener(Mercenary_Position_EngineDriver_DropDown);
+                    dropDown.onValueChanged.AddListener(Mercenary_Position_EngineDriver_DropDown);
 
                 }else if (Mercenary_NumList[i] == 5)
                 {
-                    DropDown_Bard_Type = M_L_R_Object.GetComponent<Ready_MercenaryList_Ride>().dropDown.GetComponent<TMP_Dropdown>();
-                    DropDown_Bard_Type.onValueChanged.AddListener(Mercenary_Position_Bard_DropDown);
+                    dropDown.onValueChanged.AddListener(Mercenary_Position_Bard_DropDown);
                 }
             }
             else
@@ -166,14 +206,13 @@ public class PlayerReadyDirector : MonoBehaviour
         }
     }
 
-
     void Instantiate_MercenaryList_Object()
     {
         MercenaryList_Object.GetComponent<Ready_MercenaryList>().Director = this;
         MercenaryList_Object.GetComponent<Ready_MercenaryList>().playerData = playerData;
         MercenaryList_Object.GetComponent<Ready_MercenaryList>().mercenaryData = MercenaryData;
         MercenaryList_Object.GetComponent<Ready_MercenaryList>().MercenaryDragObject_List = MercenaryDragObject_Director;
-        foreach(int num in MercenaryData.Mercenary_Store_Num)
+        foreach (int num in MercenaryData.Mercenary_Store_Num)
         {
             MercenaryList_Object.GetComponent<Ready_MercenaryList>().Mercenary_Num = num;
             if (MercenaryData.SA_MercenaryData.Mercenary_Buy_Num.Contains(num) == true)
@@ -186,29 +225,29 @@ public class PlayerReadyDirector : MonoBehaviour
             }
             GameObject M_L_Object = Instantiate(MercenaryList_Object, MercenaryList_Transform);
             M_L_Object.name = num.ToString();
-            __LIST__MercenaryList_Object.Add(M_L_Object);
+            __LIST__MercenaryList_Object.Add(M_L_Object.GetComponent<Ready_MercenaryList>());
         }
     }
 
     public void Click_MercenaryList_State(int num)
     {
-        switch (num) { 
+        switch (num) {
             case 0:
-                foreach (GameObject list_obj in __LIST__MercenaryList_Object)
+                foreach (Ready_MercenaryList list_obj in __LIST__MercenaryList_Object)
                 {
-                    list_obj.GetComponent<Ready_MercenaryList>().ChangeState(0);
+                    list_obj.ChangeState(0);
                 }
                 break;
             case 1:
-                foreach (GameObject list_obj in __LIST__MercenaryList_Object)
+                foreach (Ready_MercenaryList list_obj in __LIST__MercenaryList_Object)
                 {
-                    list_obj.GetComponent<Ready_MercenaryList>().ChangeState(1);
+                    list_obj.ChangeState(1);
                 }
                 break;
             case 2:
-                foreach (GameObject list_obj in __LIST__MercenaryList_Object)
+                foreach (Ready_MercenaryList list_obj in __LIST__MercenaryList_Object)
                 {
-                    list_obj.GetComponent<Ready_MercenaryList>().ChangeState(2);
+                    list_obj.ChangeState(2);
                 }
                 break;
         }
@@ -216,13 +255,55 @@ public class PlayerReadyDirector : MonoBehaviour
 
     public void MercenaryChange()
     {
-        if(MercenaryLIst_Mercenary_Num!= -5 && Mercenary_Ride_List_Index != -5)
+        if (MercenaryLIst_Mercenary_Num != -5 && Mercenary_Ride_List_Index != -5)
         {
             __LIST__MercenaryList_Ride_Object[Mercenary_Ride_List_Index].ChangeMercenary(MercenaryLIst_Mercenary_Num);
-            MercenaryData.SA_MercenaryData.SA_Mercenary_Change(Mercenary_Ride_List_Index, MercenaryLIst_Mercenary_Num);
+            //MercenaryData.SA_MercenaryData.SA_Mercenary_Change(Mercenary_Ride_List_Index, MercenaryLIst_Mercenary_Num);
         }
         MercenaryLIst_Mercenary_Num = -5;
         Mercenary_Ride_List_Index = -5;
+    }
+
+    public void ChangeDrowDown_Option(TMP_Dropdown _dropDown, string M_type)
+    {
+        switch (M_type)
+        {
+            case "Engine_Driver":
+                _dropDown.onValueChanged.RemoveAllListeners();
+                _dropDown.onValueChanged.AddListener(Mercenary_Position_EngineDriver_DropDown);
+                break;
+            case "Bard":
+                _dropDown.onValueChanged.RemoveAllListeners();
+                _dropDown.onValueChanged.AddListener(Mercenary_Position_Bard_DropDown);
+                break;
+            default:
+                _dropDown.onValueChanged.RemoveAllListeners();
+                break;
+        }
+    }
+
+    public void Click_Open_Mercenary_Information()
+    {
+        Mercenary_Information_Object.SetActive(true);
+        Mercenary_Information_Flag = true;
+    }
+
+    public void Click_Close_Mercenary_Information()
+    {
+        Mercenary_Information_Object.SetActive(false);
+        Mercenary_Information_Flag = false;
+    }
+
+    public void Open_Mercenary_GoldBen_Window()
+    {
+        Mercenary_GoldBen_Object.SetActive(true);
+        Mercenary_GoldBen_Flag = true;
+    }
+
+    public void Close_Mercenary_GoldBne_Window()
+    {
+        Mercenary_GoldBen_Object.SetActive(false);
+        Mercenary_GoldBen_Flag = false;
     }
 
     public void Mercenary_Position_EngineDriver_DropDown(int value)
@@ -233,6 +314,34 @@ public class PlayerReadyDirector : MonoBehaviour
     public void Mercenary_Position_Bard_DropDown(int value)
     {
         MercenaryData.SA_MercenaryData.SA_Change_Bard_Type(value);
+    }
+
+    public void Check_MercenaryList(int MercenaryNum)
+    {
+        if (MercenaryNum != -1)
+        {
+            __LIST__MercenaryList_Object[MercenaryNum].Check_PassiveFlag();
+        }
+    }
+
+    public void Check_PlayerCoin()
+    {
+        GoldText.text = playerData.Player_Coin.ToString();
+    }
+
+    public void Check_Mercenary_Max()
+    {
+        int count = 0;
+        for (int i = 0; i < __LIST__MercenaryList_Ride_Object.Count; i++)
+        {
+            if (__LIST__MercenaryList_Ride_Object[i].Mercenary_Num != -1)
+            {
+                count++;
+            }
+        }
+        int max = trainData.Level_Train_MaxMercenary + 1;
+
+        RideText.text = count + " / " + max;
     }
 
     //--------------------------------------------------Item
@@ -372,7 +481,7 @@ public class PlayerReadyDirector : MonoBehaviour
         UI_Info_ItemInformationText.StringReference.TableEntryReference = "Item_Information_-1";
     }
 
-    //구매 및 판매시, 발동
+    //아이템 구매 및 판매시, 발동
     public void Check_Item()
     {
         foreach (ItemEquip_Object item in Inventory_ItemList.GetComponentsInChildren<ItemEquip_Object>())
@@ -383,11 +492,13 @@ public class PlayerReadyDirector : MonoBehaviour
     }
 
 
+
+
     //UI Change Button
 
     public void NextButton()
     {
-        if(windowCount < 2)
+        if (windowCount < 2)
         {
             windowCount++;
             UI_Window[windowCount - 1].SetActive(false);
@@ -403,7 +514,7 @@ public class PlayerReadyDirector : MonoBehaviour
 
     public void PrevButton()
     {
-        if(windowCount > 0)
+        if (windowCount > 0)
         {
             windowCount--;
             UI_Window[windowCount + 1].SetActive(false);
@@ -423,9 +534,17 @@ public class PlayerReadyDirector : MonoBehaviour
         UI_SubStageSelect.SetActive(true);
     }
 
-    //구매 시, 코인 변경 체크
-    public void check_PlayerCoin()
+    public void OpenOption_Button()
     {
-        Debug.Log("코인 변경 및 체크");
+        Option_Flag = true;
+        OptionObject.SetActive(true);
     }
+
+    public void CloseOption_Button()
+    {
+        Option_Flag = false;
+        OptionObject.SetActive(false);
+    }
+
+
 }
