@@ -167,9 +167,9 @@ public class UseItem : MonoBehaviour
                 break;
             case 41:
                 player.Item_Player_Minus_HP(20);
-                StartCoroutine(player.Item_Player_SpeedUP(2f, 10));
-                StartCoroutine(player.Item_Player_AtkUP(15, 10));
-                StartCoroutine(player.Item_Player_AtkDelayDown(0.25f, 10));
+                StartCoroutine(player.Item_Player_SpeedUP(2f, 8));
+                StartCoroutine(player.Item_Player_AtkUP(10, 8));
+                StartCoroutine(player.Item_Player_AtkDelayDown(0.1f, 8));
                 break;
             case 42:
                 player.Item_Player_Spawn_Dron(1);

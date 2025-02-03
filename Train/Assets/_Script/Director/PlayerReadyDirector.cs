@@ -50,6 +50,10 @@ public class PlayerReadyDirector : MonoBehaviour
     public GameObject Mercenary_GoldBen_Object;
     bool Mercenary_GoldBen_Flag;
 
+    [Header("ÅøÆÁ")]
+    public GameObject Mercenary_Information_Tooltip;
+    public bool HoldAndDragFlag_Mercenary;
+
     [Header("----------------Item------------------")]
     [Space(10)]
     [Header("UI_ItemInformation")]
@@ -78,7 +82,7 @@ public class PlayerReadyDirector : MonoBehaviour
     public GameObject DragingItemObject;
     public ItemDataObject Draging_Item;
 
-    public bool HoldAndDragFlag;
+    public bool HoldAndDragFlag_Item;
     public bool CheckFlag;
     public bool mouseOnEquipedFlag;
     [HideInInspector]
@@ -156,7 +160,7 @@ public class PlayerReadyDirector : MonoBehaviour
             CheckFlag = false;
         }
 
-        if (HoldAndDragFlag)
+        if (HoldAndDragFlag_Item)
         {
             if (mouseHoldAndDragNotTime < 0.001f)
             {
@@ -165,12 +169,12 @@ public class PlayerReadyDirector : MonoBehaviour
             else
             {
                 Draging_Item = null;
-                HoldAndDragFlag = false;
+                HoldAndDragFlag_Item = false;
             }
         }
     }
-    //--------------------------------------------------Mercenary
 
+    //--------------------------------------------------Mercenary
     void Instantiate_MercenaryList_Ride_Object()
     {
         int MaxMercenary = trainData.Level_Train_MaxMercenary + 1;
@@ -178,6 +182,7 @@ public class PlayerReadyDirector : MonoBehaviour
         MercenaryList_Ride_Object.GetComponent<Ready_MercenaryList_Ride>().mercenaryData = MercenaryData;
         List<int> Mercenary_NumList = MercenaryData.SA_MercenaryData.Mercenary_Num;
         GameObject M_L_R_Object;
+        ResizeContent_RideContent(MaxMercenary);
         for (int i = 0; i < MaxMercenary; i++)
         {
             MercenaryList_Ride_Object.GetComponent<Ready_MercenaryList_Ride>().List_Index = i;
@@ -206,12 +211,19 @@ public class PlayerReadyDirector : MonoBehaviour
         }
     }
 
+    void ResizeContent_RideContent(int Count)
+    {
+        RectTransform ContentSize = MercenaryList_Ride_Transform.GetComponent<RectTransform>();
+        ContentSize.sizeDelta = new Vector2(-410 + (90 * Count), 130);
+    }
+
     void Instantiate_MercenaryList_Object()
     {
         MercenaryList_Object.GetComponent<Ready_MercenaryList>().Director = this;
         MercenaryList_Object.GetComponent<Ready_MercenaryList>().playerData = playerData;
         MercenaryList_Object.GetComponent<Ready_MercenaryList>().mercenaryData = MercenaryData;
         MercenaryList_Object.GetComponent<Ready_MercenaryList>().MercenaryDragObject_List = MercenaryDragObject_Director;
+        MercenaryList_Object.GetComponent<Ready_MercenaryList>().Information_Tooltip = Mercenary_Information_Tooltip;
         foreach (int num in MercenaryData.Mercenary_Store_Num)
         {
             MercenaryList_Object.GetComponent<Ready_MercenaryList>().Mercenary_Num = num;

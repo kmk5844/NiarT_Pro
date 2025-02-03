@@ -71,7 +71,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1122071986, guid: 41375cc0fd11ab34eba3efc103c8ddf7, type: 3}
+  m_Sprite: {fileID: 146730178, guid: e511b9a674d5cfe4dbd0a9a4d22b2afd, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -115,8 +115,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 23.5, y: 20}
-  m_SizeDelta: {x: 8, y: 8}
+  m_AnchoredPosition: {x: 15.9891, y: 20}
+  m_SizeDelta: {x: 20.0219, y: 8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4261486616630069706
 CanvasRenderer:
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '#'
+  m_text: LV.#
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -517,7 +517,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -18, y: -17.5}
-  m_SizeDelta: {x: 10, y: 10}
+  m_SizeDelta: {x: 5, y: 7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3995522017782705793
 CanvasRenderer:
@@ -994,7 +994,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 35, y: 35}
+  m_SizeDelta: {x: 32, y: 32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &139535048120923621
 CanvasRenderer:
@@ -1050,11 +1050,35 @@ MonoBehaviour:
   - eventID: 0
     callback:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 1405452614993491027}
+          m_TargetAssemblyTypeName: Ready_MercenaryList, Assembly-CSharp
+          m_MethodName: OnMouseEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - eventID: 1
     callback:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 1405452614993491027}
+          m_TargetAssemblyTypeName: Ready_MercenaryList, Assembly-CSharp
+          m_MethodName: OnMouseExit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   - eventID: 2
     callback:
       m_PersistentCalls:
@@ -1276,9 +1300,14 @@ MonoBehaviour:
   Mercenary_Image: {fileID: 6431108678708729560}
   Mercenary_Level_Text: {fileID: 5012494628055586701}
   Merceanary_TypeImage: {fileID: 1616741983709056365}
+  P_A_Sprite:
+  - {fileID: -337058557, guid: e511b9a674d5cfe4dbd0a9a4d22b2afd, type: 3}
+  - {fileID: -789598524, guid: e511b9a674d5cfe4dbd0a9a4d22b2afd, type: 3}
   MercenaryButtonList:
   - {fileID: 7062003288292007357}
   - {fileID: 3381094186744897321}
   - {fileID: 2902291341802771573}
   BuyFlag: 0
   MercenaryDragObject_List: {fileID: 0}
+  Information_Tooltip: {fileID: 0}
+  informationFlag: 0

@@ -148,7 +148,14 @@ public class Ready_MercenaryList_Ride : MonoBehaviour
 
     void Check_IndexNum()
     {
-        Num_Image.sprite = Num_Image_Sprite[List_Index];
+        try
+        {
+            Num_Image.sprite = Num_Image_Sprite[List_Index];
+        }
+        catch
+        {
+            Num_Image.sprite = Num_Image_Sprite[0];
+        }
     }
 
     public void Mercenary_Quit_Button()

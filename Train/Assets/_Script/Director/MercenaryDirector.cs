@@ -48,10 +48,20 @@ public class MercenaryDirector : MonoBehaviour
 
     void InGame_SpawnMercenary()
     {
+        bool checkFlag;
         for (int i = 0; i < Mercenary_Num.Count; i++)
         {
-            GameObject MercenaryObject = Instantiate(Resources.Load<GameObject>("MercenaryObject/" + Mercenary_Num[i]), Mercenary_List);
-            MercenaryObject.name = MercenaryObject.GetComponent<Mercenary>().Type.ToString();
+            checkFlag = false;
+            if(Mercenary_Num[i] != -1)
+            {
+                checkFlag = true;
+            }
+
+            if (checkFlag)
+            {
+                GameObject MercenaryObject = Instantiate(Resources.Load<GameObject>("MercenaryObject/" + Mercenary_Num[i]), Mercenary_List);
+                MercenaryObject.name = MercenaryObject.GetComponent<Mercenary>().Type.ToString();
+            }
         }
         Mercenary_Spawn_Flag = true;
     }

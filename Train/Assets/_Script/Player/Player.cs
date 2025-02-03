@@ -119,15 +119,8 @@ public class Player : MonoBehaviour
         jumpdistance = 1f;
 
         playerBullet = playerData.Bullet;
-        if(gamedirector.Select_Sub_Num == 0)
-        {
-            Player_HP = playerData.HP;
-        }
-        else
-        {
-            Player_HP = ES3.Load<int>("Player_Curret_HP");
-        }
-        Max_HP = playerData.HP;
+        Player_HP = playerData.HP;
+
         Player_Armor = playerData.Armor;
         Bullet_Atk = playerData.Atk;
         Bullet_Delay = playerData.Delay;
@@ -582,7 +575,15 @@ public class Player : MonoBehaviour
         Bullet_Atk = Bullet_Atk + (((Bullet_Atk * Level_Atk * 5)) / 100);
         Default_Atk = Bullet_Atk;
         Bullet_Delay = Bullet_Delay - (((Bullet_Delay * Level_AtkDelay)) / 200);
-        Player_HP = Player_HP + (((Player_HP * Level_HP) * 10) / 100);
+        Max_HP = Player_HP + (((Player_HP * Level_HP) * 10) / 100);
+        if (gamedirector.Select_Sub_Num == 0)
+        {
+            Player_HP = Max_HP;
+        }
+        else
+        {
+            Player_HP = ES3.Load<int>("Player_Curret_HP");
+        }
         Player_Armor = Player_Armor + (((Player_Armor * Level_Armor) * 10) / 100);
         moveSpeed = moveSpeed + (((moveSpeed * Level_Speed)) / 100);
     }

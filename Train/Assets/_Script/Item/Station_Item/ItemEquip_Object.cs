@@ -132,7 +132,7 @@ public class ItemEquip_Object : MonoBehaviour
             item = playerReadyDirector.Draging_Item;
             Item_DragImage = playerReadyDirector.DragingItemObject;
 
-            if (playerReadyDirector.HoldAndDragFlag)
+            if (playerReadyDirector.HoldAndDragFlag_Item)
             {
                 playerReadyDirector.DragItemCount++;
                 playerReadyDirector.mouseOnEquipedFlag = true;
@@ -183,7 +183,7 @@ public class ItemEquip_Object : MonoBehaviour
     public void OnMouseUp()
     {
         mouseHoldTime = 0;
-        playerReadyDirector.HoldAndDragFlag = true;
+        playerReadyDirector.HoldAndDragFlag_Item = true;
         playerReadyDirector.mouseHoldAndDragNotTime = 0f;
 
         if (Item_DragImage != null)
