@@ -18,7 +18,7 @@ public class Ready_MercenaryList_Ride : MonoBehaviour
     public int Mercenary_Num;
     public Image Num_Image;
     public LocalizeStringEvent Mercenary_Name;
-    public Image Mercenary_Image;
+    public Transform Mercenary_Sprite;
     public GameObject dropDown;
 
     [SerializeField]
@@ -40,7 +40,7 @@ public class Ready_MercenaryList_Ride : MonoBehaviour
     private void Start()
     {
         Check_IndexNum();
-        Mercenary_Image.sprite = Resources.Load<Sprite>("Sprite/Mercenary/" + Mercenary_Num);
+        Mercenary_Sprite.GetChild(Mercenary_Num + 1).gameObject.SetActive(true);
         Mercenary_Name.StringReference.TableEntryReference = "Mercenary_Name_" + Mercenary_Num;
 
         if (Mercenary_Num == -1 || !mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].Passive)
@@ -82,7 +82,8 @@ public class Ready_MercenaryList_Ride : MonoBehaviour
     {
         int Before_Mercenary_Num = Mercenary_Num;
         Mercenary_Num = Mer_Num;
-        Mercenary_Image.sprite = Resources.Load<Sprite>("Sprite/Mercenary/" + Mercenary_Num);
+        Mercenary_Sprite.GetChild(Before_Mercenary_Num + 1).gameObject.SetActive(false);
+        Mercenary_Sprite.GetChild(Mercenary_Num + 1).gameObject.SetActive(true);
         Mercenary_Name.StringReference.TableEntryReference = "Mercenary_Name_" + Mercenary_Num;
 
         if (Mercenary_Num == -1 || !mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].Passive)
