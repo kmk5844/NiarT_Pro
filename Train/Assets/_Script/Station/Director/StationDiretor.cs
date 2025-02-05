@@ -61,11 +61,14 @@ public class StationDirector : MonoBehaviour
     public Button Content_Fortress_Button;
     public Button Content_Store_Button;
     bool isMoving = false;
-    
+
     //2 : store
+    [Header("Click Lobby -> Store")]
+    public GameObject UI_Store;
+
     //3 : Fortress
     [Header("Click Lobby -> Store&Fortress")]
-    public GameObject UI_StoreAndFortress;
+    public GameObject UI_Fortress;
     public GameObject[] UI_Store_Window;
     public GameObject[] UI_Train_Lock_Panel;
     //public GameObject[] UI_Store_BackButton;
@@ -388,14 +391,12 @@ public class StationDirector : MonoBehaviour
                 break;
             case 2:
                 Director_Store.Check_AfterBuy_MercenaryCard();
-                Store_Fortress_Content.anchoredPosition = new Vector2(0, 0);
-                UI_StoreAndFortress.gameObject.SetActive(true);
+                UI_Store.gameObject.SetActive(true);
                 ui_num = 2;
                 Check_CoinAndPoint();
                 break;
             case 3:
-                Store_Fortress_Content.anchoredPosition = new Vector2(-1920, 0);
-                UI_StoreAndFortress.gameObject.SetActive(true);
+                UI_Fortress.gameObject.SetActive(true);
                 ui_num = 3;
                 Check_CoinAndPoint();
                 break;
@@ -566,13 +567,17 @@ public class StationDirector : MonoBehaviour
             TrainMaintenance_ToggleInit();
             UI_TrainMaintenance.gameObject.SetActive(false);
         }
-        else if (ui_num == 2 || ui_num == 3)
+        else if (ui_num == 2)
         {
-            ui_store_num = 0;
+            UI_Store.gameObject.SetActive(false);
+
+/*            ui_store_num = 0;
             Director_Store.Store_Train_Num = 0;
-            UI_StoreAndFortress.gameObject.SetActive(false);
             UI_Store_Window[0].GetComponent<RectTransform>().SetAsLastSibling();
-            UI_Fortress_Window[0].GetComponent<RectTransform>().SetAsLastSibling();
+            UI_Fortress_Window[0].GetComponent<RectTransform>().SetAsLastSibling();*/
+        }else if(ui_num == 3)
+        {
+            UI_Fortress.gameObject.SetActive(false);
         }
         else if(ui_num == 4)
         {

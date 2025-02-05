@@ -33,7 +33,7 @@ public class PassiveUpgrade_Tooltip : MonoBehaviour
     {
         if (TooltipFlag)
         {
-            transform.position = Input.mousePosition + new Vector3(80, 350, 0);
+            transform.position = Input.mousePosition + new Vector3(80, 0, 0);
         }
 
         if (rt.anchoredPosition.x + rt.sizeDelta.x > halfwidth)
