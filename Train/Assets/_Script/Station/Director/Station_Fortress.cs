@@ -25,6 +25,7 @@ public class Station_Fortress : MonoBehaviour
     [Header("플레이어 업그레이드 윈도우")]
     public LocalizeStringEvent Player_Name;
     public TextMeshProUGUI[] PlayerUP_Text;
+    public TextMeshProUGUI[] PlayerUPCost_Text;
     public Button [] PlayerUP_Button;
     int playerNum;
     int lockoff_playerNum;
@@ -89,8 +90,11 @@ public class Station_Fortress : MonoBehaviour
         Player_Name.StringReference.TableReference = "ExcelData_Table_St";
         Player_Name.StringReference.TableEntryReference = "Player_Name_" + playerNum;
         Player_Information_Text();
-        Player_Button_Text(true);
-        //용병 업그레이드 윈도우
+        for(int i = 0; i < 5; i++)
+        {
+            Player_Button_Text(i);
+        }
+/*        //용병 업그레이드 윈도우
         Check_Init_MecenaryUpgradeCard();
         Mercenary_Information_Upgarade_Object.SetActive(false);
         Mercenary_Material_Image.sprite = itemData.Mercenary_Material_object.Item_Sprite;
@@ -100,126 +104,70 @@ public class Station_Fortress : MonoBehaviour
         Mercenary_TotalNum = mercenaryData.SA_MercenaryData.Mercenary_Num.Count;
         Check_Init_MercenaryPositionCard();
         Mercenary_Position_List_Init_Card();
-        Mercenary_Position_Max_Text();
+        Mercenary_Position_Max_Text();*/
     }
 
     //플레이어 업그레이드
-    private void Player_Button_Text(bool All, int num = 0)
+    private void Player_Button_Text(int num)
     {
-        if (All)
+        if (playerData.Level_Player_Atk == playerData.Max_Player_Atk)
         {
-            if (playerData.Level_Player_Atk == playerData.Max_Player_Atk)
-            {
-                PlayerUP_Text[0].text = "Lv.MAX";
-                PlayerUP_Button[0].interactable = false;
-            }
-            else
-            {
-                PlayerUP_Text[0].text = "Lv." + playerData.Level_Player_Atk + " / " + playerData.Cost_Player_Atk + " G";
-            }
-
-            if (playerData.Level_Player_AtkDelay == playerData.Max_Player_AtkDelay)
-            {
-                PlayerUP_Text[1].text = "Lv.MAX";
-                PlayerUP_Button[1].interactable = false;
-            }
-            else
-            {
-                PlayerUP_Text[1].text = "Lv." + playerData.Level_Player_AtkDelay + " / " + playerData.Cost_Player_AtkDelay + " G";
-            }
-
-            if (playerData.Level_Player_HP == playerData.Max_Player_HP)
-            {
-                PlayerUP_Text[2].text = "Lv.MAX";
-                PlayerUP_Button[2].interactable = false;
-            }
-            else
-            {
-                PlayerUP_Text[2].text = "Lv." + playerData.Level_Player_HP + " / " + playerData.Cost_Player_HP + " G";
-            }
-
-            if (playerData.Level_Player_Armor == playerData.Max_Player_Armor)
-            {
-                PlayerUP_Text[3].text = "Lv.MAX";
-                PlayerUP_Button[3].interactable = false;
-            }
-            else
-            {
-                PlayerUP_Text[3].text = "Lv." + playerData.Level_Player_Armor + " / " + playerData.Cost_Player_Armor + " G";
-            }
-
-            if (playerData.Level_Player_Speed == playerData.Max_Player_Speed)
-            {
-                PlayerUP_Text[4].text = "Lv.MAX";
-                PlayerUP_Button[4].interactable = false;
-            }
-            else
-            {
-                PlayerUP_Text[4].text = "Lv." + playerData.Level_Player_Speed + " / " + playerData.Cost_Player_Speed + " G";
-            }
+            PlayerUP_Text[0].text = "MAX";
+            PlayerUPCost_Text[0].text = "----";
+            PlayerUP_Button[0].interactable = false;
         }
         else
         {
-            if (num == 0)
-            {
-                if (playerData.Level_Player_Atk == playerData.Max_Player_Atk)
-                {
-                    PlayerUP_Text[0].text = "Lv.MAX";
-                    PlayerUP_Button[0].interactable = false;
-                }
-                else
-                {
-                    PlayerUP_Text[0].text = "Lv." + playerData.Level_Player_Atk + " / " + playerData.Cost_Player_Atk + " G";
-                }
-            }
-            else if (num == 1)
-            {
-                if (playerData.Level_Player_AtkDelay == playerData.Max_Player_AtkDelay)
-                {
-                    PlayerUP_Text[1].text = "Lv.MAX";
-                    PlayerUP_Button[1].interactable = false;
-                }
-                else
-                {
-                    PlayerUP_Text[1].text = "Lv." + playerData.Level_Player_AtkDelay + " / " + playerData.Cost_Player_AtkDelay + " G";
-                }
-            }
-            else if (num == 2)
-            {
-                if (playerData.Level_Player_HP == playerData.Max_Player_HP)
-                {
-                    PlayerUP_Text[2].text = "Lv.MAX";
-                    PlayerUP_Button[2].interactable = false;
-                }
-                else
-                {
-                    PlayerUP_Text[2].text = "Lv." + playerData.Level_Player_HP + " / " + playerData.Cost_Player_HP + " G";
-                }
-            }
-            else if (num == 3)
-            {
-                if (playerData.Level_Player_Armor == playerData.Max_Player_Armor)
-                {
-                    PlayerUP_Text[3].text = "Lv.MAX";
-                    PlayerUP_Button[3].interactable = false;
-                }
-                else
-                {
-                    PlayerUP_Text[3].text = "Lv." + playerData.Level_Player_Armor + " / " + playerData.Cost_Player_Armor + " G";
-                }
-            }
-            else if (num == 4)
-            {
-                if (playerData.Level_Player_Speed == playerData.Max_Player_Speed)
-                {
-                    PlayerUP_Text[4].text = "Lv.MAX";
-                    PlayerUP_Button[4].interactable = false;
-                }
-                else
-                {
-                    PlayerUP_Text[4].text = "Lv." + playerData.Level_Player_Speed + " / " + playerData.Cost_Player_Speed + " G";
-                }
-            }
+            PlayerUP_Text[0].text = "Lv." + playerData.Level_Player_Atk;
+            PlayerUPCost_Text[0].text = playerData.Cost_Player_Atk + " G";
+        }
+
+        if (playerData.Level_Player_AtkDelay == playerData.Max_Player_AtkDelay)
+        {
+            PlayerUP_Text[1].text = "MAX";
+            PlayerUPCost_Text[1].text = "----";
+            PlayerUP_Button[1].interactable = false;
+        }
+        else
+        {
+            PlayerUP_Text[1].text = "Lv." + playerData.Level_Player_AtkDelay;
+            PlayerUPCost_Text[1].text = playerData.Cost_Player_AtkDelay + " G";
+        }
+
+        if (playerData.Level_Player_HP == playerData.Max_Player_HP)
+        {
+            PlayerUP_Text[2].text = "MAX";
+            PlayerUPCost_Text[2].text = "----";
+            PlayerUP_Button[2].interactable = false;
+        }
+        else
+        {
+            PlayerUP_Text[2].text = "Lv." + playerData.Level_Player_HP;
+            PlayerUPCost_Text[2].text = playerData.Cost_Player_HP + " G";
+        }
+
+        if (playerData.Level_Player_Armor == playerData.Max_Player_Armor)
+        {
+            PlayerUP_Text[3].text = "MAX";
+            PlayerUPCost_Text[3].text = "----";
+            PlayerUP_Button[3].interactable = false;
+        }
+        else
+        {
+            PlayerUP_Text[3].text = "Lv." + playerData.Level_Player_Armor;
+            PlayerUPCost_Text[3].text = playerData.Cost_Player_Armor + " G";
+        }
+
+        if (playerData.Level_Player_Speed == playerData.Max_Player_Speed)
+        {
+            PlayerUP_Text[4].text = "MAX";
+            PlayerUPCost_Text[4].text = "----";
+            PlayerUP_Button[4].interactable = false;
+        }
+        else
+        {
+            PlayerUP_Text[4].text = "Lv." + playerData.Level_Player_Speed;
+            PlayerUPCost_Text[4].text = playerData.Cost_Player_Speed + " G";
         }
     }
 
@@ -268,7 +216,7 @@ public class Station_Fortress : MonoBehaviour
             playerData.Player_Level_Up(i);
             Check_Player_Coin_Point();
             Player_Information_Text();
-            Player_Button_Text(false, i);
+            Player_Button_Text(i);
         }
         else
         {
@@ -798,7 +746,7 @@ public class Station_Fortress : MonoBehaviour
 
     private void Check_Player_Coin_Point()
     {
-        transform.GetComponentInParent<StationDirector>().Check_CoinAndPoint();
+        transform.GetComponentInParent<StationDirector>().Check_Coin();
     }
     private void Ban_Player_Coin_Point(bool Flag)
     {

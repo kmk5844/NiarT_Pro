@@ -80,6 +80,29 @@ public class Station_Store : MonoBehaviour
     public bool Store_BuyAndSell_Window_Flag;
     [HideInInspector]
     public bool ItemSellFlag;
+
+    //----------------------------------------------------------------------------
+    [Header("공통")]
+    public GameObject Click_ItemObject;
+    public TextMeshProUGUI Item_Name_Text;
+    public Image Item_Image;
+    public TextMeshProUGUI Item_Information_Text;
+    public GameObject CountObject;
+    int CountNum;
+    TextMeshProUGUI CountNum_Buy_Text;
+    public GameObject CountButton;
+    TextMeshProUGUI CountButton_Text;
+    
+
+    [Header("아이템 구매 체크")]
+    public GameObject BuyCheck_Window;
+    public TextMeshProUGUI BuyCheck_Text;
+    public GameObject BuyCheck_Ban_Window;
+
+    [Header("아이템 판매 체크")]
+    public GameObject SellCheck_Window;
+    public TextMeshProUGUI SellCheck_Text;
+
     private void Start()
     {
         playerData = Player_DataObject.GetComponent<Station_PlayerData>();
@@ -110,8 +133,11 @@ public class Station_Store : MonoBehaviour
         //아이템 판매하기
         Check_Init_ItemSell();
 
-        GetComponentInParent<StationDirector>().UI_Train_Lock_Panel[0].SetActive(Check_Part_Store_Lock(51));
-        GetComponentInParent<StationDirector>().UI_Train_Lock_Panel[1].SetActive(Check_Part_Store_Lock(52));
+        Setting_Count_Buy();
+
+
+/*        GetComponentInParent<StationDirector>().UI_Train_Lock_Panel[0].SetActive(Check_Part_Store_Lock(51));
+        GetComponentInParent<StationDirector>().UI_Train_Lock_Panel[1].SetActive(Check_Part_Store_Lock(52));*/
     }
 
     public bool Check_Part_Store_Lock(int num = -1)
@@ -315,7 +341,6 @@ public class Station_Store : MonoBehaviour
     private void Check_Init_ItemBuy()
     {
         ItemBuyList_Object.StoreDirector = GetComponent<Station_Store>();
-        ItemBuyList_Object.item_tooltip_object = ItemBuyTooltip_Object;
         foreach (ItemDataObject item in itemData.Store_Buy_itemList)
         {
             ItemBuyList_Object.item = item;
@@ -350,7 +375,7 @@ public class Station_Store : MonoBehaviour
                 {
                     ItemSellList_Object.item = item;
                     ItemSellList_Object.StoreDirector = GetComponent<Station_Store>();
-                    ItemSellList_Object.item_tooltip_object = ItemSellTooltip_Object;
+                    //ItemSellList_Object.item_tooltip_object = ItemSellTooltip_Object;
                     Instantiate(ItemSellList_Object, Item_Sell_Window.transform);
                 }
             }
@@ -368,7 +393,7 @@ public class Station_Store : MonoBehaviour
     private void Check_Init_ItemSell()
     {
         ItemSellList_Object.StoreDirector = GetComponent<Station_Store>();
-        ItemSellList_Object.item_tooltip_object = ItemSellTooltip_Object;
+        //ItemSellList_Object.item_tooltip_object = ItemSellTooltip_Object;
         int Total_ItemCount = 0;
         foreach(ItemDataObject item in itemData.Store_Sell_itemList)
         {
@@ -532,7 +557,7 @@ public class Station_Store : MonoBehaviour
         }
     }
 
-    public void Close_Buy_Window()
+/*    public void Close_Buy_Window()
     {
         Store_BuyAndSell_Window_Flag = false;
         Check_Buy_Panel.SetActive(false);
@@ -563,7 +588,7 @@ public class Station_Store : MonoBehaviour
             Button_ItemCount_Minus.onClick.RemoveAllListeners();
             Sell_AllButton.onClick.RemoveAllListeners();
         }
-    }
+    }*/
 
     private void Click_ItemCount_Plus(ItemDataObject item, bool Flag)
     {
@@ -670,7 +695,7 @@ public class Station_Store : MonoBehaviour
 
     private void Check_Player_Coin_Point()
     {
-        transform.GetComponentInParent<StationDirector>().Check_CoinAndPoint();
+        transform.GetComponentInParent<StationDirector>().Check_Coin();
     }
 
     private void Ban_Player_Coin_Point(bool Flag)
@@ -684,5 +709,226 @@ public class Station_Store : MonoBehaviour
         StoreTooltip_Object.Tooltip_Off();
         ItemBuyTooltip_Object.Tooltip_Off(); 
         ItemSellTooltip_Object.Tooltip_Off(); 
+    }
+
+    //----------------------------------------------------------------------------\
+    void Setting_Count_Buy()
+    {
+        Init_Information();
+        CountNum_Buy_Text = CountObject.GetComponentInChildren<TextMeshProUGUI>();
+        CountButton_Text = CountButton.GetComponentInChildren<TextMeshProUGUI>();
+        CountNum = 1;
+        Change_CountNum_Buy_Text();
+    }
+
+    public void Set_ButtonText()
+    {
+        if (stationDirector.UI_Store_BuyAndSell_Flag)
+        {
+            CountButton_Text.text = "구매";
+        }
+        else
+        {
+            CountButton_Text.text = "판매";
+        }
+    }
+
+    public void Click_ItemCheck(GameObject item, bool flag)
+    {
+        Cancel_SelectItem();
+        Click_ItemObject = item;
+        ItemDataObject itemData;
+        if (flag)
+        {
+            itemData = item.GetComponent<ItemBuy_Object>().item;
+        }
+        else
+        {
+            itemData = item.GetComponent<ItemSell_Object>().item;
+        }
+        Item_Name_Text.text = itemData.name;
+        Item_Image.sprite = itemData.Item_Sprite;
+        Item_Information_Text.text = itemData.Item_Information;
+        CountButton_On();
+    }
+
+    void CountButton_On()
+    {
+        if (!CountObject.activeSelf)
+        {
+            CountObject.SetActive(true);
+            CountButton.SetActive(true);
+        }
+        CountNum = 1;
+        Change_CountNum_Buy_Text();
+    }
+
+    void Change_CountNum_Buy_Text()
+    {
+        CountNum_Buy_Text.text = CountNum.ToString(); 
+    }
+
+    public void Open_Check_Window()
+    {
+        if (stationDirector.UI_Store_BuyAndSell_Flag)
+        {
+            BuyCheck_Window.SetActive(true);
+            BuyCheck_Text.text = CountNum + "개를 구매하시겠습니까?";
+        }
+        else
+        {
+            SellCheck_Window.SetActive(true);
+            SellCheck_Text.text = CountNum + "개를 판매하시겠습니까?";
+        }
+    }
+
+    public void Close_Buy_Window()
+    {
+        BuyCheck_Window.SetActive(false);
+    }
+
+    public void Open_Sell_Window()
+    {
+        SellCheck_Window.SetActive(true);
+        SellCheck_Text.text = CountNum + "개를 판매하시겠습니까?";
+    }
+
+    public void Close_Sell_Window()
+    {
+        SellCheck_Window.SetActive(false);
+    }
+
+    public void Click_ItemBuy()
+    {
+        bool itemAvailability = false;
+        ItemDataObject item = Click_ItemObject.GetComponent<ItemBuy_Object>().item;
+
+        if (playerData.Player_Coin >= item.Item_Buy_Pride * CountNum)
+        {
+            playerData.Player_Buy_Coin(item.Item_Buy_Pride * CountNum);
+            item.Item_Count_UP(CountNum);
+            itemData.Plus_Inventory_Item(item);
+            if (stationDirector.simplestationFlag)
+            {
+                stationDirector.Director_PlayerReadyDirector.itemListData.Plus_Inventory_Item(item);
+            }
+
+            {
+                foreach (ItemSell_Object Sell_Object in Item_Sell_Window.GetComponentsInChildren<ItemSell_Object>())
+                {
+                    if (Sell_Object.item == item) // 구매 시, 아이템 체크
+                    {
+                        itemAvailability = true;
+                        Sell_Object.Check_ItemCount();
+                        break;
+                    }
+                }
+                if (!itemAvailability)
+                {
+                    ItemSellList_Object.item = item;
+                    ItemSellList_Object.StoreDirector = GetComponent<Station_Store>();
+                    Instantiate(ItemSellList_Object, Item_Sell_Window.transform);
+                }
+            }
+            itemData.Check_ItemChangeFlag();
+            Check_Player_Coin_Point();
+            Cancel_SelectItem();
+            Init_Information();
+            Close_Buy_Window();
+        }
+        else
+        {
+            Ban_Player_Coin();
+        }
+    }
+
+    public void Click_ItemSell()
+    {
+        ItemDataObject item = Click_ItemObject.GetComponent<ItemSell_Object>().item;
+
+        playerData.Player_Get_Coin(item.Item_Sell_Pride * CountNum);
+        item.Item_Count_Down(CountNum);
+ 
+        foreach (ItemSell_Object itemObject in Item_Sell_Window.GetComponentsInChildren<ItemSell_Object>())
+        {
+            if (itemObject.item == item)
+            {
+                if (!itemObject.Check_ItemCount())
+                {
+                    itemData.Minus_Inventory_Item(item);
+                    if (stationDirector.simplestationFlag)
+                    {
+                        stationDirector.Director_PlayerReadyDirector.itemListData.Minus_Inventory_Item(item);
+                    }
+                    Destroy(itemObject.gameObject);
+                }
+            }
+        }
+        itemData.Check_EquipedItem(item.Num);
+        itemData.Check_ItemChangeFlag();
+        Check_Player_Coin_Point();
+        Cancel_SelectItem();
+        Init_Information();
+        Close_Sell_Window();
+    }
+
+    public void Up_CountNum(bool check)
+    {
+        CountNum++;
+
+        if (check)
+        {
+            Change_CountNum_Buy_Text();
+        }
+    }
+
+    public void Down_CountNum(bool check)
+    {
+        if(CountNum > 1)
+        {
+            CountNum--;
+        }
+        else
+        {
+            CountNum = 1;
+        }
+
+        if (check)
+        {
+            Change_CountNum_Buy_Text();
+        }
+    }
+    
+    public void Init_Information()
+    {
+        Cancel_SelectItem();
+        Click_ItemObject = null;
+        Item_Name_Text.text = "";
+        Item_Image.sprite = null;
+        Item_Information_Text.text = "";
+        CountObject.SetActive(false);
+        CountButton.SetActive(false);
+    }
+
+    void Cancel_SelectItem()
+    {
+        GameObject Before_ItemObject = Click_ItemObject;
+        if (Before_ItemObject != null)
+        {
+            if (Before_ItemObject.GetComponent<ItemBuy_Object>())
+            {
+                Before_ItemObject.GetComponent<ItemBuy_Object>().SelectObject.SetActive(false);
+            }
+            else if (Before_ItemObject.GetComponent<ItemSell_Object>())
+            {
+                Before_ItemObject.GetComponent<ItemSell_Object>().SelectObject.SetActive(false);
+            }
+        }
+    }
+
+    void Ban_Player_Coin()
+    {
+        Close_Buy_Window();
+        BuyCheck_Ban_Window.SetActive(true);
     }
 }

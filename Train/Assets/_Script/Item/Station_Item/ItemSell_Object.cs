@@ -11,83 +11,50 @@ public class ItemSell_Object : MonoBehaviour
 
     public string item_name;
     public string item_information;
-    public int item_count;
+    public int item_Count;
     public int item_pride;
     public bool item_use;
 
     [Header("정보 표시")]
     public Image item_icon_object;
-    public TextMeshProUGUI item_object_text_count;
-    public ItemList_Tooltip item_tooltip_object;
-
-    bool item_information_Flag; // 정보 출력 플래그
-    bool item_mouseOver_Flag; // 이미 올려져 있다는 플래그
+    public TextMeshProUGUI item_Name_text;
+    public TextMeshProUGUI item_Pride_text;
+    public TextMeshProUGUI item_Count_text;
+    public GameObject SelectObject;
 
     private void Start()
     {
-        item_information_Flag = false;
-        item_name = item.Item_Name;
-        item_information = item.Item_Information;
-        item_count = item.Item_Count;
-        item_pride = item.Item_Sell_Pride;
-        item_use = item.Use_Flag;
         item_icon_object.sprite = item.Item_Sprite;
-        item_object_text_count.text = item_count.ToString();
+
+        item_name = item.Item_Name;
+        item_Name_text.text = item_name;
+
+        item_information = item.Item_Information;
+
+        item_pride = item.Item_Sell_Pride;
+        item_Pride_text.text = item_pride + "G";
+
+        item_Count = item.Item_Count;
+        item_Count_text.text = item_Count.ToString();
+
+        item_use = item.Use_Flag;
+    }
+    public void Click_Item()
+    {
+        StoreDirector.Click_ItemCheck(this.gameObject, false);
+        SelectObject.SetActive(true);
     }
 
-    private void Update()
-    {
-        if (StationDirector.TooltipFlag)
-        {
-            if (item_information_Flag)
-            {
-                item_tooltip_object.Tooltip_ON(item.Item_Sprite, item.Num, item_use, item_pride);
-                item_mouseOver_Flag = true;
-            }
-            else
-            {
-                if (item_mouseOver_Flag)
-                {
-                    item_tooltip_object.Tooltip_Off();
-                    item_mouseOver_Flag = false;
-                }
-            }
-        }
-        else
-        {
-            if (item_information_Flag)
-            {
-                item_information_Flag = false;
-                item_mouseOver_Flag = false;
-                item_tooltip_object.Tooltip_Off();
-            }
-        }
-    }
-
-    public void OnMouseEnter()
-    {
-        item_information_Flag = true;
-    }
-
-    public void OnMouseExit()
-    {
-        item_information_Flag = false;
-    }
-
-    public void OnMouseClick()
-    {
-        StoreDirector.Open_BuyAndSell_Item_Window(item, false);
-    }
     public bool Check_ItemCount()
     {
-        item_count = item.Item_Count;
+        item_Count = item.Item_Count;
 
-        if (item_count != 0)
+        if (item_Count != 0)
         {
-            item_object_text_count.text = item_count.ToString();
+            item_Count_text.text = item_Count.ToString();
             return true;
         }
-        else if (item_count == 0)
+        else if (item_Count == 0)
         {
             return false;
         }

@@ -288,7 +288,7 @@ public class Station_Inventory : MonoBehaviour
                 break;
         }
         UI_UseItem_Num = -1;
-        stationDirector.Check_CoinAndPoint();
+        stationDirector.Check_Coin();
     }
     public void Director_Init_Inventory()
     {

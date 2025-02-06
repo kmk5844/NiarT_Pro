@@ -53,7 +53,7 @@ public class ItemList_Object : MonoBehaviour
 
     private void Update()
     {
-        if (StationDirector.TooltipFlag)
+/*        if (StationDirector.TooltipFlag)
         {
             if (item_information_Flag)
             {
@@ -77,7 +77,7 @@ public class ItemList_Object : MonoBehaviour
                 item_mouseOver_Flag = false;
                 item_tooltip_object.Tooltip_Off();
             }
-        }
+        }*/
     }
 
     public void OnMouseEnter()

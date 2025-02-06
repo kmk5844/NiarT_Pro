@@ -37,7 +37,7 @@ public class Store_Mercenary_Card : MonoBehaviour, IPointerClickHandler
 
     private void Update()
     {
-        if (StationDirector.TooltipFlag)
+        /*if (StationDirector.TooltipFlag)
         {
             if (Mercenary_Information_Flag)
             {
@@ -61,8 +61,7 @@ public class Store_Mercenary_Card : MonoBehaviour, IPointerClickHandler
                 Mercenary_mouseOver_Flag = false;
                 store_tooltip_object.Tooltip_Off();
             }
-        }
-
+        }*/
     }
 
     public void OnMouseEnter()

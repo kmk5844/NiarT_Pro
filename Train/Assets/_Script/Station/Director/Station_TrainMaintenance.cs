@@ -1326,7 +1326,7 @@ public class Station_TrainMaintenance : MonoBehaviour
 
     private void Check_Player_Coin_Point()
     {
-        transform.GetComponentInParent<StationDirector>().Check_CoinAndPoint();
+        transform.GetComponentInParent<StationDirector>().Check_Coin();
     }
 
     private void Ban_Player_Coin_Point(bool Flag)

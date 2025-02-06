@@ -100,7 +100,7 @@ public class Store_Train_Card : MonoBehaviour, IPointerClickHandler
 
     private void Update()
     {
-        if (StationDirector.TooltipFlag)
+/*        if (StationDirector.TooltipFlag)
         {
             if (Train_Information_Flag)
             {
@@ -124,7 +124,7 @@ public class Store_Train_Card : MonoBehaviour, IPointerClickHandler
                 Train_mouseOver_Flag = false;
                 store_tooltip_object.Tooltip_Off();
             }
-        }
+        }*/
     }
 
     public void OnMouseEnter()
