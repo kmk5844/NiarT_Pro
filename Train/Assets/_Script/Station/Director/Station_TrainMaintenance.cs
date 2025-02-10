@@ -20,7 +20,7 @@ public class Station_TrainMaintenance : MonoBehaviour
     public Transform UI_TrainList;
     public Transform UI_TrainButtonList;
     public GameObject[] Train_Button;
-    public LocalizeStringEvent UI_Train_Information_Text;
+
     public int UI_Train_Num;
     int UI_Init_Train_Turret_Num;
     public int UI_Init_Train_Booster_Num;
@@ -30,7 +30,6 @@ public class Station_TrainMaintenance : MonoBehaviour
     bool UI_Train_Booster_Flag;
     public TextMeshProUGUI UI_TrainLevel_Text;
     public TextMeshProUGUI UI_TrainMax_Text;
-
 
     [Header("기차 변경 윈도우")]
     public Button Change_Button;
@@ -67,10 +66,7 @@ public class Station_TrainMaintenance : MonoBehaviour
     public Button Part_Change_Button;
     bool Equip_Part_Flag;
     public bool Part_Window_Flag;
-
-    [Header("기차 구매 윈도우")]
     
-
     [Header("기차 업그레이드 윈도우")]
     public TextMeshProUGUI Before_Text;
     public TextMeshProUGUI After_Text;
@@ -78,10 +74,29 @@ public class Station_TrainMaintenance : MonoBehaviour
     public Image Material_Image;
     public TextMeshProUGUI[] Upgrade_Text; // 0 : Coin, 1 : 가지고 있는 재료템, 2: 재료 충족 조건
 
-    [Header("패시브 업그레이드 윈도우")]
+    [Header("기차 구매")]
+    int Train_Before_Buy_Num;
+    public int Train_Buy_Num;
+    public int[] CommonTrain_NumberArray;
+    Sprite[] CommonTrian_Image;
+    public LocalizeStringEvent Train_Information_Text;
+    public TextMeshProUGUI Train_Pride_Text;
+    public Image Train_MainImage;
+    public Button Train_BuyButton;
+
+    [Header("기차 구매 - 트레인 리스트")]
+    public Transform CommonTrain_List_Transform;
+    public GameObject Train_List_Button;
+
+    [Header("패시브 업그레이드")]
     public TextMeshProUGUI[] Passive_Level_Text;
     public TextMeshProUGUI[] Passive_Cost_Text;
     public Button[] Passive_Button;
+
+    private void Awake()
+    {
+        Setting_TrainImage();
+    }
 
     private void Start()
     {
@@ -97,16 +112,11 @@ public class Station_TrainMaintenance : MonoBehaviour
         Train_Change_Num = trainData.Train_Change_Num;
         Train_Turret_Part_Change_Num = trainData.Train_Turret_Part_Change_Num;
         Train_Booster_Part_Change_Num = trainData.Train_Booster_Part_Change_Num;
-        UI_Train_Information_Text.StringReference.TableReference = "ExcelData_Table_St";
         UI_Train_Part_Text.StringReference.TableReference = "ExcelData_Table_St";
         //UI 기차 생성하기
         UI_TrainImage(false);
         Current_Train_Information();
-        //패시브 업그레이드
-        for(int i = 0; i < 5; i++)
-        {
-            Passive_Upgrade_Text(i);
-        }
+
         //기차 변경하기
         Check_Init_TrainCard();
         Director_Init_TrainChange();
@@ -120,6 +130,17 @@ public class Station_TrainMaintenance : MonoBehaviour
         Booster_Part_ToggleStart();
         //기차 업그레이드
         Upgrade_Before_After_Text();
+
+
+        //기차 구매하기
+        Init_TrainBuy();
+        Train_Information_Text.StringReference.TableReference = "ExcelData_Table_St";
+
+        //패시브 업그레이드
+        for (int i = 0; i < 5; i++)
+        {
+            Passive_Upgrade_Text(i);
+        }
     }
 
     //UI 기차 생성하기
@@ -291,138 +312,32 @@ public class Station_TrainMaintenance : MonoBehaviour
 
         if (trainNum == 51)
         {
-            UI_Train_Information_Text.StringReference.TableEntryReference = "Train_Turret_Information_" + (trainNum2 / 10);
+           // UI_Train_Information_Text.StringReference.TableEntryReference = "Train_Turret_Information_" + (trainNum2 / 10);
            /* UI_Train_Information_Text.text = trainData.EX_Game_Data.Information_Train_Turret_Part[trainNum2].Train_Information.Replace("\\n", "\n")
                 + trainData.EX_Game_Data.Information_Train_Turret_Part[trainNum2].Train_Select_Information.Replace("\\n", "\n").Replace("\\t", "\t");*/
         }
         else if (trainNum == 52)
         {
-            UI_Train_Information_Text.StringReference.TableEntryReference = "Train_Booster_Information_" + (trainNum2 / 10);
+           // UI_Train_Information_Text.StringReference.TableEntryReference = "Train_Booster_Information_" + (trainNum2 / 10);
           /*  UI_Train_Information_Text.text = trainData.EX_Game_Data.Information_Train_Booster_Part[trainNum2].Train_Information.Replace("\\n", "\n")
               + trainData.EX_Game_Data.Information_Train_Booster_Part[trainNum2].Train_Select_Information.Replace("\\n", "\n").Replace("\\t", "\t");*/
         }
         else
         {
-            if(trainNum < 50)
+/*            if (trainNum < 50)
             {
                 UI_Train_Information_Text.StringReference.TableEntryReference = "Train_Information_" + (trainNum / 10);
             }
             else
             {
                 UI_Train_Information_Text.StringReference.TableEntryReference = "Train_Information_" + trainNum;
-            }
-          /*  UI_Train_Information_Text.text = trainData.EX_Game_Data.Information_Train[trainNum].Train_Information.Replace("\\n", "\n")
-               + trainData.EX_Game_Data.Information_Train[trainNum].Train_Select_Information.Replace("\\n", "\n").Replace("\\t", "\t");*/
+            }*/
+            /*  UI_Train_Information_Text.text = trainData.EX_Game_Data.Information_Train[trainNum].Train_Information.Replace("\\n", "\n")
+                 + trainData.EX_Game_Data.Information_Train[trainNum].Train_Select_Information.Replace("\\n", "\n").Replace("\\t", "\t");*/
         }
     }
 
-    //패시브 업그레이드
-    private void Passive_Upgrade_Text(int num)
-    {
-        if (num == 0)
-        {
-            if (trainData.Level_Train_EngineTier == trainData.Max_Train_EngineTier)
-            {
-                Passive_Level_Text[0].text = "Lv.MAX";
-                Passive_Cost_Text[0].text = "";
-                Passive_Button[0].interactable = false;
-            }
-            else
-            {
-                Passive_Level_Text[0].text = "Lv." + trainData.Level_Train_EngineTier;
-                Passive_Cost_Text[0].text = trainData.Cost_Train_EngineTier + "G";
-            }
-        }
-        else if(num == 1)
-        {
-            if (trainData.Level_Train_MaxTrain == trainData.Max_Train_MaxTrain)
-            {
-                Passive_Level_Text[1].text = "Lv.MAX";
-                Passive_Cost_Text[1].text = "";
-                Passive_Button[1].interactable = false;
-            }
-            else
-            {
-                Passive_Level_Text[1].text = "Lv." + trainData.Level_Train_MaxTrain;
-                Passive_Cost_Text[1].text = trainData.Cost_Train_MaxTrain + "G";
-            }
-        }
-        else if(num == 2)
-        {
-            if (trainData.Level_Train_MaxMercenary == trainData.Max_Train_MaxMercenary)
-            {
-                Passive_Level_Text[2].text = "Lv.MAX";
-                Passive_Cost_Text[2].text = "";
-                Passive_Button[2].interactable = false;
-            }
-            else
-            {
-                Passive_Level_Text[2].text = "Lv." + trainData.Level_Train_MaxMercenary;
-                Passive_Cost_Text[2].text = trainData.Cost_Train_MaxMercenary + "G";
-            }
-        }
-        else if (num == 3)
-        {
-            if (trainData.Level_Train_MaxSpeed == trainData.Max_Train_MaxSpeed)
-            {
-                Passive_Level_Text[3].text = "Lv.MAX";
-                Passive_Cost_Text[3].text = "";
-                Passive_Button[3].interactable = false;
-            }
-            else
-            {
-                Passive_Level_Text[3].text = "Lv." + trainData.Level_Train_MaxSpeed;
-                Passive_Cost_Text[3].text = trainData.Cost_Train_MaxSpeed + "G";
-
-            }
-        }
-        else if (num == 4)
-        {
-            if (trainData.Level_Train_Armor == trainData.Max_Train_Armor)
-            {
-                Passive_Level_Text[4].text = "Lv.MAX";
-                Passive_Cost_Text[4].text = "";
-                Passive_Button[4].interactable = false;
-            }
-            else
-            {
-                Passive_Level_Text[4].text = "Lv." + trainData.Level_Train_Armor;
-                Passive_Cost_Text[4].text = trainData.Cost_Train_Armor + "G";
-
-            }
-        }
-        else if (num == 5)
-        {
-            if (trainData.Level_Train_Efficient == trainData.Max_Train_Efficient)
-            {
-                Passive_Level_Text[5].text = "Lv.MAX";
-                Passive_Cost_Text[5].text = "";
-                Passive_Button[5].interactable = false;
-            }
-            else
-            {
-                Passive_Level_Text[5].text = "Lv." + trainData.Level_Train_Efficient;
-                Passive_Cost_Text[5].text = trainData.Cost_Train_Efficient + "G";
-            }
-        }
-    }
-
-    public void Click_Passive_Upgrade(int i)//LevelNum : 0 = Tier / 1 = Speed / 2 = Armor / 3 = Efficient
-    {
-        if(playerData.Player_Coin >= trainData.Check_Cost_Train(i))
-        {
-            playerData.Player_Buy_Coin(trainData.Check_Cost_Train(i)); //먼저 차감 후, 업그레이드가 된다.
-            trainData.Passive_Level_Up(i);
-            Passive_Upgrade_Text(i);
-            Check_Player_Coin_Point();
-            // 여기에 맥스 조절하는 부분이 없다.
-            Check_Trian_Add(); // 엔진 티어의 레벨에 따라 기차 추가 여부가 달라짐
-        }
-        else
-        {
-            Ban_Player_Coin_Point(true);
-        }
-    }
+   
 
     //기차 변경하기
     public void Director_Init_TrainChange()
@@ -1342,5 +1257,191 @@ public class Station_TrainMaintenance : MonoBehaviour
     public void Ban_Back_Part_Window()
     {
         Part_Ban.SetActive(false);
+    }
+
+    //기차 구매하기
+    private void Setting_TrainImage()
+    {
+        CommonTrian_Image = new Sprite[CommonTrain_NumberArray.Length];
+        Train_List_Button.GetComponent<TrainList_Button>().director = this;
+        for(int i = 0; i <  CommonTrain_NumberArray.Length; i++)
+        {
+            CommonTrian_Image[i] = Resources.Load<Sprite>("Sprite/Train/Train_" + CommonTrain_NumberArray[i]);
+            GameObject listButton = Instantiate(Train_List_Button, CommonTrain_List_Transform);
+            listButton.GetComponent<TrainList_Button>().listNum = i;
+            listButton.name = CommonTrain_NumberArray[i].ToString();
+        }
+    }
+    public void Click_TrainList(int listNum)
+    {
+        Train_Before_Buy_Num = Train_Buy_Num;
+        Train_Buy_Num = listNum;
+        Change_Train();
+    }
+
+    private void Init_TrainBuy()
+    {
+        Train_Buy_Num = 0;
+        Change_Train();
+    }
+
+    public void Click_Next_TrainButton()
+    {
+        Train_Before_Buy_Num = Train_Buy_Num;
+        if(Train_Buy_Num < CommonTrain_NumberArray.Length-1)
+        {
+            Train_Buy_Num++;
+        }
+        else
+        {
+            Train_Buy_Num = 0;
+        }
+        Change_Train();
+    }
+
+    public void Click_Prev_TrainBUtton()
+    {
+        Train_Before_Buy_Num = Train_Buy_Num;
+        if(Train_Buy_Num > 0)
+        {
+            Train_Buy_Num--;
+        }
+        else
+        {
+            Train_Buy_Num = CommonTrain_NumberArray.Length - 1;
+        }
+        Change_Train();
+    }
+
+    private void Change_Train()
+    {
+        Train_MainImage.sprite = CommonTrian_Image[Train_Buy_Num];
+        int trainNum = CommonTrain_NumberArray[Train_Buy_Num];
+        int train_pride;
+        if (trainNum < 50)
+        {
+            Train_Information_Text.StringReference.TableEntryReference = "Train_Information_" + (trainNum / 10);
+        }
+        else
+        {
+            Train_Information_Text.StringReference.TableEntryReference = "Train_Information_" + trainNum;
+        }
+
+        train_pride = trainData.EX_Game_Data.Information_Train[trainNum].Train_Buy_Cost;
+        Train_Pride_Text.text = train_pride.ToString();
+        Train_BuyButton.interactable = !trainData.SA_TrainData.Train_Buy_Num.Contains(trainNum);
+
+        //-----------리스트버튼-------
+        CommonTrain_List_Transform.GetChild(Train_Before_Buy_Num).GetComponent<TrainList_Button>().ChangeButton(true);
+        CommonTrain_List_Transform.GetChild(Train_Buy_Num).GetComponent<TrainList_Button>().ChangeButton(false);
+    }
+
+
+    //패시브 업그레이드
+    private void Passive_Upgrade_Text(int num)
+    {
+        if (num == 0)
+        {
+            if (trainData.Level_Train_EngineTier == trainData.Max_Train_EngineTier)
+            {
+                Passive_Level_Text[0].text = "Lv.MAX";
+                Passive_Cost_Text[0].text = "";
+                Passive_Button[0].interactable = false;
+            }
+            else
+            {
+                Passive_Level_Text[0].text = "Lv." + trainData.Level_Train_EngineTier;
+                Passive_Cost_Text[0].text = trainData.Cost_Train_EngineTier + "G";
+            }
+        }
+        else if (num == 1)
+        {
+            if (trainData.Level_Train_MaxTrain == trainData.Max_Train_MaxTrain)
+            {
+                Passive_Level_Text[1].text = "Lv.MAX";
+                Passive_Cost_Text[1].text = "";
+                Passive_Button[1].interactable = false;
+            }
+            else
+            {
+                Passive_Level_Text[1].text = "Lv." + trainData.Level_Train_MaxTrain;
+                Passive_Cost_Text[1].text = trainData.Cost_Train_MaxTrain + "G";
+            }
+        }
+        else if (num == 2)
+        {
+            if (trainData.Level_Train_MaxMercenary == trainData.Max_Train_MaxMercenary)
+            {
+                Passive_Level_Text[2].text = "Lv.MAX";
+                Passive_Cost_Text[2].text = "";
+                Passive_Button[2].interactable = false;
+            }
+            else
+            {
+                Passive_Level_Text[2].text = "Lv." + trainData.Level_Train_MaxMercenary;
+                Passive_Cost_Text[2].text = trainData.Cost_Train_MaxMercenary + "G";
+            }
+        }
+        else if (num == 3)
+        {
+            if (trainData.Level_Train_MaxSpeed == trainData.Max_Train_MaxSpeed)
+            {
+                Passive_Level_Text[3].text = "Lv.MAX";
+                Passive_Cost_Text[3].text = "";
+                Passive_Button[3].interactable = false;
+            }
+            else
+            {
+                Passive_Level_Text[3].text = "Lv." + trainData.Level_Train_MaxSpeed;
+                Passive_Cost_Text[3].text = trainData.Cost_Train_MaxSpeed + "G";
+
+            }
+        }
+        else if (num == 4)
+        {
+            if (trainData.Level_Train_Armor == trainData.Max_Train_Armor)
+            {
+                Passive_Level_Text[4].text = "Lv.MAX";
+                Passive_Cost_Text[4].text = "";
+                Passive_Button[4].interactable = false;
+            }
+            else
+            {
+                Passive_Level_Text[4].text = "Lv." + trainData.Level_Train_Armor;
+                Passive_Cost_Text[4].text = trainData.Cost_Train_Armor + "G";
+
+            }
+        }
+        else if (num == 5)
+        {
+            if (trainData.Level_Train_Efficient == trainData.Max_Train_Efficient)
+            {
+                Passive_Level_Text[5].text = "Lv.MAX";
+                Passive_Cost_Text[5].text = "";
+                Passive_Button[5].interactable = false;
+            }
+            else
+            {
+                Passive_Level_Text[5].text = "Lv." + trainData.Level_Train_Efficient;
+                Passive_Cost_Text[5].text = trainData.Cost_Train_Efficient + "G";
+            }
+        }
+    }
+
+    public void Click_Passive_Upgrade(int i)//LevelNum : 0 = Tier / 1 = Speed / 2 = Armor / 3 = Efficient
+    {
+        if (playerData.Player_Coin >= trainData.Check_Cost_Train(i))
+        {
+            playerData.Player_Buy_Coin(trainData.Check_Cost_Train(i)); //먼저 차감 후, 업그레이드가 된다.
+            trainData.Passive_Level_Up(i);
+            Passive_Upgrade_Text(i);
+            Check_Player_Coin_Point();
+            // 여기에 맥스 조절하는 부분이 없다.
+            Check_Trian_Add(); // 엔진 티어의 레벨에 따라 기차 추가 여부가 달라짐
+        }
+        else
+        {
+            Ban_Player_Coin_Point(true);
+        }
     }
 }

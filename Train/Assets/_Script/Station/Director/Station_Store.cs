@@ -13,8 +13,8 @@ public class Station_Store : MonoBehaviour
     Station_PlayerData playerData;
     public GameObject Train_DataObject;
     Station_TrainData trainData;
-    public GameObject Mercenary_DataObject;
-    Station_MercenaryData mercenaryData;
+/*    public GameObject Mercenary_DataObject;
+    Station_MercenaryData mercenaryData;*/
     public GameObject Item_DataObject;
     Station_ItemData itemData;
 
@@ -25,7 +25,7 @@ public class Station_Store : MonoBehaviour
     public GameObject Check_Buy_Panel;
     public Image Check_Buy_Image;
     public LocalizeStringEvent Check_Buy_Name;
-    public TextMeshProUGUI Check_Buy_Pride;
+    public TextMeshProUGUI Check_Pride;
     //public TextMeshProUGUI Check_Buy_Text;
     public LocalizeStringEvent Check_Buy_Text;
     public TextMeshProUGUI Check_Buy_Count;
@@ -84,6 +84,8 @@ public class Station_Store : MonoBehaviour
     //----------------------------------------------------------------------------
     [Header("공통")]
     public GameObject Click_ItemObject;
+    [SerializeField]
+    ItemDataObject Click_ItemDataObjcet;
     public TextMeshProUGUI Item_Name_Text;
     public Image Item_Image;
     public TextMeshProUGUI Item_Information_Text;
@@ -107,12 +109,12 @@ public class Station_Store : MonoBehaviour
     {
         playerData = Player_DataObject.GetComponent<Station_PlayerData>();
         trainData = Train_DataObject.GetComponent<Station_TrainData>();
-        mercenaryData = Mercenary_DataObject.GetComponent<Station_MercenaryData>();
+        //mercenaryData = Mercenary_DataObject.GetComponent<Station_MercenaryData>();
         itemData = Item_DataObject.GetComponent<Station_ItemData>();
         Train_Store_Num = trainData.Train_Store_Num;
         Turret_Store_Num = trainData.Train_Turret_Store_Num;
         Booster_Store_Num = trainData.Train_Booster_Store_Num;
-        Mercenary_Store_Num = mercenaryData.Mercenary_Store_Num;
+        //Mercenary_Store_Num = mercenaryData.Mercenary_Store_Num;
         Item_Count_Window.SetActive(false);
         Store_BuyAndSell_Window_Flag = false;
 
@@ -126,8 +128,8 @@ public class Station_Store : MonoBehaviour
         Check_Init_TurretCard();
         //부스터 파츠 구매하기
         Check_Init_BoosterCard();
-        //용병 구매하기
-        Check_Init_MercenaryCard();
+/*        //용병 구매하기
+        Check_Init_MercenaryCard();*/
         //아이템 구매하기
         Check_Init_ItemBuy();
         //아이템 판매하기
@@ -291,7 +293,7 @@ public class Station_Store : MonoBehaviour
             }
         }
     }
-
+/*
     //용병 구매하기
     private void Check_Init_MercenaryCard() // 카드 초기화
     {
@@ -336,19 +338,10 @@ public class Station_Store : MonoBehaviour
             }
         }
     }
+*/
 
-    //아이템 구매 부분
-    private void Check_Init_ItemBuy()
-    {
-        ItemBuyList_Object.StoreDirector = GetComponent<Station_Store>();
-        foreach (ItemDataObject item in itemData.Store_Buy_itemList)
-        {
-            ItemBuyList_Object.item = item;
-            Instantiate(ItemBuyList_Object, Item_Buy_Window.transform);
-        }
-    }
 
-    private void Store_Buy_Item(ItemDataObject item)
+/*    private void Store_Buy_Item(ItemDataObject item)
     {
         bool itemAvailability = false;
         if (playerData.Player_Coin >= item.Item_Buy_Pride * item_Count)
@@ -387,33 +380,9 @@ public class Station_Store : MonoBehaviour
         {
             Ban_Player_Coin_Point(true);
         }
-    }
+    }*/
 
-    //아이템 판매 부분
-    private void Check_Init_ItemSell()
-    {
-        ItemSellList_Object.StoreDirector = GetComponent<Station_Store>();
-        //ItemSellList_Object.item_tooltip_object = ItemSellTooltip_Object;
-        int Total_ItemCount = 0;
-        foreach(ItemDataObject item in itemData.Store_Sell_itemList)
-        {
-            ItemSellList_Object.item = item;
-            Instantiate(ItemSellList_Object, Item_Sell_Window.transform);
-            Total_ItemCount++;
-            
-        }
-    }
-
-    public void Director_Init_ItemSell()
-    {
-        foreach (ItemSell_Object item in Item_Sell_Window.GetComponentsInChildren<ItemSell_Object>())
-        {
-            Destroy(item.gameObject);
-        }
-        Check_Init_ItemSell();
-    }
-
-    private void Store_Sell_Item(ItemDataObject item, bool AllFlag)
+/*    private void Store_Sell_Item(ItemDataObject item, bool AllFlag)
     {
         if (!AllFlag)
         {
@@ -444,9 +413,9 @@ public class Station_Store : MonoBehaviour
         itemData.Check_ItemChangeFlag();
         Check_Player_Coin_Point();
         Close_Buy_Window();
-    }
+    }*/
 
-    public void Open_Buy_Window(int i, int TrainAndMercenaryNum)
+/*    public void Open_Buy_Window(int i, int TrainAndMercenaryNum)
     {
         Store_BuyAndSell_Window_Flag = true;
         Check_Buy_Panel_Num = i;
@@ -479,7 +448,7 @@ public class Station_Store : MonoBehaviour
                         }
                     }
                     //Check_Buy_Name.text = trainData.EX_Game_Data.Information_Train[TrainAndMercenaryNum].Train_Name;
-                    Check_Buy_Pride.text = trainData.EX_Game_Data.Information_Train[TrainAndMercenaryNum].Train_Buy_Cost.ToString();
+                    Check_Pride.text = trainData.EX_Game_Data.Information_Train[TrainAndMercenaryNum].Train_Buy_Cost.ToString();
                 }
                 Buy_YesButton.onClick.AddListener(() => Store_Buy_TrainCard(TrainAndMercenaryNum));
             }
@@ -489,7 +458,7 @@ public class Station_Store : MonoBehaviour
                     Check_Buy_Name.StringReference.TableReference = "ExcelData_Table_St";
                     Check_Buy_Name.StringReference.TableEntryReference = "Train_Turret_Name_" + (TrainAndMercenaryNum/ 10);
                     //Check_Buy_Name.text = trainData.EX_Game_Data.Information_Train_Turret_Part[TrainAndMercenaryNum].Turret_Part_Name;
-                    Check_Buy_Pride.text = trainData.EX_Game_Data.Information_Train_Turret_Part[TrainAndMercenaryNum].Train_Buy_Cost.ToString();
+                    Check_Pride.text = trainData.EX_Game_Data.Information_Train_Turret_Part[TrainAndMercenaryNum].Train_Buy_Cost.ToString();
                 }
                 Buy_YesButton.onClick.AddListener(() => Store_Buy_TurretCard(TrainAndMercenaryNum));
             }
@@ -499,7 +468,7 @@ public class Station_Store : MonoBehaviour
                     Check_Buy_Name.StringReference.TableReference = "ExcelData_Table_St";
                     Check_Buy_Name.StringReference.TableEntryReference = "Train_Booster_Name_" + (TrainAndMercenaryNum/10);
                     //Check_Buy_Name.text = trainData.EX_Game_Data.Information_Train_Booster_Part[TrainAndMercenaryNum].Booster_Part_Name;
-                    Check_Buy_Pride.text = trainData.EX_Game_Data.Information_Train_Booster_Part[TrainAndMercenaryNum].Train_Buy_Cost.ToString();
+                    Check_Pride.text = trainData.EX_Game_Data.Information_Train_Booster_Part[TrainAndMercenaryNum].Train_Buy_Cost.ToString();
                 }
                 Buy_YesButton.onClick.AddListener(() =>Store_Buy_BoosterCard(TrainAndMercenaryNum));
             }
@@ -514,13 +483,13 @@ public class Station_Store : MonoBehaviour
                 //Check_Buy_Name.text = trainData.EX_Game_Data.Information_Mercenary[TrainAndMercenaryNum].Name;
                 Check_Buy_Name.StringReference.TableReference = "ExcelData_Table_St";
                 Check_Buy_Name.StringReference.TableEntryReference = "Mercenary_Name_" + TrainAndMercenaryNum;
-                Check_Buy_Pride.text = trainData.EX_Game_Data.Information_Mercenary[TrainAndMercenaryNum].Mercenary_Pride.ToString();
+                Check_Pride.text = trainData.EX_Game_Data.Information_Mercenary[TrainAndMercenaryNum].Mercenary_Pride.ToString();
             }
             Buy_YesButton.onClick.AddListener(() => Store_Buy_MercenaryCard(TrainAndMercenaryNum));
         }
-    }
+    }*/
 
-    public void Open_BuyAndSell_Item_Window(ItemDataObject item, bool Flag)
+/*    public void Open_BuyAndSell_Item_Window(ItemDataObject item, bool Flag)
     {
         Store_BuyAndSell_Window_Flag = true;
         Check_Buy_Panel_Num = 2;
@@ -534,7 +503,7 @@ public class Station_Store : MonoBehaviour
         {
             Button_ItemCount_Init(true, item);
             Check_Buy_Image.sprite = item.Item_Sprite;
-            Check_Buy_Pride.text = item.Item_Buy_Pride.ToString();
+            Check_Pride.text = item.Item_Buy_Pride.ToString();
             //Check_Buy_Text.text = "구매하시겠습니까?";
             Check_Buy_Text.StringReference.TableEntryReference = "UI_Store_Train&Item_Buy";
             Button_ItemCount_Plus.onClick.AddListener(() => Click_ItemCount_Plus(item, Flag));
@@ -546,7 +515,7 @@ public class Station_Store : MonoBehaviour
         {
             Button_ItemCount_Init(false, item);
             Check_Buy_Image.sprite = item.Item_Sprite;
-            Check_Buy_Pride.text = item.Item_Sell_Pride.ToString();
+            Check_Pride.text = item.Item_Sell_Pride.ToString();
             //Check_Buy_Text.text = "판매하시겠습니까?";
             Check_Buy_Text.StringReference.TableEntryReference = "UI_Store_Item_Sell";
             Button_ItemCount_Plus.onClick.AddListener(() => Click_ItemCount_Plus(item, Flag));
@@ -556,7 +525,7 @@ public class Station_Store : MonoBehaviour
             Sell_AllButton.onClick.AddListener(() => Store_Sell_Item(item, true));
         }
     }
-
+*/
 /*    public void Close_Buy_Window()
     {
         Store_BuyAndSell_Window_Flag = false;
@@ -589,75 +558,7 @@ public class Station_Store : MonoBehaviour
             Sell_AllButton.onClick.RemoveAllListeners();
         }
     }*/
-
-    private void Click_ItemCount_Plus(ItemDataObject item, bool Flag)
-    {
-        item_Count++;
-        Check_Buy_Count.text = item_Count.ToString();
-        if (Flag)
-        {
-            Check_Buy_Pride.text = (item.Item_Buy_Pride * item_Count).ToString();
-        }
-        else
-        {
-            Check_Buy_Pride.text = (item.Item_Sell_Pride * item_Count).ToString();
-        }
-        Check_ItemCount(item);
-    }
-
-    private void Click_ItemCount_Minus(ItemDataObject item, bool Flag)
-    {
-        item_Count--;
-        Check_Buy_Count.text = item_Count.ToString();
-        if (Flag)
-        {
-            Check_Buy_Pride.text = (item.Item_Buy_Pride * item_Count).ToString();
-        }
-        else
-        {
-            Check_Buy_Pride.text = (item.Item_Sell_Pride * item_Count).ToString();
-        }
-        Check_ItemCount(item);
-    }
-
-    public void Check_ItemCount(ItemDataObject item)
-    {
-        if(item_Count == 1)
-        {
-            Button_ItemCount_Minus.interactable = false;
-        }
-        else
-        {
-            Button_ItemCount_Minus.interactable = true;
-        }
-
-        if (!ItemSellFlag)
-        {
-            if (playerData.Player_Coin > item.Item_Buy_Pride * (item_Count + 1))
-            {
-                Button_ItemCount_Plus.interactable = true;
-            }
-            else
-            {
-                Button_ItemCount_Plus.interactable = false;
-            }
-            // 자신이 가지고 있는 골드로 제한
-
-        }
-        else
-        {
-            if (item.Item_Count != item_Count)
-            {
-                Button_ItemCount_Plus.interactable = true;
-            }
-            else
-            {
-                Button_ItemCount_Plus.interactable = false;
-            }
-            //자신이 가지고 있는 아이템 갯수를 제한
-        }
-    }
-
+/*
     public void Button_ItemCount_Init(bool Flag,ItemDataObject item)
     {
         item_Count = 1;
@@ -678,7 +579,7 @@ public class Station_Store : MonoBehaviour
                 Button_ItemCount_Plus.interactable = true;
             }
         }
-    }
+    }*/
 
     //공통 부분
     public void ResizedContent_H(Transform ScrollContent, ScrollRect Scrollrect)
@@ -741,10 +642,12 @@ public class Station_Store : MonoBehaviour
         if (flag)
         {
             itemData = item.GetComponent<ItemBuy_Object>().item;
+            Click_ItemDataObjcet = Click_ItemObject.GetComponent<ItemBuy_Object>().item;
         }
         else
         {
             itemData = item.GetComponent<ItemSell_Object>().item;
+            Click_ItemDataObjcet = Click_ItemObject.GetComponent<ItemSell_Object>().item;
         }
         Item_Name_Text.text = itemData.name;
         Item_Image.sprite = itemData.Item_Sprite;
@@ -798,25 +701,35 @@ public class Station_Store : MonoBehaviour
         SellCheck_Window.SetActive(false);
     }
 
+    //아이템 구매 부분
+    private void Check_Init_ItemBuy()
+    {
+        ItemBuyList_Object.StoreDirector = GetComponent<Station_Store>();
+        foreach (ItemDataObject item in itemData.Store_Buy_itemList)
+        {
+            ItemBuyList_Object.item = item;
+            Instantiate(ItemBuyList_Object, Item_Buy_Window.transform);
+        }
+    }
+
     public void Click_ItemBuy()
     {
         bool itemAvailability = false;
-        ItemDataObject item = Click_ItemObject.GetComponent<ItemBuy_Object>().item;
 
-        if (playerData.Player_Coin >= item.Item_Buy_Pride * CountNum)
+        if (playerData.Player_Coin >= Click_ItemDataObjcet.Item_Buy_Pride * CountNum)
         {
-            playerData.Player_Buy_Coin(item.Item_Buy_Pride * CountNum);
-            item.Item_Count_UP(CountNum);
-            itemData.Plus_Inventory_Item(item);
+            playerData.Player_Buy_Coin(Click_ItemDataObjcet.Item_Buy_Pride * CountNum);
+            Click_ItemDataObjcet.Item_Count_UP(CountNum);
+            itemData.Plus_Inventory_Item(Click_ItemDataObjcet);
             if (stationDirector.simplestationFlag)
             {
-                stationDirector.Director_PlayerReadyDirector.itemListData.Plus_Inventory_Item(item);
+                stationDirector.Director_PlayerReadyDirector.itemListData.Plus_Inventory_Item(Click_ItemDataObjcet);
             }
 
             {
                 foreach (ItemSell_Object Sell_Object in Item_Sell_Window.GetComponentsInChildren<ItemSell_Object>())
                 {
-                    if (Sell_Object.item == item) // 구매 시, 아이템 체크
+                    if (Sell_Object.item == Click_ItemDataObjcet) // 구매 시, 아이템 체크
                     {
                         itemAvailability = true;
                         Sell_Object.Check_ItemCount();
@@ -825,7 +738,7 @@ public class Station_Store : MonoBehaviour
                 }
                 if (!itemAvailability)
                 {
-                    ItemSellList_Object.item = item;
+                    ItemSellList_Object.item = Click_ItemDataObjcet;
                     ItemSellList_Object.StoreDirector = GetComponent<Station_Store>();
                     Instantiate(ItemSellList_Object, Item_Sell_Window.transform);
                 }
@@ -842,29 +755,52 @@ public class Station_Store : MonoBehaviour
         }
     }
 
+    //아이템 판매 부분
+    private void Check_Init_ItemSell()
+    {
+        ItemSellList_Object.StoreDirector = GetComponent<Station_Store>();
+        //ItemSellList_Object.item_tooltip_object = ItemSellTooltip_Object;
+        int Total_ItemCount = 0;
+        foreach (ItemDataObject item in itemData.Store_Sell_itemList)
+        {
+            ItemSellList_Object.item = item;
+            Instantiate(ItemSellList_Object, Item_Sell_Window.transform);
+            Total_ItemCount++;
+
+        }
+    }
+
+    public void Director_Init_ItemSell()
+    {
+        foreach (ItemSell_Object item in Item_Sell_Window.GetComponentsInChildren<ItemSell_Object>())
+        {
+            Destroy(item.gameObject);
+        }
+        Check_Init_ItemSell();
+    }
+
+
     public void Click_ItemSell()
     {
-        ItemDataObject item = Click_ItemObject.GetComponent<ItemSell_Object>().item;
-
-        playerData.Player_Get_Coin(item.Item_Sell_Pride * CountNum);
-        item.Item_Count_Down(CountNum);
+        playerData.Player_Get_Coin(Click_ItemDataObjcet.Item_Sell_Pride * CountNum);
+        Click_ItemDataObjcet.Item_Count_Down(CountNum);
  
         foreach (ItemSell_Object itemObject in Item_Sell_Window.GetComponentsInChildren<ItemSell_Object>())
         {
-            if (itemObject.item == item)
+            if (itemObject.item == Click_ItemDataObjcet)
             {
                 if (!itemObject.Check_ItemCount())
                 {
-                    itemData.Minus_Inventory_Item(item);
+                    itemData.Minus_Inventory_Item(Click_ItemDataObjcet);
                     if (stationDirector.simplestationFlag)
                     {
-                        stationDirector.Director_PlayerReadyDirector.itemListData.Minus_Inventory_Item(item);
+                        stationDirector.Director_PlayerReadyDirector.itemListData.Minus_Inventory_Item(Click_ItemDataObjcet);
                     }
                     Destroy(itemObject.gameObject);
                 }
             }
         }
-        itemData.Check_EquipedItem(item.Num);
+        itemData.Check_EquipedItem(Click_ItemDataObjcet.Num);
         itemData.Check_ItemChangeFlag();
         Check_Player_Coin_Point();
         Cancel_SelectItem();
@@ -874,7 +810,21 @@ public class Station_Store : MonoBehaviour
 
     public void Up_CountNum(bool check)
     {
-        CountNum++;
+        if(!stationDirector.UI_Store_BuyAndSell_Flag)
+        {
+            if(CountNum < Click_ItemDataObjcet.Item_Count)
+            {
+                CountNum++;
+            }
+            else
+            {
+                CountNum = Click_ItemDataObjcet.Item_Count;
+            }
+        }
+        else
+        {
+            CountNum++;
+        }
 
         if (check)
         {
@@ -884,7 +834,7 @@ public class Station_Store : MonoBehaviour
 
     public void Down_CountNum(bool check)
     {
-        if(CountNum > 1)
+        if (CountNum > 1)
         {
             CountNum--;
         }
@@ -903,6 +853,7 @@ public class Station_Store : MonoBehaviour
     {
         Cancel_SelectItem();
         Click_ItemObject = null;
+        Click_ItemDataObjcet = null;
         Item_Name_Text.text = "";
         Item_Image.sprite = null;
         Item_Information_Text.text = "";

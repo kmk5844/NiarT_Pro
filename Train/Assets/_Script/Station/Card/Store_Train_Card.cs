@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.Localization.Components;
 
-public class Store_Train_Card : MonoBehaviour, IPointerClickHandler
+public class Store_Train_Card : MonoBehaviour
 {
     [SerializeField]
     public Station_TrainData trainData;
@@ -143,7 +143,7 @@ public class Store_Train_Card : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+/*    public void OnPointerClick(PointerEventData eventData)
     {
         if (Train_Buy.activeSelf != true)
         {
@@ -177,5 +177,5 @@ public class Store_Train_Card : MonoBehaviour, IPointerClickHandler
                 }
             }
         }
-    }   
+    }   */
 }

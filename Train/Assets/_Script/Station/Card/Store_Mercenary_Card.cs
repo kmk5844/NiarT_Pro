@@ -86,7 +86,7 @@ public class Store_Mercenary_Card : MonoBehaviour, IPointerClickHandler
         {
             if (eventData.button == PointerEventData.InputButton.Left)
             {
-                storeDirector.Open_Buy_Window(1, Mercenary_Num);
+                //storeDirector.Open_Buy_Window(1, Mercenary_Num);
             }
         }
     }

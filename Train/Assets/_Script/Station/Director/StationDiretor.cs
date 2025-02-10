@@ -370,7 +370,7 @@ public class StationDirector : MonoBehaviour
                 Check_Coin();
                 break;
             case 2:
-                Director_Store.Check_AfterBuy_MercenaryCard();
+                //Director_Store.Check_AfterBuy_MercenaryCard();
                 UI_Store.gameObject.SetActive(true);
                 ui_num = 2;
                 Check_Coin();
