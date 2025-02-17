@@ -191,10 +191,11 @@ public class Station_TrainData : MonoBehaviour
         return index;
     }
 
-    public void Train_Level_Up(int Train_Num, int index)
+    public void Train_Level_Up(int Train_Num)
     {
         SA_TrainData.SA_TrainUpgrade(Train_Num);
-        SA_TrainData.SA_TrainUpgrade_Renewal(index);
+        //SA_TrainData.SA_TrainUpgrade_Renewal(index);
+        SA_TrainData.SA_TrainUpgrade_Renewal_2(Train_Num);
     }
 
     public void Train_Turret_Level_Up(int Train_Num, int index)

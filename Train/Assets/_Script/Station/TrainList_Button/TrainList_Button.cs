@@ -21,6 +21,13 @@ public class TrainList_Button : MonoBehaviour
 
     public void ChangeButton(bool flag)
     {
-        Btn.interactable = flag;
+        try
+        {
+            Btn.interactable = flag;
+        }
+        catch
+        {
+            Debug.Log("기차 구매 윈도우 떠야 됨");
+        }
     }
 }

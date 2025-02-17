@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Localization.Components;
+using DG.Tweening;
 
 
 public class Station_TrainMaintenance : MonoBehaviour
@@ -86,8 +87,8 @@ public class Station_TrainMaintenance : MonoBehaviour
     Sprite[] CommonTrain_Image;
     Sprite[] TurretTrain_Image;
     Sprite[] BoosterTrain_Image;
-    public LocalizeStringEvent Train_Name_Text;
-    public LocalizeStringEvent Train_Information_Text;
+    public LocalizeStringEvent Train_Name_Buy_Text;
+    public LocalizeStringEvent Train_Information_Buy_Text;
     public TextMeshProUGUI Train_Pride_Text;
     public Image Train_MainImage;
     public Image Train_NextImage_1;
@@ -99,9 +100,9 @@ public class Station_TrainMaintenance : MonoBehaviour
     public float MaxHP;
     public float MaxWeight;
     public float MaxArmor;
-    public Slider Slider_HP;
-    public Slider Slider_Weight;
-    public Slider Slider_Armor;
+    public Slider Slider_Buy_HP;
+    public Slider Slider_Buy_Weight;
+    public Slider Slider_Buy_Armor;
 
     [Header("기차 구매 - 트레인 리스트")]
     public Transform CommonTrain_List_Transform;
@@ -109,19 +110,45 @@ public class Station_TrainMaintenance : MonoBehaviour
     public Transform BoosterTrain_List_Transform;
     public GameObject Train_List_Button;
 
+    [Header("기차 업그레이드")]
+    public SA_TrainData sa_trainData;
+    public SA_TrainTurretData sa_trainturretData;
+    public SA_TrainBoosterData sa_trainboosterData;
+    int Train_Upgrade_Num1;
+    int Train_Upgrade_Num2;
+    public LocalizeStringEvent Train_Name_Upgrade_Text;
+    public LocalizeStringEvent Train_Information_Upgrade_Text;
+    public Sprite[] Level_Sprite;
+    public Image Before_LevelImage;
+    public Image After_LevelImage;
+    public Image Train_MainImage_Upgrade;
+
+    [Header("기차 업그레이드 - 트레인 정보")]
+    public Slider[] Slider_Upgrade_Before_HP;
+    public Slider[] Slider_Upgrade_Before_Weight;
+    public Slider[] Slider_Upgrade_Before_Armor;
+    public Slider Slider_Upgrade_After_HP;
+    public Slider Slider_Upgrade_After_Weight;
+    public Slider Slider_Upgrade_After_Armor;
+    public TextMeshProUGUI Plus_HP_Text;
+    public TextMeshProUGUI Plus_Weight_Text;
+    public TextMeshProUGUI Plus_Armor_Text;
+
+    [Header("기차 업그레이드 - 트레인 리스트")]
+    public GameObject TrainUpgradeList_Button_Object;
+    public Transform TrainUpgradeList_Content;
+
     [Header("패시브 업그레이드")]
     public TextMeshProUGUI[] Passive_Level_Text;
     public TextMeshProUGUI[] Passive_Cost_Text;
     public Button[] Passive_Button;
 
-    private void Awake()
+    private void Start()
     {
         Setting_TrainImage();
         Setting_TrainType_DropDown();
-    }
+        Setting_TrainUpgradeList_Button();
 
-    private void Start()
-    { 
         Part_Window_Flag = false;
         UI_Train_Num = 0;
         UI_Init_Train_Turret_Num = 0;
@@ -153,12 +180,16 @@ public class Station_TrainMaintenance : MonoBehaviour
         //기차 업그레이드
         Upgrade_Before_After_Text();
 
-
         //기차 구매하기
         List_TrainType_Num = 0;
         Init_TrainBuy();
-        Train_Name_Text.StringReference.TableReference = "ExcelData_Table_St";
-        Train_Information_Text.StringReference.TableReference = "ExcelData_Table_St";
+        Train_Name_Buy_Text.StringReference.TableReference = "ExcelData_Table_St";
+        Train_Information_Buy_Text.StringReference.TableReference = "ExcelData_Table_St";
+
+        //기차 업그레이드
+
+        Train_Name_Upgrade_Text.StringReference.TableReference = "ExcelData_Table_St";
+        Train_Information_Upgrade_Text.StringReference.TableReference = "ExcelData_Table_St";
 
         //패시브 업그레이드
         for (int i = 0; i < 5; i++)
@@ -1034,7 +1065,7 @@ public class Station_TrainMaintenance : MonoBehaviour
             {
                 playerData.Player_Buy_Coin(cost);
                 //itemData.Common_Train_Material_object.Item_Count_Down(Material_Count);
-                trainData.Train_Level_Up(trainData.Train_Num[UI_Train_Num], UI_Train_Num);
+                //trainData.Train_Level_Up(trainData.Train_Num[UI_Train_Num], UI_Train_Num);
                 Upgrade_Train_TrainMaintenance(); // UI 기차 변경
                 Upgrade_Before_After_Text(); // 비포 애프터 변경도 하고 기차 옆의 정보도 변경.
                 Check_Upgrade_Button_TrainChange(); //기차 변경하기에서도 변경이 된다.
@@ -1451,7 +1482,7 @@ public class Station_TrainMaintenance : MonoBehaviour
             trainNum = TurretTrain_NumberArray[Train_Buy_Num];
         }
 
-        Check_TrainState_Slider();
+        Check_TrainState_Slider_Buy();
         Change_NextTrianSprite();
 
         int train_pride;
@@ -1460,13 +1491,13 @@ public class Station_TrainMaintenance : MonoBehaviour
         {
             if (trainNum < 50)
             {
-                Train_Name_Text.StringReference.TableEntryReference = "Train_Name_" + (trainNum / 10);
-                Train_Information_Text.StringReference.TableEntryReference = "Train_Information_" + (trainNum / 10);
+                Train_Name_Buy_Text.StringReference.TableEntryReference = "Train_Name_" + (trainNum / 10);
+                Train_Information_Buy_Text.StringReference.TableEntryReference = "Train_Information_" + (trainNum / 10);
             }
             else
             {
-                Train_Name_Text.StringReference.TableEntryReference = "Train_Name_" + trainNum;
-                Train_Information_Text.StringReference.TableEntryReference = "Train_Information_" + trainNum;
+                Train_Name_Buy_Text.StringReference.TableEntryReference = "Train_Name_" + trainNum;
+                Train_Information_Buy_Text.StringReference.TableEntryReference = "Train_Information_" + trainNum;
             }
             train_pride = trainData.EX_Game_Data.Information_Train[trainNum].Train_Buy_Cost;
             Train_Pride_Text.text = train_pride.ToString();
@@ -1474,21 +1505,20 @@ public class Station_TrainMaintenance : MonoBehaviour
         }
         else if (List_TrainType_Num == 1)
         {
-            Train_Name_Text.StringReference.TableEntryReference = "Train_Turret_Name_" + (trainNum / 10);
-            Train_Information_Text.StringReference.TableEntryReference = "Train_Turret_Information_" + (trainNum / 10);
+            Train_Name_Buy_Text.StringReference.TableEntryReference = "Train_Turret_Name_" + (trainNum / 10);
+            Train_Information_Buy_Text.StringReference.TableEntryReference = "Train_Turret_Information_" + (trainNum / 10);
             train_pride = trainData.EX_Game_Data.Information_Train_Turret_Part[trainNum].Train_Buy_Cost;
             Train_Pride_Text.text = train_pride.ToString();
             Train_BuyButton.interactable = !trainData.SA_TrainTurretData.Train_Turret_Buy_Num.Contains(trainNum);
         }
         else if(List_TrainType_Num == 2)
         {
-            Train_Name_Text.StringReference.TableEntryReference = "Train_Booster_Name_" + (trainNum / 10);
-            Train_Information_Text.StringReference.TableEntryReference = "Train_Booster_Information_" + (trainNum / 10);
+            Train_Name_Buy_Text.StringReference.TableEntryReference = "Train_Booster_Name_" + (trainNum / 10);
+            Train_Information_Buy_Text.StringReference.TableEntryReference = "Train_Booster_Information_" + (trainNum / 10);
             train_pride = trainData.EX_Game_Data.Information_Train_Booster_Part[trainNum].Train_Buy_Cost;
             Train_Pride_Text.text = train_pride.ToString();
             Train_BuyButton.interactable = !trainData.SA_TrainBoosterData.Train_Booster_Buy_Num.Contains(trainNum);
         }
-
 
         //-----------리스트버튼-------
 
@@ -1608,7 +1638,7 @@ public class Station_TrainMaintenance : MonoBehaviour
         }
     }
 
-    private void Check_TrainState_Slider()
+    private void Check_TrainState_Slider_Buy()
     {
         int TrainNum = 0;
         float EX_HP = 0;
@@ -1639,13 +1669,255 @@ public class Station_TrainMaintenance : MonoBehaviour
             EX_Armor = 1 - (trainData_Info.Train_Armor / MaxArmor);
         }
 
-        Slider_HP.value = EX_HP;
-        Slider_Weight.value = EX_Weight;
-        Slider_Armor.value = EX_Armor;
+        Slider_Buy_HP.value = EX_HP;
+        Slider_Buy_Weight.value = EX_Weight;
+        Slider_Buy_Armor.value = EX_Armor;
+    }
+    //기차 업그레이드
+
+    public void Setting_TrainUpgradeList_Button()
+    {
+        bool TurretTrain_Flag = false;
+        bool BoosterTrain_Flag = false;
+        List<int> TrainList = new List<int> { sa_trainData.SA_TrainChangeNum(0), sa_trainData.SA_TrainChangeNum(10) };
+        TrainList.AddRange(sa_trainData.Train_Buy_Num);
+        TrainUpgradeList_Button_Object.GetComponent<TrainUpgradeList_Button>().Director = this;
+
+        foreach (int i in TrainList)
+        {
+            if(i == 51)
+            {
+                TurretTrain_Flag = true;
+            }
+            else if(i == 52)
+            {
+                BoosterTrain_Flag = true;
+            }
+            else
+            {
+                TrainUpgradeList_Button_Object.GetComponent<TrainUpgradeList_Button>().Train_Num = sa_trainData.SA_TrainChangeNum(i);
+                Instantiate(TrainUpgradeList_Button_Object, TrainUpgradeList_Content);
+            }
+        }
+
+        if (TurretTrain_Flag)
+        {
+            TrainUpgradeList_Button_Object.GetComponent<TrainUpgradeList_Button>().Train_Num = 51;
+            TrainList = sa_trainturretData.Train_Turret_Buy_Num;
+       
+            foreach(int i in TrainList)
+            {
+                TrainUpgradeList_Button_Object.GetComponent<TrainUpgradeList_Button>().Train_Num2 = sa_trainturretData.SA_Train_Turret_ChangeNum(i);
+                Instantiate(TrainUpgradeList_Button_Object, TrainUpgradeList_Content);
+            }
+        }
+
+        if (BoosterTrain_Flag)
+        {
+            TrainUpgradeList_Button_Object.GetComponent<TrainUpgradeList_Button>().Train_Num = 52;
+            TrainList = sa_trainboosterData.Train_Booster_Buy_Num;
+
+            foreach (int i in TrainList)
+            {
+                TrainUpgradeList_Button_Object.GetComponent<TrainUpgradeList_Button>().Train_Num2 = sa_trainboosterData.SA_Train_Booster_ChangeNum(i);
+                Instantiate(TrainUpgradeList_Button_Object, TrainUpgradeList_Content);
+            }
+        }
     }
 
+    public void TrainUpgradeList_Button_Click(int Train_Num, int Train_Num2)
+    {
+        Train_Upgrade_Num1 = Train_Num;
+        Train_Upgrade_Num2 = Train_Num2;
 
+        Check_TrainChange_Upgrade();
+        Check_TrainState_Slider_Upgrade();
+    }
 
+    void Check_TrainChange_Upgrade()
+    {
+
+        if(Train_Upgrade_Num1 == 51)
+        {
+            Train_MainImage_Upgrade.sprite = Resources.Load<Sprite>("Sprite/Train/Train_51_" + Train_Upgrade_Num2 / 10 * 10);
+            
+            Train_Name_Upgrade_Text.StringReference.TableEntryReference = "Train_Turret_Name_" + (Train_Upgrade_Num2 / 10);
+            Train_Information_Upgrade_Text.StringReference.TableEntryReference = "Train_Turret_Information_" + (Train_Upgrade_Num2 / 10);
+        }
+        else if(Train_Upgrade_Num1 == 52)
+        {
+            Train_MainImage_Upgrade.sprite = Resources.Load<Sprite>("Sprite/Train/Train_52_" + Train_Upgrade_Num2 / 10 * 10);
+
+            Train_Name_Upgrade_Text.StringReference.TableEntryReference = "Train_Booster_Name_" + (Train_Upgrade_Num2 / 10);
+            Train_Information_Upgrade_Text.StringReference.TableEntryReference = "Train_Booster_Information_" + (Train_Upgrade_Num2 / 10);
+        }
+        else
+        {
+            Train_MainImage_Upgrade.sprite = Resources.Load<Sprite>("Sprite/Train/Train_" + Train_Upgrade_Num1);
+
+            Train_Name_Upgrade_Text.StringReference.TableEntryReference = "Train_Name_" + (Train_Upgrade_Num1 / 10);
+            Train_Information_Upgrade_Text.StringReference.TableEntryReference = "Train_Information_" + (Train_Upgrade_Num1 / 10);
+        }
+    }
+
+    private void Check_TrainState_Slider_Upgrade()
+    {
+        int Plus_HP;
+        int Plus_Weight;
+        int Plus_Armor;
+
+        float EX_HP = 0;
+        float EX_Weight = 0;
+        float EX_Armor = 0;
+
+        float EX_HP2 = 0;
+        float EX_Weight2 = 0;
+        float EX_Armor2 = 0;
+
+        if (Train_Upgrade_Num1 == 51)
+        {
+            int num2 = sa_trainturretData.SA_Train_Turret_ChangeNum(Train_Upgrade_Num2);
+            Info_Train_Turret_Part trainData_Info = trainData.EX_Game_Data.Information_Train_Turret_Part[num2];
+            Info_Train_Turret_Part trainData_Info2 = null;
+
+            int index = num2 % 10;
+            Before_LevelImage.sprite = Level_Sprite[index];
+
+            EX_HP = 1 - (trainData_Info.Train_HP / MaxHP);
+            EX_Weight = 1 - (trainData_Info.Train_Weight / MaxWeight);
+            EX_Armor = 1 - (trainData_Info.Train_Armor / MaxArmor);
+
+            if (index % 10 < 9)
+            {
+                After_LevelImage.sprite = Level_Sprite[index + 1];
+                trainData_Info2 = trainData.EX_Game_Data.Information_Train_Turret_Part[num2+1];
+                EX_HP2 = 1 - (trainData_Info2.Train_HP / MaxHP);
+                EX_Weight2 = 1 - (trainData_Info2.Train_Weight / MaxWeight);
+                EX_Armor2 = 1 - (trainData_Info2.Train_Armor / MaxArmor);
+            }
+            else //max
+            {
+                After_LevelImage.sprite = Level_Sprite[index];
+                trainData_Info2 = trainData.EX_Game_Data.Information_Train_Turret_Part[num2];
+                EX_HP2 = EX_HP;
+                EX_Weight2 = EX_Weight;
+                EX_Armor2 = EX_Armor;
+            }
+
+            Plus_HP = trainData_Info2.Train_HP - trainData_Info.Train_HP;
+            Plus_Weight = trainData_Info2.Train_Weight - trainData_Info.Train_Weight;
+            Plus_Armor = trainData_Info2.Train_Armor - trainData_Info.Train_Armor;
+        }
+        else if (Train_Upgrade_Num1 == 52)
+        {
+            int num2 = sa_trainboosterData.SA_Train_Booster_ChangeNum(Train_Upgrade_Num2);
+            Info_Train_Booster_Part trainData_Info = trainData.EX_Game_Data.Information_Train_Booster_Part[Train_Upgrade_Num2];
+            Info_Train_Booster_Part trainData_Info2 = null;
+
+            EX_HP = 1 - (trainData_Info.Train_HP / MaxHP);
+            EX_Weight = 1 - (trainData_Info.Train_Weight / MaxWeight);
+            EX_Armor = 1 - (trainData_Info.Train_Armor / MaxArmor);
+
+            int index = num2 % 10;
+            Before_LevelImage.sprite = Level_Sprite[index];
+
+            if (num2 % 10 < 5)
+            {
+                After_LevelImage.sprite = Level_Sprite[index+1];
+                trainData_Info2 = trainData.EX_Game_Data.Information_Train_Booster_Part[num2 + 1];
+                EX_HP2 = 1 - (trainData_Info2.Train_HP / MaxHP);
+                EX_Weight2 = 1 - (trainData_Info2.Train_Weight / MaxWeight);
+                EX_Armor2 = 1 - (trainData_Info2.Train_Armor / MaxArmor);
+
+            }
+            else //max
+            {
+                After_LevelImage.sprite = Level_Sprite[index];
+                trainData_Info2 = trainData.EX_Game_Data.Information_Train_Booster_Part[num2];
+                EX_HP2 = EX_HP;
+                EX_Weight2 = EX_Weight;
+                EX_Armor2 = EX_Armor;
+            }
+
+            Plus_HP = trainData_Info2.Train_HP - trainData_Info.Train_HP;
+            Plus_Weight = trainData_Info2.Train_Weight - trainData_Info.Train_Weight;
+            Plus_Armor = trainData_Info2.Train_Armor - trainData_Info.Train_Armor;
+        }
+        else
+        {
+            int num = sa_trainData.SA_TrainChangeNum(Train_Upgrade_Num1);
+            Info_Train trainData_Info = trainData.EX_Game_Data.Information_Train[Train_Upgrade_Num1];
+            Info_Train trainData_Info2 = null;
+
+            EX_HP = 1 - (trainData_Info.Train_HP / MaxHP);
+            EX_Weight = 1 - (trainData_Info.Train_Weight / MaxWeight);
+            EX_Armor = 1 - (trainData_Info.Train_Armor / MaxArmor);
+
+            int index = num % 10;
+            Before_LevelImage.sprite = Level_Sprite[index];
+
+            if (num % 10 < 5)
+            {
+                After_LevelImage.sprite = Level_Sprite[index + 1];
+                trainData_Info2 = trainData.EX_Game_Data.Information_Train[num + 1];
+                EX_HP2 = 1 - (trainData_Info2.Train_HP / MaxHP);
+                EX_Weight2 = 1 - (trainData_Info2.Train_Weight / MaxWeight);
+                EX_Armor2 = 1 - (trainData_Info2.Train_Armor / MaxArmor);
+
+            }
+            else //max
+            {
+                After_LevelImage.sprite = Level_Sprite[index];
+                trainData_Info2 = trainData.EX_Game_Data.Information_Train[num];
+                EX_HP2 = EX_HP;
+                EX_Weight2 = EX_Weight;
+                EX_Armor2 = EX_Armor;
+            }
+
+            Plus_HP = trainData_Info2.Train_HP - trainData_Info.Train_HP;
+            Plus_Weight = trainData_Info2.Train_Weight - trainData_Info.Train_Weight;
+            Plus_Armor = trainData_Info2.Train_Armor - trainData_Info.Train_Armor;
+        }
+
+        Slider_Upgrade_Before_HP[0].value = (float)Math.Round(EX_HP,2);
+        Slider_Upgrade_Before_HP[1].value = (float)Math.Round(EX_HP, 2);
+        Slider_Upgrade_Before_Weight[0].value = (float)Math.Round(EX_Weight, 2);
+        Slider_Upgrade_Before_Weight[1].value = (float)Math.Round(EX_Weight, 2);
+        Slider_Upgrade_Before_Armor[0].value = (float)Math.Round(EX_Armor, 2);
+        Slider_Upgrade_Before_Armor[1].value = (float)Math.Round(EX_Armor, 2);
+        Slider_Upgrade_After_HP.value = (float)Math.Round(EX_HP2, 2);
+        Slider_Upgrade_After_Weight.value = (float)Math.Round(EX_Weight2, 2);
+        Slider_Upgrade_After_Armor.value = (float)Math.Round(EX_Armor2, 2);
+
+        Plus_HP_Text.text = "+" +Plus_HP;
+        Plus_Weight_Text.text = "+" + Plus_Weight;
+        Plus_Armor_Text.text = "+" + Plus_Armor;
+    }
+
+    public void Click_Train_Upgrade()
+    {
+        if(Train_Upgrade_Num1 == 51)
+        {
+
+        }else if(Train_Upgrade_Num1 == 52)
+        {
+
+        }
+        else
+        {
+            int trainLevel = sa_trainData.SA_TrainChangeNum(Train_Upgrade_Num1);
+            int cost = trainData.EX_Game_Data.Information_Train[trainLevel].Train_Upgrade_Cost;
+
+            if(playerData.Player_Coin >= cost)
+            {
+                playerData.Player_Buy_Coin(cost);
+                trainData.Train_Level_Up(Train_Upgrade_Num1);
+                Train_Upgrade_Num1++;
+                Check_TrainChange_Upgrade();
+                Check_TrainState_Slider_Upgrade();
+            }
+        }
+    }
 
     //패시브 업그레이드
     private void Passive_Upgrade_Text(int num)

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -138,6 +139,18 @@ public class SA_TrainData : ScriptableObject
         for(int i = 0; i < Train_Num.Count; i++)
         {
             if (Train_Num[i] == num)
+            {
+                Train_Num[i] = Train_Num[i] + 1;
+            }
+        }
+        Save();
+    }
+
+    public void SA_TrainUpgrade_Renewal_2(int TrainNum)
+    {
+        for (int i = 0; i < Train_Num.Count; i++)
+        {
+            if (Train_Num[i] == TrainNum)
             {
                 Train_Num[i] = Train_Num[i] + 1;
             }
