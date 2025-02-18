@@ -90,6 +90,18 @@ public class SA_TrainBoosterData : ScriptableObject
         Save();
     }
 
+    public void SA_Train_Booster_Upgrade_Renewal_2(int TrainNum)
+    {
+        for (int i = 0; i < Train_Booster_Num.Count; i++)
+        {
+            if (Train_Booster_Num[i] == TrainNum)
+            {
+                Train_Booster_Num[i] = Train_Booster_Num[i] + 1;
+            }
+        }
+        Save();
+    }
+
     public void SA_Train_Booster_Buy(int TrainNum)
     {
         train_booster_buy_num.Add(TrainNum);

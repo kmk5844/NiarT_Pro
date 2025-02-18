@@ -97,8 +97,6 @@ public class SA_PlayerData : ScriptableObject
     private bool station_tutorial;
     public bool Station_Tutorial {  get { return station_tutorial; } }
 
-    
-
     public void SA_GameWinReward(bool lastStage, int R_Coin)
     {
         /*

@@ -198,15 +198,17 @@ public class Station_TrainData : MonoBehaviour
         SA_TrainData.SA_TrainUpgrade_Renewal_2(Train_Num);
     }
 
-    public void Train_Turret_Level_Up(int Train_Num, int index)
+    public void Train_Turret_Level_Up(int Train_Num)
     {
         SA_TrainTurretData.SA_Train_Turret_Upgrade(Train_Num);
-        SA_TrainTurretData.SA_Train_Turret_Upgrade_Renewal(index);
+        //SA_TrainTurretData.SA_Train_Turret_Upgrade_Renewal(index);
+        SA_TrainTurretData.SA_Train_Turret_Upgrade_Renewal_2(Train_Num);
     }
 
-    public void Train_Booster_Level_Up(int Train_Num, int index)
+    public void Train_Booster_Level_Up(int Train_Num)
     {
         SA_TrainBoosterData.SA_Train_Booster_Upgrade(Train_Num);
-        SA_TrainBoosterData.SA_Train_Booster_Upgrade_Renewal(index);
+        //SA_TrainBoosterData.SA_Train_Booster_Upgrade_Renewal(index);
+        SA_TrainBoosterData.SA_Train_Booster_Upgrade_Renewal_2(Train_Num);
     }
 }

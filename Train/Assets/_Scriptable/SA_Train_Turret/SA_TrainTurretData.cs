@@ -116,6 +116,18 @@ public class SA_TrainTurretData : ScriptableObject
         Save();
     }
 
+    public void SA_Train_Turret_Upgrade_Renewal_2(int TrainNum)
+    {
+        for (int i = 0; i < Train_Turret_Num.Count; i++)
+        {
+            if (Train_Turret_Num[i] == TrainNum)
+            {
+                Train_Turret_Num[i] = Train_Turret_Num[i] + 1;
+            }
+        }
+        Save();
+    }
+
     public void SA_Train_Turret_Buy(int TrainNum)
     {
         train_turret_buy_num.Add(TrainNum);

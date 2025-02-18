@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Localization.Components;
 using DG.Tweening;
+using System.Linq;
+using UnityEngine.Localization;
 
 
 public class Station_TrainMaintenance : MonoBehaviour
@@ -14,6 +16,7 @@ public class Station_TrainMaintenance : MonoBehaviour
     Station_TrainData trainData;
     public GameObject Player_DataObject;
     Station_PlayerData playerData;
+
     public GameObject Item_DataObject;
     Station_ItemData itemData;
 
@@ -116,12 +119,17 @@ public class Station_TrainMaintenance : MonoBehaviour
     public SA_TrainBoosterData sa_trainboosterData;
     int Train_Upgrade_Num1;
     int Train_Upgrade_Num2;
+    public GameObject UpgradeWindow;
     public LocalizeStringEvent Train_Name_Upgrade_Text;
     public LocalizeStringEvent Train_Information_Upgrade_Text;
     public Sprite[] Level_Sprite;
     public Image Before_LevelImage;
     public Image After_LevelImage;
     public Image Train_MainImage_Upgrade;
+    public Button Train_Upgrade_Button;
+    public TextMeshProUGUI Train_Upgrade_CostText;
+    int TrainUpgrade_trainLevel;
+    int TrainUpgrade_cost;
 
     [Header("기차 업그레이드 - 트레인 정보")]
     public Slider[] Slider_Upgrade_Before_HP;
@@ -135,19 +143,34 @@ public class Station_TrainMaintenance : MonoBehaviour
     public TextMeshProUGUI Plus_Armor_Text;
 
     [Header("기차 업그레이드 - 트레인 리스트")]
+    public TMP_Dropdown TrainUpgradeList_DropDown;
+    int TrainUpgradeList_BeforeNum;
     public GameObject TrainUpgradeList_Button_Object;
-    public Transform TrainUpgradeList_Content;
+
+    public Transform[] TrainUgpradeList_Content;
 
     [Header("패시브 업그레이드")]
     public TextMeshProUGUI[] Passive_Level_Text;
     public TextMeshProUGUI[] Passive_Cost_Text;
     public Button[] Passive_Button;
 
+    [Header("공통")]
+    public GameObject Warning_Coin_Window;
+    public SA_LocalData localData;
+    int local_Index;
+    [SerializeField]
+    LocalizedString[] LocalString_TrainType;
+
     private void Start()
     {
         Setting_TrainImage();
-        Setting_TrainType_DropDown();
+        Setting_TrainType_DropDown_Buy();
+        Setting_TrainUpgarde();
         Setting_TrainUpgradeList_Button();
+        Setting_TrainType_DropDown_Upgrade();
+        DropDown_Option_Change();
+
+        local_Index = localData.Local_Index;
 
         Part_Window_Flag = false;
         UI_Train_Num = 0;
@@ -195,6 +218,15 @@ public class Station_TrainMaintenance : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             Passive_Upgrade_Text(i);
+        }
+    }
+
+    private void Update()
+    {
+        if(local_Index != localData.Local_Index)
+        {
+            DropDown_Option_Change();
+            local_Index = localData.Local_Index;
         }
     }
 
@@ -1029,7 +1061,7 @@ public class Station_TrainMaintenance : MonoBehaviour
             {
                 playerData.Player_Buy_Coin(cost);
                 //itemData.Turret_Train_Material_object.Item_Count_Down(Material_Count);
-                trainData.Train_Turret_Level_Up(trainData.SA_TrainTurretData.Train_Turret_Num[UI_Train_Turret_Num], UI_Train_Turret_Num);
+                //trainData.Train_Turret_Level_Up(trainData.SA_TrainTurretData.Train_Turret_Num[UI_Train_Turret_Num], UI_Train_Turret_Num);
                 Upgrade_Train_TrainMaintenance(); // UI 기차 변경
                 Upgrade_Before_After_Text(); // 비포 애프터 변경도 하고 기차 옆의 정보도 변경.
                 Check_Upgrade_Button_TrainChange(); //기차 변경하기에서도 변경이 된다.
@@ -1047,7 +1079,7 @@ public class Station_TrainMaintenance : MonoBehaviour
             {
                 playerData.Player_Buy_Coin(cost);
                 //itemData.Booster_Train_Material_object.Item_Count_Down(Material_Count);
-                trainData.Train_Booster_Level_Up(trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num], UI_Train_Booster_Num);
+                //trainData.Train_Booster_Level_Up(trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num], UI_Train_Booster_Num);
                 Upgrade_Train_TrainMaintenance(); // UI 기차 변경
                 Upgrade_Before_After_Text(); // 비포 애프터 변경도 하고 기차 옆의 정보도 변경.
                 Check_Upgrade_Button_TrainChange(); //기차 변경하기에서도 변경이 된다.
@@ -1315,15 +1347,15 @@ public class Station_TrainMaintenance : MonoBehaviour
     }
 
     //기차 구매하기
-    private void Setting_TrainType_DropDown()
+    private void Setting_TrainType_DropDown_Buy()
     {
         TrainBuy_DropDown.ClearOptions();
         List<string> optionList = new List<string>();
         TrainBuy_DropDown.onValueChanged.RemoveAllListeners();
         TrainBuy_DropDown.onValueChanged.AddListener(Change_TrainType_DropDown);
-        optionList.Add("Train");
-        optionList.Add("Turret");
-        optionList.Add("Booster");
+        optionList.Add("A");
+        optionList.Add("B");
+        optionList.Add("C");
         TrainBuy_DropDown.AddOptions(optionList);
         TrainBuy_DropDown.value = 0;
     }
@@ -1609,32 +1641,62 @@ public class Station_TrainMaintenance : MonoBehaviour
     public void Click_Buy_Train()
     {
         int TrainNum = 0;
+        int cost = 0;
         if (List_TrainType_Num == 0)
         {
             TrainNum = CommonTrain_NumberArray[Train_Buy_Num];
-            playerData.Player_Buy_Coin(trainData.EX_Game_Data.Information_Train[TrainNum].Train_Buy_Cost);
-            trainData.SA_TrainData.SA_Train_Buy(TrainNum);
-            trainData.Check_Buy_Train(TrainNum);
-            Check_Player_Coin_Point();
-            Train_BuyButton.interactable = !trainData.SA_TrainData.Train_Buy_Num.Contains(TrainNum);
+            cost = trainData.EX_Game_Data.Information_Train[TrainNum].Train_Buy_Cost;
+            if (playerData.Player_Coin >= cost)
+            {
+                playerData.Player_Buy_Coin(cost);
+                trainData.SA_TrainData.SA_Train_Buy(TrainNum);
+                trainData.Check_Buy_Train(TrainNum);
+                Check_Player_Coin_Point();
+                Train_BuyButton.interactable = !trainData.SA_TrainData.Train_Buy_Num.Contains(TrainNum);
+                Instantiate_AfterTrainBuy(1, TrainNum);
+            }
+            else
+            {
+                Open_Warning_Window();
+            }
+
         }
         else if (List_TrainType_Num == 1)
         {
             TrainNum = TurretTrain_NumberArray[Train_Buy_Num];
-            playerData.Player_Buy_Coin(trainData.EX_Game_Data.Information_Train_Turret_Part[TrainNum].Train_Buy_Cost);
-            trainData.SA_TrainTurretData.SA_Train_Turret_Buy(TrainNum);
-            trainData.Check_Buy_Turret(TrainNum);
-            Check_Player_Coin_Point();
-            Train_BuyButton.interactable = !trainData.SA_TrainTurretData.Train_Turret_Buy_Num.Contains(TrainNum);
+            cost = trainData.EX_Game_Data.Information_Train_Turret_Part[TrainNum].Train_Buy_Cost;
+            if (playerData.Player_Coin >= cost)
+            {
+                playerData.Player_Buy_Coin(cost);
+                trainData.SA_TrainTurretData.SA_Train_Turret_Buy(TrainNum);
+                trainData.Check_Buy_Turret(TrainNum);
+                Check_Player_Coin_Point();
+                Train_BuyButton.interactable = !trainData.SA_TrainTurretData.Train_Turret_Buy_Num.Contains(TrainNum);
+                Instantiate_AfterTrainBuy(2, TrainNum);
+            }
+            else
+            {
+                Open_Warning_Window();
+            }
+
         }
         else if (List_TrainType_Num == 2)
         {
             TrainNum = BoosterTrain_NumberArray[Train_Buy_Num];
-            playerData.Player_Buy_Coin(trainData.EX_Game_Data.Information_Train_Booster_Part[TrainNum].Train_Buy_Cost);
-            trainData.SA_TrainBoosterData.SA_Train_Booster_Buy(TrainNum);
-            trainData.Check_Buy_Booster(TrainNum);
-            Check_Player_Coin_Point();
-            Train_BuyButton.interactable = !trainData.SA_TrainBoosterData.Train_Booster_Buy_Num.Contains(TrainNum);
+            cost = trainData.EX_Game_Data.Information_Train_Booster_Part[TrainNum].Train_Buy_Cost;
+            if (playerData.Player_Coin >= cost)
+            {
+                playerData.Player_Buy_Coin(cost);
+                trainData.SA_TrainBoosterData.SA_Train_Booster_Buy(TrainNum);
+                trainData.Check_Buy_Booster(TrainNum);
+                Check_Player_Coin_Point();
+                Train_BuyButton.interactable = !trainData.SA_TrainBoosterData.Train_Booster_Buy_Num.Contains(TrainNum);
+                Instantiate_AfterTrainBuy(3, TrainNum);
+            }
+            else
+            {
+                Open_Warning_Window();
+            }
         }
     }
 
@@ -1675,7 +1737,12 @@ public class Station_TrainMaintenance : MonoBehaviour
     }
     //기차 업그레이드
 
-    public void Setting_TrainUpgradeList_Button()
+    void Setting_TrainUpgarde()
+    {
+        UpgradeWindow.SetActive(false);
+    }
+
+    void Setting_TrainUpgradeList_Button()
     {
         bool TurretTrain_Flag = false;
         bool BoosterTrain_Flag = false;
@@ -1685,20 +1752,13 @@ public class Station_TrainMaintenance : MonoBehaviour
 
         foreach (int i in TrainList)
         {
-            if(i == 51)
-            {
-                TurretTrain_Flag = true;
-            }
-            else if(i == 52)
-            {
-                BoosterTrain_Flag = true;
-            }
-            else
-            {
-                TrainUpgradeList_Button_Object.GetComponent<TrainUpgradeList_Button>().Train_Num = sa_trainData.SA_TrainChangeNum(i);
-                Instantiate(TrainUpgradeList_Button_Object, TrainUpgradeList_Content);
-            }
+            TrainUpgradeList_Button_Object.GetComponent<TrainUpgradeList_Button>().Train_Num = sa_trainData.SA_TrainChangeNum(i);
+            Instantiate(TrainUpgradeList_Button_Object, TrainUgpradeList_Content[0]);
+            Instantiate(TrainUpgradeList_Button_Object, TrainUgpradeList_Content[1]);
         }
+
+        TurretTrain_Flag = sa_trainturretData.Train_Turret_Buy_Num.Any();
+        BoosterTrain_Flag = sa_trainboosterData.Train_Booster_Buy_Num.Any();
 
         if (TurretTrain_Flag)
         {
@@ -1708,7 +1768,8 @@ public class Station_TrainMaintenance : MonoBehaviour
             foreach(int i in TrainList)
             {
                 TrainUpgradeList_Button_Object.GetComponent<TrainUpgradeList_Button>().Train_Num2 = sa_trainturretData.SA_Train_Turret_ChangeNum(i);
-                Instantiate(TrainUpgradeList_Button_Object, TrainUpgradeList_Content);
+                Instantiate(TrainUpgradeList_Button_Object, TrainUgpradeList_Content[0]);
+                Instantiate(TrainUpgradeList_Button_Object, TrainUgpradeList_Content[2]);
             }
         }
 
@@ -1720,9 +1781,61 @@ public class Station_TrainMaintenance : MonoBehaviour
             foreach (int i in TrainList)
             {
                 TrainUpgradeList_Button_Object.GetComponent<TrainUpgradeList_Button>().Train_Num2 = sa_trainboosterData.SA_Train_Booster_ChangeNum(i);
-                Instantiate(TrainUpgradeList_Button_Object, TrainUpgradeList_Content);
+                Instantiate(TrainUpgradeList_Button_Object, TrainUgpradeList_Content[0]);
+                Instantiate(TrainUpgradeList_Button_Object, TrainUgpradeList_Content[3]);
             }
         }
+    }
+
+    private void Setting_TrainType_DropDown_Upgrade()
+    {
+        TrainUpgradeList_DropDown.ClearOptions();
+        List<string> optionList = new List<String>();
+        TrainUpgradeList_DropDown.onValueChanged.RemoveAllListeners();
+        TrainUpgradeList_DropDown.onValueChanged.AddListener(Change_TrianType_DropDown_Upgrade);
+        optionList.Add("A");
+        optionList.Add("B");
+        optionList.Add("C");
+        optionList.Add("D");
+        TrainUpgradeList_DropDown.AddOptions(optionList);
+        TrainUpgradeList_DropDown.value = 0;
+        TrainUpgradeList_BeforeNum = 0;
+
+        for(int i = 0; i < TrainUgpradeList_Content.Length; i++)
+        {
+            if (i != 0)
+            {
+                TrainUgpradeList_Content[i].gameObject.SetActive(false);
+            }
+        }
+    }
+
+    private void Change_TrianType_DropDown_Upgrade(int i)
+    {
+        TrainUgpradeList_Content[TrainUpgradeList_BeforeNum].gameObject.SetActive(false);
+        TrainUgpradeList_Content[i].gameObject.SetActive(true);
+        TrainUpgradeList_BeforeNum = i;
+    }
+
+    private void Instantiate_AfterTrainBuy(int i, int trainNum)
+    {
+        TrainUpgradeList_Button_Object.GetComponent<TrainUpgradeList_Button>().Director = this;
+        if (i == 1)
+        {
+            TrainUpgradeList_Button_Object.GetComponent<TrainUpgradeList_Button>().Train_Num = sa_trainData.SA_TrainChangeNum(trainNum);
+        }
+        else if(i == 2)
+        {
+            TrainUpgradeList_Button_Object.GetComponent<TrainUpgradeList_Button>().Train_Num = 51;
+            TrainUpgradeList_Button_Object.GetComponent<TrainUpgradeList_Button>().Train_Num2 = sa_trainturretData.SA_Train_Turret_ChangeNum(trainNum);
+        }
+        else if(i == 3)
+        {
+            TrainUpgradeList_Button_Object.GetComponent<TrainUpgradeList_Button>().Train_Num = 52;
+            TrainUpgradeList_Button_Object.GetComponent<TrainUpgradeList_Button>().Train_Num2 = sa_trainboosterData.SA_Train_Booster_ChangeNum(trainNum);
+        }
+        Instantiate(TrainUpgradeList_Button_Object, TrainUgpradeList_Content[0]);
+        Instantiate(TrainUpgradeList_Button_Object, TrainUgpradeList_Content[i]);
     }
 
     public void TrainUpgradeList_Button_Click(int Train_Num, int Train_Num2)
@@ -1736,6 +1849,10 @@ public class Station_TrainMaintenance : MonoBehaviour
 
     void Check_TrainChange_Upgrade()
     {
+        if (!UpgradeWindow.activeSelf)
+        {
+            UpgradeWindow.SetActive(true);
+        }
 
         if(Train_Upgrade_Num1 == 51)
         {
@@ -1743,6 +1860,8 @@ public class Station_TrainMaintenance : MonoBehaviour
             
             Train_Name_Upgrade_Text.StringReference.TableEntryReference = "Train_Turret_Name_" + (Train_Upgrade_Num2 / 10);
             Train_Information_Upgrade_Text.StringReference.TableEntryReference = "Train_Turret_Information_" + (Train_Upgrade_Num2 / 10);
+            TrainUpgrade_trainLevel = sa_trainturretData.SA_Train_Turret_ChangeNum(Train_Upgrade_Num2);
+            TrainUpgrade_cost = trainData.EX_Game_Data.Information_Train_Turret_Part[TrainUpgrade_trainLevel].Train_Upgrade_Cost;
         }
         else if(Train_Upgrade_Num1 == 52)
         {
@@ -1750,6 +1869,8 @@ public class Station_TrainMaintenance : MonoBehaviour
 
             Train_Name_Upgrade_Text.StringReference.TableEntryReference = "Train_Booster_Name_" + (Train_Upgrade_Num2 / 10);
             Train_Information_Upgrade_Text.StringReference.TableEntryReference = "Train_Booster_Information_" + (Train_Upgrade_Num2 / 10);
+            TrainUpgrade_trainLevel = sa_trainboosterData.SA_Train_Booster_ChangeNum(Train_Upgrade_Num2);
+            TrainUpgrade_cost = trainData.EX_Game_Data.Information_Train_Booster_Part[TrainUpgrade_trainLevel].Train_Upgrade_Cost;
         }
         else
         {
@@ -1757,6 +1878,19 @@ public class Station_TrainMaintenance : MonoBehaviour
 
             Train_Name_Upgrade_Text.StringReference.TableEntryReference = "Train_Name_" + (Train_Upgrade_Num1 / 10);
             Train_Information_Upgrade_Text.StringReference.TableEntryReference = "Train_Information_" + (Train_Upgrade_Num1 / 10);
+            TrainUpgrade_trainLevel = sa_trainData.SA_TrainChangeNum(Train_Upgrade_Num1);
+            TrainUpgrade_cost = trainData.EX_Game_Data.Information_Train[TrainUpgrade_trainLevel].Train_Upgrade_Cost;
+        }
+
+        if (TrainUpgrade_cost != -100)
+        {
+            Train_Upgrade_Button.interactable = true;
+            Train_Upgrade_CostText.text = TrainUpgrade_cost.ToString();
+        }
+        else
+        {
+            Train_Upgrade_Button.interactable = false;
+            Train_Upgrade_CostText.text = "Max";
         }
     }
 
@@ -1898,23 +2032,47 @@ public class Station_TrainMaintenance : MonoBehaviour
     {
         if(Train_Upgrade_Num1 == 51)
         {
-
-        }else if(Train_Upgrade_Num1 == 52)
+            if (playerData.Player_Coin >= TrainUpgrade_cost)
+            {
+                playerData.Player_Buy_Coin(TrainUpgrade_cost);
+                trainData.Train_Turret_Level_Up(Train_Upgrade_Num2);
+                Train_Upgrade_Num2++;
+                Check_TrainChange_Upgrade();
+                Check_TrainState_Slider_Upgrade();
+            }
+            else
+            {
+                Open_Warning_Window();
+            }
+        }
+        else if(Train_Upgrade_Num1 == 52)
         {
-
+            if(playerData.Player_Coin >= TrainUpgrade_cost)
+            {
+                playerData.Player_Buy_Coin(TrainUpgrade_cost);
+                trainData.Train_Booster_Level_Up(Train_Upgrade_Num2);
+                Train_Upgrade_Num2++;
+                Check_TrainChange_Upgrade();
+                Check_TrainState_Slider_Upgrade();
+            }
+            else
+            {
+                Open_Warning_Window();
+            }
         }
         else
         {
-            int trainLevel = sa_trainData.SA_TrainChangeNum(Train_Upgrade_Num1);
-            int cost = trainData.EX_Game_Data.Information_Train[trainLevel].Train_Upgrade_Cost;
-
-            if(playerData.Player_Coin >= cost)
+            if(playerData.Player_Coin >= TrainUpgrade_cost)
             {
-                playerData.Player_Buy_Coin(cost);
+                playerData.Player_Buy_Coin(TrainUpgrade_cost);
                 trainData.Train_Level_Up(Train_Upgrade_Num1);
                 Train_Upgrade_Num1++;
                 Check_TrainChange_Upgrade();
                 Check_TrainState_Slider_Upgrade();
+            }
+            else
+            {
+                Open_Warning_Window();
             }
         }
     }
@@ -2024,6 +2182,35 @@ public class Station_TrainMaintenance : MonoBehaviour
         else
         {
             Ban_Player_Coin_Point(true);
+        }
+    }
+
+    public void Open_Warning_Window()
+    {
+        Warning_Coin_Window.SetActive(true);
+    }
+
+    public void Close_Warning_Window()
+    {
+        Warning_Coin_Window.SetActive(false);
+    }
+
+    void DropDown_Option_Change()
+    {
+        TMP_Dropdown options_1 = TrainBuy_DropDown;
+        TMP_Dropdown options_2 = TrainUpgradeList_DropDown;
+
+        options_1.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = LocalString_TrainType[options_1.value+1].GetLocalizedString();
+        options_2.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = LocalString_TrainType[options_2.value].GetLocalizedString();
+
+        for(int i = 1; i < 4; i++)
+        {
+            options_1.options[i-1].text = LocalString_TrainType[i].GetLocalizedString();
+        }
+
+        for(int i = 0; i < 4; i++)
+        {
+            options_2.options[i].text = LocalString_TrainType[i].GetLocalizedString();
         }
     }
 }
