@@ -7,12 +7,7 @@ public class TrainList_Button : MonoBehaviour
 {
     public Station_TrainMaintenance director;
     public int listNum;
-    Button Btn;
-
-    private void Awake()
-    {
-        Btn = GetComponent<Button>();
-    }
+    public Button Btn;
 
     private void Start()
     {
@@ -21,13 +16,6 @@ public class TrainList_Button : MonoBehaviour
 
     public void ChangeButton(bool flag)
     {
-        try
-        {
-            Btn.interactable = flag;
-        }
-        catch
-        {
-            Debug.Log("기차 구매 윈도우 떠야 됨");
-        }
+        Btn.interactable = flag;
     }
 }

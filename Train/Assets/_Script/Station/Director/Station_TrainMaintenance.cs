@@ -71,12 +71,12 @@ public class Station_TrainMaintenance : MonoBehaviour
     bool Equip_Part_Flag;
     public bool Part_Window_Flag;
     
-    [Header("기차 업그레이드 윈도우")]
+/*    [Header("기차 업그레이드 윈도우")]
     public TextMeshProUGUI Before_Text;
     public TextMeshProUGUI After_Text;
     public Button Upgrade_Button;
     public Image Material_Image;
-    public TextMeshProUGUI[] Upgrade_Text; // 0 : Coin, 1 : 가지고 있는 재료템, 2: 재료 충족 조건
+    public TextMeshProUGUI[] Upgrade_Text; // 0 : Coin, 1 : 가지고 있는 재료템, 2: 재료 충족 조건*/
 
     [Header("기차 구매")]
     public TMP_Dropdown TrainBuy_DropDown;
@@ -201,7 +201,7 @@ public class Station_TrainMaintenance : MonoBehaviour
         Turret_Part_ToggleStart();
         Booster_Part_ToggleStart();
         //기차 업그레이드
-        Upgrade_Before_After_Text();
+        //Upgrade_Before_After_Text();
 
         //기차 구매하기
         List_TrainType_Num = 0;
@@ -215,7 +215,7 @@ public class Station_TrainMaintenance : MonoBehaviour
         Train_Information_Upgrade_Text.StringReference.TableReference = "ExcelData_Table_St";
 
         //패시브 업그레이드
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 6; i++)
         {
             Passive_Upgrade_Text(i);
         }
@@ -336,10 +336,10 @@ public class Station_TrainMaintenance : MonoBehaviour
         UI_TrainButtonList.GetChild(UI_Train_Num).GetComponent<Station_Maintenance_TrainNum_Button>().ChekcButton(true);
         Check_Change_Button_Interactable();
         Check_Part_Flag();
-        Check_Upgrade_Button_Interactable();
+        //Check_Upgrade_Button_Interactable();
         Current_Train_Information();
         //업그레이드 부분도 포함
-        Upgrade_Before_After_Text();
+        //Upgrade_Before_After_Text();
     } //버튼에 참조
 
     public void UI_TrainLevel()
@@ -379,8 +379,8 @@ public class Station_TrainMaintenance : MonoBehaviour
         UI_TrainButtonList.GetChild(UI_Train_Num).GetComponent<Station_Maintenance_TrainNum_Button>().ChekcButton(true);
         Check_Change_Button_Interactable();
         Check_Part_Flag();
-        Check_Upgrade_Button_Interactable();
-        Upgrade_Before_After_Text();
+        //Check_Upgrade_Button_Interactable();
+        //Upgrade_Before_After_Text();
     }
 
     public void Current_Train_Information()
@@ -551,7 +551,7 @@ public class Station_TrainMaintenance : MonoBehaviour
             {
                 trainData.SA_TrainBoosterData.SA_Train_Booster_Remove(UI_Train_Booster_Num);
             }
-            Upgrade_Before_After_Text();
+            //Upgrade_Before_After_Text();
             Check_Change_Button_Interactable();
             Check_Part_Flag();
         }
@@ -602,7 +602,7 @@ public class Station_TrainMaintenance : MonoBehaviour
                 NewTrain.name = NewTrain.name.Replace("(Clone)", "");
                 UI_TrainImage(true);
                 Check_Trian_Add();
-                Upgrade_Before_After_Text();
+                ////Upgrade_Before_After_Text();
                 Check_Player_Coin_Point();
                 Check_Part_Flag();
             }
@@ -908,7 +908,7 @@ public class Station_TrainMaintenance : MonoBehaviour
                 GameObject NewTrain = Instantiate(Resources.Load<GameObject>("TrainObject_UI/51_" + TurretPart_changeNum), UI_TrainList);
                 NewTrain.name = NewTrain.name.Replace("(Clone)", "");
                 UI_TrainImage(true);
-                Upgrade_Before_After_Text();
+                ////Upgrade_Before_After_Text();
                 Check_Player_Coin_Point();
                 Check_Part_Flag();
                 Check_Trian_Add();
@@ -926,7 +926,7 @@ public class Station_TrainMaintenance : MonoBehaviour
                 GameObject NewTrain = Instantiate(Resources.Load<GameObject>("TrainObject_UI/52_" + BoosterPart_changeNum), UI_TrainList);
                 NewTrain.name = NewTrain.name.Replace("(Clone)", "");
                 UI_TrainImage(true);
-                Upgrade_Before_After_Text();
+                ////Upgrade_Before_After_Text();
                 Check_Player_Coin_Point();
                 Check_Part_Flag();
                 Check_Trian_Add();
@@ -983,7 +983,7 @@ public class Station_TrainMaintenance : MonoBehaviour
                 GameObject changeTrain = Instantiate(Resources.Load<GameObject>("TrainObject_UI/51_" + TurretPart_changeNum), UI_TrainList);
                 changeTrain.name = changeTrain.name.Replace("(Clone)", "");
                 changeTrain.transform.SetSiblingIndex(UI_Train_Num);
-                Upgrade_Before_After_Text();
+                ////Upgrade_Before_After_Text();
                 Check_Change_Button_Interactable();
                 Click_Part_Back_Button();
                 Check_Part_Flag();
@@ -1036,7 +1036,7 @@ public class Station_TrainMaintenance : MonoBehaviour
                 GameObject changeTrain = Instantiate(Resources.Load<GameObject>("TrainObject_UI/52_" + BoosterPart_changeNum), UI_TrainList);
                 changeTrain.name = changeTrain.name.Replace("(Clone)", "");
                 changeTrain.transform.SetSiblingIndex(UI_Train_Num);
-                Upgrade_Before_After_Text();
+                ////Upgrade_Before_After_Text();
                 Check_Change_Button_Interactable();
                 Click_Part_Back_Button();
                 Check_Part_Flag();
@@ -1045,10 +1045,10 @@ public class Station_TrainMaintenance : MonoBehaviour
     }
 
     //기차 업그레이드
-    public void Direcotr_Init_TrainUpgrade()
+/*    public void Direcotr_Init_TrainUpgrade()
     {
         Check_Upgrade_Button_Interactable();
-        Upgrade_Before_After_Text();
+        //Upgrade_Before_After_Text();
     }
 
     public void Click_Button_Upgrade()
@@ -1057,13 +1057,13 @@ public class Station_TrainMaintenance : MonoBehaviour
         {
             int cost = trainData.EX_Game_Data.Information_Train_Turret_Part[trainData.SA_TrainTurretData.Train_Turret_Num[UI_Train_Turret_Num]].Train_Upgrade_Cost;
             //int Material_Count = trainData.EX_Game_Data.Information_Train_Turret_Part[trainData.SA_TrainTurretData.Train_Turret_Num[UI_Train_Turret_Num]].Material;
-            if (playerData.Player_Coin >= cost/* && itemData.Turret_Train_Material_object.Item_Count >= Material_Count*/)
+            if (playerData.Player_Coin >= cost && itemData.Turret_Train_Material_object.Item_Count >= Material_Count)
             {
                 playerData.Player_Buy_Coin(cost);
                 //itemData.Turret_Train_Material_object.Item_Count_Down(Material_Count);
                 //trainData.Train_Turret_Level_Up(trainData.SA_TrainTurretData.Train_Turret_Num[UI_Train_Turret_Num], UI_Train_Turret_Num);
                 Upgrade_Train_TrainMaintenance(); // UI 기차 변경
-                Upgrade_Before_After_Text(); // 비포 애프터 변경도 하고 기차 옆의 정보도 변경.
+                //Upgrade_Before_After_Text(); // 비포 애프터 변경도 하고 기차 옆의 정보도 변경.
                 Check_Upgrade_Button_TrainChange(); //기차 변경하기에서도 변경이 된다.
             }
             else
@@ -1075,13 +1075,13 @@ public class Station_TrainMaintenance : MonoBehaviour
         {
             int cost = trainData.EX_Game_Data.Information_Train_Booster_Part[trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num]].Train_Upgrade_Cost;
             //int Material_Count = trainData.EX_Game_Data.Information_Train_Booster_Part[trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num]].Material;
-            if (playerData.Player_Coin >= cost/* && itemData.Booster_Train_Material_object.Item_Count >= Material_Count*/)
+            if (playerData.Player_Coin >= cost && itemData.Booster_Train_Material_object.Item_Count >= Material_Count)
             {
                 playerData.Player_Buy_Coin(cost);
                 //itemData.Booster_Train_Material_object.Item_Count_Down(Material_Count);
                 //trainData.Train_Booster_Level_Up(trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num], UI_Train_Booster_Num);
                 Upgrade_Train_TrainMaintenance(); // UI 기차 변경
-                Upgrade_Before_After_Text(); // 비포 애프터 변경도 하고 기차 옆의 정보도 변경.
+                //Upgrade_Before_After_Text(); // 비포 애프터 변경도 하고 기차 옆의 정보도 변경.
                 Check_Upgrade_Button_TrainChange(); //기차 변경하기에서도 변경이 된다.
             }
             else
@@ -1093,13 +1093,13 @@ public class Station_TrainMaintenance : MonoBehaviour
         {
             int cost = trainData.EX_Game_Data.Information_Train[trainData.Train_Num[UI_Train_Num]].Train_Upgrade_Cost;
             //int Material_Count = trainData.EX_Game_Data.Information_Train[trainData.Train_Num[UI_Train_Num]].Material;
-            if (playerData.Player_Coin >= cost /*&& itemData.Common_Train_Material_object.Item_Count >= Material_Count*/)
+            if (playerData.Player_Coin >= cost && itemData.Common_Train_Material_object.Item_Count >= Material_Count)
             {
                 playerData.Player_Buy_Coin(cost);
                 //itemData.Common_Train_Material_object.Item_Count_Down(Material_Count);
                 //trainData.Train_Level_Up(trainData.Train_Num[UI_Train_Num], UI_Train_Num);
                 Upgrade_Train_TrainMaintenance(); // UI 기차 변경
-                Upgrade_Before_After_Text(); // 비포 애프터 변경도 하고 기차 옆의 정보도 변경.
+                //Upgrade_Before_After_Text(); // 비포 애프터 변경도 하고 기차 옆의 정보도 변경.
                 Check_Upgrade_Button_TrainChange(); //기차 변경하기에서도 변경이 된다.
             }
             else
@@ -1134,7 +1134,7 @@ public class Station_TrainMaintenance : MonoBehaviour
             {
                 After_Text.text = "  Max";
             }
-/*            Material_Image.sprite = itemData.Turret_Train_Material_object.Item_Sprite;
+            Material_Image.sprite = itemData.Turret_Train_Material_object.Item_Sprite;
             int Material_InChnace_Count = trainData.EX_Game_Data.Information_Train_Turret_Part[trainData.SA_TrainTurretData.Train_Turret_Num[UI_Train_Turret_Num]].Material;
             int Material_Inventory_Count = itemData.Turret_Train_Material_object.Item_Count;
             if (Material_Inventory_Count >= Material_InChnace_Count)
@@ -1145,7 +1145,7 @@ public class Station_TrainMaintenance : MonoBehaviour
             {
                 Upgrade_Text[1].text = "<color=red>" + Material_Inventory_Count + "</color>";
             }
-            Upgrade_Text[2].text = trainData.EX_Game_Data.Information_Train_Turret_Part[trainData.SA_TrainTurretData.Train_Turret_Num[UI_Train_Turret_Num]].Material.ToString();*/
+            Upgrade_Text[2].text = trainData.EX_Game_Data.Information_Train_Turret_Part[trainData.SA_TrainTurretData.Train_Turret_Num[UI_Train_Turret_Num]].Material.ToString();
         }
         else if (trainData.Train_Num[UI_Train_Num] == 52)
         {
@@ -1171,7 +1171,7 @@ public class Station_TrainMaintenance : MonoBehaviour
                 After_Text.text = "  Max";
             }
 
-/*            Material_Image.sprite = itemData.Booster_Train_Material_object.Item_Sprite;
+            Material_Image.sprite = itemData.Booster_Train_Material_object.Item_Sprite;
             int Material_InChnace_Count = trainData.EX_Game_Data.Information_Train_Booster_Part[trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num]].Material;
             int Material_Inventory_Count = itemData.Booster_Train_Material_object.Item_Count;
             if (Material_Inventory_Count >= Material_InChnace_Count)
@@ -1182,7 +1182,7 @@ public class Station_TrainMaintenance : MonoBehaviour
             {
                 Upgrade_Text[1].text = "<color=red>" + Material_Inventory_Count + "</color>";
             }
-            Upgrade_Text[2].text = trainData.EX_Game_Data.Information_Train_Booster_Part[trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num]].Material.ToString();*/
+            Upgrade_Text[2].text = trainData.EX_Game_Data.Information_Train_Booster_Part[trainData.SA_TrainBoosterData.Train_Booster_Num[UI_Train_Booster_Num]].Material.ToString();
         }
         else
         {
@@ -1208,7 +1208,7 @@ public class Station_TrainMaintenance : MonoBehaviour
             {
                 After_Text.text = "  Max";
             }
-/*            Material_Image.sprite = itemData.Common_Train_Material_object.Item_Sprite;
+            Material_Image.sprite = itemData.Common_Train_Material_object.Item_Sprite;
             int Material_InChnace_Count = trainData.EX_Game_Data.Information_Train[trainData.Train_Num[UI_Train_Num]].Material;
             int Material_Inventory_Count = itemData.Common_Train_Material_object.Item_Count;
             if (Material_Inventory_Count >= Material_InChnace_Count)
@@ -1219,7 +1219,7 @@ public class Station_TrainMaintenance : MonoBehaviour
             {
                 Upgrade_Text[1].text = "<color=red>" + Material_Inventory_Count + "</color>";
             }
-            Upgrade_Text[2].text = trainData.EX_Game_Data.Information_Train[trainData.Train_Num[UI_Train_Num]].Material.ToString();*/
+            Upgrade_Text[2].text = trainData.EX_Game_Data.Information_Train[trainData.Train_Num[UI_Train_Num]].Material.ToString();
         }
         UI_TrainLevel();
     }
@@ -1316,16 +1316,16 @@ public class Station_TrainMaintenance : MonoBehaviour
         }
 
 
-/*        if(trainData.Train_Num[UI_Train_Num] < 50 || trainData.Train_Num[UI_Train_Num] == 51 || trainData.Train_Num[UI_Train_Num] == 52)
+        if (trainData.Train_Num[UI_Train_Num] < 50 || trainData.Train_Num[UI_Train_Num] == 51 || trainData.Train_Num[UI_Train_Num] == 52)
         {
             Upgrade_Button.interactable = true;
         }
         else
         {
             Upgrade_Button.interactable = false;
-        }*/
+        }
     }
-
+*/
     private void Check_Player_Coin_Point()
     {
         transform.GetComponentInParent<StationDirector>().Check_Coin();
@@ -1553,7 +1553,6 @@ public class Station_TrainMaintenance : MonoBehaviour
         }
 
         //-----------리스트버튼-------
-
         Check_TrainType_ListButton();
     }
 
@@ -1757,6 +1756,8 @@ public class Station_TrainMaintenance : MonoBehaviour
             Instantiate(TrainUpgradeList_Button_Object, TrainUgpradeList_Content[1]);
         }
 
+        Resize_Train_List_Content(1);
+
         TurretTrain_Flag = sa_trainturretData.Train_Turret_Buy_Num.Any();
         BoosterTrain_Flag = sa_trainboosterData.Train_Booster_Buy_Num.Any();
 
@@ -1771,6 +1772,7 @@ public class Station_TrainMaintenance : MonoBehaviour
                 Instantiate(TrainUpgradeList_Button_Object, TrainUgpradeList_Content[0]);
                 Instantiate(TrainUpgradeList_Button_Object, TrainUgpradeList_Content[2]);
             }
+            Resize_Train_List_Content(2);
         }
 
         if (BoosterTrain_Flag)
@@ -1784,7 +1786,15 @@ public class Station_TrainMaintenance : MonoBehaviour
                 Instantiate(TrainUpgradeList_Button_Object, TrainUgpradeList_Content[0]);
                 Instantiate(TrainUpgradeList_Button_Object, TrainUgpradeList_Content[3]);
             }
+            Resize_Train_List_Content(3);
         }
+        Resize_Train_List_Content(0);
+    }
+
+    private void Resize_Train_List_Content(int i)
+    {
+        RectTransform ContentSize = TrainUgpradeList_Content[i].GetComponent<RectTransform>();
+        ContentSize.sizeDelta = new Vector2(-500 + (92 * TrainUgpradeList_Content[i].childCount), 53);
     }
 
     private void Setting_TrainType_DropDown_Upgrade()
@@ -1836,6 +1846,8 @@ public class Station_TrainMaintenance : MonoBehaviour
         }
         Instantiate(TrainUpgradeList_Button_Object, TrainUgpradeList_Content[0]);
         Instantiate(TrainUpgradeList_Button_Object, TrainUgpradeList_Content[i]);
+        Resize_Train_List_Content(0);
+        Resize_Train_List_Content(i);
     }
 
     public void TrainUpgradeList_Button_Click(int Train_Num, int Train_Num2)

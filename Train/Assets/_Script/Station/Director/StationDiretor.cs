@@ -638,7 +638,7 @@ public class StationDirector : MonoBehaviour
     public void Total_Init() {
         Director_TrainMaintenance.Director_Init_TrainChange();
         Director_TrainMaintenance.Director_Init_TrainPartChange();
-        Director_TrainMaintenance.Direcotr_Init_TrainUpgrade();
+        //Director_TrainMaintenance.Direcotr_Init_TrainUpgrade();
 
 /*        UI_Store_Window[0].GetComponent<RectTransform>().SetAsLastSibling();
         UI_Fortress_Window[0].GetComponent<RectTransform>().SetAsLastSibling();*/
