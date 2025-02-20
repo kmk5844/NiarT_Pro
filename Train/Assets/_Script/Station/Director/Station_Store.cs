@@ -11,8 +11,8 @@ public class Station_Store : MonoBehaviour
     [Header("데이터 모음")]
     public GameObject Player_DataObject;
     Station_PlayerData playerData;
-    public GameObject Train_DataObject;
-    Station_TrainData trainData;
+/*    public GameObject Train_DataObject;
+    Station_TrainData trainData;*/
 /*    public GameObject Mercenary_DataObject;
     Station_MercenaryData mercenaryData;*/
     public GameObject Item_DataObject;
@@ -21,7 +21,7 @@ public class Station_Store : MonoBehaviour
     public StationDirector stationDirector; 
     public Station_Inventory inventory_director;
 
-    [Header("구매 윈도우")]
+/*    [Header("구매 윈도우")]
     public GameObject Check_Buy_Panel;
     public Image Check_Buy_Image;
     public LocalizeStringEvent Check_Buy_Name;
@@ -39,9 +39,9 @@ public class Station_Store : MonoBehaviour
     public Button Button_ItemCount_Minus;
     int item_Count;
 
-    public Button Sell_AllButton;
+    public Button Sell_AllButton;*/
 
-    [Header("기차 구매")] // 파츠 구매도 포함
+/*    [Header("기차 구매")] // 파츠 구매도 포함
     public int Store_Train_Num;
     public GameObject Store_Train_Part_Card;
 
@@ -65,15 +65,15 @@ public class Station_Store : MonoBehaviour
 
     [Header("기차와 용병의 툴팁")]
     public StoreList_Tooltip StoreTooltip_Object;
-
+*/
     [Header("아이템 구매하기")]
     public ItemBuy_Object ItemBuyList_Object;
-    public ItemList_Tooltip ItemBuyTooltip_Object;
+    //public ItemList_Tooltip ItemBuyTooltip_Object;
     public GameObject Item_Buy_Window;
 
     [Header("아이템 판매하기")]
     public ItemSell_Object ItemSellList_Object;
-    public ItemList_Tooltip ItemSellTooltip_Object;
+    //public ItemList_Tooltip ItemSellTooltip_Object;
     public GameObject Item_Sell_Window;
 
     [HideInInspector]
@@ -86,15 +86,19 @@ public class Station_Store : MonoBehaviour
     public GameObject Click_ItemObject;
     [SerializeField]
     ItemDataObject Click_ItemDataObjcet;
+
+    public GameObject SelectObject_Before;
+    public GameObject SelectObject_After;
+
     public TextMeshProUGUI Item_Name_Text;
     public Image Item_Image;
     public TextMeshProUGUI Item_Information_Text;
+
     public GameObject CountObject;
     int CountNum;
     TextMeshProUGUI CountNum_Buy_Text;
     public GameObject CountButton;
     TextMeshProUGUI CountButton_Text;
-    
 
     [Header("아이템 구매 체크")]
     public GameObject BuyCheck_Window;
@@ -108,28 +112,31 @@ public class Station_Store : MonoBehaviour
     private void Start()
     {
         playerData = Player_DataObject.GetComponent<Station_PlayerData>();
-        trainData = Train_DataObject.GetComponent<Station_TrainData>();
+        //trainData = Train_DataObject.GetComponent<Station_TrainData>();
         //mercenaryData = Mercenary_DataObject.GetComponent<Station_MercenaryData>();
         itemData = Item_DataObject.GetComponent<Station_ItemData>();
-        Train_Store_Num = trainData.Train_Store_Num;
-        Turret_Store_Num = trainData.Train_Turret_Store_Num;
-        Booster_Store_Num = trainData.Train_Booster_Store_Num;
+        /*        Train_Store_Num = trainData.Train_Store_Num;
+                Turret_Store_Num = trainData.Train_Turret_Store_Num;
+                Booster_Store_Num = trainData.Train_Booster_Store_Num;*/
         //Mercenary_Store_Num = mercenaryData.Mercenary_Store_Num;
-        Item_Count_Window.SetActive(false);
-        Store_BuyAndSell_Window_Flag = false;
+        /*        Item_Count_Window.SetActive(false);
+                Store_BuyAndSell_Window_Flag = false;
 
-        //로컬라이제이션
-        Check_Buy_Name.StringReference.TableReference = "Station_Table_St";
-        Check_Buy_Text.StringReference.TableReference = "Station_Table_St";
+                //로컬라이제이션
+                Check_Buy_Name.StringReference.TableReference = "Station_Table_St";
+                Check_Buy_Text.StringReference.TableReference = "Station_Table_St";*/
 
-        //기차 구매하기
-        Check_Init_TrainCard();
-        //터렛 파츠 구매하기
-        Check_Init_TurretCard();
-        //부스터 파츠 구매하기
-        Check_Init_BoosterCard();
-/*        //용병 구매하기
-        Check_Init_MercenaryCard();*/
+        /*        //기차 구매하기
+                Check_Init_TrainCard();
+                //터렛 파츠 구매하기
+                Check_Init_TurretCard();
+                //부스터 파츠 구매하기
+                Check_Init_BoosterCard();*/
+        /*        //용병 구매하기
+                Check_Init_MercenaryCard();*/
+        SelectObject_Before.SetActive(true);
+        SelectObject_After.SetActive(false);
+
         //아이템 구매하기
         Check_Init_ItemBuy();
         //아이템 판매하기
@@ -142,7 +149,7 @@ public class Station_Store : MonoBehaviour
         GetComponentInParent<StationDirector>().UI_Train_Lock_Panel[1].SetActive(Check_Part_Store_Lock(52));*/
     }
 
-    public bool Check_Part_Store_Lock(int num = -1)
+/*    public bool Check_Part_Store_Lock(int num = -1)
     {
         if (trainData.SA_TrainData.Train_Buy_Num.Contains(num) || num == -1)
         {
@@ -292,7 +299,7 @@ public class Station_Store : MonoBehaviour
                 Card.GetComponent<Store_Train_Card>().Train_Buy.SetActive(true);
             }
         }
-    }
+    }*/
 /*
     //용병 구매하기
     private void Check_Init_MercenaryCard() // 카드 초기화
@@ -605,13 +612,13 @@ public class Station_Store : MonoBehaviour
         Close_Buy_Window();
     }
 
-    public void Director_Tooltip_Off()
+/*    public void Director_Tooltip_Off()
     {
-        StoreTooltip_Object.Tooltip_Off();
+        //StoreTooltip_Object.Tooltip_Off();
         ItemBuyTooltip_Object.Tooltip_Off(); 
         ItemSellTooltip_Object.Tooltip_Off(); 
     }
-
+*/
     //----------------------------------------------------------------------------\
     void Setting_Count_Buy()
     {
@@ -649,6 +656,13 @@ public class Station_Store : MonoBehaviour
             itemData = item.GetComponent<ItemSell_Object>().item;
             Click_ItemDataObjcet = Click_ItemObject.GetComponent<ItemSell_Object>().item;
         }
+
+        if (SelectObject_Before.activeSelf)
+        {
+            SelectObject_Before.SetActive(false);
+            SelectObject_After.SetActive(true);
+        }
+
         Item_Name_Text.text = itemData.name;
         Item_Image.sprite = itemData.Item_Sprite;
         Item_Information_Text.text = itemData.Item_Information;
@@ -852,6 +866,8 @@ public class Station_Store : MonoBehaviour
     public void Init_Information()
     {
         Cancel_SelectItem();
+        SelectObject_Before.SetActive(true);
+        SelectObject_After.SetActive(false);
         Click_ItemObject = null;
         Click_ItemDataObjcet = null;
         Item_Name_Text.text = "";

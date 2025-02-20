@@ -35,32 +35,10 @@ public class Station_TrainData : MonoBehaviour
     public int Cost_Train_Armor;
     public int Cost_Train_Efficient;
 
-
-    [Header("기존 상점 리스트")]
-    public List<int> Train_Store_Num;
-
-    [Header("기존 변경 리스트")]
-    public List<int> Train_Change_Num;
-
-    [Header("기존 포탑 상점 리스트")]
-    public List<int> Train_Turret_Store_Num;
-
-    [Header("기존 부스터 상점 리스트")]
-    public List<int> Train_Booster_Store_Num;
-
-    [Header("기존 포탑 변경 리스트")]
-    public List<int> Train_Turret_Part_Change_Num;
-
-    [Header("기존 부스터 변경 리스트")]
-    public List<int> Train_Booster_Part_Change_Num;
-
     public bool Flag_BoosterTrain;
     private void Awake()
     {
         Check_Level_Train();
-        Check_Store_Train();
-        Check_Store_Turret_Part();
-        Check_Store_Booster_Part();
         Max_Train_EngineTier = EX_Level_Data.Information_Level[Data_Index("Level_Train_EngineTier")].Max_Level;
         Max_Train_MaxTrain = EX_Level_Data.Information_Level[Data_Index("Level_train_MaxTrain")].Max_Level;
         Max_Train_MaxMercenary = EX_Level_Data.Information_Level[Data_Index("Level_Train_MaxMercenary")].Max_Level;
@@ -86,79 +64,6 @@ public class Station_TrainData : MonoBehaviour
         Cost_Train_Armor = EX_Level_Data.Information_LevelCost[Level_Train_Armor].Cost_Level_Train_Armor;
         Cost_Train_Efficient = EX_Level_Data.Information_LevelCost[Level_Train_Efficient].Cost_Level_Train_Efficient;
     }
-
-    public void Check_Store_Train()
-    {
-        foreach(Info_Train train in EX_Game_Data.Information_Train)
-        {
-            if (train.Store)
-            {
-                Train_Store_Num.Add(train.Number);
-            }
-            else
-            {
-                if (train.Change)
-                {
-                    Train_Change_Num.Add(train.Number);
-                }
-            }
-        }
-        Train_Change_Num = Train_Change_Num.Concat(SA_TrainData.Train_Buy_Num).ToList();
-    }
-
-    public void Check_Store_Turret_Part()
-    {
-        foreach(Info_Train_Turret_Part Turret in EX_Game_Data.Information_Train_Turret_Part)
-        {
-            if (Turret.Store)
-            {
-                Train_Turret_Store_Num.Add(Turret.Num);
-            }
-            else
-            {
-                if (Turret.Change)
-                {
-                    Train_Turret_Part_Change_Num.Add(Turret.Num);
-                }
-            }
-        }
-        Train_Turret_Part_Change_Num = Train_Turret_Part_Change_Num.Concat(SA_TrainTurretData.Train_Turret_Buy_Num).ToList();
-    }
-    public void Check_Store_Booster_Part()
-    {
-        foreach(Info_Train_Booster_Part Booster in EX_Game_Data.Information_Train_Booster_Part)
-        {
-            if(Booster.Store)
-            {
-                Train_Booster_Store_Num.Add(Booster.Num);
-            }
-            else
-            {
-                if (Booster.Change)
-                {
-                    Train_Booster_Part_Change_Num.Add(Booster.Num);
-
-                }
-            }
-        }
-        Train_Booster_Part_Change_Num = Train_Booster_Part_Change_Num.Concat(SA_TrainBoosterData.Train_Booster_Buy_Num).ToList();
-    }
-
-    public void Check_Buy_Train(int Num)
-    {
-        Train_Change_Num.Add(Num);
-    }
-
-    public void Check_Buy_Turret(int Num)
-    {
-        Train_Turret_Part_Change_Num.Add(Num);
-    }
-
-    public void Check_Buy_Booster(int Num)
-    {
-        Train_Booster_Part_Change_Num.Add(Num);
-    }
-
     public int Check_Cost_Train(int num)
     {
         switch (num)

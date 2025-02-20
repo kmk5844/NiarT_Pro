@@ -424,7 +424,7 @@ public class StationDirector : MonoBehaviour
 
     public void Click_ItemSellBackButton()
     {
-        Director_Store.Director_Tooltip_Off();
+        //Director_Store.Director_Tooltip_Off();
         UI_Store_Window[5].SetActive(false);
         Director_Store.ItemSellFlag = false;
     }

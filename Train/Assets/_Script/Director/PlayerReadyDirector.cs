@@ -11,6 +11,10 @@ using static UnityEditor.Progress;
 public class PlayerReadyDirector : MonoBehaviour
 {
     public Station_TrainData trainData;
+    SA_TrainData sa_trainData;
+    SA_TrainTurretData sa_trainturretData;
+    SA_TrainBoosterData sa_trainBoosterData;
+
     public Station_PlayerData playerData;
     public Station_ItemData itemListData;
     public Station_MercenaryData MercenaryData;
@@ -21,9 +25,16 @@ public class PlayerReadyDirector : MonoBehaviour
     public GameObject UI_SubStageSelect;
 
     [Header("-----------------UI-------------------")]
+    [Space(10)]
     public GameObject OptionObject;
     bool Option_Flag;
 
+    [Header("-------------Train----------------")]
+    [Space(10)]
+    public GameObject Using_TrainObject;
+    public Transform Using_TrainList;
+    public GameObject Buy_TrainObject;
+    public Transform[] Buy_TrainList;
 
     [Header("-------------Mercenary----------------")]
     [Space(10)]
@@ -102,6 +113,14 @@ public class PlayerReadyDirector : MonoBehaviour
         UI_Window[1].SetActive(false);
         UI_Window[2].SetActive(false);
 
+        sa_trainData = trainData.SA_TrainData;
+        sa_trainturretData = trainData.SA_TrainTurretData;
+        sa_trainBoosterData = trainData.SA_TrainBoosterData;
+
+        //Train
+        Instantiate_Using_Train_List();
+        Instantiate_Buy_train_List();
+
         //Mercenary
         Check_PlayerCoin();
         MercenaryLIst_Mercenary_Num = -5;
@@ -174,6 +193,102 @@ public class PlayerReadyDirector : MonoBehaviour
         }
     }
 
+    //--------------------------------------------------Train
+
+    private void Instantiate_Using_Train_List()
+    {
+        int TrainIndex = 0;
+        int TurretIndex = 0;
+        int BoosterIndex = 0;
+        
+        Ready_Using_TrainList_Object usi = Using_TrainObject.GetComponent<Ready_Using_TrainList_Object>();
+        usi.director = this;
+
+        int max = trainData.Level_Train_MaxTrain;
+        for (int i = 0; i < max + 2; i++)
+        {
+            if (i < sa_trainData.Train_Num.Count)
+            {
+                usi.EmptyTrainFlag = false;
+                if (sa_trainData.Train_Num[i] == 51)
+                {
+                    usi.TrainNum_1 = 51;
+                    usi.TrainNum_2 = sa_trainturretData.Train_Turret_Num[TurretIndex];
+                    TurretIndex++;
+                }
+                else if (sa_trainData.Train_Num[i] == 52)
+                {
+                    usi.TrainNum_1 = 52;
+                    usi.TrainNum_2 = sa_trainturretData.Train_Turret_Num[BoosterIndex];
+                    BoosterIndex++;
+                }
+                else
+                {
+                    usi.TrainNum_1 = sa_trainData.Train_Num[TrainIndex];
+                }
+                TrainIndex++;
+            }
+            else
+            {
+                usi.EmptyTrainFlag = true;
+            }
+            Instantiate(usi, Using_TrainList);
+        }
+        ResizeContent_UsingTrainContent(max);
+    }
+    void ResizeContent_UsingTrainContent(int Count)
+    {
+        RectTransform ContentSize = Using_TrainList.GetComponent<RectTransform>();
+        ContentSize.sizeDelta = new Vector2((131 * Count), 100);
+        Using_TrainList.GetComponentInParent<ScrollRect>().horizontalNormalizedPosition = 1f;
+    }
+
+    private void Instantiate_Buy_train_List()
+    {
+        Ready_Buy_TrainObject buy = Buy_TrainObject.GetComponent<Ready_Buy_TrainObject>();
+        buy.director = this;
+
+        buy.TrainNum_1 = 10;
+        Instantiate(buy, Buy_TrainList[0]);
+        Instantiate(buy, Buy_TrainList[1]);
+
+        for (int i =0; i < sa_trainData.Train_Buy_Num.Count; i++)
+        {
+            buy.TrainNum_1 = sa_trainData.Train_Buy_Num[i];
+            Instantiate(buy, Buy_TrainList[0]);
+            Instantiate(buy, Buy_TrainList[1]);
+        }
+
+        for(int i = 0; i < sa_trainturretData.Train_Turret_Buy_Num.Count; i++)
+        {
+            buy.TrainNum_1 = 51;
+            buy.TrainNum_2 = sa_trainturretData.Train_Turret_Buy_Num[i];
+            Instantiate(buy, Buy_TrainList[0]);
+            Instantiate(buy, Buy_TrainList[2]);
+        }
+
+        for(int i = 0; i < sa_trainBoosterData.Train_Booster_Buy_Num.Count; i++)
+        {
+            buy.TrainNum_1 = 52;
+            buy.TrainNum_2 = sa_trainBoosterData.Train_Booster_Buy_Num[i];
+            Instantiate(buy, Buy_TrainList[0]);
+            Instantiate(buy, Buy_TrainList[3]);
+        }
+    }
+
+
+    public void Click_Change_Train()
+    {
+        Debug.Log("기차 교체");
+    }
+
+    public void Click_Add_Train()
+    {
+        Debug.Log("기차 추가");
+    }
+    
+    
+    
     //--------------------------------------------------Mercenary
     void Instantiate_MercenaryList_Ride_Object()
     {

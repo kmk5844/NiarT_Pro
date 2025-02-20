@@ -181,9 +181,9 @@ public class Station_TrainMaintenance : MonoBehaviour
         itemData = Item_DataObject.GetComponent<Station_ItemData>();
         Max_Train = trainData.Level_Train_MaxTrain + 2;
         UI_TrainMax_Text.text = "Train MAX : " + Max_Train;
-        Train_Change_Num = trainData.Train_Change_Num;
+/*        Train_Change_Num = trainData.Train_Change_Num;
         Train_Turret_Part_Change_Num = trainData.Train_Turret_Part_Change_Num;
-        Train_Booster_Part_Change_Num = trainData.Train_Booster_Part_Change_Num;
+        Train_Booster_Part_Change_Num = trainData.Train_Booster_Part_Change_Num;*/
         UI_Train_Part_Text.StringReference.TableReference = "ExcelData_Table_St";
         //UI 기차 생성하기
         UI_TrainImage(false);
@@ -432,7 +432,7 @@ public class Station_TrainMaintenance : MonoBehaviour
         //max 체크
         Check_Trian_Add();
         //card 체크
-        Train_Change_Num = trainData.Train_Change_Num;
+        //Train_Change_Num = trainData.Train_Change_Num;
         if (Train_Change_Content.childCount != Train_Change_Num.Count)
         {
             for (int i = 0; i < Train_Change_Content.childCount; i++)
@@ -752,8 +752,8 @@ public class Station_TrainMaintenance : MonoBehaviour
     //파츠 변경하기
     public void Director_Init_TrainPartChange()
     {
-        Train_Turret_Part_Change_Num = trainData.Train_Turret_Part_Change_Num;
-        Train_Booster_Part_Change_Num = trainData.Train_Booster_Part_Change_Num;
+        //Train_Turret_Part_Change_Num = trainData.Train_Turret_Part_Change_Num;
+        //Train_Booster_Part_Change_Num = trainData.Train_Booster_Part_Change_Num;
         if(Turret_Part_Content.childCount != Train_Turret_Part_Change_Num.Count)
         {
             for(int i = 0; i < Turret_Part_Content.childCount; i++)
@@ -1649,7 +1649,7 @@ public class Station_TrainMaintenance : MonoBehaviour
             {
                 playerData.Player_Buy_Coin(cost);
                 trainData.SA_TrainData.SA_Train_Buy(TrainNum);
-                trainData.Check_Buy_Train(TrainNum);
+               // trainData.Check_Buy_Train(TrainNum);
                 Check_Player_Coin_Point();
                 Train_BuyButton.interactable = !trainData.SA_TrainData.Train_Buy_Num.Contains(TrainNum);
                 Instantiate_AfterTrainBuy(1, TrainNum);
@@ -1668,7 +1668,7 @@ public class Station_TrainMaintenance : MonoBehaviour
             {
                 playerData.Player_Buy_Coin(cost);
                 trainData.SA_TrainTurretData.SA_Train_Turret_Buy(TrainNum);
-                trainData.Check_Buy_Turret(TrainNum);
+                //trainData.Check_Buy_Turret(TrainNum);
                 Check_Player_Coin_Point();
                 Train_BuyButton.interactable = !trainData.SA_TrainTurretData.Train_Turret_Buy_Num.Contains(TrainNum);
                 Instantiate_AfterTrainBuy(2, TrainNum);
@@ -1687,7 +1687,7 @@ public class Station_TrainMaintenance : MonoBehaviour
             {
                 playerData.Player_Buy_Coin(cost);
                 trainData.SA_TrainBoosterData.SA_Train_Booster_Buy(TrainNum);
-                trainData.Check_Buy_Booster(TrainNum);
+                //trainData.Check_Buy_Booster(TrainNum);
                 Check_Player_Coin_Point();
                 Train_BuyButton.interactable = !trainData.SA_TrainBoosterData.Train_Booster_Buy_Num.Contains(TrainNum);
                 Instantiate_AfterTrainBuy(3, TrainNum);
