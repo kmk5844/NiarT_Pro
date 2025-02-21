@@ -23,6 +23,6 @@ public class Ready_Buy_TrainObject : MonoBehaviour
         {
             TrainImage.sprite = Resources.Load<Sprite>("Sprite/Train/Train_" + TrainNum_1);
         }
-        //Btn.onClick.AddListener();
+        Btn.onClick.AddListener(()=>director.Click_Select_Train(TrainNum_1, TrainNum_2));
     }
 }

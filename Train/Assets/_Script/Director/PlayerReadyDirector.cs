@@ -36,6 +36,14 @@ public class PlayerReadyDirector : MonoBehaviour
     public GameObject Buy_TrainObject;
     public Transform[] Buy_TrainList;
 
+    [SerializeField]
+    List<Ready_Using_TrainList_Object> __List__usingtrain;
+    int Select_TrainNum_1;
+    int Select_TrainNum_2;
+    int Sub_TrainNum_Turret;
+    int Sub_TrainNum_Booster;
+    
+
     [Header("-------------Mercenary----------------")]
     [Space(10)]
     public Transform MercenaryList_Ride_Transform;
@@ -193,7 +201,7 @@ public class PlayerReadyDirector : MonoBehaviour
         }
     }
 
-    //--------------------------------------------------Train
+    //--------------------------------------------------Train //시작 조건이 trainData[]에서 -1이 없어야 한다.
 
     private void Instantiate_Using_Train_List()
     {
@@ -205,34 +213,39 @@ public class PlayerReadyDirector : MonoBehaviour
         usi.director = this;
 
         int max = trainData.Level_Train_MaxTrain;
+        int count = sa_trainData.Train_Num.Count;
+        __List__usingtrain = new List<Ready_Using_TrainList_Object>();
+
         for (int i = 0; i < max + 2; i++)
         {
-            if (i < sa_trainData.Train_Num.Count)
+            if (i < count)
             {
-                usi.EmptyTrainFlag = false;
                 if (sa_trainData.Train_Num[i] == 51)
                 {
-                    usi.TrainNum_1 = 51;
-                    usi.TrainNum_2 = sa_trainturretData.Train_Turret_Num[TurretIndex];
+                    usi.Setting(i, 51, sa_trainturretData.Train_Turret_Num[TurretIndex],false);
                     TurretIndex++;
                 }
                 else if (sa_trainData.Train_Num[i] == 52)
                 {
-                    usi.TrainNum_1 = 52;
-                    usi.TrainNum_2 = sa_trainturretData.Train_Turret_Num[BoosterIndex];
+                    usi.Setting(i, 52, sa_trainturretData.Train_Turret_Num[BoosterIndex], false);
                     BoosterIndex++;
+                }else if (sa_trainData.Train_Num[i] == -1)
+                {
+                    usi.Setting(i, -1, -1, true);
                 }
                 else
                 {
-                    usi.TrainNum_1 = sa_trainData.Train_Num[TrainIndex];
+                    usi.Setting(i, sa_trainData.Train_Num[TrainIndex], -1, false);
                 }
                 TrainIndex++;
             }
             else
             {
-                usi.EmptyTrainFlag = true;
+                usi.Setting(i, -1, -1, true);
+                sa_trainData.SA_Train_Add(-1);
             }
-            Instantiate(usi, Using_TrainList);
+            Ready_Using_TrainList_Object Instantiate_usi = Instantiate(usi, Using_TrainList);
+            __List__usingtrain.Add(Instantiate_usi);
         }
         ResizeContent_UsingTrainContent(max);
     }
@@ -276,18 +289,97 @@ public class PlayerReadyDirector : MonoBehaviour
         }
     }
 
-
-    public void Click_Change_Train()
+    public void Click_Change_Train(int index)
     {
-        Debug.Log("기차 교체");
+        Ready_Using_TrainList_Object obj = __List__usingtrain[index];
+        obj.Change_TrainNum(Select_TrainNum_1, Select_TrainNum_2);
+        obj.Change_TrainImage();
+        Change_TrainData(index);
+        Change_ListSlelectFlag(false);
     }
 
-    public void Click_Add_Train()
+    public void Click_Select_Train(int TrainNum_1, int TrainNum_2)
     {
-        Debug.Log("기차 추가");
+        Select_TrainNum_1 = TrainNum_1;
+        Select_TrainNum_2 = TrainNum_2;
+        Change_ListSlelectFlag(true);
     }
-    
-    
+
+    void Change_TrainData(int index)
+    {
+        int num = sa_trainData.Train_Num[index];
+        Check_Index(index);
+
+        if (Select_TrainNum_1 == 51)
+        {
+            if (num == 51)
+            {
+                sa_trainturretData.SA_Train_Turret_Change(Sub_TrainNum_Turret, Select_TrainNum_2);
+            }
+            else if (num == 52)
+            {
+                sa_trainData.SA_Train_Change(index, 51);
+                sa_trainturretData.SA_Train_Turret_Insert(Sub_TrainNum_Turret, Select_TrainNum_2);
+                sa_trainBoosterData.SA_Train_Booster_Remove(Sub_TrainNum_Booster);
+            }
+            else
+            {
+                sa_trainData.SA_Train_Change(index, 51);
+                sa_trainturretData.SA_Train_Turret_Insert(Sub_TrainNum_Turret, Select_TrainNum_2);
+            }
+        }
+        else if(Select_TrainNum_1 == 52)
+        {
+            if (num == 51)
+            {
+                sa_trainData.SA_Train_Change(index, 52);
+                sa_trainBoosterData.SA_Train_Booster_Insert(Sub_TrainNum_Booster, Select_TrainNum_2);
+                sa_trainturretData.SA_Train_Turret_Remove(Sub_TrainNum_Turret);            }
+            else if (num == 52)
+            {
+                sa_trainBoosterData.SA_Train_Booster_Change(Sub_TrainNum_Booster, Select_TrainNum_2);
+            }
+            else
+            {
+                sa_trainData.SA_Train_Change(index, 52);
+                sa_trainBoosterData.SA_Train_Booster_Insert(Sub_TrainNum_Booster, Select_TrainNum_2);
+            }
+        }
+        else
+        {
+            sa_trainData.SA_Train_Change(index, Select_TrainNum_1);
+            if(num == 51)
+            {
+                sa_trainturretData.SA_Train_Turret_Remove(Sub_TrainNum_Turret);
+            }else if(num == 52)
+            {
+                sa_trainBoosterData.SA_Train_Booster_Remove(Sub_TrainNum_Booster);
+            }
+        }
+    }
+
+    void Check_Index(int index)
+    {
+        Sub_TrainNum_Turret = 0;
+        Sub_TrainNum_Booster = 0;
+        for (int i = 0; i < index; i++) {
+            if (sa_trainData.Train_Num[i] == 51)
+            {
+                Sub_TrainNum_Turret++;
+            }else if (sa_trainData.Train_Num[i] == 52)
+            {
+                Sub_TrainNum_Booster++;
+            }
+        }
+    }
+
+    void Change_ListSlelectFlag(bool flag)
+    {
+        foreach (Ready_Using_TrainList_Object obj in __List__usingtrain)
+        {
+            obj.SelectFlag_Change(flag);
+        }
+    }
     
     //--------------------------------------------------Mercenary
     void Instantiate_MercenaryList_Ride_Object()
