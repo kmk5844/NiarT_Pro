@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization;
 using UnityEngine.Localization.Components;
 using UnityEngine.UI;
 using static PixelCrushers.DialogueSystem.ActOnDialogueEvent;
@@ -18,6 +20,7 @@ public class PlayerReadyDirector : MonoBehaviour
     public Station_PlayerData playerData;
     public Station_ItemData itemListData;
     public Station_MercenaryData MercenaryData;
+    public SA_LocalData localData;
 
     [Header("UI_Window")]
     public GameObject[] UI_Window;
@@ -42,7 +45,15 @@ public class PlayerReadyDirector : MonoBehaviour
     int Select_TrainNum_2;
     int Sub_TrainNum_Turret;
     int Sub_TrainNum_Booster;
-    
+
+    public TMP_Dropdown TrainList_DropDown;
+    public GameObject[] List_Trian_Type;
+    int List_Trian_Type_Num;
+    int List_Before_Train_Type_Num;
+    public GameObject StartWarnningWindow;
+    [SerializeField]
+    LocalizedString[] LocalString_TrainType;
+    int local_Index;
 
     [Header("-------------Mercenary----------------")]
     [Space(10)]
@@ -125,9 +136,13 @@ public class PlayerReadyDirector : MonoBehaviour
         sa_trainturretData = trainData.SA_TrainTurretData;
         sa_trainBoosterData = trainData.SA_TrainBoosterData;
 
+        local_Index = localData.Local_Index;
+
         //Train
         Instantiate_Using_Train_List();
         Instantiate_Buy_train_List();
+        Setting_TrainType_DropDown();
+        DropDown_Option_Change();
 
         //Mercenary
         Check_PlayerCoin();
@@ -143,13 +158,19 @@ public class PlayerReadyDirector : MonoBehaviour
         Instantiate_Item();
         Instantiate_Equip_Item();
         Init_Item_Information();
-
     }
 
     void Update()
     {
+        //=-------------------------------------------------Train
+        if (local_Index != localData.Local_Index)
+        {
+            DropDown_Option_Change();
+            local_Index = localData.Local_Index;
+        }
+
         //--------------------------------------------------UI
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (Mercenary_Information_Flag)
             {
@@ -227,7 +248,7 @@ public class PlayerReadyDirector : MonoBehaviour
                 }
                 else if (sa_trainData.Train_Num[i] == 52)
                 {
-                    usi.Setting(i, 52, sa_trainturretData.Train_Turret_Num[BoosterIndex], false);
+                    usi.Setting(i, 52, sa_trainBoosterData.Train_Booster_Num[BoosterIndex], false);
                     BoosterIndex++;
                 }else if (sa_trainData.Train_Num[i] == -1)
                 {
@@ -252,24 +273,33 @@ public class PlayerReadyDirector : MonoBehaviour
     void ResizeContent_UsingTrainContent(int Count)
     {
         RectTransform ContentSize = Using_TrainList.GetComponent<RectTransform>();
-        ContentSize.sizeDelta = new Vector2((131 * Count), 100);
+        ContentSize.sizeDelta = new Vector2((140 * Count), 180);
         Using_TrainList.GetComponentInParent<ScrollRect>().horizontalNormalizedPosition = 1f;
     }
 
     private void Instantiate_Buy_train_List()
     {
+        int AllCount = 0;
+        int CommonCount = 0;
+        int TurretCount = 0;
+        int BoosterCount = 0;
+
         Ready_Buy_TrainObject buy = Buy_TrainObject.GetComponent<Ready_Buy_TrainObject>();
         buy.director = this;
-
         buy.TrainNum_1 = 10;
         Instantiate(buy, Buy_TrainList[0]);
         Instantiate(buy, Buy_TrainList[1]);
+        AllCount++;
+        CommonCount++;
+
 
         for (int i =0; i < sa_trainData.Train_Buy_Num.Count; i++)
         {
             buy.TrainNum_1 = sa_trainData.Train_Buy_Num[i];
             Instantiate(buy, Buy_TrainList[0]);
             Instantiate(buy, Buy_TrainList[1]);
+            AllCount++;
+            CommonCount++;
         }
 
         for(int i = 0; i < sa_trainturretData.Train_Turret_Buy_Num.Count; i++)
@@ -278,6 +308,8 @@ public class PlayerReadyDirector : MonoBehaviour
             buy.TrainNum_2 = sa_trainturretData.Train_Turret_Buy_Num[i];
             Instantiate(buy, Buy_TrainList[0]);
             Instantiate(buy, Buy_TrainList[2]);
+            AllCount++;
+            TurretCount++;
         }
 
         for(int i = 0; i < sa_trainBoosterData.Train_Booster_Buy_Num.Count; i++)
@@ -286,14 +318,75 @@ public class PlayerReadyDirector : MonoBehaviour
             buy.TrainNum_2 = sa_trainBoosterData.Train_Booster_Buy_Num[i];
             Instantiate(buy, Buy_TrainList[0]);
             Instantiate(buy, Buy_TrainList[3]);
+            AllCount++;
+            BoosterCount++;
+        }
+        ResizeContent_BuyingTrainContent(AllCount, CommonCount, TurretCount, BoosterCount);
+    }
+
+    void ResizeContent_BuyingTrainContent(int all, int common, int turret, int booster)
+    {
+        for(int i = 0; i < 4; i++)
+        {
+            RectTransform ContentSize = Buy_TrainList[i].GetComponent<RectTransform>();
+            if(i == 0)
+            {
+                ContentSize.sizeDelta = new Vector2(-450 + (135 * all), 100);
+            }
+            else if (i == 1)
+            {
+                ContentSize.sizeDelta = new Vector2(-450 + (135 * common), 100);
+            }
+            else if (i == 2)
+            {
+                ContentSize.sizeDelta = new Vector2(-450 + (135 * turret), 100);
+            }
+            else if(i == 3)
+            {
+                ContentSize.sizeDelta = new Vector2(-450 + (135 * booster), 100);
+            }
+            List_Trian_Type[i].GetComponent<ScrollRect>().horizontalNormalizedPosition = 0f;
         }
     }
 
+    private void Setting_TrainType_DropDown()
+    {
+        TrainList_DropDown.ClearOptions();
+        List<string>optionList = new List<string>();
+        TrainList_DropDown.onValueChanged.RemoveAllListeners();
+        TrainList_DropDown.onValueChanged.AddListener((Change_TrainType_DropDown));
+        optionList.Add("A");
+        optionList.Add("B");
+        optionList.Add("C");
+        optionList.Add("D");
+        TrainList_DropDown.AddOptions(optionList);
+        TrainList_DropDown.value = 0;
+    }
+
+    private void Change_TrainType_DropDown(int value)
+    {
+        List_Trian_Type[List_Before_Train_Type_Num].gameObject.SetActive(false);
+        List_Trian_Type[value].gameObject.SetActive(true);
+        List_Before_Train_Type_Num = value;
+    }
+
+    void DropDown_Option_Change()
+    {
+        TMP_Dropdown options = TrainList_DropDown;
+
+    
+        options.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = LocalString_TrainType[options.value].GetLocalizedString();
+
+
+        for (int i = 0; i < 4; i++)
+        {
+            options.options[i].text = LocalString_TrainType[i].GetLocalizedString();
+        }
+    }
     public void Click_Change_Train(int index)
     {
         Ready_Using_TrainList_Object obj = __List__usingtrain[index];
-        obj.Change_TrainNum(Select_TrainNum_1, Select_TrainNum_2);
-        obj.Change_TrainImage();
+        obj.Change_Train(Select_TrainNum_1, Select_TrainNum_2);
         Change_TrainData(index);
         Change_ListSlelectFlag(false);
     }
@@ -749,8 +842,20 @@ public class PlayerReadyDirector : MonoBehaviour
 
     public void ItemTab_StartButton()
     {
-        gameObject.SetActive(false);
-        UI_SubStageSelect.SetActive(true);
+        if (!trainData.Train_Num.Contains(-1))
+        {
+            gameObject.SetActive(false);
+            UI_SubStageSelect.SetActive(true);
+        }
+        else
+        {
+            StartWarnningWindow.SetActive(true);
+        }
+    }
+
+    public void Close_WarnningWindow()
+    {
+        StartWarnningWindow.SetActive(false);
     }
 
     public void OpenOption_Button()
@@ -764,6 +869,4 @@ public class PlayerReadyDirector : MonoBehaviour
         Option_Flag = false;
         OptionObject.SetActive(false);
     }
-
-
 }

@@ -56,6 +56,26 @@ public class Station_Inventory : MonoBehaviour
 
     void Spawn_Item(int num)
     {
+        switch (num)
+        {
+            case 0:// Common
+                foreach (ItemDataObject itemDataObject in Data_ItemList.Common_Inventory_ItemList)
+                {
+                    ItemObject.item = itemDataObject;
+                    Check_Item_Init_Use(1, itemDataObject);
+                    Instantiate(ItemObject, Transform_ItemList[num]);
+                }
+                break;
+            case 1:
+                foreach (ItemDataObject itemDataObject in Data_ItemList.Equipment_Inventory_ItemList)
+                {
+                    ItemObject.item = itemDataObject;
+                    Instantiate(ItemObject, Transform_ItemList[num]);
+                }
+                break;
+        }
+
+/*
         switch(num)
         {
             case 0:
@@ -95,7 +115,7 @@ public class Station_Inventory : MonoBehaviour
                     Instantiate(ItemObject, Transform_ItemList[num]);
                 }
                 break;
-        }
+        }*/
     }
 
     public void UseItemStatus_Click(ItemDataObject itemobject)
