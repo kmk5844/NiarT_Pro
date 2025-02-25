@@ -15,20 +15,28 @@ public class Station_Inventory : MonoBehaviour
     [Header("생성 관리")]
     public ItemList_Object ItemObject;
     public ItemList_Tooltip TooltipObject;
-    [Header("인벤토리에 있는 아이템 리스트")]
-    public List<Transform> Transform_ItemList;
-    [Header("UI_UseStatus")]
+
+/*    [Header("UI_UseStatus")]
     public GameObject Item_UseStatus_WindowObject;
     public Button tem_UseStatus_AllButton;
     public LocalizeStringEvent Item_UseStatus_Name;
     public Image Item_UseStatus_Icon;
     public TextMeshProUGUI Item_UseStatus_Count_Text;
-    public Button Item_UseStatus_YesButton;
-    [Header("UI_UseItem")]
+    public Button Item_UseStatus_YesButton;*/
+/*    [Header("UI_UseItem")]
     int UI_UseItem_Num;
     public GameObject Item_UseItem_WindowObject;
     public List<GameObject> Item_UseItem_WindowObject_List;
-    public GameObject[] Item_UseIcon;  // 0 : 메인 화면, 1 : 일반, 2 : 박스, 3 : 재료
+    public GameObject[] Item_UseIcon;  // 0 : 메인 화면, 1 : 일반, 2 : 박스, 3 : 재료*/
+
+    [Header("버튼")]
+    public Button[] __List__Button;
+    int List_ButtonNum;
+    int List_Before_ButtonNum;
+
+    [Header("인벤토리에 있는 아이템 리스트")]
+    public Transform[] Instant_ItemList; // 소환이랑은 다름
+    public GameObject[] GameObject_ItemList;
 
     ItemDataObject useItem;
     [HideInInspector]
@@ -39,16 +47,18 @@ public class Station_Inventory : MonoBehaviour
     {
         stationDirector = GetComponentInParent<StationDirector>();
 
-        UI_UseItem_Num = -1;
+        Setting_Button();
+
+        //UI_UseItem_Num = -1;
         ItemObject.Inventory_Director = GetComponent<Station_Inventory>();
         ItemObject.item_tooltip_object = TooltipObject;
 
         UseWindowFlag = false;
         UseItemWindowFlag = false;
 
-        Item_UseStatus_Name.StringReference.TableReference = "ItemData_Table_St";
+        //Item_UseStatus_Name.StringReference.TableReference = "ItemData_Table_St";
 
-        for (int i = 0; i < Transform_ItemList.Count; i++)
+        for (int i = 0; i < Instant_ItemList.Length; i++)
         {
             Spawn_Item(i);
         }
@@ -62,19 +72,20 @@ public class Station_Inventory : MonoBehaviour
                 foreach (ItemDataObject itemDataObject in Data_ItemList.Common_Inventory_ItemList)
                 {
                     ItemObject.item = itemDataObject;
-                    Check_Item_Init_Use(1, itemDataObject);
-                    Instantiate(ItemObject, Transform_ItemList[num]);
+                    Instantiate(ItemObject, Instant_ItemList[num]);
                 }
+                Resize_Content(0, Data_ItemList.Common_Inventory_ItemList.Count);
                 break;
             case 1:
                 foreach (ItemDataObject itemDataObject in Data_ItemList.Equipment_Inventory_ItemList)
                 {
                     ItemObject.item = itemDataObject;
-                    Instantiate(ItemObject, Transform_ItemList[num]);
+                    Instantiate(ItemObject, Instant_ItemList[num]);
                 }
+                Resize_Content(1, Data_ItemList.Equipment_Inventory_ItemList.Count);
                 break;
         }
-
+        
 /*
         switch(num)
         {
@@ -118,7 +129,38 @@ public class Station_Inventory : MonoBehaviour
         }*/
     }
 
-    public void UseItemStatus_Click(ItemDataObject itemobject)
+    void Resize_Content(int num, int count)
+    {
+        RectTransform rect = Instant_ItemList[num].GetComponent<RectTransform>();
+        if(count % 5 != 0)
+        {
+            rect.sizeDelta = new Vector2(0, 30+(72 * ((count/5)+1)));
+        }
+        else
+        {
+            rect.sizeDelta = new Vector2(0, 30+(72 * (count/5)));
+        }
+    }
+
+    void Setting_Button()
+    {
+        GameObject_ItemList[0].gameObject.SetActive(true);
+        __List__Button[0].interactable = false;
+        GameObject_ItemList[1].gameObject.SetActive(false);
+        __List__Button[1].interactable = true;
+    }
+
+    public void Click_ListBUtton(int value)
+    {
+        List_Before_ButtonNum = List_ButtonNum;
+        GameObject_ItemList[value].gameObject.SetActive(true);
+        __List__Button[value].interactable = false;
+        GameObject_ItemList[List_Before_ButtonNum].gameObject.SetActive(false);  
+        __List__Button[List_Before_ButtonNum].interactable = true;
+        List_ButtonNum = value;
+    }
+
+  /*  public void UseItemStatus_Click(ItemDataObject itemobject)
     {
         UseWindowFlag = true;
         tem_UseStatus_AllButton.gameObject.SetActive(false);
@@ -284,11 +326,11 @@ public class Station_Inventory : MonoBehaviour
         Debug.Log(UI_UseItem_Num);
         switch (UI_UseItem_Num)
         {
-/*            case 0:
+*//*            case 0:
                 Item_UseItem_WindowObject.SetActive(false);
                 Item_UseItem_WindowObject_List[0].SetActive(false);
 
-                break;*/
+                break;*//*
             case 0: // 박스 한개
                 Item_UseItem_WindowObject.SetActive(false);
                 Item_UseItem_WindowObject_List[0].SetActive(false);
@@ -381,5 +423,5 @@ public class Station_Inventory : MonoBehaviour
         {
              Item_UseIcon[0].SetActive(false);
         }
-    }
+    }*/
 }

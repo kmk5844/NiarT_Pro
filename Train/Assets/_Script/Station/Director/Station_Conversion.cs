@@ -314,8 +314,8 @@ public class Station_Conversion : MonoBehaviour
         Result_Count_Text.text = Material_ToggleNum_ItemObject2.Item_Count.ToString();
         AfterConversionFlag = true;
         AfterConvertWindow.SetActive(true);
-        inventory.Check_ItemList(false, Material_ToggleNum_ItemObject1, convertCount);
-        inventory.Check_ItemList(true, Material_ToggleNum_ItemObject2, convertCount);
+        //inventory.Check_ItemList(false, Material_ToggleNum_ItemObject1, convertCount);
+        //nventory.Check_ItemList(true, Material_ToggleNum_ItemObject2, convertCount);
     }
 
     public void Button_Check()

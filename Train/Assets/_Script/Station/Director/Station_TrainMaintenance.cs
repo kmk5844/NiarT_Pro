@@ -20,7 +20,7 @@ public class Station_TrainMaintenance : MonoBehaviour
     public GameObject Item_DataObject;
     Station_ItemData itemData;
 
-    [Header("UI에서 나타나는 기차")]
+/*    [Header("UI에서 나타나는 기차")]
     public Transform UI_TrainList;
     public Transform UI_TrainButtonList;
     public GameObject[] Train_Button;
@@ -69,7 +69,7 @@ public class Station_TrainMaintenance : MonoBehaviour
     List<Toggle> Booster_Part_Toggle;
     public Button Part_Change_Button;
     bool Equip_Part_Flag;
-    public bool Part_Window_Flag;
+    public bool Part_Window_Flag;*/
     
 /*    [Header("기차 업그레이드 윈도우")]
     public TextMeshProUGUI Before_Text;
@@ -163,45 +163,16 @@ public class Station_TrainMaintenance : MonoBehaviour
 
     private void Start()
     {
+        local_Index = localData.Local_Index;
+        trainData = Train_DataObject.GetComponent<Station_TrainData>();
+        playerData = Player_DataObject.GetComponent<Station_PlayerData>();
+
         Setting_TrainImage();
         Setting_TrainType_DropDown_Buy();
         Setting_TrainUpgarde();
         Setting_TrainUpgradeList_Button();
         Setting_TrainType_DropDown_Upgrade();
         DropDown_Option_Change();
-
-        local_Index = localData.Local_Index;
-
-        Part_Window_Flag = false;
-        UI_Train_Num = 0;
-        UI_Init_Train_Turret_Num = 0;
-        UI_Init_Train_Booster_Num = 0;
-        trainData = Train_DataObject.GetComponent<Station_TrainData>();
-        playerData = Player_DataObject.GetComponent<Station_PlayerData>();
-        itemData = Item_DataObject.GetComponent<Station_ItemData>();
-        Max_Train = trainData.Level_Train_MaxTrain + 2;
-        UI_TrainMax_Text.text = "Train MAX : " + Max_Train;
-/*        Train_Change_Num = trainData.Train_Change_Num;
-        Train_Turret_Part_Change_Num = trainData.Train_Turret_Part_Change_Num;
-        Train_Booster_Part_Change_Num = trainData.Train_Booster_Part_Change_Num;*/
-        UI_Train_Part_Text.StringReference.TableReference = "ExcelData_Table_St";
-        //UI 기차 생성하기
-        UI_TrainImage(false);
-        Current_Train_Information();
-
-        //기차 변경하기
-        Check_Init_TrainCard();
-        Director_Init_TrainChange();
-        //파츠 변경하기
-        Check_Init_TrainTurretPartCard();
-        Check_Init_TrainBoosterPartCard();
-        Director_Init_TrainPartChange();
-        //토글 Init
-        Train_ToggleStart();
-        Turret_Part_ToggleStart();
-        Booster_Part_ToggleStart();
-        //기차 업그레이드
-        //Upgrade_Before_After_Text();
 
         //기차 구매하기
         List_TrainType_Num = 0;
@@ -219,6 +190,38 @@ public class Station_TrainMaintenance : MonoBehaviour
         {
             Passive_Upgrade_Text(i);
         }
+
+
+
+        /*        Part_Window_Flag = false;
+                UI_Train_Num = 0;
+                UI_Init_Train_Turret_Num = 0;
+                UI_Init_Train_Booster_Num = 0;
+
+                itemData = Item_DataObject.GetComponent<Station_ItemData>();
+                Max_Train = trainData.Level_Train_MaxTrain + 2;
+                UI_TrainMax_Text.text = "Train MAX : " + Max_Train;
+                Train_Change_Num = trainData.Train_Change_Num;
+                Train_Turret_Part_Change_Num = trainData.Train_Turret_Part_Change_Num;
+                Train_Booster_Part_Change_Num = trainData.Train_Booster_Part_Change_Num;
+                UI_Train_Part_Text.StringReference.TableReference = "ExcelData_Table_St";*/
+        //UI 기차 생성하기
+        /*        UI_TrainImage(false);
+                Current_Train_Information();*/
+
+        /*        //기차 변경하기
+                Check_Init_TrainCard();
+                Director_Init_TrainChange();
+                //파츠 변경하기
+                Check_Init_TrainTurretPartCard();
+                Check_Init_TrainBoosterPartCard();
+                Director_Init_TrainPartChange();
+                //토글 Init
+                Train_ToggleStart();
+                Turret_Part_ToggleStart();
+                Booster_Part_ToggleStart();*/
+        //기차 업그레이드
+        //Upgrade_Before_After_Text();
     }
 
     private void Update()
@@ -230,7 +233,7 @@ public class Station_TrainMaintenance : MonoBehaviour
         }
     }
 
-    //UI 기차 생성하기
+  /*  //UI 기차 생성하기
     private void UI_TrainImage(bool Add)
     {
         int num = 0;
@@ -251,13 +254,14 @@ public class Station_TrainMaintenance : MonoBehaviour
                 }
                 else
                 {
-                    train = Instantiate(Resources.Load<GameObject>("TrainObject_UI/" + trainNum), UI_TrainList);
+                    //train = Instantiate(Resources.Load<GameObject>("TrainObject_UI/" + trainNum), UI_TrainList);
                 }
-                 
-                train.name = train.name.Replace("(Clone)", "");
+
+
+                //train.name = train.name.Replace("(Clone)", "");
                 if (num != 0) // 처음에만 실행
                 {
-                    train.SetActive(false);
+                    //train.SetActive(false);
                 }
 
                 if (num == 0)
@@ -390,28 +394,28 @@ public class Station_TrainMaintenance : MonoBehaviour
         int trainNum2;
         if (name.Length > 1)
         {
-            trainNum2 = int.Parse(name[1]);
+            //trainNum2 = int.Parse(name[1]);
         }
         else
         {
-            trainNum2 = 0;
+            //trainNum2 = 0;
         }
 
         if (trainNum == 51)
         {
            // UI_Train_Information_Text.StringReference.TableEntryReference = "Train_Turret_Information_" + (trainNum2 / 10);
-           /* UI_Train_Information_Text.text = trainData.EX_Game_Data.Information_Train_Turret_Part[trainNum2].Train_Information.Replace("\\n", "\n")
-                + trainData.EX_Game_Data.Information_Train_Turret_Part[trainNum2].Train_Select_Information.Replace("\\n", "\n").Replace("\\t", "\t");*/
+           *//* UI_Train_Information_Text.text = trainData.EX_Game_Data.Information_Train_Turret_Part[trainNum2].Train_Information.Replace("\\n", "\n")
+                + trainData.EX_Game_Data.Information_Train_Turret_Part[trainNum2].Train_Select_Information.Replace("\\n", "\n").Replace("\\t", "\t");*//*
         }
         else if (trainNum == 52)
         {
            // UI_Train_Information_Text.StringReference.TableEntryReference = "Train_Booster_Information_" + (trainNum2 / 10);
-          /*  UI_Train_Information_Text.text = trainData.EX_Game_Data.Information_Train_Booster_Part[trainNum2].Train_Information.Replace("\\n", "\n")
-              + trainData.EX_Game_Data.Information_Train_Booster_Part[trainNum2].Train_Select_Information.Replace("\\n", "\n").Replace("\\t", "\t");*/
+          *//*  UI_Train_Information_Text.text = trainData.EX_Game_Data.Information_Train_Booster_Part[trainNum2].Train_Information.Replace("\\n", "\n")
+              + trainData.EX_Game_Data.Information_Train_Booster_Part[trainNum2].Train_Select_Information.Replace("\\n", "\n").Replace("\\t", "\t");*//*
         }
         else
         {
-/*            if (trainNum < 50)
+*//*            if (trainNum < 50)
             {
                 UI_Train_Information_Text.StringReference.TableEntryReference = "Train_Information_" + (trainNum / 10);
             }
@@ -420,7 +424,7 @@ public class Station_TrainMaintenance : MonoBehaviour
                 UI_Train_Information_Text.StringReference.TableEntryReference = "Train_Information_" + trainNum;
             }*/
             /*  UI_Train_Information_Text.text = trainData.EX_Game_Data.Information_Train[trainNum].Train_Information.Replace("\\n", "\n")
-                 + trainData.EX_Game_Data.Information_Train[trainNum].Train_Select_Information.Replace("\\n", "\n").Replace("\\t", "\t");*/
+                 + trainData.EX_Game_Data.Information_Train[trainNum].Train_Select_Information.Replace("\\n", "\n").Replace("\\t", "\t");*//*
         }
     }
 
@@ -956,7 +960,7 @@ public class Station_TrainMaintenance : MonoBehaviour
                     trainData.SA_TrainTurretData.SA_Train_Turret_Insert(UI_Train_Turret_Num, TurretPart_changeNum);
                 }
 
-                /* Debug.Log("작동_Turret");
+                *//* Debug.Log("작동_Turret");
                  Debug.Log(UI_Train_Turret_Flag);
                  Debug.Log(UI_Train_Booster_Flag);
 
@@ -978,7 +982,7 @@ public class Station_TrainMaintenance : MonoBehaviour
                          trainData.SA_TrainData.SA_Train_Change(UI_Train_Num, 51);
                          trainData.SA_TrainBoosterData.SA_Train_Booster_Remove(UI_Train_Booster_Num);
                      }
-                 }*/
+                 }*//*
                 Destroy(UI_TrainList.GetChild(UI_Train_Num).gameObject);
                 GameObject changeTrain = Instantiate(Resources.Load<GameObject>("TrainObject_UI/51_" + TurretPart_changeNum), UI_TrainList);
                 changeTrain.name = changeTrain.name.Replace("(Clone)", "");
@@ -1009,7 +1013,7 @@ public class Station_TrainMaintenance : MonoBehaviour
                 }
 
 
-                /*  Debug.Log("작동_Booster");
+                *//*  Debug.Log("작동_Booster");
                   Debug.Log(UI_Train_Turret_Flag);
                   Debug.Log(UI_Train_Booster_Flag);
                   if (!UI_Train_Booster_Flag)
@@ -1031,7 +1035,7 @@ public class Station_TrainMaintenance : MonoBehaviour
                           trainData.SA_TrainTurretData.SA_Train_Turret_Remove(UI_Train_Turret_Num);
                       }
 
-                  }*/
+                  }*//*
                 Destroy(UI_TrainList.GetChild(UI_Train_Num).gameObject);
                 GameObject changeTrain = Instantiate(Resources.Load<GameObject>("TrainObject_UI/52_" + BoosterPart_changeNum), UI_TrainList);
                 changeTrain.name = changeTrain.name.Replace("(Clone)", "");
@@ -1042,7 +1046,7 @@ public class Station_TrainMaintenance : MonoBehaviour
                 Check_Part_Flag();
             }
         }
-    }
+    }*/
 
     //기차 업그레이드
 /*    public void Direcotr_Init_TrainUpgrade()
@@ -1335,7 +1339,7 @@ public class Station_TrainMaintenance : MonoBehaviour
     {
         transform.GetComponentInParent<StationDirector>().Check_Ban_CoinPoint(Flag);
     }
-
+/*
     public void Ban_Part_Window()
     {
         Part_Ban.SetActive(true);
@@ -1344,7 +1348,7 @@ public class Station_TrainMaintenance : MonoBehaviour
     public void Ban_Back_Part_Window()
     {
         Part_Ban.SetActive(false);
-    }
+    }*/
 
     //기차 구매하기
     private void Setting_TrainType_DropDown_Buy()
@@ -2189,7 +2193,7 @@ public class Station_TrainMaintenance : MonoBehaviour
             Passive_Upgrade_Text(i);
             Check_Player_Coin_Point();
             // 여기에 맥스 조절하는 부분이 없다.
-            Check_Trian_Add(); // 엔진 티어의 레벨에 따라 기차 추가 여부가 달라짐
+            //Check_Trian_Add(); // 엔진 티어의 레벨에 따라 기차 추가 여부가 달라짐
         }
         else
         {

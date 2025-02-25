@@ -51,7 +51,7 @@ public class ItemUse_Window_Box_All : MonoBehaviour
                 GameObject itemlist = Instantiate(ItemList_Objcet, ItemList_Transform);
                 itemlist.GetComponent<ItemList_OpenBox>().AllBoxOpenList(item, true, Add_ItemCount);
                 item.Item_Count_UP(Add_ItemCount);
-                inventory.Check_ItemList(true, item, Add_ItemCount);
+                //inventory.Check_ItemList(true, item, Add_ItemCount);
             }
         }
         else if(itemNum == 55)
@@ -72,7 +72,7 @@ public class ItemUse_Window_Box_All : MonoBehaviour
                 GameObject itemlist = Instantiate(ItemList_Objcet, ItemList_Transform);
                 itemlist.GetComponent<ItemList_OpenBox>().AllBoxOpenList(item, false);
                 item.Item_Count_UP();
-                inventory.Check_ItemList(true, item);
+                //inventory.Check_ItemList(true, item);
             }
         }else if(itemNum == 56)
         {
@@ -99,7 +99,7 @@ public class ItemUse_Window_Box_All : MonoBehaviour
                 GameObject itemlist = Instantiate(ItemList_Objcet, ItemList_Transform);
                 itemlist.GetComponent<ItemList_OpenBox>().AllBoxOpenList(item, false);
                 item.Item_Count_UP();
-                inventory.Check_ItemList(true, item);
+                //inventory.Check_ItemList(true, item);
             }
         }
     }

@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Localization.Components;
+using JetBrains.Annotations;
 
 public class Station_Store : MonoBehaviour
 {
@@ -619,7 +620,7 @@ public class Station_Store : MonoBehaviour
         ItemSellTooltip_Object.Tooltip_Off(); 
     }
 */
-    //----------------------------------------------------------------------------\
+    //----------------------------------------------------------------------------
     void Setting_Count_Buy()
     {
         Init_Information();
@@ -724,6 +725,8 @@ public class Station_Store : MonoBehaviour
             ItemBuyList_Object.item = item;
             Instantiate(ItemBuyList_Object, Item_Buy_Window.transform);
         }
+        Resize_ListContent(0, itemData.Store_Buy_itemList.Count);
+
     }
 
     public void Click_ItemBuy()
@@ -774,12 +777,41 @@ public class Station_Store : MonoBehaviour
     {
         ItemSellList_Object.StoreDirector = GetComponent<Station_Store>();
         //ItemSellList_Object.item_tooltip_object = ItemSellTooltip_Object;
-        int Total_ItemCount = 0;
         foreach (ItemDataObject item in itemData.Store_Sell_itemList)
         {
             ItemSellList_Object.item = item;
             Instantiate(ItemSellList_Object, Item_Sell_Window.transform);
-            Total_ItemCount++;
+        }
+        Resize_ListContent(1, itemData.Store_Sell_itemList.Count);
+    }
+
+    void Resize_ListContent(int num, int count)
+    {
+        if(num == 0)
+        {
+            RectTransform rect = Item_Buy_Window.GetComponent<RectTransform>();
+
+            if (count % 3 != 0)
+            {
+                rect.sizeDelta = new Vector2(0, 50 + (145 * ((count / 3) + 1)));
+            }
+            else
+            {
+                rect.sizeDelta = new Vector2(0, 50 + (145 * (count / 3)));
+            }
+        }
+        else if(num == 1)
+        {
+            RectTransform rect = Item_Sell_Window.GetComponent<RectTransform>();
+
+            if (count % 3 != 0)
+            {
+                rect.sizeDelta = new Vector2(0, 45 + (145 * ((count / 3) + 1)));
+            }
+            else
+            {
+                rect.sizeDelta = new Vector2(0, 45 + (145 * (count / 3)));
+            }
 
         }
     }

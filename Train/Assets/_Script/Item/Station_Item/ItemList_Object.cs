@@ -33,41 +33,43 @@ public class ItemList_Object : MonoBehaviour
         item_icon_object.sprite = item.Item_Sprite;
         item_object_text_count.text = item_count.ToString();
 
-        if(item_use_object != null)
+/*        if (item_use_object != null)
         {
             if (item_use)
             {
                 item_use_object.SetActive(true);
 
-/*                if (item.Num == 53 && item_count < 10)
+                if (item.Num == 53 && item_count < 10)
                 {
                     item_use_object.SetActive(false);
-                }*/
+                }
             }
             else
             {
                 item_use_object.SetActive(false);
             }
-        }
+        }*/
     }
 
     private void Update()
     {
+        if (item_information_Flag)
+        {
+            item_tooltip_object.Tooltip_ON(item.Item_Sprite, item.Num, item_use, 0);
+            item_mouseOver_Flag = true;
+        }
+        else
+        {
+            if (item_mouseOver_Flag)
+            {
+                item_tooltip_object.Tooltip_Off();
+                item_mouseOver_Flag = false;
+            }
+        }
+
 /*        if (StationDirector.TooltipFlag)
         {
-            if (item_information_Flag)
-            {
-                item_tooltip_object.Tooltip_ON(item.Item_Sprite,item.Num, item_use, 0);
-                item_mouseOver_Flag = true;
-            }
-            else
-            {
-                if (item_mouseOver_Flag)
-                {
-                    item_tooltip_object.Tooltip_Off();
-                    item_mouseOver_Flag = false;
-                }
-            }
+
         }
         else
         {
@@ -90,13 +92,13 @@ public class ItemList_Object : MonoBehaviour
         item_information_Flag = false;
     }
 
-    public void OnMouseClick()
+/*    public void OnMouseClick()
     {
         if (item_use)
         {
             Inventory_Director.UseItemStatus_Click(item);
         }
-    }
+    }*/
 
     public bool Check_ItemCount()
     {
@@ -113,7 +115,7 @@ public class ItemList_Object : MonoBehaviour
             {
                 item_use_object.SetActive(false);
             }*/
-            item_use_object.SetActive(false);
+            //item_use_object.SetActive(false);
             return true;
         }
         else if(item_count == 0)

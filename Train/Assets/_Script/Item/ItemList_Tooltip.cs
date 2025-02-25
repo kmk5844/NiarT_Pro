@@ -8,18 +8,21 @@ using UnityEngine.Localization.Components;
 
 public class ItemList_Tooltip : MonoBehaviour
 {
-    public Image Item_Icon;
+    //public Image Item_Icon;
     public LocalizeStringEvent Item_Name;
     public LocalizeStringEvent Item_Information;
-    public TextMeshProUGUI Item_Pride;
-    public GameObject UseWindow;
-    LocalizeStringEvent UseWindow_Text;
+/*    public TextMeshProUGUI Item_Pride;*/
+/*    public GameObject UseWindow;
+    LocalizeStringEvent UseWindow_Text;*/
     bool TooltipFlag;
+
+    public float Test_X;
+    public float Test_Y;
 
     float halfwidth;
     float halfheight;
-    float pivot_x;
-    float pivot_y;
+    public float pivot_x;
+    public float pivot_y;
     RectTransform rt;
 
     public enum TooltipType
@@ -48,7 +51,7 @@ public class ItemList_Tooltip : MonoBehaviour
     {
         if (TooltipFlag)
         {
-            transform.position = Input.mousePosition + new Vector3(40, -40, 0);
+            transform.position = Input.mousePosition + new Vector3(30, 30, 0);
         }
 
         if (rt.anchoredPosition.x + rt.sizeDelta.x > halfwidth)
@@ -62,37 +65,37 @@ public class ItemList_Tooltip : MonoBehaviour
             pivot_x = 0;
         }
 
-        if (rt.anchoredPosition.y + rt.sizeDelta.y > halfheight)
-        {
-            // 위
-            pivot_y = 1f;
-        }
-        else
-        {
-            // 아래
-            pivot_y = -0.58f;
-        }
-
+        /*        if (rt.anchoredPosition.y + rt.sizeDelta.y > halfheight)
+                {
+                    // 위
+                    //pivot_y = 0f;
+                }
+                else
+                {
+                    // 아래
+                    //pivot_y = 0f;
+                }*/
+        pivot_y = 1;
         rt.pivot = new Vector2(pivot_x, pivot_y);
     }
 
     public void Tooltip_ON(Sprite img, int item_Num, bool useFlag, int Pride)
     {
         TooltipFlag = true;
-        Item_Icon.sprite = img;
+        //Item_Icon.sprite = img;
         Item_Name.StringReference.TableEntryReference = "Item_Name_" + item_Num;
         Item_Information.StringReference.TableEntryReference = "Item_Information_" + item_Num;
 /*        Item_Name.text = itemName;
         Item_Information.text = itemInformation;*/
-        UseWindow_Text = UseWindow.GetComponentInChildren<LocalizeStringEvent>();
-        UseWindow_Text.StringReference.TableReference = "Station_Table_St";
-        if (tooltiptype == TooltipType.Inventory)
+/*        UseWindow_Text = UseWindow.GetComponentInChildren<LocalizeStringEvent>();
+        UseWindow_Text.StringReference.TableReference = "Station_Table_St";*/
+/*        if (tooltiptype == TooltipType.Inventory)
         {
             Item_Pride.text = "";
             if (useFlag)
             {
-                UseWindow.SetActive(true);
-                UseWindow_Text.StringReference.TableEntryReference = "UI_ToolTip_Use_LeftMouse";
+*//*                UseWindow.SetActive(true);
+                UseWindow_Text.StringReference.TableEntryReference = "UI_ToolTip_Use_LeftMouse";*//*
                 //UseWindow.GetComponentInChildren<TextMeshProUGUI>().text = "사용하시려면 좌클릭 눌러주세요";
             }
         }
@@ -122,7 +125,7 @@ public class ItemList_Tooltip : MonoBehaviour
         {
             Item_Pride.text = "";
             UseWindow.SetActive(false);
-        }
+        }*/
 
         gameObject.SetActive(true);
     }
@@ -134,7 +137,7 @@ public class ItemList_Tooltip : MonoBehaviour
         Item_Information.StringReference.TableEntryReference = null;
         Item_Name.GetComponent<TextMeshProUGUI>().text = "";
         Item_Information.GetComponent<TextMeshProUGUI>().text = "";
-        UseWindow.SetActive(false);
+        //UseWindow.SetActive(false);
         gameObject.SetActive(false);
     }
 }

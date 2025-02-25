@@ -556,7 +556,7 @@ public class Station_Fortress : MonoBehaviour
             mercenaryData.Mercenary_Level_Up(Mercenary_Upgrade_Num);
             Mercenary_Upgrade_Content.GetChild(Mercenary_Upgrade_ToggleNum).GetComponent<TrainingRoom_Mercenary_Upgrade_Card>().Card_LevleUP();
             Check_Player_Coin_Point();
-            inventorydirector.Check_ItemList(false, itemData.Mercenary_Material_object);
+            //inventorydirector.Check_ItemList(false, itemData.Mercenary_Material_object);
             Mercenary_Upgrade_Information_Text(Mercenary_Upgrade_Num);
         }
         else

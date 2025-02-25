@@ -78,9 +78,9 @@ public class StationDirector : MonoBehaviour
     //4 : Inventory
     [Header("Click Lobby -> Inventory")]
     public GameObject UI_Inventory;
-    public Toggle[] UI_Inventory_Toggle;
+/*    public Toggle[] UI_Inventory_Toggle;
     public GameObject[] UI_Inventory_Window;
-
+*/
     //5 : GameStart
     [Header("Click Lobby -> GameStart")]
     public GameObject UI_GameStart;
@@ -141,7 +141,7 @@ public class StationDirector : MonoBehaviour
 
         // 기차 정비소와 인벤토리의 토글
         TrainMaintenance_ToggleStart();
-        Inventory_ToggleStart();
+/*        Inventory_ToggleStart();*/
     }
     private void Update()
     {
@@ -149,11 +149,11 @@ public class StationDirector : MonoBehaviour
         {
             if (ui_num == 1)
             {
-                if (Director_TrainMaintenance.Part_Window_Flag)
+/*                if (Director_TrainMaintenance.Part_Window_Flag)
                 {
                     Director_TrainMaintenance.Click_Part_Back_Button();
                 }
-                else if (Information_Flag)
+                else */if (Information_Flag)
                 {
                     Click_Information_Back_Button();
                 }
@@ -195,10 +195,10 @@ public class StationDirector : MonoBehaviour
             {
                 if (Director_Inventory.UseWindowFlag)
                 {
-                    Director_Inventory.UseItemStatus_NoButton();
+                    //Director_Inventory.UseItemStatus_NoButton();
                 }else if (Director_Inventory.UseItemWindowFlag)
                 {
-                    Director_Inventory.UseItemWindow_BackButton();
+                    //Director_Inventory.UseItemWindow_BackButton();
                 }
                 else
                 {
@@ -249,13 +249,13 @@ public class StationDirector : MonoBehaviour
         }
     }
 
-    private void Inventory_ToggleStart()
+/*    private void Inventory_ToggleStart()
     {
         foreach(Toggle toggle in UI_Inventory_Toggle)
         {
             toggle.onValueChanged.AddListener(Inventory_ToggleChange);
         }
-    }
+    }*/
 
     private void TrainMaintenance_ToggleChange(bool isOn)
     {
@@ -302,7 +302,7 @@ public class StationDirector : MonoBehaviour
         }
     }
 
-    private void Inventory_ToggleChange(bool isOn)
+/*    private void Inventory_ToggleChange(bool isOn)
     {
         if(isOn && ui_num == 4)
         {
@@ -325,14 +325,14 @@ public class StationDirector : MonoBehaviour
 
             Total_Init();
         }
-    }
+    }*/
 
     public int Check_UI_Inventory_Num()
     {
         return ui_Inventory_Num;
     }
 
-    private void Inventory_ToggleInit()
+/*    private void Inventory_ToggleInit()
     {
         if (ui_num == 4)
         {
@@ -354,7 +354,7 @@ public class StationDirector : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
 
     public void ClickLobbyButton(int num)
     {
@@ -526,7 +526,7 @@ public class StationDirector : MonoBehaviour
         UI_TrainMaintenance_Window[ui_Maintenance_Num].SetActive(false);
         UI_Home_Button.SetActive(false);
         UI_Back_Button.SetActive(true);
-        Director_TrainMaintenance.Current_Train_Information();
+        //Director_TrainMaintenance.Current_Train_Information();
     }
 
     public void Click_Information_Back_Button()
@@ -563,7 +563,7 @@ public class StationDirector : MonoBehaviour
         }
         else if(ui_num == 4)
         {
-            Inventory_ToggleInit();
+            //Inventory_ToggleInit();
             UI_Inventory.gameObject.SetActive(false);
         }
         else if (ui_num == 5)
@@ -584,7 +584,14 @@ public class StationDirector : MonoBehaviour
         }
         UI_BackGround.gameObject.SetActive(false);
 
-        ui_num = 0; // 꺼져있을 때만 적용
+        if(ui_num != 4)
+        {
+            ui_num = 0; // 꺼져있을 때만 적용
+        }
+        else
+        {
+            ui_num = 3;
+        }
         UI_Lobby.gameObject.SetActive(true);
     }
 
@@ -636,8 +643,8 @@ public class StationDirector : MonoBehaviour
     }
 
     public void Total_Init() {
-        Director_TrainMaintenance.Director_Init_TrainChange();
-        Director_TrainMaintenance.Director_Init_TrainPartChange();
+        //Director_TrainMaintenance.Director_Init_TrainChange();
+        //Director_TrainMaintenance.Director_Init_TrainPartChange();
         //Director_TrainMaintenance.Direcotr_Init_TrainUpgrade();
 
 /*        UI_Store_Window[0].GetComponent<RectTransform>().SetAsLastSibling();
@@ -647,7 +654,7 @@ public class StationDirector : MonoBehaviour
         if (Station_ItemData.itemChangeFlag)
         {
             Director_Store.Director_Init_ItemSell();
-            Director_Inventory.Director_Init_Inventory();
+            //Director_Inventory.Director_Init_Inventory();
             Director_GameStart.Director_Init_EquipItem();
             if (simplestationFlag)
             {

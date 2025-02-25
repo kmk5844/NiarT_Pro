@@ -67,7 +67,7 @@ public class ItemUse_Window_Box : MonoBehaviour
             Item_Icon.sprite = item.Item_Sprite;
             Item_Count.text = Add_ItemCount.ToString();
             item.Item_Count_UP(Add_ItemCount);
-            inventory.Check_ItemList(true, item, Add_ItemCount);
+            //inventory.Check_ItemList(true, item, Add_ItemCount);
         }
         else if(num == 55)
         {
@@ -98,7 +98,7 @@ public class ItemUse_Window_Box : MonoBehaviour
             Item_Icon.sprite = item.Item_Sprite;
             Item_Count.text = "1";
             item.Item_Count_UP();
-            inventory.Check_ItemList(true, item);
+            //inventory.Check_ItemList(true, item);
         }
         else if(num == 56)
         {
@@ -127,7 +127,7 @@ public class ItemUse_Window_Box : MonoBehaviour
             Item_Icon.sprite = item.Item_Sprite;
             Item_Count.text = "1";
             item.Item_Count_UP();
-            inventory.Check_ItemList(true, item);
+            //inventory.Check_ItemList(true, item);
         }
     }
 }
