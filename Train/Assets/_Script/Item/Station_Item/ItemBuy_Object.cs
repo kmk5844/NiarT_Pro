@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.Components;
 using UnityEngine.UI;
 
 public class ItemBuy_Object : MonoBehaviour
@@ -17,7 +18,7 @@ public class ItemBuy_Object : MonoBehaviour
 
     [Header("정보 표시")]
     public Image item_icon_object;
-    public TextMeshProUGUI item_Name_text;
+    public LocalizeStringEvent item_Name_text;
     public TextMeshProUGUI item_Pride_text;
     public TextMeshProUGUI item_Count_text;
     public GameObject SelectObject;
@@ -26,10 +27,8 @@ public class ItemBuy_Object : MonoBehaviour
     {
         item_icon_object.sprite = item.Item_Sprite;
 
-        item_name = item.Item_Name;
-        item_Name_text.text = item_name;
-
-        item_information = item.Item_Information;
+        item_Name_text.StringReference.TableReference = "ItemData_Table_St";
+        item_Name_text.StringReference.TableEntryReference  = "Item_Name_" + item.Num;
 
         item_pride = item.Item_Buy_Pride;
         item_Pride_text.text = item_pride + "G";

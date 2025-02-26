@@ -33,7 +33,7 @@ public class PassiveUpgrade_Tooltip : MonoBehaviour
     {
         if (TooltipFlag)
         {
-            transform.position = Input.mousePosition + new Vector3(80, 0, 0);
+            transform.position = Input.mousePosition + new Vector3(50, 20, 0);
         }
 
         if (rt.anchoredPosition.x + rt.sizeDelta.x > halfwidth)
@@ -55,7 +55,7 @@ public class PassiveUpgrade_Tooltip : MonoBehaviour
         else
         {
             // ¾Æ·¡
-            pivot_y = -0.58f;
+            pivot_y = 1f;
         }
 
         rt.pivot = new Vector2(pivot_x, pivot_y);

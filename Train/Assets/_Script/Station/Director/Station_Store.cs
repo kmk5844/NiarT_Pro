@@ -91,15 +91,18 @@ public class Station_Store : MonoBehaviour
     public GameObject SelectObject_Before;
     public GameObject SelectObject_After;
 
-    public TextMeshProUGUI Item_Name_Text;
     public Image Item_Image;
-    public TextMeshProUGUI Item_Information_Text;
+    public LocalizeStringEvent Item_Name_Text;
+    public LocalizeStringEvent Item_Information_Text;
 
     public GameObject CountObject;
     int CountNum;
     TextMeshProUGUI CountNum_Buy_Text;
     public GameObject CountButton;
-    TextMeshProUGUI CountButton_Text;
+    LocalizeStringEvent CountButton_Text;
+
+    public bool Store_CheckFlag;
+    public bool Store_BanFlag;
 
     [Header("아이템 구매 체크")]
     public GameObject BuyCheck_Window;
@@ -116,6 +119,8 @@ public class Station_Store : MonoBehaviour
         //trainData = Train_DataObject.GetComponent<Station_TrainData>();
         //mercenaryData = Mercenary_DataObject.GetComponent<Station_MercenaryData>();
         itemData = Item_DataObject.GetComponent<Station_ItemData>();
+        Item_Name_Text.StringReference.TableReference = "ItemData_Table_St";
+        Item_Information_Text.StringReference.TableReference = "ItemData_Table_St";
         /*        Train_Store_Num = trainData.Train_Store_Num;
                 Turret_Store_Num = trainData.Train_Turret_Store_Num;
                 Booster_Store_Num = trainData.Train_Booster_Store_Num;*/
@@ -142,7 +147,6 @@ public class Station_Store : MonoBehaviour
         Check_Init_ItemBuy();
         //아이템 판매하기
         Check_Init_ItemSell();
-
         Setting_Count_Buy();
 
 
@@ -607,12 +611,12 @@ public class Station_Store : MonoBehaviour
         transform.GetComponentInParent<StationDirector>().Check_Coin();
     }
 
-    private void Ban_Player_Coin_Point(bool Flag)
+/*    private void Ban_Player_Coin_Point(bool Flag)
     {
         transform.GetComponentInParent<StationDirector>().Check_Ban_CoinPoint(Flag);
         Close_Buy_Window();
     }
-
+*/
 /*    public void Director_Tooltip_Off()
     {
         //StoreTooltip_Object.Tooltip_Off();
@@ -625,7 +629,9 @@ public class Station_Store : MonoBehaviour
     {
         Init_Information();
         CountNum_Buy_Text = CountObject.GetComponentInChildren<TextMeshProUGUI>();
-        CountButton_Text = CountButton.GetComponentInChildren<TextMeshProUGUI>();
+        CountButton_Text = CountButton.GetComponentInChildren<LocalizeStringEvent>();
+        CountButton_Text.StringReference.TableReference = "Station_Table_St";
+        CountButton_Text.StringReference.TableEntryReference = "UI_Store_ItemBuy_Button";
         CountNum = 1;
         Change_CountNum_Buy_Text();
     }
@@ -634,11 +640,11 @@ public class Station_Store : MonoBehaviour
     {
         if (stationDirector.UI_Store_BuyAndSell_Flag)
         {
-            CountButton_Text.text = "구매";
+            CountButton_Text.StringReference.TableEntryReference = "UI_Store_ItemBuy_Button";
         }
         else
         {
-            CountButton_Text.text = "판매";
+            CountButton_Text.StringReference.TableEntryReference = "UI_Store_ItemSell_Button";
         }
     }
 
@@ -664,9 +670,9 @@ public class Station_Store : MonoBehaviour
             SelectObject_After.SetActive(true);
         }
 
-        Item_Name_Text.text = itemData.name;
         Item_Image.sprite = itemData.Item_Sprite;
-        Item_Information_Text.text = itemData.Item_Information;
+        Item_Name_Text.StringReference.TableEntryReference = "Item_Name_" + itemData.Num;
+        Item_Information_Text.StringReference.TableEntryReference = "Item_Information_" + itemData.Num;
         CountButton_On();
     }
 
@@ -688,6 +694,7 @@ public class Station_Store : MonoBehaviour
 
     public void Open_Check_Window()
     {
+        Store_CheckFlag = true;
         if (stationDirector.UI_Store_BuyAndSell_Flag)
         {
             BuyCheck_Window.SetActive(true);
@@ -702,17 +709,19 @@ public class Station_Store : MonoBehaviour
 
     public void Close_Buy_Window()
     {
+        Store_CheckFlag = false;
         BuyCheck_Window.SetActive(false);
     }
 
-    public void Open_Sell_Window()
+/*    public void Open_Sell_Window()
     {
         SellCheck_Window.SetActive(true);
         SellCheck_Text.text = CountNum + "개를 판매하시겠습니까?";
-    }
+    }*/
 
     public void Close_Sell_Window()
     {
+        Store_CheckFlag = false;
         SellCheck_Window.SetActive(false);
     }
 
@@ -902,9 +911,9 @@ public class Station_Store : MonoBehaviour
         SelectObject_After.SetActive(false);
         Click_ItemObject = null;
         Click_ItemDataObjcet = null;
-        Item_Name_Text.text = "";
+        //Item_Name_Text.text = "";
         Item_Image.sprite = null;
-        Item_Information_Text.text = "";
+        //Item_Information_Text.text = "";
         CountObject.SetActive(false);
         CountButton.SetActive(false);
     }
@@ -928,6 +937,13 @@ public class Station_Store : MonoBehaviour
     void Ban_Player_Coin()
     {
         Close_Buy_Window();
+        Store_BanFlag = true;
         BuyCheck_Ban_Window.SetActive(true);
+    }
+
+    public void Close_Ban_Player_Coin()
+    {
+        Store_BanFlag = false;  
+        BuyCheck_Ban_Window.SetActive(false);
     }
 }

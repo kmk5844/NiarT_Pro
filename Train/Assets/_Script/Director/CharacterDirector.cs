@@ -10,7 +10,7 @@ public class CharacterDirector : MonoBehaviour
     public SA_PlayerData playerData;
     public AudioClip selectBGM;
     public Button[] CharacterButton;
-
+    public GameObject[] Seal_Object;
 
     private void Start()
     {
@@ -19,6 +19,7 @@ public class CharacterDirector : MonoBehaviour
         for (int i = 0; i < CharacterButton.Length; i++)
         {
             CharacterButton[i].interactable = playerData.Character_LockOff[i];
+            Seal_Object[i].SetActive(!playerData.Character_LockOff[i]);
         }
         MMSoundManagerSoundPlayEvent.Trigger(selectBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true);
     }

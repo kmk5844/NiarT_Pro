@@ -11,17 +11,17 @@ public class Station_Fortress : MonoBehaviour
     public GameObject Player_DataObject;
     Station_PlayerData playerData;
     //public GameObject Train_DataObject;
-    public Station_TrainData trainData;
+/*    public Station_TrainData trainData;
     public GameObject Mercenary_DataObject;
     Station_MercenaryData mercenaryData;
     public GameObject Item_DataObject;
     Station_ItemData itemData;
     public GameObject Inventory_Director;
-    Station_Inventory inventorydirector;
+    Station_Inventory inventorydirector;*/
 
-    List<int> Mercenary_Buy_NumList;// 구매한 리스트
+/*    List<int> Mercenary_Buy_NumList;// 구매한 리스트
     List<int> Mercenary_Position_NumList;// 배치하고 있는 리스트
-
+*/
     [Header("플레이어 업그레이드 윈도우")]
     public LocalizeStringEvent Player_Name;
     public TextMeshProUGUI[] PlayerUP_Text;
@@ -32,10 +32,13 @@ public class Station_Fortress : MonoBehaviour
     public Image PlayerHead;
     public Sprite[] PlayerHead_Image;
     
-
     public TextMeshProUGUI[] Player_Information;
 
-    [Header("용병 업그레이드 윈도우")]
+    public GameObject Warning_Coin_Window;
+
+    public bool Tranining_BanFlag;
+
+ /*   [Header("용병 업그레이드 윈도우")]
     public Button MercenaryUpgrade_Button;
     [SerializeField]
     int Mercenary_Upgrade_Num;
@@ -69,19 +72,19 @@ public class Station_Fortress : MonoBehaviour
     TMP_Dropdown DropDown_Bard_Type;
 
     [SerializeField]
-    LocalizedString[] local_string;
+    LocalizedString[] local_string;*/
     void Start()
     {
         //데이터 수집
         playerData = Player_DataObject.GetComponent<Station_PlayerData>();
         //trainData = Train_DataObject.GetComponent<Station_TrainData>();
-        MaxMercenary = trainData.Max_Train_MaxMercenary + 1;
+        //MaxMercenary = trainData.Max_Train_MaxMercenary + 1;
         //Debug.Log(EngineTier_MaxMercenary);
-        mercenaryData = Mercenary_DataObject.GetComponent<Station_MercenaryData>();
+/*        mercenaryData = Mercenary_DataObject.GetComponent<Station_MercenaryData>();
         itemData = Item_DataObject.GetComponent<Station_ItemData>();
         inventorydirector = Inventory_Director.GetComponent<Station_Inventory>();
         Mercenary_Buy_NumList = mercenaryData.SA_MercenaryData.Mercenary_Buy_Num;
-        Mercenary_Position_NumList = mercenaryData.SA_MercenaryData.Mercenary_Num;
+        Mercenary_Position_NumList = mercenaryData.SA_MercenaryData.Mercenary_Num;*/
         //플레이어 업그레이드 윈도우
         playerNum = 0;
 
@@ -220,11 +223,11 @@ public class Station_Fortress : MonoBehaviour
         }
         else
         {
-            Ban_Player_Coin_Point(false);
+            Open_Warning_Window();
         }
     }
 
-    //용병 업그레이드
+  /*  //용병 업그레이드
     public void Director_Init_MercenaryUpgrade()
     {
         Mercenary_Buy_NumList = mercenaryData.SA_MercenaryData.Mercenary_Buy_Num;
@@ -294,7 +297,7 @@ public class Station_Fortress : MonoBehaviour
     }
     private void Mercenary_Upgrade_Information_Text(int i = -1)
     {
-        /*{
+        *//*{
              0 : 최대 스피드 증가량
              1 : 연료 효율성 증가량
              2 : 기차 방어력 증가량
@@ -309,7 +312,7 @@ public class Station_Fortress : MonoBehaviour
             11 : 유닛 공격력 증갸량
             12 : 유닛 방어력 증가량
             13 : 행동력
-        }*/
+        }*//*
         int Material_Max_Count = itemData.Mercenary_Material_object.Item_Count;
         if (i == 0)
         {
@@ -517,9 +520,9 @@ public class Station_Fortress : MonoBehaviour
             int count_level = (mercenaryData.Level_Mercenary[i] / 2) + 1;
 
             Before_Mercenary_Information.text =
-                 local_string[13].GetLocalizedString() + " : " + data_before.Max_WorkCount;/* +
+                 local_string[13].GetLocalizedString() + " : " + data_before.Max_WorkCount;*//* +
                  "\n" + local_string[14].GetLocalizedString() + " " +data_before.NextLevel_WorkCount
-                 + " " + local_string[15].GetLocalizedString();*/
+                 + " " + local_string[15].GetLocalizedString();*//*
             if (mercenaryData.Level_Mercenary[i] + 1 == mercenaryData.Max_Mercenary[i] + 1)
             {
                 After_Mercenary_Information.text =
@@ -743,13 +746,21 @@ public class Station_Fortress : MonoBehaviour
     {
         mercenaryData.SA_MercenaryData.SA_Change_Bard_Type(value);
     }
-
+*/
     private void Check_Player_Coin_Point()
     {
         transform.GetComponentInParent<StationDirector>().Check_Coin();
     }
-    private void Ban_Player_Coin_Point(bool Flag)
+
+    public void Open_Warning_Window()
     {
-        transform.GetComponentInParent<StationDirector>().Check_Ban_CoinPoint(Flag);
+        Tranining_BanFlag = true;
+        Warning_Coin_Window.SetActive(true);
+    }
+
+    public void Close_Warning_Window()
+    {
+        Tranining_BanFlag = false;
+        Warning_Coin_Window.SetActive(false);
     }
 }

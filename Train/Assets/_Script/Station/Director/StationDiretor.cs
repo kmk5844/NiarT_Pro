@@ -40,8 +40,8 @@ public class StationDirector : MonoBehaviour
     public PlayerReadyDirector Director_PlayerReadyDirector;
 
     [Header("Lobby")]
-    public GameObject UI_Lobby;
-    public GameObject UI_BackGround;
+    //public GameObject UI_Lobby;
+    //public GameObject UI_BackGround;
 
     //1
     [Header("Click Lobby -> Train Maintenance")]
@@ -55,17 +55,18 @@ public class StationDirector : MonoBehaviour
     public GameObject[] UI_MenuAndGear_After;
     bool Information_Flag;
 
-    [Header("Store+Fortress")]
+/*    [Header("Store+Fortress")]
     public ScrollRect Store_Fortress_ScrollView;
     public RectTransform Store_Fortress_Content;
     public Button Content_Fortress_Button;
     public Button Content_Store_Button;
-    bool isMoving = false;
+    bool isMoving = false;*/
 
     //2 : store
     [Header("Click Lobby -> Store")]
     public GameObject UI_Store;
     public GameObject[] UI_Store_Window;
+    public Button[] UI_Store_Button;
     public bool UI_Store_BuyAndSell_Flag;
 
     //3 : Fortress
@@ -92,9 +93,9 @@ public class StationDirector : MonoBehaviour
 
     [Header("Coin&Point")]
     public TextMeshProUGUI[] Coin_Text;
-    public GameObject Ban_Panel;
+/*    public GameObject Ban_Panel;
     public GameObject Coin_Ban_Text;
-    public GameObject Point_Ban_Text;
+    public GameObject Point_Ban_Text;*/
 
     [Header("Option")]
     public GameObject Option_Object;
@@ -106,7 +107,6 @@ public class StationDirector : MonoBehaviour
 
     [Header("BGM")]
     public AudioClip StationBGM;
-    bool Ban_Flag;
     bool Option_Flag;
 
     [Header("게임")]
@@ -134,10 +134,10 @@ public class StationDirector : MonoBehaviour
 
         ui_num = 0;
         UI_Store_BuyAndSell_Flag = true;
-        Store_Fortress_Content.anchoredPosition = new Vector2(0, 0);
+/*        Store_Fortress_Content.anchoredPosition = new Vector2(0, 0);
 
         Content_Fortress_Button.onClick.AddListener(ShowNextBackGround);
-        Content_Store_Button.onClick.AddListener(ShowPerviousBackGround);
+        Content_Store_Button.onClick.AddListener(ShowPerviousBackGround);*/
 
         // 기차 정비소와 인벤토리의 토글
         TrainMaintenance_ToggleStart();
@@ -147,19 +147,22 @@ public class StationDirector : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (ui_num == 1)
+            if (Option_Flag)
+            {
+                Click_Option_Back_Button();
+            }else if (ui_num == 1)
             {
 /*                if (Director_TrainMaintenance.Part_Window_Flag)
                 {
                     Director_TrainMaintenance.Click_Part_Back_Button();
                 }
-                else */if (Information_Flag)
+                else if (Information_Flag)
                 {
                     Click_Information_Back_Button();
                 }
-                else if (Ban_Flag)
+                else */if (Director_TrainMaintenance.Train_BanFlag)
                 {
-                    Close_Ban_CoinPoint();
+                    Director_TrainMaintenance.Close_Warning_Window();
                 }
                 else
                 {
@@ -168,13 +171,20 @@ public class StationDirector : MonoBehaviour
             }
             else if (ui_num == 2)
             {
-                if (Director_Store.Store_BuyAndSell_Window_Flag)
-                {
+                if (Director_Store.Store_CheckFlag) {
+                    if (UI_Store_BuyAndSell_Flag)
+                    {
+                        Director_Store.Close_Buy_Window();
+                    }
+                    else
+                    {
+                        Director_Store.Close_Sell_Window();
+                    }
                     Director_Store.Close_Buy_Window();
                 }
-                else if (Ban_Flag)
+                else if (Director_Store.Store_BanFlag)
                 {
-                    Close_Ban_CoinPoint();
+                    Director_Store.Close_Ban_Player_Coin();
                 }
                 else
                 {
@@ -183,9 +193,9 @@ public class StationDirector : MonoBehaviour
             }
             else if (ui_num == 3)
             {
-                if (Ban_Flag)
+                if (Director_Fortress.Tranining_BanFlag)
                 {
-                    Close_Ban_CoinPoint();
+                    Director_Fortress.Close_Warning_Window();
                 }
                 else
                 {
@@ -222,7 +232,7 @@ public class StationDirector : MonoBehaviour
                 {
                     Click_Home_Button();
                 }
-            }else if(ui_num == 6)
+            }/*else if(ui_num == 6)
             {
                 if (Direcotr_Conversion.AfterConversionFlag)
                 {
@@ -231,13 +241,9 @@ public class StationDirector : MonoBehaviour
                 else { 
                     Click_Home_Button();
                 }
-            }
+            }*/
 
 
-            if (Option_Flag)
-            {
-                Click_Option_Back_Button();
-            }
         }
     }
 
@@ -358,8 +364,8 @@ public class StationDirector : MonoBehaviour
 
     public void ClickLobbyButton(int num)
     {
-        UI_Lobby.gameObject.SetActive(false);
-        UI_BackGround.gameObject.SetActive(true);
+/*        UI_Lobby.gameObject.SetActive(false);
+        UI_BackGround.gameObject.SetActive(true);*/
         Player.OpenUIFlag = true;
 
         switch (num)
@@ -411,23 +417,27 @@ public class StationDirector : MonoBehaviour
             UI_Store_BuyAndSell_Flag = true;
             UI_Store_Window[0].SetActive(true);
             UI_Store_Window[1].SetActive(false);
+            UI_Store_Button[0].interactable = false;
+            UI_Store_Button[1].interactable = true;
         }
         else
         {
             UI_Store_BuyAndSell_Flag = false;
             UI_Store_Window[0].SetActive(false);
             UI_Store_Window[1].SetActive(true);
+            UI_Store_Button[0].interactable = true;
+            UI_Store_Button[1].interactable = false;
         }
         Director_Store.Init_Information();
         Director_Store.Set_ButtonText();
     }
 
-    public void Click_ItemSellBackButton()
+/*    public void Click_ItemSellBackButton()
     {
         //Director_Store.Director_Tooltip_Off();
         UI_Store_Window[5].SetActive(false);
         Director_Store.ItemSellFlag = false;
-    }
+    }*/
 
     /*IEnumerator Click_StoreButton_Ani(int UI_Store_Num)
     {
@@ -582,7 +592,7 @@ public class StationDirector : MonoBehaviour
             UI_Conversion.gameObject.SetActive(false);
             //Check_ItemList(false, useItem);
         }
-        UI_BackGround.gameObject.SetActive(false);
+        //UI_BackGround.gameObject.SetActive(false);
 
         if(ui_num != 4)
         {
@@ -592,7 +602,7 @@ public class StationDirector : MonoBehaviour
         {
             ui_num = 3;
         }
-        UI_Lobby.gameObject.SetActive(true);
+        //UI_Lobby.gameObject.SetActive(true);
     }
 
     public void Click_Option_Button()
@@ -620,7 +630,7 @@ public class StationDirector : MonoBehaviour
         }
     }
 
-    public void Check_Ban_CoinPoint(bool CoinPoint) // true면 코인 부족, false면 포인트 부족
+/*    public void Check_Ban_CoinPoint(bool CoinPoint) // true면 코인 부족, false면 포인트 부족
     {
         Ban_Panel.SetActive(true);
         if (CoinPoint)
@@ -640,7 +650,7 @@ public class StationDirector : MonoBehaviour
     {
         Ban_Panel.SetActive(false);
         Ban_Flag = false;
-    }
+    }*/
 
     public void Total_Init() {
         //Director_TrainMaintenance.Director_Init_TrainChange();
@@ -664,7 +674,7 @@ public class StationDirector : MonoBehaviour
         }
     }
 
-    void ShowPerviousBackGround()
+/*    void ShowPerviousBackGround()
     {
         if (ui_num > 1 && !isMoving)
         {
@@ -705,7 +715,7 @@ public class StationDirector : MonoBehaviour
 
         Store_Fortress_Content.anchoredPosition = new Vector2(-targetX, 0);
         isMoving = false;
-    }
+    }*/
 
     public void activeNotice(int i, bool flag)
     {
