@@ -15,41 +15,48 @@ public class MissionDirector : MonoBehaviour
 
     void Start()
     {
-        selectmission = GameObject.Find("SelectMission").GetComponent<SelectMission>();
-        monsterCount = 0;
-        switch (selectmission.MissionType)
+        try
         {
-            case MissionType.Destination:
+            selectmission = GameObject.Find("SelectMission").GetComponent<SelectMission>();
+            monsterCount = 0;
+            switch (selectmission.MissionType)
+            {
+                case MissionType.Destination:
 
-                break;
-            case MissionType.Material:
+                    break;
+                case MissionType.Material:
 
-                break;
-            case MissionType.Monster:
-                countFlag = true;
-                monsterDirector.missionFlag_monster = true;
-                break;
-            case MissionType.Escort:
+                    break;
+                case MissionType.Monster:
+                    countFlag = true;
+                    monsterDirector.missionFlag_monster = true;
+                    break;
+                case MissionType.Escort:
 
-                break;
-            case MissionType.Convoy:
+                    break;
+                case MissionType.Convoy:
 
-                break;
-            case MissionType.Boss:
-                countFlag = true;
-                monsterDirector.missionFlag_boss = true;
-                break;
+                    break;
+                case MissionType.Boss:
+                    countFlag = true;
+                    monsterDirector.missionFlag_boss = true;
+                    break;
+            }
+            uiDirector.CheckMissionInformation(selectmission.MissionInformation);
+
+            if (countFlag)
+            {
+                monsterCount = selectmission.monsterCount;
+                uiDirector.missionCountText_text.text = "Count : " + monsterCount;
+            }
+            else
+            {
+                uiDirector.missionCountText_text.text = "";
+            }
         }
-        uiDirector.CheckMissionInformation(selectmission.MissionInformation);
-        
-        if (countFlag)
+        catch
         {
-            monsterCount = selectmission.monsterCount;
-            uiDirector.missionCountText_text.text = "Count : " + monsterCount;
-        }
-        else
-        {
-            uiDirector.missionCountText_text.text = "";
+            Debug.Log("테스트");
         }
     }
     //몬스터

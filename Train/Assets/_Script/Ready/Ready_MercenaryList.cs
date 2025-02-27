@@ -216,25 +216,25 @@ public class Ready_MercenaryList : MonoBehaviour
     {
         switch (Mercenary_Num) {
             case 0:
-                Mercenary_Level_Text.text = "LV." + SaMercenaryData.Level_Engine_Driver + 1;
+                Mercenary_Level_Text.text = "LV." + (SaMercenaryData.Level_Engine_Driver + 1);
                 break;
             case 1:
-                Mercenary_Level_Text.text = "LV." + SaMercenaryData.Level_Engineer + 1;
+                Mercenary_Level_Text.text = "LV." + (SaMercenaryData.Level_Engineer + 1);
                 break;
             case 2:
-                Mercenary_Level_Text.text = "LV." + SaMercenaryData.Level_Long_Ranged + 1;
+                Mercenary_Level_Text.text = "LV." + (SaMercenaryData.Level_Long_Ranged + 1);
                 break;
             case 3:
-                Mercenary_Level_Text.text = "LV." + SaMercenaryData.Level_Short_Ranged + 1;
+                Mercenary_Level_Text.text = "LV." + (SaMercenaryData.Level_Short_Ranged + 1);
                 break;
             case 4:
-                Mercenary_Level_Text.text = "LV." + SaMercenaryData.Level_Medic + 1;
+                Mercenary_Level_Text.text = "LV." + (SaMercenaryData.Level_Medic + 1);
                 break;
             case 5:
-                Mercenary_Level_Text.text = "LV." + SaMercenaryData.Level_Bard + 1;
+                Mercenary_Level_Text.text = "LV." + (SaMercenaryData.Level_Bard + 1);
                 break;
             case 6:
-                Mercenary_Level_Text.text = "LV." + SaMercenaryData.Level_CowBoy + 1;
+                Mercenary_Level_Text.text = "LV." + (SaMercenaryData.Level_CowBoy + 1);
                 break;
         }
     }

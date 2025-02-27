@@ -1,6 +1,7 @@
 using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Localization.Plugins.XLIFF.V20;
 using UnityEngine;
 using UnityEngine.LowLevel;
 
@@ -103,8 +104,15 @@ public class Player : MonoBehaviour
     public GameObject KeyObject;
     Vector3 KeyObject_Scale;
     int KeyCount;
-
     Animator ani;
+
+    //세이지
+    [Header("장전")]
+    public GameObject Reload;
+    bool ReloadingFlag;
+    int FireCount = 0;
+    int MaxFireCount = 40;
+
 
     void Start()
     {
@@ -465,9 +473,25 @@ public class Player : MonoBehaviour
                     StartCoroutine(MariGold_Skill_BulletFire());
                 }
             }
-            else if(PlayerNum == 1) //페요테
+            else if(PlayerNum == 1) //세이지
             {
-                if (!Item_GunFlag)
+                if (!ReloadingFlag)
+                {
+                    Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
+                    ani.SetTrigger("Shoot_0");
+                    if(FireCount < MaxFireCount)
+                    {
+                        FireCount++;
+                    }
+                    else
+                    {
+                        StartCoroutine(Reloading());
+                    }
+                }
+            }
+            else
+            {
+                if (!Item_GunFlag) // 샷건 전용
                 {
                     Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
                     if (!Item_GunSpecial_BulletFlag)
@@ -483,9 +507,7 @@ public class Player : MonoBehaviour
                 {
                     Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
                 }
-            }
-            else
-            {
+
                 Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
             }
 
@@ -701,6 +723,16 @@ public class Player : MonoBehaviour
     public int GetMaxHP()
     {
         return Max_HP;
+    }
+
+    IEnumerator Reloading()
+    {
+        ReloadingFlag = true;
+        Reload.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        Reload.SetActive(false);
+        FireCount = 0;
+        ReloadingFlag = false;
     }
 
     //Item 부분
@@ -986,10 +1018,10 @@ public class Player : MonoBehaviour
         MariGold_Skill_Fire_Flag = true;
         GameObject bullet = playerBullet;
         bullet.GetComponent<Bullet>().atk = Bullet_Atk + item_Atk;
-        yield return new WaitForSeconds(0.08f);
+        yield return new WaitForSeconds(0.04f);
         Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
         MMSoundManagerSoundPlayEvent.Trigger(ShootSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
-        yield return new WaitForSeconds(0.08f);
+        yield return new WaitForSeconds(0.04f);
         Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
         ani.SetTrigger("Shoot_0");
         MMSoundManagerSoundPlayEvent.Trigger(ShootSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);

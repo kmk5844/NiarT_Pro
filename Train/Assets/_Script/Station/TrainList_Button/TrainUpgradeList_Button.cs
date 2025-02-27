@@ -33,7 +33,7 @@ public class TrainUpgradeList_Button : MonoBehaviour
         else
         {
             Train_Image.sprite = Resources.Load<Sprite>("Sprite/Train/Train_" + Train_Num);
-            Train_Text.StringReference.TableEntryReference = "Train_Turret_Name_" + (Train_Num / 10);
+            Train_Text.StringReference.TableEntryReference = "Train_Name_" + (Train_Num / 10);
         }
     }
 }

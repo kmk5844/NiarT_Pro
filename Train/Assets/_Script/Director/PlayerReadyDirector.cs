@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Components;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static PixelCrushers.DialogueSystem.ActOnDialogueEvent;
 using static UnityEditor.Progress;
@@ -16,6 +17,9 @@ public class PlayerReadyDirector : MonoBehaviour
     SA_TrainData sa_trainData;
     SA_TrainTurretData sa_trainturretData;
     SA_TrainBoosterData sa_trainBoosterData;
+    public SA_MissionData missionData;
+    int stageNum;
+    int missionNum;
 
     public Station_PlayerData playerData;
     public Station_ItemData itemListData;
@@ -26,6 +30,7 @@ public class PlayerReadyDirector : MonoBehaviour
     public GameObject[] UI_Window;
     int windowCount;
     public GameObject UI_SubStageSelect;
+    public GameObject UI_CheckStationBackWindow;
 
     [Header("-----------------UI-------------------")]
     [Space(10)]
@@ -869,4 +874,27 @@ public class PlayerReadyDirector : MonoBehaviour
         Option_Flag = false;
         OptionObject.SetActive(false);
     }
+
+    public void ClickMissionCancel()
+    {
+        UI_CheckStationBackWindow.SetActive(true);
+        stageNum = playerData.SA_PlayerData.Select_Stage;
+        missionNum = playerData.SA_PlayerData.Select_Stage;
+    }
+
+    public void Yes_MissionCancel()
+    {
+        playerData.SA_PlayerData.SA_MissionPlaying(false);
+        playerData.SA_PlayerData.SA_GameLoseCoin(60f);
+        missionData.SubStage_Lose(stageNum, missionNum);
+        GameObject gm = GameObject.Find("SelectMission");
+        Destroy(gm);
+        SceneManager.LoadScene("Station");
+    }
+
+    public void No_MissionCancel()
+    {
+        UI_CheckStationBackWindow.SetActive(false);
+    }
+
 }

@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerBullet : Bullet
 {
     public bool ShotGunFlag;
+    public bool RifleFlag;
     protected override void Start()
     {
         base.Start();
@@ -21,14 +22,17 @@ public class PlayerBullet : Bullet
 
         Vector3 mousePos = _cam.ScreenToWorldPoint(Input.mousePosition);
         dir = mousePos - transform.position;
-        if (!ShotGunFlag)
+
+        if (RifleFlag)
         {
+            float angleOffset = Random.Range(-1.8f, 1.8f); // 무작위 각도 범위 설정 (-10도에서 10도 사이)
+            dir = Quaternion.Euler(0, 0, angleOffset) * dir;
             Vector3 rotation = transform.position - mousePos;
             float rot = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0, 0, rot + 90);
+            transform.rotation = Quaternion.Euler(0, 0, rot + 90 + angleOffset);
             rid.velocity = new Vector2(dir.x, dir.y).normalized * Speed;
         }
-        else
+        else if (ShotGunFlag)
         {
             // 무작위 각도를 추가하기 위해 회전 벡터를 사용
             float angleOffset = Random.Range(-9f, 9f); // 무작위 각도 범위 설정 (-10도에서 10도 사이)
@@ -42,6 +46,14 @@ public class PlayerBullet : Bullet
             // 속도 설정
             rid.velocity = new Vector2(dir.x, dir.y).normalized * Speed;
         }
+        else
+        {
+            Vector3 rotation = transform.position - mousePos;
+            float rot = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0, 0, rot + 90);
+            rid.velocity = new Vector2(dir.x, dir.y).normalized * Speed;
+        }
+
         Destroy(gameObject, 3f);
     }
 }

@@ -18,6 +18,7 @@ public class Station_Player : MonoBehaviour
     float jumpdistance = 1f;
     float jumpFlagDistance;
 
+    bool DoorFlag = false;
     bool DoorFlag_Train;
     bool DoorFlag_Store;
     bool DoorFlag_Training;
@@ -51,7 +52,7 @@ public class Station_Player : MonoBehaviour
                 ani.SetTrigger("Jump");
             }
 
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.F) && DoorFlag)
             {
                 rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.5f, rigid.velocity.y);
                 ani.SetBool("Move", false);
@@ -131,6 +132,7 @@ public class Station_Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        DoorFlag = true;
         if (collision.name.Equals("Door_TrainMainTenance"))
         {
             DoorFlag_Train = true;
@@ -158,6 +160,7 @@ public class Station_Player : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        DoorFlag = false;
         if (collision.name.Equals("Door_TrainMainTenance"))
         {
             DoorFlag_Train = false;

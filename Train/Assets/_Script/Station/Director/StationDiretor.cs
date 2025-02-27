@@ -150,9 +150,15 @@ public class StationDirector : MonoBehaviour
             if (Option_Flag)
             {
                 Click_Option_Back_Button();
-            }else if (ui_num == 1)
+            }
+            else if (ui_num == 0)
             {
-/*                if (Director_TrainMaintenance.Part_Window_Flag)
+                Click_Option_Button();
+            }
+            else if (ui_num == 1)
+            {
+                /*               
+                if (Director_TrainMaintenance.Part_Window_Flag)
                 {
                     Director_TrainMaintenance.Click_Part_Back_Button();
                 }
@@ -160,7 +166,8 @@ public class StationDirector : MonoBehaviour
                 {
                     Click_Information_Back_Button();
                 }
-                else */if (Director_TrainMaintenance.Train_BanFlag)
+                else */
+                if (Director_TrainMaintenance.Train_BanFlag)
                 {
                     Director_TrainMaintenance.Close_Warning_Window();
                 }
@@ -201,12 +208,12 @@ public class StationDirector : MonoBehaviour
                 {
                     Click_Home_Button();
                 }
-            }else if(ui_num == 4)
+            } else if (ui_num == 4)
             {
                 if (Director_Inventory.UseWindowFlag)
                 {
                     //Director_Inventory.UseItemStatus_NoButton();
-                }else if (Director_Inventory.UseItemWindowFlag)
+                } else if (Director_Inventory.UseItemWindowFlag)
                 {
                     //Director_Inventory.UseItemWindow_BackButton();
                 }
@@ -220,7 +227,7 @@ public class StationDirector : MonoBehaviour
                 if (Director_GameStart.EquipItemWindowFlag)
                 {
                     Director_GameStart.Close_ItemCountWindow();
-                }else if (Director_GameStart.EquipItemListFlag)
+                } else if (Director_GameStart.EquipItemListFlag)
                 {
                     Director_GameStart.Close_Inventory_Window();
                 }
