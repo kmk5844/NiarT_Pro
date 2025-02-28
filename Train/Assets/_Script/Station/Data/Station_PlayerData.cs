@@ -32,13 +32,13 @@ public class Station_PlayerData : MonoBehaviour
     public int Cost_Player_Speed;
 
     public int Player_Coin;
-    public int Player_Point;
+    //public int Player_Point;
 
     private void Awake()
     {
         Check_Level_Player();
         Player_Coin = SA_PlayerData.Coin;
-        Player_Point = SA_PlayerData.Point;
+        //Player_Point = SA_PlayerData.Point;
     }
 
     private void Check_Level_Player()
@@ -74,11 +74,11 @@ public class Station_PlayerData : MonoBehaviour
         Player_Coin = SA_PlayerData.Coin;
     }
 
-    public void Player_Use_Point(int Point)
+/*    public void Player_Use_Point(int Point)
     {
         SA_PlayerData.SA_Use_Point(Point);
         Player_Point = SA_PlayerData.Point;
-    }
+    }*/
 
     public void Player_Get_Coin(int Coin)
     {
@@ -86,11 +86,11 @@ public class Station_PlayerData : MonoBehaviour
         Player_Coin = SA_PlayerData.Coin;
     }
 
-    public void Player_Get_Point(int Point)
+/*    public void Player_Get_Point(int Point)
     {
         SA_PlayerData.SA_Get_Point(Point);
         Player_Point = SA_PlayerData.Point;
-    }
+    }*/
 
     public void Player_Check_EquipedItem(int Item_Num)
     {

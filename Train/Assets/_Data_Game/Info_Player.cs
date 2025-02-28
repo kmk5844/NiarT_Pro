@@ -12,4 +12,6 @@ public class Info_Player
     public string Player_Bullet;
     public string Player_Skill_CoolTime;
     public string Player_Skill_During;
+    public int Player_MaxFireCount;
+    public float Player_ReloadTime;
 }

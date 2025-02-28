@@ -38,6 +38,12 @@ public class SA_PlayerData : ScriptableObject
     [SerializeField]
     public string Skill_During { get { return EX_GameData.Information_Player[Player_Num].Player_Skill_During; } }
 
+    [SerializeField]
+    public int MaxFireCount {  get { return EX_GameData.Information_Player[Player_Num].Player_MaxFireCount; } }
+
+    [SerializeField]
+    public float ReloadTime { get { return EX_GameData.Information_Player[Player_Num].Player_ReloadTime; } }
+
     [Header("레벨")]
     [SerializeField]
     private int level_atk;
@@ -58,9 +64,9 @@ public class SA_PlayerData : ScriptableObject
     [SerializeField]
     private int coin;
     public int Coin { get { return coin; } }
-    [SerializeField]
+/*    [SerializeField]
     private int point;
-    public int Point { get { return point; } }
+    public int Point { get { return point; } }*/
 
     [Header("미션")]
     [SerializeField]
@@ -124,7 +130,7 @@ public class SA_PlayerData : ScriptableObject
     {
         //new_stage++;
         coin = 999999;
-        point = 999999;
+        //point = 999999;
         Save();
     }
 
@@ -152,7 +158,7 @@ public class SA_PlayerData : ScriptableObject
         Save();
     }
 
-    public void SA_Use_Point(int R_Point)
+/*    public void SA_Use_Point(int R_Point)
     {
         point -= R_Point;
         Save();
@@ -162,7 +168,7 @@ public class SA_PlayerData : ScriptableObject
     {
         point += R_Point;
         Save();
-    }
+    }*/
 
     public void SA_SelectLevel(int num)
     {
@@ -250,7 +256,7 @@ public class SA_PlayerData : ScriptableObject
         ES3.Save<int>("SA_PlayerData_Data_level_player_armor", level_armor);
         ES3.Save<int>("SA_PlayerData_Data_levle_speed", level_speed);
         ES3.Save<int>("SA_PlayerData_Data_coin", coin);
-        ES3.Save<int>("SA_PlayerData_Data_point", point);
+        //ES3.Save<int>("SA_PlayerData_Data_point", point);
         ES3.Save<int>("SA_PlayerData_Data_new_stage", new_stage);
         ES3.Save<int>("SA_PlayerData_Data_mission_num", mission_num);
         ES3.Save<bool[]>("SA_PlayerData_Data_LockOff", character_lockoff);
@@ -269,7 +275,7 @@ public class SA_PlayerData : ScriptableObject
         level_armor = ES3.Load<int>("SA_PlayerData_Data_level_player_armor");
         level_speed = ES3.Load<int>("SA_PlayerData_Data_levle_speed");
         coin = ES3.Load<int>("SA_PlayerData_Data_coin");
-        point = ES3.Load<int>("SA_PlayerData_Data_point");
+        //point = ES3.Load<int>("SA_PlayerData_Data_point");
         new_stage = ES3.Load<int>("SA_PlayerData_Data_new_stage");
         select_stage = new_stage;
         mission_num = ES3.Load<int>("SA_PlayerData_Data_mission_num");
@@ -291,7 +297,7 @@ public class SA_PlayerData : ScriptableObject
         level_armor = 0;
         level_speed = 0;
         coin = 0;
-        point = 0;
+        //point = 0;
         new_stage = 0;
 
         select_stage = 0;

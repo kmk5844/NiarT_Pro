@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Localization.Components;
 using JetBrains.Annotations;
+using UnityEngine.Localization;
 
 public class Station_Store : MonoBehaviour
 {
@@ -106,12 +107,14 @@ public class Station_Store : MonoBehaviour
 
     [Header("아이템 구매 체크")]
     public GameObject BuyCheck_Window;
-    public TextMeshProUGUI BuyCheck_Text;
     public GameObject BuyCheck_Ban_Window;
+    public LocalizedString Buy_Local;
+    public TextMeshProUGUI Buy_Text;
 
     [Header("아이템 판매 체크")]
     public GameObject SellCheck_Window;
-    public TextMeshProUGUI SellCheck_Text;
+    public LocalizedString Sell_Local;
+    public TextMeshProUGUI Sell_Text;
 
     private void Start()
     {
@@ -698,12 +701,27 @@ public class Station_Store : MonoBehaviour
         if (stationDirector.UI_Store_BuyAndSell_Flag)
         {
             BuyCheck_Window.SetActive(true);
-            BuyCheck_Text.text = CountNum + "개를 구매하시겠습니까?";
+            Buy_Local.Arguments = new object[] { CountNum };
+            Buy_Local.StringChanged += UpdateText;
+            Buy_Local.RefreshString();
         }
         else
         {
             SellCheck_Window.SetActive(true);
-            SellCheck_Text.text = CountNum + "개를 판매하시겠습니까?";
+            Sell_Local.Arguments = new object[] { CountNum };
+            Sell_Local.StringChanged += UpdateText;
+            Sell_Local.RefreshString();
+        }
+    }
+
+    void UpdateText(string value)
+    {
+        if (stationDirector.UI_Store_BuyAndSell_Flag){
+            Buy_Text.text = Buy_Local.GetLocalizedString();
+        }
+        else
+        {
+            Sell_Text.text = Sell_Local.GetLocalizedString();
         }
     }
 

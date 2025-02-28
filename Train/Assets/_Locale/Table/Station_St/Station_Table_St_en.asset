@@ -16,7 +16,8 @@ MonoBehaviour:
     m_Code: en
   m_SharedData: {fileID: 11400000, guid: 260850c1fa5abac4b9d2e4157fa012b2, type: 2}
   m_Metadata:
-    m_Items: []
+    m_Items:
+    - rid: 843367835677229069
   m_TableData:
   - m_Id: 51716935680
     m_Localized: Passive Upgrade
@@ -316,17 +317,16 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 32003004568817664
-    m_Localized: "Would you like to\n purchase it?"
+    m_Localized: Buying {0}
     m_Metadata:
-      m_Items: []
+      m_Items:
+      - rid: 843367835677229069
   - m_Id: 32003185695641600
     m_Localized: Would you like to hire?
     m_Metadata:
       m_Items: []
   - m_Id: 32003198244999168
-    m_Localized: 'Would you like to
-
-      sell it?'
+    m_Localized: Selling {0}
     m_Metadata:
       m_Items: []
   - m_Id: 32003824471363584
@@ -633,4 +633,8 @@ MonoBehaviour:
       m_Items: []
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 843367835677229069
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 00d0112790b27100

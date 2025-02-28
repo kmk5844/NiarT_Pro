@@ -38,6 +38,8 @@ public class SubStageSelectDirector : MonoBehaviour
 
     [Header("Option")]
     public GameObject Option;
+    bool optionFlag;
+    bool cancelFlag;
 
     private void Start()
     {
@@ -69,6 +71,21 @@ public class SubStageSelectDirector : MonoBehaviour
         if(UI_SubStageSelect.transform.childCount < 2)
         {
             Instantiate(StageListObject, UI_SubStageSelect.transform);
+        }
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape)){
+            if (optionFlag)
+            {
+                CloseOption();
+            }
+
+            if (cancelFlag)
+            {
+                No_MissionCancel();
+            }
         }
     }
 
@@ -145,6 +162,7 @@ public class SubStageSelectDirector : MonoBehaviour
  
     public void ClickMissionCancel()
     {
+        cancelFlag = true;
         UI_MissionCancelWindow.SetActive(true);
         stageNum = playerData.Select_Stage;
         missionNum = playerData.Mission_Num;
@@ -161,7 +179,8 @@ public class SubStageSelectDirector : MonoBehaviour
     }
 
     public void No_MissionCancel()
-    { 
+    {
+        cancelFlag = false;
         UI_MissionCancelWindow.SetActive(false);
     }
 
@@ -182,6 +201,13 @@ public class SubStageSelectDirector : MonoBehaviour
 
     public void OpenOption()
     {
+        optionFlag = true;
         Option.SetActive(true);
+    }
+
+    public void CloseOption()
+    {
+        optionFlag = false;
+        Option.SetActive(false);
     }
 }

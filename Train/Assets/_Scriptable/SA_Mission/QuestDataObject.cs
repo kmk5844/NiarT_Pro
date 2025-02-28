@@ -141,6 +141,9 @@ public class MissionDataObject : ScriptableObject
             case SubStageType.HardCore:
                 readyflag = true;
                 break;
+            case SubStageType.Boss:
+                readyflag = true;
+                break;
             case SubStageType.SimpleStation:
                 readyflag = false;
                 break;

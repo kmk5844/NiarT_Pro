@@ -76,18 +76,20 @@ public class Ready_Using_TrainList_Object : MonoBehaviour
 
     public void SelectFlag_Change(bool flag)
     {
-        if((TrainNum_1 / 10) != 0)
-        if (flag)
+        if ((TrainNum_1 / 10) != 0  || TrainNum_1 == -1)
         {
-            SelectFlag = true;
-            Btn.interactable = true;
-            Select_Arrow_Object.SetActive(true);
-        }
-        else
-        {
-            SelectFlag = false;
-            Btn.interactable = false;
-            Select_Arrow_Object.SetActive(false);
+            if (flag)
+            {
+                SelectFlag = true;
+                Btn.interactable = true;
+                Select_Arrow_Object.SetActive(true);
+            }
+            else
+            {
+                SelectFlag = false;
+                Btn.interactable = false;
+                Select_Arrow_Object.SetActive(false);
+            }
         }
     }
 

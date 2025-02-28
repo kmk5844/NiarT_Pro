@@ -86,15 +86,18 @@ public class MissionSelectDirector : MonoBehaviour
         {
             missionselectAni.enabled = true;
             MissionSelectObject_UI.SetActive(true);
-            SubStageSelectObject.SetActive(false);
+            ReadyObject.SetActive(false);
+            SubStageSelectObject.SetActive(true);
         }
         else
         {
             missionselectAni.enabled = false;
             MissionSelectObject_UI.SetActive(false);
-            SubStageSelectObject.SetActive(true);
+            ReadyObject.SetActive(true);
+            SubStageSelectObject.SetActive(false);
         }
     }
+
     public IEnumerator MissionDataSet()
     {
         GameObject game_obj = Instantiate(SelectMissionObject);

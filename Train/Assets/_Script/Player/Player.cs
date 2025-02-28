@@ -106,12 +106,12 @@ public class Player : MonoBehaviour
     int KeyCount;
     Animator ani;
 
-    //세이지
     [Header("장전")]
     public GameObject Reload;
     bool ReloadingFlag;
     int FireCount = 0;
-    int MaxFireCount = 40;
+    int MaxFireCount;
+    float ReloadTime;
 
 
     void Start()
@@ -134,6 +134,8 @@ public class Player : MonoBehaviour
         Bullet_Delay = playerData.Delay;
         moveSpeed = playerData.MoveSpeed;
         PlayerNum = playerData.Player_Num;
+        MaxFireCount = playerData.MaxFireCount;
+        ReloadTime = playerData.ReloadTime;
         playerchageDirector.ChangePlayer(PlayerNum);
         Bullet_Fire_Transform = playerchageDirector.Set_FireZone(PlayerNum);
         //GetComponentInChildren<InputManager>().FireZoneTransform = Bullet_Fire_Transform;
@@ -466,12 +468,26 @@ public class Player : MonoBehaviour
             bullet.GetComponent<Bullet>().atk = Bullet_Atk + item_Atk;
             if(PlayerNum == 0)
             {
-                Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
-                ani.SetTrigger("Shoot_0");
-                if (MariGold_Skill_Flag && !MariGold_Skill_Fire_Flag)
+                if (!ReloadingFlag)
                 {
-                    StartCoroutine(MariGold_Skill_BulletFire());
+                    Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
+                    ani.SetTrigger("Shoot_0");
+                    if (MariGold_Skill_Flag && !MariGold_Skill_Fire_Flag)
+                    {
+                        StartCoroutine(MariGold_Skill_BulletFire());
+                    }
+
+                    if (FireCount < MaxFireCount)
+                    {
+                        FireCount++;
+                    }
+                    else
+                    {
+                        StartCoroutine(Reloading());
+                    }
+                    
                 }
+
             }
             else if(PlayerNum == 1) //세이지
             {
@@ -729,7 +745,7 @@ public class Player : MonoBehaviour
     {
         ReloadingFlag = true;
         Reload.SetActive(true);
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(ReloadTime);
         Reload.SetActive(false);
         FireCount = 0;
         ReloadingFlag = false;
@@ -1021,10 +1037,12 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(0.04f);
         Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
         MMSoundManagerSoundPlayEvent.Trigger(ShootSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+        FireCount++;
         yield return new WaitForSeconds(0.04f);
         Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
         ani.SetTrigger("Shoot_0");
         MMSoundManagerSoundPlayEvent.Trigger(ShootSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+        FireCount++;
         MariGold_Skill_Fire_Flag = false;
     }
 

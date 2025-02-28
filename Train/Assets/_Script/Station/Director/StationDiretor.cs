@@ -85,7 +85,6 @@ public class StationDirector : MonoBehaviour
     //5 : GameStart
     [Header("Click Lobby -> GameStart")]
     public GameObject UI_GameStart;
-    public GameObject UI_GameMapSelect;
 
     //6: Converstion
     [Header("Click Lobby -> Conversion")]
@@ -400,7 +399,7 @@ public class StationDirector : MonoBehaviour
             case 5:
                 if(mainTenanceFlag || storeFlag || simplestationFlag)
                 {
-                    UI_GameMapSelect.SetActive(true);
+                    SubStageSelectObject.SetActive(true);
                 }
                 else
                 {
@@ -587,7 +586,7 @@ public class StationDirector : MonoBehaviour
         {
             if (mainTenanceFlag || storeFlag || simplestationFlag)
             {
-                UI_GameMapSelect.SetActive(false);
+                SubStageSelectObject.SetActive(false);
             }
             else
             {
