@@ -23,6 +23,7 @@ public class missionSelect_Trigger : MonoBehaviour
 
     public void SetActiveFalse_MissionSelect()
     {
+
     }
 
     public void Open_SubStageSelect()

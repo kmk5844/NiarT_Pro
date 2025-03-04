@@ -41,6 +41,12 @@ public class MissionSelectDirector : MonoBehaviour
     public TextMeshProUGUI PlayerGold;
 
     int count = 0;
+    int clickMissionNum;
+
+    [Header("Convoy")]
+    bool ConvoyFlag = false;
+    public Slider Convoy_Slider;
+    public GameObject Convoy_Window;
 
     private void Awake()
     {
@@ -51,7 +57,6 @@ public class MissionSelectDirector : MonoBehaviour
         RandomMission = new List<int>();
 
         missionList_Index = stageList.Stage[mainStageNum].MissionList;
-
 
         if (missionList_Index.Count < 3)
         {
@@ -87,7 +92,7 @@ public class MissionSelectDirector : MonoBehaviour
             missionselectAni.enabled = true;
             MissionSelectObject_UI.SetActive(true);
             ReadyObject.SetActive(false);
-            SubStageSelectObject.SetActive(true);
+            SubStageSelectObject.SetActive(false);
         }
         else
         {
@@ -114,7 +119,6 @@ public class MissionSelectDirector : MonoBehaviour
         SubStageSelectObject.SetActive(true);
     }
 
-
     public void OpenBUutton_Station()
     {
         StationBackCheckWindow.SetActive(true);
@@ -130,6 +134,25 @@ public class MissionSelectDirector : MonoBehaviour
         StationBackCheckWindow.SetActive(false);
     }
 
+    public void Open_Numerical_Settings_Convoy(int missionNum)
+    {
+        ConvoyFlag = true;
+        Convoy_Window.SetActive(true);
+        clickMissionNum = missionNum;
+    }
+
+    public void Check_Numerical_Settings()
+    {
+        if(ConvoyFlag)
+        {
+            ConvoyFlag = false;
+            Convoy_Window.SetActive(false);
+        }
+        playerData.SA_ClickMission(clickMissionNum);
+        playerData.SA_MissionPlaying(true);
+        StartCoroutine(MissionDataSet());
+    }
+
     public void SpawnCard()
     {
         for (int i = 0; i < count; i++)
@@ -138,7 +161,7 @@ public class MissionSelectDirector : MonoBehaviour
             string searchString = mainStageNum + "," + missionNum;
             int missionInformation_Num = EX_QuestData.Q_List.FindIndex(x => x.Stage_Mission.Equals(searchString));
             buttonList[i].gameObject.SetActive(true);
-            buttonList[i].Mission_SetData(missionNum, EX_QuestData.Q_List[missionInformation_Num].Quest_Type, EX_QuestData.Q_List[missionInformation_Num].Quest_Information, EX_QuestData.Q_List[missionInformation_Num].Quest_Reward);
+            buttonList[i].Mission_SetData(missionNum, EX_QuestData.Q_List[missionInformation_Num].Quest_Type, EX_QuestData.Q_List[missionInformation_Num].Quest_Information, EX_QuestData.Q_List[missionInformation_Num].Quest_Reward, EX_QuestData.Q_List[missionInformation_Num].Quest_State);
         }
     }
 }

@@ -2,9 +2,12 @@ using Cinemachine;
 using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+//Script Execution Order로 조절 중
 public class GameDirector : MonoBehaviour
 {
     [Header("Test")]
@@ -82,6 +85,9 @@ public class GameDirector : MonoBehaviour
     [SerializeField]
     private int Reward_Point;
 
+    [Header("미션 정보")]
+    public bool Mission_Train_Flag;
+
     [SerializeField]
     string Reward_ItemNum;
     [SerializeField]
@@ -116,6 +122,7 @@ public class GameDirector : MonoBehaviour
     [SerializeField]
     int TrainWeight;// 전체적으로 더한다.
     public bool SpawnTrainFlag;
+
 
     [Header("레벨 업 적용 전의 기차")]
     [SerializeField]
@@ -177,7 +184,6 @@ public class GameDirector : MonoBehaviour
 
     [HideInInspector]
     public Image BossGuage;
-
     public GameObject MiniTurretObject;
 
     //아이템부분
@@ -260,6 +266,7 @@ public class GameDirector : MonoBehaviour
                 monsterDirector.SupplyMonster_List.gameObject.SetActive(false);
             }
         }
+
     }
 
     private void Start()
@@ -601,9 +608,16 @@ public class GameDirector : MonoBehaviour
     {
         Train_Turret_Count = 0;
         Train_Booster_Count = 0;
-        Train_Num = SA_TrainData.Train_Num;
+        Train_Num = SA_TrainData.Train_Num.ToList();
         Train_Turret_Num = SA_TrainTurretData.Train_Turret_Num;
         Train_Booster_Num = SA_TrainBoosterData.Train_Booster_Num;
+
+        if (Mission_Train_Flag)
+        {
+            int index = Random.Range(1, Train_Num.Count+1);
+            Train_Num.Insert(index, 50);
+        }
+
         for (int i = 0; i < Train_Num.Count; i++)
         {
             if (Train_Num[i] == 51)
@@ -615,6 +629,14 @@ public class GameDirector : MonoBehaviour
             {
                 TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_InGame/52_" + Train_Booster_Num[Train_Booster_Count]), Train_List);
                 Train_Booster_Count++;
+            }else if (Train_Num[i] == 50)//호위차량
+            {
+                TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_InGame/" + Train_Num[i]), Train_List);
+                Train_InGame _train = TrainObject.GetComponent<Train_InGame>();
+                _train.Max_Train_HP = missionDirector.selectmission.M_Convoy.ConvoyHP;
+                _train.Train_HP = _train.Max_Train_HP;
+                _train.Train_Weight = missionDirector.selectmission.M_Convoy.ConvoyWeight;
+                _train.Train_Armor = 20;
             }
             else
             {
@@ -632,6 +654,7 @@ public class GameDirector : MonoBehaviour
                 TrainObject.transform.position = new Vector3(-10.94f * i, 0f, 0);
             }
             
+
             Train_InGame train = TrainObject.GetComponent<Train_InGame>();
             TrainFuel += train.Train_Fuel;
             TrainWeight += train.Train_Weight;
@@ -923,6 +946,11 @@ public class GameDirector : MonoBehaviour
                             }
                         }
                     }*/
+    }
+
+    public void MissionFail()
+    {
+        Change_Game_End(false, false, -1);
     }
 
     private void LastSubStageClear()

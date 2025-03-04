@@ -70,10 +70,6 @@ public class Train_InGame : MonoBehaviour
     public int Train_Supply_UseFuel;
     public int Train_Supply_Grade;
     public int Train_Supply_Count;
-    [Header("대쉬 보드")]
-    public int Train_Dash_UseFuel;
-    public float Train_Dash_PalyerAmount;
-    public int Train_Dash_Second;
 
     public bool isReparing;
     public bool isRepairable;
@@ -82,8 +78,9 @@ public class Train_InGame : MonoBehaviour
     Player player;
     [HideInInspector]
     public GameObject gameDirector;
-
     public int UI_Level;
+
+    bool LoseFlag;
 
     private void Awake()
     {
@@ -131,9 +128,12 @@ public class Train_InGame : MonoBehaviour
         }
         else
         {
-            Max_Train_HP = trainData.Information_Train[Train_Num].Train_HP;
-            Train_Weight = trainData.Information_Train[Train_Num].Train_Weight;
-            Train_Armor = trainData.Information_Train[Train_Num].Train_Armor;
+            if(Train_Num != 50)
+            {
+                Max_Train_HP = trainData.Information_Train[Train_Num].Train_HP;
+                Train_Weight = trainData.Information_Train[Train_Num].Train_Weight;
+                Train_Armor = trainData.Information_Train[Train_Num].Train_Armor;
+            }
         }
 
         if(gameDirector.GetComponent<GameDirector>().Select_Sub_Num == 0)
@@ -180,7 +180,16 @@ public class Train_InGame : MonoBehaviour
                 case "Booster":
                     Destroy_Train(1);
                     break;
+                case "Quest":
+                    if (!LoseFlag)
+                    {
+                        Destroy_Train(2);
+                    }
+                    break;
             }
+        }
+
+        if (Train_Type.Equals("Quest")){
         }
 
         if (Train_Type.Equals("Medic"))
@@ -296,9 +305,10 @@ public class Train_InGame : MonoBehaviour
             gameDirector.GetComponent<GameDirector>().Destroy_train_weight(Train_Weight);
             Train_Weight = 0;
         }
-        else
+        else if(i == 2)
         {
-            //게임 디렉터에 가서 End 선언해야된다.
+            LoseFlag = true;
+            gameDirector.GetComponent<GameDirector>().MissionFail();
         }
     }
 

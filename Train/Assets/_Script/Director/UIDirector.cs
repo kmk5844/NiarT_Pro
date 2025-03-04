@@ -184,6 +184,8 @@ public class UIDirector : MonoBehaviour
         {
             LoseFlag = true;
             LoseText_Num = LoseNum;
+            //LoseNum은 Lose_UI Director에 있다.
+
             Result_Text_List[3].text = "F";
             Result_Text_List[4].gameObject.SetActive(false);
             Result_Image.sprite = Result_Lose_Image;

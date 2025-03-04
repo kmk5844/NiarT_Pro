@@ -23,7 +23,7 @@ public class Dash_Train : MonoBehaviour
         gameDirector = DashTrain.gameDirector.GetComponent<GameDirector>();
 
         DashTrain_Fuel = 0;
-        Max_DashTrain_Fuel = DashTrain.Train_Dash_UseFuel;
+        //Max_DashTrain_Fuel = DashTrain.Train_Dash_UseFuel;
 
         FuelFlag = false;
         UseFlag = false;

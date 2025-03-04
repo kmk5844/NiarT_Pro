@@ -239,7 +239,7 @@ public class Player : MonoBehaviour
                         //파괴되어 사용할 수 없습니다.
                     }
                 }
-            }else if (train.Train_Type.Equals("Dash"))
+            }/*else if (train.Train_Type.Equals("Dash"))
             {
                 if (train.GetComponentInChildren<Dash_Train>().UseFlag)
                 {
@@ -250,12 +250,12 @@ public class Player : MonoBehaviour
                     KeyObject.SetActive(false);
                 }
 
-                if(Input.GetKeyDown(KeyCode.F) && train.GetComponentInChildren<Dash_Train>().UseFlag)
+*//*                if(Input.GetKeyDown(KeyCode.F) && train.GetComponentInChildren<Dash_Train>().UseFlag)
                 {
                     train.GetComponentInChildren<Dash_Train>().UseDash();
                     StartCoroutine(Item_Player_SpeedUP(train.Train_Dash_PalyerAmount, train.Train_Dash_Second));
-                }
-            }else if (train.Train_Type.Equals("Supply"))
+                }*//*
+            }*/else if (train.Train_Type.Equals("Supply"))
             {
                 if (train.GetComponentInChildren<Supply_Train>().UseFlag)
                 {

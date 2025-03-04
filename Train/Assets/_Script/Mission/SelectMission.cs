@@ -36,6 +36,7 @@ public class SelectMission : MonoBehaviour
 
     public int monsterCount;
     public int bossCount;
+    public int Select_Train_Weight;
 
     [Header("stageSelect")]
     public GameObject StageInitButton;
@@ -214,10 +215,7 @@ public class SelectMission : MonoBehaviour
                 M_Escort.SetSetting(_num, _hp);
                 break;
             case MissionType.Convoy:
-                _num = int.Parse(_state[0]);
-                _hp = int.Parse(_state[1]);
-                bool _flag = bool.Parse(_state[2]);
-                M_Convoy.SetSetting(_num, _hp, _flag);
+
                 break;
             case MissionType.Boss:
                 _num = int.Parse(_state[0]);
@@ -281,14 +279,12 @@ public class SelectMission : MonoBehaviour
     [Serializable]
     public struct MissionConvoy_State
     {
-        public  int ConvoyNum;
-        public  int ConvoyHP;
-        public  bool ConvoyBool; // true 기차, false 화물적재물
-        public void SetSetting(int _num, int _hp, bool _flag)
+        public int ConvoyHP;
+        public int ConvoyWeight;
+        public void SetSetting(int _hp, int _Weight)
         {
-            ConvoyNum = _num;
             ConvoyHP = _hp;
-            ConvoyBool = _flag;
+            ConvoyWeight = _Weight;
         }
     }
 

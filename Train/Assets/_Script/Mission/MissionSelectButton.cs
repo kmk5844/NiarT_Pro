@@ -19,28 +19,37 @@ public class MissionSelectButton : MonoBehaviour
     public string MissionType;
     public string MissionInformation;
     public int MissionReward;
+    string state;
 
     [Header("미션 이미지")]
     public Image missionImage;
     public Sprite[] missionSpriteList;
 
-    public void Mission_SetData(int _missionNum, string type, string information, int reward)
+    public void Mission_SetData(int _missionNum, string type, string information, int reward, string _state)
     {
         missionNum = _missionNum;
         MissionType = type;
         MissionInformation = information;
         MissionReward = reward;
+        state = _state;
 
         MissionType_Text.text = MissionType;
         MissionInformation_Text.text = MissionInformation;
         MissionReward_Text.text = MissionReward.ToString() + "G";
         missionImage.sprite = missionSpriteList[missionNum];
     }
-    
+
     public void ClickMission()
     {
-        playerData.SA_ClickMission(missionNum);
-        playerData.SA_MissionPlaying(true);
-        StartCoroutine(missionSelectDirector.MissionDataSet());
+        if (missionNum == 4)
+        {
+            missionSelectDirector.Open_Numerical_Settings_Convoy(missionNum);
+        }
+        else
+        {
+            playerData.SA_ClickMission(missionNum);
+            playerData.SA_MissionPlaying(true);
+            StartCoroutine(missionSelectDirector.MissionDataSet());
+        }
     }
 }

@@ -7,13 +7,16 @@ public class MissionDirector : MonoBehaviour
 {
     public SelectMission selectmission;
     public UIDirector uiDirector;
+    public GameDirector gameDirector;
     public MonsterDirector monsterDirector;
 
     bool countFlag;
+    bool trainFlag;
     [SerializeField]
     int monsterCount; // 몬스터와 보스와 같이, 카운팅
 
-    void Start()
+    //Script Execution Order로 조절 중
+    void Awake()
     {
         try
         {
@@ -35,7 +38,7 @@ public class MissionDirector : MonoBehaviour
 
                     break;
                 case MissionType.Convoy:
-
+                    gameDirector.Mission_Train_Flag = true;
                     break;
                 case MissionType.Boss:
                     countFlag = true;
@@ -56,9 +59,11 @@ public class MissionDirector : MonoBehaviour
         }
         catch
         {
+
             Debug.Log("테스트");
         }
     }
+
     //몬스터
     public bool CheckMonster(int MonsterNum)
     {
@@ -104,7 +109,7 @@ public class MissionDirector : MonoBehaviour
 
                 break;
             case MissionType.Material:
-                
+                //몬스터 재료
                 break;
             case MissionType.Monster:
                 selectmission.monsterCount += monsterCount;
@@ -112,7 +117,8 @@ public class MissionDirector : MonoBehaviour
             case MissionType.Escort:
                 break;
             case MissionType.Convoy:
-
+                //운반하기
+                
                 break;
             case MissionType.Boss:
                 selectmission.bossCount += monsterCount;
