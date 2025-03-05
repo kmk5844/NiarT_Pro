@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Engineer : Mercenary
 {
-    Rigidbody2D rigid;
     Train_InGame train;
     public bool move_Work;
     bool isRepairing;
@@ -32,7 +31,6 @@ public class Engineer : Mercenary
     {
         base.Start();
         act = Active.move;
-        rigid = GetComponent<Rigidbody2D>();
         move_Work = true;
         TrainSpawnFlag = false;
         isCalling = false;
@@ -46,8 +44,8 @@ public class Engineer : Mercenary
             TrainSpawnFlag = gameDirector.SpawnTrainFlag;
             train = null;
         }else{
-            Debug.DrawRay(rigid.position, Vector3.down, Color.green);
-            RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1f, LayerMask.GetMask("Platform"));
+            Debug.DrawRay(rb2D.position, Vector3.down, Color.green);
+            RaycastHit2D rayHit = Physics2D.Raycast(rb2D.position, Vector3.down, 1f, LayerMask.GetMask("Platform"));
 
             if(rayHit.collider != null) // null이 아니라면으로 처리 -> 그렇지 않으면 오류 발생
             {

@@ -210,12 +210,13 @@ public class SelectMission : MonoBehaviour
                 M_Monster.SetSetting(_num, _count);
                 break;
             case MissionType.Escort:
-                _num = int.Parse(_state[0]);
-                int _hp = int.Parse(_state[1]);
-                M_Escort.SetSetting(_num, _hp);
+                int _hp = int.Parse(_state[0]);
+                int _armor = int.Parse(_state[1]);
+                int _moveSpeed = int.Parse(_state[2]);
+                M_Escort.SetSetting(_hp, _armor,_moveSpeed);
                 break;
             case MissionType.Convoy:
-
+                //missionSelect에서 플레이어가 직접 설정함
                 break;
             case MissionType.Boss:
                 _num = int.Parse(_state[0]);
@@ -227,6 +228,10 @@ public class SelectMission : MonoBehaviour
 
     public void Mission_Sucesses()
     {
+        if(missionNum == 4)
+        {
+            MissionReward = M_Convoy.ConvoyGold;
+        }
         playerData.SA_Get_Coin(MissionReward);
         MissionEnd(MissionType);
         Destroy(this.gameObject);
@@ -267,24 +272,26 @@ public class SelectMission : MonoBehaviour
     [Serializable]
     public struct MissionEscort_State
     {
-        public int EscortNum;
         public int EscortHP;
-        public void SetSetting(int _num, int _hp)
+        public int EscortArmor;
+        public int EscortMoveSpeed;
+        public void SetSetting(int _hp, int _armor, int _moveSpeed)
         {
-            EscortNum = _num;
             EscortHP = _hp;
+            EscortArmor = _armor;
+            EscortMoveSpeed = _moveSpeed;
         }
     }
 
     [Serializable]
     public struct MissionConvoy_State
     {
-        public int ConvoyHP;
         public int ConvoyWeight;
-        public void SetSetting(int _hp, int _Weight)
+        public int ConvoyGold;
+        public void SetSetting(int _Weight, int _Gold)
         {
-            ConvoyHP = _hp;
             ConvoyWeight = _Weight;
+            ConvoyGold = _Gold;
         }
     }
 

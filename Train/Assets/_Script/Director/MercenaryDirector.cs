@@ -22,6 +22,13 @@ public class MercenaryDirector : MonoBehaviour
     public bool Mercenary_Spawn_Flag;
     float Player_X_Pos;
 
+    [Header("미션")]
+    public GameObject EscortUnit;
+    public bool EscortFlag;
+    int EscortHP;
+    int EscortArmor;
+    int EscortMoveSpeed;
+
     void Start()
     {
         Mercenary_Spawn_Flag = false;
@@ -63,6 +70,15 @@ public class MercenaryDirector : MonoBehaviour
                 MercenaryObject.name = MercenaryObject.GetComponent<Mercenary>().Type.ToString();
             }
         }
+
+        if (EscortFlag)
+        {
+            EscortUnit.GetComponent<_Escort>().EscortSetSetting(EscortHP, EscortArmor, EscortMoveSpeed);
+            GameObject merobj = Instantiate(EscortUnit, Mercenary_List);
+            merobj.name = "Escort";
+        }
+
+
         Mercenary_Spawn_Flag = true;
     }
 
@@ -116,7 +132,7 @@ public class MercenaryDirector : MonoBehaviour
             }
         }
         Add_List();
-    }//상호작용 하는 애들은 엔지니어랑 메딕 밖에 없다.
+    }//상호작용 하는 애들은 엔지니어밖에 없다.
 
     public void Add_List()
     {
@@ -179,5 +195,13 @@ public class MercenaryDirector : MonoBehaviour
         {
             StartCoroutine(Mercenary_List.GetChild(i).GetComponent<Mercenary>().Item_Bear(workCount, delayTime));
         }
+    }
+
+    public void SetEscort(int HP, int Armor, int MoveSpeed)
+    {
+        EscortFlag = true;
+        EscortHP = HP;
+        EscortArmor = Armor;
+        EscortMoveSpeed = MoveSpeed;
     }
 }

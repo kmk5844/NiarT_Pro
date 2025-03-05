@@ -44,9 +44,21 @@ public class MissionSelectDirector : MonoBehaviour
     int clickMissionNum;
 
     [Header("Convoy")]
-    bool ConvoyFlag = false;
     public Slider Convoy_Slider;
     public GameObject Convoy_Window;
+    public TextMeshProUGUI minGoldText;
+    public TextMeshProUGUI maxGoldText;
+    public TextMeshProUGUI GoldText;
+    public TextMeshProUGUI WeightText;
+    public TextMeshProUGUI SpeedText;
+    int minGold;
+    int maxGold;
+    int amountGold;
+    int amountWeight;
+    int minWeight;
+    int trainWeight;
+    float rewardGold;
+    bool ConvoyFlag = false;
 
     private void Awake()
     {
@@ -134,11 +146,43 @@ public class MissionSelectDirector : MonoBehaviour
         StationBackCheckWindow.SetActive(false);
     }
 
-    public void Open_Numerical_Settings_Convoy(int missionNum)
+    public void Open_Numerical_Settings_Convoy(int missionNum, string _State)
     {
         ConvoyFlag = true;
+        string[] state = _State.Split(',');
+        minGold = int.Parse(state[0]);
+        maxGold = int.Parse(state[1]);
+        amountGold = int.Parse(state[2]);
+        minWeight = int.Parse(state[3]);
+        amountWeight = int.Parse(state[4]);
+
+        rewardGold = minGold;
+        trainWeight = minWeight;
+        minGoldText.text = minGold + "G";
+        maxGoldText.text = maxGold + "G";
+        GoldText.text = minGold + "G";
+        WeightText.text = minWeight.ToString();
+        SpeedText.text = "- " + (minWeight / 100000);
+
+        Convoy_Slider.minValue = minGold;
+        Convoy_Slider.maxValue = maxGold;
+        Convoy_Slider.wholeNumbers = true;
+        Convoy_Slider.onValueChanged.AddListener(SliderChange_Convoy);
+        
         Convoy_Window.SetActive(true);
         clickMissionNum = missionNum;
+    }
+
+    void SliderChange_Convoy(float value)
+    {
+        rewardGold = Mathf.Round(value / amountGold) * amountGold;
+        Convoy_Slider.value = rewardGold;
+        GoldText.text = rewardGold + "G";
+
+        int x = ((int)rewardGold - minGold) / amountGold;
+        trainWeight = (minWeight + (amountWeight * x));
+        WeightText.text = trainWeight.ToString();
+        SpeedText.text = "- " + (trainWeight / 100000);
     }
 
     public void Check_Numerical_Settings()
@@ -147,6 +191,7 @@ public class MissionSelectDirector : MonoBehaviour
         {
             ConvoyFlag = false;
             Convoy_Window.SetActive(false);
+            SelectMissionObject.GetComponent<SelectMission>().M_Convoy.SetSetting(trainWeight, (int)rewardGold);
         }
         playerData.SA_ClickMission(clickMissionNum);
         playerData.SA_MissionPlaying(true);

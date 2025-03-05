@@ -1270,7 +1270,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 00cbb5f50188b374e85c8a529a52b4b0, type: 2}
     - target: {fileID: 590112848759777732, guid: a9a4936c63ba53945b41129ea2d534b6, type: 3}
       propertyPath: MissionType
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 590112848759777732, guid: a9a4936c63ba53945b41129ea2d534b6, type: 3}
       propertyPath: missionDataTable
@@ -1281,8 +1281,20 @@ PrefabInstance:
       value: 5000
       objectReference: {fileID: 0}
     - target: {fileID: 590112848759777732, guid: a9a4936c63ba53945b41129ea2d534b6, type: 3}
+      propertyPath: M_Escort.EscortHP
+      value: 4000
+      objectReference: {fileID: 0}
+    - target: {fileID: 590112848759777732, guid: a9a4936c63ba53945b41129ea2d534b6, type: 3}
+      propertyPath: M_Escort.EscortArmor
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 590112848759777732, guid: a9a4936c63ba53945b41129ea2d534b6, type: 3}
       propertyPath: M_Convoy.ConvoyWeight
       value: 700000
+      objectReference: {fileID: 0}
+    - target: {fileID: 590112848759777732, guid: a9a4936c63ba53945b41129ea2d534b6, type: 3}
+      propertyPath: M_Escort.EscortMoveSpeed
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2389728853056826302, guid: a9a4936c63ba53945b41129ea2d534b6, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13505,6 +13517,8 @@ MonoBehaviour:
   Mercenary_Num: 
   Mercenary_List: {fileID: 1315201695}
   Mercenary_Spawn_Flag: 0
+  EscortUnit: {fileID: 4407769092627486282, guid: d846d62b421adc84c8d24d6b8665a22b, type: 3}
+  EscortFlag: 0
 --- !u!1 &1024140909
 GameObject:
   m_ObjectHideFlags: 0
@@ -14446,6 +14460,7 @@ MonoBehaviour:
   uiDirector: {fileID: 1935013893}
   gameDirector: {fileID: 234993071}
   monsterDirector: {fileID: 550142803}
+  mercenaryDirector: {fileID: 1015709670}
   monsterCount: 0
 --- !u!1 &1130360707
 GameObject:

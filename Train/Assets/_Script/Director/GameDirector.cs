@@ -241,7 +241,7 @@ public class GameDirector : MonoBehaviour
         }
         CameraConfiler.points = newPoint;
 
-        RandomStartTime = Random.Range(8f, 10f);
+        RandomStartTime = Random.Range(3f, 5f);
         BossCount = 0;
         lastSpeedTime = 0;
         distance_lastSpeedTime = 0;
@@ -633,7 +633,7 @@ public class GameDirector : MonoBehaviour
             {
                 TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_InGame/" + Train_Num[i]), Train_List);
                 Train_InGame _train = TrainObject.GetComponent<Train_InGame>();
-                _train.Max_Train_HP = missionDirector.selectmission.M_Convoy.ConvoyHP;
+                _train.Max_Train_HP = 5000;
                 _train.Train_HP = _train.Max_Train_HP;
                 _train.Train_Weight = missionDirector.selectmission.M_Convoy.ConvoyWeight;
                 _train.Train_Armor = 20;

@@ -43,7 +43,7 @@ public class MissionSelectButton : MonoBehaviour
     {
         if (missionNum == 4)
         {
-            missionSelectDirector.Open_Numerical_Settings_Convoy(missionNum);
+            missionSelectDirector.Open_Numerical_Settings_Convoy(missionNum, state);
         }
         else
         {

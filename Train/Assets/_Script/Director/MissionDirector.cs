@@ -9,6 +9,7 @@ public class MissionDirector : MonoBehaviour
     public UIDirector uiDirector;
     public GameDirector gameDirector;
     public MonsterDirector monsterDirector;
+    public MercenaryDirector mercenaryDirector;
 
     bool countFlag;
     bool trainFlag;
@@ -35,7 +36,7 @@ public class MissionDirector : MonoBehaviour
                     monsterDirector.missionFlag_monster = true;
                     break;
                 case MissionType.Escort:
-
+                    mercenaryDirector.SetEscort(selectmission.M_Escort.EscortHP, selectmission.M_Escort.EscortArmor, selectmission.M_Escort.EscortMoveSpeed);
                     break;
                 case MissionType.Convoy:
                     gameDirector.Mission_Train_Flag = true;
@@ -59,7 +60,6 @@ public class MissionDirector : MonoBehaviour
         }
         catch
         {
-
             Debug.Log("테스트");
         }
     }
@@ -106,7 +106,6 @@ public class MissionDirector : MonoBehaviour
         switch (selectmission.MissionType)
         {
             case MissionType.Destination:
-
                 break;
             case MissionType.Material:
                 //몬스터 재료
@@ -118,7 +117,6 @@ public class MissionDirector : MonoBehaviour
                 break;
             case MissionType.Convoy:
                 //운반하기
-                
                 break;
             case MissionType.Boss:
                 selectmission.bossCount += monsterCount;

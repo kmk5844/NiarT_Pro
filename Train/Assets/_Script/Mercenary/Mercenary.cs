@@ -33,7 +33,7 @@ public class Mercenary : MonoBehaviour
     public int MaxHP;
     [HideInInspector]
     public int atk;
-    protected float moveSpeed;
+    public float moveSpeed;
     protected Rigidbody2D rb2D;
     float refreshStartTime;
     float Refresh_Delay;
@@ -55,7 +55,7 @@ public class Mercenary : MonoBehaviour
     protected bool isDying;
     public bool isHealWithMedic;
 
-    int def;
+    public int def;
     float era;
     float def_constant;
 
@@ -486,6 +486,10 @@ public class Mercenary : MonoBehaviour
                 def = EX_Level_Data.Level_Mercenary_CowBoy[SA_MercenaryData.Level_CowBoy].Def;
                 //카우보이의 개별적인 특수 스탯이 없음.
                 break;
+            case mercenaryType.Escort:
+                Debug.Log(moveSpeed);
+                //액셀 데이터에서 따로 받음
+                break;
         }
     }
 
@@ -539,4 +543,5 @@ public enum mercenaryType
     Engine_Driver,
     Bard,
     CowBoy,
+    Escort
 }
