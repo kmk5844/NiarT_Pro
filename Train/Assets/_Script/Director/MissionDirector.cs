@@ -12,9 +12,11 @@ public class MissionDirector : MonoBehaviour
     public MercenaryDirector mercenaryDirector;
 
     bool countFlag;
-    bool trainFlag;
+    bool materialFlag;
     [SerializeField]
     int monsterCount; // 몬스터와 보스와 같이, 카운팅
+    [SerializeField]
+    int materialCount;
 
     //Script Execution Order로 조절 중
     void Awake()
@@ -26,10 +28,11 @@ public class MissionDirector : MonoBehaviour
             switch (selectmission.MissionType)
             {
                 case MissionType.Destination:
-
                     break;
                 case MissionType.Material:
-
+                    materialFlag = true;
+                    monsterDirector.missionFlag_material = true;
+                    monsterDirector.SettingMission_Material_MonsterDirector(selectmission.M_Material.itemData, selectmission.M_Material.ItemDrop);
                     break;
                 case MissionType.Monster:
                     countFlag = true;
@@ -52,6 +55,10 @@ public class MissionDirector : MonoBehaviour
             {
                 monsterCount = selectmission.monsterCount;
                 uiDirector.missionCountText_text.text = "Count : " + monsterCount;
+            }else if (materialFlag)
+            {
+                materialCount = selectmission.materialCount;
+                uiDirector.missionCountText_text.text = "Count : " + materialCount;
             }
             else
             {
@@ -64,7 +71,8 @@ public class MissionDirector : MonoBehaviour
         }
     }
 
-    //몬스터
+
+    //몬스터 -> 몬스터 일치할 경우 CountFlag가 켜지는 것.
     public bool CheckMonster(int MonsterNum)
     {
         if (selectmission.M_Monster.MonsterNum == MonsterNum)
@@ -77,7 +85,7 @@ public class MissionDirector : MonoBehaviour
         }
     }
 
-    //Boss
+    //Boss -> 보스와 일치할 경우 CountFlag가 켜지는 것이다.
     public bool CheckBoss(int BossNum)
     {
         if(selectmission.M_Boss.BossNum == BossNum)
@@ -88,6 +96,12 @@ public class MissionDirector : MonoBehaviour
         {
             return false;
         }
+    }
+
+    public void MaterialCount()
+    {
+        materialCount++;
+        uiDirector.missionCountText_text.text = "Count : " + materialCount;
     }
 
     public void MonsterCount()

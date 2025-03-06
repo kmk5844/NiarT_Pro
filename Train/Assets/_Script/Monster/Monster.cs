@@ -28,7 +28,15 @@ public class Monster : MonoBehaviour
     [SerializeField]
     protected bool Monster_CountFlag;
     protected Coroutine Monster_coroutine;
-    public bool Monster_MissionFlag = false;
+
+    [Header("미션")]
+    public bool Monster_Mission_MaterialFlag = false;
+    public bool Monster_Mission_CountFlag = false;
+    bool spawnMaterialFlag = false;
+    ItemDataObject material_Item = null;
+    GameObject MaterialObject;
+    [SerializeField]
+    protected int material_drop;
 
     public string Monster_Type;
     protected Vector2 MonsterDirector_Pos; //몬스터 디렉터에게 받고 지정된 위치
@@ -119,6 +127,11 @@ public class Monster : MonoBehaviour
             MonsterDirector.MonsterNum++;
         }
 
+        if (Monster_Mission_MaterialFlag)
+        {
+            MaterialObject = Resources.Load<GameObject>("Monster/SupplyMonster_Item");
+        }
+
         monster_Bullet_List = GameObject.Find("Bullet_List").GetComponent<Transform>();
 
         AfterImage_Particle_LocalScale_X = AfterImage_Particle.transform.localScale.x;
@@ -169,6 +182,19 @@ public class Monster : MonoBehaviour
 
     protected virtual void Update()
     {
+        if (Monster_Mission_MaterialFlag)
+        {
+            if(Monster_HP <= 0 && !spawnMaterialFlag)
+            {
+                if (Random.Range(0, 101)<= material_drop)
+                {
+                    MaterialObject.GetComponent<SupplyMonster_Item>().ChangeMaterial(material_Item);
+                    Instantiate(MaterialObject, transform.position, Quaternion.identity);
+                }
+                spawnMaterialFlag = true;
+            }
+        }
+
         if (Item_Curese_ChangeFlag)
         {
             if (MonsterDirector.Item_curseFlag)
@@ -632,7 +658,7 @@ public class Monster : MonoBehaviour
         Monster_HP = 0;
         monster_gametype = Monster_GameType.Die;
         gameDirector.Game_Monster_Kill(Monster_Score, Monster_Coin);
-        if (Monster_MissionFlag)
+        if (Monster_Mission_CountFlag)
         {
             gameDirector.Mission_Monster_Kill();
         }
@@ -712,6 +738,14 @@ public class Monster : MonoBehaviour
     public float getMonsterBulletSpeed()
     {
         return Bullet_Speed;
+    }
+
+
+    //--------------미션--------
+    public void SettingMission_Material_Monster(ItemDataObject _item , int _drop)
+    {
+        material_Item = _item;
+        material_drop = _drop;
     }
 }
 

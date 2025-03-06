@@ -1270,7 +1270,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 00cbb5f50188b374e85c8a529a52b4b0, type: 2}
     - target: {fileID: 590112848759777732, guid: a9a4936c63ba53945b41129ea2d534b6, type: 3}
       propertyPath: MissionType
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 590112848759777732, guid: a9a4936c63ba53945b41129ea2d534b6, type: 3}
       propertyPath: missionDataTable
@@ -1285,8 +1285,20 @@ PrefabInstance:
       value: 4000
       objectReference: {fileID: 0}
     - target: {fileID: 590112848759777732, guid: a9a4936c63ba53945b41129ea2d534b6, type: 3}
+      propertyPath: M_Material.ItemDrop
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 590112848759777732, guid: a9a4936c63ba53945b41129ea2d534b6, type: 3}
+      propertyPath: M_Material.itemData
+      value: 
+      objectReference: {fileID: 11400000, guid: e4f58ddaf2870b3479a00bd8c32d3e76, type: 2}
+    - target: {fileID: 590112848759777732, guid: a9a4936c63ba53945b41129ea2d534b6, type: 3}
       propertyPath: M_Escort.EscortArmor
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 590112848759777732, guid: a9a4936c63ba53945b41129ea2d534b6, type: 3}
+      propertyPath: M_Material.ItemCount
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 590112848759777732, guid: a9a4936c63ba53945b41129ea2d534b6, type: 3}
       propertyPath: M_Convoy.ConvoyWeight
@@ -1339,6 +1351,10 @@ PrefabInstance:
     - target: {fileID: 8750023650433660751, guid: a9a4936c63ba53945b41129ea2d534b6, type: 3}
       propertyPath: m_Name
       value: SelectMission
+      objectReference: {fileID: 0}
+    - target: {fileID: 8750023650433660751, guid: a9a4936c63ba53945b41129ea2d534b6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6022,6 +6038,7 @@ MonoBehaviour:
   Test_Monster_List: []
   Boss_List: {fileID: 1233256303}
   Emerging_Boss_List: 
+  missionFlag_material: 0
   missionFlag_monster: 0
   missionFlag_boss: 0
   SupplyMonster_List: {fileID: 1812168578}
@@ -14462,6 +14479,7 @@ MonoBehaviour:
   monsterDirector: {fileID: 550142803}
   mercenaryDirector: {fileID: 1015709670}
   monsterCount: 0
+  materialCount: 0
 --- !u!1 &1130360707
 GameObject:
   m_ObjectHideFlags: 0

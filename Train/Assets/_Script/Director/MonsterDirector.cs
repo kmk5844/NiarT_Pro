@@ -26,9 +26,12 @@ public class MonsterDirector : MonoBehaviour
     [SerializeField]
     List<int> Emerging_Boss_List;
 
-    [Header("퀘스트")]
+    [Header("미션")]
+    public bool missionFlag_material = false;
     public bool missionFlag_monster = false;
     public bool missionFlag_boss = false;
+    ItemDataObject missionMaterial_Item;
+    int missionMaterial_Drop;
 
     [Header("보급 몬스터 정보 및 리스트")]
     public Transform SupplyMonster_List;
@@ -232,9 +235,17 @@ public class MonsterDirector : MonoBehaviour
         {
             string monster_name = EX_GameData.Information_Monster[Monster_Num].Monster_Name;
             _Monster = Resources.Load<GameObject>("Monster/" + Monster_Num+ "_"+ monster_name);
+            
+            if(missionFlag_material)
+            {
+                _Monster.GetComponent<Monster>().Monster_Mission_MaterialFlag = true;
+                _Monster.GetComponent<Monster>().SettingMission_Material_Monster(missionMaterial_Item, missionMaterial_Drop);
+
+            }
+
             if (missionFlag_monster)
             {
-                _Monster.GetComponent<Monster>().Monster_MissionFlag = missionDirector.CheckMonster(Monster_Num);
+                _Monster.GetComponent<Monster>().Monster_Mission_CountFlag = missionDirector.CheckMonster(Monster_Num);
             }
 
             if (GameDirector_SpawnFlag == true)
@@ -374,5 +385,13 @@ public class MonsterDirector : MonoBehaviour
             Monster monster = Monster_List.GetChild(i).GetComponent<Monster>();
             monster.Item_Monster_GiantFlag(Persent);
         }
+    }
+
+
+    //미션 부분
+    public void SettingMission_Material_MonsterDirector(ItemDataObject _item, int _drop)
+    {
+        missionMaterial_Item = _item;
+        missionMaterial_Drop = _drop;
     }
 }

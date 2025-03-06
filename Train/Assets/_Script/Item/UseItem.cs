@@ -208,6 +208,7 @@ public class UseItem : MonoBehaviour
             case 67:
             case 68:
             case 69:
+            case 70:
                 coolTime_Flag = false;
                 if (!uiDirector.GetItemList_Num.Contains(num))
                 {

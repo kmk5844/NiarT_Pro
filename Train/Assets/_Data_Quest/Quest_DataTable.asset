@@ -19,10 +19,23 @@ MonoBehaviour:
     Quest_State: -1
     Quest_Reward: 5000
     Quest_Fail: 10
-  - Stage_Mission: 0,3
+  - Stage_Mission: 0,1
+    Quest_Type: Material
+    Quest_Information: "\uC7AC\uB8CC\uB97C \uC218\uC9D1\uD558\uC138\uC694"
+    Quest_State: 70,10,60
+    Quest_Reward: 5000
+    Quest_Fail: 10
+  - Stage_Mission: 1,3
     Quest_Type: Escort
-    Quest_Information: "\uD638\uC704\uD558\uC138\uC694"
-    Quest_State: -1
+    Quest_Information: "\uC774\uBD10, \uB2E4\uC74C \uC815\uAC70\uC7A5\uC73C\uB85C
+      \uB370\uB824\uB2E4\uC918"
+    Quest_State: 2000,20,5
+    Quest_Reward: 5000
+    Quest_Fail: 10
+  - Stage_Mission: 1,4
+    Quest_Type: Convoy
+    Quest_Information: "\uD638\uC1A1\uD558\uC138\uC694"
+    Quest_State: 5000,10000,1000,500000,50000
     Quest_Reward: 5000
     Quest_Fail: 10
   - Stage_Mission: 1,0
@@ -30,12 +43,6 @@ MonoBehaviour:
     Quest_Information: "\uBB34\uC0AC\uD788 \uBAA9\uC801\uC9C0\uAE4C\uC9C0 \uB3C4\uCC29\uD558\uC138\uC694"
     Quest_State: -1
     Quest_Reward: 5500
-    Quest_Fail: 10
-  - Stage_Mission: 1,4
-    Quest_Type: Convoy
-    Quest_Information: "\uD638\uC1A1\uD558\uC138\uC694"
-    Quest_State: 5000,10000,1000,500000,50000
-    Quest_Reward: 5000
     Quest_Fail: 10
   - Stage_Mission: 2,0
     Quest_Type: Destination
@@ -494,7 +501,17 @@ MonoBehaviour:
     StartStageFlag: 0
     NextStageFlag: 1
     SubStage_Status: 
-  Q_Material: []
+  Q_Material:
+  - Stage_Num: 0
+    SubStage_Num: 0
+    SubStage_Type: Nomal
+    Distance: 60000
+    Emerging_Monster: 0
+    Monster_Count: 8
+    Open_SubStageNum: -1
+    StartStageFlag: 1
+    NextStageFlag: 1
+    SubStage_Status: 
   Q_Monster:
   - Stage_Num: 5
     SubStage_Num: 0

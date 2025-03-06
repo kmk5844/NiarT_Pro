@@ -17,6 +17,10 @@ public class SA_MissionData : ScriptableObject
     public List<bool> MainStage_ClearFlag { get { return mainstage_clearflag; } }
 
     [SerializeField]
+    int materialcount;
+    public int MaterialCount { get {  return materialcount; } }
+
+    [SerializeField]
     int monstercount;
     public int MonsterCount { get {  return monstercount; } }
 

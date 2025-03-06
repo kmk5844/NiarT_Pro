@@ -11,6 +11,8 @@ public class SelectMission : MonoBehaviour
     Quest_DataTable missionDataTable;
     [SerializeField]
     SA_MissionData missionData;
+    [SerializeField]
+    SA_ItemList itemListData;
 
     int stageNum;
     int missionNum;
@@ -36,6 +38,7 @@ public class SelectMission : MonoBehaviour
 
     public int monsterCount;
     public int bossCount;
+    public int materialCount;
     public int Select_Train_Weight;
 
     [Header("stageSelect")]
@@ -114,8 +117,7 @@ public class SelectMission : MonoBehaviour
             }
             else if (MissionType == MissionType.Material)
             {
-                Debug.Log("재료 모으기");
-                //재료 카운트 추가
+                //문제 없음.
                 return true;
             }
             else if (MissionType == MissionType.Monster)
@@ -125,13 +127,11 @@ public class SelectMission : MonoBehaviour
             }
             else if (MissionType == MissionType.Escort)
             {
-                Debug.Log("호위하기");
                 //진행 -> 게임 디렉터에서 체크할 예정
                 return true;
             }
             else if (MissionType == MissionType.Convoy)
             {
-                Debug.Log("호송하기");
                 //진행 -> 게임 디렉터에서 체크할 예정
                 return true;
             }
@@ -151,7 +151,14 @@ public class SelectMission : MonoBehaviour
             else if (MissionType == MissionType.Material)
             {
                 //재료 체크 후 bool 체크
-                return true;
+                if(materialCount >= M_Material.ItemCount)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else if (MissionType == MissionType.Monster)
             {
@@ -201,8 +208,10 @@ public class SelectMission : MonoBehaviour
                 break;
             case MissionType.Material:
                 int _num = int.Parse(_state[0]);
+                ItemDataObject _itemData = itemListData.Item[_num];
                 int _count = int.Parse(_state[1]);
-                M_Material.SetSetting(_num, _count);
+                int _drop = int.Parse(_state[2]);
+                M_Material.SetSetting(_itemData, _count, _drop);
                 break;
             case MissionType.Monster:
                 _num = int.Parse(_state[0]);
@@ -246,13 +255,15 @@ public class SelectMission : MonoBehaviour
     [Serializable]
     public struct MissionMaterial_State
     {
-        public int ItemNum;
+        public ItemDataObject itemData;
         public int ItemCount;
+        public int ItemDrop;
 
-        public void SetSetting(int _num, int _count)
+        public void SetSetting(ItemDataObject item, int _count, int _drop)
         {
-            ItemNum = _num;
+            itemData = item;
             ItemCount = _count;
+            ItemDrop = _drop;
         }
     }
 
@@ -318,7 +329,24 @@ public class SelectMission : MonoBehaviour
     {
         missionData.SelectMission_Load(mission);
 
-        if (mission == MissionType.Monster)
+        if(mission == MissionType.Material)
+        {
+            if (!ES3.KeyExists("SelectMission_MonsterCount"))
+            {
+                MissionEnd(mission); // 초기화 전용.
+            }
+
+            int num = missionData.MaterialCount;
+            if (num == -1)
+            {
+                materialCount = 0;
+            }
+            else
+            {
+                materialCount = num;
+            }
+        }
+        else if (mission == MissionType.Monster)
         {
             if (!ES3.KeyExists("SelectMission_MonsterCount"))
             {
@@ -356,7 +384,12 @@ public class SelectMission : MonoBehaviour
 
     public void MissionEnd(MissionType mission)
     {
-        if(mission == MissionType.Monster)
+        if(mission== MissionType.Material)
+        {
+            materialCount = -1;
+            Save(mission, materialCount);
+        }
+        else if(mission == MissionType.Monster)
         {
             monsterCount = -1;
             Save(mission, monsterCount);

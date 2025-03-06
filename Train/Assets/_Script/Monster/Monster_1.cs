@@ -154,6 +154,6 @@ public class Monster_1 : Monster
 
     public void AfterDie_Spawn_Item()
     {
-        Instantiate(Spawn_Item, transform.position, Quaternion.identity);
+         Instantiate(Spawn_Item, transform.position, Quaternion.identity);
     }
 }

@@ -44,30 +44,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31d41aff05fbe6e48891de6cd68b6f54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 0}
-  missionDataTable: {fileID: 0}
+  playerData: {fileID: 11400000, guid: 00cbb5f50188b374e85c8a529a52b4b0, type: 2}
+  missionDataTable: {fileID: 11400000, guid: b81f28f93f7f0484baf11cfdc25d28aa, type: 2}
   missionData: {fileID: 11400000, guid: bdf3b75d5d747fa469e3130af30aa84e, type: 2}
+  itemListData: {fileID: 11400000, guid: 130b52d5086f48c44a1ab80708de4492, type: 2}
   StageMission: 
   MissionType: 0
   MissionInformation: 
   MissionState: 
   MissionReward: 0
   M_Material:
-    ItemNum: 0
+    itemData: {fileID: 0}
     ItemCount: 0
+    ItemDrop: 0
   M_Monster:
     MonsterNum: 0
     MonsterCount: 0
   M_Escort:
-    EscortNum: 0
     EscortHP: 0
+    EscortArmor: 0
+    EscortMoveSpeed: 0
   M_Convoy:
-    ConvoyNum: 0
-    ConvoyHP: 0
-    ConvoyBool: 0
+    ConvoyWeight: 0
+    ConvoyGold: 0
   M_Boss:
     BossNum: 0
     BossCount: 0
   monsterCount: 0
   bossCount: 0
+  Select_Train_Weight: 0
   StageInitButton: {fileID: 0}

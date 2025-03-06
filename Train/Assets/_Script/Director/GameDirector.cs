@@ -836,9 +836,8 @@ public class GameDirector : MonoBehaviour
 
     void SubStage_LockOff()
     {
-        foreach(int substageNum in NextSubStageNum)
+        foreach (int substageNum in NextSubStageNum)
         {
-            Debug.Log(substageNum);
             if (substageNum != -1)
             {
                 MissionDataObject mission = SA_MissionData.missionStage(Mission_Num, Stage_Num, substageNum);
@@ -857,7 +856,6 @@ public class GameDirector : MonoBehaviour
     {
         gameType = GameType.GameEnd;
         Time.timeScale = 0f;
-
         if (WinFlag)
         {
             missionDirector.Adjustment_Mission(); // 정보 갱신하기.

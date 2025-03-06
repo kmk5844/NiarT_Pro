@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class SupplyMonster_Item : MonoBehaviour
 {
+    public bool MissionMaterialFlag;
     GameObject itemdirector_object;
     ItemDirector itemdirector;
     List<ItemDataObject> common_supplylist;
@@ -23,6 +24,7 @@ public class SupplyMonster_Item : MonoBehaviour
     Material mat;
     private void Start()
     {
+
         itemdirector_object = GameObject.Find("ItemDirector");
         itemdirector = itemdirector_object.GetComponent<ItemDirector>();
         common_supplylist = itemdirector.itemList.Common_Supply_ItemList;
@@ -33,7 +35,16 @@ public class SupplyMonster_Item : MonoBehaviour
         bounceFlag = false;
         mat = GetComponent<SpriteRenderer>().material;
 
-        Choice_Item();
+        if (MissionMaterialFlag)
+        {
+            //Item = 
+            mat.SetColor("_SolidOutline", Color.green);
+        }
+        else
+        {
+            Choice_Item();
+        }
+
         SupplyItem_Position = new Vector2(transform.position.x ,MonsterDirector.MinPos_Ground.y + 0.25f);
     }
     private void FixedUpdate()
@@ -110,5 +121,11 @@ public class SupplyMonster_Item : MonoBehaviour
             useitemScript.Get_SupplyItem(Item.Num);
             Destroy(gameObject);
         }
+    }
+
+    public void ChangeMaterial(ItemDataObject _item)
+    {
+        MissionMaterialFlag = true;
+        Item = _item;
     }
 }
