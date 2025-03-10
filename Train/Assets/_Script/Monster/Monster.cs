@@ -33,6 +33,7 @@ public class Monster : MonoBehaviour
     public bool Monster_Mission_MaterialFlag = false;
     public bool Monster_Mission_CountFlag = false;
     bool spawnMaterialFlag = false;
+    [SerializeField]
     ItemDataObject material_Item = null;
     GameObject MaterialObject;
     [SerializeField]
@@ -184,7 +185,7 @@ public class Monster : MonoBehaviour
     {
         if (Monster_Mission_MaterialFlag)
         {
-            if(Monster_HP <= 0 && !spawnMaterialFlag)
+            if(Monster_HP <= 0 && !spawnMaterialFlag && Monster_Num != 1)
             {
                 if (Random.Range(0, 101)<= material_drop)
                 {

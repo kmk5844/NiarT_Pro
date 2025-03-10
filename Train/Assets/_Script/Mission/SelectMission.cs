@@ -35,6 +35,7 @@ public class SelectMission : MonoBehaviour
     public MissionEscort_State M_Escort;
     public MissionConvoy_State M_Convoy;
     public MissionBoss_State M_Boss;
+    public MissionEvent_Flag M_Event;
 
     public int monsterCount;
     public int bossCount;
@@ -316,6 +317,35 @@ public class SelectMission : MonoBehaviour
         {
             BossNum = _num;
             BossCount = _count;
+        }
+    }
+
+    [Serializable]
+    public struct MissionEvent_Flag
+    {
+        public bool EventFlag;
+        public bool TreasureFlag;
+
+        public void Flag_ON(int i)
+        {
+            EventFlag = true;
+            switch (i)
+            {
+                case 0: 
+                    TreasureFlag = true;
+                    break;
+            }
+        }
+
+        public void Flag_OFF(int i)
+        {
+            EventFlag = false;
+            switch (i)
+            {
+                case 0:
+                    TreasureFlag = false;
+                    break;
+            }
         }
     }
 

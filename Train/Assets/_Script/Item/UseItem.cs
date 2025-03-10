@@ -13,6 +13,7 @@ public class UseItem : MonoBehaviour
     public MercenaryDirector mercenaryDirector;
     public MonsterDirector monsterDirector;
     public UIDirector uiDirector;
+    public MissionDirector missionDirector;
 
     private void Start()
     {
@@ -208,12 +209,29 @@ public class UseItem : MonoBehaviour
             case 67:
             case 68:
             case 69:
-            case 70:
                 coolTime_Flag = false;
                 if (!uiDirector.GetItemList_Num.Contains(num))
                 {
                     uiDirector.GetItemList_Num.Add(num);
                 }
+                itemList.Item[num].Item_Count_UP();
+                break;
+            case 70:
+            case 71:
+            case 72:
+            case 73:
+            case 74:
+            case 75:
+            case 76:
+            case 77:
+            case 78:
+            case 79:
+                coolTime_Flag = false;
+                if (!uiDirector.GetItemList_Num.Contains(num))
+                {
+                    uiDirector.GetItemList_Num.Add(num);
+                }
+                missionDirector.MaterialCount();
                 itemList.Item[num].Item_Count_UP();
                 break;
         }

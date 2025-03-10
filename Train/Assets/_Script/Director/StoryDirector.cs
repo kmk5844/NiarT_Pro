@@ -16,7 +16,6 @@ public class StoryDirector : MonoBehaviour
     private SA_LocalData sa_localdata;
 
     public AudioClip StoryBGM; 
-
     public Transform Canvas;
     [SerializeField]
     private Button SkipButton;
@@ -47,37 +46,22 @@ public class StoryDirector : MonoBehaviour
     public Transform BackLog_Content;
     public GameObject BackLog_Object;
     public GameObject Option_Window;
-
     public Image BackGround_Image;
-
-    private void Update()
-    {
-        if(Input.GetKeyUp(KeyCode.Escape))
-        {
-            if (!Option_Flag && !BackLog_Flag)
-            {
-                Click_Option_Button();
-            }
-            else if (Option_Flag && !BackLog_Flag)
-            {
-                Click_Option_Back_Button();
-            }
-
-            if (BackLog_Flag)
-            {
-                Click_BackLog_Back_Button();
-            }
-        }
-    }
 
     private void Awake()
     {
-        int index = SA_PlayerData.Story_Num;
+        int index = 0;
+        GameObject Branch = null;
+
+        Debug.Log("스토리 진행");
+        index = SA_PlayerData.Story_Num;
         //int index = EX_StoryData.Story_Branch.FindIndex(x => x.Stage_Index.Equals(SA_PlayerData.New_Stage));
         int Branch_Value = EX_StoryData.Story_Branch[index].Branch_Index;
         BackGround_Image.sprite = Resources.Load<Sprite>("Story/BackGround/" + EX_StoryData.Story_Branch[index].BackGround);
-        GameObject Branch = BranchList[Branch_Value]; // stageNum에 따라 Branch 값을 가져온다.
+        Branch = BranchList[Branch_Value]; // stageNum에 따라 Branch 값을 가져온다.
         Branch.GetComponent<DialogSystem>().Story_Init(gameObject, SA_PlayerData.New_Stage, Branch_Value);
+
+
         GameObject Branch_Canvas = Instantiate(Branch, Canvas);
         Branch_Canvas.transform.SetSiblingIndex(1);
         branch_DialogSystem = Branch_Canvas.GetComponent<DialogSystem>();
@@ -164,6 +148,27 @@ public class StoryDirector : MonoBehaviour
         OptionExit.callback.AddListener((data) => { OnOptionExit(); });
         OptionTrigger.triggers.Add(OptionExit);
     }
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            if (!Option_Flag && !BackLog_Flag)
+            {
+                Click_Option_Button();
+            }
+            else if (Option_Flag && !BackLog_Flag)
+            {
+                Click_Option_Back_Button();
+            }
+
+            if (BackLog_Flag)
+            {
+                Click_BackLog_Back_Button();
+            }
+        }
+    }
+
+
     private void OnSkipButtonEnter()
     {
         skipHit_Flag = true;

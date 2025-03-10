@@ -13,6 +13,12 @@ public class DialogSystem : MonoBehaviour
 	private GameObject StoryDirector_Objcet;
 	StoryDirector storydirector;
 
+
+    public bool SpecialFlag;
+    private GameObject SelectDirector_Object;
+    SelectMission selectMission;
+    SelectMission.MissionEvent_Flag eventFlag;
+
     private bool SkipHit_Flag;
     private bool AutoHit_Flag;
     private bool BackHit_Flag;
@@ -45,8 +51,20 @@ public class DialogSystem : MonoBehaviour
 
     private void Awake()
 	{
-        storydirector = StoryDirector_Objcet.GetComponent<StoryDirector>();
-		delay = storydirector.delayTime;
+        if(StoryDirector_Objcet != null)
+        {
+            SpecialFlag = false;
+            storydirector = StoryDirector_Objcet.GetComponent<StoryDirector>();
+		    delay = storydirector.delayTime;
+        }
+        else
+        {
+            SpecialFlag = true;
+            SelectDirector_Object = GameObject.Find("SelectMission");
+            selectMission = SelectDirector_Object.GetComponent<SelectMission>();
+            eventFlag = selectMission.M_Event;
+            delay = 1;
+        }
         Check_Local();
 
 /*        int index = 0;
@@ -81,13 +99,16 @@ public class DialogSystem : MonoBehaviour
 
     private void Update()
     {
-        SkipHit_Flag = storydirector.skipHit_Flag;
-        AutoHit_Flag = storydirector.toggleHit_Flag;
-        BackHit_Flag = storydirector.backHit_Flag;
-        OptionHit_Flag = storydirector.optionHit_Flag;
-        Auto_Flag = storydirector.Auto_Flag;
-        Back_Flag = storydirector.BackLog_Flag;
-        Option_Flag = storydirector.Option_Flag;
+        if(storydirector != null)
+        {
+            SkipHit_Flag = storydirector.skipHit_Flag;
+            AutoHit_Flag = storydirector.toggleHit_Flag;
+            BackHit_Flag = storydirector.backHit_Flag;
+            OptionHit_Flag = storydirector.optionHit_Flag;
+            Auto_Flag = storydirector.Auto_Flag;
+            Back_Flag = storydirector.BackLog_Flag;
+            Option_Flag = storydirector.Option_Flag;
+        }
     }
 
     public void Story_Init(GameObject StoryDirector_Object, int StageNum, int Branch)
@@ -135,7 +156,11 @@ public class DialogSystem : MonoBehaviour
                     // 대사가 완료되었을 때 출력되는 커서 활성화
                     speakers[currentSpeakerIndex].objectArrow.SetActive(true);
 
-                    storydirector.Instantiate_BackLog(currentDialogIndex);
+
+                    if (!SpecialFlag)
+                    {
+                        storydirector.Instantiate_BackLog(currentDialogIndex);
+                    }
 
                     return false;
                 }
@@ -257,50 +282,95 @@ public class DialogSystem : MonoBehaviour
 		// 대사가 완료되었을 때 출력되는 커서 활성화
 		speakers[currentSpeakerIndex].objectArrow.SetActive(true);
 
-        storydirector.Instantiate_BackLog(currentDialogIndex);
-
+        if (!SpecialFlag)
+        {
+            storydirector.Instantiate_BackLog(currentDialogIndex);
+        }
     }
 
     public void Get_Dialogs()
 	{
-		storydirector.BackLog = dialogs;
-	}
+        if (!SpecialFlag)
+        {
+            storydirector.BackLog = dialogs;
+
+        } 
+    }
 
 	public void Check_Local()
 	{
         int index = 0;
         DialogData _data = new DialogData();
-        for (int i = 0; i < EX_Story.Story.Count; i++)
+
+        if (!SpecialFlag)
         {
-            if (EX_Story.Story[i].branch == branch && EX_Story.Story[i].Stage_Num == stageNum)
+            for (int i = 0; i < EX_Story.Story.Count; i++)
             {
-                //0 -> 기본(영어) , 1 -> 한글 , 2 -> 일본
-                _data.speakerIndex = EX_Story.Story[i].Speaker_Index;
-                if (SA_Local.Local_Index == 1)
+                if (EX_Story.Story[i].branch == branch && EX_Story.Story[i].Stage_Num == stageNum)
                 {
-                    _data.name = EX_Story.Story[i].ko_name;
-                    _data.dialogue = EX_Story.Story[i].ko_dialog;
+                    //0 -> 기본(영어) , 1 -> 한글 , 2 -> 일본
+                    _data.speakerIndex = EX_Story.Story[i].Speaker_Index;
+                    if (SA_Local.Local_Index == 1)
+                    {
+                        _data.name = EX_Story.Story[i].ko_name;
+                        _data.dialogue = EX_Story.Story[i].ko_dialog;
+                    }
+                    else if (SA_Local.Local_Index == 0)
+                    {
+                        _data.name = EX_Story.Story[i].en_name;
+                        _data.dialogue = EX_Story.Story[i].en_dialog;
+                    }
+                    else if (SA_Local.Local_Index == 2)
+                    {
+                        _data.name = EX_Story.Story[i].jp_name;
+                        _data.dialogue = EX_Story.Story[i].jp_dialog;
+                    }
+                    _data.backLog_Color = EX_Story.Story[i].BackLog_Color;
+                    _data.Sound = EX_Story.Story[i].Sound;
+                    _data.Player_Animation = EX_Story.Story[i].Player_Animation;
+                    _data.ChatBox_Animation = EX_Story.Story[i].ChatBox_Animation;
+                    _data.Sprite = EX_Story.Story[i].Sprite;
+                    _data.etc = EX_Story.Story[i].Etc;
+                    dialogs.Add(_data);
+                    index++;
                 }
-                else if (SA_Local.Local_Index == 0)
-                {
-                    _data.name = EX_Story.Story[i].en_name;
-                    _data.dialogue = EX_Story.Story[i].en_dialog;
-                }
-                else if (SA_Local.Local_Index == 2)
-                {
-                    _data.name = EX_Story.Story[i].jp_name;
-                    _data.dialogue = EX_Story.Story[i].jp_dialog;
-                }
-                _data.backLog_Color = EX_Story.Story[i].BackLog_Color;
-                _data.Sound = EX_Story.Story[i].Sound;
-                _data.Player_Animation = EX_Story.Story[i].Player_Animation;
-                _data.ChatBox_Animation = EX_Story.Story[i].ChatBox_Animation;
-                _data.Sprite = EX_Story.Story[i].Sprite;
-                _data.etc = EX_Story.Story[i].Etc;
-                dialogs.Add(_data);
-                index++;
             }
         }
+        else
+        {
+            for(int i = 0; i < EX_Story.Special_Story.Count; i++)
+            {
+                if (EX_Story.Special_Story[i].branch == branch && EX_Story.Special_Story[i].Specail_Num == stageNum)
+                {
+                    //0 -> 기본(영어) , 1 -> 한글 , 2 -> 일본
+                    _data.speakerIndex = EX_Story.Special_Story[i].Speaker_Index;
+                    if (SA_Local.Local_Index == 1)
+                    {
+                        _data.name = EX_Story.Special_Story[i].ko_name;
+                        _data.dialogue = EX_Story.Special_Story[i].ko_dialog;
+                    }
+                    else if (SA_Local.Local_Index == 0)
+                    {
+                        _data.name = EX_Story.Special_Story[i].en_name;
+                        _data.dialogue = EX_Story.Special_Story[i].en_dialog;
+                    }
+                    else if (SA_Local.Local_Index == 2)
+                    {
+                        _data.name = EX_Story.Special_Story[i].jp_name;
+                        _data.dialogue = EX_Story.Special_Story[i].jp_dialog;
+                    }
+                    _data.backLog_Color = EX_Story.Special_Story[i].BackLog_Color;
+                    _data.Sound = EX_Story.Special_Story[i].Sound;
+                    _data.Player_Animation = EX_Story.Special_Story[i].Player_Animation;
+                    _data.ChatBox_Animation = EX_Story.Special_Story[i].ChatBox_Animation;
+                    _data.Sprite = EX_Story.Special_Story[i].Sprite;
+                    _data.etc = EX_Story.Special_Story[i].Etc;
+                    dialogs.Add(_data);
+                    index++;
+                }
+            }
+        }
+
     }
 
     private void CheckCustom()

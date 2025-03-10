@@ -8,4 +8,5 @@ public class Story_DataTable : ScriptableObject
 {
 	public List<Story_Branch_Entity> Story_Branch;
 	public List<Story_Entity> Story; // Replace 'EntityType' to an actual type that is serializable.
+	public List<SpecialStory_Entity> Special_Story; // Replace 'EntityType' to an actual type that is serializable.
 }

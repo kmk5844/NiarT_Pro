@@ -122,6 +122,7 @@ public class MissionDirector : MonoBehaviour
             case MissionType.Destination:
                 break;
             case MissionType.Material:
+                selectmission.materialCount += materialCount;
                 //몬스터 재료
                 break;
             case MissionType.Monster:

@@ -236,11 +236,10 @@ public class MonsterDirector : MonoBehaviour
             string monster_name = EX_GameData.Information_Monster[Monster_Num].Monster_Name;
             _Monster = Resources.Load<GameObject>("Monster/" + Monster_Num+ "_"+ monster_name);
             
-            if(missionFlag_material)
+            if(missionFlag_material) // 보급 번호
             {
                 _Monster.GetComponent<Monster>().Monster_Mission_MaterialFlag = true;
                 _Monster.GetComponent<Monster>().SettingMission_Material_Monster(missionMaterial_Item, missionMaterial_Drop);
-
             }
 
             if (missionFlag_monster)

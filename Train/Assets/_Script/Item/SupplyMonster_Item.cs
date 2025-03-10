@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class SupplyMonster_Item : MonoBehaviour
 {
+    public bool SpawnMonster;
     public bool MissionMaterialFlag;
     GameObject itemdirector_object;
     ItemDirector itemdirector;
@@ -24,7 +25,6 @@ public class SupplyMonster_Item : MonoBehaviour
     Material mat;
     private void Start()
     {
-
         itemdirector_object = GameObject.Find("ItemDirector");
         itemdirector = itemdirector_object.GetComponent<ItemDirector>();
         common_supplylist = itemdirector.itemList.Common_Supply_ItemList;
@@ -37,8 +37,14 @@ public class SupplyMonster_Item : MonoBehaviour
 
         if (MissionMaterialFlag)
         {
-            //Item = 
-            mat.SetColor("_SolidOutline", Color.green);
+            if (!SpawnMonster)
+            {
+                mat.SetColor("_SolidOutline", Color.green);
+            }
+            else
+            {
+                Choice_Item();
+            }
         }
         else
         {
