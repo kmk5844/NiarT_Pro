@@ -158,6 +158,19 @@ public class SA_PlayerData : ScriptableObject
         Save();
     }
 
+    public void SA_Loss_Coin_Persent(int persent)
+    {
+        coin -= coin * (persent / 100);
+        Save();
+    }
+
+    public void SA_Loss_HP_Persent(int persent)
+    {
+        int curret_hp = ES3.Load<int>("Player_Curret_HP");
+        int hp = curret_hp - curret_hp * (persent / 100);
+        ES3.Save<int>("Player_Curret_HP", hp);
+    }
+
 /*    public void SA_Use_Point(int R_Point)
     {
         point -= R_Point;

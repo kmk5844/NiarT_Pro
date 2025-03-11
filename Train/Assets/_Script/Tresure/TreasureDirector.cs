@@ -13,25 +13,30 @@ public class TreasureDirector : MonoBehaviour
     public SA_ItemList itemlist;
     int RewardCount;
     int count;
+    int mouseClickCount;
 
     [Header("---------UI--------")]
     public GameObject TreasureWindow;
     public Image RewardImage;
     public TextMeshProUGUI RewardText;
-    public GameObject OpenButton;
+    //public GameObject OpenButton;
     public GameObject TotalReward;
     public GameObject[] TotalRewardList;
-
+    public GameObject NextButton;
+    public GameObject SelectStage;
 
     [Header("---------Sprite---------")]
     public Sprite GoldSprite;
+    public Sprite FailSprite;
 
     bool startFlag = false;
+    bool treasureFlag = false;
 
     List<int> List_RandomReward;
-
     List<int> List_Gold;
     List<ItemDataObject> List_Item;
+    int goldCount;
+    int itemCount;
 
     private void Awake()
     {
@@ -55,11 +60,24 @@ public class TreasureDirector : MonoBehaviour
             StartEvent();
             startFlag = true;
         }
+
+        if (Input.GetMouseButtonDown(0) && treasureFlag)
+        {
+            if(mouseClickCount < 5)
+            {
+                mouseClickCount++;
+            }
+            else
+            {
+                OpenTreasure();
+            }
+        }
     }
 
     private void StartEvent()
     {
         TreasureWindow.SetActive(true);
+        treasureFlag = true;
     }
 
     private void RandomReward()
@@ -89,27 +107,29 @@ public class TreasureDirector : MonoBehaviour
             }
             else if (Random_1 >= 80 && Random_1 < 101)
             {
-                Debug.Log("꽝");
                 List_RandomReward.Add(2);
-                //아이템
-                //0골드
-                //현재 체력 -1%
-                //현재 체력 -3%
-                //현재 체력 -5%
-                //골드 -1%
-                //골드 -3%
-                //골드 -5%
-                //현재 기차 체력 -1%
-                //현재 기차 체력 -3%
-                //현재 기차 체력 -5%
+                int failReward = Random.Range(0, 3);
+                if(failReward == 0){
+                    List_Gold.Add(0);
+                    List_RandomReward.Add(0);
+                }else if(failReward == 1)
+                {
+                    List_RandomReward.Add(2);
+                    playerData.SA_Loss_HP_Persent(5);
+                }else if(failReward == 2)
+                {
+                    List_RandomReward.Add(3);
+                    playerData.SA_Loss_Coin_Persent(5);
+                }
             }
         }
     }
     
     public void OpenTreasure()
     {
-        OpenButton.SetActive(false);
-        count = 0; 
+        treasureFlag = false;
+        //OpenButton.SetActive(false);
+        count = 0;
         StartCoroutine(Open());
     }
 
@@ -131,6 +151,8 @@ public class TreasureDirector : MonoBehaviour
         else
         {
             TotalReward.SetActive(true);
+            yield return new WaitForSeconds(0.3f);
+            NextButton.SetActive(true);
         }
     }
 
@@ -138,16 +160,37 @@ public class TreasureDirector : MonoBehaviour
     {
         if (List_RandomReward[count] == 0)
         {
-            RewardText.text = "Gold";
+            RewardImage.sprite = GoldSprite;
+            TotalRewardList[count].GetComponent<Image>().sprite = GoldSprite;
+            RewardText.text = List_Gold[goldCount] + "G";
+            playerData.SA_Get_Coin(List_Gold[goldCount]);
+            goldCount++;
         }
         else if (List_RandomReward[count] == 1)
         {
-            RewardText.text = "Item";
-
-        }else if (List_RandomReward[count] == 2)
+            RewardImage.sprite = List_Item[itemCount].Item_Sprite;
+            TotalRewardList[count].GetComponent<Image>().sprite = List_Item[itemCount].Item_Sprite;
+            RewardText.text = List_Item[itemCount].Item_Name;
+            List_Item[itemCount].Item_Count_UP();
+            itemCount++;
+        }
+        else if (List_RandomReward[count] == 2)
         {
-            RewardText.text = "Fail";
+            RewardImage.sprite = FailSprite;
+            TotalRewardList[count].GetComponent<Image>().sprite = FailSprite;
+            RewardText.text = "HP -5%";
+        }
+        else if (List_RandomReward[count]== 3)
+        {
+            RewardImage.sprite = FailSprite;
+            TotalRewardList[count].GetComponent<Image>().sprite = FailSprite;
+            RewardText.text = "Gold -5%";
         }
         TotalRewardList[count].SetActive(true);
+    }
+
+    public void Click_NextButton()
+    {
+        SelectStage.SetActive(true);
     }
 }
