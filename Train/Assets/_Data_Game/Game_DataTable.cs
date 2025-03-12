@@ -16,4 +16,5 @@ public class Game_DataTable: ScriptableObject
 	public List<Info_Mercenary> Information_Mercenary; // Replace 'EntityType' to an actual type that is serializable.
 	public List<Info_Item> Information_Item; // Replace 'EntityType' to an actual type that is serializable.
 	public List<Info_Scene> Information_Scene;
+	public List<Info_FoodCard> Information_FoodCard;
 }
