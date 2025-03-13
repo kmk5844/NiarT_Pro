@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +14,7 @@ public class FoodDirector : MonoBehaviour
 
     [Header("---------Data-------")]
     public Game_DataTable EX_GameData;
+    public SA_PlayerData playerData;
 
     [Header("--------UI-------")]
     public GameObject FoodWindow;
@@ -26,6 +28,12 @@ public class FoodDirector : MonoBehaviour
     public List<Button> ButtonList;
     int choiceCardNum;
 
+    [Header("--------Gold--------")]
+    public TextMeshProUGUI Player_GoldText;
+    public TextMeshProUGUI Reroll_GoldText;
+    bool Reroll_Active_Flag;
+    int Reroll_Gold;
+
     [Header("--------Food---------")]
     public List<int> Common_FoodList;
     public List<int> Rare_FoodList;
@@ -33,13 +41,16 @@ public class FoodDirector : MonoBehaviour
     public List<int> Legendary_FoodList;
     public List<int> Mythic_FoodList;
 
+    [Header("--------SubSelect--------")]
+    public GameObject SubSelectStage;
+
     Dictionary<string, int> lootTable = new Dictionary<string, int>()
     {
-        {"Common", 70 },
-        {"Rare", 24 },
-        {"Epic",3 },
-        {"Legendary", 2 },
-        {"Mythic",1 }
+        {"Common", 60 },
+        {"Rare", 20 },
+        {"Epic",10 },
+        {"Legendary", 7 },
+        {"Mythic", 3 }
     };
 
 
@@ -51,9 +62,23 @@ public class FoodDirector : MonoBehaviour
 
     private void Start()
     {
-        RerollButton.interactable = false;
         ChoiceButton.SetActive(false);
         FoodWindow.SetActive(false);
+        SubSelectStage.SetActive(false);
+
+        Player_GoldText.text = playerData.Coin + "G";
+        Reroll_Gold = 2000;
+        Reroll_GoldText.text = Reroll_Gold + "G";
+        if (playerData.Coin >= Reroll_Gold)
+        {
+            Reroll_Active_Flag = true;
+        }
+        else
+        {
+            Reroll_Active_Flag = false;
+        }
+        RerollButton.interactable = false;
+
         Check_FoodRarity();
         RandomCard(false);
     }
@@ -95,11 +120,9 @@ public class FoodDirector : MonoBehaviour
             int currentWeight = 0;
             string rarity = "";
 
-            Debug.Log(randomValue);
             foreach(var item in lootTable)
             {
                 currentWeight += item.Value;
-                Debug.Log(currentWeight);
                 if(randomValue <= currentWeight)
                 {
                     rarity = item.Key;
@@ -151,10 +174,7 @@ public class FoodDirector : MonoBehaviour
             button.interactable = false;
         }
 
-        if (!RerollButton.interactable)
-        {
-            RerollButton.interactable = true;
-        }
+        RerollButton.interactable = Reroll_Active_Flag;
 
         if (!ChoiceButton.activeSelf)
         {
@@ -165,8 +185,25 @@ public class FoodDirector : MonoBehaviour
 
     public void Click_RerollButton()
     {
+
+        playerData.SA_Buy_Coin(Reroll_Gold);
         RandomCard(true);
-        if(ChoiceButton.activeSelf)
+
+        Player_GoldText.text = playerData.Coin + "G";
+        Reroll_Gold += 2000;
+        Reroll_GoldText.text = Reroll_Gold + "G";
+        if (playerData.Coin >= Reroll_Gold)
+        {
+            Reroll_Active_Flag = true;
+        }
+        else
+        {
+            Reroll_Active_Flag = false;
+        }
+        RerollButton.interactable = false;
+
+
+        if (ChoiceButton.activeSelf)
         {
             ChoiceButton.SetActive(false);
         }
@@ -174,7 +211,8 @@ public class FoodDirector : MonoBehaviour
 
     public void Click_ChoiceButton()
     {
-
+        playerData.SA_ChoiceFood(choiceCardNum);
+        SubSelectStage.SetActive(true);
     }
 
     private void Check_FoodRarity()

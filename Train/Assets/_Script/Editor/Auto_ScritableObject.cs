@@ -420,7 +420,6 @@ public class Auto_ScritableObject : EditorWindow
             SA_MissionData_.Add_List(Q_Mon.Stage_Num, 2, questObject);
         }
 
-
         foreach (Info_Q_Information Q_Esc in Q_Escort)
         {
             MissionDataObject questObject = ScriptableObject.CreateInstance<MissionDataObject>();
@@ -522,8 +521,8 @@ public class Auto_ScritableObject : EditorWindow
                 return SubStageType.HardCore;
             case "Boss":
                 return SubStageType.Boss;
-            case "Oasis":
-                return SubStageType.Oasis;
+            case "Food":
+                return SubStageType.Food;
             case "Treasure":
                 return SubStageType.Treasure;
             case "Store":

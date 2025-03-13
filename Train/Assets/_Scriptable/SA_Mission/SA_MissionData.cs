@@ -32,7 +32,7 @@ public class SA_MissionData : ScriptableObject
     {
         stagelist.Clear();
         mainstage_clearflag.Clear();
-        for (int i = 0; i < maxStage; i++)
+        for (int i = -1; i < maxStage-1; i++)
         {
             MissionList newMissionList = new MissionList
             {
@@ -52,7 +52,6 @@ public class SA_MissionData : ScriptableObject
     public void Add_List(int MainStageNum, int missionNum, MissionDataObject mission)
     {
         var missionList = stagelist.Find(x => x.mainstageNum == MainStageNum);
-
         if(missionList.mainstageNum == MainStageNum)
         {
             if(missionNum == 0)

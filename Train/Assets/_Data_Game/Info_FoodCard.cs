@@ -6,6 +6,7 @@ public class Info_FoodCard
     public string Image;
     public string Story;
     public string Information;
+    public int Maintain;
     public int HP;
     public string State;
     public string Rarity;

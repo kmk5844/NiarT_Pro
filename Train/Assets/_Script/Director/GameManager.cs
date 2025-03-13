@@ -33,11 +33,9 @@ public class GameManager : MonoBehaviour
         }
     }
     #endregion
-
     public bool Demo;
     public Game_DataTable gameData;
     public Story_DataTable storyData;
-
     public SA_PlayerData PlayerData;
     public SA_LocalData LocalData;
     public SA_StoryLIst StoryData;
@@ -60,26 +58,20 @@ public class GameManager : MonoBehaviour
         cursorOrigin = Resources.Load<Texture2D>("Cursor/Origin6464");
         cursorHotspot_Origin = Vector2.zero;
         Cursor.SetCursor(cursorOrigin, cursorHotspot_Origin, CursorMode.Auto);
-        if (Demo)
+
+        if (!ES3.KeyExists("SA_PlayerData_Data_FirstFlag"))
         {
             DataManager.Instance.Init();
         }
         else
         {
-            if (!ES3.KeyExists("SA_PlayerData_Data_FirstFlag"))
+            try
+            {
+                DataManager.Instance.Load();
+            }
+            catch
             {
                 DataManager.Instance.Init();
-            }
-            else
-            {
-                try
-                {
-                    DataManager.Instance.Load();
-                }
-                catch
-                {
-                    DataManager.Instance.Init();
-                }
             }
         }
 
@@ -94,39 +86,19 @@ public class GameManager : MonoBehaviour
 
     public void Update()
     {
-        if (Demo)
+        if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-            if (Input.GetKeyDown(KeyCode.Alpha0))
+            if (Time.timeScale == 0)
             {
-                if (Time.timeScale == 0)
-                {
-                    Time.timeScale = 1;
-                }
-
-                if (GameObject.Find("SelectMission"))
-                {
-                    GameObject gm = GameObject.Find("SelectMission");
-                    Destroy(gm);
-                }
-                Game_Reset();
+                Time.timeScale = 1;
             }
-        }
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha0))
+
+            if (GameObject.Find("SelectMission"))
             {
-                if (Time.timeScale == 0)
-                {
-                    Time.timeScale = 1;
-                }
-
-                if (GameObject.Find("SelectMission"))
-                {
-                    GameObject gm = GameObject.Find("SelectMission");
-                    Destroy(gm);
-                }
-                Game_Reset();
+                GameObject gm = GameObject.Find("SelectMission");
+                Destroy(gm);
             }
+            Game_Reset();
         }
     }
 

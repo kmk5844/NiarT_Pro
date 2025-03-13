@@ -244,12 +244,20 @@ public class SelectMission : MonoBehaviour
         }
         playerData.SA_Get_Coin(MissionReward);
         MissionEnd(MissionType);
+        if (playerData.EventFlag)
+        {
+            playerData.SA_EventFlag_Off();
+        }
         Destroy(this.gameObject);
     }
 
     public void Mission_Fail()
     {
         MissionEnd(MissionType);
+        if (playerData.EventFlag)
+        {
+            playerData.SA_EventFlag_Off();
+        }
         Destroy(this.gameObject);
     }
 

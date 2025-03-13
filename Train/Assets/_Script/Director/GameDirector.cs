@@ -188,13 +188,27 @@ public class GameDirector : MonoBehaviour
 
     //아이템부분
     bool ItemFlag_14; // 골드 2배
+
+    [Header("음식 이벤트")]
+    public bool FoodEffect_Flag_Positive;
+    public bool FoodEffect_Flag_Impositive;
+
     void Awake()
     {
         gameType = GameType.Starting;
 
-        Mission_Num = SA_PlayerData.Mission_Num;
-        Stage_Num = SA_PlayerData.Select_Stage;
+        if (GameManager.Instance.Demo)
+        {
+            Mission_Num = 0;
+            Stage_Num = -1;
+        }
+        else
+        {
+            Mission_Num = SA_PlayerData.Mission_Num;
+            Stage_Num = SA_PlayerData.Select_Stage;
+        }
         Select_Sub_Num = SA_PlayerData.Select_Sub_Stage;
+
         /*        Mission_Num = 0;
                 Stage_Num = 0;
                 Select_Sub_Num = 1;
@@ -266,7 +280,6 @@ public class GameDirector : MonoBehaviour
                 monsterDirector.SupplyMonster_List.gameObject.SetActive(false);
             }
         }
-
     }
 
     private void Start()
@@ -281,6 +294,24 @@ public class GameDirector : MonoBehaviour
         if (!Test_Flag)
         {
             Instantiate(MiniTurretObject, new Vector2(Random_Turret_X, -0.58f), Quaternion.identity);
+        }
+
+        if (FoodEffect_Flag_Positive)
+        {
+            MaxSpeed += ((MaxSpeed * 5) / 100); // 많을 수록 유리
+            Debug.Log(Efficient);
+            Efficient -= (Efficient / 2); // 적을 수록 유리
+            Debug.Log(Efficient);
+            timeBet = 0.1f - ((EnginePower+1) * 0.002f);
+        }
+
+        if (FoodEffect_Flag_Impositive)
+        {
+            MaxSpeed -= ((MaxSpeed * 5) / 100); // 많을 수록 유리
+            Debug.Log(Efficient);
+            Efficient += (Efficient / 2); // 적을 수록 유리
+            Debug.Log(Efficient);
+            timeBet = 0.1f - ((EnginePower - 1) * 0.002f);
         }
 
         uiDirector.Gameing_Text(Total_Score, Total_Coin);
@@ -682,7 +713,6 @@ public class GameDirector : MonoBehaviour
     {
         MaxSpeed = TrainMaxSpeed + ((TrainMaxSpeed * Level_MaxSpeed) / 100); // 많을 수록 유리
         MaxSpeed = MaxSpeed - (TrainWeight / 100000); //무게로 인해 speed 감소
-
         Efficient = TrainEfficient - (Level_Efficient / 2); // 적을 수록 유리
         EnginePower = (TrainEnginePower + Level_EngineTier);
     }

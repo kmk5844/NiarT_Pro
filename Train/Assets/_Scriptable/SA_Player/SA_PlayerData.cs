@@ -103,6 +103,19 @@ public class SA_PlayerData : ScriptableObject
     private bool station_tutorial;
     public bool Station_Tutorial {  get { return station_tutorial; } }
 
+    [Header("¿Ã∫•∆Æ")]
+    [SerializeField]
+    private bool eventflag;
+    public bool EventFlag {  get { return eventflag; } }
+
+    [SerializeField]
+    private bool food_heal_flag;
+    public bool Food_Heal_Flag { get { return food_heal_flag; } }
+
+    [SerializeField]
+    private int food_num;
+    public int Food_Num { get { return food_num; } }
+
     public void SA_GameWinReward(bool lastStage, int R_Coin)
     {
         /*
@@ -260,6 +273,26 @@ public class SA_PlayerData : ScriptableObject
         Save();
     }
 
+    public void SA_ChoiceFood(int num)
+    {
+        eventflag = true;
+        food_num = num;
+        Save();
+    }
+
+    public void SA_HealFood()
+    {
+        food_heal_flag = true;
+        Save();
+    }
+
+    public void SA_EventFlag_Off()
+    {
+        eventflag = false;
+        food_heal_flag = false;
+        Save();
+    }
+
     private void Save()
     {
         ES3.Save<bool>("SA_PlayerData_Data_FirstFlag", firstflag);
@@ -276,6 +309,10 @@ public class SA_PlayerData : ScriptableObject
         ES3.Save<int>("SA_PlayerData_Data_Story_Num", story_num);
         ES3.Save<bool>("SA_PlayerData_Data_Station_Tutorial", station_tutorial);
         ES3.Save<bool>("SA_PlayerData_Data_MissionPlaying", mission_playing);
+
+        ES3.Save<bool>("SA_PlayerData_Data_EventFlag", eventflag);
+        ES3.Save<bool>("SA_PlayerData_Data_Food_Heal_Flag", food_heal_flag);
+        ES3.Save<int>("SA_PlayerData_Data_Food_Num", food_num);
     }
 
     public void Load()
@@ -296,6 +333,10 @@ public class SA_PlayerData : ScriptableObject
         story_num = ES3.Load<int>("SA_PlayerData_Data_Story_Num");
         station_tutorial = ES3.Load<bool>("SA_PlayerData_Data_Station_Tutorial");
         mission_playing = ES3.Load<bool>("SA_PlayerData_Data_MissionPlaying");
+
+        eventflag = ES3.Load<bool>("SA_PlayerData_Data_EventFlag");
+        food_heal_flag = ES3.Load<bool>("SA_PlayerData_Data_Food_Heal_Flag");
+        food_num = ES3.Load<int>("SA_PlayerData_Data_Food_Num");
     }
 
     public void Init()
@@ -322,6 +363,9 @@ public class SA_PlayerData : ScriptableObject
             Character_LockOff[i] = false;
         }
         mission_playing = false;
+        eventflag = false;
+        food_heal_flag = false;
+        food_num = 0;
         Save();
     }
 

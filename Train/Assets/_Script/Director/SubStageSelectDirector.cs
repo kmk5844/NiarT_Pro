@@ -45,9 +45,7 @@ public class SubStageSelectDirector : MonoBehaviour
     {
         //itemListData = GetComponent<Station_ItemData>();
         selectNum = -1;
-
         UI_MainStageText.text = "Stage" + (playerData.Select_Stage + 1);
-
         StageInitButton.SetActive(false);
     }
 
@@ -61,9 +59,20 @@ public class SubStageSelectDirector : MonoBehaviour
 
     public void OnEnable()
     {
-        int missionNum = playerData.Mission_Num;
-        int selectStageNum = playerData.Select_Stage;
-        string searchString = playerData.Select_Stage + "," + missionNum;
+        int missionNum = 0;
+        int selectStageNum = 1;
+        if (GameManager.Instance.Demo)
+        {
+            missionNum = 0;
+            selectStageNum = -1;
+        }
+        else
+        {
+            missionNum = playerData.Mission_Num;
+            selectStageNum = playerData.Select_Stage;
+           
+        }
+        string searchString = selectStageNum + "," + missionNum;
         int missionInformation_Num = EX_QuestData.Q_List.FindIndex(x => x.Stage_Mission.Equals(searchString));
 
         UI_MissionInformation.text = EX_QuestData.Q_List[missionInformation_Num].Quest_Information;
@@ -99,17 +108,26 @@ public class SubStageSelectDirector : MonoBehaviour
 
     public void Open_SpecialStage()
     {
+        SpeacialStage_Clear();
+        SpecialStage_LockOff();
         if (SelectSubStageData.SubStage_Type == SubStageType.SimpleStation)
         {
-            SpeacialStage_Clear();
-            SpecialStage_LockOff();
             SceneManager.LoadScene("SimpleStation");
+        }else if(SelectSubStageData.SubStage_Type == SubStageType.Food)
+        {
+            SceneManager.LoadScene("FoodSelect");
+        }
+        else if (SelectSubStageData.SubStage_Type == SubStageType.Treasure)
+        {
+            SceneManager.LoadScene("Treasure");
         }
     }
 
     public void Start_SelectSubStage()
     {
-        if(SelectSubStageData.SubStage_Type != SubStageType.SimpleStation) // 전투
+        if (SelectSubStageData.SubStage_Type != SubStageType.SimpleStation
+            || SelectSubStageData.SubStage_Type != SubStageType.Food
+            || SelectSubStageData.SubStage_Type != SubStageType.Treasure) // 전투
         {
             if (SceneManager.GetActiveScene().name != "CharacterSelect")
             {

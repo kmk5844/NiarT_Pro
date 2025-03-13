@@ -70,6 +70,9 @@ public class SubStage_Select : MonoBehaviour
             case SubStageType.SimpleStation:
                 GetComponent<Image>().sprite = temporarilySprite[4];
                 break;
+            default:
+                GetComponent<Image>().sprite = temporarilySprite[0];
+                break;
         }
 
         if (!missionData.NextStageFlag)

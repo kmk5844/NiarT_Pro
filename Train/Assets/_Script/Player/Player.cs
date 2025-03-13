@@ -113,6 +113,9 @@ public class Player : MonoBehaviour
     int MaxFireCount;
     float ReloadTime;
 
+    [Header("이벤트")]
+    public bool EventFlag;
+    public int FoodNum;
 
     void Start()
     {
@@ -148,6 +151,7 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         Player_Bullet_List = GameObject.Find("Bullet_List").GetComponent<Transform>();
         Level();
+        Check_Food();
         era = 1f - (float)Player_Armor / def_constant;
 
         isHealing = false;
@@ -1048,5 +1052,90 @@ public class Player : MonoBehaviour
 
     public void GameEnd_PlayerSave() {
         ES3.Save<int>("Player_Curret_HP", Player_HP);
+    }
+
+    private void Check_Food()
+    {
+        if (playerData.EventFlag)
+        {
+            FoodNum = playerData.Food_Num;
+            List<Info_FoodCard> Food = gamedirector.EX_GameData.Information_FoodCard;
+
+            int _maintain = Food[FoodNum].Maintain;
+            int _hp = Food[FoodNum].HP;
+            string[] _state = Food[FoodNum].State.Split(',');
+
+            if (!playerData.Food_Heal_Flag)
+            {
+                int healHP = ((Max_HP * _hp) / 100);
+                if (Player_HP + healHP < Max_HP)
+                {
+                    Player_HP += healHP;
+                }
+                else
+                {
+                    Player_HP = Max_HP;
+                }
+                playerData.SA_HealFood();
+            }
+
+            if (_maintain == 0)
+            {
+                playerData.SA_EventFlag_Off();
+            }
+            Check_Food_Effect(_state);
+        }
+    }
+
+    private void Check_Food_Effect(string[] _state)
+    {
+        foreach(string str in _state)
+        {
+            switch(str)
+            {
+                case "0" :
+                    break;
+                case "1" :
+                    //공격력
+                    Bullet_Atk += ((Bullet_Atk * 5) / 100);
+                    Default_Atk = Bullet_Atk;
+                    break;
+                case "2" :
+                    //공격속도, 장전속도
+                    Bullet_Delay -= ((Bullet_Delay * 5) / 100);
+                    ReloadTime -= ((ReloadTime * 5) / 100);
+                    break;
+                case "3" :
+                    //방어력
+                    Player_Armor += ((Player_Armor * 5) / 100);
+                    break;
+                case "4" :
+                    //이동속도
+                    moveSpeed += ((moveSpeed * 5) / 100);
+                    break;
+                case "5":
+                    //기차
+                    gamedirector.FoodEffect_Flag_Positive = true;
+                    break;
+                case "-1" :
+                    Bullet_Atk -= ((Bullet_Atk * 5) / 100);
+                    Default_Atk = Bullet_Atk;
+                    break;
+                case "-2" :
+                    Bullet_Delay += ((Bullet_Delay * 5) / 100);
+                    ReloadTime += ((ReloadTime * 5) / 100);
+                    break;
+                case "-3":
+                    Player_Armor -= ((Player_Armor * 5) / 100);
+                    break;
+                case "-4":
+                    moveSpeed -= ((moveSpeed * 5) / 100);
+                    break;
+                case "-5":
+                    //기차
+                    gamedirector.FoodEffect_Flag_Impositive = true;
+                    break;
+            }
+        }
     }
 }

@@ -147,6 +147,12 @@ public class MissionDataObject : ScriptableObject
             case SubStageType.SimpleStation:
                 readyflag = false;
                 break;
+            case SubStageType.Treasure:
+                readyflag = false;
+                break;
+            case SubStageType.Food:
+                readyflag = false;
+                break;
         }
     }
 }
@@ -157,7 +163,7 @@ public enum SubStageType
     Hard,
     HardCore,
     Boss,
-    Oasis,
+    Food,
     Treasure,
     Store,
     Maintenance,
