@@ -17,8 +17,12 @@ public class Player_Chage : MonoBehaviour
     public GameObject[] Gun;
     public Transform[] FireZone;
 
+    public GameObject Sage_Add_Cloth;
+
     public void ChangePlayer(int num)
     {
+        Sage_Add_Cloth.SetActive(false);
+
         switch (num)
         {
             case 0:
@@ -32,6 +36,7 @@ public class Player_Chage : MonoBehaviour
                 Foot[0].sprite = Peyote_Sprite[1];
                 Foot[1].sprite = Peyote_Sprite[2];
                 Gun[1].SetActive(true);
+                Sage_Add_Cloth.SetActive(true);
                 break;
         }
     }
@@ -49,7 +54,7 @@ public class Player_Chage : MonoBehaviour
                 playerBody[4].sprite = MariGold_Sprite[4]; // Arm_R
                 break;
             case 1:
-                Debug.Log("페요테");
+                Debug.Log("세이지");
                 playerBody[0].sprite = Peyote_Sprite[0]; // Body
                 playerBody[1].sprite = Peyote_Sprite[1]; // Foot_L
                 playerBody[2].sprite = Peyote_Sprite[2]; // Foot_R

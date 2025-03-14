@@ -196,17 +196,25 @@ public class GameDirector : MonoBehaviour
     void Awake()
     {
         gameType = GameType.Starting;
-
-        if (GameManager.Instance.Demo)
+        try
         {
-            Mission_Num = 0;
-            Stage_Num = -1;
+            if (GameManager.Instance.Demo)
+            {
+                Mission_Num = 0;
+                Stage_Num = -1;
+            }
+            else
+            {
+                Mission_Num = SA_PlayerData.Mission_Num;
+                Stage_Num = SA_PlayerData.Select_Stage;
+            }
         }
-        else
+        catch
         {
             Mission_Num = SA_PlayerData.Mission_Num;
             Stage_Num = SA_PlayerData.Select_Stage;
         }
+
         Select_Sub_Num = SA_PlayerData.Select_Sub_Stage;
 
         /*        Mission_Num = 0;
@@ -298,20 +306,17 @@ public class GameDirector : MonoBehaviour
 
         if (FoodEffect_Flag_Positive)
         {
-            MaxSpeed += ((MaxSpeed * 5) / 100); // 많을 수록 유리
-            Debug.Log(Efficient);
-            Efficient -= (Efficient / 2); // 적을 수록 유리
-            Debug.Log(Efficient);
-            timeBet = 0.1f - ((EnginePower+1) * 0.002f);
+            MaxSpeed += ((MaxSpeed * 3) / 100); // 많을 수록 유리
+            Efficient -= ((Efficient * 10) / 100); // 적을 수록 유리
+            timeBet = 0.1f - ((EnginePower+1) * 0.001f);
+
         }
 
         if (FoodEffect_Flag_Impositive)
         {
-            MaxSpeed -= ((MaxSpeed * 5) / 100); // 많을 수록 유리
-            Debug.Log(Efficient);
-            Efficient += (Efficient / 2); // 적을 수록 유리
-            Debug.Log(Efficient);
-            timeBet = 0.1f - ((EnginePower - 1) * 0.002f);
+            MaxSpeed -= ((MaxSpeed * 3) / 100); // 많을 수록 유리
+            Efficient += ((Efficient * 10) / 100); // 적을 수록 유리
+            timeBet = 0.1f - ((EnginePower - 1) * 0.001f);
         }
 
         uiDirector.Gameing_Text(Total_Score, Total_Coin);

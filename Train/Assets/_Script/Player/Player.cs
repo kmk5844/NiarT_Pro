@@ -127,7 +127,7 @@ public class Player : MonoBehaviour
         ani = GetComponent<Animator>();
         isHealing = false;
         jumpFlag = false;
-        jumpdistance = 1f;
+        jumpdistance = 1.3f;
 
         playerBullet = playerData.Bullet;
         Player_HP = playerData.HP;
@@ -498,7 +498,7 @@ public class Player : MonoBehaviour
                 if (!ReloadingFlag)
                 {
                     Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
-                    ani.SetTrigger("Shoot_0");
+                    ani.SetTrigger("Shoot_1");
                     if(FireCount < MaxFireCount)
                     {
                         FireCount++;
@@ -1097,39 +1097,59 @@ public class Player : MonoBehaviour
                     break;
                 case "1" :
                     //공격력
-                    Bullet_Atk += ((Bullet_Atk * 5) / 100);
+                    Debug.Log(Bullet_Atk);
+                    Bullet_Atk += ((Bullet_Atk * 10) / 100);
                     Default_Atk = Bullet_Atk;
+                    Debug.Log(Bullet_Atk);
                     break;
                 case "2" :
                     //공격속도, 장전속도
-                    Bullet_Delay -= ((Bullet_Delay * 5) / 100);
-                    ReloadTime -= ((ReloadTime * 5) / 100);
+                    Debug.Log(Bullet_Delay);
+                    Debug.Log(ReloadTime);
+                    Bullet_Delay -= ((Bullet_Delay * 10) / 100);
+                    ReloadTime -= ((ReloadTime * 10) / 100);
+                    Debug.Log(Bullet_Delay);
+                    Debug.Log(ReloadTime);
                     break;
                 case "3" :
                     //방어력
-                    Player_Armor += ((Player_Armor * 5) / 100);
+                    Debug.Log(Player_Armor);
+                    Player_Armor += ((Player_Armor * 10) / 100);
+                    Debug.Log(Player_Armor);
                     break;
                 case "4" :
                     //이동속도
-                    moveSpeed += ((moveSpeed * 5) / 100);
+                    Debug.Log(moveSpeed);
+                    moveSpeed += ((moveSpeed * 10) / 100);
+                    Debug.Log(moveSpeed);
                     break;
                 case "5":
                     //기차
                     gamedirector.FoodEffect_Flag_Positive = true;
                     break;
                 case "-1" :
-                    Bullet_Atk -= ((Bullet_Atk * 5) / 100);
+                    Debug.Log(Bullet_Atk);
+                    Bullet_Atk -= ((Bullet_Atk * 10) / 100);
                     Default_Atk = Bullet_Atk;
+                    Debug.Log(Bullet_Atk);
                     break;
                 case "-2" :
-                    Bullet_Delay += ((Bullet_Delay * 5) / 100);
-                    ReloadTime += ((ReloadTime * 5) / 100);
+                    Debug.Log(Bullet_Delay);
+                    Debug.Log(ReloadTime);
+                    Bullet_Delay += ((Bullet_Delay * 10) / 100);
+                    ReloadTime += ((ReloadTime * 10) / 100);
+                    Debug.Log(Bullet_Delay);
+                    Debug.Log(ReloadTime);
                     break;
                 case "-3":
-                    Player_Armor -= ((Player_Armor * 5) / 100);
+                    Debug.Log(Player_Armor);
+                    Player_Armor -= ((Player_Armor * 10) / 100);
+                    Debug.Log(Player_Armor);
                     break;
                 case "-4":
-                    moveSpeed -= ((moveSpeed * 5) / 100);
+                    Debug.Log(moveSpeed);
+                    moveSpeed -= ((moveSpeed * 10) / 100);
+                    Debug.Log(moveSpeed);
                     break;
                 case "-5":
                     //기차

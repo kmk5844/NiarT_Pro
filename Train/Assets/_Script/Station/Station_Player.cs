@@ -15,7 +15,7 @@ public class Station_Player : MonoBehaviour
 
     float moveSpeed = 7;
     float jumpSpeed = 8.5f;
-    float jumpdistance = 1f;
+    float jumpdistance = 1.4f;
     float jumpFlagDistance;
 
     bool DoorFlag = false;
@@ -29,7 +29,7 @@ public class Station_Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         ani = GetComponent<Animator>();
         jumpFlag = false;
-        jumpdistance = 1f;
+        jumpdistance = 1.4f;
     }
 
     private void Update()
