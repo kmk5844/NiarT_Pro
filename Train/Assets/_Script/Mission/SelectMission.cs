@@ -29,6 +29,8 @@ public class SelectMission : MonoBehaviour
     public string MissionState;
     [SerializeField]
     public int MissionReward;
+    [SerializeField]
+    public int MissionCoinLosePersent;
 
     public MissionMaterial_State M_Material;
     public MissionMonster_State M_Monster;
@@ -80,6 +82,7 @@ public class SelectMission : MonoBehaviour
         MissionInformation = missionDataTable.Q_List[index].Quest_Information;
         MissionState = missionDataTable.Q_List[index].Quest_State;
         MissionReward = missionDataTable.Q_List[index].Quest_Reward;
+        MissionCoinLosePersent = missionDataTable.Q_List[index].Quest_Fail;
     }
 
     void SetMissionType()

@@ -188,11 +188,11 @@ public class SubStageSelectDirector : MonoBehaviour
 
     public void Yes_MissionCancel()
     {
+        SelectMission gm = GameObject.Find("SelectMission").GetComponent<SelectMission>();
         playerData.SA_MissionPlaying(false);
-        playerData.SA_GameLoseCoin(60f);
+        playerData.SA_GameLoseCoin(gm.MissionCoinLosePersent);
         missionData.SubStage_Lose(stageNum, missionNum);
-        GameObject gm = GameObject.Find("SelectMission");
-        Destroy(gm);
+        Destroy(gm.gameObject);
         SceneManager.LoadScene("Station");
     }
 

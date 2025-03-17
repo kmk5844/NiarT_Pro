@@ -8,8 +8,6 @@ using UnityEngine.Localization;
 using UnityEngine.Localization.Components;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static PixelCrushers.DialogueSystem.ActOnDialogueEvent;
-using static UnityEditor.Progress;
 
 public class PlayerReadyDirector : MonoBehaviour
 {
@@ -18,6 +16,9 @@ public class PlayerReadyDirector : MonoBehaviour
     SA_TrainTurretData sa_trainturretData;
     SA_TrainBoosterData sa_trainBoosterData;
     public SA_MissionData missionData;
+
+    [SerializeField]
+    SelectMission selectMission;
     int stageNum;
     int missionNum;
 
@@ -142,6 +143,14 @@ public class PlayerReadyDirector : MonoBehaviour
         sa_trainBoosterData = trainData.SA_TrainBoosterData;
 
         local_Index = localData.Local_Index;
+        try
+        {
+            selectMission = GameObject.Find("SelectMission").GetComponent<SelectMission>();
+        }
+        catch
+        {
+            Debug.Log("테스트");
+        }
 
         //Train
         Instantiate_Using_Train_List();
@@ -400,7 +409,33 @@ public class PlayerReadyDirector : MonoBehaviour
     {
         Select_TrainNum_1 = TrainNum_1;
         Select_TrainNum_2 = TrainNum_2;
-        Change_ListSlelectFlag(true);
+
+        if(TrainNum_1 == 52)
+        {
+            if (sa_trainData.Train_Num.Contains(52))
+            {
+                Change_ListSlelectFlag(true, 52);// 부스터 기차가 포함되어있는 경우.
+            }
+            else
+            {
+                Change_ListSlelectFlag(true); // 부스터 기차가 포함되어있지 않을 경우.
+            }
+        }
+        else if(TrainNum_1 >= 40 && TrainNum_1 < 50) // 
+        {
+            if (sa_trainData.Train_Num.Contains(TrainNum_1))
+            {
+                Change_ListSlelectFlag(true, TrainNum_1);// 연락 기차가 포함되어있는 경우.
+            }
+            else
+            {
+                Change_ListSlelectFlag(true); // 연락 기차가 포함되어있지 않을 경우.
+            }
+        }
+        else // 기본
+        {
+            Change_ListSlelectFlag(true);
+        }
     }
 
     void Change_TrainData(int index)
@@ -471,11 +506,21 @@ public class PlayerReadyDirector : MonoBehaviour
         }
     }
 
-    void Change_ListSlelectFlag(bool flag)
+    void Change_ListSlelectFlag(bool flag, int num = -1)
     {
         foreach (Ready_Using_TrainList_Object obj in __List__usingtrain)
         {
-            obj.SelectFlag_Change(flag);
+            if(num == -1)
+            {
+                obj.SelectFlag_Change(flag);
+            }
+            else
+            {
+                if(num == obj.TrainNum_1)
+                {
+                    obj.SelectFlag_Change(flag);
+                }
+            }
         }
     }
     
@@ -885,7 +930,7 @@ public class PlayerReadyDirector : MonoBehaviour
     public void Yes_MissionCancel()
     {
         playerData.SA_PlayerData.SA_MissionPlaying(false);
-        playerData.SA_PlayerData.SA_GameLoseCoin(60f);
+        playerData.SA_PlayerData.SA_GameLoseCoin(selectMission.MissionCoinLosePersent);
         missionData.SubStage_Lose(stageNum, missionNum);
         GameObject gm = GameObject.Find("SelectMission");
         Destroy(gm);
@@ -896,5 +941,4 @@ public class PlayerReadyDirector : MonoBehaviour
     {
         UI_CheckStationBackWindow.SetActive(false);
     }
-
 }

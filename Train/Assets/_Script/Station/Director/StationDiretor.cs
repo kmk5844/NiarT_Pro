@@ -248,8 +248,6 @@ public class StationDirector : MonoBehaviour
                     Click_Home_Button();
                 }
             }*/
-
-
         }
     }
 
@@ -670,7 +668,7 @@ public class StationDirector : MonoBehaviour
         if (Station_ItemData.itemChangeFlag)
         {
             Director_Store.Director_Init_ItemSell();
-            //Director_Inventory.Director_Init_Inventory();
+            Director_Inventory.Director_Init_Inventory();
             Director_GameStart.Director_Init_EquipItem();
             if (simplestationFlag)
             {

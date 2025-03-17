@@ -16,7 +16,7 @@ public class Ready_Using_TrainList_Object : MonoBehaviour
     [SerializeField]
     int Sub_Index;
     [SerializeField]
-    int TrainNum_1;
+    public int TrainNum_1;
     [SerializeField]
     int TrainNum_2;
 

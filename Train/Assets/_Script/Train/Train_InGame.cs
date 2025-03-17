@@ -51,7 +51,6 @@ public class Train_InGame : MonoBehaviour
     public string Train_Special;
     public bool Not_DestoryTrain;
 
-
     //의무실
     [Header("의무실")]
     public float Train_Heal;
@@ -81,6 +80,8 @@ public class Train_InGame : MonoBehaviour
     public int UI_Level;
 
     bool LoseFlag;
+
+    SpriteRenderer TrainSprite;
 
     private void Awake()
     {
@@ -155,11 +156,21 @@ public class Train_InGame : MonoBehaviour
         CheckType();
     }
 
+    private void Start()
+    {
+        TrainSprite = GetComponentInChildren<SpriteRenderer>();
+    }
+
     private void Update()
     {
         era = 1f - (float)Train_Armor / def_constant; //만약에 방어력 증가해주는 기관사 타게 된다면 변경 가능성이 큼
         HP_Parsent = (float)Train_HP / (float)Max_Train_HP * 100f;
         //여기서 만약 기차가 파괴 시 쓰면 좋은 함수 (업데이트 문이라면 조심)
+
+        if (HP_Parsent < 50f)
+        {
+            TrainSprite.color = Color.Lerp(Color.white, Color.red, ((100f - (HP_Parsent * 2)) / 100f));
+        }
 
         if (Train_HP <= 0)
         {
@@ -187,9 +198,6 @@ public class Train_InGame : MonoBehaviour
                     }
                     break;
             }
-        }
-
-        if (Train_Type.Equals("Quest")){
         }
 
         if (Train_Type.Equals("Medic"))

@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Localization.Components;
 using PixelCrushers.DialogueSystem;
+using static PixelCrushers.AnimatorSaver;
 
 public class UIDirector : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class UIDirector : MonoBehaviour
     GameDirector gamedirector;
     Player player;
     public SA_ItemList itemList;
+    SA_PlayerData playerData;
 
     [Header("전체적인 UI 오브젝트")]
     public GameObject Game_UI;
@@ -77,9 +79,14 @@ public class UIDirector : MonoBehaviour
 
     [Header("Result UI 관련된 텍스트 및 아이템")]
     public TextMeshProUGUI[] Result_Text_List; //0. Stage, 1. Score, 2. Gold, 3. Rank 4. Point
-    public Image Result_Image; //win or lose
-    public Sprite Result_Win_Image;
-    public Sprite Result_Lose_Image;
+    public GameObject WinWindow;
+    public GameObject LoseWindow;
+    public LocalizeStringEvent LoseText;
+
+    public TextMeshProUGUI missionTitle;
+    public TextMeshProUGUI missionInformation;
+    public TextMeshProUGUI missionReward;
+
 
     [Header("SubSelectStage UI")]
     public GameObject UIObject_SubSelectStage;
@@ -125,6 +132,7 @@ public class UIDirector : MonoBehaviour
         Player_Head.sprite = Player_Head_Sprite[player.PlayerNum];
         gamedirector = GameDirector_Object.GetComponent<GameDirector>();
         Player_Blood_Color = Player_Blood.GetComponent<Image>().color;
+        playerData = gamedirector.SA_PlayerData;
 
         ItemName_Text.StringReference.TableReference = "ItemData_Table_St";
         ItemInformation_Text.StringReference.TableReference = "ItemData_Table_St";
@@ -168,35 +176,43 @@ public class UIDirector : MonoBehaviour
         Distance_Bar.value = gamedirector.Check_Distance();
     }
 
-    public void Open_Result_UI(bool Win, int StageNum, int Score, int Coin, /*string Score_Grade,*/ int Point, int LoseNum = -1)
+    public void Open_Result_UI(bool Win, int Score, int Coin, SelectMission mission, int LoseNum = -1)
     {
-        Result_Text_List[0].text = (StageNum + 1).ToString();
-        Result_Text_List[1].text = Score.ToString(); // + "점";
-        Result_Text_List[2].text = Coin.ToString(); // + "원";
+
+        Result_Text_List[0].text = Score.ToString(); // + "점";
+        Result_Text_List[1].text = Coin + "G"; // + "원";
         if (Win)
         {
-            //Result_Text_List[3].text = Score_Grade;
-            Result_Text_List[4].text = Point.ToString();
-            Result_Text_List[4].gameObject.SetActive(true);
-            Result_Image.sprite = Result_Win_Image;
+            WinWindow.SetActive(true);
+            LoseWindow.SetActive(false);
+
+            Result_Text_List[2].text = mission.MissionReward + "G";
+            Result_Text_List[3].text = "+" + (Coin + mission.MissionReward) + "G";
+
+            missionTitle.text = mission.MissionType.ToString();
+            missionInformation.text = mission.MissionInformation;
+            missionReward.text = mission.MissionReward + "G";
+
+            for (int i = 0; i < GetItemList_Num.Count; i++)
+            {
+                ResultObject _resultobject = GetItemList_Object.GetComponent<ResultObject>();
+                _resultobject.item = itemList.Item[GetItemList_Num[i]];
+                _resultobject.item_tooltip_object = Tooltip_Object;
+                Instantiate(GetItemList_Object, GetItemList_Transform_Result);
+            }
         }
         else
         {
             LoseFlag = true;
             LoseText_Num = LoseNum;
             //LoseNum은 Lose_UI Director에 있다.
+            WinWindow.SetActive(false);
+            LoseWindow.SetActive(true);
 
-            Result_Text_List[3].text = "F";
-            Result_Text_List[4].gameObject.SetActive(false);
-            Result_Image.sprite = Result_Lose_Image;
-        }
-
-        for(int i = 0; i < GetItemList_Num.Count; i++)
-        {
-            ResultObject _resultobject = GetItemList_Object.GetComponent<ResultObject>();
-            _resultobject.item = itemList.Item[GetItemList_Num[i]];
-            _resultobject.item_tooltip_object = Tooltip_Object;
-            Instantiate(GetItemList_Object, GetItemList_Transform_Result);
+            Result_Text_List[2].text = "0G";
+            Result_Text_List[3].text = "-" + (int)(playerData.Coin * (mission.MissionCoinLosePersent / 100f));
+            LoseText.StringReference.TableReference = "InGame_Table_St";
+            LoseText.StringReference.TableEntryReference = "UI_Lose_Text_" + LoseText_Num;
         }
 
         Game_UI.SetActive(false);

@@ -910,7 +910,7 @@ public class GameDirector : MonoBehaviour
                     //Debug.Log("작업 해야됨" + flag);
                     missionDirector.selectmission.Mission_Fail();
                     SA_PlayerData.SA_MissionPlaying(false);
-                    uiDirector.Open_Result_UI(false, Stage_Num, Total_Score, Total_Coin, /*Check_Score(),*/ Reward_Point, LoseNum);
+                    uiDirector.Open_Result_UI(false, Total_Score, Total_Coin, missionDirector.selectmission, LoseNum);
                 }
             }
             else
@@ -921,7 +921,7 @@ public class GameDirector : MonoBehaviour
                     //Debug.Log("마지막 작동 완료" + flag);
                     missionDirector.selectmission.Mission_Sucesses();
                     
-                    uiDirector.Open_Result_UI(true, Stage_Num, Total_Score, Total_Coin, /*Check_Score(),*/ Reward_Point, LoseNum);
+                    uiDirector.Open_Result_UI(true, Total_Score, Total_Coin, missionDirector.selectmission, LoseNum);
                     LastSubStageClear();
                     SA_PlayerData.SA_GameWinReward(true, Total_Coin);
                     SA_PlayerData.SA_MissionPlaying(false);
@@ -931,7 +931,7 @@ public class GameDirector : MonoBehaviour
                     //Debug.Log("작업 해야됨 - 실패로 간주하고 초기화해야됨");
                     missionDirector.selectmission.Mission_Fail();
                     SA_PlayerData.SA_MissionPlaying(false);
-                    uiDirector.Open_Result_UI(false, Stage_Num, Total_Score, Total_Coin, /*Check_Score(),*/ Reward_Point, LoseNum);
+                    uiDirector.Open_Result_UI(false, Total_Score, Total_Coin, missionDirector.selectmission, LoseNum);
                 }
             }
         }
@@ -939,7 +939,7 @@ public class GameDirector : MonoBehaviour
         {
             missionDirector.selectmission.Mission_Fail();
             SA_PlayerData.SA_MissionPlaying(false);
-            uiDirector.Open_Result_UI(false, Stage_Num, Total_Score, Total_Coin, /*Check_Score(),*/ Reward_Point, LoseNum);
+            uiDirector.Open_Result_UI(false, Total_Score, Total_Coin, missionDirector.selectmission, LoseNum);
         }
         /*
                 if (WinFlag && subStage_Last)
@@ -983,7 +983,7 @@ public class GameDirector : MonoBehaviour
 
     public void MissionFail()
     {
-        Change_Game_End(false, false, -1);
+        Change_Game_End(false, false, 2);
     }
 
     private void LastSubStageClear()
@@ -1008,7 +1008,7 @@ public class GameDirector : MonoBehaviour
         MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, TrainSFX_ID);
         MMSoundManagerSoundPlayEvent.Trigger(LoseSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         //StageData.GameEnd(false, Total_Score);
-        SA_PlayerData.SA_GameLoseCoin(60f);
+        SA_PlayerData.SA_GameLoseCoin(missionDirector.selectmission.MissionCoinLosePersent);
         MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, BGM_ID);
         MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, TrainSFX_ID);
         SA_MissionData.SubStage_Lose(Stage_Num, Mission_Num);
