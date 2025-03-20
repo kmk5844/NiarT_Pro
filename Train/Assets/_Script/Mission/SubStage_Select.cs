@@ -9,9 +9,9 @@ public class SubStage_Select : MonoBehaviour
     { Sub,
       Next }; // Main : 0 Sub : 1 NextMain : 2
 
-    [SerializeField]
     stageType selectSubStageType;
 
+    public SelectMissionSetting settingDirector;
     public int MissionNum;
     public int StageNum;
     public int SubStageNum;
@@ -51,7 +51,6 @@ public class SubStage_Select : MonoBehaviour
         {
             distance_text.text = "";
         }
-
 
         switch (missionData.SubStage_Type)
         {
@@ -115,7 +114,9 @@ public class SubStage_Select : MonoBehaviour
                 GetComponent<Button>().interactable = false;
             }
         }
-        startFlag = true;
+
+        SpawnRail();
+        startFlag = true;   
     }
     private void OnEnable()
     {
@@ -163,5 +164,31 @@ public class SubStage_Select : MonoBehaviour
             subStageSelectDirector.Open_SpecialStage();
         }
         InformationObject.SetActive(false);
+    }
+
+    void SpawnRail()
+    {
+        Transform objA = this.transform;
+        Transform objB;
+        RectTransform Rail = settingDirector.RailObject.GetComponent<RectTransform>();
+        string [] rail_String = missionData.Open_SubStageNum.Split(",");
+        for(int i = 0; i < rail_String.Length; i++)
+        {
+            int rail_num = int.Parse(rail_String[i]);
+            if(rail_num == -1)
+            {
+                break;
+            }
+            Debug.Log(rail_String[i]);
+            objB = settingDirector.MapList.GetChild(rail_num).transform;
+            RectTransform newRail = Instantiate(Rail, settingDirector.RailList);
+            newRail.position = (objA.position + objB.position)/2;
+
+            Vector3 direction = objB.localPosition - objA.localPosition;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            newRail.rotation = Quaternion.Euler(0,0,angle);
+
+            newRail.sizeDelta = new Vector2(direction.magnitude, newRail.sizeDelta.y);
+        }
     }
 }
