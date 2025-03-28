@@ -26,7 +26,7 @@ public class FullMap_StageButton : MonoBehaviour
         if (stageData != null)
         {
             stageData_Num = stageData.Stage_Num;
-            if (!stageData.Stage_OpenFlag)
+            if (!stageData.Stage_ClearFlag)
             {
                 LockPanel.SetActive(true);
                 GetComponent<Button>().enabled = false;
@@ -73,13 +73,13 @@ public class FullMap_StageButton : MonoBehaviour
                 Boss_Object.SetActive(false);
             }*/
 
-            Btn.onClick.AddListener(FullMap_StageButton_Click);
+            //Btn.onClick.AddListener(FullMap_StageButton_Click);
         }
     }
 
-    void FullMap_StageButton_Click()
+/*    void FullMap_StageButton_Click()
     {
         gamestartDirection.StageButton_Click(stageData_Num);
         gamestartDirection.Close_FullMapWindow();
-    }
+    }*/
 }

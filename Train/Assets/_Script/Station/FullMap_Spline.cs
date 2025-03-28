@@ -7,7 +7,7 @@ using UnityEngine.Splines;
 
 public class FullMap_Spline : MonoBehaviour
 {
-    public Station_GameStart gameStartDirection;
+/*    public Station_GameStart gameStartDirection;
     public SA_StageList sa_stagelist;
     public GameObject FullMap_StageButton_Object;
     Vector3[] pos;
@@ -53,5 +53,5 @@ public class FullMap_Spline : MonoBehaviour
         stageButton[lastIndex].SelectStage_MarkObject.SetActive(false);
         stageButton[gameStartDirection.Select_StageNum].SelectStage_MarkObject.SetActive(true);
         lastIndex = gameStartDirection.Select_StageNum;
-    }
+    }*/
 }

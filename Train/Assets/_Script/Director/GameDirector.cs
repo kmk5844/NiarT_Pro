@@ -992,7 +992,7 @@ public class GameDirector : MonoBehaviour
         {
             try
             {
-                SA_StageList.Stage[Stage_Num + 1].New_Stage_Chage();
+                SA_StageList.Stage[Stage_Num].Clear_StageChage();
             }
             catch
             {

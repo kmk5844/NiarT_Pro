@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class FullMap_Director : MonoBehaviour
 {
-    [Header("Ä«¸Þ¶ó ÁÜ")]
+/*    [Header("Ä«¸Þ¶ó ÁÜ")]
     public float camSpeed;
 
     public float minZoom;
@@ -105,5 +105,5 @@ public class FullMap_Director : MonoBehaviour
         stageButton[lastIndex].SelectStage_MarkObject.SetActive(false);
         stageButton[gameStartDirector.Select_StageNum].SelectStage_MarkObject.SetActive(true);
         lastIndex = gameStartDirector.Select_StageNum;
-    }
+    }*/
 }

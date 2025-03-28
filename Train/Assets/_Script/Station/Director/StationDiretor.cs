@@ -223,7 +223,9 @@ public class StationDirector : MonoBehaviour
             }
             else if (ui_num == 5)
             {
-                if (Director_GameStart.EquipItemWindowFlag)
+                Click_Home_Button();
+
+/*                if (Director_GameStart.EquipItemWindowFlag)
                 {
                     Director_GameStart.Close_ItemCountWindow();
                 } else if (Director_GameStart.EquipItemListFlag)
@@ -237,7 +239,7 @@ public class StationDirector : MonoBehaviour
                 else
                 {
                     Click_Home_Button();
-                }
+                }*/
             }/*else if(ui_num == 6)
             {
                 if (Direcotr_Conversion.AfterConversionFlag)
@@ -402,7 +404,7 @@ public class StationDirector : MonoBehaviour
                 else
                 {
                     UI_GameStart.SetActive(true);
-                    Director_GameStart.Check_Train();
+                    //Director_GameStart.Check_Train();
                 }
                 ui_num = 5;
                 break;
@@ -669,7 +671,7 @@ public class StationDirector : MonoBehaviour
         {
             Director_Store.Director_Init_ItemSell();
             Director_Inventory.Director_Init_Inventory();
-            Director_GameStart.Director_Init_EquipItem();
+            //Director_GameStart.Director_Init_EquipItem();
             if (simplestationFlag)
             {
                 Director_PlayerReadyDirector.Check_Item();
