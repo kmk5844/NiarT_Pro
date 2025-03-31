@@ -11,21 +11,64 @@ public class StageButton_Route : MonoBehaviour
     [SerializeField]
     StageDataObject stageData;
     public int stageData_Num;
-
     Button btn;
+
+    public int ButtonNum;
+    public Sprite[] NumSprite;
+    public Image Chapter_Num_Image;
+    public GameObject SelectMark;
+    public GameObject ClearMark;
 
     private void Start()
     {
-        btn = GetComponent<Button>();
-        btn.onClick.AddListener(()=>stationGameStartDirector.SelectButton());    
+        SelectMark.SetActive(false);
+        //ClearMark.SetActive(false);
+        btn.onClick.AddListener(()=>stationGameStartDirector.SelectStage(ButtonNum));    
+    }
+
+    public void OnEnable()
+    {
+        if(btn == null)
+        {
+            btn = GetComponent<Button>();
+        }
+        btn.enabled = stageData.Stage_OpenFlag;
     }
 
     public void ChangeStageNum(int i, StageDataObject _stageData)
     {
         stageData_Num = i;
         stageData = _stageData;
+        int chapterNum = i / 5;
+        Chapter_Num_Image.sprite = NumSprite[chapterNum];
+        if (btn != null)
+        {
+            btn.enabled = stageData.Stage_OpenFlag;
+        }
 
-        btn.interactable = !_stageData.Stage_ClearFlag;
+        if (_stageData.Stage_ClearFlag)
+        {
+            ClearMark.SetActive(true);
+        }
+        else
+        {
+            ClearMark.SetActive(false);
+        }
+    }
+
+    public void SelectMarkOn()
+    {
+        SelectMark.SetActive(true);
+        ClearMark.SetActive(false);
+    }
+
+    public void SelectMarkOff()
+    {
+        SelectMark.SetActive(false);
+        if (stageData.Stage_ClearFlag)
+        {
+            ClearMark.SetActive(true);
+        }
     }
 
 

@@ -17,6 +17,10 @@ public class StageDataObject : ScriptableObject
     bool stage_clearflag;
     public bool Stage_ClearFlag {  get {  return stage_clearflag; } }
 
+    [SerializeField]
+    bool stage_openflag;
+    public bool Stage_OpenFlag { get { return stage_openflag; } }
+
     public void Auto_Stage_Insert(int _stage_num, string _missionList)
     {
         stage_num = _stage_num;
@@ -40,19 +44,34 @@ public class StageDataObject : ScriptableObject
         }
         Save();
     }
+
+    public void Open_StageChange()
+    {
+        if (!stage_openflag)
+        {
+            stage_openflag = true;
+        }
+        Save();
+    }
     public void Save()
     {
-        ES3.Save("Stage_" + stage_num + "_stage_openflag", stage_clearflag);
+        ES3.Save("Stage_" + stage_num + "_stage_openflag", stage_openflag);
+        ES3.Save("Stage_" + stage_num + "_stage_clearflag", stage_clearflag);
     }
 
     public void Load()
     {
-        stage_clearflag = ES3.Load("Stage_" + stage_num + "_stage_openflag", stage_clearflag);
+        stage_clearflag = ES3.Load("Stage_" + stage_num + "_stage_openflag", stage_openflag);
+        stage_openflag = ES3.Load("Stage_" + stage_num + "_Stage_clearflag", stage_clearflag);
     }
     
     public void Init()
     {
         stage_clearflag = false;
+        if(stage_num == 0)
+        {
+            stage_openflag = true;
+        }
         Save();
     }
 }

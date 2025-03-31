@@ -53,7 +53,6 @@ public class StoryDirector : MonoBehaviour
         int index = 0;
         GameObject Branch = null;
 
-        Debug.Log("스토리 진행");
         index = SA_PlayerData.Story_Num;
         //int index = EX_StoryData.Story_Branch.FindIndex(x => x.Stage_Index.Equals(SA_PlayerData.New_Stage));
         int Branch_Value = EX_StoryData.Story_Branch[index].Branch_Index;

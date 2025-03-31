@@ -287,24 +287,31 @@ public class Auto_ScritableObject : EditorWindow
             StageDataObject stageObject = ScriptableObject.CreateInstance<StageDataObject>();
             stageObject.Auto_Stage_Insert(
                 stage.Number,
-                stage.MissionList);
-/*                stage.Destination_Distance,
-                stage.Emerging_Monster,
-                stage.Monster_Count,
-                stage.Reward_Point,
-                stage.Reward_Item,
-                stage.Reward_ItemCount,
-                stage.D_Grade,
-                stage.C_Grade,
-                stage.B_Grade,
-                stage.A_Grade,
-                stage.S_Grade,
-                stage.Boss_Flag,
-                stage.Emerging_Boss,
-                stage.Boss_Monster_Count,
-                stage.Boss_Distance
+                stage.MissionList
                 );
-*/
+
+            /*                stage.Destination_Distance,
+                            stage.Emerging_Monster,
+                            stage.Monster_Count,
+                            stage.Reward_Point,
+                            stage.Reward_Item,
+                            stage.Reward_ItemCount,
+                            stage.D_Grade,
+                            stage.C_Grade,
+                            stage.B_Grade,
+                            stage.A_Grade,
+                            stage.S_Grade,
+                            stage.Boss_Flag,
+                            stage.Emerging_Boss,
+                            stage.Boss_Monster_Count,
+                            stage.Boss_Distance
+                            );
+            */
+            if (stage.Number == 0)
+            {
+                stageObject.Open_StageChange();
+            }
+
             AssetDatabase.CreateAsset(stageObject, "Assets/_Scriptable/SA_Stage/Stage_Object/SDO_Stage_" + stage.Number + ".asset");
             AssetDatabase.SaveAssets();
             SA_StageList_.StageList_InsterObject(stageObject);

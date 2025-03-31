@@ -358,7 +358,6 @@ public class GameDirector : MonoBehaviour
 
         }else if (gameType == GameType.Playing)
         {
-            ChangeCursor(true);
             if(Time.time >= StartTime + 0.1f && !isStationHideFlag)
             {
                 isStationHideFlag = true;
@@ -990,9 +989,10 @@ public class GameDirector : MonoBehaviour
     {
         if (SA_PlayerData.New_Stage == SA_PlayerData.Select_Stage)
         {
+            SA_StageList.Stage[Stage_Num].Clear_StageChage();
             try
             {
-                SA_StageList.Stage[Stage_Num].Clear_StageChage();
+                SA_StageList.Stage[Stage_Num + 1].Open_StageChange();
             }
             catch
             {

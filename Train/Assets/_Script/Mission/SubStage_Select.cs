@@ -69,6 +69,12 @@ public class SubStage_Select : MonoBehaviour
             case SubStageType.SimpleStation:
                 GetComponent<Image>().sprite = temporarilySprite[4];
                 break;
+            case SubStageType.Food:
+                GetComponent<Image>().sprite = temporarilySprite[4];
+                break;
+            case SubStageType.Treasure:
+                GetComponent<Image>().sprite = temporarilySprite[4];
+                break;
             default:
                 GetComponent<Image>().sprite = temporarilySprite[0];
                 break;
@@ -179,7 +185,6 @@ public class SubStage_Select : MonoBehaviour
             {
                 break;
             }
-            Debug.Log(rail_String[i]);
             objB = settingDirector.MapList.GetChild(rail_num).transform;
             RectTransform newRail = Instantiate(Rail, settingDirector.RailList);
             newRail.position = (objA.position + objB.position)/2;
