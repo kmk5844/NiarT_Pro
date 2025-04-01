@@ -137,7 +137,7 @@ public class Station_GameStart : MonoBehaviour
             clickNum = -1;
         }
     }
-
+    
     public void ClickGameStart()
     {
         saPlayerData.SA_SelectLevel(stageButton[clickNum].stageData_Num);

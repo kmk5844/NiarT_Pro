@@ -10,8 +10,6 @@ public class FoodDirector : MonoBehaviour
     public DialogSystem Special_Story;
     public Dialog dialog;
 
-
-
     [Header("---------Data-------")]
     public Game_DataTable EX_GameData;
     public SA_PlayerData playerData;
@@ -53,6 +51,7 @@ public class FoodDirector : MonoBehaviour
         {"Mythic", 3 }
     };
 
+    int rerollCount;
 
     private void Awake()
     {
@@ -68,7 +67,7 @@ public class FoodDirector : MonoBehaviour
 
         Player_GoldText.text = playerData.Coin + "G";
         Reroll_Gold = 2000;
-        Reroll_GoldText.text = Reroll_Gold + "G";
+        Reroll_GoldText.text = "-" + Reroll_Gold + "G";
         if (playerData.Coin >= Reroll_Gold)
         {
             Reroll_Active_Flag = true;
@@ -81,6 +80,7 @@ public class FoodDirector : MonoBehaviour
 
         Check_FoodRarity();
         RandomCard(false);
+        rerollCount = 0;
     }
 
     private void Update()
@@ -162,7 +162,7 @@ public class FoodDirector : MonoBehaviour
                     break;
             }
 
-            Card.SettingCard(this, randomNumber, null, EX_GameData.Information_FoodCard[randomNumber].Name, EX_GameData.Information_FoodCard[randomNumber].Story, EX_GameData.Information_FoodCard[randomNumber].Information);
+            Card.SettingCard(this, randomNumber, EX_GameData.Information_FoodCard[randomNumber].Rarity, EX_GameData.Information_FoodCard[randomNumber].Color);
             Instantiate(Card, CardList);
         }
     }
@@ -185,13 +185,13 @@ public class FoodDirector : MonoBehaviour
 
     public void Click_RerollButton()
     {
-
         playerData.SA_Buy_Coin(Reroll_Gold);
         RandomCard(true);
 
         Player_GoldText.text = playerData.Coin + "G";
-        Reroll_Gold += 2000;
-        Reroll_GoldText.text = Reroll_Gold + "G";
+        rerollCount++;
+        Reroll_Gold += (2000 * rerollCount);
+        Reroll_GoldText.text = "-" + Reroll_Gold + "G";
         if (playerData.Coin >= Reroll_Gold)
         {
             Reroll_Active_Flag = true;

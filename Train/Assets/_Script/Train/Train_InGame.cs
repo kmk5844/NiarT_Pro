@@ -8,6 +8,8 @@ public class Train_InGame : MonoBehaviour
 {
     public Game_DataTable trainData;
 
+    public int Train_Index;
+
     [SerializeField]
     int Train_Num;
     [SerializeField]
@@ -114,6 +116,7 @@ public class Train_InGame : MonoBehaviour
             Train_Num = int.Parse(gameObject.name);
         }
 
+
         Level_Anmor = gameDirector.GetComponent<GameDirector>().SA_TrainData.Level_Train_Armor;
         if (TurretFlag)
         {
@@ -145,7 +148,8 @@ public class Train_InGame : MonoBehaviour
         {
             try
             {
-                Train_HP = ES3.Load<int>("Train_Curret_HP_" + gameObject.name);
+                Train_HP = ES3.Load<int>("Train_Curret_HP_TrainIndex_" + Train_Index);
+                Train_HP = (Train_HP * Max_Train_HP) /100;
             }
             catch
             {
@@ -159,6 +163,7 @@ public class Train_InGame : MonoBehaviour
     private void Start()
     {
         TrainSprite = GetComponentInChildren<SpriteRenderer>();
+        gameObject.name = Train_Index + ". " + gameObject.name;
     }
 
     private void Update()
@@ -364,6 +369,7 @@ public class Train_InGame : MonoBehaviour
     //save ¿˙¿Â
     public void GameEnd_TrainSave()
     {
-        ES3.Save<int>("Train_Curret_HP_" + gameObject.name, Train_HP);
+        int HP_Persent = (Train_HP * 100) / Max_Train_HP;
+        ES3.Save<int>("Train_Curret_HP_TrainIndex_" + Train_Index, HP_Persent);
     }
 }

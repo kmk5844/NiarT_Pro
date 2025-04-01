@@ -10,4 +10,5 @@ public class Info_FoodCard
     public int HP;
     public string State;
     public string Rarity;
+    public bool Color;
 }

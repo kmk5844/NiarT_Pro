@@ -691,6 +691,7 @@ public class GameDirector : MonoBehaviour
             
 
             Train_InGame train = TrainObject.GetComponent<Train_InGame>();
+            train.Train_Index = i;
             TrainFuel += train.Train_Fuel;
             TrainWeight += train.Train_Weight;
             TrainMaxSpeed += train.Train_MaxSpeed;
