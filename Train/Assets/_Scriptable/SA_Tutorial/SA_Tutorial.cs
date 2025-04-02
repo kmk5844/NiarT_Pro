@@ -67,6 +67,18 @@ public class SA_Tutorial : ScriptableObject
         Save();
     }
 
+    public IEnumerator InitAsync()
+    {
+        tu_station = false;
+        tu_maintenance = false;
+        tu_store = false;
+        tu_traning = false;
+        tu_mapselect = false;
+        tu_translate = false;
+        Save();
+        yield return null;
+    }
+
 
     public void Save()
     {

@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Localization.Settings;
 using System;
 using static PixelCrushers.AnimatorSaver;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -61,17 +62,20 @@ public class GameManager : MonoBehaviour
 
         if (!ES3.KeyExists("SA_PlayerData_Data_FirstFlag"))
         {
-            DataManager.Instance.Init();
+            Game_Reset();
+            //컴퓨터 데이터 없음;
         }
         else
         {
+            //DataManager.Instance.Load();
             try
             {
                 DataManager.Instance.Load();
             }
             catch
             {
-                DataManager.Instance.Init();
+                Game_Reset();
+                //컴퓨터 데이터는 있으나 오류 ;
             }
         }
 
@@ -138,10 +142,10 @@ public class GameManager : MonoBehaviour
 
     public void BeforeStation_Enter()
     {
-  /*      if (gameData.Information_Scene[PlayerData.New_Stage].BeforeStation_Button.Equals("Story"))
+        if (gameData.Information_Scene[PlayerData.New_Stage].BeforeStation_Button.Equals("Story"))
         {
             int index = gameData.Information_Scene[PlayerData.New_Stage].BeforeStation_StoryIndex;
-
+            Debug.Log(index);
             if (!StoryData.StoryList[index].Start_Flag) // 스토리 진행 전
             {
                 LoadingManager.LoadScene("Story");
@@ -159,7 +163,7 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        else*/ if (gameData.Information_Scene[PlayerData.New_Stage].BeforeStation_Button.Equals("CutScene"))
+        else if (gameData.Information_Scene[PlayerData.New_Stage].BeforeStation_Button.Equals("CutScene"))
         {
             int index = gameData.Information_Scene[PlayerData.New_Stage].BeforeStation_StoryIndex;
 
@@ -251,8 +255,29 @@ public class GameManager : MonoBehaviour
 
     public void Game_Reset()
     {
-        DataManager.Instance.Init();
+        StartCoroutine(ResetGameRoutine());
+
+/*        DataManager.Instance.Init();
         StoryFlag_Init();
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(0);*/
+    }
+
+    private IEnumerator ResetGameRoutine()
+    {
+        // 로딩 씬을 먼저 로드
+        SceneManager.LoadScene("LoadingScene_Data");
+        yield return new WaitForSeconds(1f);
+        // 데이터 초기화
+        yield return StartCoroutine(DataManager.Instance.InitAsync());
+
+        StoryFlag_Init();
+        // 일정 시간 대기 (예: 1초)
+        yield return new WaitForSeconds(1.0f);
+        // 비동기 로딩 시작
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(0);
+        while (!asyncLoad.isDone)
+        {
+            yield return null; // 로딩이 완료될 때까지 대기
+        }
     }
 }

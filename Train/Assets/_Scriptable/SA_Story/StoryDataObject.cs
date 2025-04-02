@@ -5,6 +5,10 @@ using UnityEngine;
 public class StoryDataObject : ScriptableObject
 {
     [SerializeField]
+    private bool storydatause;
+    public bool StoryDataUse { get { return storydatause; } }
+
+    [SerializeField]
     private int story_num;
     public int Story_Num {  get { return story_num; } }
 
@@ -63,23 +67,34 @@ public class StoryDataObject : ScriptableObject
 
         start_flag = false;
         end_flag = false;
+        Save(true);
     }
 
     public void Init()
     {
         start_flag = false;
         end_flag = false;
-        Save();
+        Save(true);
     }
 
-    public void Save()
+    public void Save(bool Init = false)
     {
+        if(Init == true)
+        {
+            storydatause = false;
+        }
+        else
+        {
+            storydatause = true;
+        }
+        ES3.Save<bool>("Story_" + story_num + "_StoryDataUse", storydatause);
         ES3.Save<bool>("Story_" + story_num + "_Start_Flag", start_flag);
         ES3.Save<bool>("Story_" + story_num + "_End_Flag", end_flag);
     }
 
     public void Load()
     {
+        storydatause = ES3.Load<bool>("Story_" + story_num + "_StoryDataUse");
         start_flag = ES3.Load<bool>("Story_" + story_num + "_Start_Flag");
         end_flag = ES3.Load<bool>("Story_" + story_num + "_End_Flag");
     }

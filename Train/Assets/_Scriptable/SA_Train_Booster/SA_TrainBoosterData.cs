@@ -166,4 +166,18 @@ public class SA_TrainBoosterData : ScriptableObject
         level_trainboosternumber_40 = 40;
         Save();
     }
+
+    public IEnumerator InitAsync()
+    {
+        train_booster_num.Clear();
+        train_booster_buy_num.Clear();
+
+        level_trainboosternumber_00 = 0;
+        level_trainboosternumber_10 = 10;
+        level_trainboosternumber_20 = 20;
+        level_trainboosternumber_30 = 30;
+        level_trainboosternumber_40 = 40;
+        Save();
+        yield return null;
+    }
 }

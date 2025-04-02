@@ -225,4 +225,20 @@ public class SA_MercenaryData : ScriptableObject
         level_cowboy = 0;
         Save();
     }
+    public IEnumerator InitAsync()
+    {
+        mercenary_num.Clear();
+        engine_driver_type = Engine_Driver_Type.speed;
+        bard_type = Bard_Type.HP_Buff;
+        mercenary_buy_num.Clear();
+        level_engine_driver = 0;
+        level_engineer = 0;
+        level_long_ranged = 0;
+        level_short_ranged = 0;
+        level_medic = 0;
+        level_bard = 0;
+        level_cowboy = 0;
+        Save();
+        yield return null;
+    }
 }

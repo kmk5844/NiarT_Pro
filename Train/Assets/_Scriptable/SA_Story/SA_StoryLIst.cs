@@ -20,17 +20,53 @@ public class SA_StoryLIst : ScriptableObject
 
     public void PlayGame_StoryList_Init()
     {
+        for (int i = 0; i < storylist.Count; i++)
+        {
+            if (storylist[i].StoryDataUse)
+            {
+                storylist[i].Init();
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+
+    public IEnumerator PlayGame_StoryList_InitAsync()
+    {
         for(int i = 0; i < storylist.Count; i++)
         {
-            storylist[i].Init();
+            if (storylist[i].StoryDataUse)
+            {
+                storylist[i].Init();
+            }
+            else
+            {
+                break;
+            }
+
+            if(i % 5 == 0)
+            {
+                yield return new WaitForSeconds(0.01f);
+            }
         }
+
+        yield return null;
     }
 
     public void PlayGame_StoryList_Load()
     {
         for (int i = 0; i < storylist.Count; i++)
         {
-            storylist[i].Load();
+            if (storylist[i].StoryDataUse)
+            {
+                storylist[i].Load();
+            }
+            else
+            {
+                break;
+            }
         }
     }
 

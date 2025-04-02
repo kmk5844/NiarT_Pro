@@ -5,6 +5,10 @@ using UnityEngine;
 public class MissionDataObject : ScriptableObject
 {
     [SerializeField]
+    private bool missiondatause;
+    public bool MissionDataUse {  get { return missiondatause; } }
+
+    [SerializeField]
     private int mission_num;
     public int Mission_Num {  get { return mission_num; } }
 
@@ -87,7 +91,7 @@ public class MissionDataObject : ScriptableObject
             stageopenflag = false;
         }
 
-        Save();
+        Save(true);
     }
 
     public void SubStage_Clear()
@@ -113,17 +117,27 @@ public class MissionDataObject : ScriptableObject
         {
             stageopenflag = false;
         }
-        Save();
+        Save(true);
     }
 
-    void Save()
+    void Save(bool Init = false)
     {
+        if(Init == true)
+        {
+            missiondatause = false;
+        }
+        else
+        {
+            missiondatause = true;
+        }
+        ES3.Save<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_MissionDataUse", missiondatause);
         ES3.Save<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_ClearFlag", stageclearflag);
         ES3.Save<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_OpenFlag", stageopenflag);
     }
 
     public void Load()
     {
+        missiondatause = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_MissionDataUse");
         stageclearflag = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_ClearFlag");
         stageopenflag = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_OpenFlag");
     }

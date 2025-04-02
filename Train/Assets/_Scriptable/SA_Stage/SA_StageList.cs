@@ -20,15 +20,51 @@ public class SA_StageList : ScriptableObject
     {
         for(int i = 0; i < stage.Count; i++)
         {
-            stage[i].Init();
+            if (stage[i].StageDataUse)
+            {
+                stage[i].Init();
+            }
+            else
+            {
+                break;
+            }
         }
+    }
+
+    public IEnumerator PlayGame_StageList_InitAsync()
+    {
+        for (int i = 0; i < stage.Count; i++)
+        {
+            if (stage[i].StageDataUse)
+            {
+                stage[i].Init();
+            }
+            else
+            {
+                break;
+            }
+
+            if(i % 5 == 0)
+            {
+                yield return new WaitForSeconds(0.01f);
+            }
+        }
+
+        yield return null;
     }
 
     public void PlayGame_StageList_Load()
     {
         for(int i = 0; i < stage.Count;i++)
         {
-            stage[i].Load();
+            if (stage[i].StageDataUse)
+            {
+                stage[i].Load();
+            }
+            else
+            {
+                break;
+            }
         }
     }
 

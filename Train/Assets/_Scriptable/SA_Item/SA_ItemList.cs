@@ -89,6 +89,23 @@ public class SA_ItemList : ScriptableObject
         }
     }
 
+    public IEnumerator PlayGame_ItemList_InitAsync()
+    {
+        int count = 0;
+        foreach (ItemDataObject _item in Item)
+        {
+            _item.Init();
+            count++;
+
+            if(count % 5 == 0)
+            {
+                yield return new WaitForSeconds(0.01f);
+            }
+        }
+
+        yield return null;
+    }
+
     public void ItemList_EmptyObject(ItemDataObject item)
     {
         emptyitem = item;

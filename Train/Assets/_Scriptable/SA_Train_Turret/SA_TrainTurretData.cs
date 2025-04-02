@@ -200,4 +200,21 @@ public class SA_TrainTurretData : ScriptableObject
         level_trainturretnumber_70 = 70;
         Save();
     }
+
+    public IEnumerator InitAsync()
+    {
+        train_turret_num.Clear();
+        train_turret_buy_num.Clear();
+
+        level_trainturretnumber_00 = 0;
+        level_trainturretnumber_10 = 10;
+        level_trainturretnumber_20 = 20;
+        level_trainturretnumber_30 = 30;
+        level_trainturretnumber_40 = 40;
+        level_trainturretnumber_50 = 50;
+        level_trainturretnumber_60 = 60;
+        level_trainturretnumber_70 = 70;
+        Save();
+        yield return null;
+    }
 }

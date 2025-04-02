@@ -6,6 +6,10 @@ using UnityEngine;
 public class StageDataObject : ScriptableObject
 {
     [SerializeField]
+    private bool stagedatause;
+    public bool StageDataUse {  get { return stagedatause; } }
+
+    [SerializeField]
     private int stage_num;
     public int Stage_Num { get { return stage_num; } }
 
@@ -34,6 +38,7 @@ public class StageDataObject : ScriptableObject
         }
 
         stage_clearflag = false;
+        Save(true);
     }
 
     public void Clear_StageChage()
@@ -53,25 +58,35 @@ public class StageDataObject : ScriptableObject
         }
         Save();
     }
-    public void Save()
+    public void Save(bool Init = false)
     {
-        ES3.Save("Stage_" + stage_num + "_stage_openflag", stage_openflag);
-        ES3.Save("Stage_" + stage_num + "_stage_clearflag", stage_clearflag);
+        if(Init == true)
+        {
+            stagedatause = false;
+        }
+        else
+        {
+            stagedatause = true;
+        }
+        ES3.Save<bool>("Stage_" + stage_num + "_stage_stagedatause", stagedatause);
+        ES3.Save<bool>("Stage_" + stage_num + "_stage_openflag", stage_openflag);
+        ES3.Save<bool>("Stage_" + stage_num + "_stage_clearflag", stage_clearflag);
     }
 
     public void Load()
     {
-        stage_clearflag = ES3.Load("Stage_" + stage_num + "_stage_openflag", stage_openflag);
-        stage_openflag = ES3.Load("Stage_" + stage_num + "_Stage_clearflag", stage_clearflag);
+        stagedatause = ES3.Load<bool>("Stage_" + stage_num + "_stage_stagedatause");
+        stage_openflag = ES3.Load<bool>("Stage_" + stage_num + "_stage_openflag");
+        stage_clearflag = ES3.Load<bool>("Stage_" + stage_num + "_stage_clearflag");
     }
     
     public void Init()
     {
         stage_clearflag = false;
-        if(stage_num == 0)
+        if (stage_num == 0)
         {
             stage_openflag = true;
         }
-        Save();
+        Save(true);
     }
 }

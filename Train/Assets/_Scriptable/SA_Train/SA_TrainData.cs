@@ -230,4 +230,25 @@ public class SA_TrainData : ScriptableObject
         level_trainnumber_40 = 40;
         Save();
     }
+
+    public IEnumerator InitAsync()
+    {
+        train_num.Clear();
+        train_num.Add(0);
+        train_num.Add(10);
+        train_buy_num.Clear();
+        level_train_enginetier = 0;
+        level_train_maxtrain = 0;
+        level_train_maxmercenary = 0;
+        level_train_maxspeed = 0;
+        level_train_armor = 0;
+        level_train_efficient = 0;
+        level_trainnumber_00 = 0;
+        level_trainnumber_10 = 10;
+        level_trainnumber_20 = 20;
+        level_trainnumber_30 = 30;
+        level_trainnumber_40 = 40;
+        Save();
+        yield return new WaitForSeconds(0.01f);
+    }
 }

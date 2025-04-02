@@ -314,6 +314,7 @@ public class Auto_ScritableObject : EditorWindow
 
             AssetDatabase.CreateAsset(stageObject, "Assets/_Scriptable/SA_Stage/Stage_Object/SDO_Stage_" + stage.Number + ".asset");
             AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
             SA_StageList_.StageList_InsterObject(stageObject);
         }
         UnityEditor.EditorUtility.SetDirty(SA_StageList_);

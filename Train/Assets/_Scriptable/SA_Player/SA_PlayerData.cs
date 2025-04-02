@@ -369,6 +369,37 @@ public class SA_PlayerData : ScriptableObject
         Save();
     }
 
+    public IEnumerator InitAsync()
+    {
+        player_num = 0;
+
+        firstflag = false;
+
+        level_atk = 0;
+        level_atkdelay = 0;
+        level_hp = 0;
+        level_armor = 0;
+        level_speed = 0;
+        coin = 0;
+        //point = 0;
+        new_stage = 0;
+
+        select_stage = 0;
+        story_num = 0;
+        Character_LockOff[0] = true;
+        station_tutorial = false;
+        for (int i = 1; i < 5; i++)
+        {
+            Character_LockOff[i] = false;
+        }
+        mission_playing = false;
+        eventflag = false;
+        food_heal_flag = false;
+        food_num = 0;
+        Save();
+        yield return new WaitForSeconds(0.01f);
+    }
+
     public void SA_Player_Level_Up(int LevelNum)//LevelNum : 0 = Atk / 1= AtkDealy / 2 = HP / 3 = Armor / 4 = Speed
     {
         switch(LevelNum)

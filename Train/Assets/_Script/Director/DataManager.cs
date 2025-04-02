@@ -76,4 +76,20 @@ public class DataManager : MonoBehaviour
         tutorialData.Init();
         missionData.Init();
     }
+
+    public IEnumerator InitAsync()
+    {
+        yield return StartCoroutine(playerData.InitAsync());
+        yield return StartCoroutine(trainData.InitAsync());
+        yield return StartCoroutine(turretData.InitAsync());
+        yield return StartCoroutine(boosterData.InitAsync());
+        yield return StartCoroutine(mercenaryData.InitAsync());
+        // yield return StartCoroutine(localData.InitAsync());
+        yield return StartCoroutine(stageData.PlayGame_StageList_InitAsync());
+        yield return StartCoroutine(storyData.PlayGame_StoryList_InitAsync());
+        yield return StartCoroutine(InventoryItem_Data.PlayGame_ItemList_InitAsync());
+        yield return StartCoroutine(PlayerItem_Data.InitAsync());
+        yield return StartCoroutine(tutorialData.InitAsync());
+        yield return StartCoroutine(missionData.InitAsync());
+    }
 }

@@ -1,8 +1,6 @@
-using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "SA_MissionData", menuName = "Scriptable/MissionData/main", order = 11)]
@@ -123,37 +121,55 @@ public class SA_MissionData : ScriptableObject
             case 0:
                 foreach(MissionDataObject mission in stagelist[MainStageNum].Q_Des)
                 {
-                    mission.Init();
+                    if (mission.MissionDataUse)
+                    {
+                        mission.Init();
+                    }
                 }
                 break;
             case 1:
                 foreach (MissionDataObject mission in stagelist[MainStageNum].Q_Mat)
                 {
-                    mission.Init();
+                    if (mission.MissionDataUse)
+                    {
+                        mission.Init();
+                    }
                 }
                 break;
             case 2:
                 foreach (MissionDataObject mission in stagelist[MainStageNum].Q_Mon)
                 {
-                    mission.Init();
+                    if (mission.MissionDataUse)
+                    {
+                        mission.Init();
+                    }
                 }
                 break;
             case 3:
                 foreach (MissionDataObject mission in stagelist[MainStageNum].Q_Esc)
                 {
-                    mission.Init();
+                    if (mission.MissionDataUse)
+                    {
+                        mission.Init();
+                    }
                 }
                 break;
             case 4:
                 foreach (MissionDataObject mission in stagelist[MainStageNum].Q_Con)
                 {
-                    mission.Init();
+                    if (mission.MissionDataUse)
+                    {
+                        mission.Init();
+                    }
                 }
                 break;
             case 5:
                 foreach (MissionDataObject mission in stagelist[MainStageNum].Q_Bos)
                 {
-                    mission.Init();
+                    if (mission.MissionDataUse)
+                    {
+                        mission.Init();
+                    }
                 }
                 break;
         }
@@ -161,41 +177,156 @@ public class SA_MissionData : ScriptableObject
 
     public void Init()
     {
-        for(int i = 0; i < stagelist.Count; i++)
+        for (int i = 0; i < stagelist.Count; i++)
         {
             mainstage_clearflag[i] = false;
             foreach (MissionDataObject mission in stagelist[i].Q_Des)
             {
-                mission.Init();
+                if (mission.MissionDataUse)
+                {
+                    mission.Init();
+                }
             }
             foreach (MissionDataObject mission in stagelist[i].Q_Mat)
             {
-                mission.Init();
+                if (mission.MissionDataUse)
+                {
+                    mission.Init();
+                }
             }
             foreach (MissionDataObject mission in stagelist[i].Q_Mon)
             {
-                mission.Init();
+                if (mission.MissionDataUse)
+                {
+                    mission.Init();
+                }
             }
             foreach (MissionDataObject mission in stagelist[i].Q_Esc)
             {
-                mission.Init();
+                if (mission.MissionDataUse)
+                {
+                    mission.Init();
+                }
             }
             foreach (MissionDataObject mission in stagelist[i].Q_Con)
             {
-                mission.Init();
+                if (mission.MissionDataUse)
+                {
+                    mission.Init();
+                }
             }
             foreach (MissionDataObject mission in stagelist[i].Q_Bos)
             {
-                mission.Init();
+                if (mission.MissionDataUse)
+                {
+                    mission.Init();
+                }
             }
             Save(i);
         }
         monstercount = -1;
         bosscount = -1;
-        foreach(MissionType mission in Enum.GetValues(typeof(MissionType)))
+        foreach (MissionType mission in Enum.GetValues(typeof(MissionType)))
         {
             SelectMission_Save(mission);
         }
+    }
+
+    public IEnumerator InitAsync()
+    {
+        int count = 0;
+        for (int i = 0; i < stagelist.Count; i++)
+        {
+            mainstage_clearflag[i] = false;
+            foreach (MissionDataObject mission in stagelist[i].Q_Des)
+            {
+                count++;
+                if (mission.MissionDataUse)
+                {
+                    mission.Init();
+                }
+
+                if(count % 5 == 0)
+                {
+                    yield return new WaitForSeconds(0.01f);
+                }
+            }
+            foreach (MissionDataObject mission in stagelist[i].Q_Mat)
+            {
+                count++;
+                if (mission.MissionDataUse)
+                {
+                    mission.Init();
+                }
+
+                if(count % 5 == 0)
+                {
+                    yield return new WaitForSeconds(0.01f);
+                }
+            }
+            foreach (MissionDataObject mission in stagelist[i].Q_Mon)
+            {
+                count++;
+                if (mission.MissionDataUse)
+                {
+                    mission.Init();
+                }
+                if (count % 5 == 0)
+                {
+                    yield return new WaitForSeconds(0.01f);
+                }
+            }
+            foreach (MissionDataObject mission in stagelist[i].Q_Esc)
+            {
+                count++;
+                if (mission.MissionDataUse)
+                {
+                    mission.Init();
+                }
+                if (count % 5 == 0)
+                {
+                    yield return new WaitForSeconds(0.01f);
+                }
+            }
+            foreach (MissionDataObject mission in stagelist[i].Q_Con)
+            {
+                count++;
+                if (mission.MissionDataUse)
+                {
+                    mission.Init();
+                }
+                if (count % 5 == 0)
+                {
+                    yield return new WaitForSeconds(0.01f);
+                }
+            }
+            foreach (MissionDataObject mission in stagelist[i].Q_Bos)
+            {
+                count++;
+                if (mission.MissionDataUse)
+                {
+                    mission.Init();
+                }
+                if (count % 5 == 0)
+                {
+                    yield return new WaitForSeconds(0.01f);
+                }
+            }
+            Save(i);
+            if(i % 5 == 0)
+            {
+                yield return new WaitForSeconds(0.01f);
+
+            }
+        }
+        monstercount = -1;
+        bosscount = -1;
+        foreach (MissionType mission in Enum.GetValues(typeof(MissionType)))
+        {
+            SelectMission_Save(mission);
+        }
+
+        yield return null;
     }
 
     void Save(int i)

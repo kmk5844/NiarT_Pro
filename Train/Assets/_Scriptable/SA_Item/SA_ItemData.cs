@@ -83,7 +83,26 @@ public class SA_ItemData : ScriptableObject
         {
             equiped_item[i] = -1;
             equiped_item_count[i] = 0;
+
+
         }
         Save();
+    }
+
+    public IEnumerator InitAsync()
+    {
+        for (int i = 0; i < equiped_item.Count; i++)
+        {
+            equiped_item[i] = -1;
+            equiped_item_count[i] = 0;
+
+            if(i % 5 == 0)
+            {
+                yield return new WaitForSeconds(0.01f);
+            }
+        }
+        Save();
+
+        yield return null;
     }
 }
