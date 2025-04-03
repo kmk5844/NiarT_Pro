@@ -140,7 +140,7 @@ public class MenuDirector : MonoBehaviour
 
     public void Click_Init()
     {
-        GameManager.Instance.Game_Reset();
+        GameManager.Instance.Game_DataReset();
     }
 
     public void Click_Option_Mode()

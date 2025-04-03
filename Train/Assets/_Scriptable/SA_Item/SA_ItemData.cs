@@ -71,10 +71,26 @@ public class SA_ItemData : ScriptableObject
         ES3.Save<List<int>>(name + "_Equiped_Item", equiped_item);
         ES3.Save(name + "_Equiped_ItemCount", equiped_item_count);
     }
+    
+    public IEnumerator SaveSync()
+    {
+        ES3.Save<List<int>>(name + "_Equiped_Item", equiped_item);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save(name + "_Equiped_ItemCount", equiped_item_count);
+        yield return new WaitForSeconds(0.001f);
+    }
     public void Load()
     {
         equiped_item = ES3.Load<List<int>>(name + "_Equiped_Item");
         equiped_item_count = ES3.Load<List<int>>(name + "_Equiped_ItemCount");
+    }
+
+    public IEnumerator LoadSync()
+    {
+        equiped_item = ES3.Load<List<int>>(name + "_Equiped_Item");
+        yield return new WaitForSeconds(0.001f);
+        equiped_item_count = ES3.Load<List<int>>(name + "_Equiped_ItemCount");
+        yield return new WaitForSeconds(0.001f);
     }
 
     public void Init()
@@ -83,13 +99,11 @@ public class SA_ItemData : ScriptableObject
         {
             equiped_item[i] = -1;
             equiped_item_count[i] = 0;
-
-
         }
         Save();
     }
 
-    public IEnumerator InitAsync()
+    public IEnumerator InitAsync(MonoBehaviour runner)
     {
         for (int i = 0; i < equiped_item.Count; i++)
         {
@@ -101,7 +115,7 @@ public class SA_ItemData : ScriptableObject
                 yield return new WaitForSeconds(0.01f);
             }
         }
-        Save();
+        yield return runner.StartCoroutine(SaveSync());
 
         yield return null;
     }

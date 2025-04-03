@@ -60,24 +60,7 @@ public class GameManager : MonoBehaviour
         cursorHotspot_Origin = Vector2.zero;
         Cursor.SetCursor(cursorOrigin, cursorHotspot_Origin, CursorMode.Auto);
 
-        if (!ES3.KeyExists("SA_PlayerData_Data_FirstFlag"))
-        {
-            Game_Reset();
-            //컴퓨터 데이터 없음;
-        }
-        else
-        {
-            //DataManager.Instance.Load();
-            try
-            {
-                DataManager.Instance.Load();
-            }
-            catch
-            {
-                Game_Reset();
-                //컴퓨터 데이터는 있으나 오류 ;
-            }
-        }
+        //DataLoad();
 
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[LocalData.Local_Index];
         if (PlayerData.Mission_Playing)
@@ -102,7 +85,30 @@ public class GameManager : MonoBehaviour
                 GameObject gm = GameObject.Find("SelectMission");
                 Destroy(gm);
             }
-            Game_Reset();
+
+            Game_DataReset();
+        }
+    }
+
+    public void DataLoad()
+    {
+        if (!ES3.KeyExists("SA_PlayerData_Data_FirstFlag"))
+        {
+            Game_DataReset();
+            //컴퓨터 데이터 없음;
+        }
+        else
+        {
+            //DataManager.Instance.Load();
+            try
+            {
+                Game_DataLoad();
+            }
+            catch
+            {
+                Game_DataReset();
+                //컴퓨터 데이터는 있으나 오류 ;
+            }
         }
     }
 
@@ -253,13 +259,36 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void Game_Reset()
+    public void Game_DataLoad()
+    {
+        StartCoroutine(LoadGameRoutine());
+    }
+
+    public void Game_DataReset()
     {
         StartCoroutine(ResetGameRoutine());
 
 /*        DataManager.Instance.Init();
         StoryFlag_Init();
         SceneManager.LoadScene(0);*/
+    }
+
+    private IEnumerator LoadGameRoutine()
+    {
+        SceneManager.LoadScene("LoadingScene_Data");
+        yield return new WaitForSeconds(1f);
+        // 데이터 초기화
+        yield return StartCoroutine(DataManager.Instance.LoadSync());
+
+        StoryFlag_Init();
+        // 일정 시간 대기 (예: 1초)
+        yield return new WaitForSeconds(1.0f);
+        // 비동기 로딩 시작
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("1.MainMenu");
+        while (!asyncLoad.isDone)
+        {
+            yield return null; // 로딩이 완료될 때까지 대기
+        }
     }
 
     private IEnumerator ResetGameRoutine()

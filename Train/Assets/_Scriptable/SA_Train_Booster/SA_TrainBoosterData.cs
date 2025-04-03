@@ -143,6 +143,24 @@ public class SA_TrainBoosterData : ScriptableObject
         ES3.Save("SA_TrainData_Data_level_trainboosternumber_40", level_trainboosternumber_40);
     }
 
+    private IEnumerator SaveSync()
+    {
+        ES3.Save("SA_TrainData_Data_Train_Booster_Num", train_booster_num);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save("SA_TrainData_Data_Train_Booster_Buy_Num", train_booster_buy_num);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save("SA_TrainData_Data_level_trainboosternumber_00", level_trainboosternumber_00);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save("SA_TrainData_Data_level_trainboosternumber_10", level_trainboosternumber_10);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save("SA_TrainData_Data_level_trainboosternumber_20", level_trainboosternumber_20);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save("SA_TrainData_Data_level_trainboosternumber_30", level_trainboosternumber_30);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save("SA_TrainData_Data_level_trainboosternumber_40", level_trainboosternumber_40);
+        yield return new WaitForSeconds(0.001f);
+    }
+
     public void Load()
     {
         train_booster_num = ES3.Load<List<int>>("SA_TrainData_Data_Train_Booster_Num");
@@ -152,6 +170,24 @@ public class SA_TrainBoosterData : ScriptableObject
         level_trainboosternumber_20 = ES3.Load<int>("SA_TrainData_Data_level_trainboosternumber_20");
         level_trainboosternumber_30 = ES3.Load<int>("SA_TrainData_Data_level_trainboosternumber_30");
         level_trainboosternumber_40 = ES3.Load<int>("SA_TrainData_Data_level_trainboosternumber_40");
+    }
+
+    public IEnumerator LoadSync()
+    {
+        train_booster_num = ES3.Load<List<int>>("SA_TrainData_Data_Train_Booster_Num");
+        yield return new WaitForSeconds(0.001f);
+        train_booster_buy_num = ES3.Load<List<int>>("SA_TrainData_Data_Train_Booster_Buy_Num");
+        yield return new WaitForSeconds(0.001f);
+        level_trainboosternumber_00 = ES3.Load<int>("SA_TrainData_Data_level_trainboosternumber_00");
+        yield return new WaitForSeconds(0.001f);
+        level_trainboosternumber_10 = ES3.Load<int>("SA_TrainData_Data_level_trainboosternumber_10");
+        yield return new WaitForSeconds(0.001f);
+        level_trainboosternumber_20 = ES3.Load<int>("SA_TrainData_Data_level_trainboosternumber_20");
+        yield return new WaitForSeconds(0.001f);
+        level_trainboosternumber_30 = ES3.Load<int>("SA_TrainData_Data_level_trainboosternumber_30");
+        yield return new WaitForSeconds(0.001f);
+        level_trainboosternumber_40 = ES3.Load<int>("SA_TrainData_Data_level_trainboosternumber_40");
+        yield return new WaitForSeconds(0.001f);
     }
 
     public void Init()
@@ -167,7 +203,7 @@ public class SA_TrainBoosterData : ScriptableObject
         Save();
     }
 
-    public IEnumerator InitAsync()
+    public IEnumerator InitAsync(MonoBehaviour rnner)
     {
         train_booster_num.Clear();
         train_booster_buy_num.Clear();
@@ -177,7 +213,7 @@ public class SA_TrainBoosterData : ScriptableObject
         level_trainboosternumber_20 = 20;
         level_trainboosternumber_30 = 30;
         level_trainboosternumber_40 = 40;
-        Save();
+        rnner.StartCoroutine(SaveSync());
         yield return null;
     }
 }

@@ -171,6 +171,30 @@ public class SA_TrainTurretData : ScriptableObject
         ES3.Save("SA_TrainData_Data_level_trainturretnumber_70", level_trainturretnumber_70);
     }
 
+    private IEnumerator SaveSync()
+    {
+        ES3.Save("SA_TrainData_Data_Train_Turret_Num", train_turret_num);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save("SA_TrainData_Data_Train_Turret_Buy_Num", train_turret_buy_num);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save("SA_TrainData_Data_level_trainturretnumber_00", level_trainturretnumber_00);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save("SA_TrainData_Data_level_trainturretnumber_10", level_trainturretnumber_10);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save("SA_TrainData_Data_level_trainturretnumber_20", level_trainturretnumber_20);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save("SA_TrainData_Data_level_trainturretnumber_30", level_trainturretnumber_30);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save("SA_TrainData_Data_level_trainturretnumber_40", level_trainturretnumber_40);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save("SA_TrainData_Data_level_trainturretnumber_50", level_trainturretnumber_50);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save("SA_TrainData_Data_level_trainturretnumber_60", level_trainturretnumber_60);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save("SA_TrainData_Data_level_trainturretnumber_70", level_trainturretnumber_70);
+        yield return new WaitForSeconds(0.001f);
+    }
+
     public void Load()
     {
         train_turret_num = ES3.Load<List<int>>("SA_TrainData_Data_Train_Turret_Num");
@@ -183,6 +207,30 @@ public class SA_TrainTurretData : ScriptableObject
         level_trainturretnumber_50 = ES3.Load<int>("SA_TrainData_Data_level_trainturretnumber_50");
         level_trainturretnumber_60 = ES3.Load<int>("SA_TrainData_Data_level_trainturretnumber_60");
         level_trainturretnumber_70 = ES3.Load<int>("SA_TrainData_Data_level_trainturretnumber_70");
+    }
+
+    public IEnumerator LoadSync()
+    {
+        train_turret_num = ES3.Load<List<int>>("SA_TrainData_Data_Train_Turret_Num");
+        yield return new WaitForSeconds(0.001f);
+        train_turret_buy_num = ES3.Load<List<int>>("SA_TrainData_Data_Train_Turret_Buy_Num");
+        yield return new WaitForSeconds(0.001f);
+        level_trainturretnumber_00 = ES3.Load<int>("SA_TrainData_Data_level_trainturretnumber_00");
+        yield return new WaitForSeconds(0.001f);
+        level_trainturretnumber_10 = ES3.Load<int>("SA_TrainData_Data_level_trainturretnumber_10");
+        yield return new WaitForSeconds(0.001f);
+        level_trainturretnumber_20 = ES3.Load<int>("SA_TrainData_Data_level_trainturretnumber_20");
+        yield return new WaitForSeconds(0.001f);
+        level_trainturretnumber_30 = ES3.Load<int>("SA_TrainData_Data_level_trainturretnumber_30");
+        yield return new WaitForSeconds(0.001f);
+        level_trainturretnumber_40 = ES3.Load<int>("SA_TrainData_Data_level_trainturretnumber_40");
+        yield return new WaitForSeconds(0.001f);
+        level_trainturretnumber_50 = ES3.Load<int>("SA_TrainData_Data_level_trainturretnumber_50");
+        yield return new WaitForSeconds(0.001f);
+        level_trainturretnumber_60 = ES3.Load<int>("SA_TrainData_Data_level_trainturretnumber_60");
+        yield return new WaitForSeconds(0.001f);
+        level_trainturretnumber_70 = ES3.Load<int>("SA_TrainData_Data_level_trainturretnumber_70");
+        yield return new WaitForSeconds(0.001f);
     }
 
     public void Init()
@@ -201,7 +249,7 @@ public class SA_TrainTurretData : ScriptableObject
         Save();
     }
 
-    public IEnumerator InitAsync()
+    public IEnumerator InitAsync(MonoBehaviour runner)
     {
         train_turret_num.Clear();
         train_turret_buy_num.Clear();
@@ -214,7 +262,7 @@ public class SA_TrainTurretData : ScriptableObject
         level_trainturretnumber_50 = 50;
         level_trainturretnumber_60 = 60;
         level_trainturretnumber_70 = 70;
-        Save();
+        runner.StartCoroutine(SaveSync());
         yield return null;
     }
 }

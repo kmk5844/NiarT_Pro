@@ -1,7 +1,6 @@
 using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Localization.Plugins.XLIFF.V20;
 using UnityEngine;
 using UnityEngine.LowLevel;
 
@@ -624,7 +623,13 @@ public class Player : MonoBehaviour
         }
         else
         {
-            Player_HP = ES3.Load<int>("Player_Curret_HP");
+            try
+            {
+                Player_HP = ES3.Load<int>("Player_Curret_HP");
+            }catch
+            {
+                Player_HP = 10000;
+            }
         }
         Player_Armor = Player_Armor + (((Player_Armor * Level_Armor) * 10) / 100);
         moveSpeed = moveSpeed + (((moveSpeed * Level_Speed)) / 100);

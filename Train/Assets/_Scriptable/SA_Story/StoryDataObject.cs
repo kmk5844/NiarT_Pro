@@ -77,6 +77,13 @@ public class StoryDataObject : ScriptableObject
         Save(true);
     }
 
+    public void InitSync(MonoBehaviour runner)
+    {
+        start_flag = false;
+        end_flag = false;
+        runner.StartCoroutine(SaveSync(true));
+    }
+
     public void Save(bool Init = false)
     {
         if(Init == true)
@@ -92,10 +99,43 @@ public class StoryDataObject : ScriptableObject
         ES3.Save<bool>("Story_" + story_num + "_End_Flag", end_flag);
     }
 
+    public IEnumerator SaveSync(bool Init = false)
+    {
+        if (Init == true)
+        {
+            storydatause = false;
+        }
+        else
+        {
+            storydatause = true;
+        }
+        ES3.Save<bool>("Story_" + story_num + "_StoryDataUse", storydatause);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save<bool>("Story_" + story_num + "_Start_Flag", start_flag);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save<bool>("Story_" + story_num + "_End_Flag", end_flag);
+        yield return new WaitForSeconds(0.001f);
+    }
+
     public void Load()
     {
         storydatause = ES3.Load<bool>("Story_" + story_num + "_StoryDataUse");
         start_flag = ES3.Load<bool>("Story_" + story_num + "_Start_Flag");
         end_flag = ES3.Load<bool>("Story_" + story_num + "_End_Flag");
+    }
+
+    public void LoadSync_Start(MonoBehaviour runner)
+    {
+        runner.StartCoroutine(LoadSync());
+    }
+
+    public IEnumerator LoadSync()
+    {
+        storydatause = ES3.Load<bool>("Story_" + story_num + "_StoryDataUse");
+        yield return new WaitForSeconds(0.001f);
+        start_flag = ES3.Load<bool>("Story_" + story_num + "_Start_Flag");
+        yield return new WaitForSeconds(0.001f);
+        end_flag = ES3.Load<bool>("Story_" + story_num + "_End_Flag");
+        yield return new WaitForSeconds(0.001f);
     }
 }

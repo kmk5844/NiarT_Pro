@@ -89,12 +89,12 @@ public class SA_ItemList : ScriptableObject
         }
     }
 
-    public IEnumerator PlayGame_ItemList_InitAsync()
+    public IEnumerator PlayGame_ItemList_InitAsync(MonoBehaviour runner)
     {
         int count = 0;
         foreach (ItemDataObject _item in Item)
         {
-            _item.Init();
+            yield return runner.StartCoroutine(_item.InitSync());
             count++;
 
             if(count % 5 == 0)

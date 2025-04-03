@@ -73,13 +73,46 @@ public class StageDataObject : ScriptableObject
         ES3.Save<bool>("Stage_" + stage_num + "_stage_clearflag", stage_clearflag);
     }
 
+    public IEnumerator SaveSync(bool Init = false)
+    {
+        if (Init == true)
+        {
+            stagedatause = false;
+        }
+        else
+        {
+            stagedatause = true;
+        }
+        ES3.Save<bool>("Stage_" + stage_num + "_stage_stagedatause", stagedatause);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save<bool>("Stage_" + stage_num + "_stage_openflag", stage_openflag);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save<bool>("Stage_" + stage_num + "_stage_clearflag", stage_clearflag);
+        yield return new WaitForSeconds(0.001f);
+    }
+
     public void Load()
     {
         stagedatause = ES3.Load<bool>("Stage_" + stage_num + "_stage_stagedatause");
         stage_openflag = ES3.Load<bool>("Stage_" + stage_num + "_stage_openflag");
         stage_clearflag = ES3.Load<bool>("Stage_" + stage_num + "_stage_clearflag");
     }
-    
+
+    public void LoadSync_Start(MonoBehaviour runner)
+    {
+        runner.StartCoroutine(LoadSync());
+    }
+
+    public IEnumerator LoadSync()
+    {
+        stagedatause = ES3.Load<bool>("Stage_" + stage_num + "_stage_stagedatause");
+        yield return new WaitForSeconds(0.001f);
+        stage_openflag = ES3.Load<bool>("Stage_" + stage_num + "_stage_openflag");
+        yield return new WaitForSeconds(0.001f);
+        stage_clearflag = ES3.Load<bool>("Stage_" + stage_num + "_stage_clearflag");
+        yield return new WaitForSeconds(0.001f);
+    }
+
     public void Init()
     {
         stage_clearflag = false;
@@ -88,5 +121,14 @@ public class StageDataObject : ScriptableObject
             stage_openflag = true;
         }
         Save(true);
+    }
+    public void InitSync(MonoBehaviour runner)
+    {
+        stage_clearflag = false;
+        if (stage_num == 0)
+        {
+            stage_openflag = true;
+        }
+        runner.StartCoroutine(SaveSync(true));
     }
 }

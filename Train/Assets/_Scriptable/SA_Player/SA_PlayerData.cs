@@ -315,6 +315,43 @@ public class SA_PlayerData : ScriptableObject
         ES3.Save<int>("SA_PlayerData_Data_Food_Num", food_num);
     }
 
+    private IEnumerator SaveSync()
+    {
+        ES3.Save<bool>("SA_PlayerData_Data_FirstFlag", firstflag);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save<int>("SA_PlayerData_Data_level_atk", level_atk);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save<int>("SA_PlayerData_Data_level_atkdelay", level_atkdelay);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save<int>("SA_PlayerData_Data_level_player_hp", level_hp);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save<int>("SA_PlayerData_Data_level_player_armor", level_armor);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save<int>("SA_PlayerData_Data_levle_speed", level_speed);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save<int>("SA_PlayerData_Data_coin", coin);
+        yield return new WaitForSeconds(0.001f);
+        //ES3.Save<int>("SA_PlayerData_Data_point", point);
+        ES3.Save<int>("SA_PlayerData_Data_new_stage", new_stage);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save<int>("SA_PlayerData_Data_mission_num", mission_num);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save<bool[]>("SA_PlayerData_Data_LockOff", character_lockoff);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save<int>("SA_PlayerData_Data_Story_Num", story_num);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save<bool>("SA_PlayerData_Data_Station_Tutorial", station_tutorial);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save<bool>("SA_PlayerData_Data_MissionPlaying", mission_playing);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save<bool>("SA_PlayerData_Data_EventFlag", eventflag);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save<bool>("SA_PlayerData_Data_Food_Heal_Flag", food_heal_flag);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save<int>("SA_PlayerData_Data_Food_Num", food_num);
+        yield return new WaitForSeconds(0.001f);
+    }
+
     public void Load()
     { 
         firstflag = ES3.Load<bool>("SA_PlayerData_Data_FirstFlag");
@@ -338,6 +375,49 @@ public class SA_PlayerData : ScriptableObject
         food_heal_flag = ES3.Load<bool>("SA_PlayerData_Data_Food_Heal_Flag");
         food_num = ES3.Load<int>("SA_PlayerData_Data_Food_Num");
     }
+
+
+    public IEnumerator LoadSync()
+    {
+        firstflag = ES3.Load<bool>("SA_PlayerData_Data_FirstFlag");
+
+        yield return new WaitForSeconds(0.001f);
+        level_atk = ES3.Load<int>("SA_PlayerData_Data_level_atk");
+        yield return new WaitForSeconds(0.001f);
+        level_atkdelay = ES3.Load<int>("SA_PlayerData_Data_level_atkdelay");
+        yield return new WaitForSeconds(0.001f);
+        level_hp = ES3.Load<int>("SA_PlayerData_Data_level_player_hp");
+        yield return new WaitForSeconds(0.001f);
+        level_armor = ES3.Load<int>("SA_PlayerData_Data_level_player_armor");
+        yield return new WaitForSeconds(0.001f);
+        level_speed = ES3.Load<int>("SA_PlayerData_Data_levle_speed");
+        coin = ES3.Load<int>("SA_PlayerData_Data_coin");
+        yield return new WaitForSeconds(0.001f);
+        //point = ES3.Load<int>("SA_PlayerData_Data_point");
+        yield return new WaitForSeconds(0.001f);
+        new_stage = ES3.Load<int>("SA_PlayerData_Data_new_stage");
+        yield return new WaitForSeconds(0.001f);
+        select_stage = new_stage;
+        yield return new WaitForSeconds(0.001f);
+        mission_num = ES3.Load<int>("SA_PlayerData_Data_mission_num");
+        yield return new WaitForSeconds(0.001f);
+        character_lockoff = ES3.Load<bool[]>("SA_PlayerData_Data_LockOff");
+        yield return new WaitForSeconds(0.001f);
+        story_num = ES3.Load<int>("SA_PlayerData_Data_Story_Num");
+        yield return new WaitForSeconds(0.001f);
+        station_tutorial = ES3.Load<bool>("SA_PlayerData_Data_Station_Tutorial");
+        yield return new WaitForSeconds(0.001f);
+        mission_playing = ES3.Load<bool>("SA_PlayerData_Data_MissionPlaying");
+
+        yield return new WaitForSeconds(0.001f);
+        eventflag = ES3.Load<bool>("SA_PlayerData_Data_EventFlag");
+        yield return new WaitForSeconds(0.001f);
+        food_heal_flag = ES3.Load<bool>("SA_PlayerData_Data_Food_Heal_Flag");
+        yield return new WaitForSeconds(0.001f);
+        food_num = ES3.Load<int>("SA_PlayerData_Data_Food_Num");
+        yield return new WaitForSeconds(0.001f);
+    }
+
 
     public void Init()
     {
@@ -369,7 +449,7 @@ public class SA_PlayerData : ScriptableObject
         Save();
     }
 
-    public IEnumerator InitAsync()
+    public IEnumerator InitAsync(MonoBehaviour runner)
     {
         player_num = 0;
 
@@ -396,7 +476,7 @@ public class SA_PlayerData : ScriptableObject
         eventflag = false;
         food_heal_flag = false;
         food_num = 0;
-        Save();
+        runner.StartCoroutine(SaveSync());
         yield return new WaitForSeconds(0.01f);
     }
 

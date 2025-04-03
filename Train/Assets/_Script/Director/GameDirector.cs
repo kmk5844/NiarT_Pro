@@ -217,10 +217,11 @@ public class GameDirector : MonoBehaviour
 
         Select_Sub_Num = SA_PlayerData.Select_Sub_Stage;
 
-        /*        Mission_Num = 0;
-                Stage_Num = 0;
-                Select_Sub_Num = 1;
-        */
+        Mission_Num = 5;
+        Stage_Num = 4;
+        Select_Sub_Num = 10;
+        TrainDistance = 70000;
+
         SubStageData = SA_MissionData.missionStage(Mission_Num, Stage_Num, Select_Sub_Num);
         NextSubStageNum = new List<int>();
         string[] nextSubStageList = SubStageData.Open_SubStageNum.Split(',');
@@ -711,7 +712,15 @@ public class GameDirector : MonoBehaviour
         Total_TrainFuel = TrainFuel;
         if (Select_Sub_Num != 0)
         {
-            TrainFuel = ES3.Load<int>("Train_Curret_Fuel");
+            try
+            {
+                TrainFuel = ES3.Load<int>("Train_Curret_Fuel");
+            }
+            catch
+            {
+                TrainFuel = 100000;
+            }
+            
         }
     }
     public void Level()

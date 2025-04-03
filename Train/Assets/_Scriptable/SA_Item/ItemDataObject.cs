@@ -1,6 +1,7 @@
 using System.IO;
 using UnityEngine;
 using UnityEditor;
+using System.Collections;
 
 public class ItemDataObject : ScriptableObject
 {
@@ -129,6 +130,14 @@ public class ItemDataObject : ScriptableObject
         item_count = 0;
         string save_itemName = name + "_ItemCount";
         ES3.Save(save_itemName, item_count);
+    }
+
+    public IEnumerator InitSync()
+    {
+        item_count = 0;
+        string save_itemName = name + "_ItemCount";
+        ES3.Save(save_itemName, item_count);
+        yield return new WaitForSeconds(0.001f);
     }
 }
 

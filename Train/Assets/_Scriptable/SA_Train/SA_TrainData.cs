@@ -193,6 +193,36 @@ public class SA_TrainData : ScriptableObject
         PlayerPrefs.SetInt("SA_TrainData_Data_level_trainnumber_40", level_trainnumber_40);
     }
 
+    private IEnumerator SaveSync()
+    {
+        ES3.Save("SA_TrainData_Data_Train_Num", train_num);
+        yield return new WaitForSeconds(0.001f);
+        PlayerPrefs.SetInt("SA_TrainData_Data_level_train_enginetier", level_train_enginetier);
+        yield return new WaitForSeconds(0.001f);
+        PlayerPrefs.SetInt("SA_TrainData_Data_level_train_maxtrain", level_train_maxtrain);
+        yield return new WaitForSeconds(0.001f);
+        PlayerPrefs.SetInt("SA_TrainData_Data_level_train_maxmercenary", level_train_maxmercenary);
+        yield return new WaitForSeconds(0.001f);
+        PlayerPrefs.SetInt("SA_TrainData_Data_level_train_maxspeed", level_train_maxspeed);
+        yield return new WaitForSeconds(0.001f);
+        PlayerPrefs.SetInt("SA_TrainData_Data_level_train_armor", level_train_armor);
+        yield return new WaitForSeconds(0.001f);
+        PlayerPrefs.SetInt("SA_TrainData_Data_level_train_efficient", level_train_efficient);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save("SA_TrainData_Data_Train_Buy_Num", train_buy_num);
+        yield return new WaitForSeconds(0.001f);
+        PlayerPrefs.SetInt("SA_TrainData_Data_level_trainnumber_00", level_trainnumber_00);
+        yield return new WaitForSeconds(0.001f);
+        PlayerPrefs.SetInt("SA_TrainData_Data_level_trainnumber_10", level_trainnumber_10);
+        yield return new WaitForSeconds(0.001f);
+        PlayerPrefs.SetInt("SA_TrainData_Data_level_trainnumber_20", level_trainnumber_20);
+        yield return new WaitForSeconds(0.001f);
+        PlayerPrefs.SetInt("SA_TrainData_Data_level_trainnumber_30", level_trainnumber_30);
+        yield return new WaitForSeconds(0.001f);
+        PlayerPrefs.SetInt("SA_TrainData_Data_level_trainnumber_40", level_trainnumber_40);
+        yield return new WaitForSeconds(0.001f);
+    }
+
     public void Load()
     {
         train_num = ES3.Load<List<int>>("SA_TrainData_Data_Train_Num");
@@ -200,14 +230,44 @@ public class SA_TrainData : ScriptableObject
         level_train_enginetier = PlayerPrefs.GetInt("SA_TrainData_Data_level_train_enginetier");
         level_train_maxtrain = PlayerPrefs.GetInt("SA_TrainData_Data_level_train_maxtrain");
         level_train_maxmercenary = PlayerPrefs.GetInt("SA_TrainData_Data_level_train_maxmercenary");
-        level_train_maxspeed =  PlayerPrefs.GetInt("SA_TrainData_Data_level_train_maxspeed");
+        level_train_maxspeed = PlayerPrefs.GetInt("SA_TrainData_Data_level_train_maxspeed");
         level_train_armor = PlayerPrefs.GetInt("SA_TrainData_Data_level_train_armor");
-        level_train_efficient =  PlayerPrefs.GetInt("SA_TrainData_Data_level_train_efficient");
+        level_train_efficient = PlayerPrefs.GetInt("SA_TrainData_Data_level_train_efficient");
         level_trainnumber_00 = PlayerPrefs.GetInt("SA_TrainData_Data_level_trainnumber_00");
         level_trainnumber_10 = PlayerPrefs.GetInt("SA_TrainData_Data_level_trainnumber_10");
         level_trainnumber_20 = PlayerPrefs.GetInt("SA_TrainData_Data_level_trainnumber_20");
         level_trainnumber_30 = PlayerPrefs.GetInt("SA_TrainData_Data_level_trainnumber_30");
         level_trainnumber_40 = PlayerPrefs.GetInt("SA_TrainData_Data_level_trainnumber_40");
+    }
+
+    public IEnumerator LoadSync()
+    {
+        train_num = ES3.Load<List<int>>("SA_TrainData_Data_Train_Num");
+        yield return new WaitForSeconds(0.001f);
+        train_buy_num = ES3.Load<List<int>>("SA_TrainData_Data_Train_Buy_Num");
+        yield return new WaitForSeconds(0.001f);
+        level_train_enginetier = PlayerPrefs.GetInt("SA_TrainData_Data_level_train_enginetier");
+        yield return new WaitForSeconds(0.001f);
+        level_train_maxtrain = PlayerPrefs.GetInt("SA_TrainData_Data_level_train_maxtrain");
+        yield return new WaitForSeconds(0.001f);
+        level_train_maxmercenary = PlayerPrefs.GetInt("SA_TrainData_Data_level_train_maxmercenary");
+        yield return new WaitForSeconds(0.001f);
+        level_train_maxspeed =  PlayerPrefs.GetInt("SA_TrainData_Data_level_train_maxspeed");
+        yield return new WaitForSeconds(0.001f);
+        level_train_armor = PlayerPrefs.GetInt("SA_TrainData_Data_level_train_armor");
+        yield return new WaitForSeconds(0.001f);
+        level_train_efficient =  PlayerPrefs.GetInt("SA_TrainData_Data_level_train_efficient");
+        yield return new WaitForSeconds(0.001f);
+        level_trainnumber_00 = PlayerPrefs.GetInt("SA_TrainData_Data_level_trainnumber_00");
+        yield return new WaitForSeconds(0.001f);
+        level_trainnumber_10 = PlayerPrefs.GetInt("SA_TrainData_Data_level_trainnumber_10");
+        yield return new WaitForSeconds(0.001f);
+        level_trainnumber_20 = PlayerPrefs.GetInt("SA_TrainData_Data_level_trainnumber_20");
+        yield return new WaitForSeconds(0.001f);
+        level_trainnumber_30 = PlayerPrefs.GetInt("SA_TrainData_Data_level_trainnumber_30");
+        yield return new WaitForSeconds(0.001f);
+        level_trainnumber_40 = PlayerPrefs.GetInt("SA_TrainData_Data_level_trainnumber_40");
+        yield return new WaitForSeconds(0.001f);
     }
 
     public void Init()
@@ -231,7 +291,7 @@ public class SA_TrainData : ScriptableObject
         Save();
     }
 
-    public IEnumerator InitAsync()
+    public IEnumerator InitAsync(MonoBehaviour runner)
     {
         train_num.Clear();
         train_num.Add(0);
@@ -248,7 +308,7 @@ public class SA_TrainData : ScriptableObject
         level_trainnumber_20 = 20;
         level_trainnumber_30 = 30;
         level_trainnumber_40 = 40;
-        Save();
+        runner.StartCoroutine(SaveSync());
         yield return new WaitForSeconds(0.01f);
     }
 }

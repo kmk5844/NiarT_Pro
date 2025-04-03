@@ -6,19 +6,19 @@ public class MissionDataObject : ScriptableObject
 {
     [SerializeField]
     private bool missiondatause;
-    public bool MissionDataUse {  get { return missiondatause; } }
+    public bool MissionDataUse { get { return missiondatause; } }
 
     [SerializeField]
     private int mission_num;
-    public int Mission_Num {  get { return mission_num; } }
+    public int Mission_Num { get { return mission_num; } }
 
     [SerializeField]
     private int stage_num;
     public int Stage_Num { get { return stage_num; } }
-    
+
     [SerializeField]
     private int substage_num;
-    public int SubStage_Num {  get { return substage_num; } }
+    public int SubStage_Num { get { return substage_num; } }
 
     [SerializeField]
     private SubStageType substage_type;
@@ -42,11 +42,11 @@ public class MissionDataObject : ScriptableObject
 
     [SerializeField]
     private bool startstageflag;
-    public bool StartStageFlag {  get {  return startstageflag; } }
+    public bool StartStageFlag { get { return startstageflag; } }
 
     [SerializeField]
     private bool nextstageflag;
-    public bool NextStageFlag {  get { return nextstageflag; } }
+    public bool NextStageFlag { get { return nextstageflag; } }
 
     [SerializeField]
     private string substage_status;
@@ -54,11 +54,11 @@ public class MissionDataObject : ScriptableObject
 
     [SerializeField]
     private bool readyflag;
-    public bool ReadyFlag { get { return  readyflag; } }
+    public bool ReadyFlag { get { return readyflag; } }
 
     [SerializeField]
     private bool stageclearflag;
-    public bool StageClearFlag {  get { return stageclearflag; } }
+    public bool StageClearFlag { get { return stageclearflag; } }
 
     [SerializeField]
     private bool stageopenflag;
@@ -68,7 +68,7 @@ public class MissionDataObject : ScriptableObject
         int _mission_num,
         int _stage_num, int _substage_num, SubStageType _substage_type,
         int _distance, string _emerging_monster, string _monster_count,
-        string  _open_substagenum, string _substage_status, bool _stagestartflag, bool _nextstageflag)
+        string _open_substagenum, string _substage_status, bool _stagestartflag, bool _nextstageflag)
     {
         mission_num = _mission_num;
         stage_num = _stage_num;
@@ -120,6 +120,20 @@ public class MissionDataObject : ScriptableObject
         Save(true);
     }
 
+    public void InitSync(MonoBehaviour runner)
+    {
+        stageclearflag = false;
+        if (startstageflag)
+        {
+            stageopenflag = true;
+        }
+        else
+        {
+            stageopenflag = false;
+        }
+        runner.StartCoroutine(SaveSync(true));
+    }
+
     void Save(bool Init = false)
     {
         if(Init == true)
@@ -135,11 +149,45 @@ public class MissionDataObject : ScriptableObject
         ES3.Save<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_OpenFlag", stageopenflag);
     }
 
+    IEnumerator SaveSync(bool Init = false)
+    {
+        if (Init == true)
+        {
+            missiondatause = false;
+        }
+        else
+        {
+            missiondatause = true;
+        }
+        ES3.Save<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_MissionDataUse", missiondatause);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_ClearFlag", stageclearflag);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_OpenFlag", stageopenflag);
+        yield return new WaitForSeconds(0.001f);
+    }
+
+
     public void Load()
     {
         missiondatause = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_MissionDataUse");
         stageclearflag = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_ClearFlag");
         stageopenflag = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_OpenFlag");
+    }
+
+    public void LoadSync_Start(MonoBehaviour runner)
+    {
+        runner.StartCoroutine(LoadSync());
+    }
+
+    public IEnumerator LoadSync()
+    {
+        missiondatause = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_MissionDataUse");
+        yield return new WaitForSeconds(0.001f);
+        stageclearflag = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_ClearFlag");
+        yield return new WaitForSeconds(0.001f);
+        stageopenflag = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_OpenFlag");
+        yield return new WaitForSeconds(0.001f);
     }
 
     void CheckReadyFlag()

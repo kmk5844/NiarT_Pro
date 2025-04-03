@@ -194,6 +194,33 @@ public class SA_MercenaryData : ScriptableObject
 
     }
 
+    private IEnumerator SaveSync()
+    {
+        ES3.Save("SA_Mercenary_Data_Data_mercenary_num", mercenary_num);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save("SA_Mercenary_Data_Data_level_engine_driver", level_engine_driver);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save("SA_Mercenary_Data_Data_level_engineer", level_engineer);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save("SA_Mercenary_Data_Data_level_long_ranged", level_long_ranged);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save("SA_Mercenary_Data_Data_level_short_ranged", level_short_ranged);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save("SA_Mercenary_Data_Data_level_medic", level_medic);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save<Engine_Driver_Type>("SA_Mercenary_Data_engine_driver_type", engine_driver_type);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save("SA_Mercenary_Data_Data_mercenary_buy_num", mercenary_buy_num);
+        yield return new WaitForSeconds(0.001f);
+        //데모버전 이후
+        ES3.Save<Bard_Type>("SA_Mercenary_Data_bard_type", bard_type);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save("SA_Mercenary_Data_Data_level_bard", level_bard);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save("SA_Mercenary_Data_Data_level_cowboy", level_cowboy);
+        yield return new WaitForSeconds(0.001f);
+    }
+
     public void Load()
     {
         mercenary_num = ES3.Load<List<int>>("SA_Mercenary_Data_Data_mercenary_num");
@@ -208,6 +235,33 @@ public class SA_MercenaryData : ScriptableObject
         bard_type = ES3.Load<Bard_Type>("SA_Mercenary_Data_bard_type");
         level_medic = ES3.Load<int>("SA_Mercenary_Data_Data_level_bard");
         level_cowboy = ES3.Load<int>("SA_Mercenary_Data_Data_level_cowboy");
+    }
+
+    public IEnumerator LoadSync()
+    {
+        mercenary_num = ES3.Load<List<int>>("SA_Mercenary_Data_Data_mercenary_num");
+        yield return new WaitForSeconds(0.001f);
+        engine_driver_type = ES3.Load<Engine_Driver_Type>("SA_Mercenary_Data_engine_driver_type");
+        yield return new WaitForSeconds(0.001f);
+        mercenary_buy_num = ES3.Load<List<int>>("SA_Mercenary_Data_Data_mercenary_buy_num");
+        yield return new WaitForSeconds(0.001f);
+        level_engine_driver = ES3.Load<int>("SA_Mercenary_Data_Data_level_engine_driver");
+        yield return new WaitForSeconds(0.001f);
+        level_engineer = ES3.Load<int>("SA_Mercenary_Data_Data_level_engineer");
+        yield return new WaitForSeconds(0.001f);
+        level_long_ranged = ES3.Load<int>("SA_Mercenary_Data_Data_level_long_ranged");
+        yield return new WaitForSeconds(0.001f);
+        level_short_ranged = ES3.Load<int>("SA_Mercenary_Data_Data_level_short_ranged");
+        yield return new WaitForSeconds(0.001f);
+        level_medic = ES3.Load<int>("SA_Mercenary_Data_Data_level_medic");
+        yield return new WaitForSeconds(0.001f);
+        //데모버전 이후
+        bard_type = ES3.Load<Bard_Type>("SA_Mercenary_Data_bard_type");
+        yield return new WaitForSeconds(0.001f);
+        level_medic = ES3.Load<int>("SA_Mercenary_Data_Data_level_bard");
+        yield return new WaitForSeconds(0.001f);
+        level_cowboy = ES3.Load<int>("SA_Mercenary_Data_Data_level_cowboy");
+        yield return new WaitForSeconds(0.001f);
     }
 
     public void Init()
@@ -225,7 +279,7 @@ public class SA_MercenaryData : ScriptableObject
         level_cowboy = 0;
         Save();
     }
-    public IEnumerator InitAsync()
+    public IEnumerator InitAsync(MonoBehaviour runner)
     {
         mercenary_num.Clear();
         engine_driver_type = Engine_Driver_Type.speed;
@@ -238,7 +292,7 @@ public class SA_MercenaryData : ScriptableObject
         level_medic = 0;
         level_bard = 0;
         level_cowboy = 0;
-        Save();
+        runner.StartCoroutine(SaveSync());
         yield return null;
     }
 }

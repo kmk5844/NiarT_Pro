@@ -33,13 +33,13 @@ public class SA_StoryLIst : ScriptableObject
         }
     }
 
-    public IEnumerator PlayGame_StoryList_InitAsync()
+    public IEnumerator PlayGame_StoryList_InitAsync(MonoBehaviour runner)
     {
         for(int i = 0; i < storylist.Count; i++)
         {
             if (storylist[i].StoryDataUse)
             {
-                storylist[i].Init();
+                 storylist[i].InitSync(runner);
             }
             else
             {
@@ -68,6 +68,26 @@ public class SA_StoryLIst : ScriptableObject
                 break;
             }
         }
+    }
+
+
+    public IEnumerator PlayGame_StoryList_LoadSync(MonoBehaviour runner)
+    {
+        for (int i = 0; i < storylist.Count; i++)
+        {
+            if (storylist[i].StoryDataUse)
+            {
+                storylist[i].LoadSync_Start(runner);
+            }
+            else
+            {
+                break;
+            }
+            yield return null;
+
+        }
+
+        yield return null;
     }
 
     public void StoryList_InsertObject(StoryDataObject newobject)

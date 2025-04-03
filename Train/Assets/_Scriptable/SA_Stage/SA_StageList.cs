@@ -31,13 +31,13 @@ public class SA_StageList : ScriptableObject
         }
     }
 
-    public IEnumerator PlayGame_StageList_InitAsync()
+    public IEnumerator PlayGame_StageList_InitAsync(MonoBehaviour runner)
     {
         for (int i = 0; i < stage.Count; i++)
         {
             if (stage[i].StageDataUse)
             {
-                stage[i].Init();
+                stage[i].InitSync(runner);
             }
             else
             {
@@ -66,6 +66,23 @@ public class SA_StageList : ScriptableObject
                 break;
             }
         }
+    }
+
+    public IEnumerator PlayGame_StageList_LoadSync(MonoBehaviour runner)
+    {
+        for (int i = 0; i < stage.Count; i++)
+        {
+            if (stage[i].StageDataUse)
+            {
+                stage[i].LoadSync_Start(runner);
+            }
+            else
+            {
+                break;
+            }
+            yield return null;
+        }
+        yield return null;
     }
 
     public void StageList_InsterObject(StageDataObject newobject)
