@@ -76,8 +76,9 @@ public class Boss : MonoBehaviour
     protected virtual void Update()
     {
        Boss_Guage.fillAmount = ((float)Monster_HP / (float)Monster_Max_HP);
+       player_pos = GameObject.FindGameObjectWithTag("Player").transform;
     }
-    
+
 
     private void Change_DieFlag()
     {

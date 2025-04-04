@@ -1,3 +1,5 @@
+using DG.Tweening;
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,7 +23,10 @@ public class Monster_Boss_2 : Boss
     float attack_delayTime;
 
     bool LR_Flag;
+    int skillNum;
 
+    public GameObject Skill_0_Bullet;
+    public GameObject Skill_3_Bullet;
     protected override void Start()
     {
         Boss_Num = 2;
@@ -35,7 +40,7 @@ public class Monster_Boss_2 : Boss
         playType = Boss_PlayType.Spawn;
 
         move_delayTime = 10f;
-        attack_delayTime = 1f;
+        attack_delayTime = 0.6f;
         LR_Flag = false;
     }
 
@@ -68,35 +73,43 @@ public class Monster_Boss_2 : Boss
 
         if (playType == Boss_PlayType.Move)
         {
+            if(transform.position.x < player_pos.transform.position.x)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, -20);
+                transform.localScale = new Vector3(local_Scale.x, local_Scale.y, local_Scale.z);
+            }
+            else if(transform.position.x > player_pos.transform.position.x)
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 20);
+                transform.localScale = new Vector3(-local_Scale.x, local_Scale.y, local_Scale.z);
+            }
+
             if (LR_Flag)
             {
-                transform.Translate(-12f * Time.deltaTime, 0, 0, Space.World);
+                transform.Translate(-15f * Time.deltaTime, 0, 0, Space.World);
                 if (transform.position.x < MonsterDirector.MinPos_Sky.x)
                 {
                     LR_Flag = false;
-                    transform.rotation = Quaternion.Euler(0,0,-20);
-                    transform.localScale = new Vector3(local_Scale.x, local_Scale.y, local_Scale.z);
                 }
             }
             else
             {
-                transform.Translate(12f * Time.deltaTime, 0, 0, Space.World);
-                
+                transform.Translate(15f * Time.deltaTime, 0, 0, Space.World);
+
                 if (transform.position.x > MonsterDirector.MaxPos_Sky.x) 
                 {
                     LR_Flag = true;
-                    transform.rotation = Quaternion.Euler(0,0,20);
-                    transform.localScale = new Vector3(-local_Scale.x, local_Scale.y, local_Scale.z);
                 }
             }
 
-            if(Time.time >= attack_lastTime + attack_delayTime)
+            if (Time.time >= attack_lastTime + attack_delayTime)
             {
-                Debug.Log("발사");
+                GameObject defaultBullet = Instantiate(Boss_Bullet, Fire_Zone.position, Quaternion.identity, monster_Bullet_List);
+                defaultBullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk, Bullet_Slow, 20, 0);
                 attack_lastTime = Time.time;
             }
 
-            if(Time.time >= move_lastTime + move_delayTime)
+            if (Time.time >= move_lastTime + move_delayTime)
             {
                 playType = Boss_PlayType.Skill;
             }
@@ -104,23 +117,86 @@ public class Monster_Boss_2 : Boss
 
         if (playType == Boss_PlayType.Skill)
         {
-            int skillNum = Random.Range(0, 3);
+            skillNum = Random.Range(0, 3);
+            skillNum = 3;
             if(skillNum == 0)
             {
-                Debug.Log("스킬 사용 0");
                 StartCoroutine(RandomBomb());
             }
             else if(skillNum == 1)
             {
-                Debug.Log("스킬 사용 1");
                 StartCoroutine(MachineGun_Sky_Player());
             }
             else if(skillNum == 2)
             {
-                Debug.Log("스킬 사용 2");
                 StartCoroutine(MachineGun_Ground_Player());
+            }else if (skillNum == 3)
+            {
+                StartCoroutine(PlayerBomb());
             }
             playType = Boss_PlayType.Skill_Using;
+        }
+
+        if(playType == Boss_PlayType.Skill_Using)
+        {
+
+            if(skillNum == 0)
+            {
+                if (transform.position.x < player_pos.transform.position.x)
+                {
+                    transform.rotation = Quaternion.Euler(0, 0, -20);
+                    transform.localScale = new Vector3(local_Scale.x, local_Scale.y, local_Scale.z);
+                }
+                else if (transform.position.x > player_pos.transform.position.x)
+                {
+                    transform.rotation = Quaternion.Euler(0, 0, 20);
+                    transform.localScale = new Vector3(-local_Scale.x, local_Scale.y, local_Scale.z);
+                }
+
+                if (LR_Flag)
+                {
+                    transform.Translate(-7f * Time.deltaTime, 0, 0, Space.World);
+                }
+                else
+                {
+                    transform.Translate(7f * Time.deltaTime, 0, 0, Space.World);
+                }
+            }else if (skillNum == 1)
+            {
+                if (transform.position.x < player_pos.transform.position.x)
+                {
+                    transform.rotation = Quaternion.Euler(0, 0, -20);
+                    transform.localScale = new Vector3(local_Scale.x, local_Scale.y, local_Scale.z);
+                }
+                else if (transform.position.x > player_pos.transform.position.x)
+                {
+                    transform.rotation = Quaternion.Euler(0, 0, 20);
+                    transform.localScale = new Vector3(-local_Scale.x, local_Scale.y, local_Scale.z);
+                }
+
+                float offset = Mathf.Sin(Time.time * 10f) * 3f; // 2 : 스피드, 1.0f 이동거리
+                Vector2 movement = new Vector2(0f, offset);
+                transform.Translate(movement * Time.deltaTime);
+            }else if(skillNum == 2)
+            {
+                //없음
+            }else if (skillNum == 3)
+            {
+                if (transform.position.x < player_pos.transform.position.x)
+                {
+                    transform.rotation = Quaternion.Euler(0, 0, -20);
+                    transform.localScale = new Vector3(local_Scale.x, local_Scale.y, local_Scale.z);
+                }
+                else if (transform.position.x > player_pos.transform.position.x)
+                {
+                    transform.rotation = Quaternion.Euler(0, 0, 20);
+                    transform.localScale = new Vector3(-local_Scale.x, local_Scale.y, local_Scale.z);
+                }
+
+                float offset = Mathf.Sin(Time.time * 10f) * 3f; // 2 : 스피드, 1.0f 이동거리
+                Vector2 movement = new Vector2(0f, offset);
+                transform.Translate(movement * Time.deltaTime);
+            }
         }
 
         if (DieFlag)
@@ -141,24 +217,115 @@ public class Monster_Boss_2 : Boss
     }
     IEnumerator RandomBomb()
     {
-        yield return new WaitForSeconds(2f);
+        float x1 = MonsterDirector.MinPos_Ground.x;
+        float x2 = MonsterDirector.MaxPos_Ground.x;
+
+        for (int i = 0; i < 15; i++)
+        {
+            float x = Random.Range(x1, x2);
+            Skill_0_Bullet.GetComponent<Boss2_MissileSkill>().PlayerTarget = false;
+            Instantiate(Skill_0_Bullet, new Vector3(x, 20, 0),Quaternion.Euler(0,0,-180), monster_Bullet_List.transform);
+            yield return new WaitForSeconds(0.2f);
+        }
         ToMove();
     }
 
     IEnumerator MachineGun_Sky_Player()
     {
-        yield return new WaitForSeconds(2f);
+        for (int i = 0; i < 30; i++)
+        {
+            float RandomY = Random.Range(-1f, 1f);
+            Vector3 newPos = new Vector3(Fire_Zone.transform.position.x, Fire_Zone.transform.position.y + RandomY, Fire_Zone.transform.position.z);
+            GameObject defaultBullet = Instantiate(Boss_Bullet, newPos, Quaternion.identity, monster_Bullet_List);
+            defaultBullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk, 1, 20, 0);
+            attack_lastTime = Time.time;
+            yield return new WaitForSeconds(0.1f);
+        }
         ToMove();
     }
 
     IEnumerator MachineGun_Ground_Player()
     {
-        yield return new WaitForSeconds(2f);
+        while (true)
+        {
+            if(transform.position.y < 20f)
+            {
+                transform.Translate(Vector2.up * Time.deltaTime * 10, Space.World);
+            }
+            else
+            {
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+                transform.localScale = new Vector3(local_Scale.x, local_Scale.y, local_Scale.z);
+                transform.position = new Vector3(MonsterDirector.MinPos_Ground.x - 15f, transform.position.y, transform.position.z);
+                break;
+            }
+            yield return null;
+        }
+
+        while (true)
+        {
+            if (transform.position.y > 1f)
+            {
+                transform.Translate(Vector2.down * Time.deltaTime * 16, Space.World);
+            }
+            else
+            {
+                break;
+            }
+            yield return null;
+        }
+
+        for(int i = 0; i < 5; i++)
+        {
+            for(int j = 0; j < 6; j++)
+            {
+                float RandomY = Random.Range(-0.5f, 0.7f);
+                Vector3 newPos = new Vector3(Fire_Zone.transform.position.x, Fire_Zone.transform.position.y + RandomY, Fire_Zone.transform.position.z);
+                GameObject defaultBullet = Instantiate(Skill_3_Bullet, newPos, Quaternion.identity, monster_Bullet_List);
+                defaultBullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk, Bullet_Slow, 20, 1);
+                yield return new WaitForSeconds(0.03f);
+            }
+            yield return new WaitForSeconds(1f);
+        }
+        while (true)
+        {
+            if(transform.position.y< 10f)
+            {
+                transform.Translate(Vector2.up * Time.deltaTime * 15, Space.World);
+            }
+            else
+            {
+                if (transform.position.x < player_pos.transform.position.x)
+                {
+                    transform.rotation = Quaternion.Euler(0, 0, -20);
+                    transform.localScale = new Vector3(local_Scale.x, local_Scale.y, local_Scale.z);
+                }
+                else if (transform.position.x > player_pos.transform.position.x)
+                {
+                    transform.rotation = Quaternion.Euler(0, 0, 20);
+                    transform.localScale = new Vector3(-local_Scale.x, local_Scale.y, local_Scale.z);
+                }
+                break;
+            }
+            yield return null;
+        }
+        ToMove();
+    }
+
+    IEnumerator PlayerBomb()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            Skill_0_Bullet.GetComponent<Boss2_MissileSkill>().PlayerTarget = true;
+            Instantiate(Skill_0_Bullet, Fire_Zone.transform.position, Quaternion.identity, monster_Bullet_List);
+            yield return new WaitForSeconds(0.5f);
+        }
         ToMove();
     }
 
     private void ToMove()
     {
+        transform.position = new Vector3(transform.position.x, 10f, 56);
         move_delayTime = Random.Range(5f, 8f);
         move_lastTime = Time.time;
         playType = Boss_PlayType.Move;
