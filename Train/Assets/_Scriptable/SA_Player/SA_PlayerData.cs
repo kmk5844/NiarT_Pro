@@ -179,7 +179,16 @@ public class SA_PlayerData : ScriptableObject
 
     public void SA_Loss_HP_Persent(int persent)
     {
-        int curret_hp = ES3.Load<int>("Player_Curret_HP");
+        int curret_hp;
+        try
+        {
+            curret_hp = ES3.Load<int>("Player_Curret_HP");
+        }
+        catch
+        {
+            curret_hp = 5000;
+        }
+
         int hp = curret_hp - curret_hp * (persent / 100);
         ES3.Save<int>("Player_Curret_HP", hp);
     }

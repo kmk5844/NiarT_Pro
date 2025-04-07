@@ -20,7 +20,7 @@ public class Tutorial_Player : MonoBehaviour
 
     float moveSpeed = 7;
     float jumpSpeed = 8.5f;
-    float jumpdistance = 1f;
+    float jumpdistance = 1.5f;
     float jumpFlagDistance;
     public GameObject GunObject;
     public Transform FireZone; 
@@ -72,7 +72,7 @@ public class Tutorial_Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         ani = GetComponent<Animator>();
         jumpFlag = false;
-        jumpdistance = 1f;
+        jumpdistance = 1.5f;
         Bullet_Delay = 0.5f;
         Bullet_Atk = 30;
         GunObject_Scale = GunObject.transform.localScale;

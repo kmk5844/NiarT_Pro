@@ -191,7 +191,6 @@ public class Player : MonoBehaviour
             {
                 isMouseDown = false;
             }
-
             if (isMouseDown)
             {
                 gamedirector.ChangeCursor(true, true);

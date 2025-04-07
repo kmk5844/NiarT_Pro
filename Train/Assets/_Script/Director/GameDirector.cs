@@ -441,7 +441,6 @@ public class GameDirector : MonoBehaviour
         }
         else if(gameType == GameType.Boss)
         {
-            ChangeCursor(true);
             if (Time.time >= lastSpeedTime + timeBet && GameWinFlag == false)
             {
                 if (MaxSpeed >= TrainSpeed)

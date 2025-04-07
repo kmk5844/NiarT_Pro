@@ -29,7 +29,6 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
     public GameObject SpawnItemObject;
     public GameObject TrainObject;
 
-    public int score;
     public int gold;
 
     public float speed;
@@ -76,7 +75,6 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
 
     private void Start()
     {
-        score = 0;
         gold = 0;
         scarecrow_DestoryFlag = false;
         T_Flag = true;
@@ -402,7 +400,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
             {
                 if (T_Flag)
                 {
-                    for(int i = 0; i < 5; i++)
+                    for(int i = 0; i < 3; i++)
                     {
                         scarecrow_sky[i] = Instantiate(ScarecrowObject_Sky, new Vector2(0 - (6 * i), 16), Quaternion.identity);
                         Scarecrow_count++;
@@ -548,9 +546,8 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
         }
     }
 
-    public void Get_Score(int _score, int _gold, bool flag)
+    public void Get_Score(int _gold, bool flag)
     {
-        score += _score;
         gold += _gold;
         if (flag)
         {

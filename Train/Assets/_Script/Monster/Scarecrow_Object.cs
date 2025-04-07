@@ -3,7 +3,6 @@ using UnityEngine;
 public class Scarecrow_Object : MonoBehaviour
 {
     int MonsterHP;
-    public int Monster_Score;
     public int Monster_Coin;
     GameObject HitDamage;
     GamePlay_Tutorial_Director director;
@@ -19,15 +18,13 @@ public class Scarecrow_Object : MonoBehaviour
         director = GameObject.Find("TutorialDirector").GetComponent<GamePlay_Tutorial_Director>();
         if (!Monster_Type)
         {
-            MonsterHP = 100;
-            Monster_Score = 100;
+            MonsterHP = 50;
             Monster_Coin = 100;
             transform.position = new Vector2(-13, 16);
         }
         else
         {
-            MonsterHP = 80;
-            Monster_Score = 200;
+            MonsterHP = 50;
             Monster_Coin = 200;
             rand_speed = Random.Range(10f, 14f);
             rand_distance = Random.Range(0.5f, 1f);
@@ -91,7 +88,7 @@ public class Scarecrow_Object : MonoBehaviour
             }
             else
             {
-                director.Get_Score(Monster_Score, Monster_Coin, Monster_Type);
+                director.Get_Score(Monster_Coin, Monster_Type);
                 Destroy(gameObject);
             }
         }

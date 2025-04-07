@@ -34,7 +34,7 @@ public class Monster_Boss_2 : Boss
         move_xPos = 1f;
         move_speed = 3f;
         player = GameObject.FindWithTag("Player");
-        transform.position = new Vector3(MonsterDirector.MaxPos_Sky.x + 18f, 10f, 56);
+        transform.position = new Vector3(MonsterDirector.MaxPos_Sky.x + 18f, 10f, 0);
         transform.rotation = Quaternion.Euler(0,0,20);
         transform.localScale = new Vector3(-local_Scale.x, local_Scale.y, local_Scale.z);
         playType = Boss_PlayType.Spawn;
@@ -117,8 +117,7 @@ public class Monster_Boss_2 : Boss
 
         if (playType == Boss_PlayType.Skill)
         {
-            skillNum = Random.Range(0, 3);
-            skillNum = 3;
+            skillNum = Random.Range(0, 4);
             if(skillNum == 0)
             {
                 StartCoroutine(RandomBomb());
@@ -209,8 +208,8 @@ public class Monster_Boss_2 : Boss
 
         if (playType == Boss_PlayType.Die)
         {
-            movement = new Vector3(-2f, -3f, 0f);
-            transform.Translate(movement * 1.5f * Time.deltaTime);
+            movement = new Vector3(-3f, -5f, 0f);
+            transform.Translate(movement * 4f * Time.deltaTime);
             Destroy(gameObject, 8f);
         }
 
@@ -248,7 +247,7 @@ public class Monster_Boss_2 : Boss
     {
         while (true)
         {
-            if(transform.position.y < 20f)
+            if(transform.position.y < 23f)
             {
                 transform.Translate(Vector2.up * Time.deltaTime * 10, Space.World);
             }
@@ -256,7 +255,7 @@ public class Monster_Boss_2 : Boss
             {
                 transform.rotation = Quaternion.Euler(0, 0, 0);
                 transform.localScale = new Vector3(local_Scale.x, local_Scale.y, local_Scale.z);
-                transform.position = new Vector3(MonsterDirector.MinPos_Ground.x - 15f, transform.position.y, transform.position.z);
+                transform.position = new Vector3(MonsterDirector.MinPos_Ground.x - 10f, transform.position.y, transform.position.z);
                 break;
             }
             yield return null;
@@ -279,7 +278,7 @@ public class Monster_Boss_2 : Boss
         {
             for(int j = 0; j < 6; j++)
             {
-                float RandomY = Random.Range(-0.5f, 0.7f);
+                float RandomY = Random.Range(-0.2f, 0.7f);
                 Vector3 newPos = new Vector3(Fire_Zone.transform.position.x, Fire_Zone.transform.position.y + RandomY, Fire_Zone.transform.position.z);
                 GameObject defaultBullet = Instantiate(Skill_3_Bullet, newPos, Quaternion.identity, monster_Bullet_List);
                 defaultBullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk, Bullet_Slow, 20, 1);
@@ -289,7 +288,7 @@ public class Monster_Boss_2 : Boss
         }
         while (true)
         {
-            if(transform.position.y< 10f)
+            if(transform.position.y < 10f)
             {
                 transform.Translate(Vector2.up * Time.deltaTime * 15, Space.World);
             }
@@ -325,10 +324,13 @@ public class Monster_Boss_2 : Boss
 
     private void ToMove()
     {
-        transform.position = new Vector3(transform.position.x, 10f, 56);
-        move_delayTime = Random.Range(5f, 8f);
-        move_lastTime = Time.time;
-        playType = Boss_PlayType.Move;
+        if(playType != Boss_PlayType.Die)
+        {
+            transform.position = new Vector3(transform.position.x, 10f, 0);
+            move_delayTime = Random.Range(5f, 8f);
+            move_lastTime = Time.time;
+            playType = Boss_PlayType.Move;
+        }
     }
 
 

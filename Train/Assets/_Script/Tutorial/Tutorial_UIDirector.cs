@@ -73,7 +73,6 @@ public class Tutorial_UIDirector : MonoBehaviour
     private void Update()
     {
         PlayerHP_Image.fillAmount = ((float)Player.PlayerHP / (float)Player.Max_PlayerHP);
-        Score_Text.text = tutorialDirector.score.ToString();
         Gold_Text.text = tutorialDirector.gold.ToString();
         Speed_Text.text = (int)tutorialDirector.speed + " Km/H";
         Speed_Arrow.value = tutorialDirector.speed/tutorialDirector.Max_Speed;
