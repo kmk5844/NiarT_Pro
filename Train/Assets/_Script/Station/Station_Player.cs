@@ -116,7 +116,6 @@ public class Station_Player : MonoBehaviour
             }
         }
 
-
         Debug.DrawRay(rigid.position, Vector3.down * jumpdistance, Color.green);
         RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, jumpdistance, LayerMask.GetMask("Platform"));
 

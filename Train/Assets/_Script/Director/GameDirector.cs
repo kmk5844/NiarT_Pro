@@ -217,10 +217,10 @@ public class GameDirector : MonoBehaviour
 
         Select_Sub_Num = SA_PlayerData.Select_Sub_Stage;
 
-        Mission_Num = 5;
+        /*Mission_Num = 5;
         Stage_Num = 4;
         Select_Sub_Num = 10;
-        TrainDistance = 70000;
+        TrainDistance = 70000;*/
 
         SubStageData = SA_MissionData.missionStage(Mission_Num, Stage_Num, Select_Sub_Num);
         NextSubStageNum = new List<int>();

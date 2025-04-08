@@ -164,6 +164,7 @@ public class Station_TrainMaintenance : MonoBehaviour
 
     private void Start()
     {
+        Debug.Log(Train_Name_Buy_Text.GetComponent<TextMeshProUGUI>().text);
         local_Index = localData.Local_Index;
         trainData = Train_DataObject.GetComponent<Station_TrainData>();
         playerData = Player_DataObject.GetComponent<Station_PlayerData>();
@@ -231,6 +232,10 @@ public class Station_TrainMaintenance : MonoBehaviour
         {
             DropDown_Option_Change();
             local_Index = localData.Local_Index;
+        }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Debug.Log(Train_Name_Buy_Text.GetComponent<TextMeshProUGUI>().text);
         }
     }
 

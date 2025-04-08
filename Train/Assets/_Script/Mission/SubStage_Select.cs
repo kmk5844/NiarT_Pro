@@ -122,6 +122,9 @@ public class SubStage_Select : MonoBehaviour
         }
 
         SpawnRail();
+        Transform parent = InformationObject.transform.parent.parent;
+        InformationObject.transform.SetParent(parent);
+        InformationObject.transform.SetAsLastSibling();
         startFlag = true;   
     }
     private void OnEnable()

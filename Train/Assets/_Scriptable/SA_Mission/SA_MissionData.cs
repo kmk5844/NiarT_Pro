@@ -30,7 +30,7 @@ public class SA_MissionData : ScriptableObject
     {
         stagelist.Clear();
         mainstage_clearflag.Clear();
-        for (int i = -1; i < maxStage-1; i++)
+        for (int i = 0; i < maxStage; i++)
         {
             MissionList newMissionList = new MissionList
             {
@@ -116,7 +116,9 @@ public class SA_MissionData : ScriptableObject
 
     public void SubStage_Lose(int MainStageNum, int MissionNum)
     {
-        switch(MissionNum)
+        Debug.Log(MainStageNum + " , "+ MissionNum);
+
+        switch (MissionNum)
         {
             case 0:
                 foreach(MissionDataObject mission in stagelist[MainStageNum].Q_Des)
