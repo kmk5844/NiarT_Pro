@@ -300,7 +300,7 @@ public class PlayerReadyDirector : MonoBehaviour
 
         Ready_Buy_TrainObject buy = Buy_TrainObject.GetComponent<Ready_Buy_TrainObject>();
         buy.director = this;
-        buy.TrainNum_1 = 10;
+        buy.TrainNum_1 = 10; //-> ¼öÁ¤
         Instantiate(buy, Buy_TrainList[0]);
         Instantiate(buy, Buy_TrainList[1]);
         AllCount++;

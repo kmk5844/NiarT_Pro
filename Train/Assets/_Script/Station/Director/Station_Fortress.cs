@@ -139,17 +139,29 @@ public class Station_Fortress : MonoBehaviour
 
         if (playerData.Level_Player_HP == playerData.Max_Player_HP)
         {
+            PlayerUP_Text[4].text = "MAX";
+            PlayerUPCost_Text[4].text = "----";
+            PlayerUP_Button[4].interactable = false;
+        }
+        else
+        {
+            PlayerUP_Text[4].text = "Lv." + playerData.Level_Player_HP;
+            PlayerUPCost_Text[4].text = playerData.Cost_Player_HP + " G";
+        }
+
+        if (playerData.Level_Player_Armor == playerData.Max_Player_Armor)
+        {
             PlayerUP_Text[2].text = "MAX";
             PlayerUPCost_Text[2].text = "----";
             PlayerUP_Button[2].interactable = false;
         }
         else
         {
-            PlayerUP_Text[2].text = "Lv." + playerData.Level_Player_HP;
-            PlayerUPCost_Text[2].text = playerData.Cost_Player_HP + " G";
+            PlayerUP_Text[2].text = "Lv." + playerData.Level_Player_Armor;
+            PlayerUPCost_Text[2].text = playerData.Cost_Player_Armor + " G";
         }
 
-        if (playerData.Level_Player_Armor == playerData.Max_Player_Armor)
+        if (playerData.Level_Player_Speed == playerData.Max_Player_Speed)
         {
             PlayerUP_Text[3].text = "MAX";
             PlayerUPCost_Text[3].text = "----";
@@ -157,20 +169,8 @@ public class Station_Fortress : MonoBehaviour
         }
         else
         {
-            PlayerUP_Text[3].text = "Lv." + playerData.Level_Player_Armor;
-            PlayerUPCost_Text[3].text = playerData.Cost_Player_Armor + " G";
-        }
-
-        if (playerData.Level_Player_Speed == playerData.Max_Player_Speed)
-        {
-            PlayerUP_Text[4].text = "MAX";
-            PlayerUPCost_Text[4].text = "----";
-            PlayerUP_Button[4].interactable = false;
-        }
-        else
-        {
-            PlayerUP_Text[4].text = "Lv." + playerData.Level_Player_Speed;
-            PlayerUPCost_Text[4].text = playerData.Cost_Player_Speed + " G";
+            PlayerUP_Text[3].text = "Lv." + playerData.Level_Player_Speed;
+            PlayerUPCost_Text[3].text = playerData.Cost_Player_Speed + " G";
         }
     }
 

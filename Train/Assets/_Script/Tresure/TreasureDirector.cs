@@ -31,7 +31,8 @@ public class TreasureDirector : MonoBehaviour
 
     [Header("---------Sprite---------")]
     public Sprite GoldSprite;
-    public Sprite FailSprite;
+    public Sprite FailSprite_Gold;
+    public Sprite FailSprite_HP;
 
     bool startFlag = false;
     bool treasureFlag = false;
@@ -182,12 +183,12 @@ public class TreasureDirector : MonoBehaviour
         }
         else if (List_RandomReward[count] == 2)
         {
-            TotalRewardList[count].transform.GetChild(0).GetComponent<Image>().sprite = FailSprite;
+            TotalRewardList[count].transform.GetChild(0).GetComponent<Image>().sprite = FailSprite_HP;
             TotalRewardList[count].GetComponentInChildren<TextMeshProUGUI>().text = "HP -5%";
         }
         else if (List_RandomReward[count] == 3)
         {
-            TotalRewardList[count].transform.GetChild(0).GetComponent<Image>().sprite = FailSprite;
+            TotalRewardList[count].transform.GetChild(0).GetComponent<Image>().sprite = FailSprite_Gold;
             TotalRewardList[count].GetComponentInChildren<TextMeshProUGUI>().text = "Gold -5%";
         }
     }

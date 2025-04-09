@@ -164,7 +164,6 @@ public class Station_TrainMaintenance : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log(Train_Name_Buy_Text.GetComponent<TextMeshProUGUI>().text);
         local_Index = localData.Local_Index;
         trainData = Train_DataObject.GetComponent<Station_TrainData>();
         playerData = Player_DataObject.GetComponent<Station_PlayerData>();
@@ -232,10 +231,6 @@ public class Station_TrainMaintenance : MonoBehaviour
         {
             DropDown_Option_Change();
             local_Index = localData.Local_Index;
-        }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            Debug.Log(Train_Name_Buy_Text.GetComponent<TextMeshProUGUI>().text);
         }
     }
 
@@ -1865,8 +1860,8 @@ else // 기차 교체
         Train_Upgrade_Num1 = Train_Num;
         Train_Upgrade_Num2 = Train_Num2;
 
-        Check_TrainChange_Upgrade();
         Check_TrainState_Slider_Upgrade();
+        Check_TrainChange_Upgrade();
     }
 
     void Check_TrainChange_Upgrade()
@@ -1876,7 +1871,7 @@ else // 기차 교체
             UpgradeWindow.SetActive(true);
         }
 
-        if(Train_Upgrade_Num1 == 51)
+        if (Train_Upgrade_Num1 == 51)
         {
             Train_MainImage_Upgrade.sprite = Resources.Load<Sprite>("Sprite/Train/Train_51_" + Train_Upgrade_Num2 / 10 * 10);
             
@@ -2037,12 +2032,17 @@ else // 기차 교체
 
         Slider_Upgrade_Before_HP[0].value = (float)Math.Round(EX_HP,2);
         Slider_Upgrade_Before_HP[1].value = (float)Math.Round(EX_HP, 2);
+
         Slider_Upgrade_Before_Weight[0].value = (float)Math.Round(EX_Weight, 2);
         Slider_Upgrade_Before_Weight[1].value = (float)Math.Round(EX_Weight, 2);
+
         Slider_Upgrade_Before_Armor[0].value = (float)Math.Round(EX_Armor, 2);
         Slider_Upgrade_Before_Armor[1].value = (float)Math.Round(EX_Armor, 2);
+
         Slider_Upgrade_After_HP.value = (float)Math.Round(EX_HP2, 2);
+
         Slider_Upgrade_After_Weight.value = (float)Math.Round(EX_Weight2, 2);
+
         Slider_Upgrade_After_Armor.value = (float)Math.Round(EX_Armor2, 2);
 
         Plus_HP_Text.text = "+" +Plus_HP;
@@ -2061,6 +2061,7 @@ else // 기차 교체
                 Train_Upgrade_Num2++;
                 Check_TrainChange_Upgrade();
                 Check_TrainState_Slider_Upgrade();
+                Check_Player_Coin_Point();
             }
             else
             {
@@ -2076,6 +2077,7 @@ else // 기차 교체
                 Train_Upgrade_Num2++;
                 Check_TrainChange_Upgrade();
                 Check_TrainState_Slider_Upgrade();
+                Check_Player_Coin_Point();
             }
             else
             {
@@ -2091,6 +2093,7 @@ else // 기차 교체
                 Train_Upgrade_Num1++;
                 Check_TrainChange_Upgrade();
                 Check_TrainState_Slider_Upgrade();
+                Check_Player_Coin_Point();
             }
             else
             {

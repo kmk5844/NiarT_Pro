@@ -267,7 +267,6 @@ public class GameManager : MonoBehaviour
     public void Game_DataReset()
     {
         StartCoroutine(ResetGameRoutine());
-
 /*        DataManager.Instance.Init();
         StoryFlag_Init();
         SceneManager.LoadScene(0);*/
@@ -279,7 +278,6 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         // 데이터 초기화
         yield return StartCoroutine(DataManager.Instance.LoadSync());
-
         StoryFlag_Init();
         // 일정 시간 대기 (예: 1초)
         yield return new WaitForSeconds(1.0f);

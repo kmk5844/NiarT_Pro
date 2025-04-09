@@ -45,21 +45,21 @@ public class Station_PlayerData : MonoBehaviour
     {
         Level_Player_Atk = SA_PlayerData.Level_Player_Atk;
         Level_Player_AtkDelay = SA_PlayerData.Level_Player_AtkDelay;
-        Level_Player_HP = SA_PlayerData.Level_Player_HP;
         Level_Player_Armor = SA_PlayerData.Level_Player_Armor;
         Level_Player_Speed = SA_PlayerData.Level_Player_Speed;
+        Level_Player_HP = SA_PlayerData.Level_Player_HP;
 
         Max_Player_Atk = EX_Level_Data.Information_Level[Data_Index("Level_Player_Atk")].Max_Level;
         Max_Player_AtkDelay = EX_Level_Data.Information_Level[Data_Index("Level_Player_AtkDelay")].Max_Level;
-        Max_Player_HP = EX_Level_Data.Information_Level[Data_Index("Level_Player_HP")].Max_Level;
         Max_Player_Armor = EX_Level_Data.Information_Level[Data_Index("Level_Player_Armor")].Max_Level;
         Max_Player_Speed = EX_Level_Data.Information_Level[Data_Index("Level_Player_Speed")].Max_Level;
+        Max_Player_HP = EX_Level_Data.Information_Level[Data_Index("Level_Player_HP")].Max_Level;
 
         Cost_Player_Atk = EX_Level_Data.Information_LevelCost[Level_Player_Atk].Cost_Level_Player_Atk;
         Cost_Player_AtkDelay = EX_Level_Data.Information_LevelCost[Level_Player_AtkDelay].Cost_Level_Player_AtkDelay;
-        Cost_Player_HP = EX_Level_Data.Information_LevelCost[Level_Player_HP].Cost_Level_Player_HP;
         Cost_Player_Armor = EX_Level_Data.Information_LevelCost[Level_Player_Armor].Cost_Level_Player_Armor;
         Cost_Player_Speed = EX_Level_Data.Information_LevelCost[Level_Player_Speed].Cost_Level_Player_Speed;
+        Cost_Player_HP = EX_Level_Data.Information_LevelCost[Level_Player_HP].Cost_Level_Player_HP;
     }
 
     public void Player_Level_Up(int LevelNum)//LevelNum : 0 = Atk / 1= AtkDealy / 2 = HP / 3 = Armor / 4 = Speed
@@ -106,11 +106,11 @@ public class Station_PlayerData : MonoBehaviour
             case 1:
                 return Cost_Player_AtkDelay;
             case 2:
-                return Cost_Player_HP;
-            case 3:
                 return Cost_Player_Armor;
-            case 4:
+            case 3:
                 return Cost_Player_Speed;
+            case 4:
+                return Cost_Player_HP;
         }
         return -1;
     }

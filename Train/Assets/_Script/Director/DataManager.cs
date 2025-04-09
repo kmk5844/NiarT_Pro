@@ -45,6 +45,8 @@ public class DataManager : MonoBehaviour
     public SA_StoryLIst storyData;
     public SA_MissionData missionData;
 
+    //public GameObject DebugObject;
+
     public void Load()
     {
         playerData.Load();
@@ -61,17 +63,31 @@ public class DataManager : MonoBehaviour
 
     public IEnumerator LoadSync()
     {
+        Debug.Log("Load");
+        Debug.Log(1);
         yield return StartCoroutine(playerData.LoadSync());
+        Debug.Log(2);
         yield return StartCoroutine(trainData.LoadSync());
+        Debug.Log(3);
         yield return StartCoroutine(turretData.LoadSync());
+        Debug.Log(4);
         yield return StartCoroutine(boosterData.LoadSync());
+        Debug.Log(5);
         yield return StartCoroutine(mercenaryData.LoadSync());
+        Debug.Log(6);
         yield return StartCoroutine(stageData.PlayGame_StageList_LoadSync(this));
+        Debug.Log(7);
         yield return StartCoroutine(storyData.PlayGame_StoryList_LoadSync(this));
+        Debug.Log(8);
         localData.Load();
+        Debug.Log(9);
         yield return new WaitForSeconds(0.001f);
+        Debug.Log(10);
         yield return StartCoroutine(PlayerItem_Data.LoadSync());
+        Debug.Log(11);
         yield return StartCoroutine(missionData.LoadSync(this));
+        Debug.Log(12);
+        //Destroy(DebugObject);
     }
 
     public void Init()
@@ -92,17 +108,31 @@ public class DataManager : MonoBehaviour
 
     public IEnumerator InitAsync()
     {
+        Debug.Log("Init");
+        Debug.Log(1);
         yield return StartCoroutine(playerData.InitAsync(this));
+        Debug.Log(2);
         yield return StartCoroutine(trainData.InitAsync(this));
+        Debug.Log(3);
         yield return StartCoroutine(turretData.InitAsync(this));
+        Debug.Log(4);
         yield return StartCoroutine(boosterData.InitAsync(this));
+        Debug.Log(5);
         yield return StartCoroutine(mercenaryData.InitAsync(this));
+        Debug.Log(6);
         // yield return StartCoroutine(localData.InitAsync());
         yield return StartCoroutine(stageData.PlayGame_StageList_InitAsync(this));
+        Debug.Log(7);
         yield return StartCoroutine(storyData.PlayGame_StoryList_InitAsync(this));
+        Debug.Log(8);
         yield return StartCoroutine(InventoryItem_Data.PlayGame_ItemList_InitAsync(this));
+        Debug.Log(9);
         yield return StartCoroutine(PlayerItem_Data.InitAsync(this));
+        Debug.Log(10);
         yield return StartCoroutine(tutorialData.InitAsync());
+        Debug.Log(11);
         yield return StartCoroutine(missionData.InitAsync(this));
+        Debug.Log(12);
+        //Destroy(DebugObject);
     }
 }

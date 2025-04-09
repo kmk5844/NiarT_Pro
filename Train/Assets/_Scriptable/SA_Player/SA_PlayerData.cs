@@ -364,7 +364,6 @@ public class SA_PlayerData : ScriptableObject
     public void Load()
     { 
         firstflag = ES3.Load<bool>("SA_PlayerData_Data_FirstFlag");
-      
         level_atk = ES3.Load<int>("SA_PlayerData_Data_level_atk");
         level_atkdelay = ES3.Load<int>("SA_PlayerData_Data_level_atkdelay");
         level_hp = ES3.Load<int>("SA_PlayerData_Data_level_player_hp");
@@ -379,7 +378,6 @@ public class SA_PlayerData : ScriptableObject
         story_num = ES3.Load<int>("SA_PlayerData_Data_Story_Num");
         station_tutorial = ES3.Load<bool>("SA_PlayerData_Data_Station_Tutorial");
         mission_playing = ES3.Load<bool>("SA_PlayerData_Data_MissionPlaying");
-
         eventflag = ES3.Load<bool>("SA_PlayerData_Data_EventFlag");
         food_heal_flag = ES3.Load<bool>("SA_PlayerData_Data_Food_Heal_Flag");
         food_num = ES3.Load<int>("SA_PlayerData_Data_Food_Num");
@@ -389,7 +387,6 @@ public class SA_PlayerData : ScriptableObject
     public IEnumerator LoadSync()
     {
         firstflag = ES3.Load<bool>("SA_PlayerData_Data_FirstFlag");
-
         yield return new WaitForSeconds(0.001f);
         level_atk = ES3.Load<int>("SA_PlayerData_Data_level_atk");
         yield return new WaitForSeconds(0.001f);
@@ -417,7 +414,6 @@ public class SA_PlayerData : ScriptableObject
         station_tutorial = ES3.Load<bool>("SA_PlayerData_Data_Station_Tutorial");
         yield return new WaitForSeconds(0.001f);
         mission_playing = ES3.Load<bool>("SA_PlayerData_Data_MissionPlaying");
-
         yield return new WaitForSeconds(0.001f);
         eventflag = ES3.Load<bool>("SA_PlayerData_Data_EventFlag");
         yield return new WaitForSeconds(0.001f);
@@ -489,7 +485,7 @@ public class SA_PlayerData : ScriptableObject
         yield return new WaitForSeconds(0.01f);
     }
 
-    public void SA_Player_Level_Up(int LevelNum)//LevelNum : 0 = Atk / 1= AtkDealy / 2 = HP / 3 = Armor / 4 = Speed
+    public void SA_Player_Level_Up(int LevelNum)//LevelNum : 0 = Atk / 1= AtkDealy / 2 = Armor / 3 = Speed / 4 = hp
     {
         switch(LevelNum)
         {
@@ -500,13 +496,13 @@ public class SA_PlayerData : ScriptableObject
                 level_atkdelay++;
                 break;
             case (2):
-                level_hp++;
-                break;
-            case (3):
                 level_armor++;
                 break;
-            case (4):
+            case (3):
                 level_speed++;
+                break;
+            case (4):
+                level_hp++;
                 break;
         }
     }

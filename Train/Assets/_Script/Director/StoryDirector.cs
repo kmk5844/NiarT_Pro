@@ -253,7 +253,7 @@ public class StoryDirector : MonoBehaviour
     public void Instantiate_BackLog(int num)
     {
         Vector2 pos = BackLog_Content.GetComponent<RectTransform>().sizeDelta;
-        BackLog_Content.GetComponent<RectTransform>().sizeDelta = new Vector2 (pos.x, pos.y + 135);
+        BackLog_Content.GetComponent<RectTransform>().sizeDelta = new Vector2 (pos.x, pos.y + 40);
         GameObject Back = Instantiate(BackLog_Object, BackLog_Content);
         Back.GetComponent<BackLog_object>().SetString(BackLog[num].name, BackLog[num].dialogue, BackLog[num].backLog_Color);
     }
