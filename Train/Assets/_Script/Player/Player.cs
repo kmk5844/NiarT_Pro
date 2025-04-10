@@ -175,7 +175,9 @@ public class Player : MonoBehaviour
     {
         gameDirectorType = gamedirector.gameType;
 
-        if (gameDirectorType == GameType.Starting ||  gameDirectorType == GameType.Playing || gameDirectorType == GameType.Boss || gameDirectorType == GameType.Ending)
+        if (gameDirectorType == GameType.Starting ||  gameDirectorType == GameType.Playing
+            || gameDirectorType == GameType.Boss || gameDirectorType == GameType.Refreshing ||
+            gameDirectorType == GameType.Ending)
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -408,7 +410,9 @@ public class Player : MonoBehaviour
             rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
         }
 
-        if (gameDirectorType == GameType.Starting || gameDirectorType == GameType.Playing || gameDirectorType == GameType.Boss || gameDirectorType == GameType.Ending)
+        if (gameDirectorType == GameType.Starting || gameDirectorType == GameType.Playing
+            || gameDirectorType == GameType.Boss || gameDirectorType == GameType.Refreshing ||
+            gameDirectorType == GameType.Ending)
         {
             mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
 

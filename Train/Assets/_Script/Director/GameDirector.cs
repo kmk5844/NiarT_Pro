@@ -123,7 +123,6 @@ public class GameDirector : MonoBehaviour
     int TrainWeight;// 전체적으로 더한다.
     public bool SpawnTrainFlag;
 
-
     [Header("레벨 업 적용 전의 기차")]
     [SerializeField]
     int TrainMaxSpeed;
@@ -193,6 +192,15 @@ public class GameDirector : MonoBehaviour
     public bool FoodEffect_Flag_Positive;
     public bool FoodEffect_Flag_Impositive;
 
+    [Header("웨이브")]
+    public GameObject SupplyRefresh_ItemObject;
+    public float RefreshPersent;
+    int RefreshDistance;
+    bool firstRefresh;
+    bool endRefresh;
+    bool SpawnRefreshSupply;
+    bool getSupply;
+
     void Awake()
     {
         gameType = GameType.Starting;
@@ -217,10 +225,13 @@ public class GameDirector : MonoBehaviour
 
         Select_Sub_Num = SA_PlayerData.Select_Sub_Stage;
 
-        /*Mission_Num = 5;
-        Stage_Num = 4;
-        Select_Sub_Num = 10;
-        TrainDistance = 70000;*/
+        Mission_Num = 0;
+        Stage_Num = 0;
+        Select_Sub_Num = 0;
+
+        RefreshPersent = 30;
+
+        //TrainDistance = 70000;
 
         SubStageData = SA_MissionData.missionStage(Mission_Num, Stage_Num, Select_Sub_Num);
         NextSubStageNum = new List<int>();
@@ -254,6 +265,8 @@ public class GameDirector : MonoBehaviour
 
         Stage_Init();
         Train_Init();
+
+        RefreshDistance = (int)(Destination_Distance * (RefreshPersent / 100));
 
         newPoint = new Vector2[4];
         {
@@ -395,6 +408,12 @@ public class GameDirector : MonoBehaviour
                 TrainFuel = 0;
             }
 
+            if(RefreshDistance < TrainDistance && !firstRefresh)
+            {
+                firstRefresh = true;
+                gameType = GameType.Refreshing;
+            }
+
             if (Destination_Distance < TrainDistance && !GameWinFlag)
             {
                 GameWinFlag = true;
@@ -481,10 +500,74 @@ public class GameDirector : MonoBehaviour
                 GameLoseFlag = true;
                 Game_Lose(LoseNum);
             }
+        }else if(gameType == GameType.Refreshing)
+        {
+            if (!getSupply)
+            {
+                if (!monsterDirector.GameDirector_RefreshFlag)
+                {
+                    monsterDirector.GameDirector_RefreshFlag = true;
+                }
+
+                if (monsterDirector.GameDirecotr_AllDieFlag)
+                {
+                    if (Time.time >= lastSpeedTime + 0.05f)
+                    {
+                        if (TrainSpeed > 40)
+                        {
+                            TrainSpeed -= TrainSpeedUP;
+                        }
+                        else
+                        {
+                            TrainSpeed = 40;
+                            if (!SpawnRefreshSupply)
+                            {
+                                SpawnRefreshSupply = true;
+                                Vector2 pos = new Vector2(player.transform.position.x, player.transform.position.y + 15);
+                                SupplyRefresh_ItemObject.GetComponent<SupplyRefresh_Item>().director = this;
+                                Instantiate(SupplyRefresh_ItemObject, pos, Quaternion.identity);
+                            }
+                        }
+                        lastSpeedTime = Time.time;
+                    }
+                }
+            }
+            else
+            {
+                if (Time.time >= lastSpeedTime + timeBet)
+                {
+                    if (MaxSpeed >= TrainSpeed)
+                    {
+                        if (TrainFuel > 0)
+                        {
+                            TrainSpeed += TrainSpeedUP;
+                            TrainFuel -= Efficient;
+                        }
+                    }
+                    else
+                    {
+                        if (TrainFuel > 0)
+                        {
+                            TrainFuel -= Efficient;
+                        }
+                    }
+                    lastSpeedTime = Time.time;
+                }
+
+                if(TrainSpeed > 100)
+                {
+                    if (monsterDirector.GameDirector_RefreshFlag)
+                    {
+                        monsterDirector.GameDirector_RefreshFlag = false;
+                        monsterDirector.GameDirector_SpawnFlag = true;
+                        monsterDirector.GameDirecotr_AllDieFlag = false;
+                    }
+                    gameType = GameType.Playing;
+                }
+            }
         }
         else if (gameType == GameType.Ending)
         {
-
             monsterDirector.GameDirector_SpawnFlag = false;
 
             if (!monsterDirector.GameDirector_EndingFlag)
@@ -1089,6 +1172,38 @@ public class GameDirector : MonoBehaviour
         MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, BGM_ID - 1);
     }
 
+    //Refresh부분
+
+    public void RefreshReward()
+    {
+        int rewardNum = Random.Range(0, 4);
+        //0번 연료
+        //1번 플레이어 체력
+        //2번 기차 체력
+        //3번 종합세트
+        int rewardPersent = Random.Range(5, 31);
+
+        switch (rewardNum)
+        {
+            case 0:
+                Item_Fuel_Charge(rewardPersent);
+                break;
+            case 1:
+                player.Item_Player_Heal_HP(rewardPersent);
+                break;
+            case 2:
+                Item_Use_Train_Heal_HP(rewardPersent);
+                break;
+            case 3:
+                Item_Fuel_Charge(rewardPersent);
+                player.Item_Player_Heal_HP(rewardPersent);
+                Item_Use_Train_Heal_HP(rewardPersent);
+                break;
+        }
+        uiDirector.ItemInformation_On(null, true, rewardNum, rewardPersent);
+        getSupply = true;
+    }
+
     //Item부분
     public void Item_Fuel_Charge(float persent)
     {
@@ -1267,6 +1382,7 @@ public class GameDirector : MonoBehaviour
 public enum GameType{
     Starting,
     Playing,
+    Refreshing,
     Boss,
     Pause,
     Option,

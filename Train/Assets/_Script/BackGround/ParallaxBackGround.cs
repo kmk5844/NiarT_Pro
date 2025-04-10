@@ -64,7 +64,8 @@ public class parallex : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (GameDirector.gameType == GameType.Playing ||GameDirector.gameType == GameType.Boss || GameDirector.gameType == GameType.Ending)
+        if (GameDirector.gameType == GameType.Playing ||GameDirector.gameType == GameType.Boss ||
+            GameDirector.gameType == GameType.Refreshing || GameDirector.gameType == GameType.Ending)
         {
             for (int i = 0; i < backgrounds.Length; i++)
             {

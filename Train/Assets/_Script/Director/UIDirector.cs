@@ -107,6 +107,9 @@ public class UIDirector : MonoBehaviour
     public TextMeshProUGUI missionTextInformation_text;
     public TextMeshProUGUI missionCountText_text;
 
+    [Header("Wave")]
+    public Sprite[] Refresh_Item_Sprite;
+
     private void Awake()
     {
         isBloodFlag = false;
@@ -311,11 +314,23 @@ public class UIDirector : MonoBehaviour
         }
     }
 
-    public void ItemInformation_On(ItemDataObject item)
+    public void ItemInformation_On(ItemDataObject item, bool Supply = false, int SupplyNum = -1, int SupplyPersent = -1)
     {
-        ItemIcon_Image.sprite = item.Item_Sprite;
-        ItemName_Text.StringReference.TableEntryReference = "Item_Name_" + item.Num;
-        ItemInformation_Text.StringReference.TableEntryReference = "Item_Information_" + item.Num;
+        if (!Supply)
+        {
+            ItemIcon_Image.sprite = item.Item_Sprite;
+            ItemName_Text.StringReference.TableEntryReference = "Item_Name_" + item.Num;
+            ItemInformation_Text.StringReference.TableEntryReference = "Item_Information_" + item.Num;
+        }
+        else
+        {
+            ItemIcon_Image.sprite = Refresh_Item_Sprite[SupplyNum];
+            ItemName_Text.StringReference.TableEntryReference = "Item_RefreshSupply_" + SupplyNum;
+            ItemInformation_Text.StringReference.TableEntryReference = "Item_RefreshSupply_Information";
+            ItemInformation_Text.StringReference.Arguments = new object[] { SupplyPersent };
+            ItemInformation_Text.RefreshString();
+        }
+        
         //ItemName_Text.text = itemName;
         //ItemInformation_Text.text = itemInformation;
         if (!ItemInformation_Object_Flag)

@@ -48,6 +48,7 @@ public class MonsterDirector : MonoBehaviour
     public bool GameDirector_SpawnFlag;
     public bool GameDirector_BossFlag;
     public bool GameDirector_Boss_SpawnFlag;
+    public bool GameDirector_RefreshFlag;
     //Á¾·á ½Ã
     public bool GameDirector_EndingFlag;
     public bool GameDirecotr_AllDieFlag;
@@ -110,6 +111,27 @@ public class MonsterDirector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameDirector_RefreshFlag)
+        {
+            if (GameDirector_SpawnFlag)
+            {
+                GameDirector_SpawnFlag = false;
+            }
+
+            if (!GameDirector_SpawnFlag)
+            {
+                SupplyMonsterNum = SupplyMonster_List.childCount;
+                if (SupplyMonsterNum == 0 && MonsterNum <= 0)
+                {
+                    if (!GameDirecotr_AllDieFlag)
+                    {
+                        GameDirecotr_AllDieFlag = true;
+                    }
+                }
+            }
+        }
+       
+
         //Debug.Log(MonsterNum);
         if (!GameDirector_EndingFlag)
         {
