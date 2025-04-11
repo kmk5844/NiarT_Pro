@@ -11,6 +11,10 @@ using UnityEngine.Localization;
 
 public class Station_TrainMaintenance : MonoBehaviour
 {
+    [Header("Flag")]
+    public bool TrainMainTenance_Flag;
+    public bool TrainBuyWindow_Flag;
+
     [Header("데이터 모음")]
     public GameObject Train_DataObject;
     Station_TrainData trainData;
@@ -153,6 +157,7 @@ public class Station_TrainMaintenance : MonoBehaviour
     public TextMeshProUGUI[] Passive_Level_Text;
     public TextMeshProUGUI[] Passive_Cost_Text;
     public Button[] Passive_Button;
+    public PassiveUpgrade_Tooltip PassiveUpgrade_Tooltip;
 
     [Header("공통")]
     public GameObject Warning_Coin_Window;
@@ -167,6 +172,7 @@ public class Station_TrainMaintenance : MonoBehaviour
         local_Index = localData.Local_Index;
         trainData = Train_DataObject.GetComponent<Station_TrainData>();
         playerData = Player_DataObject.GetComponent<Station_PlayerData>();
+        TrainBuyWindow_Flag = true;
 
         Setting_TrainImage();
         Setting_TrainType_DropDown_Buy();
@@ -191,8 +197,6 @@ public class Station_TrainMaintenance : MonoBehaviour
         {
             Passive_Upgrade_Text(i);
         }
-
-
 
         /*        Part_Window_Flag = false;
                 UI_Train_Num = 0;
@@ -231,6 +235,19 @@ public class Station_TrainMaintenance : MonoBehaviour
         {
             DropDown_Option_Change();
             local_Index = localData.Local_Index;
+        }
+
+        if (TrainMainTenance_Flag && TrainBuyWindow_Flag)
+        {
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                Click_Prev_TrainButton();
+            }
+
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                Click_Next_TrainButton();
+            }
         }
     }
 
@@ -1470,7 +1487,7 @@ else // 기차 교체
         Change_Train();
     }
 
-    public void Click_Prev_TrainBUtton()
+    public void Click_Prev_TrainButton()
     {
         List_Before_TrainType_Num = List_TrainType_Num;
         Train_Before_Buy_Num = Train_Buy_Num;

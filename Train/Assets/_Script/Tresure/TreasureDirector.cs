@@ -86,6 +86,7 @@ public class TreasureDirector : MonoBehaviour
         for(int i = 0; i < RewardCount; i++)
         {
             int Random_1 = Random.Range(0, 101);
+
             if (Random_1 < 40)
             {
                 int gold = Random.Range(1, 101);

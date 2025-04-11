@@ -8,7 +8,9 @@ using UnityEngine.UI;
 public class PassiveUpgrade_Tooltip : MonoBehaviour
 {
     public LocalizeStringEvent Information_Text;
+    public GameObject PassiveWindow;
 
+    [SerializeField]
     bool TooltipFlag;
 
     float halfwidth;
@@ -31,10 +33,15 @@ public class PassiveUpgrade_Tooltip : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (TooltipFlag)
+        if (TooltipFlag && PassiveWindow.activeSelf)
         {
             transform.position = Input.mousePosition + new Vector3(50, 20, 0);
         }
+
+        /*if (TooltipFlag)
+        {
+            transform.position = Input.mousePosition + new Vector3(50, 20, 0);
+        }*/
 
         if (rt.anchoredPosition.x + rt.sizeDelta.x > halfwidth)
         {

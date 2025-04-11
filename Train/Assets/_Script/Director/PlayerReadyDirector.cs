@@ -300,7 +300,8 @@ public class PlayerReadyDirector : MonoBehaviour
 
         Ready_Buy_TrainObject buy = Buy_TrainObject.GetComponent<Ready_Buy_TrainObject>();
         buy.director = this;
-        buy.TrainNum_1 = 10; //-> 수정
+        int _TrainNum = sa_trainData.SA_TrainChangeNum(10);
+        buy.TrainNum_1 = _TrainNum; //-> 수정
         Instantiate(buy, Buy_TrainList[0]);
         Instantiate(buy, Buy_TrainList[1]);
         AllCount++;
@@ -309,7 +310,8 @@ public class PlayerReadyDirector : MonoBehaviour
 
         for (int i =0; i < sa_trainData.Train_Buy_Num.Count; i++)
         {
-            buy.TrainNum_1 = sa_trainData.Train_Buy_Num[i];
+            _TrainNum = sa_trainData.SA_TrainChangeNum(sa_trainData.Train_Buy_Num[i]);
+            buy.TrainNum_1 = _TrainNum;
             Instantiate(buy, Buy_TrainList[0]);
             Instantiate(buy, Buy_TrainList[1]);
             AllCount++;
@@ -319,7 +321,8 @@ public class PlayerReadyDirector : MonoBehaviour
         for(int i = 0; i < sa_trainturretData.Train_Turret_Buy_Num.Count; i++)
         {
             buy.TrainNum_1 = 51;
-            buy.TrainNum_2 = sa_trainturretData.Train_Turret_Buy_Num[i];
+            _TrainNum = sa_trainturretData.SA_Train_Turret_ChangeNum(sa_trainturretData.Train_Turret_Buy_Num[i]);
+            buy.TrainNum_2 = _TrainNum;
             Instantiate(buy, Buy_TrainList[0]);
             Instantiate(buy, Buy_TrainList[2]);
             AllCount++;
@@ -329,7 +332,8 @@ public class PlayerReadyDirector : MonoBehaviour
         for(int i = 0; i < sa_trainBoosterData.Train_Booster_Buy_Num.Count; i++)
         {
             buy.TrainNum_1 = 52;
-            buy.TrainNum_2 = sa_trainBoosterData.Train_Booster_Buy_Num[i];
+            _TrainNum = sa_trainBoosterData.SA_Train_Booster_ChangeNum(sa_trainBoosterData.Train_Booster_Buy_Num[i]);
+            buy.TrainNum_2 = _TrainNum;
             Instantiate(buy, Buy_TrainList[0]);
             Instantiate(buy, Buy_TrainList[3]);
             AllCount++;

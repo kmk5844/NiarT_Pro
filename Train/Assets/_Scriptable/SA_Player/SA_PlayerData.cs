@@ -318,7 +318,6 @@ public class SA_PlayerData : ScriptableObject
         ES3.Save<int>("SA_PlayerData_Data_Story_Num", story_num);
         ES3.Save<bool>("SA_PlayerData_Data_Station_Tutorial", station_tutorial);
         ES3.Save<bool>("SA_PlayerData_Data_MissionPlaying", mission_playing);
-
         ES3.Save<bool>("SA_PlayerData_Data_EventFlag", eventflag);
         ES3.Save<bool>("SA_PlayerData_Data_Food_Heal_Flag", food_heal_flag);
         ES3.Save<int>("SA_PlayerData_Data_Food_Num", food_num);

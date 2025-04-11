@@ -28,6 +28,11 @@ public class PassiveUpgrade_Card_Event : MonoBehaviour
         }
     }
 
+    public void OnDisable()
+    {
+        item_information_Flag = false;
+    }
+
     public void OnMouseEnter()
     {
         item_information_Flag = true;

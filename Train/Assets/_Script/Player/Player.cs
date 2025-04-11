@@ -830,10 +830,10 @@ public class Player : MonoBehaviour
     public void Item_Player_Giant_Tent()
     {
         Check_Pos();
-        float pos = Random.Range(minGroundPos.x, maxGroundPos.x);
+        float pos = Random.Range(minGroundPos.x + 5f, maxGroundPos.x - 5f);
         GameObject tent = Resources.Load<GameObject>("ItemObject/Giant_TentObject");
         tent.GetComponent<Item_Shield>().HP = 1000;
-        Instantiate(tent, new Vector2(pos, -1.2f), Quaternion.identity);
+        Instantiate(tent, new Vector2(maxGroundPos.x - 5f, -1.25f), Quaternion.identity);
     }
 
     public void Item_Instantiate_Flag(int flagNum, float delayTime)

@@ -213,9 +213,10 @@ public class Station_Fortress : MonoBehaviour
 
     public void Click_Player_Upgrade(int i)//LevelNum : 0 = Atk / 1= AtkDealy / 2 = HP / 3 = Armor / 4 = Speed
     {
-        if (playerData.Player_Coin >= playerData.Check_Cost_Player(i))
+        int coin = playerData.Check_Cost_Player(i);
+        if (playerData.Player_Coin >= coin)
         {
-            playerData.Player_Buy_Coin(playerData.Check_Cost_Player(i));
+            playerData.Player_Buy_Coin(coin);
             playerData.Player_Level_Up(i);
             Check_Player_Coin_Point();
             Player_Information_Text();

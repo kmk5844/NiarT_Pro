@@ -281,6 +281,14 @@ public class StationDirector : MonoBehaviour
                     UI_TrainMaintenance_Window[i].SetActive(true);
                     UI_MenuAndGear_After[i].SetActive(true);
                     UI_TrainMaintenance_Toggle.transform.GetChild(i).GetComponent<Toggle>().interactable = false;
+                    if(i == 0)
+                    {
+                        Director_TrainMaintenance.TrainBuyWindow_Flag = true;
+                    }
+                    else
+                    {
+                        Director_TrainMaintenance.TrainBuyWindow_Flag = false;
+                    }
                 }
                 else
                 {
@@ -311,6 +319,7 @@ public class StationDirector : MonoBehaviour
                     UI_TrainMaintenance_Toggle.transform.GetChild(i).GetComponent<Toggle>().interactable = true;
                 }
             }
+            Director_TrainMaintenance.TrainBuyWindow_Flag = true;
         }
     }
 
@@ -377,6 +386,7 @@ public class StationDirector : MonoBehaviour
         switch (num)
         {
             case 1:
+                Director_TrainMaintenance.TrainMainTenance_Flag = true;
                 UI_TrainMaintenance.gameObject.SetActive(true);
                 ui_num = 1;
                 Check_Coin();
@@ -562,6 +572,11 @@ public class StationDirector : MonoBehaviour
 
         if (ui_num == 1)
         {
+            if (Director_TrainMaintenance.PassiveUpgrade_Tooltip.gameObject.activeSelf)
+            {
+                Director_TrainMaintenance.PassiveUpgrade_Tooltip.Tooltip_Off();
+            }
+            Director_TrainMaintenance.TrainMainTenance_Flag = false;
             TrainMaintenance_ToggleInit();
             UI_TrainMaintenance.gameObject.SetActive(false);
         }
