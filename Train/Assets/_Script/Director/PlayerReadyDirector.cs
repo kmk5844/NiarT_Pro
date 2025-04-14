@@ -725,7 +725,7 @@ public class PlayerReadyDirector : MonoBehaviour
         {
             UI_ItemCountSlider.maxValue = Count_ItemEquipObjcet.item.Max_Equip;
         }
-        UI_ItemCountSlider.value = 0;
+        UI_ItemCountSlider.value = UI_ItemCountSlider.maxValue;
 
         UI_ItemCountText.color = Color.black;
         UI_ItemCountText.text = "0";
@@ -856,9 +856,6 @@ public class PlayerReadyDirector : MonoBehaviour
         }
         Instantiate_Item();
     }
-
-
-
 
     //UI Change Button
 

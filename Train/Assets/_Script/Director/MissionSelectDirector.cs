@@ -119,10 +119,10 @@ public class MissionSelectDirector : MonoBehaviour
     {
         GameObject game_obj = Instantiate(SelectMissionObject);
         game_obj.name = "SelectMission";
-        yield return new WaitForSeconds(0.8f);
-        //missionselectAni_Director.Close_MissionSelect();
+        yield return new WaitForSeconds(0.02f);
         MissionSelect.SetActive(false);
         ReadyObject.SetActive(true);
+        //missionselectAni_Director.Close_MissionSelect();
         //SubStageSelectObject.SetActive(true);
     }
 

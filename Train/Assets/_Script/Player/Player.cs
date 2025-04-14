@@ -491,7 +491,6 @@ public class Player : MonoBehaviour
                     {
                         StartCoroutine(Reloading());
                     }
-                    
                 }
 
             }
@@ -539,7 +538,10 @@ public class Player : MonoBehaviour
             }
             else
             {
-                MMSoundManagerSoundPlayEvent.Trigger(ShootSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+                if (!ReloadingFlag)
+                {
+                    MMSoundManagerSoundPlayEvent.Trigger(ShootSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+                }
             }
 
             lastTime = Time.time;
@@ -757,6 +759,7 @@ public class Player : MonoBehaviour
     {
         ReloadingFlag = true;
         Reload.SetActive(true);
+        Debug.Log("리로딩 소리!필요합니다 삽입하세요");
         yield return new WaitForSeconds(ReloadTime);
         Reload.SetActive(false);
         FireCount = 0;

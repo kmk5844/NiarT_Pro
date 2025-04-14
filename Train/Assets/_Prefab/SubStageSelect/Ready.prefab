@@ -3371,7 +3371,7 @@ RectTransform:
   m_Father: {fileID: 6947852565485459954}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.99999994, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -6488,10 +6488,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 594254498080851701}
-  - component: {fileID: 4974932540262421692}
   - component: {fileID: 732856562083819703}
   - component: {fileID: 2259724537713207901}
   - component: {fileID: 5752489295600514956}
+  - component: {fileID: 4974932540262421692}
   - component: {fileID: 3465747465485609321}
   m_Layer: 0
   m_Name: Ready
@@ -6516,32 +6516,6 @@ Transform:
   - {fileID: 8805448571445093212}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4974932540262421692
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2510180056148671777}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e7add22164509b45b106c4afa8876a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SA_ItemList: {fileID: 11400000, guid: 130b52d5086f48c44a1ab80708de4492, type: 2}
-  SA_Player_ItemData: {fileID: 11400000, guid: 1c47d5df70f8ca5419c8ebdc0adcab92, type: 2}
-  Equipment_Inventory_ItemList: []
-  Common_Inventory_ItemList: []
-  Box_Inventory_ItemList: []
-  Material_Inventory_ItemList: []
-  Quest_Inventory_ItemList: []
-  ConvertionMaterial_object: {fileID: 0}
-  Mercenary_Material_object: {fileID: 0}
-  Common_Train_Material_object: {fileID: 0}
-  Turret_Train_Material_object: {fileID: 0}
-  Booster_Train_Material_object: {fileID: 0}
-  Store_Buy_itemList: []
-  Store_Sell_itemList: []
 --- !u!114 &732856562083819703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6630,6 +6604,32 @@ MonoBehaviour:
   Cost_Train_Armor: 0
   Cost_Train_Efficient: 0
   Flag_BoosterTrain: 0
+--- !u!114 &4974932540262421692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2510180056148671777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e7add22164509b45b106c4afa8876a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SA_ItemList: {fileID: 11400000, guid: 130b52d5086f48c44a1ab80708de4492, type: 2}
+  SA_Player_ItemData: {fileID: 11400000, guid: 1c47d5df70f8ca5419c8ebdc0adcab92, type: 2}
+  Equipment_Inventory_ItemList: []
+  Common_Inventory_ItemList: []
+  Box_Inventory_ItemList: []
+  Material_Inventory_ItemList: []
+  Quest_Inventory_ItemList: []
+  ConvertionMaterial_object: {fileID: 0}
+  Mercenary_Material_object: {fileID: 0}
+  Common_Train_Material_object: {fileID: 0}
+  Turret_Train_Material_object: {fileID: 0}
+  Booster_Train_Material_object: {fileID: 0}
+  Store_Buy_itemList: []
+  Store_Sell_itemList: []
 --- !u!114 &3465747465485609321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8768,7 +8768,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1078009576120801897
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9798,7 +9798,7 @@ RectTransform:
   m_Father: {fileID: 6227761147353591875}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.99999994, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -12601,7 +12601,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8596972302344338753
 RectTransform:
   m_ObjectHideFlags: 0

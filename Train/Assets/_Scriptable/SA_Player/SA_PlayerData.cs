@@ -273,7 +273,9 @@ public class SA_PlayerData : ScriptableObject
     public void SA_ClickMission(int i)
     {
         mission_num = i;
-        Save();
+        mission_playing = true;
+        Save_Solo("MissionNum");
+        Save_Solo("MissionPlaying");
     }
 
     public void SA_MissionPlaying(bool flag)
@@ -309,7 +311,7 @@ public class SA_PlayerData : ScriptableObject
         ES3.Save<int>("SA_PlayerData_Data_level_atkdelay", level_atkdelay);
         ES3.Save<int>("SA_PlayerData_Data_level_player_hp", level_hp);
         ES3.Save<int>("SA_PlayerData_Data_level_player_armor", level_armor);
-        ES3.Save<int>("SA_PlayerData_Data_levle_speed", level_speed);
+        ES3.Save<int>("SA_PlayerData_Data_level_speed", level_speed);
         ES3.Save<int>("SA_PlayerData_Data_coin", coin);
         //ES3.Save<int>("SA_PlayerData_Data_point", point);
         ES3.Save<int>("SA_PlayerData_Data_new_stage", new_stage);
@@ -321,6 +323,65 @@ public class SA_PlayerData : ScriptableObject
         ES3.Save<bool>("SA_PlayerData_Data_EventFlag", eventflag);
         ES3.Save<bool>("SA_PlayerData_Data_Food_Heal_Flag", food_heal_flag);
         ES3.Save<int>("SA_PlayerData_Data_Food_Num", food_num);
+    }
+
+    private void Save_Solo(string str)
+    {
+        switch (str)
+        {
+            case "FirstFlag":
+                ES3.Save<bool>("SA_PlayerData_Data_FirstFlag", firstflag);
+                break;
+            case "Level_Atk":
+                ES3.Save<int>("SA_PlayerData_Data_level_atk", level_atk);
+                break;
+            case "Level_AtkDelay":
+                ES3.Save<int>("SA_PlayerData_Data_level_atkdelay", level_atkdelay);
+                break;
+            case "Level_PlayerHP":
+                ES3.Save<int>("SA_PlayerData_Data_level_player_hp", level_hp);
+                break;
+            case "Level_PlayerArmor":
+                ES3.Save<int>("SA_PlayerData_Data_level_player_armor", level_armor);
+                break;
+            case "Level_PlayerSpeed":
+                ES3.Save<int>("SA_PlayerData_Data_level_speed", level_speed);
+                break;
+            case "Coin":
+                ES3.Save<int>("SA_PlayerData_Data_coin", coin);
+                break;
+            //ES3.Save<int>("SA_PlayerData_Data_point", point);
+            case "NewStage":
+                ES3.Save<int>("SA_PlayerData_Data_new_stage", new_stage);
+                break;
+            case "MissionNum":
+                ES3.Save<int>("SA_PlayerData_Data_mission_num", mission_num);
+                break;
+            case "LockOff":
+                ES3.Save<bool[]>("SA_PlayerData_Data_LockOff", character_lockoff);
+                break;
+            case "StoryNum":
+                ES3.Save<int>("SA_PlayerData_Data_Story_Num", story_num);
+                break;
+            case "StationTutorial":
+                ES3.Save<bool>("SA_PlayerData_Data_Station_Tutorial", station_tutorial);
+                break;
+            case "MissionPlaying":
+                ES3.Save<bool>("SA_PlayerData_Data_MissionPlaying", mission_playing);
+                break;
+            case "EventFlag":
+                ES3.Save<bool>("SA_PlayerData_Data_EventFlag", eventflag);
+                break;
+            case "Food_Heal_Flag":
+                ES3.Save<bool>("SA_PlayerData_Data_Food_Heal_Flag", food_heal_flag);
+                break;
+            case "Food_Num":
+                ES3.Save<int>("SA_PlayerData_Data_Food_Num", food_num);
+                break;
+            default:
+                Debug.Log("없음 - 오타 수정 요함");
+                break;
+        }
     }
 
     private IEnumerator SaveSync()
@@ -335,7 +396,7 @@ public class SA_PlayerData : ScriptableObject
         yield return new WaitForSeconds(0.001f);
         ES3.Save<int>("SA_PlayerData_Data_level_player_armor", level_armor);
         yield return new WaitForSeconds(0.001f);
-        ES3.Save<int>("SA_PlayerData_Data_levle_speed", level_speed);
+        ES3.Save<int>("SA_PlayerData_Data_level_speed", level_speed);
         yield return new WaitForSeconds(0.001f);
         ES3.Save<int>("SA_PlayerData_Data_coin", coin);
         yield return new WaitForSeconds(0.001f);
@@ -367,7 +428,7 @@ public class SA_PlayerData : ScriptableObject
         level_atkdelay = ES3.Load<int>("SA_PlayerData_Data_level_atkdelay");
         level_hp = ES3.Load<int>("SA_PlayerData_Data_level_player_hp");
         level_armor = ES3.Load<int>("SA_PlayerData_Data_level_player_armor");
-        level_speed = ES3.Load<int>("SA_PlayerData_Data_levle_speed");
+        level_speed = ES3.Load<int>("SA_PlayerData_Data_level_speed");
         coin = ES3.Load<int>("SA_PlayerData_Data_coin");
         //point = ES3.Load<int>("SA_PlayerData_Data_point");
         new_stage = ES3.Load<int>("SA_PlayerData_Data_new_stage");

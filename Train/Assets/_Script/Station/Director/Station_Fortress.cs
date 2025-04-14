@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Localization;
 using UnityEngine.UI;
+using System.Threading.Tasks;
 
 public class Station_Fortress : MonoBehaviour
 {
@@ -216,8 +217,7 @@ public class Station_Fortress : MonoBehaviour
         int coin = playerData.Check_Cost_Player(i);
         if (playerData.Player_Coin >= coin)
         {
-            playerData.Player_Buy_Coin(coin);
-            playerData.Player_Level_Up(i);
+            UnityMainThreadExecutor.ExecuteOnMainThread(() => playerUpgrade(i, coin));
             Check_Player_Coin_Point();
             Player_Information_Text();
             Player_Button_Text(i);
@@ -226,6 +226,15 @@ public class Station_Fortress : MonoBehaviour
         {
             Open_Warning_Window();
         }
+    }
+
+    async void playerUpgrade(int CardNum, int coin)
+    {
+        await Task.Run(() =>
+        {
+            playerData.Player_Buy_Coin(coin);
+            playerData.Player_Level_Up(CardNum);
+        });
     }
 
   /*  //용병 업그레이드

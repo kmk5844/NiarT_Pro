@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using UnityEngine.Localization.Components;
 using JetBrains.Annotations;
 using UnityEngine.Localization;
+using System.Threading.Tasks;
 
 public class Station_Store : MonoBehaviour
 {
@@ -762,7 +763,7 @@ public class Station_Store : MonoBehaviour
 
         if (playerData.Player_Coin >= Click_ItemDataObjcet.Item_Buy_Pride * CountNum)
         {
-            playerData.Player_Buy_Coin(Click_ItemDataObjcet.Item_Buy_Pride * CountNum);
+            /*playerData.Player_Buy_Coin(Click_ItemDataObjcet.Item_Buy_Pride * CountNum);
             Click_ItemDataObjcet.Item_Count_UP(CountNum);
             itemData.Plus_Inventory_Item(Click_ItemDataObjcet);
             if (stationDirector.simplestationFlag)
@@ -780,22 +781,55 @@ public class Station_Store : MonoBehaviour
                         break;
                     }
                 }
+
                 if (!itemAvailability)
                 {
                     ItemSellList_Object.item = Click_ItemDataObjcet;
                     ItemSellList_Object.StoreDirector = GetComponent<Station_Store>();
                     Instantiate(ItemSellList_Object, Item_Sell_Window.transform);
                 }
-            }
+            }*/
+            UnityMainThreadExecutor.ExecuteOnMainThread(() => SaveItemData_Buy(itemAvailability, Click_ItemDataObjcet));
             itemData.Check_ItemChangeFlag();
             Check_Player_Coin_Point();
             Cancel_SelectItem();
-            Init_Information();
             Close_Buy_Window();
+            Init_Information();
         }
         else
         {
             Ban_Player_Coin();
+        }
+    }
+
+    async void SaveItemData_Buy(bool itemAvailability, ItemDataObject saveitemData)
+    {
+        saveitemData.Item_Count_UP(CountNum);
+        
+        await Task.Run(() =>
+        {
+            playerData.Player_Buy_Coin(saveitemData.Item_Buy_Pride * CountNum);
+            itemData.Plus_Inventory_Item(saveitemData);
+            if (stationDirector.simplestationFlag)
+            {
+                stationDirector.Director_PlayerReadyDirector.itemListData.Plus_Inventory_Item(saveitemData);
+            }
+        });
+
+        foreach (ItemSell_Object Sell_Object in Item_Sell_Window.GetComponentsInChildren<ItemSell_Object>())
+        {
+            if (Sell_Object.item == saveitemData) // 구매 시, 아이템 체크
+            {
+                itemAvailability = true;
+                //Sell_Object.Check_ItemCount();
+                break;
+            }
+        }
+        if (!itemAvailability)
+        {
+            ItemSellList_Object.item = saveitemData;
+            ItemSellList_Object.StoreDirector = GetComponent<Station_Store>();
+            Instantiate(ItemSellList_Object, Item_Sell_Window.transform);
         }
     }
 
@@ -855,30 +889,48 @@ public class Station_Store : MonoBehaviour
 
     public void Click_ItemSell()
     {
-        playerData.Player_Get_Coin(Click_ItemDataObjcet.Item_Sell_Pride * CountNum);
-        Click_ItemDataObjcet.Item_Count_Down(CountNum);
- 
+        ItemSell_Object check = Click_ItemObject.GetComponent<ItemSell_Object>();
+        UnityMainThreadExecutor.ExecuteOnMainThread(() => SaveItemData_Sell(Click_ItemDataObjcet, check));
+        itemData.Check_ItemChangeFlag();
+        Check_Player_Coin_Point();
+        Cancel_SelectItem();
+        Close_Sell_Window();
+        Init_Information();
+    }
+
+    async void SaveItemData_Sell(ItemDataObject saveitemData, ItemSell_Object clickObject)
+    {
+        itemData.Check_EquipedItem(saveitemData.Num);
+        saveitemData.Item_Count_Down(CountNum);
+        itemData.Minus_Inventory_Item(saveitemData);
+        if (!clickObject.Check_ItemCount())
+        {
+            if (stationDirector.simplestationFlag)
+            {
+                stationDirector.Director_PlayerReadyDirector.itemListData.Minus_Inventory_Item(saveitemData);
+            }
+            Destroy(clickObject.gameObject);
+        }
+        await Task.Run(() =>
+        {
+            playerData.Player_Get_Coin(saveitemData.Item_Sell_Pride * CountNum);
+        });
+        /*clickObject.GetComponent<ItemSell_Object>();
         foreach (ItemSell_Object itemObject in Item_Sell_Window.GetComponentsInChildren<ItemSell_Object>())
         {
-            if (itemObject.item == Click_ItemDataObjcet)
+            if (itemObject.item == saveitemData)
             {
                 if (!itemObject.Check_ItemCount())
                 {
-                    itemData.Minus_Inventory_Item(Click_ItemDataObjcet);
+                    itemData.Minus_Inventory_Item(saveitemData);
                     if (stationDirector.simplestationFlag)
                     {
-                        stationDirector.Director_PlayerReadyDirector.itemListData.Minus_Inventory_Item(Click_ItemDataObjcet);
+                        stationDirector.Director_PlayerReadyDirector.itemListData.Minus_Inventory_Item(saveitemData);
                     }
                     Destroy(itemObject.gameObject);
                 }
             }
-        }
-        itemData.Check_EquipedItem(Click_ItemDataObjcet.Num);
-        itemData.Check_ItemChangeFlag();
-        Check_Player_Coin_Point();
-        Cancel_SelectItem();
-        Init_Information();
-        Close_Sell_Window();
+        }*/
     }
 
     public void Up_CountNum(bool check)
@@ -928,7 +980,6 @@ public class Station_Store : MonoBehaviour
         SelectObject_Before.SetActive(true);
         SelectObject_After.SetActive(false);
         Click_ItemObject = null;
-        Click_ItemDataObjcet = null;
         //Item_Name_Text.text = "";
         Item_Image.sprite = null;
         //Item_Information_Text.text = "";

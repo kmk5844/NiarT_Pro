@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -47,9 +48,17 @@ public class MissionSelectButton : MonoBehaviour
         }
         else
         {
+            //playerData.SA_ClickMission(missionNum);
+            //playerData.SA_MissionPlaying(true);
+            //UnityMainThreadExecutor.ExecuteOnMainThread(() =>  click_Mission_playerData());
             playerData.SA_ClickMission(missionNum);
-            playerData.SA_MissionPlaying(true);
             StartCoroutine(missionSelectDirector.MissionDataSet());
         }
+    }
+
+    async void click_Mission_playerData()
+    {
+        await Task.Run(() => {
+        });
     }
 }
