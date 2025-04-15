@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.LowLevel;
+using static TreeEditor.TreeGroup;
 
 public class Player : MonoBehaviour
 {
@@ -115,6 +116,9 @@ public class Player : MonoBehaviour
     [Header("이벤트")]
     public bool EventFlag;
     public int FoodNum;
+
+    Coroutine selfTurretCoroutine;
+    bool ClickFlag;
 
     void Start()
     {
@@ -275,19 +279,23 @@ public class Player : MonoBehaviour
                 }
             }else if (train.Train_Type.Equals("Self_Turret"))
             {
-                if (train.GetComponentInChildren<SelfTurret_Train>().UseFlag)
+                if (!isSelfTurretAtacking)
                 {
-                    KeyObject.SetActive(true);
+                    if (train.GetComponentInChildren<SelfTurret_Train>().UseFlag)
+                    {
+                        KeyObject.SetActive(true);
+                    }
+                    else
+                    {
+                        KeyObject.SetActive(false);
+                    }
                 }
-                else
-                {
-                    KeyObject.SetActive(false);
-                }
-
+                
                 if (Input.GetKeyDown(KeyCode.F) && train.GetComponentInChildren<SelfTurret_Train>().UseFlag)
                 {
-                    StartCoroutine(train.GetComponentInChildren<SelfTurret_Train>().UseSelfTurret());
+                    selfTurretCoroutine = StartCoroutine(train.GetComponentInChildren<SelfTurret_Train>().UseSelfTurret());
                     OnOff_Sprite(true);
+                    StartCoroutine(ClickDelay());
                     isSelfTurretAtacking = true;
                 }
             }
@@ -330,6 +338,19 @@ public class Player : MonoBehaviour
         }
         else if (isSelfTurretAtacking) // 터렛 공격 중
         {
+/*            if (!ClickFlag && !KeyObject.activeSelf)
+            {
+                KeyObject.SetActive(true);
+            }*/
+
+            if (Input.GetKeyDown(KeyCode.F) && !ClickFlag)
+            {
+                StopCoroutine(selfTurretCoroutine);
+                train.GetComponentInChildren<SelfTurret_Train>().StopSelfTurretTrainCourtine();
+                OnOff_Sprite(false);
+                isSelfTurretAtacking = false;
+            }
+
             if (!train.GetComponentInChildren<SelfTurret_Train>().isAtacking)
             {
                 OnOff_Sprite(false);
@@ -1100,20 +1121,20 @@ public class Player : MonoBehaviour
 
     private void Check_Food_Effect(string[] _state)
     {
-        foreach(string str in _state)
+        foreach (string str in _state)
         {
-            switch(str)
+            switch (str)
             {
-                case "0" :
+                case "0":
                     break;
-                case "1" :
+                case "1":
                     //공격력
                     Debug.Log(Bullet_Atk);
                     Bullet_Atk += ((Bullet_Atk * 10) / 100);
                     Default_Atk = Bullet_Atk;
                     Debug.Log(Bullet_Atk);
                     break;
-                case "2" :
+                case "2":
                     //공격속도, 장전속도
                     Debug.Log(Bullet_Delay);
                     Debug.Log(ReloadTime);
@@ -1122,13 +1143,13 @@ public class Player : MonoBehaviour
                     Debug.Log(Bullet_Delay);
                     Debug.Log(ReloadTime);
                     break;
-                case "3" :
+                case "3":
                     //방어력
                     Debug.Log(Player_Armor);
                     Player_Armor += ((Player_Armor * 10) / 100);
                     Debug.Log(Player_Armor);
                     break;
-                case "4" :
+                case "4":
                     //이동속도
                     Debug.Log(moveSpeed);
                     moveSpeed += ((moveSpeed * 10) / 100);
@@ -1138,13 +1159,13 @@ public class Player : MonoBehaviour
                     //기차
                     gamedirector.FoodEffect_Flag_Positive = true;
                     break;
-                case "-1" :
+                case "-1":
                     Debug.Log(Bullet_Atk);
                     Bullet_Atk -= ((Bullet_Atk * 10) / 100);
                     Default_Atk = Bullet_Atk;
                     Debug.Log(Bullet_Atk);
                     break;
-                case "-2" :
+                case "-2":
                     Debug.Log(Bullet_Delay);
                     Debug.Log(ReloadTime);
                     Bullet_Delay += ((Bullet_Delay * 10) / 100);
@@ -1168,5 +1189,16 @@ public class Player : MonoBehaviour
                     break;
             }
         }
+    }
+
+
+
+    IEnumerator ClickDelay()
+    {
+        KeyObject.SetActive(false);
+        ClickFlag = true;
+        yield return new WaitForSeconds(2f);
+        ClickFlag = false;
+        KeyObject.SetActive(true);
     }
 }

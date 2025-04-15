@@ -37,6 +37,10 @@ public class PlayerReadyDirector : MonoBehaviour
     [Space(10)]
     public GameObject OptionObject;
     bool Option_Flag;
+    public Button StartButton;
+    bool trainFlag;
+    bool mercenaryFlag;
+    bool itemFlag;
 
     [Header("-------------Train----------------")]
     [Space(10)]
@@ -137,6 +141,11 @@ public class PlayerReadyDirector : MonoBehaviour
         UI_Window[0].SetActive(true);
         UI_Window[1].SetActive(false);
         UI_Window[2].SetActive(false);
+
+        trainFlag = true;
+        mercenaryFlag = false;
+        itemFlag = false;
+        StartButton.interactable = false;
 
         sa_trainData = trainData.SA_TrainData;
         sa_trainturretData = trainData.SA_TrainTurretData;
@@ -873,6 +882,7 @@ public class PlayerReadyDirector : MonoBehaviour
             UI_Window[2].SetActive(false);
             UI_Window[0].SetActive(true);
         }
+        CheckStartButton();
     }
 
     public void PrevButton()
@@ -888,6 +898,34 @@ public class PlayerReadyDirector : MonoBehaviour
             windowCount = 2;
             UI_Window[0].SetActive(false);
             UI_Window[2].SetActive(true);
+        }
+        CheckStartButton();
+    }
+
+    void CheckStartButton()
+    {
+        if (UI_Window[0].activeSelf)
+        {
+            trainFlag = true;
+        }
+
+        if (UI_Window[1].activeSelf)
+        {
+            mercenaryFlag = true;
+        }
+
+        if (UI_Window[2].activeSelf)
+        {
+            itemFlag = true;
+        }
+
+        if (trainFlag && mercenaryFlag && itemFlag)
+        {
+            StartButton.interactable = true;
+        }
+        else
+        {
+            StartButton.interactable = false;
         }
     }
 

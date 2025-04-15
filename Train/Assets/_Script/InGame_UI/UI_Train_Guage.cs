@@ -98,8 +98,15 @@ public class UI_Train_Guage : MonoBehaviour
             Special_Guage.fillAmount = FuelAmout;
         }else if(num == 4)
         {
-            float FuelAmout = (float)self_turret.SelfTurretTrain_Fuel / (float)self_turret.Max_SelfTurretTrain_Fuel;
-            Special_Guage.fillAmount = FuelAmout;
+            if (!self_turret.isAtacking)
+            {
+                float FuelAmout = (float)self_turret.SelfTurretTrain_Fuel / (float)self_turret.Max_SelfTurretTrain_Fuel;
+                Special_Guage.fillAmount = FuelAmout;
+            }
+            else
+            {
+                Special_Guage.fillAmount = self_turret.fillAmount_Time;
+            }
         }
         else if(num == 5)
         {

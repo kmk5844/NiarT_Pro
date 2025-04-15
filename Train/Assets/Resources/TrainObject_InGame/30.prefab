@@ -27,7 +27,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.89341986, w: 0.44922265}
   m_LocalPosition: {x: -0.030767202, y: 0.23434272, z: 0.022185914}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2318235354594269198}
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 697594753
   m_SortingLayer: 7
   m_SortingOrder: 6
-  m_Sprite: {fileID: -1178240706, guid: 021a885118a497d40bc3c4f91a3d9a19, type: 3}
+  m_Sprite: {fileID: 1938339795, guid: 06a28ce7897948540a320609750a3a9e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -110,8 +110,8 @@ Transform:
   m_GameObject: {fileID: 2535452791353591575}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.057232857, y: 0.09834272, z: 0.022185914}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalPosition: {x: 0.024, y: 0.012, z: 0.022185914}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2318235354594269198}
@@ -157,7 +157,7 @@ SpriteRenderer:
   m_SortingLayerID: 697594753
   m_SortingLayer: 7
   m_SortingOrder: 0
-  m_Sprite: {fileID: -427454371, guid: 021a885118a497d40bc3c4f91a3d9a19, type: 3}
+  m_Sprite: {fileID: -1092381933, guid: 06a28ce7897948540a320609750a3a9e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -226,7 +226,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.110767126, y: 0.5743427, z: 0.09534441}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2318235354594269198}
@@ -272,7 +272,7 @@ SpriteRenderer:
   m_SortingLayerID: 697594753
   m_SortingLayer: 7
   m_SortingOrder: 5
-  m_Sprite: {fileID: -341035170, guid: 021a885118a497d40bc3c4f91a3d9a19, type: 3}
+  m_Sprite: {fileID: -970673060, guid: 06a28ce7897948540a320609750a3a9e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -333,6 +333,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trainData: {fileID: 11400000, guid: 3a83740cb85032c498c0bbd5b0a2ec9d, type: 2}
+  Train_Index: 0
   Train_Num: 0
   Train_Num2: 0
   Train_HP: 0
@@ -366,12 +367,10 @@ MonoBehaviour:
   Train_Supply_UseFuel: 0
   Train_Supply_Grade: 0
   Train_Supply_Count: 0
-  Train_Dash_UseFuel: 0
-  Train_Dash_PalyerAmount: 0
-  Train_Dash_Second: 0
   isReparing: 0
   isRepairable: 0
   gameDirector: {fileID: 0}
+  UI_Level: 0
 --- !u!1 &6261066100049246810
 GameObject:
   m_ObjectHideFlags: 0
@@ -628,7 +627,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.3148964, w: 0.9491261}
   m_LocalPosition: {x: 0.045232773, y: 0.26234272, z: 0.022185914}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2318235354594269198}
@@ -674,7 +673,7 @@ SpriteRenderer:
   m_SortingLayerID: 697594753
   m_SortingLayer: 7
   m_SortingOrder: 0
-  m_Sprite: {fileID: 514044413, guid: 021a885118a497d40bc3c4f91a3d9a19, type: 3}
+  m_Sprite: {fileID: 1452190140, guid: 06a28ce7897948540a320609750a3a9e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -711,8 +710,8 @@ Transform:
   m_GameObject: {fileID: 7397172749076482829}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.07518141, w: 0.9971699}
-  m_LocalPosition: {x: 0.1488328, y: 0.12434274, z: 0.022185914}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalPosition: {x: 0.11559987, y: 0.038000017, z: 0.022185914}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2318235354594269198}
@@ -758,7 +757,7 @@ SpriteRenderer:
   m_SortingLayerID: 697594753
   m_SortingLayer: 7
   m_SortingOrder: 0
-  m_Sprite: {fileID: -527761773, guid: 021a885118a497d40bc3c4f91a3d9a19, type: 3}
+  m_Sprite: {fileID: -1092381933, guid: 06a28ce7897948540a320609750a3a9e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0

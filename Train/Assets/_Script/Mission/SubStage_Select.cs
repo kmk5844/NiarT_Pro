@@ -17,6 +17,7 @@ public class SubStage_Select : MonoBehaviour
     public int SubStageNum;
     public Sprite OpenStageSprite;
     public GameObject LastSelectObject;
+    public GameObject LastFlag;
 
     [Header("Item_Information")]
     public GameObject InformationObject;
@@ -186,6 +187,7 @@ public class SubStage_Select : MonoBehaviour
             int rail_num = int.Parse(rail_String[i]);
             if(rail_num == -1)
             {
+                LastFlag.SetActive(true);
                 break;
             }
             objB = settingDirector.MapList.GetChild(rail_num).transform;

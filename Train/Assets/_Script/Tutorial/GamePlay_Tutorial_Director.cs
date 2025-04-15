@@ -62,7 +62,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
     {
         Fuel = 60000;
         Max_Fuel = Fuel;
-        Max_Speed = 280;
+        Max_Speed = 200;
         max_distance = 10;
 
         cursorAim_UnAtk = Resources.Load<Texture2D>("Cursor/Aim6464_UnAttack");
@@ -76,6 +76,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
     private void Start()
     {
         gold = 0;
+        speed = 20;
         scarecrow_DestoryFlag = false;
         T_Flag = true;
         aimFlag = false;
@@ -250,7 +251,6 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
             {
                 if (T_Flag)
                 {
-                    speed += 150;
                     EmphasisObejct[3].SetActive(true);
                     T_Flag = false;
                 }
@@ -283,7 +283,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
                             EmphasisObejct[6].SetActive(false);
                         }
 
-                        if (speed < Max_Speed + 200)
+                        if (speed < Max_Speed + 100)
                         {
                             speed += (Time.deltaTime * 40f);
                             Fuel -= (Time.deltaTime * 1000f);
@@ -434,7 +434,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
 
                 if (Fuel > 0)
                 {
-                    Fuel -= (Time.deltaTime * 3000f);
+                    Fuel -= (Time.deltaTime * 7000f);
                 }
                 else
                 {
@@ -470,7 +470,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
                     }
                     if (speed > 0)
                     {
-                        speed -= (Time.deltaTime * 120f);
+                        speed -= (Time.deltaTime * 60f);
                     }
                     else
                     {

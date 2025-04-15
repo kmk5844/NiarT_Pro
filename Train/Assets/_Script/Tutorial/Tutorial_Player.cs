@@ -316,9 +316,9 @@ public class Tutorial_Player : MonoBehaviour
 
     public IEnumerator Item_41()
     {
-        moveSpeed = 8;
-        Bullet_Delay = 0.35f;
-        yield return new WaitForSeconds(5f);
+        moveSpeed = 9;
+        Bullet_Delay = 0.2f;
+        yield return new WaitForSeconds(8f);
         moveSpeed = 7;
         Bullet_Delay = 0.5f;
         T_SpawnItem_Flag = true;

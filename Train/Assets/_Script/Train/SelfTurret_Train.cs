@@ -39,6 +39,9 @@ public class SelfTurret_Train : MonoBehaviour
     Vector3 mousePos;
     public AudioClip Shoot_SFX;
 
+    float WaitTime;
+    public float fillAmount_Time;
+
     private void Start()
     {
         SelfTurretTrain = GetComponentInParent<Train_InGame>(); 
@@ -46,6 +49,7 @@ public class SelfTurret_Train : MonoBehaviour
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         SelfTurretTrain_Fuel = 0;
         SelfTurretTrain_Fuel = SelfTurretTrain.Train_Self_UseFuel;
+        WaitTime = 20;
         Max_SelfTurretTrain_Fuel = SelfTurretTrain.Train_Self_UseFuel;
         Turret_Atk = SelfTurretTrain.Train_Self_Attack;
         Turret_AtkDelay = SelfTurretTrain.Train_Self_Attack_Delay;
@@ -67,11 +71,9 @@ public class SelfTurret_Train : MonoBehaviour
         }
 
         Player_Object.SetActive(false);
-
         timebet = 0.05f;
         lastTime = Time.time;
     }
-
 
     private void Update()
     {
@@ -81,7 +83,7 @@ public class SelfTurret_Train : MonoBehaviour
             changeFlag = true;
         }
 
-        if (gameDirector.gameType == GameType.Playing || gameDirector.gameType == GameType.Boss)
+        if (gameDirector.gameType == GameType.Playing || gameDirector.gameType == GameType.Boss || gameDirector.gameType == GameType.Refreshing || gameDirector.gameType == GameType.Ending)
         {
             if (!FuelFlag)
             {
@@ -168,7 +170,25 @@ public class SelfTurret_Train : MonoBehaviour
         isAtacking = true;
         Player_Object.SetActive(true);
         atk_lastTime = Time.time;
-        yield return new WaitForSeconds(20);
+        float elapsedTime = 0f;
+
+        while (elapsedTime < WaitTime)
+        {
+            elapsedTime += Time.deltaTime;
+            fillAmount_Time = 1 - (elapsedTime / WaitTime); // 혹은 remainingTime / waitTime
+
+            yield return null;  // 다음 프레임까지 대기
+        }
+
+        isAtacking = false;
+        FuelFlag = false;
+        Player_Object.SetActive(false);
+        SelfTurretTrain_Fuel = 0;
+        lastTime = Time.time;
+    }
+
+    public void StopSelfTurretTrainCourtine()
+    {
         isAtacking = false;
         FuelFlag = false;
         Player_Object.SetActive(false);
@@ -183,7 +203,7 @@ public class SelfTurret_Train : MonoBehaviour
             Bullet_Object.GetComponent<Bullet>().atk = Turret_Atk;
             Instantiate(Bullet_Object, FireZone.position, Quaternion.identity);
             MMSoundManagerSoundPlayEvent.Trigger(Shoot_SFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
-
+            Debug.Log("총소리 발생 / 총소리 넣어야함");
             atk_lastTime = Time.time;
         }
     }
