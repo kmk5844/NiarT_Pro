@@ -84,7 +84,6 @@ public class Tutorial_UIDirector : MonoBehaviour
 
     public void nextTutorial()
     {
-        
         if(count < MaxCount)
         {
             GameUI[count].SetActive(true);
@@ -103,6 +102,7 @@ public class Tutorial_UIDirector : MonoBehaviour
             }
         }
         count++;
+
         if(count < MaxCount)
         {
             StartCoroutine(WaitTime());

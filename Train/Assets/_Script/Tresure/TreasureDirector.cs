@@ -150,7 +150,7 @@ public class TreasureDirector : MonoBehaviour
 /*        RewardImage.gameObject.SetActive(true);
         RewardText.gameObject.SetActive(true);*/
         TotalRewardList[count].SetActive(true);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.2f);
 /*        RewardImage.gameObject.SetActive(false);
         RewardText.gameObject.SetActive(false);
         yield return new WaitForSeconds(0.2f);*/
@@ -170,26 +170,26 @@ public class TreasureDirector : MonoBehaviour
     {
         if (List_RandomReward[count] == 0)
         {
-            TotalRewardList[count].transform.GetChild(0).GetComponent<Image>().sprite = GoldSprite;
+            TotalRewardList[count].transform.GetChild(2).GetComponent<Image>().sprite = GoldSprite;
             TotalRewardList[count].GetComponentInChildren<TextMeshProUGUI>().text = "Gold + " + List_Gold[goldCount] + "G";
             playerData.SA_Get_Coin(List_Gold[goldCount]);
             goldCount++;
         }
         else if (List_RandomReward[count] == 1)
         {
-            TotalRewardList[count].transform.GetChild(0).GetComponent<Image>().sprite = List_Item[itemCount].Item_Sprite;
+            TotalRewardList[count].transform.GetChild(2).GetComponent<Image>().sprite = List_Item[itemCount].Item_Sprite;
             TotalRewardList[count].GetComponentInChildren<LocalizeStringEvent>().StringReference.TableReference = "ItemData_Table_St";
             TotalRewardList[count].GetComponentInChildren<LocalizeStringEvent>().StringReference.TableEntryReference = "Item_Name_" + List_Item[itemCount].Num;
             itemCount++;
         }
         else if (List_RandomReward[count] == 2)
         {
-            TotalRewardList[count].transform.GetChild(0).GetComponent<Image>().sprite = FailSprite_HP;
+            TotalRewardList[count].transform.GetChild(2).GetComponent<Image>().sprite = FailSprite_HP;
             TotalRewardList[count].GetComponentInChildren<TextMeshProUGUI>().text = "HP -5%";
         }
         else if (List_RandomReward[count] == 3)
         {
-            TotalRewardList[count].transform.GetChild(0).GetComponent<Image>().sprite = FailSprite_Gold;
+            TotalRewardList[count].transform.GetChild(2).GetComponent<Image>().sprite = FailSprite_Gold;
             TotalRewardList[count].GetComponentInChildren<TextMeshProUGUI>().text = "Gold -5%";
         }
     }

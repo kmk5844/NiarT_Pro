@@ -372,11 +372,11 @@ public class GameDirector : MonoBehaviour
 
         }else if (gameType == GameType.Playing)
         {
-            if(Time.time >= StartTime + 0.1f && !isStationHideFlag)
+           /* if (Time.time >= StartTime + 0.1f && !isStationHideFlag)
             {
                 isStationHideFlag = true;
                 StartCoroutine(Hide_And_Show_Station(true));
-            }
+            }*/
 
             if (Time.time >= RandomStartTime + StartTime && !GameStartFlag)
             {
@@ -602,11 +602,11 @@ public class GameDirector : MonoBehaviour
                         lastSpeedTime = Time.time;
                     }
 
-                    if (TrainSpeed <= 74f && TrainSpeed > 72f && !isStationShowFlag)
+                    /*if (TrainSpeed <= 74f && TrainSpeed > 72f && !isStationShowFlag)
                     {
                         isStationShowFlag = true;
                         StartCoroutine(Hide_And_Show_Station(false));
-                    }
+                    }*/
 
                     if (TrainSpeed == 0)
                     {
@@ -621,6 +621,34 @@ public class GameDirector : MonoBehaviour
             ChangeCursor(false);
         }
     }
+
+    private void FixedUpdate()
+    {
+        if (gameType == GameType.Playing)
+        {
+            if (Time.time >= StartTime + 0.1f && !isStationHideFlag)
+            {
+                isStationHideFlag = true;
+                StartCoroutine(Hide_And_Show_Station(true));
+            }
+        }
+
+        if (gameType == GameType.Ending)
+        {
+            if (monsterDirector.GameDirector_EndingFlag)
+            {
+                if (monsterDirector.GameDirecotr_AllDieFlag)
+                {
+                    if (TrainSpeed <= 74f && TrainSpeed > 72f && !isStationShowFlag)
+                    {
+                        isStationShowFlag = true;
+                        StartCoroutine(Hide_And_Show_Station(false));
+                    }
+                }
+            }
+        }
+    }
+
     void Stage_Init()
     {
         //Emerging_Monster_String = StageData.Emerging_Monster;

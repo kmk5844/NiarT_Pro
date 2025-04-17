@@ -162,19 +162,19 @@ public class SA_PlayerData : ScriptableObject
     public void SA_Buy_Coin(int R_Coin)
     {
         coin -= R_Coin;
-        Save();
+        Save_Solo("Coin");
     }
 
     public void SA_Get_Coin(int R_Coin)
     {
         coin += R_Coin;
-        Save();
+        Save_Solo("Coin");
     }
 
     public void SA_Loss_Coin_Persent(int persent)
     {
         coin -= coin * (persent / 100);
-        Save();
+        Save_Solo("Coin");
     }
 
     public void SA_Loss_HP_Persent(int persent)

@@ -25,6 +25,7 @@ public class UI_Train_Guage : MonoBehaviour
 
     void Start()
     {
+        GetComponent<Canvas>().sortingLayerName = "Train";
         Train_Data = GetComponentInParent<Train_InGame>();
         
         num = 0;

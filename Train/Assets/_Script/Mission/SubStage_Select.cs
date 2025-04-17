@@ -18,6 +18,7 @@ public class SubStage_Select : MonoBehaviour
     public Sprite OpenStageSprite;
     public GameObject LastSelectObject;
     public GameObject LastFlag;
+    public Button BackButton;
 
     [Header("Item_Information")]
     public GameObject InformationObject;
@@ -41,6 +42,7 @@ public class SubStage_Select : MonoBehaviour
     private void Start()
     {
         subStageSelectDirector = GetComponentInParent<SubStageSelectDirector>();
+        BackButton.onClick.AddListener(subStageSelectDirector.CancelSubStage);
         missionData = subStageSelectDirector.missionData.missionStage(MissionNum, StageNum, SubStageNum);
         InformationObject.SetActive(false);
         type_text.text = "Type : " + missionData.SubStage_Type;
