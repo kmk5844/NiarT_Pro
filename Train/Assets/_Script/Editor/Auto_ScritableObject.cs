@@ -521,8 +521,8 @@ public class Auto_ScritableObject : EditorWindow
     {
         switch (type)
         {
-            case "Nomal":
-                return SubStageType.Nomal;
+            case "Normal":
+                return SubStageType.Normal;
             case "Hard":
                 return SubStageType.Hard;
             case "HardCore":

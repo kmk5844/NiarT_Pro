@@ -1,3 +1,4 @@
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -22,6 +23,8 @@ public class FoodCard : MonoBehaviour
     Button btn;
     [SerializeField]
     bool HeartColor; // 참이면 레드, 불이면 그린
+    public AudioClip OpenSFX;
+
     private void Start()
     {
         btn = GetComponentInChildren<Button>();
@@ -145,6 +148,7 @@ public class FoodCard : MonoBehaviour
     public void ClickFoodCard()
     {
         btn.gameObject.SetActive(false);
+        MMSoundManagerSoundPlayEvent.Trigger(OpenSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         NameTagObject.SetActive(true);
         if (HeartColor)
         {

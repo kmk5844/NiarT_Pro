@@ -1,3 +1,4 @@
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -41,6 +42,10 @@ public class FoodDirector : MonoBehaviour
     [Header("--------SubSelect--------")]
     public GameObject SubSelectStage;
 
+    [Header("--------Sound--------")]
+    public AudioClip BGM;
+    public AudioClip RerollSFX;
+
     Dictionary<string, int> lootTable = new Dictionary<string, int>()
     {
         {"Common", 60 },
@@ -80,6 +85,7 @@ public class FoodDirector : MonoBehaviour
         Check_FoodRarity();
         RandomCard(false);
         rerollCount = 0;
+        MMSoundManagerSoundPlayEvent.Trigger(BGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true);
     }
 
     private void Update()
@@ -185,6 +191,7 @@ public class FoodDirector : MonoBehaviour
     public void Click_RerollButton()
     {
         playerData.SA_Buy_Coin(Reroll_Gold);
+        MMSoundManagerSoundPlayEvent.Trigger(RerollSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         RandomCard(true);
 
         Player_GoldText.text = playerData.Coin + "G";

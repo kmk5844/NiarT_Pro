@@ -85,8 +85,6 @@ public class UIDirector : MonoBehaviour
 
     public TextMeshProUGUI missionTitle;
     public TextMeshProUGUI missionInformation;
-    public TextMeshProUGUI missionReward;
-
 
     [Header("SubSelectStage UI")]
     public GameObject UIObject_SubSelectStage;
@@ -181,8 +179,7 @@ public class UIDirector : MonoBehaviour
 
     public void Open_Result_UI(bool Win, int Score, int Coin, SelectMission mission, int LoseNum = -1)
     {
-
-        Result_Text_List[0].text = Score.ToString(); // + "Á¡";
+        //Result_Text_List[0].text = Score.ToString(); // + "Á¡";
         Result_Text_List[1].text = Coin + "G"; // + "¿ø";
         if (Win)
         {
@@ -194,7 +191,6 @@ public class UIDirector : MonoBehaviour
 
             missionTitle.text = mission.MissionType.ToString();
             missionInformation.text = mission.MissionInformation;
-            missionReward.text = mission.MissionReward + "G";
 
             for (int i = 0; i < GetItemList_Num.Count; i++)
             {

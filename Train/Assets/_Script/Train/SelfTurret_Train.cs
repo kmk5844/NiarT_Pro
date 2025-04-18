@@ -203,7 +203,6 @@ public class SelfTurret_Train : MonoBehaviour
             Bullet_Object.GetComponent<Bullet>().atk = Turret_Atk;
             Instantiate(Bullet_Object, FireZone.position, Quaternion.identity);
             MMSoundManagerSoundPlayEvent.Trigger(Shoot_SFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
-            Debug.Log("醚家府 惯积 / 醚家府 持绢具窃");
             atk_lastTime = Time.time;
         }
     }

@@ -194,7 +194,7 @@ public class MissionDataObject : ScriptableObject
     {
         switch (substage_type)
         {
-            case SubStageType.Nomal:
+            case SubStageType.Normal:
                 readyflag = true;
                 break;
             case SubStageType.Hard:
@@ -221,7 +221,7 @@ public class MissionDataObject : ScriptableObject
 
 public enum SubStageType
 {
-    Nomal,
+    Normal,
     Hard,
     HardCore,
     Boss,

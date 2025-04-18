@@ -45,19 +45,20 @@ public class SubStage_Select : MonoBehaviour
         BackButton.onClick.AddListener(subStageSelectDirector.CancelSubStage);
         missionData = subStageSelectDirector.missionData.missionStage(MissionNum, StageNum, SubStageNum);
         InformationObject.SetActive(false);
-        type_text.text = "Type : " + missionData.SubStage_Type;
+        type_text.text = missionData.SubStage_Type.ToString();
+
         if(missionData.Distance != -1)
         {
-            distance_text.text = "Distance : " + missionData.Distance;
+            distance_text.text = missionData.Distance.ToString();
         }
         else
         {
-            distance_text.text = "";
+            distance_text.text = "---------";
         }
 
         switch (missionData.SubStage_Type)
         {
-            case SubStageType.Nomal:
+            case SubStageType.Normal:
                 GetComponent<Image>().sprite = temporarilySprite[0];
                 break;
             case SubStageType.Hard:

@@ -1,3 +1,4 @@
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -43,6 +44,10 @@ public class TreasureDirector : MonoBehaviour
     int goldCount;
     int itemCount;
 
+    public AudioClip TreasuerBGM;
+    public AudioClip OpenSFX;
+    public AudioClip GetSFX;
+
     private void Awake()
     {
         Special_Story.Story_Init(null, 0, 0);
@@ -57,6 +62,7 @@ public class TreasureDirector : MonoBehaviour
         CloseTreasureObj.SetActive(true);
         OpenTreasureObj.SetActive(false);
         RandomReward();
+        MMSoundManagerSoundPlayEvent.Trigger(TreasuerBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true);
     }
 
     private void Update()
@@ -69,6 +75,7 @@ public class TreasureDirector : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && treasureFlag)
         {
+            MMSoundManagerSoundPlayEvent.Trigger(OpenSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
             OpenTreasure();
         }
     }
@@ -147,13 +154,12 @@ public class TreasureDirector : MonoBehaviour
     {
         ChangeTreasure(count);
         yield return new WaitForSeconds(0.2f);
-/*        RewardImage.gameObject.SetActive(true);
-        RewardText.gameObject.SetActive(true);*/
+        if(count != 0)
+        {
+            MMSoundManagerSoundPlayEvent.Trigger(GetSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+        }
         TotalRewardList[count].SetActive(true);
         yield return new WaitForSeconds(0.2f);
-/*        RewardImage.gameObject.SetActive(false);
-        RewardText.gameObject.SetActive(false);
-        yield return new WaitForSeconds(0.2f);*/
         count++;
         if(count < RewardCount)
         {
@@ -171,7 +177,7 @@ public class TreasureDirector : MonoBehaviour
         if (List_RandomReward[count] == 0)
         {
             TotalRewardList[count].transform.GetChild(2).GetComponent<Image>().sprite = GoldSprite;
-            TotalRewardList[count].GetComponentInChildren<TextMeshProUGUI>().text = "Gold + " + List_Gold[goldCount] + "G";
+            TotalRewardList[count].GetComponentInChildren<TextMeshProUGUI>().text = "Gold +" + List_Gold[goldCount] + "G";
             playerData.SA_Get_Coin(List_Gold[goldCount]);
             goldCount++;
         }

@@ -71,6 +71,7 @@ public class Player : MonoBehaviour
     public AudioClip FlashBangSFX;
     public AudioClip FireSFX;
     public AudioClip LaserSFX;
+    public AudioClip ReloadingSFX;
     public List<GameObject> GunObject_List;
     int GunIndex;
 
@@ -779,7 +780,7 @@ public class Player : MonoBehaviour
     {
         ReloadingFlag = true;
         Reload.SetActive(true);
-        Debug.Log("리로딩 소리!필요합니다 삽입하세요");
+        MMSoundManagerSoundPlayEvent.Trigger(ReloadingSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         yield return new WaitForSeconds(ReloadTime);
         Reload.SetActive(false);
         FireCount = 0;

@@ -1,3 +1,4 @@
+using MoreMountains.Tools;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,7 +8,6 @@ using UnityEngine.UI;
 public class Train_InGame : MonoBehaviour
 {
     public Game_DataTable trainData;
-
     public int Train_Index;
 
     [SerializeField]
@@ -82,8 +82,9 @@ public class Train_InGame : MonoBehaviour
     public int UI_Level;
 
     bool LoseFlag;
-
     SpriteRenderer TrainSprite;
+
+    public AudioClip trainHitSFX;
 
     private void Awake()
     {
@@ -92,7 +93,6 @@ public class Train_InGame : MonoBehaviour
         isRepairable = true;
         gameDirector = GameObject.Find("GameDirector");
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
-
         TurretFlag = false;
         BoosterFlag = false;
         def_constant = 100;
@@ -297,6 +297,7 @@ public class Train_InGame : MonoBehaviour
     {
         gameDirector.GetComponent<GameDirector>().Game_MonsterHit(monsterBullet.slow); //슬로우가 있어야 한다.
         int damageTaken = Mathf.RoundToInt(monsterBullet.atk * era);
+        MMSoundManagerSoundPlayEvent.Trigger(trainHitSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         if(Train_HP - damageTaken < 0)
         {
             Train_HP = 0;

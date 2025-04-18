@@ -178,6 +178,7 @@ public class GameDirector : MonoBehaviour
     public AudioClip WarningSFX; // ID : 40;
     public AudioClip WinSFX;
     public AudioClip LoseSFX;
+    public AudioClip TrainHitSFX;
     int Change_Train_ID;
     int TrainSFX_ID; // ID : 100;
 
@@ -345,7 +346,7 @@ public class GameDirector : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (gameType == GameType.Starting || gameType == GameType.Playing || gameType == GameType.Boss)
+            if (gameType == GameType.Starting || gameType == GameType.Playing || gameType == GameType.Boss || gameType == GameType.Refreshing)
             {
                 Before_GameType = gameType;
                 gameType = GameType.Pause;
@@ -808,6 +809,7 @@ public class GameDirector : MonoBehaviour
             TrainMaxSpeed += train.Train_MaxSpeed;
             TrainEfficient += train.Train_Efficient;
             TrainEnginePower += train.Train_Engine_Power;
+            train.trainHitSFX = TrainHitSFX;
         }
 
         Train_Count = Train_List.childCount;
