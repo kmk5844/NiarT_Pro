@@ -9,6 +9,7 @@ public class SelectMission : MonoBehaviour
     SA_PlayerData playerData;
     [SerializeField]
     Quest_DataTable missionDataTable;
+    public Quest_DataTable MISSIONDATATABLE { get {  return missionDataTable; } }   
     [SerializeField]
     SA_MissionData missionData;
     [SerializeField]
@@ -16,6 +17,7 @@ public class SelectMission : MonoBehaviour
 
     int stageNum;
     int missionNum;
+    public int MISSIONNUM { get { return missionNum; } }
     string FindString;
 
     [SerializeField]
@@ -47,6 +49,8 @@ public class SelectMission : MonoBehaviour
     [Header("stageSelect")]
     public GameObject StageInitButton;
 
+    public int missionList_Index;
+
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
@@ -68,21 +72,21 @@ public class SelectMission : MonoBehaviour
 
     void SetMissionSetting()
     {
-        int index = 0;
+        missionList_Index = 0;
         for (int i = 0; i < missionDataTable.Q_List.Count; i++)
         {
-            index = i;
+            missionList_Index = i;
             if (missionDataTable.Q_List[i].Stage_Mission.Equals(FindString))
             {
                 break;
             }
         }
-        StageMission = missionDataTable.Q_List[index].Stage_Mission;
-        MissionType_String = missionDataTable.Q_List[index].Quest_Type;
-        MissionInformation = missionDataTable.Q_List[index].Quest_Information;
-        MissionState = missionDataTable.Q_List[index].Quest_State;
-        MissionReward = missionDataTable.Q_List[index].Quest_Reward;
-        MissionCoinLosePersent = missionDataTable.Q_List[index].Quest_Fail;
+        StageMission = missionDataTable.Q_List[missionList_Index].Stage_Mission;
+        MissionType_String = missionDataTable.Q_List[missionList_Index].Quest_Type;
+        MissionInformation = missionDataTable.Q_List[missionList_Index].Quest_Information;
+        MissionState = missionDataTable.Q_List[missionList_Index].Quest_State;
+        MissionReward = missionDataTable.Q_List[missionList_Index].Quest_Reward;
+        MissionCoinLosePersent = missionDataTable.Q_List[missionList_Index].Quest_Fail;
     }
 
     void SetMissionType()

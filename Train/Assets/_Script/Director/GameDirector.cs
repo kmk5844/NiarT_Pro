@@ -201,6 +201,7 @@ public class GameDirector : MonoBehaviour
     bool endRefresh;
     bool SpawnRefreshSupply;
     bool getSupply;
+    public bool waveinfoFlag;
 
     void Awake()
     {
@@ -226,11 +227,11 @@ public class GameDirector : MonoBehaviour
 
         Select_Sub_Num = SA_PlayerData.Select_Sub_Stage;
 
-        Mission_Num = 0;
+/*        Mission_Num = 0;
         Stage_Num = 0;
-        Select_Sub_Num = 0;
+        Select_Sub_Num = 0;*/
 
-        RefreshPersent = 30;
+        RefreshPersent = 50;
 
         //TrainDistance = 70000;
 
@@ -287,6 +288,7 @@ public class GameDirector : MonoBehaviour
         distance_time = 0.1f;
         ChangeCursor(true);
         ItemFlag_14 = false;
+        waveinfoFlag = false;
         if (Test_Flag)
         {
             monsterDirector.Test_Flag = true;
@@ -371,7 +373,15 @@ public class GameDirector : MonoBehaviour
                 StartTime = Time.time;
             }
 
-        }else if (gameType == GameType.Playing)
+            if (!waveinfoFlag)
+            {
+                waveinfoFlag = true;
+                StartCoroutine(uiDirector.WaveInformation());
+            }
+
+
+        }
+        else if (gameType == GameType.Playing)
         {
            /* if (Time.time >= StartTime + 0.1f && !isStationHideFlag)
             {
@@ -505,6 +515,8 @@ public class GameDirector : MonoBehaviour
         {
             if (!getSupply)
             {
+                waveinfoFlag = false;
+
                 if (!monsterDirector.GameDirector_RefreshFlag)
                 {
                     monsterDirector.GameDirector_RefreshFlag = true;
@@ -524,9 +536,41 @@ public class GameDirector : MonoBehaviour
                             if (!SpawnRefreshSupply)
                             {
                                 SpawnRefreshSupply = true;
-                                Vector2 pos = new Vector2(player.transform.position.x, player.transform.position.y + 15);
+                                float RandomX = Random.Range(player.transform.position.x - 5f, player.transform.position.x + 5f);
+                                if(RandomX > MonsterDirector.MaxPos_Ground.x)
+                                {
+                                    RandomX = MonsterDirector.MaxPos_Ground.x;
+                                }
+                                else if (RandomX < MonsterDirector.MinPos_Ground.x)
+                                {
+                                    RandomX = MonsterDirector.MinPos_Ground.x;
+                                }
+
+                                Vector2 pos = new Vector2(RandomX, player.transform.position.y + 15);
                                 SupplyRefresh_ItemObject.GetComponent<SupplyRefresh_Item>().director = this;
                                 Instantiate(SupplyRefresh_ItemObject, pos, Quaternion.identity);
+                            }
+                        }
+                        lastSpeedTime = Time.time;
+                    }
+                }
+                else
+                {
+                    if (Time.time >= lastSpeedTime + timeBet && GameWinFlag == false)
+                    {
+                        if (MaxSpeed >= TrainSpeed)
+                        {
+                            if (TrainFuel > 0)
+                            {
+                                TrainSpeed += TrainSpeedUP;
+                                TrainFuel -= Efficient;
+                            }
+                        }
+                        else
+                        {
+                            if (TrainFuel > 0)
+                            {
+                                TrainFuel -= Efficient;
                             }
                         }
                         lastSpeedTime = Time.time;
@@ -535,6 +579,12 @@ public class GameDirector : MonoBehaviour
             }
             else
             {
+                if (!waveinfoFlag)
+                {
+                    waveinfoFlag = true;
+                    StartCoroutine(uiDirector.WaveInformation());
+                }
+
                 if (Time.time >= lastSpeedTime + timeBet)
                 {
                     if (MaxSpeed >= TrainSpeed)
@@ -565,6 +615,27 @@ public class GameDirector : MonoBehaviour
                     }
                     gameType = GameType.Playing;
                 }
+            }
+
+            if (TrainFuel <= 0)
+            {
+                TrainFuel = 0;
+            }
+
+            if ((TrainSpeed <= 0 || player.Player_HP <= 0) && GameStartFlag && !GameLoseFlag)
+            {
+                int LoseNum = 0;
+                if (TrainSpeed <= 0)
+                {
+                    LoseNum = 0;
+                }
+                else if (player.Player_HP <= 0)
+                {
+                    LoseNum = 1;
+                }
+                TrainSpeed = 0;
+                GameLoseFlag = true;
+                Game_Lose(LoseNum);
             }
         }
         else if (gameType == GameType.Ending)

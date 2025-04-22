@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using UnityEngine.Localization.Components;
 using PixelCrushers.DialogueSystem;
 using static PixelCrushers.AnimatorSaver;
+using UnityEngine.Localization;
 
 public class UIDirector : MonoBehaviour
 {
@@ -83,7 +84,7 @@ public class UIDirector : MonoBehaviour
     public GameObject LoseWindow;
     public LocalizeStringEvent LoseText;
 
-    public TextMeshProUGUI missionTitle;
+    public LocalizeStringEvent missionTitle;
     public TextMeshProUGUI missionInformation;
 
     [Header("SubSelectStage UI")]
@@ -102,11 +103,13 @@ public class UIDirector : MonoBehaviour
     public int LoseText_Num;
 
     [Header("미션 정보")]
-    public TextMeshProUGUI missionTextInformation_text;
+    public LocalizeStringEvent missionTextInformation_text;
     public TextMeshProUGUI missionCountText_text;
 
     [Header("Wave")]
     public Sprite[] Refresh_Item_Sprite;
+    public GameObject WaveObject;
+    int WaveCount;
 
     private void Awake()
     {
@@ -185,12 +188,13 @@ public class UIDirector : MonoBehaviour
         {
             WinWindow.SetActive(true);
             LoseWindow.SetActive(false);
-
+            
             Result_Text_List[2].text = mission.MissionReward + "G";
             Result_Text_List[3].text = "+" + (Coin + mission.MissionReward) + "G";
 
-            missionTitle.text = mission.MissionType.ToString();
-            missionInformation.text = mission.MissionInformation;
+            missionTitle.StringReference.TableReference = "MissionList_St";
+            missionTitle.StringReference.TableEntryReference = "Title_" + mission.MISSIONNUM;
+            missionInformation.text = missionTextInformation_text.StringReference.GetLocalizedString();
 
             for (int i = 0; i < GetItemList_Num.Count; i++)
             {
@@ -450,8 +454,110 @@ public class UIDirector : MonoBehaviour
         Clear_UI.SetActive(false);
     }
 
-    public void CheckMissionInformation(string inf)
+    public void CheckMissionInformation(int missionNum, Quest_DataTable DataList, int missionList_Index)
     {
-        missionTextInformation_text.text = inf;
+        missionTextInformation_text.StringReference.TableReference = "MissionList_St";
+
+        string[] missionState = DataList.Q_List[missionList_Index].Quest_State.Split(',');
+
+        LocalizedString monsterString = new LocalizedString();
+        monsterString.TableReference = "MissionList_St";
+
+        switch (missionNum)
+        {
+            case 0:
+                //기본
+                missionTextInformation_text.StringReference.TableEntryReference = "Information_" + missionNum;
+                break;
+            case 1:
+                missionTextInformation_text.StringReference.Arguments = new object[] { missionState[0] };
+                missionTextInformation_text.StringReference.TableEntryReference = "Information_" + missionNum;
+                missionTextInformation_text.RefreshString();
+                break;
+            case 2:
+                missionTextInformation_text.StringReference.Arguments = new object[] { -1, -1 };
+                monsterString.TableEntryReference = "Monster_" + missionState[0]; // 예: Boss_0, Boss_1 같은 식
+                // monsterString 번역값 가져와서 Argument로 전달
+                monsterString.GetLocalizedStringAsync().Completed += handle =>
+                {
+                    string monsterName = handle.Result;
+
+                    // Argument에 monsterName 넣기
+                    missionTextInformation_text.StringReference.Arguments = new object[] { monsterName, missionState[1] };
+                    missionTextInformation_text.StringReference.TableEntryReference = "Information_" + missionNum;
+                    missionTextInformation_text.RefreshString();
+                };
+                break;
+            case 3:
+                //기본
+                missionTextInformation_text.StringReference.TableEntryReference = "Information_" + missionNum;
+                break;
+            case 4:
+                //기본
+                missionTextInformation_text.StringReference.TableEntryReference = "Information_" + missionNum;
+                break;
+            case 5:
+                missionTextInformation_text.StringReference.Arguments = new object[] { -1 };
+                monsterString.TableEntryReference = "Boss_" + missionState[0]; // 예: Boss_0, Boss_1 같은 식
+                // monsterString 번역값 가져와서 Argument로 전달
+                monsterString.GetLocalizedStringAsync().Completed += handle =>
+                {
+                    string monsterName = handle.Result;
+
+                    // Argument에 monsterName 넣기
+                    missionTextInformation_text.StringReference.Arguments = new object[] { monsterName };
+                    missionTextInformation_text.StringReference.TableEntryReference = "Information_" + missionNum;
+                    missionTextInformation_text.RefreshString();
+                };
+                break;
+        }
+    }
+
+
+    public IEnumerator WaveInformation()
+    {
+        yield return StartCoroutine(Wave_Object_On());
+        yield return new WaitForSeconds(3f);
+        yield return StartCoroutine(Wave_Object_Off());
+    }
+
+
+    IEnumerator Wave_Object_On()
+    {
+        RectTransform waveobject = WaveObject.GetComponent<RectTransform>();
+        float startX = waveobject.anchoredPosition.x;
+        float targetX = -60f;
+
+        float duration = 0.4f;
+        float elapsedTime = 0f;
+        WaveCount++;
+        WaveObject.GetComponentInChildren<TextMeshProUGUI>().text = "WABE-" + WaveCount;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / duration);
+            float newX = Mathf.Lerp(startX, targetX, t);
+            waveobject.anchoredPosition = new Vector2(newX, waveobject.anchoredPosition.y);
+            yield return null;
+        }
+    }
+    IEnumerator Wave_Object_Off()
+    {
+        RectTransform waveobject = WaveObject.GetComponent<RectTransform>();
+        float startX = waveobject.anchoredPosition.x;
+        float targetX = 100f;
+
+        float duration = 0.4f;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / duration);
+            float newX = Mathf.Lerp(startX, targetX, t);
+            waveobject.anchoredPosition = new Vector2(newX, waveobject.anchoredPosition.y);
+            yield return null;
+        }
     }
 }

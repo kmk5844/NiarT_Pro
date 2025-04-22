@@ -1,4 +1,5 @@
 using MoreMountains.Feedbacks;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -49,7 +50,8 @@ public class MissionDirector : MonoBehaviour
                     monsterDirector.missionFlag_boss = true;
                     break;
             }
-            uiDirector.CheckMissionInformation(selectmission.MissionInformation);
+
+            uiDirector.CheckMissionInformation(selectmission.MISSIONNUM, selectmission.MISSIONDATATABLE, selectmission.missionList_Index);
 
             if (countFlag)
             {
@@ -126,7 +128,7 @@ public class MissionDirector : MonoBehaviour
                 //몬스터 재료
                 break;
             case MissionType.Monster:
-                selectmission.monsterCount += monsterCount;
+                selectmission.monsterCount = monsterCount;
                 break;
             case MissionType.Escort:
                 break;
@@ -134,7 +136,7 @@ public class MissionDirector : MonoBehaviour
                 //운반하기
                 break;
             case MissionType.Boss:
-                selectmission.bossCount += monsterCount;
+                selectmission.bossCount = monsterCount;
                 break;
         }
         stageEnd();
