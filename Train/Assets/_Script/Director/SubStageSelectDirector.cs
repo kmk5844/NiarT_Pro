@@ -43,6 +43,11 @@ public class SubStageSelectDirector : MonoBehaviour
 
     private void Start()
     {
+        if (QualitySettings.vSyncCount != 1)
+        {
+            QualitySettings.vSyncCount = 1;
+        }
+
         //itemListData = GetComponent<Station_ItemData>();
         selectNum = -1;
         UI_MainStageText.text = "Stage" + (playerData.Select_Stage + 1);
@@ -75,7 +80,8 @@ public class SubStageSelectDirector : MonoBehaviour
         string searchString = selectStageNum + "," + missionNum;
         int missionInformation_Num = EX_QuestData.Q_List.FindIndex(x => x.Stage_Mission.Equals(searchString));
 
-        //UI_MissionInformation.text = EX_QuestData.Q_List[missionInformation_Num].Quest_Information
+        UI_MissionInformation.text = ""; 
+            //EX_QuestData.Q_List[missionInformation_Num].Quest_Information;
         GameObject StageListObject = Resources.Load<GameObject>("UI_SubStageList/" + selectStageNum + "_Stage/" + missionNum);
         if(UI_SubStageSelect.transform.childCount < 2)
         {

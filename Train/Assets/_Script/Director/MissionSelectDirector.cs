@@ -99,6 +99,12 @@ public class MissionSelectDirector : MonoBehaviour
 
     private void Start()
     {
+        if (QualitySettings.vSyncCount != 0)
+        {
+            QualitySettings.vSyncCount = 0;
+            Application.targetFrameRate = 60;
+        }
+
         if (!playerData.Mission_Playing)
         {
             missionselectAni.enabled = true;

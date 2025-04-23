@@ -52,7 +52,6 @@ public class GameManager : MonoBehaviour
     {
         // V-Sync를 비활성화하여 FPS 제한을 방지
         QualitySettings.vSyncCount = 0;
-
         // 프레임 레이트를 60으로 설정
         Application.targetFrameRate = 60;
 

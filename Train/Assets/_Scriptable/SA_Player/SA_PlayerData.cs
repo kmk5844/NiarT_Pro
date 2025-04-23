@@ -456,7 +456,7 @@ public class SA_PlayerData : ScriptableObject
         yield return new WaitForSeconds(0.001f);
         level_armor = ES3.Load<int>("SA_PlayerData_Data_level_player_armor");
         yield return new WaitForSeconds(0.001f);
-        level_speed = ES3.Load<int>("SA_PlayerData_Data_levle_speed");
+        level_speed = ES3.Load<int>("SA_PlayerData_Data_level_speed");
         coin = ES3.Load<int>("SA_PlayerData_Data_coin");
         yield return new WaitForSeconds(0.001f);
         //point = ES3.Load<int>("SA_PlayerData_Data_point");

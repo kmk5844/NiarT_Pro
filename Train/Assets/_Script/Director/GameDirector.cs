@@ -309,6 +309,13 @@ public class GameDirector : MonoBehaviour
 
     private void Start()
     {
+        if (QualitySettings.vSyncCount != 0)
+        {
+            Debug.Log("작동");
+            QualitySettings.vSyncCount = 0;
+            Application.targetFrameRate = 60;
+        }
+
         playerObject = GameObject.FindGameObjectWithTag("Player");
         player = playerObject.GetComponent<Player>();
 
@@ -528,7 +535,7 @@ public class GameDirector : MonoBehaviour
                     {
                         if (TrainSpeed > 40)
                         {
-                            TrainSpeed -= TrainSpeedUP;
+                            TrainSpeed -= TrainSpeedUP * 3;
                         }
                         else
                         {
@@ -587,21 +594,7 @@ public class GameDirector : MonoBehaviour
 
                 if (Time.time >= lastSpeedTime + timeBet)
                 {
-                    if (MaxSpeed >= TrainSpeed)
-                    {
-                        if (TrainFuel > 0)
-                        {
-                            TrainSpeed += TrainSpeedUP;
-                            TrainFuel -= Efficient;
-                        }
-                    }
-                    else
-                    {
-                        if (TrainFuel > 0)
-                        {
-                            TrainFuel -= Efficient;
-                        }
-                    }
+                    TrainSpeed += TrainSpeedUP;
                     lastSpeedTime = Time.time;
                 }
 
@@ -665,7 +658,7 @@ public class GameDirector : MonoBehaviour
                     {
                         if (TrainSpeed > 0)
                         {
-                            TrainSpeed -= TrainSpeedUP;
+                            TrainSpeed -= TrainSpeedUP * 3;
                         }
                         else
                         {
@@ -1207,6 +1200,13 @@ public class GameDirector : MonoBehaviour
         SA_MissionData.SubStage_Lose(Stage_Num, Mission_Num);
     }
 
+    public void Optoin_Stage()
+    {
+        SA_PlayerData.SA_GameLoseCoin(60f);
+        SA_MissionData.SubStage_Lose(Stage_Num, Mission_Num);
+        LoadingManager.LoadScene("Station");
+    }
+
     public void GameType_Option(bool flag)
     {
         if (flag)
@@ -1274,7 +1274,6 @@ public class GameDirector : MonoBehaviour
     }
 
     //Refresh부분
-
     public void RefreshReward()
     {
         int rewardNum = Random.Range(0, 4);
@@ -1282,7 +1281,7 @@ public class GameDirector : MonoBehaviour
         //1번 플레이어 체력
         //2번 기차 체력
         //3번 종합세트
-        int rewardPersent = Random.Range(5, 31);
+        int rewardPersent = Random.Range(1, 16);
 
         switch (rewardNum)
         {
@@ -1477,6 +1476,9 @@ public class GameDirector : MonoBehaviour
         MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Resume, TrainSFX_ID);
         Time.timeScale = 1f;
     }
+
+
+
 }
 
 

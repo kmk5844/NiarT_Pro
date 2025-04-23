@@ -531,7 +531,7 @@ public class UIDirector : MonoBehaviour
         float duration = 0.4f;
         float elapsedTime = 0f;
         WaveCount++;
-        WaveObject.GetComponentInChildren<TextMeshProUGUI>().text = "WABE-" + WaveCount;
+        WaveObject.GetComponentInChildren<TextMeshProUGUI>().text = "WAVE-" + WaveCount;
 
         while (elapsedTime < duration)
         {

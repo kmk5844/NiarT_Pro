@@ -75,6 +75,11 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
 
     private void Start()
     {
+        if(QualitySettings.vSyncCount != 1)
+        {
+            QualitySettings.vSyncCount = 1;
+        }
+
         gold = 0;
         speed = 20;
         scarecrow_DestoryFlag = false;

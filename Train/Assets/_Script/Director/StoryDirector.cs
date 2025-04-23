@@ -90,6 +90,11 @@ public class StoryDirector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (QualitySettings.vSyncCount != 1)
+        {
+            QualitySettings.vSyncCount = 1;
+        }
+
         MMSoundManagerSoundPlayEvent.Trigger(StoryBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true);
         SkipButton.onClick.AddListener(() => Click_Skip_Button());
         BackLogButton.onClick.AddListener(() => Click_BackLog_Button());

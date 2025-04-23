@@ -51,7 +51,13 @@ public class MissionDirector : MonoBehaviour
                     break;
             }
 
-            uiDirector.CheckMissionInformation(selectmission.MISSIONNUM, selectmission.MISSIONDATATABLE, selectmission.missionList_Index);
+            try
+            {
+                uiDirector.CheckMissionInformation(selectmission.MISSIONNUM, selectmission.MISSIONDATATABLE, selectmission.missionList_Index);
+            }catch (Exception e)
+            {
+                Debug.Log(e);
+            }
 
             if (countFlag)
             {

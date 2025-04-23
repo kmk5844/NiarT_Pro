@@ -26,6 +26,11 @@ public class MenuDirector : MonoBehaviour
 
     private void Start()
     {
+        if (QualitySettings.vSyncCount != 1)
+        {
+            QualitySettings.vSyncCount = 1;
+        }
+
         Check_Information_Text.StringReference.TableReference = "MainMenu_Table_St";
         startwindow_ani = StartWindow.GetComponent<Animator>();
         storyFlag = false;

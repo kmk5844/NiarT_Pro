@@ -14,6 +14,12 @@ public class CharacterDirector : MonoBehaviour
 
     private void Start()
     {
+
+        if (QualitySettings.vSyncCount != 1)
+        {
+            QualitySettings.vSyncCount = 1;
+        }
+
         playerData.SA_CharecterCheck();
 
         for (int i = 0; i < CharacterButton.Length; i++)

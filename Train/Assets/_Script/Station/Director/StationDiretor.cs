@@ -121,6 +121,11 @@ public class StationDirector : MonoBehaviour
 
     private void Start()
     {
+        if (QualitySettings.vSyncCount != 1)
+        {
+            QualitySettings.vSyncCount = 1;
+        }
+
         MMSoundManagerSoundPlayEvent.Trigger(StationBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true);
 
         playerData = Player_DataObject.GetComponent<Station_PlayerData>();
@@ -572,7 +577,7 @@ public class StationDirector : MonoBehaviour
 
         if (ui_num == 1)
         {
-            if (Director_TrainMaintenance.PassiveUpgrade_Tooltip.gameObject.activeSelf)
+            if (Director_TrainMaintenance.PassiveUpgrade_Tooltip != null && Director_TrainMaintenance.PassiveUpgrade_Tooltip.gameObject.activeSelf)
             {
                 Director_TrainMaintenance.PassiveUpgrade_Tooltip.Tooltip_Off();
             }

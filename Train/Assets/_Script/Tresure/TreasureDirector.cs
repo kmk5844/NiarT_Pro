@@ -56,6 +56,11 @@ public class TreasureDirector : MonoBehaviour
 
     private void Start()
     {
+        if (QualitySettings.vSyncCount != 1)
+        {
+            QualitySettings.vSyncCount = 1;
+        }
+
         List_RandomReward = new List<int>();
         List_Gold = new List<int>();
         List_Item = new List<ItemDataObject>();
