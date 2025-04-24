@@ -111,6 +111,10 @@ public class UIDirector : MonoBehaviour
     public GameObject WaveObject;
     int WaveCount;
 
+    [Header("¿Â¿¸")]
+    public Image ReLoading_Guage;
+    public GameObject[] PlayerGunObject;
+
     private void Awake()
     {
         isBloodFlag = false;
@@ -146,6 +150,9 @@ public class UIDirector : MonoBehaviour
 
         ItemInformation_Object_Flag = false;
         ItemInformation_Object_TimeDelay = 5f;
+
+
+        PlayerGunObject[playerData.Player_Num].SetActive(true);
     }
     private void Update()
     {
@@ -173,6 +180,8 @@ public class UIDirector : MonoBehaviour
 
         Player_HP_Bar.fillAmount = player.Check_HpParsent() / 100f;
         TotalFuel_Bar.fillAmount = gamedirector.Check_Fuel();
+        ReLoading_Guage.fillAmount = player.Check_GunBullet();
+
         Speed_Text.text = "<size=21>" + (int)gamedirector.TrainSpeed + "</size> Km/h";
         Fuel_Text.text = (int)(gamedirector.Check_Fuel() * 100f) + "%";
         Speed_Arrow.value = gamedirector.TrainSpeed / gamedirector.MaxSpeed;

@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization;
 using UnityEngine.Localization.Components;
 using UnityEngine.UI;
 
@@ -19,6 +20,7 @@ public class Ready_MercenaryList : MonoBehaviour
     public Image Merceanary_TypeImage;
     public Sprite[] P_A_Sprite;
 
+
     string Mercenary_Name;
     string Mercenary_Information;
 
@@ -26,6 +28,8 @@ public class Ready_MercenaryList : MonoBehaviour
     int mercenary_pride_Upgrade;
     public Button[] MercenaryButtonList;
     TextMeshProUGUI[] MercenaryButtonList_Text;
+    LocalizeStringEvent[] MercenaryButtonList_Local;
+    
     Sprite mer_sprite;
 
     bool passiveFlag;
@@ -49,6 +53,7 @@ public class Ready_MercenaryList : MonoBehaviour
         Mercenary_Image.sprite = mer_sprite;
         mercenary_pride_Buy = mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].Mercenary_Pride;
         MercenaryButtonList_Text = new TextMeshProUGUI[MercenaryButtonList.Length];
+        MercenaryButtonList_Local = new LocalizeStringEvent[MercenaryButtonList.Length];
         SaMercenaryData = mercenaryData.SA_MercenaryData;
 
         passiveFlag = mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].Passive;
@@ -65,6 +70,8 @@ public class Ready_MercenaryList : MonoBehaviour
         for (int i = 0; i < MercenaryButtonList.Length; i++)
         {
             MercenaryButtonList_Text[i] = MercenaryButtonList[i].GetComponentInChildren<TextMeshProUGUI>();
+            MercenaryButtonList_Local[i] = MercenaryButtonList[i].GetComponentInChildren<LocalizeStringEvent>();
+            MercenaryButtonList_Local[i].StringReference.TableReference = "MissionSelect_Table_St";
         }
 
         mercenary_pride_Upgrade = mercenaryData.Check_Cost_Mercenary(Mercenary_Num);
@@ -186,29 +193,41 @@ public class Ready_MercenaryList : MonoBehaviour
         if (!BuyFlag)
         {
             MercenaryButtonList[0].interactable = true;
+            MercenaryButtonList_Local[0].enabled = false;
             MercenaryButtonList_Text[0].text = mercenary_pride_Buy + "G";
+            //
             MercenaryButtonList[1].interactable = false;
-            MercenaryButtonList_Text[1].text = "Not Owned";
-            MercenaryButtonList[2].interactable = false;
-            MercenaryButtonList_Text[2].text = "X";
+            MercenaryButtonList_Local[1].enabled = true;
+            MercenaryButtonList_Local[1].StringReference.TableEntryReference = "UI_Ready_Mercenary_NoOwned";
+            //MercenaryButtonList_Text[1].text = "Not Owned";
+            //
+            //MercenaryButtonList[2].interactable = false;
+            //MercenaryButtonList_Text[2].text = "X";
         }
         else
         {
             MercenaryButtonList[0].interactable = false;
-            MercenaryButtonList_Text[0].text = "In Inventory";
+            MercenaryButtonList_Local[0].enabled = true;
+            MercenaryButtonList_Local[0].StringReference.TableEntryReference = "UI_Ready_Mercenary_Owned";
+            //MercenaryButtonList_Text[0].text = "In Inventory";
+            //
             if (mercenaryData.Level_Mercenary[Mercenary_Num] + 1 != mercenaryData.Max_Mercenary[Mercenary_Num] + 1)
             {
                 MercenaryButtonList[1].interactable = true;
+                MercenaryButtonList_Local[1].enabled = false;
                 mercenary_pride_Upgrade = mercenaryData.Check_Cost_Mercenary(Mercenary_Num);
                 MercenaryButtonList_Text[1].text = mercenary_pride_Upgrade + "G";
             }
             else
             {
                 MercenaryButtonList[1].interactable = false;
-                MercenaryButtonList_Text[1].text = "MAX";
+                MercenaryButtonList_Local[1].enabled = true;
+                MercenaryButtonList_Local[1].StringReference.TableEntryReference = "UI_Ready_Mercenary_Max";
+                //MercenaryButtonList_Text[1].text = "MAX";
             }
-            MercenaryButtonList[2].interactable = false;
-            MercenaryButtonList_Text[2].text = "X";
+            //
+            //MercenaryButtonList[2].interactable = false;
+            //MercenaryButtonList_Text[2].text = "X";
         }
     }
 

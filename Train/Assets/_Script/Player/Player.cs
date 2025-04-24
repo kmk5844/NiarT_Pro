@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.LowLevel;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -108,8 +109,10 @@ public class Player : MonoBehaviour
 
     [Header("¿Â¿¸")]
     public GameObject Reload;
+    Vector3 ReloadObject_Scale;
+    public Image ReloadGuage;
     bool ReloadingFlag;
-    int FireCount = 0;
+    public int FireCount = 0;
     int MaxFireCount;
     float ReloadTime;
 
@@ -148,6 +151,7 @@ public class Player : MonoBehaviour
 
         GunObject_Scale = GunObject.transform.localScale;
         KeyObject_Scale = KeyObject.transform.localScale;
+        ReloadObject_Scale = Reload.transform.localScale;
 
         rotationOn = false;
         lastTime = 0;
@@ -455,12 +459,14 @@ public class Player : MonoBehaviour
             {
                 rotationOn = true;
                 KeyObject.transform.localScale = new Vector3(-KeyObject_Scale.x, KeyObject_Scale.y, KeyObject_Scale.z);
+                Reload.transform.localScale = new Vector3(-ReloadObject_Scale.x, ReloadObject_Scale.y, ReloadObject_Scale.z);
                 transform.rotation = Quaternion.Euler(0, -180, 0);
             }
             else
             {
                 rotationOn = false;
                 KeyObject.transform.localScale = new Vector3(KeyObject_Scale.x, KeyObject_Scale.y, KeyObject_Scale.z);
+                Reload.transform.localScale = new Vector3(ReloadObject_Scale.x, ReloadObject_Scale.y, ReloadObject_Scale.z);
                 transform.rotation = Quaternion.Euler(0, 0, 0);
             }
         }
@@ -504,7 +510,7 @@ public class Player : MonoBehaviour
                         StartCoroutine(MariGold_Skill_BulletFire());
                     }
 
-                    if (FireCount < MaxFireCount)
+                    if (FireCount < MaxFireCount-1)
                     {
                         FireCount++;
                     }
@@ -725,6 +731,11 @@ public class Player : MonoBehaviour
         return (float)Player_HP / (float)Max_HP * 100f;
     }
 
+    public float Check_GunBullet()
+    {
+        return Mathf.Clamp01((float)(MaxFireCount-FireCount) / (float)MaxFireCount);
+    }
+
     public void Heal_HP(int Medic_Heal)
     {
         Player_HP += Medic_Heal;
@@ -779,9 +790,17 @@ public class Player : MonoBehaviour
     IEnumerator Reloading()
     {
         ReloadingFlag = true;
+        FireCount = MaxFireCount;
         Reload.SetActive(true);
+        float elapsed = 0f;
         MMSoundManagerSoundPlayEvent.Trigger(ReloadingSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
-        yield return new WaitForSeconds(ReloadTime);
+        while (elapsed < ReloadTime)
+        {
+            elapsed += Time.deltaTime;
+            float fill = Mathf.Clamp01(elapsed / ReloadTime);
+            ReloadGuage.fillAmount = fill;
+            yield return null;
+        }
         Reload.SetActive(false);
         FireCount = 0;
         ReloadingFlag = false;

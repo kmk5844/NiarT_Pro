@@ -38,6 +38,8 @@ public class Station_Fortress : MonoBehaviour
     public GameObject Warning_Coin_Window;
 
     public bool Tranining_BanFlag;
+    bool UpgradeFlag;
+    int UpgradeCardNum;
 
  /*   [Header("용병 업그레이드 윈도우")]
     public Button MercenaryUpgrade_Button;
@@ -111,6 +113,17 @@ public class Station_Fortress : MonoBehaviour
         Mercenary_Position_Max_Text();*/
     }
 
+    private void Update()
+    {
+        if (UpgradeFlag)
+        {
+            Check_Player_Coin_Point();
+            Player_Information_Text();
+            Player_Button_Text(UpgradeCardNum);
+            UpgradeFlag = false;
+        }
+    }
+
     //플레이어 업그레이드
     private void Player_Button_Text(int num)
     {
@@ -138,18 +151,6 @@ public class Station_Fortress : MonoBehaviour
             PlayerUPCost_Text[1].text = playerData.Cost_Player_AtkDelay + " G";
         }
 
-        if (playerData.Level_Player_HP == playerData.Max_Player_HP)
-        {
-            PlayerUP_Text[4].text = "MAX";
-            PlayerUPCost_Text[4].text = "----";
-            PlayerUP_Button[4].interactable = false;
-        }
-        else
-        {
-            PlayerUP_Text[4].text = "Lv." + playerData.Level_Player_HP;
-            PlayerUPCost_Text[4].text = playerData.Cost_Player_HP + " G";
-        }
-
         if (playerData.Level_Player_Armor == playerData.Max_Player_Armor)
         {
             PlayerUP_Text[2].text = "MAX";
@@ -172,6 +173,18 @@ public class Station_Fortress : MonoBehaviour
         {
             PlayerUP_Text[3].text = "Lv." + playerData.Level_Player_Speed;
             PlayerUPCost_Text[3].text = playerData.Cost_Player_Speed + " G";
+        }
+
+        if (playerData.Level_Player_HP == playerData.Max_Player_HP)
+        {
+            PlayerUP_Text[4].text = "MAX";
+            PlayerUPCost_Text[4].text = "----";
+            PlayerUP_Button[4].interactable = false;
+        }
+        else
+        {
+            PlayerUP_Text[4].text = "Lv." + playerData.Level_Player_HP;
+            PlayerUPCost_Text[4].text = playerData.Cost_Player_HP + " G";
         }
     }
 
@@ -212,15 +225,13 @@ public class Station_Fortress : MonoBehaviour
         Player_Information_Text();
     }
 
-    public void Click_Player_Upgrade(int i)//LevelNum : 0 = Atk / 1= AtkDealy / 2 = HP / 3 = Armor / 4 = Speed
+    public void Click_Player_Upgrade(int i)//LevelNum : 0 = Atk / 1= AtkDealy / 2 = Armor / 3 = Speed / 4 = HP
     {
         int coin = playerData.Check_Cost_Player(i);
         if (playerData.Player_Coin >= coin)
         {
+            UpgradeCardNum = i;
             UnityMainThreadExecutor.ExecuteOnMainThread(() => playerUpgrade(i, coin));
-            Check_Player_Coin_Point();
-            Player_Information_Text();
-            Player_Button_Text(i);
         }
         else
         {
@@ -234,6 +245,7 @@ public class Station_Fortress : MonoBehaviour
         {
             playerData.Player_Buy_Coin(coin);
             playerData.Player_Level_Up(CardNum);
+            UpgradeFlag = true;
         });
     }
 
