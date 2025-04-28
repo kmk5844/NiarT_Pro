@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trainData: {fileID: 11400000, guid: 3a83740cb85032c498c0bbd5b0a2ec9d, type: 2}
+  Train_Index: 0
   Train_Num: 0
   Train_Num2: 0
   Train_HP: 0
@@ -82,13 +83,11 @@ MonoBehaviour:
   Train_Supply_UseFuel: 0
   Train_Supply_Grade: 0
   Train_Supply_Count: 0
-  Train_Dash_UseFuel: 0
-  Train_Dash_PalyerAmount: 0
-  Train_Dash_Second: 0
   isReparing: 0
   isRepairable: 0
   gameDirector: {fileID: 0}
   UI_Level: 0
+  trainHitSFX: {fileID: 0}
 --- !u!1 &853806287188376498
 GameObject:
   m_ObjectHideFlags: 0
@@ -541,8 +540,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1130603629
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 1468903177, guid: 6d4ea0816973d4b4d87bb8a457852b46, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

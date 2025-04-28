@@ -512,7 +512,11 @@ public class Player : MonoBehaviour
 
                     if (FireCount < MaxFireCount-1)
                     {
-                        FireCount++;
+                        if (!Item_GunFlag)
+                        {
+                            FireCount++;
+                        }
+
                     }
                     else
                     {
@@ -529,7 +533,10 @@ public class Player : MonoBehaviour
                     ani.SetTrigger("Shoot_1");
                     if(FireCount < MaxFireCount)
                     {
-                        FireCount++;
+                        if (!Item_GunFlag)
+                        {
+                            FireCount++;
+                        }
                     }
                     else
                     {
@@ -664,7 +671,7 @@ public class Player : MonoBehaviour
             }
         }
         Player_Armor = Player_Armor + (((Player_Armor * Level_Armor) * 10) / 100);
-        moveSpeed = moveSpeed + (((moveSpeed * Level_Speed)) / 100);
+        moveSpeed = moveSpeed + (((moveSpeed * Level_Speed)) / 50);
     }
 
     public void MonsterHit(int MonsterBullet_Atk)

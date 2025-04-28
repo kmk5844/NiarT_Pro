@@ -658,7 +658,7 @@ public class GameDirector : MonoBehaviour
                     {
                         if (TrainSpeed > 0)
                         {
-                            TrainSpeed -= TrainSpeedUP * 3;
+                            TrainSpeed -= TrainSpeedUP * 2;
                         }
                         else
                         {
@@ -1307,7 +1307,15 @@ public class GameDirector : MonoBehaviour
     //ItemºÎºÐ
     public void Item_Fuel_Charge(float persent)
     {
-        TrainFuel += (int)(Total_TrainFuel * (persent / 100f));
+        int fuelCharge = (int)(Total_TrainFuel * (persent / 100f));
+        if(TrainFuel + fuelCharge < Total_TrainFuel)
+        {
+            TrainFuel += fuelCharge;
+        }
+        else
+        {
+            TrainFuel = Total_TrainFuel;
+        }
     }
 
     public void Item_Use_Train_Heal_HP(float persent)

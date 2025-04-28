@@ -353,7 +353,16 @@ public class Train_InGame : MonoBehaviour
     //item ºÎºÐ
     public void Item_Train_Heal_HP(float persent)
     {
-        Train_HP += (int)(Max_Train_HP * (persent / 100f));
+        int heal = (int)(Max_Train_HP * (persent / 100f));
+        if (Train_HP + heal < Max_Train_HP)
+        {
+            Train_HP += heal;
+        }
+        else
+        {
+            Train_HP = Max_Train_HP;
+        }
+        //Train_HP += (int)(Max_Train_HP * (persent / 100f));
     }
 
     public IEnumerator Item_Train_Turret_SpeedUP(float persent, float delayTime)

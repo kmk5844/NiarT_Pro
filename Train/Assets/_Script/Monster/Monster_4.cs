@@ -60,7 +60,7 @@ public class Monster_4 : Monster
     {
         movement = new Vector3(xPos, 0f, 0f);
         transform.Translate(movement * (speed - Item_Monster_Speed) * Time.deltaTime);
-        if(transform.position.x < MonsterDirector.MinPos_Ground.x - 8f)
+        if(transform.position.x < MonsterDirector.MinPos_Ground.x - 15f)
         {
             MonsterDirector.MonsterNum--;
             Destroy(gameObject);
