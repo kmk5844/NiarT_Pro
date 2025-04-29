@@ -295,12 +295,11 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         // 데이터 초기화
         yield return StartCoroutine(DataManager.Instance.InitAsync());
-
         StoryFlag_Init();
         // 일정 시간 대기 (예: 1초)
         yield return new WaitForSeconds(1.0f);
         // 비동기 로딩 시작
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(0);
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("1.MainMenu");
         while (!asyncLoad.isDone)
         {
             yield return null; // 로딩이 완료될 때까지 대기

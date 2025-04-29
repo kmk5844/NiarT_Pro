@@ -90,6 +90,10 @@ public class SA_PlayerData : ScriptableObject
     private int select_sub_stage;
     public int Select_Sub_Stage { get { return select_sub_stage; } }
 
+    [SerializeField]
+    private bool simplestation;
+    public bool SimpleStation { get { return simplestation; } }
+
     [Header("Ω∫≈‰∏Æ")]
     [SerializeField]
     private int story_num;
@@ -191,6 +195,11 @@ public class SA_PlayerData : ScriptableObject
 
         int hp = curret_hp - curret_hp * (persent / 100);
         ES3.Save<int>("Player_Curret_HP", hp);
+    }
+
+    public void change_simplestation(bool flag)
+    {
+        simplestation = flag;
     }
 
 /*    public void SA_Use_Point(int R_Point)

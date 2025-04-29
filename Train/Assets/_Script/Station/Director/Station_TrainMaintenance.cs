@@ -88,9 +88,11 @@ public class Station_TrainMaintenance : MonoBehaviour
     int List_Before_TrainType_Num;
     int Train_Buy_Num;
     int Train_Before_Buy_Num;
+    public int[] AllTrain_NumberArray;
     public int[] CommonTrain_NumberArray;
     public int[] TurretTrain_NumberArray;
     public int[] BoosterTrain_NumberArray;
+    Sprite[] AllTrain_Image;
     Sprite[] CommonTrain_Image;
     Sprite[] TurretTrain_Image;
     Sprite[] BoosterTrain_Image;
@@ -112,6 +114,7 @@ public class Station_TrainMaintenance : MonoBehaviour
     public Slider Slider_Buy_Armor;
 
     [Header("기차 구매 - 트레인 리스트")]
+    public Transform AllTrainList_Transform;
     public Transform CommonTrain_List_Transform;
     public Transform TurretTrain_List_Transform;
     public Transform BoosterTrain_List_Transform;
@@ -1378,6 +1381,7 @@ else // 기차 교체
         optionList.Add("A");
         optionList.Add("B");
         optionList.Add("C");
+        optionList.Add("D");
         TrainBuy_DropDown.AddOptions(optionList);
         TrainBuy_DropDown.value = 0;
     }
@@ -1388,10 +1392,17 @@ else // 기차 교체
         List_TrainType_Num = value;
         Train_Before_Buy_Num = Train_Buy_Num;
         Train_Buy_Num = 0;
-        if (value == 0)
+        if(value == 0)
+        {
+            AllTrainList_Transform.gameObject.SetActive(true);
+            CommonTrain_List_Transform.gameObject.SetActive(false);
+            TurretTrain_List_Transform.gameObject.SetActive(false);
+            BoosterTrain_List_Transform.gameObject.SetActive(false);
+        }
+        else if (value == 0)
         {
             //TrainPart_Lock_Object.SetActive(false);
-
+            AllTrainList_Transform.gameObject.SetActive(false);
             CommonTrain_List_Transform.gameObject.SetActive(true);
             TurretTrain_List_Transform.gameObject.SetActive(false);
             BoosterTrain_List_Transform.gameObject.SetActive(false);
@@ -1399,6 +1410,7 @@ else // 기차 교체
         {
             //TrainPart_Lock_Object.SetActive(!trainData.SA_TrainData.Train_Buy_Num.Contains(51));
 
+            AllTrainList_Transform.gameObject.SetActive(false);
             CommonTrain_List_Transform.gameObject.SetActive(false);
             TurretTrain_List_Transform.gameObject.SetActive(true);
             BoosterTrain_List_Transform.gameObject.SetActive(false);
@@ -1407,6 +1419,7 @@ else // 기차 교체
         {
             //TrainPart_Lock_Object.SetActive(!trainData.SA_TrainData.Train_Buy_Num.Contains(52));
 
+            AllTrainList_Transform.gameObject.SetActive(false);
             CommonTrain_List_Transform.gameObject.SetActive(false);
             TurretTrain_List_Transform.gameObject.SetActive(false);
             BoosterTrain_List_Transform.gameObject.SetActive(true);
@@ -1417,30 +1430,49 @@ else // 기차 교체
 
     private void Setting_TrainImage()
     {
+        int allnumberArray = CommonTrain_NumberArray.Length + TurretTrain_NumberArray.Length + BoosterTrain_NumberArray.Length;
+        int allCount = 0;
+        AllTrain_Image = new Sprite[allnumberArray];
         CommonTrain_Image = new Sprite[CommonTrain_NumberArray.Length];
         TurretTrain_Image = new Sprite[TurretTrain_NumberArray.Length];
         BoosterTrain_Image = new Sprite[BoosterTrain_NumberArray.Length];
         Train_List_Button.GetComponent<TrainList_Button>().director = this;
+
         for(int i = 0; i <  CommonTrain_NumberArray.Length; i++)
         {
             CommonTrain_Image[i] = Resources.Load<Sprite>("Sprite/Train/Train_" + CommonTrain_NumberArray[i]);
+            AllTrain_Image[allCount] = CommonTrain_Image[i];
+            allCount++;
             GameObject listButton = Instantiate(Train_List_Button, CommonTrain_List_Transform);
             listButton.GetComponent<TrainList_Button>().listNum = i;
             listButton.name = CommonTrain_NumberArray[i].ToString();
+            GameObject all_listButton = Instantiate(Train_List_Button, AllTrainList_Transform);
+            all_listButton.GetComponent<TrainList_Button>().listNum = allCount;
+            all_listButton.name = listButton.name;
         }
         for(int i = 0; i < TurretTrain_NumberArray.Length; i++)
         {
             TurretTrain_Image[i] = Resources.Load<Sprite>("Sprite/Train/Train_51_" + TurretTrain_NumberArray[i]);
+            AllTrain_Image[allCount] = TurretTrain_Image[i];
+            allCount++;
             GameObject listButton = Instantiate(Train_List_Button, TurretTrain_List_Transform);
             listButton.GetComponent<TrainList_Button>().listNum = i;
             listButton.name = TurretTrain_NumberArray[i].ToString();
+            GameObject all_listButton = Instantiate(Train_List_Button, AllTrainList_Transform);
+            all_listButton.GetComponent<TrainList_Button>().listNum = allCount;
+            all_listButton.name = listButton.name;
         }
         for(int i = 0; i < BoosterTrain_NumberArray.Length; i++)
         {
             BoosterTrain_Image[i] = Resources.Load<Sprite>("Sprite/Train/Train_52_" + BoosterTrain_NumberArray[i]);
+            AllTrain_Image[allCount] = BoosterTrain_Image[i];
+            allCount++;
             GameObject listButton = Instantiate(Train_List_Button, BoosterTrain_List_Transform);
             listButton.GetComponent<TrainList_Button>().listNum = i;
             listButton.name = BoosterTrain_NumberArray[i].ToString();
+            GameObject all_listButton = Instantiate(Train_List_Button, AllTrainList_Transform);
+            all_listButton.GetComponent<TrainList_Button>().listNum = allCount;
+            all_listButton.name = listButton.name;
         }
     }
     public void Click_TrainList(int listNum)
@@ -1520,7 +1552,12 @@ else // 기차 교체
     private void Change_Train()
     {
         int trainNum = 0;
-        if(List_TrainType_Num == 0)
+/*        if(List_TrainType_Num == 0)
+        {
+            Train_MainImage.sprite = CommonTrain_Image[Train_Buy_Num];
+            trainNum = AllTrain_NumberArray[Train_Buy_Num];
+        }
+        else*/if(List_TrainType_Num == 0)
         {
             Train_MainImage.sprite = CommonTrain_Image[Train_Buy_Num];
             trainNum = CommonTrain_NumberArray[Train_Buy_Num];
@@ -1541,6 +1578,8 @@ else // 기차 교체
 
         int train_pride;
 
+/*        if(List_TrainType_Num == 0) { 
+        }*/
         if(List_TrainType_Num == 0)
         {
             if (trainNum < 50)

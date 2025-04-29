@@ -90,7 +90,6 @@ public class MissionDataObject : ScriptableObject
         {
             stageopenflag = false;
         }
-
         Save(true);
     }
 
@@ -180,10 +179,13 @@ public class MissionDataObject : ScriptableObject
         runner.StartCoroutine(LoadSync());
     }
 
-    public IEnumerator LoadSync()
+    public void Load_missionDataUse()
     {
         missiondatause = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_MissionDataUse");
-        yield return new WaitForSeconds(0.001f);
+    }
+
+    public IEnumerator LoadSync()
+    {
         stageclearflag = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_ClearFlag");
         yield return new WaitForSeconds(0.001f);
         stageopenflag = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_OpenFlag");

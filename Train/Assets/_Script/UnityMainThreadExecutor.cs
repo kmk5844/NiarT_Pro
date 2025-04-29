@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 public class UnityMainThreadExecutor : MonoBehaviour
 {
     private static readonly Queue<System.Action> mainThreadActions = new Queue<System.Action>();
+    void Awake()
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
 
     // Unity의 메인 스레드에서 실행될 작업을 큐에 추가
     public static void ExecuteOnMainThread(System.Action action)

@@ -2,6 +2,7 @@ using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using static GamePlay_Tutorial_Director;
 using static PixelCrushers.DialogueSystem.UnityGUI.GUIProgressBar;
 
@@ -22,12 +23,20 @@ public class Tutorial_Player : MonoBehaviour
     float jumpSpeed = 8.5f;
     float jumpdistance = 1.5f;
     float jumpFlagDistance;
+
+    bool ReloadingFlag;
+    int firecount;
+    int max_firecount = 15;
+    public GameObject Reload;
+    public Image ReloadGuage;
+
     public GameObject GunObject;
     public Transform FireZone; 
     Vector3 GunObject_Scale;
     Camera mainCam;
     private Vector3 mousePos;
     public AudioClip ShootSFX;
+    public AudioClip ReloadingSFX;
     public GameObject KeyObject;
     public GameObject bullet;
 
@@ -275,21 +284,53 @@ public class Tutorial_Player : MonoBehaviour
         if (Time.time >= lastTime + Bullet_Delay)
         {
             bullet.GetComponent<Bullet>().atk = Bullet_Atk;
-
-            Instantiate(bullet, FireZone.position, Quaternion.identity);
-            ani.SetTrigger("Shoot_0");
-            T_FireCount++;
-
-            if (MariGold_Skill_Flag && !MariGold_Skill_Fire_Flag)
+            if (!ReloadingFlag)
             {
-                StartCoroutine(MariGold_Skill_BulletFire());
-            }
+                Instantiate(bullet, FireZone.position, Quaternion.identity);
+                ani.SetTrigger("Shoot_0");
+                T_FireCount++;
 
-            MMSoundManagerSoundPlayEvent.Trigger(ShootSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+                if (MariGold_Skill_Flag && !MariGold_Skill_Fire_Flag)
+                {
+                    StartCoroutine(MariGold_Skill_BulletFire());
+                }
+
+                if(firecount < max_firecount - 1)
+                {
+                    firecount++;
+                }
+                else
+                {
+                    StartCoroutine(Reloading());
+                }
+
+                MMSoundManagerSoundPlayEvent.Trigger(ShootSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+            }
+            
 
             lastTime = Time.time;
         }
     }
+    
+    IEnumerator Reloading()
+    {
+        ReloadingFlag  = true;
+        firecount = max_firecount;
+        Reload.SetActive(true);
+        float elapsed = 0f;
+        MMSoundManagerSoundPlayEvent.Trigger(ReloadingSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+        while (elapsed < 1.5f)
+        {
+            elapsed += Time.deltaTime;
+            float fill = Mathf.Clamp01(elapsed / 1.5f);
+            ReloadGuage.fillAmount = fill;
+            yield return null;
+        }
+        Reload.SetActive(false);
+        firecount = 0;
+        ReloadingFlag = false;
+    }
+
     void MariGold_Skill(int num)
     {
         if (num == 0)
@@ -364,5 +405,10 @@ public class Tutorial_Player : MonoBehaviour
             PlayerHP -= 100;
             transform.position = Vector3.zero;
         }
+    }
+
+    public float Check_GunBullet()
+    {
+        return Mathf.Clamp01((float)(max_firecount - firecount) / (float)max_firecount);
     }
 }

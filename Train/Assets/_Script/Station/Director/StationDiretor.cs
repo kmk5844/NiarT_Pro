@@ -29,17 +29,13 @@ public class StationDirector : MonoBehaviour
     Station_Conversion Direcotr_Conversion;
 
     [Header("특수 플래그")]
-    [SerializeField]
-    bool mainTenanceFlag;
-    [SerializeField]
-    bool storeFlag;
     public bool simplestationFlag;
     [SerializeField]
     private GameObject SubStageSelectObject;
     [HideInInspector]
     public PlayerReadyDirector Director_PlayerReadyDirector;
 
-    [Header("Lobby")]
+    //[Header("Lobby")]
     //public GameObject UI_Lobby;
     //public GameObject UI_BackGround;
 
@@ -113,6 +109,18 @@ public class StationDirector : MonoBehaviour
 
     private void Awake()
     {
+        playerData = Player_DataObject.GetComponent<Station_PlayerData>();
+        if (playerData.SA_PlayerData.SimpleStation)
+        {
+            simplestationFlag = true;
+            playerData.SA_PlayerData.change_simplestation(false);
+            UI_TrainMaintenance_Toggle.transform.GetChild(2).gameObject.SetActive(false);
+        }
+        else
+        {
+            simplestationFlag = false;
+        }
+
         if (simplestationFlag)
         {
             Director_PlayerReadyDirector = SubStageSelectObject.GetComponent<PlayerReadyDirector>();
@@ -128,7 +136,6 @@ public class StationDirector : MonoBehaviour
 
         MMSoundManagerSoundPlayEvent.Trigger(StationBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true);
 
-        playerData = Player_DataObject.GetComponent<Station_PlayerData>();
 
         //GameStart에 Stage 표현
         for(int i = 0; i < Coin_Text.Length; i++)
@@ -412,7 +419,7 @@ public class StationDirector : MonoBehaviour
                 ui_num = 4;
                 break;
             case 5:
-                if(mainTenanceFlag || storeFlag || simplestationFlag)
+                if(simplestationFlag)
                 {
                     SubStageSelectObject.SetActive(true);
                 }
@@ -604,7 +611,7 @@ public class StationDirector : MonoBehaviour
         }
         else if (ui_num == 5)
         {
-            if (mainTenanceFlag || storeFlag || simplestationFlag)
+            if (simplestationFlag)
             {
                 SubStageSelectObject.SetActive(false);
             }

@@ -48,21 +48,16 @@ public class Station_GameStart : MonoBehaviour
         SelectChapterNum = (saPlayerData.New_Stage / 5);
         maxChapterNum = 3;
 
-
         stageButton = new List<StageButton_Route>();
 
-        Scene scene = SceneManager.GetActiveScene();
-        if(scene.name != "SimpleStation")
+        for (int i = 0; i < ChapterButton_List.childCount; i++)
         {
-            for (int i = 0; i < ChapterButton_List.childCount; i++)
-            {
-                StageButton_Route _StageButton = ChapterButton_List.GetChild(i).GetComponent<StageButton_Route>();
-                _StageButton.ButtonNum = i;
-                stageButton.Add(_StageButton);
-            }
-            ButtonSetting();
-            UpdateButtonState();
+            StageButton_Route _StageButton = ChapterButton_List.GetChild(i).GetComponent<StageButton_Route>();
+            _StageButton.ButtonNum = i;
+            stageButton.Add(_StageButton);
         }
+        ButtonSetting();
+        UpdateButtonState();
   
         FirstFlag = true;
     }

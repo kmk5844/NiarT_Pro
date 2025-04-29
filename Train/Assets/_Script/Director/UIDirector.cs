@@ -103,6 +103,10 @@ public class UIDirector : MonoBehaviour
     public int LoseText_Num;
 
     [Header("미션 정보")]
+    public GameObject On_missionInformation;
+    public GameObject Off_Imissionnformaiton;
+    bool missionInformationFlag;
+
     public LocalizeStringEvent missionTextInformation_text;
     public TextMeshProUGUI missionCountText_text;
 
@@ -147,6 +151,8 @@ public class UIDirector : MonoBehaviour
 
         LoseFlag = false;   
         OptionFlag = false;
+        missionInformationFlag = true;
+        Click_MissionInformation();
 
         ItemInformation_Object_Flag = false;
         ItemInformation_Object_TimeDelay = 5f;
@@ -174,6 +180,11 @@ public class UIDirector : MonoBehaviour
             {
                 ON_OFF_Option_UI(OptionFlag);
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            Click_MissionInformation();
         }
 
 
@@ -248,7 +259,7 @@ public class UIDirector : MonoBehaviour
     public void Gameing_Text(int Score, int Coin)
     {
         //Score_Text.text = Score.ToString();
-        Coin_Text.text = Coin.ToString();
+        Coin_Text.text = (playerData.Coin + Coin).ToString();
     }
 
     public void Open_SubSelect()
@@ -308,6 +319,22 @@ public class UIDirector : MonoBehaviour
     {
         GameObject item = Instantiate(itemobject_pause, GetItemList_Transform_Pause);
         item.GetComponent<Image>().sprite = sprite;
+    }
+
+    void Click_MissionInformation()
+    {
+        if (!missionInformationFlag)
+        {
+            Off_Imissionnformaiton.SetActive(true);
+            On_missionInformation.SetActive(false);
+            missionInformationFlag = true;
+        }
+        else
+        {
+            Off_Imissionnformaiton.SetActive(false);
+            On_missionInformation.SetActive(true);
+            missionInformationFlag = false;
+        }
     }
 
     public void Item_EquipedIcon(int equiped_num, Sprite img, int Count)

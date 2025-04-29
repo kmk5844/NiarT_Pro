@@ -236,42 +236,63 @@ public class SA_MissionData : ScriptableObject
 
     public IEnumerator InitAsync(MonoBehaviour runner)
     {
+        bool lastFlag = false;
         for (int i = 0; i < stagelist.Count; i++)
         {
             mainstage_clearflag[i] = false;
-            foreach (MissionDataObject mission in stagelist[i].Q_Des)
-            {
-                mission.InitSync(runner);
-                yield return null;
-            }
             foreach (MissionDataObject mission in stagelist[i].Q_Mat)
             {
-                mission.InitSync(runner);
+                if (mission.MissionDataUse)
+                {
+                    mission.InitSync(runner);
+                }
                 yield return null;
             }
             foreach (MissionDataObject mission in stagelist[i].Q_Mon)
             {
-                mission.InitSync(runner);
+                if (mission.MissionDataUse)
+                {
+                    mission.InitSync(runner);
+                }
                 yield return null;
             }
             foreach (MissionDataObject mission in stagelist[i].Q_Esc)
             {
-                mission.InitSync(runner);
+                if (mission.MissionDataUse)
+                {
+                    mission.InitSync(runner);
+                }
                 yield return null;
-
             }
             foreach (MissionDataObject mission in stagelist[i].Q_Con)
             {
-                mission.InitSync(runner);
+                if (mission.MissionDataUse)
+                {
+                    mission.InitSync(runner);
+                }
                 yield return null;
             }
             foreach (MissionDataObject mission in stagelist[i].Q_Bos)
             {
-                mission.InitSync(runner);
+                if (mission.MissionDataUse)
+                {
+                    mission.InitSync(runner);
+                }
                 yield return null;
             }
             Save(i);
             yield return null;
+
+            if (lastFlag)
+            {
+                Debug.Log(i);
+                break;
+            }
+
+            if (mainstage_clearflag[i + 1] == false)
+            {
+                lastFlag = true;
+            }
 
         }
         monstercount = -1;
@@ -365,33 +386,81 @@ public class SA_MissionData : ScriptableObject
         {
             mainstage_clearflag[i] = ES3.Load<bool>("SA_MissionData_" + i + "_clearData");
             foreach (MissionDataObject mission in stagelist[i].Q_Des)
-            {
-                mission.LoadSync_Start(runner);
+            { 
+                mission.Load();
+                if (mission.MissionDataUse)
+                {
+                    mission.LoadSync_Start(runner);
+                }
+                else
+                {
+                    break;
+                }
                 yield return null;
             }
             foreach (MissionDataObject mission in stagelist[i].Q_Mat)
             {
-                mission.LoadSync_Start(runner);
+                mission.Load();
+                if (mission.MissionDataUse)
+                {
+                    mission.LoadSync_Start(runner);
+                }
+                else
+                {
+                    break;
+                }
                 yield return null;
             }
             foreach (MissionDataObject mission in stagelist[i].Q_Mon)
             {
-                mission.LoadSync_Start(runner);
+                mission.Load();
+                if (mission.MissionDataUse)
+                {
+                    mission.LoadSync_Start(runner);
+                }
+                else
+                {
+                    break;
+                }
                 yield return null;
             }
             foreach (MissionDataObject mission in stagelist[i].Q_Esc)
             {
-                mission.LoadSync_Start(runner);
+                mission.Load();
+                if (mission.MissionDataUse)
+                {
+                    mission.LoadSync_Start(runner);
+                }
+                else
+                {
+                    break;
+                }
                 yield return null;
             }
             foreach (MissionDataObject mission in stagelist[i].Q_Con)
             {
-                mission.LoadSync_Start(runner);
+                mission.Load();
+                if (mission.MissionDataUse)
+                {
+                    mission.LoadSync_Start(runner);
+                }
+                else
+                {
+                    break;
+                }
                 yield return null;
             }
             foreach (MissionDataObject mission in stagelist[i].Q_Bos)
             {
-                mission.LoadSync_Start(runner);
+                mission.Load();
+                if (mission.MissionDataUse)
+                {
+                    mission.LoadSync_Start(runner);
+                }
+                else
+                {
+                    break;
+                }
                 yield return null;
             }
 
@@ -400,6 +469,10 @@ public class SA_MissionData : ScriptableObject
                 yield return new WaitForSeconds(0.001f);
             }
 
+            if (mainstage_clearflag[i] == false)
+            {
+                break;
+            }
         }
     }
 }

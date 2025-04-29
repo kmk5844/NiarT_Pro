@@ -42,6 +42,7 @@ public class Tutorial_UIDirector : MonoBehaviour
     public GameObject Option_UI;
     public bool option_Flag;
 
+    public Image BulletGuage;
 
     private void Start()
     {
@@ -80,6 +81,8 @@ public class Tutorial_UIDirector : MonoBehaviour
         Fuel_Text.text = (int)(fuelPersent * 100) + "%";
         Fuel_Image.fillAmount = fuelPersent;
         Distance_UI.value = (float)tutorialDirector.distance / (float)tutorialDirector.max_distance;
+        BulletGuage.fillAmount = Player.Check_GunBullet();
+
     }
 
     public void nextTutorial()

@@ -1,7 +1,9 @@
 using ES3Types;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DataManager : MonoBehaviour
 {
@@ -133,6 +135,5 @@ public class DataManager : MonoBehaviour
         Debug.Log(11);
         yield return StartCoroutine(missionData.InitAsync(this));
         Debug.Log(12);
-        //Destroy(DebugObject);
     }
 }

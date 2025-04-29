@@ -118,7 +118,8 @@ public class SubStageSelectDirector : MonoBehaviour
         SpecialStage_LockOff();
         if (SelectSubStageData.SubStage_Type == SubStageType.SimpleStation)
         {
-            SceneManager.LoadScene("SimpleStation");
+            playerData.change_simplestation(true);
+            SceneManager.LoadScene("Station");
         }else if(SelectSubStageData.SubStage_Type == SubStageType.Food)
         {
             SceneManager.LoadScene("FoodSelect");

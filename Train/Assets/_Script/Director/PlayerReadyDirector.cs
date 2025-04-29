@@ -174,6 +174,7 @@ public class PlayerReadyDirector : MonoBehaviour
         Instantiate_MercenaryList_Ride_Object();
         Instantiate_MercenaryList_Object();
         Check_Mercenary_Max();
+        Click_MercenaryList_State(0);
 
         //Item
         DragItemCount = 0;
@@ -213,7 +214,16 @@ public class PlayerReadyDirector : MonoBehaviour
                     CloseOption_Button();
                 }
             }
+        }
 
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            PrevButton();
+        }
+
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            NextButton();
         }
 
         //--------------------------------------------------Item
@@ -736,8 +746,7 @@ public class PlayerReadyDirector : MonoBehaviour
         }
         UI_ItemCountSlider.value = UI_ItemCountSlider.maxValue;
 
-        UI_ItemCountText.color = Color.black;
-        UI_ItemCountText.text = "0";
+        ItemCount_ChangeText(UI_ItemCountSlider.value);
         UI_ItemMaxText.text = ((int)UI_ItemCountSlider.maxValue).ToString();
         UI_ItemCountSlider.onValueChanged.AddListener(ItemCount_ChangeText);
 
