@@ -1098,7 +1098,7 @@ public class GameDirector : MonoBehaviour
                     uiDirector.Open_Result_UI(false, Total_Score, Total_Coin, missionDirector.selectmission, LoseNum);
                 }
             }
-            else
+            else //마지막스테이지일 때
             {
                 bool flag = missionDirector.selectmission.CheckMission(lastFlag);
                 if (flag)
@@ -1110,6 +1110,7 @@ public class GameDirector : MonoBehaviour
                     LastSubStageClear();
                     SA_PlayerData.SA_GameWinReward(true, Total_Coin);
                     SA_PlayerData.SA_MissionPlaying(false);
+                    SA_MissionData.SubStage_Init(Stage_Num, Mission_Num); // 승리
                 }
                 else // 미션 실패다
                 {
@@ -1197,13 +1198,13 @@ public class GameDirector : MonoBehaviour
         SA_PlayerData.SA_GameLoseCoin(missionDirector.selectmission.MissionCoinLosePersent);
         MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, BGM_ID);
         MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, TrainSFX_ID);
-        SA_MissionData.SubStage_Lose(Stage_Num, Mission_Num);
+        SA_MissionData.SubStage_Init(Stage_Num, Mission_Num); // 패배
     }
 
     public void Optoin_Stage()
     {
         SA_PlayerData.SA_GameLoseCoin(60f);
-        SA_MissionData.SubStage_Lose(Stage_Num, Mission_Num);
+        SA_MissionData.SubStage_Init(Stage_Num, Mission_Num); // 정거장 돌아가기
         LoadingManager.LoadScene("Station");
     }
 

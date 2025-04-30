@@ -217,7 +217,7 @@ public class SA_PlayerData : ScriptableObject
     public void SA_SelectLevel(int num)
     {
         select_stage = num;
-        Save();
+        Save_Solo("SelectStage");
     }
 
     public void SA_SelectSubStage(int substagenum)
@@ -324,6 +324,7 @@ public class SA_PlayerData : ScriptableObject
         ES3.Save<int>("SA_PlayerData_Data_coin", coin);
         //ES3.Save<int>("SA_PlayerData_Data_point", point);
         ES3.Save<int>("SA_PlayerData_Data_new_stage", new_stage);
+        ES3.Save<int>("SA_PlayerData_Data_select_stage", select_stage);
         ES3.Save<int>("SA_PlayerData_Data_mission_num", mission_num);
         ES3.Save<bool[]>("SA_PlayerData_Data_LockOff", character_lockoff);
         ES3.Save<int>("SA_PlayerData_Data_Story_Num", story_num);
@@ -362,6 +363,9 @@ public class SA_PlayerData : ScriptableObject
             //ES3.Save<int>("SA_PlayerData_Data_point", point);
             case "NewStage":
                 ES3.Save<int>("SA_PlayerData_Data_new_stage", new_stage);
+                break;
+            case "SelectStage":
+                ES3.Save<int>("SA_PlayerData_Data_select_stage", select_stage);
                 break;
             case "MissionNum":
                 ES3.Save<int>("SA_PlayerData_Data_mission_num", mission_num);
@@ -412,6 +416,8 @@ public class SA_PlayerData : ScriptableObject
         //ES3.Save<int>("SA_PlayerData_Data_point", point);
         ES3.Save<int>("SA_PlayerData_Data_new_stage", new_stage);
         yield return new WaitForSeconds(0.001f);
+        ES3.Save<int>("SA_PlayerData_Data_select_stage", select_stage);
+        yield return new WaitForSeconds(0.001f);
         ES3.Save<int>("SA_PlayerData_Data_mission_num", mission_num);
         yield return new WaitForSeconds(0.001f);
         ES3.Save<bool[]>("SA_PlayerData_Data_LockOff", character_lockoff);
@@ -441,7 +447,9 @@ public class SA_PlayerData : ScriptableObject
         coin = ES3.Load<int>("SA_PlayerData_Data_coin");
         //point = ES3.Load<int>("SA_PlayerData_Data_point");
         new_stage = ES3.Load<int>("SA_PlayerData_Data_new_stage");
-        select_stage = new_stage;
+
+        select_stage = ES3.Load<int>("SA_PlayerData_Data_select_stage");
+
         mission_num = ES3.Load<int>("SA_PlayerData_Data_mission_num");
         character_lockoff = ES3.Load<bool[]>("SA_PlayerData_Data_LockOff");
         story_num = ES3.Load<int>("SA_PlayerData_Data_Story_Num");
@@ -472,7 +480,9 @@ public class SA_PlayerData : ScriptableObject
         yield return new WaitForSeconds(0.001f);
         new_stage = ES3.Load<int>("SA_PlayerData_Data_new_stage");
         yield return new WaitForSeconds(0.001f);
-        select_stage = new_stage;
+
+        select_stage = ES3.Load<int>("SA_PlayerData_Data_select_stage");
+
         yield return new WaitForSeconds(0.001f);
         mission_num = ES3.Load<int>("SA_PlayerData_Data_mission_num");
         yield return new WaitForSeconds(0.001f);

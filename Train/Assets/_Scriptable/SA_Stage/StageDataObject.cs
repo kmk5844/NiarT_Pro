@@ -78,6 +78,7 @@ public class StageDataObject : ScriptableObject
         if (Init == true)
         {
             stagedatause = false;
+            Debug.Log("¿€µø");
         }
         else
         {
@@ -120,14 +121,23 @@ public class StageDataObject : ScriptableObject
         {
             stage_openflag = true;
         }
+        else
+        {
+            stage_openflag = false;
+        }
         Save(true);
     }
+
     public void InitSync(MonoBehaviour runner)
     {
         stage_clearflag = false;
         if (stage_num == 0)
         {
             stage_openflag = true;
+        }
+        else
+        {
+            stage_openflag = false;
         }
         runner.StartCoroutine(SaveSync(true));
     }

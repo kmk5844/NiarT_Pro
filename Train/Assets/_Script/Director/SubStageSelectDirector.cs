@@ -198,7 +198,7 @@ public class SubStageSelectDirector : MonoBehaviour
         SelectMission gm = GameObject.Find("SelectMission").GetComponent<SelectMission>();
         playerData.SA_MissionPlaying(false);
         playerData.SA_GameLoseCoin(gm.MissionCoinLosePersent);
-        missionData.SubStage_Lose(stageNum, missionNum);
+        missionData.SubStage_Init(stageNum, missionNum); // 미션 취소
         Destroy(gm.gameObject);
         SceneManager.LoadScene("Station");
     }

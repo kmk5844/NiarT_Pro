@@ -20,7 +20,7 @@ public class LogoEnd : MonoBehaviour
 
     public void Logo_End()
     {
-        GameManager.Instance.DataLoad();
-        //SceneManager.LoadSceneAsync(1);
+        //GameManager.Instance.DataLoad();
+        SceneManager.LoadSceneAsync("1.MainMenu");
     }
 }

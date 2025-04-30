@@ -979,7 +979,7 @@ public class PlayerReadyDirector : MonoBehaviour
     {
         playerData.SA_PlayerData.SA_MissionPlaying(false);
         playerData.SA_PlayerData.SA_GameLoseCoin(selectMission.MissionCoinLosePersent);
-        missionData.SubStage_Lose(stageNum, missionNum);
+        missionData.SubStage_Init(stageNum, missionNum); // 미션 취소
         GameObject gm = GameObject.Find("SelectMission");
         Destroy(gm);
         SceneManager.LoadScene("Station");

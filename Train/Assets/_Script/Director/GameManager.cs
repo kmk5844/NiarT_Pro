@@ -42,11 +42,12 @@ public class GameManager : MonoBehaviour
     public SA_StoryLIst StoryData;
     public SA_MissionData MissionData;
     public Quest_DataTable QuestData;
-
     public GameObject SelectMissionObject;
 
     Texture2D cursorOrigin;
     Vector2 cursorHotspot_Origin;
+
+    Coroutine DataCoroutine;
 
     public void Start()
     {
@@ -59,7 +60,7 @@ public class GameManager : MonoBehaviour
         cursorHotspot_Origin = Vector2.zero;
         Cursor.SetCursor(cursorOrigin, cursorHotspot_Origin, CursorMode.Auto);
 
-        //DataLoad();
+        DataLoad();
 
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[LocalData.Local_Index];
         if (PlayerData.Mission_Playing)
@@ -84,7 +85,6 @@ public class GameManager : MonoBehaviour
                 GameObject gm = GameObject.Find("SelectMission");
                 Destroy(gm);
             }
-
             Game_DataReset();
         }
     }
@@ -260,11 +260,12 @@ public class GameManager : MonoBehaviour
 
     public void Game_DataLoad()
     {
-        StartCoroutine(LoadGameRoutine());
+         StartCoroutine(LoadGameRoutine());
     }
 
     public void Game_DataReset()
     {
+        SceneManager.LoadScene("LoadingScene_Data");
         StartCoroutine(ResetGameRoutine());
 /*        DataManager.Instance.Init();
         StoryFlag_Init();
@@ -273,15 +274,17 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator LoadGameRoutine()
     {
-        SceneManager.LoadScene("LoadingScene_Data");
-        yield return new WaitForSeconds(1f);
+        /*SceneManager.LoadScene("LoadingScene_Data");
+        yield return new WaitForSeconds(1f);*/
+
         // 데이터 초기화
         yield return StartCoroutine(DataManager.Instance.LoadSync());
         StoryFlag_Init();
         // 일정 시간 대기 (예: 1초)
         yield return new WaitForSeconds(1.0f);
+
         // 비동기 로딩 시작
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("1.MainMenu");
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("0.Company");
         while (!asyncLoad.isDone)
         {
             yield return null; // 로딩이 완료될 때까지 대기
@@ -291,15 +294,17 @@ public class GameManager : MonoBehaviour
     private IEnumerator ResetGameRoutine()
     {
         // 로딩 씬을 먼저 로드
-        SceneManager.LoadScene("LoadingScene_Data");
-        yield return new WaitForSeconds(1f);
+        /*SceneManager.LoadScene("LoadingScene_Data");
+        yield return new WaitForSeconds(1f);*/
+
         // 데이터 초기화
         yield return StartCoroutine(DataManager.Instance.InitAsync());
         StoryFlag_Init();
         // 일정 시간 대기 (예: 1초)
         yield return new WaitForSeconds(1.0f);
+
         // 비동기 로딩 시작
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("1.MainMenu");
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("0.Company");
         while (!asyncLoad.isDone)
         {
             yield return null; // 로딩이 완료될 때까지 대기
