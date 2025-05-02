@@ -113,9 +113,11 @@ public class GameManager : MonoBehaviour
 
     public void BeforeGameStart_Enter()
     {
-        if (gameData.Information_Scene[PlayerData.New_Stage].BeforeGameStart_Button.Equals("Story"))
+        string[] index_St = gameData.Information_Stage[PlayerData.New_Stage].Story_Index.Split(',');
+        int index = int.Parse(index_St[1]);
+
+        if (gameData.Information_Stage[PlayerData.New_Stage].BeforeGameStart_Button)
         {
-            int index = gameData.Information_Scene[PlayerData.New_Stage].BeforeGameStart_StoryIndex;
             if (!StoryData.StoryList[index].Start_Flag)
             {
                 LoadingManager.LoadScene("Story");
@@ -129,8 +131,11 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            if(index == -1)
+            {
+                LoadingManager.LoadScene("MissionSelect");
+            }
             //LoadingManager.LoadScene("CharacterSelect");
-            LoadingManager.LoadScene("MissionSelect");
         }
 
         /*        int index = StoryData.StoryList.FindIndex(x => x.Story_Num == PlayerData.New_Stage);
@@ -147,10 +152,11 @@ public class GameManager : MonoBehaviour
 
     public void BeforeStation_Enter()
     {
-        if (gameData.Information_Scene[PlayerData.New_Stage].BeforeStation_Button.Equals("Story"))
+        string[] index_St = gameData.Information_Stage[PlayerData.New_Stage].Story_Index.Split(',');
+        int index = int.Parse(index_St[0]);
+
+        if (gameData.Information_Stage[PlayerData.New_Stage].BeforeStation_Button)
         {
-            int index = gameData.Information_Scene[PlayerData.New_Stage].BeforeStation_StoryIndex;
-            Debug.Log(index);
             if (!StoryData.StoryList[index].Start_Flag) // 스토리 진행 전
             {
                 LoadingManager.LoadScene("Story");
@@ -168,29 +174,9 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        else if (gameData.Information_Scene[PlayerData.New_Stage].BeforeStation_Button.Equals("CutScene"))
+        else
         {
-            int index = gameData.Information_Scene[PlayerData.New_Stage].BeforeStation_StoryIndex;
-
-            if (!DataManager.Instance.playerData.FirstFlag) //튜토리얼 진행 전.
-            {
-                if (!StoryData.StoryList[index].Start_Flag) // 스토리 진행 전,
-                {
-                    LoadingManager.LoadScene("CutScene");
-                }
-                else // 스토리 진행 후,
-                {
-                    if (!StoryData.StoryList[index].End_Flag)
-                    {
-                        LoadingManager.LoadScene("Story");
-                    }
-                    else
-                    {
-                        LoadingManager.LoadScene("GamePlay_Tutorial");
-                    }
-                }
-            }
-            else // 튜토리얼 진행 후,
+            if(index == -1) // 정거장 이동
             {
                 if (!PlayerData.Mission_Playing)
                 {
@@ -200,23 +186,44 @@ public class GameManager : MonoBehaviour
                 {
                     LoadingManager.LoadScene("MissionSelect");
                 }
-            }
-        }
-        else if (gameData.Information_Scene[PlayerData.New_Stage].BeforeStation_Button.Equals("Demo_End"))
-        {
-            LoadingManager.LoadScene("Demo_End");
-        }
-        else
-        {
-            if (!PlayerData.Mission_Playing)
+            }else if(index == 0) //CutScene -> 처음부분의 컷씬
             {
-                LoadingManager.LoadScene("Station");
+                if (!DataManager.Instance.playerData.FirstFlag) //튜토리얼 진행 전.
+                {
+                    if (!StoryData.StoryList[index].Start_Flag) // 스토리 진행 전,
+                    {
+                        LoadingManager.LoadScene("CutScene");
+                    }
+                    else // 스토리 진행 후,
+                    {
+                        if (!StoryData.StoryList[index].End_Flag)
+                        {
+                            LoadingManager.LoadScene("Story");
+                        }
+                        else
+                        {
+                            LoadingManager.LoadScene("GamePlay_Tutorial");
+                        }
+                    }
+                }
+                else // 튜토리얼 진행 후,
+                {
+                    if (!PlayerData.Mission_Playing)
+                    {
+                        LoadingManager.LoadScene("Station");
+                    }
+                    else
+                    {
+                        LoadingManager.LoadScene("MissionSelect");
+                    }
+                }
             }
-            else
+            else if(index == -100) //데모버전 종료
             {
-                LoadingManager.LoadScene("MissionSelect");
+                LoadingManager.LoadScene("Demo_End");
             }
         }
+
         /*        int index = StoryData.StoryList.FindIndex(x => x.Story_Num == PlayerData.New_Stage);
                 if (index != -1 && !StoryData.StoryList[index].Start_Flag)
                 {
@@ -265,7 +272,7 @@ public class GameManager : MonoBehaviour
 
     public void Game_DataReset()
     {
-        SceneManager.LoadScene("LoadingScene_Data");
+        SceneManager.LoadScene("-1.LoadingScene_Data");
         StartCoroutine(ResetGameRoutine());
 /*        DataManager.Instance.Init();
         StoryFlag_Init();

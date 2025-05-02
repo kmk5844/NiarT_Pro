@@ -142,13 +142,14 @@ public class Station_GameStart : MonoBehaviour
     public void ClickGameStart()
     {
         saPlayerData.SA_SelectLevel(stageButton[clickNum].stageData_Num);
-        try
+        GameManager.Instance.BeforeGameStart_Enter();
+/*        try
         {
             LoadingManager.LoadScene("MissionSelect");
         }
         catch
         {
             SceneManager.LoadScene("MissioNSelect");
-        }
+        }*/
     }
 }

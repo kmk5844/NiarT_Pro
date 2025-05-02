@@ -2,14 +2,16 @@
 public class Story_Entity
 {
     public int Stage_Num;
+    public int Story_Num;
     public int branch;
     public int Speaker_Index;
     public string BackLog_Color;
     
     public string Sound;
-    public string Sprite;
+    public string Player_Sprite;
     public string Player_Animation;
     public string ChatBox_Animation;
+    public string CutScene_Sprite;
     public string Etc;
 
     public string ko_name;

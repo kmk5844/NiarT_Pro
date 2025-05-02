@@ -566,10 +566,10 @@ public class Auto_ScritableObject : EditorWindow
                story.Story_Num,
                story.Branch_Index,
                story.BackGround,
-               story.Story_End,
-               story.Story_Title_Kr,
+               story.Story_End//,
+/*               story.Story_Title_Kr,
                story.Story_Title_En,
-               story.Story_Title_Jp
+               story.Story_Title_Jp*/
                );
 
             AssetDatabase.CreateAsset(storyObject, "Assets/_Scriptable/SA_Story/Story_Object/SDO_Story_" + story.Story_Num + ".asset");

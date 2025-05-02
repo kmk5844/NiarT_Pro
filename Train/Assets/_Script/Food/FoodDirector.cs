@@ -59,7 +59,7 @@ public class FoodDirector : MonoBehaviour
 
     private void Awake()
     {
-        Special_Story.Story_Init(null, 1 , 0);
+        Special_Story.Story_Init(null, 1 , 0, 0);
     }
 
 

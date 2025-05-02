@@ -13,7 +13,6 @@ public class DialogSystem : MonoBehaviour
 	private GameObject StoryDirector_Objcet;
 	StoryDirector storydirector;
 
-
     public bool SpecialFlag;
     private GameObject SelectDirector_Object;
     SelectMission selectMission;
@@ -31,11 +30,15 @@ public class DialogSystem : MonoBehaviour
 	[SerializeField]
 	private int stageNum;
     [SerializeField]
+    private int storyNum;
+    [SerializeField]
 	private int branch;
 	[SerializeField]
 	private Story_DataTable EX_Story;
 	[SerializeField]
 	private SA_LocalData SA_Local;
+    [SerializeField]
+    Image CutScene_Sprite;
 	[SerializeField]
 	private	Speaker[] speakers;		// 대화에 참여하는 캐릭터들의 UI
 	[SerializeField]
@@ -111,10 +114,11 @@ public class DialogSystem : MonoBehaviour
         }
     }
 
-    public void Story_Init(GameObject StoryDirector_Object, int StageNum, int Branch)
+    public void Story_Init(GameObject StoryDirector_Object, int StageNum, int StoryNum, int Branch)
 	{
         StoryDirector_Objcet = StoryDirector_Object;
 		stageNum = StageNum;
+        storyNum = StoryNum;
 		branch = Branch;
     }
 
@@ -293,7 +297,6 @@ public class DialogSystem : MonoBehaviour
         if (!SpecialFlag)
         {
             storydirector.BackLog = dialogs;
-
         } 
     }
 
@@ -306,30 +309,30 @@ public class DialogSystem : MonoBehaviour
         {
             for (int i = 0; i < EX_Story.Story.Count; i++)
             {
-                if (EX_Story.Story[i].branch == branch && EX_Story.Story[i].Stage_Num == stageNum)
+                if (EX_Story.Story[i].branch == branch && EX_Story.Story[i].Stage_Num == stageNum && EX_Story.Story[i].Story_Num == storyNum)
                 {
                     //0 -> 기본(영어) , 1 -> 한글 , 2 -> 일본
                     _data.speakerIndex = EX_Story.Story[i].Speaker_Index;
                     if (SA_Local.Local_Index == 1)
                     {
                         _data.name = EX_Story.Story[i].ko_name;
-                        _data.dialogue = EX_Story.Story[i].ko_dialog;
+                        _data.dialogue = EX_Story.Story[i].ko_dialog.Replace("\\n", "\n");
                     }
                     else if (SA_Local.Local_Index == 0)
                     {
                         _data.name = EX_Story.Story[i].en_name;
-                        _data.dialogue = EX_Story.Story[i].en_dialog;
+                        _data.dialogue = EX_Story.Story[i].en_dialog.Replace("\\n", "\n");
                     }
                     else if (SA_Local.Local_Index == 2)
                     {
                         _data.name = EX_Story.Story[i].jp_name;
-                        _data.dialogue = EX_Story.Story[i].jp_dialog;
+                        _data.dialogue = EX_Story.Story[i].jp_dialog.Replace("\\n", "\n");
                     }
                     _data.backLog_Color = EX_Story.Story[i].BackLog_Color;
                     _data.Sound = EX_Story.Story[i].Sound;
                     _data.Player_Animation = EX_Story.Story[i].Player_Animation;
                     _data.ChatBox_Animation = EX_Story.Story[i].ChatBox_Animation;
-                    _data.Sprite = EX_Story.Story[i].Sprite;
+                    _data.CutScene_Sprite = EX_Story.Story[i].CutScene_Sprite;
                     _data.etc = EX_Story.Story[i].Etc;
                     dialogs.Add(_data);
                     index++;
@@ -347,23 +350,23 @@ public class DialogSystem : MonoBehaviour
                     if (SA_Local.Local_Index == 1)
                     {
                         _data.name = EX_Story.Special_Story[i].ko_name;
-                        _data.dialogue = EX_Story.Special_Story[i].ko_dialog;
+                        _data.dialogue = EX_Story.Special_Story[i].ko_dialog.Replace("\\n", "\n");
                     }
                     else if (SA_Local.Local_Index == 0)
                     {
                         _data.name = EX_Story.Special_Story[i].en_name;
-                        _data.dialogue = EX_Story.Special_Story[i].en_dialog;
+                        _data.dialogue = EX_Story.Special_Story[i].en_dialog.Replace("\\n", "\n");
                     }
                     else if (SA_Local.Local_Index == 2)
                     {
                         _data.name = EX_Story.Special_Story[i].jp_name;
-                        _data.dialogue = EX_Story.Special_Story[i].jp_dialog;
+                        _data.dialogue = EX_Story.Special_Story[i].jp_dialog.Replace("\\n", "\n");
                     }
                     _data.backLog_Color = EX_Story.Special_Story[i].BackLog_Color;
                     _data.Sound = EX_Story.Special_Story[i].Sound;
+                    _data.Player_Sprite = EX_Story.Special_Story[i].Player_Sprite;
                     _data.Player_Animation = EX_Story.Special_Story[i].Player_Animation;
                     _data.ChatBox_Animation = EX_Story.Special_Story[i].ChatBox_Animation;
-                    _data.Sprite = EX_Story.Special_Story[i].Sprite;
                     _data.etc = EX_Story.Special_Story[i].Etc;
                     dialogs.Add(_data);
                     index++;
@@ -375,15 +378,21 @@ public class DialogSystem : MonoBehaviour
 
     private void CheckCustom()
     {
-        if(dialogs[currentDialogIndex].Sound != "")
+        if (CutScene_Sprite.gameObject.activeSelf)
+        {
+            CutScene_Sprite.gameObject.SetActive(false);
+        }
+
+        //초기화 후
+        if (dialogs[currentDialogIndex].Sound != null)
         {
             AudioClip sound = Resources.Load<AudioClip>("Story/Sound/" + dialogs[currentDialogIndex].Sound);
             MMSoundManagerSoundPlayEvent.Trigger(sound, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         }
 
-        if (dialogs[currentDialogIndex].Sprite != "")
+        if (dialogs[currentDialogIndex].Player_Sprite != null)
         {
-            Sprite ChangeSprite = Resources.Load<Sprite>("Story/Sprite/" + dialogs[currentDialogIndex].Sprite);
+            Sprite ChangeSprite = Resources.Load<Sprite>("Story/Sprite/" + dialogs[currentDialogIndex].Player_Sprite);
             speakers[currentSpeakerIndex].player_able.sprite = ChangeSprite;
         }
 
@@ -391,6 +400,13 @@ public class DialogSystem : MonoBehaviour
         {
             Animator ani = speakers[currentSpeakerIndex].player_able.GetComponent<Animator>();
             ani.SetTrigger(dialogs[currentDialogIndex].Player_Animation);
+        }
+
+        if (dialogs[currentDialogIndex].CutScene_Sprite != "")
+        {
+            Sprite ChangeSprite = Resources.Load<Sprite>("Story/Sprite/" + dialogs[currentDialogIndex].CutScene_Sprite);
+            CutScene_Sprite.sprite = ChangeSprite;
+            CutScene_Sprite.gameObject.SetActive(true);
         }
 
         if (dialogs[currentDialogIndex].ChatBox_Animation != "")
@@ -430,9 +446,10 @@ public struct DialogData
     [HideInInspector]
     public string backLog_Color;
     public string Sound;
-    public string Sprite;
+    public string Player_Sprite;
     public string Player_Animation;
     public string ChatBox_Animation;
+    public string CutScene_Sprite;
     public string etc;
 }
 

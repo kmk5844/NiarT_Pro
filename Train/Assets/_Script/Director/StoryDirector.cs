@@ -58,8 +58,7 @@ public class StoryDirector : MonoBehaviour
         int Branch_Value = EX_StoryData.Story_Branch[index].Branch_Index;
         BackGround_Image.sprite = Resources.Load<Sprite>("Story/BackGround/" + EX_StoryData.Story_Branch[index].BackGround);
         Branch = BranchList[Branch_Value]; // stageNum에 따라 Branch 값을 가져온다.
-        Branch.GetComponent<DialogSystem>().Story_Init(gameObject, SA_PlayerData.New_Stage, Branch_Value);
-
+        Branch.GetComponent<DialogSystem>().Story_Init(gameObject, SA_PlayerData.New_Stage, index, Branch_Value);
 
         GameObject Branch_Canvas = Instantiate(Branch, Canvas);
         Branch_Canvas.transform.SetSiblingIndex(1);
@@ -67,11 +66,12 @@ public class StoryDirector : MonoBehaviour
         gameObject.GetComponent<Dialog>().dialogSystem = branch_DialogSystem;
         BackLog = new List<DialogData>();
         branch_DialogSystem.Get_Dialogs();
-        if(sa_localdata.Local_Index == 0)
+
+/*        if(sa_localdata.Local_Index == 0)
         {
-            //영어
             Stage_Title.text = EX_StoryData.Story_Branch[index].Story_Title_En;
             Stage_Num.text = EX_StoryData.Story_Branch[index].Story_Sub_En;
+            //영어
         }
         else if (sa_localdata.Local_Index == 1)
         {
@@ -84,7 +84,7 @@ public class StoryDirector : MonoBehaviour
             Stage_Title.text = EX_StoryData.Story_Branch[index].Story_Title_Jp;
             Stage_Num.text = EX_StoryData.Story_Branch[index].Story_Sub_Jp;
             //일본어
-        }
+        }*/
         //Stage_Num.text = "Story " + EX_StoryData.Story_Branch[index].Story_Title_Num;
     }
     // Start is called before the first frame update
@@ -139,7 +139,6 @@ public class StoryDirector : MonoBehaviour
         backlogExit.callback.AddListener((data) => { OnBackLogExit(); });
         backLogTrigger.triggers.Add(backlogExit);
 
-
         EventTrigger OptionTrigger = OptionButton.gameObject.AddComponent<EventTrigger>();
 
         EventTrigger.Entry OptionEntry = new EventTrigger.Entry();
@@ -171,7 +170,6 @@ public class StoryDirector : MonoBehaviour
             }
         }
     }
-
 
     private void OnSkipButtonEnter()
     {
