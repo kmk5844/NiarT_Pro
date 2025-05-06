@@ -550,15 +550,15 @@ public class UIDirector : MonoBehaviour
     }
 
 
-    public IEnumerator WaveInformation()
+    public IEnumerator WaveInformation(bool waveflag)
     {
-        yield return StartCoroutine(Wave_Object_On());
+        yield return StartCoroutine(Wave_Object_On(waveflag));
         yield return new WaitForSeconds(3f);
-        yield return StartCoroutine(Wave_Object_Off());
+        yield return StartCoroutine(Wave_Object_Off(waveflag));
     }
 
 
-    IEnumerator Wave_Object_On()
+    IEnumerator Wave_Object_On(bool waveflag)
     {
         RectTransform waveobject = WaveObject.GetComponent<RectTransform>();
         float startX = waveobject.anchoredPosition.x;
@@ -566,8 +566,15 @@ public class UIDirector : MonoBehaviour
 
         float duration = 0.4f;
         float elapsedTime = 0f;
-        WaveCount++;
-        WaveObject.GetComponentInChildren<TextMeshProUGUI>().text = "WAVE-" + WaveCount;
+        if (waveflag)
+        {
+            WaveCount++;
+            WaveObject.GetComponentInChildren<TextMeshProUGUI>().text = "WAVE-" + WaveCount;
+        }
+        else
+        {
+            WaveObject.GetComponentInChildren<TextMeshProUGUI>().text = "Refresh";
+        }
 
         while (elapsedTime < duration)
         {
@@ -578,7 +585,7 @@ public class UIDirector : MonoBehaviour
             yield return null;
         }
     }
-    IEnumerator Wave_Object_Off()
+    IEnumerator Wave_Object_Off(bool waveflag)
     {
         RectTransform waveobject = WaveObject.GetComponent<RectTransform>();
         float startX = waveobject.anchoredPosition.x;

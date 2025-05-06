@@ -38,7 +38,7 @@ public class Ready_Using_TrainList_Object : MonoBehaviour
             if(TrainNum_1 == 51 || TrainNum_1 == 52)
             {
                 TrainImage.sprite = Resources.Load<Sprite>("Sprite/Train/Train_" + TrainNum_1 + "_" + (TrainNum_2/10)*10);
-                Level_Text.text = ((TrainNum_2 % 10) + 1).ToString();
+                Level_Text.text = "Lv." + ((TrainNum_2 % 10) + 1);
                 if(TrainNum_1 == 51)
                 {
                     Name_Text.StringReference.TableEntryReference = "Train_Turret_Name_" + (TrainNum_2 / 10);
@@ -108,6 +108,7 @@ public class Ready_Using_TrainList_Object : MonoBehaviour
         if (TrainNum_1 == 51 || TrainNum_1 == 52)
         {
             TrainImage.sprite = Resources.Load<Sprite>("Sprite/Train/Train_" + TrainNum_1 + "_" + (TrainNum_2 / 10) * 10);
+            Level_Text.text = "Lv." + ((TrainNum_2 % 10) + 1);
             if (TrainNum_1 == 51)
             {
                 Name_Text.StringReference.TableEntryReference = "Train_Turret_Name_" + (TrainNum_2 / 10);
@@ -120,6 +121,7 @@ public class Ready_Using_TrainList_Object : MonoBehaviour
         else
         {
             TrainImage.sprite = Resources.Load<Sprite>("Sprite/Train/Train_" + TrainNum_1);
+            Level_Text.text = "Lv." + ((TrainNum_1 % 10) + 1);
             Name_Text.StringReference.TableEntryReference = "Train_Name_" + (TrainNum_1 / 10);
         }
     }

@@ -202,6 +202,7 @@ public class GameDirector : MonoBehaviour
     bool SpawnRefreshSupply;
     bool getSupply;
     public bool waveinfoFlag;
+    public bool refreshinfoFlag;
 
     void Awake()
     {
@@ -289,6 +290,7 @@ public class GameDirector : MonoBehaviour
         ChangeCursor(true);
         ItemFlag_14 = false;
         waveinfoFlag = false;
+        refreshinfoFlag = false;
         if (Test_Flag)
         {
             monsterDirector.Test_Flag = true;
@@ -383,10 +385,8 @@ public class GameDirector : MonoBehaviour
             if (!waveinfoFlag)
             {
                 waveinfoFlag = true;
-                StartCoroutine(uiDirector.WaveInformation());
+                StartCoroutine(uiDirector.WaveInformation(true));
             }
-
-
         }
         else if (gameType == GameType.Playing)
         {
@@ -524,6 +524,12 @@ public class GameDirector : MonoBehaviour
             {
                 waveinfoFlag = false;
 
+                if (!refreshinfoFlag)
+                {
+                    refreshinfoFlag = true;
+                    StartCoroutine(uiDirector.WaveInformation(false));
+                }
+
                 if (!monsterDirector.GameDirector_RefreshFlag)
                 {
                     monsterDirector.GameDirector_RefreshFlag = true;
@@ -589,7 +595,7 @@ public class GameDirector : MonoBehaviour
                 if (!waveinfoFlag)
                 {
                     waveinfoFlag = true;
-                    StartCoroutine(uiDirector.WaveInformation());
+                    StartCoroutine(uiDirector.WaveInformation(true));
                 }
 
                 if (Time.time >= lastSpeedTime + timeBet)
