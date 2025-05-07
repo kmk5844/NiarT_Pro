@@ -286,9 +286,10 @@ public class Auto_ScritableObject : EditorWindow
         {
             StageDataObject stageObject = ScriptableObject.CreateInstance<StageDataObject>();
             stageObject.Auto_Stage_Insert(
-                stage.Number,
+                stage.Stage,
                 stage.MissionList
-                );
+                ) ;
+            Debug.Log(stageObject.Stage_Num);
 
             /*                stage.Destination_Distance,
                             stage.Emerging_Monster,
@@ -307,12 +308,12 @@ public class Auto_ScritableObject : EditorWindow
                             stage.Boss_Distance
                             );
             */
-            if (stage.Number == 0)
+            if (stage.Stage == 0)
             {
                 stageObject.Open_StageChange();
             }
 
-            AssetDatabase.CreateAsset(stageObject, "Assets/_Scriptable/SA_Stage/Stage_Object/SDO_Stage_" + stage.Number + ".asset");
+            AssetDatabase.CreateAsset(stageObject, "Assets/_Scriptable/SA_Stage/Stage_Object/SDO_Stage_" + stage.Stage + ".asset");
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
             SA_StageList_.StageList_InsterObject(stageObject);

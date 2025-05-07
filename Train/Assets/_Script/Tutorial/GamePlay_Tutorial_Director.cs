@@ -19,6 +19,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
     int Scarecrow_count;
     
     bool scarecrow_DestoryFlag;
+    bool T_SpawnWaveItem_Flag;
 
     Texture2D cursorOrigin;
     Texture2D cursorAim_UnAtk;
@@ -27,6 +28,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
     Vector2 cursorHotspot_Aim;
 
     public GameObject SpawnItemObject;
+    public GameObject SpawnWaveItemObject;
     public GameObject TrainObject;
 
     public int gold;
@@ -44,6 +46,8 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
 
     public GameObject[] EmphasisObejct;
     public bool aimFlag;
+
+    bool spawnWaveFlag;
     /*{
     0. PlayerHP
     1. Itme
@@ -63,7 +67,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
         Fuel = 60000;
         Max_Fuel = Fuel;
         Max_Speed = 200;
-        max_distance = 10;
+        max_distance = 11;
 
         cursorAim_UnAtk = Resources.Load<Texture2D>("Cursor/Aim6464_UnAttack");
         cursorAim_Atk = Resources.Load<Texture2D>("Cursor/Aim6464_Attack");
@@ -157,7 +161,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
                 }
             }
 
-            if(tutorialList == Tutorial_List.T_Move)
+/*            if(tutorialList == Tutorial_List.T_Move)
             {
                 if (T_Flag)
                 {
@@ -224,7 +228,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
                         ClearFlag = true;
                     }
                 }
-            }
+            }*/
 
             if(tutorialList == Tutorial_List.T_Fire_Kill)
             {
@@ -421,8 +425,51 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
                         distance++;//11
                         EmphasisObejct[3].SetActive(false);
 
-                        StartCoroutine(Clear(Tutorial_List.T_Fuel));
+                        StartCoroutine(Clear(Tutorial_List.T_Wave));
                         ClearFlag = true;
+                    }
+                }
+            }
+
+            if(tutorialList == Tutorial_List.T_Wave)
+            {
+                if (T_Flag)
+                {
+                    //UI 디렉터에서 Refresh 문구 뜨도록 함.
+                    T_Flag = false;
+                }
+
+                if (!spawnWaveFlag)
+                {
+                    if (speed > 40)
+                    {
+                        speed -= (Time.deltaTime * 30f);
+                    }
+                    else
+                    {
+                        Instantiate(SpawnWaveItemObject);
+                        spawnWaveFlag = true;
+                    }
+                }
+                else
+                {
+                    if (T_SpawnWaveItem_Flag)
+                    {
+                        if (speed < 200)
+                        {
+                            speed += (Time.deltaTime * 30f);
+                            Fuel -= (Time.deltaTime * 1000f);
+                        }
+                        else
+                        {
+                            speed = 200f;
+                            if (!ClearFlag)
+                            {
+                                distance++;
+                                StartCoroutine(Clear(Tutorial_List.T_Fuel));
+                                ClearFlag = true;
+                            }
+                        }
                     }
                 }
             }
@@ -439,7 +486,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
 
                 if (Fuel > 0)
                 {
-                    Fuel -= (Time.deltaTime * 7000f);
+                    Fuel -= (Time.deltaTime * 8000f);
                 }
                 else
                 {
@@ -517,6 +564,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
                 {
                     if (!ClearFlag)
                     {
+                        distance++;//14
                         StartCoroutine(Clear(Tutorial_List.T_End));
                         uiDirector.Click_Text_object.SetActive(false);
                         EmphasisObejct[2].SetActive(false);
@@ -565,6 +613,14 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
         speed += addSpeed;
         yield return new WaitForSeconds(during);
         speed -= addSpeed;
+    }
+
+    public void Refresh()
+    {
+        player.PlayerHP = player.Max_PlayerHP;
+        Fuel = Max_Fuel;
+
+        T_SpawnWaveItem_Flag = true;
     }
 
     IEnumerator Clear(Tutorial_List list)
@@ -616,9 +672,6 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
     public enum Tutorial_List
     {
         T_UI_Information,
-        T_Move,
-        T_Jump,
-        T_Fire,
         T_Fire_Kill,
         T_Skill_Q,
         T_Skill_E,
@@ -626,6 +679,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
         T_Use_Item,
         T_Train,
         T_Monster,
+        T_Wave,
         T_Fuel,
         T_Lose,
         T_Win,

@@ -128,8 +128,11 @@ public class DialogSystem : MonoBehaviour
         for ( int i = 0; i < speakers.Length; ++ i )
 		{
 			SetActiveObjects(speakers[i], false);
-			// 캐릭터 이미지는 보이도록 설정
-			speakers[i].player_able.gameObject.SetActive(true);
+            // 캐릭터 이미지는 보이도록 설정
+            if (!SpecialFlag)
+            {
+			    speakers[i].player_able.gameObject.SetActive(false);
+            }
 		}
 	}
 
@@ -384,32 +387,32 @@ public class DialogSystem : MonoBehaviour
         }
 
         //초기화 후
-        if (dialogs[currentDialogIndex].Sound != null)
+        if (dialogs[currentDialogIndex].Sound != null && !SpecialFlag)
         {
             AudioClip sound = Resources.Load<AudioClip>("Story/Sound/" + dialogs[currentDialogIndex].Sound);
             MMSoundManagerSoundPlayEvent.Trigger(sound, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         }
 
-        if (dialogs[currentDialogIndex].Player_Sprite != null)
+        if (dialogs[currentDialogIndex].Player_Sprite != null && !SpecialFlag)
         {
             Sprite ChangeSprite = Resources.Load<Sprite>("Story/Sprite/" + dialogs[currentDialogIndex].Player_Sprite);
             speakers[currentSpeakerIndex].player_able.sprite = ChangeSprite;
         }
 
-        if (dialogs[currentDialogIndex].Player_Animation != "")
+        if (dialogs[currentDialogIndex].Player_Animation != "" && !SpecialFlag)
         {
             Animator ani = speakers[currentSpeakerIndex].player_able.GetComponent<Animator>();
             ani.SetTrigger(dialogs[currentDialogIndex].Player_Animation);
         }
 
-        if (dialogs[currentDialogIndex].CutScene_Sprite != "")
+        if (dialogs[currentDialogIndex].CutScene_Sprite != "" && !SpecialFlag)
         {
             Sprite ChangeSprite = Resources.Load<Sprite>("Story/Sprite/" + dialogs[currentDialogIndex].CutScene_Sprite);
             CutScene_Sprite.sprite = ChangeSprite;
             CutScene_Sprite.gameObject.SetActive(true);
         }
 
-        if (dialogs[currentDialogIndex].ChatBox_Animation != "")
+        if (dialogs[currentDialogIndex].ChatBox_Animation != "" && !SpecialFlag)
         {
             Animator ani = speakers[currentSpeakerIndex].imageDialog.GetComponent<Animator>();
 
@@ -420,6 +423,28 @@ public class DialogSystem : MonoBehaviour
             else
             {
                 Debug.LogError("Animator is either null or not enabled");
+            }
+        }
+
+        if (dialogs[currentDialogIndex].etc != "" && !SpecialFlag)
+        {
+            string[] etc_st = dialogs[currentDialogIndex].etc.Split(',');
+            int _index = 0;
+            for (int i = 0 ; i < etc_st.Length; i++)
+            {
+                switch (etc_st[i])
+                {
+                    case "Active_True":
+                        i++;
+                        _index = int.Parse(etc_st[i]);
+                        speakers[_index].player_able.gameObject.SetActive(true);
+                        break;
+                    case "Active_False":
+                        i++;
+                        _index = int.Parse(etc_st[i]);
+                        speakers[_index].player_able.gameObject.SetActive(false);
+                        break;
+                }
             }
         }
     }
@@ -452,4 +477,3 @@ public struct DialogData
     public string CutScene_Sprite;
     public string etc;
 }
-
