@@ -333,6 +333,7 @@ public class DialogSystem : MonoBehaviour
                     }
                     _data.backLog_Color = EX_Story.Story[i].BackLog_Color;
                     _data.Sound = EX_Story.Story[i].Sound;
+                    _data.Player_Sprite = EX_Story.Story[i].Player_Sprite;
                     _data.Player_Animation = EX_Story.Story[i].Player_Animation;
                     _data.ChatBox_Animation = EX_Story.Story[i].ChatBox_Animation;
                     _data.CutScene_Sprite = EX_Story.Story[i].CutScene_Sprite;
@@ -370,6 +371,7 @@ public class DialogSystem : MonoBehaviour
                     _data.Player_Sprite = EX_Story.Special_Story[i].Player_Sprite;
                     _data.Player_Animation = EX_Story.Special_Story[i].Player_Animation;
                     _data.ChatBox_Animation = EX_Story.Special_Story[i].ChatBox_Animation;
+                    _data.CutScene_Sprite = EX_Story.Story[i].CutScene_Sprite;
                     _data.etc = EX_Story.Special_Story[i].Etc;
                     dialogs.Add(_data);
                     index++;
@@ -393,7 +395,7 @@ public class DialogSystem : MonoBehaviour
             MMSoundManagerSoundPlayEvent.Trigger(sound, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         }
 
-        if (dialogs[currentDialogIndex].Player_Sprite != null && !SpecialFlag)
+        if (dialogs[currentDialogIndex].Player_Sprite != "" && !SpecialFlag)
         {
             Sprite ChangeSprite = Resources.Load<Sprite>("Story/Sprite/" + dialogs[currentDialogIndex].Player_Sprite);
             speakers[currentSpeakerIndex].player_able.sprite = ChangeSprite;

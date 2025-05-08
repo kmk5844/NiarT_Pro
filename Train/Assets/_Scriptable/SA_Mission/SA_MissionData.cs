@@ -116,7 +116,7 @@ public class SA_MissionData : ScriptableObject
 
     public void SubStage_Init(int MainStageNum, int MissionNum)
     {
-        Debug.Log(MainStageNum + " , "+ MissionNum);
+        //Debug.Log(MainStageNum + " , "+ MissionNum);
         switch (MissionNum)
         {
             case 0:
@@ -235,6 +235,14 @@ public class SA_MissionData : ScriptableObject
 
     public IEnumerator InitAsync(MonoBehaviour runner)
     {
+        for(int i = 0; i < stagelist.Count; i++) //실행 전, 데이터 체크하고, 진행 (삭제 금지)
+        {
+            if (!ES3.KeyExists("SA_MissionData_" + i + "_clearData"))
+            {
+                Save(i);
+            }
+        }
+
         for (int i = 0; i < stagelist.Count; i++)
         {
             if (mainstage_clearflag[i])

@@ -10,12 +10,6 @@ using UnityEngine.UI;
 //Script Execution Order로 조절 중
 public class GameDirector : MonoBehaviour
 {
-    [Header("Test")]
-    public bool Test_Flag;
-    public bool Monster_Off_Flag;
-    public int Test_Distance;
-    public List<int> Test_Monster_List;
-
     [Header("게임 타입")]
     public GameType gameType;
     GameType Before_GameType;
@@ -33,6 +27,8 @@ public class GameDirector : MonoBehaviour
     //다음에 해금할 스테이지 정보
     [SerializeField]
     List<int> NextSubStageNum;
+    //잠글 스테이지 정보
+    List<int> PrevSubStageNum;
 
     public SA_PlayerData SA_PlayerData;
     public Game_DataTable EX_GameData;
@@ -75,24 +71,20 @@ public class GameDirector : MonoBehaviour
     [Header("스테이지 정보")]
     public int Mission_Num;
     public int Stage_Num;
+    public int Before_Sub_Num;
     public int Select_Sub_Num;
+    
     string Emerging_Monster_String;
     string Emerging_MonsterCount_String;
     [SerializeField]
     private List<int> Emerging_Monster;
     [SerializeField]
     private List<int> Emerging_MonsterCount;
-    [SerializeField]
-    private int Reward_Point;
+    [Header("스테이지에 따른 백그라운드")]
+    public GameObject[] BackGroundList;
 
     [Header("미션 정보")]
     public bool Mission_Train_Flag;
-
-    [SerializeField]
-    string Reward_ItemNum;
-    [SerializeField]
-    string Reward_ItemCount;
-    int Reward_Num;
 
     [SerializeField]
     private int Destination_Distance; // 나중에 private변경
@@ -159,6 +151,7 @@ public class GameDirector : MonoBehaviour
     float distance_time;
 
     [Header("Satation")]
+    public bool Station_OnOffFlag;
     public GameObject Station_Object;
     bool isStationHideFlag;
     bool isStationShowFlag;
@@ -225,7 +218,7 @@ public class GameDirector : MonoBehaviour
             Mission_Num = SA_PlayerData.Mission_Num;
             Stage_Num = SA_PlayerData.Select_Stage;
         }
-
+        Before_Sub_Num = SA_PlayerData.Before_Sub_Stage;
         Select_Sub_Num = SA_PlayerData.Select_Sub_Stage;
 
 /*        Mission_Num = 0;
@@ -242,6 +235,14 @@ public class GameDirector : MonoBehaviour
         foreach(string sub in nextSubStageList)
         {
             NextSubStageNum.Add(int.Parse(sub));
+        }
+
+        MissionDataObject PrevStageData = SA_MissionData.missionStage(Mission_Num, Stage_Num, Before_Sub_Num);
+        PrevSubStageNum = new List<int>();
+        string[] prevSubStageList = PrevStageData.Open_SubStageNum.Split(',');
+        foreach(string sub in prevSubStageList)
+        {
+            PrevSubStageNum.Add(int.Parse(sub));
         }
 
         BGM_ID = 30;
@@ -266,6 +267,7 @@ public class GameDirector : MonoBehaviour
         cursorHotspot_Aim = new Vector2(cursorAim_UnAtk.width / 2, cursorAim_UnAtk.height / 2);
         BossGuage = uiDirector.BossHP_Guage;
 
+        StageBackGround_Setting();
         Stage_Init();
         Train_Init();
 
@@ -291,22 +293,7 @@ public class GameDirector : MonoBehaviour
         ItemFlag_14 = false;
         waveinfoFlag = false;
         refreshinfoFlag = false;
-        if (Test_Flag)
-        {
-            monsterDirector.Test_Flag = true;
-            Destination_Distance = Test_Distance;
 
-            if(Test_Monster_List.Count == 0)
-            {
-                Test_Monster_List.Add(0);
-            }
-
-            if (Monster_Off_Flag)
-            {
-                monsterDirector.Monster_List.gameObject.SetActive(false);
-                monsterDirector.SupplyMonster_List.gameObject.SetActive(false);
-            }
-        }
     }
 
     private void Start()
@@ -325,10 +312,7 @@ public class GameDirector : MonoBehaviour
         player.minRespawnPosition = new Vector3(-10.94f * (Train_Num.Count - 1), 0f, 0);
 
         float Random_Turret_X = Random.Range(player.minRespawnPosition.x, player.maxRespawnPosition.x);
-        if (!Test_Flag)
-        {
-            Instantiate(MiniTurretObject, new Vector2(Random_Turret_X, -0.58f), Quaternion.identity);
-        }
+        Instantiate(MiniTurretObject, new Vector2(Random_Turret_X, -0.58f), Quaternion.identity);
 
         if (FoodEffect_Flag_Positive)
         {
@@ -355,6 +339,11 @@ public class GameDirector : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown("]"))
+        {
+            TrainDistance = 99999999;
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (gameType == GameType.Starting || gameType == GameType.Playing || gameType == GameType.Boss || gameType == GameType.Refreshing)
@@ -695,27 +684,37 @@ public class GameDirector : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (gameType == GameType.Playing)
+        if (Station_OnOffFlag)
         {
-            if (Time.time >= StartTime + 0.1f && !isStationHideFlag)
+            if (gameType == GameType.Playing)
             {
-                isStationHideFlag = true;
-                StartCoroutine(Hide_And_Show_Station(true));
-            }
-        }
-
-        if (gameType == GameType.Ending)
-        {
-            if (monsterDirector.GameDirector_EndingFlag)
-            {
-                if (monsterDirector.GameDirecotr_AllDieFlag)
+                if (Time.time >= StartTime + 0.1f && !isStationHideFlag)
                 {
-                    if (TrainSpeed <= 74f && TrainSpeed > 72f && !isStationShowFlag)
+                    isStationHideFlag = true;
+                    StartCoroutine(Hide_And_Show_Station(true));
+                }
+            }
+
+            if (gameType == GameType.Ending)
+            {
+                if (monsterDirector.GameDirector_EndingFlag)
+                {
+                    if (monsterDirector.GameDirecotr_AllDieFlag)
                     {
-                        isStationShowFlag = true;
-                        StartCoroutine(Hide_And_Show_Station(false));
+                        if (TrainSpeed <= 74f && TrainSpeed > 72f && !isStationShowFlag)
+                        {
+                            isStationShowFlag = true;
+                            StartCoroutine(Hide_And_Show_Station(false));
+                        }
                     }
                 }
+            }
+        }
+        else
+        {
+            if (Station_Object.activeSelf)
+            {
+                Station_Object.SetActive(false);
             }
         }
     }
@@ -727,14 +726,9 @@ public class GameDirector : MonoBehaviour
         //Emerging_MonsterCount_String = StageData.Monster_Count;
         Emerging_MonsterCount_String = SubStageData.Monster_Count;
         //Reward_Point = StageData.Reward_Point;
-        Reward_Point = 0;
 
         //Reward_ItemNum = StageData.Reward_Item;
         //Reward_ItemCount = StageData.Reward_Itemcount;
-        Reward_ItemNum = "-1,-1,-1,-1,-1";
-        Reward_ItemNum = "0,0,0,0,0";
-        Reward_Num = -1;
-
         //Destination_Distance = StageData.Destination_Distance;
         Destination_Distance = SubStageData.Distance;
 
@@ -805,22 +799,28 @@ public class GameDirector : MonoBehaviour
             MonsterDirector_Object.GetComponent<MonsterDirector>().Get_Boss_List(Emerging_Boss);
         }
 
-
-        if (Test_Flag)
+        MonsterDirector_Object.GetComponent<MonsterDirector>().Get_Monster_List(Emerging_Monster, Emerging_MonsterCount);
+        if (Data_BossFlag)
         {
-            List<int> NullObject = new List<int>();
-            NullObject.Add(1);
-            MonsterDirector_Object.GetComponent<MonsterDirector>().Get_Monster_List(Test_Monster_List, NullObject);
-        }
-        else
-        {
-            MonsterDirector_Object.GetComponent<MonsterDirector>().Get_Monster_List(Emerging_Monster, Emerging_MonsterCount);
-            if (Data_BossFlag)
-            {
-                MonsterDirector_Object.GetComponent<MonsterDirector>().Get_Boss_List(Emerging_Boss);
-            }
+            MonsterDirector_Object.GetComponent<MonsterDirector>().Get_Boss_List(Emerging_Boss);
         }
     }
+
+    void StageBackGround_Setting()
+    {
+        switch (Stage_Num/5) {
+            case 0:
+            case 1:
+                Station_OnOffFlag = true;
+                BackGroundList[0].SetActive(true);
+                break;
+            case 2:
+                Station_OnOffFlag = false;
+                BackGroundList[1].SetActive(true);
+                break;
+        }
+    }
+
     void Train_Init()
     {
         Train_Turret_Count = 0;
@@ -1051,6 +1051,7 @@ public class GameDirector : MonoBehaviour
         //Change_Game_End(true);
         GameEnd_SavePlayerData();
         SubStage_Clear();
+        //lastSubStage_Lock();
         SubStage_LockOff();
         MMSoundManagerSoundPlayEvent.Trigger(WinSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
     }
@@ -1059,6 +1060,21 @@ public class GameDirector : MonoBehaviour
     {
         SubStageData.SubStage_Clear();
     }
+
+/*    void lastSubStage_Lock()
+    {
+        foreach(int substageNum in PrevSubStageNum)
+        {
+            if(substageNum != -1)
+            {
+                if(substageNum != Select_Sub_Num)
+                {
+                    MissionDataObject mission = SA_MissionData.missionStage(Mission_Num, Stage_Num, substageNum);
+                    mission.prevLock();
+                }
+            }
+        }
+    }*/
 
     void SubStage_LockOff()
     {

@@ -58,6 +58,7 @@ public class StoryDirector : MonoBehaviour
         int Branch_Value = EX_StoryData.Story_Branch[index].Branch_Index;
         BackGround_Image.sprite = Resources.Load<Sprite>("Story/BackGround/" + EX_StoryData.Story_Branch[index].BackGround);
         Branch = BranchList[Branch_Value]; // stageNum에 따라 Branch 값을 가져온다.
+        //Branch.GetComponent<DialogSystem>().Story_Init(gameObject, 5, index, Branch_Value); {스토리 체크용}
         Branch.GetComponent<DialogSystem>().Story_Init(gameObject, SA_PlayerData.New_Stage, index, Branch_Value);
 
         GameObject Branch_Canvas = Instantiate(Branch, Canvas);

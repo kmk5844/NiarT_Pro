@@ -87,6 +87,10 @@ public class SA_PlayerData : ScriptableObject
     public bool Mission_Playing { get {  return mission_playing; } }
 
     [SerializeField]
+    private int before_sub_stage;
+    public int Before_Sub_Stage { get { return before_sub_stage; } }
+
+    [SerializeField]
     private int select_sub_stage;
     public int Select_Sub_Stage { get { return select_sub_stage; } }
 
@@ -138,6 +142,7 @@ public class SA_PlayerData : ScriptableObject
                 new_stage++;
             }
         }
+        before_sub_stage = select_stage;
         coin += R_Coin;
         //point += R_Point;
         Save();

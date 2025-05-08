@@ -113,7 +113,8 @@ public class SubStage_Select : MonoBehaviour
             {
                 GetComponent<Button>().interactable = false;
             }
-        }else if(selectSubStageType == stageType.Next)
+        }
+        else if (selectSubStageType == stageType.Next)
         {
             if (missionData.StageOpenFlag)
             {

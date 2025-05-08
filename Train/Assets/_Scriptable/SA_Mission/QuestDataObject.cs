@@ -56,6 +56,10 @@ public class MissionDataObject : ScriptableObject
     private bool readyflag;
     public bool ReadyFlag { get { return readyflag; } }
 
+/*    [SerializeField]
+    private bool lockflag;
+    public bool LockFlag { get { return lockflag; } }*/
+
     [SerializeField]
     private bool stageclearflag;
     public bool StageClearFlag { get { return stageclearflag; } }
@@ -105,6 +109,12 @@ public class MissionDataObject : ScriptableObject
         Save();
     }
 
+/*    public void prevLock()
+    {
+        lockflag = true;
+        Save();
+    }*/
+
     public void Init()
     {
         stageclearflag = false;
@@ -121,6 +131,7 @@ public class MissionDataObject : ScriptableObject
 
     public void InitSync(MonoBehaviour runner)
     {
+        //lockflag = false;
         stageclearflag = false;
         if (startstageflag)
         {
@@ -144,6 +155,7 @@ public class MissionDataObject : ScriptableObject
             missiondatause = true;
         }
         ES3.Save<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_MissionDataUse", missiondatause);
+        //ES3.Save<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_LockFlag", lockflag);
         ES3.Save<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_ClearFlag", stageclearflag);
         ES3.Save<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_OpenFlag", stageopenflag);
     }
@@ -160,6 +172,8 @@ public class MissionDataObject : ScriptableObject
         }
         ES3.Save<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_MissionDataUse", missiondatause);
         yield return new WaitForSeconds(0.001f);
+        //ES3.Save<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_LockFlag", lockflag);
+        //yield return new WaitForSeconds(0.001f);
         ES3.Save<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_ClearFlag", stageclearflag);
         yield return new WaitForSeconds(0.001f);
         ES3.Save<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_OpenFlag", stageopenflag);
@@ -170,6 +184,7 @@ public class MissionDataObject : ScriptableObject
     public void Load()
     {
         missiondatause = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_MissionDataUse");
+        //lockflag = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_LockFlag");
         stageclearflag = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_ClearFlag");
         stageopenflag = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_OpenFlag");
     }
@@ -186,6 +201,10 @@ public class MissionDataObject : ScriptableObject
 
     public IEnumerator LoadSync()
     {
+        missiondatause = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_MissionDataUse");
+        yield return new WaitForSeconds(0.001f);
+        //lockflag = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_LockFlag");
+        //yield return new WaitForSeconds(0.001f);
         stageclearflag = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_ClearFlag");
         yield return new WaitForSeconds(0.001f);
         stageopenflag = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_OpenFlag");
