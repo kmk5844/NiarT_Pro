@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Localization.Settings;
-using System;
-using static PixelCrushers.AnimatorSaver;
 using System.Collections;
 
 public class GameManager : MonoBehaviour
@@ -61,8 +59,11 @@ public class GameManager : MonoBehaviour
         Cursor.SetCursor(cursorOrigin, cursorHotspot_Origin, CursorMode.Auto);
 
         DataLoad();
+        if (LocalizationSettings.InitializationOperation.IsDone)
+        {
+            LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[LocalData.Local_Index];
+        }
 
-        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[LocalData.Local_Index];
         if (PlayerData.Mission_Playing)
         {
             SelectMissionObject.GetComponent<SelectMission>().SetDataSetting(PlayerData, QuestData, MissionData);
