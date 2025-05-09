@@ -8,7 +8,7 @@ public class Demo_End : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            GameManager.Instance.Game_DataReset();
+            LoadingManager.LoadScene("1.MainMenu");    
         }
     }
 }

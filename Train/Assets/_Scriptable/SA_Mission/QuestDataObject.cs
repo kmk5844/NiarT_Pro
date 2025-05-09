@@ -194,15 +194,23 @@ public class MissionDataObject : ScriptableObject
         runner.StartCoroutine(LoadSync());
     }
 
-    public void Load_missionDataUse()
+    public bool Load_missionDataUse()
     {
-        missiondatause = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_MissionDataUse");
+        if(ES3.KeyExists("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_MissionDataUse"))
+        {
+            missiondatause = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_MissionDataUse");
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public IEnumerator LoadSync()
     {
-        missiondatause = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_MissionDataUse");
-        yield return new WaitForSeconds(0.001f);
+        //missiondatause = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_MissionDataUse");
+        //yield return new WaitForSeconds(0.001f);
         //lockflag = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_LockFlag");
         //yield return new WaitForSeconds(0.001f);
         stageclearflag = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_ClearFlag");

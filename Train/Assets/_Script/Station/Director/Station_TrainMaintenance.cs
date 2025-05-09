@@ -1381,7 +1381,7 @@ else // 기차 교체
         optionList.Add("A");
         optionList.Add("B");
         optionList.Add("C");
-        optionList.Add("D");
+        //optionList.Add("D");
         TrainBuy_DropDown.AddOptions(optionList);
         TrainBuy_DropDown.value = 0;
     }
@@ -1392,14 +1392,14 @@ else // 기차 교체
         List_TrainType_Num = value;
         Train_Before_Buy_Num = Train_Buy_Num;
         Train_Buy_Num = 0;
-        if(value == 0)
+/*        if(value == 0)
         {
             AllTrainList_Transform.gameObject.SetActive(true);
             CommonTrain_List_Transform.gameObject.SetActive(false);
             TurretTrain_List_Transform.gameObject.SetActive(false);
             BoosterTrain_List_Transform.gameObject.SetActive(false);
         }
-        else if (value == 0)
+        else */if (value == 0)
         {
             //TrainPart_Lock_Object.SetActive(false);
             AllTrainList_Transform.gameObject.SetActive(false);

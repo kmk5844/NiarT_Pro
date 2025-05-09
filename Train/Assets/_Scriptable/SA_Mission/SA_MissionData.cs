@@ -413,10 +413,17 @@ public class SA_MissionData : ScriptableObject
         {
             foreach (MissionDataObject mission in stagelist[selectNum].Q_Des)
             {
-                mission.Load();
-                if (mission.MissionDataUse)
+                bool flag = mission.Load_missionDataUse();
+                if (flag)
                 {
-                    mission.LoadSync_Start(runner);
+                    if (mission.MissionDataUse)
+                    {
+                        mission.LoadSync_Start(runner);
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
                 else
                 {
@@ -426,10 +433,17 @@ public class SA_MissionData : ScriptableObject
             }
             foreach (MissionDataObject mission in stagelist[selectNum].Q_Mat)
             {
-                mission.Load();
-                if (mission.MissionDataUse)
+                bool flag = mission.Load_missionDataUse();
+                if (flag)
                 {
-                    mission.LoadSync_Start(runner);
+                    if (mission.MissionDataUse)
+                    {
+                        mission.LoadSync_Start(runner);
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
                 else
                 {
@@ -439,10 +453,17 @@ public class SA_MissionData : ScriptableObject
             }
             foreach (MissionDataObject mission in stagelist[selectNum].Q_Mon)
             {
-                mission.Load();
-                if (mission.MissionDataUse)
+                bool flag = mission.Load_missionDataUse();
+                if (flag)
                 {
-                    mission.LoadSync_Start(runner);
+                    if (mission.MissionDataUse)
+                    {
+                        mission.LoadSync_Start(runner);
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
                 else
                 {
@@ -452,10 +473,17 @@ public class SA_MissionData : ScriptableObject
             }
             foreach (MissionDataObject mission in stagelist[selectNum].Q_Esc)
             {
-                mission.Load();
-                if (mission.MissionDataUse)
+                bool flag = mission.Load_missionDataUse();
+                if (flag)
                 {
-                    mission.LoadSync_Start(runner);
+                    if (mission.MissionDataUse)
+                    {
+                        mission.LoadSync_Start(runner);
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
                 else
                 {
@@ -465,10 +493,17 @@ public class SA_MissionData : ScriptableObject
             }
             foreach (MissionDataObject mission in stagelist[selectNum].Q_Con)
             {
-                mission.Load();
-                if (mission.MissionDataUse)
+                bool flag = mission.Load_missionDataUse();
+                if (flag)
                 {
-                    mission.LoadSync_Start(runner);
+                    if (mission.MissionDataUse)
+                    {
+                        mission.LoadSync_Start(runner);
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
                 else
                 {
@@ -478,10 +513,17 @@ public class SA_MissionData : ScriptableObject
             }
             foreach (MissionDataObject mission in stagelist[selectNum].Q_Bos)
             {
-                mission.Load();
-                if (mission.MissionDataUse)
+                bool flag = mission.Load_missionDataUse();
+                if (flag)
                 {
-                    mission.LoadSync_Start(runner);
+                    if (mission.MissionDataUse)
+                    {
+                        mission.LoadSync_Start(runner);
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
                 else
                 {

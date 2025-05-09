@@ -201,6 +201,12 @@ public class Player : MonoBehaviour
             {
                 isMouseDown = false;
             }
+
+            if (Input.GetKeyDown(KeyCode.R) && FireCount != 0)
+            {
+                StartCoroutine(Reloading());
+            }
+
             if (isMouseDown)
             {
                 gamedirector.ChangeCursor(true, true);
@@ -222,7 +228,7 @@ public class Player : MonoBehaviour
         {
             if (train.Train_Type.Equals("Medic"))
             {
-                if (Check_HpParsent() < 75f && !isHealing)
+                if (Check_HpParsent() < 95f && !isHealing)
                 {
                     KeyObject.SetActive(true);
                 }
@@ -231,7 +237,7 @@ public class Player : MonoBehaviour
                     KeyObject.SetActive(false);
                 }
 
-                if (Input.GetKeyDown(KeyCode.F) && Check_HpParsent() < 75f && !isHealing && KeyCount == 0)
+                if (Input.GetKeyDown(KeyCode.F) && Check_HpParsent() < 95f && !isHealing && KeyCount == 0)
                 {
                     if (train.Not_DestoryTrain)
                     {
@@ -314,7 +320,7 @@ public class Player : MonoBehaviour
             IEnumerator train_Heal;
             train_Heal = train.Train_Healing();
 
-            if (Check_HpParsent() < 75f && !train.isHealing)
+            if (Check_HpParsent() < 95f && !train.isHealing)
             {
                 if (KeyCount == 1)
                 {
@@ -322,7 +328,7 @@ public class Player : MonoBehaviour
                 }
                 StartCoroutine(train_Heal);
             }
-            else if (Check_HpParsent() >= 75f || !train.Not_DestoryTrain)
+            else if (Check_HpParsent() >= 95f || !train.Not_DestoryTrain)
             {
                 OnOff_Sprite(false);
                 isHealing = false;

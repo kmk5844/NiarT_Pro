@@ -1,12 +1,13 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Localization.Settings;
 using System.Collections;
+using UnityEngine.AddressableAssets;
 
 public class GameManager : MonoBehaviour
 {
-    #region ½Ì±ÛÅæ
+    #region ì‹±ê¸€í†¤
     private static GameManager instance = null;
     void Awake()
     {
@@ -49,9 +50,9 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-        // V-Sync¸¦ ºñÈ°¼ºÈ­ÇÏ¿© FPS Á¦ÇÑÀ» ¹æÁö
+        // V-Syncë¥¼ ë¹„í™œì„±í™”í•˜ì—¬ FPS ì œí•œì„ ë°©ì§€
         QualitySettings.vSyncCount = 0;
-        // ÇÁ·¹ÀÓ ·¹ÀÌÆ®¸¦ 60À¸·Î ¼³Á¤
+        // í”„ë ˆì„ ë ˆì´íŠ¸ë¥¼ 60ìœ¼ë¡œ ì„¤ì •
         Application.targetFrameRate = 60;
 
         cursorOrigin = Resources.Load<Texture2D>("Cursor/Origin6464");
@@ -90,27 +91,43 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void DataLoad()
+
+    private void OnApplicationQuit()
     {
-        if (!ES3.KeyExists("SA_PlayerData_Data_FirstFlag"))
+        Debug.Log("[LocalizationCleanup] Application quitting â€” cleaning up localization resources.");
+
+        // Step 2: Optional â€” clear Addressables resource locators if used internally
+        Addressables.ClearResourceLocators();
+
+        // Optional: force garbage collection (helps avoid finalizer issues in some edge cases)
+        System.GC.Collect();
+        System.GC.WaitForPendingFinalizers();
+    }
+
+
+public void DataLoad()
+{
+    if (!ES3.KeyExists("SA_PlayerData_Data_FirstFlag"))
+    {
+        Debug.Log("ì‘ë™");
+        Game_DataReset();
+            //ì»´í“¨í„° ë°ì´í„° ì—†ìŒ;
+    }
+    else
+    {
+        Debug.Log("ë¡œë“œ");
+            //DataManager.Instance.Load();
+        try
+        {
+            Game_DataLoad();
+        }
+        catch
         {
             Game_DataReset();
-            //ÄÄÇ»ÅÍ µ¥ÀÌÅÍ ¾øÀ½;
-        }
-        else
-        {
-            //DataManager.Instance.Load();
-            try
-            {
-                Game_DataLoad();
-            }
-            catch
-            {
-                Game_DataReset();
-                //ÄÄÇ»ÅÍ µ¥ÀÌÅÍ´Â ÀÖÀ¸³ª ¿À·ù ;
-            }
+            //ì»´í“¨í„° ë°ì´í„°ëŠ” ìˆìœ¼ë‚˜ ì˜¤ë¥˜ ;
         }
     }
+}
 
     public void BeforeGameStart_Enter()
     {
@@ -126,8 +143,15 @@ public class GameManager : MonoBehaviour
             }
             else
             {
+                if (!StoryData.StoryList[index].End_Flag)
+                {
+                    LoadingManager.LoadScene("Story");
+                }
+                else
+                {
+                    LoadingManager.LoadScene("MissionSelect");
+                }
                 //LoadingManager.LoadScene("CharacterSelect");
-                LoadingManager.LoadScene("MissionSelect");
             }
         }
         else
@@ -155,10 +179,10 @@ public class GameManager : MonoBehaviour
     {
         string[] index_St = gameData.Information_Stage[PlayerData.New_Stage].Story_Index.Split(',');
         int index = int.Parse(index_St[0]);
-
+        Debug.Log(index);
         if (gameData.Information_Stage[PlayerData.New_Stage].BeforeStation_Button)
         {
-            if (!StoryData.StoryList[index].Start_Flag) // ½ºÅä¸® ÁøÇà Àü
+            if (!StoryData.StoryList[index].Start_Flag) // ìŠ¤í† ë¦¬ ì§„í–‰ ì „
             {
                 LoadingManager.LoadScene("Story");
                 StoryData.StoryList[index].ChangeFlag(true);
@@ -171,13 +195,20 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    LoadingManager.LoadScene("MissionSelect");
+                    if (!PlayerData.Mission_Playing)
+                    {
+                        LoadingManager.LoadScene("Station");
+                    }
+                    else
+                    {
+                        LoadingManager.LoadScene("MissionSelect");
+                    }
                 }
             }
         }
         else
         {
-            if(index == -1) // Á¤°ÅÀå ÀÌµ¿
+            if(index == -1) // ì •ê±°ì¥ ì´ë™
             {
                 if (!PlayerData.Mission_Playing)
                 {
@@ -187,15 +218,15 @@ public class GameManager : MonoBehaviour
                 {
                     LoadingManager.LoadScene("MissionSelect");
                 }
-            }else if(index == 0) //CutScene -> Ã³À½ºÎºĞÀÇ ÄÆ¾À
+            }else if(index == 0) //CutScene -> ì²˜ìŒë¶€ë¶„ì˜ ì»·ì”¬
             {
-                if (!DataManager.Instance.playerData.FirstFlag) //Æ©Åä¸®¾ó ÁøÇà Àü.
+                if (!DataManager.Instance.playerData.FirstFlag) //íŠœí† ë¦¬ì–¼ ì§„í–‰ ì „.
                 {
-                    if (!StoryData.StoryList[index].Start_Flag) // ½ºÅä¸® ÁøÇà Àü,
+                    if (!StoryData.StoryList[index].Start_Flag) // ìŠ¤í† ë¦¬ ì§„í–‰ ì „,
                     {
                         LoadingManager.LoadScene("CutScene");
                     }
-                    else // ½ºÅä¸® ÁøÇà ÈÄ,
+                    else // ìŠ¤í† ë¦¬ ì§„í–‰ í›„,
                     {
                         if (!StoryData.StoryList[index].End_Flag)
                         {
@@ -207,7 +238,7 @@ public class GameManager : MonoBehaviour
                         }
                     }
                 }
-                else // Æ©Åä¸®¾ó ÁøÇà ÈÄ,
+                else // íŠœí† ë¦¬ì–¼ ì§„í–‰ í›„,
                 {
                     if (!PlayerData.Mission_Playing)
                     {
@@ -219,7 +250,7 @@ public class GameManager : MonoBehaviour
                     }
                 }
             }
-            else if(index == -100) //µ¥¸ğ¹öÀü Á¾·á
+            else if(index == -100) //ë°ëª¨ë²„ì „ ì¢…ë£Œ
             {
                 LoadingManager.LoadScene("Demo_End");
             }
@@ -285,37 +316,37 @@ public class GameManager : MonoBehaviour
         /*SceneManager.LoadScene("LoadingScene_Data");
         yield return new WaitForSeconds(1f);*/
 
-        // µ¥ÀÌÅÍ ÃÊ±âÈ­
+        // ë°ì´í„° ì´ˆê¸°í™”
         yield return StartCoroutine(DataManager.Instance.LoadSync());
-        StoryFlag_Init();
-        // ÀÏÁ¤ ½Ã°£ ´ë±â (¿¹: 1ÃÊ)
+        //StoryFlag_Init();
+        // ì¼ì • ì‹œê°„ ëŒ€ê¸° (ì˜ˆ: 1ì´ˆ)
         yield return new WaitForSeconds(1.0f);
 
-        // ºñµ¿±â ·Îµù ½ÃÀÛ
+        // ë¹„ë™ê¸° ë¡œë”© ì‹œì‘
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("0.Company");
         while (!asyncLoad.isDone)
         {
-            yield return null; // ·ÎµùÀÌ ¿Ï·áµÉ ¶§±îÁö ´ë±â
+            yield return null; // ë¡œë”©ì´ ì™„ë£Œë  ë•Œê¹Œì§€ ëŒ€ê¸°
         }
     }
 
     private IEnumerator ResetGameRoutine()
     {
-        // ·Îµù ¾ÀÀ» ¸ÕÀú ·Îµå
+        // ë¡œë”© ì”¬ì„ ë¨¼ì € ë¡œë“œ
         /*SceneManager.LoadScene("LoadingScene_Data");
         yield return new WaitForSeconds(1f);*/
 
-        // µ¥ÀÌÅÍ ÃÊ±âÈ­
+        // ë°ì´í„° ì´ˆê¸°í™”
         yield return StartCoroutine(DataManager.Instance.InitAsync());
         StoryFlag_Init();
-        // ÀÏÁ¤ ½Ã°£ ´ë±â (¿¹: 1ÃÊ)
+        // ì¼ì • ì‹œê°„ ëŒ€ê¸° (ì˜ˆ: 1ì´ˆ)
         yield return new WaitForSeconds(1.0f);
 
-        // ºñµ¿±â ·Îµù ½ÃÀÛ
+        // ë¹„ë™ê¸° ë¡œë”© ì‹œì‘
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync("0.Company");
         while (!asyncLoad.isDone)
         {
-            yield return null; // ·ÎµùÀÌ ¿Ï·áµÉ ¶§±îÁö ´ë±â
+            yield return null; // ë¡œë”©ì´ ì™„ë£Œë  ë•Œê¹Œì§€ ëŒ€ê¸°
         }
     }
 }

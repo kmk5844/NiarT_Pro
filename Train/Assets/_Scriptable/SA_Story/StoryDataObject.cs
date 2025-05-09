@@ -52,6 +52,7 @@ public class StoryDataObject : ScriptableObject
         {
             end_flag = true;
         }
+        
         Save();
     }
 
@@ -64,7 +65,6 @@ public class StoryDataObject : ScriptableObject
 /*        story_title_kr = _story_title_kr;
         story_title_en = _story_title_en;
         story_title_jp = _story_title_jp;*/
-
         start_flag = false;
         end_flag = false;
         Save(true);
@@ -97,6 +97,7 @@ public class StoryDataObject : ScriptableObject
         ES3.Save<bool>("Story_" + story_num + "_StoryDataUse", storydatause);
         ES3.Save<bool>("Story_" + story_num + "_Start_Flag", start_flag);
         ES3.Save<bool>("Story_" + story_num + "_End_Flag", end_flag);
+
     }
 
     public IEnumerator SaveSync(bool Init = false)

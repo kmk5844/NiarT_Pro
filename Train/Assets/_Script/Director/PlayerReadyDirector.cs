@@ -187,11 +187,20 @@ public class PlayerReadyDirector : MonoBehaviour
     void Update()
     {
         //=-------------------------------------------------Train
-        if (local_Index != localData.Local_Index)
+        try
         {
-            DropDown_Option_Change();
-            local_Index = localData.Local_Index;
+            if (local_Index != localData.Local_Index)
+            {
+                DropDown_Option_Change();
+                local_Index = localData.Local_Index;
+            }
         }
+        catch
+        {
+            local_Index = 0;
+            DropDown_Option_Change();
+        }
+
 
         //--------------------------------------------------UI
         if (Input.GetKeyDown(KeyCode.Escape))
