@@ -7,6 +7,7 @@ using UnityEngine.Localization.Components;
 using DG.Tweening;
 using System.Linq;
 using UnityEngine.Localization;
+using System.Collections;
 
 
 public class Station_TrainMaintenance : MonoBehaviour
@@ -252,6 +253,9 @@ public class Station_TrainMaintenance : MonoBehaviour
                 Click_Next_TrainButton();
             }
         }
+
+        //Check_TrainState_Slider_Buy();
+        
     }
 
     /*  //UI 기차 생성하기
@@ -1572,7 +1576,6 @@ else // 기차 교체
             Train_MainImage.sprite = BoosterTrain_Image[Train_Buy_Num];
             trainNum = TurretTrain_NumberArray[Train_Buy_Num];
         }
-
         Check_TrainState_Slider_Buy();
         Change_NextTrianSprite();
 
@@ -1766,6 +1769,11 @@ else // 기차 교체
         float EX_HP = 0;
         float EX_Weight = 0;
         float EX_Armor = 0;
+
+        Slider_Buy_HP.value = 0;
+        Slider_Buy_Weight.value = 0;
+        Slider_Buy_Armor.value = 0;
+
         if (List_TrainType_Num == 0)
         {
             TrainNum = CommonTrain_NumberArray[Train_Buy_Num];
@@ -1916,8 +1924,8 @@ else // 기차 교체
         Train_Upgrade_Num1 = Train_Num;
         Train_Upgrade_Num2 = Train_Num2;
 
-        Check_TrainState_Slider_Upgrade();
         Check_TrainChange_Upgrade();
+        StartCoroutine(Check_TrainState_Slider_Upgrade());
     }
 
     void Check_TrainChange_Upgrade()
@@ -1967,8 +1975,10 @@ else // 기차 교체
         }
     }
 
-    private void Check_TrainState_Slider_Upgrade()
+    private IEnumerator Check_TrainState_Slider_Upgrade()
     {
+        yield return null;
+
         int Plus_HP;
         int Plus_Weight;
         int Plus_Armor;
@@ -1980,6 +1990,16 @@ else // 기차 교체
         float EX_HP2 = 0;
         float EX_Weight2 = 0;
         float EX_Armor2 = 0;
+
+        Slider_Upgrade_Before_HP[0].value = 0;
+        Slider_Upgrade_Before_HP[1].value = 0;
+        Slider_Upgrade_Before_Weight[0].value = 0;
+        Slider_Upgrade_Before_Weight[1].value = 0;
+        Slider_Upgrade_Before_Armor[0].value = 0;
+        Slider_Upgrade_Before_Armor[1].value = 0;
+        Slider_Upgrade_After_HP.value = 0;
+        Slider_Upgrade_After_Weight.value = 0;
+        Slider_Upgrade_After_Armor.value = 0;
 
         if (Train_Upgrade_Num1 == 51)
         {
@@ -2086,7 +2106,7 @@ else // 기차 교체
             Plus_Armor = trainData_Info2.Train_Armor - trainData_Info.Train_Armor;
         }
 
-        Slider_Upgrade_Before_HP[0].value = (float)Math.Round(EX_HP,2);
+        Slider_Upgrade_Before_HP[0].value = (float)Math.Round(EX_HP, 2);
         Slider_Upgrade_Before_HP[1].value = (float)Math.Round(EX_HP, 2);
 
         Slider_Upgrade_Before_Weight[0].value = (float)Math.Round(EX_Weight, 2);
@@ -2116,7 +2136,7 @@ else // 기차 교체
                 trainData.Train_Turret_Level_Up(Train_Upgrade_Num2);
                 Train_Upgrade_Num2++;
                 Check_TrainChange_Upgrade();
-                Check_TrainState_Slider_Upgrade();
+                StartCoroutine(Check_TrainState_Slider_Upgrade());
                 Check_Player_Coin_Point();
             }
             else
@@ -2132,7 +2152,7 @@ else // 기차 교체
                 trainData.Train_Booster_Level_Up(Train_Upgrade_Num2);
                 Train_Upgrade_Num2++;
                 Check_TrainChange_Upgrade();
-                Check_TrainState_Slider_Upgrade();
+                StartCoroutine(Check_TrainState_Slider_Upgrade());
                 Check_Player_Coin_Point();
             }
             else
@@ -2148,7 +2168,7 @@ else // 기차 교체
                 trainData.Train_Level_Up(Train_Upgrade_Num1);
                 Train_Upgrade_Num1++;
                 Check_TrainChange_Upgrade();
-                Check_TrainState_Slider_Upgrade();
+                StartCoroutine(Check_TrainState_Slider_Upgrade());
                 Check_Player_Coin_Point();
             }
             else
