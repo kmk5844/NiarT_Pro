@@ -44,7 +44,7 @@ public class Station_Player : MonoBehaviour
             ani.SetBool("Move", true);
         }
 
-        if (!OpenUIFlag)
+        if (!OpenUIFlag && !stationDirector.Option_Flag)
         {
             if (Input.GetButtonDown("Jump") && !jumpFlag)
             {

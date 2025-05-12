@@ -99,10 +99,15 @@ public class StationDirector : MonoBehaviour
     public bool Item_Buy_Sell;
     int ui_Maintenance_Num;
     int ui_Inventory_Num;
-
-    [Header("BGM")]
+    [HideInInspector]
+    public bool Option_Flag;
+    [Header("BGM&SFX")]
     public AudioClip StationBGM;
-    bool Option_Flag;
+    public AudioClip EnterSFX;
+    public AudioClip ESCSFX;
+    public AudioClip BuySFX;
+    public AudioClip ErrorSFX;
+
 
     [Header("∞‘¿”")]
     public GameObject[] GameNotice;
@@ -158,6 +163,7 @@ public class StationDirector : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            MMSoundManagerSoundPlayEvent.Trigger(ESCSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
             if (Option_Flag)
             {
                 Click_Option_Back_Button();
@@ -398,6 +404,7 @@ public class StationDirector : MonoBehaviour
         switch (num)
         {
             case 1:
+                MMSoundManagerSoundPlayEvent.Trigger(EnterSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
                 Director_TrainMaintenance.TrainMainTenance_Flag = true;
                 UI_TrainMaintenance.gameObject.SetActive(true);
                 ui_num = 1;
@@ -405,20 +412,24 @@ public class StationDirector : MonoBehaviour
                 break;
             case 2:
                 //Director_Store.Check_AfterBuy_MercenaryCard();
+                MMSoundManagerSoundPlayEvent.Trigger(EnterSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
                 UI_Store.gameObject.SetActive(true);
                 ui_num = 2;
                 Check_Coin();
                 break;
             case 3:
+                MMSoundManagerSoundPlayEvent.Trigger(EnterSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
                 UI_Fortress.gameObject.SetActive(true);
                 ui_num = 3;
                 Check_Coin();
                 break;
             case 4:
+                MMSoundManagerSoundPlayEvent.Trigger(ESCSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
                 UI_Inventory.gameObject.SetActive(true);
                 ui_num = 4;
                 break;
             case 5:
+                MMSoundManagerSoundPlayEvent.Trigger(ESCSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
                 if(simplestationFlag)
                 {
                     SubStageSelectObject.SetActive(true);
@@ -753,5 +764,17 @@ public class StationDirector : MonoBehaviour
     public void activeNotice(int i, bool flag)
     {
         GameNotice[i].SetActive(flag);
+    }
+
+    public void BuySoundSFX(bool flag)
+    {
+        if (flag)
+        {
+            MMSoundManagerSoundPlayEvent.Trigger(BuySFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+        }
+        else
+        {
+            MMSoundManagerSoundPlayEvent.Trigger(ErrorSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+        }
     }
 }

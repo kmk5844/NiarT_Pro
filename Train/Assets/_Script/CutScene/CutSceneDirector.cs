@@ -19,6 +19,9 @@ public class CutSceneDirector : MonoBehaviour
     public AudioClip Print_SFX;
     public AudioClip Bell2_SFX;
 
+    [Header("오디오설정")]
+    public AudioClip skip_SFX;
+
     int i;
     private void Start()
     {
@@ -47,6 +50,7 @@ public class CutSceneDirector : MonoBehaviour
     }
     void End()
     {
+        MMSoundManagerSoundPlayEvent.Trigger(skip_SFX, MMSoundManager.MMSoundManagerTracks.Sfx, transform.position);
         DataManager.Instance.playerData.SA_StoryNum_Chnage(0);
         SceneManager.LoadScene("Story");
         DataManager.Instance.storyData.StoryList[0].ChangeFlag(true);

@@ -153,12 +153,14 @@ public class Ready_MercenaryList : MonoBehaviour
         {
             playerData.Player_Buy_Coin(mercenary_pride_Buy);
             mercenaryData.SA_MercenaryData.Mercenary_Buy_Num.Add(Mercenary_Num);
+            Director.BuySoundSFX(true);
             Director.Check_PlayerCoin();
             BuyFlag = true;
             Mercenary_Button_Check();
         }
         else
         {
+            Director.BuySoundSFX(false);
             Director.Open_Mercenary_GoldBen_Window();
         }
     }
@@ -169,8 +171,9 @@ public class Ready_MercenaryList : MonoBehaviour
         {
             playerData.Player_Buy_Coin(mercenary_pride_Upgrade);
             mercenaryData.Mercenary_Level_Up(Mercenary_Num);
+            Director.BuySoundSFX(true);
             Director.Check_PlayerCoin();
-            if(mercenaryData.Level_Mercenary[Mercenary_Num] != mercenaryData.Max_Mercenary[Mercenary_Num])
+            if (mercenaryData.Level_Mercenary[Mercenary_Num] != mercenaryData.Max_Mercenary[Mercenary_Num])
             {
                 mercenary_pride_Upgrade = mercenaryData.Check_Cost_Mercenary(Mercenary_Num);
                 MercenaryButtonList_Text[1].text = mercenary_pride_Upgrade + "G";
@@ -184,6 +187,7 @@ public class Ready_MercenaryList : MonoBehaviour
         }
         else
         {
+            Director.BuySoundSFX(false);
             Director.Open_Mercenary_GoldBen_Window();
         }
     }

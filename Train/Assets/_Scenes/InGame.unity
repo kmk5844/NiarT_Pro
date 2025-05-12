@@ -2504,6 +2504,8 @@ MonoBehaviour:
   FireCount: 0
   EventFlag: 0
   FoodNum: 0
+  Femail_Pain_SFX: {fileID: 0}
+  Mail_Pain_SFX: {fileID: 0}
 --- !u!50 &231193425
 Rigidbody2D:
   serializedVersion: 4
@@ -2820,10 +2822,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 988a4545c26a638439eee60f86ceee3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Test_Flag: 0
-  Monster_Off_Flag: 0
-  Test_Distance: 999999
-  Test_Monster_List: 00000000
   gameType: 0
   SA_TrainData: {fileID: 11400000, guid: a3127143b81d7aa4b87c2baa773295c2, type: 2}
   SA_TrainTurretData: {fileID: 11400000, guid: 4bbb9992a442d1f449a4c2e4eceb8eda, type: 2}
@@ -2847,6 +2845,7 @@ MonoBehaviour:
   player: {fileID: 0}
   Mission_Num: 2
   Stage_Num: 1
+  Before_Sub_Num: 0
   Select_Sub_Num: 0
   Emerging_Monster: 
   Emerging_MonsterCount: 
@@ -6606,6 +6605,7 @@ MonoBehaviour:
   GameDirecotr_AllDieFlag: 0
   MaxMonsterNum: 2
   Train_List: {fileID: 5138825400518451174}
+  SpawnSFX: {fileID: 8300000, guid: ea04ab4996f76694e825bbb752c4181d, type: 3}
 --- !u!1 &555944709
 GameObject:
   m_ObjectHideFlags: 0
@@ -16786,6 +16786,8 @@ MonoBehaviour:
   FireCount: 0
   EventFlag: 0
   FoodNum: 0
+  Femail_Pain_SFX: {fileID: 0}
+  Mail_Pain_SFX: {fileID: 0}
 --- !u!58 &1334358727
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -21468,6 +21470,8 @@ MonoBehaviour:
   FireCount: 0
   EventFlag: 0
   FoodNum: 0
+  Femail_Pain_SFX: {fileID: 8300000, guid: d6bd5456db6c13a48ba96a1816705aab, type: 3}
+  Mail_Pain_SFX: {fileID: 8300000, guid: 5586eec77c8b1524a90ec19147943d0b, type: 3}
 --- !u!114 &1910264850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26684,7 +26688,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2521869787981609781
 Transform:
   m_ObjectHideFlags: 0

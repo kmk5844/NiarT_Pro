@@ -1,3 +1,4 @@
+using MoreMountains.Tools;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -134,6 +135,11 @@ public class PlayerReadyDirector : MonoBehaviour
     public GameObject BeforeHoldItem;
     public GameObject EndHoldItem;
 
+    [Header("-------------Mercenary----------------")]
+    public AudioClip BuySFX;
+    public AudioClip ErrorSFX;
+    public AudioClip ButtonSFX;
+
     void Start()
     {
         Option_Flag = false;
@@ -205,6 +211,7 @@ public class PlayerReadyDirector : MonoBehaviour
         //--------------------------------------------------UI
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            MMSoundManagerSoundPlayEvent.Trigger(ButtonSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
             if (Mercenary_Information_Flag)
             {
                 Click_Close_Mercenary_Information();
@@ -951,11 +958,13 @@ public class PlayerReadyDirector : MonoBehaviour
     {
         if (!trainData.Train_Num.Contains(-1))
         {
+            MMSoundManagerSoundPlayEvent.Trigger(ButtonSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
             gameObject.SetActive(false);
             UI_SubStageSelect.SetActive(true);
         }
         else
         {
+            BuySoundSFX(false);
             StartWarnningWindow.SetActive(true);
         }
     }
@@ -997,5 +1006,17 @@ public class PlayerReadyDirector : MonoBehaviour
     public void No_MissionCancel()
     {
         UI_CheckStationBackWindow.SetActive(false);
+    }
+
+    public void BuySoundSFX(bool flag)
+    {
+        if (flag)
+        {
+            MMSoundManagerSoundPlayEvent.Trigger(BuySFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+        }
+        else
+        {
+            MMSoundManagerSoundPlayEvent.Trigger(ErrorSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+        }
     }
 }

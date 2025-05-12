@@ -120,6 +120,10 @@ public class Player : MonoBehaviour
     public bool EventFlag;
     public int FoodNum;
 
+    [Header("SFX")]
+    public AudioClip Femail_Pain_SFX;
+    public AudioClip Mail_Pain_SFX;
+
     Coroutine selfTurretCoroutine;
     bool ClickFlag;
 
@@ -720,6 +724,7 @@ public class Player : MonoBehaviour
             {
                 playerDebuff.GetDebuff(bullet.bulletType);
             }
+            Pain_Voice();
             Blood_Effect();
             Destroy(collision.gameObject);
         }
@@ -728,8 +733,21 @@ public class Player : MonoBehaviour
         {
             Monster_ShortAtk short_info = collision.GetComponent<Monster_ShortAtk>();
             MonsterHit(short_info.Atk);
+            Pain_Voice();
             Blood_Effect();
             ShortAtk_PlayerEffect(short_info.xPos, short_info.Force);
+        }
+    }
+
+    void Pain_Voice()
+    {
+        if (PlayerNum == 0)
+        {
+            MMSoundManagerSoundPlayEvent.Trigger(Femail_Pain_SFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+        }
+        else if(PlayerNum == 1)
+        {
+           MMSoundManagerSoundPlayEvent.Trigger(Mail_Pain_SFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         }
     }
 

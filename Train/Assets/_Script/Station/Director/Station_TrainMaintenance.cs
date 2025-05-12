@@ -12,6 +12,9 @@ using System.Collections;
 
 public class Station_TrainMaintenance : MonoBehaviour
 {
+    [Header("메인 디렉터")]
+    public StationDirector mainDirector;
+
     [Header("Flag")]
     public bool TrainMainTenance_Flag;
     public bool TrainBuyWindow_Flag;
@@ -1714,6 +1717,7 @@ else // 기차 교체
                 playerData.Player_Buy_Coin(cost);
                 trainData.SA_TrainData.SA_Train_Buy(TrainNum);
                // trainData.Check_Buy_Train(TrainNum);
+                mainDirector.BuySoundSFX(true);
                 Check_Player_Coin_Point();
                 Train_BuyButton.interactable = !trainData.SA_TrainData.Train_Buy_Num.Contains(TrainNum);
                 Instantiate_AfterTrainBuy(1, TrainNum);
@@ -1733,6 +1737,7 @@ else // 기차 교체
                 playerData.Player_Buy_Coin(cost);
                 trainData.SA_TrainTurretData.SA_Train_Turret_Buy(TrainNum);
                 //trainData.Check_Buy_Turret(TrainNum);
+                mainDirector.BuySoundSFX(true);
                 Check_Player_Coin_Point();
                 Train_BuyButton.interactable = !trainData.SA_TrainTurretData.Train_Turret_Buy_Num.Contains(TrainNum);
                 Instantiate_AfterTrainBuy(2, TrainNum);
@@ -1752,6 +1757,7 @@ else // 기차 교체
                 playerData.Player_Buy_Coin(cost);
                 trainData.SA_TrainBoosterData.SA_Train_Booster_Buy(TrainNum);
                 //trainData.Check_Buy_Booster(TrainNum);
+                mainDirector.BuySoundSFX(true);
                 Check_Player_Coin_Point();
                 Train_BuyButton.interactable = !trainData.SA_TrainBoosterData.Train_Booster_Buy_Num.Contains(TrainNum);
                 Instantiate_AfterTrainBuy(3, TrainNum);
@@ -2135,6 +2141,7 @@ else // 기차 교체
                 playerData.Player_Buy_Coin(TrainUpgrade_cost);
                 trainData.Train_Turret_Level_Up(Train_Upgrade_Num2);
                 Train_Upgrade_Num2++;
+                mainDirector.BuySoundSFX(true);
                 Check_TrainChange_Upgrade();
                 StartCoroutine(Check_TrainState_Slider_Upgrade());
                 Check_Player_Coin_Point();
@@ -2151,6 +2158,7 @@ else // 기차 교체
                 playerData.Player_Buy_Coin(TrainUpgrade_cost);
                 trainData.Train_Booster_Level_Up(Train_Upgrade_Num2);
                 Train_Upgrade_Num2++;
+                mainDirector.BuySoundSFX(true);
                 Check_TrainChange_Upgrade();
                 StartCoroutine(Check_TrainState_Slider_Upgrade());
                 Check_Player_Coin_Point();
@@ -2167,6 +2175,7 @@ else // 기차 교체
                 playerData.Player_Buy_Coin(TrainUpgrade_cost);
                 trainData.Train_Level_Up(Train_Upgrade_Num1);
                 Train_Upgrade_Num1++;
+                mainDirector.BuySoundSFX(true);
                 Check_TrainChange_Upgrade();
                 StartCoroutine(Check_TrainState_Slider_Upgrade());
                 Check_Player_Coin_Point();
@@ -2275,6 +2284,7 @@ else // 기차 교체
         {
             playerData.Player_Buy_Coin(trainData.Check_Cost_Train(i)); //먼저 차감 후, 업그레이드가 된다.
             trainData.Passive_Level_Up(i);
+            mainDirector.BuySoundSFX(true);
             Passive_Upgrade_Text(i);
             Check_Player_Coin_Point();
             // 여기에 맥스 조절하는 부분이 없다.
@@ -2289,9 +2299,9 @@ else // 기차 교체
     public void Open_Warning_Window()
     {
         Train_BanFlag = true;
+        mainDirector.BuySoundSFX(false);
         Warning_Coin_Window.SetActive(true);
     }
-
     public void Close_Warning_Window()
     {
         Train_BanFlag = false;

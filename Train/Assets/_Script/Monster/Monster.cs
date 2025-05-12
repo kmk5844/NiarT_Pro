@@ -1,5 +1,6 @@
 using JetBrains.Annotations;
 using Language.Lua;
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -100,6 +101,7 @@ public class Monster : MonoBehaviour
 
     public GameObject StunEffect;
     public float monster_xPos;
+    AudioClip DieSfX;
 
     protected virtual void Start()
     {
@@ -112,6 +114,7 @@ public class Monster : MonoBehaviour
         gameDirector = GameObject.Find("GameDirector").GetComponent<GameDirector>();
         HitDamage = Resources.Load<GameObject>("Monster/Hit_Text");
         Monster_Kill_Particle = Resources.Load<GameObject>("Monster/Monster_Kill_Effect");
+        DieSfX = Resources.Load<AudioClip>("Sound/SFX/Monster_Die_SFX");
 
         Monster_Name = EX_GameData.Information_Monster[Monster_Num].Monster_Name;
         Monster_HP = EX_GameData.Information_Monster[Monster_Num].Monster_HP;
@@ -394,7 +397,6 @@ public class Monster : MonoBehaviour
         else
         {
             MonsterDie();
-
         }
     }
     private void Damage_Monster_Trigger(Collider2D collision)
@@ -659,6 +661,7 @@ public class Monster : MonoBehaviour
         Monster_HP = 0;
         monster_gametype = Monster_GameType.Die;
         gameDirector.Game_Monster_Kill(Monster_Score, Monster_Coin);
+        MMSoundManagerSoundPlayEvent.Trigger(DieSfX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         if (Monster_Mission_CountFlag)
         {
             gameDirector.Mission_Monster_Kill();

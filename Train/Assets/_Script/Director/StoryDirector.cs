@@ -48,6 +48,8 @@ public class StoryDirector : MonoBehaviour
     public GameObject Option_Window;
     public Image BackGround_Image;
 
+    public AudioClip ButtonSFX;
+
     private void Awake()
     {
         int index = 0;
@@ -156,6 +158,7 @@ public class StoryDirector : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Escape))
         {
+            MMSoundManagerSoundPlayEvent.Trigger(ButtonSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
             if (!Option_Flag && !BackLog_Flag)
             {
                 Click_Option_Button();
@@ -260,5 +263,10 @@ public class StoryDirector : MonoBehaviour
         BackLog_Content.GetComponent<RectTransform>().sizeDelta = new Vector2 (pos.x, pos.y + 40);
         GameObject Back = Instantiate(BackLog_Object, BackLog_Content);
         Back.GetComponent<BackLog_object>().SetString(BackLog[num].name, BackLog[num].dialogue, BackLog[num].backLog_Color);
+    }
+
+    public void Click_Button_SFX()
+    {
+        MMSoundManagerSoundPlayEvent.Trigger(ButtonSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
     }
 }

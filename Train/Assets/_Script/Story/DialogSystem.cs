@@ -156,6 +156,7 @@ public class DialogSystem : MonoBehaviour
                 if (isTypingEffect == true)
                 {
                     isTypingEffect = false;
+                    storydirector.Click_Button_SFX();
 
                     // 타이핑 효과를 중지하고, 현재 대사 전체를 출력한다
                     StopCoroutine("OnTypingText");
@@ -383,10 +384,13 @@ public class DialogSystem : MonoBehaviour
 
     private void CheckCustom()
     {
+
         if (CutScene_Sprite.gameObject.activeSelf)
         {
             CutScene_Sprite.gameObject.SetActive(false);
         }
+
+        storydirector.Click_Button_SFX();
 
         //초기화 후
         if (dialogs[currentDialogIndex].Sound != null && !SpecialFlag)

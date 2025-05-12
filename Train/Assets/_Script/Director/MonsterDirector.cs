@@ -1,3 +1,4 @@
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -80,6 +81,9 @@ public class MonsterDirector : MonoBehaviour
     public static bool Item_giantFlag;
     [HideInInspector]
     public static int Item_giantPersent_Spawn;
+
+    [Header("Sound")]
+    public AudioClip SpawnSFX;
 
     private void Awake()
     {
@@ -212,7 +216,7 @@ public class MonsterDirector : MonoBehaviour
         isSpawing = true;
         if (!Bossflag)
         {
-            yield return new WaitForSeconds(Random.Range(0.3f, 0.6f));
+            yield return new WaitForSeconds(Random.Range(0.2f, 0.5f));
             int MonsterRandomIndex = Random.Range(0, Emerging_Monster_List.Count);
             if (Test_Monster_List[MonsterRandomIndex].childCount != Emerging_MonsterCount_List[MonsterRandomIndex])
             {
@@ -289,6 +293,7 @@ public class MonsterDirector : MonoBehaviour
                 Instantiate(_Monster, new Vector3(Random_xPos, Random_yPos, 0), Quaternion.identity, Boss_List);
             }
         }
+        MMSoundManagerSoundPlayEvent.Trigger(SpawnSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
     }
 
 

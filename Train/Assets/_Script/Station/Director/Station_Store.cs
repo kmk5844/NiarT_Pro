@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 
 public class Station_Store : MonoBehaviour
 {
+    [Header("메인 디렉터")]
+    public StationDirector mainDirector;
+
     [Header("데이터 모음")]
     public GameObject Player_DataObject;
     Station_PlayerData playerData;
@@ -795,6 +798,7 @@ public class Station_Store : MonoBehaviour
                     Instantiate(ItemSellList_Object, Item_Sell_Window.transform);
                 }
             }*/
+            mainDirector.BuySoundSFX(true);
             UnityMainThreadExecutor.ExecuteOnMainThread(() => SaveItemData_Buy(itemAvailability, Click_ItemDataObjcet));
             itemData.Check_ItemChangeFlag();
             Cancel_SelectItem();
@@ -803,6 +807,7 @@ public class Station_Store : MonoBehaviour
         }
         else
         {
+            mainDirector.BuySoundSFX(false);
             Ban_Player_Coin();
         }
         //Check_Player_Coin_Point();
@@ -897,6 +902,7 @@ public class Station_Store : MonoBehaviour
     {
         ItemSell_Object check = Click_ItemObject.GetComponent<ItemSell_Object>();
         UnityMainThreadExecutor.ExecuteOnMainThread(() => SaveItemData_Sell(Click_ItemDataObjcet, check));
+        mainDirector.BuySoundSFX(true);
         itemData.Check_ItemChangeFlag();
         Cancel_SelectItem();
         Close_Sell_Window();

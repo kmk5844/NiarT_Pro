@@ -8,7 +8,10 @@ using System.Threading.Tasks;
 
 public class Station_Fortress : MonoBehaviour
 {
-   [Header("데이터 모음")]
+    [Header("메인 디렉터")]
+    public StationDirector mainDirector;
+
+    [Header("데이터 모음")]
     public GameObject Player_DataObject;
     Station_PlayerData playerData;
     //public GameObject Train_DataObject;
@@ -231,10 +234,12 @@ public class Station_Fortress : MonoBehaviour
         if (playerData.Player_Coin >= coin)
         {
             UpgradeCardNum = i;
+            mainDirector.BuySoundSFX(true);
             UnityMainThreadExecutor.ExecuteOnMainThread(() => playerUpgrade(i, coin));
         }
         else
         {
+            mainDirector.BuySoundSFX(false);
             Open_Warning_Window();
         }
     }
