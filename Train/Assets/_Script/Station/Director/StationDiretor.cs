@@ -407,6 +407,7 @@ public class StationDirector : MonoBehaviour
                 MMSoundManagerSoundPlayEvent.Trigger(EnterSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
                 Director_TrainMaintenance.TrainMainTenance_Flag = true;
                 UI_TrainMaintenance.gameObject.SetActive(true);
+                StartCoroutine(Director_TrainMaintenance.Check_TrainState_Slider_Buy());
                 ui_num = 1;
                 Check_Coin();
                 break;

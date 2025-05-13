@@ -24,7 +24,7 @@ public class Item_Mini_Turret : MonoBehaviour
         lastTime = 0;
         if (!Default_Turret)
         {
-           Destroy(MiniTurret, 10f);
+           Destroy(MiniTurret, 20f);
         }
     }
     void Update()
@@ -42,7 +42,18 @@ public class Item_Mini_Turret : MonoBehaviour
         if (Target_Flag)
         {
             Vector3 rot = Target.position - transform.position;
-            float rotZ = Mathf.Atan2(rot.y + 0.15f, rot.x) * Mathf.Rad2Deg;
+            float rotZ;
+            if (rot.x > 0)
+            { 
+                rotZ = Mathf.Atan2(rot.y +0.15f, rot.x) * Mathf.Rad2Deg;
+            }
+            else
+            {
+                rotZ = Mathf.Atan2(rot.y -0.135f, rot.x) * Mathf.Rad2Deg;
+            }
+
+            Debug.Log(rot);
+
             Z = Quaternion.Euler(0, 0, rotZ).eulerAngles.z - transform.rotation.eulerAngles.z;
 
             if (Z > 180f)

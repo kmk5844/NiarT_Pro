@@ -179,7 +179,7 @@ public void DataLoad()
     {
         string[] index_St = gameData.Information_Stage[PlayerData.New_Stage].Story_Index.Split(',');
         int index = int.Parse(index_St[0]);
-        Debug.Log(index);
+        //Debug.Log(index);
         if (gameData.Information_Stage[PlayerData.New_Stage].BeforeStation_Button)
         {
             if (!StoryData.StoryList[index].Start_Flag) // 스토리 진행 전

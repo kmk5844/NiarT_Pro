@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Localization.Components;
 using DG.Tweening;
+using MoreMountains.Tools;
 using System.Linq;
 using UnityEngine.Localization;
 using System.Collections;
@@ -174,6 +175,7 @@ public class Station_TrainMaintenance : MonoBehaviour
     LocalizedString[] LocalString_TrainType;
     public bool Train_BanFlag;
 
+    AudioClip ButtonSFX;
     private void Start()
     {
         local_Index = localData.Local_Index;
@@ -234,6 +236,9 @@ public class Station_TrainMaintenance : MonoBehaviour
                 Booster_Part_ToggleStart();*/
         //기차 업그레이드
         //Upgrade_Before_After_Text();
+
+        ButtonSFX = Resources.Load<AudioClip>("Sound/SFX/ButtonSFX");
+
     }
 
     private void Update()
@@ -248,11 +253,13 @@ public class Station_TrainMaintenance : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.A))
             {
+                MMSoundManagerSoundPlayEvent.Trigger(ButtonSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
                 Click_Prev_TrainButton();
             }
 
             if (Input.GetKeyDown(KeyCode.D))
             {
+                MMSoundManagerSoundPlayEvent.Trigger(ButtonSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
                 Click_Next_TrainButton();
             }
         }
@@ -1579,7 +1586,6 @@ else // 기차 교체
             Train_MainImage.sprite = BoosterTrain_Image[Train_Buy_Num];
             trainNum = TurretTrain_NumberArray[Train_Buy_Num];
         }
-        Check_TrainState_Slider_Buy();
         Change_NextTrianSprite();
 
         int train_pride;
@@ -1621,6 +1627,7 @@ else // 기차 교체
 
         //-----------리스트버튼-------
         Check_TrainType_ListButton();
+        StartCoroutine(Check_TrainState_Slider_Buy());
     }
 
     private void Check_TrainType_ListButton()
@@ -1769,8 +1776,10 @@ else // 기차 교체
         }
     }
 
-    private void Check_TrainState_Slider_Buy()
+    public IEnumerator Check_TrainState_Slider_Buy()
     {
+        yield return null;
+
         int TrainNum = 0;
         float EX_HP = 0;
         float EX_Weight = 0;

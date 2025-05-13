@@ -30,22 +30,22 @@ public class UseItem : MonoBehaviour
                 //용병 랜덤 부활;
                 break;
             case 1:
-                player.Item_Player_Heal_HP(10);
+                player.Item_Player_Heal_HP(15);
                 break;
             case 2:
-                player.Item_Player_Heal_HP(20);
+                player.Item_Player_Heal_HP(25);
                 break;
             case 3:
-                gameDirector.Item_Fuel_Charge(10);
+                gameDirector.Item_Fuel_Charge(15);
                 break;
             case 4:
-                gameDirector.Item_Fuel_Charge(20);
+                gameDirector.Item_Fuel_Charge(25);
                 break;
             case 5:
-                gameDirector.Item_Use_Train_Heal_HP(10);
+                gameDirector.Item_Use_Train_Heal_HP(15);
                 break;
             case 6:
-                gameDirector.Item_Use_Train_Heal_HP(15);
+                gameDirector.Item_Use_Train_Heal_HP(25);
                 break;
             case 7:
                 StartCoroutine(gameDirector.Item_Train_SpeedUp(15f));
@@ -55,13 +55,13 @@ public class UseItem : MonoBehaviour
                 break;
             case 9:
                 StartCoroutine(player.Item_Player_SpeedUP(0.5f, 10));
-                StartCoroutine(player.Item_Player_Heal_HP_Auto(1f, 10));
+                StartCoroutine(player.Item_Player_Heal_HP_Auto(2f, 10));
                 break;
             case 10:
                 mercenaryDirector.Item_Use_Fatigue_Reliever(1, 10 ,20);
                 break;
             case 11:
-                StartCoroutine(player.Item_Player_AtkUP(5, 20));
+                StartCoroutine(player.Item_Player_AtkUP(10, 20));
                 break;
             case 12:
                 //플레이어 상태이상 제거;
@@ -70,10 +70,10 @@ public class UseItem : MonoBehaviour
                 player.Item_Player_Ballon_Bullet();
                 break;
             case 14:
-                StartCoroutine(gameDirector.Item_Coin_Double(15));
+                StartCoroutine(gameDirector.Item_Coin_Double(10));
                 break;
             case 15:
-                gameDirector.Item_Use_Train_Turret_All_SpeedUP(10, 7);
+                gameDirector.Item_Use_Train_Turret_All_SpeedUP(15, 15);
                 break;
             case 16:
                 mercenaryDirector.Item_Use_Snack(10);
@@ -108,7 +108,7 @@ public class UseItem : MonoBehaviour
                 StartCoroutine(player.Item_Change_Bullet("Fire_Bullet", 10));
                 break;
             case 23:
-                StartCoroutine(player.Item_Player_Dagger(0.5f));
+                StartCoroutine(player.Item_Player_Dagger(0.3f));
                 break;
             case 24:
                 StartCoroutine(monsterDirector.Item_Monster_FearFlag(5, 20));
@@ -144,7 +144,7 @@ public class UseItem : MonoBehaviour
                 break;
             case 33:
                 player.Item_Player_Spawn_Shield(1);
-                StartCoroutine(player.Item_Player_Heal_HP_Auto(5,5));
+                StartCoroutine(player.Item_Player_Heal_HP_Auto(5,10));
                 break;
             case 34:
                 player.Item_Player_Heal_HP(10);
@@ -161,7 +161,7 @@ public class UseItem : MonoBehaviour
                 mercenaryDirector.Item_Use_Bear(2, 30);
                 break;
             case 39:
-                gameDirector.Item_Use_Train_Turret_All_SpeedUP(20, 12);
+                gameDirector.Item_Use_Train_Turret_All_SpeedUP(25, 12);
                 break;
             case 40:
                 player.Item_Player_Spawn_Turret(1);
@@ -176,7 +176,7 @@ public class UseItem : MonoBehaviour
                 player.Item_Player_Spawn_Dron(1);
                 break;
             case 43:
-                player.Item_Gun_Change("Flash_Bang", 1);
+                player.Item_Gun_Change("Flash_Bang", 3);
                 break;
             case 44:
                 player.Item_Gun_Change("Gatling_Gun", 5);
