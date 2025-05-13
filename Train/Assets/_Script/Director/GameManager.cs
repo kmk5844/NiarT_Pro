@@ -94,8 +94,8 @@ public class GameManager : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        Debug.Log("[LocalizationCleanup] Application quitting — cleaning up localization resources.");
 
+        Debug.Log("[LocalizationCleanup] Application quitting — cleaning up localization resources.");
         // Step 2: Optional — clear Addressables resource locators if used internally
         Addressables.ClearResourceLocators();
 
@@ -109,13 +109,13 @@ public void DataLoad()
 {
     if (!ES3.KeyExists("SA_PlayerData_Data_FirstFlag"))
     {
-        Debug.Log("작동");
+        //Debug.Log("작동");
         Game_DataReset();
             //컴퓨터 데이터 없음;
     }
     else
     {
-        Debug.Log("로드");
+        //Debug.Log("로드");
             //DataManager.Instance.Load();
         try
         {

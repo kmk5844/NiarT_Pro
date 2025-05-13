@@ -1,3 +1,4 @@
+using MoreMountains.Tools;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,6 +15,10 @@ public class ItemDirector : MonoBehaviour
     bool[] EquipedItemFlag;
     [SerializeField]
     float Duration;
+
+    [Header("Sound")]
+    public AudioClip UseItemSound;
+
 
     private void Start()
     {
@@ -77,6 +82,7 @@ public class ItemDirector : MonoBehaviour
 
     private void Change_EquipedItem(int num)
     {
+        MMSoundManagerSoundPlayEvent.Trigger(UseItemSound, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         if (itemData.Equiped_Item[num] != -1)
         {
             useitem.UseEquipItem(itemData.Equiped_Item[num]);

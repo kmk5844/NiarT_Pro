@@ -269,7 +269,7 @@ public class OptionDirector : MonoBehaviour
     {
         if (Check_Stage_Window.activeSelf)
         {
-            Debug.Log("스테이지 돌아가기");
+            //Debug.Log("스테이지 돌아가기");
         }
 
         if (Check_MainMenu_Window.activeSelf)

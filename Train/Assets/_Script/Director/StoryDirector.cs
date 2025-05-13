@@ -48,7 +48,7 @@ public class StoryDirector : MonoBehaviour
     public GameObject Option_Window;
     public Image BackGround_Image;
 
-    public AudioClip ButtonSFX;
+    AudioClip ButtonSFX;
 
     private void Awake()
     {
@@ -97,6 +97,7 @@ public class StoryDirector : MonoBehaviour
         {
             QualitySettings.vSyncCount = 1;
         }
+        ButtonSFX = Resources.Load<AudioClip>("Sound/SFX/ButtonSFX");
 
         MMSoundManagerSoundPlayEvent.Trigger(StoryBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true);
         SkipButton.onClick.AddListener(() => Click_Skip_Button());
@@ -265,8 +266,5 @@ public class StoryDirector : MonoBehaviour
         Back.GetComponent<BackLog_object>().SetString(BackLog[num].name, BackLog[num].dialogue, BackLog[num].backLog_Color);
     }
 
-    public void Click_Button_SFX()
-    {
-        MMSoundManagerSoundPlayEvent.Trigger(ButtonSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
-    }
+
 }

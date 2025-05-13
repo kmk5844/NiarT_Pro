@@ -1,3 +1,4 @@
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -28,6 +29,7 @@ public class Ready_Using_TrainList_Object : MonoBehaviour
     public Button Btn;
 
     bool SelectFlag;
+    public AudioClip equipSFX;
 
     private void Start()
     {
@@ -124,5 +126,6 @@ public class Ready_Using_TrainList_Object : MonoBehaviour
             Level_Text.text = "Lv." + ((TrainNum_1 % 10) + 1);
             Name_Text.StringReference.TableEntryReference = "Train_Name_" + (TrainNum_1 / 10);
         }
+        MMSoundManagerSoundPlayEvent.Trigger(equipSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
     }
 }

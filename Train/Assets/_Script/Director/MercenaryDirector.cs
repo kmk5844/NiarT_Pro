@@ -108,13 +108,13 @@ public class MercenaryDirector : MonoBehaviour
                 }
                 if (!isEngineerCall_Second)
                 {
-                    Debug.Log("쉬고 있습니다.");
+                    //Debug.Log("쉬고 있습니다.");
                 }
             }
         }
         else
         {
-            Debug.Log("호출할 엔지니어가 없습니다.");
+            //Debug.Log("호출할 엔지니어가 없습니다.");
         }
     }
 

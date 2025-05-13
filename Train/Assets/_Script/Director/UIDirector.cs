@@ -119,6 +119,10 @@ public class UIDirector : MonoBehaviour
     public Image ReLoading_Guage;
     public GameObject[] PlayerGunObject;
 
+    [Header("SFX")]
+    public AudioClip WaveSFX;
+    public AudioClip ClearSFX;
+
     private void Awake()
     {
         isBloodFlag = false;
@@ -485,6 +489,7 @@ public class UIDirector : MonoBehaviour
 
     public IEnumerator GameClear()
     {
+        MMSoundManagerSoundPlayEvent.Trigger(ClearSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         Clear_UI.SetActive(true);
         yield return new WaitForSeconds(3f);
         Clear_UI.SetActive(false);
@@ -552,6 +557,7 @@ public class UIDirector : MonoBehaviour
 
     public IEnumerator WaveInformation(bool waveflag)
     {
+        MMSoundManagerSoundPlayEvent.Trigger(WaveSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         yield return StartCoroutine(Wave_Object_On(waveflag));
         yield return new WaitForSeconds(3f);
         yield return StartCoroutine(Wave_Object_Off(waveflag));

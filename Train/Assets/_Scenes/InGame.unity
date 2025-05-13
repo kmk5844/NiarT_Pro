@@ -2482,11 +2482,6 @@ MonoBehaviour:
   maxRespawnPosition: {x: 0, y: 0, z: 0}
   minRespawnPosition: {x: 0, y: 0, z: 0}
   GunObject: {fileID: 787596106}
-  ShootSFX: {fileID: 8300000, guid: 4aa8c4d9a0ec8cf4fb270d8a65883c9e, type: 3}
-  FlashBangSFX: {fileID: 0}
-  FireSFX: {fileID: 0}
-  LaserSFX: {fileID: 0}
-  ReloadingSFX: {fileID: 0}
   GunObject_List:
   - {fileID: 555944709}
   - {fileID: 1441153595}
@@ -2504,8 +2499,14 @@ MonoBehaviour:
   FireCount: 0
   EventFlag: 0
   FoodNum: 0
+  ShootSFX: {fileID: 8300000, guid: 4aa8c4d9a0ec8cf4fb270d8a65883c9e, type: 3}
+  FlashBangSFX: {fileID: 0}
+  FireSFX: {fileID: 0}
+  LaserSFX: {fileID: 0}
+  ReloadingSFX: {fileID: 0}
   Femail_Pain_SFX: {fileID: 0}
   Mail_Pain_SFX: {fileID: 0}
+  Skill_SFX: {fileID: 0}
 --- !u!50 &231193425
 Rigidbody2D:
   serializedVersion: 4
@@ -11238,6 +11239,7 @@ MonoBehaviour:
   itemData: {fileID: 11400000, guid: 1c47d5df70f8ca5419c8ebdc0adcab92, type: 2}
   EquipedItemFlag: 
   Duration: 5
+  UseItemSound: {fileID: 8300000, guid: 128d6f89b6b262440b1368926d360e1e, type: 3}
 --- !u!114 &878257227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16770,11 +16772,6 @@ MonoBehaviour:
   maxRespawnPosition: {x: 0, y: 0, z: 0}
   minRespawnPosition: {x: 0, y: 0, z: 0}
   GunObject: {fileID: 419497870}
-  ShootSFX: {fileID: 0}
-  FlashBangSFX: {fileID: 0}
-  FireSFX: {fileID: 0}
-  LaserSFX: {fileID: 0}
-  ReloadingSFX: {fileID: 0}
   GunObject_List: []
   ItemTransform: {fileID: 0}
   Item_Gun_TimeFlag: 0
@@ -16786,8 +16783,14 @@ MonoBehaviour:
   FireCount: 0
   EventFlag: 0
   FoodNum: 0
+  ShootSFX: {fileID: 0}
+  FlashBangSFX: {fileID: 0}
+  FireSFX: {fileID: 0}
+  LaserSFX: {fileID: 0}
+  ReloadingSFX: {fileID: 0}
   Femail_Pain_SFX: {fileID: 0}
   Mail_Pain_SFX: {fileID: 0}
+  Skill_SFX: {fileID: 0}
 --- !u!58 &1334358727
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -21448,11 +21451,6 @@ MonoBehaviour:
   maxRespawnPosition: {x: 0, y: 0, z: 0}
   minRespawnPosition: {x: 0, y: 0, z: 0}
   GunObject: {fileID: 146024921}
-  ShootSFX: {fileID: 8300000, guid: 4aa8c4d9a0ec8cf4fb270d8a65883c9e, type: 3}
-  FlashBangSFX: {fileID: 8300000, guid: 85ffe45a58e722946bdb4c6861d1f1a4, type: 3}
-  FireSFX: {fileID: 8300000, guid: 373457ccda64b694899dc8a8ddd24530, type: 3}
-  LaserSFX: {fileID: 8300000, guid: 853a683234c2c384c9cd11c983745d2f, type: 3}
-  ReloadingSFX: {fileID: 8300000, guid: 8d0df66b60f523f418686196d04788d3, type: 3}
   GunObject_List:
   - {fileID: 1998758286}
   - {fileID: 2145555661}
@@ -21470,8 +21468,14 @@ MonoBehaviour:
   FireCount: 0
   EventFlag: 0
   FoodNum: 0
+  ShootSFX: {fileID: 8300000, guid: 4aa8c4d9a0ec8cf4fb270d8a65883c9e, type: 3}
+  FlashBangSFX: {fileID: 8300000, guid: 85ffe45a58e722946bdb4c6861d1f1a4, type: 3}
+  FireSFX: {fileID: 8300000, guid: 373457ccda64b694899dc8a8ddd24530, type: 3}
+  LaserSFX: {fileID: 8300000, guid: 853a683234c2c384c9cd11c983745d2f, type: 3}
+  ReloadingSFX: {fileID: 8300000, guid: 8d0df66b60f523f418686196d04788d3, type: 3}
   Femail_Pain_SFX: {fileID: 8300000, guid: d6bd5456db6c13a48ba96a1816705aab, type: 3}
   Mail_Pain_SFX: {fileID: 8300000, guid: 5586eec77c8b1524a90ec19147943d0b, type: 3}
+  Skill_SFX: {fileID: 8300000, guid: 79997b07cbfef8f4aa5a4fee2e1926c5, type: 3}
 --- !u!114 &1910264850
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21924,6 +21928,8 @@ MonoBehaviour:
   PlayerGunObject:
   - {fileID: 1738406599}
   - {fileID: 1173779198}
+  WaveSFX: {fileID: 8300000, guid: 1004a09f4ab782d4c8c096bd9f75fd5c, type: 3}
+  ClearSFX: {fileID: 8300000, guid: f35ec9f5b04305d4f85c273de511a853, type: 3}
 --- !u!1 &1935248769
 GameObject:
   m_ObjectHideFlags: 0
@@ -26688,7 +26694,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2521869787981609781
 Transform:
   m_ObjectHideFlags: 0

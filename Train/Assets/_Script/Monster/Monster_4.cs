@@ -19,7 +19,8 @@ public class Monster_4 : Monster
         BulletObject = Resources.Load<GameObject>("Bullet/Monster/" + Monster_Num);
 
         base.Start();
-        transform.position = new Vector3(20, transform.position.y, transform.position.z);
+        int x = Random.Range(4, 10);
+        transform.position = new Vector3(20 + x, transform.position.y, transform.position.z);
         xPos = -1f;
         Check_ItemSpeedSpawn();
         monster_gametype = Monster_GameType.Fighting;

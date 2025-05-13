@@ -44,9 +44,11 @@ public class TreasureDirector : MonoBehaviour
     int goldCount;
     int itemCount;
 
+    [Header("---------Sound---------")]
     public AudioClip TreasuerBGM;
     public AudioClip OpenSFX;
     public AudioClip GetSFX;
+    public AudioClip MissionSelectBGM;
 
     private void Awake()
     {
@@ -67,7 +69,7 @@ public class TreasureDirector : MonoBehaviour
         CloseTreasureObj.SetActive(true);
         OpenTreasureObj.SetActive(false);
         RandomReward();
-        MMSoundManagerSoundPlayEvent.Trigger(TreasuerBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true);
+        MMSoundManagerSoundPlayEvent.Trigger(TreasuerBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID : 10);
     }
 
     private void Update()
@@ -206,6 +208,8 @@ public class TreasureDirector : MonoBehaviour
     }
     public void Click_NextButton()
     {
+        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, 10);
+        MMSoundManagerSoundPlayEvent.Trigger(MissionSelectBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID : 20);
         SelectStage.SetActive(true);
     }
 }

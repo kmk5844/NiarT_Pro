@@ -45,6 +45,7 @@ public class FoodDirector : MonoBehaviour
     [Header("--------Sound--------")]
     public AudioClip BGM;
     public AudioClip RerollSFX;
+    public AudioClip MissionBGM;
 
     Dictionary<string, int> lootTable = new Dictionary<string, int>()
     {
@@ -85,7 +86,7 @@ public class FoodDirector : MonoBehaviour
         Check_FoodRarity();
         RandomCard(false);
         rerollCount = 0;
-        MMSoundManagerSoundPlayEvent.Trigger(BGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true);
+        MMSoundManagerSoundPlayEvent.Trigger(BGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID :10);
     }
 
     private void Update()
@@ -218,6 +219,8 @@ public class FoodDirector : MonoBehaviour
     public void Click_ChoiceButton()
     {
         playerData.SA_ChoiceFood(choiceCardNum);
+        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, 10);
+        MMSoundManagerSoundPlayEvent.Trigger(MissionBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID: 20);
         SubSelectStage.SetActive(true);
     }
 

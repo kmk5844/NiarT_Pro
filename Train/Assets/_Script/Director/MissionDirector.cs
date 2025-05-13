@@ -75,7 +75,7 @@ public class MissionDirector : MonoBehaviour
         }
         catch
         {
-            Debug.Log("테스트");
+            //Debug.Log("테스트");
         }
     }
 

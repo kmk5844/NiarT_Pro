@@ -63,7 +63,7 @@ public class Monster_Boss_0 : Boss
         }
         catch
         {
-            Debug.Log("테스트 진행 중");
+            //Debug.Log("테스트 진행 중");
         }
     }
 

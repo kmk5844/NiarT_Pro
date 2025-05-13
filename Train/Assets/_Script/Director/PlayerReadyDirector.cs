@@ -164,7 +164,7 @@ public class PlayerReadyDirector : MonoBehaviour
         }
         catch
         {
-            Debug.Log("테스트");
+            //Debug.Log("테스트");
         }
 
         //Train
@@ -234,11 +234,13 @@ public class PlayerReadyDirector : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.A))
         {
+            MMSoundManagerSoundPlayEvent.Trigger(ButtonSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
             PrevButton();
         }
 
         if (Input.GetKeyDown(KeyCode.D))
         {
+            MMSoundManagerSoundPlayEvent.Trigger(ButtonSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
             NextButton();
         }
 

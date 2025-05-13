@@ -16,7 +16,7 @@ public class ButtonSound : MonoBehaviour
             btn = GetComponent<Button>();
             if (clip == null)
             {
-                Debug.Log("클립 없다 삽입해라");
+                //Debug.Log("클립 없다 삽입해라 : " + gameObject.GetComponentInParent<GameObject>().name +"/" + gameObject.name); 
             }
             if (clip != null)
             {

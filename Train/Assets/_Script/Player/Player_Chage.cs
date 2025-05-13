@@ -46,7 +46,7 @@ public class Player_Chage : MonoBehaviour
         switch (num)
         {
             case 0:
-                Debug.Log("메리골드");
+                //Debug.Log("메리골드");
                 playerBody[0].sprite = MariGold_Sprite[0]; // Body
                 playerBody[1].sprite = MariGold_Sprite[1]; // Foot_L
                 playerBody[2].sprite = MariGold_Sprite[2]; // Foot_R
@@ -54,7 +54,7 @@ public class Player_Chage : MonoBehaviour
                 playerBody[4].sprite = MariGold_Sprite[4]; // Arm_R
                 break;
             case 1:
-                Debug.Log("세이지");
+                //Debug.Log("세이지");
                 playerBody[0].sprite = Peyote_Sprite[0]; // Body
                 playerBody[1].sprite = Peyote_Sprite[1]; // Foot_L
                 playerBody[2].sprite = Peyote_Sprite[2]; // Foot_R

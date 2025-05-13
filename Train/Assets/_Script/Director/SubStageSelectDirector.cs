@@ -75,7 +75,6 @@ public class SubStageSelectDirector : MonoBehaviour
         {
             missionNum = playerData.Mission_Num;
             selectStageNum = playerData.Select_Stage;
-           
         }
         string searchString = selectStageNum + "," + missionNum;
         int missionInformation_Num = EX_QuestData.Q_List.FindIndex(x => x.Stage_Mission.Equals(searchString));

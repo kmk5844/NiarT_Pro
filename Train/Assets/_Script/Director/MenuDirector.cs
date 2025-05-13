@@ -161,7 +161,7 @@ public class MenuDirector : MonoBehaviour
         UI_Option.SetActive(false);
         Click_Common_Button(true);
     }
-    public void Click_Exit_Mode()
+    public void Click_Exit_Ready()
     {
         Application.Quit();
     }

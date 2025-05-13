@@ -20,7 +20,7 @@ public class _Escort : Mercenary
     {
         base.Update();
 
-        if (Mer_GameType == GameType.Playing || Mer_GameType == GameType.Boss)
+        if (Mer_GameType == GameType.Playing || Mer_GameType == GameType.Boss || Mer_GameType == GameType.Refreshing)
         {
             if(HP <= 0 && act != Active.die)
             {
@@ -33,7 +33,7 @@ public class _Escort : Mercenary
 
     private void FixedUpdate()
     {
-        if (Mer_GameType == GameType.Playing || Mer_GameType == GameType.Boss)
+        if (Mer_GameType == GameType.Playing || Mer_GameType == GameType.Boss || Mer_GameType == GameType.Refreshing)
         {
             if (act == Active.move)
             {

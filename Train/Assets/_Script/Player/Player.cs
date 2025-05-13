@@ -68,11 +68,6 @@ public class Player : MonoBehaviour
     Vector3 GunObject_Scale;
     Camera mainCam;
     private Vector3 mousePos;
-    public AudioClip ShootSFX;
-    public AudioClip FlashBangSFX;
-    public AudioClip FireSFX;
-    public AudioClip LaserSFX;
-    public AudioClip ReloadingSFX;
     public List<GameObject> GunObject_List;
     int GunIndex;
 
@@ -121,8 +116,14 @@ public class Player : MonoBehaviour
     public int FoodNum;
 
     [Header("SFX")]
+    public AudioClip ShootSFX;
+    public AudioClip FlashBangSFX;
+    public AudioClip FireSFX;
+    public AudioClip LaserSFX;
+    public AudioClip ReloadingSFX;
     public AudioClip Femail_Pain_SFX;
     public AudioClip Mail_Pain_SFX;
+    public AudioClip Skill_SFX;
 
     Coroutine selfTurretCoroutine;
     bool ClickFlag;
@@ -1241,7 +1242,10 @@ public class Player : MonoBehaviour
         }
     }
 
-
+    public void SkillSoundSFX()
+    {
+        MMSoundManagerSoundPlayEvent.Trigger(Skill_SFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+    }
 
     IEnumerator ClickDelay()
     {

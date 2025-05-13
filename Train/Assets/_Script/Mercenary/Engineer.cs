@@ -56,7 +56,7 @@ public class Engineer : Mercenary
 
         base.non_combatant_Flip();
 
-        if (Mer_GameType == GameType.Playing || Mer_GameType == GameType.Boss)
+        if (Mer_GameType == GameType.Playing || Mer_GameType == GameType.Boss || Mer_GameType == GameType.Refreshing)
         {
             if (HP <= 0 && act != Active.die)
             {

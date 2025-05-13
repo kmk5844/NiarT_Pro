@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -60,6 +61,9 @@ public class MissionSelectDirector : MonoBehaviour
     float rewardGold;
     bool ConvoyFlag = false;
 
+    [Header("Sound")]
+    public AudioClip MainBGM;
+
     private void Awake()
     {
         missionselectAni_Director = MissionSelectObject_UI.GetComponentInParent<missionSelect_Trigger>();
@@ -99,6 +103,7 @@ public class MissionSelectDirector : MonoBehaviour
 
     private void Start()
     {
+        MMSoundManagerSoundPlayEvent.Trigger(MainBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID: 10);
         if (QualitySettings.vSyncCount != 0)
         {
             QualitySettings.vSyncCount = 0;

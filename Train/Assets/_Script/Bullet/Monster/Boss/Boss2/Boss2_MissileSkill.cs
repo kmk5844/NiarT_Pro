@@ -10,7 +10,7 @@ public class Boss2_MissileSkill : MonsterBullet
 
     protected override void Start()
     {
-        atk = 200;
+        atk = 100;
         slow = 2;
         Speed = 20;
         BombParticle = Resources.Load<GameObject>("Bullet/Boss2_Skill0_Effect");

@@ -300,7 +300,7 @@ public class GameDirector : MonoBehaviour
     {
         if (QualitySettings.vSyncCount != 0)
         {
-            Debug.Log("작동");
+            //Debug.Log("작동");
             QualitySettings.vSyncCount = 0;
             Application.targetFrameRate = 60;
         }
@@ -339,10 +339,10 @@ public class GameDirector : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown("]"))
+/*        if (Input.GetKeyDown("]"))
         {
             TrainDistance = 99999999;
-        }
+        }*/
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -1205,7 +1205,7 @@ public class GameDirector : MonoBehaviour
             }
             catch
             {
-                Debug.Log("종료");
+                //Debug.Log("종료");
             }
         }
     }

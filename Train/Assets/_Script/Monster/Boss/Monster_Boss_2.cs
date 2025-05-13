@@ -236,7 +236,7 @@ public class Monster_Boss_2 : Boss
             float RandomY = Random.Range(-1f, 1f);
             Vector3 newPos = new Vector3(Fire_Zone.transform.position.x, Fire_Zone.transform.position.y + RandomY, Fire_Zone.transform.position.z);
             GameObject defaultBullet = Instantiate(Boss_Bullet, newPos, Quaternion.identity, monster_Bullet_List);
-            defaultBullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk, 1, 20, 0);
+            defaultBullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk/2, 1, 20, 0);
             attack_lastTime = Time.time;
             yield return new WaitForSeconds(0.1f);
         }
@@ -281,7 +281,7 @@ public class Monster_Boss_2 : Boss
                 float RandomY = Random.Range(-0.2f, 0.7f);
                 Vector3 newPos = new Vector3(Fire_Zone.transform.position.x, Fire_Zone.transform.position.y + RandomY, Fire_Zone.transform.position.z);
                 GameObject defaultBullet = Instantiate(Skill_3_Bullet, newPos, Quaternion.identity, monster_Bullet_List);
-                defaultBullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk, Bullet_Slow, 20, 1);
+                defaultBullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk/4, Bullet_Slow, 20, 1);
                 yield return new WaitForSeconds(0.03f);
             }
             yield return new WaitForSeconds(1f);

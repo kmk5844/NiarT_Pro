@@ -52,6 +52,8 @@ public class DialogSystem : MonoBehaviour
 	private	float			typingSpeed = 0.05f;			// 텍스트 타이핑 효과의 재생 속도
 	private	bool			isTypingEffect = false;     // 텍스트 타이핑 효과를 재생중인지
 
+    AudioClip ButtonSFX;
+
     private void Awake()
 	{
         if(StoryDirector_Objcet != null)
@@ -68,6 +70,7 @@ public class DialogSystem : MonoBehaviour
             eventFlag = selectMission.M_Event;
             delay = 1;
         }
+        ButtonSFX = Resources.Load<AudioClip>("Sound/SFX/ButtonSFX");
         Check_Local();
 
 /*        int index = 0;
@@ -156,7 +159,8 @@ public class DialogSystem : MonoBehaviour
                 if (isTypingEffect == true)
                 {
                     isTypingEffect = false;
-                    storydirector.Click_Button_SFX();
+
+                    Click_Button_SFX();
 
                     // 타이핑 효과를 중지하고, 현재 대사 전체를 출력한다
                     StopCoroutine("OnTypingText");
@@ -390,7 +394,7 @@ public class DialogSystem : MonoBehaviour
             CutScene_Sprite.gameObject.SetActive(false);
         }
 
-        storydirector.Click_Button_SFX();
+        Click_Button_SFX();
 
         //초기화 후
         if (dialogs[currentDialogIndex].Sound != null && !SpecialFlag)
@@ -453,6 +457,11 @@ public class DialogSystem : MonoBehaviour
                 }
             }
         }
+    }
+
+    void Click_Button_SFX()
+    {
+        MMSoundManagerSoundPlayEvent.Trigger(ButtonSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
     }
 }
 

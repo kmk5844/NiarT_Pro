@@ -42,15 +42,18 @@ public class SkillDirector : MonoBehaviour
     void Update()
     {
         if(gameDirector.gameType == GameType.Playing ||
-            gameDirector.gameType == GameType.Boss)
+            gameDirector.gameType == GameType.Boss ||
+            gameDirector.gameType == GameType.Ending)
         {
             if (Input.GetKeyDown(KeyCode.Q) && !SkillFlag[0])
             {
+                player.SkillSoundSFX();
                 StartCoroutine(Player_ClickSkill(0));
             }
 
             if (Input.GetKeyDown(KeyCode.E) && !SkillFlag[1])
             {
+                player.SkillSoundSFX();
                 StartCoroutine(Player_ClickSkill(1));
             }
         }

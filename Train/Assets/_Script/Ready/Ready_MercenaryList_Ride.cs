@@ -1,3 +1,4 @@
+using MoreMountains.Tools;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -30,6 +31,7 @@ public class Ready_MercenaryList_Ride : MonoBehaviour
     [SerializeField]
     LocalizedString[] LocalString_Bard;
 
+    public AudioClip ChangeSFX;
 
     private void Awake()
     {
@@ -85,6 +87,8 @@ public class Ready_MercenaryList_Ride : MonoBehaviour
         Mercenary_Sprite.GetChild(Before_Mercenary_Num + 1).gameObject.SetActive(false);
         Mercenary_Sprite.GetChild(Mercenary_Num + 1).gameObject.SetActive(true);
         Mercenary_Name.StringReference.TableEntryReference = "Mercenary_Name_" + Mercenary_Num;
+
+        MMSoundManagerSoundPlayEvent.Trigger(ChangeSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
 
         if (Mercenary_Num == -1 || !mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].Passive)
         {
