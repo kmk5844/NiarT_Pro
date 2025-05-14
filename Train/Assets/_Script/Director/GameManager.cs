@@ -46,8 +46,6 @@ public class GameManager : MonoBehaviour
     Texture2D cursorOrigin;
     Vector2 cursorHotspot_Origin;
 
-    Coroutine DataCoroutine;
-
     public void Start()
     {
         // V-Sync를 비활성화하여 FPS 제한을 방지
@@ -87,6 +85,7 @@ public class GameManager : MonoBehaviour
                 GameObject gm = GameObject.Find("SelectMission");
                 Destroy(gm);
             }
+            StopAllCoroutines();
             Game_DataReset();
         }
     }
@@ -111,21 +110,13 @@ public void DataLoad()
     {
         //Debug.Log("작동");
         Game_DataReset();
-            //컴퓨터 데이터 없음;
+        //컴퓨터 데이터 없음;
     }
     else
     {
         //Debug.Log("로드");
             //DataManager.Instance.Load();
-        try
-        {
-            Game_DataLoad();
-        }
-        catch
-        {
-            Game_DataReset();
-            //컴퓨터 데이터는 있으나 오류 ;
-        }
+        Game_DataLoad();
     }
 }
 
@@ -328,6 +319,13 @@ public void DataLoad()
         {
             yield return null; // 로딩이 완료될 때까지 대기
         }
+    }
+
+    public void FILE_Critical()
+    {
+        StopAllCoroutines();
+        Debug.Log("파일 손상!!");
+        Game_DataReset();
     }
 
     private IEnumerator ResetGameRoutine()

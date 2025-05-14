@@ -237,12 +237,15 @@ public class GameDirector : MonoBehaviour
             NextSubStageNum.Add(int.Parse(sub));
         }
 
-        MissionDataObject PrevStageData = SA_MissionData.missionStage(Mission_Num, Stage_Num, Before_Sub_Num);
-        PrevSubStageNum = new List<int>();
-        string[] prevSubStageList = PrevStageData.Open_SubStageNum.Split(',');
-        foreach(string sub in prevSubStageList)
+        if(Before_Sub_Num != -1)
         {
-            PrevSubStageNum.Add(int.Parse(sub));
+            MissionDataObject PrevStageData = SA_MissionData.missionStage(Mission_Num, Stage_Num, Before_Sub_Num);
+            PrevSubStageNum = new List<int>();
+            string[] prevSubStageList = PrevStageData.Open_SubStageNum.Split(',');
+            foreach (string sub in prevSubStageList)
+            {
+                PrevSubStageNum.Add(int.Parse(sub));
+            }
         }
 
         BGM_ID = 30;
@@ -339,10 +342,10 @@ public class GameDirector : MonoBehaviour
 
     void Update()
     {
-/*        if (Input.GetKeyDown("]"))
+        if (Input.GetKeyDown("]"))
         {
             TrainDistance = 99999999;
-        }*/
+        }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -1078,6 +1081,8 @@ public class GameDirector : MonoBehaviour
 
     void SubStage_LockOff()
     {
+        bool Initflag = false;
+
         foreach (int substageNum in NextSubStageNum)
         {
             if (substageNum != -1)
@@ -1088,9 +1093,35 @@ public class GameDirector : MonoBehaviour
             else
             {
                 lastFlag = true;
+                Initflag = true;
                 SA_MissionData.End_SubStage(Stage_Num);
             }
         }
+
+        if(Before_Sub_Num != -1)
+        {
+            foreach(int substageNum in PrevSubStageNum)
+            {
+                if(substageNum != Select_Sub_Num)
+                {
+                    MissionDataObject mission = SA_MissionData.missionStage(Mission_Num, Stage_Num, substageNum);
+                    if (!mission.StageClearFlag)
+                    {
+                        mission.SubStageLockOn();
+                    }
+                }
+            }
+        }
+
+        if (!Initflag)
+        {
+            SA_PlayerData.SA_BeforeSubSelectStage_Save(Select_Sub_Num);
+        }
+        else
+        {
+            SA_PlayerData.SA_BeforeSubSelectStage_Save(-1);
+        }
+
         Change_Game_End(true, lastFlag);
     }
 

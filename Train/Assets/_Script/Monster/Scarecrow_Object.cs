@@ -1,3 +1,4 @@
+using MoreMountains.Tools;
 using UnityEngine;
 
 public class Scarecrow_Object : MonoBehaviour
@@ -13,6 +14,8 @@ public class Scarecrow_Object : MonoBehaviour
     float lastTime;
     float Bullet_Delay;
     public GameObject bullet;
+
+    AudioClip DieSFX;
     private void Start()
     {
         director = GameObject.Find("TutorialDirector").GetComponent<GamePlay_Tutorial_Director>();
@@ -35,6 +38,7 @@ public class Scarecrow_Object : MonoBehaviour
         lastTime = Time.time - 3f;
 
         HitDamage = Resources.Load<GameObject>("Monster/Hit_Text");
+        DieSFX = Resources.Load<AudioClip>("Sound/SFX/Monster_Die_SFX");
     }
 
     private void LateUpdate()
@@ -88,6 +92,7 @@ public class Scarecrow_Object : MonoBehaviour
             }
             else
             {
+                MMSoundManagerSoundPlayEvent.Trigger(DieSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
                 director.Get_Score(Monster_Coin, Monster_Type);
                 Destroy(gameObject);
             }

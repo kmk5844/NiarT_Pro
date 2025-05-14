@@ -20,6 +20,9 @@ public class SubStage_Select : MonoBehaviour
     public GameObject LastFlag;
     public Button BackButton;
 
+    [Header("Å¬¸®¾î")]
+    public Sprite StageClearImage;
+
     [Header("Item_Information")]
     public GameObject InformationObject;
     public TextMeshProUGUI type_text;
@@ -112,6 +115,11 @@ public class SubStage_Select : MonoBehaviour
             else
             {
                 GetComponent<Button>().interactable = false;
+            }
+
+            if(missionData.StageClearFlag && missionData.StageOpenFlag)
+            {
+                GetComponent<Image>().sprite = StageClearImage;
             }
         }
         else if (selectSubStageType == stageType.Next)

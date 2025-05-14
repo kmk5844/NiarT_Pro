@@ -35,8 +35,6 @@ public class Tutorial_Player : MonoBehaviour
     Vector3 GunObject_Scale;
     Camera mainCam;
     private Vector3 mousePos;
-    public AudioClip ShootSFX;
-    public AudioClip ReloadingSFX;
     public GameObject KeyObject;
     public GameObject bullet;
 
@@ -49,6 +47,11 @@ public class Tutorial_Player : MonoBehaviour
     int Bullet_Atk;
     bool MariGold_Skill_Flag;
     bool MariGold_Skill_Fire_Flag;
+
+    [Header("Sound")]
+    public AudioClip ShootSFX;
+    public AudioClip ReloadingSFX;
+    public AudioClip SkillUseSFX;
 
     [Header("튜토리얼 플래그")]
     public bool T_MoveFlag;
@@ -113,7 +116,12 @@ public class Tutorial_Player : MonoBehaviour
                 isMouseDown = false;
             }
 
-            if(gameDirector.gameType == GameType_T.Tutorial)
+            if (Input.GetKeyDown(KeyCode.R) && firecount != 0)
+            {
+                StartCoroutine(Reloading());
+            }
+
+            if (gameDirector.gameType == GameType_T.Tutorial)
             {
                 if (isMouseDown)
                 {
@@ -171,6 +179,7 @@ public class Tutorial_Player : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Q) && !T_Skill_Q_Click)
             {
+                MMSoundManagerSoundPlayEvent.Trigger(SkillUseSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
                 MariGold_Skill(0);
                 UIDirector.skill_coolTime(0);
             }
@@ -180,6 +189,7 @@ public class Tutorial_Player : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
+                MMSoundManagerSoundPlayEvent.Trigger(SkillUseSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
                 MariGold_Skill(1);
                 UIDirector.skill_coolTime(1);
             }

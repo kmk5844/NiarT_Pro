@@ -239,28 +239,26 @@ public class SA_MercenaryData : ScriptableObject
 
     public IEnumerator LoadSync()
     {
-        mercenary_num = ES3.Load<List<int>>("SA_Mercenary_Data_Data_mercenary_num");
-        yield return new WaitForSeconds(0.001f);
-        engine_driver_type = ES3.Load<Engine_Driver_Type>("SA_Mercenary_Data_engine_driver_type");
-        yield return new WaitForSeconds(0.001f);
-        mercenary_buy_num = ES3.Load<List<int>>("SA_Mercenary_Data_Data_mercenary_buy_num");
-        yield return new WaitForSeconds(0.001f);
-        level_engine_driver = ES3.Load<int>("SA_Mercenary_Data_Data_level_engine_driver");
-        yield return new WaitForSeconds(0.001f);
-        level_engineer = ES3.Load<int>("SA_Mercenary_Data_Data_level_engineer");
-        yield return new WaitForSeconds(0.001f);
-        level_long_ranged = ES3.Load<int>("SA_Mercenary_Data_Data_level_long_ranged");
-        yield return new WaitForSeconds(0.001f);
-        level_short_ranged = ES3.Load<int>("SA_Mercenary_Data_Data_level_short_ranged");
-        yield return new WaitForSeconds(0.001f);
-        level_medic = ES3.Load<int>("SA_Mercenary_Data_Data_level_medic");
-        yield return new WaitForSeconds(0.001f);
-        //데모버전 이후
-        bard_type = ES3.Load<Bard_Type>("SA_Mercenary_Data_bard_type");
-        yield return new WaitForSeconds(0.001f);
-        level_medic = ES3.Load<int>("SA_Mercenary_Data_Data_level_bard");
-        yield return new WaitForSeconds(0.001f);
-        level_cowboy = ES3.Load<int>("SA_Mercenary_Data_Data_level_cowboy");
+        try
+        {
+            mercenary_num = ES3.Load<List<int>>("SA_Mercenary_Data_Data_mercenary_num");
+            engine_driver_type = ES3.Load<Engine_Driver_Type>("SA_Mercenary_Data_engine_driver_type");
+            mercenary_buy_num = ES3.Load<List<int>>("SA_Mercenary_Data_Data_mercenary_buy_num");
+            level_engine_driver = ES3.Load<int>("SA_Mercenary_Data_Data_level_engine_driver");
+            level_engineer = ES3.Load<int>("SA_Mercenary_Data_Data_level_engineer");
+            level_long_ranged = ES3.Load<int>("SA_Mercenary_Data_Data_level_long_ranged");
+            level_short_ranged = ES3.Load<int>("SA_Mercenary_Data_Data_level_short_ranged");
+            level_medic = ES3.Load<int>("SA_Mercenary_Data_Data_level_medic");
+            //데모버전 이후
+            bard_type = ES3.Load<Bard_Type>("SA_Mercenary_Data_bard_type");
+            level_medic = ES3.Load<int>("SA_Mercenary_Data_Data_level_bard");
+            level_cowboy = ES3.Load<int>("SA_Mercenary_Data_Data_level_cowboy");
+        }
+        catch
+        {
+            GameManager.Instance.FILE_Critical();
+        }
+        
         yield return new WaitForSeconds(0.001f);
     }
 

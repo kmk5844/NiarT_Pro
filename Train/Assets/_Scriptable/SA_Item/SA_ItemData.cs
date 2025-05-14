@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "SA_ItemData", menuName = "Scriptable/SA_Item/Data", order = 8)]
@@ -87,9 +88,15 @@ public class SA_ItemData : ScriptableObject
 
     public IEnumerator LoadSync()
     {
-        equiped_item = ES3.Load<List<int>>(name + "_Equiped_Item");
-        yield return new WaitForSeconds(0.001f);
-        equiped_item_count = ES3.Load<List<int>>(name + "_Equiped_ItemCount");
+        try
+        {
+            equiped_item = ES3.Load<List<int>>(name + "_Equiped_Item");
+            equiped_item_count = ES3.Load<List<int>>(name + "_Equiped_ItemCount");
+        }
+        catch
+        {
+            GameManager.Instance.FILE_Critical();
+        }
         yield return new WaitForSeconds(0.001f);
     }
 

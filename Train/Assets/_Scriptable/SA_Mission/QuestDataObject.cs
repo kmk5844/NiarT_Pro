@@ -109,11 +109,17 @@ public class MissionDataObject : ScriptableObject
         Save();
     }
 
-/*    public void prevLock()
+    public void SubStageLockOn()
     {
-        lockflag = true;
+        stageopenflag = false;
         Save();
-    }*/
+    }
+
+    /*    public void prevLock()
+        {
+            lockflag = true;
+            Save();
+        }*/
 
     public void Init()
     {
@@ -213,9 +219,15 @@ public class MissionDataObject : ScriptableObject
         //yield return new WaitForSeconds(0.001f);
         //lockflag = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_LockFlag");
         //yield return new WaitForSeconds(0.001f);
-        stageclearflag = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_ClearFlag");
-        yield return new WaitForSeconds(0.001f);
-        stageopenflag = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_OpenFlag");
+        try
+        {
+            stageclearflag = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_ClearFlag");
+            stageopenflag = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_OpenFlag");
+        }
+        catch
+        {
+            GameManager.Instance.FILE_Critical();
+        }
         yield return new WaitForSeconds(0.001f);
     }
 

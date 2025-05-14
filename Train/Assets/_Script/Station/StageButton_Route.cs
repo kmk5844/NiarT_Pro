@@ -19,6 +19,8 @@ public class StageButton_Route : MonoBehaviour
     public GameObject SelectMark;
     public GameObject ClearMark;
 
+    public GameObject ClearSprite;
+
     private void Start()
     {
         SelectMark.SetActive(false);
@@ -49,10 +51,12 @@ public class StageButton_Route : MonoBehaviour
         if (_stageData.Stage_ClearFlag)
         {
             ClearMark.SetActive(true);
+            ClearSprite.SetActive(true);
         }
         else
         {
             ClearMark.SetActive(false);
+            ClearSprite.SetActive(false);
         }
     }
 

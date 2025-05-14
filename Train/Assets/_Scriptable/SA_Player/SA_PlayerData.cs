@@ -142,7 +142,6 @@ public class SA_PlayerData : ScriptableObject
                 new_stage++;
             }
         }
-        before_sub_stage = select_stage;
         coin += R_Coin;
         //point += R_Point;
         Save();
@@ -318,6 +317,12 @@ public class SA_PlayerData : ScriptableObject
         Save();
     }
 
+    public void SA_BeforeSubSelectStage_Save(int stage)
+    {
+        before_sub_stage = stage;
+        Save_Solo("BeforeSubStage");
+    }
+
     private void Save()
     {
         ES3.Save<bool>("SA_PlayerData_Data_FirstFlag", firstflag);
@@ -330,6 +335,7 @@ public class SA_PlayerData : ScriptableObject
         //ES3.Save<int>("SA_PlayerData_Data_point", point);
         ES3.Save<int>("SA_PlayerData_Data_new_stage", new_stage);
         ES3.Save<int>("SA_PlayerData_Data_select_stage", select_stage);
+        ES3.Save<int>("SA_PlayerData_Data_before_sub_stage", before_sub_stage);
         ES3.Save<int>("SA_PlayerData_Data_mission_num", mission_num);
         ES3.Save<bool[]>("SA_PlayerData_Data_LockOff", character_lockoff);
         ES3.Save<int>("SA_PlayerData_Data_Story_Num", story_num);
@@ -371,6 +377,9 @@ public class SA_PlayerData : ScriptableObject
                 break;
             case "SelectStage":
                 ES3.Save<int>("SA_PlayerData_Data_select_stage", select_stage);
+                break;
+            case "BeforeSubStage":
+                ES3.Save<int>("SA_PlayerData_Data_before_sub_stage", before_sub_stage);
                 break;
             case "MissionNum":
                 ES3.Save<int>("SA_PlayerData_Data_mission_num", mission_num);
@@ -423,6 +432,9 @@ public class SA_PlayerData : ScriptableObject
         yield return new WaitForSeconds(0.001f);
         ES3.Save<int>("SA_PlayerData_Data_select_stage", select_stage);
         yield return new WaitForSeconds(0.001f);
+        ES3.Save<int>("SA_PlayerData_Data_before_sub_stage", before_sub_stage);
+
+        yield return new WaitForSeconds(0.001f);
         ES3.Save<int>("SA_PlayerData_Data_mission_num", mission_num);
         yield return new WaitForSeconds(0.001f);
         ES3.Save<bool[]>("SA_PlayerData_Data_LockOff", character_lockoff);
@@ -452,9 +464,8 @@ public class SA_PlayerData : ScriptableObject
         coin = ES3.Load<int>("SA_PlayerData_Data_coin");
         //point = ES3.Load<int>("SA_PlayerData_Data_point");
         new_stage = ES3.Load<int>("SA_PlayerData_Data_new_stage");
-
         select_stage = ES3.Load<int>("SA_PlayerData_Data_select_stage");
-
+        before_sub_stage = ES3.Load<int>("SA_PlayerData_Data_before_sub_stage");
         mission_num = ES3.Load<int>("SA_PlayerData_Data_mission_num");
         character_lockoff = ES3.Load<bool[]>("SA_PlayerData_Data_LockOff");
         story_num = ES3.Load<int>("SA_PlayerData_Data_Story_Num");
@@ -468,42 +479,54 @@ public class SA_PlayerData : ScriptableObject
 
     public IEnumerator LoadSync()
     {
-        firstflag = ES3.Load<bool>("SA_PlayerData_Data_FirstFlag");
-        yield return new WaitForSeconds(0.001f);
-        level_atk = ES3.Load<int>("SA_PlayerData_Data_level_atk");
-        yield return new WaitForSeconds(0.001f);
-        level_atkdelay = ES3.Load<int>("SA_PlayerData_Data_level_atkdelay");
-        yield return new WaitForSeconds(0.001f);
-        level_hp = ES3.Load<int>("SA_PlayerData_Data_level_player_hp");
-        yield return new WaitForSeconds(0.001f);
-        level_armor = ES3.Load<int>("SA_PlayerData_Data_level_player_armor");
-        yield return new WaitForSeconds(0.001f);
-        level_speed = ES3.Load<int>("SA_PlayerData_Data_level_speed");
-        coin = ES3.Load<int>("SA_PlayerData_Data_coin");
-        yield return new WaitForSeconds(0.001f);
-        //point = ES3.Load<int>("SA_PlayerData_Data_point");
-        yield return new WaitForSeconds(0.001f);
-        new_stage = ES3.Load<int>("SA_PlayerData_Data_new_stage");
-        yield return new WaitForSeconds(0.001f);
+        try
+        {
+            firstflag = ES3.Load<bool>("SA_PlayerData_Data_FirstFlag");
+            //yield return new WaitForSeconds(0.001f);
+            level_atk = ES3.Load<int>("SA_PlayerData_Data_level_atk");
+            //yield return new WaitForSeconds(0.001f);
+            level_atkdelay = ES3.Load<int>("SA_PlayerData_Data_level_atkdelay");
+            //yield return new WaitForSeconds(0.001f);
+            level_hp = ES3.Load<int>("SA_PlayerData_Data_level_player_hp");
+            //yield return new WaitForSeconds(0.001f);
+            level_armor = ES3.Load<int>("SA_PlayerData_Data_level_player_armor");
+            //yield return new WaitForSeconds(0.001f);
+            level_speed = ES3.Load<int>("SA_PlayerData_Data_level_speed");
+            //yield return new WaitForSeconds(0.001f);
+            coin = ES3.Load<int>("SA_PlayerData_Data_coin");
+            //yield return new WaitForSeconds(0.001f);
+            //point = ES3.Load<int>("SA_PlayerData_Data_point");
+            //yield return new WaitForSeconds(0.001f);
+            new_stage = ES3.Load<int>("SA_PlayerData_Data_new_stage");
+            //yield return new WaitForSeconds(0.001f);
+            select_stage = ES3.Load<int>("SA_PlayerData_Data_select_stage");
+            //yield return new WaitForSeconds(0.001f);
+            before_sub_stage = ES3.Load<int>("SA_PlayerData_Data_before_sub_stage");
+            //yield return new WaitForSeconds(0.001f);
+            mission_num = ES3.Load<int>("SA_PlayerData_Data_mission_num");
+            //yield return new WaitForSeconds(0.001f);
+            character_lockoff = ES3.Load<bool[]>("SA_PlayerData_Data_LockOff");
+            //yield return new WaitForSeconds(0.001f);
+            story_num = ES3.Load<int>("SA_PlayerData_Data_Story_Num");
+            //yield return new WaitForSeconds(0.001f);
+            station_tutorial = ES3.Load<bool>("SA_PlayerData_Data_Station_Tutorial");
+            //yield return new WaitForSeconds(0.001f);
+            mission_playing = ES3.Load<bool>("SA_PlayerData_Data_MissionPlaying");
+            //yield return new WaitForSeconds(0.001f);
+            eventflag = ES3.Load<bool>("SA_PlayerData_Data_EventFlag");
+            //yield return new WaitForSeconds(0.001f);
+            food_heal_flag = ES3.Load<bool>("SA_PlayerData_Data_Food_Heal_Flag");
+            //yield return new WaitForSeconds(0.001f);
+            food_num = ES3.Load<int>("SA_PlayerData_Data_Food_Num");
+            //yield return new WaitForSeconds(0.001f);
+        }
+        catch
+        {
+            
+            GameManager.Instance.FILE_Critical();
+            
+        }
 
-        select_stage = ES3.Load<int>("SA_PlayerData_Data_select_stage");
-
-        yield return new WaitForSeconds(0.001f);
-        mission_num = ES3.Load<int>("SA_PlayerData_Data_mission_num");
-        yield return new WaitForSeconds(0.001f);
-        character_lockoff = ES3.Load<bool[]>("SA_PlayerData_Data_LockOff");
-        yield return new WaitForSeconds(0.001f);
-        story_num = ES3.Load<int>("SA_PlayerData_Data_Story_Num");
-        yield return new WaitForSeconds(0.001f);
-        station_tutorial = ES3.Load<bool>("SA_PlayerData_Data_Station_Tutorial");
-        yield return new WaitForSeconds(0.001f);
-        mission_playing = ES3.Load<bool>("SA_PlayerData_Data_MissionPlaying");
-        yield return new WaitForSeconds(0.001f);
-        eventflag = ES3.Load<bool>("SA_PlayerData_Data_EventFlag");
-        yield return new WaitForSeconds(0.001f);
-        food_heal_flag = ES3.Load<bool>("SA_PlayerData_Data_Food_Heal_Flag");
-        yield return new WaitForSeconds(0.001f);
-        food_num = ES3.Load<int>("SA_PlayerData_Data_Food_Num");
         yield return new WaitForSeconds(0.001f);
     }
 
@@ -522,7 +545,7 @@ public class SA_PlayerData : ScriptableObject
         coin = 0;
         //point = 0;
         new_stage = 0;
-
+        before_sub_stage = -1;
         select_stage = 0;
         story_num = 0;
         Character_LockOff[0] = true;
@@ -553,6 +576,7 @@ public class SA_PlayerData : ScriptableObject
         //point = 0;
         new_stage = 0;
 
+        before_sub_stage = -1;
         select_stage = 0;
         story_num = 0;
         Character_LockOff[0] = true;
@@ -566,7 +590,7 @@ public class SA_PlayerData : ScriptableObject
         food_heal_flag = false;
         food_num = 0;
         runner.StartCoroutine(SaveSync());
-        yield return new WaitForSeconds(0.01f);
+        yield return new WaitForSeconds(0.001f);
     }
 
     public void SA_Player_Level_Up(int LevelNum)//LevelNum : 0 = Atk / 1= AtkDealy / 2 = Armor / 3 = Speed / 4 = hp

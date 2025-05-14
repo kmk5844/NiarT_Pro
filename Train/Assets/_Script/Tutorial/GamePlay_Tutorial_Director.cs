@@ -59,8 +59,10 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
     7. ½ºÅ³ E
     }*/
 
+    [Header("Sound")]
     public AudioClip TutorialBGM;
     public AudioClip ClearSFX;
+    public AudioClip SpawnSFX;
 
     private void Awake()
     {
@@ -239,6 +241,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
                     player.T_MoveFlag = true;
                     player.T_JumpFlag = true;
                     player.T_FireFlag = true;
+                    MMSoundManagerSoundPlayEvent.Trigger(SpawnSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
                     scarecrow_ground = Instantiate(ScarecrowObject_Ground);
                     T_Flag = false;
                 }
@@ -409,6 +412,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
             {
                 if (T_Flag)
                 {
+                    MMSoundManagerSoundPlayEvent.Trigger(SpawnSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
                     for(int i = 0; i < 3; i++)
                     {
                         scarecrow_sky[i] = Instantiate(ScarecrowObject_Sky, new Vector2(0 - (6 * i), 16), Quaternion.identity);

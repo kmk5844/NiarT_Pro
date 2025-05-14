@@ -9,6 +9,7 @@ using UnityEngine.Localization;
 using UnityEngine.Localization.Components;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
 
 public class PlayerReadyDirector : MonoBehaviour
 {
@@ -762,6 +763,13 @@ public class PlayerReadyDirector : MonoBehaviour
         {
             UI_ItemCountSlider.maxValue = Count_ItemEquipObjcet.item.Max_Equip;
         }
+
+        StartCoroutine(valueHandleInit(Flag));
+    }
+
+    IEnumerator valueHandleInit(bool Flag)
+    {
+        yield return null;
         UI_ItemCountSlider.value = UI_ItemCountSlider.maxValue;
 
         ItemCount_ChangeText(UI_ItemCountSlider.value);

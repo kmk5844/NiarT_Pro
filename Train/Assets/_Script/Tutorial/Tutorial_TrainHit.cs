@@ -1,4 +1,5 @@
 using Cinemachine;
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,7 @@ public class Tutorial_TrainHit : MonoBehaviour
     Tutorial_Train train;
     public GameObject Hit_Effect;
     CinemachineImpulseSource impulseObject;
-
+    public AudioClip HitSFX;
 
     private void Start()
     {
@@ -29,6 +30,7 @@ public class Tutorial_TrainHit : MonoBehaviour
             {
                 CameraShakeManager.instance.CameraShake(impulseObject);
             }
+            MMSoundManagerSoundPlayEvent.Trigger(HitSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
             Instantiate(Hit_Effect, collision.transform.localPosition, Quaternion.identity);
             Destroy(collision.gameObject);
         }

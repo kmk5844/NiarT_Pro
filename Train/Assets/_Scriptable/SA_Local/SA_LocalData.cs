@@ -26,7 +26,14 @@ public class SA_LocalData : ScriptableObject
 
     public void Load()
     {
-        local_index = PlayerPrefs.GetInt("SA_LocalData_local_index");
+        try
+        {
+            local_index = PlayerPrefs.GetInt("SA_LocalData_local_index");
+        }
+        catch
+        {
+            GameManager.Instance.FILE_Critical();
+        }
     }
 
     public void Init()

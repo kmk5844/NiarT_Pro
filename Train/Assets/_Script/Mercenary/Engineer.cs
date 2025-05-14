@@ -140,7 +140,7 @@ public class Engineer : Mercenary
 
     private void FixedUpdate()
     {
-        if (Mer_GameType == GameType.Playing || Mer_GameType == GameType.Boss)
+        if (Mer_GameType == GameType.Playing || Mer_GameType == GameType.Boss || Mer_GameType == GameType.Refreshing)
         {
             if (act == Active.move){
                 base.non_combatant_Move();

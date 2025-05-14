@@ -52,7 +52,7 @@ public class Item_Mini_Turret : MonoBehaviour
                 rotZ = Mathf.Atan2(rot.y -0.135f, rot.x) * Mathf.Rad2Deg;
             }
 
-            Debug.Log(rot);
+            //Debug.Log(rot);
 
             Z = Quaternion.Euler(0, 0, rotZ).eulerAngles.z - transform.rotation.eulerAngles.z;
 

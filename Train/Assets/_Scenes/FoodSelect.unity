@@ -320,6 +320,7 @@ MonoBehaviour:
   SubSelectStage: {fileID: 1461719599}
   BGM: {fileID: 8300000, guid: 912c072c4cdc2e8439fead027018e169, type: 3}
   RerollSFX: {fileID: 8300000, guid: 419b5244167e83745b0c3db5348daf90, type: 3}
+  MissionBGM: {fileID: 0}
 --- !u!114 &285334320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -598,7 +599,6 @@ GameObject:
   - component: {fileID: 463678397}
   - component: {fileID: 463678399}
   - component: {fileID: 463678398}
-  - component: {fileID: 463678400}
   - component: {fileID: 463678401}
   m_Layer: 5
   m_Name: Text (TMP)
@@ -725,64 +725,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 463678396}
   m_CullTransparentMesh: 1
---- !u!114 &463678400
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 463678396}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TrackedObjects:
-  - rid: 5252455416628248588
-  references:
-    version: 2
-    RefIds:
-    - rid: 5252455416628248588
-      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
-      data:
-        m_Target: {fileID: 463678398}
-        m_TrackedProperties:
-          items:
-          - rid: 5252455416628248589
-          - rid: 5252455416628248590
-        m_UpdateType: 0
-    - rid: 5252455416628248589
-      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
-      data:
-        m_PropertyPath: m_fontAsset
-        m_TypeString: TMPro.TMP_FontAsset, Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral,
-          PublicKeyToken=null
-        m_VariantData:
-        - localeIdentifier:
-            m_Code: en
-          value: {fileID: 11400000, guid: b78e44a57ee848341a90cccae5c0bcd1, type: 2}
-        - localeIdentifier:
-            m_Code: ko
-          value: {fileID: 11400000, guid: b78e44a57ee848341a90cccae5c0bcd1, type: 2}
-        - localeIdentifier:
-            m_Code: ja-JP
-          value: {fileID: 11400000, guid: fd564312cf1c6ef4ebc9f74e0f6f8b2a, type: 2}
-    - rid: 5252455416628248590
-      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
-      data:
-        m_PropertyPath: m_sharedMaterial
-        m_TypeString: UnityEngine.Material, UnityEngine.CoreModule, Version=0.0.0.0,
-          Culture=neutral, PublicKeyToken=null
-        m_VariantData:
-        - localeIdentifier:
-            m_Code: en
-          value: {fileID: 6781648418189541948, guid: b78e44a57ee848341a90cccae5c0bcd1, type: 2}
-        - localeIdentifier:
-            m_Code: ko
-          value: {fileID: 6781648418189541948, guid: b78e44a57ee848341a90cccae5c0bcd1, type: 2}
-        - localeIdentifier:
-            m_Code: ja-JP
-          value: {fileID: 2572762510154028185, guid: fd564312cf1c6ef4ebc9f74e0f6f8b2a, type: 2}
 --- !u!114 &463678401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -835,7 +777,6 @@ GameObject:
   - component: {fileID: 715488174}
   - component: {fileID: 715488173}
   - component: {fileID: 715488175}
-  - component: {fileID: 715488176}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -999,64 +940,6 @@ MonoBehaviour:
   references:
     version: 2
     RefIds: []
---- !u!114 &715488176
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 715488171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69beb381e244f92449b8c4cf954630e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TrackedObjects:
-  - rid: 5252455416628248591
-  references:
-    version: 2
-    RefIds:
-    - rid: 5252455416628248591
-      type: {class: TrackedUGuiGraphic, ns: UnityEngine.Localization.PropertyVariants.TrackedObjects, asm: Unity.Localization}
-      data:
-        m_Target: {fileID: 715488173}
-        m_TrackedProperties:
-          items:
-          - rid: 5252455416628248592
-          - rid: 5252455416628248593
-        m_UpdateType: 0
-    - rid: 5252455416628248592
-      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
-      data:
-        m_PropertyPath: m_fontAsset
-        m_TypeString: TMPro.TMP_FontAsset, Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral,
-          PublicKeyToken=null
-        m_VariantData:
-        - localeIdentifier:
-            m_Code: en
-          value: {fileID: 11400000, guid: b78e44a57ee848341a90cccae5c0bcd1, type: 2}
-        - localeIdentifier:
-            m_Code: ko
-          value: {fileID: 11400000, guid: b78e44a57ee848341a90cccae5c0bcd1, type: 2}
-        - localeIdentifier:
-            m_Code: ja-JP
-          value: {fileID: 11400000, guid: fd564312cf1c6ef4ebc9f74e0f6f8b2a, type: 2}
-    - rid: 5252455416628248593
-      type: {class: UnityObjectProperty, ns: UnityEngine.Localization.PropertyVariants.TrackedProperties, asm: Unity.Localization}
-      data:
-        m_PropertyPath: m_sharedMaterial
-        m_TypeString: UnityEngine.Material, UnityEngine.CoreModule, Version=0.0.0.0,
-          Culture=neutral, PublicKeyToken=null
-        m_VariantData:
-        - localeIdentifier:
-            m_Code: en
-          value: {fileID: 6781648418189541948, guid: b78e44a57ee848341a90cccae5c0bcd1, type: 2}
-        - localeIdentifier:
-            m_Code: ko
-          value: {fileID: 6781648418189541948, guid: b78e44a57ee848341a90cccae5c0bcd1, type: 2}
-        - localeIdentifier:
-            m_Code: ja-JP
-          value: {fileID: 2572762510154028185, guid: fd564312cf1c6ef4ebc9f74e0f6f8b2a, type: 2}
 --- !u!1 &763757305
 GameObject:
   m_ObjectHideFlags: 0

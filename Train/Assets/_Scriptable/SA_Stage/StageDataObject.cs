@@ -106,11 +106,16 @@ public class StageDataObject : ScriptableObject
 
     public IEnumerator LoadSync()
     {
-        stagedatause = ES3.Load<bool>("Stage_" + stage_num + "_stage_stagedatause");
-        yield return new WaitForSeconds(0.001f);
-        stage_openflag = ES3.Load<bool>("Stage_" + stage_num + "_stage_openflag");
-        yield return new WaitForSeconds(0.001f);
-        stage_clearflag = ES3.Load<bool>("Stage_" + stage_num + "_stage_clearflag");
+        try
+        {
+            stagedatause = ES3.Load<bool>("Stage_" + stage_num + "_stage_stagedatause");
+            stage_openflag = ES3.Load<bool>("Stage_" + stage_num + "_stage_openflag");
+            stage_clearflag = ES3.Load<bool>("Stage_" + stage_num + "_stage_clearflag");
+        }
+        catch
+        {
+            GameManager.Instance.FILE_Critical();
+        }
         yield return new WaitForSeconds(0.001f);
     }
 
