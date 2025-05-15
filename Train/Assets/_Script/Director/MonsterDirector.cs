@@ -292,6 +292,16 @@ public class MonsterDirector : MonoBehaviour
             {
                 Instantiate(_Monster, new Vector3(Random_xPos, Random_yPos, 0), Quaternion.identity, Boss_List);
             }
+
+            if (SteamAchievement.instance != null)
+            {
+                SteamAchievement.instance.Achieve("MEET_BOSS_" + Monster_Num);
+            }
+            else
+            {
+                Debug.Log("MEET_BOSS_" + Monster_Num);
+            }
+
         }
         MMSoundManagerSoundPlayEvent.Trigger(SpawnSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
     }

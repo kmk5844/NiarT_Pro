@@ -37,6 +37,15 @@ public class MenuDirector : MonoBehaviour
         optionFlag = false;
         InfiniteFlag = false;
         MMSoundManagerSoundPlayEvent.Trigger(MainMenuBgm, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true);
+
+        if (SteamAchievement.instance != null)
+        {
+            SteamAchievement.instance.Achieve("FIRST_PLAY");
+        }
+        else
+        {
+            Debug.Log("FIRST_PLAY");
+        }
     }
 
     private void Update()

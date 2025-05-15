@@ -55,7 +55,10 @@ public class SPUM_Manager : MonoBehaviour
     }
     void Start()
     {
-        // PlayerPrefs.DeleteAll();
+        //
+        //
+        //
+        // .DeleteAll();
         if(_spumVersion!=null) _spumVersion.text = "VER " + _version.ToString(); 
         StartCoroutine(StartProcess());
     }

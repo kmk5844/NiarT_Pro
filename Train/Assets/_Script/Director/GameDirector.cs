@@ -1164,6 +1164,16 @@ public class GameDirector : MonoBehaviour
                     SA_PlayerData.SA_GameWinReward(true, Total_Coin);
                     SA_PlayerData.SA_MissionPlaying(false);
                     SA_MissionData.SubStage_Init(Stage_Num, Mission_Num); // 승리
+
+                    if(SteamAchievement.instance != null)
+                    {
+                        SteamAchievement.instance.Achieve("CLEAR_STAGE_" + Stage_Num);
+                    }
+                    else
+                    {
+                        Debug.Log("CLEAR_STAGE_" + Stage_Num);
+                    }
+
                 }
                 else // 미션 실패다
                 {

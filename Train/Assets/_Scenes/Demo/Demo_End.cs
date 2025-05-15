@@ -4,6 +4,18 @@ using UnityEngine;
 
 public class Demo_End : MonoBehaviour
 {
+    private void Start()
+    {
+        if (SteamAchievement.instance != null)
+        {
+            SteamAchievement.instance.Achieve("EARLY_END");
+        }
+        else
+        {
+            Debug.Log("EARLY_END");
+        }
+    }
+
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))

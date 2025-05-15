@@ -119,10 +119,20 @@ public class MissionSelectDirector : MonoBehaviour
         }
         else
         {
-            missionselectAni.enabled = false;
-            MissionSelectObject_UI.SetActive(false);
-            ReadyObject.SetActive(true);
-            SubStageSelectObject.SetActive(false);
+            if(playerData.Select_Sub_Stage == 0)
+            {
+                missionselectAni.enabled = false;
+                MissionSelectObject_UI.SetActive(false);
+                ReadyObject.SetActive(true);
+                SubStageSelectObject.SetActive(false);
+            }
+            else
+            {
+                missionselectAni.enabled = false;
+                MissionSelectObject_UI.SetActive(false);
+                ReadyObject.SetActive(false);
+                SubStageSelectObject.SetActive(true);
+            }
         }
     }
 

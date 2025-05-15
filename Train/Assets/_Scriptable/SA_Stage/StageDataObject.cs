@@ -58,6 +58,7 @@ public class StageDataObject : ScriptableObject
         }
         Save();
     }
+
     public void Save(bool Init = false)
     {
         if(Init == true)
@@ -71,6 +72,7 @@ public class StageDataObject : ScriptableObject
         ES3.Save<bool>("Stage_" + stage_num + "_stage_stagedatause", stagedatause);
         ES3.Save<bool>("Stage_" + stage_num + "_stage_openflag", stage_openflag);
         ES3.Save<bool>("Stage_" + stage_num + "_stage_clearflag", stage_clearflag);
+        Debug.Log("저장 완료");
     }
 
     public IEnumerator SaveSync(bool Init = false)
@@ -78,7 +80,6 @@ public class StageDataObject : ScriptableObject
         if (Init == true)
         {
             stagedatause = false;
-            Debug.Log("작동");
         }
         else
         {
@@ -104,11 +105,15 @@ public class StageDataObject : ScriptableObject
         runner.StartCoroutine(LoadSync());
     }
 
+    public void Load_DataUse()
+    {
+        stagedatause = ES3.Load<bool>("Stage_" + stage_num + "_stage_stagedatause");
+    }
+
     public IEnumerator LoadSync()
     {
         try
         {
-            stagedatause = ES3.Load<bool>("Stage_" + stage_num + "_stage_stagedatause");
             stage_openflag = ES3.Load<bool>("Stage_" + stage_num + "_stage_openflag");
             stage_clearflag = ES3.Load<bool>("Stage_" + stage_num + "_stage_clearflag");
         }

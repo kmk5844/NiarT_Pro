@@ -75,6 +75,12 @@ public class SA_StoryLIst : ScriptableObject
     {
         for (int i = 0; i < storylist.Count; i++)
         {
+            if(!ES3.KeyExists("Story_" + i + "_StoryDataUse"))
+            {
+                break;
+            }
+
+            storylist[i].Load_DataUse();
             if (storylist[i].StoryDataUse)
             {
                 storylist[i].LoadSync_Start(runner);

@@ -20,10 +20,6 @@ public class Ready_MercenaryList : MonoBehaviour
     public Image Merceanary_TypeImage;
     public Sprite[] P_A_Sprite;
 
-
-    string Mercenary_Name;
-    string Mercenary_Information;
-
     int mercenary_pride_Buy;
     int mercenary_pride_Upgrade;
     public Button[] MercenaryButtonList;
@@ -81,8 +77,6 @@ public class Ready_MercenaryList : MonoBehaviour
 
 
         tooltip = Information_Tooltip.GetComponent<Ready_Mercenary_Information>();
-        Mercenary_Name = mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].Name;
-        Mercenary_Information = mercenaryData.EX_Game_Data.Information_Mercenary[Mercenary_Num].Mercenary_Information;
     }
 
     private void Update()
@@ -267,7 +261,7 @@ public class Ready_MercenaryList : MonoBehaviour
         if (!Director.HoldAndDragFlag_Mercenary && !informationFlag)
         {
             informationFlag = true;
-            tooltip.Tooltip_On(Mercenary_Name, Mercenary_Information);
+            tooltip.Tooltip_On(Mercenary_Num);
         }
     }
 

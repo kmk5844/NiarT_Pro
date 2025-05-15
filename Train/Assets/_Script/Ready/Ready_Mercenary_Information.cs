@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.Components;
 using UnityEngine.UI;
 
 public class Ready_Mercenary_Information : MonoBehaviour
 {
-    public TextMeshProUGUI mercenary_name_text;
-    public TextMeshProUGUI mercenary_information_text;
+    public LocalizeStringEvent mercenary_name_text;
+    public LocalizeStringEvent mercenary_information_text;
 
     public bool TooltipFlag;
 
@@ -22,6 +23,8 @@ public class Ready_Mercenary_Information : MonoBehaviour
         halfwidth = GetComponentInParent<CanvasScaler>().referenceResolution.x * 0.5f;
         halfheight = GetComponentInParent<CanvasScaler>().referenceResolution.y * 0.016f;
         rt = GetComponent<RectTransform>();
+        mercenary_name_text.StringReference.TableReference = "ExcelData_Table_St";
+        mercenary_information_text.StringReference.TableReference = "ExcelData_Table_St";
     }
 
     private void Update()
@@ -57,11 +60,11 @@ public class Ready_Mercenary_Information : MonoBehaviour
         rt.pivot = new Vector2(pivot_x, pivot_y);
     }
 
-    public void Tooltip_On(string name, string information)
+    public void Tooltip_On(int num)
     {
         TooltipFlag = true;
-        mercenary_name_text.text = name;
-        mercenary_information_text.text = information;
+        mercenary_name_text.StringReference.TableEntryReference = "Mercenary_Name_" + num;
+        mercenary_information_text.StringReference.TableEntryReference = "Mercenary_Information_" + num;
         gameObject.SetActive(true);
     }
 

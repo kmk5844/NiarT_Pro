@@ -672,7 +672,17 @@ public class Monster : MonoBehaviour
             MonsterDirector.MonsterNum -= 1;
         }
         col.enabled = false;
-        start_DieCoroutine();
+
+        if (SteamAchievement.instance != null)
+        {
+            SteamAchievement.instance.Achieve("KILL_MONSTER_" + Monster_Num);
+        }
+        else
+        {
+            Debug.Log("KILL_MONSTER_" + Monster_Num);
+        }
+
+            start_DieCoroutine();
     }
 
     void start_DieCoroutine()

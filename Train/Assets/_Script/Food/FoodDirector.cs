@@ -87,6 +87,15 @@ public class FoodDirector : MonoBehaviour
         RandomCard(false);
         rerollCount = 0;
         MMSoundManagerSoundPlayEvent.Trigger(BGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID :10);
+
+        if (SteamAchievement.instance != null)
+        {
+            SteamAchievement.instance.Achieve("ENTER_FOODSELECT");
+        }
+        else
+        {
+            Debug.Log("ENTER_FOODSELECT");
+        }
     }
 
     private void Update()

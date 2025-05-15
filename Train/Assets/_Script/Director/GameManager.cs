@@ -93,7 +93,6 @@ public class GameManager : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-
         Debug.Log("[LocalizationCleanup] Application quitting — cleaning up localization resources.");
         // Step 2: Optional — clear Addressables resource locators if used internally
         Addressables.ClearResourceLocators();
@@ -170,11 +169,13 @@ public void DataLoad()
     {
         string[] index_St = gameData.Information_Stage[PlayerData.New_Stage].Story_Index.Split(',');
         int index = int.Parse(index_St[0]);
-        //Debug.Log(index);
+        Debug.Log(index);
         if (gameData.Information_Stage[PlayerData.New_Stage].BeforeStation_Button)
         {
+            Debug.Log(StoryData.StoryList[index].Start_Flag);
             if (!StoryData.StoryList[index].Start_Flag) // 스토리 진행 전
             {
+                Debug.Log("StoryList_Start : " + index);
                 LoadingManager.LoadScene("Story");
                 StoryData.StoryList[index].ChangeFlag(true);
             }
@@ -182,6 +183,7 @@ public void DataLoad()
             {
                 if (!StoryData.StoryList[index].End_Flag)
                 {
+                    Debug.Log("StoryList_End : " + index);
                     LoadingManager.LoadScene("Story");
                 }
                 else
@@ -268,6 +270,14 @@ public void DataLoad()
             LoadingManager.LoadScene(storyData.Story_Branch[index].Story_End);
             PlayerData.SA_StoryEnd();
             StoryData.StoryList[index].ChangeFlag(false);
+            if (SteamAchievement.instance != null)
+            {
+                SteamAchievement.instance.Achieve("CLEAR_STORY_" + index);
+            }
+            else
+            {
+                Debug.Log("CLEAR_STORY_" + index);
+            }
         }
         else
         {

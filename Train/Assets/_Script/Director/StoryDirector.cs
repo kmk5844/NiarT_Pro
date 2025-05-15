@@ -56,6 +56,7 @@ public class StoryDirector : MonoBehaviour
         GameObject Branch = null;
 
         index = SA_PlayerData.Story_Num;
+        Debug.Log(index);
         //int index = EX_StoryData.Story_Branch.FindIndex(x => x.Stage_Index.Equals(SA_PlayerData.New_Stage));
         int Branch_Value = EX_StoryData.Story_Branch[index].Branch_Index;
         BackGround_Image.sprite = Resources.Load<Sprite>("Story/BackGround/" + EX_StoryData.Story_Branch[index].BackGround);

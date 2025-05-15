@@ -52,7 +52,6 @@ public class StoryDataObject : ScriptableObject
         {
             end_flag = true;
         }
-        
         Save();
     }
 
@@ -97,7 +96,6 @@ public class StoryDataObject : ScriptableObject
         ES3.Save<bool>("Story_" + story_num + "_StoryDataUse", storydatause);
         ES3.Save<bool>("Story_" + story_num + "_Start_Flag", start_flag);
         ES3.Save<bool>("Story_" + story_num + "_End_Flag", end_flag);
-
     }
 
     public IEnumerator SaveSync(bool Init = false)
@@ -120,7 +118,7 @@ public class StoryDataObject : ScriptableObject
 
     public void Load()
     {
-        storydatause = ES3.Load<bool>("Story_" + story_num + "_StoryDataUse");
+        //storydatause = ES3.Load<bool>("Story_" + story_num + "_StoryDataUse");
         start_flag = ES3.Load<bool>("Story_" + story_num + "_Start_Flag");
         end_flag = ES3.Load<bool>("Story_" + story_num + "_End_Flag");
     }
@@ -130,11 +128,15 @@ public class StoryDataObject : ScriptableObject
         runner.StartCoroutine(LoadSync());
     }
 
+    public void Load_DataUse()
+    {
+        storydatause = ES3.Load<bool>("Story_" + story_num + "_StoryDataUse");
+    }
+
     public IEnumerator LoadSync()
     {
         try
         {
-            storydatause = ES3.Load<bool>("Story_" + story_num + "_StoryDataUse");
             start_flag = ES3.Load<bool>("Story_" + story_num + "_Start_Flag");
             end_flag = ES3.Load<bool>("Story_" + story_num + "_End_Flag");
         }
