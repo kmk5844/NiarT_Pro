@@ -319,22 +319,35 @@ public class DialogSystem : MonoBehaviour
             {
                 if (EX_Story.Story[i].branch == branch && EX_Story.Story[i].Stage_Num == stageNum && EX_Story.Story[i].Story_Num == storyNum)
                 {
-                    //0 -> 기본(영어) , 1 -> 한글 , 2 -> 일본
+                    //0 -> 기본(영어) , 1 -> 한글 , 2 -> 일본 3-> 중국 간체 4-> 중국 번체 5-> 러시아어
                     _data.speakerIndex = EX_Story.Story[i].Speaker_Index;
-                    if (SA_Local.Local_Index == 1)
+
+                    switch (SA_Local.Local_Index)
                     {
-                        _data.name = EX_Story.Story[i].ko_name;
-                        _data.dialogue = EX_Story.Story[i].ko_dialog.Replace("\\n", "\n");
-                    }
-                    else if (SA_Local.Local_Index == 0)
-                    {
-                        _data.name = EX_Story.Story[i].en_name;
-                        _data.dialogue = EX_Story.Story[i].en_dialog.Replace("\\n", "\n");
-                    }
-                    else if (SA_Local.Local_Index == 2)
-                    {
-                        _data.name = EX_Story.Story[i].jp_name;
-                        _data.dialogue = EX_Story.Story[i].jp_dialog.Replace("\\n", "\n");
+                        case 0:
+                            _data.name = EX_Story.Story[i].en_name;
+                            _data.dialogue = EX_Story.Story[i].en_dialog.Replace("\\n", "\n");
+                            break;
+                        case 1:
+                            _data.name = EX_Story.Story[i].ko_name;
+                            _data.dialogue = EX_Story.Story[i].ko_dialog.Replace("\\n", "\n");
+                            break;
+                        case 2:
+                            _data.name = EX_Story.Story[i].jp_name;
+                            _data.dialogue = EX_Story.Story[i].jp_dialog.Replace("\\n", "\n");
+                            break;
+                        case 3:
+                            _data.name = EX_Story.Story[i].ch0_name;
+                            _data.dialogue = EX_Story.Story[i].ch0_dialog.Replace("\\n", "\n");
+                            break;
+                        case 4:
+                            _data.name = EX_Story.Story[i].ch1_name;
+                            _data.dialogue = EX_Story.Story[i].ch1_dialog.Replace("\\n", "\n");
+                            break;
+                        case 5:
+                            _data.name = EX_Story.Story[i].ru_name;
+                            _data.dialogue = EX_Story.Story[i].ru_dialog.Replace("\\n", "\n");
+                            break;
                     }
                     _data.backLog_Color = EX_Story.Story[i].BackLog_Color;
                     _data.Sound = EX_Story.Story[i].Sound;
@@ -356,20 +369,32 @@ public class DialogSystem : MonoBehaviour
                 {
                     //0 -> 기본(영어) , 1 -> 한글 , 2 -> 일본
                     _data.speakerIndex = EX_Story.Special_Story[i].Speaker_Index;
-                    if (SA_Local.Local_Index == 1)
+                    switch (SA_Local.Local_Index)
                     {
-                        _data.name = EX_Story.Special_Story[i].ko_name;
-                        _data.dialogue = EX_Story.Special_Story[i].ko_dialog.Replace("\\n", "\n");
-                    }
-                    else if (SA_Local.Local_Index == 0)
-                    {
-                        _data.name = EX_Story.Special_Story[i].en_name;
-                        _data.dialogue = EX_Story.Special_Story[i].en_dialog.Replace("\\n", "\n");
-                    }
-                    else if (SA_Local.Local_Index == 2)
-                    {
-                        _data.name = EX_Story.Special_Story[i].jp_name;
-                        _data.dialogue = EX_Story.Special_Story[i].jp_dialog.Replace("\\n", "\n");
+                        case 0:
+                            _data.name = EX_Story.Story[i].en_name;
+                            _data.dialogue = EX_Story.Story[i].en_dialog.Replace("\\n", "\n");
+                            break;
+                        case 1:
+                            _data.name = EX_Story.Story[i].ko_name;
+                            _data.dialogue = EX_Story.Story[i].ko_dialog.Replace("\\n", "\n");
+                            break;
+                        case 2:
+                            _data.name = EX_Story.Story[i].jp_name;
+                            _data.dialogue = EX_Story.Story[i].jp_dialog.Replace("\\n", "\n");
+                            break;
+                        case 3:
+                            _data.name = EX_Story.Story[i].ch0_name;
+                            _data.dialogue = EX_Story.Story[i].ch0_dialog.Replace("\\n", "\n");
+                            break;
+                        case 4:
+                            _data.name = EX_Story.Story[i].ch1_name;
+                            _data.dialogue = EX_Story.Story[i].ch1_dialog.Replace("\\n", "\n");
+                            break;
+                        case 5:
+                            _data.name = EX_Story.Story[i].ru_name;
+                            _data.dialogue = EX_Story.Story[i].ru_dialog.Replace("\\n", "\n");
+                            break;
                     }
                     _data.backLog_Color = EX_Story.Special_Story[i].BackLog_Color;
                     _data.Sound = EX_Story.Special_Story[i].Sound;
