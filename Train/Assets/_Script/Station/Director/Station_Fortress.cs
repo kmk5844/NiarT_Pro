@@ -200,6 +200,10 @@ public class Station_Fortress : MonoBehaviour
         Player_Information[2].text = playerData.EX_Game_Data.Information_Player[playerNum].Player_Armor + "<color=red> + " + ((playerData.EX_Game_Data.Information_Player[playerNum].Player_Armor * playerData.Level_Player_Armor * 10) / 100) + "</color>";
         Player_Information[3].text = playerData.EX_Game_Data.Information_Player[playerNum].Player_MoveSpeed + "<color=red> + " + ((float)(playerData.EX_Game_Data.Information_Player[playerNum].Player_MoveSpeed * playerData.Level_Player_Speed) / 50).ToString("F2") + "</color>";
         Player_Information[4].text = playerData.EX_Game_Data.Information_Player[playerNum].Player_HP + "<color=red> + " + ((playerData.EX_Game_Data.Information_Player[playerNum].Player_HP * playerData.Level_Player_HP * 10) / 100) + "</color>";
+        for (int i = 0; i < Player_Information.Length; i++)
+        {
+            Player_Information[i].ForceMeshUpdate();
+        }
     }
 
     public void Click_Player_Next()

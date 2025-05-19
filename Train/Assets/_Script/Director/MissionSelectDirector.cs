@@ -89,6 +89,11 @@ public class MissionSelectDirector : MonoBehaviour
                 //미션 선별
                 int x = Random.Range(0, missionList_Index.Count);
                 int y = missionList_Index[x];
+                if(y == 4)
+                {
+                    y = 0;
+                }
+
                 if (!RandomMission.Contains(y))
                 {
                     RandomMission.Add(y);

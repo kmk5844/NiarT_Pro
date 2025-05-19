@@ -99,6 +99,7 @@ public class SA_MissionData : ScriptableObject
         }
         else if (missionNum == 4)
         {
+            Debug.Log(SubStageNum);
             return missionList.Q_Con[SubStageNum];
         }
         else if (missionNum == 5)

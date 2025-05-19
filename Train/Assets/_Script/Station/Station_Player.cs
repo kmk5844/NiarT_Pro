@@ -79,6 +79,11 @@ public class Station_Player : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            stationDirector.ClickLobbyButton(2);
+        }
+
 
         if (rigid.velocity.x > moveSpeed)
         {
@@ -183,5 +188,6 @@ public class Station_Player : MonoBehaviour
             DoorFlag_Start = false;
             stationDirector.activeNotice(3, false);
         }
+
     }
 }

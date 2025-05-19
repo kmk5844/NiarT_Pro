@@ -35,6 +35,15 @@ public class SA_StageList : ScriptableObject
     {
         for (int i = 0; i < stage.Count; i++)
         {
+            if (ES3.KeyExists("Stage_" + i + "_stage_stagedatause"))
+            {
+                stage[i].Load_DataUse();
+            }
+            else
+            {
+                break;
+            }
+
             if (stage[i].StageDataUse)
             {
                 stage[i].InitSync(runner);

@@ -44,13 +44,22 @@ public class SubStage_Select : MonoBehaviour
 
     private void Start()
     {
-        subStageSelectDirector = GetComponentInParent<SubStageSelectDirector>();
-        BackButton.onClick.AddListener(subStageSelectDirector.CancelSubStage);
-        missionData = subStageSelectDirector.missionData.missionStage(MissionNum, StageNum, SubStageNum);
+        try
+        {
+            subStageSelectDirector = GetComponentInParent<SubStageSelectDirector>();
+            BackButton.onClick.AddListener(subStageSelectDirector.CancelSubStage);
+            missionData = subStageSelectDirector.missionData.missionStage(MissionNum, StageNum, SubStageNum);
+        }
+        catch
+        {
+            missionData = GetComponentInParent<testSubStageScript>().FindMissionData(MissionNum, StageNum, SubStageNum);
+            Debug.Log("TEst");
+        }
+
+
         InformationObject.SetActive(false);
         type_text.text = missionData.SubStage_Type.ToString();
-
-        if(missionData.Distance != -1)
+        if (missionData.Distance != -1)
         {
             distance_text.text = missionData.Distance.ToString();
         }
@@ -58,6 +67,8 @@ public class SubStage_Select : MonoBehaviour
         {
             distance_text.text = "---------";
         }
+
+
 
         switch (missionData.SubStage_Type)
         {
@@ -87,13 +98,14 @@ public class SubStage_Select : MonoBehaviour
                 break;
         }
 
+
         if (!missionData.NextStageFlag)
         {
             selectSubStageType = stageType.Sub;
         }
         else
         {
-            selectSubStageType= stageType.Next;
+            selectSubStageType = stageType.Next;
         }
 
         if (selectSubStageType == stageType.Sub)
@@ -117,7 +129,7 @@ public class SubStage_Select : MonoBehaviour
                 GetComponent<Button>().interactable = false;
             }
 
-            if(missionData.StageClearFlag && missionData.StageOpenFlag)
+            if (missionData.StageClearFlag && missionData.StageOpenFlag)
             {
                 GetComponent<Image>().sprite = StageClearImage;
             }
@@ -196,7 +208,19 @@ public class SubStage_Select : MonoBehaviour
         string [] rail_String = missionData.Open_SubStageNum.Split(",");
         for(int i = 0; i < rail_String.Length; i++)
         {
-            int rail_num = int.Parse(rail_String[i]);
+            int rail_num;
+
+            try
+            {
+                rail_num = int.Parse(rail_String[i]);
+            }
+            catch
+            {
+                Debug.LogError(missionData.Mission_Num + " : " + missionData.Stage_Num + " : " + missionData.SubStage_Num);
+                rail_num = missionData.SubStage_Num;
+                //rail_num = -1;
+            }
+
             if(rail_num == -1)
             {
                 LastFlag.SetActive(true);

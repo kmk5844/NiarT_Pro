@@ -123,6 +123,7 @@ public void DataLoad()
     {
         string[] index_St = gameData.Information_Stage[PlayerData.New_Stage].Story_Index.Split(',');
         int index = int.Parse(index_St[1]);
+        Debug.Log(index);
 
         if (gameData.Information_Stage[PlayerData.New_Stage].BeforeGameStart_Button)
         {

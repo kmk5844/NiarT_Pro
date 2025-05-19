@@ -344,7 +344,13 @@ public class GameDirector : MonoBehaviour
     {
         if (Input.GetKeyDown("]"))
         {
-            TrainDistance = 99999999;
+            if (Data_BossFlag)
+            {
+                TrainSpeed = 1000;
+            }else
+            {
+                TrainDistance = 99999999;
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))

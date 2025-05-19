@@ -15000,7 +15000,7 @@ MonoBehaviour:
   Director_Fortress: {fileID: 500323604}
   Director_Inventory: {fileID: 1417894470}
   Director_GameStart: {fileID: 1063944483}
-  Direcotr_Conversion: {fileID: 965955580}
+  Direcotr_Conversion: {fileID: 0}
   simplestationFlag: 0
   SubStageSelectObject: {fileID: 783501093}
   Director_PlayerReadyDirector: {fileID: 0}
@@ -15066,8 +15066,6 @@ Transform:
   - {fileID: 500323603}
   - {fileID: 1417894469}
   - {fileID: 1063944482}
-  - {fileID: 965955577}
-  - {fileID: 2143538553}
   - {fileID: 1114692262}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -17201,7 +17199,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2143538554}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TutorialDirector, Assembly-CSharp
         m_MethodName: CheckButton
         m_Mode: 3
@@ -25954,7 +25952,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 40
+  m_lineSpacing: 66.66667
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -29965,7 +29963,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2143538554}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TutorialDirector, Assembly-CSharp
         m_MethodName: CheckButton
         m_Mode: 3
@@ -39213,7 +39211,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 40
+  m_lineSpacing: 66.66667
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -44739,97 +44737,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 959789134}
   m_CullTransparentMesh: 1
---- !u!1 &965955576
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 965955577}
-  - component: {fileID: 965955579}
-  - component: {fileID: 965955580}
-  m_Layer: 5
-  m_Name: Director_Conversion
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &965955577
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 965955576}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 340841306}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -105, y: -20}
-  m_SizeDelta: {x: 1510.701, y: 847}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &965955579
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 965955576}
-  m_CullTransparentMesh: 1
---- !u!114 &965955580
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 965955576}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d678b909097a28b4181e238becc09ffb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RequireItemCount: 5
-  itemData_object: {fileID: 1358764858}
-  inventory: {fileID: 1417894470}
-  BeforeConvertWindow: {fileID: 1855706643}
-  Convertion_Object: {fileID: 0}
-  ChoiceMaterial: {fileID: 688792718}
-  ChoiceMaterial_Window:
-  - {fileID: 1117972768}
-  - {fileID: 329138232}
-  Conversion_Material_Image: {fileID: 1800978092}
-  Conversion_Material_Name_Text: {fileID: 378803453}
-  Conversion_Material_Count_Text: {fileID: 1081733637}
-  Material_Image_1: {fileID: 419457118}
-  Material_Count_Text_1: {fileID: 938827922}
-  Material_Name_Text_1: {fileID: 1061918979}
-  Material_Image_2: {fileID: 1867340899}
-  Material_Count_Text_2: {fileID: 1973256611}
-  Material_Name_Text_2: {fileID: 1942298618}
-  Material_LockPanel_2:
-  - {fileID: 1061233089}
-  - {fileID: 1876698075}
-  - {fileID: 985910985}
-  - {fileID: 711378235}
-  ConvertText: {fileID: 1185570969}
-  Convert_Button: {fileID: 1966102175}
-  ConvertCountUp: {fileID: 100209074}
-  ConvertCountDown: {fileID: 1399593932}
-  CountText: {fileID: 626724202}
-  AfterConvertWindow: {fileID: 1964426813}
-  Result_Icon_Img: {fileID: 2033932939}
-  Result_Name_Text: {fileID: 225454645}
-  Result_Count_Text: {fileID: 476567583}
-  Empty_Sprite: {fileID: 1944563864, guid: b1e7ecc29d244774b8c5a2b75aedd938, type: 3}
-  AfterConversionFlag: 0
 --- !u!1 &972719940
 GameObject:
   m_ObjectHideFlags: 0
@@ -46224,7 +46131,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2143538554}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TutorialDirector, Assembly-CSharp
         m_MethodName: CheckButton
         m_Mode: 3
@@ -61285,7 +61192,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 965955580}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ItemUse_Window_53, Assembly-CSharp
         m_MethodName: Button_Check
         m_Mode: 1
@@ -82540,7 +82447,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2143538554}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TutorialDirector, Assembly-CSharp
         m_MethodName: CheckButton
         m_Mode: 3
@@ -90787,7 +90694,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2143538554}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TutorialDirector, Assembly-CSharp
         m_MethodName: CheckButton
         m_Mode: 3
@@ -94386,7 +94293,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2143538554}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TutorialDirector, Assembly-CSharp
         m_MethodName: CheckButton
         m_Mode: 3
@@ -99760,60 +99667,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &2143538552
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2143538553}
-  - component: {fileID: 2143538554}
-  m_Layer: 0
-  m_Name: Director_Tutorial
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &2143538553
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2143538552}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 340841306}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2143538554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2143538552}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1224743bde95e64992b75aec1afac6f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tutorialData: {fileID: 11400000, guid: e474f0d58c15e3948852b0e9406b577a, type: 2}
-  TutorialList: {fileID: 1442554155}
-  Tutorial_Flag: 
-  Tutorial_Object:
-  - {fileID: 1419406106612030915, guid: 81facbdc43e089740887c21f277834ba, type: 3}
-  - {fileID: 1419406106612030915, guid: b9c5711bbd4bbea45be801620a619ff2, type: 3}
-  - {fileID: 1419406106612030915, guid: 0edee29e36b0b7c47a027a667ae6867b, type: 3}
-  - {fileID: 1419406106612030915, guid: 4973985592b12084b97cd1d6861a6a63, type: 3}
-  - {fileID: 1419406106612030915, guid: def1e57c5ffedf2409aa6f5efff5d40f, type: 3}
-  - {fileID: 1419406106612030915, guid: 8cfb8ff36a76e794d9a110454b8fac15, type: 3}
 --- !u!1 &2145922465
 GameObject:
   m_ObjectHideFlags: 0
@@ -122780,38 +122633,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1272458380974839680, guid: 3e3052b3f67b2a94094fdabb75e83225, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1558712955230270626, guid: 3e3052b3f67b2a94094fdabb75e83225, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2743573494755365411, guid: 3e3052b3f67b2a94094fdabb75e83225, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 3295812947932867593, guid: a9c3ea898f465b849bea58afd8e436ac, type: 2}
-    - target: {fileID: 3086013672131059200, guid: 3e3052b3f67b2a94094fdabb75e83225, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7138455849514656502, guid: 3e3052b3f67b2a94094fdabb75e83225, type: 3}
       propertyPath: m_Name
       value: Station
       objectReference: {fileID: 0}
-    - target: {fileID: 7457151511088180281, guid: 3e3052b3f67b2a94094fdabb75e83225, type: 3}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7677143428751570353, guid: 3e3052b3f67b2a94094fdabb75e83225, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2572762510154028185, guid: 194a7a087ea730042abfaf39226db056, type: 2}
-    - target: {fileID: 7831162645465344820, guid: 3e3052b3f67b2a94094fdabb75e83225, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 3295812947932867593, guid: a9c3ea898f465b849bea58afd8e436ac, type: 2}
     - target: {fileID: 8069090375180181360, guid: 3e3052b3f67b2a94094fdabb75e83225, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.31
@@ -122852,15 +122677,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8746110181454630750, guid: 3e3052b3f67b2a94094fdabb75e83225, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 3295812947932867593, guid: a9c3ea898f465b849bea58afd8e436ac, type: 2}
-    m_RemovedComponents:
-    - {fileID: 4548702389860217878, guid: 3e3052b3f67b2a94094fdabb75e83225, type: 3}
-    - {fileID: 547854071451319624, guid: 3e3052b3f67b2a94094fdabb75e83225, type: 3}
-    - {fileID: 1339931569925230274, guid: 3e3052b3f67b2a94094fdabb75e83225, type: 3}
-    - {fileID: 8806821987170076805, guid: 3e3052b3f67b2a94094fdabb75e83225, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

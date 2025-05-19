@@ -15,7 +15,7 @@ D:/Unity Folder/NiarT_Pro_Fork/Train
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-63364
+50966
 Successfully changed project path to: D:/Unity Folder/NiarT_Pro_Fork/Train
 D:/Unity Folder/NiarT_Pro_Fork/Train
 [UnityMemory] Configuration Parameters - Can be set up in boot.config
@@ -49,12 +49,12 @@ D:/Unity Folder/NiarT_Pro_Fork/Train
     "memorysetup-temp-allocator-size-cloud-worker=32768"
     "memorysetup-temp-allocator-size-gi-baking-worker=262144"
     "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [19724] Host "[IP] 192.168.219.74 [Port] 0 [Flags] 2 [Guid] 3587734090 [EditorId] 3587734090 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-BCEC88D) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
+Player connection [8588] Host "[IP] 192.168.219.74 [Port] 0 [Flags] 2 [Guid] 1344165300 [EditorId] 1344165300 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-BCEC88D) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined multi-casting on [225.0.0.222:54997]...
 
-Player connection [19724] Host "[IP] 192.168.219.74 [Port] 0 [Flags] 2 [Guid] 3587734090 [EditorId] 3587734090 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-BCEC88D) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
+Player connection [8588] Host "[IP] 192.168.219.74 [Port] 0 [Flags] 2 [Guid] 1344165300 [EditorId] 1344165300 [Version] 1048832 [Id] WindowsEditor(7,DESKTOP-BCEC88D) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" joined alternative multi-casting on [225.0.0.222:34997]...
 
 [Physics::Module] Initialized MultithreadedJobDispatcher with 5 workers.
-Refreshing native plugins compatible for Editor in 13.63 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 12.04 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2022.3.19f1 (244b723c30a6)
 [Subsystems] Discovering subsystems at path D:/Unity Version/Unity 2022.3.19f1/Editor/Data/Resources/UnitySubsystems
@@ -71,44 +71,44 @@ Initialize mono
 Mono path[0] = 'D:/Unity Version/Unity 2022.3.19f1/Editor/Data/Managed'
 Mono path[1] = 'D:/Unity Version/Unity 2022.3.19f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
 Mono config path = 'D:/Unity Version/Unity 2022.3.19f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56644
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56484
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: D:/Unity Version/Unity 2022.3.19f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.004152 seconds.
-- Loaded All Assemblies, in  0.354 seconds
+Registered in 0.004186 seconds.
+- Loaded All Assemblies, in  0.368 seconds
 Native extension for WindowsStandalone target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.406 seconds
-Domain Reload Profiling: 760ms
-	BeginReloadAssembly (107ms)
+- Finished resetting the current domain, in  0.291 seconds
+Domain Reload Profiling: 659ms
+	BeginReloadAssembly (109ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (0ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
 		CreateAndSetChildDomain (1ms)
-	RebuildCommonClasses (36ms)
+	RebuildCommonClasses (37ms)
 	RebuildNativeTypeToScriptingClass (12ms)
-	initialDomainReloadingComplete (54ms)
-	LoadAllAssembliesAndSetupDomain (146ms)
-		LoadAssemblies (106ms)
+	initialDomainReloadingComplete (55ms)
+	LoadAllAssembliesAndSetupDomain (154ms)
+		LoadAssemblies (108ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (144ms)
-			TypeCache.Refresh (142ms)
-				TypeCache.ScanAssembly (128ms)
+		AnalyzeDomain (152ms)
+			TypeCache.Refresh (151ms)
+				TypeCache.ScanAssembly (137ms)
 			ScanForSourceGeneratedMonoScriptInfo (0ms)
 			ResolveRequiredComponents (0ms)
-	FinalizeReload (406ms)
+	FinalizeReload (291ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (345ms)
+		SetupLoadedEditorAssemblies (229ms)
 			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (9ms)
-			SetLoadedEditorAssemblies (9ms)
+			InitializePlatformSupportModulesInManaged (8ms)
+			SetLoadedEditorAssemblies (7ms)
 			RefreshPlugins (0ms)
 			BeforeProcessingInitializeOnLoad (2ms)
-			ProcessInitializeOnLoadAttributes (272ms)
-			ProcessInitializeOnLoadMethodAttributes (53ms)
+			ProcessInitializeOnLoadAttributes (160ms)
+			ProcessInitializeOnLoadMethodAttributes (50ms)
 			AfterProcessingInitializeOnLoad (0ms)
 			EditorAssembliesLoaded (0ms)
 		ExecutionOrderSort2 (0ms)
@@ -117,52 +117,52 @@ Domain Reload Profiling: 760ms
 Worker process is ready to serve import requests
 Begin MonoManager ReloadAssembly
 Symbol file LoadedFromMemory is not a mono symbol file
-- Loaded All Assemblies, in  0.727 seconds
-Refreshing native plugins compatible for Editor in 4.01 ms, found 3 plugins.
+- Loaded All Assemblies, in  0.729 seconds
+Refreshing native plugins compatible for Editor in 4.36 ms, found 3 plugins.
 Native extension for WindowsStandalone target not found
 Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.766 seconds
-Domain Reload Profiling: 1493ms
-	BeginReloadAssembly (149ms)
+- Finished resetting the current domain, in  0.749 seconds
+Domain Reload Profiling: 1477ms
+	BeginReloadAssembly (147ms)
 		ExecutionOrderSort (0ms)
 		DisableScriptedObjects (6ms)
 		BackupInstance (0ms)
 		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (23ms)
+		CreateAndSetChildDomain (21ms)
 	RebuildCommonClasses (34ms)
 	RebuildNativeTypeToScriptingClass (12ms)
-	initialDomainReloadingComplete (39ms)
-	LoadAllAssembliesAndSetupDomain (492ms)
-		LoadAssemblies (327ms)
+	initialDomainReloadingComplete (40ms)
+	LoadAllAssembliesAndSetupDomain (496ms)
+		LoadAssemblies (321ms)
 		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (248ms)
-			TypeCache.Refresh (183ms)
-				TypeCache.ScanAssembly (166ms)
-			ScanForSourceGeneratedMonoScriptInfo (33ms)
-			ResolveRequiredComponents (30ms)
-	FinalizeReload (767ms)
+		AnalyzeDomain (260ms)
+			TypeCache.Refresh (192ms)
+				TypeCache.ScanAssembly (173ms)
+			ScanForSourceGeneratedMonoScriptInfo (34ms)
+			ResolveRequiredComponents (33ms)
+	FinalizeReload (749ms)
 		ReleaseScriptCaches (0ms)
 		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (536ms)
+		SetupLoadedEditorAssemblies (515ms)
 			LogAssemblyErrors (0ms)
 			InitializePlatformSupportModulesInManaged (5ms)
 			SetLoadedEditorAssemblies (4ms)
 			RefreshPlugins (0ms)
-			BeforeProcessingInitializeOnLoad (80ms)
-			ProcessInitializeOnLoadAttributes (394ms)
-			ProcessInitializeOnLoadMethodAttributes (50ms)
+			BeforeProcessingInitializeOnLoad (78ms)
+			ProcessInitializeOnLoadAttributes (376ms)
+			ProcessInitializeOnLoadMethodAttributes (49ms)
 			AfterProcessingInitializeOnLoad (3ms)
 			EditorAssembliesLoaded (1ms)
 		ExecutionOrderSort2 (0ms)
 		AwakeInstancesAfterBackupRestoration (7ms)
 Shader 'MoreMountains/MMRipple': fallback shader 'Particle/AlphaBlended' not found
 Launched and connected shader compiler UnityShaderCompiler.exe after 0.04 seconds
-Refreshing native plugins compatible for Editor in 5.24 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 4.49 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
-Unloading 6152 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 119 unused Assets / (110.9 KB). Loaded Objects now: 6683.
-Memory consumption went from 392.6 MB to 392.5 MB.
-Total: 6.976400 ms (FindLiveObjects: 0.481400 ms CreateObjectMapping: 0.555100 ms MarkObjects: 5.668200 ms  DeleteObjects: 0.270700 ms)
+Unloading 6153 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 119 unused Assets / (110.9 KB). Loaded Objects now: 6684.
+Memory consumption went from 392.3 MB to 392.2 MB.
+Total: 4.016400 ms (FindLiveObjects: 0.464100 ms CreateObjectMapping: 0.462300 ms MarkObjects: 2.968600 ms  DeleteObjects: 0.120100 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
@@ -179,33 +179,129 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Import Request.
-  Time since last request: 117726.636608 seconds.
-  path: Assets/Resources/Fonts/RU/_RU_MintsodaLimeGreen13X16Regular-KVvzA SDF.asset
-  artifactKey: Guid(7e7f615921da8fa4c8e61773b9158081) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Fonts/RU/_RU_MintsodaLimeGreen13X16Regular-KVvzA SDF.asset using Guid(7e7f615921da8fa4c8e61773b9158081) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e421b0d25858411a7d2d17487ce0daa3') in 0.124389 seconds
+  Time since last request: 7266.874668 seconds.
+  path: Assets/Resources/Fonts/JP/_JP_LINESeedJP_TTF_Rg SDF.asset
+  artifactKey: Guid(455484de4402e6547822fc60fd22deee) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Fonts/JP/_JP_LINESeedJP_TTF_Rg SDF.asset using Guid(455484de4402e6547822fc60fd22deee) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ed7841f490c4abed5e9a392124f2e0f7') in 0.114300 seconds
 Number of updated asset objects reloaded before import = 0
 Number of asset objects unloaded after import = 6
 ========================================================================
 Received Import Request.
-  Time since last request: 13.181188 seconds.
-  path: Assets/Resources/Fonts/RU/_RU_MintsodaLimeGreen13X16Regular-KVvzA SDF.asset
-  artifactKey: Guid(7e7f615921da8fa4c8e61773b9158081) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Fonts/RU/_RU_MintsodaLimeGreen13X16Regular-KVvzA SDF.asset using Guid(7e7f615921da8fa4c8e61773b9158081) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3735b8dcb26fb4137365259ecd3b8335') in 0.039177 seconds
+  Time since last request: 0.000023 seconds.
+  path: Assets/Resources/Fonts/JP/_JP_hs봄바람체_Bansyu-retoromin-R_ver.3.2 SDF.asset
+  artifactKey: Guid(0901cd04ce9e40344ab54b3e32a977a4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Fonts/JP/_JP_hs봄바람체_Bansyu-retoromin-R_ver.3.2 SDF.asset using Guid(0901cd04ce9e40344ab54b3e32a977a4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '944cfde94215dcfd82f88c3970da4477') in 0.029768 seconds
 Number of updated asset objects reloaded before import = 0
 Number of asset objects unloaded after import = 6
 ========================================================================
 Received Import Request.
-  Time since last request: 239.881133 seconds.
-  path: Assets/Resources/Fonts/KR/_NeoDunggeunmoPro-Regular SDF.asset
-  artifactKey: Guid(b78e44a57ee848341a90cccae5c0bcd1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Fonts/KR/_NeoDunggeunmoPro-Regular SDF.asset using Guid(b78e44a57ee848341a90cccae5c0bcd1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7e2c063fbc168228257e6b8af32c6787') in 4.258128 seconds
-Number of updated asset objects reloaded before import = 0
-Number of asset objects unloaded after import = 1260
-========================================================================
-Received Import Request.
-  Time since last request: 0.000021 seconds.
-  path: Assets/Resources/Fonts/RU/_RU_MintsodaLimeGreen13X16Regular-KVvzA SDF.asset
-  artifactKey: Guid(7e7f615921da8fa4c8e61773b9158081) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Resources/Fonts/RU/_RU_MintsodaLimeGreen13X16Regular-KVvzA SDF.asset using Guid(7e7f615921da8fa4c8e61773b9158081) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '684eb5d60eedbca2b2d411dff60f3f66') in 0.034404 seconds
+  Time since last request: 0.000015 seconds.
+  path: Assets/Resources/Fonts/JP/_JP_EF피렌체 SDF.asset
+  artifactKey: Guid(855d0e0496926774692475c1d54363da) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Fonts/JP/_JP_EF피렌체 SDF.asset using Guid(855d0e0496926774692475c1d54363da) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a58a04ebacbc2557da34c6310030d133') in 0.035212 seconds
 Number of updated asset objects reloaded before import = 0
 Number of asset objects unloaded after import = 6
+========================================================================
+Received Import Request.
+  Time since last request: 0.000015 seconds.
+  path: Assets/Resources/Fonts/JP/_JP_LINESeedJP_W_TTF_Rg SDF.asset
+  artifactKey: Guid(33ba90c47bf16ed43acfd52f4d80006b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Fonts/JP/_JP_LINESeedJP_W_TTF_Rg SDF.asset using Guid(33ba90c47bf16ed43acfd52f4d80006b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '300b9717df57a3780eb537b142725d7b') in 0.072399 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 6
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/Resources/Fonts/NewJP/_jp_Neo_Nosutaru-dotMPlusH-10-Regular SDF.asset
+  artifactKey: Guid(3878516241f0ec04ab3a0ef1d0477aef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Fonts/NewJP/_jp_Neo_Nosutaru-dotMPlusH-10-Regular SDF.asset using Guid(3878516241f0ec04ab3a0ef1d0477aef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '17a62df053d29429054096beacc7c5a8') in 0.717438 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 45
+========================================================================
+Received Import Request.
+  Time since last request: 0.000018 seconds.
+  path: Assets/Resources/Fonts/JP/_JP_hs봄바람체_Bansyu-retoromin-R_W_ver.3.2 SDF 1.asset
+  artifactKey: Guid(3be1fa4e80b36ff4d9cc252a3e321b8e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Fonts/JP/_JP_hs봄바람체_Bansyu-retoromin-R_W_ver.3.2 SDF 1.asset using Guid(3be1fa4e80b36ff4d9cc252a3e321b8e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7ccb5b5151821ff1b9c901056fc29f82') in 0.030137 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 6
+========================================================================
+Received Import Request.
+  Time since last request: 10.433540 seconds.
+  path: Assets/Resources/Fonts/NewJP/_jp_Neo_Nosutaru-dotMPlusH-10-Regular SDF.asset
+  artifactKey: Guid(3878516241f0ec04ab3a0ef1d0477aef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Fonts/NewJP/_jp_Neo_Nosutaru-dotMPlusH-10-Regular SDF.asset using Guid(3878516241f0ec04ab3a0ef1d0477aef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9daadd89159f7440f16a771719f26dcb') in 0.549642 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 45
+========================================================================
+Received Import Request.
+  Time since last request: 42.122203 seconds.
+  path: Assets/Resources/Fonts/NewJP/_jp_Neo_Nosutaru-dotMPlusH-10-Regular SDF.asset
+  artifactKey: Guid(3878516241f0ec04ab3a0ef1d0477aef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Fonts/NewJP/_jp_Neo_Nosutaru-dotMPlusH-10-Regular SDF.asset using Guid(3878516241f0ec04ab3a0ef1d0477aef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '52e41fc7ddb2e663c41e3089bd9d240a') in 0.565670 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 45
+========================================================================
+Received Import Request.
+  Time since last request: 80.778898 seconds.
+  path: Assets/Resources/Fonts/NewJP/_jp_Neo_Nosutaru-dotMPlusH-10-Regular SDF.asset
+  artifactKey: Guid(3878516241f0ec04ab3a0ef1d0477aef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Fonts/NewJP/_jp_Neo_Nosutaru-dotMPlusH-10-Regular SDF.asset using Guid(3878516241f0ec04ab3a0ef1d0477aef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'adc2258540156ad428483e5fc5c71e21') in 0.573342 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 45
+========================================================================
+Received Import Request.
+  Time since last request: 10.806829 seconds.
+  path: Assets/Resources/Fonts/JP/_JP_Neo둥근모_x12y16pxMaruMonica SDF.asset
+  artifactKey: Guid(194a7a087ea730042abfaf39226db056) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Fonts/JP/_JP_Neo둥근모_x12y16pxMaruMonica SDF.asset using Guid(194a7a087ea730042abfaf39226db056) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e1cd8e21053f80c1de523a67d378c6df') in 0.069594 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 6
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/Resources/Fonts/JP/_JP_Neo둥근모_x12y16pxMaruMonica2 SDF.asset
+  artifactKey: Guid(fd564312cf1c6ef4ebc9f74e0f6f8b2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Fonts/JP/_JP_Neo둥근모_x12y16pxMaruMonica2 SDF.asset using Guid(fd564312cf1c6ef4ebc9f74e0f6f8b2a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6957ef22a2618ccec9bc9609516478dc') in 0.069001 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 8
+========================================================================
+Received Import Request.
+  Time since last request: 0.079903 seconds.
+  path: Assets/Resources/Fonts/JP/_JP_동화또박 SDF.asset
+  artifactKey: Guid(b11ce0b4fa14d084ca2a91fcbd2467d1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Fonts/JP/_JP_동화또박 SDF.asset using Guid(b11ce0b4fa14d084ca2a91fcbd2467d1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2b228d9d4ce84a080bf47401b80c4542') in 0.061898 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 6
+========================================================================
+Received Import Request.
+  Time since last request: 0.000015 seconds.
+  path: Assets/Resources/Fonts/JP/_JP_배민을지로체_craftmincho SDF.asset
+  artifactKey: Guid(028f757bc8003d041a79535c83161efb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Fonts/JP/_JP_배민을지로체_craftmincho SDF.asset using Guid(028f757bc8003d041a79535c83161efb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8d02364a87ef64f7613dfb5f96582ba7') in 0.062908 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 6
+========================================================================
+Received Import Request.
+  Time since last request: 0.000014 seconds.
+  path: Assets/Resources/Fonts/JP/_JP_배민 도현체_AkazukiPOP SDF.asset
+  artifactKey: Guid(a9c3ea898f465b849bea58afd8e436ac) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Fonts/JP/_JP_배민 도현체_AkazukiPOP SDF.asset using Guid(a9c3ea898f465b849bea58afd8e436ac) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '00f0afb0e1bcf6a178bc821dbbbb836b') in 0.231613 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 6
+========================================================================
+Received Import Request.
+  Time since last request: 0.000019 seconds.
+  path: Assets/Resources/Fonts/JP/_JP_쌍문동_B_Corporate-Logo-Medium-ver3 SDF.asset
+  artifactKey: Guid(4121fe69ecb9b0348a10f9c381de18ed) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Fonts/JP/_JP_쌍문동_B_Corporate-Logo-Medium-ver3 SDF.asset using Guid(4121fe69ecb9b0348a10f9c381de18ed) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dde0173146d0439db9b1fd431350db27') in 0.063156 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 6
+========================================================================
+Received Import Request.
+  Time since last request: 20.661377 seconds.
+  path: Assets/Resources/Fonts/NewJP/_jp_Neo_Nosutaru-dotMPlusH-10-Regular SDF.asset
+  artifactKey: Guid(3878516241f0ec04ab3a0ef1d0477aef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Fonts/NewJP/_jp_Neo_Nosutaru-dotMPlusH-10-Regular SDF.asset using Guid(3878516241f0ec04ab3a0ef1d0477aef) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '14286da249848e7bad81b039f1cfa64d') in 0.556194 seconds
+Number of updated asset objects reloaded before import = 0
+Number of asset objects unloaded after import = 45
