@@ -422,6 +422,16 @@ public class SA_MissionData : ScriptableObject
             foreach (MissionDataObject mission in stagelist[selectNum].Q_Des)
             {
                 bool flag = mission.Load_missionDataUse();
+
+                if (flag)
+                {
+                    if (mission.MissionDataUse)
+                    {
+                        mission.LoadSync_Start(runner);
+                    }
+                }
+/*
+
                 if (flag)
                 {
                     if (mission.MissionDataUse)
@@ -436,7 +446,7 @@ public class SA_MissionData : ScriptableObject
                 else
                 {
                     break;
-                }
+                }*/
                 yield return null;
             }
             foreach (MissionDataObject mission in stagelist[selectNum].Q_Mat)

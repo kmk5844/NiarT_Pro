@@ -242,6 +242,7 @@ public class GameDirector : MonoBehaviour
             MissionDataObject PrevStageData = SA_MissionData.missionStage(Mission_Num, Stage_Num, Before_Sub_Num);
             PrevSubStageNum = new List<int>();
             string[] prevSubStageList = PrevStageData.Open_SubStageNum.Split(',');
+
             foreach (string sub in prevSubStageList)
             {
                 PrevSubStageNum.Add(int.Parse(sub));
