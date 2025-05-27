@@ -99,6 +99,11 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
 
     private void Update()
     {
+        if(player.PlayerHP < 500)
+        {
+            player.PlayerHP = 500;
+        }
+
         if (Input.GetKeyDown("]"))
         {
             if (!DataManager.Instance.playerData.FirstFlag)

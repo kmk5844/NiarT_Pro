@@ -48,7 +48,7 @@ public class SelfTurret_Train : MonoBehaviour
         gameDirector = SelfTurretTrain.gameDirector.GetComponent<GameDirector>();
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         SelfTurretTrain_Fuel = 0;
-        SelfTurretTrain_Fuel = SelfTurretTrain.Train_Self_UseFuel;
+        //SelfTurretTrain_Fuel = SelfTurretTrain.Train_Self_UseFuel;
         WaitTime = 20;
         Max_SelfTurretTrain_Fuel = SelfTurretTrain.Train_Self_UseFuel;
         Turret_Atk = SelfTurretTrain.Train_Self_Attack;

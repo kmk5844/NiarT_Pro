@@ -18,8 +18,16 @@ public class Item_Mini_Turret : MonoBehaviour
     void Start()
     {
         Target_Flag = false;
-        BulletObject.GetComponent<Bullet>().atk = 15;
-        train_Attack_Delay = 0.25f;
+        if (!Default_Turret)
+        {
+            BulletObject.GetComponent<Bullet>().atk = 20;
+            train_Attack_Delay = 0.25f;
+        }
+        else
+        {
+            BulletObject.GetComponent<Bullet>().atk = 5;
+            train_Attack_Delay = 0.7f;
+        }
         BulletList = GameObject.Find("Bullet_List").transform;
         lastTime = 0;
         if (!Default_Turret)

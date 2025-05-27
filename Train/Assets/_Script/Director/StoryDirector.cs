@@ -217,6 +217,12 @@ public class StoryDirector : MonoBehaviour
         optionHit_Flag = false;
     }
 
+    public void Click_Cancel_Auto_Flag()
+    {
+        AutoToggle.isOn = false;
+        Auto_Flag = false;
+    }
+
     private void Click_Auto_Toggle(bool isOn)
     {
         if (isOn)
@@ -262,10 +268,8 @@ public class StoryDirector : MonoBehaviour
     public void Instantiate_BackLog(int num)
     {
         Vector2 pos = BackLog_Content.GetComponent<RectTransform>().sizeDelta;
-        BackLog_Content.GetComponent<RectTransform>().sizeDelta = new Vector2 (pos.x, pos.y + 40);
+        BackLog_Content.GetComponent<RectTransform>().sizeDelta = new Vector2 (pos.x, pos.y + 45);
         GameObject Back = Instantiate(BackLog_Object, BackLog_Content);
         Back.GetComponent<BackLog_object>().SetString(BackLog[num].name, BackLog[num].dialogue, BackLog[num].backLog_Color);
     }
-
-
 }

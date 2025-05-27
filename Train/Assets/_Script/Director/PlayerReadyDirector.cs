@@ -966,7 +966,32 @@ public class PlayerReadyDirector : MonoBehaviour
 
     public void ItemTab_StartButton()
     {
-        if (!trainData.Train_Num.Contains(-1))
+
+        //연료체크
+        bool hasMinusOne = trainData.Train_Num.Contains(-1);
+        bool has10To19 = false;
+
+        for (int i = 0; i < trainData.Train_Num.Count; i++)
+        {
+            if (trainData.Train_Num[i] / 10 == 1 || trainData.Train_Num[i] == 10)
+            {
+                has10To19 = true;
+                break;
+            }
+        }
+
+        bool checkFlag;
+
+        if (hasMinusOne || !has10To19)
+        {
+            checkFlag =  true; //빈 기차가 있을 경우 / 연료기차가 없을 경우
+        }
+        else
+        {
+            checkFlag = false;
+        }
+
+        if (!checkFlag)
         {
             MMSoundManagerSoundPlayEvent.Trigger(ButtonSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
             gameObject.SetActive(false);

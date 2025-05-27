@@ -49,7 +49,7 @@ public class DialogSystem : MonoBehaviour
 	private	bool			isFirst = true;				// 최초 1회만 호출하기 위한 변수
 	private	int				currentDialogIndex = -1;	// 현재 대사 순번
 	private	int				currentSpeakerIndex = 0;	// 현재 말을 하는 화자(Speaker)의 speakers 배열 순번
-	private	float			typingSpeed = 0.05f;			// 텍스트 타이핑 효과의 재생 속도
+	private	float			typingSpeed = 0.02f;			// 텍스트 타이핑 효과의 재생 속도
 	private	bool			isTypingEffect = false;     // 텍스트 타이핑 효과를 재생중인지
 
     AudioClip ButtonSFX;
@@ -68,7 +68,7 @@ public class DialogSystem : MonoBehaviour
             SelectDirector_Object = GameObject.Find("SelectMission");
             selectMission = SelectDirector_Object.GetComponent<SelectMission>();
             eventFlag = selectMission.M_Event;
-            delay = 1;
+            delay = 2;
         }
         ButtonSFX = Resources.Load<AudioClip>("Sound/SFX/ButtonSFX");
         Check_Local();
@@ -114,6 +114,11 @@ public class DialogSystem : MonoBehaviour
             Auto_Flag = storydirector.Auto_Flag;
             Back_Flag = storydirector.BackLog_Flag;
             Option_Flag = storydirector.Option_Flag;
+        }
+
+        if (Input.GetMouseButtonDown(0) && Auto_Flag)
+        {
+            storydirector.Click_Cancel_Auto_Flag();
         }
     }
 
