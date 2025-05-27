@@ -1136,6 +1136,7 @@ public class GameDirector : MonoBehaviour
     {
         gameType = GameType.GameEnd;
         Time.timeScale = 0f;
+        bool chapter_clearFlag = SA_StageList.Stage[Stage_Num].Stage_ClearFlag;
         if (WinFlag)
         {
             missionDirector.Adjustment_Mission(); // 정보 갱신하기.
@@ -1155,7 +1156,7 @@ public class GameDirector : MonoBehaviour
                     //Debug.Log("작업 해야됨" + flag);
                     missionDirector.selectmission.Mission_Fail();
                     SA_PlayerData.SA_MissionPlaying(false);
-                    uiDirector.Open_Result_UI(false, Total_Score, Total_Coin, missionDirector.selectmission, LoseNum);
+                    uiDirector.Open_Result_UI(false, Total_Score, Total_Coin, missionDirector.selectmission, chapter_clearFlag, LoseNum);
                 }
             }
             else //마지막스테이지일 때
@@ -1164,9 +1165,9 @@ public class GameDirector : MonoBehaviour
                 if (flag)
                 { // 미션 통과다
                     //Debug.Log("마지막 작동 완료" + flag);
-                    missionDirector.selectmission.Mission_Sucesses();
+                    missionDirector.selectmission.Mission_Sucesses(SA_StageList.Stage[Stage_Num]);
                     
-                    uiDirector.Open_Result_UI(true, Total_Score, Total_Coin, missionDirector.selectmission, LoseNum);
+                    uiDirector.Open_Result_UI(true, Total_Score, Total_Coin, missionDirector.selectmission, chapter_clearFlag, LoseNum);
                     LastSubStageClear();
                     SA_PlayerData.SA_GameWinReward(true, Total_Coin);
                     SA_PlayerData.SA_MissionPlaying(false);
@@ -1187,7 +1188,7 @@ public class GameDirector : MonoBehaviour
                     //Debug.Log("작업 해야됨 - 실패로 간주하고 초기화해야됨");
                     missionDirector.selectmission.Mission_Fail();
                     SA_PlayerData.SA_MissionPlaying(false);
-                    uiDirector.Open_Result_UI(false, Total_Score, Total_Coin, missionDirector.selectmission, LoseNum);
+                    uiDirector.Open_Result_UI(false, Total_Score, Total_Coin, missionDirector.selectmission, chapter_clearFlag, LoseNum);
                 }
             }
         }
@@ -1195,7 +1196,7 @@ public class GameDirector : MonoBehaviour
         {
             missionDirector.selectmission.Mission_Fail();
             SA_PlayerData.SA_MissionPlaying(false);
-            uiDirector.Open_Result_UI(false, Total_Score, Total_Coin, missionDirector.selectmission, LoseNum);
+            uiDirector.Open_Result_UI(false, Total_Score, Total_Coin, missionDirector.selectmission, chapter_clearFlag, LoseNum);
         }
         /*
                 if (WinFlag && subStage_Last)

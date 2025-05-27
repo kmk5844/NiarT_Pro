@@ -128,6 +128,8 @@ public class Player : MonoBehaviour
     Coroutine selfTurretCoroutine;
     bool ClickFlag;
 
+    bool STEAM_clickflag_R;
+
     void Start()
     {
         gamedirector_object = GameObject.Find("GameDirector");
@@ -209,6 +211,19 @@ public class Player : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.R) && FireCount != 0)
             {
+                if (!STEAM_clickflag_R)
+                {
+                    if (SteamAchievement.instance != null)
+                    {
+                        SteamAchievement.instance.Achieve("CLICK_KEY_R");
+                    }
+                    else
+                    {
+                        Debug.Log("CLICK_KEY_R");
+                    }
+                    STEAM_clickflag_R = true;
+                }
+
                 StartCoroutine(Reloading());
             }
 

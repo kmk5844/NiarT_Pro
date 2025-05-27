@@ -123,6 +123,7 @@ public class UIDirector : MonoBehaviour
     public AudioClip WaveSFX;
     public AudioClip ClearSFX;
 
+    bool STEAM_CLICK_KEY_V_FLAG;
     private void Awake()
     {
         isBloodFlag = false;
@@ -188,6 +189,19 @@ public class UIDirector : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.V))
         {
+            if (!STEAM_CLICK_KEY_V_FLAG)
+            {
+                if (SteamAchievement.instance != null)
+                {
+                    SteamAchievement.instance.Achieve("CLICK_KEY_V");
+                }
+                else
+                {
+                    Debug.Log("CLICK_KEY_V");
+                }
+                STEAM_CLICK_KEY_V_FLAG = true;
+            }
+
             Click_MissionInformation();
         }
 
@@ -204,7 +218,7 @@ public class UIDirector : MonoBehaviour
         Distance_Bar.value = gamedirector.Check_Distance();
     }
 
-    public void Open_Result_UI(bool Win, int Score, int Coin, SelectMission mission, int LoseNum = -1)
+    public void Open_Result_UI(bool Win, int Score, int Coin, SelectMission mission, bool ChapterClear, int LoseNum = -1)
     {
         //Result_Text_List[0].text = Score.ToString(); // + "Á¡";
         Result_Text_List[1].text = Coin + "G"; // + "¿ø";
@@ -212,9 +226,17 @@ public class UIDirector : MonoBehaviour
         {
             WinWindow.SetActive(true);
             LoseWindow.SetActive(false);
-            
-            Result_Text_List[2].text = mission.MissionReward + "G";
-            Result_Text_List[3].text = "+" + (Coin + mission.MissionReward) + "G";
+
+            if (!ChapterClear)
+            {
+                Result_Text_List[2].text = mission.MissionReward + "G";
+                Result_Text_List[3].text = "+" + (Coin + mission.MissionReward) + "G";
+            }
+            else
+            {
+                Result_Text_List[2].text = mission.MissionReward/2 + "G";
+                Result_Text_List[3].text = "+" + (Coin + (mission.MissionReward/2)) + "G";
+            }
 
             missionTitle.StringReference.TableReference = "MissionList_St";
             missionTitle.StringReference.TableEntryReference = "Title_" + mission.MISSIONNUM;

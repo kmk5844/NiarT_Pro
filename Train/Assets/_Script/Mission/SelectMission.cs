@@ -243,13 +243,22 @@ public class SelectMission : MonoBehaviour
         }
     }
 
-    public void Mission_Sucesses()
+    public void Mission_Sucesses(StageDataObject stage)
     {
         if(missionNum == 4)
         {
             MissionReward = M_Convoy.ConvoyGold;
         }
-        playerData.SA_Get_Coin(MissionReward);
+
+        if (!stage.Stage_ClearFlag)
+        {
+            playerData.SA_Get_Coin(MissionReward);
+        }
+        else
+        {
+            playerData.SA_Get_Coin(MissionReward / 2);
+        }
+
         MissionEnd(MissionType);
         if (playerData.EventFlag)
         {

@@ -173,7 +173,7 @@ public void DataLoad()
         Debug.Log(index);
         if (gameData.Information_Stage[PlayerData.New_Stage].BeforeStation_Button)
         {
-            Debug.Log(StoryData.StoryList[index].Start_Flag);
+            //Debug.Log(StoryData.StoryList[index].Start_Flag);
             if (!StoryData.StoryList[index].Start_Flag) // 스토리 진행 전
             {
                 Debug.Log("StoryList_Start : " + index);

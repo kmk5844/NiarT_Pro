@@ -64,6 +64,8 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
     public AudioClip ClearSFX;
     public AudioClip SpawnSFX;
 
+    bool STEAM_TUTORIAL_BACK_FLAG;
+
     private void Awake()
     {
         Fuel = 60000;
@@ -103,6 +105,22 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
         {
             player.PlayerHP = 500;
         }
+
+        if(speed < -10f && !STEAM_TUTORIAL_BACK_FLAG)
+        {
+
+            if (SteamAchievement.instance != null)
+            {
+                SteamAchievement.instance.Achieve("TUTORIAL_BACK");
+            }
+            else
+            {
+                Debug.Log("TUTORIAL_BACK");
+            }
+
+            STEAM_TUTORIAL_BACK_FLAG = true;
+        }
+
 
         if (Input.GetKeyDown("]"))
         {

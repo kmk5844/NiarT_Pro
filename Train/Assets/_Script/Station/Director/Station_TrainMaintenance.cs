@@ -29,75 +29,76 @@ public class Station_TrainMaintenance : MonoBehaviour
     public GameObject Item_DataObject;
     Station_ItemData itemData;
 
-/*    [Header("UI에서 나타나는 기차")]
-    public Transform UI_TrainList;
-    public Transform UI_TrainButtonList;
-    public GameObject[] Train_Button;
+    /*    [Header("UI에서 나타나는 기차")]
+        public Transform UI_TrainList;
+        public Transform UI_TrainButtonList;
+        public GameObject[] Train_Button;
 
-    public int UI_Train_Num;
-    int UI_Init_Train_Turret_Num;
-    public int UI_Init_Train_Booster_Num;
-    int UI_Train_Turret_Num;
-    int UI_Train_Booster_Num;
-    bool UI_Train_Turret_Flag;
-    bool UI_Train_Booster_Flag;
-    public TextMeshProUGUI UI_TrainLevel_Text;
-    public TextMeshProUGUI UI_TrainMax_Text;
+        public int UI_Train_Num;
+        int UI_Init_Train_Turret_Num;
+        public int UI_Init_Train_Booster_Num;
+        int UI_Train_Turret_Num;
+        int UI_Train_Booster_Num;
+        bool UI_Train_Turret_Flag;
+        bool UI_Train_Booster_Flag;
+        public TextMeshProUGUI UI_TrainLevel_Text;
+        public TextMeshProUGUI UI_TrainMax_Text;
 
-    [Header("기차 변경 윈도우")]
-    public Button Change_Button;
-    public Button Add_Button;
-    [SerializeField]
-    List<int> Train_Change_Num;
-    public ScrollRect ScrollRect_ChangeTrain;
-    public Transform Train_Change_Content;
-    public GameObject Train_Card;
-    int Max_Train;
-    [SerializeField]
-    List<Toggle> Train_Toggle;
-    int Toggle_Train_Num;
-    bool ChangeFlag;
-    public TextMeshProUGUI Cost_Add_Text;
+        [Header("기차 변경 윈도우")]
+        public Button Change_Button;
+        public Button Add_Button;
+        [SerializeField]
+        List<int> Train_Change_Num;
+        public ScrollRect ScrollRect_ChangeTrain;
+        public Transform Train_Change_Content;
+        public GameObject Train_Card;
+        int Max_Train;
+        [SerializeField]
+        List<Toggle> Train_Toggle;
+        int Toggle_Train_Num;
+        bool ChangeFlag;
+        public TextMeshProUGUI Cost_Add_Text;
 
-    [Header("파츠 변경 윈도우")]
-    public List<int> Train_Turret_Part_Change_Num;
-    public List<int> Train_Booster_Part_Change_Num;
-    public ScrollRect ScrollRect_Turret_Part;
-    public ScrollRect ScrollRect_Booster_Part;
-    public GameObject UI_Train_Part_Window;
-    public LocalizeStringEvent UI_Train_Part_Text;
-    public GameObject Part_Card;
-    public Transform Turret_Part_Content;
-    public Transform Booster_Part_Content;
-    public GameObject Part_Ban;
-    int Toggle_Turret_Part_Num;
-    int Toggle_Booster_Part_Num;
-    [SerializeField]
-    List<Toggle> Turret_Part_Toggle;
-    [SerializeField]
-    List<Toggle> Booster_Part_Toggle;
-    public Button Part_Change_Button;
-    bool Equip_Part_Flag;
-    public bool Part_Window_Flag;*/
-    
-/*    [Header("기차 업그레이드 윈도우")]
-    public TextMeshProUGUI Before_Text;
-    public TextMeshProUGUI After_Text;
-    public Button Upgrade_Button;
-    public Image Material_Image;
-    public TextMeshProUGUI[] Upgrade_Text; // 0 : Coin, 1 : 가지고 있는 재료템, 2: 재료 충족 조건*/
+        [Header("파츠 변경 윈도우")]
+        public List<int> Train_Turret_Part_Change_Num;
+        public List<int> Train_Booster_Part_Change_Num;
+        public ScrollRect ScrollRect_Turret_Part;
+        public ScrollRect ScrollRect_Booster_Part;
+        public GameObject UI_Train_Part_Window;
+        public LocalizeStringEvent UI_Train_Part_Text;
+        public GameObject Part_Card;
+        public Transform Turret_Part_Content;
+        public Transform Booster_Part_Content;
+        public GameObject Part_Ban;
+        int Toggle_Turret_Part_Num;
+        int Toggle_Booster_Part_Num;
+        [SerializeField]
+        List<Toggle> Turret_Part_Toggle;
+        [SerializeField]
+        List<Toggle> Booster_Part_Toggle;
+        public Button Part_Change_Button;
+        bool Equip_Part_Flag;
+        public bool Part_Window_Flag;*/
+
+    /*    [Header("기차 업그레이드 윈도우")]
+        public TextMeshProUGUI Before_Text;
+        public TextMeshProUGUI After_Text;
+        public Button Upgrade_Button;
+        public Image Material_Image;
+        public TextMeshProUGUI[] Upgrade_Text; // 0 : Coin, 1 : 가지고 있는 재료템, 2: 재료 충족 조건*/
 
     [Header("기차 구매")]
+    public ToggleGroup UI_TrainStore_Toggle;
+
+
     public TMP_Dropdown TrainBuy_DropDown;
     int List_TrainType_Num;
     int List_Before_TrainType_Num;
     int Train_Buy_Num;
     int Train_Before_Buy_Num;
-    public int[] AllTrain_NumberArray;
     public int[] CommonTrain_NumberArray;
     public int[] TurretTrain_NumberArray;
     public int[] BoosterTrain_NumberArray;
-    Sprite[] AllTrain_Image;
     Sprite[] CommonTrain_Image;
     Sprite[] TurretTrain_Image;
     Sprite[] BoosterTrain_Image;
@@ -119,7 +120,6 @@ public class Station_TrainMaintenance : MonoBehaviour
     public Slider Slider_Buy_Armor;
 
     [Header("기차 구매 - 트레인 리스트")]
-    public Transform AllTrainList_Transform;
     public Transform CommonTrain_List_Transform;
     public Transform TurretTrain_List_Transform;
     public Transform BoosterTrain_List_Transform;
@@ -184,7 +184,8 @@ public class Station_TrainMaintenance : MonoBehaviour
         TrainBuyWindow_Flag = true;
 
         Setting_TrainImage();
-        Setting_TrainType_DropDown_Buy();
+        Setting_TrainStore_ToggleStart();
+        //Setting_TrainType_DropDown_Buy();
         Setting_TrainUpgarde();
         Setting_TrainUpgradeList_Button();
         Setting_TrainType_DropDown_Upgrade();
@@ -1386,7 +1387,67 @@ else // 기차 교체
         }*/
 
     //기차 구매하기
-    private void Setting_TrainType_DropDown_Buy()
+    private void Setting_TrainStore_ToggleStart()
+    {
+        foreach(var toggle in UI_TrainStore_Toggle.GetComponentsInChildren<Toggle>())
+        {
+            toggle.onValueChanged.AddListener(TrainMainTenece_ToggleChange);
+        }
+    }
+
+    private void TrainMainTenece_ToggleChange(bool isOn)
+    {
+        if (isOn)
+        {
+            for (int i = 0; i < UI_TrainStore_Toggle.transform.childCount; i++)
+            {
+                if (UI_TrainStore_Toggle.transform.GetChild(i).GetComponent<Toggle>().isOn)
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            List_Before_TrainType_Num = List_TrainType_Num;
+                            List_TrainType_Num = i;
+                            Train_Before_Buy_Num = Train_Buy_Num;
+                            Train_Buy_Num = 0;
+
+                            CommonTrain_List_Transform.gameObject.SetActive(true);
+                            TurretTrain_List_Transform.gameObject.SetActive(false);
+                            BoosterTrain_List_Transform.gameObject.SetActive(false);
+                            break;
+                        case 1:
+                            List_Before_TrainType_Num = List_TrainType_Num;
+                            List_TrainType_Num = i;
+                            Train_Before_Buy_Num = Train_Buy_Num;
+                            Train_Buy_Num = 0;
+
+                            CommonTrain_List_Transform.gameObject.SetActive(false);
+                            TurretTrain_List_Transform.gameObject.SetActive(true);
+                            BoosterTrain_List_Transform.gameObject.SetActive(false);
+                            break;
+                        case 2:
+                            List_Before_TrainType_Num = List_TrainType_Num;
+                            List_TrainType_Num = i;
+                            Train_Before_Buy_Num = Train_Buy_Num;
+                            Train_Buy_Num = 0;
+
+                            CommonTrain_List_Transform.gameObject.SetActive(false);
+                            TurretTrain_List_Transform.gameObject.SetActive(false);
+                            BoosterTrain_List_Transform.gameObject.SetActive(true);
+                            break;
+                    }
+                    UI_TrainStore_Toggle.transform.GetChild(i).GetComponent<Toggle>().interactable = false;
+                }
+                else
+                {
+                    UI_TrainStore_Toggle.transform.GetChild(i).GetComponent<Toggle>().interactable = true;
+                }
+            }
+            Change_Train();
+        }
+    }
+
+/*    private void Setting_TrainType_DropDown_Buy()
     {
         TrainBuy_DropDown.ClearOptions();
         List<string> optionList = new List<string>();
@@ -1398,22 +1459,22 @@ else // 기차 교체
         //optionList.Add("D");
         TrainBuy_DropDown.AddOptions(optionList);
         TrainBuy_DropDown.value = 0;
-    }
+    }*/
 
-    private void Change_TrainType_DropDown(int value)
+/*    private void Change_TrainType_DropDown(int value)
     {
         List_Before_TrainType_Num = List_TrainType_Num;
         List_TrainType_Num = value;
         Train_Before_Buy_Num = Train_Buy_Num;
         Train_Buy_Num = 0;
-/*        if(value == 0)
+*//*        if(value == 0)
         {
             AllTrainList_Transform.gameObject.SetActive(true);
             CommonTrain_List_Transform.gameObject.SetActive(false);
             TurretTrain_List_Transform.gameObject.SetActive(false);
             BoosterTrain_List_Transform.gameObject.SetActive(false);
         }
-        else */if (value == 0)
+        else *//*if (value == 0)
         {
             //TrainPart_Lock_Object.SetActive(false);
             AllTrainList_Transform.gameObject.SetActive(false);
@@ -1440,13 +1501,12 @@ else // 기차 교체
         }
         
         Change_Train();
-    }
+    }*/
 
     private void Setting_TrainImage()
     {
         int allnumberArray = CommonTrain_NumberArray.Length + TurretTrain_NumberArray.Length + BoosterTrain_NumberArray.Length;
         int allCount = 0;
-        AllTrain_Image = new Sprite[allnumberArray];
         CommonTrain_Image = new Sprite[CommonTrain_NumberArray.Length];
         TurretTrain_Image = new Sprite[TurretTrain_NumberArray.Length];
         BoosterTrain_Image = new Sprite[BoosterTrain_NumberArray.Length];
@@ -1455,38 +1515,26 @@ else // 기차 교체
         for(int i = 0; i <  CommonTrain_NumberArray.Length; i++)
         {
             CommonTrain_Image[i] = Resources.Load<Sprite>("Sprite/Train/Train_" + CommonTrain_NumberArray[i]);
-            AllTrain_Image[allCount] = CommonTrain_Image[i];
             allCount++;
             GameObject listButton = Instantiate(Train_List_Button, CommonTrain_List_Transform);
             listButton.GetComponent<TrainList_Button>().listNum = i;
             listButton.name = CommonTrain_NumberArray[i].ToString();
-            GameObject all_listButton = Instantiate(Train_List_Button, AllTrainList_Transform);
-            all_listButton.GetComponent<TrainList_Button>().listNum = allCount;
-            all_listButton.name = listButton.name;
         }
         for(int i = 0; i < TurretTrain_NumberArray.Length; i++)
         {
             TurretTrain_Image[i] = Resources.Load<Sprite>("Sprite/Train/Train_51_" + TurretTrain_NumberArray[i]);
-            AllTrain_Image[allCount] = TurretTrain_Image[i];
             allCount++;
             GameObject listButton = Instantiate(Train_List_Button, TurretTrain_List_Transform);
             listButton.GetComponent<TrainList_Button>().listNum = i;
             listButton.name = TurretTrain_NumberArray[i].ToString();
-            GameObject all_listButton = Instantiate(Train_List_Button, AllTrainList_Transform);
-            all_listButton.GetComponent<TrainList_Button>().listNum = allCount;
-            all_listButton.name = listButton.name;
         }
         for(int i = 0; i < BoosterTrain_NumberArray.Length; i++)
         {
             BoosterTrain_Image[i] = Resources.Load<Sprite>("Sprite/Train/Train_52_" + BoosterTrain_NumberArray[i]);
-            AllTrain_Image[allCount] = BoosterTrain_Image[i];
             allCount++;
             GameObject listButton = Instantiate(Train_List_Button, BoosterTrain_List_Transform);
             listButton.GetComponent<TrainList_Button>().listNum = i;
             listButton.name = BoosterTrain_NumberArray[i].ToString();
-            GameObject all_listButton = Instantiate(Train_List_Button, AllTrainList_Transform);
-            all_listButton.GetComponent<TrainList_Button>().listNum = allCount;
-            all_listButton.name = listButton.name;
         }
     }
     public void Click_TrainList(int listNum)
@@ -2319,16 +2367,16 @@ else // 기차 교체
 
     void DropDown_Option_Change()
     {
-        TMP_Dropdown options_1 = TrainBuy_DropDown;
+        //TMP_Dropdown options_1 = TrainBuy_DropDown;
         TMP_Dropdown options_2 = TrainUpgradeList_DropDown;
 
-        options_1.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = LocalString_TrainType[options_1.value+1].GetLocalizedString();
+        //options_1.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = LocalString_TrainType[options_1.value+1].GetLocalizedString();
         options_2.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = LocalString_TrainType[options_2.value].GetLocalizedString();
 
-        for(int i = 1; i < 4; i++)
+/*        for(int i = 1; i < 4; i++)
         {
             options_1.options[i-1].text = LocalString_TrainType[i].GetLocalizedString();
-        }
+        }*/
 
         for(int i = 0; i < 4; i++)
         {
