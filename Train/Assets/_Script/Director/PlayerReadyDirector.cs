@@ -9,7 +9,6 @@ using UnityEngine.Localization;
 using UnityEngine.Localization.Components;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
 
 public class PlayerReadyDirector : MonoBehaviour
 {
@@ -44,6 +43,9 @@ public class PlayerReadyDirector : MonoBehaviour
     bool mercenaryFlag;
     bool itemFlag;
 
+    public GameObject HelpWindow;
+    bool helpFlag;
+
     [Header("-------------Train----------------")]
     [Space(10)]
     public GameObject Using_TrainObject;
@@ -63,6 +65,7 @@ public class PlayerReadyDirector : MonoBehaviour
     int List_Trian_Type_Num;
     int List_Before_Train_Type_Num;
     public GameObject StartWarnningWindow;
+    public LocalizeStringEvent StartWarnningText;
     [SerializeField]
     LocalizedString[] LocalString_TrainType;
     int local_Index;
@@ -153,6 +156,7 @@ public class PlayerReadyDirector : MonoBehaviour
         mercenaryFlag = false;
         itemFlag = false;
         StartButton.interactable = false;
+        StartWarnningText.StringReference.TableReference = "MissionSelect_Table_St";
 
         sa_trainData = trainData.SA_TrainData;
         sa_trainturretData = trainData.SA_TrainTurretData;
@@ -213,7 +217,11 @@ public class PlayerReadyDirector : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             MMSoundManagerSoundPlayEvent.Trigger(ButtonSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
-            if (Mercenary_Information_Flag)
+            if (helpFlag)
+            {
+                Click_HelpClose();
+            }
+            else if (Mercenary_Information_Flag)
             {
                 Click_Close_Mercenary_Information();
             }else if (Mercenary_GoldBen_Flag)
@@ -233,17 +241,21 @@ public class PlayerReadyDirector : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.A))
+        if (!helpFlag)
         {
-            MMSoundManagerSoundPlayEvent.Trigger(ButtonSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
-            PrevButton();
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                MMSoundManagerSoundPlayEvent.Trigger(ButtonSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+                PrevButton();
+            }
+
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                MMSoundManagerSoundPlayEvent.Trigger(ButtonSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+                NextButton();
+            }
         }
 
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            MMSoundManagerSoundPlayEvent.Trigger(ButtonSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
-            NextButton();
-        }
 
         //--------------------------------------------------Item
         if (CheckFlag)
@@ -999,6 +1011,19 @@ public class PlayerReadyDirector : MonoBehaviour
         }
         else
         {
+            if (hasMinusOne && !has10To19) //빈기차가 있을경우 && 연료기차가 없을 경우
+            {
+                StartWarnningText.StringReference.TableEntryReference = "UI_Ready_Train_Equip_0";
+            }
+            else if(hasMinusOne && has10To19) // 빈기차가 있을경우
+            {
+                StartWarnningText.StringReference.TableEntryReference = "UI_Ready_Train_Equip_1";
+            }
+            else if(!hasMinusOne && !has10To19) // 연료 기차가 없을 경우
+            {
+                StartWarnningText.StringReference.TableEntryReference = "UI_Ready_Train_Equip_2";
+            }
+
             BuySoundSFX(false);
             StartWarnningWindow.SetActive(true);
         }
@@ -1053,5 +1078,17 @@ public class PlayerReadyDirector : MonoBehaviour
         {
             MMSoundManagerSoundPlayEvent.Trigger(ErrorSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         }
+    }
+
+    public void Click_HelpOpen()
+    {
+        HelpWindow.SetActive(true);
+        helpFlag = true;
+    }
+
+    public void Click_HelpClose()
+    {
+        HelpWindow.SetActive(false);
+        helpFlag = false;
     }
 }

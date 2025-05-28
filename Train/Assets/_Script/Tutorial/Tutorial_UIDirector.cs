@@ -44,6 +44,7 @@ public class Tutorial_UIDirector : MonoBehaviour
 
     public Image BulletGuage;
 
+    public GameObject[] SkillLock;
     private void Start()
     {
         Title_Text.StringReference.TableReference = "Tutorial_St";

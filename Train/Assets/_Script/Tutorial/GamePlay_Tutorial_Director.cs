@@ -101,14 +101,13 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
 
     private void Update()
     {
-        if(player.PlayerHP < 500)
+        if(player.PlayerHP < 500 && tutorialList != Tutorial_List.T_Lose)
         {
             player.PlayerHP = 500;
         }
 
         if(speed < -10f && !STEAM_TUTORIAL_BACK_FLAG)
         {
-
             if (SteamAchievement.instance != null)
             {
                 SteamAchievement.instance.Achieve("TUTORIAL_BACK");
@@ -333,6 +332,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
                 if (player.T_Skill_Q_End)
                 {
                     uiDirector.skill_changeIcon(false);
+                    uiDirector.SkillLock[0].SetActive(true);
                     if (!ClearFlag)
                     {
                         distance++;//6
@@ -355,6 +355,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
 
                 if (player.T_Skill_E_End)
                 {
+                    uiDirector.SkillLock[1].SetActive(true);
                     if (!ClearFlag)
                     {
                         distance++;//7

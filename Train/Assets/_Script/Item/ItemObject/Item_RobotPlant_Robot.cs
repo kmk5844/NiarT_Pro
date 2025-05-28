@@ -16,6 +16,8 @@ public class Item_RobotPlant_Robot : MonoBehaviour
     bool BombFlag;
     int Move_X;
 
+    GameObject BombParticle;
+
     Transform Unit_Scale;
     float Unit_Scale_X;
     float Unit_Scale_Y;
@@ -34,6 +36,7 @@ public class Item_RobotPlant_Robot : MonoBehaviour
         Unit_Scale_X = Unit_Scale.localScale.x;
         Unit_Scale_Y = Unit_Scale.localScale.y;
         Unit_Scale_Z = Unit_Scale.localScale.z;
+        BombParticle = Resources.Load<GameObject>("Bullet/Boss2_Skill0_Effect");
     }
 
     private void FixedUpdate()
@@ -80,7 +83,8 @@ public class Item_RobotPlant_Robot : MonoBehaviour
     IEnumerator Robot_Bomb()
     {
         BombFlag = true;
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
+        Instantiate(BombParticle, transform.localPosition, Quaternion.identity);
         BombObject.SetActive(true);
         yield return new WaitForSeconds(0.2f);
         Destroy(gameObject);

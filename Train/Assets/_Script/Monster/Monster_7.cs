@@ -125,14 +125,16 @@ public class Monster_7 : Monster
             float xPos = Mathf.Lerp(jump_Pos.x, jumpAfter_Pos.x , t);
             float yPos = Mathf.Sin(Mathf.PI * t) * height + jump_Pos.y;
 
-            if(monster_gametype != Monster_GameType.GameEnding)
+            if (t >= 0.5f && !bulletFlag)
             {
-                if(t>= 0.5f && !bulletFlag)
-                {
-                    bulletFlag = true;
-                    BulletFire();
-                }
+                bulletFlag = true;
+                BulletFire();
             }
+
+            /*if (monster_gametype != Monster_GameType.GameEnding)
+            {
+                
+            }*/
 
             transform.localPosition = new Vector2(xPos, yPos);
             yield return null;

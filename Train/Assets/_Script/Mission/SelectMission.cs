@@ -242,7 +242,7 @@ public class SelectMission : MonoBehaviour
                 break;
         }
     }
-
+     
     public void Mission_Sucesses(StageDataObject stage)
     {
         if(missionNum == 4)

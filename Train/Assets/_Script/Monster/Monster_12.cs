@@ -55,7 +55,7 @@ public class Monster_12 : Monster
         Check_ItemSpeedFlag();
 
 
-        if (monster_gametype == Monster_GameType.Fighting)
+        if (monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
         {
             attackDelay();
 

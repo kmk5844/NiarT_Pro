@@ -728,6 +728,7 @@ public class Player : MonoBehaviour
         {
             transform.position = new Vector3(minRespawnPosition.x, 1, 0);
         }
+        Pain_Voice();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -50,7 +50,7 @@ public class Monster_9 : Monster
 
         Check_ItemSpeedFlag();
 
-        if (monster_gametype == Monster_GameType.Fighting)
+        if (monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
         {
             if (attackFlag == false)
             {

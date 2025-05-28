@@ -190,6 +190,7 @@ public class GameDirector : MonoBehaviour
     public GameObject SupplyRefresh_ItemObject;
     public float RefreshPersent;
     int RefreshDistance;
+    bool waveUIFlag;
     bool firstRefresh;
     bool endRefresh;
     bool SpawnRefreshSupply;
@@ -522,11 +523,11 @@ public class GameDirector : MonoBehaviour
             if (!getSupply)
             {
                 waveinfoFlag = false;
+                uiDirector.SKillLock(true);
 
                 if (!refreshinfoFlag)
                 {
                     refreshinfoFlag = true;
-                    StartCoroutine(uiDirector.WaveInformation(false));
                 }
 
                 if (!monsterDirector.GameDirector_RefreshFlag)
@@ -536,6 +537,12 @@ public class GameDirector : MonoBehaviour
 
                 if (monsterDirector.GameDirecotr_AllDieFlag)
                 {
+                    if (!waveUIFlag)
+                    {
+                        StartCoroutine(uiDirector.WaveInformation(false));
+                        waveUIFlag = true;
+                    }
+
                     if (Time.time >= lastSpeedTime + 0.05f)
                     {
                         if (TrainSpeed > 40)
@@ -611,6 +618,7 @@ public class GameDirector : MonoBehaviour
                         monsterDirector.GameDirector_SpawnFlag = true;
                         monsterDirector.GameDirecotr_AllDieFlag = false;
                     }
+                    uiDirector.SKillLock(false);
                     gameType = GameType.Playing;
                 }
             }

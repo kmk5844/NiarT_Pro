@@ -52,6 +52,7 @@ public class Tutorial_Player : MonoBehaviour
     public AudioClip ShootSFX;
     public AudioClip ReloadingSFX;
     public AudioClip SkillUseSFX;
+    public AudioClip PainSFX;
 
     [Header("튜토리얼 플래그")]
     public bool T_MoveFlag;
@@ -408,12 +409,14 @@ public class Tutorial_Player : MonoBehaviour
         {
             PlayerHP -= 200;
             Destroy(collision.gameObject);
+            MMSoundManagerSoundPlayEvent.Trigger(PainSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         }
 
         if (collision.CompareTag("Respawn"))
         {
             PlayerHP -= 100;
             transform.position = Vector3.zero;
+            MMSoundManagerSoundPlayEvent.Trigger(PainSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         }
     }
 

@@ -23,7 +23,7 @@ public class SupplyRefresh_Item : MonoBehaviour
         {
             if (transform.position.y > SupplyItem_Position.y)
             {
-                transform.Translate(7 * Vector2.down * Time.deltaTime);
+                transform.Translate(12 * Vector2.down * Time.deltaTime);
             }
             else
             {

@@ -41,7 +41,6 @@ public class OptionDirector : MonoBehaviour
     public TMP_Dropdown localDropdown;
     LocalManager localManager;
 
-
     void Start()
     {
         localManager = GetComponent<LocalManager>();
@@ -60,7 +59,10 @@ public class OptionDirector : MonoBehaviour
         isCreditFlag = false;
         KeyBoard_Object.SetActive(false);
         Credit_Object.SetActive(false);
-        Click_SettingButton(0);
+        if (!StationButtonOFF)
+        {
+            Click_SettingButton(0);
+        }
         CheckWindow_NoButton();
     }
 
@@ -148,7 +150,7 @@ public class OptionDirector : MonoBehaviour
             if (CheckMinimumResolution(Screen.resolutions[i].width)
                 && Check16To9Ratio(Screen.resolutions[i].width, Screen.resolutions[i].height))
             {
-                if (Screen.resolutions[i].refreshRateRatio.numerator == 60)
+                if (Screen.resolutions[i].refreshRateRatio.numerator >= 59)
                 {
                     resolutions.Add(Screen.resolutions[i]);
                 }
@@ -165,12 +167,20 @@ public class OptionDirector : MonoBehaviour
 
             TMP_Dropdown.OptionData Window_Option = new TMP_Dropdown.OptionData();
             TMP_Dropdown.OptionData Full_Option = new TMP_Dropdown.OptionData();
-            Window_Option.text = Window_Screen.width + " * " + Window_Screen.height + " " +
-              Mathf.CeilToInt(Window_Screen.refreshRateRatio.numerator) + "hz(Windowed)";
-            Full_Option.text = Full_Screen.width + " * " + Full_Screen.height + " " +
-              Mathf.CeilToInt(Full_Screen.refreshRateRatio.numerator) + "hz(Full)";
-            resolutionDropdown.options.Add(Window_Option);
-            resolutionDropdown.options.Add(Full_Option);
+
+            float refreshRate = (float)Window_Screen.refreshRateRatio.numerator / Window_Screen.refreshRateRatio.denominator;
+            Window_Option.text = $"{Window_Screen.width} * {Window_Screen.height} {Mathf.RoundToInt(refreshRate)}hz (Windowed)";
+            if(Mathf.RoundToInt(refreshRate) != 75)
+            {
+                resolutionDropdown.options.Add(Window_Option);
+            }
+            refreshRate = (float)Full_Screen.refreshRateRatio.numerator / Full_Screen.refreshRateRatio.denominator;
+            
+            Full_Option.text = $"{Full_Screen.width} * {Full_Screen.height} {Mathf.RoundToInt(refreshRate)}hz (Full)";
+            if(Mathf.RoundToInt(refreshRate) != 75)
+            {
+                resolutionDropdown.options.Add(Full_Option);
+            }
 
             if (Window_Screen.width == Screen.width && Window_Screen.height == Screen.height)
             {
@@ -212,20 +222,16 @@ public class OptionDirector : MonoBehaviour
 
     bool CheckMinimumResolution(int width)
     {
-        if (width >= 1280)
-        {
-            return true;
-        }
-
-        return false;
+        return width >= 1280;
     }
 
     bool Check16To9Ratio(int width, int height)
     {
         float aspectRatio = (float)width / height;
-        float targetRatio = 16.0f / 9.0f;
-        float tolerance = 0.19f;  // 허용 오차 범위 설정
-        return Mathf.Abs(aspectRatio - targetRatio) < tolerance;
+        float targetRatio16_9 = 16.0f / 9.0f;
+        float targetRatio16_10 = 16.0f / 10.0f;
+        float tolerance = 0.2f;  // 허용 오차 범위 설정
+        return Mathf.Abs(aspectRatio - targetRatio16_9) < tolerance || Mathf.Abs(aspectRatio - targetRatio16_10) < tolerance;
     }
 
     //언어 기본세팅
@@ -300,8 +306,6 @@ public class OptionDirector : MonoBehaviour
             Check_GameEnd_Window.SetActive(false);
         }
     }
-
-
 
     public void CheckOptionFlag()
     {

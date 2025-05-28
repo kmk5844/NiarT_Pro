@@ -77,6 +77,8 @@ public class UIDirector : MonoBehaviour
     public Transform Equiped_Skill_List;
     public Image[] Equiped_Skill_Image;
     public Image[] Equiped_CoolTime_Skill_Image;
+    public GameObject[] Equiped_Skill_Lock;
+    public bool SKillLockFlag;
 
     [Header("Result UI 관련된 텍스트 및 아이템")]
     public TextMeshProUGUI[] Result_Text_List; //0. Stage, 1. Score, 2. Gold, 3. Rank 4. Point
@@ -167,7 +169,7 @@ public class UIDirector : MonoBehaviour
     }
     private void Update()
     {
-        if(gamedirector.gameType == GameType.Ending || gamedirector.gameType == GameType.GameEnd)
+        if (gamedirector.gameType == GameType.Ending || gamedirector.gameType == GameType.GameEnd)
         {
 
         }
@@ -581,7 +583,14 @@ public class UIDirector : MonoBehaviour
     {
         MMSoundManagerSoundPlayEvent.Trigger(WaveSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         yield return StartCoroutine(Wave_Object_On(waveflag));
-        yield return new WaitForSeconds(3f);
+        if (!waveflag)
+        {
+            yield return new WaitForSeconds(5f);
+        }
+        else
+        {
+            yield return new WaitForSeconds(3f);
+        }
         yield return StartCoroutine(Wave_Object_Off(waveflag));
     }
 
@@ -630,5 +639,11 @@ public class UIDirector : MonoBehaviour
             waveobject.anchoredPosition = new Vector2(newX, waveobject.anchoredPosition.y);
             yield return null;
         }
+    }
+
+    public void SKillLock(bool flag)
+    {
+        Equiped_Skill_Lock[0].SetActive(flag);
+        Equiped_Skill_Lock[1].SetActive(flag);
     }
 }

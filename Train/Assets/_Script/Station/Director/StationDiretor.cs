@@ -49,7 +49,7 @@ public class StationDirector : MonoBehaviour
     public GameObject UI_Home_Button;
     public GameObject UI_Back_Button;
     public GameObject[] UI_MenuAndGear_After;
-    bool Information_Flag;
+
 
 /*    [Header("Store+Fortress")]
     public ScrollRect Store_Fortress_ScrollView;
@@ -85,6 +85,11 @@ public class StationDirector : MonoBehaviour
     //6: Converstion
     [Header("Click Lobby -> Conversion")]
     public GameObject UI_Conversion;
+
+    [Header("Click Help")]
+    public GameObject[] UI_HelpWindow;
+    public bool Help_Flag;
+
 
     [Header("Coin&Point")]
     public TextMeshProUGUI[] Coin_Text;
@@ -174,17 +179,11 @@ public class StationDirector : MonoBehaviour
             }
             else if (ui_num == 1)
             {
-                /*               
-                if (Director_TrainMaintenance.Part_Window_Flag)
+                if (Help_Flag)
                 {
-                    Director_TrainMaintenance.Click_Part_Back_Button();
+                    Click_HelpClose(0);
                 }
-                else if (Information_Flag)
-                {
-                    Click_Information_Back_Button();
-                }
-                else */
-                if (Director_TrainMaintenance.Train_BanFlag)
+                else if (Director_TrainMaintenance.Train_BanFlag)
                 {
                     Director_TrainMaintenance.Close_Warning_Window();
                 }
@@ -195,7 +194,11 @@ public class StationDirector : MonoBehaviour
             }
             else if (ui_num == 2)
             {
-                if (Director_Store.Store_CheckFlag) {
+                if (Help_Flag)
+                {
+                    Click_HelpClose(1);
+                }
+                else if (Director_Store.Store_CheckFlag) {
                     if (UI_Store_BuyAndSell_Flag)
                     {
                         Director_Store.Close_Buy_Window();
@@ -217,7 +220,11 @@ public class StationDirector : MonoBehaviour
             }
             else if (ui_num == 3)
             {
-                if (Director_Fortress.Tranining_BanFlag)
+                if (Help_Flag)
+                {
+                    Click_HelpClose(2);
+                }
+                else if (Director_Fortress.Tranining_BanFlag)
                 {
                     Director_Fortress.Close_Warning_Window();
                 }
@@ -243,21 +250,21 @@ public class StationDirector : MonoBehaviour
             {
                 Click_Home_Button();
 
-/*                if (Director_GameStart.EquipItemWindowFlag)
-                {
-                    Director_GameStart.Close_ItemCountWindow();
-                } else if (Director_GameStart.EquipItemListFlag)
-                {
-                    Director_GameStart.Close_Inventory_Window();
-                }
-                else if (Director_GameStart.FullMapFlag)
-                {
-                    Director_GameStart.Close_FullMapWindow();
-                }
-                else
-                {
-                    Click_Home_Button();
-                }*/
+                /*                if (Director_GameStart.EquipItemWindowFlag)
+                                {
+                                    Director_GameStart.Close_ItemCountWindow();
+                                } else if (Director_GameStart.EquipItemListFlag)
+                                {
+                                    Director_GameStart.Close_Inventory_Window();
+                                }
+                                else if (Director_GameStart.FullMapFlag)
+                                {
+                                    Director_GameStart.Close_FullMapWindow();
+                                }
+                                else
+                                {
+                                    Click_Home_Button();
+                                }*/
             }/*else if(ui_num == 6)
             {
                 if (Direcotr_Conversion.AfterConversionFlag)
@@ -568,27 +575,6 @@ public class StationDirector : MonoBehaviour
         }
     }*/
 
-    public void Click_Information_Button()
-    {
-        Information_Flag = true;
-        UI_TrainLIst_Window.SetActive(false);
-        UI_TrainInformation_Window.SetActive(true);
-        UI_TrainMaintenance_Window[ui_Maintenance_Num].SetActive(false);
-        UI_Home_Button.SetActive(false);
-        UI_Back_Button.SetActive(true);
-        //Director_TrainMaintenance.Current_Train_Information();
-    }
-
-    public void Click_Information_Back_Button()
-    {
-        Information_Flag = false;
-        UI_TrainLIst_Window.SetActive(true);
-        UI_TrainInformation_Window.SetActive(false);
-        UI_TrainMaintenance_Window[ui_Maintenance_Num].SetActive(true);
-        UI_Home_Button.SetActive(true);
-        UI_Back_Button.SetActive(false);
-    }
-
     public void Click_Home_Button()
     {
         Total_Init();
@@ -717,6 +703,18 @@ public class StationDirector : MonoBehaviour
             }
             Station_ItemData.itemChangeFlag = false;
         }
+    }
+
+    public void Click_HelpOpen(int x)
+    {
+        UI_HelpWindow[x].SetActive(true);
+        Help_Flag = true;
+    }
+
+    public void Click_HelpClose(int x)
+    {
+        UI_HelpWindow[x].SetActive(false);
+        Help_Flag = false;
     }
 
 /*    void ShowPerviousBackGround()

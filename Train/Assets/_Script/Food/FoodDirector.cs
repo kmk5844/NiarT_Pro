@@ -63,7 +63,6 @@ public class FoodDirector : MonoBehaviour
         Special_Story.Story_Init(null, 1 , 0, 0);
     }
 
-
     private void Start()
     {
         ChoiceButton.SetActive(false);

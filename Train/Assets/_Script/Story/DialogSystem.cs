@@ -377,28 +377,28 @@ public class DialogSystem : MonoBehaviour
                     switch (SA_Local.Local_Index)
                     {
                         case 0:
-                            _data.name = EX_Story.Story[i].en_name;
-                            _data.dialogue = EX_Story.Story[i].en_dialog.Replace("\\n", "\n");
+                            _data.name = EX_Story.Special_Story[i].en_name;
+                            _data.dialogue = EX_Story.Special_Story[i].en_dialog.Replace("\\n", "\n");
                             break;
                         case 1:
-                            _data.name = EX_Story.Story[i].ko_name;
-                            _data.dialogue = EX_Story.Story[i].ko_dialog.Replace("\\n", "\n");
+                            _data.name = EX_Story.Special_Story[i].ko_name;
+                            _data.dialogue = EX_Story.Special_Story[i].ko_dialog.Replace("\\n", "\n");
                             break;
                         case 2:
-                            _data.name = EX_Story.Story[i].jp_name;
-                            _data.dialogue = EX_Story.Story[i].jp_dialog.Replace("\\n", "\n");
+                            _data.name = EX_Story.Special_Story[i].jp_name;
+                            _data.dialogue = EX_Story.Special_Story[i].jp_dialog.Replace("\\n", "\n");
                             break;
                         case 3:
-                            _data.name = EX_Story.Story[i].ch0_name;
-                            _data.dialogue = EX_Story.Story[i].ch0_dialog.Replace("\\n", "\n");
+                            _data.name = EX_Story.Special_Story[i].ch0_name;
+                            _data.dialogue = EX_Story.Special_Story[i].ch0_dialog.Replace("\\n", "\n");
                             break;
                         case 4:
-                            _data.name = EX_Story.Story[i].ch1_name;
-                            _data.dialogue = EX_Story.Story[i].ch1_dialog.Replace("\\n", "\n");
+                            _data.name = EX_Story.Special_Story[i].ch1_name;
+                            _data.dialogue = EX_Story.Special_Story[i].ch1_dialog.Replace("\\n", "\n");
                             break;
                         case 5:
-                            _data.name = EX_Story.Story[i].ru_name;
-                            _data.dialogue = EX_Story.Story[i].ru_dialog.Replace("\\n", "\n");
+                            _data.name = EX_Story.Special_Story[i].ru_name;
+                            _data.dialogue = EX_Story.Special_Story[i].ru_dialog.Replace("\\n", "\n");
                             break;
                     }
                     _data.backLog_Color = EX_Story.Special_Story[i].BackLog_Color;
@@ -406,7 +406,7 @@ public class DialogSystem : MonoBehaviour
                     _data.Player_Sprite = EX_Story.Special_Story[i].Player_Sprite;
                     _data.Player_Animation = EX_Story.Special_Story[i].Player_Animation;
                     _data.ChatBox_Animation = EX_Story.Special_Story[i].ChatBox_Animation;
-                    _data.CutScene_Sprite = EX_Story.Story[i].CutScene_Sprite;
+                    _data.CutScene_Sprite = EX_Story.Special_Story[i].CutScene_Sprite;
                     _data.etc = EX_Story.Special_Story[i].Etc;
                     dialogs.Add(_data);
                     index++;
