@@ -87,9 +87,9 @@ public class GameManager : MonoBehaviour
             }
             StopAllCoroutines();
             Game_DataReset();
-        }
+        }*/
 
-        if (Input.GetKeyDown(KeyCode.Alpha9))
+/*        if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             PlayerData.SA_Test();
         }*/

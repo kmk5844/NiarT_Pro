@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Steamworks;
+using UnityEngine.SocialPlatforms.Impl;
 public class SteamAchievement : MonoBehaviour
 {
     public static SteamAchievement instance { get; private set; }
@@ -24,13 +25,9 @@ public class SteamAchievement : MonoBehaviour
     {
         if (SteamAPI.Init())
         {
-            Steamworks.SteamUserStats.GetAchievement(apiName, out bool isAchieved);
-
-            if (!isAchieved)
-            {
-                SteamUserStats.SetAchievement(apiName);
-                SteamUserStats.StoreStats();
-            }
+            SteamUserStats.SetAchievement(apiName);
+            SteamUserStats.StoreStats();  // 서버에 저장
+            Debug.Log($"업적 '{apiName}' 해제 성공!");
         }
         else
         {
