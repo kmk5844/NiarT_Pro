@@ -195,6 +195,7 @@ public class SubStage_Select : MonoBehaviour
         }
         else
         {
+            DataManager.Instance.playerData.SA_BeforeSubSelectStage_Save(missionData.SubStage_Num);
             subStageSelectDirector.Open_SpecialStage();
         }
         InformationObject.SetActive(false);

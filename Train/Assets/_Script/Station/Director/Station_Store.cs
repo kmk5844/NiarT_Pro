@@ -81,6 +81,7 @@ public class Station_Store : MonoBehaviour
     public ItemSell_Object ItemSellList_Object;
     //public ItemList_Tooltip ItemSellTooltip_Object;
     public GameObject Item_Sell_Window;
+    public GameObject Item_Sell_AllButton;
 
     [HideInInspector]
     public bool Store_BuyAndSell_Window_Flag;
@@ -670,11 +671,13 @@ public class Station_Store : MonoBehaviour
         {
             itemData = item.GetComponent<ItemBuy_Object>().item;
             Click_ItemDataObjcet = Click_ItemObject.GetComponent<ItemBuy_Object>().item;
+            Item_Sell_AllButton.SetActive(false);
         }
         else
         {
             itemData = item.GetComponent<ItemSell_Object>().item;
             Click_ItemDataObjcet = Click_ItemObject.GetComponent<ItemSell_Object>().item;
+            Item_Sell_AllButton.SetActive(true);
         }
 
         if (SelectObject_Before.activeSelf)
@@ -722,6 +725,16 @@ public class Station_Store : MonoBehaviour
             Sell_Local.StringChanged += UpdateText;
             Sell_Local.RefreshString();
         }
+    }
+
+    public void Open_Check_Window_All()
+    {
+        CountNum = Click_ItemDataObjcet.Item_Count;
+        Store_CheckFlag = true;
+        SellCheck_Window.SetActive(true);
+        Sell_Local.Arguments = new object[] { CountNum };
+        Sell_Local.StringChanged += UpdateText;
+        Sell_Local.RefreshString();
     }
 
     void UpdateText(string value)
@@ -821,10 +834,10 @@ public class Station_Store : MonoBehaviour
         {
             playerData.Player_Buy_Coin(saveitemData.Item_Buy_Pride * CountNum);
             itemData.Plus_Inventory_Item(saveitemData);
-            if (stationDirector.simplestationFlag)
+/*            if (stationDirector.simplestationFlag)
             {
                 stationDirector.Director_PlayerReadyDirector.itemListData.Plus_Inventory_Item(saveitemData);
-            }
+            }*/
         });
 
         foreach (ItemSell_Object Sell_Object in Item_Sell_Window.GetComponentsInChildren<ItemSell_Object>())
@@ -998,6 +1011,7 @@ public class Station_Store : MonoBehaviour
         //Item_Information_Text.text = "";
         CountObject.SetActive(false);
         CountButton.SetActive(false);
+        Item_Sell_AllButton.SetActive(false);
     }
 
     void Cancel_SelectItem()

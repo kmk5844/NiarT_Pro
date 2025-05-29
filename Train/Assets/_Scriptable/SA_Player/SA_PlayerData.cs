@@ -85,6 +85,9 @@ public class SA_PlayerData : ScriptableObject
     [SerializeField]
     private bool mission_playing;
     public bool Mission_Playing { get {  return mission_playing; } }
+    [SerializeField]
+    private bool click_readyflag;
+    public bool Click_ReadyFlag { get { return click_readyflag; } }
 
     [SerializeField]
     private int before_sub_stage;
@@ -149,9 +152,7 @@ public class SA_PlayerData : ScriptableObject
 
     public void SA_Test()
     {
-        //new_stage++;
         coin = 999999;
-        //point = 999999;
         Save();
     }
 
@@ -204,6 +205,12 @@ public class SA_PlayerData : ScriptableObject
     public void change_simplestation(bool flag)
     {
         simplestation = flag;
+    }
+
+    public void change_clickStartButton(bool flag)
+    {
+        click_readyflag = flag;
+        Save_Solo("Click_ReadyFlag");
     }
 
 /*    public void SA_Use_Point(int R_Point)
@@ -341,6 +348,7 @@ public class SA_PlayerData : ScriptableObject
         ES3.Save<int>("SA_PlayerData_Data_Story_Num", story_num);
         ES3.Save<bool>("SA_PlayerData_Data_Station_Tutorial", station_tutorial);
         ES3.Save<bool>("SA_PlayerData_Data_MissionPlaying", mission_playing);
+        ES3.Save<bool>("SA_PlayerData_Data_Click_ReaduyFlag", click_readyflag);
         ES3.Save<bool>("SA_PlayerData_Data_EventFlag", eventflag);
         ES3.Save<bool>("SA_PlayerData_Data_Food_Heal_Flag", food_heal_flag);
         ES3.Save<int>("SA_PlayerData_Data_Food_Num", food_num);
@@ -396,6 +404,9 @@ public class SA_PlayerData : ScriptableObject
             case "MissionPlaying":
                 ES3.Save<bool>("SA_PlayerData_Data_MissionPlaying", mission_playing);
                 break;
+            case "Click_ReadyFlag":
+                ES3.Save<bool>("SA_PlayerData_Data_Click_ReaduyFlag", click_readyflag);
+                break;
             case "EventFlag":
                 ES3.Save<bool>("SA_PlayerData_Data_EventFlag", eventflag);
                 break;
@@ -445,6 +456,8 @@ public class SA_PlayerData : ScriptableObject
         yield return new WaitForSeconds(0.001f);
         ES3.Save<bool>("SA_PlayerData_Data_MissionPlaying", mission_playing);
         yield return new WaitForSeconds(0.001f);
+        ES3.Save<bool>("SA_PlayerData_Data_Click_ReaduyFlag", click_readyflag);
+        yield return new WaitForSeconds(0.001f);
         ES3.Save<bool>("SA_PlayerData_Data_EventFlag", eventflag);
         yield return new WaitForSeconds(0.001f);
         ES3.Save<bool>("SA_PlayerData_Data_Food_Heal_Flag", food_heal_flag);
@@ -471,6 +484,7 @@ public class SA_PlayerData : ScriptableObject
         story_num = ES3.Load<int>("SA_PlayerData_Data_Story_Num");
         station_tutorial = ES3.Load<bool>("SA_PlayerData_Data_Station_Tutorial");
         mission_playing = ES3.Load<bool>("SA_PlayerData_Data_MissionPlaying");
+        click_readyflag = ES3.Load<bool>("SA_PlayerData_Data_Click_ReaduyFlag");
         eventflag = ES3.Load<bool>("SA_PlayerData_Data_EventFlag");
         food_heal_flag = ES3.Load<bool>("SA_PlayerData_Data_Food_Heal_Flag");
         food_num = ES3.Load<int>("SA_PlayerData_Data_Food_Num");
@@ -512,6 +526,7 @@ public class SA_PlayerData : ScriptableObject
             station_tutorial = ES3.Load<bool>("SA_PlayerData_Data_Station_Tutorial");
             //yield return new WaitForSeconds(0.001f);
             mission_playing = ES3.Load<bool>("SA_PlayerData_Data_MissionPlaying");
+            click_readyflag = ES3.Load<bool>("SA_PlayerData_Data_Click_ReaduyFlag");
             //yield return new WaitForSeconds(0.001f);
             eventflag = ES3.Load<bool>("SA_PlayerData_Data_EventFlag");
             //yield return new WaitForSeconds(0.001f);
@@ -522,12 +537,8 @@ public class SA_PlayerData : ScriptableObject
         }
         catch
         {
-            
             GameManager.Instance.FILE_Critical();
-            
         }
-
-
 
         yield return new WaitForSeconds(0.001f);
     }
@@ -557,6 +568,7 @@ public class SA_PlayerData : ScriptableObject
             Character_LockOff[i] = false;
         }
         mission_playing = false;
+        click_readyflag = false;
         eventflag = false;
         food_heal_flag = false;
         food_num = 0;
@@ -588,6 +600,7 @@ public class SA_PlayerData : ScriptableObject
             Character_LockOff[i] = false;
         }
         mission_playing = false;
+        click_readyflag = false;
         eventflag = false;
         food_heal_flag = false;
         food_num = 0;

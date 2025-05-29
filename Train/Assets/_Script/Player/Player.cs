@@ -209,7 +209,7 @@ public class Player : MonoBehaviour
                 isMouseDown = false;
             }
 
-            if (Input.GetKeyDown(KeyCode.R) && FireCount != 0)
+/*            if (Input.GetKeyDown(KeyCode.R) && FireCount != 0)
             {
                 if (!STEAM_clickflag_R)
                 {
@@ -225,7 +225,7 @@ public class Player : MonoBehaviour
                 }
 
                 StartCoroutine(Reloading());
-            }
+            }*/
 
             if (isMouseDown)
             {
@@ -536,7 +536,7 @@ public class Player : MonoBehaviour
                         StartCoroutine(MariGold_Skill_BulletFire());
                     }
 
-                    if (FireCount < MaxFireCount-1)
+/*                    if (FireCount < MaxFireCount-1)
                     {
                         if (!Item_GunFlag)
                         {
@@ -547,7 +547,7 @@ public class Player : MonoBehaviour
                     else
                     {
                         StartCoroutine(Reloading());
-                    }
+                    }*/
                 }
 
             }
@@ -557,7 +557,7 @@ public class Player : MonoBehaviour
                 {
                     Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
                     ani.SetTrigger("Shoot_1");
-                    if(FireCount < MaxFireCount)
+/*                    if(FireCount < MaxFireCount)
                     {
                         if (!Item_GunFlag)
                         {
@@ -567,7 +567,7 @@ public class Player : MonoBehaviour
                     else
                     {
                         StartCoroutine(Reloading());
-                    }
+                    }*/
                 }
             }
             else

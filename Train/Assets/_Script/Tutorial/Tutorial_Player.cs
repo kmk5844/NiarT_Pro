@@ -117,10 +117,10 @@ public class Tutorial_Player : MonoBehaviour
                 isMouseDown = false;
             }
 
-            if (Input.GetKeyDown(KeyCode.R) && firecount != 0)
+/*            if (Input.GetKeyDown(KeyCode.R) && firecount != 0)
             {
                 StartCoroutine(Reloading());
-            }
+            }*/
 
             if (gameDirector.gameType == GameType_T.Tutorial)
             {
@@ -295,29 +295,38 @@ public class Tutorial_Player : MonoBehaviour
         if (Time.time >= lastTime + Bullet_Delay)
         {
             bullet.GetComponent<Bullet>().atk = Bullet_Atk;
-            if (!ReloadingFlag)
+            Instantiate(bullet, FireZone.position, Quaternion.identity);
+            ani.SetTrigger("Shoot_0");
+
+            if (MariGold_Skill_Flag && !MariGold_Skill_Fire_Flag)
             {
-                Instantiate(bullet, FireZone.position, Quaternion.identity);
-                ani.SetTrigger("Shoot_0");
-                T_FireCount++;
-
-                if (MariGold_Skill_Flag && !MariGold_Skill_Fire_Flag)
-                {
-                    StartCoroutine(MariGold_Skill_BulletFire());
-                }
-
-                if(firecount < max_firecount - 1)
-                {
-                    firecount++;
-                }
-                else
-                {
-                    StartCoroutine(Reloading());
-                }
-
-                MMSoundManagerSoundPlayEvent.Trigger(ShootSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+                StartCoroutine(MariGold_Skill_BulletFire());
             }
-            
+            MMSoundManagerSoundPlayEvent.Trigger(ShootSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+
+            /* if (!ReloadingFlag)
+             {
+                 Instantiate(bullet, FireZone.position, Quaternion.identity);
+                 ani.SetTrigger("Shoot_0");
+                 T_FireCount++;
+
+
+                 if (MariGold_Skill_Flag && !MariGold_Skill_Fire_Flag)
+                 {
+                     StartCoroutine(MariGold_Skill_BulletFire());
+                 }
+
+                 if(firecount < max_firecount - 1)
+                 {
+                     firecount++;
+                 }
+                 else
+                 {
+                     StartCoroutine(Reloading());
+                 }
+
+                 MMSoundManagerSoundPlayEvent.Trigger(ShootSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+             }*/
 
             lastTime = Time.time;
         }

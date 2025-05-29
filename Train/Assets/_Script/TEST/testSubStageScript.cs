@@ -10,9 +10,9 @@ public class testSubStageScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for(int i = 2; i < 4; i++)
+        for(int i = 0; i < 4; i++)
         {
-            int j = 2;
+            int j = 0;
             try
             {
                 GameObject StageListObject = Resources.Load<GameObject>("UI_SubStageList/" + i + "_Stage/" + j);

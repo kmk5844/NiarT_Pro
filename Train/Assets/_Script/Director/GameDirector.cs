@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using static PixelCrushers.AnimatorSaver;
 
 
 //Script Execution Order로 조절 중
@@ -28,6 +29,7 @@ public class GameDirector : MonoBehaviour
     [SerializeField]
     List<int> NextSubStageNum;
     //잠글 스테이지 정보
+    [SerializeField]
     List<int> PrevSubStageNum;
 
     public SA_PlayerData SA_PlayerData;
@@ -344,17 +346,18 @@ public class GameDirector : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown("]"))
+/*        if (Input.GetKeyDown("]"))
         {
             if (Data_BossFlag)
             {
                 TrainSpeed = 1000;
-            }else
+            }
+            else
             {
                 TrainDistance = 99999999;
             }
         }
-
+*/
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (gameType == GameType.Starting || gameType == GameType.Playing || gameType == GameType.Boss || gameType == GameType.Refreshing)
@@ -1177,6 +1180,7 @@ public class GameDirector : MonoBehaviour
                     
                     uiDirector.Open_Result_UI(true, Total_Score, Total_Coin, missionDirector.selectmission, chapter_clearFlag, LoseNum);
                     LastSubStageClear();
+                    SA_PlayerData.change_clickStartButton(false);
                     SA_PlayerData.SA_GameWinReward(true, Total_Coin);
                     SA_PlayerData.SA_MissionPlaying(false);
                     SA_MissionData.SubStage_Init(Stage_Num, Mission_Num); // 승리

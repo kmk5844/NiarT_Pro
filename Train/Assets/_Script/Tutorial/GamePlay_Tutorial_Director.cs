@@ -121,7 +121,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
         }
 
 
-        if (Input.GetKeyDown("]"))
+/*        if (Input.GetKeyDown("]"))
         {
             if (!DataManager.Instance.playerData.FirstFlag)
             {
@@ -129,7 +129,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
             }
             LoadingManager.LoadScene("Station");
         }
-
+*/
         if(gameType == GameType_T.Pause)
         {
             if (Input.GetKeyDown(KeyCode.Escape))

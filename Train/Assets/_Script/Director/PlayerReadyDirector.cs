@@ -862,8 +862,10 @@ public class PlayerReadyDirector : MonoBehaviour
 
     private void Instantiate_Item()
     {
+        Debug.Log("아이템생성");
         foreach (ItemDataObject item in itemListData.Equipment_Inventory_ItemList)
         {
+            Debug.Log(item.Item_Name);
             Inventory_DragObject.GetComponent<Image>().sprite = item.Item_Sprite;
             GameObject drag = Instantiate(Inventory_DragObject, Inventory_DragItemList);
             drag.SetActive(false);
@@ -904,15 +906,16 @@ public class PlayerReadyDirector : MonoBehaviour
     }
 
     //아이템 구매 및 판매시, 발동
-    public void Check_Item()
+/*    public void Check_Item()
     {
+        Debug.Log("Check_Item");
         foreach (ItemEquip_Object item in Inventory_ItemList.GetComponentsInChildren<ItemEquip_Object>())
         {
             Destroy(item.gameObject);
         }
         Instantiate_Item();
     }
-
+*/
     //UI Change Button
 
     public void NextButton()
@@ -1008,6 +1011,7 @@ public class PlayerReadyDirector : MonoBehaviour
             MMSoundManagerSoundPlayEvent.Trigger(ButtonSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
             gameObject.SetActive(false);
             UI_SubStageSelect.SetActive(true);
+            playerData.SA_PlayerData.change_clickStartButton(true);
         }
         else
         {

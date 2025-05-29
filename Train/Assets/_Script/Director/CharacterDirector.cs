@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static PixelCrushers.AnimatorSaver;
 
 public class CharacterDirector : MonoBehaviour
 {
@@ -33,7 +34,7 @@ public class CharacterDirector : MonoBehaviour
     public void Click_PlayableButton(int i)
     {
         playerData.SA_Click_Playable(i);
-        StartCoroutine(Start_Game());  
+        StartCoroutine(Start_Game());
     }
 
     IEnumerator Start_Game()

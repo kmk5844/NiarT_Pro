@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha0))
+/*        if (Input.GetKeyDown(KeyCode.Alpha0))
         {
             if (Time.timeScale == 0)
             {
@@ -88,6 +88,11 @@ public class GameManager : MonoBehaviour
             StopAllCoroutines();
             Game_DataReset();
         }
+
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            PlayerData.SA_Test();
+        }*/
     }
 
 
@@ -123,7 +128,7 @@ public void DataLoad()
     {
         string[] index_St = gameData.Information_Stage[PlayerData.New_Stage].Story_Index.Split(',');
         int index = int.Parse(index_St[1]);
-        Debug.Log(index);
+        //Debug.Log(index);
 
         if (gameData.Information_Stage[PlayerData.New_Stage].BeforeGameStart_Button)
         {
@@ -170,7 +175,6 @@ public void DataLoad()
     {
         string[] index_St = gameData.Information_Stage[PlayerData.New_Stage].Story_Index.Split(',');
         int index = int.Parse(index_St[0]);
-        Debug.Log(index);
         if (gameData.Information_Stage[PlayerData.New_Stage].BeforeStation_Button)
         {
             //Debug.Log(StoryData.StoryList[index].Start_Flag);
