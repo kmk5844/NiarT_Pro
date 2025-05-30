@@ -44,11 +44,13 @@ public class GameDirector : MonoBehaviour
     public PolygonCollider2D CameraConfiler;
     public FillDirector fill_director;
     public GameObject MissionDirector_Object;
+    public GameObject SkillDirector_Object;
     Vector2[] newPoint;
     MonsterDirector monsterDirector;
     UIDirector uiDirector;
     ItemDirector itemDirector;
     MissionDirector missionDirector;
+    SkillDirector skillDirector;
     List<int> Train_Num;
     List<int> Train_Turret_Num;
     List<int> Train_Booster_Num;
@@ -265,6 +267,7 @@ public class GameDirector : MonoBehaviour
         uiDirector = UI_DirectorObject.GetComponent<UIDirector>();
         itemDirector = Item_DirectorObject.GetComponent<ItemDirector>();
         missionDirector = MissionDirector_Object.GetComponent<MissionDirector>();
+        skillDirector = SkillDirector_Object.GetComponent<SkillDirector>();
         fill_director = GetComponent<FillDirector>();
 
         cursorAim_UnAtk = Resources.Load<Texture2D>("Cursor/Aim6464_UnAttack");
@@ -1070,6 +1073,7 @@ public class GameDirector : MonoBehaviour
         //string grade = Check_Score();
         //StageData.GameEnd(true, Total_Score);//, grade);
         //Change_Game_End(true);
+
         GameEnd_SavePlayerData();
         SubStage_Clear();
         //lastSubStage_Lock();
@@ -1101,11 +1105,17 @@ public class GameDirector : MonoBehaviour
     {
         bool Initflag = false;
 
+        if(Select_Sub_Num == 0)
+        {
+            Before_Sub_Num = -1;
+        }
+
         foreach (int substageNum in NextSubStageNum)
         {
             if (substageNum != -1)
             {
                 MissionDataObject mission = SA_MissionData.missionStage(Mission_Num, Stage_Num, substageNum);
+                Debug.Log(substageNum);
                 mission.SubStageLockOff();
             }
             else

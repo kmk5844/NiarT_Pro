@@ -2772,6 +2772,7 @@ MonoBehaviour:
   SA_StageList: {fileID: 11400000, guid: 0c7e7e08d5ba18842a35b7c06144bb56, type: 2}
   SubStageData: {fileID: 0}
   NextSubStageNum: 
+  PrevSubStageNum: 
   SA_PlayerData: {fileID: 11400000, guid: 00cbb5f50188b374e85c8a529a52b4b0, type: 2}
   EX_GameData: {fileID: 11400000, guid: 3a83740cb85032c498c0bbd5b0a2ec9d, type: 2}
   EX_LevelData: {fileID: 11400000, guid: 11c59bcaf7ab95844b2a57023ddf8e05, type: 2}
@@ -2782,6 +2783,7 @@ MonoBehaviour:
   CameraConfiler: {fileID: 1770909225}
   fill_director: {fileID: 0}
   MissionDirector_Object: {fileID: 1128313787}
+  SkillDirector_Object: {fileID: 967875821}
   lastFlag: 0
   playerObject: {fileID: 0}
   player: {fileID: 0}
@@ -15884,6 +15886,18 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 8386976481022936305, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1830466590}
+    - target: {fileID: 8386976481022936305, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Yes_MissionCancel
+      objectReference: {fileID: 0}
+    - target: {fileID: 8386976481022936305, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SubStageSelectDirector, Assembly-CSharp
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -18891,7 +18905,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3396181284324112665, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3457745493300843812, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
       propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
@@ -20026,6 +20040,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1126564261628996902, guid: 023d499a56a91754ca9e28280a427df7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1860883302208371945, guid: 023d499a56a91754ca9e28280a427df7, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -20112,6 +20130,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4830841996913936410, guid: 023d499a56a91754ca9e28280a427df7, type: 3}
   m_PrefabInstance: {fileID: 1830466587}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1830466590 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7287870226391313213, guid: 023d499a56a91754ca9e28280a427df7, type: 3}
+  m_PrefabInstance: {fileID: 1830466587}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1830466589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c3df24a9c9bc154c9f20328c307c2db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1839303427
 GameObject:
   m_ObjectHideFlags: 0

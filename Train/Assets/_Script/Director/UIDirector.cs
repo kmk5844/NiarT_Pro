@@ -207,8 +207,6 @@ public class UIDirector : MonoBehaviour
             Click_MissionInformation();
         }
 
-
-
         Player_HP_Bar.fillAmount = player.Check_HpParsent() / 100f;
         TotalFuel_Bar.fillAmount = gamedirector.Check_Fuel();
         ReLoading_Guage.fillAmount = player.Check_GunBullet();

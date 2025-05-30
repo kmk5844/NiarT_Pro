@@ -170,14 +170,14 @@ public class OptionDirector : MonoBehaviour
 
             float refreshRate = (float)Window_Screen.refreshRateRatio.numerator / Window_Screen.refreshRateRatio.denominator;
             Window_Option.text = $"{Window_Screen.width} * {Window_Screen.height} {Mathf.RoundToInt(refreshRate)}hz (Windowed)";
-            if(Mathf.RoundToInt(refreshRate) != 75)
+            if(Mathf.RoundToInt(refreshRate) < 75)
             {
                 resolutionDropdown.options.Add(Window_Option);
             }
             refreshRate = (float)Full_Screen.refreshRateRatio.numerator / Full_Screen.refreshRateRatio.denominator;
             
             Full_Option.text = $"{Full_Screen.width} * {Full_Screen.height} {Mathf.RoundToInt(refreshRate)}hz (Full)";
-            if(Mathf.RoundToInt(refreshRate) != 75)
+            if(Mathf.RoundToInt(refreshRate) < 75)
             {
                 resolutionDropdown.options.Add(Full_Option);
             }

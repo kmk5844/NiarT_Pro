@@ -252,18 +252,21 @@ public class Station_TrainMaintenance : MonoBehaviour
             local_Index = localData.Local_Index;
         }
 
-        if (TrainMainTenance_Flag && TrainBuyWindow_Flag)
+        if (!mainDirector.Help_Flag)
         {
-            if (Input.GetKeyDown(KeyCode.A))
+            if (TrainMainTenance_Flag && TrainBuyWindow_Flag)
             {
-                MMSoundManagerSoundPlayEvent.Trigger(ButtonSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
-                Click_Prev_TrainButton();
-            }
+                if (Input.GetKeyDown(KeyCode.A))
+                {
+                    MMSoundManagerSoundPlayEvent.Trigger(ButtonSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+                    Click_Prev_TrainButton();
+                }
 
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                MMSoundManagerSoundPlayEvent.Trigger(ButtonSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
-                Click_Next_TrainButton();
+                if (Input.GetKeyDown(KeyCode.D))
+                {
+                    MMSoundManagerSoundPlayEvent.Trigger(ButtonSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+                    Click_Next_TrainButton();
+                }
             }
         }
 
