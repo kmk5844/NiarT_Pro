@@ -120,7 +120,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
             STEAM_TUTORIAL_BACK_FLAG = true;
         }
 
-
+        //TEST
 /*        if (Input.GetKeyDown("]"))
         {
             if (!DataManager.Instance.playerData.FirstFlag)
@@ -128,9 +128,9 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
                 DataManager.Instance.playerData.SA_CheckFirstFlag();
             }
             LoadingManager.LoadScene("Station");
-        }
-*/
-        if(gameType == GameType_T.Pause)
+        }*/
+
+        if (gameType == GameType_T.Pause)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {

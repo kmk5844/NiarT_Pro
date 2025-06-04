@@ -349,6 +349,7 @@ public class GameDirector : MonoBehaviour
 
     void Update()
     {
+        //TEST
 /*        if (Input.GetKeyDown("]"))
         {
             if (Data_BossFlag)
@@ -359,8 +360,8 @@ public class GameDirector : MonoBehaviour
             {
                 TrainDistance = 99999999;
             }
-        }
-*/
+        }*/
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (gameType == GameType.Starting || gameType == GameType.Playing || gameType == GameType.Boss || gameType == GameType.Refreshing)
@@ -1297,7 +1298,9 @@ public class GameDirector : MonoBehaviour
     public void Optoin_Stage()
     {
         SA_PlayerData.SA_GameLoseCoin(60f);
+        SA_PlayerData.SA_MissionPlaying(false);
         SA_MissionData.SubStage_Init(Stage_Num, Mission_Num); // 정거장 돌아가기
+        missionDirector.selectmission.Mission_Fail();
         LoadingManager.LoadScene("Station");
     }
 
