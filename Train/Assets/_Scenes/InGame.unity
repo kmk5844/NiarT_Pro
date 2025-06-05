@@ -2791,7 +2791,8 @@ MonoBehaviour:
   Stage_Num: 1
   Before_Sub_Num: 0
   Select_Sub_Num: 0
-  Emerging_Monster: 
+  Emerging_Monster_Sky: 
+  Emerging_Monster_Ground: 
   Emerging_MonsterCount: 
   BackGroundList:
   - {fileID: 1614789111}
@@ -6361,8 +6362,8 @@ MonoBehaviour:
   EX_GameData: {fileID: 11400000, guid: 3a83740cb85032c498c0bbd5b0a2ec9d, type: 2}
   SA_PlayerData: {fileID: 11400000, guid: 00cbb5f50188b374e85c8a529a52b4b0, type: 2}
   missionDirector: {fileID: 1128313789}
-  Monster_List: {fileID: 2125283571}
-  Test_Monster_List: []
+  Monster_List_Sky: {fileID: 2125283571}
+  Monster_List_Ground: {fileID: 1881884219}
   Boss_List: {fileID: 1233256303}
   Emerging_Boss_List: 
   missionFlag_material: 0
@@ -20801,6 +20802,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1881590339}
   m_CullTransparentMesh: 1
+--- !u!1 &1881884218
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1881884219}
+  m_Layer: 0
+  m_Name: Monster_List (Ground)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1881884219
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1881884218}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1897448555
 GameObject:
   m_ObjectHideFlags: 0
@@ -23933,7 +23965,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2125283571}
   m_Layer: 0
-  m_Name: Monster_List
+  m_Name: Monster_List(Sky)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30699,6 +30731,7 @@ SceneRoots:
   - {fileID: 1910264846}
   - {fileID: 836407011}
   - {fileID: 2125283571}
+  - {fileID: 1881884219}
   - {fileID: 1812168578}
   - {fileID: 1233256303}
   - {fileID: 1315201695}

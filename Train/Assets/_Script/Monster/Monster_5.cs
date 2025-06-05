@@ -76,7 +76,7 @@ public class Monster_5 : Monster
                     Egg_Object.transform.localScale.x + Bounce_value
                 );
 
-            if (monster_gametype != Monster_GameType.GameEnding)
+            if (monster_gametype != Monster_GameType.GameEnding || monster_gametype != Monster_GameType.Die)
             {
                 if (Time.time > EgglastTime + DestroyTime)
                 {

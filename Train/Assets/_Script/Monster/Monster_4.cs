@@ -63,7 +63,6 @@ public class Monster_4 : Monster
         transform.Translate(movement * (speed - Item_Monster_Speed) * Time.deltaTime);
         if(transform.position.x < MonsterDirector.MinPos_Ground.x - 15f)
         {
-            MonsterDirector.MonsterNum--;
             Destroy(gameObject);
         }
     }

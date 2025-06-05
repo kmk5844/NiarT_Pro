@@ -63,7 +63,6 @@ public class Monster_14 : Monster
 
         if(transform.position.x < MonsterDirector.MinPos_Ground.x - 15f)
         {
-            MonsterDirector.MonsterNum--;
             Destroy(gameObject);
         }
     }

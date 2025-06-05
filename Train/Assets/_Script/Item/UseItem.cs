@@ -111,11 +111,11 @@ public class UseItem : MonoBehaviour
                 StartCoroutine(player.Item_Player_Dagger(0.3f));
                 break;
             case 24:
-                StartCoroutine(monsterDirector.Item_Monster_FearFlag(5, 20));
+                StartCoroutine(monsterDirector.Item_Monster_FearFlag(2, 20));
                 player.Item_Instantiate_Flag(0, 20);
                 break;
             case 25:
-                StartCoroutine(monsterDirector.Item_Monster_GreedFlag(5, 20));
+                StartCoroutine(monsterDirector.Item_Monster_GreedFlag(2, 20));
                 player.Item_Instantiate_Flag(1, 20);
                 break;
             case 26:

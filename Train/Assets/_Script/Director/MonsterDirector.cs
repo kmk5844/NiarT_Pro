@@ -17,12 +17,12 @@ public class MonsterDirector : MonoBehaviour
     public MissionDirector missionDirector;
 
     [Header("몬스터 정보 및 리스트")]
-    public Transform Monster_List;
-    [SerializeField]
-    Transform[] Test_Monster_List;
+    public Transform Monster_List_Sky;
+    public Transform Monster_List_Ground;
 
     public Transform Boss_List;
-    List<int> Emerging_Monster_List;
+    List<int> Emerging_Monster_List_Sky;
+    List<int> Emerging_Monster_List_Ground;
     List<int> Emerging_MonsterCount_List;
     [SerializeField]
     List<int> Emerging_Boss_List;
@@ -59,9 +59,11 @@ public class MonsterDirector : MonoBehaviour
 
     [Header("몬스터 한도 설정")]
     public int MaxMonsterNum;
-    public static int MonsterNum;
+    public int MonsterNum;
     int SupplyMonsterNum;
     int item_MonsterCount;
+    int item_MonsterCount_Sky;
+    int item_MonsterCount_Ground;
 
     [Header("기차 정보")]
     public Transform Train_List;
@@ -115,6 +117,8 @@ public class MonsterDirector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        MonsterNum = Monster_List_Ground.childCount + Monster_List_Sky.childCount;
+
         if (GameDirector_RefreshFlag)
         {
             if (GameDirector_SpawnFlag)
@@ -134,7 +138,6 @@ public class MonsterDirector : MonoBehaviour
                 }
             }
         }
-       
 
         //Debug.Log(MonsterNum);
         if (!GameDirector_EndingFlag)
@@ -185,30 +188,6 @@ public class MonsterDirector : MonoBehaviour
                 }
             }
         }
-/*        if (GameDirector_SpawnFlag && !GameDirector_BossFlag)
-        {
-            MonsterNum = Monster_List.childCount;
-            if (MonsterNum < MaxMonsterNum + item_MonsterCount && !isSpawing)
-            {
-                StartCoroutine(AppearMonster(false));
-            }
-        }
-
-        if(GameDirector_SpawnFlag && GameDirector_BossFlag)
-        {
-            MonsterNum = Monster_List.childCount;
-            if (MonsterNum < MaxMonsterNum && !isSpawing)
-            {
-                StartCoroutine(AppearMonster(false));
-            }
-
-            if (!GameDirector_Boss_SpawnFlag)
-            {
-                StartCoroutine(AppearMonster(true));
-                GameDirector_Boss_SpawnFlag = true;
-            }
-        }
-*/
     }
 
     IEnumerator AppearMonster(bool Bossflag)
@@ -217,10 +196,18 @@ public class MonsterDirector : MonoBehaviour
         if (!Bossflag)
         {
             yield return new WaitForSeconds(Random.Range(0.2f, 0.5f));
-            int MonsterRandomIndex = Random.Range(0, Emerging_Monster_List.Count);
-            if (Test_Monster_List[MonsterRandomIndex].childCount != Emerging_MonsterCount_List[MonsterRandomIndex])
+            int skyORground = Random.Range(0, 2);
+            
+            if(skyORground == 0 && Monster_List_Sky.childCount < Emerging_MonsterCount_List[0] + item_MonsterCount_Sky)
             {
-                Check_Sky_OR_Ground_Monster(Emerging_Monster_List[MonsterRandomIndex], Bossflag, MonsterRandomIndex);
+                int MonsterRandomIndex = Random.Range(0, Emerging_Monster_List_Sky.Count);
+                Check_Sky_OR_Ground_Monster(Emerging_Monster_List_Sky[MonsterRandomIndex], Bossflag, false);
+            }
+
+            if (skyORground == 1 && Monster_List_Ground.childCount < Emerging_MonsterCount_List[1] + item_MonsterCount_Ground)
+            {
+                int MonsterRandomIndex = Random.Range(0, Emerging_Monster_List_Ground.Count);
+                Check_Sky_OR_Ground_Monster(Emerging_Monster_List_Ground[MonsterRandomIndex], Bossflag, true);
             }
         }
         else
@@ -234,8 +221,8 @@ public class MonsterDirector : MonoBehaviour
     IEnumerator AppearSupplyMonster() 
     {
         isSupplySpawing = true;
-        yield return new WaitForSeconds(Random.Range(5f, 10f));
-        Random_xPos = Random.Range(MinPos_Sky.x, MaxPos_Sky.x);
+        yield return new WaitForSeconds(Random.Range(4f, 8f));
+        Random_xPos = Random.Range(MinPos_Sky.x+10f, MaxPos_Sky.x-10f);
         Random_yPos = Random.Range(MinPos_Sky.y, MaxPos_Sky.y);
         if (GameDirector_SpawnFlag == true)
         {
@@ -244,25 +231,26 @@ public class MonsterDirector : MonoBehaviour
         isSupplySpawing = false;
     }
 
-    private void Check_Sky_OR_Ground_Monster(int Monster_Num, bool bossFlag, int index = -1)
+    private void Check_Sky_OR_Ground_Monster(int Monster_Num, bool bossFlag, bool monsterType = false)
     {
-        if (EX_GameData.Information_Monster[Monster_Num].Monster_Type == "Sky")
+        if (!monsterType)
         {
             Random_xPos = Random.Range(MinPos_Sky.x, MaxPos_Sky.x);
             Random_yPos = Random.Range(MinPos_Sky.y, MaxPos_Sky.y);
         }
-        else if (EX_GameData.Information_Monster[Monster_Num].Monster_Type == "Ground")
+        else
         {
             Random_xPos = Random.Range(MinPos_Ground.x, MaxPos_Ground.x);
             Random_yPos = Random.Range(MinPos_Ground.y, MaxPos_Ground.y);
         }
+
         GameObject _Monster = null;
         if (!bossFlag)
         {
             string monster_name = EX_GameData.Information_Monster[Monster_Num].Monster_Name;
-            _Monster = Resources.Load<GameObject>("Monster/" + Monster_Num+ "_"+ monster_name);
-            
-            if(missionFlag_material) // 보급 번호
+            _Monster = Resources.Load<GameObject>("Monster/" + Monster_Num + "_" + monster_name);
+
+            if (missionFlag_material) // 보급 번호
             {
                 _Monster.GetComponent<Monster>().Monster_Mission_MaterialFlag = true;
                 _Monster.GetComponent<Monster>().SettingMission_Material_Monster(missionMaterial_Item, missionMaterial_Drop);
@@ -275,7 +263,14 @@ public class MonsterDirector : MonoBehaviour
 
             if (GameDirector_SpawnFlag == true)
             {
-                Instantiate(_Monster, new Vector3(Random_xPos, Random_yPos, 0), Quaternion.identity, Test_Monster_List[index]);
+                if (!monsterType)
+                {
+                    Instantiate(_Monster, new Vector3(Random_xPos, Random_yPos, 0), Quaternion.identity, Monster_List_Sky);
+                }
+                else
+                {
+                    Instantiate(_Monster, new Vector3(Random_xPos, Random_yPos, 0), Quaternion.identity, Monster_List_Ground);
+                }
             }
         }
         else
@@ -284,7 +279,7 @@ public class MonsterDirector : MonoBehaviour
             _Monster = Resources.Load<GameObject>("Boss/" + Monster_Num + "_" + monster_name);
 
             if (missionFlag_boss)
-            { 
+            {
                 _Monster.GetComponent<Boss>().Boss_MissionFlag = missionDirector.CheckBoss(Monster_Num);
             }
 
@@ -301,24 +296,18 @@ public class MonsterDirector : MonoBehaviour
             {
                 Debug.Log("MEET_BOSS_" + Monster_Num);
             }
-
         }
+
         MMSoundManagerSoundPlayEvent.Trigger(SpawnSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
     }
 
 
-
-    public void Get_Monster_List(List<int> GameDirector_Monster_List, List<int>GameDirector_MonsterCount_List)
+    public void Get_Monster_List(List<int> GameDirector_Monster_List_Sky, List<int> GameDirector_Monster_List_Ground, List<int>GameDirector_MonsterCount_List)
     {
-        Emerging_Monster_List = GameDirector_Monster_List;
+        Emerging_Monster_List_Sky = GameDirector_Monster_List_Sky;
+        Emerging_Monster_List_Ground = GameDirector_Monster_List_Ground;
+
         Emerging_MonsterCount_List = GameDirector_MonsterCount_List;
-        Test_Monster_List = new Transform[Emerging_Monster_List.Count];
-        for(int i = 0; i < Emerging_Monster_List.Count; i++)
-        {
-            GameObject gm = new GameObject();
-            gm.name = "Monster_" + Emerging_Monster_List[i] + "_List";
-            Test_Monster_List[i] = gm.transform;
-        }
 
         if (Test_Flag)
         {
@@ -375,32 +364,50 @@ public class MonsterDirector : MonoBehaviour
     //아이템부분
     public IEnumerator Item_Monster_FearFlag(int count, int delayTime)
     {
-        item_MonsterCount -= count;
+        item_MonsterCount -= count * 2;
+        item_MonsterCount_Sky -= count;
+        item_MonsterCount_Ground -= count;
         yield return new WaitForSeconds(delayTime);
-        item_MonsterCount += count;
+        item_MonsterCount += count * 2;
+        item_MonsterCount_Sky += count;
+        item_MonsterCount_Ground += count;
     }
 
     public IEnumerator Item_Monster_GreedFlag(int count, int delayTime)
     {
-        item_MonsterCount += count;
+        item_MonsterCount += count * 2;
+        item_MonsterCount_Sky += count;
+        item_MonsterCount_Ground += count;
         yield return new WaitForSeconds(delayTime);
-        item_MonsterCount -= count;
+        item_MonsterCount -= count * 2;
+        item_MonsterCount_Sky -= count;
+        item_MonsterCount_Ground -= count;
     }
 
     public IEnumerator Item_Use_Monster_CureseFlag(int Persent, int delayTime)
     {
         Item_cursePersent_Spawn = Persent;
         Item_curseFlag = true;
-        for (int i = 0; i < Monster_List.childCount; i++)
+        for (int i = 0; i < Monster_List_Sky.childCount; i++)
         {
-            Monster monster = Monster_List.GetChild(i).GetComponent<Monster>();
+            Monster monster = Monster_List_Sky.GetChild(i).GetComponent<Monster>();
+            monster.Item_Monster_CureseFlag(Persent);
+        }
+        for (int i = 0; i < Monster_List_Ground.childCount; i++)
+        {
+            Monster monster = Monster_List_Ground.GetChild(i).GetComponent<Monster>();
             monster.Item_Monster_CureseFlag(Persent);
         }
         yield return new WaitForSeconds(delayTime);
         Item_curseFlag = false;
-        for (int i = 0; i < Monster_List.childCount; i++)
+        for (int i = 0; i < Monster_List_Sky.childCount; i++)
         {
-            Monster monster = Monster_List.GetChild(i).GetComponent<Monster>();
+            Monster monster = Monster_List_Sky.GetChild(i).GetComponent<Monster>();
+            monster.Item_Monster_CureseFlag(Persent);
+        }
+        for (int i = 0; i < Monster_List_Ground.childCount; i++)
+        {
+            Monster monster = Monster_List_Ground.GetChild(i).GetComponent<Monster>();
             monster.Item_Monster_CureseFlag(Persent);
         }
     }
@@ -409,16 +416,26 @@ public class MonsterDirector : MonoBehaviour
     {
         Item_giantPersent_Spawn = Persent;
         Item_giantFlag = true;
-        for(int i = 0; i < Monster_List.childCount; i++)
+        for(int i = 0; i < Monster_List_Sky.childCount; i++)
         {
-            Monster monster = Monster_List.GetChild(i).GetComponent<Monster>();
+            Monster monster = Monster_List_Sky.GetChild(i).GetComponent<Monster>();
+            monster.Item_Monster_GiantFlag(Persent);
+        }
+        for (int i = 0; i < Monster_List_Ground.childCount; i++)
+        {
+            Monster monster = Monster_List_Ground.GetChild(i).GetComponent<Monster>();
             monster.Item_Monster_GiantFlag(Persent);
         }
         yield return new WaitForSeconds(delayTime);
         Item_giantFlag = false;
-        for (int i = 0; i < Monster_List.childCount; i++)
+        for (int i = 0; i < Monster_List_Sky.childCount; i++)
         {
-            Monster monster = Monster_List.GetChild(i).GetComponent<Monster>();
+            Monster monster = Monster_List_Sky.GetChild(i).GetComponent<Monster>();
+            monster.Item_Monster_GiantFlag(Persent);
+        }
+        for (int i = 0; i < Monster_List_Ground.childCount; i++)
+        {
+            Monster monster = Monster_List_Ground.GetChild(i).GetComponent<Monster>();
             monster.Item_Monster_GiantFlag(Persent);
         }
     }

@@ -121,14 +121,14 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
         }
 
         //TEST
-/*        if (Input.GetKeyDown("]"))
+        if (Input.GetKeyDown("]"))
         {
             if (!DataManager.Instance.playerData.FirstFlag)
             {
                 DataManager.Instance.playerData.SA_CheckFirstFlag();
             }
             LoadingManager.LoadScene("Station");
-        }*/
+        }
 
         if (gameType == GameType_T.Pause)
         {

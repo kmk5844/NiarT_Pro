@@ -86,7 +86,6 @@ public class Monster_8 : Monster
     IEnumerator monsterDestory()
     {
         yield return new WaitForSeconds(0.05f);
-        MonsterDirector.MonsterNum--;
         Destroy(gameObject);
     }
 }

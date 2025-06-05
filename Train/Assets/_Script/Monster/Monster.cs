@@ -47,6 +47,7 @@ public class Monster : MonoBehaviour
     [Header("몬스터 총알 정보")]
     [SerializeField]
     protected GameObject BulletObject;
+    [SerializeField]
     protected int Bullet_Atk;
     protected float Bullet_Speed;
     protected float Bullet_Delay;
@@ -84,7 +85,9 @@ public class Monster : MonoBehaviour
     bool Item_Curese_ChangeFlag;
     int Item_Curese_Persent;
 
+    [SerializeField]
     protected float Item_Monster_Atk;
+    [SerializeField]
     protected float Item_Monster_AtkDelay;
     protected float Item_Monster_Speed;
     protected bool Item_Monster_Speed_ChangeFlag;
@@ -126,10 +129,6 @@ public class Monster : MonoBehaviour
         Bullet_Speed = EX_GameData.Information_Monster[Monster_Num].Monster_Bullet_Speed;
         Bullet_Delay = EX_GameData.Information_Monster[Monster_Num].Monster_Bullet_Delay;
         Bullet_Slow = EX_GameData.Information_Monster[Monster_Num].Monster_Bullet_Slow;
-        if (Monster_CountFlag)
-        {
-            MonsterDirector.MonsterNum++;
-        }
 
         if (Monster_Mission_MaterialFlag)
         {
@@ -172,9 +171,9 @@ public class Monster : MonoBehaviour
         {
             Item_Giant_ChangeFlag_Scale = false;
             transform.localScale = new Vector3(
-                default_LocalScale_X + 0.5f,
-                default_LocalScale_Y + 0.5f,
-                default_LocalScale_Z + 0.5f
+                default_LocalScale_X + 0.7f,
+                default_LocalScale_Y + 0.7f,
+                default_LocalScale_Z + 0.7f
                 );
             Item_Giant_Persent = MonsterDirector.Item_giantPersent_Spawn;
             Item_Mosnter_SpeedPersent = Item_Giant_Persent;
@@ -247,7 +246,7 @@ public class Monster : MonoBehaviour
         {
             if (MonsterDirector.Item_giantFlag)
             {
-                if(transform.localScale.y < default_LocalScale_Y + 0.5f)
+                if(transform.localScale.y < default_LocalScale_Y + 0.7f)
                 {
                     if(transform.localScale.x > 0)
                     {
@@ -265,15 +264,14 @@ public class Monster : MonoBehaviour
                             transform.localScale.z + (0.08f * Time.deltaTime)
                             );
                     }
-                    
                 }
                 else
                 {
                     Item_Giant_ChangeFlag_Scale = false;
                     transform.localScale = new Vector3(
-                        default_LocalScale_X + 0.5f,
-                        default_LocalScale_Y + 0.5f,
-                        default_LocalScale_Z + 0.5f
+                        default_LocalScale_X + 0.7f,
+                        default_LocalScale_Y + 0.7f,
+                        default_LocalScale_Z + 0.7f
                         );
                 }
             }
@@ -328,7 +326,7 @@ public class Monster : MonoBehaviour
     {
         if (fire_debuff_flag)
         {
-            if(fire_hit_Count < 6) // 변경예정
+            if(fire_hit_Count < 11) // 변경예정
             {
                 if (!fire_hit_flag) {
                     StartCoroutine(Fire_Hit_Corutine());
@@ -348,7 +346,7 @@ public class Monster : MonoBehaviour
         {
             Damage_Monster_BombAndDron(fire_hit_damage);
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.2f);
         fire_hit_Count++;
         fire_hit_flag = false;
     }
@@ -448,13 +446,13 @@ public class Monster : MonoBehaviour
 
     public void Damage_Monster_BombAndDron(int Bomb_Atk)
     {
-        HitDamage.GetComponent<Hit_Text_Damage>().damage = Bomb_Atk;
+        HitDamage.GetComponent<Hit_Text_Damage>().damage = Bomb_Atk * 2;
         HitDamage.GetComponent<Hit_Text_Damage>().Random_X = transform.position.x + Random.Range(-0.5f, 0.5f);
         HitDamage.GetComponent<Hit_Text_Damage>().Random_Y = transform.position.y + Random.Range(0.5f, 1.5f);
         Instantiate(HitDamage, monster_Bullet_List);
-        if (Monster_HP - Bomb_Atk > 0)
+        if (Monster_HP - Bomb_Atk * 2 > 0)
         {
-            Monster_HP -= Bomb_Atk;
+            Monster_HP -= Bomb_Atk * 2;
         }
         else
         {
@@ -464,13 +462,13 @@ public class Monster : MonoBehaviour
 
     private void Damage_Item_WireEntanglement(Collider2D collision)
     {
-        HitDamage.GetComponent<Hit_Text_Damage>().damage = 5;
+        HitDamage.GetComponent<Hit_Text_Damage>().damage = 10;
         HitDamage.GetComponent<Hit_Text_Damage>().Random_X = transform.position.x + Random.Range(-0.5f, 0.5f);
         HitDamage.GetComponent<Hit_Text_Damage>().Random_Y = transform.position.y + Random.Range(0.5f, 1.5f);
         Instantiate(HitDamage, monster_Bullet_List);
-        if (Monster_HP - 2 > 0)
+        if (Monster_HP - 10 > 0)
         {
-            Monster_HP -= 2;
+            Monster_HP -= 10;
         }
         else
         {
@@ -667,10 +665,7 @@ public class Monster : MonoBehaviour
             gameDirector.Mission_Monster_Kill();
         }
         Instantiate(Monster_Kill_Particle, transform.localPosition, Quaternion.identity);
-        if (Monster_CountFlag)
-        {
-            MonsterDirector.MonsterNum -= 1;
-        }
+
         col.enabled = false;
 
         if (SteamAchievement.instance != null)
@@ -682,7 +677,7 @@ public class Monster : MonoBehaviour
             Debug.Log("KILL_MONSTER_" + Monster_Num);
         }
 
-            start_DieCoroutine();
+        start_DieCoroutine();
     }
 
     void start_DieCoroutine()

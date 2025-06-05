@@ -81,7 +81,9 @@ public class GameDirector : MonoBehaviour
     string Emerging_Monster_String;
     string Emerging_MonsterCount_String;
     [SerializeField]
-    private List<int> Emerging_Monster;
+    private List<int> Emerging_Monster_Sky;
+    [SerializeField]
+    private List<int> Emerging_Monster_Ground;
     [SerializeField]
     private List<int> Emerging_MonsterCount;
     [Header("스테이지에 따른 백그라운드")]
@@ -201,6 +203,7 @@ public class GameDirector : MonoBehaviour
     bool getSupply;
     public bool waveinfoFlag;
     public bool refreshinfoFlag;
+    public bool SkillLockFlag;
 
     void Awake()
     {
@@ -350,7 +353,7 @@ public class GameDirector : MonoBehaviour
     void Update()
     {
         //TEST
-/*        if (Input.GetKeyDown("]"))
+        if (Input.GetKeyDown("]"))
         {
             if (Data_BossFlag)
             {
@@ -360,7 +363,7 @@ public class GameDirector : MonoBehaviour
             {
                 TrainDistance = 99999999;
             }
-        }*/
+        }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -478,6 +481,7 @@ public class GameDirector : MonoBehaviour
                     {
                         gameType = GameType.Boss;
                         StartCoroutine(Boss_Waring_Mark());
+                        Debug.Log(Emerging_Boss_Monster_Count[BossCount]);
                         monsterDirector.BossStart(Emerging_Boss_Monster_Count[BossCount]);
                     }
                 }
@@ -530,7 +534,6 @@ public class GameDirector : MonoBehaviour
             if (!getSupply)
             {
                 waveinfoFlag = false;
-                uiDirector.SKillLock(true);
 
                 if (!refreshinfoFlag)
                 {
@@ -544,6 +547,8 @@ public class GameDirector : MonoBehaviour
 
                 if (monsterDirector.GameDirecotr_AllDieFlag)
                 {
+                    uiDirector.SKillLock(true);
+                    SkillLockFlag = true;
                     if (!waveUIFlag)
                     {
                         StartCoroutine(uiDirector.WaveInformation(false));
@@ -626,6 +631,7 @@ public class GameDirector : MonoBehaviour
                         monsterDirector.GameDirecotr_AllDieFlag = false;
                     }
                     uiDirector.SKillLock(false);
+                    SkillLockFlag = false;
                     gameType = GameType.Playing;
                 }
             }
@@ -746,44 +752,44 @@ public class GameDirector : MonoBehaviour
 
     void Stage_Init()
     {
-        //Emerging_Monster_String = StageData.Emerging_Monster;
         Emerging_Monster_String = SubStageData.Emerging_Monster;
-        //Emerging_MonsterCount_String = StageData.Monster_Count;
         Emerging_MonsterCount_String = SubStageData.Monster_Count;
         //Reward_Point = StageData.Reward_Point;
-
         //Reward_ItemNum = StageData.Reward_Item;
         //Reward_ItemCount = StageData.Reward_Itemcount;
         //Destination_Distance = StageData.Destination_Distance;
         Destination_Distance = SubStageData.Distance;
 
-        Emerging_Monster = new List<int>();
+        Emerging_Monster_Sky = new List<int>();
+        Emerging_Monster_Ground = new List<int>();
         Emerging_MonsterCount = new List<int>();
         string[] Monster_String = Emerging_Monster_String.Split(',');
         string[] MonsterCount_String = Emerging_MonsterCount_String.Split(",");
         for(int i = 0; i < Monster_String.Length; i++)
         {
             int num1;
+            num1 = int.Parse(Monster_String[i]);
+
+            if(EX_GameData.Information_Monster[num1].Monster_Type == "Sky")
+            {
+                Emerging_Monster_Sky.Add(num1);
+            }
+            else if (EX_GameData.Information_Monster[num1].Monster_Type == "Ground")
+            {
+                Emerging_Monster_Ground.Add(num1);
+            }
+        }
+
+        for (int i = 0; i < MonsterCount_String.Length; i++)
+        {
             int num2;
 
-            num1 = int.Parse(Monster_String[i]);
             num2 = int.Parse(MonsterCount_String[i]);
-
-            Emerging_Monster.Add(num1);
             Emerging_MonsterCount.Add(num2);
         }
 
-        /*foreach(string M in Monster_String)
-        {
-            int num;
-            if(int.TryParse(M, out num))
-            {
-                Emerging_Monster.Add(num);
-            }
-        }*/
+        monsterDirector.Get_Monster_List(Emerging_Monster_Sky, Emerging_Monster_Ground, Emerging_MonsterCount);
 
-        //Data_BossFlag = StageData.Boss_Flag;
-       
         if (SubStageData.SubStage_Type == SubStageType.Boss)
         {
             Data_BossFlag = true;
@@ -795,40 +801,14 @@ public class GameDirector : MonoBehaviour
             Emerging_Boss.Add(int.Parse(Boss_String[0]));
             Emerging_Boss_Distance.Add(int.Parse(Boss_String[1]));
             Emerging_Boss_Monster_Count.Add(int.Parse(Boss_String[2]));
-        /*    foreach (string M in Boss_String)
-            {
-                int num;
-                if (int.TryParse(M, out num))
-                {
-                    Emerging_Boss.Add(num);
-                }
-            }
-            string[] Boss_Count_String = Emerging_Boss_Monster_Count_String.Split(',');
-            foreach (string M in Boss_Count_String)
-            {
-                int num;
-                if (int.TryParse(M, out num))
-                {
-                    Emerging_Boss_Monster_Count.Add(num);
-                }
-            }
-            string[] Boss_Distance_String = Emerging_Boss_Distance_String.Split(',');
-            foreach (string M in Boss_Distance_String)
-            {
-                int num;
-                if (int.TryParse(M, out num))
-                {
-                    Emerging_Boss_Distance.Add(num);
-                }
-            }*/
             MonsterDirector_Object.GetComponent<MonsterDirector>().Get_Boss_List(Emerging_Boss);
         }
 
-        MonsterDirector_Object.GetComponent<MonsterDirector>().Get_Monster_List(Emerging_Monster, Emerging_MonsterCount);
+/*        //MonsterDirector_Object.GetComponent<MonsterDirector>().Get_Monster_List(Emerging_Monster, Emerging_MonsterCount);
         if (Data_BossFlag)
         {
             MonsterDirector_Object.GetComponent<MonsterDirector>().Get_Boss_List(Emerging_Boss);
-        }
+        }*/
     }
 
     void StageBackGround_Setting()
