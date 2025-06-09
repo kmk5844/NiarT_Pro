@@ -219,15 +219,15 @@ public class MissionDataObject : ScriptableObject
         //yield return new WaitForSeconds(0.001f);
         //lockflag = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_LockFlag");
         //yield return new WaitForSeconds(0.001f);
-        try
+        if (startstageflag)
         {
-            stageclearflag = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_ClearFlag");
-            stageopenflag = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_OpenFlag");
+            stageopenflag = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_OpenFlag", true);
         }
-        catch
+        else
         {
-            GameManager.Instance.FILE_Critical();
+            stageopenflag = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_OpenFlag", false);
         }
+        stageclearflag = ES3.Load<bool>("QDO_SubStage_" + mission_num + "_" + stage_num + "_" + substage_num + "_DataObject_ClearFlag",false);
         yield return new WaitForSeconds(0.001f);
     }
 

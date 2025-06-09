@@ -239,26 +239,18 @@ public class SA_MercenaryData : ScriptableObject
 
     public IEnumerator LoadSync()
     {
-        try
-        {
-            mercenary_num = ES3.Load<List<int>>("SA_Mercenary_Data_Data_mercenary_num");
-            engine_driver_type = ES3.Load<Engine_Driver_Type>("SA_Mercenary_Data_engine_driver_type");
-            mercenary_buy_num = ES3.Load<List<int>>("SA_Mercenary_Data_Data_mercenary_buy_num");
-            level_engine_driver = ES3.Load<int>("SA_Mercenary_Data_Data_level_engine_driver");
-            level_engineer = ES3.Load<int>("SA_Mercenary_Data_Data_level_engineer");
-            level_long_ranged = ES3.Load<int>("SA_Mercenary_Data_Data_level_long_ranged");
-            level_short_ranged = ES3.Load<int>("SA_Mercenary_Data_Data_level_short_ranged");
-            level_medic = ES3.Load<int>("SA_Mercenary_Data_Data_level_medic");
-            //데모버전 이후
-            bard_type = ES3.Load<Bard_Type>("SA_Mercenary_Data_bard_type");
-            level_medic = ES3.Load<int>("SA_Mercenary_Data_Data_level_bard");
-            level_cowboy = ES3.Load<int>("SA_Mercenary_Data_Data_level_cowboy");
-        }
-        catch
-        {
-            GameManager.Instance.FILE_Critical();
-        }
-        
+        mercenary_num = ES3.Load<List<int>>("SA_Mercenary_Data_Data_mercenary_num", new List<int> { });
+        engine_driver_type = ES3.Load<Engine_Driver_Type>("SA_Mercenary_Data_engine_driver_type", Engine_Driver_Type.speed);
+        mercenary_buy_num = ES3.Load<List<int>>("SA_Mercenary_Data_Data_mercenary_buy_num", new List<int> { });
+        level_engine_driver = ES3.Load<int>("SA_Mercenary_Data_Data_level_engine_driver",0);
+        level_engineer = ES3.Load<int>("SA_Mercenary_Data_Data_level_engineer",0);
+        level_long_ranged = ES3.Load<int>("SA_Mercenary_Data_Data_level_long_ranged", 0);
+        level_short_ranged = ES3.Load<int>("SA_Mercenary_Data_Data_level_short_ranged", 0);
+        level_medic = ES3.Load<int>("SA_Mercenary_Data_Data_level_medic", 0);
+        //데모버전 이후
+        bard_type = ES3.Load<Bard_Type>("SA_Mercenary_Data_bard_type", Bard_Type.HP_Buff);
+        level_medic = ES3.Load<int>("SA_Mercenary_Data_Data_level_bard", 0);
+        level_cowboy = ES3.Load<int>("SA_Mercenary_Data_Data_level_cowboy", 0);
         yield return new WaitForSeconds(0.001f);
     }
 

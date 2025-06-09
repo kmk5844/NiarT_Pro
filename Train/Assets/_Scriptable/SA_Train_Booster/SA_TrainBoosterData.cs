@@ -174,22 +174,14 @@ public class SA_TrainBoosterData : ScriptableObject
 
     public IEnumerator LoadSync()
     {
-        try
-        {
-            train_booster_num = ES3.Load<List<int>>("SA_TrainData_Data_Train_Booster_Num");
-            train_booster_buy_num = ES3.Load<List<int>>("SA_TrainData_Data_Train_Booster_Buy_Num");
-            level_trainboosternumber_00 = ES3.Load<int>("SA_TrainData_Data_level_trainboosternumber_00");
-            level_trainboosternumber_10 = ES3.Load<int>("SA_TrainData_Data_level_trainboosternumber_10");
-            level_trainboosternumber_20 = ES3.Load<int>("SA_TrainData_Data_level_trainboosternumber_20");
-            level_trainboosternumber_30 = ES3.Load<int>("SA_TrainData_Data_level_trainboosternumber_30");
-            level_trainboosternumber_40 = ES3.Load<int>("SA_TrainData_Data_level_trainboosternumber_40");
-        }
-        catch
-        {
-            GameManager.Instance.FILE_Critical();
-        }
+        train_booster_num = ES3.Load<List<int>>("SA_TrainData_Data_Train_Booster_Num",new List<int> { });
+        train_booster_buy_num = ES3.Load<List<int>>("SA_TrainData_Data_Train_Booster_Buy_Num", new List<int> { });
+        level_trainboosternumber_00 = ES3.Load<int>("SA_TrainData_Data_level_trainboosternumber_00", 0);
+        level_trainboosternumber_10 = ES3.Load<int>("SA_TrainData_Data_level_trainboosternumber_10", 10);
+        level_trainboosternumber_20 = ES3.Load<int>("SA_TrainData_Data_level_trainboosternumber_20", 20);
+        level_trainboosternumber_30 = ES3.Load<int>("SA_TrainData_Data_level_trainboosternumber_30", 30);
+        level_trainboosternumber_40 = ES3.Load<int>("SA_TrainData_Data_level_trainboosternumber_40", 40);
         yield return new WaitForSeconds(0.001f);
-
     }
 
     public void Init()

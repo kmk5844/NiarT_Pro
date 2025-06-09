@@ -397,14 +397,7 @@ public class SA_MissionData : ScriptableObject
 
         for (int i = 0; i < stagelist.Count; i++)
         {
-            try
-            {
-                mainstage_clearflag[i] = ES3.Load<bool>("SA_MissionData_" + i + "_clearData");
-            }
-            catch
-            {
-                GameManager.Instance.FILE_Critical();
-            }
+            mainstage_clearflag[i] = ES3.Load<bool>("SA_MissionData_" + i + "_clearData", false);
 
             if (mainstage_clearflag[i] == false)
             {

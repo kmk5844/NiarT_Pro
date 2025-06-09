@@ -135,15 +135,8 @@ public class StoryDataObject : ScriptableObject
 
     public IEnumerator LoadSync()
     {
-        try
-        {
-            start_flag = ES3.Load<bool>("Story_" + story_num + "_Start_Flag");
-            end_flag = ES3.Load<bool>("Story_" + story_num + "_End_Flag");
-        }
-        catch
-        {
-            GameManager.Instance.FILE_Critical();
-        }
+        start_flag = ES3.Load<bool>("Story_" + story_num + "_Start_Flag",false);
+        end_flag = ES3.Load<bool>("Story_" + story_num + "_End_Flag", false);
         yield return new WaitForSeconds(0.001f);
     }
 }

@@ -211,23 +211,16 @@ public class SA_TrainTurretData : ScriptableObject
 
     public IEnumerator LoadSync()
     {
-        try
-        {
-            train_turret_num = ES3.Load<List<int>>("SA_TrainData_Data_Train_Turret_Num");
-            train_turret_buy_num = ES3.Load<List<int>>("SA_TrainData_Data_Train_Turret_Buy_Num");
-            level_trainturretnumber_00 = ES3.Load<int>("SA_TrainData_Data_level_trainturretnumber_00");
-            level_trainturretnumber_10 = ES3.Load<int>("SA_TrainData_Data_level_trainturretnumber_10");
-            level_trainturretnumber_20 = ES3.Load<int>("SA_TrainData_Data_level_trainturretnumber_20");
-            level_trainturretnumber_30 = ES3.Load<int>("SA_TrainData_Data_level_trainturretnumber_30");
-            level_trainturretnumber_40 = ES3.Load<int>("SA_TrainData_Data_level_trainturretnumber_40");
-            level_trainturretnumber_50 = ES3.Load<int>("SA_TrainData_Data_level_trainturretnumber_50");
-            level_trainturretnumber_60 = ES3.Load<int>("SA_TrainData_Data_level_trainturretnumber_60");
-            level_trainturretnumber_70 = ES3.Load<int>("SA_TrainData_Data_level_trainturretnumber_70");
-        }
-        catch
-        {
-            GameManager.Instance.FILE_Critical();
-        }
+        train_turret_num = ES3.Load<List<int>>("SA_TrainData_Data_Train_Turret_Num", new List<int> { });
+        train_turret_buy_num = ES3.Load<List<int>>("SA_TrainData_Data_Train_Turret_Buy_Num", new List<int> { });
+        level_trainturretnumber_00 = ES3.Load<int>("SA_TrainData_Data_level_trainturretnumber_00",0);
+        level_trainturretnumber_10 = ES3.Load<int>("SA_TrainData_Data_level_trainturretnumber_10",10);
+        level_trainturretnumber_20 = ES3.Load<int>("SA_TrainData_Data_level_trainturretnumber_20",20);
+        level_trainturretnumber_30 = ES3.Load<int>("SA_TrainData_Data_level_trainturretnumber_30",30);
+        level_trainturretnumber_40 = ES3.Load<int>("SA_TrainData_Data_level_trainturretnumber_40",40);
+        level_trainturretnumber_50 = ES3.Load<int>("SA_TrainData_Data_level_trainturretnumber_50",50);
+        level_trainturretnumber_60 = ES3.Load<int>("SA_TrainData_Data_level_trainturretnumber_60",60);
+        level_trainturretnumber_70 = ES3.Load<int>("SA_TrainData_Data_level_trainturretnumber_70",70);
         yield return new WaitForSeconds(0.001f);
     }
 

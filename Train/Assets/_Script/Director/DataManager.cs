@@ -46,7 +46,7 @@ public class DataManager : MonoBehaviour
 
     //public GameObject DebugObject;
 
-    public void Load()
+/*    public void Load()
     {
         playerData.Load();
         trainData.Load();
@@ -58,7 +58,7 @@ public class DataManager : MonoBehaviour
         localData.Load();
         PlayerItem_Data.Load();
         missionData.Load();
-    }
+    }*/
 
     public IEnumerator LoadSync()
     {
