@@ -15,7 +15,6 @@ public class Train_InGame : MonoBehaviour
     [SerializeField]
     int Train_Num2;
     bool TurretFlag;
-    bool BoosterFlag;
 
     [Header("선택된 기차 정보")]
     public int Train_HP; //현재체력
@@ -41,13 +40,6 @@ public class Train_InGame : MonoBehaviour
     [Header("포탑")]
     public int Train_Attack;
     public float Train_Attack_Delay;
-    //부스터
-    [Header("부스터")]
-    public int Train_WarningSpeed;
-    public int Train_BoosterFuel;
-    public int Train_UseFuel;
-    public int Train_BoosterSpeedUP;
-    public int Train_BoosterTime;
     //특수 스트링
     [Header("특수 파라미터")]
     public string Train_Special;
@@ -71,6 +63,12 @@ public class Train_InGame : MonoBehaviour
     public int Train_Supply_UseFuel;
     public int Train_Supply_Grade;
     public int Train_Supply_Count;
+    [Header("부스터")]
+    public int Train_Booster_WarningSpeed;
+    public int Train_Booster_BoosterFuel;
+    public int Train_Booster_UseFuel;
+    public int Train_Booster_BoosterSpeedUP;
+
 
     public bool isReparing;
     public bool isRepairable;
@@ -94,23 +92,23 @@ public class Train_InGame : MonoBehaviour
         gameDirector = GameObject.Find("GameDirector");
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
         TurretFlag = false;
-        BoosterFlag = false;
+        //BoosterFlag = false;
         def_constant = 100;
         gameObject.name = gameObject.name.Replace("(Clone)", "");
         string[] name = gameObject.name.Split('_');
 
-        if (name[0].Equals("51"))
+        if (name[0].Equals("91"))
         {
             TurretFlag = true;
             Train_Num = int.Parse(name[0]);
             Train_Num2 = int.Parse(name[1]);
         }
-        else if (name[0].Equals("52"))
+/*        else if (name[0].Equals("52"))
         {
             BoosterFlag = true;
             Train_Num = int.Parse(name[0]);
             Train_Num2 = int.Parse(name[1]);
-        }
+        }*/
         else
         {
             Train_Num = int.Parse(gameObject.name);
@@ -124,15 +122,15 @@ public class Train_InGame : MonoBehaviour
             Train_Weight = trainData.Information_Train_Turret_Part[Train_Num2].Train_Weight;
             Train_Armor = trainData.Information_Train_Turret_Part[Train_Num2].Train_Armor;
         }
-        else if (BoosterFlag)
+/*        else if (BoosterFlag)
         {
             Max_Train_HP = trainData.Information_Train_Booster_Part[Train_Num2].Train_HP;
             Train_Weight = trainData.Information_Train_Booster_Part[Train_Num2].Train_Weight;
             Train_Armor = trainData.Information_Train_Booster_Part[Train_Num2].Train_Armor;
-        }
+        }*/
         else
         {
-            if(Train_Num != 50)
+            if(Train_Num != 90)
             {
                 Max_Train_HP = trainData.Information_Train[Train_Num].Train_HP;
                 Train_Weight = trainData.Information_Train[Train_Num].Train_Weight;
@@ -221,7 +219,7 @@ public class Train_InGame : MonoBehaviour
 
     public int CheckLevel()
     {
-        if(Train_Num == 51 || Train_Num == 52)
+        if(Train_Num == 91)
         {
             return Train_Num2 % 10;
         }
@@ -239,11 +237,10 @@ public class Train_InGame : MonoBehaviour
         Train_Fuel = 0;
         Train_Attack = 0;
         Train_Attack_Delay = 0;
-        Train_WarningSpeed = 0;
-        Train_BoosterFuel = 0;
-        Train_UseFuel = 0;
-        Train_BoosterSpeedUP = 0;
-        Train_BoosterTime = 0;
+        Train_Booster_WarningSpeed = 0;
+        Train_Booster_BoosterFuel = 0;
+        Train_Booster_UseFuel = 0;
+        Train_Booster_BoosterSpeedUP = 0;
         Train_Heal = 0;
         switch (Train_Type)
         {
@@ -260,13 +257,14 @@ public class Train_InGame : MonoBehaviour
                 Train_Attack_Delay = trainData.Information_Train_Turret_Part[Train_Num2].Train_Attack_Delay;
                 break;
             case "Booster":
-                Train_WarningSpeed = trainData.Information_Train_Booster_Part[Train_Num2].Train_WarningSpeed;
-                Train_BoosterFuel = trainData.Information_Train_Booster_Part[Train_Num2].Train_BoosterFuel;
-                Train_UseFuel = trainData.Information_Train_Booster_Part[Train_Num2].Train_UseFuel;
-                Train_BoosterSpeedUP = trainData.Information_Train_Booster_Part[Train_Num2].Train_BoosterSpeedUP;
+                string[] trainData_Special_String = trainData.Information_Train[Train_Num].Train_Special.Split(',');
+                Train_Booster_WarningSpeed = int.Parse(trainData_Special_String[0]);
+                Train_Booster_BoosterFuel = int.Parse(trainData_Special_String[1]);
+                Train_Booster_UseFuel = int.Parse(trainData_Special_String[2]);
+                Train_Booster_BoosterSpeedUP = int.Parse(trainData_Special_String[3]);
                 break;
             case "Medic":
-                string[] trainData_Special_String = trainData.Information_Train[Train_Num].Train_Special.Split(',');
+                trainData_Special_String = trainData.Information_Train[Train_Num].Train_Special.Split(',');
                 Train_Heal = int.Parse(trainData_Special_String[0]);
                 Train_Heal_Amount = int.Parse(trainData_Special_String[1]);
                 Train_Heal_timeBet = float.Parse(trainData_Special_String[2]);
@@ -279,12 +277,6 @@ public class Train_InGame : MonoBehaviour
                 Train_Self_Attack_Delay = float.Parse(trainData_Special_String[2]);
                 Train_Self_Second = int.Parse(trainData_Special_String[3]);
                 break;
-/*            case "Dash":
-                trainData_Special_String = trainData.Information_Train[Train_Num].Train_Special.Split(',');
-                Train_Dash_UseFuel = int.Parse(trainData_Special_String[0]);
-                Train_Dash_PalyerAmount = float.Parse(trainData_Special_String[1]);
-                Train_Dash_Second = int.Parse(trainData_Special_String[2]);
-                break;*/
             case "Supply":
                 trainData_Special_String = trainData.Information_Train[Train_Num].Train_Special.Split(',');
                 Train_Supply_UseFuel = int.Parse(trainData_Special_String[0]);

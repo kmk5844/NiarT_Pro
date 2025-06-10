@@ -52,6 +52,9 @@ public class SA_TrainData : ScriptableObject
     [SerializeField]
     private int level_trainnumber_40;
     public int Level_TrainNumber_40 { get { return level_trainnumber_40; } }
+    [SerializeField]
+    private int level_trainnumber_50;
+    public int Level_TrainNumber_60 { get  { return level_trainnumber_50; } }
 
     public void SA_Passive_Level_Up(int LevelNum) 
     {
@@ -71,15 +74,15 @@ public class SA_TrainData : ScriptableObject
                 Save(); break;
             case (3):
                 level_train_maxspeed++;
-                  Save();
+                 Save();
                 break;
             case (4):
                 level_train_armor++;
-                  Save();
+                 Save();
                 break;
             case (5):
                 level_train_efficient++;
-                  Save();
+                 Save();
                 break;
         }
     }
@@ -103,13 +106,16 @@ public class SA_TrainData : ScriptableObject
             case 4:
                 level_trainnumber_40++;
                 break;
+            case 5:
+                level_trainnumber_50++;
+                break;
         }
         Save();
     }
 
     public int SA_TrainChangeNum(int trainNum)
     {
-        if(trainNum >= 50)
+        if(trainNum >= 90)
         {
             return trainNum;
         }
@@ -127,6 +133,8 @@ public class SA_TrainData : ScriptableObject
                     return level_trainnumber_30;
                 case 4:
                     return level_trainnumber_40;
+                case 5:
+                    return level_trainnumber_50;
                 default:
                     return -1;
             }
@@ -188,9 +196,10 @@ public class SA_TrainData : ScriptableObject
         ES3.Save("SA_TrainData_Data_Train_Buy_Num", train_buy_num);
         ES3.Save<int>("SA_TrainData_Data_level_trainnumber_00", level_trainnumber_00);
         ES3.Save<int>("SA_TrainData_Data_level_trainnumber_10", level_trainnumber_10);
-        ES3.Save<int>   ("SA_TrainData_Data_level_trainnumber_20", level_trainnumber_20);
-        ES3.Save("SA_TrainData_Data_level_trainnumber_30", level_trainnumber_30);
-        ES3.Save("SA_TrainData_Data_level_trainnumber_40", level_trainnumber_40);
+        ES3.Save<int>("SA_TrainData_Data_level_trainnumber_20", level_trainnumber_20);
+        ES3.Save<int>("SA_TrainData_Data_level_trainnumber_30", level_trainnumber_30);
+        ES3.Save<int>("SA_TrainData_Data_level_trainnumber_40", level_trainnumber_40);
+        ES3.Save<int>("SA_TrainData_Data_level_trainnumber_50", level_trainnumber_50);
     }
 
     private IEnumerator SaveSync()
@@ -220,6 +229,8 @@ public class SA_TrainData : ScriptableObject
         ES3.Save<int>("SA_TrainData_Data_level_trainnumber_30", level_trainnumber_30);
         yield return new WaitForSeconds(0.001f);
         ES3.Save<int>("SA_TrainData_Data_level_trainnumber_40", level_trainnumber_40);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save<int>("SA_TrainData_Data_level_trainnumber_50", level_trainnumber_50);
         yield return new WaitForSeconds(0.001f);
     }
 
@@ -255,6 +266,7 @@ public class SA_TrainData : ScriptableObject
         level_trainnumber_20 = ES3.Load<int>("SA_TrainData_Data_level_trainnumber_20", 20);
         level_trainnumber_30 = ES3.Load<int>("SA_TrainData_Data_level_trainnumber_30", 30);
         level_trainnumber_40 = ES3.Load<int>("SA_TrainData_Data_level_trainnumber_40", 40);
+        level_trainnumber_40 = ES3.Load<int>("SA_TrainData_Data_level_trainnumber_50", 50);
         yield return new WaitForSeconds(0.001f);
     }
 
@@ -276,6 +288,7 @@ public class SA_TrainData : ScriptableObject
         level_trainnumber_20 = 20;
         level_trainnumber_30 = 30;
         level_trainnumber_40 = 40;
+        level_trainnumber_50 = 50;
         Save();
     }
 
@@ -296,6 +309,7 @@ public class SA_TrainData : ScriptableObject
         level_trainnumber_20 = 20;
         level_trainnumber_30 = 30;
         level_trainnumber_40 = 40;
+        level_trainnumber_50 = 50;
         runner.StartCoroutine(SaveSync());
         yield return new WaitForSeconds(0.01f);
     }

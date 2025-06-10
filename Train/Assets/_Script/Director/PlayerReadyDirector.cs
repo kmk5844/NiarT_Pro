@@ -15,7 +15,6 @@ public class PlayerReadyDirector : MonoBehaviour
     public Station_TrainData trainData;
     SA_TrainData sa_trainData;
     SA_TrainTurretData sa_trainturretData;
-    SA_TrainBoosterData sa_trainBoosterData;
     public SA_MissionData missionData;
 
     [SerializeField]
@@ -160,7 +159,6 @@ public class PlayerReadyDirector : MonoBehaviour
 
         sa_trainData = trainData.SA_TrainData;
         sa_trainturretData = trainData.SA_TrainTurretData;
-        sa_trainBoosterData = trainData.SA_TrainBoosterData;
 
         local_Index = localData.Local_Index;
         try
@@ -305,16 +303,12 @@ public class PlayerReadyDirector : MonoBehaviour
         {
             if (i < count)
             {
-                if (sa_trainData.Train_Num[i] == 51)
+                if (sa_trainData.Train_Num[i] == 91)
                 {
-                    usi.Setting(i, 51, sa_trainturretData.Train_Turret_Num[TurretIndex],false);
+                    usi.Setting(i, 91, sa_trainturretData.Train_Turret_Num[TurretIndex],false);
                     TurretIndex++;
                 }
-                else if (sa_trainData.Train_Num[i] == 52)
-                {
-                    usi.Setting(i, 52, sa_trainBoosterData.Train_Booster_Num[BoosterIndex], false);
-                    BoosterIndex++;
-                }else if (sa_trainData.Train_Num[i] == -1)
+                else if (sa_trainData.Train_Num[i] == -1)
                 {
                     usi.Setting(i, -1, -1, true);
                 }
@@ -337,7 +331,7 @@ public class PlayerReadyDirector : MonoBehaviour
     void ResizeContent_UsingTrainContent(int Count)
     {
         RectTransform ContentSize = Using_TrainList.GetComponent<RectTransform>();
-        ContentSize.sizeDelta = new Vector2((140 * Count), 180);
+        ContentSize.sizeDelta = new Vector2((150 * Count), 180);
         Using_TrainList.GetComponentInParent<ScrollRect>().horizontalNormalizedPosition = 1f;
     }
 
@@ -370,7 +364,7 @@ public class PlayerReadyDirector : MonoBehaviour
 
         for(int i = 0; i < sa_trainturretData.Train_Turret_Buy_Num.Count; i++)
         {
-            buy.TrainNum_1 = 51;
+            buy.TrainNum_1 = 91;
             _TrainNum = sa_trainturretData.SA_Train_Turret_ChangeNum(sa_trainturretData.Train_Turret_Buy_Num[i]);
             buy.TrainNum_2 = _TrainNum;
             Instantiate(buy, Buy_TrainList[0]);
@@ -379,7 +373,7 @@ public class PlayerReadyDirector : MonoBehaviour
             TurretCount++;
         }
 
-        for(int i = 0; i < sa_trainBoosterData.Train_Booster_Buy_Num.Count; i++)
+/*        for(int i = 0; i < sa_trainBoosterData.Train_Booster_Buy_Num.Count; i++)
         {
             buy.TrainNum_1 = 52;
             _TrainNum = sa_trainBoosterData.SA_Train_Booster_ChangeNum(sa_trainBoosterData.Train_Booster_Buy_Num[i]);
@@ -388,7 +382,7 @@ public class PlayerReadyDirector : MonoBehaviour
             Instantiate(buy, Buy_TrainList[3]);
             AllCount++;
             BoosterCount++;
-        }
+        }*/
         ResizeContent_BuyingTrainContent(AllCount, CommonCount, TurretCount, BoosterCount);
     }
 
@@ -464,7 +458,7 @@ public class PlayerReadyDirector : MonoBehaviour
         Select_TrainNum_1 = TrainNum_1;
         Select_TrainNum_2 = TrainNum_2;
 
-        if(TrainNum_1 == 52)
+/*        if(TrainNum_1 == 52)
         {
             if (sa_trainData.Train_Num.Contains(52))
             {
@@ -475,7 +469,7 @@ public class PlayerReadyDirector : MonoBehaviour
                 Change_ListSlelectFlag(true); // 부스터 기차가 포함되어있지 않을 경우.
             }
         }
-        else if(TrainNum_1 >= 40 && TrainNum_1 < 50) // 
+        else*/ if(TrainNum_1 >= 40 && TrainNum_1 < 50) // 
         {
             if (sa_trainData.Train_Num.Contains(TrainNum_1))
             {
@@ -497,25 +491,25 @@ public class PlayerReadyDirector : MonoBehaviour
         int num = sa_trainData.Train_Num[index];
         Check_Index(index);
 
-        if (Select_TrainNum_1 == 51)
+        if (Select_TrainNum_1 == 91)
         {
-            if (num == 51)
+            if (num == 91)
             {
                 sa_trainturretData.SA_Train_Turret_Change(Sub_TrainNum_Turret, Select_TrainNum_2);
             }
-            else if (num == 52)
+/*            else if (num == 52)
             {
                 sa_trainData.SA_Train_Change(index, 51);
                 sa_trainturretData.SA_Train_Turret_Insert(Sub_TrainNum_Turret, Select_TrainNum_2);
                 sa_trainBoosterData.SA_Train_Booster_Remove(Sub_TrainNum_Booster);
-            }
+            }*/
             else
             {
-                sa_trainData.SA_Train_Change(index, 51);
+                sa_trainData.SA_Train_Change(index, 91);
                 sa_trainturretData.SA_Train_Turret_Insert(Sub_TrainNum_Turret, Select_TrainNum_2);
             }
         }
-        else if(Select_TrainNum_1 == 52)
+/*        else if(Select_TrainNum_1 == 52)
         {
             if (num == 51)
             {
@@ -531,17 +525,17 @@ public class PlayerReadyDirector : MonoBehaviour
                 sa_trainData.SA_Train_Change(index, 52);
                 sa_trainBoosterData.SA_Train_Booster_Insert(Sub_TrainNum_Booster, Select_TrainNum_2);
             }
-        }
+        }*/
         else
         {
             sa_trainData.SA_Train_Change(index, Select_TrainNum_1);
-            if(num == 51)
+            if(num == 91)
             {
                 sa_trainturretData.SA_Train_Turret_Remove(Sub_TrainNum_Turret);
-            }else if(num == 52)
+            }/*else if(num == 52)
             {
                 sa_trainBoosterData.SA_Train_Booster_Remove(Sub_TrainNum_Booster);
-            }
+            }*/
         }
     }
 
@@ -550,13 +544,13 @@ public class PlayerReadyDirector : MonoBehaviour
         Sub_TrainNum_Turret = 0;
         Sub_TrainNum_Booster = 0;
         for (int i = 0; i < index; i++) {
-            if (sa_trainData.Train_Num[i] == 51)
+            if (sa_trainData.Train_Num[i] == 91)
             {
                 Sub_TrainNum_Turret++;
-            }else if (sa_trainData.Train_Num[i] == 52)
+            }/*else if (sa_trainData.Train_Num[i] == 52)
             {
                 Sub_TrainNum_Booster++;
-            }
+            }*/
         }
     }
 
@@ -618,7 +612,7 @@ public class PlayerReadyDirector : MonoBehaviour
     void ResizeContent_RideContent(int Count)
     {
         RectTransform ContentSize = MercenaryList_Ride_Transform.GetComponent<RectTransform>();
-        ContentSize.sizeDelta = new Vector2(-410 + (90 * Count), 130);
+        ContentSize.sizeDelta = new Vector2(-410 + (95 * Count), 130);
     }
 
     void Instantiate_MercenaryList_Object()

@@ -98,10 +98,10 @@ public class Station_TrainMaintenance : MonoBehaviour
     int Train_Before_Buy_Num;
     public int[] CommonTrain_NumberArray;
     public int[] TurretTrain_NumberArray;
-    public int[] BoosterTrain_NumberArray;
+    //public int[] BoosterTrain_NumberArray;
     Sprite[] CommonTrain_Image;
     Sprite[] TurretTrain_Image;
-    Sprite[] BoosterTrain_Image;
+    //Sprite[] BoosterTrain_Image;
     public LocalizeStringEvent Train_Name_Buy_Text;
     public LocalizeStringEvent Train_Information_Buy_Text;
     public TextMeshProUGUI Train_Pride_Text;
@@ -128,7 +128,7 @@ public class Station_TrainMaintenance : MonoBehaviour
     [Header("기차 업그레이드")]
     public SA_TrainData sa_trainData;
     public SA_TrainTurretData sa_trainturretData;
-    public SA_TrainBoosterData sa_trainboosterData;
+    //public SA_TrainBoosterData sa_trainboosterData;
     int Train_Upgrade_Num1;
     int Train_Upgrade_Num2;
     public GameObject UpgradeWindow;
@@ -1510,11 +1510,11 @@ else // 기차 교체
 
     private void Setting_TrainImage()
     {
-        int allnumberArray = CommonTrain_NumberArray.Length + TurretTrain_NumberArray.Length + BoosterTrain_NumberArray.Length;
+        int allnumberArray = CommonTrain_NumberArray.Length + TurretTrain_NumberArray.Length;// + BoosterTrain_NumberArray.Length;
         int allCount = 0;
         CommonTrain_Image = new Sprite[CommonTrain_NumberArray.Length];
         TurretTrain_Image = new Sprite[TurretTrain_NumberArray.Length];
-        BoosterTrain_Image = new Sprite[BoosterTrain_NumberArray.Length];
+        //BoosterTrain_Image = new Sprite[BoosterTrain_NumberArray.Length];
         Train_List_Button.GetComponent<TrainList_Button>().director = this;
 
         for(int i = 0; i <  CommonTrain_NumberArray.Length; i++)
@@ -1527,20 +1527,20 @@ else // 기차 교체
         }
         for(int i = 0; i < TurretTrain_NumberArray.Length; i++)
         {
-            TurretTrain_Image[i] = Resources.Load<Sprite>("Sprite/Train/Train_51_" + TurretTrain_NumberArray[i]);
+            TurretTrain_Image[i] = Resources.Load<Sprite>("Sprite/Train/Train_91_" + TurretTrain_NumberArray[i]);
             allCount++;
             GameObject listButton = Instantiate(Train_List_Button, TurretTrain_List_Transform);
             listButton.GetComponent<TrainList_Button>().listNum = i;
             listButton.name = TurretTrain_NumberArray[i].ToString();
         }
-        for(int i = 0; i < BoosterTrain_NumberArray.Length; i++)
+/*        for (int i = 0; i < BoosterTrain_NumberArray.Length; i++)
         {
             BoosterTrain_Image[i] = Resources.Load<Sprite>("Sprite/Train/Train_52_" + BoosterTrain_NumberArray[i]);
             allCount++;
             GameObject listButton = Instantiate(Train_List_Button, BoosterTrain_List_Transform);
             listButton.GetComponent<TrainList_Button>().listNum = i;
             listButton.name = BoosterTrain_NumberArray[i].ToString();
-        }
+        }*/
     }
     public void Click_TrainList(int listNum)
     {
@@ -1570,10 +1570,10 @@ else // 기차 교체
         {
             Max = TurretTrain_NumberArray.Length - 1;
         }
-        else if (List_TrainType_Num == 2)
+/*        else if (List_TrainType_Num == 2)
         {
             Max = BoosterTrain_NumberArray.Length - 1;
-        }
+        }*/
 
         if (Train_Buy_Num < Max )
         {
@@ -1600,10 +1600,10 @@ else // 기차 교체
         {
             Max = TurretTrain_NumberArray.Length - 1;
         }
-        else if (List_TrainType_Num == 2)
+/*        else if (List_TrainType_Num == 2)
         {
             Max = BoosterTrain_NumberArray.Length - 1;
-        }
+        }*/
 
         if (Train_Buy_Num > 0)
         {
@@ -1634,11 +1634,11 @@ else // 기차 교체
             Train_MainImage.sprite = TurretTrain_Image[Train_Buy_Num];
             trainNum = TurretTrain_NumberArray[Train_Buy_Num];
         }
-        else if (List_TrainType_Num == 2)
+/*        else if (List_TrainType_Num == 2)
         {
             Train_MainImage.sprite = BoosterTrain_Image[Train_Buy_Num];
             trainNum = TurretTrain_NumberArray[Train_Buy_Num];
-        }
+        }*/
         Change_NextTrianSprite();
 
         int train_pride;
@@ -1647,7 +1647,7 @@ else // 기차 교체
         }*/
         if(List_TrainType_Num == 0)
         {
-            if (trainNum < 50)
+            if (trainNum < 90)
             {
                 Train_Name_Buy_Text.StringReference.TableEntryReference = "Train_Name_" + (trainNum / 10);
                 Train_Information_Buy_Text.StringReference.TableEntryReference = "Train_Information_" + (trainNum / 10);
@@ -1669,14 +1669,14 @@ else // 기차 교체
             Train_Pride_Text.text = train_pride.ToString();
             Train_BuyButton.interactable = !trainData.SA_TrainTurretData.Train_Turret_Buy_Num.Contains(trainNum);
         }
-        else if(List_TrainType_Num == 2)
+/*        else if(List_TrainType_Num == 2)
         {
             Train_Name_Buy_Text.StringReference.TableEntryReference = "Train_Booster_Name_" + (trainNum / 10);
             Train_Information_Buy_Text.StringReference.TableEntryReference = "Train_Booster_Information_" + (trainNum / 10);
             train_pride = trainData.EX_Game_Data.Information_Train_Booster_Part[trainNum].Train_Buy_Cost;
             Train_Pride_Text.text = train_pride.ToString();
             Train_BuyButton.interactable = !trainData.SA_TrainBoosterData.Train_Booster_Buy_Num.Contains(trainNum);
-        }
+        }*/
 
         //-----------리스트버튼-------
         Check_TrainType_ListButton();
@@ -1727,10 +1727,10 @@ else // 기차 교체
         {
             max = TurretTrain_NumberArray.Length - 1;
         }
-        else if(List_TrainType_Num == 2)
+/*        else if(List_TrainType_Num == 2)
         {
             max = BoosterTrain_NumberArray.Length - 1;
-        }
+        }*/
 
 
         if (TrainNextNum2  > max)
@@ -1757,11 +1757,11 @@ else // 기차 교체
             Train_NextImage_1.sprite = TurretTrain_Image[TrainNextNum1];
             Train_NextImage_2.sprite = TurretTrain_Image[TrainNextNum2];
         }
-        else if (List_TrainType_Num == 2)
+/*        else if (List_TrainType_Num == 2)
         {
             Train_NextImage_1.sprite = BoosterTrain_Image[TrainNextNum1];
             Train_NextImage_2.sprite = BoosterTrain_Image[TrainNextNum2];
-        }
+        }*/
     }
 
     public void Click_Buy_Train()
@@ -1808,7 +1808,7 @@ else // 기차 교체
             }
 
         }
-        else if (List_TrainType_Num == 2)
+/*        else if (List_TrainType_Num == 2)
         {
             TrainNum = BoosterTrain_NumberArray[Train_Buy_Num];
             cost = trainData.EX_Game_Data.Information_Train_Booster_Part[TrainNum].Train_Buy_Cost;
@@ -1826,7 +1826,7 @@ else // 기차 교체
             {
                 Open_Warning_Window();
             }
-        }
+        }*/
     }
 
     public IEnumerator Check_TrainState_Slider_Buy()
@@ -1858,14 +1858,14 @@ else // 기차 교체
             EX_Weight = 1 - (trainData_Info.Train_Weight / MaxWeight);
             EX_Armor = 1 - (trainData_Info.Train_Armor / MaxArmor);
         }
-        else if(List_TrainType_Num == 2)
+/*        else if(List_TrainType_Num == 2)
         {
             TrainNum = BoosterTrain_NumberArray[Train_Buy_Num];
             Info_Train_Booster_Part trainData_Info = trainData.EX_Game_Data.Information_Train_Booster_Part[TrainNum];
             EX_HP = 1 - (trainData_Info.Train_HP / MaxHP);
             EX_Weight = 1 - (trainData_Info.Train_Weight / MaxWeight);
             EX_Armor = 1 - (trainData_Info.Train_Armor / MaxArmor);
-        }
+        }*/
 
         Slider_Buy_HP.value = EX_HP;
         Slider_Buy_Weight.value = EX_Weight;
@@ -1881,7 +1881,7 @@ else // 기차 교체
     void Setting_TrainUpgradeList_Button()
     {
         bool TurretTrain_Flag = false;
-        bool BoosterTrain_Flag = false;
+        //bool BoosterTrain_Flag = false;
         List<int> TrainList = new List<int> { sa_trainData.SA_TrainChangeNum(0), sa_trainData.SA_TrainChangeNum(10) };
         TrainList.AddRange(sa_trainData.Train_Buy_Num);
         TrainUpgradeList_Button_Object.GetComponent<TrainUpgradeList_Button>().Director = this;
@@ -1896,11 +1896,11 @@ else // 기차 교체
         Resize_Train_List_Content(1);
 
         TurretTrain_Flag = sa_trainturretData.Train_Turret_Buy_Num.Any();
-        BoosterTrain_Flag = sa_trainboosterData.Train_Booster_Buy_Num.Any();
+        //BoosterTrain_Flag = sa_trainboosterData.Train_Booster_Buy_Num.Any();
 
         if (TurretTrain_Flag)
         {
-            TrainUpgradeList_Button_Object.GetComponent<TrainUpgradeList_Button>().Train_Num = 51;
+            TrainUpgradeList_Button_Object.GetComponent<TrainUpgradeList_Button>().Train_Num = 91;
             TrainList = sa_trainturretData.Train_Turret_Buy_Num;
        
             foreach(int i in TrainList)
@@ -1912,7 +1912,7 @@ else // 기차 교체
             Resize_Train_List_Content(2);
         }
 
-        if (BoosterTrain_Flag)
+/*        if (BoosterTrain_Flag)
         {
             TrainUpgradeList_Button_Object.GetComponent<TrainUpgradeList_Button>().Train_Num = 52;
             TrainList = sa_trainboosterData.Train_Booster_Buy_Num;
@@ -1924,7 +1924,7 @@ else // 기차 교체
                 Instantiate(TrainUpgradeList_Button_Object, TrainUgpradeList_Content[3]);
             }
             Resize_Train_List_Content(3);
-        }
+        }*/
         Resize_Train_List_Content(0);
     }
 
@@ -1973,14 +1973,14 @@ else // 기차 교체
         }
         else if(i == 2)
         {
-            TrainUpgradeList_Button_Object.GetComponent<TrainUpgradeList_Button>().Train_Num = 51;
+            TrainUpgradeList_Button_Object.GetComponent<TrainUpgradeList_Button>().Train_Num = 91;
             TrainUpgradeList_Button_Object.GetComponent<TrainUpgradeList_Button>().Train_Num2 = sa_trainturretData.SA_Train_Turret_ChangeNum(trainNum);
         }
-        else if(i == 3)
+        /*else if(i == 3)
         {
             TrainUpgradeList_Button_Object.GetComponent<TrainUpgradeList_Button>().Train_Num = 52;
             TrainUpgradeList_Button_Object.GetComponent<TrainUpgradeList_Button>().Train_Num2 = sa_trainboosterData.SA_Train_Booster_ChangeNum(trainNum);
-        }
+        }*/
         Instantiate(TrainUpgradeList_Button_Object, TrainUgpradeList_Content[0]);
         Instantiate(TrainUpgradeList_Button_Object, TrainUgpradeList_Content[i]);
         Resize_Train_List_Content(0);
@@ -2004,17 +2004,17 @@ else // 기차 교체
             UpgradeWindow.SetActive(true);
         }
 
-        if (Train_Upgrade_Num1 == 51)
+        if (Train_Upgrade_Num1 == 91)
         {
             
-            Train_MainImage_Upgrade.sprite = Resources.Load<Sprite>("Sprite/Train/Train_51_" + Train_Upgrade_Num2 / 10 * 10);
+            Train_MainImage_Upgrade.sprite = Resources.Load<Sprite>("Sprite/Train/Train_91_" + Train_Upgrade_Num2 / 10 * 10);
             
             Train_Name_Upgrade_Text.StringReference.TableEntryReference = "Train_Turret_Name_" + (Train_Upgrade_Num2 / 10);
             Train_Information_Upgrade_Text.StringReference.TableEntryReference = "Train_Turret_Information_" + (Train_Upgrade_Num2 / 10);
             TrainUpgrade_trainLevel = sa_trainturretData.SA_Train_Turret_ChangeNum(Train_Upgrade_Num2);
             TrainUpgrade_cost = trainData.EX_Game_Data.Information_Train_Turret_Part[TrainUpgrade_trainLevel].Train_Upgrade_Cost;
         }
-        else if(Train_Upgrade_Num1 == 52)
+/*        else if(Train_Upgrade_Num1 == 52)
         {
 
             Train_MainImage_Upgrade.sprite = Resources.Load<Sprite>("Sprite/Train/Train_52_" + Train_Upgrade_Num2 / 10 * 10);
@@ -2023,7 +2023,7 @@ else // 기차 교체
             Train_Information_Upgrade_Text.StringReference.TableEntryReference = "Train_Booster_Information_" + (Train_Upgrade_Num2 / 10);
             TrainUpgrade_trainLevel = sa_trainboosterData.SA_Train_Booster_ChangeNum(Train_Upgrade_Num2);
             TrainUpgrade_cost = trainData.EX_Game_Data.Information_Train_Booster_Part[TrainUpgrade_trainLevel].Train_Upgrade_Cost;
-        }
+        }*/
         else
         {
             Train_MainImage_Upgrade.sprite = Resources.Load<Sprite>("Sprite/Train/Train_" + Train_Upgrade_Num1);
@@ -2072,7 +2072,7 @@ else // 기차 교체
         Slider_Upgrade_After_Weight.value = 0;
         Slider_Upgrade_After_Armor.value = 0;
 
-        if (Train_Upgrade_Num1 == 51)
+        if (Train_Upgrade_Num1 == 91)
         {
             int num2 = sa_trainturretData.SA_Train_Turret_ChangeNum(Train_Upgrade_Num2);
             Info_Train_Turret_Part trainData_Info = trainData.EX_Game_Data.Information_Train_Turret_Part[num2];
@@ -2106,7 +2106,7 @@ else // 기차 교체
             Plus_Weight = trainData_Info2.Train_Weight - trainData_Info.Train_Weight;
             Plus_Armor = trainData_Info2.Train_Armor - trainData_Info.Train_Armor;
         }
-        else if (Train_Upgrade_Num1 == 52)
+        /*else if (Train_Upgrade_Num1 == 52)
         {
             int num2 = sa_trainboosterData.SA_Train_Booster_ChangeNum(Train_Upgrade_Num2);
             Info_Train_Booster_Part trainData_Info = trainData.EX_Game_Data.Information_Train_Booster_Part[Train_Upgrade_Num2];
@@ -2140,7 +2140,7 @@ else // 기차 교체
             Plus_HP = trainData_Info2.Train_HP - trainData_Info.Train_HP;
             Plus_Weight = trainData_Info2.Train_Weight - trainData_Info.Train_Weight;
             Plus_Armor = trainData_Info2.Train_Armor - trainData_Info.Train_Armor;
-        }
+        }*/
         else
         {
             int num = sa_trainData.SA_TrainChangeNum(Train_Upgrade_Num1);
@@ -2199,7 +2199,7 @@ else // 기차 교체
 
     public void Click_Train_Upgrade()
     {
-        if(Train_Upgrade_Num1 == 51)
+        if(Train_Upgrade_Num1 == 91)
         {
             if (playerData.Player_Coin >= TrainUpgrade_cost)
             {
@@ -2216,7 +2216,7 @@ else // 기차 교체
                 Open_Warning_Window();
             }
         }
-        else if(Train_Upgrade_Num1 == 52)
+/*        else if(Train_Upgrade_Num1 == 52)
         {
             if(playerData.Player_Coin >= TrainUpgrade_cost)
             {
@@ -2232,7 +2232,7 @@ else // 기차 교체
             {
                 Open_Warning_Window();
             }
-        }
+        }*/
         else
         {
             if(playerData.Player_Coin >= TrainUpgrade_cost)

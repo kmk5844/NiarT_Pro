@@ -18,17 +18,17 @@ public class Ready_Buy_TrainObject : MonoBehaviour
     private void Start()
     {
         Name_Text.StringReference.TableReference = "ExcelData_Table_St";
-        if (TrainNum_1 == 51 || TrainNum_1 == 52)
+        if (TrainNum_1 == 91 /*|| TrainNum_1 == 52*/)
         {
             TrainImage.sprite = Resources.Load<Sprite>("Sprite/Train/Train_" + TrainNum_1 + "_" + (TrainNum_2 / 10) * 10);
-            if (TrainNum_1 == 51)
+            if (TrainNum_1 == 91)
             {
                 Name_Text.StringReference.TableEntryReference = "Train_Turret_Name_" + (TrainNum_2 / 10);
             }
-            else if (TrainNum_1 == 52)
+/*            else if (TrainNum_1 == 52)
             {
                 Name_Text.StringReference.TableEntryReference = "Train_Booster_Name_" + (TrainNum_2 / 10);
-            }
+            }*/
         }
         else
         {

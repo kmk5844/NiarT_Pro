@@ -89,10 +89,10 @@ public class MissionSelectDirector : MonoBehaviour
                 //미션 선별
                 int x = Random.Range(0, missionList_Index.Count);
                 int y = missionList_Index[x];
-                if(y == 4)
+/*                if(y == 4)
                 {
                     y = 0;
-                }
+                }*/
 
                 if (!RandomMission.Contains(y))
                 {
@@ -195,7 +195,7 @@ public class MissionSelectDirector : MonoBehaviour
         Convoy_Slider.maxValue = maxGold;
         Convoy_Slider.wholeNumbers = true;
         Convoy_Slider.onValueChanged.AddListener(SliderChange_Convoy);
-        
+
         Convoy_Window.SetActive(true);
         clickMissionNum = missionNum;
     }

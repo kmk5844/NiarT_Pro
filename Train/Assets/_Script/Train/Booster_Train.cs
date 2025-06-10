@@ -28,10 +28,10 @@ public class Booster_Train : MonoBehaviour
         trainData = transform.GetComponentInParent<Train_InGame>();
         gameDirector = trainData.gameDirector.GetComponent<GameDirector>();
 
-        WarningSpeed = trainData.Train_WarningSpeed;
-        Data_BoosterFuel = trainData.Train_BoosterFuel;
-        UseFuel = trainData.Train_UseFuel;
-        BoosterSpeedUP = trainData.Train_BoosterSpeedUP;
+        WarningSpeed = trainData.Train_Booster_WarningSpeed;
+        Data_BoosterFuel = trainData.Train_Booster_BoosterFuel;
+        UseFuel = trainData.Train_Booster_UseFuel;
+        BoosterSpeedUP = trainData.Train_Booster_BoosterSpeedUP;
         Corutine_BoosterFlag = false;
         effectObject.SetActive(false);
 
@@ -42,7 +42,7 @@ public class Booster_Train : MonoBehaviour
     void Update()
     {
         SpeedPercent = (gameDirector.TrainSpeed) / (gameDirector.MaxSpeed) * 100;
-        if(gameDirector.gameType == GameType.Playing || gameDirector.gameType == GameType.Boss)
+        if(gameDirector.gameType == GameType.Playing || gameDirector.gameType == GameType.Boss || gameDirector.gameType == GameType.Refreshing)
         {
             if (!FuelFlag && !BoosterFlag)
             {

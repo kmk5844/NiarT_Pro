@@ -37,18 +37,18 @@ public class Ready_Using_TrainList_Object : MonoBehaviour
         if (!EmptyTrainFlag)
         {
             TrainImage.gameObject.SetActive(true);
-            if(TrainNum_1 == 51 || TrainNum_1 == 52)
+            if(TrainNum_1 == 91 /*|| TrainNum_1 == 52*/)
             {
                 TrainImage.sprite = Resources.Load<Sprite>("Sprite/Train/Train_" + TrainNum_1 + "_" + (TrainNum_2/10)*10);
                 Level_Text.text = "Lv." + ((TrainNum_2 % 10) + 1);
-                if(TrainNum_1 == 51)
+                if(TrainNum_1 == 91)
                 {
                     Name_Text.StringReference.TableEntryReference = "Train_Turret_Name_" + (TrainNum_2 / 10);
                 }
-                else if(TrainNum_1 == 52)
+/*                else if(TrainNum_1 == 52)
                 {
                     Name_Text.StringReference.TableEntryReference = "Train_Booster_Name_" + (TrainNum_2 / 10);
-                }
+                }*/
             }
             else
             {
@@ -107,18 +107,18 @@ public class Ready_Using_TrainList_Object : MonoBehaviour
         TrainNum_1 = num1;
         TrainNum_2 = num2;
 
-        if (TrainNum_1 == 51 || TrainNum_1 == 52)
+        if (TrainNum_1 == 91 /*|| TrainNum_1 == 52*/)
         {
             TrainImage.sprite = Resources.Load<Sprite>("Sprite/Train/Train_" + TrainNum_1 + "_" + (TrainNum_2 / 10) * 10);
             Level_Text.text = "Lv." + ((TrainNum_2 % 10) + 1);
-            if (TrainNum_1 == 51)
+            if (TrainNum_1 == 91)
             {
                 Name_Text.StringReference.TableEntryReference = "Train_Turret_Name_" + (TrainNum_2 / 10);
             }
-            else if (TrainNum_1 == 52)
+            /*else if (TrainNum_1 == 52)
             {
                 Name_Text.StringReference.TableEntryReference = "Train_Booster_Name_" + (TrainNum_2 / 10);
-            }
+            }*/
         }
         else
         {

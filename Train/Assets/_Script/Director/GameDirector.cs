@@ -17,7 +17,6 @@ public class GameDirector : MonoBehaviour
     [Header("데이터 모음")]
     public SA_TrainData SA_TrainData;
     public SA_TrainTurretData SA_TrainTurretData;
-    public SA_TrainBoosterData SA_TrainBoosterData;
     public SA_MercenaryData SA_MercenaryData;
     public SA_StageList SA_StageList;
     //StageDataObject StageData;
@@ -53,9 +52,7 @@ public class GameDirector : MonoBehaviour
     SkillDirector skillDirector;
     List<int> Train_Num;
     List<int> Train_Turret_Num;
-    List<int> Train_Booster_Num;
     int Train_Turret_Count;
-    int Train_Booster_Count;
     GameObject TrainObject;
 
     Texture2D cursorOrigin;
@@ -829,36 +826,34 @@ public class GameDirector : MonoBehaviour
     void Train_Init()
     {
         Train_Turret_Count = 0;
-        Train_Booster_Count = 0;
         Train_Num = SA_TrainData.Train_Num.ToList();
         Train_Turret_Num = SA_TrainTurretData.Train_Turret_Num;
-        Train_Booster_Num = SA_TrainBoosterData.Train_Booster_Num;
 
         if (Mission_Train_Flag)
         {
             int index = Random.Range(1, Train_Num.Count+1);
-            Train_Num.Insert(index, 50);
+            Train_Num.Insert(index, 90);
         }
 
         for (int i = 0; i < Train_Num.Count; i++)
         {
-            if (Train_Num[i] == 51)
+            if (Train_Num[i] == 91)
             {
-                TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_InGame/51_" + Train_Turret_Num[Train_Turret_Count]), Train_List);
+                TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_InGame/91_" + Train_Turret_Num[Train_Turret_Count]), Train_List);
                 Train_Turret_Count++;
             }
-            else if (Train_Num[i] == 52)
+            /*else if (Train_Num[i] == 52)
             {
                 TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_InGame/52_" + Train_Booster_Num[Train_Booster_Count]), Train_List);
                 Train_Booster_Count++;
-            }else if (Train_Num[i] == 50)//호위차량
+            }*/else if (Train_Num[i] == 90)//호위차량
             {
                 TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_InGame/" + Train_Num[i]), Train_List);
                 Train_InGame _train = TrainObject.GetComponent<Train_InGame>();
-                _train.Max_Train_HP = 5000;
+                _train.Max_Train_HP = 15000;
                 _train.Train_HP = _train.Max_Train_HP;
                 _train.Train_Weight = missionDirector.selectmission.M_Convoy.ConvoyWeight;
-                _train.Train_Armor = 20;
+                _train.Train_Armor = 30;
             }
             else
             {

@@ -33,7 +33,7 @@ public class Store_Train_Card : MonoBehaviour
     {
         Train_NameText.StringReference.TableReference = "ExcelData_Table_St";
 
-        if (Train_Num == 51)
+        if (Train_Num == 91)
         {
             if(Train_Num2 == -1)
             {
@@ -42,12 +42,12 @@ public class Store_Train_Card : MonoBehaviour
                 train_information = trainData.EX_Game_Data.Information_Train[Train_Num].Train_Information;
                 train_pride = trainData.EX_Game_Data.Information_Train[Train_Num].Train_Buy_Cost;
                 
-                Train_NameText.StringReference.TableEntryReference = "Train_Name_51";
+                Train_NameText.StringReference.TableEntryReference = "Train_Name_91";
                 //Train_NameText.GetComponent<TextMeshProUGUI>().text = train_name;
             }
             else
             {
-                Train_Image.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprite/Train/Train_51_" + Train_Num2);
+                Train_Image.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprite/Train/Train_91_" + Train_Num2);
                 train_name = trainData.EX_Game_Data.Information_Train_Turret_Part[Train_Num2].Turret_Part_Name;
                 train_information = trainData.EX_Game_Data.Information_Train_Turret_Part[Train_Num2].Train_Information;
                 train_pride = trainData.EX_Game_Data.Information_Train_Turret_Part[Train_Num2].Train_Buy_Cost;
@@ -56,7 +56,7 @@ public class Store_Train_Card : MonoBehaviour
                 //Train_NameText.GetComponent<TextMeshProUGUI>().text =train_name;
             }
         }
-        else if (Train_Num == 52)
+/*        else if (Train_Num == 52)
         {
             if (Train_Num2 == -1)
             {
@@ -78,7 +78,7 @@ public class Store_Train_Card : MonoBehaviour
                 Train_NameText.StringReference.TableEntryReference = "Train_Booster_Name_" + (Train_Num2 / 10);
                 //Train_NameText.GetComponent<TextMeshProUGUI>().text = train_name;
             }
-        }
+        }*/
         else
         {
             Train_Image.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprite/Train/Train_" + Train_Num);

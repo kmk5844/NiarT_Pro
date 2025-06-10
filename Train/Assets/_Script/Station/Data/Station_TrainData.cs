@@ -10,7 +10,6 @@ public class Station_TrainData : MonoBehaviour
     public Level_DataTable EX_Level_Data;
     public SA_TrainData SA_TrainData;
     public SA_TrainTurretData SA_TrainTurretData;
-    public SA_TrainBoosterData SA_TrainBoosterData;
 
     [Header("기차 데이터")]
     public List<int> Train_Num;
@@ -110,10 +109,10 @@ public class Station_TrainData : MonoBehaviour
         SA_TrainTurretData.SA_Train_Turret_Upgrade_Renewal_2(Train_Num);
     }
 
-    public void Train_Booster_Level_Up(int Train_Num)
+/*    public void Train_Booster_Level_Up(int Train_Num)
     {
         SA_TrainBoosterData.SA_Train_Booster_Upgrade(Train_Num);
         //SA_TrainBoosterData.SA_Train_Booster_Upgrade_Renewal(index);
         SA_TrainBoosterData.SA_Train_Booster_Upgrade_Renewal_2(Train_Num);
-    }
+    }*/
 }
