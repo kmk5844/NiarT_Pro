@@ -124,7 +124,6 @@ public class MissionSelectDirector : MonoBehaviour
         }
         else
         {
-            
             if(!playerData.Click_ReadyFlag)
             {
                 missionselectAni.enabled = false;

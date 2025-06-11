@@ -102,6 +102,9 @@ public class MonsterDirector : MonoBehaviour
     void Start()
     {
         Item_curseFlag = false;
+        Item_cursePersent_Spawn = 0;
+        Item_giantFlag = false;
+        Item_giantPersent_Spawn = 0;
 
         item_MonsterCount = 0;
         TrainCount = Train_List.childCount;

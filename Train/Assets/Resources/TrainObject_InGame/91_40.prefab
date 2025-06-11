@@ -223,6 +223,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trainData: {fileID: 11400000, guid: 3a83740cb85032c498c0bbd5b0a2ec9d, type: 2}
+  Train_Index: 0
   Train_Num: 0
   Train_Num2: 0
   Train_HP: 0
@@ -237,11 +238,6 @@ MonoBehaviour:
   Train_Fuel: 0
   Train_Attack: 0
   Train_Attack_Delay: 0
-  Train_WarningSpeed: 0
-  Train_BoosterFuel: 0
-  Train_UseFuel: 0
-  Train_BoosterSpeedUP: 0
-  Train_BoosterTime: 0
   Train_Special: 
   Not_DestoryTrain: 0
   Train_Heal: 0
@@ -256,12 +252,15 @@ MonoBehaviour:
   Train_Supply_UseFuel: 0
   Train_Supply_Grade: 0
   Train_Supply_Count: 0
-  Train_Dash_UseFuel: 0
-  Train_Dash_PalyerAmount: 0
-  Train_Dash_Second: 0
+  Train_Booster_WarningSpeed: 0
+  Train_Booster_BoosterFuel: 0
+  Train_Booster_UseFuel: 0
+  Train_Booster_BoosterSpeedUP: 0
   isReparing: 0
   isRepairable: 0
   gameDirector: {fileID: 0}
+  UI_Level: 0
+  trainHitSFX: {fileID: 0}
 --- !u!1 &1641104533380139922
 GameObject:
   m_ObjectHideFlags: 0
@@ -838,6 +837,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Train_HP_UI
       objectReference: {fileID: 0}
+    - target: {fileID: 2762710353259837382, guid: fbff826045596bf49bdc19059febe591, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3864957731200890806, guid: fbff826045596bf49bdc19059febe591, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -917,6 +920,14 @@ PrefabInstance:
     - target: {fileID: 3864957731200890806, guid: fbff826045596bf49bdc19059febe591, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8738239727484446125, guid: fbff826045596bf49bdc19059febe591, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8738239727484446125, guid: fbff826045596bf49bdc19059febe591, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -611559395
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

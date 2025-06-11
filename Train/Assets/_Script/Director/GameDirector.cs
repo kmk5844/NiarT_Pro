@@ -350,7 +350,7 @@ public class GameDirector : MonoBehaviour
     void Update()
     {
         //TEST
-        if (Input.GetKeyDown("]"))
+/*        if (Input.GetKeyDown("]"))
         {
             if (Data_BossFlag)
             {
@@ -360,7 +360,7 @@ public class GameDirector : MonoBehaviour
             {
                 TrainDistance = 99999999;
             }
-        }
+        }*/
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {

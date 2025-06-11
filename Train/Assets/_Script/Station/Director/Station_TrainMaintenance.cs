@@ -1659,7 +1659,15 @@ else // 기차 교체
             }
             train_pride = trainData.EX_Game_Data.Information_Train[trainNum].Train_Buy_Cost;
             Train_Pride_Text.text = train_pride.ToString();
-            Train_BuyButton.interactable = !trainData.SA_TrainData.Train_Buy_Num.Contains(trainNum);
+
+            if (trainData.SA_TrainData.Train_Buy_Num.Contains(trainNum))
+            {
+                Train_BuyButton.gameObject.SetActive(false);
+            }
+            else
+            {
+                Train_BuyButton.gameObject.SetActive(true);
+            }
         }
         else if (List_TrainType_Num == 1)
         {
@@ -1668,6 +1676,14 @@ else // 기차 교체
             train_pride = trainData.EX_Game_Data.Information_Train_Turret_Part[trainNum].Train_Buy_Cost;
             Train_Pride_Text.text = train_pride.ToString();
             Train_BuyButton.interactable = !trainData.SA_TrainTurretData.Train_Turret_Buy_Num.Contains(trainNum);
+            if (trainData.SA_TrainTurretData.Train_Turret_Buy_Num.Contains(trainNum))
+            {
+                Train_BuyButton.gameObject.SetActive(false);
+            }
+            else
+            {
+                Train_BuyButton.gameObject.SetActive(true);
+            }
         }
 /*        else if(List_TrainType_Num == 2)
         {
@@ -1779,7 +1795,16 @@ else // 기차 교체
                // trainData.Check_Buy_Train(TrainNum);
                 mainDirector.BuySoundSFX(true);
                 Check_Player_Coin_Point();
-                Train_BuyButton.interactable = !trainData.SA_TrainData.Train_Buy_Num.Contains(TrainNum);
+
+                if (trainData.SA_TrainData.Train_Buy_Num.Contains(TrainNum))
+                {
+                    Train_BuyButton.gameObject.SetActive(false);
+                }
+                else
+                {
+                    Train_BuyButton.gameObject.SetActive(true);
+                }
+
                 Instantiate_AfterTrainBuy(1, TrainNum);
             }
             else
@@ -1799,7 +1824,16 @@ else // 기차 교체
                 //trainData.Check_Buy_Turret(TrainNum);
                 mainDirector.BuySoundSFX(true);
                 Check_Player_Coin_Point();
-                Train_BuyButton.interactable = !trainData.SA_TrainTurretData.Train_Turret_Buy_Num.Contains(TrainNum);
+
+                if (trainData.SA_TrainTurretData.Train_Turret_Buy_Num.Contains(TrainNum))
+                {
+                    Train_BuyButton.gameObject.SetActive(false);
+                }
+                else
+                {
+                    Train_BuyButton.gameObject.SetActive(true);
+                }
+
                 Instantiate_AfterTrainBuy(2, TrainNum);
             }
             else
@@ -1943,7 +1977,6 @@ else // 기차 교체
         optionList.Add("A");
         optionList.Add("B");
         optionList.Add("C");
-        optionList.Add("D");
         TrainUpgradeList_DropDown.AddOptions(optionList);
         TrainUpgradeList_DropDown.value = 0;
         TrainUpgradeList_BeforeNum = 0;
@@ -2388,7 +2421,7 @@ else // 기차 교체
             options_1.options[i-1].text = LocalString_TrainType[i].GetLocalizedString();
         }*/
 
-        for(int i = 0; i < 4; i++)
+        for(int i = 0; i < 3; i++)
         {
             options_2.options[i].text = LocalString_TrainType[i].GetLocalizedString();
         }

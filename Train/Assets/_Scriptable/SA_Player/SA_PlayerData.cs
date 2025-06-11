@@ -301,6 +301,10 @@ public class SA_PlayerData : ScriptableObject
     public void SA_MissionPlaying(bool flag)
     {
         mission_playing = flag;
+        if (!flag)
+        {
+            click_readyflag = false;
+        }
         Save();
     }
 

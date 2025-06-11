@@ -75,6 +75,7 @@ public class PlayerReadyDirector : MonoBehaviour
     public Transform MercenaryList_Transform;
     public GameObject MercenaryList_Ride_Object;
     public GameObject MercenaryList_Object;
+    public GameObject[] Mercenary_ActiveObject;
 
     public List<Ready_MercenaryList_Ride> __LIST__MercenaryList_Ride_Object;
     public List<Ready_MercenaryList> __LIST__MercenaryList_Object;
@@ -290,7 +291,6 @@ public class PlayerReadyDirector : MonoBehaviour
     {
         int TrainIndex = 0;
         int TurretIndex = 0;
-        int BoosterIndex = 0;
         
         Ready_Using_TrainList_Object usi = Using_TrainObject.GetComponent<Ready_Using_TrainList_Object>();
         usi.director = this;
@@ -340,7 +340,6 @@ public class PlayerReadyDirector : MonoBehaviour
         int AllCount = 0;
         int CommonCount = 0;
         int TurretCount = 0;
-        int BoosterCount = 0;
 
         Ready_Buy_TrainObject buy = Buy_TrainObject.GetComponent<Ready_Buy_TrainObject>();
         buy.director = this;
@@ -383,12 +382,12 @@ public class PlayerReadyDirector : MonoBehaviour
             AllCount++;
             BoosterCount++;
         }*/
-        ResizeContent_BuyingTrainContent(AllCount, CommonCount, TurretCount, BoosterCount);
+        ResizeContent_BuyingTrainContent(AllCount, CommonCount, TurretCount);
     }
 
-    void ResizeContent_BuyingTrainContent(int all, int common, int turret, int booster)
+    void ResizeContent_BuyingTrainContent(int all, int common, int turret)
     {
-        for(int i = 0; i < 4; i++)
+        for(int i = 0; i < 3; i++)
         {
             RectTransform ContentSize = Buy_TrainList[i].GetComponent<RectTransform>();
             if(i == 0)
@@ -403,10 +402,6 @@ public class PlayerReadyDirector : MonoBehaviour
             {
                 ContentSize.sizeDelta = new Vector2(-450 + (135 * turret), 100);
             }
-            else if(i == 3)
-            {
-                ContentSize.sizeDelta = new Vector2(-450 + (135 * booster), 100);
-            }
             List_Trian_Type[i].GetComponent<ScrollRect>().horizontalNormalizedPosition = 0f;
         }
     }
@@ -420,7 +415,6 @@ public class PlayerReadyDirector : MonoBehaviour
         optionList.Add("A");
         optionList.Add("B");
         optionList.Add("C");
-        optionList.Add("D");
         TrainList_DropDown.AddOptions(optionList);
         TrainList_DropDown.value = 0;
     }
@@ -440,7 +434,7 @@ public class PlayerReadyDirector : MonoBehaviour
         options.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = LocalString_TrainType[options.value].GetLocalizedString();
 
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 3; i++)
         {
             options.options[i].text = LocalString_TrainType[i].GetLocalizedString();
         }
@@ -478,6 +472,16 @@ public class PlayerReadyDirector : MonoBehaviour
             else
             {
                 Change_ListSlelectFlag(true); // 연락 기차가 포함되어있지 않을 경우.
+            }
+        }else if(TrainNum_1 >= 50 && TrainNum_1 < 60)
+        {
+            if (sa_trainData.Train_Num.Contains(TrainNum_1))
+            {
+                Change_ListSlelectFlag(true, TrainNum_1);
+            }
+            else
+            {
+                Change_ListSlelectFlag(true);
             }
         }
         else // 기본
@@ -643,12 +647,16 @@ public class PlayerReadyDirector : MonoBehaviour
     {
         switch (num) {
             case 0:
+                Mercenary_ActiveObject[0].SetActive(true);
+                Mercenary_ActiveObject[1].SetActive(false);
                 foreach (Ready_MercenaryList list_obj in __LIST__MercenaryList_Object)
                 {
                     list_obj.ChangeState(0);
                 }
                 break;
             case 1:
+                Mercenary_ActiveObject[0].SetActive(false);
+                Mercenary_ActiveObject[1].SetActive(true);
                 foreach (Ready_MercenaryList list_obj in __LIST__MercenaryList_Object)
                 {
                     list_obj.ChangeState(1);

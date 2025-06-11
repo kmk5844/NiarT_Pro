@@ -680,7 +680,7 @@ public class Player : MonoBehaviour
 
         Bullet_Atk = Bullet_Atk + (((Bullet_Atk * Level_Atk * 5)) / 100);
         Default_Atk = Bullet_Atk;
-        Bullet_Delay = Bullet_Delay - (((Bullet_Delay * Level_AtkDelay)) / 200);
+        Bullet_Delay = Bullet_Delay - (((Bullet_Delay * Level_AtkDelay)) / 50);
         Max_HP = Player_HP + (((Player_HP * Level_HP) * 10) / 100);
         if (gamedirector.Select_Sub_Num == 0)
         {

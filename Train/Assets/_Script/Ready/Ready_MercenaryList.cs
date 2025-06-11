@@ -75,7 +75,6 @@ public class Ready_MercenaryList : MonoBehaviour
         Check_PassiveFlag();
         ChangeLevel();
 
-
         tooltip = Information_Tooltip.GetComponent<Ready_Mercenary_Information>();
     }
 
