@@ -189,7 +189,7 @@ public class Monster : MonoBehaviour
         {
             if(Monster_HP <= 0 && !spawnMaterialFlag && Monster_Num != 1)
             {
-                if (Random.Range(0, 101)<= material_drop)
+                if(Random.value <= material_drop / 100f) //material_drop이하면, 재료 아이템을 떨어뜨린다.
                 {
                     MaterialObject.GetComponent<SupplyMonster_Item>().ChangeMaterial(material_Item);
                     Instantiate(MaterialObject, transform.position, Quaternion.identity);

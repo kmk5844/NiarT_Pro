@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SupplyMonster_Item : MonoBehaviour
 {
-    public bool SpawnMonster;
+    public bool SpawnMonster_Flag;
     public bool MissionMaterialFlag;
     GameObject itemdirector_object;
     ItemDirector itemdirector;
@@ -37,7 +37,7 @@ public class SupplyMonster_Item : MonoBehaviour
 
         if (MissionMaterialFlag)
         {
-            if (!SpawnMonster)
+            if (!SpawnMonster_Flag)
             {
                 mat.SetColor("_SolidOutline", Color.green);
             }

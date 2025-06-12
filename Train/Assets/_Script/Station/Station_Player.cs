@@ -34,18 +34,18 @@ public class Station_Player : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonUp("Horizontal"))
-        {
-            rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.5f, rigid.velocity.y);
-            ani.SetBool("Move", false);
-        }
-        else if (Input.GetButton("Horizontal"))
-        {
-            ani.SetBool("Move", true);
-        }
-
         if (!OpenUIFlag && !stationDirector.Option_Flag)
         {
+            if (Input.GetButtonUp("Horizontal"))
+            {
+                rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.5f, rigid.velocity.y);
+                ani.SetBool("Move", false);
+            }
+            else if (Input.GetButton("Horizontal"))
+            {
+                ani.SetBool("Move", true);
+            }
+
             if (Input.GetButtonDown("Jump") && !jumpFlag)
             {
                 rigid.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
@@ -78,12 +78,12 @@ public class Station_Player : MonoBehaviour
                 }
             }
         }
-
+/*
         if (Input.GetKeyDown(KeyCode.P))
         {
             stationDirector.ClickLobbyButton(2);
         }
-
+*/
 
         if (rigid.velocity.x > moveSpeed)
         {

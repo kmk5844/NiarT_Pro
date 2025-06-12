@@ -154,7 +154,8 @@ public class Monster_1 : Monster
 
     public void AfterDie_Spawn_Item()
     {
-        Spawn_Item.GetComponent<SupplyMonster_Item>().SpawnMonster = true;
+         Spawn_Item.GetComponent<SupplyMonster_Item>().SpawnMonster_Flag = true;
          Instantiate(Spawn_Item, transform.position, Quaternion.identity);
+         Spawn_Item.GetComponent<SupplyMonster_Item>().SpawnMonster_Flag = false;
     }
 }

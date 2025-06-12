@@ -2767,7 +2767,6 @@ MonoBehaviour:
   gameType: 0
   SA_TrainData: {fileID: 11400000, guid: a3127143b81d7aa4b87c2baa773295c2, type: 2}
   SA_TrainTurretData: {fileID: 11400000, guid: 4bbb9992a442d1f449a4c2e4eceb8eda, type: 2}
-  SA_TrainBoosterData: {fileID: 11400000, guid: 4363c186a89963b4ebe76576964493cb, type: 2}
   SA_MercenaryData: {fileID: 11400000, guid: 001e50c30842bd2419afbe10369066e1, type: 2}
   SA_StageList: {fileID: 11400000, guid: 0c7e7e08d5ba18842a35b7c06144bb56, type: 2}
   SubStageData: {fileID: 0}
@@ -2836,6 +2835,7 @@ MonoBehaviour:
   RefreshPersent: 0
   waveinfoFlag: 0
   refreshinfoFlag: 0
+  SkillLockFlag: 0
 --- !u!114 &234993072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6378,6 +6378,7 @@ MonoBehaviour:
   GameDirector_EndingFlag: 0
   GameDirecotr_AllDieFlag: 0
   MaxMonsterNum: 2
+  MonsterNum: 0
   Train_List: {fileID: 5138825400518451174}
   SpawnSFX: {fileID: 8300000, guid: ea04ab4996f76694e825bbb752c4181d, type: 3}
 --- !u!1 &555944709
@@ -10747,7 +10748,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf9bf33b5eda34446a3660c5148f8160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnMonster: 0
+  SpawnMonster_Flag: 0
   MissionMaterialFlag: 0
   Item: {fileID: 0}
   GetItemSFX: {fileID: 0}
@@ -14297,7 +14298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf9bf33b5eda34446a3660c5148f8160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnMonster: 0
+  SpawnMonster_Flag: 0
   MissionMaterialFlag: 0
   Item: {fileID: 0}
   GetItemSFX: {fileID: 0}
@@ -16744,7 +16745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf9bf33b5eda34446a3660c5148f8160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnMonster: 0
+  SpawnMonster_Flag: 0
   MissionMaterialFlag: 0
   Item: {fileID: 0}
   GetItemSFX: {fileID: 0}
@@ -17279,7 +17280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf9bf33b5eda34446a3660c5148f8160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnMonster: 0
+  SpawnMonster_Flag: 0
   MissionMaterialFlag: 0
   Item: {fileID: 0}
   GetItemSFX: {fileID: 0}
@@ -20423,7 +20424,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf9bf33b5eda34446a3660c5148f8160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnMonster: 0
+  SpawnMonster_Flag: 0
   MissionMaterialFlag: 0
   Item: {fileID: 0}
   GetItemSFX: {fileID: 0}
@@ -21994,7 +21995,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf9bf33b5eda34446a3660c5148f8160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnMonster: 0
+  SpawnMonster_Flag: 0
   MissionMaterialFlag: 0
   Item: {fileID: 0}
   GetItemSFX: {fileID: 0}
@@ -23633,7 +23634,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf9bf33b5eda34446a3660c5148f8160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnMonster: 0
+  SpawnMonster_Flag: 0
   MissionMaterialFlag: 0
   Item: {fileID: 0}
   GetItemSFX: {fileID: 0}
@@ -30739,8 +30740,8 @@ SceneRoots:
   - {fileID: 355936109}
   - {fileID: 390653307}
   - {fileID: 7661760745939421980}
+  - {fileID: 136270054}
   - {fileID: 1830466587}
   - {fileID: 9081281046688774227}
   - {fileID: 327225967}
   - {fileID: 1142600880}
-  - {fileID: 136270054}

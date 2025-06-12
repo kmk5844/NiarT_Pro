@@ -145,18 +145,59 @@ public class OptionDirector : MonoBehaviour
     //Screen구역
     void InitScreen()
     {
-        for (int i = 0; i < Screen.resolutions.Length; i++)
+        Resolution[] availableResolutions = Screen.resolutions;
+
+        int[,] manualResList = new int[,]
         {
-            if (CheckMinimumResolution(Screen.resolutions[i].width)
-                && Check16To9Ratio(Screen.resolutions[i].width, Screen.resolutions[i].height))
+            { 1280, 720 },
+            { 1280, 800 },
+            { 1440, 900 },
+            { 1600, 900 },
+            { 1680, 1050 },
+            { 1920, 1080 },
+            { 1920, 1200 },
+            { 2048, 1280 },
+            { 2560, 1440 },
+            { 2560, 1600 },
+            { 2880, 1800 },
+            { 3840, 2160 }
+        };
+
+        // 수동 해상도 추가 (refresh rate 60으로 고정)
+        for (int i = 0; i < manualResList.GetLength(0); i++)
+        {
+            int width = manualResList[i, 0];
+            int height = manualResList[i, 1];
+
+            bool found = false;
+
+            // refreshRateRatio는 Unity 2022 이상에서 사용 가능
+            Resolution matched = new Resolution();
+
+            foreach(var r in availableResolutions)
             {
-                if (Screen.resolutions[i].refreshRateRatio.numerator >= 59)
+                if(r.width == width && r.height == height && r.refreshRateRatio.numerator >= 59)
                 {
-                    resolutions.Add(Screen.resolutions[i]);
+                    matched = r;
+                    found = true;
+                    break;
                 }
             }
-        }
 
+            if (found)
+            {
+                if (!resolutions.Exists(r => r.width == matched.width && r.height == matched.height))
+                {
+                    resolutions.Add(matched);
+                }
+            }
+            else
+            {
+                // 더 이상 사용 가능한 해상도가 없다면 중단
+                break;
+            }
+
+        }
         resolutionDropdown.options.Clear();
 
         int optionNum = 0;
@@ -168,19 +209,12 @@ public class OptionDirector : MonoBehaviour
             TMP_Dropdown.OptionData Window_Option = new TMP_Dropdown.OptionData();
             TMP_Dropdown.OptionData Full_Option = new TMP_Dropdown.OptionData();
 
-            float refreshRate = (float)Window_Screen.refreshRateRatio.numerator / Window_Screen.refreshRateRatio.denominator;
+            //float refreshRate = (float)Window_Screen.refreshRateRatio.numerator / Window_Screen.refreshRateRatio.denominator;
+            float refreshRate = 60;
             Window_Option.text = $"{Window_Screen.width} * {Window_Screen.height} {Mathf.RoundToInt(refreshRate)}hz (Windowed)";
-            if(Mathf.RoundToInt(refreshRate) < 75)
-            {
-                resolutionDropdown.options.Add(Window_Option);
-            }
-            refreshRate = (float)Full_Screen.refreshRateRatio.numerator / Full_Screen.refreshRateRatio.denominator;
-            
+            resolutionDropdown.options.Add(Window_Option);
             Full_Option.text = $"{Full_Screen.width} * {Full_Screen.height} {Mathf.RoundToInt(refreshRate)}hz (Full)";
-            if(Mathf.RoundToInt(refreshRate) < 75)
-            {
-                resolutionDropdown.options.Add(Full_Option);
-            }
+            resolutionDropdown.options.Add(Full_Option);
 
             if (Window_Screen.width == Screen.width && Window_Screen.height == Screen.height)
             {
@@ -212,17 +246,12 @@ public class OptionDirector : MonoBehaviour
         }
         else if (x % 2 == 1)
         {
-            screenMode = FullScreenMode.FullScreenWindow;
+            screenMode = FullScreenMode.ExclusiveFullScreen;
         }
 
         Screen.SetResolution(resolutions[resoutionNum / 2].width,
             resolutions[resoutionNum / 2].height,
             screenMode);
-    }
-
-    bool CheckMinimumResolution(int width)
-    {
-        return width >= 1280;
     }
 
     bool Check16To9Ratio(int width, int height)

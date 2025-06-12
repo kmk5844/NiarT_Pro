@@ -256,6 +256,21 @@ public class Station_TrainMaintenance : MonoBehaviour
         {
             if (TrainMainTenance_Flag && TrainBuyWindow_Flag)
             {
+                if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E))
+                {
+                    if (!UI_TrainStore_Toggle.transform.GetChild(0).GetComponent<Toggle>().isOn)
+                    {
+                        UI_TrainStore_Toggle.transform.GetChild(0).GetComponent<Toggle>().isOn = true;
+                        UI_TrainStore_Toggle.transform.GetChild(1).GetComponent<Toggle>().isOn = false;
+                    }
+                    else if (!UI_TrainStore_Toggle.transform.GetChild(1).GetComponent<Toggle>().isOn)
+                    {
+                        UI_TrainStore_Toggle.transform.GetChild(0).GetComponent<Toggle>().isOn = false;
+                        UI_TrainStore_Toggle.transform.GetChild(1).GetComponent<Toggle>().isOn = true;
+                    }
+                        
+                }
+
                 if (Input.GetKeyDown(KeyCode.A))
                 {
                     MMSoundManagerSoundPlayEvent.Trigger(ButtonSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
@@ -1418,7 +1433,7 @@ else // 기차 교체
 
                             CommonTrain_List_Transform.gameObject.SetActive(true);
                             TurretTrain_List_Transform.gameObject.SetActive(false);
-                            BoosterTrain_List_Transform.gameObject.SetActive(false);
+                            //BoosterTrain_List_Transform.gameObject.SetActive(false);
                             break;
                         case 1:
                             List_Before_TrainType_Num = List_TrainType_Num;
@@ -1428,9 +1443,9 @@ else // 기차 교체
 
                             CommonTrain_List_Transform.gameObject.SetActive(false);
                             TurretTrain_List_Transform.gameObject.SetActive(true);
-                            BoosterTrain_List_Transform.gameObject.SetActive(false);
+                            //BoosterTrain_List_Transform.gameObject.SetActive(false);
                             break;
-                        case 2:
+/*                        case 2:
                             List_Before_TrainType_Num = List_TrainType_Num;
                             List_TrainType_Num = i;
                             Train_Before_Buy_Num = Train_Buy_Num;
@@ -1439,7 +1454,7 @@ else // 기차 교체
                             CommonTrain_List_Transform.gameObject.SetActive(false);
                             TurretTrain_List_Transform.gameObject.SetActive(false);
                             BoosterTrain_List_Transform.gameObject.SetActive(true);
-                            break;
+                            break;*/
                     }
                     UI_TrainStore_Toggle.transform.GetChild(i).GetComponent<Toggle>().interactable = false;
                 }
@@ -1556,7 +1571,7 @@ else // 기차 교체
         Change_Train();
     }
 
-    public void Click_Next_TrainButton()
+    public void Click_Next_TrainButton(bool flag = false)
     {
         List_Before_TrainType_Num = List_TrainType_Num;
         Train_Before_Buy_Num = Train_Buy_Num;
@@ -1582,6 +1597,33 @@ else // 기차 교체
         else
         {
             Train_Buy_Num = 0;
+        }
+
+        if (!flag)
+        {
+            Change_Train();
+        }
+    }
+
+    public void Click_NextNext_TrainButton()
+    {
+        List_Before_TrainType_Num = List_TrainType_Num;
+        Train_Before_Buy_Num = Train_Buy_Num-1;
+
+        int Max = 0;
+        if (List_TrainType_Num == 0)
+        {
+            Max = CommonTrain_NumberArray.Length - 1;
+        }
+        else if (List_TrainType_Num == 1)
+        {
+            Max = TurretTrain_NumberArray.Length - 1;
+        }
+
+        for (int i = 0; i < 2; i++)
+        {
+            Click_Next_TrainButton(true);
+            Check_TrainType_ListButton();
         }
         Change_Train();
     }
@@ -1709,10 +1751,10 @@ else // 기차 교체
         {
             TurretTrain_List_Transform.GetChild(Train_Before_Buy_Num).GetComponent<TrainList_Button>().ChangeButton(true);
         }
-        else if (List_Before_TrainType_Num == 2)
+/*        else if (List_Before_TrainType_Num == 2)
         {
             BoosterTrain_List_Transform.GetChild(Train_Before_Buy_Num).GetComponent<TrainList_Button>().ChangeButton(true);
-        }
+        }*/
 
         if (List_TrainType_Num == 0)
         {
@@ -1722,10 +1764,10 @@ else // 기차 교체
         {
             TurretTrain_List_Transform.GetChild(Train_Buy_Num).GetComponent<TrainList_Button>().ChangeButton(false);
         }
-        else if (List_TrainType_Num == 2)
+/*        else if (List_TrainType_Num == 2)
         {
             BoosterTrain_List_Transform.GetChild(Train_Buy_Num).GetComponent<TrainList_Button>().ChangeButton(false);
-        }
+        }*/
         List_Before_TrainType_Num =  List_TrainType_Num;
     }
 
