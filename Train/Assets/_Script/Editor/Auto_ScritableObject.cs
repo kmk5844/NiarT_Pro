@@ -16,7 +16,7 @@ public class Auto_ScritableObject : EditorWindow
     string itemCount_Num = "";
     string itemCount_Single = "";
 
-    private string[] Type = { "Item", "Stage", "Quest" ,"Story" };
+    private string[] Type = { "Item", "Stage", "Quest" ,"Story", "Monster" };
 
     //bool showBtn = true;
     int selectType;
@@ -28,7 +28,8 @@ public class Auto_ScritableObject : EditorWindow
     public SA_StageList SA_StageList_;
     public SA_MissionData SA_MissionData_;
     public SA_StoryLIst SA_StoryList_;
-   
+    public SA_Monster SA_Monster_;
+
     private void OnGUI()
     {
         DataTable_Game = (Game_DataTable)EditorGUILayout.ObjectField("GameDataTable_", DataTable_Game, typeof(Game_DataTable), false);
@@ -109,6 +110,15 @@ public class Auto_ScritableObject : EditorWindow
                 SA_StoryList_.Editor_StoryList_Init();
                 DeleteAllFilesInFolder_Story();
                 CreatObjectFromList_Story();
+            }
+        }else if(selectType == 4)
+        {
+            SA_Monster_ = (SA_Monster)EditorGUILayout.ObjectField("SA_Monster_", SA_Monster_, typeof(SA_Monster), false);
+
+            if(GUILayout.Button("Create Auto Monster"))
+            {
+                SA_Monster_.Editor_Init();
+                SetMonster();
             }
         }
     }
@@ -576,6 +586,17 @@ public class Auto_ScritableObject : EditorWindow
             AssetDatabase.CreateAsset(storyObject, "Assets/_Scriptable/SA_Story/Story_Object/SDO_Story_" + story.Story_Num + ".asset");
             AssetDatabase.SaveAssets();
             SA_StoryList_.StoryList_InsertObject(storyObject);
+        }
+        UnityEditor.EditorUtility.SetDirty(SA_StoryList_);
+    }
+
+    //Monster
+
+    public void SetMonster()
+    {
+        foreach(Info_Monster monster in DataTable_Game.Information_Monster)
+        {
+            SA_Monster_.Editor_Add(monster.Number);
         }
         UnityEditor.EditorUtility.SetDirty(SA_StoryList_);
     }

@@ -245,6 +245,7 @@ public class SelectMission : MonoBehaviour
      
     public void Mission_Sucesses(StageDataObject stage)
     {
+        ES3.Save<int>("Train_Curret_TotalFuel", -1);
         if(missionNum == 4)
         {
             MissionReward = M_Convoy.ConvoyGold;
@@ -269,6 +270,7 @@ public class SelectMission : MonoBehaviour
 
     public void Mission_Fail()
     {
+        ES3.Save<int>("Train_Curret_TotalFuel", -1);
         MissionEnd(MissionType);
         if (playerData.EventFlag)
         {

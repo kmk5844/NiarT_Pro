@@ -892,17 +892,14 @@ public class GameDirector : MonoBehaviour
         SpawnTrainFlag = true;
 
         Total_TrainFuel = TrainFuel;
+
         if (Select_Sub_Num != 0)
         {
-            try
-            {
-                TrainFuel = ES3.Load<int>("Train_Curret_Fuel");
-            }
-            catch
-            {
-                TrainFuel = 100000;
-            }
-            
+            TrainFuel = ES3.Load<int>("Train_Curret_Fuel", Total_TrainFuel);
+        }
+        else
+        {
+            ES3.Save<int>("Train_Curret_TotalFuel", Total_TrainFuel);
         }
     }
     public void Level()

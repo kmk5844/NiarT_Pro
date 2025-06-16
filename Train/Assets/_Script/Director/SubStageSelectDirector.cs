@@ -22,6 +22,7 @@ public class SubStageSelectDirector : MonoBehaviour
     [Header("UI")]
     public TextMeshProUGUI UI_MissionInformation;
     public TextMeshProUGUI UI_MainStageText;
+    public TextMeshProUGUI UI_FuelParsent_Text;
 
     public GameObject UI_MapTab;
     public GameObject UI_SubStageSelect;
@@ -31,6 +32,9 @@ public class SubStageSelectDirector : MonoBehaviour
     public int missionNum;
     public int stageNum;
     public int selectNum;
+
+    int Fuel;
+    int Total_Fuel;
 
     [Header("UI_StageInformation")]
     public GameObject StageInitButton;
@@ -47,6 +51,8 @@ public class SubStageSelectDirector : MonoBehaviour
         {
             QualitySettings.vSyncCount = 1;
         }
+
+
 
         //itemListData = GetComponent<Station_ItemData>();
         selectNum = -1;
@@ -80,12 +86,25 @@ public class SubStageSelectDirector : MonoBehaviour
         int missionInformation_Num = EX_QuestData.Q_List.FindIndex(x => x.Stage_Mission.Equals(searchString));
 
         UI_MissionInformation.text = ""; 
-            //EX_QuestData.Q_List[missionInformation_Num].Quest_Information;
+        //EX_QuestData.Q_List[missionInformation_Num].Quest_Information;
         GameObject StageListObject = Resources.Load<GameObject>("UI_SubStageList/" + selectStageNum + "_Stage/" + missionNum);
         if(UI_SubStageSelect.transform.childCount < 2)
         {
             Instantiate(StageListObject, UI_SubStageSelect.transform);
         }
+
+        Total_Fuel = ES3.Load<int>("Train_Curret_TotalFuel", -1);
+        if (Total_Fuel == -1)
+        {
+            UI_FuelParsent_Text.text = "100%";
+        }
+        else
+        {
+            Fuel = ES3.Load<int>("Train_Curret_Fuel", 100);
+            float fuelPercent = (float)Fuel / (float)Total_Fuel * 100f;
+            UI_FuelParsent_Text.text = fuelPercent.ToString("F0") + "%"; // 정수로 출력
+        }
+
     }
 
     private void Update()

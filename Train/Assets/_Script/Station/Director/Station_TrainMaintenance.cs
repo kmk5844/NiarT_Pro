@@ -89,8 +89,6 @@ public class Station_TrainMaintenance : MonoBehaviour
 
     [Header("기차 구매")]
     public ToggleGroup UI_TrainStore_Toggle;
-
-
     public TMP_Dropdown TrainBuy_DropDown;
     int List_TrainType_Num;
     int List_Before_TrainType_Num;
@@ -104,6 +102,7 @@ public class Station_TrainMaintenance : MonoBehaviour
     //Sprite[] BoosterTrain_Image;
     public LocalizeStringEvent Train_Name_Buy_Text;
     public LocalizeStringEvent Train_Information_Buy_Text;
+    public Station_Train_Status Train_Buy_Information_Status;
     public TextMeshProUGUI Train_Pride_Text;
     public Image Train_MainImage;
     public Image Train_NextImage_1;
@@ -134,6 +133,7 @@ public class Station_TrainMaintenance : MonoBehaviour
     public GameObject UpgradeWindow;
     public LocalizeStringEvent Train_Name_Upgrade_Text;
     public LocalizeStringEvent Train_Information_Upgrade_Text;
+    public Station_Train_Status Train_Upgrade_Information_Status;
     public Sprite[] Level_Sprite;
     public Image Before_LevelImage;
     public Image After_LevelImage;
@@ -1717,7 +1717,7 @@ else // 기차 교체
             Train_Information_Buy_Text.StringReference.TableEntryReference = "Train_Turret_Information_" + (trainNum / 10);
             train_pride = trainData.EX_Game_Data.Information_Train_Turret_Part[trainNum].Train_Buy_Cost;
             Train_Pride_Text.text = train_pride.ToString();
-            Train_BuyButton.interactable = !trainData.SA_TrainTurretData.Train_Turret_Buy_Num.Contains(trainNum);
+            //Train_BuyButton.interactable = !trainData.SA_TrainTurretData.Train_Turret_Buy_Num.Contains(trainNum);
             if (trainData.SA_TrainTurretData.Train_Turret_Buy_Num.Contains(trainNum))
             {
                 Train_BuyButton.gameObject.SetActive(false);
@@ -1729,7 +1729,7 @@ else // 기차 교체
         }
 /*        else if(List_TrainType_Num == 2)
         {
-            Train_Name_Buy_Text.StringReference.TableEntryReference = "Train_Booster_Name_" + (trainNum / 10);
+            Train_Name_Buy_Text.StringReference.TableEntryReference = "Train_Booster_Name_" + (trainNum / 10);  
             Train_Information_Buy_Text.StringReference.TableEntryReference = "Train_Booster_Information_" + (trainNum / 10);
             train_pride = trainData.EX_Game_Data.Information_Train_Booster_Part[trainNum].Train_Buy_Cost;
             Train_Pride_Text.text = train_pride.ToString();
@@ -1739,6 +1739,7 @@ else // 기차 교체
         //-----------리스트버튼-------
         Check_TrainType_ListButton();
         StartCoroutine(Check_TrainState_Slider_Buy());
+        Check_TrainState();
     }
 
     private void Check_TrainType_ListButton()
@@ -1947,6 +1948,42 @@ else // 기차 교체
         Slider_Buy_Weight.value = EX_Weight;
         Slider_Buy_Armor.value = EX_Armor;
     }
+
+    public void Check_TrainState()
+    {
+        int TrainNum = 0;
+
+        if (List_TrainType_Num == 0)
+        {
+            TrainNum = CommonTrain_NumberArray[Train_Buy_Num];
+            Info_Train trainData_Info = trainData.EX_Game_Data.Information_Train[TrainNum];
+            Train_Buy_Information_Status.Setting_TrainCommon(trainData_Info.Train_HP, trainData_Info.Train_Weight, trainData_Info.Train_Armor);
+            string[] status = new string[] { };
+            if (trainData_Info.Train_Type.Equals("Engine"))
+            {
+                status = new string[] { trainData_Info.Train_MaxSpeed.ToString(), trainData_Info.Train_Efficient.ToString(), trainData_Info.Train_Engine_Power.ToString() };
+
+            }
+            else if (trainData_Info.Train_Type.Equals("Fuel"))
+            {
+                status = new string[]{ trainData_Info.Train_Fuel.ToString() };
+            }
+            else
+            {
+               status = trainData_Info.Train_Special.Split(',');
+            }
+            Train_Buy_Information_Status.Setting_TrainStatus(trainData_Info.Train_Type, status);
+        }
+        else if(List_TrainType_Num == 1)
+        {
+            TrainNum = TurretTrain_NumberArray[Train_Buy_Num];
+            Info_Train_Turret_Part trainData_Info = trainData.EX_Game_Data.Information_Train_Turret_Part[TrainNum];
+            Train_Buy_Information_Status.Setting_TrainCommon(trainData_Info.Train_HP, trainData_Info.Train_Weight, trainData_Info.Train_Armor);
+            string[] status = new string[] { trainData_Info.Train_Attack.ToString(), trainData_Info.Train_Attack_Delay.ToString() };
+            Train_Buy_Information_Status.Setting_TrainStatus("Turret", status);
+        }
+    }
+
     //기차 업그레이드
 
     void Setting_TrainUpgarde()
@@ -2069,7 +2106,41 @@ else // 기차 교체
 
         Check_TrainChange_Upgrade();
         StartCoroutine(Check_TrainState_Slider_Upgrade());
+        Check_TrainState_Upgrade();
         clickTrainObject = obj;
+    }
+
+    void Check_TrainState_Upgrade()
+    {
+        if (Train_Upgrade_Num1 != 91)
+        {
+            int num = sa_trainData.SA_TrainChangeNum(Train_Upgrade_Num1);
+            Info_Train trainData_Info = trainData.EX_Game_Data.Information_Train[num];
+            Train_Upgrade_Information_Status.Setting_TrainCommon(trainData_Info.Train_HP, trainData_Info.Train_Weight, trainData_Info.Train_Armor);
+            string[] status = new string[] { };
+            if (trainData_Info.Train_Type.Equals("Engine"))
+            {
+                status = new string[] { trainData_Info.Train_MaxSpeed.ToString(), trainData_Info.Train_Efficient.ToString(), trainData_Info.Train_Engine_Power.ToString() };
+
+            }
+            else if (trainData_Info.Train_Type.Equals("Fuel"))
+            {
+                status = new string[] { trainData_Info.Train_Fuel.ToString() };
+            }
+            else
+            {
+                status = trainData_Info.Train_Special.Split(',');
+            }
+            Train_Upgrade_Information_Status.Setting_TrainStatus(trainData_Info.Train_Type, status);
+        }
+        else if (Train_Upgrade_Num1 == 91)
+        {
+            int num2 = sa_trainturretData.SA_Train_Turret_ChangeNum(Train_Upgrade_Num2);
+            Info_Train_Turret_Part trainData_Info = trainData.EX_Game_Data.Information_Train_Turret_Part[num2];
+            Train_Upgrade_Information_Status.Setting_TrainCommon(trainData_Info.Train_HP, trainData_Info.Train_Weight, trainData_Info.Train_Armor);
+            string[] status = new string[] { trainData_Info.Train_Attack.ToString(), trainData_Info.Train_Attack_Delay.ToString() };
+            Train_Upgrade_Information_Status.Setting_TrainStatus("Turret", status);
+        }
     }
 
     void Check_TrainChange_Upgrade()
@@ -2118,7 +2189,6 @@ else // 기차 교체
             Train_Upgrade_Button.interactable = false;
             Train_Upgrade_CostText.text = "Max";
         }
-
     }
 
     private IEnumerator Check_TrainState_Slider_Upgrade()
@@ -2284,6 +2354,7 @@ else // 기차 교체
                 mainDirector.BuySoundSFX(true);
                 Check_TrainChange_Upgrade();
                 StartCoroutine(Check_TrainState_Slider_Upgrade());
+                Check_TrainState_Upgrade();
                 Check_Player_Coin_Point();
             }
             else
@@ -2318,6 +2389,7 @@ else // 기차 교체
                 mainDirector.BuySoundSFX(true);
                 Check_TrainChange_Upgrade();
                 StartCoroutine(Check_TrainState_Slider_Upgrade());
+                Check_TrainState_Upgrade();
                 Check_Player_Coin_Point();
             }
             else
