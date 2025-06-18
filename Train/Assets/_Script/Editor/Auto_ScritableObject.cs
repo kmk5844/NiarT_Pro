@@ -596,8 +596,14 @@ public class Auto_ScritableObject : EditorWindow
     {
         foreach(Info_Monster monster in DataTable_Game.Information_Monster)
         {
-            SA_Monster_.Editor_Add(monster.Number);
+            SA_Monster_.Editor_Add(monster.Number, false);
         }
+
+        foreach(Info_Boss boss in DataTable_Game.Information_Boss)
+        {
+            SA_Monster_.Editor_Add(boss.Number, true);
+        }
+
         UnityEditor.EditorUtility.SetDirty(SA_StoryList_);
     }
 }

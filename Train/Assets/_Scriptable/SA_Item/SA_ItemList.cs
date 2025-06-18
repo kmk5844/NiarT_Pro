@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,38 +15,19 @@ public class SA_ItemList : ScriptableObject
     private List<ItemDataObject> item;
     public List<ItemDataObject> Item { get { return item; } }
 
-    [Header("BoxType_Materail")]
+    [Header("StoreRarityType")]
     [SerializeField]
-    private List<ItemDataObject> random_material_itemlist;
-    public List<ItemDataObject> Random_Material_ItemList { get { return random_material_itemlist; } }
-    
-    [Header("BoxType_Item")]
+    private List<ItemDataObject> common_store_itemlist;
+    public List<ItemDataObject> Common_Store_ItemList { get { return common_store_itemlist; } }
     [SerializeField]
-    private List<ItemDataObject> common_item_itemlist;
-    public List<ItemDataObject> Common_Item_ItemList { get { return common_item_itemlist; } }
+    private List<ItemDataObject> rare_store_itemlist;
+    public List<ItemDataObject> Rare_Store_ItemList { get { return rare_store_itemlist; } }
     [SerializeField]
-    private List<ItemDataObject> rare_item_itemlist;
-    public List<ItemDataObject> Rare_Item_ItemList { get { return rare_item_itemlist; } }
+    private List<ItemDataObject> unique_store_itemlist;
+    public List<ItemDataObject> Unique_Store_ItemList { get { return unique_store_itemlist; } }
     [SerializeField]
-    private List<ItemDataObject> unique_item_itemlist;
-    public List<ItemDataObject> Unique_Item_ItemList { get { return unique_item_itemlist; } }
-    [SerializeField]
-    private List<ItemDataObject> epic_item_itemlist;
-    public List<ItemDataObject> Epic_Item_ItemList { get { return epic_item_itemlist; } }
-
-    [Header("BoxType_Materail&Item")]
-    [SerializeField]
-    private List<ItemDataObject> common_box_itemlist;
-    public List<ItemDataObject> Common_Box_ItemList { get { return common_box_itemlist; } }
-    [SerializeField]
-    private List<ItemDataObject> rare_box_itemlist;
-    public List<ItemDataObject> Rare_Box_ItemList { get { return rare_box_itemlist; } }
-    [SerializeField]
-    private List<ItemDataObject> unique_box_itemlist;
-    public List<ItemDataObject> Unique_Box_ItemList { get { return unique_box_itemlist; } }
-    [SerializeField]
-    private List<ItemDataObject> epic_box_itemlist;
-    public List<ItemDataObject> Epic_Box_ItemList { get { return epic_box_itemlist; } }
+    private List<ItemDataObject> epic_store_itemlist;
+    public List<ItemDataObject> Epic_Store_ItemList { get { return epic_store_itemlist; } }
 
     [Header("SupplyRarityType")]
     [SerializeField]
@@ -60,25 +42,26 @@ public class SA_ItemList : ScriptableObject
     [SerializeField]
     private List<ItemDataObject> epic_supply_itemlist;
     public List<ItemDataObject> Epic_Supply_ItemList { get { return epic_supply_itemlist; } }
+
+    [Header("Dictionary")]
+    [SerializeField]
+    private List<Item_Dic_Def> item_dic_list;
+    public List<Item_Dic_Def> Item_Dic_List { get { return item_dic_list; } }
     public void Editor_ItemList_Init()
     {
         item.Clear();
-        random_material_itemlist.Clear();
 
-        common_item_itemlist.Clear();
-        rare_item_itemlist.Clear();
-        unique_item_itemlist.Clear();
-        epic_item_itemlist.Clear();
-
-        common_box_itemlist.Clear();
-        rare_box_itemlist.Clear();
-        unique_box_itemlist.Clear();
-        epic_box_itemlist.Clear();
+        common_store_itemlist.Clear();
+        rare_store_itemlist.Clear();
+        unique_store_itemlist.Clear();
+        epic_store_itemlist.Clear();
 
         common_supply_itemlist.Clear();
         rare_supply_itemlist.Clear();
         unique_supply_itemlist.Clear();
         epic_supply_itemlist.Clear();
+
+        item_dic_list.Clear();
     }
 
     public void PlayGame_ItemList_Init()
@@ -102,7 +85,6 @@ public class SA_ItemList : ScriptableObject
                 yield return new WaitForSeconds(0.01f);
             }
         }
-
         yield return null;
     }
 
@@ -114,64 +96,45 @@ public class SA_ItemList : ScriptableObject
     public void ItemList_InsertObject(ItemDataObject newobjcet)
     {
         item.Add(newobjcet);
-
-        if(newobjcet.Box_Type == Information_Item_Box_Type.Material)
+        if(newobjcet.Item_Type == Information_Item_Type.Equipment)
         {
-            random_material_itemlist.Add(newobjcet);
+            Item_Dic_Def _item = new Item_Dic_Def();
+            _item.item_num = newobjcet.Num;
+            _item.item_dic_flag = true;
+            item_dic_list.Add(_item);
+        }
+        else if(newobjcet.Item_Type == Information_Item_Type.Immediate || newobjcet.Item_Type == Information_Item_Type.Inventory)
+        {
+            Item_Dic_Def _item = new Item_Dic_Def();
+            _item.item_num = newobjcet.Num;
+            _item.item_dic_flag = false;
+            item_dic_list.Add(_item);
         }
 
         switch (newobjcet.Item_Rarity_Type)
         {
             case Information_Item_Rarity_Type.Common:
-                if(newobjcet.Box_Type == Information_Item_Box_Type.Item)
+                if (newobjcet.Box_Type != Information_Item_Box_Type.None)
                 {
-                    if(newobjcet.Item_Type == Information_Item_Type.Equipment)
-                    {
-                        common_item_itemlist.Add(newobjcet);
-                    }
-                }
-                if(newobjcet.Box_Type != Information_Item_Box_Type.None)
-                {
-                    common_box_itemlist.Add(newobjcet);
+                    common_store_itemlist.Add(newobjcet);
                 }
                 break;
             case Information_Item_Rarity_Type.Rare:
-                if (newobjcet.Box_Type == Information_Item_Box_Type.Item)
-                {
-                    if (newobjcet.Item_Type == Information_Item_Type.Equipment)
-                    {
-                        rare_item_itemlist.Add(newobjcet);
-                    }
-                }
                 if (newobjcet.Box_Type != Information_Item_Box_Type.None)
                 {
-                    rare_box_itemlist.Add(newobjcet);
+                    rare_store_itemlist.Add(newobjcet);
                 }
                 break;
             case Information_Item_Rarity_Type.Unique:
-                if (newobjcet.Box_Type == Information_Item_Box_Type.Item)
-                {
-                    if (newobjcet.Item_Type == Information_Item_Type.Equipment)
-                    {
-                        unique_item_itemlist.Add(newobjcet);
-                    }
-                }
                 if (newobjcet.Box_Type != Information_Item_Box_Type.None)
                 {
-                    unique_box_itemlist.Add(newobjcet);
+                    unique_store_itemlist.Add(newobjcet);
                 }
                 break;
             case Information_Item_Rarity_Type.Epic:
-                if (newobjcet.Box_Type == Information_Item_Box_Type.Item)
-                {
-                    if (newobjcet.Item_Type == Information_Item_Type.Equipment)
-                    {
-                        epic_item_itemlist.Add(newobjcet);
-                    }
-                }
                 if (newobjcet.Box_Type != Information_Item_Box_Type.None)
                 {
-                    epic_box_itemlist.Add(newobjcet);
+                    epic_store_itemlist.Add(newobjcet);
                 }
                 break;
         }
@@ -193,6 +156,34 @@ public class SA_ItemList : ScriptableObject
                     epic_supply_itemlist.Add(newobjcet);
                     break;
             }
+        }
+    }
+
+    [Serializable]
+    public struct Item_Dic_Def
+    {
+        [SerializeField]
+        public int item_num;
+
+        public bool item_dic_flag;
+
+        public void ChangeMonster()
+        {
+            if (!item_dic_flag)
+            {
+                item_dic_flag = true;
+                Save();
+            }
+        }
+
+        public void Save()
+        {
+            ES3.Save<bool>("Item_Dic_Flag_" + item_num, item_dic_flag);
+        }
+
+        public void Load(bool boss)
+        {
+            item_dic_flag = ES3.Load<bool>("Item_Dic_Flag_" + item_num, false);
         }
     }
 }

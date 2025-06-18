@@ -42,17 +42,17 @@ public class ItemUse_Window_Box : MonoBehaviour
 
         if (!Check)
         {
-            Random_Material_ItemList = ItemList.Random_Material_ItemList;
+/*            Random_Material_ItemList = ItemList.Random_Material_ItemList;
 
             Random_Common_Item_ItemList = ItemList.Common_Item_ItemList;
-            Random_Rare_Item_ItemList = ItemList.Rare_Item_ItemList;
+            Random_Rare_Item_ItemList = ItemList.Rare_Item_ItemList;*/
 /*            Random_Unique_Item_ItemList = ItemList.Unique_Item_ItemList;
             Random_Epic_Item_ItemList = ItemList.Epic_Item_ItemList;*/
 
-            Random_Common_Box_ItemList = ItemList.Common_Box_ItemList;
+/*            Random_Common_Box_ItemList = ItemList.Common_Box_ItemList;
             Random_Rare_Box_ItemList = ItemList.Rare_Box_ItemList;
             Random_Unique_Box_ItemList = ItemList.Unique_Box_ItemList;
-            Random_Epic_Box_ItemList = ItemList.Epic_Box_ItemList;
+            Random_Epic_Box_ItemList = ItemList.Epic_Box_ItemList;*/
             Check = true;
         }
             
