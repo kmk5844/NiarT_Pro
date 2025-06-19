@@ -10,7 +10,8 @@ public class DicButton : MonoBehaviour
     DictionaryDirector dicDirector;
     //∏ÛΩ∫≈Õ
     SA_Monster sa_monster;
-    int num;
+    
+    public int num;
     bool bossFlag;
     Button btn;
     bool flag;
@@ -35,11 +36,11 @@ public class DicButton : MonoBehaviour
             btn.interactable = flag;
             if (flag)
             {
-                dicimage.sprite = Resources.Load<Sprite>("Dictionary/Monster_On_" + num);
+                dicimage.sprite = Resources.Load<Sprite>("Dictionary/Monster/Monster_On_" + num);
             }
             else
             {
-                dicimage.sprite = Resources.Load<Sprite>("Dictionary/Monster_Off_" + num);
+                dicimage.sprite = Resources.Load<Sprite>("Dictionary/Monster/Monster_Off_" + num);
             }
         }
         else
@@ -48,32 +49,32 @@ public class DicButton : MonoBehaviour
             btn.interactable = flag;
             if (flag)
             {
-                dicimage.sprite = Resources.Load<Sprite>("Dictionary/Boss_On_" + num);
+                dicimage.sprite = Resources.Load<Sprite>("Dictionary/Monster/Boss_On_" + num);
             }
             else
             {
-                dicimage.sprite = Resources.Load<Sprite>("Dictionary/Boss_Off_" + num);
+                dicimage.sprite = Resources.Load<Sprite>("Dictionary/Monster/Boss_Off_" + num);
             }
         }
         AddButton(0);
     }
 
-    public void SettingItemDicButton(DictionaryDirector _dicDirector, SA_ItemList _list, int _num)
+    public void SettingItemDicButton(DictionaryDirector _dicDirector, SA_ItemList _list, int index)
     {
         dicDirector = _dicDirector;
         sa_itemlist = _list;
-        num = _num;
+        num = _list.Item_Dic_List[index].item_num;
         btn = GetComponent<Button>();
 
-        flag = sa_itemlist.Item_Dic_List[num].item_dic_flag;
+        flag = sa_itemlist.Item_Dic_List[index].item_dic_flag;
         btn.interactable = flag;
         if (flag)
         {
-            //dicimage.sprite = Resources.Load<Sprite>("Dictionary/Monster_On_" + num);
+            dicimage.sprite = Resources.Load<Sprite>("Dictionary/Item/Item_On_" + num);
         }
         else
         {
-            //dicimage.sprite = Resources.Load<Sprite>("Dictionary/Monster_Off_" + num);
+            dicimage.sprite = Resources.Load<Sprite>("Dictionary/Item/Item_Off_" + num);
         }
         AddButton(1);
     }

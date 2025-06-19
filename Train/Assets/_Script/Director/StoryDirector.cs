@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using MoreMountains.Tools;
 using TMPro;
+using UnityEngine.SceneManagement;
+using System.Linq.Expressions;
 
 public class StoryDirector : MonoBehaviour
 {
@@ -50,18 +52,48 @@ public class StoryDirector : MonoBehaviour
 
     AudioClip ButtonSFX;
 
+    public AudioListener audioListener;
+    bool additiveFlag;
+
     private void Awake()
     {
         int index = 0;
         GameObject Branch = null;
 
-        index = SA_PlayerData.Story_Num;
-        //int index = EX_StoryData.Story_Branch.FindIndex(x => x.Stage_Index.Equals(SA_PlayerData.New_Stage));
-        int Branch_Value = EX_StoryData.Story_Branch[index].Branch_Index;
-        BackGround_Image.sprite = Resources.Load<Sprite>("Story/BackGround/" + EX_StoryData.Story_Branch[index].BackGround);
-        Branch = BranchList[Branch_Value]; // stageNum에 따라 Branch 값을 가져온다.
-        //Branch.GetComponent<DialogSystem>().Story_Init(gameObject, 5, index, Branch_Value); {스토리 체크용}
-        Branch.GetComponent<DialogSystem>().Story_Init(gameObject, SA_PlayerData.New_Stage, index, Branch_Value);
+        additiveFlag = false;
+        Scene currentScene = gameObject.scene;
+        if (currentScene != SceneManager.GetActiveScene())
+        {
+            additiveFlag = true;
+            audioListener.enabled = false;
+        }
+        else
+        {
+            additiveFlag = false;
+            audioListener.enabled = true;
+        }
+
+        if (!additiveFlag)
+        {
+            index = SA_PlayerData.Story_Num;
+            //int index = EX_StoryData.Story_Branch.FindIndex(x => x.Stage_Index.Equals(SA_PlayerData.New_Stage));
+            int Branch_Value = EX_StoryData.Story_Branch[index].Branch_Index;
+            BackGround_Image.sprite = Resources.Load<Sprite>("Story/BackGround/" + EX_StoryData.Story_Branch[index].BackGround);
+            Branch = BranchList[Branch_Value]; // stageNum에 따라 Branch 값을 가져온다.
+            //Branch.GetComponent<DialogSystem>().Story_Init(gameObject, 5, index, Branch_Value); {스토리 체크용}
+            Branch.GetComponent<DialogSystem>().Story_Init(gameObject, SA_PlayerData.New_Stage, index, Branch_Value);
+        }
+        else
+        {
+            index = 3;
+            //index = 
+            int Branch_Value = EX_StoryData.Story_Branch[index].Branch_Index;
+            BackGround_Image.sprite = Resources.Load<Sprite>("Story/BackGround/" + EX_StoryData.Story_Branch[index].BackGround);
+            Branch = BranchList[Branch_Value]; // stageNum에 따라 Branch 값을 가져온다.
+            //Branch.GetComponent<DialogSystem>().Story_Init(gameObject, 5, index, Branch_Value); {스토리 체크용}
+            Branch.GetComponent<DialogSystem>().Story_Init(gameObject, EX_StoryData.Story_Branch[index].Stage_Num, index, Branch_Value);
+        }
+
 
         GameObject Branch_Canvas = Instantiate(Branch, Canvas);
         Branch_Canvas.transform.SetSiblingIndex(1);
@@ -236,7 +268,14 @@ public class StoryDirector : MonoBehaviour
 
     private void Click_Skip_Button()
     {
-        GameManager.Instance.Story_End();
+        if (!additiveFlag)
+        {
+            GameManager.Instance.Story_End();
+        }
+        else
+        {
+            SceneManager.UnloadSceneAsync("Story");
+        }
     }
 
     private void Click_BackLog_Button()

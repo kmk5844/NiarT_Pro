@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization.Components;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class DictionaryDirector : MonoBehaviour
@@ -9,12 +10,14 @@ public class DictionaryDirector : MonoBehaviour
     public Game_DataTable Data_Game;
     public SA_Monster SA_Monster_;
     public SA_ItemList SA_ItemList_;
+    public SA_StoryLIst SA_StoryLIst_;
     [Space(20)]
     [Header("공통 UI")]
     //토글 작업
     public GameObject test;
     public DicButton dicButton;
-    
+    public DicButton_Story dicStoryButton;
+
 
     [Space(20)]
     [Header("몬스터 도감")]
@@ -31,10 +34,16 @@ public class DictionaryDirector : MonoBehaviour
     public LocalizeStringEvent ShowItem_Name;
     public LocalizeStringEvent ShowItem_Information;
 
+    [Space(20)]
+    [Header("스토리 도감")]
+    public Transform storyTransform;
+
+
     private void Start()
     {
         Spawn_MonsterButton();
         Spawn_ItemButton();
+        Spawn_StoryButton();
         SettingUI();
         SettingLocal();
     }
@@ -113,7 +122,7 @@ public class DictionaryDirector : MonoBehaviour
             num_ = SA_ItemList_.Item_Dic_List[i].item_num;
             obj = Instantiate(dicButton, itemTransform);
             obj.SettingItemDicButton(this, SA_ItemList_, i);
-            obj.name = num_ + "_" + Data_Game.Information_Item[i].Item_Name;
+            obj.name = num_ + "_" + Data_Game.Information_Item[num_].Item_Name;
         }
     }
     public void ShowItemInformation(int num)
@@ -129,4 +138,31 @@ public class DictionaryDirector : MonoBehaviour
         ShowItem_Name.StringReference.TableEntryReference = "Item_Name_" + num;
         ShowItem_Information.StringReference.TableEntryReference = "Item_Information_" + num;
     }
+
+    private void Spawn_StoryButton()
+    {
+        int story_count = SA_StoryLIst_.StoryList.Count;
+        DicButton_Story obj;
+
+        //cutScnene;
+        obj = Instantiate(dicStoryButton, storyTransform);
+        obj.SettingStoryButton_CutScene(this);
+
+        for (int i = 0 ; i < story_count; i++) {
+            obj = Instantiate(dicStoryButton, storyTransform);
+            obj.SettingStoryButton(this, SA_StoryLIst_, i);
+        }
+    }
+
+    public void Enter_StoryMode(bool flag)
+    {
+        if (flag)
+        {
+            SceneManager.LoadScene("CutScene", LoadSceneMode.Additive);
+        }
+        else
+        {
+            SceneManager.LoadScene("Story", LoadSceneMode.Additive);
+        }
+    }    
 }

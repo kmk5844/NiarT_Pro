@@ -96,19 +96,22 @@ public class SA_ItemList : ScriptableObject
     public void ItemList_InsertObject(ItemDataObject newobjcet)
     {
         item.Add(newobjcet);
-        if(newobjcet.Item_Type == Information_Item_Type.Equipment)
+        if(newobjcet.Num != 0 && newobjcet.Num  != 12 && newobjcet.Num != 37)
         {
-            Item_Dic_Def _item = new Item_Dic_Def();
-            _item.item_num = newobjcet.Num;
-            _item.item_dic_flag = true;
-            item_dic_list.Add(_item);
-        }
-        else if(newobjcet.Item_Type == Information_Item_Type.Immediate || newobjcet.Item_Type == Information_Item_Type.Inventory)
-        {
-            Item_Dic_Def _item = new Item_Dic_Def();
-            _item.item_num = newobjcet.Num;
-            _item.item_dic_flag = false;
-            item_dic_list.Add(_item);
+            if (newobjcet.Item_Type == Information_Item_Type.Equipment)
+            {
+                Item_Dic_Def _item = new Item_Dic_Def();
+                _item.item_num = newobjcet.Num;
+                _item.item_dic_flag = true;
+                item_dic_list.Add(_item);
+            }
+            else if (newobjcet.Item_Type == Information_Item_Type.Immediate || newobjcet.Item_Type == Information_Item_Type.Inventory)
+            {
+                Item_Dic_Def _item = new Item_Dic_Def();
+                _item.item_num = newobjcet.Num;
+                _item.item_dic_flag = false;
+                item_dic_list.Add(_item);
+            }
         }
 
         switch (newobjcet.Item_Rarity_Type)

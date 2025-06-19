@@ -10,6 +10,9 @@ using UnityEngine.SceneManagement;
 
 public class CutSceneDirector : MonoBehaviour
 {
+    public AudioListener audioListener;
+    bool additiveFlag;
+
     public PlayableDirector timelineDirector;
     public LocalizeStringEvent text;
 
@@ -25,6 +28,18 @@ public class CutSceneDirector : MonoBehaviour
     int i;
     private void Start()
     {
+        Scene currentScene = gameObject.scene;
+        if(currentScene != SceneManager.GetActiveScene())
+        {
+            additiveFlag = true;
+            audioListener.enabled = false;
+        }
+        else
+        {
+            additiveFlag = false;
+            audioListener.enabled = true;
+        }
+
         i = 0;
         text.StringReference.TableReference = "CutScene_St";
         MMSoundManagerSoundPlayEvent.Trigger(CutSceneBGM, MMSoundManager.MMSoundManagerTracks.Music, transform.position);
@@ -50,10 +65,17 @@ public class CutSceneDirector : MonoBehaviour
     }
     void End()
     {
-        MMSoundManagerSoundPlayEvent.Trigger(skip_SFX, MMSoundManager.MMSoundManagerTracks.Sfx, transform.position);
-        DataManager.Instance.playerData.SA_StoryNum_Chnage(0);
-        SceneManager.LoadScene("Story");
-        DataManager.Instance.storyData.StoryList[0].ChangeFlag(true);
+        if (!additiveFlag)
+        {
+            MMSoundManagerSoundPlayEvent.Trigger(skip_SFX, MMSoundManager.MMSoundManagerTracks.Sfx, transform.position);
+            DataManager.Instance.playerData.SA_StoryNum_Chnage(0);
+            SceneManager.LoadScene("Story");
+            DataManager.Instance.storyData.StoryList[0].ChangeFlag(true);
+        }
+        else
+        {
+            SceneManager.UnloadSceneAsync("CutScene");
+        }
     }
 
     public void SFX(int i)
