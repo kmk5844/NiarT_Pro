@@ -14,10 +14,13 @@ public class DictionaryDirector : MonoBehaviour
     [Space(20)]
     [Header("공통 UI")]
     //토글 작업
-    public GameObject test;
+    public ToggleGroup DicToggleGroup;
+    public GameObject[] DicWindow;
+
+    [Space(20)]
+    [Header("버튼 생성")]
     public DicButton dicButton;
     public DicButton_Story dicStoryButton;
-
 
     [Space(20)]
     [Header("몬스터 도감")]
@@ -41,11 +44,42 @@ public class DictionaryDirector : MonoBehaviour
 
     private void Start()
     {
+        SettingToggle();
         Spawn_MonsterButton();
         Spawn_ItemButton();
         Spawn_StoryButton();
         SettingUI();
         SettingLocal();
+
+        Dic_Init();
+    }
+
+    void SettingToggle()
+    {
+        foreach(var tog in DicToggleGroup.GetComponentsInChildren<Toggle>())
+        {
+            tog.onValueChanged.AddListener(ToggleChangeWindow);
+        }
+    }
+
+    void ToggleChangeWindow(bool isOn)
+    {
+        if (isOn)
+        {
+            for (int i = 0; i < DicToggleGroup.transform.childCount; i++)
+            {
+                if (DicToggleGroup.transform.GetChild(i).GetComponent<Toggle>().isOn)
+                {
+                    DicWindow[i].SetActive(true);
+                    DicToggleGroup.transform.GetChild(i).GetComponent<Toggle>().interactable = false;
+                }
+                else
+                {
+                    DicWindow[i].SetActive(false);
+                    DicToggleGroup.transform.GetChild(i).GetComponent<Toggle>().interactable = true;
+                }
+            } 
+        }
     }
 
     void SettingLocal()
@@ -54,7 +88,6 @@ public class DictionaryDirector : MonoBehaviour
         ShowMonster_Information.StringReference.TableReference = "ExcelData_Table_St";
         ShowItem_Name.StringReference.TableReference = "ItemData_Table_St";
         ShowItem_Information.StringReference.TableReference = "ItemData_Table_St";
-
     }
 
     void SettingUI()
@@ -154,7 +187,7 @@ public class DictionaryDirector : MonoBehaviour
         }
     }
 
-    public void Enter_StoryMode(bool flag)
+    public void Enter_StoryMode(bool flag, int num = -1)
     {
         if (flag)
         {
@@ -162,7 +195,14 @@ public class DictionaryDirector : MonoBehaviour
         }
         else
         {
+            SA_StoryLIst_.Select_Dic_Story_Num = num;
             SceneManager.LoadScene("Story", LoadSceneMode.Additive);
         }
-    }    
+    }
+
+    public void Dic_Init()
+    {
+        SettingUI();
+        DicToggleGroup.transform.GetChild(0).GetComponent<Toggle>().isOn = true;
+    }
 }

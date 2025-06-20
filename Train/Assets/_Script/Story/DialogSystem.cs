@@ -1,10 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
-using System;
 using MoreMountains.Tools;
 
 public class DialogSystem : MonoBehaviour
@@ -294,7 +292,7 @@ public class DialogSystem : MonoBehaviour
             yield return new WaitForSeconds(delay);
         }
 
-        isTypingEffect = false;
+        isTypingEffect = false;     
 
 		// 대사가 완료되었을 때 출력되는 커서 활성화
 		speakers[currentSpeakerIndex].objectArrow.SetActive(true);

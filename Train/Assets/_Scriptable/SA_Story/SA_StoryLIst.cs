@@ -13,6 +13,8 @@ public class SA_StoryLIst : ScriptableObject
     private List<StoryDataObject> storylist;
     public List<StoryDataObject>StoryList {  get { return storylist; } }
 
+    public int Select_Dic_Story_Num;
+
     public void Editor_StoryList_Init()
     {
         storylist.Clear();

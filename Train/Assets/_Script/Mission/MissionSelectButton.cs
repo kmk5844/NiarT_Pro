@@ -54,7 +54,6 @@ public class MissionSelectButton : MonoBehaviour
         LocalizedString monsterString = new LocalizedString();
         monsterString.TableReference = "MissionList_St";
 
-
         switch (missionNum)
         {
             case 0:

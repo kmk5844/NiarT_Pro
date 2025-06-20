@@ -16,6 +16,8 @@ public class StoryDirector : MonoBehaviour
     private SA_PlayerData SA_PlayerData;
     [SerializeField]
     private SA_LocalData sa_localdata;
+    [SerializeField]
+    private SA_StoryLIst sa_storylist;
 
     public AudioClip StoryBGM; 
     public Transform Canvas;
@@ -53,6 +55,7 @@ public class StoryDirector : MonoBehaviour
     AudioClip ButtonSFX;
 
     public AudioListener audioListener;
+    public GameObject eventsystem;
     bool additiveFlag;
 
     private void Awake()
@@ -66,6 +69,8 @@ public class StoryDirector : MonoBehaviour
         {
             additiveFlag = true;
             audioListener.enabled = false;
+            StationDirector.DicFlag = true;
+            Destroy(eventsystem);
         }
         else
         {
@@ -85,8 +90,7 @@ public class StoryDirector : MonoBehaviour
         }
         else
         {
-            index = 3;
-            //index = 
+            index = sa_storylist.Select_Dic_Story_Num;
             int Branch_Value = EX_StoryData.Story_Branch[index].Branch_Index;
             BackGround_Image.sprite = Resources.Load<Sprite>("Story/BackGround/" + EX_StoryData.Story_Branch[index].BackGround);
             Branch = BranchList[Branch_Value]; // stageNum에 따라 Branch 값을 가져온다.
@@ -131,7 +135,7 @@ public class StoryDirector : MonoBehaviour
         }
         ButtonSFX = Resources.Load<AudioClip>("Sound/SFX/ButtonSFX");
 
-        MMSoundManagerSoundPlayEvent.Trigger(StoryBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true);
+        MMSoundManagerSoundPlayEvent.Trigger(StoryBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID : 10);
         SkipButton.onClick.AddListener(() => Click_Skip_Button());
         BackLogButton.onClick.AddListener(() => Click_BackLog_Button());
         OptionButton.onClick.AddListener(() => Click_Option_Button());
@@ -274,6 +278,9 @@ public class StoryDirector : MonoBehaviour
         }
         else
         {
+            MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, 10);
+            StationDirector.DicFlag = false;
+            StationDirector.Dic_BGM_Flag = true;
             SceneManager.UnloadSceneAsync("Story");
         }
     }

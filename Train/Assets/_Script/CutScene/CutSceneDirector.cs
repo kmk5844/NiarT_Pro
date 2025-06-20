@@ -4,9 +4,11 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Localization.Components;
 using UnityEngine.Playables;
 using UnityEngine.SceneManagement;
+using static MoreMountains.Tools.MMSoundManager;
 
 public class CutSceneDirector : MonoBehaviour
 {
@@ -24,6 +26,7 @@ public class CutSceneDirector : MonoBehaviour
 
     [Header("오디오설정")]
     public AudioClip skip_SFX;
+    public GameObject eventSystem; 
 
     int i;
     private void Start()
@@ -33,6 +36,8 @@ public class CutSceneDirector : MonoBehaviour
         {
             additiveFlag = true;
             audioListener.enabled = false;
+            StationDirector.DicFlag = true;
+            Destroy(eventSystem);
         }
         else
         {
@@ -40,9 +45,9 @@ public class CutSceneDirector : MonoBehaviour
             audioListener.enabled = true;
         }
 
+        MMSoundManagerSoundPlayEvent.Trigger(CutSceneBGM, MMSoundManager.MMSoundManagerTracks.Music, transform.position, ID : 10);
         i = 0;
         text.StringReference.TableReference = "CutScene_St";
-        MMSoundManagerSoundPlayEvent.Trigger(CutSceneBGM, MMSoundManager.MMSoundManagerTracks.Music, transform.position);
     }
 
     private void Update()
@@ -74,6 +79,9 @@ public class CutSceneDirector : MonoBehaviour
         }
         else
         {
+            MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, 10);
+            StationDirector.DicFlag = false;
+            StationDirector.Dic_BGM_Flag = true;
             SceneManager.UnloadSceneAsync("CutScene");
         }
     }

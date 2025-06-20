@@ -86,10 +86,13 @@ public class StationDirector : MonoBehaviour
     [Header("Click Lobby -> Conversion")]
     public GameObject UI_Conversion;
 
+    //7: Dictionary
+    [Header("Click Lobby -> Dictionary")]
+    public GameObject UI_Dictionary;
+
     [Header("Click Help")]
     public GameObject[] UI_HelpWindow;
     public bool Help_Flag;
-
 
     [Header("Coin&Point")]
     public TextMeshProUGUI[] Coin_Text;
@@ -113,9 +116,11 @@ public class StationDirector : MonoBehaviour
     public AudioClip BuySFX;
     public AudioClip ErrorSFX;
 
-
     [Header("게임")]
     public GameObject[] GameNotice;
+
+    public static bool DicFlag;
+    public static bool Dic_BGM_Flag;
 
     private void Awake()
     {
@@ -146,9 +151,8 @@ public class StationDirector : MonoBehaviour
 
         MMSoundManagerSoundPlayEvent.Trigger(StationBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true);
 
-
         //GameStart에 Stage 표현
-        for(int i = 0; i < Coin_Text.Length; i++)
+        for (int i = 0; i < Coin_Text.Length; i++)
         {
             Coin_Text[i].text = playerData.Player_Coin.ToString();
         }
@@ -166,7 +170,13 @@ public class StationDirector : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Dic_BGM_Flag)
+        {
+            MMSoundManagerSoundPlayEvent.Trigger(StationBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true);
+            Dic_BGM_Flag = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape) && !DicFlag)
         {
             MMSoundManagerSoundPlayEvent.Trigger(ESCSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
             if (Option_Flag)
@@ -274,7 +284,10 @@ public class StationDirector : MonoBehaviour
                 else { 
                     Click_Home_Button();
                 }
-            }*/
+            }*/else if(ui_num == 7)
+            {
+                Click_Home_Button();
+            }
         }
     }
 
@@ -453,6 +466,11 @@ public class StationDirector : MonoBehaviour
                 UI_Conversion.SetActive(true);
                 ui_num = 6;
                 break;
+            case 7:
+                MMSoundManagerSoundPlayEvent.Trigger(ESCSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+                UI_Dictionary.gameObject.SetActive(true);
+                ui_num = 7;
+                break;
         }
         Total_Init();
     }
@@ -622,10 +640,13 @@ public class StationDirector : MonoBehaviour
             Direcotr_Conversion.Item_53_Init();
             UI_Conversion.gameObject.SetActive(false);
             //Check_ItemList(false, useItem);
+        }else if(ui_num == 7)
+        { 
+            UI_Dictionary.gameObject.SetActive(false);
         }
         //UI_BackGround.gameObject.SetActive(false);
 
-        if(ui_num != 4)
+        if (ui_num != 4)
         {
             ui_num = 0; // 꺼져있을 때만 적용
         }
