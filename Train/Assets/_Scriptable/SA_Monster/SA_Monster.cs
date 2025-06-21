@@ -18,6 +18,7 @@ public class SA_Monster : ScriptableObject
     public void Editor_Init()
     {
         monster_dic.Clear();
+        boss_dic.Clear();
     }
 
     public void Editor_Add(int num, bool boss)
