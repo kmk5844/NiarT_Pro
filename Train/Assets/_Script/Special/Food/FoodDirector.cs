@@ -13,6 +13,7 @@ public class FoodDirector : MonoBehaviour
     [Header("---------Data-------")]
     public Game_DataTable EX_GameData;
     public SA_PlayerData playerData;
+    public SA_Event eventData;
 
     [Header("--------UI-------")]
     public GameObject FoodWindow;
@@ -226,7 +227,7 @@ public class FoodDirector : MonoBehaviour
 
     public void Click_ChoiceButton()
     {
-        playerData.SA_ChoiceFood(choiceCardNum);
+        eventData.SA_ChoiceFood(choiceCardNum);
         MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, 10);
         MMSoundManagerSoundPlayEvent.Trigger(MissionBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID: 20);
         SubSelectStage.SetActive(true);

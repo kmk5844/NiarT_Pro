@@ -114,18 +114,6 @@ public class SA_PlayerData : ScriptableObject
     private bool station_tutorial;
     public bool Station_Tutorial {  get { return station_tutorial; } }
 
-    [Header("이벤트")]
-    [SerializeField]
-    private bool eventflag;
-    public bool EventFlag {  get { return eventflag; } }
-
-    [SerializeField]
-    private bool food_heal_flag;
-    public bool Food_Heal_Flag { get { return food_heal_flag; } }
-
-    [SerializeField]
-    private int food_num;
-    public int Food_Num { get { return food_num; } }
 
     public void SA_GameWinReward(bool lastStage, int R_Coin)
     {
@@ -308,25 +296,6 @@ public class SA_PlayerData : ScriptableObject
         Save();
     }
 
-    public void SA_ChoiceFood(int num)
-    {
-        eventflag = true;
-        food_num = num;
-        Save();
-    }
-
-    public void SA_HealFood()
-    {
-        food_heal_flag = true;
-        Save();
-    }
-
-    public void SA_EventFlag_Off()
-    {
-        eventflag = false;
-        food_heal_flag = false;
-        Save();
-    }
 
     public void SA_BeforeSubSelectStage_Save(int stage)
     {
@@ -353,9 +322,6 @@ public class SA_PlayerData : ScriptableObject
         ES3.Save<bool>("SA_PlayerData_Data_Station_Tutorial", station_tutorial);
         ES3.Save<bool>("SA_PlayerData_Data_MissionPlaying", mission_playing);
         ES3.Save<bool>("SA_PlayerData_Data_Click_ReaduyFlag", click_readyflag);
-        ES3.Save<bool>("SA_PlayerData_Data_EventFlag", eventflag);
-        ES3.Save<bool>("SA_PlayerData_Data_Food_Heal_Flag", food_heal_flag);
-        ES3.Save<int>("SA_PlayerData_Data_Food_Num", food_num);
     }
 
     private void Save_Solo(string str)
@@ -411,15 +377,6 @@ public class SA_PlayerData : ScriptableObject
             case "Click_ReadyFlag":
                 ES3.Save<bool>("SA_PlayerData_Data_Click_ReaduyFlag", click_readyflag);
                 break;
-            case "EventFlag":
-                ES3.Save<bool>("SA_PlayerData_Data_EventFlag", eventflag);
-                break;
-            case "Food_Heal_Flag":
-                ES3.Save<bool>("SA_PlayerData_Data_Food_Heal_Flag", food_heal_flag);
-                break;
-            case "Food_Num":
-                ES3.Save<int>("SA_PlayerData_Data_Food_Num", food_num);
-                break;
             default:
                 Debug.Log("없음 - 오타 수정 요함");
                 break;
@@ -462,12 +419,7 @@ public class SA_PlayerData : ScriptableObject
         yield return new WaitForSeconds(0.001f);
         ES3.Save<bool>("SA_PlayerData_Data_Click_ReaduyFlag", click_readyflag);
         yield return new WaitForSeconds(0.001f);
-        ES3.Save<bool>("SA_PlayerData_Data_EventFlag", eventflag);
-        yield return new WaitForSeconds(0.001f);
-        ES3.Save<bool>("SA_PlayerData_Data_Food_Heal_Flag", food_heal_flag);
-        yield return new WaitForSeconds(0.001f);
-        ES3.Save<int>("SA_PlayerData_Data_Food_Num", food_num);
-        yield return new WaitForSeconds(0.001f);
+
     }
 
     public void Load()
@@ -489,9 +441,6 @@ public class SA_PlayerData : ScriptableObject
         station_tutorial = ES3.Load<bool>("SA_PlayerData_Data_Station_Tutorial");
         mission_playing = ES3.Load<bool>("SA_PlayerData_Data_MissionPlaying");
         click_readyflag = ES3.Load<bool>("SA_PlayerData_Data_Click_ReaduyFlag");
-        eventflag = ES3.Load<bool>("SA_PlayerData_Data_EventFlag");
-        food_heal_flag = ES3.Load<bool>("SA_PlayerData_Data_Food_Heal_Flag");
-        food_num = ES3.Load<int>("SA_PlayerData_Data_Food_Num");
     }
 
 
@@ -513,9 +462,7 @@ public class SA_PlayerData : ScriptableObject
         station_tutorial = ES3.Load<bool>("SA_PlayerData_Data_Station_Tutorial",false);
         mission_playing = ES3.Load<bool>("SA_PlayerData_Data_MissionPlaying",false);
         click_readyflag = ES3.Load<bool>("SA_PlayerData_Data_Click_ReaduyFlag", false);
-        eventflag = ES3.Load<bool>("SA_PlayerData_Data_EventFlag", false);
-        food_heal_flag = ES3.Load<bool>("SA_PlayerData_Data_Food_Heal_Flag",false);
-        food_num = ES3.Load<int>("SA_PlayerData_Data_Food_Num",0);
+
         
         //GameManager.Instance.FILE_Critical();
 
@@ -548,9 +495,7 @@ public class SA_PlayerData : ScriptableObject
         }
         mission_playing = false;
         click_readyflag = false;
-        eventflag = false;
-        food_heal_flag = false;
-        food_num = 0;
+
         Save();
     }
 
@@ -580,9 +525,6 @@ public class SA_PlayerData : ScriptableObject
         }
         mission_playing = false;
         click_readyflag = false;
-        eventflag = false;
-        food_heal_flag = false;
-        food_num = 0;
         runner.StartCoroutine(SaveSync());
         yield return new WaitForSeconds(0.001f);
     }

@@ -2,7 +2,6 @@ using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.LowLevel;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
@@ -17,6 +16,10 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private SA_PlayerData playerData;
+    [SerializeField]
+    private SA_Event eventData;
+    [SerializeField]
+    private EventDirector eventDirector;
     [SerializeField]
     private Player_Debuff playerDebuff;
     Train_InGame train;
@@ -166,6 +169,7 @@ public class Player : MonoBehaviour
         Player_Bullet_List = GameObject.Find("Bullet_List").GetComponent<Transform>();
         Level();
         Check_Food();
+        eventDirector.CheckEvnet();
         era = 1f - (float)Player_Armor / def_constant;
 
         isHealing = false;
@@ -1153,18 +1157,35 @@ public class Player : MonoBehaviour
         ES3.Save<int>("Player_Curret_HP", Player_HP);
     }
 
+    public void SkillSoundSFX()
+    {
+        MMSoundManagerSoundPlayEvent.Trigger(Skill_SFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+    }
+
+    IEnumerator ClickDelay()
+    {
+        KeyObject.SetActive(false);
+        ClickFlag = true;
+        yield return new WaitForSeconds(2f);
+        ClickFlag = false;
+        KeyObject.SetActive(true);
+    }
+
+
+
+    //---------------------------------------음식
     private void Check_Food()
     {
-        if (playerData.EventFlag)
+        if (eventData.FoodFlag)
         {
-            FoodNum = playerData.Food_Num;
+            FoodNum = eventData.Food_Num;
             List<Info_FoodCard> Food = gamedirector.EX_GameData.Information_FoodCard;
 
             int _maintain = Food[FoodNum].Maintain;
             int _hp = Food[FoodNum].HP;
             string[] _state = Food[FoodNum].State.Split(',');
 
-            if (!playerData.Food_Heal_Flag)
+            if (!eventData.Food_Heal_Flag)
             {
                 int healHP = ((Max_HP * _hp) / 100);
                 if (Player_HP + healHP < Max_HP)
@@ -1175,12 +1196,12 @@ public class Player : MonoBehaviour
                 {
                     Player_HP = Max_HP;
                 }
-                playerData.SA_HealFood();
+                eventData.SA_HealFood();
             }
 
             if (_maintain == 0)
             {
-                playerData.SA_EventFlag_Off();
+                eventData.SA_EventFlag_Off();
             }
             Check_Food_Effect(_state);
         }
@@ -1258,17 +1279,51 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void SkillSoundSFX()
-    {
-        MMSoundManagerSoundPlayEvent.Trigger(Skill_SFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
-    }
 
-    IEnumerator ClickDelay()
+    //오아시스
+    public void OasisPlayerSetting(int num)
     {
-        KeyObject.SetActive(false);
-        ClickFlag = true;
-        yield return new WaitForSeconds(2f);
-        ClickFlag = false;
-        KeyObject.SetActive(true);
+        switch (num)
+        {
+            case 0:
+                //다음 스테이지 종료까지 플레이어 이동속도 증가
+                Debug.Log(moveSpeed);
+                moveSpeed += ((moveSpeed * 15) / 100);
+                Debug.Log(moveSpeed);
+                break;
+            case 1:
+                //다음 스테이지 종료까지 플레이어 방어력 증가
+                Player_Armor += ((Player_Armor * 15) / 100);
+                break;
+            case 2:
+                //다음 스테이지 종료까지 플레이어 공격력 증가
+                Bullet_Atk += ((Bullet_Atk * 15) / 100);
+                Default_Atk = Bullet_Atk;
+                break;
+            case 3:
+                //다음 스테이지 종료까지 플레이어 공격속도 증가
+                Bullet_Delay -= ((Bullet_Delay * 15) / 100);
+                break;
+            case 4:
+                //다음 스테이지 종료까지 플레이어 공격력, 공격속도 다소 증가
+                Bullet_Atk += ((Bullet_Atk * 7) / 100);
+                Default_Atk = Bullet_Atk;
+                Bullet_Delay -= ((Bullet_Delay * 7) / 100);
+                break;
+            case 5:
+                //다음 스테이지 종료까지 플레이어 방어력, 이동속도 다소 증가
+                Player_Armor += ((Player_Armor * 7) / 100);
+                moveSpeed += ((moveSpeed * 7) / 100);
+                break;
+            case 6:
+                //플레이어 회복
+                Player_HP += ((Player_HP * 15) / 100);
+                break;
+            case 7:
+                //다음 스테이지 종료까지 플레이어 점프력 강화
+                jumpSpeed += ((jumpSpeed * 5) / 100);
+                break;
+        }
+        eventData.OasisOff();
     }
 }

@@ -2408,6 +2408,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerNum: 0
   playerData: {fileID: 11400000, guid: 00cbb5f50188b374e85c8a529a52b4b0, type: 2}
+  eventData: {fileID: 0}
+  eventDirector: {fileID: 0}
   playerDebuff: {fileID: 0}
   playerBullet: {fileID: 0}
   Bullet_Atk: 0
@@ -4068,6 +4070,7 @@ Transform:
   - {fileID: 1935013892}
   - {fileID: 878257225}
   - {fileID: 967875822}
+  - {fileID: 1702925704}
   - {fileID: 437622085}
   - {fileID: 945371508}
   m_Father: {fileID: 0}
@@ -16290,6 +16293,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerNum: 0
   playerData: {fileID: 11400000, guid: 00cbb5f50188b374e85c8a529a52b4b0, type: 2}
+  eventData: {fileID: 0}
+  eventDirector: {fileID: 0}
   playerDebuff: {fileID: 0}
   playerBullet: {fileID: 0}
   Bullet_Atk: 0
@@ -19135,6 +19140,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f89c20f683fb8645b499ff1e6be644b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1702925703
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1702925704}
+  - component: {fileID: 1702925705}
+  m_Layer: 0
+  m_Name: EventDirector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1702925704
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1702925703}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 355936109}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1702925705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1702925703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e20c3aa3e92348943b6b061a00ab9210, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1910264849}
+  SA_Event_: {fileID: 11400000, guid: 4ffd1877a7a2efc479a1cc72c6ba1981, type: 2}
 --- !u!1 &1703447414
 GameObject:
   m_ObjectHideFlags: 0
@@ -21017,6 +21068,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerNum: 1
   playerData: {fileID: 11400000, guid: 00cbb5f50188b374e85c8a529a52b4b0, type: 2}
+  eventData: {fileID: 11400000, guid: 4ffd1877a7a2efc479a1cc72c6ba1981, type: 2}
+  eventDirector: {fileID: 1702925705}
   playerDebuff: {fileID: 1910264852}
   playerBullet: {fileID: 0}
   Bullet_Atk: 0

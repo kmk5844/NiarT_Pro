@@ -8,6 +8,8 @@ public class SelectMission : MonoBehaviour
     [SerializeField]
     SA_PlayerData playerData;
     [SerializeField]
+    SA_Event eventData;
+    [SerializeField]
     Quest_DataTable missionDataTable;
     public Quest_DataTable MISSIONDATATABLE { get {  return missionDataTable; } }   
     [SerializeField]
@@ -261,9 +263,9 @@ public class SelectMission : MonoBehaviour
         }
 
         MissionEnd(MissionType);
-        if (playerData.EventFlag)
+        if (eventData.EventFlag)
         {
-            playerData.SA_EventFlag_Off();
+            eventData.SA_EventFlag_Off();
         }
         Destroy(this.gameObject);
     }
@@ -272,9 +274,9 @@ public class SelectMission : MonoBehaviour
     {
         ES3.Save<int>("Train_Curret_TotalFuel", -1);
         MissionEnd(MissionType);
-        if (playerData.EventFlag)
+        if (eventData.EventFlag)
         {
-            playerData.SA_EventFlag_Off();
+            eventData.SA_EventFlag_Off();
         }
         Destroy(this.gameObject);
     }
