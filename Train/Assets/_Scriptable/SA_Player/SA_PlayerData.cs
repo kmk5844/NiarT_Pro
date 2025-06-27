@@ -141,13 +141,13 @@ public class SA_PlayerData : ScriptableObject
     public void SA_Test()
     {
         coin = 999999;
-        Save();
+        Save_Solo("Coin");
     }
 
     public void SA_GameLoseCoin(float R_CoinPercent)
     {
-        coin -= (int)(coin * (R_CoinPercent / 100f)); 
-        Save();
+        coin -= (int)(coin * (R_CoinPercent / 100f));
+        Save_Solo("Coin");
     }
 
     public void SA_Click_Playable(int i)

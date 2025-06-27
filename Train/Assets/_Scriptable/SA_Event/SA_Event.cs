@@ -94,6 +94,19 @@ public class SA_Event : ScriptableObject
         oasis_num = ES3.Load<int>("SA_EventData_Data_Oasis_Num", 0);
     }
 
+
+    public IEnumerator LoadSync()
+    {
+        eventflag = ES3.Load<bool>("SA_EventData_Data_EventFlag", false);
+        yield return new WaitForSeconds(0.001f);
+        food_heal_flag = ES3.Load<bool>("SA_EventData_Data_Food_Heal_Flag", false);
+        yield return new WaitForSeconds(0.001f);
+        food_num = ES3.Load<int>("SA_EventData_Data_Food_Num", 0);
+        yield return new WaitForSeconds(0.001f);
+        oasis_num = ES3.Load<int>("SA_EventData_Data_Oasis_Num", 0);
+        yield return new WaitForSeconds(0.001f);
+    }
+
     public void Init()
     {
         eventflag = false;
@@ -101,5 +114,11 @@ public class SA_Event : ScriptableObject
         food_num = 0;
         oasis_num = 0;
         Save();
+    }
+
+    public IEnumerator InitAsync()
+    {
+        Init();
+        yield return null;
     }
 }

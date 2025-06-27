@@ -42,6 +42,7 @@ public class DataManager : MonoBehaviour
     public SA_Tutorial tutorialData;
     public SA_StoryLIst storyData;
     public SA_MissionData missionData;
+    public SA_Event eventData;
 
     //public GameObject DebugObject;
 
@@ -83,6 +84,7 @@ public class DataManager : MonoBehaviour
         Debug.Log(10);
         yield return StartCoroutine(missionData.LoadSync(this));
         Debug.Log(11);
+        yield return StartCoroutine(eventData.LoadSync());
         //Destroy(DebugObject);
     }
 
@@ -99,6 +101,7 @@ public class DataManager : MonoBehaviour
         PlayerItem_Data.Init();
         tutorialData.Init();
         missionData.Init();
+        eventData.Init();
     }
 
     public IEnumerator InitAsync()
@@ -126,5 +129,6 @@ public class DataManager : MonoBehaviour
         Debug.Log(10);
         yield return StartCoroutine(missionData.InitAsync(this));
         Debug.Log(11);
+        yield return StartCoroutine(eventData.InitAsync());
     }
 }

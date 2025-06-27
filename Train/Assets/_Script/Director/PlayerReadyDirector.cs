@@ -864,10 +864,10 @@ public class PlayerReadyDirector : MonoBehaviour
 
     private void Instantiate_Item()
     {
-        Debug.Log("아이템생성");
+        //Debug.Log("아이템생성");
         foreach (ItemDataObject item in itemListData.Equipment_Inventory_ItemList)
         {
-            Debug.Log(item.Item_Name);
+            //Debug.Log(item.Item_Name);
             Inventory_DragObject.GetComponent<Image>().sprite = item.Item_Sprite;
             GameObject drag = Instantiate(Inventory_DragObject, Inventory_DragItemList);
             drag.SetActive(false);

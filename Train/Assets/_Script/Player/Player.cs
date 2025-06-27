@@ -697,7 +697,7 @@ public class Player : MonoBehaviour
                 Player_HP = ES3.Load<int>("Player_Curret_HP");
             }catch
             {
-                Player_HP = 10000;
+                Player_HP = Max_HP;
             }
         }
         Player_Armor = Player_Armor + (((Player_Armor * Level_Armor) * 10) / 100);

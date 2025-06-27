@@ -45,14 +45,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: 00cbb5f50188b374e85c8a529a52b4b0, type: 2}
+  eventData: {fileID: 11400000, guid: 4ffd1877a7a2efc479a1cc72c6ba1981, type: 2}
   missionDataTable: {fileID: 11400000, guid: b81f28f93f7f0484baf11cfdc25d28aa, type: 2}
   missionData: {fileID: 11400000, guid: bdf3b75d5d747fa469e3130af30aa84e, type: 2}
-  itemListData: {fileID: 11400000, guid: 130b52d5086f48c44a1ab80708de4492, type: 2}
+  itemListData: {fileID: 11400000, guid: 8db4376709063494d82edfa87e35b440, type: 2}
   StageMission: 
   MissionType: 0
   MissionInformation: 
   MissionState: 
   MissionReward: 0
+  MissionCoinLosePersent: 0
   M_Material:
     itemData: {fileID: 0}
     ItemCount: 0
@@ -70,7 +72,12 @@ MonoBehaviour:
   M_Boss:
     BossNum: 0
     BossCount: 0
+  M_Event:
+    EventFlag: 0
+    TreasureFlag: 0
   monsterCount: 0
   bossCount: 0
+  materialCount: 0
   Select_Train_Weight: 0
   StageInitButton: {fileID: 0}
+  missionList_Index: 0
