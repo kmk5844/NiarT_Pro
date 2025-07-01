@@ -17,6 +17,7 @@ public class StormDirector : MonoBehaviour
 
     [Header("Data")]
     public SA_TrainData trainData;
+    public SA_Event eventData;
     bool startFlag;
     private float currentTime = 0f;
     private bool isRunning = false;
@@ -53,7 +54,6 @@ public class StormDirector : MonoBehaviour
         {
             StartEvent();
         }
-
 
         if (!minigameFlag && startFlag)
         {
@@ -96,26 +96,24 @@ public class StormDirector : MonoBehaviour
 
         if(seconds <= 8)
         {
-            Debug.Log("최고로 좋은");
+            Reward_Debuff(2);
         }else if(seconds > 8 && seconds <= 10)
         {
-            Debug.Log("그럭저럭 좋은");
+            Reward_Debuff(5);
         }
         else if (seconds > 10 && seconds <= 12)
         {
-            Debug.Log("좋은");
+            Reward_Debuff(7);
         }
         else if(seconds > 12 && seconds <= 14)
         {
-            Debug.Log("안 좋은");
+            Reward_Debuff(10);
         }
         else if (seconds > 14)
         {
-            Debug.Log("안 좋은");
+            Reward_Debuff(15);
         }
-
-
-        Debug.Log(seconds);
+        CheckWindow.SetActive(true);
     }
 
     void ClickSpace()
@@ -134,5 +132,26 @@ public class StormDirector : MonoBehaviour
         int milliseconds = Mathf.FloorToInt((currentTime * 1000) % 1000);
 
         textTimer.text = string.Format("{0:00}:{1:00}.{2:000}", minutes, seconds, milliseconds);
+    }
+
+    void Reward_Debuff(int Parsent)
+    {
+        int Train_HP;
+        int TrainFuel;
+        for(int i = 0; i < trainData.Train_Num.Count; i++)
+        {
+            Train_HP = ES3.Load<int>("Train_Curret_HP_TrainIndex_" + i);
+            Train_HP = Train_HP * (100 - Parsent) / 100;
+            ES3.Save<int>("Train_Curret_HP_TrainIndex_" + i, Train_HP);
+        }
+        TrainFuel = ES3.Load<int>("Train_Curret_Fuel");
+        TrainFuel = TrainFuel * (100 - Parsent) / 100;
+        ES3.Save("Train_Curret_Fuel", TrainFuel);
+        eventData.StormDebuff();
+    }
+
+    public void StormEnd()
+    {
+        SelectStage.SetActive(true);
     }
 }

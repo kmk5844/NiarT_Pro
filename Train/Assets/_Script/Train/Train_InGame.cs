@@ -144,15 +144,8 @@ public class Train_InGame : MonoBehaviour
         }
         else
         {
-            try
-            {
-                Train_HP = ES3.Load<int>("Train_Curret_HP_TrainIndex_" + Train_Index);
-                Train_HP = (Train_HP * Max_Train_HP) /100;
-            }
-            catch
-            {
-                Train_HP = Max_Train_HP;
-            }
+            Train_HP = ES3.Load<int>("Train_Curret_HP_TrainIndex_" + Train_Index, Max_Train_HP);
+            Train_HP = (Train_HP * Max_Train_HP) /100;
         }
         Train_Type = trainData.Information_Train[Train_Num].Train_Type;
         CheckType();

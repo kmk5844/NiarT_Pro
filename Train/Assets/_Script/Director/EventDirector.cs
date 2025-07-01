@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class EventDirector : MonoBehaviour
 {
+    public GameDirector gamedirector;
     public Player player;
     public SA_Event SA_Event_;
+
 
     int num = 0;
 
@@ -18,11 +20,21 @@ public class EventDirector : MonoBehaviour
                 num = SA_Event_.Oasis_Num;
                 OasisStart();
             }
+
+            if (SA_Event_.StormFlag)
+            {
+                StormStart();
+            }
         }
     }
 
     public void OasisStart()
     {
         player.OasisPlayerSetting(num);
+    }
+
+    public void StormStart()
+    {
+        gamedirector.StormDebuff();
     }
 }

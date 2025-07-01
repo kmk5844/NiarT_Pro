@@ -1554,8 +1554,13 @@ public class GameDirector : MonoBehaviour
         Time.timeScale = 1f;
     }
 
-
-
+    //--------------------------event---------------------------
+    public void StormDebuff()
+    {
+        MaxSpeed -= ((MaxSpeed * 3) / 100); // 많을 수록 유리
+        Efficient += ((Efficient * 10) / 100); // 적을 수록 유리
+        timeBet = 0.1f - ((EnginePower - 1) * 0.001f);
+    }
 }
 
 

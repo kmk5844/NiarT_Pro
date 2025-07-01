@@ -695,7 +695,8 @@ public class Player : MonoBehaviour
             try
             {
                 Player_HP = ES3.Load<int>("Player_Curret_HP");
-            }catch
+            }
+            catch
             {
                 Player_HP = Max_HP;
             }
