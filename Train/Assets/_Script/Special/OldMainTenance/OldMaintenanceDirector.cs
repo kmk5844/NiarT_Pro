@@ -21,7 +21,8 @@ public class OldMaintenanceDirector : MonoBehaviour
     public SA_TrainTurretData turretData;
 
     int totalcoin;
-    int[] Parsent_TrainHPCharge = { 50, 75, 100 };
+
+    int[] Parsent_TrainHPCharge = {50, 75, 100 };
     int[] Parsent_Coin = { 10, 30, 50 };
 
     int[] Total_TrainHP;
@@ -121,9 +122,7 @@ public class OldMaintenanceDirector : MonoBehaviour
     {
         for(int i = 0; i < trainData.Train_Num.Count; i++)
         {
-            Debug.Log(Current_TrainHP[i]);
             Current_TrainHP[i] = Mathf.Min(Current_TrainHP[i] + Heal_TrainHP[i, num], Total_TrainHP[i]);
-            Debug.Log(Current_TrainHP[i]);
             ES3.Save<int>("Train_Curret_HP_TrainIndex_" + i, Current_TrainHP[i]);
         }
     }
