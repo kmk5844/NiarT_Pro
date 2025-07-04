@@ -101,8 +101,6 @@ public class DrowsinessShelterDirector : MonoBehaviour
         if(targetAlpha == 0f)
         {
             CheckWindow.SetActive(true);
-            Debug.Log(beforePlayerHP);
-            Debug.Log(playerHP);
         }
     }
     public void Click_NextButton()
