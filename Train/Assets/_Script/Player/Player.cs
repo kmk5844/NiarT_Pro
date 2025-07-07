@@ -1288,9 +1288,7 @@ public class Player : MonoBehaviour
         {
             case 0:
                 //다음 스테이지 종료까지 플레이어 이동속도 증가
-                Debug.Log(moveSpeed);
                 moveSpeed += ((moveSpeed * 15) / 100);
-                Debug.Log(moveSpeed);
                 break;
             case 1:
                 //다음 스테이지 종료까지 플레이어 방어력 증가
@@ -1326,5 +1324,62 @@ public class Player : MonoBehaviour
                 break;
         }
         eventData.OasisOff();
+    }
+
+    //낡은 훈련소
+    public void OldTranningSetting(int num)
+    {
+        switch (num)
+        {
+            case 0:
+                //다음 스테이지 종료까지 플레이어 공격력 증가
+                Bullet_Atk += ((Bullet_Atk * 15) / 100);
+                Default_Atk = Bullet_Atk;
+                break;
+            case 1:
+                //다음 스테이지 종료까지 플레이어 점프력 강화
+                jumpSpeed += ((jumpSpeed * 5) / 100);
+                break;
+            case 2:
+                //다음 스테이지 종료까지 플레이어 방어력 증가
+                Player_Armor += ((Player_Armor * 15) / 100);
+                break;
+            case 3:
+                //다음 스테이지 종료까지 플레이어 공격속도 증가
+                Bullet_Delay -= ((Bullet_Delay * 15) / 100);
+                break;
+            case 4:
+                //다음 스테이지 종료까지 플레이어 이동속도 증가
+                moveSpeed += ((moveSpeed * 15) / 100);
+                break;
+            case 5:
+                //플레이어 회복
+                Player_HP += ((Player_HP * 15) / 100);
+                break;
+            case 6:
+                //플레이어 감소
+                Player_HP -= ((Player_HP * 15) / 100);
+                break;
+            case 7:
+                //플레이어 감소
+                Player_HP -= ((Player_HP * 15) / 100);    
+                //다음 스테이지 종료까지 플레이어 공격력 증가
+                Bullet_Atk += ((Bullet_Atk * 15) / 100);
+                Default_Atk = Bullet_Atk;
+                break;           
+            case 8:
+                //플레이어 감소
+                Player_HP -= ((Player_HP * 15) / 100);
+                Bullet_Delay -= ((Bullet_Delay * 15) / 100);
+                break;
+            case 9:
+                //플레이어 감소
+                Player_HP -= ((Player_HP * 15) / 100);
+                Player_Armor += ((Player_Armor * 15) / 100);
+                break;
+            case 10:
+                break;
+        }
+        eventData.OldTranningOff();
     }
 }

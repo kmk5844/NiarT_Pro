@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,7 +37,13 @@ public class SA_Event : ScriptableObject
     private bool stormflag;
     public bool StormFlag { get { return stormflag; } }
 
+    //--------------------------------------------------------------------------------
     [SerializeField]
+    private bool oldtranningflag;
+    public bool OldTranningFlag {  get { return oldtranningflag; } }
+
+    private int oldtranning_num;
+    public int OldTranning_Num {  get { return oldtranning_num; } }    
     public void SA_ChoiceFood(int num)
     {
         eventflag = true;
@@ -88,6 +95,22 @@ public class SA_Event : ScriptableObject
         Save("Storm");
     }
 
+    public void OldTrannningOn(int num)
+    {
+        eventflag = true;
+        oldtranningflag = true;
+        oldtranning_num = num;
+        Save("OldTranning");
+    }
+
+    public void OldTranningOff()
+    {
+        eventflag = false;
+        oldtranningflag = false;
+        oldtranning_num = -1;
+        Save("OldTranning");
+    }
+
 
     public void Save(string _string)
     {
@@ -105,6 +128,10 @@ public class SA_Event : ScriptableObject
             case "Storm":
         ES3.Save<bool>("SA_EventData_Data_Storm_Flag", stormflag);
                 break;
+            case "OldTranning":
+                ES3.Save<bool>("SA_EventData_Data_OldTranning_Flag", oldtranningflag);
+                ES3.Save<int>("SA_EventData_Data_OldTranning_Num", oldtranning_num);
+                break;
         }
     }
 
@@ -116,6 +143,8 @@ public class SA_Event : ScriptableObject
         ES3.Save<bool>("SA_EventData_Data_Oasis_Flag", oasisflag);
         ES3.Save<int>("SA_EventData_Data_Oasis_Num", oasis_num);
         ES3.Save<bool>("SA_EventData_Data_Storm_Flag", stormflag);
+        ES3.Save<bool>("SA_EventData_Data_OldTranning_Flag", oldtranningflag);
+        ES3.Save<int>("SA_EventData_Data_OldTranning_Num", oldtranning_num);
     }
 
     public IEnumerator SaveSync()
@@ -132,8 +161,10 @@ public class SA_Event : ScriptableObject
         yield return new WaitForSeconds(0.001f);
         ES3.Save<bool>("SA_EventData_Data_Storm_Flag", stormflag);
         yield return new WaitForSeconds(0.001f);
-
-
+        ES3.Save<bool>("SA_EventData_Data_OldTranning_Flag", oldtranningflag);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save<int>("SA_EventData_Data_OldTranning_Num", oldtranning_num);
+        yield return new WaitForSeconds(0.001f);
     }
 
     public void Load()
@@ -144,6 +175,8 @@ public class SA_Event : ScriptableObject
         oasisflag = ES3.Load<bool>("SA_EventData_Data_Oasis_Flag", false);
         oasis_num = ES3.Load<int>("SA_EventData_Data_Oasis_Num", 0);
         stormflag = ES3.Load<bool>("SA_EventData_Data_Storm_Flag", false);
+        oldtranningflag = ES3.Load<bool>("SA_EventData_Data_OldTranning_Flag", false);
+        oldtranning_num = ES3.Load<int>("SA_EventData_Data_OldTranning_Num", 0);
     }
 
 
@@ -160,6 +193,10 @@ public class SA_Event : ScriptableObject
         oasis_num = ES3.Load<int>("SA_EventData_Data_Oasis_Num", 0);
         yield return new WaitForSeconds(0.001f);
         stormflag = ES3.Load<bool>("SA_EventData_Data_Storm_Flag", false);
+        yield return new WaitForSeconds(0.001f);
+        oldtranningflag = ES3.Load<bool>("SA_EventData_Data_OldTranning_Flag", false);
+        yield return new WaitForSeconds(0.001f);
+        oldtranning_num = ES3.Load<int>("SA_EventData_Data_OldTranning_Num", 0);
         yield return new WaitForSeconds(0.001f);
     }
 

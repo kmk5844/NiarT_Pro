@@ -25,6 +25,12 @@ public class EventDirector : MonoBehaviour
             {
                 StormStart();
             }
+
+            if (SA_Event_.OldTranningFlag)
+            {
+                num = SA_Event_.OldTranning_Num;
+                OldTranningStart();
+            }
         }
     }
 
@@ -36,5 +42,10 @@ public class EventDirector : MonoBehaviour
     public void StormStart()
     {
         gamedirector.StormDebuff();
+    }
+
+    public void OldTranningStart()
+    {
+        player.OldTranningSetting(num);
     }
 }

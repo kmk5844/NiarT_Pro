@@ -11,25 +11,26 @@ public class OldTranningDirector : MonoBehaviour
 
     [Header("Window")]
     public GameObject OldTranningWindow;
-    //public GameObject CheckWindow;
+    public GameObject CheckWindow;
     public GameObject SelectStage;
 
     [Header("Data")]
-
+    public SA_PlayerData playerData;
     public SA_Event eventData;
     bool startFlag;
-
-    public Button TranningButton;
-    public Image targetImage;
     float fadeDuration = 2f;
-    public GameObject CheckWindow;
     int RewardNum;
 
-/*    private void Awake()
+    [Header("UI")]
+    public Button TranningButton;
+    public Button NextStageButton;
+    public Image targetImage;
+
+    private void Awake()
     {
         Special_Story.Story_Init(null, 0, 0, 0);
-        BlackMarketWindow.SetActive(false);
-    }*/
+        OldTranningWindow.SetActive(false);
+    }
 
     void Start()
     {
@@ -37,15 +38,17 @@ public class OldTranningDirector : MonoBehaviour
         {
             QualitySettings.vSyncCount = 0;
         }
+
+        CheckTranningButton();
     }
 
     // Update is called once per frame
     void Update()
     {
-/*        if (dialog.storyEnd_SpecialFlag && !startFlag)
+        if (dialog.storyEnd_SpecialFlag && !startFlag)
         {
             StartEvent();
-        }*/
+        }
     }
     void StartEvent()
     {
@@ -53,24 +56,40 @@ public class OldTranningDirector : MonoBehaviour
         startFlag = true;
     }
 
-    public void BlackMarketEnd()
+    public void OldTranningEnd()
     {
         SelectStage.SetActive(true);
     }
 
+    void CheckTranningButton()
+    {
+        if(playerData.Coin > 10000)
+        {
+            TranningButton.interactable = true;
+        }
+        else
+        {
+            TranningButton.interactable = false;
+        }
+    }
 
     public void ClickTranning()
     {
+        playerData.SA_Buy_Coin(10000);
         StartCoroutine(Tranning());
     }
     
     IEnumerator Tranning()
     {
         Debug.Log("으쌰으쌰");
+        NextStageButton.gameObject.SetActive(false);
+        TranningButton.interactable = false;
         yield return StartCoroutine(FadeTo(1f));
         yield return new WaitForSeconds(5f);
         Reward();
         yield return StartCoroutine(FadeTo(0f)); // 투명 (밝아짐)
+        yield return new WaitForSeconds(1f);
+        CheckWindow.SetActive(true);
     }
 
     IEnumerator FadeTo(float targetAlpha)
@@ -104,43 +123,57 @@ public class OldTranningDirector : MonoBehaviour
     void Reward()
     {
         Debug.Log(RewardNum);
+        eventData.OldTrannningOn(RewardNum);
         switch (RewardNum)
         {
             case 0:
                 // 공격력 증가
+                Debug.Log("공격력 증가");
                 break;
             case 1:
                 // 점프력 증가
+                Debug.Log("점프력 증가");
                 break;
             case 2:
                 // 방어력 증가
+                Debug.Log("방어력 증가");
                 break;
             case 3:
                 // 공격속도 증가
+                Debug.Log("공격속도 증가");
                 break;
             case 4:
                 // 이동속도 증가
+                Debug.Log("이동속도 증가");
                 break;
             case 5:
                 // 체력 회복
+                Debug.Log("체력 증가");
                 break;
             case 6:
                 // 체력 감소
+                Debug.Log("체력 감소");
                 break;
             case 7:
                 // 체력 감소 + 공격력 증가
+                Debug.Log("체력 감소");
+                Debug.Log("공격력 증가");
                 break;
             case 8:
                 // 체력 감소 + 공격속도 증가
+                Debug.Log("체력 감소");
+                Debug.Log("공격속도 증가");
                 break;
             case 9:
                 // 체력 감소 + 방어력 증가
+                Debug.Log("체력 감소");
+                Debug.Log("방어력 증가");
                 break;
             case 10:
                 // 아무런 효과가 없다.
+                Debug.Log("X");
                 break;
         }
-        Debug.Log("보상");
     }
 
 
