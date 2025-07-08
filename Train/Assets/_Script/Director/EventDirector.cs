@@ -7,8 +7,7 @@ public class EventDirector : MonoBehaviour
     public GameDirector gamedirector;
     public Player player;
     public SA_Event SA_Event_;
-
-
+    public GameObject Dron;
     int num = 0;
 
     public void CheckEvnet()
@@ -31,21 +30,39 @@ public class EventDirector : MonoBehaviour
                 num = SA_Event_.OldTranning_Num;
                 OldTranningStart();
             }
+
+            if (SA_Event_.SupplyStationFlag)
+            {
+                SupplyStationStart();
+            }
         }
     }
 
-    public void OasisStart()
+    void OasisStart()
     {
         player.OasisPlayerSetting(num);
     }
 
-    public void StormStart()
+    void StormStart()
     {
         gamedirector.StormDebuff();
     }
 
-    public void OldTranningStart()
+    void OldTranningStart()
     {
         player.OldTranningSetting(num);
+    }
+
+    void SupplyStationStart()
+    {
+        StartCoroutine(UseDron());
+    }
+
+    IEnumerator UseDron()
+    {
+        yield return new WaitForSeconds(5f);
+        Dron.GetComponentInChildren<Supply_Train_Dron>().SupplyDron_SetData(SA_Event_.SupplyStation_Grade, SA_Event_.SupplyStation_Count);
+        Instantiate(Dron);
+        SA_Event_.SupplyStationOff();
     }
 }

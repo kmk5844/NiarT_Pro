@@ -16,6 +16,9 @@ public class Supply_Train : MonoBehaviour
     float timebet;
     float lastTime;
 
+    int supply_grade;
+    int supply_count;
+
     public GameObject Dron;
 
     private void Start()
@@ -25,6 +28,8 @@ public class Supply_Train : MonoBehaviour
 
         SupplyTrain_Fuel = 0;
         Max_SupplyTrain_Fuel = SupplyTrain.Train_Supply_UseFuel;
+        supply_grade = SupplyTrain.Train_Supply_Grade;
+        supply_count = SupplyTrain.Train_Supply_Count;  
 
         FuelFlag = false;
         UseFlag = false;
@@ -66,7 +71,7 @@ public class Supply_Train : MonoBehaviour
     {
         FuelFlag = false;
         UseFlag = false;
-        Dron.GetComponentInChildren<Supply_Train_Dron>().SupplyDron_SetData(1, 2);
+        Dron.GetComponentInChildren<Supply_Train_Dron>().SupplyDron_SetData(supply_grade, supply_count);
         Instantiate(Dron);
         SupplyTrain_Fuel = 0;
         lastTime = Time.time;

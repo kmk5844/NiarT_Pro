@@ -42,8 +42,23 @@ public class SA_Event : ScriptableObject
     private bool oldtranningflag;
     public bool OldTranningFlag {  get { return oldtranningflag; } }
 
+    [SerializeField]
     private int oldtranning_num;
-    public int OldTranning_Num {  get { return oldtranning_num; } }    
+    public int OldTranning_Num {  get { return oldtranning_num; } }
+
+    //--------------------------------------------------------------------------------
+    [SerializeField]
+    private bool supplystationflag;
+    public bool SupplyStationFlag {  get { return supplystationflag; } }
+    [SerializeField]
+    private int supplystation_count;
+    public int SupplyStation_Count {  get{ return supplystation_count; } }
+
+    [SerializeField]
+    private int supplystation_grade;
+    public int SupplyStation_Grade {  get { return supplystation_grade; } }
+    
+    
     public void SA_ChoiceFood(int num)
     {
         eventflag = true;
@@ -111,6 +126,22 @@ public class SA_Event : ScriptableObject
         Save("OldTranning");
     }
 
+    public void SupplyStationOn(int count, int grade)
+    {
+        eventflag = true;
+        supplystationflag = true;
+        supplystation_count = count;
+        supplystation_grade = grade;
+        Save("SupplyStation");
+    }
+
+    public void SupplyStationOff()
+    {
+        eventflag = false;
+        supplystationflag = false;
+        Save("SupplyStation");
+    }
+
 
     public void Save(string _string)
     {
@@ -129,9 +160,15 @@ public class SA_Event : ScriptableObject
         ES3.Save<bool>("SA_EventData_Data_Storm_Flag", stormflag);
                 break;
             case "OldTranning":
-                ES3.Save<bool>("SA_EventData_Data_OldTranning_Flag", oldtranningflag);
-                ES3.Save<int>("SA_EventData_Data_OldTranning_Num", oldtranning_num);
+        ES3.Save<bool>("SA_EventData_Data_OldTranning_Flag", oldtranningflag);
+        ES3.Save<int>("SA_EventData_Data_OldTranning_Num", oldtranning_num);
                 break;
+            case "SupplyStation":
+        ES3.Save<bool>("SA_EventData_Data_SupplyStation_Flag", supplystationflag);
+        ES3.Save<int>("SA_EventData_Data_SupplyStation_Count", supplystation_count);
+        ES3.Save<int>("SA_EventData_Data_SupplyStation_Grade", supplystation_grade);
+                break;
+
         }
     }
 
@@ -145,6 +182,9 @@ public class SA_Event : ScriptableObject
         ES3.Save<bool>("SA_EventData_Data_Storm_Flag", stormflag);
         ES3.Save<bool>("SA_EventData_Data_OldTranning_Flag", oldtranningflag);
         ES3.Save<int>("SA_EventData_Data_OldTranning_Num", oldtranning_num);
+        ES3.Save<bool>("SA_EventData_Data_SupplyStation_Flag", supplystationflag);
+        ES3.Save<int>("SA_EventData_Data_SupplyStation_Count", supplystation_count);
+        ES3.Save<int>("SA_EventData_Data_SupplyStation_Grade", supplystation_grade);
     }
 
     public IEnumerator SaveSync()
@@ -165,6 +205,12 @@ public class SA_Event : ScriptableObject
         yield return new WaitForSeconds(0.001f);
         ES3.Save<int>("SA_EventData_Data_OldTranning_Num", oldtranning_num);
         yield return new WaitForSeconds(0.001f);
+        ES3.Save<bool>("SA_EventData_Data_SupplyStation_Flag", supplystationflag);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save<int>("SA_EventData_Data_SupplyStation_Count", supplystation_count);
+        yield return new WaitForSeconds(0.001f);
+        ES3.Save<int>("SA_EventData_Data_SupplyStation_Grade", supplystation_grade);
+        yield return new WaitForSeconds(0.001f);
     }
 
     public void Load()
@@ -177,6 +223,9 @@ public class SA_Event : ScriptableObject
         stormflag = ES3.Load<bool>("SA_EventData_Data_Storm_Flag", false);
         oldtranningflag = ES3.Load<bool>("SA_EventData_Data_OldTranning_Flag", false);
         oldtranning_num = ES3.Load<int>("SA_EventData_Data_OldTranning_Num", 0);
+        supplystationflag = ES3.Load<bool>("SA_EventData_Data_SupplyStation_Flag", false);
+        supplystation_count = ES3.Load<int>("SA_EventData_Data_SupplyStation_Count", 0);
+        supplystation_grade = ES3.Load<int>("SA_EventData_Data_SupplyStation_Grade", 0);
     }
 
 
@@ -198,6 +247,12 @@ public class SA_Event : ScriptableObject
         yield return new WaitForSeconds(0.001f);
         oldtranning_num = ES3.Load<int>("SA_EventData_Data_OldTranning_Num", 0);
         yield return new WaitForSeconds(0.001f);
+        supplystationflag = ES3.Load<bool>("SA_EventData_Data_SupplyStation_Flag", false);
+        yield return new WaitForSeconds(0.001f);
+        supplystation_count = ES3.Load<int>("SA_EventData_Data_SupplyStation_Count", 0);
+        yield return new WaitForSeconds(0.001f);
+        supplystation_grade = ES3.Load<int>("SA_EventData_Data_SupplyStation_Grade", 0);
+        yield return new WaitForSeconds(0.001f);
     }
 
     public void Init()
@@ -208,6 +263,11 @@ public class SA_Event : ScriptableObject
         oasisflag = false;
         oasis_num = 0;
         stormflag = false;
+        oldtranningflag = false;
+        oldtranning_num = 0;
+        supplystationflag = false;
+        supplystation_count = 0;
+        supplystation_grade = 0;
         Save();
     }
 

@@ -61,7 +61,14 @@ public class SupplyObject : MonoBehaviour
 
     public void ClickSpace()
     {
-        Debug.Log("º¯°æ");
         SpawnFlag = true;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.name.Equals("Warning"))
+        {
+            director.GameEnd();
+        }
     }
 }

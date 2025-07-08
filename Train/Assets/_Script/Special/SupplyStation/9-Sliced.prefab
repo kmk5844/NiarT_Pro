@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 1662277461647628012}
   - component: {fileID: 2020775209220829006}
   - component: {fileID: 4561001374650899942}
+  - component: {fileID: -1456064411722204454}
+  - component: {fileID: 4134355886557117138}
   m_Layer: 0
   m_Name: 9-Sliced
   m_TagString: Untagged
@@ -150,3 +152,49 @@ PolygonCollider2D:
       - {x: 0.46875, y: -0.359375}
       - {x: 0.4921875, y: -0.28515625}
   m_UseDelaunayMesh: 0
+--- !u!50 &-1456064411722204454
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119847873704980081}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &4134355886557117138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 119847873704980081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7110a75e3998c85498daaf3c1a9ddd40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  director: {fileID: 0}
+  minVec: {x: 0, y: 0}
+  maxVec: {x: 0, y: 0}
+  Speed: 0
+  SpawnFlag: 0
+  changeflag: 0
+  direction: 0

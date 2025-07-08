@@ -1,50 +1,116 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
+
 
 public class SupplyStationDirector : MonoBehaviour
 {
+    [Header("스토리")]
+    public DialogSystem Special_Story;
+    public Dialog dialog;
+
+    [Header("Window")]
+    public GameObject SupplyStationWindow;
+    public GameObject SupplyMiniGameWindow;
+    public GameObject CheckWindow;
+    public GameObject SelectStage;
+
+    [Header("Data")]
+    public SA_Event eventData;
+    bool spawnFlag;
+    bool timeflag;
+    bool minigameflag;
+    int count = 0;
+    int rewardCount;
+    int rewardGrade;
+    bool startFlag;
+
+    [Header("UI")]
+    public TextMeshProUGUI countText;
+
+    [Header("Game")]
     public Vector2 Min_Vec;
     public Vector2 Max_Vec;
     float SupplySpeed;
-    public SupplyObject Supply;
-    bool spawnFlag;
-    bool timeflag;
+    public SupplyObject[] Supply;
+    [HideInInspector]
     public SupplyObject Spawingsupply;
-    int count = 0;
 
-    // Start is called before the first frame update
+    private void Awake()
+    {
+        Special_Story.Story_Init(null, 0, 0, 0);
+        SupplyStationWindow.SetActive(false);
+    }
+
     void Start()
     {
+        if (QualitySettings.vSyncCount != 0)
+        {
+            //Debug.Log("작동");
+            QualitySettings.vSyncCount = 0;
+            Application.targetFrameRate = 60;
+        }
+
+        minigameflag = true;
         timeflag = false;
         spawnFlag = true;
         SupplySpeed = 3;
-        Supply.Setting(Min_Vec, Max_Vec, SupplySpeed, this);
+        countText.text = "0";
+        SupplyMiniGameWindow.SetActive(false);
+        CheckWindow.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!timeflag)
+        if (minigameflag && startFlag)
         {
-            if (spawnFlag)
+            if (!timeflag)
             {
-                Supply.Setting(Min_Vec, Max_Vec, SupplySpeed, this);
-                Spawingsupply = Instantiate(Supply, Min_Vec, Quaternion.identity);
-                spawnFlag = false;
-            }
+                if (spawnFlag)
+                {
+                    int RandomNum = Random.Range(0, Supply.Length);
+                    Supply[RandomNum].Setting(Min_Vec, Max_Vec, SupplySpeed, this);
+                    int rotaiton = Random.Range(0, 2);
+                    if(rotaiton == 0)
+                    {
+                        Spawingsupply = Instantiate(Supply[RandomNum], Min_Vec, Quaternion.identity);
+                    }
+                    else if (rotaiton == 1)
+                    {
+                        Spawingsupply = Instantiate(Supply[RandomNum], Max_Vec, Quaternion.identity);
+                    }
+                    spawnFlag = false;
+                }
 
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Spawingsupply.ClickSpace();
-                StartCoroutine(SpawnTime());
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    Spawingsupply.ClickSpace();
+                    StartCoroutine(SpawnTime());
+                }
             }
         }
+
+        if (dialog.storyEnd_SpecialFlag && !startFlag)
+        {
+            StartEvent();
+        }
+    }
+    void StartEvent()
+    {
+        SupplyStationWindow.SetActive(true);
+        SupplyMiniGameWindow.SetActive(true);
+        startFlag = true;
     }
 
+    public void SupplyStationEnd()
+    {
+        SelectStage.SetActive(true);
+    }
     IEnumerator SpawnTime()
     {
         timeflag = true;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2.4f);
         timeflag = false;
         spawnFlag = true;
     }
@@ -52,12 +118,56 @@ public class SupplyStationDirector : MonoBehaviour
     public void Count()
     {
         count++;
-        SupplySpeed = 3 + ((float)count * 0.3f);
+        countText.text = count.ToString();
+        SupplySpeed = 3 + ((float)count * 0.6f);
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawLine(Max_Vec, Min_Vec);
+    }
+
+    public void Reward()
+    {
+        if(count < 4)
+        {
+            rewardGrade = 1;
+            rewardCount = 0;
+        }
+        else if(count >= 4 && count < 6)
+        {
+            rewardGrade = 1;
+            rewardCount = 1;
+        }
+        else if(count >= 6 && count < 9)
+        {
+            rewardGrade = 1;
+            rewardCount = 2;
+        }
+        else if(count >= 9 && count < 12)
+        {
+            rewardGrade = 1;
+            rewardCount = 3;
+        }
+        else if(count >= 12 && count < 15)
+        {
+            rewardGrade = 2;
+            rewardCount = 2;
+        }
+        else if(count >= 15)
+        {
+            rewardGrade = 2;
+            rewardCount = 3;
+        }
+        eventData.SupplyStationOn(rewardCount, rewardGrade);
+    }
+
+    public void GameEnd()
+    {
+        SupplyMiniGameWindow.SetActive(false);
+        Reward();
+        CheckWindow.SetActive(true);
+        minigameflag = false;
     }
 }
