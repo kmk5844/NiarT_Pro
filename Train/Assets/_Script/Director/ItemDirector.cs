@@ -6,8 +6,11 @@ using UnityEngine;
 
 public class ItemDirector : MonoBehaviour
 {
+    public bool On_ItemList_Test;
+
     public UIDirector uiDirector;
     public SA_ItemList itemList;
+    public SA_ItemList_Test itemList_Test;
     public SA_ItemData itemData;
     UseItem useitem;
 
@@ -30,6 +33,7 @@ public class ItemDirector : MonoBehaviour
         {
             itemData.Init();
         }
+
         EquipedItemFlag = new bool[3];
 
         for (int i = 0; i < itemData.Equiped_Item.Count; i++)
@@ -41,7 +45,14 @@ public class ItemDirector : MonoBehaviour
             }
             else
             {
-                uiDirector.Item_EquipedIcon(i, itemList.Item[itemData.Equiped_Item[i]].Item_Sprite, itemData.Equiped_Item_Count[i]);
+                if (!On_ItemList_Test)
+                {
+                    uiDirector.Item_EquipedIcon(i, itemList.Item[itemData.Equiped_Item[i]].Item_Sprite, itemData.Equiped_Item_Count[i]);
+                }
+                else
+                {
+                    uiDirector.Item_EquipedIcon(i, itemList_Test.Item[itemData.Equiped_Item[i]].Item_Sprite, itemData.Equiped_Item_Count[i]);
+                }
                 EquipedItemFlag[i] = true;
             }
         }
@@ -93,7 +104,15 @@ public class ItemDirector : MonoBehaviour
             }
             else
             {
-                uiDirector.Item_EquipedIcon(num, itemList.Item[itemData.Equiped_Item[num]].Item_Sprite, itemData.Equiped_Item_Count[num]);
+                if (!On_ItemList_Test)
+                {
+                    uiDirector.Item_EquipedIcon(num, itemList.Item[itemData.Equiped_Item[num]].Item_Sprite, itemData.Equiped_Item_Count[num]);
+                }
+                else
+                {
+                    uiDirector.Item_EquipedIcon(num, itemList_Test.Item[itemData.Equiped_Item[num]].Item_Sprite, itemData.Equiped_Item_Count[num]);
+                }
+
             }
         }
     }

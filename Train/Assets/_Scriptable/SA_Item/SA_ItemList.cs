@@ -46,6 +46,7 @@ public class SA_ItemList : ScriptableObject
     [Header("Dictionary")]
     [SerializeField]
     private List<Item_Dic_Def> item_dic_list;
+
     public List<Item_Dic_Def> Item_Dic_List { get { return item_dic_list; } }
     public void Editor_ItemList_Init()
     {

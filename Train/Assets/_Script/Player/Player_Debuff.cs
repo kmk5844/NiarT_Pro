@@ -29,6 +29,7 @@ public class Player_Debuff : MonoBehaviour
             {
                 PosionEffect.SetActive(true);
             }
+            
             if (!poisonFlag)
             {
                 StartCoroutine(CorutineDebuff());

@@ -98,6 +98,7 @@ public class Player : MonoBehaviour
 
     bool MariGold_Skill_Flag;
     bool MariGold_Skill_Fire_Flag;
+    bool DebuffImmunityFlag;
 
     [Header("상호작용 Key")]
     public GameObject KeyObject;
@@ -186,8 +187,8 @@ public class Player : MonoBehaviour
         Item_Gun_ClickTime = 0;
         Item_Gun_CountFlag = false;
         Item_Gun_ClickCount = 0;
-
         MariGold_Skill_Flag = false;
+        DebuffImmunityFlag = false;
     }
 
     private void Update()
@@ -742,7 +743,7 @@ public class Player : MonoBehaviour
         {
             MonsterBullet bullet = collision.GetComponent<MonsterBullet>();
             MonsterHit(bullet.atk);
-            if(bullet.bulletType != MonsterBulletType.Nomal)
+            if(bullet.bulletType != MonsterBulletType.Nomal && !DebuffImmunityFlag)
             {
                 playerDebuff.GetDebuff(bullet.bulletType);
             }
@@ -902,6 +903,14 @@ public class Player : MonoBehaviour
         item_Atk -= AddAtk;
     }
 
+    public IEnumerator Item_Player_AtkUp_Persent(int AddAtkPersent, int delayTime)
+    {
+        int add = Default_Atk * (100 + AddAtkPersent) / 100 - Default_Atk;
+        item_Atk += add; 
+        yield return new WaitForSeconds(delayTime);
+        item_Atk -= add;
+    }
+
     public IEnumerator Item_Player_AtkDelayDown(float atkdelaytime, int delayTime)
     {
         item_Delay -= atkdelaytime;
@@ -914,6 +923,14 @@ public class Player : MonoBehaviour
         item_Atk += Bullet_Atk;
         yield return new WaitForSeconds(delayTime);
         item_Atk -= Bullet_Atk;
+    }
+
+    public IEnumerator Item_Player_Debuff_Immunity(int delayTime)
+    {
+        DebuffImmunityFlag = true;
+        yield return new WaitForSeconds(delayTime);
+        DebuffImmunityFlag = false;
+    
     }
 
     public void Item_Player_Ballon_Bullet()
