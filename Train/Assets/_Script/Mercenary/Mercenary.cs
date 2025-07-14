@@ -494,9 +494,9 @@ public class Mercenary : MonoBehaviour
     }
 
     //ItemºÎºÐ
-    public void Item_Snack(float HPpercent)
+    public void Item_Snack()
     {
-        HP += (int)(MaxHP * (HPpercent / 100f));
+        HP = MaxHP;
     }
 
     public IEnumerator Item_Fatigue_Reliever(int workcount, float refreshPercent, int delayTime)

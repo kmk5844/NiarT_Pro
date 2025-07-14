@@ -1,8 +1,10 @@
 using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.PlayerSettings;
 
 public class Player : MonoBehaviour
 {
@@ -95,6 +97,7 @@ public class Player : MonoBehaviour
     int Item_Gun_Max_ClickCount;
     public GameObject Item_GunSpecial_Bullet;
     bool Item_GunSpecial_BulletFlag;
+    private Coroutine Item_SmallFlag;
 
     bool MariGold_Skill_Flag;
     bool MariGold_Skill_Fire_Flag;
@@ -933,20 +936,53 @@ public class Player : MonoBehaviour
     
     }
 
-    public void Item_Player_Ballon_Bullet()
+    public void Item_Player_Ballon_Bullet(int num)
     {
-        GameObject ballon = Resources.Load<GameObject>("Bullet/Turret/Ballon_Bullet_Turret");
-        ballon.GetComponent<Bullet>().atk = Bullet_Atk;
-        Instantiate(ballon,transform.position, Quaternion.identity, Player_Bullet_List);
+        if(num == 0)
+        {
+            GameObject ballon = Resources.Load<GameObject>("Bullet/Turret/Ballon_Bullet_Turret");
+            ballon.GetComponent<Bullet>().atk = Bullet_Atk;
+            Instantiate(ballon, transform.position, Quaternion.identity, Player_Bullet_List);
+        }else if(num == 2)
+        {
+            GameObject ballon = Resources.Load<GameObject>("Bullet/Turret/Ballon_Bullet_Turret_2");
+            ballon.GetComponent<Bullet>().atk = (Bullet_Atk * 2);
+            Instantiate(ballon, transform.position, Quaternion.identity, Player_Bullet_List);
+        }
+
     }
 
-    public void Item_Player_Giant_Tent()
+    public void Item_Player_Giant_Tent(int num)
     {
         Check_Pos();
-        float pos = Random.Range(minGroundPos.x + 5f, maxGroundPos.x - 5f);
-        GameObject tent = Resources.Load<GameObject>("ItemObject/Giant_TentObject");
-        tent.GetComponent<Item_Shield>().HP = 1000;
-        Instantiate(tent, new Vector2(maxGroundPos.x - 5f, -1.25f), Quaternion.identity);
+        GameObject short_tent = Resources.Load<GameObject>("ItemObject/Giant_TentObject");
+        short_tent.GetComponent<Item_Shield>().HP = 1000;
+        GameObject long_tnet = Resources.Load<GameObject>("ItemObject/Giant_TentObject");
+        long_tnet.GetComponent<Item_Shield>().HP = 1000; 
+        float pos;
+        if(num == 0)
+        {
+            pos = Random.Range(minGroundPos.x + 5f, maxGroundPos.x - 5f);
+            Instantiate(short_tent, new Vector2(maxGroundPos.x - 5f, -1.25f), Quaternion.identity);
+        }
+        else if(num == 1)
+        {
+            pos = Random.Range(minGroundPos.x + 5f, maxGroundPos.x - 5f);
+            Instantiate(short_tent, new Vector2(maxGroundPos.x - 5f, -1.25f), Quaternion.identity);
+            pos = Random.Range(minGroundPos.x + 5f, maxGroundPos.x - 5f);
+            Instantiate(short_tent, new Vector2(maxGroundPos.x - 5f, -1.25f), Quaternion.identity);
+        }
+        else if(num == 2){
+            pos = Random.Range(minGroundPos.x + 5f, maxGroundPos.x - 5f);
+            Instantiate(long_tnet, new Vector2(maxGroundPos.x - 5f, -1.25f), Quaternion.identity);
+        }
+        else if(num == 3)
+        {
+            pos = Random.Range(minGroundPos.x + 5f, maxGroundPos.x - 5f);
+            Instantiate(long_tnet, new Vector2(maxGroundPos.x - 5f, -1.25f), Quaternion.identity);
+            pos = Random.Range(minGroundPos.x + 5f, maxGroundPos.x - 5f);
+            Instantiate(long_tnet, new Vector2(maxGroundPos.x - 5f, -1.25f), Quaternion.identity);
+        }
     }
 
     public void Item_Instantiate_Flag(int flagNum, float delayTime)
@@ -954,20 +990,34 @@ public class Player : MonoBehaviour
         Destroy(Instantiate(Resources.Load<GameObject>("ItemObject/Flag" + flagNum), new Vector2(transform.position.x, -0.45f), Quaternion.identity), delayTime);
     }
 
-    public void Item_Player_Spawn_Turret(int num)
+    public void Item_Player_Spawn_Turret(int num, float delayTime)
     {
         Check_Pos();
         float pos = Random.Range(minGroundPos.x + 3.5f, maxGroundPos.x - 3.5f);
+        GameObject ItemTurret;
         switch (num)
         {
             case 0:
-                Instantiate(Resources.Load<GameObject>("ItemObject/Mini_Auto_Turret"), new Vector2(pos, -0.55f), Quaternion.identity);
+                ItemTurret = Resources.Load<GameObject>("ItemObject/Mini_Auto_Turret");
+                ItemTurret.GetComponent<Item_Mini_Turret_Director>().Set(delayTime, 20, 0.25f);
+                Instantiate(ItemTurret, new Vector2(pos, -0.55f), Quaternion.identity);
                 break;
             case 1:
-                GameObject Plant = Resources.Load<GameObject>("ItemObject/RobotPlant");
-                Instantiate(Plant, new Vector2(pos, -0.45f), Quaternion.identity);
+                ItemTurret = Resources.Load<GameObject>("ItemObject/Mini_Auto_Turret");
+                ItemTurret.GetComponent<Item_Mini_Turret_Director>().Set(delayTime, 30, 0.15f);
+                Instantiate(ItemTurret, new Vector2(pos, -0.55f), Quaternion.identity);
+                break;
+            case 2:
+                ItemTurret = Resources.Load<GameObject>("ItemObject/Mini_Auto_Turret");
                 break;
         }
+    }
+
+    public void Item_Player_Spawn_RobotPlant()
+    {
+        float pos = Random.Range(minGroundPos.x + 3.5f, maxGroundPos.x - 3.5f);
+        GameObject Plant = Resources.Load<GameObject>("ItemObject/RobotPlant");
+        Instantiate(Plant, new Vector2(pos, -0.45f), Quaternion.identity);
     }
 
     public void Item_Player_Spawn_Dron(int num)
@@ -1030,10 +1080,12 @@ public class Player : MonoBehaviour
         Instantiate(ClaymoreObject, new Vector2(Pos, -0.7f),Quaternion.identity);
     }
 
-    public void Item_Player_Spawn_WireEntanglement()
+    public IEnumerator Item_Player_Spawn_WireEntanglement(float delaytime)
     {
         GameObject WireEntanglementObject = Resources.Load<GameObject>("ItemObject/WireEntanglement");
-        Instantiate(WireEntanglementObject, new Vector2(transform.position.x, -0.65f), Quaternion.identity);
+        GameObject instance = Instantiate(WireEntanglementObject, new Vector2(transform.position.x, -0.65f), Quaternion.identity);
+        yield return new WaitForSeconds(delaytime);
+        Destroy(instance);
     }
 
     public IEnumerator Item_Player_Dagger(float delayTime)
@@ -1146,6 +1198,27 @@ public class Player : MonoBehaviour
         GunObject_List[GunIndex].SetActive(true);
         Bullet_Fire_Transform = GunObject_List[GunIndex].GetComponent<Transform>().GetChild(0);
     }
+
+    public void Item_SmallPortion(float delayTime)
+    {
+        if(Item_SmallFlag != null)
+        {
+            StopCoroutine(Item_SmallFlag);
+        }
+
+        Item_SmallFlag = StartCoroutine(Item_SmallPortion_Corutine(delayTime));
+    }
+
+    IEnumerator Item_SmallPortion_Corutine(float delayTime)
+    {
+        transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+        yield return new WaitForSeconds(delayTime);
+        transform.localScale = new Vector3(1f,1f,1f);
+        Item_SmallFlag = null;
+    }
+
+
+    //½ºÅ³------------------------------------------------------
 
     public IEnumerator MariGold_Skill2(float during)
     {

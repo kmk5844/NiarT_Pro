@@ -183,7 +183,7 @@ public class GameDirector : MonoBehaviour
     public GameObject MiniTurretObject;
 
     //아이템부분
-    bool ItemFlag_14; // 골드 2배
+    bool ItemFlag_Coin; // 골드 2배
 
     [Header("음식 이벤트")]
     public bool FoodEffect_Flag_Positive;
@@ -300,7 +300,7 @@ public class GameDirector : MonoBehaviour
         TrainSpeedUP = 1;
         distance_time = 0.1f;
         ChangeCursor(true);
-        ItemFlag_14 = false;
+        ItemFlag_Coin = false;
         waveinfoFlag = false;
         refreshinfoFlag = false;
 
@@ -951,13 +951,14 @@ public class GameDirector : MonoBehaviour
     public void Game_Monster_Kill(int GetScore, int GetCoin)
     {
         Total_Score += GetScore;
-        if (!ItemFlag_14)
+        if (!ItemFlag_Coin)
         {
             Total_Coin += GetCoin;
         }
         else
         {
-            Total_Coin += 2 * GetCoin;
+            int coin = Random.Range(0,201);
+            Total_Coin += (GetCoin + coin);
         }
         uiDirector.Gameing_Text(Total_Score, Total_Coin);
     }
@@ -970,13 +971,14 @@ public class GameDirector : MonoBehaviour
     public void Gmae_Boss_Kill(int GetScore, int GetCoin)
     {
         Total_Score += GetScore;
-        if(!ItemFlag_14)
+        if(!ItemFlag_Coin)
         {
             Total_Coin += GetCoin;
         }
         else
         {
-            Total_Coin += 2 * GetCoin;
+            int coin = Random.Range(0,201);
+            Total_Coin += (GetCoin + coin);
         }
         BossCount++;
         monsterDirector.BossDie();
@@ -1413,9 +1415,9 @@ public class GameDirector : MonoBehaviour
 
     public IEnumerator Item_Coin_Double(int delayTime)
     {
-        ItemFlag_14 = true;
+        ItemFlag_Coin = true;
         yield return new WaitForSeconds(delayTime);
-        ItemFlag_14 = false;
+        ItemFlag_Coin = false;
     }
 
     IEnumerator Boss_Waring_Mark()

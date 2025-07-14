@@ -165,11 +165,11 @@ public class MercenaryDirector : MonoBehaviour
     }
 
     //아이템부분
-    public void Item_Use_Snack(float HPpercent)
+    public void Item_Use_Snack()
     {
         for (int i = 0; i < Mercenary_List.childCount; i++)
         {
-            Mercenary_List.GetChild(i).GetComponent<Mercenary>().Item_Snack(HPpercent);
+            Mercenary_List.GetChild(i).GetComponent<Mercenary>().Item_Snack();
         }
     }
 

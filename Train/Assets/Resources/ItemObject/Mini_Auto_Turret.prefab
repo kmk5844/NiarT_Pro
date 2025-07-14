@@ -103,7 +103,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1130603629
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 2
   m_Sprite: {fileID: -369077483, guid: 06608a69499e5ce448cc365974e9c0e7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -168,6 +168,8 @@ MonoBehaviour:
   FireObject: {fileID: 5973460145958891398}
   BulletObject: {fileID: 2284520680175412986, guid: 2709630a9ab7a4f409cdc5293e5e434b, type: 3}
   Z: 0
+  Default_Turret: 0
+  SpawnTime: 0
 --- !u!212 &5476007317155202789
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -207,7 +209,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1130603629
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: -1910953526, guid: 06608a69499e5ce448cc365974e9c0e7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -323,6 +325,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3098876352761337770}
+  - component: {fileID: 1992862740955365914}
   m_Layer: 0
   m_Name: Mini_Auto_Turret
   m_TagString: Untagged
@@ -346,3 +349,17 @@ Transform:
   - {fileID: 307154406884340651}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1992862740955365914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7461811526161225891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c07cb799f1bbef84ebb1da77134b490b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turret: {fileID: 3999662309208476682}
+  delayTime: 0

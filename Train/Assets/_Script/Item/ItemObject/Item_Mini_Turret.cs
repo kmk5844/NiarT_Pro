@@ -14,14 +14,18 @@ public class Item_Mini_Turret : MonoBehaviour
     float lastTime;
     public float Z;
     public bool Default_Turret;
+    [HideInInspector]
+    public float SpawnTime;
+    public float AttackDelay;
+    public int Attack;
 
     void Start()
     {
         Target_Flag = false;
         if (!Default_Turret)
         {
-            BulletObject.GetComponent<Bullet>().atk = 20;
-            train_Attack_Delay = 0.25f;
+            BulletObject.GetComponent<Bullet>().atk = Attack;
+            train_Attack_Delay = AttackDelay;
         }
         else
         {
@@ -30,6 +34,7 @@ public class Item_Mini_Turret : MonoBehaviour
         }
         BulletList = GameObject.Find("Bullet_List").transform;
         lastTime = 0;
+
         if (!Default_Turret)
         {
            Destroy(MiniTurret, 20f);
