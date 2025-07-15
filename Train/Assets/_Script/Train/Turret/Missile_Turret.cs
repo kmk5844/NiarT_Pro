@@ -60,7 +60,6 @@ public class Missile_Turret : Turret
         }
     }
 
-
     void BulletFire()
     {
         if (Time.time >= lastTime + (train_Attack_Delay - Item_Attack_Delay))

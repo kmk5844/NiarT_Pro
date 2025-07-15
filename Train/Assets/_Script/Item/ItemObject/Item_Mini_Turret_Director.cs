@@ -4,12 +4,31 @@ using UnityEngine;
 
 public class Item_Mini_Turret_Director : MonoBehaviour
 {
-    public Item_Mini_Turret turret;
+    public GameObject turret;
     public float delayTime;
-    public void Set(float delayTime, int Attack, float AttackDelay)
+    public void Set(int num, float delayTime, int Attack, float AttackDelay)
     {
-        turret.SpawnTime = delayTime;
-        turret.Attack = Attack;
-        turret.AttackDelay = AttackDelay;   
+        if (num == 0)
+        {
+            Item_Mini_Turret turret_1 = turret.GetComponent<Item_Mini_Turret>();
+            turret_1.SpawnTime = delayTime;
+            turret_1.Attack = Attack;
+            turret_1.AttackDelay = AttackDelay;
+        }
+        else if (num == 1)
+        {
+            Item_Flare_Turret turret_2 = turret.GetComponent <Item_Flare_Turret>();
+        }
+        else if (num == 2)
+        {
+
+        }else if(num == 3)
+        {
+
+        }else if(num == 4)
+        {
+
+        }
+
     }
 }

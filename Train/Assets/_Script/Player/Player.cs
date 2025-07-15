@@ -999,17 +999,35 @@ public class Player : MonoBehaviour
         {
             case 0:
                 ItemTurret = Resources.Load<GameObject>("ItemObject/Mini_Auto_Turret");
-                ItemTurret.GetComponent<Item_Mini_Turret_Director>().Set(delayTime, 20, 0.25f);
+                //ItemTurret.GetComponent<Item_Mini_Turret_Director>().Set(delayTime, 20, 0.25f);
                 Instantiate(ItemTurret, new Vector2(pos, -0.55f), Quaternion.identity);
                 break;
             case 1:
                 ItemTurret = Resources.Load<GameObject>("ItemObject/Mini_Auto_Turret");
-                ItemTurret.GetComponent<Item_Mini_Turret_Director>().Set(delayTime, 30, 0.15f);
+                //ItemTurret.GetComponent<Item_Mini_Turret_Director>().Set(delayTime, 30, 0.15f);
                 Instantiate(ItemTurret, new Vector2(pos, -0.55f), Quaternion.identity);
                 break;
             case 2:
-                ItemTurret = Resources.Load<GameObject>("ItemObject/Mini_Auto_Turret");
+                ItemTurret = Resources.Load<GameObject>("ItemObject/Mini_Rope_Turret");
+                Instantiate(ItemTurret, new Vector2(pos, -0.55f), Quaternion.identity);
                 break;
+            case 3:
+                ItemTurret = Resources.Load<GameObject>("ItemObject/Mini_Fire_Turret");
+                Instantiate(ItemTurret, new Vector2(pos, -0.55f), Quaternion.identity);
+                break;
+            case 4:
+                ItemTurret = Resources.Load<GameObject>("ItemObject/Mini_Flare_Turret");
+                Instantiate(ItemTurret, new Vector2(pos, -0.55f), Quaternion.identity);
+                break;
+            case 5:
+                ItemTurret = Resources.Load<GameObject>("ItemObject/Mini_Missile_Turret");
+                Instantiate(ItemTurret, new Vector2(pos, -0.55f), Quaternion.identity);
+                break;
+            case 6:
+                ItemTurret = Resources.Load<GameObject>("ItemObject/Mini_Missile_Turret");
+                Instantiate(ItemTurret, new Vector2(pos, -0.55f), Quaternion.identity);
+                break;
+
         }
     }
 

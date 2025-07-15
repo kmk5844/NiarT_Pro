@@ -37,7 +37,7 @@ public class Item_Mini_Turret : MonoBehaviour
 
         if (!Default_Turret)
         {
-           Destroy(MiniTurret, 20f);
+            Destroy(MiniTurret, SpawnTime);
         }
     }
     void Update()
