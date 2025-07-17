@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class Item_Missile_Turret : MonoBehaviour
 {
+    public GameObject Turret;
+    public float SpawnTime;
+    public int Attack;
+    public float Attack_Delay;
+
     bool Target_Flag;
     Transform BulletList;
     float lastTime;
     Transform Target;
     public GameObject BulletObject;
     public Transform FireObject;
-    public float Attack_Delay;
     float Z;
 
     // Start is called before the first frame update
@@ -18,6 +22,7 @@ public class Item_Missile_Turret : MonoBehaviour
     {
         Target_Flag = false;
         BulletList = GameObject.Find("Bullet_List").transform;
+        BulletObject.GetComponent<Missile_TurretBullet>().atk = Attack;
         lastTime = 0;
     }
 
@@ -80,6 +85,7 @@ public class Item_Missile_Turret : MonoBehaviour
         if (Time.time >= lastTime + Attack_Delay)
         {
             BulletObject.GetComponent<Missile_TurretBullet>().monster_target = Target;
+
             Instantiate(BulletObject, FireObject.position, FireObject.rotation, BulletList);
             lastTime = Time.time;
         }

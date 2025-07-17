@@ -19,9 +19,11 @@ public class Item_MiniDron : MonoBehaviour
     Vector2 SpriteObject_InitPos;
     public BoxCollider2D DefaultDron_BoxCollider;
     public GameObject RaserObject;
-
+    [HideInInspector]
+    public bool Laser_type;
     void Start()
     {
+        Laser_type = false;
         if (DronAtk == 0)
         {
             DronAtk = 30;
@@ -41,9 +43,16 @@ public class Item_MiniDron : MonoBehaviour
         else
         {
             DefaultDron_BoxCollider.enabled = false;
-            RaserObject.GetComponent<Raser_TurretBullet>().atk = DronAtk / 2;
+            RaserObject.GetComponent<Raser_TurretBullet>().atk = DronAtk;
             RaserObject.SetActive(true);
-            MiniDronRid2d.velocity = new Vector2(0, -0.5f);
+            if (!Laser_type)
+            {
+                MiniDronRid2d.velocity = new Vector2(0, -0.5f);
+            }
+            else
+            {
+                MiniDronRid2d.velocity = new Vector2(0, -0.4f);
+            }
         }
 
         UpDown = 1;

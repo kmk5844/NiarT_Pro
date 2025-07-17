@@ -1406,6 +1406,31 @@ public class GameDirector : MonoBehaviour
         }
     }
 
+    public void Item_Spawn_Train_BulletproofPlate(int num)
+    {
+
+    }
+
+    public void Item_Train_Armor_Up(int delayTime, int parsent)
+    {
+
+    }
+
+    public void Item_Use_Lucky_Coin()
+    {
+
+    }
+
+    public void Item_Use_Lucky_Dice()
+    {
+
+    }
+
+    public void Item_Use_Map(int persent)
+    {
+        TrainDistance += (int)(TrainDistance * (persent / 100.0));
+    }
+
     public IEnumerator Item_Train_SpeedUp(float delayTime, float SpeedUp = 0.5f)
     {
         TrainSpeedUP += SpeedUp;
@@ -1413,7 +1438,7 @@ public class GameDirector : MonoBehaviour
         TrainSpeedUP -= SpeedUp;
     }
 
-    public IEnumerator Item_Coin_Double(int delayTime)
+    public IEnumerator Item_Coin_Plus(int delayTime)
     {
         ItemFlag_Coin = true;
         yield return new WaitForSeconds(delayTime);

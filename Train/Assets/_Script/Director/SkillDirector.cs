@@ -15,6 +15,7 @@ public class SkillDirector : MonoBehaviour
     float[] skill_cooltime;
     float[] skill_during;
     int PlayerNum;
+    public float[] Item_Skill_CoolTime;
 
     public bool[] SkillFlag;
     // Start is called before the first frame update
@@ -27,6 +28,7 @@ public class SkillDirector : MonoBehaviour
         SkillFlag = new bool[2];
         skill_cooltime = new float[2];
         skill_during = new float[2];
+        Item_Skill_CoolTime = new float[2];
         string[] cool = skill_cooltime_string.Split(',');
         string[] dur = skill_during_string.Split(',');
         for (int i = 0; i < 2; i++)
@@ -72,6 +74,11 @@ public class SkillDirector : MonoBehaviour
         while (elapsedTime < skill_cooltime[skill_num])
         {
             elapsedTime += Time.deltaTime;
+            if(Item_Skill_CoolTime[skill_num] != 0)
+            {
+                elapsedTime += Item_Skill_CoolTime[skill_num];
+                Item_Skill_CoolTime[skill_num] = 0;
+            }
             uiDirector.Equiped_CoolTime_Skill_Image[skill_num].fillAmount = Mathf.Lerp(1f, 0f, elapsedTime / skill_cooltime[skill_num]);
             yield return null;
         }
@@ -107,11 +114,19 @@ public class SkillDirector : MonoBehaviour
     {
         if (num == 0)
         {
-            gameDirector.Item_Use_Train_Heal_HP(20);
+            gameDirector.Item_Use_Train_Heal_HP(30);
         }
         else if (num == 1)
         {
             gameDirector.Item_Use_Train_Turret_All_SpeedUP(15, skill_during[num]);
+        }
+    }
+
+    public void Item_Skill_CoolTime_Set(int Persent)
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            Item_Skill_CoolTime[i] = skill_cooltime[i] * (1f - Persent / 100f);
         }
     }
 }

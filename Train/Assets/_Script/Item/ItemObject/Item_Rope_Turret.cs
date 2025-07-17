@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Item_Rope_Turret : MonoBehaviour
 {
+    public GameObject Rope_Turret;
+    public float SpawnTime;
+
     LineRenderer line;
     float grappleShootSpeed;
     float grappleCollectSpeed;
@@ -21,6 +24,7 @@ public class Item_Rope_Turret : MonoBehaviour
         grappleCollectSpeed = 5f;
 
         line = GetComponent<LineRenderer>();
+        Destroy(Rope_Turret, SpawnTime);
     }
 
     private void FixedUpdate()
@@ -98,6 +102,29 @@ public class Item_Rope_Turret : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Monster"))
+        {
+            if (collision.GetComponent<Monster>() != null)
+            {
+                if (collision.GetComponent<Monster>().Monster_Type.Equals("Sky"))
+                {
+                    if (!isGrappling)
+                    {
+                        isGrappling = true;
+                        target = collision.gameObject;
+                        line.enabled = true;
+                        line.positionCount = 2;
+
+                        StartCoroutine(Grapple());
+                        target.GetComponent<Monster>().grapTrigger();
+                    }
+                }
+            }
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("Monster"))
         {

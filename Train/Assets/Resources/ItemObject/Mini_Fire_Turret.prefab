@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5973460145958891398}
+  - component: {fileID: 6437770688324091002}
   m_Layer: 12
   m_Name: FireZone
   m_TagString: Untagged
@@ -32,6 +33,22 @@ Transform:
   - {fileID: 8342967736744965684}
   m_Father: {fileID: 1220580936262881868}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6437770688324091002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 350267826166272580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92830143da97ab9468370f34e7da7855, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Turret: {fileID: 7461811526161225891}
+  Fire: {fileID: 1002617130083410330}
+  atk: 0
+  spawnTime: 0
 --- !u!1 &2189837605878097669
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,7 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 0
-  atk: 30
+  atk: 0
 --- !u!50 &6741947536483498146
 Rigidbody2D:
   serializedVersion: 4
@@ -189,7 +206,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -452,5 +469,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c07cb799f1bbef84ebb1da77134b490b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turret: {fileID: 0}
+  turret: {fileID: 350267826166272580}
   delayTime: 0

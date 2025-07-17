@@ -133,6 +133,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15f5852ea47528942bc683651b058470, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Rope_Turret: {fileID: 7461811526161225891}
+  SpawnTime: 0
   target: {fileID: 0}
 --- !u!212 &5476007317155202789
 SpriteRenderer:
@@ -265,7 +267,7 @@ LineRenderer:
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
+  - {x: 0, y: 0, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -274,7 +276,7 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.24324158
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -429,5 +431,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c07cb799f1bbef84ebb1da77134b490b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turret: {fileID: 0}
+  turret: {fileID: 4274265988566171942}
   delayTime: 0
