@@ -73,7 +73,7 @@ public class Monster : MonoBehaviour
     protected bool EndFlag;
     protected bool DestoryFlag;
 
-    float raser_hit_time;
+    float laser_hit_time;
     float fire_hit_time;
     public bool fire_debuff_flag;
     bool fire_hit_flag;
@@ -566,9 +566,9 @@ public class Monster : MonoBehaviour
     {
         if (collision.gameObject.tag.Equals("Player_Bullet"))
         {
-            if (collision.gameObject.name.Equals("Raser"))
+            if (collision.gameObject.name.Equals("Laser"))
             {
-                Raser_Hit(collision, true);
+                Laser_Hit(collision, true);
             }
             if (collision.gameObject.name.Equals("Fire"))
             {
@@ -580,27 +580,27 @@ public class Monster : MonoBehaviour
         {
             if (collision.gameObject.name.Equals("WireEntanglement(Clone)"))
             {
-                Raser_Hit(collision, false);
+                Laser_Hit(collision, false);
             }
         }
     }
 
-    void Raser_Hit(Collider2D collision, bool RealRaser)
+    void Laser_Hit(Collider2D collision, bool RealLaser)
     {
-        if (RealRaser)
+        if (RealLaser)
         {
-            if (Time.time > raser_hit_time + 0.3f)
+            if (Time.time > laser_hit_time + 0.3f)
             {
                 Damage_Monster_Trigger(collision);
-                raser_hit_time = Time.time;
+                laser_hit_time = Time.time;
             }
         }
         else
         {
-            if(Time.time > raser_hit_time + 0.5f)
+            if(Time.time > laser_hit_time + 0.5f)
             {
                 Damage_Item_WireEntanglement(collision);
-                raser_hit_time = Time.time;
+                laser_hit_time = Time.time;
             }
         }
         

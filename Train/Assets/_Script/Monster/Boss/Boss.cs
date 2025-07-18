@@ -41,7 +41,7 @@ public class Boss : MonoBehaviour
     protected Transform player_pos;
     protected Vector3 local_Scale;
 
-    float raser_hit_time;
+    float laser_hit_time;
     float fire_hit_time;
     public bool fire_debuff_flag;
     bool fire_hit_flag;
@@ -172,9 +172,9 @@ public class Boss : MonoBehaviour
     {
         if (collision.gameObject.tag.Equals("Player_Bullet"))
         {
-            if (collision.gameObject.name.Equals("Raser"))
+            if (collision.gameObject.name.Equals("Laser"))
             {
-                Raser_Hit(collision, true);
+                Laser_Hit(collision, true);
             }
             if (collision.gameObject.name.Equals("Fire"))
             {
@@ -183,14 +183,14 @@ public class Boss : MonoBehaviour
         }
     }
 
-    void Raser_Hit(Collider2D collision, bool RealRaser)
+    void Laser_Hit(Collider2D collision, bool RealLaser)
     {
-        if (RealRaser)
+        if (RealLaser)
         {
-            if (Time.time > raser_hit_time + 0.3f)
+            if (Time.time > laser_hit_time + 0.3f)
             {
                 Damage_Monster_Trigger(collision);
-                raser_hit_time = Time.time;
+                laser_hit_time = Time.time;
             }
         }
     }

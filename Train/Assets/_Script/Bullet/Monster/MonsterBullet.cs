@@ -40,6 +40,15 @@ public class MonsterBullet : MonoBehaviour
                 Destroy(collision.gameObject);
             }
         }
+
+        if (collision.CompareTag("Zone"))
+        {
+            if (collision.name.Equals("SoundZone"))
+            {
+                atk = 0;
+                rid.velocity *= 0.5f;
+            }
+        }
     }
 
     public void Get_MonsterBullet_Information(int Monster_Atk, float Monster_Slow, float speed, int X_Scale = 0)

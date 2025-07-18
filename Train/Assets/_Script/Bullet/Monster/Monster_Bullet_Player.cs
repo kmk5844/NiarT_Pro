@@ -4,9 +4,17 @@ using UnityEngine;
 
 public class Monster_Bullet_Player : MonsterBullet
 {
+    MonsterDirector monsterdirector;
+
     protected override void Start()
     {
         base.Start();
+        monsterdirector = FindObjectOfType<MonsterDirector>();
+        if(monsterdirector.Item_Scarecrow_List.Count > 0)
+        {
+            int num = Random.Range(0, monsterdirector.Item_Scarecrow_List.Count + 1);
+            player_target = monsterdirector.Item_Scarecrow_List[num].transform;
+        }
         Bullet_Fire();
     }
 

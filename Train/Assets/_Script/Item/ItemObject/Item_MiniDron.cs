@@ -6,7 +6,7 @@ public class Item_MiniDron : MonoBehaviour
 {
     public enum MiniDronType { 
         DefaultDron,
-        RaserDron,
+        LaserDron,
     }
 
     public MiniDronType type;
@@ -18,7 +18,7 @@ public class Item_MiniDron : MonoBehaviour
     GameObject SpriteObject;
     Vector2 SpriteObject_InitPos;
     public BoxCollider2D DefaultDron_BoxCollider;
-    public GameObject RaserObject;
+    public GameObject LaserObject;
     [HideInInspector]
     public bool Laser_type;
     void Start()
@@ -34,17 +34,17 @@ public class Item_MiniDron : MonoBehaviour
         if(type == MiniDronType.DefaultDron)
         {
             DefaultDron_BoxCollider.enabled = true;
-            if(RaserObject != null)
+            if(LaserObject != null)
             {
-                RaserObject.SetActive(false);
+                LaserObject.SetActive(false);
             }
             MiniDronRid2d.velocity = new Vector2(2f, 0);
         }
         else
         {
             DefaultDron_BoxCollider.enabled = false;
-            RaserObject.GetComponent<Raser_TurretBullet>().atk = DronAtk;
-            RaserObject.SetActive(true);
+            LaserObject.GetComponent<Raser_TurretBullet>().atk = DronAtk;
+            LaserObject.SetActive(true);
             if (!Laser_type)
             {
                 MiniDronRid2d.velocity = new Vector2(0, -0.5f);
@@ -80,7 +80,7 @@ public class Item_MiniDron : MonoBehaviour
                 Destroy(gameObject, 2f);
             }
         }
-        else if(type == MiniDronType.RaserDron)
+        else if(type == MiniDronType.LaserDron)
         {
             SpriteObject.transform.position = new Vector2(transform.position.x, transform.position.y);
 

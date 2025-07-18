@@ -1016,12 +1016,20 @@ public class Player : MonoBehaviour
                 ItemTurret = Resources.Load<GameObject>("ItemObject/Mini_Laser_Turret");
                 break;
             case 6:
-                ItemTurret = Resources.Load<GameObject>("ItemObject/Mini_Laser_Turret_2");
+                ItemTurret = Resources.Load<GameObject>("ItemObject/Mini_Laser_Turret");
                 break;
         }
         Debug.Log(ItemTurret);
         ItemTurret.GetComponent<Item_Mini_Turret_Director>().Set(num, delayTime, atk, atkDelay);
-        Instantiate(ItemTurret, new Vector2(pos, -0.55f), Quaternion.identity);
+        if(num != 6)
+        {
+            Instantiate(ItemTurret, new Vector2(pos, -0.55f), Quaternion.identity);
+        }
+        else
+        {
+            Instantiate(ItemTurret, new Vector2(minGroundPos.x + 3f, -0.55f), Quaternion.identity);
+        }
+
     }
 
     public void Item_Player_Spawn_Random_Turret(int num)
@@ -1081,9 +1089,12 @@ public class Player : MonoBehaviour
 
     }
 
-    public void Item_Player_Spawn_SonicDevice(int num)
+    public void Item_Player_Spawn_SonicDevice(int delayTime)
     {
-
+        GameObject sound_Prefab = Resources.Load<GameObject>("ItemObject/SoundDevice");
+        float pos = Random.Range(minGroundPos.x + 3.5f, maxGroundPos.x - 3.5f);
+        GameObject SoundDevice = Instantiate(sound_Prefab, new Vector2(pos, -0.45f), Quaternion.identity);
+        Destroy(SoundDevice, delayTime);
     }
 
     public void Item_Player_Spawn_Scarecrow(int num)
@@ -1119,18 +1130,18 @@ public class Player : MonoBehaviour
                 Instantiate(MiniDron, pos, Quaternion.identity);
                 break;
             case 1:
-                GameObject MiniRaserDron = Resources.Load<GameObject>("ItemObject/MiniRaserDron");
-                MiniRaserDron.GetComponent<Item_MiniDron>().DronAtk = 3;
-                MiniRaserDron.GetComponent<Item_MiniDron>().Laser_type = false;
+                GameObject MiniLaserDron = Resources.Load<GameObject>("ItemObject/MiniLaserDron");
+                MiniLaserDron.GetComponent<Item_MiniDron>().DronAtk = 3;
+                MiniLaserDron.GetComponent<Item_MiniDron>().Laser_type = false;
                 pos = new Vector2(minSkyPos.x -2, maxSkyPos.y + 1);
-                Instantiate(MiniRaserDron, pos, Quaternion.identity);
+                Instantiate(MiniLaserDron, pos, Quaternion.identity);
                 break;
             case 2:
-                MiniRaserDron = Resources.Load<GameObject>("ItemObject/MiniRaserDron");
-                MiniRaserDron.GetComponent<Item_MiniDron>().DronAtk = 5;
-                MiniRaserDron.GetComponent<Item_MiniDron>().Laser_type = true;
+                MiniLaserDron = Resources.Load<GameObject>("ItemObject/MiniLaserDron");
+                MiniLaserDron.GetComponent<Item_MiniDron>().DronAtk = 5;
+                MiniLaserDron.GetComponent<Item_MiniDron>().Laser_type = true;
                 pos = new Vector2(minSkyPos.x - 2, maxSkyPos.y + 1);
-                Instantiate(MiniRaserDron, pos, Quaternion.identity);
+                Instantiate(MiniLaserDron, pos, Quaternion.identity);
                 break;
             case 3:
             case 4:
@@ -1265,7 +1276,7 @@ public class Player : MonoBehaviour
                 Item_Gun_ClickCount = 0;
                 Item_Gun_Max_ClickCount = max;
                 break;
-            case "Raser_Gun":
+            case "Laser_Gun":
                 GunIndex = 4;
                 GunObject_List[GunIndex].SetActive(true);
                 Item_GunSpecial_Bullet = GunObject_List[GunIndex].GetComponent<Transform>().GetChild(0).gameObject;

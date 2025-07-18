@@ -37,6 +37,31 @@ public class Item_Mini_Turret_Director : MonoBehaviour
             turret_5.Attack =Attack;
             turret_5.SpawnTime = delayTime;
             turret_5.Attack_Delay = AttackDelay;
+        }else if(num == 5)
+        {
+            Item_Laser_Turret turret_6 = turret.GetComponent<Item_Laser_Turret>();
+            turret_6.attack = Attack;
+            if(AttackDelay == 0)
+            {
+                turret_6.laserType = false;
+                turret_6.groundType = false;
+            }
+            else
+            {
+                turret_6.laserType = true;
+                turret_6.groundType = false;
+            }
+        }
+        else if(num == 6)
+        {
+            Item_Laser_Turret turret_6 = turret.GetComponent<Item_Laser_Turret>();
+            turret_6.attack = Attack;
+            turret_6.SpawnDelay = delayTime;
+            turret_6.groundType = true;
+        }
+        else if(num == 7)
+        {
+
         }
     }
 }

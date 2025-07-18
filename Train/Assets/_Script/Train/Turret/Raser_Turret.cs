@@ -7,7 +7,7 @@ public class Raser_Turret : Turret
     bool Target_Flag;
     bool Fire_Flag;
     Transform Target;
-    public GameObject raser;
+    public GameObject laser;
     float Data_Attack_Delay;
     float train_Attacking_Delay;
     public float Z;
@@ -19,8 +19,8 @@ public class Raser_Turret : Turret
         train_Rotation_Delay = 1.5f;
 
         Target_Flag = false;
-        raser = transform.GetChild(0).gameObject;
-        raser.GetComponent<Bullet>().atk = trainData.Train_Attack;
+        laser = transform.GetChild(0).gameObject;
+        laser.GetComponent<Bullet>().atk = trainData.Train_Attack;
         Data_Attack_Delay = train_Attack_Delay;
         train_Attacking_Delay = 3;
         lastTime = Time.time + 10;
@@ -56,7 +56,7 @@ public class Raser_Turret : Turret
             {
                 if ((Time.time >= lastTime + train_Attack_Delay))
                 {
-                    raser.SetActive(false);
+                    laser.SetActive(false);
                     Fire_Flag = false;
                     train_Attack_Delay = Data_Attack_Delay;
                     lastTime = Time.time;
@@ -79,7 +79,7 @@ public class Raser_Turret : Turret
 
                 if ((Time.time >= lastTime + (train_Attack_Delay - Item_Attack_Delay)))
                 {
-                    raser.SetActive(true);
+                    laser.SetActive(true);
                     Fire_Flag = true;
                     train_Attack_Delay = train_Attacking_Delay;
                     lastTime = Time.time;
@@ -92,7 +92,7 @@ public class Raser_Turret : Turret
             {
                 if ((Time.time >= lastTime + train_Attack_Delay))
                 {
-                    raser.SetActive(false);
+                    laser.SetActive(false);
                     Fire_Flag = false;
                     train_Attack_Delay = Data_Attack_Delay;
                     lastTime = Time.time;
@@ -102,7 +102,7 @@ public class Raser_Turret : Turret
             {
                 if ((Time.time >= lastTime + (train_Attack_Delay - Item_Attack_Delay)))
                 {
-                    raser.SetActive(true);
+                    laser.SetActive(true);
                     Fire_Flag = true;
                     train_Attack_Delay = train_Attacking_Delay;
                     lastTime = Time.time;

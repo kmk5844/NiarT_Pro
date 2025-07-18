@@ -291,7 +291,7 @@ public class UseItem : MonoBehaviour
                     player.Item_Gun_Change("Missile_Gun", 5);
                     break;
                 case 46:
-                    player.Item_Gun_Change("Raser_Gun", 10);
+                    player.Item_Gun_Change("Laser_Gun", 10);
                     break;
                 case 47:
                     player.Item_Gun_Change("Fire_Gun", 10);
@@ -485,20 +485,20 @@ public class UseItem : MonoBehaviour
                     player.Item_Player_Spawn_Turret(5, 0, 20, 0);
                     break;  
                 case 45:
-                    player.Item_Player_Spawn_Turret(5, 0, 20, 1);
+                    player.Item_Player_Spawn_Turret(5, 1, 20, 0);
                     break;
                 case 46:
-                    player.Item_Player_Spawn_Turret(6, 0, 20, 5);
+                    player.Item_Player_Spawn_Turret(6, 5, 20, 0);
                     break;
                 case 47:
                     // 2단 점프 개발 후 진행 예정
                     StartCoroutine(player.Item_Player_SpringShoose(10));
                     break;
                 case 48:
-                    player.Item_Player_Spawn_SonicDevice(0);
+                    player.Item_Player_Spawn_SonicDevice(10);
                     break;
                 case 49:
-                    player.Item_Player_Spawn_SonicDevice(1);
+                    player.Item_Player_Spawn_SonicDevice(20);
                     break;
                 case 50:
                     player.Item_Player_Spawn_Scarecrow(0);
@@ -693,7 +693,7 @@ public class UseItem : MonoBehaviour
                     player.Item_Gun_Change("Missile_Gun", 5);
                     break;
                 case 111:
-                    player.Item_Gun_Change("Raser_Gun", 10);
+                    player.Item_Gun_Change("Laser_Gun", 10);
                     break;
                 case 112:
                     player.Item_Gun_Change("Fire_Gun", 10);

@@ -83,6 +83,9 @@ public class MonsterDirector : MonoBehaviour
     public static bool Item_giantFlag;
     [HideInInspector]
     public static int Item_giantPersent_Spawn;
+    [HideInInspector]
+    public List<GameObject> Item_Scarecrow_List;
+
 
     [Header("Sound")]
     public AudioClip SpawnSFX;
@@ -413,6 +416,16 @@ public class MonsterDirector : MonoBehaviour
             Monster monster = Monster_List_Ground.GetChild(i).GetComponent<Monster>();
             monster.Item_Monster_CureseFlag(Persent);
         }
+    }
+
+    public void Item_Scarecrow(GameObject scarecrow)
+    {
+        Item_Scarecrow_List.Add(scarecrow);
+    }
+
+    public void Item_Scarecrow_Die(GameObject gm)
+    {
+        Item_Scarecrow_List.Remove(gm);
     }
 
     public IEnumerator Item_Use_Monster_GiantFlag(int Persent, int delayTime)
