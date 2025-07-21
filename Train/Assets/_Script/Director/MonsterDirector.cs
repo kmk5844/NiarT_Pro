@@ -83,7 +83,6 @@ public class MonsterDirector : MonoBehaviour
     public static bool Item_giantFlag;
     [HideInInspector]
     public static int Item_giantPersent_Spawn;
-    [HideInInspector]
     public List<GameObject> Item_Scarecrow_List;
 
 
@@ -418,13 +417,27 @@ public class MonsterDirector : MonoBehaviour
         }
     }
 
-    public void Item_Scarecrow(GameObject scarecrow)
+    public void Item_Player_Spawn_Scarecrow(int num)
     {
-        Item_Scarecrow_List.Add(scarecrow);
+        GameObject ScarecrowObejct = Resources.Load<GameObject>("ItemObject/Item_Scarecrow");
+        GameObject Scarecrow;
+        float pos = Random.Range(MinPos_Ground.x + 3.5f, MaxPos_Ground.x - 3.5f);
+        if (num == 0)
+        {
+            Scarecrow = Instantiate(ScarecrowObejct, new Vector2(pos, 0.03f), Quaternion.identity);
+            Scarecrow.GetComponent<Scarecrow_Object>().Set(this, 500);
+            Item_Scarecrow_List.Add(Scarecrow);
+        }
+        else if (num == 1)
+        {
+            Scarecrow = Instantiate(ScarecrowObejct, new Vector2(pos, 0.03f), Quaternion.identity);
+            Scarecrow.GetComponent<Scarecrow_Object>().Set(this, 1000);
+            Item_Scarecrow_List.Add(Scarecrow);
+        }
     }
-
     public void Item_Scarecrow_Die(GameObject gm)
     {
+        Debug.Log(gm);
         Item_Scarecrow_List.Remove(gm);
     }
 

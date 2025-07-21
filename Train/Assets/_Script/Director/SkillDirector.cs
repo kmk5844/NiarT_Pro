@@ -126,7 +126,7 @@ public class SkillDirector : MonoBehaviour
     {
         for (int i = 0; i < 2; i++)
         {
-            Item_Skill_CoolTime[i] = skill_cooltime[i] * (1f - Persent / 100f);
+            Item_Skill_CoolTime[i] = skill_cooltime[i] * (1f - (100 - Persent) / 100f);
         }
     }
 }

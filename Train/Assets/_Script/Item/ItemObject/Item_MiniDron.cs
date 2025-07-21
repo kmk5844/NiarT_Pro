@@ -7,6 +7,8 @@ public class Item_MiniDron : MonoBehaviour
     public enum MiniDronType { 
         DefaultDron,
         LaserDron,
+        MissileDron,
+
     }
 
     public MiniDronType type;
@@ -21,8 +23,15 @@ public class Item_MiniDron : MonoBehaviour
     public GameObject LaserObject;
     [HideInInspector]
     public bool Laser_type;
+    bool changeFlag;
+    bool FireFlag;
+    int FireCount;
+    public GameObject MissileBullet;
+    public Transform Target;
+
     void Start()
     {
+        FireCount = 0;
         Laser_type = false;
         if (DronAtk == 0)
         {
@@ -40,7 +49,7 @@ public class Item_MiniDron : MonoBehaviour
             }
             MiniDronRid2d.velocity = new Vector2(2f, 0);
         }
-        else
+        else if(type == MiniDronType.LaserDron)
         {
             DefaultDron_BoxCollider.enabled = false;
             LaserObject.GetComponent<Raser_TurretBullet>().atk = DronAtk;
@@ -53,6 +62,10 @@ public class Item_MiniDron : MonoBehaviour
             {
                 MiniDronRid2d.velocity = new Vector2(0, -0.4f);
             }
+        }
+        else if(type == MiniDronType.MissileDron)
+        {
+            MiniDronRid2d.velocity = new Vector2(0, -3f);
         }
 
         UpDown = 1;
@@ -84,9 +97,105 @@ public class Item_MiniDron : MonoBehaviour
         {
             SpriteObject.transform.position = new Vector2(transform.position.x, transform.position.y);
 
-            if(transform.position.y < MonsterDirector.MinPos_Ground.y)
+            if (transform.position.y < MonsterDirector.MinPos_Ground.y)
             {
                 Destroy(gameObject, 2f);
+            }
+        }else if(type == MiniDronType.MissileDron)
+        {
+            SpriteObject.transform.position = new Vector2(transform.position.x, transform.position.y);
+            if (transform.position.y < 6f && !changeFlag)
+            {
+                SpriteObject_InitPos = transform.position;
+                changeFlag = true;
+            }
+            else if (changeFlag)
+            {
+                SpriteObject.transform.position = new Vector2(transform.position.x, SpriteObject.transform.position.y);
+                MiniDronRid2d.velocity = new Vector2(0, UpDown* 3f);
+                float distance = transform.position.y - SpriteObject_InitPos.y;
+
+                if (distance > 1f)
+                {
+                    UpDown = -1;
+                }
+                else if (distance < -1f)
+                {
+                    UpDown = 1;
+                }
+
+                if (FireCount < 5)
+                {
+                    if (!FireFlag && Target)
+                    {
+                        StartCoroutine(MissileFire());
+                    }
+                }
+                else
+                {
+                    MiniDronRid2d.velocity = new Vector2(-5f, UpDown * 3f);
+                    if(transform.position.x < SpriteObject_InitPos.x -20f)
+                    {
+                        Destroy(gameObject);
+                    }
+                }
+            }
+        }
+    }
+
+    IEnumerator MissileFire()
+    {
+        FireFlag = true;
+        Debug.Log("น฿ป็");
+        FireCount++;
+        yield return new WaitForSeconds(0.5f);
+        FireFlag = false;
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(type == MiniDronType.MissileDron && changeFlag)
+        {
+            if (collision.CompareTag("Monster"))
+            {
+                if (Target == null)
+                {
+                    Target = collision.transform;
+                }
+            }
+        }
+
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (type == MiniDronType.MissileDron && changeFlag)
+        {
+            if (collision.CompareTag("Monster"))
+            {
+                if (Target == null)
+                {
+                    Target = collision.transform;
+                }
+                if (collision.transform != Target)
+                {
+                    return;
+                }
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (type == MiniDronType.MissileDron && changeFlag)
+        {
+            if (collision.CompareTag("Monster"))
+            {
+                if (collision.transform == Target)
+                {
+                    Target = null;
+                }
             }
         }
     }

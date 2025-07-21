@@ -1428,7 +1428,7 @@ public class GameDirector : MonoBehaviour
 
     public void Item_Use_Map(int persent)
     {
-        TrainDistance += (int)(TrainDistance * (persent / 100.0));
+        TrainDistance += (int)(Destination_Distance * (persent / 100.0));
     }
 
     public IEnumerator Item_Train_SpeedUp(float delayTime, float SpeedUp = 0.5f)

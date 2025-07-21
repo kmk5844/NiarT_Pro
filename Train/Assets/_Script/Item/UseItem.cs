@@ -197,8 +197,12 @@ public class UseItem : MonoBehaviour
     public void Get_SupplyItem(int num)
     {
         bool coolTime_Flag = true;
-        uiDirector.View_ItemList(itemList.Item[num].Item_Sprite);
-        itemDirector.Get_Supply_Item_Information(itemList.Item[num]);
+        if (!On_ItemList_Test)
+        {
+            uiDirector.View_ItemList(itemList.Item[num].Item_Sprite);
+            itemDirector.Get_Supply_Item_Information(itemList.Item[num]);
+        }
+
 
         if (!On_ItemList_Test)
         {
@@ -214,7 +218,7 @@ public class UseItem : MonoBehaviour
                     StartCoroutine(player.Item_Change_Bullet("Fire_Bullet", 10));
                     break;
                 case 23:
-                    StartCoroutine(player.Item_Player_Dagger(0.3f));
+                    player.Item_Player_Dagger(0, 0);
                     break;
                 case 24:
                     StartCoroutine(monsterDirector.Item_Monster_FearFlag(2, 20));
@@ -501,10 +505,10 @@ public class UseItem : MonoBehaviour
                     player.Item_Player_Spawn_SonicDevice(20);
                     break;
                 case 50:
-                    player.Item_Player_Spawn_Scarecrow(0);
+                    monsterDirector.Item_Player_Spawn_Scarecrow(0);
                     break;
                 case 51:
-                    player.Item_Player_Spawn_Scarecrow(1);
+                    monsterDirector.Item_Player_Spawn_Scarecrow(1);
                     break;
                 case 52:
                     player.Item_Player_Dagger(0, 0);
@@ -756,7 +760,7 @@ public class UseItem : MonoBehaviour
             }
         }
 
-        if (coolTime_Flag)
+        if (coolTime_Flag && !On_ItemList_Test)
         {
             uiDirector.ItemCoolTime_Instantiate(itemList.Item[num]);
         }

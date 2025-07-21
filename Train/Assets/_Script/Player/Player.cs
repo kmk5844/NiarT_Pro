@@ -1097,11 +1097,6 @@ public class Player : MonoBehaviour
         Destroy(SoundDevice, delayTime);
     }
 
-    public void Item_Player_Spawn_Scarecrow(int num)
-    {
-
-    }
-
     public IEnumerator Item_Player_ArmorUP(int delayTime, int Persent)
     {
         item_Armor = (int)(Player_Armor * (Persent / 100f));
@@ -1125,25 +1120,30 @@ public class Player : MonoBehaviour
         {
             case 0:
                 GameObject MiniDron = Resources.Load<GameObject>("ItemObject/MiniDron");
-                MiniDron.GetComponent<Item_MiniDron>().DronAtk = 15;
+                MiniDron.GetComponent<Item_MiniDron>().DronAtk = 25;
                 Vector2 pos = new Vector2(minSkyPos.x - 2, (minSkyPos.y + maxSkyPos.y) / 2);
                 Instantiate(MiniDron, pos, Quaternion.identity);
                 break;
             case 1:
                 GameObject MiniLaserDron = Resources.Load<GameObject>("ItemObject/MiniLaserDron");
-                MiniLaserDron.GetComponent<Item_MiniDron>().DronAtk = 3;
+                MiniLaserDron.GetComponent<Item_MiniDron>().DronAtk = 5;
                 MiniLaserDron.GetComponent<Item_MiniDron>().Laser_type = false;
                 pos = new Vector2(minSkyPos.x -2, maxSkyPos.y + 1);
                 Instantiate(MiniLaserDron, pos, Quaternion.identity);
                 break;
             case 2:
                 MiniLaserDron = Resources.Load<GameObject>("ItemObject/MiniLaserDron");
-                MiniLaserDron.GetComponent<Item_MiniDron>().DronAtk = 5;
+                MiniLaserDron.GetComponent<Item_MiniDron>().DronAtk = 10;
                 MiniLaserDron.GetComponent<Item_MiniDron>().Laser_type = true;
                 pos = new Vector2(minSkyPos.x - 2, maxSkyPos.y + 1);
                 Instantiate(MiniLaserDron, pos, Quaternion.identity);
                 break;
             case 3:
+                GameObject MiniMissileDron = Resources.Load<GameObject>("ItemObject/MiniMissileDron");
+                MiniMissileDron.GetComponent<Item_MiniDron>().DronAtk = 50;
+                pos = new Vector2(minSkyPos.x - 2, maxSkyPos.y + 1);
+                Instantiate(MiniMissileDron, pos, Quaternion.identity);
+                break;
             case 4:
             case 5:
             case 6:
@@ -1163,7 +1163,7 @@ public class Player : MonoBehaviour
                 Instantiate(shield, ItemTransform);
                 break;
             case 1:
-                shield = Resources.Load<GameObject>("ItemObject/MiniShield");
+                shield = Resources.Load<GameObject>("ItemObject/MiniShield_2");
                 shield.GetComponent<Item_Shield>().HP = 2000;
                 Instantiate(shield, ItemTransform);
                 break;
@@ -1207,9 +1207,10 @@ public class Player : MonoBehaviour
         Destroy(instance);
     }
 
-    public IEnumerator Item_Player_Dagger(float delayTime)
+    public IEnumerator Item_Player_Dagger_0(float delayTime, int atk_)
     {
         GameObject Dagger = Resources.Load<GameObject>("ItemObject/Dagger");
+        Dagger.GetComponent<Item_Dagger>().Set(0, atk_);
         yield return new WaitForSeconds(delayTime + 1);
         Instantiate(Dagger, new Vector2(transform.position.x, transform.position.y ), Quaternion.Euler(0, 0, 180), Player_Bullet_List);
         yield return new WaitForSeconds(delayTime);
@@ -1222,14 +1223,86 @@ public class Player : MonoBehaviour
         Instantiate(Dagger, new Vector2(transform.position.x, transform.position.y ), Quaternion.Euler(0, 0, 0), Player_Bullet_List);
     }
 
+    public IEnumerator Item_Player_Dagger_1(int atk_)
+    {
+        GameObject Dagger = Resources.Load<GameObject>("ItemObject/Dagger");
+        Dagger.GetComponent<Item_Dagger>().Set(1, atk_);
+        int RandomPos;
+        for (int i = 0; i < 3; i ++)
+        {
+            RandomPos = Random.Range(0, 181);
+            Instantiate(Dagger, new Vector2(transform.position.x, transform.position.y), Quaternion.Euler(0, 0, RandomPos), Player_Bullet_List);
+            RandomPos = Random.Range(0, 181);
+            Instantiate(Dagger, new Vector2(transform.position.x, transform.position.y), Quaternion.Euler(0, 0, RandomPos), Player_Bullet_List);
+            RandomPos = Random.Range(0, 181);
+            Instantiate(Dagger, new Vector2(transform.position.x, transform.position.y), Quaternion.Euler(0, 0, RandomPos), Player_Bullet_List);
+            yield return new WaitForSeconds(0.3f);
+        }
+    }
+
+    public IEnumerator Item_Player_Dagger_2(int atk_)
+    {
+        GameObject Dagger = Resources.Load<GameObject>("ItemObject/Dagger");
+        Dagger.GetComponent<Item_Dagger>().Set(2, atk_);
+        int RandomPos;
+        for (int i = 0; i < 10; i++)
+        {
+            RandomPos = Random.Range(60, 121);
+            Instantiate(Dagger, new Vector2(transform.position.x, transform.position.y), Quaternion.Euler(0, 0, RandomPos), Player_Bullet_List);
+            yield return new WaitForSeconds(0.15f);
+        }
+    }
+
+    public IEnumerator Item_Player_Dagger_3(int atk_, int subatk_)
+    {
+        GameObject Dagger = Resources.Load<GameObject>("ItemObject/Dagger");
+        Dagger.GetComponent<Item_Dagger>().Set(3, atk_, subatk_);
+        int RandomPos;
+        for (int i = 0; i < 5; i++)
+        {
+            RandomPos = Random.Range(0, 181);
+            Instantiate(Dagger, new Vector2(transform.position.x, transform.position.y), Quaternion.Euler(0, 0, RandomPos), Player_Bullet_List);
+            yield return new WaitForSeconds(0.15f);
+        }
+    }
+
     public void Item_Player_Dagger(int D_num, int skill_num)
     {
         if (D_num == 0)
         {
-
-        }else if(D_num == 1)
+            if (skill_num == 0)
+            {
+                StartCoroutine(Item_Player_Dagger_0(0.3f, 50));
+            }
+            else if (skill_num == 1)
+            {
+                StartCoroutine(Item_Player_Dagger_1(50));
+            }else if(skill_num == 2)
+            {
+                StartCoroutine(Item_Player_Dagger_2(50));
+            }
+            else if(skill_num == 3)
+            {
+                StartCoroutine(Item_Player_Dagger_3(50,10));
+            }
+        }
+        else if(D_num == 1)
         {
-
+            if (skill_num == 0)
+            {
+                StartCoroutine(Item_Player_Dagger_0(0.3f, 100));
+            }else if ((skill_num == 1))
+            {
+                StartCoroutine(Item_Player_Dagger_1(100));
+            }
+            else if (skill_num == 2)
+            {
+                StartCoroutine(Item_Player_Dagger_2(100));
+            }
+            else if (skill_num == 3)
+            {
+                StartCoroutine(Item_Player_Dagger_3(100, 30));
+            }
         }
     }
 
