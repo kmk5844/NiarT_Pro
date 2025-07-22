@@ -875,12 +875,22 @@ public class Player : MonoBehaviour
 
     public void Item_Player_Heal_HP(float persent)
     {
-        Player_HP += (int)(Max_HP * (persent / 100f));
+        int heal = (int)(Max_HP * (persent / 100f));
+        Player_HP += heal;
+        if (Player_HP > Max_HP)
+        {
+            Player_HP = Max_HP;
+        }
     }
 
     public void Item_Player_Minus_HP(float persent)
     {
-        Player_HP -= (int)(Max_HP * (persent / 100f));
+        int damage = (int)(Max_HP * (persent / 100f));
+        Player_HP -= damage;
+        if (Player_HP < 0)
+        {
+            Player_HP = 0;
+        }
     }
 
     public IEnumerator Item_Player_SpeedUP(float speed, int delayTime)
@@ -1084,9 +1094,11 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(delay);
     }
 
-    public void Item_Spawn_MusicBox()
+    public void Item_Spawn_MusicBox(int time)
     {
-
+        GameObject MusicBox = Resources.Load<GameObject>("ItemObject/Item_MusicBox");
+        MusicBox.GetComponent<Item_MusicBox>().SpawnTime = time;
+        Instantiate(MusicBox, new Vector2(transform.position.x, -0.45f), Quaternion.identity);
     }
 
     public void Item_Player_Spawn_SonicDevice(int delayTime)
@@ -1145,7 +1157,17 @@ public class Player : MonoBehaviour
                 Instantiate(MiniMissileDron, pos, Quaternion.identity);
                 break;
             case 4:
+                GameObject MiniDeffeceDron = Resources.Load<GameObject>("ItemObject/MiniDeffenceDron");
+                pos = new Vector2(minSkyPos.x - 2, 3f);
+                GameObject dron = Instantiate(MiniDeffeceDron, pos, Quaternion.identity);
+                dron.GetComponent<Item_MiniDron>().DeffeceDronSet(1000);
+                break;
             case 5:
+                MiniDeffeceDron = Resources.Load<GameObject>("ItemObject/MiniDeffenceDron");
+                pos = new Vector2(minSkyPos.x - 2, 3f);
+                dron = Instantiate(MiniDeffeceDron, pos, Quaternion.identity);
+                dron.GetComponent<Item_MiniDron>().DeffeceDronSet(2000);
+                break;
             case 6:
             case 7:
             case 8:

@@ -69,6 +69,9 @@ public class Train_InGame : MonoBehaviour
     public int Train_Booster_UseFuel;
     public int Train_Booster_BoosterSpeedUP;
 
+    [Header("æ∆¿Ã≈€")]
+    bool ItemIronPlateFlag;
+    GameObject IronPlate;
 
     public bool isReparing;
     public bool isRepairable;
@@ -78,7 +81,6 @@ public class Train_InGame : MonoBehaviour
     [HideInInspector]
     public GameObject gameDirector;
     public int UI_Level;
-
     bool LoseFlag;
     SpriteRenderer TrainSprite;
 
@@ -358,6 +360,30 @@ public class Train_InGame : MonoBehaviour
             yield return new WaitForSeconds(delayTime);
             transform.GetComponentInChildren<Turret>().Item_Turret_Attack_Speed_UP(persent, false);
             transform.GetComponentInChildren<Turret>().Item_Turret_Rotattion_Speed_UP(persent, false);
+        }
+    }
+
+    public void Item_Spawn_IronPlate(int hp)
+    {
+        if (!ItemIronPlateFlag)
+        {
+            ItemIronPlateFlag = true;
+            IronPlate = Instantiate(Resources.Load<GameObject>("ItemObject/Item_Iron_Plate"), transform.position , Quaternion.identity);
+            IronPlate.transform.SetParent(transform);
+            IronPlate.transform.localPosition = new Vector2(-0.4f, 0.9f);
+            IronPlate.GetComponent<Item_Iron_Plate>().Set(this, hp);
+        }
+        else
+        {
+            IronPlate.GetComponent<Item_Iron_Plate>().Heal(hp);
+        }
+    }
+
+    public void Item_Spawn_Iron_Destory()
+    {
+        if (ItemIronPlateFlag)
+        {
+            ItemIronPlateFlag = false;
         }
     }
 

@@ -8,6 +8,7 @@ public class Item_MiniDron : MonoBehaviour
         DefaultDron,
         LaserDron,
         MissileDron,
+        DeffensDron,
 
     }
 
@@ -28,6 +29,7 @@ public class Item_MiniDron : MonoBehaviour
     int FireCount;
     public GameObject MissileBullet;
     public Transform Target;
+    int DronHp;
 
     void Start()
     {
@@ -66,11 +68,22 @@ public class Item_MiniDron : MonoBehaviour
         else if(type == MiniDronType.MissileDron)
         {
             MiniDronRid2d.velocity = new Vector2(0, -3f);
+        }else if(type == MiniDronType.DeffensDron)
+        {
+            DefaultDron_BoxCollider.enabled = true;
+            if (LaserObject != null)
+            {
+                LaserObject.SetActive(false);
+            }
+            MiniDronRid2d.velocity = new Vector2(2f, 0);
         }
 
         UpDown = 1;
         //SpriteObject = transform.GetChild(0).gameObject;
-        SpriteObject_InitPos = SpriteObject.transform.localPosition;
+        if(SpriteObject != null)
+        { 
+            SpriteObject_InitPos = SpriteObject.transform.localPosition;
+        }
     }
 
     void FixedUpdate()
@@ -141,21 +154,48 @@ public class Item_MiniDron : MonoBehaviour
                 }
             }
         }
+        else if (type == MiniDronType.DeffensDron)
+        {
+            MiniDronRid2d.velocity = new Vector2(UpDown * 10f, 0);
+/*            SpriteObject.transform.position = new Vector2(transform.position.x, SpriteObject.transform.position.y);
+            SpriteObject.transform.Translate(new Vector2(0, UpDown * 3f * Time.deltaTime)); // 오른쪽 경계에 도달하면 왼쪽으로 방향 전환*/
+            if (transform.position.x > MonsterDirector.MaxPos_Sky.x) { UpDown = -1; } // 왼쪽 경계에 도달하면 오른쪽으로 방향 전환
+            else if (transform.position.x < MonsterDirector.MinPos_Sky.x) { UpDown = 1; }
+        }
     }
 
     IEnumerator MissileFire()
     {
         FireFlag = true;
-        Debug.Log("발사");
+        GameObject missile = Instantiate(MissileBullet, transform.position, Quaternion.identity);
+        missile.GetComponent<Missile_TurretBullet>().atk = 50;
+        missile.GetComponent<Missile_TurretBullet>().monster_target = Target;
         FireCount++;
         yield return new WaitForSeconds(0.5f);
         FireFlag = false;
     }
 
+    public void DeffeceDronSet(int hp)
+    {
+        DronHp = hp;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(type == MiniDronType.MissileDron && changeFlag)
+        if(type == MiniDronType.DeffensDron && collision.CompareTag("Monster_Bullet"))
+        {
+            if(DronHp > 0)
+            {
+                DronHp -= collision.GetComponent<MonsterBullet>().atk;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+            Destroy(collision.gameObject);
+        }
+
+        if (type == MiniDronType.MissileDron && changeFlag)
         {
             if (collision.CompareTag("Monster"))
             {

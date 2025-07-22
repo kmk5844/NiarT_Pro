@@ -628,16 +628,16 @@ public class UseItem : MonoBehaviour
                     //보급 작업
                     break;
                 case 88:
-                    gameDirector.Item_Spawn_Train_BulletproofPlate(0);
+                    gameDirector.Item_Spawn_Train_BulletproofPlate(500);
                     break;
                 case 89:
-                    gameDirector.Item_Spawn_Train_BulletproofPlate(1);
+                    gameDirector.Item_Spawn_Train_BulletproofPlate(1000);
                     break;
                 case 90:
-                    gameDirector.Item_Spawn_Train_BulletproofPlate(2);
+                    gameDirector.Item_Spawn_Train_BulletproofPlate(1500);
                     break;
                 case 91:
-                    player.Item_Spawn_MusicBox();
+                    player.Item_Spawn_MusicBox(30);
                     break;
                 case 92:
                     gameDirector.Item_Use_Lucky_Coin();

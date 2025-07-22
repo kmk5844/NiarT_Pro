@@ -187,9 +187,9 @@ public class Monster : MonoBehaviour
     {
         if (Monster_Mission_MaterialFlag)
         {
-            if(Monster_HP <= 0 && !spawnMaterialFlag && Monster_Num != 1)
+            if (Monster_HP <= 0 && !spawnMaterialFlag && Monster_Num != 1)
             {
-                if(Random.value <= material_drop / 100f) //material_drop이하면, 재료 아이템을 떨어뜨린다.
+                if (Random.value <= material_drop / 100f) //material_drop이하면, 재료 아이템을 떨어뜨린다.
                 {
                     MaterialObject.GetComponent<SupplyMonster_Item>().ChangeMaterial(material_Item);
                     Instantiate(MaterialObject, transform.position, Quaternion.identity);
@@ -210,7 +210,7 @@ public class Monster : MonoBehaviour
 
                 Item_Curese_ChangeFlag = false;
             }
-            else 
+            else
             {
                 Item_Monster_Atk -= Bullet_Atk * (Item_Curese_Persent / 100f);
                 Item_Monster_AtkDelay -= Bullet_Delay * (Item_Curese_Persent / 100f);
@@ -246,9 +246,9 @@ public class Monster : MonoBehaviour
         {
             if (MonsterDirector.Item_giantFlag)
             {
-                if(transform.localScale.y < default_LocalScale_Y + 0.7f)
+                if (transform.localScale.y < default_LocalScale_Y + 0.7f)
                 {
-                    if(transform.localScale.x > 0)
+                    if (transform.localScale.x > 0)
                     {
                         transform.localScale = new Vector3(
                             transform.localScale.x + (0.08f * Time.deltaTime),
@@ -277,7 +277,7 @@ public class Monster : MonoBehaviour
             }
             else
             {
-                if(transform.localScale.y > default_LocalScale_Y)
+                if (transform.localScale.y > default_LocalScale_Y)
                 {
                     if (transform.localScale.x > 0)
                     {
@@ -311,14 +311,14 @@ public class Monster : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
-        if(monster_gametype == Monster_GameType.CowBoy_Debuff)
+        if (monster_gametype == Monster_GameType.CowBoy_Debuff)
         {
-            if(transform.position.y > 0.5f)
+            if (transform.position.y > 0.5f)
             {
                 transform.Translate(Vector3.down * 0.2f * Time.deltaTime);
             }
         }
-        if(monster_gametype == Monster_GameType.Stun_Bullet_Debuff)
+        if (monster_gametype == Monster_GameType.Stun_Bullet_Debuff)
         { }
     }
 
@@ -326,7 +326,7 @@ public class Monster : MonoBehaviour
     {
         if (fire_debuff_flag)
         {
-            if(fire_hit_Count < 11) // 변경예정
+            if (fire_hit_Count < 11) // 변경예정
             {
                 if (!fire_hit_flag) {
                     StartCoroutine(Fire_Hit_Corutine());
@@ -353,7 +353,7 @@ public class Monster : MonoBehaviour
 
     protected void FlipMonster()
     {
-        if (player.transform.position.x  - transform.position.x < 0f)
+        if (player.transform.position.x - transform.position.x < 0f)
         {
             transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             AfterImage_Particle.transform.localScale = new Vector3(-AfterImage_Particle_LocalScale_X, AfterImage_Particle_LocalScale_Y, 1);
@@ -369,7 +369,7 @@ public class Monster : MonoBehaviour
     {
         if (gameDirector.gameType == GameType.Ending)
         {
-            if(monster_gametype != Monster_GameType.GameEnding)
+            if (monster_gametype != Monster_GameType.GameEnding)
             {
                 monster_gametype = Monster_GameType.GameEnding;
                 EndTime = Time.time;
@@ -409,7 +409,7 @@ public class Monster : MonoBehaviour
             hit_atk = collision.gameObject.GetComponent<MonsterBullet>().atk;
             hit_atk /= 4;
         }
-    
+
         HitDamage.GetComponent<Hit_Text_Damage>().damage = hit_atk;
         HitDamage.GetComponent<Hit_Text_Damage>().Random_X = transform.position.x + Random.Range(-0.5f, 0.5f);
         HitDamage.GetComponent<Hit_Text_Damage>().Random_Y = transform.position.y + Random.Range(0.5f, 1.5f);
@@ -453,6 +453,22 @@ public class Monster : MonoBehaviour
         if (Monster_HP - Bomb_Atk * 2 > 0)
         {
             Monster_HP -= Bomb_Atk * 2;
+        }
+        else
+        {
+            MonsterDie();
+        }
+    }
+
+    public void Damage_Monster_Item(int Atk)
+    {
+        HitDamage.GetComponent<Hit_Text_Damage>().damage = Atk;
+        HitDamage.GetComponent<Hit_Text_Damage>().Random_X = transform.position.x + Random.Range(-0.5f, 0.5f);
+        HitDamage.GetComponent<Hit_Text_Damage>().Random_Y = transform.position.y + Random.Range(0.5f, 1.5f);
+        Instantiate(HitDamage, monster_Bullet_List);
+        if (Monster_HP - Atk > 0)
+        {
+            Monster_HP -= Atk;
         }
         else
         {

@@ -499,6 +499,18 @@ public class Mercenary : MonoBehaviour
         HP = MaxHP;
     }
 
+    public void Item_Mercenary_Heal_HP(int Persent)
+    {
+        if (HP < MaxHP)
+        {
+            HP += MaxHP * Persent / 100;
+            if (HP > MaxHP)
+            {
+                HP = MaxHP;
+            }
+        }
+    }
+
     public IEnumerator Item_Fatigue_Reliever(int workcount, float refreshPercent, int delayTime)
     {
         Item_workCount_UP = workcount;
