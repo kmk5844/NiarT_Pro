@@ -183,7 +183,9 @@ public class GameDirector : MonoBehaviour
     public GameObject MiniTurretObject;
 
     //아이템부분
-    bool ItemFlag_Coin; // 골드 2배
+    bool ItemFlag_Coin; // 골드 추가
+    bool ItemFlag_DoubleCoin; // 골드 2배
+
 
     [Header("음식 이벤트")]
     public bool FoodEffect_Flag_Positive;
@@ -951,15 +953,23 @@ public class GameDirector : MonoBehaviour
     public void Game_Monster_Kill(int GetScore, int GetCoin)
     {
         Total_Score += GetScore;
-        if (!ItemFlag_Coin)
+        if (ItemFlag_DoubleCoin)
         {
-            Total_Coin += GetCoin;
+            Total_Coin += GetCoin * 2;
         }
         else
         {
-            int coin = Random.Range(0,201);
-            Total_Coin += (GetCoin + coin);
+            if (!ItemFlag_Coin)
+            {
+                Total_Coin += GetCoin;
+            }
+            else
+            {
+                int coin = Random.Range(0, 201);
+                Total_Coin += (GetCoin + coin);
+            }
         }
+
         uiDirector.Gameing_Text(Total_Score, Total_Coin);
     }
 
@@ -968,7 +978,7 @@ public class GameDirector : MonoBehaviour
         missionDirector.MonsterCount();
     }
 
-    public void Gmae_Boss_Kill(int GetScore, int GetCoin)
+    public void Gmae_Boss_Kill(int GetScore, int GetCoin) //보스는 2배 적용 X
     {
         Total_Score += GetScore;
         if(!ItemFlag_Coin)
@@ -1421,12 +1431,14 @@ public class GameDirector : MonoBehaviour
 
     public void Item_Use_Lucky_Coin()
     {
-
+        int Rand = Random.Range(0, 2);
+        StartCoroutine(uiDirector.CoinAni(Rand));
     }
 
     public void Item_Use_Lucky_Dice()
     {
-
+        int Rand = Random.Range(1, 7);
+        StartCoroutine(uiDirector.DiceAni(Rand));
     }
 
     public void Item_Use_Map(int persent)
@@ -1446,6 +1458,44 @@ public class GameDirector : MonoBehaviour
         ItemFlag_Coin = true;
         yield return new WaitForSeconds(delayTime);
         ItemFlag_Coin = false;
+    }
+
+    public IEnumerator Item_Double_Coin(int delayTime)
+    {
+        ItemFlag_DoubleCoin = true;
+        yield return new WaitForSeconds(delayTime);
+        ItemFlag_DoubleCoin = false;
+    }
+
+    public void Item_Dice_Reward(int num)
+    {
+        if (num == 1)
+        {
+            player.Item_Player_Heal_HP(15f);
+        }
+        else if (num == 2)
+        {
+            Item_Use_Train_Heal_HP(15f);
+        }
+        else if (num == 3)
+        {
+            Item_Fuel_Charge(15f);
+        }
+        else if (num == 4)
+        {
+            Total_Coin += 1000;
+            uiDirector.Gameing_Text(Total_Score, Total_Coin);
+        }
+        else if (num == 5)
+        {
+            //랜덤아이템 획득
+        }
+        else if (num == 6)
+        {
+            Item_Fuel_Charge(10f);
+            player.Item_Player_Heal_HP(10f);
+            Item_Use_Train_Heal_HP(10f);
+        }
     }
 
     IEnumerator Boss_Waring_Mark()

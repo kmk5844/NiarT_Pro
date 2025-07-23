@@ -3,12 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Localization.Components;
-using PixelCrushers.DialogueSystem;
-using static PixelCrushers.AnimatorSaver;
 using UnityEngine.Localization;
+using UnityEditor.Animations;
 
 public class UIDirector : MonoBehaviour
 {
@@ -112,6 +110,12 @@ public class UIDirector : MonoBehaviour
     public LocalizeStringEvent missionTextInformation_text;
     public TextMeshProUGUI missionCountText_text;
 
+    [Header("Item")]
+    public GameObject CoinWindow;
+    Animator CoinAniCon;
+    public GameObject DiceWindow;
+    Animator DiceAniCon;
+
     [Header("Wave")]
     public Sprite[] Refresh_Item_Sprite;
     public GameObject WaveObject;
@@ -164,6 +168,8 @@ public class UIDirector : MonoBehaviour
         ItemInformation_Object_Flag = false;
         ItemInformation_Object_TimeDelay = 5f;
 
+        CoinAniCon = CoinWindow.GetComponent<Animator>();
+        DiceAniCon = DiceWindow.GetComponent<Animator>();
 
         PlayerGunObject[playerData.Player_Num].SetActive(true);
     }
@@ -643,5 +649,48 @@ public class UIDirector : MonoBehaviour
     {
         Equiped_Skill_Lock[0].SetActive(flag);
         Equiped_Skill_Lock[1].SetActive(flag);
+    }
+
+
+    public IEnumerator CoinAni(int num)
+    {
+        CoinWindow.SetActive(true);
+
+        yield return new WaitForSeconds(2f);
+
+        Debug.Log(num);
+
+        if (num == 0)
+        {
+            CoinAniCon.SetTrigger("Front");
+        }
+        else if (num == 1)
+        {
+            CoinAniCon.SetTrigger("Back");
+        }
+
+        yield return new WaitForSeconds(3f);
+        
+        if(num == 0)
+        {
+            StartCoroutine(gamedirector.Item_Double_Coin(5));
+        }
+        CoinWindow.SetActive(false);
+    }
+
+    public IEnumerator DiceAni(int num)
+    {
+        DiceWindow.SetActive(true);
+
+        yield return new WaitForSeconds(2f);
+
+
+        DiceAniCon.SetInteger("DiceNum", num);
+
+        yield return new WaitForSeconds(3f);
+
+        gamedirector.Item_Dice_Reward(num);
+
+        DiceWindow.SetActive(false);
     }
 }

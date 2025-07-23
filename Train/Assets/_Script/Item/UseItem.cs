@@ -643,7 +643,7 @@ public class UseItem : MonoBehaviour
                     gameDirector.Item_Use_Lucky_Coin();
                     break;
                 case 93:
-                    gameDirector.Item_Use_Lucky_Coin();
+                    gameDirector.Item_Use_Lucky_Dice();
                     break;
                 case 94:
                     player.Item_Player_Heal_HP(15);
