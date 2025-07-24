@@ -15,6 +15,10 @@ public class SA_ItemList_Test : ScriptableObject
     private List<ItemDataObject_Test> item;
     public List<ItemDataObject_Test> Item { get { return item; } }
 
+    [SerializeField]
+    private List<ItemDataObject_Test> equiped_item_list;
+    public List<ItemDataObject_Test> Equiped_Item_List { get { return equiped_item_list; } }
+
     [Header("SupplyRarityType")]
     [SerializeField]
     private List<ItemDataObject_Test> common_supply_itemlist;
@@ -40,6 +44,7 @@ public class SA_ItemList_Test : ScriptableObject
     {
         item.Clear();
 
+        equiped_item_list.Clear();
         common_supply_itemlist.Clear();
         rare_supply_itemlist.Clear();
         unique_supply_itemlist.Clear();
@@ -83,13 +88,21 @@ public class SA_ItemList_Test : ScriptableObject
 
         if (newobjcet.Item_Type == Information_Item_Type_Test.Equipment)
         {
+            equiped_item_list.Add(newobjcet);
             Item_Dic_Def _item = new Item_Dic_Def();
             _item.item_num = newobjcet.Num;
             _item.item_dic_flag = true;
             item_dic_list.Add(_item);
         }
-        else if (newobjcet.Item_Type == Information_Item_Type_Test.Immediate || newobjcet.Item_Type == Information_Item_Type_Test.Inventory)
+        else if (newobjcet.Item_Type == Information_Item_Type_Test.Immediate)
         {
+            Item_Dic_Def _item = new Item_Dic_Def();
+            _item.item_num = newobjcet.Num;
+            _item.item_dic_flag = false;
+            item_dic_list.Add(_item);
+        }else if(newobjcet.Item_Type == Information_Item_Type_Test.Inventory)
+        {
+            equiped_item_list.Add(newobjcet);
             Item_Dic_Def _item = new Item_Dic_Def();
             _item.item_num = newobjcet.Num;
             _item.item_dic_flag = false;

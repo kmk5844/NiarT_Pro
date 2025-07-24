@@ -684,7 +684,6 @@ public class UIDirector : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
-
         DiceAniCon.SetInteger("DiceNum", num);
 
         yield return new WaitForSeconds(3f);

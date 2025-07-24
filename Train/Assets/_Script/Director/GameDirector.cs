@@ -1488,7 +1488,7 @@ public class GameDirector : MonoBehaviour
         }
         else if (num == 5)
         {
-            //∑£¥˝æ∆¿Ã≈€ »πµÊ
+            itemDirector.Item_Reward_Equiped();
         }
         else if (num == 6)
         {

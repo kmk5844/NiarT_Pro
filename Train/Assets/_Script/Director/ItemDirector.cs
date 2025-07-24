@@ -1,7 +1,6 @@
 using MoreMountains.Tools;
-using System;
 using System.Collections;
-using System.Collections.Generic;
+using UnityEditor.UIElements;
 using UnityEngine;
 
 public class ItemDirector : MonoBehaviour
@@ -120,5 +119,14 @@ public class ItemDirector : MonoBehaviour
     public void Get_Supply_Item_Information(ItemDataObject Item)
     {
         uiDirector.ItemInformation_On(Item);
+    }
+
+    public void Item_Reward_Equiped()
+    {
+        int num = Random.Range(0, itemList_Test.Equiped_Item_List.Count);
+        ItemDataObject_Test item = itemList_Test.Equiped_Item_List[num];
+        Debug.Log(item.Item_Count);
+        item.Item_Count_UP();
+        Debug.Log(item.Item_Count);
     }
 }

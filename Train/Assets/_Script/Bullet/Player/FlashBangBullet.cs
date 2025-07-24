@@ -6,9 +6,12 @@ using UnityEngine;
 public class FlashBangBullet : Bullet
 {
     bool bombFlag;
+    float cutline;
+
     // Start is called before the first frame update
     protected override void Start()
     {
+        cutline = (MonsterDirector.MinPos_Sky.y + MonsterDirector.MaxPos_Sky.y / 2);
         base.Start();
         Bullet_Player();
     }
@@ -26,10 +29,24 @@ public class FlashBangBullet : Bullet
         Destroy(gameObject, 6f);
     }
 
+    private void FixedUpdate()
+    {
+        if (!bombFlag && transform.position.y > cutline)
+        {
+            Explode();
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 2);
         if (!bombFlag)
+        {
+            Explode();
+        }
+    }
+    void Explode()
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 3);
         {
             foreach (Collider2D collider in colliders)
             {

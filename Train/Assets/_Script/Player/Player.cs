@@ -437,7 +437,10 @@ public class Player : MonoBehaviour
                     case 5:
                         SpecailBulletFire(true);
                         break;
-
+                    case 6:
+                    case 7:
+                        BulletFire();
+                        break;
                 }
             }
             else
@@ -1109,7 +1112,7 @@ public class Player : MonoBehaviour
         Destroy(SoundDevice, delayTime);
     }
 
-    public IEnumerator Item_Player_ArmorUP(int delayTime, int Persent)
+    public IEnumerator Item_Player_ArmorUP(int Persent, int delayTime)
     {
         item_Armor = (int)(Player_Armor * (Persent / 100f));
         Player_Armor += item_Armor;
@@ -1118,7 +1121,6 @@ public class Player : MonoBehaviour
         Player_Armor -= item_Armor;
         era = 1f - (float)Player_Armor / def_constant;
     }
-
     public void Item_Drink_Bear()
     {
         //이단점프는 못함.
@@ -1389,6 +1391,26 @@ public class Player : MonoBehaviour
                 Item_Gun_ClickTime = 0f;
                 Item_Gun_Max_ClickTime = max;
                 break;
+            case "Grenade":
+                GunIndex = 6;
+                GunObject_List[GunIndex].SetActive(true);
+                Bullet_Fire_Transform = GunObject_List[GunIndex].GetComponent<Transform>().GetChild(0);
+                playerBullet = Resources.Load<GameObject>("Bullet/Player/Special/Grenade");
+                playerBullet.GetComponent<Bullet>().atk = 60;
+                Item_Gun_CountFlag = true;
+                Item_Gun_ClickCount = 0;
+                Item_Gun_Max_ClickCount = max;
+                break;
+            case "Signal_Flare":
+                GunIndex = 7;
+                GunObject_List[GunIndex].SetActive(true);
+                Bullet_Fire_Transform = GunObject_List[GunIndex].GetComponent<Transform>().GetChild(0);
+                playerBullet = Resources.Load<GameObject>("Bullet/Player/Special/Signal_Flare");
+                playerBullet.GetComponent<Bullet>().atk = 20;
+                Item_Gun_CountFlag = true;
+                Item_Gun_ClickCount = 0;
+                Item_Gun_Max_ClickCount = max;
+                break;
         }
     }
 
@@ -1401,7 +1423,6 @@ public class Player : MonoBehaviour
         GunObject_List[GunIndex].SetActive(false);
         switch (GunIndex) {
             case 1:
-                Bullet_Atk = Default_Atk;
                 playerBullet = playerData.Bullet;
                 break;
             case 2:
@@ -1416,6 +1437,11 @@ public class Player : MonoBehaviour
             case 5:
                 SpecailBulletFire(false);
                 Item_GunSpecial_Bullet = null;
+                break;
+            case 6:
+            case 7:
+                Bullet_Atk = Default_Atk;
+                playerBullet = playerData.Bullet;
                 break;
 
         }
@@ -1440,6 +1466,18 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(delayTime);
         transform.localScale = new Vector3(1f,1f,1f);
         Item_SmallFlag = null;
+    }
+
+    public IEnumerator Item_PlayerDefenceUp(int persent, int delayTime)
+    {
+        int addArmor = (int)(Player_Armor * (persent / 100f));
+        Player_Armor += addArmor;
+        era = 1f - (float)Player_Armor / def_constant; // 방어력 반영
+
+        yield return new WaitForSeconds(delayTime);
+
+        Player_Armor -= addArmor;
+        era = 1f - (float)Player_Armor / def_constant; // 방어력 복구
     }
 
 

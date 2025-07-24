@@ -655,10 +655,10 @@ public class UseItem : MonoBehaviour
                     StartCoroutine(player.Item_Player_ArmorUP(10, 10));
                     break;
                 case 97:
-                    StartCoroutine(player.Item_Player_ArmorUP(20, 10));
+                    StartCoroutine(player.Item_Player_ArmorUP(10, 20));
                     break;
                 case 98:
-                    StartCoroutine(player.Item_Player_ArmorUP(10, 20));
+                    StartCoroutine(player.Item_Player_ArmorUP(20, 10));
                     break;
                 case 99:
                     gameDirector.Item_Train_Armor_Up(20, 10);
@@ -682,7 +682,7 @@ public class UseItem : MonoBehaviour
                     StartCoroutine(player.Item_Change_Bullet("Fire_Bullet", 10));
                     break;
                 case 106:
-                    player.Item_Gun_Change("Flash_Bang", 3);
+                    player.Item_Gun_Change("Flash_Bang", 1);
                     break;
                 case 107:
                     player.Item_Gun_Change("Grenade", 2);
