@@ -18,6 +18,8 @@ public class ItemDirector : MonoBehaviour
     [SerializeField]
     float Duration;
 
+    public GameObject Dron;
+
     [Header("Sound")]
     public AudioClip UseItemSound;
 
@@ -128,5 +130,12 @@ public class ItemDirector : MonoBehaviour
         Debug.Log(item.Item_Count);
         item.Item_Count_UP();
         Debug.Log(item.Item_Count);
+    }
+
+    public void Item_UseDron()
+    {
+        int num = Random.Range(1, 3);
+        Dron.GetComponentInChildren<Supply_Train_Dron>().SupplyDron_SetData(num, 3);
+        Instantiate(Dron);
     }
 }

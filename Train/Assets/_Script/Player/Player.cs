@@ -56,8 +56,13 @@ public class Player : MonoBehaviour
     //int moveX;
     bool rotationOn;
     bool jumpFlag;
+    float moveItemSpeed = 0;
+    int jumpCount = 0;
+    int jumpMaxCount = 1;
+    bool jumpitemFlag_Minus;
+    int jumpItemCount = 0;
     bool isMouseDown;
-    float jumpdistance;
+    public float jumpdistance = 1.3f;
     float jumpFlagDistance;
 
     [Header("상호작용")]
@@ -148,7 +153,6 @@ public class Player : MonoBehaviour
         ani = GetComponent<Animator>();
         isHealing = false;
         jumpFlag = false;
-        jumpdistance = 1.3f;
 
         playerBullet = playerData.Bullet;
         Player_HP = playerData.HP;
@@ -407,12 +411,33 @@ public class Player : MonoBehaviour
                 ani.SetBool("Move", true);
             }
 
-
             if (Input.GetButtonDown("Jump") && !jumpFlag)
             {
+                rigid.velocity = new Vector2(rigid.velocity.x, 0f);
                 rigid.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
                 ani.SetTrigger("Jump");
             }
+
+            if (!jumpitemFlag_Minus)
+            {
+                if (Input.GetButtonDown("Jump") && jumpFlag && jumpCount < jumpMaxCount)
+                {
+                    rigid.velocity = new Vector2(rigid.velocity.x, 0f);
+                    rigid.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+                    ani.SetTrigger("Jump");
+                    jumpCount++;
+                }
+            }
+
+            if (jumpItemCount > 0)
+            {
+                jumpMaxCount = 2;
+            }
+            else
+            {
+                jumpMaxCount = 1;
+            }
+
 
             if (isMouseDown)
             {
@@ -439,6 +464,8 @@ public class Player : MonoBehaviour
                         break;
                     case 6:
                     case 7:
+                    case 8:
+                    case 9:
                         BulletFire();
                         break;
                 }
@@ -452,15 +479,13 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (rigid.velocity.x > moveSpeed)
+        if (rigid.velocity.x > moveSpeed + moveItemSpeed)
         {
-            //moveX = 1;
-            rigid.velocity = new Vector2(moveSpeed, rigid.velocity.y);
+            rigid.velocity = new Vector2(moveSpeed + moveItemSpeed, rigid.velocity.y);
         }
-        else if (rigid.velocity.x < moveSpeed * (-1))
+        else if (rigid.velocity.x < -(moveSpeed + moveItemSpeed))
         {
-            //moveX = -1;
-            rigid.velocity = new Vector2(moveSpeed * (-1), rigid.velocity.y);
+            rigid.velocity = new Vector2(-(moveSpeed + moveItemSpeed), rigid.velocity.y);
         }
     }
 
@@ -520,6 +545,10 @@ public class Player : MonoBehaviour
         if (rayHit.collider != null && rayHit.distance >= jumpFlagDistance)
         {
             jumpFlag = false;
+            if(jumpCount != 0)
+            {
+                jumpCount = 0;
+            }
         }
         else
         {
@@ -898,9 +927,9 @@ public class Player : MonoBehaviour
 
     public IEnumerator Item_Player_SpeedUP(float speed, int delayTime)
     {
-        moveSpeed += speed;
+        moveItemSpeed += speed;
         yield return new WaitForSeconds(delayTime);
-        moveSpeed -= speed;
+        moveItemSpeed -= speed;
     }
 
     public IEnumerator Item_Player_Heal_HP_Auto(float perseent, int delaytime)
@@ -1092,11 +1121,6 @@ public class Player : MonoBehaviour
         GameObject Plant = Resources.Load<GameObject>("ItemObject/RobotPlant");
         Instantiate(Plant, new Vector2(pos, -0.45f), Quaternion.identity);
     }
-    public IEnumerator Item_Player_SpringShoose(int delay)
-    {
-        yield return new WaitForSeconds(delay);
-    }
-
     public void Item_Spawn_MusicBox(int time)
     {
         GameObject MusicBox = Resources.Load<GameObject>("ItemObject/Item_MusicBox");
@@ -1121,10 +1145,13 @@ public class Player : MonoBehaviour
         Player_Armor -= item_Armor;
         era = 1f - (float)Player_Armor / def_constant;
     }
-    public void Item_Drink_Bear()
+    public IEnumerator Item_Drink_Bear(float delayTime)
     {
-        //이단점프는 못함.
-        moveSpeed -= ((moveSpeed * 15) / 100);
+        jumpitemFlag_Minus = true;
+        moveItemSpeed = -1 * ((moveSpeed * 15) / 100);
+        yield return new WaitForSeconds(delayTime);
+        jumpitemFlag_Minus = false;
+        moveItemSpeed = 0;
     }
 
     public void Item_Player_Spawn_Dron(int num)
@@ -1171,8 +1198,18 @@ public class Player : MonoBehaviour
                 dron.GetComponent<Item_MiniDron>().DeffeceDronSet(2000);
                 break;
             case 6:
+                GameObject PlatformDron = Resources.Load<GameObject>("ItemObject/PlatformDron");
+                float pos_x = Random.Range(minSkyPos.x, maxSkyPos.x);
+                pos = new Vector2(pos_x, 1.3f);
+                dron = Instantiate(PlatformDron, pos, Quaternion.identity);
+                dron.GetComponent<Item_Platform>().SetDron(20);
+                break;
             case 7:
-            case 8:
+                PlatformDron = Resources.Load<GameObject>("ItemObject/PlatformDron2");
+                pos_x = Random.Range(minSkyPos.x, maxSkyPos.x);
+                pos = new Vector2(pos_x, 1.25f);
+                dron = Instantiate(PlatformDron, pos, Quaternion.identity);
+                dron.GetComponent<Item_Platform>().SetDron(30);
                 break;
         }
 }
@@ -1411,6 +1448,26 @@ public class Player : MonoBehaviour
                 Item_Gun_ClickCount = 0;
                 Item_Gun_Max_ClickCount = max;
                 break;
+            case "GrenadeGun":
+                GunIndex = 8;
+                GunObject_List[GunIndex].SetActive(true);
+                Bullet_Fire_Transform = GunObject_List[GunIndex].GetComponent<Transform>().GetChild(0);
+                playerBullet = Resources.Load<GameObject>("Bullet/Player/Special/GrenadeBullet");
+                playerBullet.GetComponent<Bullet>().atk = 100;
+                Item_Gun_CountFlag = true;
+                Item_Gun_ClickCount = 0;
+                Item_Gun_Max_ClickCount = max;
+                break;
+            case "SniperGun":
+                GunIndex = 9;
+                GunObject_List[GunIndex].SetActive(true);
+                Bullet_Fire_Transform = GunObject_List[GunIndex].GetComponent<Transform>().GetChild(0);
+                playerBullet = Resources.Load<GameObject>("Bullet/Player/Special/SniperBullet");
+                playerBullet.GetComponent<Bullet>().atk = 500;
+                Item_Gun_CountFlag = true;
+                Item_Gun_ClickCount = 0;
+                Item_Gun_Max_ClickCount = max;
+                break;
         }
     }
 
@@ -1440,10 +1497,11 @@ public class Player : MonoBehaviour
                 break;
             case 6:
             case 7:
+            case 8:
+            case 9:
                 Bullet_Atk = Default_Atk;
                 playerBullet = playerData.Bullet;
                 break;
-
         }
         GunIndex = 0;
         GunObject_List[GunIndex].SetActive(true);
@@ -1480,6 +1538,12 @@ public class Player : MonoBehaviour
         era = 1f - (float)Player_Armor / def_constant; // 방어력 복구
     }
 
+    public IEnumerator Item_JumpUp(float delayTime)
+    {
+        jumpItemCount++;
+        yield return new WaitForSeconds(delayTime);
+        jumpItemCount--;
+    }
 
     //스킬------------------------------------------------------
 

@@ -65,4 +65,5 @@ public class Grenade : Bullet
         //여기서 폭탄 애니메이션 
         Destroy(gameObject, 2f);
     }
+
 }

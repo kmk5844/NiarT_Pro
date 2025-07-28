@@ -495,8 +495,7 @@ public class UseItem : MonoBehaviour
                     player.Item_Player_Spawn_Turret(6, 5, 20, 0);
                     break;
                 case 47:
-                    // 2단 점프 개발 후 진행 예정
-                    StartCoroutine(player.Item_Player_SpringShoose(10));
+                    StartCoroutine(player.Item_JumpUp(10));
                     break;
                 case 48:
                     player.Item_Player_Spawn_SonicDevice(10);
@@ -589,7 +588,7 @@ public class UseItem : MonoBehaviour
                     break;
                 case 76:
                     player.Item_Player_Heal_HP(20);
-                    player.Item_Drink_Bear();
+                    StartCoroutine(player.Item_Drink_Bear(15));
                     break;
                 case 77:
                     player.Item_Player_Spawn_RobotPlant();
@@ -625,7 +624,7 @@ public class UseItem : MonoBehaviour
                     player.Item_Player_Spawn_Dron(7);
                     break;
                 case 87:
-                    //보급 작업
+                    itemDirector.Item_UseDron();
                     break;
                 case 88:
                     gameDirector.Item_Spawn_Train_BulletproofPlate(500);
@@ -703,10 +702,10 @@ public class UseItem : MonoBehaviour
                     player.Item_Gun_Change("Fire_Gun", 10);
                     break;
                 case 113:
-                    player.Item_Gun_Change("Grenade_Launcher", 5);
+                    player.Item_Gun_Change("GrenadeGun", 5);
                     break;
                 case 114:
-                    player.Item_Gun_Change("ShotGun", 10);
+                    player.Item_Gun_Change("SniperGun", 3);
                     break;
                 case 115:
                 case 116:
