@@ -237,43 +237,41 @@ public class Train_InGame : MonoBehaviour
         Train_Booster_UseFuel = 0;
         Train_Booster_BoosterSpeedUP = 0;
         Train_Heal = 0;
+        string[] trainData_Special_String = trainData.Information_Train[Train_Num].Train_Special.Split(',');
         switch (Train_Type)
         {
             case "Engine":
-                Train_MaxSpeed = trainData.Information_Train[Train_Num].Train_MaxSpeed;
-                Train_Efficient = trainData.Information_Train[Train_Num].Train_Efficient;
-                Train_Engine_Power = trainData.Information_Train[Train_Num].Train_Engine_Power;
+                Train_MaxSpeed = int.Parse(trainData_Special_String[0]);
+                Train_Efficient = int.Parse(trainData_Special_String[1]);
+                Train_Engine_Power = int.Parse(trainData_Special_String[2]);
                 break;
             case "Fuel":
-                Train_Fuel = trainData.Information_Train[Train_Num].Train_Fuel;
+                Train_Fuel = int.Parse(trainData_Special_String[0]);
                 break;
             case "Turret":
+                trainData_Special_String = trainData.Information_Train[Train_Num].Train_Special.Split(',');
                 Train_Attack = trainData.Information_Train_Turret_Part[Train_Num2].Train_Attack;
                 Train_Attack_Delay = trainData.Information_Train_Turret_Part[Train_Num2].Train_Attack_Delay;
                 break;
             case "Booster":
-                string[] trainData_Special_String = trainData.Information_Train[Train_Num].Train_Special.Split(',');
                 Train_Booster_WarningSpeed = int.Parse(trainData_Special_String[0]);
                 Train_Booster_BoosterFuel = int.Parse(trainData_Special_String[1]);
                 Train_Booster_UseFuel = int.Parse(trainData_Special_String[2]);
                 Train_Booster_BoosterSpeedUP = int.Parse(trainData_Special_String[3]);
                 break;
             case "Medic":
-                trainData_Special_String = trainData.Information_Train[Train_Num].Train_Special.Split(',');
                 Train_Heal = int.Parse(trainData_Special_String[0]);
                 Train_Heal_Amount = int.Parse(trainData_Special_String[1]);
                 Train_Heal_timeBet = float.Parse(trainData_Special_String[2]);
                 Max_Train_Heal = Train_Heal;
                 break;
             case "Self_Turret":
-                trainData_Special_String = trainData.Information_Train[Train_Num].Train_Special.Split(',');
                 Train_Self_UseFuel = int.Parse(trainData_Special_String[0]);
                 Train_Self_Attack = int.Parse(trainData_Special_String[1]);
                 Train_Self_Attack_Delay = float.Parse(trainData_Special_String[2]);
                 Train_Self_Second = int.Parse(trainData_Special_String[3]);
                 break;
             case "Supply":
-                trainData_Special_String = trainData.Information_Train[Train_Num].Train_Special.Split(',');
                 Train_Supply_UseFuel = int.Parse(trainData_Special_String[0]);
                 Train_Supply_Grade = int.Parse(trainData_Special_String[1]);
                 Train_Supply_Count = int.Parse(trainData_Special_String[2]);

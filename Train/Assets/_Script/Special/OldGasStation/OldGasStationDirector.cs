@@ -55,7 +55,8 @@ public class OldGasStationDirector : MonoBehaviour
             trainNum = trainData.Train_Num[i];
             if (trainNum >= 10 && trainNum < 20)
             {
-                TotalFuel += gamedatatable.Information_Train[trainNum].Train_Fuel;
+                int TrainFuel = int.Parse(gamedatatable.Information_Train[trainNum].Train_Special);
+                TotalFuel += TrainFuel;
             }
         }
         currentFuel = ES3.Load<int>("Train_Curret_Fuel");

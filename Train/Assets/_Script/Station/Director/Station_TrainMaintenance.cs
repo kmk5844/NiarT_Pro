@@ -1961,12 +1961,14 @@ else // 기차 교체
             string[] status = new string[] { };
             if (trainData_Info.Train_Type.Equals("Engine"))
             {
-                status = new string[] { trainData_Info.Train_MaxSpeed.ToString(), trainData_Info.Train_Efficient.ToString(), trainData_Info.Train_Engine_Power.ToString() };
+                string[] ExcelStatus = trainData_Info.Train_Special.Split(',');
 
+                status = new string[] { ExcelStatus[0], ExcelStatus[1], ExcelStatus[2] };
             }
             else if (trainData_Info.Train_Type.Equals("Fuel"))
             {
-                status = new string[]{ trainData_Info.Train_Fuel.ToString() };
+                string [] ExcelStatus = trainData_Info.Train_Special.Split(',');
+                status = new string[]{ ExcelStatus[0] };             
             }
             else
             {
@@ -2120,12 +2122,14 @@ else // 기차 교체
             string[] status = new string[] { };
             if (trainData_Info.Train_Type.Equals("Engine"))
             {
-                status = new string[] { trainData_Info.Train_MaxSpeed.ToString(), trainData_Info.Train_Efficient.ToString(), trainData_Info.Train_Engine_Power.ToString() };
+                string[] ExcelStatus = trainData_Info.Train_Special.Split(',');
+                status = new string[] { ExcelStatus[0], ExcelStatus[1], ExcelStatus[2] };
 
             }
             else if (trainData_Info.Train_Type.Equals("Fuel"))
             {
-                status = new string[] { trainData_Info.Train_Fuel.ToString() };
+                string[] ExcelStatus = trainData_Info.Train_Special.Split(',');
+                status = new string[] { ExcelStatus[0] };
             }
             else
             {

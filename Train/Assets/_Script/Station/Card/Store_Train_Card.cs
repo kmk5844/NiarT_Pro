@@ -39,7 +39,7 @@ public class Store_Train_Card : MonoBehaviour
             {
                 Train_Image.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprite/Train/Train_" + Train_Num);
                 train_name = trainData.EX_Game_Data.Information_Train[Train_Num].Train_Name;
-                train_information = trainData.EX_Game_Data.Information_Train[Train_Num].Train_Information;
+                //train_information = trainData.EX_Game_Data.Information_Train[Train_Num].Train_Information;
                 train_pride = trainData.EX_Game_Data.Information_Train[Train_Num].Train_Buy_Cost;
                 
                 Train_NameText.StringReference.TableEntryReference = "Train_Name_91";
@@ -49,7 +49,7 @@ public class Store_Train_Card : MonoBehaviour
             {
                 Train_Image.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprite/Train/Train_91_" + Train_Num2);
                 train_name = trainData.EX_Game_Data.Information_Train_Turret_Part[Train_Num2].Turret_Part_Name;
-                train_information = trainData.EX_Game_Data.Information_Train_Turret_Part[Train_Num2].Train_Information;
+                //train_information = trainData.EX_Game_Data.Information_Train_Turret_Part[Train_Num2].Train_Information;
                 train_pride = trainData.EX_Game_Data.Information_Train_Turret_Part[Train_Num2].Train_Buy_Cost;
                 
                 Train_NameText.StringReference.TableEntryReference = "Train_Turret_Name_" + (Train_Num2 / 10);
@@ -83,7 +83,7 @@ public class Store_Train_Card : MonoBehaviour
         {
             Train_Image.GetComponent<Image>().sprite = Resources.Load<Sprite>("Sprite/Train/Train_" + Train_Num);
             train_name = trainData.EX_Game_Data.Information_Train[Train_Num].Train_Name;
-            train_information = trainData.EX_Game_Data.Information_Train[Train_Num].Train_Information;
+            //train_information = trainData.EX_Game_Data.Information_Train[Train_Num].Train_Information;
             train_pride = trainData.EX_Game_Data.Information_Train[Train_Num].Train_Buy_Cost;
             
             if(Train_Num < 50)
