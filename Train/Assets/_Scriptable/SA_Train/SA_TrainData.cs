@@ -249,6 +249,7 @@ public class SA_TrainData : ScriptableObject
         level_trainnumber_20 = ES3.Load<int>("SA_TrainData_Data_level_trainnumber_20");
         level_trainnumber_30 = ES3.Load<int>("SA_TrainData_Data_level_trainnumber_30");
         level_trainnumber_40 = ES3.Load<int>("SA_TrainData_Data_level_trainnumber_40");
+        level_trainnumber_50 = ES3.Load<int>("SA_TrainData_Data_level_trainnumber_50");
     }
 
     public IEnumerator LoadSync()
@@ -266,7 +267,7 @@ public class SA_TrainData : ScriptableObject
         level_trainnumber_20 = ES3.Load<int>("SA_TrainData_Data_level_trainnumber_20", 20);
         level_trainnumber_30 = ES3.Load<int>("SA_TrainData_Data_level_trainnumber_30", 30);
         level_trainnumber_40 = ES3.Load<int>("SA_TrainData_Data_level_trainnumber_40", 40);
-        level_trainnumber_40 = ES3.Load<int>("SA_TrainData_Data_level_trainnumber_50", 50);
+        level_trainnumber_50 = ES3.Load<int>("SA_TrainData_Data_level_trainnumber_50", 50);
         yield return new WaitForSeconds(0.001f);
     }
 

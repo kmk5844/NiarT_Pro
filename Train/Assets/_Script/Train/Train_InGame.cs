@@ -44,7 +44,6 @@ public class Train_InGame : MonoBehaviour
     [Header("특수 파라미터")]
     public string Train_Special;
     public bool Not_DestoryTrain;
-
     //의무실
     [Header("의무실")]
     public float Train_Heal;
@@ -276,6 +275,23 @@ public class Train_InGame : MonoBehaviour
                 Train_Supply_Grade = int.Parse(trainData_Special_String[1]);
                 Train_Supply_Count = int.Parse(trainData_Special_String[2]);
                 break;
+            case "Repair":
+                break;
+            case "TurretFactory":
+                break;
+            case "DronFactory":
+                break;
+            case "Platform":
+                break;
+            case "FuelSignal":
+                break;
+            case "Hangar":
+                break;
+            case "IronPlateFactory":
+                break;
+            case "TurretUpgrade":
+                break;
+
         }
     }
     public void Train_MonsterHit(MonsterBullet monsterBullet)
