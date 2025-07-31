@@ -201,8 +201,6 @@ public class SubStageSelectDirector : MonoBehaviour
         }
     }
 
-
- 
     public void ClickMissionCancel()
     {
         cancelFlag = true;

@@ -189,11 +189,11 @@ public class SubStage_Select : MonoBehaviour
         subStageSelectDirector.selectNum = missionData.SubStage_Num;
         subStageSelectDirector.Open_SelectSubStage(missionData);
         yield return new WaitForSeconds(0.1f);
-        if (missionData.ReadyFlag)
+        if (missionData.ReadyFlag) // 스테이지일때
         {
             subStageSelectDirector.Start_SelectSubStage();
         }
-        else
+        else // 특수스테이지일때
         {
             DataManager.Instance.playerData.SA_BeforeSubSelectStage_Save(missionData.SubStage_Num);
             subStageSelectDirector.Open_SpecialStage();

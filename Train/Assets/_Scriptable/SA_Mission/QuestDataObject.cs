@@ -53,7 +53,7 @@ public class MissionDataObject : ScriptableObject
     public string SubStage_Status { get { return substage_status; } }
 
     [SerializeField]
-    private bool readyflag;
+    private bool readyflag; // 스테이지 : true / 특수스테이지 : false
     public bool ReadyFlag { get { return readyflag; } }
 
 /*    [SerializeField]

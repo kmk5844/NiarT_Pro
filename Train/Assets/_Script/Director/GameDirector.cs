@@ -228,15 +228,22 @@ public class GameDirector : MonoBehaviour
         Before_Sub_Num = SA_PlayerData.Before_Sub_Stage;
         Select_Sub_Num = SA_PlayerData.Select_Sub_Stage;
 
-/*        Mission_Num = 0;
+        Mission_Num = 0;
         Stage_Num = 0;
-        Select_Sub_Num = 0;*/
+        Select_Sub_Num = 0;
 
         RefreshPersent = 50;
 
         //TrainDistance = 70000;
 
-        SubStageData = SA_MissionData.missionStage(Mission_Num, Stage_Num, Select_Sub_Num);
+        try
+        {
+            SubStageData = SA_MissionData.missionStage(Mission_Num, Stage_Num, Select_Sub_Num);
+        }
+        catch
+        {
+            SubStageData = SA_MissionData.missionStage(Mission_Num, 8, Select_Sub_Num);
+        }
         NextSubStageNum = new List<int>();
         string[] nextSubStageList = SubStageData.Open_SubStageNum.Split(',');
         foreach(string sub in nextSubStageList)
@@ -873,7 +880,6 @@ public class GameDirector : MonoBehaviour
                 TrainObject.transform.position = new Vector3(-10.94f * i, 0f, 0);
             }
             
-
             Train_InGame train = TrainObject.GetComponent<Train_InGame>();
             train.Train_Index = i;
             TrainFuel += train.Train_Fuel;

@@ -19,7 +19,7 @@ public class Train_InGame : MonoBehaviour
     [Header("선택된 기차 정보")]
     public int Train_HP; //현재체력
     [HideInInspector]
-    public float HP_Parsent;
+    public float HP_Parsent = 100f;
     [HideInInspector]
     public int Max_Train_HP;
     public int Train_Weight;
@@ -44,6 +44,7 @@ public class Train_InGame : MonoBehaviour
     [Header("특수 파라미터")]
     public string Train_Special;
     public bool Not_DestoryTrain;
+    public string[] trainData_Special_String;
     //의무실
     [Header("의무실")]
     public float Train_Heal;
@@ -236,7 +237,7 @@ public class Train_InGame : MonoBehaviour
         Train_Booster_UseFuel = 0;
         Train_Booster_BoosterSpeedUP = 0;
         Train_Heal = 0;
-        string[] trainData_Special_String = trainData.Information_Train[Train_Num].Train_Special.Split(',');
+        trainData_Special_String = trainData.Information_Train[Train_Num].Train_Special.Split(',');
         switch (Train_Type)
         {
             case "Engine":
