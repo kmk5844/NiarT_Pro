@@ -1,10 +1,8 @@
 using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.PlayerSettings;
 
 public class Player : MonoBehaviour
 {
@@ -222,7 +220,7 @@ public class Player : MonoBehaviour
                 isMouseDown = false;
             }
 
-/*            if (Input.GetKeyDown(KeyCode.R) && FireCount != 0)
+            if (Input.GetKeyDown(KeyCode.R) && FireCount != 0)
             {
                 if (!STEAM_clickflag_R)
                 {
@@ -238,7 +236,7 @@ public class Player : MonoBehaviour
                 }
 
                 StartCoroutine(Reloading());
-            }*/
+            }
 
             if (isMouseDown)
             {
@@ -340,6 +338,35 @@ public class Player : MonoBehaviour
                     OnOff_Sprite(true);
                     StartCoroutine(ClickDelay());
                     isSelfTurretAtacking = true;
+                }
+            }else if (train.Train_Type.Equals("FuelSignal")){
+                if(train.GetComponentInChildren<FuelSignalTrain>().useflag)
+                {
+                    KeyObject.SetActive(true);
+
+                    if (Input.GetKeyDown(KeyCode.F))
+                    {
+                        train.GetComponentInChildren<FuelSignalTrain>().ClickTrain();
+                    }
+                }
+                else
+                {
+                    KeyObject.SetActive(false);
+                }
+            }else if (train.Train_Type.Equals("Hangar"))
+            {
+                if(train.GetComponentInChildren<Hangar_Train>().useFlag && train.GetComponentInChildren<Hangar_Train>().doorFlag)
+                {
+                    KeyObject.SetActive(true);
+
+                    if(Input.GetKeyDown(KeyCode.F))
+                    {
+                        train.GetComponentInChildren<Hangar_Train>().ClickWeapon();
+                    }
+                }
+                else
+                {
+                    KeyObject.SetActive(false);
                 }
             }
             else
@@ -1071,7 +1098,6 @@ public class Player : MonoBehaviour
         {
             Instantiate(ItemTurret, new Vector2(minGroundPos.x + 3f, -0.55f), Quaternion.identity);
         }
-
     }
 
     public void Item_Player_Spawn_Random_Turret(int num)

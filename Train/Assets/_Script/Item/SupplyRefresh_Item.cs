@@ -10,6 +10,9 @@ public class SupplyRefresh_Item : MonoBehaviour
     Vector2 SupplyItem_Position;
     bool bounceFlag;
 
+    public bool SupplyFlag;
+    int fuelPersent;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -49,12 +52,25 @@ public class SupplyRefresh_Item : MonoBehaviour
         }
     }
 
+    public void FuelSignalSet(GameDirector gmdirector, int fuelPercent)
+    {
+        director = gmdirector;
+        fuelPersent = fuelPercent;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             MMSoundManagerSoundPlayEvent.Trigger(GetItemSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
-            director.RefreshReward();
+            if (!SupplyFlag)
+            {
+                director.RefreshReward();
+            }
+            else
+            {
+                director.FuelSignalSupply(fuelPersent);
+            }
             Destroy(gameObject);
         }
     }

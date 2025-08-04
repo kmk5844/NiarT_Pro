@@ -228,22 +228,16 @@ public class GameDirector : MonoBehaviour
         Before_Sub_Num = SA_PlayerData.Before_Sub_Stage;
         Select_Sub_Num = SA_PlayerData.Select_Sub_Stage;
 
-        Mission_Num = 0;
+/*        Mission_Num = 0;
         Stage_Num = 0;
-        Select_Sub_Num = 0;
+        Select_Sub_Num = 0;*/
 
         RefreshPersent = 50;
 
         //TrainDistance = 70000;
 
-        try
-        {
-            SubStageData = SA_MissionData.missionStage(Mission_Num, Stage_Num, Select_Sub_Num);
-        }
-        catch
-        {
-            SubStageData = SA_MissionData.missionStage(Mission_Num, 8, Select_Sub_Num);
-        }
+        SubStageData = SA_MissionData.missionStage(Mission_Num, Stage_Num, Select_Sub_Num);
+
         NextSubStageNum = new List<int>();
         string[] nextSubStageList = SubStageData.Open_SubStageNum.Split(',');
         foreach(string sub in nextSubStageList)
@@ -251,15 +245,18 @@ public class GameDirector : MonoBehaviour
             NextSubStageNum.Add(int.Parse(sub));
         }
 
-        if(Before_Sub_Num != -1)
+        if(Select_Sub_Num != 0)
         {
-            MissionDataObject PrevStageData = SA_MissionData.missionStage(Mission_Num, Stage_Num, Before_Sub_Num);
-            PrevSubStageNum = new List<int>();
-            string[] prevSubStageList = PrevStageData.Open_SubStageNum.Split(',');
-
-            foreach (string sub in prevSubStageList)
+            if (Before_Sub_Num != -1)
             {
-                PrevSubStageNum.Add(int.Parse(sub));
+                MissionDataObject PrevStageData = SA_MissionData.missionStage(Mission_Num, Stage_Num, Before_Sub_Num);
+                PrevSubStageNum = new List<int>();
+                string[] prevSubStageList = PrevStageData.Open_SubStageNum.Split(',');
+
+                foreach (string sub in prevSubStageList)
+                {
+                    PrevSubStageNum.Add(int.Parse(sub));
+                }
             }
         }
 
@@ -1389,6 +1386,11 @@ public class GameDirector : MonoBehaviour
         }
         uiDirector.ItemInformation_On(null, true, rewardNum, rewardPersent);
         getSupply = true;
+    }
+
+    public void FuelSignalSupply(int parsent)
+    {
+        Item_Fuel_Charge(parsent);
     }
 
     //ItemºÎºÐ

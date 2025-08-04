@@ -34,7 +34,7 @@ public class CowBoy_Grap : MonoBehaviour
             NonTargetPos = line.GetPosition(1);
             isRetracting = false;
             if (!isRetracting)
-            {
+            {`
                 StartCoroutine(NonGrapple());
             }
         }
@@ -45,11 +45,8 @@ public class CowBoy_Grap : MonoBehaviour
             {
                 NonTargetPos = line.GetPosition(1);
                 isRetracting = false;
-                if (!isRetracting)
-                {
-                    StartCoroutine(NonGrapple());
-                    target = null;
-                }
+                StartCoroutine(NonGrapple());
+                target = null;
             }
         }
 
@@ -57,7 +54,25 @@ public class CowBoy_Grap : MonoBehaviour
         if (isRetracting)
         {
             line.SetPosition(0, transform.position);
-            line.SetPosition(1, target.transform.position);
+
+            if (!target) // null 또는 파괴된 경우 자동으로 걸러짐
+            {
+                isRetracting = false;
+                StartCoroutine(NonGrapple());
+                target = null;
+                return;
+            }
+
+            try
+            {
+                line.SetPosition(1, target.transform.position);
+            }
+            catch(MissingReferenceException)
+            {
+                isRetracting = false;
+                StartCoroutine(NonGrapple());
+                target = null;
+            }
         }
     }
     IEnumerator Grapple()
