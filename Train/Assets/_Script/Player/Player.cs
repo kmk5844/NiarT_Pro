@@ -369,6 +369,36 @@ public class Player : MonoBehaviour
                     KeyObject.SetActive(false);
                 }
             }
+            else if(train.Train_Type.Equals("IronPlateFactory"))
+            {
+                if(train.GetComponentInChildren<IronPlateFactory>().useflag)
+                {
+                    KeyObject.SetActive(true);
+                    if (Input.GetKeyDown(KeyCode.F))
+                    {
+                        train.GetComponentInChildren<IronPlateFactory>().ClickTrain();
+                    }
+                }
+                else
+                {
+                    KeyObject.SetActive(false);
+                }
+            }
+            else if (train.Train_Type.Equals("TurretUpgrade"))
+            {
+                if (train.GetComponentInChildren<TurretUpgradeTrain>().useflag)
+                {
+                    KeyObject.SetActive(true);
+                    if (Input.GetKeyDown(KeyCode.F))
+                    {
+                        train.GetComponentInChildren<TurretUpgradeTrain>().ClickTrain();
+                    }
+                }
+                else
+                {
+                    KeyObject.SetActive(false);
+                }
+            }
             else
             {
                 KeyObject.SetActive(false);
@@ -1824,5 +1854,12 @@ public class Player : MonoBehaviour
                 break;
         }
         eventData.OldTranningOff();
+    }
+
+
+
+    public SA_PlayerData playerSet()
+    {
+        return playerData;
     }
 }

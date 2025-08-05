@@ -24,9 +24,8 @@ public class Hangar_Door : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
-        {
+        { 
             director.ExitDoor();
         }
     }
-
 }

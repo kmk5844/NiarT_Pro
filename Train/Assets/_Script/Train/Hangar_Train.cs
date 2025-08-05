@@ -1,12 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Hangar_Train : MonoBehaviour
 {
     Train_InGame trainData;
     GameDirector gameDirector;
+    SA_PlayerData playerdata;
+    GameObject itemdirector_object;
+    UseItem useitemScript;
+    SA_ItemList_Test itemList_Test;
 
     public float SpawnTime;
     public int[] coin = new int[3];
@@ -18,15 +19,21 @@ public class Hangar_Train : MonoBehaviour
     int doorNum = -1;
 
     public Collider2D[] DoorCollider;
-    bool changeFlag = false;    
+    bool changeFlag = false;
 
+    public GameObject SpawnItem;
+    public Transform Spawn_Position_Item;
 
     private void Start()
     {
         trainData = transform.GetComponentInParent<Train_InGame>();
         gameDirector = trainData.gameDirector.GetComponent<GameDirector>();
+        playerdata = gameDirector.player.playerSet();
+        itemdirector_object = GameObject.Find("ItemDirector");
+        useitemScript = itemdirector_object.GetComponent<UseItem>();
+        itemList_Test = useitemScript.itemList_Test;
+
         SpawnTime = float.Parse(trainData.trainData_Special_String[0]);
-        SpawnTime = 5f;
         coin[0] = int.Parse(trainData.trainData_Special_String[1]);
         coin[1] = int.Parse(trainData.trainData_Special_String[2]);
         coin[2] = int.Parse(trainData.trainData_Special_String[3]);
@@ -52,25 +59,11 @@ public class Hangar_Train : MonoBehaviour
                 }
             }
         }
-
-
     }
 
     public void ClickWeapon()
     {
-        switch (doorNum)
-        {
-            case 0:
-                Debug.Log("Weapon 0 Clicked");
-                break;
-            case 1:
-                Debug.Log("Weapon 1 Clicked");
-                break;
-            case 2:
-                Debug.Log("Weapon 2 Clicked");
-                break;
-        }
-
+        ChoiceWeapon();
         useFlag = false;
         changeFlag = false;
         for (int i = 0; i < DoorCollider.Length; i++)
@@ -81,9 +74,38 @@ public class Hangar_Train : MonoBehaviour
         lastTime = Time.time;
     }
 
+    void ChoiceWeapon()
+    {
+        int num = 0;
+        switch (doorNum)
+        {
+            case 0:
+                num = Random.Range(52, 60);
+                playerdata.SA_Buy_Coin_InGame(coin[0]);
+                break;
+            case 1:
+                num = Random.Range(102, 109);
+                playerdata.SA_Buy_Coin_InGame(coin[1]);
+                break;
+            case 2:
+                num = Random.Range(109, 114);
+                playerdata.SA_Buy_Coin_InGame(coin[2]);
+                break;
+        }
+        GameObject spawnitem = Instantiate(SpawnItem, Spawn_Position_Item.position, Quaternion.identity);
+        spawnitem.GetComponent<HangarSpawn_Item>().SetItem(itemList_Test.Item[num], useitemScript);
+    }
+
     public void EnterDoor(int num)
     {
-        doorFlag = true;
+        if(playerdata.Coin > coin[num])
+        {
+            doorFlag = true;
+        }
+        else
+        {
+            doorFlag = false;
+        }
         doorNum = num;
     }
 

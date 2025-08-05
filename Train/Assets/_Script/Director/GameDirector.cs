@@ -1434,7 +1434,10 @@ public class GameDirector : MonoBehaviour
 
     public void Item_Train_Armor_Up(int delayTime, int parsent)
     {
-
+        for(int i = 0; i < Train_List.childCount; i++)
+        {
+            Train_List.GetChild(i).GetComponent<Train_InGame>().Item_Armor_Up(delayTime, parsent);
+        }
     }
 
     public void Item_Use_Lucky_Coin()

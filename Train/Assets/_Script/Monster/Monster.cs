@@ -600,7 +600,6 @@ public class Monster : MonoBehaviour
             }
         }
     }
-
     void Laser_Hit(Collider2D collision, bool RealLaser)
     {
         if (RealLaser)
@@ -621,7 +620,6 @@ public class Monster : MonoBehaviour
         }
         
     }
-
     void Fire_Hit(Collider2D collision)
     {
         if (Time.time > fire_hit_time + 0.3f)

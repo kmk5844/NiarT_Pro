@@ -23,7 +23,6 @@ public class FuelSignalTrain : MonoBehaviour
         trainData = transform.GetComponentInParent<Train_InGame>();
         gameDirector = trainData.gameDirector.GetComponent<GameDirector>();
         SpawnTime = float.Parse(trainData.trainData_Special_String[0]);
-        SpawnTime = 5;
         minFuel = int.Parse(trainData.trainData_Special_String[1]);
         maxFuel = int.Parse(trainData.trainData_Special_String[2]) + 1;
     }

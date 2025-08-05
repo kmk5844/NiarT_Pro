@@ -174,6 +174,12 @@ public class SA_PlayerData : ScriptableObject
         Save_Solo("Coin");
     }
 
+    public void SA_Buy_Coin_InGame(int R_Coin)
+    {
+        coin -= R_Coin;
+    }
+
+
     public void SA_Loss_HP_Persent(int persent)
     {
         int curret_hp;

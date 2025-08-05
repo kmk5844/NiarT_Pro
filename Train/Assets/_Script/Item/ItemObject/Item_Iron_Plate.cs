@@ -16,6 +16,11 @@ public class Item_Iron_Plate : MonoBehaviour
 
     public void Heal(int hp)
     {
+        if(hp > MaxHP)
+        {
+            MaxHP = hp;
+        }
+
         HP += hp;
         if (HP > MaxHP)
         {

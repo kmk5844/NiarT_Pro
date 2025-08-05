@@ -72,6 +72,7 @@ public class Train_InGame : MonoBehaviour
     [Header("아이템")]
     bool ItemIronPlateFlag;
     GameObject IronPlate;
+    int Item_Armor;
 
     public bool isReparing;
     public bool isRepairable;
@@ -400,6 +401,15 @@ public class Train_InGame : MonoBehaviour
         {
             ItemIronPlateFlag = false;
         }
+    }
+
+    public IEnumerator Item_Armor_Up(int delaytime,int persent)
+    {
+        int item_armor = (int)(Train_Armor * (persent / 100f));
+        Train_Armor += item_armor;
+        yield return new WaitForSeconds(delaytime);
+        Train_Armor -= item_armor;
+        //era는 업데이트문에서 처리하고 있음.
     }
 
     //save 저장
