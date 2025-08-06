@@ -1,3 +1,4 @@
+using DG.Tweening.Core.Easing;
 using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
@@ -62,6 +63,14 @@ public class Player : MonoBehaviour
     bool isMouseDown;
     public float jumpdistance = 1.3f;
     float jumpFlagDistance;
+    //대시
+    bool canDash = true;
+    bool isDashing = false;
+    float dashingPower = 4f;
+    float dashingTime = 0.2f;
+    float dashingCooldown = 1f;
+    float horizontalInput;
+
 
     [Header("상호작용")]
     public bool isHealing;
@@ -205,6 +214,11 @@ public class Player : MonoBehaviour
             || gameDirectorType == GameType.Boss || gameDirectorType == GameType.Refreshing ||
             gameDirectorType == GameType.Ending)
         {
+            if (isDashing)
+            {
+                return;
+            }
+
             if (Input.GetMouseButtonDown(0))
             {
                 isMouseDown = true;
@@ -236,6 +250,11 @@ public class Player : MonoBehaviour
                 }
 
                 StartCoroutine(Reloading());
+            }
+
+            if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+            {
+                StartCoroutine(Dash());
             }
 
             if (isMouseDown)
@@ -288,23 +307,7 @@ public class Player : MonoBehaviour
                         //파괴되어 사용할 수 없습니다.
                     }
                 }
-            }/*else if (train.Train_Type.Equals("Dash"))
-            {
-                if (train.GetComponentInChildren<Dash_Train>().UseFlag)
-                {
-                    KeyObject.SetActive(true);
-                }
-                else
-                {
-                    KeyObject.SetActive(false);
-                }
-
-*//*                if(Input.GetKeyDown(KeyCode.F) && train.GetComponentInChildren<Dash_Train>().UseFlag)
-                {
-                    train.GetComponentInChildren<Dash_Train>().UseDash();
-                    StartCoroutine(Item_Player_SpeedUP(train.Train_Dash_PalyerAmount, train.Train_Dash_Second));
-                }*//*
-            }*/else if (train.Train_Type.Equals("Supply"))
+            }else if (train.Train_Type.Equals("Supply"))
             {
                 if (train.GetComponentInChildren<Supply_Train>().UseFlag)
                 {
@@ -551,8 +554,8 @@ public class Player : MonoBehaviour
         if (isHealing) { }
         else if (isSelfTurretAtacking) { }
         else {
-            float h = Input.GetAxisRaw("Horizontal");
-            rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
+            horizontalInput = Input.GetAxisRaw("Horizontal");
+            rigid.AddForce(Vector2.right * horizontalInput, ForceMode2D.Impulse);
         }
 
         if (gameDirectorType == GameType.Starting || gameDirectorType == GameType.Playing
@@ -617,6 +620,52 @@ public class Player : MonoBehaviour
             Respawn();
         }
     }
+
+    IEnumerator Dash()
+    {
+        canDash = false;
+        isDashing = true;
+        float originalGravity = rigid.gravityScale; 
+        rigid.gravityScale = 0f; // 대시 중 중력 비활성화
+                                 //rigid.velocity = new Vector2(horizontalInput * dashingPower, 0f);
+        /*
+                Vector2 dashTarget = rigid.position + new Vector2(horizontalInput * dashingPower, 0f);
+                rigid.MovePosition(dashTarget);
+                yield return new WaitForSeconds(dashingTime);*/
+        Vector2 start = transform.position;
+        Vector2 end = start + new Vector2(horizontalInput * dashingPower, 0f);
+
+        float elapsed = 0f;
+
+        while (elapsed < dashingTime)
+        {
+            float t = elapsed / dashingTime;
+
+            // 부드러운 가속/감속을 원하면 AnimationCurve 활용
+            float curvedT = EvaluateDashCurve(t);
+
+            transform.position = Vector2.Lerp(start, end, curvedT);
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = end;
+
+        rigid.gravityScale = originalGravity; // 대시 후 중력 재활성화
+
+        isDashing = false;
+        yield return new WaitForSeconds(dashingCooldown);
+        canDash = true;
+    }
+
+    private float EvaluateDashCurve(float t)
+    {
+        //return 1f - Mathf.Pow(2f, -10f * t);
+        return t < 0.5f ? 2f * t * t : -1f + (4f - 2f * t) * t;
+        //return t * t * (3f - 2f * t); // SmoothStep
+    }
+
     void BulletFire()
     {
         if (Time.time >= lastTime + (Bullet_Delay + item_Delay))

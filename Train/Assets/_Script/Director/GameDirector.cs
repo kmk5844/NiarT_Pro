@@ -434,6 +434,7 @@ public class GameDirector : MonoBehaviour
                 lastSpeedTime = Time.time;
             }
 
+
             if (TrainFuel <= 0)
             {
                 TrainFuel = 0;

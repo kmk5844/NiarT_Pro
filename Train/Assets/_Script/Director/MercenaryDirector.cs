@@ -47,10 +47,10 @@ public class MercenaryDirector : MonoBehaviour
             StartCoroutine(Check_Live_Unit());
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !isEngineerCall)
+/*        if (Input.GetKeyDown(KeyCode.LeftShift) && !isEngineerCall)
         {
             Engineer_Call();
-        }
+        }*/
     }
 
     void InGame_SpawnMercenary()
