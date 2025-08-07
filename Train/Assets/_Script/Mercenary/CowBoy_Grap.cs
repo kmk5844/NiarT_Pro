@@ -29,16 +29,6 @@ public class CowBoy_Grap : MonoBehaviour
 
     private void FixedUpdate()
     {
-/*        if (target == null && isGrappling)
-        {
-            NonTargetPos = line.GetPosition(1);
-            isRetracting = false;
-            if (!isRetracting)
-            {`
-                StartCoroutine(NonGrapple());
-            }
-        }
-*/
         if(target != null)
         {
             if (target.GetComponent<Monster>().monster_gametype == Monster_GameType.Die && isGrappling)
@@ -49,7 +39,6 @@ public class CowBoy_Grap : MonoBehaviour
                 target = null;
             }
         }
-
 
         if (isRetracting)
         {
@@ -115,17 +104,10 @@ public class CowBoy_Grap : MonoBehaviour
         line.SetPosition(1, transform.position);
         if (!isCounting)
         {
-            unit.workCountUP();
             isCounting = true;
         }
-        if (unit.refreshFlag)
-        {
-            unit.mercenaryActive_Change(Active.refresh);
-        }
-        else
-        {
-            unit.mercenaryActive_Change(Active.move);
-        }
+        unit.mercenaryActive_Change(Active.move);
+
         isGrappling = false;
         line.enabled = false;
     }

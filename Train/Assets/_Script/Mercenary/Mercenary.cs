@@ -35,13 +35,6 @@ public class Mercenary : MonoBehaviour
     public int atk;
     public float moveSpeed;
     protected Rigidbody2D rb2D;
-    float refreshStartTime;
-    float Refresh_Delay;
-    float Min_Refresh_Delay;
-    float Max_Refresh_Delay;
-    protected int workCount;
-    [SerializeField]
-    protected int Max_workCount;
 
     //전투 용병 Move
     bool isCombatantWalking;
@@ -50,8 +43,6 @@ public class Mercenary : MonoBehaviour
     int Combatant_Move_x;
     Vector2 Combatant_BeforePosition;
 
-    //휴식
-    protected bool isRefreshing;
     protected bool isDying;
     public bool isHealWithMedic;
 
@@ -62,17 +53,6 @@ public class Mercenary : MonoBehaviour
     [Header("UI")]
     public GameObject HP_Waring_Object;
     public Image HP_Guage;
-    public GameObject CoolTime_Guage_Object;
-    public Image CoolTime_Guage;
-    public GameObject Count_Guage_Object;
-    public Image Count_Guage;
-    int count;
-    bool countFlag;
-
-    //Item부분
-    protected int Item_workCount_UP;
-    protected float Item_Refresh_Delay;
-    protected float Item_Refresh_DelayPercent;
 
     protected virtual void Awake()
     {
@@ -88,47 +68,32 @@ public class Mercenary : MonoBehaviour
     {
         TrainCount = Train_List.childCount;
         rb2D = GetComponent<Rigidbody2D>();
-        Refresh_Delay = 0f;
-        Item_Refresh_Delay = 0f;
-        Item_workCount_UP = 0;
+
         Move_X = 1f;
         MaxMove_X = 3f;
         MinMove_X = (-4.97f + (-10.94f * (TrainCount - 1)));
         Move_Y = -1.2f;
         transform.position = new Vector2(Random.Range(MinMove_X, MaxMove_X), Move_Y);
+
         Unit_Scale = transform.GetChild(0);
         Unit_Scale_X = Unit_Scale.localScale.x;
         Unit_Scale_Y = Unit_Scale.localScale.y;
         Unit_Scale_Z = Unit_Scale.localScale.z;
+
         def_constant = 100;
         era = 1f - (float)def / def_constant;
         MaxHP = HP;
 
         isCombatantWalking = false;
         isCombatantIdling = false;
-        isRefreshing = false;
 
         HP_Waring_Object.SetActive(false);
         HP_Guage.fillAmount = 1f;
-        CoolTime_Guage_Object.SetActive(false);
-        CoolTime_Guage.fillAmount = 0f;
-        Count_Guage.fillAmount = 1f;
-
-        if(Max_workCount == 0)
-        {
-            countFlag = false;
-        }
-        else
-        {
-            countFlag = true;
-        }
-        Count_Guage_Object.SetActive(countFlag);
     }
 
     protected virtual void Update()
     {
         Check_GameType();
-
         if (Check_HpParsent() < 30)
         {
             HP_Waring_Object.SetActive(true);
@@ -138,23 +103,7 @@ public class Mercenary : MonoBehaviour
             HP_Waring_Object.SetActive(false);
         }
 
-        if (isRefreshing)
-        {
-            float elpsedTime = Time.time - refreshStartTime;
-            float totalDuration = Mathf.Clamp(refreshStartTime + (Refresh_Delay - Item_Refresh_Delay), refreshStartTime, float.MaxValue) - refreshStartTime;
-            float currentFillAmount = Mathf.Lerp(0, 1, Mathf.Clamp01(elpsedTime / totalDuration));
-            CoolTime_Guage.fillAmount = currentFillAmount;
-        }
-
         HP_Guage.fillAmount = Check_HpParsent() / 100f;
-        if (countFlag)
-        {
-            if (Max_workCount - workCount != count)
-            {
-                count = Max_workCount - workCount;
-                Count_Guage.fillAmount = ((float)count / (float)Max_workCount);
-            }
-        }
     }
 
     protected void Combatant_Move()
@@ -263,7 +212,6 @@ public class Mercenary : MonoBehaviour
             isCombatantIdling = false;
         }
     }
-
     protected void non_combatant_Flip()
     {
         if (Move_X > 0)
@@ -274,9 +222,7 @@ public class Mercenary : MonoBehaviour
         {
             Unit_Scale.localScale = new Vector3(Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
         }
-
     }
-
     protected void non_combatant_Move()
     {
         non_combatant_Flip();
@@ -292,44 +238,6 @@ public class Mercenary : MonoBehaviour
         rb2D.velocity = new Vector2(Move_X * moveSpeed, rb2D.velocity.y);
     }
 
-    protected IEnumerator Refresh()
-    {
-        isRefreshing = true;
-        CoolTime_Guage.fillAmount = 0f;
-        CoolTime_Guage_Object.SetActive(true);
-        refreshStartTime = Time.time;
-        Refresh_Delay = Random.Range(Min_Refresh_Delay, Max_Refresh_Delay);
-        rb2D.velocity = Vector2.zero;
-
-        if (Item_Refresh_DelayPercent == 0)
-        {
-            Item_Refresh_Delay = 0;
-        }
-        else
-        {
-            Item_Refresh_Delay = Refresh_Delay * (Item_Refresh_DelayPercent / 100f);
-        }
-        yield return new WaitForSeconds(Refresh_Delay - Item_Refresh_Delay);
-        workCount = 0;
-        CoolTime_Guage_Object.SetActive(false);
-        act = Active.move;
-        isRefreshing = false;
-    }
-
-    protected IEnumerator Revive(int Heal_HpParsent)
-    {
-        act = Active.revive;
-        HP = MaxHP * Heal_HpParsent / 100;
-        Debug.Log("부활 : " + gameObject.name);
-        yield return new WaitForSeconds(4);
-        act = Active.move;
-    }
-
-    public void workCountUP()
-    {
-        workCount++;
-    }
-
     public float Check_MoveX()
     {
         return Move_X;
@@ -337,7 +245,7 @@ public class Mercenary : MonoBehaviour
 
     public bool Check_Live()
     {
-        if(act == Active.die)
+        if (act == Active.die)
         {
             return false;
         }
@@ -426,63 +334,42 @@ public class Mercenary : MonoBehaviour
             case mercenaryType.Engine_Driver:
                 HP = EX_Level_Data.Level_Mercenary_Engine_Driver[SA_MercenaryData.Level_Engine_Driver].HP;
                 moveSpeed = EX_Level_Data.Level_Mercenary_Engine_Driver[SA_MercenaryData.Level_Engine_Driver].MoveSpeed;
-                Max_workCount = EX_Level_Data.Level_Mercenary_Engine_Driver[SA_MercenaryData.Level_Engine_Driver].Max_WorkCount;
-                Min_Refresh_Delay = EX_Level_Data.Level_Mercenary_Engine_Driver[SA_MercenaryData.Level_Engine_Driver].Min_Refresh_Delay;
-                Max_Refresh_Delay = EX_Level_Data.Level_Mercenary_Engine_Driver[SA_MercenaryData.Level_Engine_Driver].Max_Refresh_Delay;
                 def = EX_Level_Data.Level_Mercenary_Engine_Driver[SA_MercenaryData.Level_Engine_Driver].Def;
                 GetComponent<Engine_Driver>().Level_AddStatus_Engine_Driver(EX_Level_Data.Level_Mercenary_Engine_Driver, SA_MercenaryData.Level_Engine_Driver);
                 break;
             case mercenaryType.Engineer:
                 HP = EX_Level_Data.Level_Mercenary_Engineer[SA_MercenaryData.Level_Engineer].HP;
                 moveSpeed = EX_Level_Data.Level_Mercenary_Engineer[SA_MercenaryData.Level_Engineer].MoveSpeed;
-                Max_workCount = EX_Level_Data.Level_Mercenary_Engineer[SA_MercenaryData.Level_Engineer].Max_WorkCount;
-                Min_Refresh_Delay = EX_Level_Data.Level_Mercenary_Engineer[SA_MercenaryData.Level_Engineer].Min_Refresh_Delay;
-                Max_Refresh_Delay = EX_Level_Data.Level_Mercenary_Engineer[SA_MercenaryData.Level_Engineer].Max_Refresh_Delay;
                 def = EX_Level_Data.Level_Mercenary_Engineer[SA_MercenaryData.Level_Engineer].Def;
                 GetComponent<Engineer>().Level_AddStatus_Engineer(EX_Level_Data.Level_Mercenary_Engineer, SA_MercenaryData.Level_Engineer);
                 break;
             case mercenaryType.Long_Ranged:
                 HP = EX_Level_Data.Level_Mercenary_Long_Ranged[SA_MercenaryData.Level_Long_Ranged].HP;
                 moveSpeed = EX_Level_Data.Level_Mercenary_Long_Ranged[SA_MercenaryData.Level_Long_Ranged].MoveSpeed;
-                Max_workCount = EX_Level_Data.Level_Mercenary_Long_Ranged[SA_MercenaryData.Level_Long_Ranged].Max_WorkCount;
-                Min_Refresh_Delay = EX_Level_Data.Level_Mercenary_Long_Ranged[SA_MercenaryData.Level_Long_Ranged].Min_Refresh_Delay;
-                Max_Refresh_Delay = EX_Level_Data.Level_Mercenary_Long_Ranged[SA_MercenaryData.Level_Long_Ranged].Max_Refresh_Delay;
                 def = EX_Level_Data.Level_Mercenary_Long_Ranged[SA_MercenaryData.Level_Long_Ranged].Def;
                 GetComponent<Long_Ranged>().Level_AddStatus_LongRanged(EX_Level_Data.Level_Mercenary_Long_Ranged, SA_MercenaryData.Level_Long_Ranged);
                 break;
             case mercenaryType.Short_Ranged:
                 HP = EX_Level_Data.Level_Mercenary_Short_Ranged[SA_MercenaryData.Level_Short_Ranged].HP;
                 moveSpeed = EX_Level_Data.Level_Mercenary_Short_Ranged[SA_MercenaryData.Level_Short_Ranged].MoveSpeed;
-                Max_workCount = EX_Level_Data.Level_Mercenary_Short_Ranged[SA_MercenaryData.Level_Short_Ranged].Max_WorkCount;
-                Min_Refresh_Delay = EX_Level_Data.Level_Mercenary_Short_Ranged[SA_MercenaryData.Level_Short_Ranged].Min_Refresh_Delay;
-                Max_Refresh_Delay = EX_Level_Data.Level_Mercenary_Short_Ranged[SA_MercenaryData.Level_Short_Ranged].Max_Refresh_Delay;
                 def = EX_Level_Data.Level_Mercenary_Short_Ranged[SA_MercenaryData.Level_Short_Ranged].Def;
                 GetComponent<Short_Ranged>().Level_AddStatus_ShortRanged(EX_Level_Data.Level_Mercenary_Short_Ranged, SA_MercenaryData.Level_Short_Ranged);
                 break;
             case mercenaryType.Medic:
                 HP = EX_Level_Data.Level_Mercenary_Medic[SA_MercenaryData.Level_Medic].HP;
                 moveSpeed = EX_Level_Data.Level_Mercenary_Medic[SA_MercenaryData.Level_Medic].MoveSpeed;
-                Max_workCount = EX_Level_Data.Level_Mercenary_Medic[SA_MercenaryData.Level_Medic].Max_WorkCount;
-                Min_Refresh_Delay = EX_Level_Data.Level_Mercenary_Medic[SA_MercenaryData.Level_Medic].Min_Refresh_Delay;
-                Max_Refresh_Delay = EX_Level_Data.Level_Mercenary_Medic[SA_MercenaryData.Level_Medic].Max_Refresh_Delay;
                 def = EX_Level_Data.Level_Mercenary_Medic[SA_MercenaryData.Level_Medic].Def;
                 GetComponent<Medic>().Level_AddStatus_Medic(EX_Level_Data.Level_Mercenary_Medic, SA_MercenaryData.Level_Medic);
                 break;
             case mercenaryType.Bard:
                 HP = EX_Level_Data.Level_Mercenary_Bard[SA_MercenaryData.Level_Bard].HP;
                 moveSpeed = EX_Level_Data.Level_Mercenary_Bard[SA_MercenaryData.Level_Bard].MoveSpeed;
-                Max_workCount = EX_Level_Data.Level_Mercenary_Bard[SA_MercenaryData.Level_Bard].Max_WorkCount;
-                Min_Refresh_Delay = EX_Level_Data.Level_Mercenary_Bard[SA_MercenaryData.Level_Bard].Min_Refresh_Delay;
-                Max_Refresh_Delay = EX_Level_Data.Level_Mercenary_Bard[SA_MercenaryData.Level_Bard].Max_Refresh_Delay;
                 def = EX_Level_Data.Level_Mercenary_Bard[SA_MercenaryData.Level_Bard].Def;
                 GetComponent<Bard>().Level_AddStatus_Bard(EX_Level_Data.Level_Mercenary_Bard, SA_MercenaryData.Level_Bard); //특수 스탯
                 break;
             case mercenaryType.CowBoy:
                 HP = EX_Level_Data.Level_Mercenary_CowBoy[SA_MercenaryData.Level_CowBoy].HP;
                 moveSpeed = EX_Level_Data.Level_Mercenary_CowBoy[SA_MercenaryData.Level_CowBoy].MoveSpeed;
-                Max_workCount = EX_Level_Data.Level_Mercenary_CowBoy[SA_MercenaryData.Level_CowBoy].Max_WorkCount;
-                Min_Refresh_Delay = EX_Level_Data.Level_Mercenary_CowBoy[SA_MercenaryData.Level_CowBoy].Min_Refresh_Delay;
-                Max_Refresh_Delay = EX_Level_Data.Level_Mercenary_CowBoy[SA_MercenaryData.Level_CowBoy].Max_Refresh_Delay;
                 def = EX_Level_Data.Level_Mercenary_CowBoy[SA_MercenaryData.Level_CowBoy].Def;
                 //카우보이의 개별적인 특수 스탯이 없음.
                 break;
@@ -513,14 +400,14 @@ public class Mercenary : MonoBehaviour
 
     public IEnumerator Item_Fatigue_Reliever(int workcount, float refreshPercent, int delayTime)
     {
-        Item_workCount_UP = workcount;
-        Item_Refresh_DelayPercent = refreshPercent;
+        /*Item_workCount_UP = workcount;
+        Item_Refresh_DelayPercent = refreshPercent;*/
         yield return new WaitForSeconds(delayTime);
-        Item_workCount_UP = 0;
-        Item_Refresh_DelayPercent = 0;
+        /*Item_workCount_UP = 0;
+        Item_Refresh_DelayPercent = 0;*/
     }
 
-    public IEnumerator Item_Gloves_Expertise(float refreshPercent, int delayTime)
+/*    public IEnumerator Item_Gloves_Expertise(float refreshPercent, int delayTime)
     {
         Item_Refresh_DelayPercent = refreshPercent;
         yield return new WaitForSeconds(delayTime);
@@ -532,16 +419,13 @@ public class Mercenary : MonoBehaviour
         Item_workCount_UP = count;
         yield return new WaitForSeconds(delayTime);
         Item_workCount_UP = 0;
-    }
+    }*/
 }
 public enum Active
 {
     move,   // 이동
     work,   // 작업
     die,    // 죽음
-    revive, // 부활
-    refresh,   //휴식
-    call,   //플레이어 호출
     Game_Wait, // 인게임의 기다림 
     //플레이어 상호작용 추가하면 -> 플레이어 향해 가서 상호작용 한다
 }

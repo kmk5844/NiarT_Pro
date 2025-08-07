@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static TreeEditor.TreeGroup;
 
 public class Short_Ranged_KillZone : MonoBehaviour
 {
@@ -23,18 +24,38 @@ public class Short_Ranged_KillZone : MonoBehaviour
         {
             if (collision.CompareTag("Monster"))
             {
-                unit.mercenaryActive_Change(Active.work);
+                if(unit.Target == null)
+                {
+                    unit.Target = collision.transform;
+                    unit.lockFlag = true;
+                }
             }
         }
     }
+/*    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Monster"))
+        {
+            if (unit.Target == null)
+            {
+                unit.Target = collision.transform;
+            }
+            if (collision.transform != unit.Target)
+            {
+                return;
+            }
+        }
+    }*/
+
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(unit_act == Active.work)
+        if (collision.CompareTag("Monster"))
         {
-            if (collision.CompareTag("Monster"))
+            if (collision.transform == unit.Target && unit.lockFlag)
             {
-                unit.mercenaryActive_Change(Active.move);
+                unit.Target = null;
+                unit.lockFlag = false;
             }
         }
     }

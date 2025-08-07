@@ -7,7 +7,6 @@ public class Engineer : Mercenary
     Train_InGame train;
     public bool move_Work;
     bool isRepairing;
-    public bool isCalling;
     float train_HpParsent;
 
     [SerializeField]
@@ -33,7 +32,6 @@ public class Engineer : Mercenary
         act = Active.move;
         move_Work = true;
         TrainSpawnFlag = false;
-        isCalling = false;
     }
 
     protected override void Update()
@@ -43,7 +41,7 @@ public class Engineer : Mercenary
         {
             TrainSpawnFlag = gameDirector.SpawnTrainFlag;
             train = null;
-        }else{
+        }/*else{ // 원래 지나가면서 트레인이 낮은 피라면, 수리로 돌입하는 쪽이였다.
             Debug.DrawRay(rb2D.position, Vector3.down, Color.green);
             RaycastHit2D rayHit = Physics2D.Raycast(rb2D.position, Vector3.down, 1f, LayerMask.GetMask("Platform"));
 
@@ -52,20 +50,48 @@ public class Engineer : Mercenary
                 train = rayHit.collider.GetComponentInParent<Train_InGame>();
                 train_HpParsent = (float)train.Train_HP / (float)train.Max_Train_HP * 100f;
             }
-        }
-
-        base.non_combatant_Flip();
+        }*/
+        //base.non_combatant_Flip();
 
         if (Mer_GameType == GameType.Playing || Mer_GameType == GameType.Boss || Mer_GameType == GameType.Refreshing)
         {
             if (HP <= 0 && act != Active.die)
             {
+                HP = 0;
                 act = Active.die;
                 isDying = true;
             }
-            if (act == Active.move) // 콜하지 않는 행동, 일하지 않는 행동
+
+            if (act == Active.work)
             {
-                if(train != null)
+                //트레인이 일정 체력 이상일 때, 전환
+                if (train_HpParsent > repaireTrain_parsent)
+                {
+                    train.isReparing = false;
+                    //act = Active.refresh;
+                    act = Active.move;
+                    move_Work = true;
+                }
+
+                //호출을 하지 않았을 때
+                if (!move_Work) // 움직이지 않을 때
+                {
+                    if (!train.isReparing) // 수리 중인 플래그가 꺼져있을 때
+                    {
+                        train.isReparing = true;
+                    }
+
+                    if (!isRepairing) // 자신이 수리 중임
+                    {
+                        StartCoroutine(Repair());
+                    }
+                }
+            }
+
+            /*if (act == Active.move) // 콜하지 않는 행동, 일하지 않는 행동
+            {
+
+                if (train != null) // null이 아닐 때,
                 {
                     //트레인 체력이 일정 체력 이하로 떨어졌을 때와, 기차 수리중이 아니라면
                     if (train_HpParsent < repaireTrain_parsent && !train.isReparing)
@@ -87,46 +113,7 @@ public class Engineer : Mercenary
                         }
                     }
                 }
-            }
-            else if (act == Active.work)
-            {
-                //트레인이 일정 체력 이상일 때, 전환
-                if (train_HpParsent > repaireTrain_parsent)
-                {
-                    train.isReparing = false;
-                    act = Active.refresh;
-                    move_Work = true;
-                }
-
-                //호출을 하지 않았을 때
-                if (!isCalling)
-                {
-                    if (!move_Work) // 움직이지 않을 때
-                    {
-                        if (!train.isReparing) // 수리 중인 플래그가 꺼져있을 때
-                        {
-                            train.isReparing = true;
-                        }
-                        if (!isRepairing) // 자신이 수리 중임
-                        {
-                            StartCoroutine(Repair());
-                        }
-                    }
-                }
-            }else if (act == Active.refresh)
-            {
-                if (!isRefreshing)
-                {
-                    StartCoroutine(Refresh());
-                }
-                else
-                {
-                    if (!move_Work)
-                    {
-                        move_Work = true;
-                    }
-                }
-            }
+            }*/
             if (act == Active.die && isDying)
             {
                 if (train.isReparing)
@@ -142,54 +129,28 @@ public class Engineer : Mercenary
     {
         if (Mer_GameType == GameType.Playing || Mer_GameType == GameType.Boss || Mer_GameType == GameType.Refreshing)
         {
-            if (act == Active.move){
-                base.non_combatant_Move();
+            if (act == Active.move)
+            {
+                base.Combatant_Move();
             }else if (act == Active.work){
-                if (!isCalling)
+                //기차쪽으로 달려가는
+                if (move_Work)
                 {
-                    if (move_Work)
+                    if(transform.position.x < train.transform.position.x - 0.2)
                     {
-                        if(transform.position.x < train.transform.position.x - 0.2)
-                        {
-                            Move_X = 1f;
-                            rb2D.velocity = new Vector2(Move_X * moveSpeed, rb2D.velocity.y);
-                        }else if(transform.position.x > train.transform.position.x + 0.2)
-                        {
-                            Move_X = -1f;
-                            rb2D.velocity = new Vector2(Move_X * moveSpeed, rb2D.velocity.y);
-                        }
-                        else
-                        {
-                            rb2D.velocity = Vector2.zero;
-                            move_Work = false;
-                        }
+                        Move_X = 1f;
+                        rb2D.velocity = new Vector2(Move_X * moveSpeed, rb2D.velocity.y);
+                    }else if(transform.position.x > train.transform.position.x + 0.2)
+                    {
+                        Move_X = -1f;
+                        rb2D.velocity = new Vector2(Move_X * moveSpeed, rb2D.velocity.y);
+                    }
+                    else
+                    {
+                        rb2D.velocity = Vector2.zero;
+                        move_Work = false;
                     }
                 }
-
-            }else if(act == Active.call)
-            {
-                isCalling = true;
-                move_Work = true;
-                if (transform.position.x < Player_X_Position.x - 0.5f)
-                {
-                    Move_X = 1f;
-                    rb2D.velocity = new Vector2(Move_X * 6f, rb2D.velocity.y);
-
-                }
-                else if (transform.position.x > Player_X_Position.x + 0.5f)
-                {
-                    Move_X = -1f;
-                    rb2D.velocity = new Vector2(Move_X * 6f, rb2D.velocity.y);
-                }
-                else
-                {
-                    isCalling = false;
-                    act = Active.move;
-                    mercenaryDirector.Call_End_Engineer();
-                }
-            }else if(act == Active.refresh)
-            {
-                rb2D.velocity = Vector2.zero;
             }else if(act == Active.die)
             {
                 rb2D.velocity = Vector2.zero;
@@ -209,37 +170,24 @@ public class Engineer : Mercenary
         repaireTrain_parsent = type[level].Repair_Train_Parsent;
     }
 
-    public void PlayerEngineerCall(Vector3 PlayerCall_XPos)
+/*    public void PlayerEngineerCall(Vector3 PlayerCall_XPos)
     {
         if (act == Active.work)
         {
             train.isReparing = false;
         }
         Player_X_Position = new Vector3(PlayerCall_XPos.x, transform.position.y, transform.position.z);
-        act = Active.call;
-    }
+    }*/
 
     IEnumerator Repair()
     {
         isRepairing = true;
-        workCount++;
-        if (workCount >= Max_workCount + base.Item_workCount_UP)
-        {
-            act = Active.refresh;
-            if (train.isReparing)
-            {
-                train.isReparing = false;
-            }
-        }
-        else
-        {
-            train.Train_HP += repairAmount;
-        }
+        train.Train_HP += repairAmount;
         yield return new WaitForSeconds(repairDelay);
         isRepairing = false;
     }
 
-    public int Check_Work()
+/*    public int Check_Work()
     {
         if (act == Active.move)
         {
@@ -249,13 +197,9 @@ public class Engineer : Mercenary
         {
             return 1;
         }
-        else if(act == Active.refresh)
-        {
-            return 2;
-        }
         else
         {
             return -1;
         }
-    }
+    }*/
 }

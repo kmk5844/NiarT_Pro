@@ -6,7 +6,6 @@ public class Bard : Mercenary
 {
     [SerializeField]
     Bard_Type bard_type;
-    bool isSurvival;
 
     int Level_HP;
     int Level_Atk;
@@ -16,7 +15,6 @@ public class Bard : Mercenary
     Player player;
 
     bool buffFlag;
-
     protected override void Awake()
     {
         base.Awake();
@@ -46,17 +44,14 @@ public class Bard : Mercenary
         {
             if(HP <= 0 && act != Active.die)
             {
+                HP = 0;
                 act = Active.die;
                 isDying = true;
             }
-            if(act == Active.revive && !isSurvival)
-            {
-                Bard_Survival_Buff();
-                isSurvival = true;
-            }else if(act == Active.die && isDying)
+
+            if(act == Active.die && isDying)
             {
                 Bard_Die_Buff();
-                isSurvival = false;
                 isDying = false;
             }
         }

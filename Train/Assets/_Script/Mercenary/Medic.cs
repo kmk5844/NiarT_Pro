@@ -36,6 +36,7 @@ public class Medic : Mercenary
         {
             if (HP <= 0 && act != Active.die)
             {
+                HP = 0;
                 act = Active.die;
                 isDying = true;
             }
@@ -49,24 +50,23 @@ public class Medic : Mercenary
                         CheckHP = unit.GetComponent<Mercenary_Type>().medic_checkHpParsent;
                         if (CheckHP > Heal_HpParsent)
                         {
-                            act = Active.refresh;
                             work_HP = false;
                             unit.GetComponentInParent<Mercenary>().isHealWithMedic = false;
                         }
                         StartCoroutine(Heal_HP());
                     }
                 }
+                else
+                {
+                    if (act != Active.move)
+                    {
+                        act = Active.move;
+                    }
+                }
             }
             else if (act == Active.die && isDying)
             {
                 isDying = false;
-            }
-            else if (act == Active.refresh)
-            {
-                if (!isRefreshing)
-                {
-                    StartCoroutine(Refresh());
-                }
             }
         }
     }
@@ -92,10 +92,6 @@ public class Medic : Mercenary
                     transform.position = new Vector3(unit.position.x + 0.6f, Move_Y, 0);
                 }
             }
-            else if (act == Active.refresh)
-            {
-                rb2D.velocity = Vector2.zero;
-            }
             else if (act == Active.die)
             {
                 rb2D.velocity = Vector2.zero;
@@ -111,22 +107,9 @@ public class Medic : Mercenary
     IEnumerator Heal_HP()
     {
         isHeal_HP = true;
-        workCount++;
-
-        if (workCount >= Max_workCount + base.Item_workCount_UP)
-        {
-            if (unit.GetComponentInParent<Mercenary>().isHealWithMedic)
-            {
-                work_HP = false;
-                unit.GetComponentInParent<Mercenary>().isHealWithMedic = false;
-            }
-            act = Active.refresh;
-        }
-        else
-        {
-            unit.GetComponent<Mercenary_Type>().Heal_HP(Heal_HpAmount);
-        }
-        yield return new WaitForSeconds(1);
+        unit.GetComponent<Mercenary_Type>().Heal_HP(Heal_HpAmount);
+        Debug.Log(Heal_HpAmount);
+        yield return new WaitForSeconds(0.5f);
         isHeal_HP = false;
     }
 
@@ -146,7 +129,7 @@ public class Medic : Mercenary
 
                 if (!unit.GetComponentInParent<Mercenary>().isHealWithMedic)
                 {
-                    if (CheckHP != 0 && CheckHP < Heal_HpParsent)
+                    if (CheckHP > 0 && CheckHP < Heal_HpParsent) //Heal_HPParset가 이하면 work로 변경된다. / 0이하 이거나
                     {
                         if (act != Active.work)
                         {

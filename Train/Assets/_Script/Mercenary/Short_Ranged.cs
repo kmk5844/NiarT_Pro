@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static TreeEditor.TreeGroup;
 
 public class Short_Ranged : Mercenary
 {
@@ -12,6 +13,9 @@ public class Short_Ranged : Mercenary
     [SerializeField]
     BoxCollider2D Attack_Collider;
     bool attackFlag;
+    public bool lockFlag;
+
+    public Transform Target;
 
     protected override void Awake()
     {
@@ -23,6 +27,7 @@ public class Short_Ranged : Mercenary
         base.Start();
         act = Active.move;
         attackFlag = false;
+        lockFlag = false;
         attackZone = GetComponentInChildren<Short_Ranged_KillZone>();
         Zone_Collider = attackZone.GetComponent<BoxCollider2D>();
         Attack_Collider = attackZone.transform.GetChild(0).GetComponentInChildren<BoxCollider2D>();
@@ -34,45 +39,42 @@ public class Short_Ranged : Mercenary
     protected override void Update()
     {
         base.Update();
-        if(Mer_GameType == GameType.Playing || Mer_GameType == GameType.Boss || Mer_GameType == GameType.Refreshing)
+
+        if (Target != null && Target.gameObject != null && Target.gameObject.activeInHierarchy)
+        {
+            act = Active.work;
+        }
+        else
+        {
+            Target = null; // 안전하게 초기화
+            act = Active.move;
+            lockFlag = false;
+        }
+
+        if (Mer_GameType == GameType.Playing || Mer_GameType == GameType.Boss || Mer_GameType == GameType.Refreshing)
         {
             if (HP <= 0 && act != Active.die)
             {
+                HP = 0;
                 act = Active.die;
+                Zone_Collider.enabled = false;
                 isDying = true;
             }
-            if(act == Active.move)
+
+            if (act == Active.move)
             {
                 if (!Zone_Collider.enabled)
                 {
                     Zone_Collider.enabled = true;
                 }
             }
+
             if (act == Active.work)
             {
-                if(workCount >= Max_workCount + base.Item_workCount_UP)
-                {
-                    act = Active.refresh;
-                }
                 if (!attackFlag)
                 {
                     StartCoroutine(Attack());
                 }
-            }
-            if (act == Active.refresh)
-            {
-                if (!isRefreshing)
-                {
-                    StartCoroutine(Refresh());
-                }
-                if (Zone_Collider.enabled)
-                {
-                    Zone_Collider.enabled = false;
-                }
-            }
-            if (act == Active.die && isDying)
-            {
-                Zone_Collider.enabled = false;
             }
         }
     }
@@ -85,13 +87,50 @@ public class Short_Ranged : Mercenary
             {
                 base.Combatant_Move();
             }
-            if (act == Active.work)
+
+            if (act == Active.work && Target != null)
             {
-                rb2D.velocity = Vector2.zero;
-            }
-            if (act == Active.refresh)
-            {
-                rb2D.velocity = Vector2.zero;
+                if (transform.position.x < MonsterDirector.MinPos_Ground.x + 1f)
+                {
+                    Target = null;
+                    lockFlag = false;
+                    act = Active.move;
+                    rb2D.velocity = Vector2.zero;
+                    return;
+                }
+                else if (transform.position.x > MonsterDirector.MaxPos_Ground.x - 1f)
+                {
+                    Target = null;
+                    lockFlag = false;
+                    act = Active.move;
+                    rb2D.velocity = Vector2.zero;
+                    return;
+                }
+
+                Vector2 targetPos = Target.position;
+                Vector2 selfPos = rb2D.position;
+
+                Vector2 direction = targetPos - selfPos;
+                direction.y = 0f; // y축 이동 제거
+
+                // 반대 방향으로 약간 떨어진 위치를 목표로 설정
+                Vector2 offset = direction.normalized * -1f;
+                float followDistance = 1f;
+                Vector2 desiredPos = targetPos + offset * followDistance;
+
+                // 그 위치를 향해 이동
+                Vector2 moveDir = (desiredPos - selfPos).normalized;
+                moveDir.y = 0f; // y축 이동 제거
+                float speed = 10f;
+                float stopDistance = 0.1f;
+                if (Vector2.Distance(selfPos, desiredPos) < stopDistance)
+                {
+                    rb2D.velocity = Vector2.zero;
+                }
+                else
+                {
+                    rb2D.velocity = moveDir * speed;
+                }
             }
 
             if (act == Active.die)
@@ -123,7 +162,6 @@ public class Short_Ranged : Mercenary
         attackFlag = true;
         yield return new WaitForSeconds(0.5f);
         Attack_Collider.enabled = true;
-        workCount++;
         yield return new WaitForSeconds(0.5f);
         Attack_Collider.enabled = false;
         attackFlag = false;

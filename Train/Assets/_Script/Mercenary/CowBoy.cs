@@ -24,41 +24,21 @@ public class CowBoy : Mercenary
     protected override void Update()
     {
         base.Update();
-        if(workCount >= Max_workCount + base.Item_workCount_UP)
-        {
-            refreshFlag = true;
-        }
-        else
-        {
-            refreshFlag = false;
-        }
-
 
         if(Mer_GameType == GameType.Playing || Mer_GameType == GameType.Boss || Mer_GameType == GameType.Refreshing)
         {
             if (HP <= 0 && act != Active.die)
             {
+                HP = 0;
                 act = Active.die;
                 isDying = true;
             }
+
             if(act == Active.move)
             {
                 if (grapZone.enabled == false)
                 {
                     grapZone.enabled = true;
-                }
-            }
-
-            if (act == Active.refresh)
-            {
-                if (grapZone.enabled == true)
-                {
-                    grapZone.enabled = false;
-                }
-
-                if (!isRefreshing)
-                {
-                    StartCoroutine(Refresh());
                 }
             }
 
@@ -81,10 +61,6 @@ public class CowBoy : Mercenary
                 base.Combatant_Move();
             }
             else if (act == Active.work)
-            {
-                rb2D.velocity = Vector2.zero;
-            }
-            else if (act == Active.refresh)
             {
                 rb2D.velocity = Vector2.zero;
             }

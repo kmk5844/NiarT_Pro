@@ -134,6 +134,11 @@ public class GameDirector : MonoBehaviour
     [SerializeField]
     int EnginePower;
 
+    [Header("수리")]
+    bool repairFlag = false;
+    int repairHPCheck;
+    int repairCoolTime;
+
     float lastSpeedTime; //마지막 속도 올린 시간
     float timeBet; //시간 차이
     float StartTime;
@@ -1644,6 +1649,14 @@ public class GameDirector : MonoBehaviour
         MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Resume, BGM_ID);
         MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Resume, TrainSFX_ID);
         Time.timeScale = 1f;
+    }
+
+    //----------------수리-------------------
+    public void EngineerSet(int hp, int cooltime)
+    {
+        repairFlag = true;
+        repairHPCheck = hp;
+        repairCoolTime = cooltime;
     }
 
     //--------------------------event---------------------------

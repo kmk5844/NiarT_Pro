@@ -36,20 +36,14 @@ public class Engine_Driver : Mercenary
         {
             if (HP <= 0 && act != Active.die)
             {
+                HP = 0;
                 act = Active.die;
                 isDying = true;
-            }
-
-            if(act == Active.revive && !isSurvival)
-            {
-                EngineDriver_Survival_Buff();
-                isSurvival = true;
             }
 
             if(act == Active.die && isDying)
             {
                 EngineDriver_Die_Buff();
-                isSurvival = false;
                 isDying = false;
             }
         }else if(Mer_GameType == GameType.Ending)

@@ -7,7 +7,6 @@ public class Long_Ranged : Mercenary
     public int unit_Attack;
     public float unit_Attack_Delay;
 
-    public bool zeroFlag;
     Long_RangedShoot shoot;
 
     protected override void Awake()
@@ -19,8 +18,8 @@ public class Long_Ranged : Mercenary
     {
         base.Start();
         act = Active.move;
-        zeroFlag = false;
         shoot = GetComponentInChildren<Long_RangedShoot>();
+        shoot.enabled = true;
     }
 
     protected override void Update()
@@ -30,35 +29,11 @@ public class Long_Ranged : Mercenary
         {
             if (HP <= 0&& act != Active.die)
             {
+                HP = 0;
                 act = Active.die;
                 isDying = true;
             }
-            if(act == Active.move)
-            {
-                if (!shoot.enabled)
-                {
-                    shoot.enabled = true;
-                }
-            }
-            if (act == Active.work)
-            {
-                if(workCount >= Max_workCount + base.Item_workCount_UP)
-                {
-                    act = Active.refresh;
-                }
 
-            }
-            if(act == Active.refresh)
-            {
-                if (!isRefreshing)
-                {
-                    StartCoroutine(Refresh());
-                }
-                if (shoot.enabled)
-                {
-                    shoot.enabled = false;
-                }
-            }
             if(act == Active.die && isDying)
             {
                 shoot.enabled = false;
@@ -101,16 +76,13 @@ public class Long_Ranged : Mercenary
     }
     public void TargetFlag(bool Flag)
     {
-        if (Flag && act != Active.refresh)
+        if (Flag)
         {
             act = Active.work;
         }
         else
         {
-            if (!zeroFlag)
-            {
-                act = Active.move;
-            }
+            act = Active.move;
         }
     }
     public void M_Buff_Atk(int buff_atk, bool flag)

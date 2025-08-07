@@ -116,7 +116,7 @@ public class Station_MercenaryData : MonoBehaviour
         return -1;
     }
 
-    public int Check_Material_Mercenary(int Num)
+/*    public int Check_Material_Mercenary(int Num)
     {
         switch (Num)
         {
@@ -136,5 +136,5 @@ public class Station_MercenaryData : MonoBehaviour
                 return EX_Level_Data.Level_Mercenary_CowBoy[Level_Mercenary[Num]].Material;
         }
         return -1;
-    }
+    }*/
 }

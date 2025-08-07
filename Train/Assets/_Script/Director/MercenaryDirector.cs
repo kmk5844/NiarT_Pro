@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class MercenaryDirector : MonoBehaviour
 {
+    public GameDirector gameDirector;
     public SA_MercenaryData mercenaryData;
+    public Level_DataTable EX_LevelData;
     public List<int> Mercenary_Num;
-
     public Transform Mercenary_List;
     Player player;
     List<GameObject> Engineer_List;
@@ -78,75 +79,38 @@ public class MercenaryDirector : MonoBehaviour
             merobj.name = "Escort";
         }
 
-
         Mercenary_Spawn_Flag = true;
     }
 
     public void Engineer_Call()
     {
-        if(Engineer_live_Num != 0)
-        {
-            for (int i = 0; i < Engineer_Num; i++)
-            {
-                if (Engineer_List[i].GetComponent<Engineer>().Check_Work() == 0)
-                {
-                    Engineer_List[i].GetComponent<Engineer>().PlayerEngineerCall(player.transform.position);
-                    isEngineerCall = true;
-                    break;
-                }
-            }
-            if (!isEngineerCall)
-            {
-                for(int i = 0; i < Engineer_Num; i++)
-                {
-                    if (Engineer_List[i].GetComponent<Engineer>().Check_Work() == 0 || Engineer_List[i].GetComponent<Engineer>().Check_Work() == 1)
-                    {
-                        Engineer_List[i].GetComponent<Engineer>().PlayerEngineerCall(player.transform.position);
-                        isEngineerCall_Second = true;
-                        break;
-                    }
-                }
-                if (!isEngineerCall_Second)
-                {
-                    //Debug.Log("쉬고 있습니다.");
-                }
-            }
-        }
-        else
-        {
-            //Debug.Log("호출할 엔지니어가 없습니다.");
-        }
+
     }
 
-    public void Call_End_Engineer()
-    {
-        isEngineerCall = false;
-    }
     public void Check_List()
     {
-        for(int i = 0; i <  Mercenary_List.childCount; i++)
+        bool checkFlag = false;
+        Engineer_List = new List<GameObject>();
+        for (int i = 0; i <  Mercenary_List.childCount; i++)
         {
             if(Mercenary_List.GetChild(i).GetComponent<Mercenary>().Type == mercenaryType.Engineer)
             {
                 Engineer_Num++;
+                Engineer_List.Add(Mercenary_List.GetChild(i).gameObject);
+                if (!checkFlag)
+                {
+                    checkFlag = true;
+                }
             }
         }
-        Add_List();
-    }//상호작용 하는 애들은 엔지니어밖에 없다.
 
-    public void Add_List()
-    {
-        Engineer_List = new List<GameObject>(Engineer_Num);
-
-        for (int i = 0; i < Mercenary_List.childCount; i++)
+        if (checkFlag)
         {
-            if(Mercenary_List.GetChild(i).GetComponent<Mercenary>().Type == mercenaryType.Engineer)
-            {
-                Engineer_List.Add(Mercenary_List.GetChild(i).gameObject);
-            }
+            int hp = EX_LevelData.Level_Mercenary_Engineer[mercenaryData.Level_Engineer].Repair_Train_Parsent;
+            int coolTime = EX_LevelData.Level_Mercenary_Engineer[mercenaryData.Level_Engineer].Repair_Train_CoolTime;
+            gameDirector.EngineerSet(hp, coolTime);
         }
     }
-
     IEnumerator Check_Live_Unit() //die제외한 나머지를 체크한다.
     {
         isChecklive = true;
@@ -180,22 +144,22 @@ public class MercenaryDirector : MonoBehaviour
             StartCoroutine(Mercenary_List.GetChild(i).GetComponent<Mercenary>().Item_Fatigue_Reliever(count, refreshPercent, delayTime));
         }
     }
+    /*  
+        public void Item_Use_Gloves_Expertise(float refreshPercent, int delayTime)
+        {
+            for (int i = 0; i < Mercenary_List.childCount; i++)
+            {
+                StartCoroutine(Mercenary_List.GetChild(i).GetComponent<Mercenary>().Item_Gloves_Expertise(refreshPercent, delayTime));
+            }
+        } 
 
-    public void Item_Use_Gloves_Expertise(float refreshPercent, int delayTime)
-    {
-        for (int i = 0; i < Mercenary_List.childCount; i++)
+        public void Item_Use_Bear(int workCount, int delayTime)
         {
-            StartCoroutine(Mercenary_List.GetChild(i).GetComponent<Mercenary>().Item_Gloves_Expertise(refreshPercent, delayTime));
-        }
-    } 
-    
-    public void Item_Use_Bear(int workCount, int delayTime)
-    {
-        for (int i = 0; i < Mercenary_List.childCount; i++)
-        {
-            StartCoroutine(Mercenary_List.GetChild(i).GetComponent<Mercenary>().Item_Bear(workCount, delayTime));
-        }
-    }
+            for (int i = 0; i < Mercenary_List.childCount; i++)
+            {
+                StartCoroutine(Mercenary_List.GetChild(i).GetComponent<Mercenary>().Item_Bear(workCount, delayTime));
+            }
+        }*/
 
     public void SetEscort(int HP, int Armor, int MoveSpeed)
     {
