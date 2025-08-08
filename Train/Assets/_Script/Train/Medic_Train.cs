@@ -19,8 +19,10 @@ public class Medic_Train : MonoBehaviour
     void Start()
     {
         medicTrain = GetComponentInParent<Train_InGame>();
-        Heal_Amount = medicTrain.Train_Heal_Amount;
-        Heal_timeBet = medicTrain.Train_Heal_timeBet;
+
+        Heal_Amount = int.Parse(medicTrain.trainData_Special_String[1]);
+        Heal_timeBet = float.Parse(medicTrain.trainData_Special_String[2]);
+
         isMercenaryHealing = false; //용병 전용
     }
 

@@ -13,7 +13,7 @@ public class TurretFactory_Train : MonoBehaviour
     private void Start()
     {
         trainData = transform.GetComponentInParent<Train_InGame>();
-        gameDirector = trainData.gameDirector.GetComponent<GameDirector>();
+        gameDirector = trainData.gameDirector;
 
         SpawnTime = float.Parse(trainData.trainData_Special_String[0]);
         TurretCount = int.Parse(trainData.trainData_Special_String[1]);
@@ -23,11 +23,15 @@ public class TurretFactory_Train : MonoBehaviour
     {
         if (gameDirector.gameType == GameType.Playing || gameDirector.gameType == GameType.Boss)
         {
-            if (Time.time > lastTime + SpawnTime)
+            if(!trainData.DestoryFlag)
             {
-                SpawnTurret();
-                lastTime = Time.time;
+                if (Time.time > lastTime + SpawnTime)
+                {
+                    SpawnTurret();
+                    lastTime = Time.time;
+                }
             }
+
         }
     }
 

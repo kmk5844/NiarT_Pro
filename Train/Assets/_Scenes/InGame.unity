@@ -3170,13 +3170,14 @@ MonoBehaviour:
   EX_GameData: {fileID: 11400000, guid: 3a83740cb85032c498c0bbd5b0a2ec9d, type: 2}
   EX_LevelData: {fileID: 11400000, guid: 11c59bcaf7ab95844b2a57023ddf8e05, type: 2}
   SA_MissionData: {fileID: 11400000, guid: bdf3b75d5d747fa469e3130af30aa84e, type: 2}
-  MonsterDirector_Object: {fileID: 550142801}
-  UI_DirectorObject: {fileID: 1935013891}
-  Item_DirectorObject: {fileID: 878257224}
+  monsterDirector: {fileID: 550142803}
+  uiDirector: {fileID: 1935013893}
+  itemDirector: {fileID: 878257226}
+  missionDirector: {fileID: 1128313789}
+  skillDirector: {fileID: 967875823}
   CameraConfiler: {fileID: 1770909225}
   fill_director: {fileID: 0}
-  MissionDirector_Object: {fileID: 1128313787}
-  SkillDirector_Object: {fileID: 967875821}
+  mercenaryDirector: {fileID: 1015709670}
   lastFlag: 0
   playerObject: {fileID: 0}
   player: {fileID: 0}
@@ -6921,8 +6922,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9842e2eade3c4c4188b24e9124b41bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Test_Flag: 0
-  Test_MonsterCount: 10
   EX_GameData: {fileID: 11400000, guid: 3a83740cb85032c498c0bbd5b0a2ec9d, type: 2}
   SA_PlayerData: {fileID: 11400000, guid: 00cbb5f50188b374e85c8a529a52b4b0, type: 2}
   missionDirector: {fileID: 1128313789}
@@ -13887,7 +13886,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb6dfaf702d320144b8b6bd967aed1db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameDirector: {fileID: 234993071}
   mercenaryData: {fileID: 11400000, guid: 001e50c30842bd2419afbe10369066e1, type: 2}
+  EX_LevelData: {fileID: 11400000, guid: 11c59bcaf7ab95844b2a57023ddf8e05, type: 2}
   Mercenary_Num: 
   Mercenary_List: {fileID: 1315201695}
   Mercenary_Spawn_Flag: 0
@@ -23288,7 +23289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c0164bfdfd870947ae71ca9cd554a9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameDirector_Object: {fileID: 234993068}
+  gamedirector: {fileID: 234993071}
   itemList: {fileID: 11400000, guid: 8db4376709063494d82edfa87e35b440, type: 2}
   Game_UI: {fileID: 548080857}
   Pause_UI: {fileID: 0}

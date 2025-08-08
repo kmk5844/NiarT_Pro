@@ -24,12 +24,12 @@ public class Supply_Train : MonoBehaviour
     private void Start()
     {
         SupplyTrain = GetComponentInParent<Train_InGame>();
-        gameDirector = SupplyTrain.gameDirector.GetComponent<GameDirector>();
+        gameDirector = SupplyTrain.gameDirector;
 
         SupplyTrain_Fuel = 0;
-        Max_SupplyTrain_Fuel = SupplyTrain.Train_Supply_UseFuel;
-        supply_grade = SupplyTrain.Train_Supply_Grade;
-        supply_count = SupplyTrain.Train_Supply_Count;  
+        Max_SupplyTrain_Fuel = int.Parse(SupplyTrain.trainData_Special_String[0]);
+        supply_grade = int.Parse(SupplyTrain.trainData_Special_String[1]);
+        supply_count = int.Parse(SupplyTrain.trainData_Special_String[2]);
 
         FuelFlag = false;
         UseFlag = false;
@@ -42,25 +42,28 @@ public class Supply_Train : MonoBehaviour
     {
         if (gameDirector.gameType == GameType.Playing || gameDirector.gameType == GameType.Boss)
         {
-            if (!FuelFlag)
+            if (!SupplyTrain.DestoryFlag)
             {
-                if (Time.time > lastTime + timebet)
+                if (!FuelFlag)
                 {
-                    if (SupplyTrain_Fuel < Max_SupplyTrain_Fuel)
+                    if (Time.time > lastTime + timebet)
                     {
-                        if(gameDirector.TrainFuel > 0)
+                        if (SupplyTrain_Fuel < Max_SupplyTrain_Fuel)
                         {
-                            SupplyTrain_Fuel += 1;
-                            gameDirector.TrainFuel -= 1;
+                            if (gameDirector.TrainFuel > 0)
+                            {
+                                SupplyTrain_Fuel += 1;
+                                gameDirector.TrainFuel -= 1;
+                            }
+                            lastTime = Time.time;
                         }
-                        lastTime = Time.time;
-                    }
-                    else if (SupplyTrain_Fuel >= Max_SupplyTrain_Fuel)
-                    {
-                        SupplyTrain_Fuel = Max_SupplyTrain_Fuel;
-                        FuelFlag = true;
-                        UseFlag = true;
-                        lastTime = Time.time;
+                        else if (SupplyTrain_Fuel >= Max_SupplyTrain_Fuel)
+                        {
+                            SupplyTrain_Fuel = Max_SupplyTrain_Fuel;
+                            FuelFlag = true;
+                            UseFlag = true;
+                            lastTime = Time.time;
+                        }
                     }
                 }
             }

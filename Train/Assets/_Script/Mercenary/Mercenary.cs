@@ -238,6 +238,19 @@ public class Mercenary : MonoBehaviour
         rb2D.velocity = new Vector2(Move_X * moveSpeed, rb2D.velocity.y);
     }
 
+    protected void ChnageImage_Move()
+    {
+        if (Move_X > 0)
+        {
+            Unit_Scale.localScale = new Vector3(-Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
+        }
+        else
+        {
+            Unit_Scale.localScale = new Vector3(Unit_Scale_X, Unit_Scale_Y, Unit_Scale_Z);
+        }
+    }
+
+
     public float Check_MoveX()
     {
         return Move_X;
@@ -383,6 +396,7 @@ public class Mercenary : MonoBehaviour
     //Item부분
     public void Item_Snack()
     {
+        //이전 아이템
         HP = MaxHP;
     }
 
@@ -398,13 +412,12 @@ public class Mercenary : MonoBehaviour
         }
     }
 
-    public IEnumerator Item_Fatigue_Reliever(int workcount, float refreshPercent, int delayTime)
+    public void Item_Fatigue_Reliever()
     {
-        /*Item_workCount_UP = workcount;
-        Item_Refresh_DelayPercent = refreshPercent;*/
-        yield return new WaitForSeconds(delayTime);
-        /*Item_workCount_UP = 0;
-        Item_Refresh_DelayPercent = 0;*/
+        if(HP < (MaxHP / 2))
+        {
+            HP = MaxHP/2;
+        }
     }
 
 /*    public IEnumerator Item_Gloves_Expertise(float refreshPercent, int delayTime)

@@ -30,52 +30,55 @@ public class Arrow_Turret : Turret
 
     private void Update()
     {
+        if (!trainData.DestoryFlag)
+        {
         Turret_Flip();
-        if (Target != null)
-        {
-            Target_Flag = true;
-        }
-        else
-        {
-            Target_Flag = false;
-        }
-
-        if (Target_Flag)
-        {
-            Vector3 rot = Target.position - transform.position;
-            float rotZ = Mathf.Atan2(rot.y, rot.x) * Mathf.Rad2Deg;
-            Z = Quaternion.Euler(0, 0, rotZ).eulerAngles.z - transform.rotation.eulerAngles.z;
-
-            if (Z > 180f)
+            if (Target != null)
             {
-                Z -= 360f;
-            }
-            else if (Z < -180f)
-            {
-                Z += 360f;
-            }
-
-            if (Z > 1)
-            {
-                transform.Rotate(new Vector3(0, 0, (train_Rotation_Delay + Item_Rotation_Delay)));
-            }
-            else if (Z < -1)
-            {
-                transform.Rotate(new Vector3(0, 0, -(train_Rotation_Delay + Item_Rotation_Delay)));
+                Target_Flag = true;
             }
             else
             {
-                transform.rotation = Quaternion.Euler(0, 0, rotZ);
+                Target_Flag = false;
             }
-            BulletFire();
-        }//Target_Flag가 false라면 되돌아가는 코드
 
-
-        if (ArrowObject.activeSelf)
-        {
-            if(ArrowOriginPosition.x > ArrowObject.transform.localPosition.x)
+            if (Target_Flag)
             {
-                ArrowObject.transform.Translate(1f * Time.deltaTime, 0, 0);
+                Vector3 rot = Target.position - transform.position;
+                float rotZ = Mathf.Atan2(rot.y, rot.x) * Mathf.Rad2Deg;
+                Z = Quaternion.Euler(0, 0, rotZ).eulerAngles.z - transform.rotation.eulerAngles.z;
+
+                if (Z > 180f)
+                {
+                    Z -= 360f;
+                }
+                else if (Z < -180f)
+                {
+                    Z += 360f;
+                }
+
+                if (Z > 1)
+                {
+                    transform.Rotate(new Vector3(0, 0, (train_Rotation_Delay + Item_Rotation_Delay)));
+                }
+                else if (Z < -1)
+                {
+                    transform.Rotate(new Vector3(0, 0, -(train_Rotation_Delay + Item_Rotation_Delay)));
+                }
+                else
+                {
+                    transform.rotation = Quaternion.Euler(0, 0, rotZ);
+                }
+                BulletFire();
+            }//Target_Flag가 false라면 되돌아가는 코드
+
+
+            if (ArrowObject.activeSelf)
+            {
+                if(ArrowOriginPosition.x > ArrowObject.transform.localPosition.x)
+                {
+                    ArrowObject.transform.Translate(1f * Time.deltaTime, 0, 0);
+                }
             }
         }
     }

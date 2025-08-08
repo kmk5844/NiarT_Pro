@@ -27,17 +27,20 @@ public class BombBalloon_Turret : Turret
     }
     void Update()
     {
-        if (!Orc_List[BeforeRandomNum].activeSelf)
+        if(!trainData.DestoryFlag)
         {
-            if (Time.time >= lastTime + (train_Attack_Delay - Item_Attack_Delay) - 3)
+            if (!Orc_List[BeforeRandomNum].activeSelf)
             {
-                Orc_List[BeforeRandomNum].SetActive(true);
+                if (Time.time >= lastTime + (train_Attack_Delay - Item_Attack_Delay) - 3)
+                {
+                    Orc_List[BeforeRandomNum].SetActive(true);
+                }
             }
-        }
 
-        if (Balloon_List.childCount < 2)
-        {
-            BulletFire();
+            if (Balloon_List.childCount < 2)
+            {
+                BulletFire();
+            }
         }
     }
 

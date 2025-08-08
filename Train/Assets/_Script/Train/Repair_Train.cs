@@ -26,7 +26,7 @@ public class Repair_Train : MonoBehaviour
     void Start()
     {
         trainData = transform.GetComponentInParent<Train_InGame>();
-        gameDirector = trainData.gameDirector.GetComponent<GameDirector>();
+        gameDirector = trainData.gameDirector;
         TrainList_InGame = gameDirector.Train_List;
 
         SpawnTime = float.Parse(trainData.trainData_Special_String[0]);
@@ -41,36 +41,39 @@ public class Repair_Train : MonoBehaviour
     {
         if (gameDirector.gameType == GameType.Playing || gameDirector.gameType == GameType.Boss)
         {
-            if(Time.time > lastTime + SpawnTime)
+            if (!trainData.DestoryFlag)
             {
-                GameObject robot = Instantiate(RepairRobotObject, transform.position, Quaternion.identity);
-                GameObject train = TrainList_InGame.GetChild(TargetNum).gameObject;
-                robot.GetComponent<RepairRobot>().Set(train, HealParsent, HealCount);
-                lastTime = Time.time;
-            }
-
-            if (!Targeting)
-            {
-                Targeting = true;
-                for (int i = 0; i < TrainList_InGame.childCount; i++)
+                if (Time.time > lastTime + SpawnTime)
                 {
-                    float HP = TrainList_InGame.GetChild(i).GetComponent<Train_InGame>().HP_Parsent;
+                    GameObject robot = Instantiate(RepairRobotObject, transform.position, Quaternion.identity);
+                    GameObject train = TrainList_InGame.GetChild(TargetNum).gameObject;
+                    robot.GetComponent<RepairRobot>().Set(train, HealParsent, HealCount);
+                    lastTime = Time.time;
+                }
 
-                    if (TargetHP == -1)
+                if (!Targeting)
+                {
+                    Targeting = true;
+                    for (int i = 0; i < TrainList_InGame.childCount; i++)
                     {
-                        TargetHP = HP;
-                        TargetNum = i;
-                    }
-                    else
-                    {
-                        if (TargetHP > HP)
+                        float HP = TrainList_InGame.GetChild(i).GetComponent<Train_InGame>().HP_Parsent;
+
+                        if (TargetHP == -1)
                         {
                             TargetHP = HP;
                             TargetNum = i;
                         }
+                        else
+                        {
+                            if (TargetHP > HP)
+                            {
+                                TargetHP = HP;
+                                TargetNum = i;
+                            }
+                        }
                     }
+                    Targeting = false;
                 }
-                Targeting = false;
             }
         }
     }

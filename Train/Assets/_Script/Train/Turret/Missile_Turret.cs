@@ -18,20 +18,24 @@ public class Missile_Turret : Turret
     }
     void Update()
     {
-        if (Target != null)
+        if (!trainData.DestoryFlag)
         {
-            Target_Flag = true;
-        }
-        else
-        {
-            Target_Flag = false;
-        }
+            if (Target != null)
+            {
+                Target_Flag = true;
+            }
+            else
+            {
+                Target_Flag = false;
+            }
 
-        if (Target_Flag)
-        {
-            BulletFire();
+            if (Target_Flag)
+            {
+                BulletFire();
+            }
+            RotateTurret(Target_Flag);
         }
-        RotateTurret(Target_Flag);
+        
     }
 
     void RotateTurret(bool Flag)

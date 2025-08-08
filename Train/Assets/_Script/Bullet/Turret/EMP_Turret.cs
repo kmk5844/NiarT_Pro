@@ -18,7 +18,10 @@ public class EMP_Turret : Turret
     // Update is called once per frame
     void Update()
     {
-        BulletFire();
+        if (!trainData.DestoryFlag)
+        {
+            BulletFire();
+        }
     }
 
     void BulletFire()

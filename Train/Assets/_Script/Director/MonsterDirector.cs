@@ -7,11 +7,6 @@ public class MonsterDirector : MonoBehaviour
 {
     // 스테이지 정보 나온 후, 스테이지에 따라 몬스터 변경해야함
     // 그리고 엑셀에 몬스터 정보도 나와야 한다.
-    [HideInInspector]
-    public bool Test_Flag;
-    [SerializeField]
-    int Test_MonsterCount;
-
     public Game_DataTable EX_GameData;
     public SA_PlayerData SA_PlayerData;
     public MissionDirector missionDirector;
@@ -314,17 +309,11 @@ public class MonsterDirector : MonoBehaviour
 
         Emerging_MonsterCount_List = GameDirector_MonsterCount_List;
 
-        if (Test_Flag)
-        {
-            MaxMonsterNum = Test_MonsterCount;
+        MaxMonsterNum = 0;
+        foreach(int M in Emerging_MonsterCount_List) {
+            MaxMonsterNum += M;
         }
-        else
-        {
-            MaxMonsterNum = 0;
-            foreach(int M in Emerging_MonsterCount_List) {
-                MaxMonsterNum += M;
-            }
-        }
+        
     }
 
     public void Get_Boss_List(List<int> GameDirector_Boss_List)
@@ -437,7 +426,6 @@ public class MonsterDirector : MonoBehaviour
     }
     public void Item_Scarecrow_Die(GameObject gm)
     {
-        Debug.Log(gm);
         Item_Scarecrow_List.Remove(gm);
     }
 

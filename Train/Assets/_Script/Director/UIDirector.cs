@@ -9,8 +9,7 @@ using UnityEngine.Localization;
 
 public class UIDirector : MonoBehaviour
 {
-    public GameObject GameDirector_Object;
-    GameDirector gamedirector;
+    public GameDirector gamedirector;
     Player player;
     public SA_ItemList itemList;
     SA_PlayerData playerData;
@@ -25,8 +24,6 @@ public class UIDirector : MonoBehaviour
     public Image Player_Blood;
     Color Player_Blood_Color;
     bool isBloodFlag;
-    float blood_delayTime;
-    float blood_lastTime;
 
     [Header("Game UI")]
     public Image Player_Head;
@@ -132,7 +129,6 @@ public class UIDirector : MonoBehaviour
     private void Awake()
     {
         isBloodFlag = false;
-        blood_delayTime = 0.4f;
         Equiped_Item_Image = new Image[Equiped_Item_List.childCount];
         Equiped_Item_Count = new TextMeshProUGUI[Equiped_Item_List.childCount];
 
@@ -152,7 +148,6 @@ public class UIDirector : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         Player_Head.sprite = Player_Head_Sprite[player.PlayerNum];
-        gamedirector = GameDirector_Object.GetComponent<GameDirector>();
         Player_Blood_Color = Player_Blood.GetComponent<Image>().color;
         playerData = gamedirector.SA_PlayerData;
 
@@ -174,11 +169,7 @@ public class UIDirector : MonoBehaviour
     }
     private void Update()
     {
-        if (gamedirector.gameType == GameType.Ending || gamedirector.gameType == GameType.GameEnd)
-        {
-
-        }
-        else
+        if (gamedirector.gameType != GameType.Ending && gamedirector.gameType != GameType.GameEnd)
         {
             if (ItemInformation_Object_Flag)
             {
@@ -223,9 +214,8 @@ public class UIDirector : MonoBehaviour
         Distance_Bar.value = gamedirector.Check_Distance();
     }
 
-    public void Open_Result_UI(bool Win, int Score, int Coin, SelectMission mission, bool ChapterClear, int LoseNum = -1)
+    public void Open_Result_UI(bool Win, int Coin, SelectMission mission, bool ChapterClear, int LoseNum = -1)
     {
-        //Result_Text_List[0].text = Score.ToString(); // + "Á¡";
         Result_Text_List[1].text = Coin + "G"; // + "¿ø";
         if (Win)
         {
@@ -287,9 +277,8 @@ public class UIDirector : MonoBehaviour
         }
     }
 
-    public void Gameing_Text(int Score, int Coin)
+    public void Gameing_Text(int Coin)
     {
-        //Score_Text.text = Score.ToString();
         Coin_Text.text = (playerData.Coin + Coin).ToString();
     }
 
@@ -476,7 +465,10 @@ public class UIDirector : MonoBehaviour
 
     public void Player_Blood_Ani()
     {
-        StartCoroutine(Blood_On());
+        if (!isBloodFlag)
+        {
+            StartCoroutine(Blood_On());
+        }
     }
 
     IEnumerator Blood_On()
@@ -486,7 +478,6 @@ public class UIDirector : MonoBehaviour
 
         Player_Blood.gameObject.SetActive(true);
         isBloodFlag = true;
-        blood_lastTime = Time.time;
 
         while (elapsedTime < duration)
         {

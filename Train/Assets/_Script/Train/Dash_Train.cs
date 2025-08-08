@@ -20,7 +20,7 @@ public class Dash_Train : MonoBehaviour
     private void Start()
     {
         DashTrain = GetComponentInParent<Train_InGame>();
-        gameDirector = DashTrain.gameDirector.GetComponent<GameDirector>();
+        gameDirector = DashTrain.gameDirector;
 
         DashTrain_Fuel = 0;
         //Max_DashTrain_Fuel = DashTrain.Train_Dash_UseFuel;

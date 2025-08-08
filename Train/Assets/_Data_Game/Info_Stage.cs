@@ -6,4 +6,5 @@ public class Info_Stage
     public bool BeforeStation_Button;
     public bool BeforeGameStart_Button;
     public string Story_Index;
+    public int GameBackGround;
 }

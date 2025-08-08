@@ -22,7 +22,6 @@ public class ItemDirector : MonoBehaviour
     [Header("Sound")]
     public AudioClip UseItemSound;
 
-
     private void Start()
     {
         try
@@ -126,9 +125,9 @@ public class ItemDirector : MonoBehaviour
     {
         int num = Random.Range(0, itemList_Test.Equiped_Item_List.Count);
         ItemDataObject_Test item = itemList_Test.Equiped_Item_List[num];
-        Debug.Log(item.Item_Count);
+        //Debug.Log(item.Item_Count);
         item.Item_Count_UP();
-        Debug.Log(item.Item_Count);
+        //Debug.Log(item.Item_Count);
     }
 
     public void Item_UseDron()

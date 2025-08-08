@@ -46,16 +46,19 @@ public class Hangar_Train : MonoBehaviour
     {
         if (gameDirector.gameType == GameType.Playing || gameDirector.gameType == GameType.Boss)
         {
-            if (Time.time > lastTime + SpawnTime)
+            if (!trainData.DestoryFlag)
             {
-                useFlag = true;
-                if(changeFlag == false)
+                if (Time.time > lastTime + SpawnTime)
                 {
-                    for(int i = 0; i < DoorCollider.Length; i++)
+                    useFlag = true;
+                    if (changeFlag == false)
                     {
-                        DoorCollider[i].enabled = true;
+                        for (int i = 0; i < DoorCollider.Length; i++)
+                        {
+                            DoorCollider[i].enabled = true;
+                        }
+                        changeFlag = true;
                     }
-                    changeFlag = true;
                 }
             }
         }

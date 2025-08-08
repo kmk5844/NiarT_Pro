@@ -17,7 +17,7 @@ public class TurretUpgradeTrain : MonoBehaviour
     void Start()
     {
         trainData = transform.GetComponentInParent<Train_InGame>();
-        gameDirector = trainData.gameDirector.GetComponent<GameDirector>();
+        gameDirector = trainData.gameDirector;
 
         SpawnTime = float.Parse(trainData.trainData_Special_String[0]);
         Persent = float.Parse(trainData.trainData_Special_String[1]);
@@ -28,9 +28,12 @@ public class TurretUpgradeTrain : MonoBehaviour
     {
         if (gameDirector.gameType == GameType.Playing || gameDirector.gameType == GameType.Boss)
         {
-            if (Time.time > lastTime + SpawnTime && !useflag)
+            if (!trainData.DestoryFlag)
             {
-                useflag = true;
+                if (Time.time > lastTime + SpawnTime && !useflag)
+                {
+                    useflag = true;
+                }
             }
         }
     }

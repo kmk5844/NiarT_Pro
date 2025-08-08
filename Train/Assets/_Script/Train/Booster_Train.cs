@@ -26,12 +26,12 @@ public class Booster_Train : MonoBehaviour
     void Start()
     {
         trainData = transform.GetComponentInParent<Train_InGame>();
-        gameDirector = trainData.gameDirector.GetComponent<GameDirector>();
+        gameDirector = trainData.gameDirector;
 
-        WarningSpeed = trainData.Train_Booster_WarningSpeed;
-        Data_BoosterFuel = trainData.Train_Booster_BoosterFuel;
-        UseFuel = trainData.Train_Booster_UseFuel;
-        BoosterSpeedUP = trainData.Train_Booster_BoosterSpeedUP;
+        WarningSpeed = int.Parse(trainData.trainData_Special_String[0]);
+        Data_BoosterFuel = int.Parse(trainData.trainData_Special_String[1]);
+        UseFuel = int.Parse(trainData.trainData_Special_String[2]);
+        BoosterSpeedUP = int.Parse(trainData.trainData_Special_String[3]);
         Corutine_BoosterFlag = false;
         effectObject.SetActive(false);
 
@@ -44,53 +44,56 @@ public class Booster_Train : MonoBehaviour
         SpeedPercent = (gameDirector.TrainSpeed) / (gameDirector.MaxSpeed) * 100;
         if(gameDirector.gameType == GameType.Playing || gameDirector.gameType == GameType.Boss || gameDirector.gameType == GameType.Refreshing)
         {
-            if (!FuelFlag && !BoosterFlag)
+            if (!trainData.DestoryFlag)
             {
-                if (Time.time > lastTime + timebet)
+                if (!FuelFlag && !BoosterFlag)
                 {
-                    if (BoosterFuel < Data_BoosterFuel)
+                    if (Time.time > lastTime + timebet)
                     {
-                        if (gameDirector.TrainFuel > 0)
+                        if (BoosterFuel < Data_BoosterFuel)
                         {
-                            BoosterFuel += 1;
-                            gameDirector.TrainFuel -= 1;
+                            if (gameDirector.TrainFuel > 0)
+                            {
+                                BoosterFuel += 1;
+                                gameDirector.TrainFuel -= 1;
+                            }
+                            lastTime = Time.time;
                         }
-                        lastTime = Time.time;
+                        else if (BoosterFuel >= Data_BoosterFuel)
+                        {
+                            BoosterFuel = Data_BoosterFuel;
+                            FuelFlag = true;
+                            lastTime = Time.time;
+                        }
                     }
-                    else if (BoosterFuel >= Data_BoosterFuel)
+                }
+                else if (FuelFlag && !BoosterFlag)
+                {
+                    if (WarningSpeed > SpeedPercent)
                     {
-                        BoosterFuel = Data_BoosterFuel;
-                        FuelFlag = true;
+                        BoosterFlag = true;
                         lastTime = Time.time;
                     }
                 }
-            }
-            else if (FuelFlag && !BoosterFlag)
-            {
-                if (WarningSpeed > SpeedPercent)
+                else if (FuelFlag && BoosterFlag)
                 {
-                    BoosterFlag = true;
-                    lastTime = Time.time;
-                }
-            }
-            else if (FuelFlag && BoosterFlag)
-            {
-                if (Time.time > lastTime + timebet)
-                {
-                    if (BoosterFuel > 0)
+                    if (Time.time > lastTime + timebet)
                     {
-                        gameDirector.TrainSpeed += BoosterSpeedUP;
-                        BoosterFuel -= UseFuel; // 소모량은 2배로 한다.
-                        lastTime = Time.time;
-                        effectObject.SetActive(true);
-                    }
-                    else
-                    {
-                        BoosterFuel = 0;
-                        FuelFlag = false;
-                        BoosterFlag = false;
-                        lastTime = Time.time;
-                        effectObject.SetActive(false);
+                        if (BoosterFuel > 0)
+                        {
+                            gameDirector.TrainSpeed += BoosterSpeedUP;
+                            BoosterFuel -= UseFuel; // 소모량은 2배로 한다.
+                            lastTime = Time.time;
+                            effectObject.SetActive(true);
+                        }
+                        else
+                        {
+                            BoosterFuel = 0;
+                            FuelFlag = false;
+                            BoosterFlag = false;
+                            lastTime = Time.time;
+                            effectObject.SetActive(false);
+                        }
                     }
                 }
             }

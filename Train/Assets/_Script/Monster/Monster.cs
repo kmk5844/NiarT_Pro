@@ -672,7 +672,7 @@ public class Monster : MonoBehaviour
     {
         Monster_HP = 0;
         monster_gametype = Monster_GameType.Die;
-        gameDirector.Game_Monster_Kill(Monster_Score, Monster_Coin);
+        gameDirector.Game_Monster_Kill(Monster_Coin);
         MMSoundManagerSoundPlayEvent.Trigger(DieSfX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         if (Monster_Mission_CountFlag)
         {

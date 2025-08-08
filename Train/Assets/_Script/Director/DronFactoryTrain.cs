@@ -16,7 +16,7 @@ public class DronFactoryTrain : MonoBehaviour
     private void Start()
     {
         trainData = transform.GetComponentInParent<Train_InGame>();
-        gameDirector = trainData.gameDirector.GetComponent<GameDirector>();
+        gameDirector = trainData.gameDirector;
         SpawnTime = float.Parse(trainData.trainData_Special_String[0]);
         minHP = int.Parse(trainData.trainData_Special_String[1]);
         maxHP = int.Parse(trainData.trainData_Special_String[2]);
@@ -27,10 +27,13 @@ public class DronFactoryTrain : MonoBehaviour
     {
         if (gameDirector.gameType == GameType.Playing || gameDirector.gameType == GameType.Boss)
         {
-            if (Time.time > lastTime + SpawnTime)
+            if (!trainData.DestoryFlag)
             {
-                SpanwDron();
-                lastTime = Time.time;
+                if (Time.time > lastTime + SpawnTime)
+                {
+                    SpanwDron();
+                    lastTime = Time.time;
+                }
             }
         }
     }

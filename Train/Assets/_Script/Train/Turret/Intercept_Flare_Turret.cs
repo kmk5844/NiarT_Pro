@@ -21,7 +21,10 @@ public class Intercept_Flare_Turret : Turret
 
     private void Update()
     {
-        BulletFire();
+        if (!trainData.DestoryFlag)
+        {
+            BulletFire();
+        }
     }
 
     void BulletFire()

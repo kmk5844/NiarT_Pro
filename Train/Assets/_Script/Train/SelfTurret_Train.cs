@@ -45,15 +45,16 @@ public class SelfTurret_Train : MonoBehaviour
     private void Start()
     {
         SelfTurretTrain = GetComponentInParent<Train_InGame>(); 
-        gameDirector = SelfTurretTrain.gameDirector.GetComponent<GameDirector>();
+        gameDirector = SelfTurretTrain.gameDirector;
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         SelfTurretTrain_Fuel = 0;
         //SelfTurretTrain_Fuel = SelfTurretTrain.Train_Self_UseFuel;
         WaitTime = 20;
-        Max_SelfTurretTrain_Fuel = SelfTurretTrain.Train_Self_UseFuel;
-        Turret_Atk = SelfTurretTrain.Train_Self_Attack;
-        Turret_AtkDelay = SelfTurretTrain.Train_Self_Attack_Delay;
-        Turret_Second = SelfTurretTrain.Train_Self_Second;
+
+        Max_SelfTurretTrain_Fuel = int.Parse(SelfTurretTrain.trainData_Special_String[0]);
+        Turret_Atk = int.Parse(SelfTurretTrain.trainData_Special_String[1]);
+        Turret_AtkDelay = float.Parse(SelfTurretTrain.trainData_Special_String[2]);
+        Turret_Second = int.Parse(SelfTurretTrain.trainData_Special_String[3]);
 
         changeFlag = false;
         FuelFlag = false;
@@ -85,25 +86,28 @@ public class SelfTurret_Train : MonoBehaviour
 
         if (gameDirector.gameType == GameType.Playing || gameDirector.gameType == GameType.Boss || gameDirector.gameType == GameType.Refreshing || gameDirector.gameType == GameType.Ending)
         {
-            if (!FuelFlag)
+            if (!SelfTurretTrain.DestoryFlag)
             {
-                if (Time.time > lastTime + timebet)
+                if (!FuelFlag)
                 {
-                    if (SelfTurretTrain_Fuel < Max_SelfTurretTrain_Fuel)
+                    if (Time.time > lastTime + timebet)
                     {
-                        if (gameDirector.TrainFuel > 0)
+                        if (SelfTurretTrain_Fuel < Max_SelfTurretTrain_Fuel)
                         {
-                            SelfTurretTrain_Fuel += 1;
-                            gameDirector.TrainFuel -= 1;
+                            if (gameDirector.TrainFuel > 0)
+                            {
+                                SelfTurretTrain_Fuel += 1;
+                                gameDirector.TrainFuel -= 1;
+                            }
+                            lastTime = Time.time;
                         }
-                        lastTime = Time.time;
-                    }
-                    else if (SelfTurretTrain_Fuel >= Max_SelfTurretTrain_Fuel)
-                    {
-                        SelfTurretTrain_Fuel = Max_SelfTurretTrain_Fuel;
-                        FuelFlag = true;
-                        UseFlag = true;
-                        lastTime = Time.time;
+                        else if (SelfTurretTrain_Fuel >= Max_SelfTurretTrain_Fuel)
+                        {
+                            SelfTurretTrain_Fuel = Max_SelfTurretTrain_Fuel;
+                            FuelFlag = true;
+                            UseFlag = true;
+                            lastTime = Time.time;
+                        }
                     }
                 }
             }

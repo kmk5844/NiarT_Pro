@@ -36,40 +36,50 @@ public class Fire_Turret : Turret
     // Update is called once per frame
     void FixedUpdate()
     {
-        Turret_Flip();
-        Turret_Z = transform.rotation.eulerAngles.z;
+        if(!trainData.DestoryFlag)
+        {
+            Turret_Flip();
+            Turret_Z = transform.rotation.eulerAngles.z;
 
-        if (Turret_Z > Turret_Max_Z)
-        {
-            LR_Flag = false;
-        }
-        if (Turret_Z < Turret_Min_Z)
-        {
-            LR_Flag = true;
-        }
+            if (Turret_Z > Turret_Max_Z)
+            {
+                LR_Flag = false;
+            }
+            if (Turret_Z < Turret_Min_Z)
+            {
+                LR_Flag = true;
+            }
 
-        if (LR_Flag)
-        {
-            transform.Rotate(new Vector3(0, 0, (train_Rotation_Delay + Item_Rotation_Delay)));
+            if (LR_Flag)
+            {
+                transform.Rotate(new Vector3(0, 0, (train_Rotation_Delay + Item_Rotation_Delay)));
+            }
+            else
+            {
+                transform.Rotate(new Vector3(0, 0, -(train_Rotation_Delay + Item_Rotation_Delay)));
+            }
+            Fire_Check();
         }
         else
         {
-            transform.Rotate(new Vector3(0, 0, -(train_Rotation_Delay + Item_Rotation_Delay)));
+            Attack_Flag = false;
+            Change_Flag = true;
+            Fire_OnOff();
         }
-        Fire_Check();
+       
     }
 
     void Fire_Check()
     {
         Fire_OnOff();
-        if (Time.time >= lastTime + train_Attack_Delay && Attack_Flag)
+        if (Time.time >= lastTime + train_Attack_Delay && Attack_Flag)// ²¨Áü
         {
             Attack_Flag = false;
             Change_Flag = true;
             train_Attack_Delay = Data_Attack_Delay;
             lastTime = Time.time;
         }
-        else if (Time.time >= lastTime + (train_Attack_Delay - Item_Attack_Delay) && !Attack_Flag)
+        else if (Time.time >= lastTime + (train_Attack_Delay - Item_Attack_Delay) && !Attack_Flag) // ÄÑÁü
         {
             Attack_Flag = true;
             Change_Flag = true;

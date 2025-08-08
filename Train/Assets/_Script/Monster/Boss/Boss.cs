@@ -141,7 +141,7 @@ public class Boss : MonoBehaviour
         {
             gameDirector.Mission_Monster_Kill();
         }
-        gameDirector.Gmae_Boss_Kill(Monster_Score, Monster_Coin);
+        gameDirector.Gmae_Boss_Kill(Monster_Coin);
         Change_DieFlag();
     }
 

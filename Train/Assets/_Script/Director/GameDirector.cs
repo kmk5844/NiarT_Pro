@@ -6,6 +6,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using static PixelCrushers.AnimatorSaver;
+using static UnityEngine.ParticleSystem;
 
 
 //Script Execution Order로 조절 중
@@ -37,19 +38,15 @@ public class GameDirector : MonoBehaviour
     public SA_MissionData SA_MissionData;
 
     [Header("디렉터")]
-    public GameObject MonsterDirector_Object;
-    public GameObject UI_DirectorObject;
-    public GameObject Item_DirectorObject;
+    public MonsterDirector monsterDirector;
+    public UIDirector uiDirector;
+    public ItemDirector itemDirector;
+    public MissionDirector missionDirector;
+    public SkillDirector skillDirector;
     public PolygonCollider2D CameraConfiler;
     public FillDirector fill_director;
-    public GameObject MissionDirector_Object;
-    public GameObject SkillDirector_Object;
+    public MercenaryDirector mercenaryDirector;
     Vector2[] newPoint;
-    MonsterDirector monsterDirector;
-    UIDirector uiDirector;
-    ItemDirector itemDirector;
-    MissionDirector missionDirector;
-    SkillDirector skillDirector;
     List<int> Train_Num;
     List<int> Train_Turret_Num;
     int Train_Turret_Count;
@@ -105,7 +102,7 @@ public class GameDirector : MonoBehaviour
 
     [Header("기차 리스트")]
     public Transform Train_List;
-    Train_InGame[] Trains;
+    List<Train_InGame> Trains;
     int Train_Count;
 
     [Header("기차 정보")]
@@ -136,7 +133,8 @@ public class GameDirector : MonoBehaviour
 
     [Header("수리")]
     bool repairFlag = false;
-    int repairHPCheck;
+    int repair_Warning_HPCheck;
+    int repair_Max_HPCheck;
     int repairCoolTime;
 
     float lastSpeedTime; //마지막 속도 올린 시간
@@ -152,7 +150,6 @@ public class GameDirector : MonoBehaviour
     bool GameWinFlag;
     bool GameLoseFlag;
 
-    int Total_Score;
     int Total_Coin;
 
     float distance_lastSpeedTime;
@@ -190,7 +187,6 @@ public class GameDirector : MonoBehaviour
     //아이템부분
     bool ItemFlag_Coin; // 골드 추가
     bool ItemFlag_DoubleCoin; // 골드 2배
-
 
     [Header("음식 이벤트")]
     public bool FoodEffect_Flag_Positive;
@@ -237,7 +233,6 @@ public class GameDirector : MonoBehaviour
         Stage_Num = 0;
         Select_Sub_Num = 0;*/
 
-        RefreshPersent = 50;
 
         //TrainDistance = 70000;
 
@@ -274,24 +269,24 @@ public class GameDirector : MonoBehaviour
         SpawnTrainFlag = false;
         isStationHideFlag = false;
         isStationShowFlag = false;
-        monsterDirector = MonsterDirector_Object.GetComponent<MonsterDirector>();
-        uiDirector = UI_DirectorObject.GetComponent<UIDirector>();
-        itemDirector = Item_DirectorObject.GetComponent<ItemDirector>();
-        missionDirector = MissionDirector_Object.GetComponent<MissionDirector>();
-        skillDirector = SkillDirector_Object.GetComponent<SkillDirector>();
         fill_director = GetComponent<FillDirector>();
+
+        playerObject = GameObject.FindGameObjectWithTag("Player");
+        player = playerObject.GetComponent<Player>();
 
         cursorAim_UnAtk = Resources.Load<Texture2D>("Cursor/Aim6464_UnAttack");
         cursorAim_Atk = Resources.Load<Texture2D>("Cursor/Aim6464_Attack");
         cursorOrigin = Resources.Load<Texture2D>("Cursor/Origin6464");
         cursorHotspot_Origin = Vector2.zero;
         cursorHotspot_Aim = new Vector2(cursorAim_UnAtk.width / 2, cursorAim_UnAtk.height / 2);
+        ChangeCursor(true);
         BossGuage = uiDirector.BossHP_Guage;
 
         StageBackGround_Setting();
         Stage_Init();
         Train_Init();
 
+        RefreshPersent = 50;
         RefreshDistance = (int)(Destination_Distance * (RefreshPersent / 100));
 
         newPoint = new Vector2[4];
@@ -303,18 +298,18 @@ public class GameDirector : MonoBehaviour
         }
         CameraConfiler.points = newPoint;
 
-        RandomStartTime = Random.Range(3f, 5f);
+        RandomStartTime = Random.Range(4f, 6f);
         BossCount = 0;
         lastSpeedTime = 0;
         distance_lastSpeedTime = 0;
+        //기차 능력에 따라 결정
         timeBet = 0.1f - (EnginePower * 0.002f); //엔진 파워에 따라 결정
         TrainSpeedUP = 1;
         distance_time = 0.1f;
-        ChangeCursor(true);
+
         ItemFlag_Coin = false;
         waveinfoFlag = false;
         refreshinfoFlag = false;
-
     }
 
     private void Start()
@@ -326,8 +321,7 @@ public class GameDirector : MonoBehaviour
             Application.targetFrameRate = 60;
         }
 
-        playerObject = GameObject.FindGameObjectWithTag("Player");
-        player = playerObject.GetComponent<Player>();
+
 
         player.maxRespawnPosition = new Vector3(-0.43f, 0f, 0);
         player.minRespawnPosition = new Vector3(-10.94f * (Train_Num.Count - 1), 0f, 0);
@@ -340,7 +334,6 @@ public class GameDirector : MonoBehaviour
             MaxSpeed += ((MaxSpeed * 3) / 100); // 많을 수록 유리
             Efficient -= ((Efficient * 10) / 100); // 적을 수록 유리
             timeBet = 0.1f - ((EnginePower+1) * 0.001f);
-
         }
 
         if (FoodEffect_Flag_Impositive)
@@ -350,7 +343,7 @@ public class GameDirector : MonoBehaviour
             timeBet = 0.1f - ((EnginePower - 1) * 0.001f);
         }
 
-        uiDirector.Gameing_Text(Total_Score, Total_Coin);
+        uiDirector.Gameing_Text(Total_Coin);
         StartTime = Time.time;
         gameType = GameType.Starting;
 
@@ -439,7 +432,6 @@ public class GameDirector : MonoBehaviour
                 lastSpeedTime = Time.time;
             }
 
-
             if (TrainFuel <= 0)
             {
                 TrainFuel = 0;
@@ -490,7 +482,7 @@ public class GameDirector : MonoBehaviour
                     {
                         gameType = GameType.Boss;
                         StartCoroutine(Boss_Waring_Mark());
-                        Debug.Log(Emerging_Boss_Monster_Count[BossCount]);
+                        //Debug.Log(Emerging_Boss_Monster_Count[BossCount]);
                         monsterDirector.BossStart(Emerging_Boss_Monster_Count[BossCount]);
                     }
                 }
@@ -631,7 +623,7 @@ public class GameDirector : MonoBehaviour
                     lastSpeedTime = Time.time;
                 }
 
-                if(TrainSpeed > 100)
+                if(TrainSpeed > 90)
                 {
                     if (monsterDirector.GameDirector_RefreshFlag)
                     {
@@ -652,6 +644,11 @@ public class GameDirector : MonoBehaviour
 
             if ((TrainSpeed <= 0 || player.Player_HP <= 0) && GameStartFlag && !GameLoseFlag)
             {
+                if(TrainSpeed < 0)
+                {
+                    TrainSpeed = 0;
+                }
+
                 int LoseNum = 0;
                 if (TrainSpeed <= 0)
                 {
@@ -661,7 +658,6 @@ public class GameDirector : MonoBehaviour
                 {
                     LoseNum = 1;
                 }
-                TrainSpeed = 0;
                 GameLoseFlag = true;
                 Game_Lose(LoseNum);
             }
@@ -763,10 +759,6 @@ public class GameDirector : MonoBehaviour
     {
         Emerging_Monster_String = SubStageData.Emerging_Monster;
         Emerging_MonsterCount_String = SubStageData.Monster_Count;
-        //Reward_Point = StageData.Reward_Point;
-        //Reward_ItemNum = StageData.Reward_Item;
-        //Reward_ItemCount = StageData.Reward_Itemcount;
-        //Destination_Distance = StageData.Destination_Distance;
         Destination_Distance = SubStageData.Distance;
 
         Emerging_Monster_Sky = new List<int>();
@@ -802,41 +794,33 @@ public class GameDirector : MonoBehaviour
         if (SubStageData.SubStage_Type == SubStageType.Boss)
         {
             Data_BossFlag = true;
-            /*            Emerging_Boss_String = StageData.Emerging_boss;
-                        Emerging_Boss_Monster_Count_String = StageData.Boss_Monster_Count;
-                        Emerging_Boss_Distance_String = StageData.Boss_Distance;*/
 
             string[] Boss_String = SubStageData.SubStage_Status.Split(',');
             Emerging_Boss.Add(int.Parse(Boss_String[0]));
             Emerging_Boss_Distance.Add(int.Parse(Boss_String[1]));
             Emerging_Boss_Monster_Count.Add(int.Parse(Boss_String[2]));
-            MonsterDirector_Object.GetComponent<MonsterDirector>().Get_Boss_List(Emerging_Boss);
+            monsterDirector.Get_Boss_List(Emerging_Boss);
         }
-
-/*        //MonsterDirector_Object.GetComponent<MonsterDirector>().Get_Monster_List(Emerging_Monster, Emerging_MonsterCount);
-        if (Data_BossFlag)
-        {
-            MonsterDirector_Object.GetComponent<MonsterDirector>().Get_Boss_List(Emerging_Boss);
-        }*/
     }
 
     void StageBackGround_Setting()
     {
-        switch (Stage_Num/5) {
+        int _stageNum = EX_GameData.Information_Stage[Stage_Num].GameBackGround;
+
+        switch (_stageNum) {
             case 0:
-            case 1:
                 Station_OnOffFlag = true;
-                BackGroundList[0].SetActive(true);
                 break;
-            case 2:
+            case 1:
                 Station_OnOffFlag = false;
-                BackGroundList[1].SetActive(true);
                 break;
         }
+        BackGroundList[_stageNum].SetActive(true);
     }
 
     void Train_Init()
     {
+        Trains = new List<Train_InGame>();
         Train_Turret_Count = 0;
         Train_Num = SA_TrainData.Train_Num.ToList();
         Train_Turret_Num = SA_TrainTurretData.Train_Turret_Num;
@@ -854,17 +838,21 @@ public class GameDirector : MonoBehaviour
                 TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_InGame/91_" + Train_Turret_Num[Train_Turret_Count]), Train_List);
                 Train_Turret_Count++;
             }
-            /*else if (Train_Num[i] == 52)
-            {
-                TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_InGame/52_" + Train_Booster_Num[Train_Booster_Count]), Train_List);
-                Train_Booster_Count++;
-            }*/else if (Train_Num[i] == 90)//호위차량
+            else if (Train_Num[i] == 90)//호위차량
             {
                 TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_InGame/" + Train_Num[i]), Train_List);
                 Train_InGame _train = TrainObject.GetComponent<Train_InGame>();
-                _train.Max_Train_HP = 15000;
+                _train.Max_Train_HP = 20000;
                 _train.Train_HP = _train.Max_Train_HP;
-                _train.Train_Weight = missionDirector.selectmission.M_Convoy.ConvoyWeight;
+                try
+                {
+                    _train.Train_Weight = missionDirector.selectmission.M_Convoy.ConvoyWeight;
+                }
+                catch
+                {
+                    Debug.Log("테스트");
+                    _train.Train_Weight = 10000;
+                }
                 _train.Train_Armor = 30;
             }
             else
@@ -884,17 +872,24 @@ public class GameDirector : MonoBehaviour
             }
             
             Train_InGame train = TrainObject.GetComponent<Train_InGame>();
+            
             train.Train_Index = i;
-            TrainFuel += train.Train_Fuel;
-            TrainWeight += train.Train_Weight;
-            TrainMaxSpeed += train.Train_MaxSpeed;
-            TrainEfficient += train.Train_Efficient;
-            TrainEnginePower += train.Train_Engine_Power;
             train.trainHitSFX = TrainHitSFX;
+
+            if(train.Train_Type.Equals("Engine"))
+            {
+                TrainMaxSpeed = train.Train_MaxSpeed;
+                TrainEfficient = train.Train_Efficient;
+                TrainEnginePower = train.Train_Engine_Power;
+            }else if (train.Train_Type.Equals("Fuel"))
+            {
+                TrainFuel += train.Train_Fuel;
+            }
+            TrainWeight += train.Train_Weight;
+            Trains.Add(train);
         }
 
         Train_Count = Train_List.childCount;
-        Trains = new Train_InGame[Train_Count];
 
         Level_EngineTier = SA_TrainData.Level_Train_EngineTier;
         Level_MaxSpeed = SA_TrainData.Level_Train_MaxSpeed;
@@ -959,27 +954,21 @@ public class GameDirector : MonoBehaviour
         }
     }
 
-    public void Game_Monster_Kill(int GetScore, int GetCoin)
+    public void Game_Monster_Kill(int GetCoin)
     {
-        Total_Score += GetScore;
         if (ItemFlag_DoubleCoin)
         {
             Total_Coin += GetCoin * 2;
+        }else if (ItemFlag_Coin)
+        {
+            Total_Coin += (GetCoin + Random.Range(0, 201));
         }
         else
         {
-            if (!ItemFlag_Coin)
-            {
-                Total_Coin += GetCoin;
-            }
-            else
-            {
-                int coin = Random.Range(0, 201);
-                Total_Coin += (GetCoin + coin);
-            }
+            Total_Coin += GetCoin;
         }
 
-        uiDirector.Gameing_Text(Total_Score, Total_Coin);
+        uiDirector.Gameing_Text(Total_Coin);
     }
 
     public void Mission_Monster_Kill()
@@ -987,9 +976,8 @@ public class GameDirector : MonoBehaviour
         missionDirector.MonsterCount();
     }
 
-    public void Gmae_Boss_Kill(int GetScore, int GetCoin) //보스는 2배 적용 X
+    public void Gmae_Boss_Kill(int GetCoin) //보스는 2배 적용 X
     {
-        Total_Score += GetScore;
         if(!ItemFlag_Coin)
         {
             Total_Coin += GetCoin;
@@ -1002,75 +990,16 @@ public class GameDirector : MonoBehaviour
         BossCount++;
         monsterDirector.BossDie();
         uiDirector.BossHP_Object.SetActive(false);
-        uiDirector.Gameing_Text(Total_Score, Total_Coin);
+        uiDirector.Gameing_Text(Total_Coin);
         gameType = GameType.Playing;
         SoundSequce(PlayBGM);
     }
-    /*    private string Check_Score()
-        {
-            if (Total_Score >= StageData.Grade_Score[4])
-            {
-                Reward_Num = 4;
-                return "S";
-            }
-            else if (StageData.Grade_Score[4] > Total_Score && Total_Score >= StageData.Grade_Score[3])
-            {
-                Reward_Num = 3;
-                return "A";
-            }
-            else if (StageData.Grade_Score[3] > Total_Score && Total_Score >= StageData.Grade_Score[2])
-            {
-                Reward_Num = 2;
-                return "B";
-            }
-            else if (StageData.Grade_Score[2] > Total_Score && Total_Score >= StageData.Grade_Score[1])
-            {
-                Reward_Num = 1;
-                return "C";
-            }
-            else if (StageData.Grade_Score[1] > Total_Score && Total_Score >= StageData.Grade_Score[0])
-            {
-                Reward_Num = 0;
-                return "D";
-            }
-            else if (StageData.Grade_Score[0] > Total_Score)
-            {
-                Reward_Num = -1;
-                return "F";
-            }
-            Reward_Num = -1;
-            return "F";
-        }*/
-
-    /*    private int Check_StageDataGrade()
-        {
-           switch (StageData.Player_Grade) {
-
-                case StageDataObject.Grade.S:
-                    return 4;
-                case StageDataObject.Grade.A:
-                    return 3;
-                case StageDataObject.Grade.B:
-                    return 2;
-                case StageDataObject.Grade.C:
-                    return 1;
-                case StageDataObject.Grade.D:
-                    return 0;
-                case StageDataObject.Grade.F:
-                    return -1;
-            }
-    return -1;
-        }*/
+   
 
     private void Game_Win()
     {
-        //string grade = Check_Score();
-        //StageData.GameEnd(true, Total_Score);//, grade);
-        //Change_Game_End(true);
-
         GameEnd_SavePlayerData();
         SubStage_Clear();
-        //lastSubStage_Lock();
         SubStage_LockOff();
         MMSoundManagerSoundPlayEvent.Trigger(WinSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
     }
@@ -1079,21 +1008,6 @@ public class GameDirector : MonoBehaviour
     {
         SubStageData.SubStage_Clear();
     }
-
-/*    void lastSubStage_Lock()
-    {
-        foreach(int substageNum in PrevSubStageNum)
-        {
-            if(substageNum != -1)
-            {
-                if(substageNum != Select_Sub_Num)
-                {
-                    MissionDataObject mission = SA_MissionData.missionStage(Mission_Num, Stage_Num, substageNum);
-                    mission.prevLock();
-                }
-            }
-        }
-    }*/
 
     void SubStage_LockOff()
     {
@@ -1109,7 +1023,6 @@ public class GameDirector : MonoBehaviour
             if (substageNum != -1)
             {
                 MissionDataObject mission = SA_MissionData.missionStage(Mission_Num, Stage_Num, substageNum);
-                Debug.Log(substageNum);
                 mission.SubStageLockOff();
             }
             else
@@ -1171,7 +1084,7 @@ public class GameDirector : MonoBehaviour
                     //Debug.Log("작업 해야됨" + flag);
                     missionDirector.selectmission.Mission_Fail();
                     SA_PlayerData.SA_MissionPlaying(false);
-                    uiDirector.Open_Result_UI(false, Total_Score, Total_Coin, missionDirector.selectmission, chapter_clearFlag, LoseNum);
+                    uiDirector.Open_Result_UI(false, Total_Coin, missionDirector.selectmission, chapter_clearFlag, LoseNum);
                 }
             }
             else //마지막스테이지일 때
@@ -1182,7 +1095,7 @@ public class GameDirector : MonoBehaviour
                     //Debug.Log("마지막 작동 완료" + flag);
                     missionDirector.selectmission.Mission_Sucesses(SA_StageList.Stage[Stage_Num]);
                     
-                    uiDirector.Open_Result_UI(true, Total_Score, Total_Coin, missionDirector.selectmission, chapter_clearFlag, LoseNum);
+                    uiDirector.Open_Result_UI(true, Total_Coin, missionDirector.selectmission, chapter_clearFlag, LoseNum);
                     LastSubStageClear();
                     SA_PlayerData.change_clickStartButton(false);
                     SA_PlayerData.SA_GameWinReward(true, Total_Coin);
@@ -1204,7 +1117,7 @@ public class GameDirector : MonoBehaviour
                     //Debug.Log("작업 해야됨 - 실패로 간주하고 초기화해야됨");
                     missionDirector.selectmission.Mission_Fail();
                     SA_PlayerData.SA_MissionPlaying(false);
-                    uiDirector.Open_Result_UI(false, Total_Score, Total_Coin, missionDirector.selectmission, chapter_clearFlag, LoseNum);
+                    uiDirector.Open_Result_UI(false, Total_Coin, missionDirector.selectmission, chapter_clearFlag, LoseNum);
                 }
             }
         }
@@ -1212,7 +1125,7 @@ public class GameDirector : MonoBehaviour
         {
             missionDirector.selectmission.Mission_Fail();
             SA_PlayerData.SA_MissionPlaying(false);
-            uiDirector.Open_Result_UI(false, Total_Score, Total_Coin, missionDirector.selectmission, chapter_clearFlag, LoseNum);
+            uiDirector.Open_Result_UI(false, Total_Coin, missionDirector.selectmission, chapter_clearFlag, LoseNum);
         }
         /*
                 if (WinFlag && subStage_Last)
@@ -1273,6 +1186,11 @@ public class GameDirector : MonoBehaviour
                 //Debug.Log("종료");
             }
         }
+    }
+
+    public void DestoryEngine()
+    {
+        Game_Lose(0);
     }
 
     private void Game_Lose(int losenum)
@@ -1501,7 +1419,7 @@ public class GameDirector : MonoBehaviour
         else if (num == 4)
         {
             Total_Coin += 1000;
-            uiDirector.Gameing_Text(Total_Score, Total_Coin);
+            uiDirector.Gameing_Text(Total_Coin);
         }
         else if (num == 5)
         {
@@ -1610,7 +1528,6 @@ public class GameDirector : MonoBehaviour
             Station_Object.SetActive(false);
         }
     }
-    
     IEnumerator TrainStart_SFX()
     {
         MMSoundManagerSoundPlayEvent.Trigger(TrainStartSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position, loop: false, ID: TrainSFX_ID);
@@ -1652,11 +1569,21 @@ public class GameDirector : MonoBehaviour
     }
 
     //----------------수리-------------------
-    public void EngineerSet(int hp, int cooltime)
+    public void EngineerSet(int w_hp, int m_hp,  int cooltime)
     {
         repairFlag = true;
-        repairHPCheck = hp;
+        repair_Warning_HPCheck = w_hp;
+        repair_Max_HPCheck = m_hp;
         repairCoolTime = cooltime;
+        foreach (Train_InGame train in Trains)
+        {
+            train.RepairEngineerSet(w_hp, cooltime);
+        }
+    }
+
+    public void EngineerCall(Train_InGame train)
+    {
+        mercenaryDirector.Engineer_Call(train);
     }
 
     //--------------------------event---------------------------

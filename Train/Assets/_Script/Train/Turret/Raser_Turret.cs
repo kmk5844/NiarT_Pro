@@ -27,88 +27,92 @@ public class Raser_Turret : Turret
     }
     void Update()
     {
-        Turret_Flip();
-        if (Target != null)
+        if (!trainData.DestoryFlag)
         {
-            Target_Flag = true;
-        }
-        else
-        {
-            Target_Flag = false;
-        }
-
-        if (Target_Flag)
-        {
-            Vector3 rot = Target.position - transform.position;
-            float rotZ = Mathf.Atan2(rot.y, rot.x) * Mathf.Rad2Deg;
-            Z = Quaternion.Euler(0, 0, rotZ).eulerAngles.z - transform.rotation.eulerAngles.z;
-
-            if (Z > 180f)
+            Turret_Flip();
+            if (Target != null)
             {
-                Z -= 360f;
-            }
-            else if (Z < -180f)
-            {
-                Z += 360f;
-            }
-
-            if (Fire_Flag)
-            {
-                if ((Time.time >= lastTime + train_Attack_Delay))
-                {
-                    laser.SetActive(false);
-                    Fire_Flag = false;
-                    train_Attack_Delay = Data_Attack_Delay;
-                    lastTime = Time.time;
-                }
+                Target_Flag = true;
             }
             else
             {
-                if (Z > 0.1f)
+                Target_Flag = false;
+            }
+
+            if (Target_Flag)
+            {
+                Vector3 rot = Target.position - transform.position;
+                float rotZ = Mathf.Atan2(rot.y, rot.x) * Mathf.Rad2Deg;
+                Z = Quaternion.Euler(0, 0, rotZ).eulerAngles.z - transform.rotation.eulerAngles.z;
+
+                if (Z > 180f)
                 {
-                    transform.Rotate(new Vector3(0, 0, (train_Rotation_Delay + Item_Rotation_Delay)));
+                    Z -= 360f;
                 }
-                else if (Z < -0.1f)
+                else if (Z < -180f)
                 {
-                    transform.Rotate(new Vector3(0, 0, -(train_Rotation_Delay + Item_Rotation_Delay)));
+                    Z += 360f;
+                }
+
+                if (Fire_Flag)
+                {
+                    if ((Time.time >= lastTime + train_Attack_Delay))
+                    {
+                        laser.SetActive(false);
+                        Fire_Flag = false;
+                        train_Attack_Delay = Data_Attack_Delay;
+                        lastTime = Time.time;
+                    }
                 }
                 else
                 {
-                    transform.rotation = Quaternion.Euler(0, 0, rotZ);
-                }
+                    if (Z > 0.1f)
+                    {
+                        transform.Rotate(new Vector3(0, 0, (train_Rotation_Delay + Item_Rotation_Delay)));
+                    }
+                    else if (Z < -0.1f)
+                    {
+                        transform.Rotate(new Vector3(0, 0, -(train_Rotation_Delay + Item_Rotation_Delay)));
+                    }
+                    else
+                    {
+                        transform.rotation = Quaternion.Euler(0, 0, rotZ);
+                    }
 
-                if ((Time.time >= lastTime + (train_Attack_Delay - Item_Attack_Delay)))
-                {
-                    laser.SetActive(true);
-                    Fire_Flag = true;
-                    train_Attack_Delay = train_Attacking_Delay;
-                    lastTime = Time.time;
-                }
-            }
-        }
-        else
-        {
-            if (Fire_Flag)
-            {
-                if ((Time.time >= lastTime + train_Attack_Delay))
-                {
-                    laser.SetActive(false);
-                    Fire_Flag = false;
-                    train_Attack_Delay = Data_Attack_Delay;
-                    lastTime = Time.time;
+                    if ((Time.time >= lastTime + (train_Attack_Delay - Item_Attack_Delay)))
+                    {
+                        laser.SetActive(true);
+                        Fire_Flag = true;
+                        train_Attack_Delay = train_Attacking_Delay;
+                        lastTime = Time.time;
+                    }
                 }
             }
             else
             {
-                if ((Time.time >= lastTime + (train_Attack_Delay - Item_Attack_Delay)))
+                if (Fire_Flag)
                 {
-                    laser.SetActive(true);
-                    Fire_Flag = true;
-                    train_Attack_Delay = train_Attacking_Delay;
-                    lastTime = Time.time;
+                    if ((Time.time >= lastTime + train_Attack_Delay))
+                    {
+                        laser.SetActive(false);
+                        Fire_Flag = false;
+                        train_Attack_Delay = Data_Attack_Delay;
+                        lastTime = Time.time;
+                    }
+                }
+                else
+                {
+                    if ((Time.time >= lastTime + (train_Attack_Delay - Item_Attack_Delay)))
+                    {
+                        laser.SetActive(true);
+                        Fire_Flag = true;
+                        train_Attack_Delay = train_Attacking_Delay;
+                        lastTime = Time.time;
+                    }
                 }
             }
         }
+      
     }
 
     void Turret_Flip()

@@ -6,6 +6,6 @@ public class Info_Level_Mercenary_Short_ranged
     public int MoveSpeed;
     public int Def;
     public int Unit_Attack;
-    public int Unit_Atk_Delay;
+    public float Unit_Atk_Delay;
     public int Upgrade_Cost;
 }

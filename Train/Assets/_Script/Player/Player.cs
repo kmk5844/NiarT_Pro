@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    GameObject gamedirector_object;
     GameDirector gamedirector;
     GameType gameDirectorType;
     Player_Chage playerchageDirector;
@@ -152,9 +151,8 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        gamedirector_object = GameObject.Find("GameDirector");
-        gamedirector = gamedirector_object.GetComponent<GameDirector>();
-        uidirector = gamedirector.UI_DirectorObject.GetComponent<UIDirector>();
+        gamedirector = GameObject.Find("GameDirector").GetComponent<GameDirector>();
+        uidirector = gamedirector.uiDirector;
         playerchageDirector = GetComponent<Player_Chage>();
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         ani = GetComponent<Animator>();
@@ -276,58 +274,60 @@ public class Player : MonoBehaviour
 
         if (gamedirector.SpawnTrainFlag && train != null)
         {
-            if (train.Train_Type.Equals("Medic"))
+            if (train.Train_Type.Equals("Medic") && !train.DestoryFlag)
             {
                 if (Check_HpParsent() < 95f && !isHealing)
                 {
                     KeyObject.SetActive(true);
+                    if (Input.GetKeyDown(KeyCode.F) && KeyCount == 0)
+                    {
+                        if (train.Not_DestoryTrain)
+                        {
+                            if (!train.GetComponentInChildren<Medic_Train>().isMercenaryHealing)
+                            {
+                                OnOff_Sprite(true);
+                                isHealing = true;
+                                KeyCount = 1;
+                            }
+                        }
+                    }
                 }
                 else
                 {
                     KeyObject.SetActive(false);
                 }
 
-                if (Input.GetKeyDown(KeyCode.F) && Check_HpParsent() < 95f && !isHealing && KeyCount == 0)
-                {
-                    if (train.Not_DestoryTrain)
-                    {
-                        if (!train.GetComponentInChildren<Medic_Train>().isMercenaryHealing)
-                        {
-                            OnOff_Sprite(true);
-                            isHealing = true;
-                            KeyCount = 1;
-                        }
-                        else
-                        {
-                            // 치료 중입니다.
-                        }
-                    }
-                    else
-                    {
-                        //파괴되어 사용할 수 없습니다.
-                    }
-                }
+                
             }else if (train.Train_Type.Equals("Supply"))
             {
-                if (train.GetComponentInChildren<Supply_Train>().UseFlag)
+                if (train.GetComponentInChildren<Supply_Train>().UseFlag && !train.DestoryFlag)
                 {
                     KeyObject.SetActive(true);
+                    if (Input.GetKeyDown(KeyCode.F))
+                    {
+                        train.GetComponentInChildren<Supply_Train>().UseSupply();
+                    }
                 }
                 else
                 {
                     KeyObject.SetActive(false);
                 }
 
-                if(Input.GetKeyDown(KeyCode.F) && train.GetComponentInChildren<Supply_Train>().UseFlag){
-                    train.GetComponentInChildren<Supply_Train>().UseSupply();
-                }
+
             }else if (train.Train_Type.Equals("Self_Turret"))
             {
                 if (!isSelfTurretAtacking)
                 {
-                    if (train.GetComponentInChildren<SelfTurret_Train>().UseFlag)
+                    if (train.GetComponentInChildren<SelfTurret_Train>().UseFlag && !train.DestoryFlag)
                     {
                         KeyObject.SetActive(true);
+                        if (Input.GetKeyDown(KeyCode.F))
+                        {
+                            selfTurretCoroutine = StartCoroutine(train.GetComponentInChildren<SelfTurret_Train>().UseSelfTurret());
+                            OnOff_Sprite(true);
+                            StartCoroutine(ClickDelay());
+                            isSelfTurretAtacking = true;
+                        }
                     }
                     else
                     {
@@ -335,19 +335,13 @@ public class Player : MonoBehaviour
                     }
                 }
                 
-                if (Input.GetKeyDown(KeyCode.F) && train.GetComponentInChildren<SelfTurret_Train>().UseFlag)
-                {
-                    selfTurretCoroutine = StartCoroutine(train.GetComponentInChildren<SelfTurret_Train>().UseSelfTurret());
-                    OnOff_Sprite(true);
-                    StartCoroutine(ClickDelay());
-                    isSelfTurretAtacking = true;
-                }
+
             }else if (train.Train_Type.Equals("FuelSignal")){
-                if(train.GetComponentInChildren<FuelSignalTrain>().useflag)
+                if(train.GetComponentInChildren<FuelSignalTrain>().useflag && !train.DestoryFlag)
                 {
                     KeyObject.SetActive(true);
 
-                    if (Input.GetKeyDown(KeyCode.F))
+                    if (Input.GetKeyDown(KeyCode.F) && !train.DestoryFlag)
                     {
                         train.GetComponentInChildren<FuelSignalTrain>().ClickTrain();
                     }
@@ -358,7 +352,7 @@ public class Player : MonoBehaviour
                 }
             }else if (train.Train_Type.Equals("Hangar"))
             {
-                if(train.GetComponentInChildren<Hangar_Train>().useFlag && train.GetComponentInChildren<Hangar_Train>().doorFlag)
+                if(train.GetComponentInChildren<Hangar_Train>().useFlag && train.GetComponentInChildren<Hangar_Train>().doorFlag && !train.DestoryFlag)
                 {
                     KeyObject.SetActive(true);
 
@@ -374,7 +368,7 @@ public class Player : MonoBehaviour
             }
             else if(train.Train_Type.Equals("IronPlateFactory"))
             {
-                if(train.GetComponentInChildren<IronPlateFactory>().useflag)
+                if(train.GetComponentInChildren<IronPlateFactory>().useflag && !train.DestoryFlag)
                 {
                     KeyObject.SetActive(true);
                     if (Input.GetKeyDown(KeyCode.F))
@@ -389,7 +383,7 @@ public class Player : MonoBehaviour
             }
             else if (train.Train_Type.Equals("TurretUpgrade"))
             {
-                if (train.GetComponentInChildren<TurretUpgradeTrain>().useflag)
+                if (train.GetComponentInChildren<TurretUpgradeTrain>().useflag && !train.DestoryFlag)
                 {
                     KeyObject.SetActive(true);
                     if (Input.GetKeyDown(KeyCode.F))

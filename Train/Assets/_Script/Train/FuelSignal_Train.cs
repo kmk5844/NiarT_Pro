@@ -32,9 +32,12 @@ public class FuelSignalTrain : MonoBehaviour
     {
         if (gameDirector.gameType == GameType.Playing || gameDirector.gameType == GameType.Boss)
         {
-            if (Time.time > lastTime + SpawnTime && !useflag)
+            if (!trainData.DestoryFlag)
             {
-                useflag = true;
+                if (Time.time > lastTime + SpawnTime && !useflag)
+                {
+                    useflag = true;
+                }
             }
         }
     }
