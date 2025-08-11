@@ -70,19 +70,13 @@ public class parallex : MonoBehaviour
             for (int i = 0; i < backgrounds.Length; i++)
             {
                 float speed = backSpeed[i] * parallaxSpeed;
-                offset += (Time.deltaTime * speed + (GameDirector.TrainSpeed / 10000f));
+                if(GameDirector.TrainSpeed > 0)
+                {
+                    offset += (Time.deltaTime * speed + (Time.deltaTime * GameDirector.TrainSpeed / 100f));
+                }
                 mat[i].SetTextureOffset("_MainTex", new Vector2(offset, 0) * speed);
             }
-        }/*else if()
-        {
-            float EndingSpeed = 0.1f;
-            for (int i = 0; i < backgrounds.Length; i++)
-            {
-                float speed = backSpeed[i] * EndingSpeed;
-                offset += (Time.deltaTime * speed + (GameDirector.TrainSpeed / 10000f));
-                mat[i].SetTextureOffset("_MainTex", new Vector2(offset, 0) * speed);
-            }
-        }*/
+        }
     }
     private void FixedUpdate()
     {

@@ -30,10 +30,11 @@ public class Balloon_TurretBullet : Bullet
         Ballon_Min_Z = -0.1f;
         Ballon_Max_Z = 0.1f;
         LR_BallonFlag = true;
+        StartCoroutine(SpawnBombTime());
     }
     private void FixedUpdate()
     {
-        if(BombFlag ==false)
+        if(BombFlag == false)
         {
             if (monster_target == null)
             {
@@ -74,6 +75,11 @@ public class Balloon_TurretBullet : Bullet
         {
             if (monster_target != null)
             {
+                if(monster_target.GetComponent<Monster>().monster_gametype == Monster_GameType.Die)
+                {
+                    monster_target = null;
+                    return;
+                }
                 // 타겟 방향 계산
                 Vector3 targetDirection = (monster_target.position - transform.position).normalized;
 
@@ -92,6 +98,16 @@ public class Balloon_TurretBullet : Bullet
                     rid.velocity =  Vector2.up * 0.4f;
                 }
             }
+        }
+    }
+
+    IEnumerator SpawnBombTime()
+    {
+        yield return new WaitForSeconds(6f);
+        if (BombFlag)
+        {
+            Bomb.SetActive(true);
+            BombFlag = true;
         }
     }
 

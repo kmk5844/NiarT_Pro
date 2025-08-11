@@ -6,6 +6,7 @@ public class ItemDirector : MonoBehaviour
 {
     public bool On_ItemList_Test;
 
+    public GameDirector gameDirector;
     public UIDirector uiDirector;
     public SA_ItemList itemList;
     public SA_ItemList_Test itemList_Test;
@@ -19,21 +20,25 @@ public class ItemDirector : MonoBehaviour
 
     public GameObject Dron;
 
+    bool player_revival_flag;
+    int player_revival_num = 0;
+
     [Header("Sound")]
     public AudioClip UseItemSound;
 
     private void Start()
     {
-        try
+/*        try
         {
             itemData.Load();
         }
         catch
         {
             itemData.Init();
-        }
+        }*/
 
         EquipedItemFlag = new bool[3];
+        player_revival_flag = false;
 
         for (int i = 0; i < itemData.Equiped_Item.Count; i++)
         {
@@ -41,6 +46,13 @@ public class ItemDirector : MonoBehaviour
             {
                 uiDirector.Item_EquipedIcon(i, itemData.EmptyObject.Item_Sprite, itemData.Equiped_Item_Count[i]);
                 EquipedItemFlag[i] = false;
+            }else if (itemData.Equiped_Item[i] == 0)
+            {
+                //제세동기
+                uiDirector.Item_EquipedIcon(i, itemList.Item[itemData.Equiped_Item[i]].Item_Sprite, itemData.Equiped_Item_Count[i]);
+                player_revival_flag = true;
+                EquipedItemFlag[i] = false;
+                player_revival_num = i;
             }
             else
             {
@@ -55,13 +67,20 @@ public class ItemDirector : MonoBehaviour
                 EquipedItemFlag[i] = true;
             }
         }
+
+        if (player_revival_flag)
+        {
+            gameDirector.Revival_PlayerSet();
+            //게임 디렉터에게 신호를 알려줘야함.
+        }
+
         useitem = GetComponent<UseItem>();
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1) && EquipedItemFlag[0])
-        {
+        { 
             Change_EquipedItem(0);
             StartCoroutine(EquipItemCoolTime(0));
         }
@@ -74,7 +93,7 @@ public class ItemDirector : MonoBehaviour
         {
             Change_EquipedItem(2);
             StartCoroutine(EquipItemCoolTime(2));
-        }
+    }
     }
 
     IEnumerator EquipItemCoolTime(int i)
@@ -135,5 +154,11 @@ public class ItemDirector : MonoBehaviour
         int num = Random.Range(1, 3);
         Dron.GetComponentInChildren<Supply_Train_Dron>().SupplyDron_SetData(num, 3);
         Instantiate(Dron);
+    }
+
+    public void RevivalUse()
+    {
+        player_revival_flag = false;
+        Change_EquipedItem(player_revival_num);
     }
 }

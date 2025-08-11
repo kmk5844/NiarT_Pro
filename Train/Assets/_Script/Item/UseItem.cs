@@ -101,7 +101,7 @@ public class UseItem : MonoBehaviour
             switch (num)
             {
                 case 0:
-                    Debug.Log("부활 전용 -> 클릭 X");
+                    //부활
                     break;
                 case 1:
                     player.Item_Player_Heal_HP(5);

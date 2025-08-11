@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
 
     [Header("체력")]
     public int Player_HP;
-    private int Max_HP;
+    public int Max_HP;
 
     [Header("방어력")]
     [SerializeField]
@@ -69,7 +69,6 @@ public class Player : MonoBehaviour
     float dashingTime = 0.2f;
     float dashingCooldown = 1f;
     float horizontalInput;
-
 
     [Header("상호작용")]
     public bool isHealing;
@@ -148,6 +147,7 @@ public class Player : MonoBehaviour
     bool ClickFlag;
 
     bool STEAM_clickflag_R;
+    public bool revival_Effect_Flag;
 
     void Start()
     {
@@ -875,26 +875,29 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Monster_Bullet"))
+        if (!revival_Effect_Flag)
         {
-            MonsterBullet bullet = collision.GetComponent<MonsterBullet>();
-            MonsterHit(bullet.atk);
-            if(bullet.bulletType != MonsterBulletType.Nomal && !DebuffImmunityFlag)
+            if (collision.CompareTag("Monster_Bullet"))
             {
-                playerDebuff.GetDebuff(bullet.bulletType);
+                MonsterBullet bullet = collision.GetComponent<MonsterBullet>();
+                MonsterHit(bullet.atk);
+                if (bullet.bulletType != MonsterBulletType.Nomal && !DebuffImmunityFlag)
+                {
+                    playerDebuff.GetDebuff(bullet.bulletType);
+                }
+                Pain_Voice();
+                Blood_Effect();
+                Destroy(collision.gameObject);
             }
-            Pain_Voice();
-            Blood_Effect();
-            Destroy(collision.gameObject);
-        }
 
-        if (collision.CompareTag("Monster_ShortAttack"))
-        {
-            Monster_ShortAtk short_info = collision.GetComponent<Monster_ShortAtk>();
-            MonsterHit(short_info.Atk);
-            Pain_Voice();
-            Blood_Effect();
-            ShortAtk_PlayerEffect(short_info.xPos, short_info.Force);
+            if (collision.CompareTag("Monster_ShortAttack"))
+            {
+                Monster_ShortAtk short_info = collision.GetComponent<Monster_ShortAtk>();
+                MonsterHit(short_info.Atk);
+                Pain_Voice();
+                Blood_Effect();
+                ShortAtk_PlayerEffect(short_info.xPos, short_info.Force);
+            }
         }
     }
 
@@ -1898,8 +1901,6 @@ public class Player : MonoBehaviour
         }
         eventData.OldTranningOff();
     }
-
-
 
     public SA_PlayerData playerSet()
     {

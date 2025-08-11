@@ -80,7 +80,7 @@ public class Monster_10 : Monster
 */
     void _BulletFire()
     {
-        if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay))
+        if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay) && monster_gametype != Monster_GameType.Die)
         {
             GameObject bullet = BulletObject;
             for(int i = 0; i < 4; i++)

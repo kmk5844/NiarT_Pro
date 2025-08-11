@@ -157,8 +157,6 @@ public class Train_InGame : MonoBehaviour
         HP_Parsent = (float)Train_HP / (float)Max_Train_HP * 100f;
         //여기서 만약 기차가 파괴 시 쓰면 좋은 함수 (업데이트 문이라면 조심)
 
-
-
         if (HP_Parsent < 50f)
         {
             TrainSprite.color = Color.Lerp(Color.white, Color.red, ((100f - (HP_Parsent * 2)) / 100f));

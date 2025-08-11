@@ -185,6 +185,11 @@ public class Monster : MonoBehaviour
 
     protected virtual void Update()
     {
+        if(Monster_HP <= 0)
+        {
+            monster_gametype = Monster_GameType.Die;
+        }
+
         if (Monster_Mission_MaterialFlag)
         {
             if (Monster_HP <= 0 && !spawnMaterialFlag && Monster_Num != 1)
@@ -671,7 +676,6 @@ public class Monster : MonoBehaviour
     public void MonsterDie()
     {
         Monster_HP = 0;
-        monster_gametype = Monster_GameType.Die;
         gameDirector.Game_Monster_Kill(Monster_Coin);
         MMSoundManagerSoundPlayEvent.Trigger(DieSfX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         if (Monster_Mission_CountFlag)

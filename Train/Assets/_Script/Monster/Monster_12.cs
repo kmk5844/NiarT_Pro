@@ -135,7 +135,7 @@ public class Monster_12 : Monster
 
     void BulletFire()
     {
-        if(monster_gametype != Monster_GameType.GameEnding)
+        if(monster_gametype != Monster_GameType.GameEnding && monster_gametype != Monster_GameType.Die)
         {
             for (int i = 0; i < 3; i++)
             {

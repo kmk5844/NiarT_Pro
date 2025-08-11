@@ -48,7 +48,7 @@ public class Monster_14 : Monster
     }
     void BulletFire()
     {
-        if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay))
+        if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay) && monster_gametype != Monster_GameType.Die)
         {
             GameObject bullet = Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
             bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, Bullet_Speed, 0);

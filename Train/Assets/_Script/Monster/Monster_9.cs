@@ -81,7 +81,7 @@ public class Monster_9 : Monster
 
     void AttackTrigger()
     {
-        if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay))
+        if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay) && monster_gametype != Monster_GameType.Die)
         {
             Random_BulletCount = Random.Range(2, 6);
             ani.SetTrigger("Attack");

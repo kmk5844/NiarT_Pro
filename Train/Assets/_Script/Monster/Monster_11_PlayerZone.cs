@@ -14,7 +14,7 @@ public class Monster_11_PlayerZone : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && monster_11.monster_gametype != Monster_GameType.Die)
         {
             monster_11.AttackTrigger();
         }

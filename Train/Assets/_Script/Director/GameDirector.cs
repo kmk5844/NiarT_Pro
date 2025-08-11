@@ -3,6 +3,7 @@ using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Localization.Plugins.XLIFF.V20;
 using UnityEngine;
 using UnityEngine.UI;
 using static PixelCrushers.AnimatorSaver;
@@ -12,6 +13,8 @@ using static UnityEngine.ParticleSystem;
 //Script Execution Order로 조절 중
 public class GameDirector : MonoBehaviour
 {
+    [Header("카메라")]
+    public CinemachineVirtualCamera virtualCamera;
     [Header("게임 타입")]
     public GameType gameType;
     GameType Before_GameType;
@@ -65,6 +68,7 @@ public class GameDirector : MonoBehaviour
     GameObject playerObject;
     [HideInInspector]
     public Player player;
+    bool revivalFlag = false;
 
     [Header("스테이지 정보")]
     public int Mission_Num;
@@ -160,6 +164,8 @@ public class GameDirector : MonoBehaviour
     public GameObject Station_Object;
     bool isStationHideFlag;
     bool isStationShowFlag;
+    bool isStationHideEndFlag;
+    bool isStationShowEndFlag;
 
     [Header("BGM")]
     public AudioClip DustWindBGM;
@@ -268,7 +274,9 @@ public class GameDirector : MonoBehaviour
         GameLoseFlag = false;
         SpawnTrainFlag = false;
         isStationHideFlag = false;
+        isStationHideEndFlag = false;
         isStationShowFlag = false;
+        isStationShowEndFlag = false;
         fill_director = GetComponent<FillDirector>();
 
         playerObject = GameObject.FindGameObjectWithTag("Player");
@@ -401,35 +409,44 @@ public class GameDirector : MonoBehaviour
         }
         else if (gameType == GameType.Playing)
         {
-           /* if (Time.time >= StartTime + 0.1f && !isStationHideFlag)
+            if (!isStationHideEndFlag)
             {
-                isStationHideFlag = true;
-                StartCoroutine(Hide_And_Show_Station(true));
-            }*/
-
-            if (Time.time >= RandomStartTime + StartTime && !GameStartFlag)
-            {
-                GameStartFlag = true;
-                monsterDirector.GameDirector_SpawnFlag = true;
-                SoundSequce(PlayBGM);
-            }else if(Time.time >= lastSpeedTime + timeBet && GameWinFlag == false)
-            {
-                if (MaxSpeed >= TrainSpeed)
+                if(Time.time >= lastSpeedTime + 0.2f)
                 {
-                    if (TrainFuel > 0)
+                    if (9 >= TrainSpeed)
                     {
                         TrainSpeed += TrainSpeedUP;
-                        TrainFuel -= Efficient;
                     }
+                    lastSpeedTime = Time.time;
                 }
-                else
+            }
+            else
+            {
+                if (Time.time >= RandomStartTime + StartTime && !GameStartFlag)
                 {
-                    if (TrainFuel > 0)
-                    {
-                        TrainFuel -= Efficient;
-                    }
+                    GameStartFlag = true;
+                    monsterDirector.GameDirector_SpawnFlag = true;
+                    SoundSequce(PlayBGM);
                 }
-                lastSpeedTime = Time.time;
+                else if (Time.time >= lastSpeedTime + timeBet && GameWinFlag == false)
+                {
+                    if (MaxSpeed >= TrainSpeed)
+                    {
+                        if (TrainFuel > 0)
+                        {
+                            TrainSpeed += TrainSpeedUP;
+                            TrainFuel -= Efficient;
+                        }
+                    }
+                    else
+                    {
+                        if (TrainFuel > 0)
+                        {
+                            TrainFuel -= Efficient;
+                        }
+                    }
+                    lastSpeedTime = Time.time;
+                }
             }
 
             if (TrainFuel <= 0)
@@ -449,7 +466,12 @@ public class GameDirector : MonoBehaviour
                 gameType = GameType.Ending;
             }
 
-            if ((TrainSpeed <= 0 || player.Player_HP <= 0) && GameStartFlag && !GameLoseFlag)
+            if(player.Player_HP <= 0 && revivalFlag)
+            {
+                StartCoroutine(RevivalEffect(0.1f, 3, 2));
+            }
+
+            if ((TrainSpeed <= 0 || (player.Player_HP <= 0 && !revivalFlag) && GameStartFlag && !GameLoseFlag))
             {
                 int LoseNum = 0;
                 if(TrainSpeed <= 0)
@@ -685,18 +707,33 @@ public class GameDirector : MonoBehaviour
                         StartCoroutine(uiDirector.GameClear());
                     }
 
-                    if (Time.time >= lastSpeedTime + 0.025f)
+                    if (!isStationShowFlag)
                     {
-                        if (TrainSpeed > 0)
+                        if (Time.time >= lastSpeedTime + 0.025f)
                         {
-                            TrainSpeed -= TrainSpeedUP * 2;
+                            if (TrainSpeed >= 11)
+                            {
+                                TrainSpeed -= TrainSpeedUP * 2;
+                            }
+                            else if (TrainSpeed < 12)
+                            {
+                                TrainSpeed += TrainSpeedUP;
+                            }
+                            lastSpeedTime = Time.time;
                         }
-                        else
-                        {
-                            TrainSpeed = 0;
-                        }
-                        lastSpeedTime = Time.time;
                     }
+                    else
+                    {
+                        if (Time.time >= lastSpeedTime + 0.6f)
+                        {
+                            if (TrainSpeed > 1)
+                            {
+                                TrainSpeed -= TrainSpeedUP;
+                            }
+                            lastSpeedTime = Time.time;
+                        }
+                    }
+
 
                     /*if (TrainSpeed <= 74f && TrainSpeed > 72f && !isStationShowFlag)
                     {
@@ -704,10 +741,11 @@ public class GameDirector : MonoBehaviour
                         StartCoroutine(Hide_And_Show_Station(false));
                     }*/
 
-                    if (TrainSpeed == 0)
+                    if (isStationShowEndFlag)
                     {
                         gameType = GameType.GameEnd;
                         Game_Win();
+                        TrainSpeed = 0;
                     }
                 }
             }
@@ -737,7 +775,7 @@ public class GameDirector : MonoBehaviour
                 {
                     if (monsterDirector.GameDirecotr_AllDieFlag)
                     {
-                        if (TrainSpeed <= 74f && TrainSpeed > 72f && !isStationShowFlag)
+                        if (TrainSpeed < 12f && TrainSpeed >= 10f && !isStationShowFlag)
                         {
                             isStationShowFlag = true;
                             StartCoroutine(Hide_And_Show_Station(false));
@@ -1481,7 +1519,7 @@ public class GameDirector : MonoBehaviour
         }
         else
         {
-            StartX = 36f;
+            StartX = 40f;
             TargetX = 6f;
         }
 
@@ -1507,7 +1545,7 @@ public class GameDirector : MonoBehaviour
         }
         else
         {
-            float fac = 10f;
+            float fac = 3.6f;
             while (Station_Object.transform.localPosition.x > TargetX)
             {
                 if (Time.timeScale != 0)
@@ -1521,6 +1559,17 @@ public class GameDirector : MonoBehaviour
                 Station_Object.transform.localPosition = new Vector2(Station_Object.transform.localPosition.x - Speed, Station_Object.transform.localPosition.y);
                 yield return null;
             }
+        }
+
+        if (flag)
+        {
+            isStationHideEndFlag = true;
+            StartTime = Time.time;
+        }
+        else
+        {
+            TrainSpeed = 0;
+            isStationShowEndFlag = true;
         }
 
         if (flag)
@@ -1592,6 +1641,95 @@ public class GameDirector : MonoBehaviour
         MaxSpeed -= ((MaxSpeed * 3) / 100); // 많을 수록 유리
         Efficient += ((Efficient * 10) / 100); // 적을 수록 유리
         timeBet = 0.1f - ((EnginePower - 1) * 0.001f);
+    }
+
+    //---------------------------revival-------------------
+    public void Revival_PlayerSet()
+    {
+        revivalFlag = true;
+    }
+
+    public void Revival_PlayerUse()
+    {
+        itemDirector.RevivalUse();
+    }
+
+    IEnumerator RevivalEffect(float slowTarget, float slowDuration, float restoreDuration)
+    {
+        player.revival_Effect_Flag = true;
+
+        // 현재 타임스케일에서 slowTarget까지 점점 감소
+        Revival_PlayerUse();
+
+        float startScale = Time.timeScale;
+        float elapsed = 0f;
+        float CameraZoom_Init = virtualCamera.m_Lens.OrthographicSize;
+        float originalFixedDelta = Time.fixedDeltaTime;
+        float fixedDeltaStart = Time.fixedDeltaTime;
+
+        float SmootherStep(float x)
+        {
+            //return x * x * x * (x * (6f * x - 15f) + 10f);
+            //return x < 0.5f ? 4f * x * x * x : 1f - Mathf.Pow(-2f * x + 2f, 3f) / 2f;
+            return x * x * x * x * (35f - 84f * x + 70f * x * x - 20f * x * x * x);
+        }
+
+        // --- 느려지는 메인 루프 ---
+        while (elapsed < slowDuration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            float rawT = Mathf.Min(elapsed / slowDuration, 1f);
+            //float t = Mathf.Clamp01(elapsed / slowDuration);
+            float smoothT = SmootherStep(rawT);
+
+            Time.timeScale = Mathf.Clamp(Mathf.Lerp(startScale, slowTarget, smoothT), 0.01f, 1.5f);
+            Time.fixedDeltaTime = Mathf.Clamp(Mathf.Lerp(fixedDeltaStart, originalFixedDelta * slowTarget, smoothT), 0.0001f, 0.05f);
+            if(virtualCamera.m_Lens.OrthographicSize > 5.01f)
+            {
+                virtualCamera.m_Lens.OrthographicSize = Mathf.Lerp(CameraZoom_Init, 5f, smoothT);
+            }
+            else
+            {
+                virtualCamera.m_Lens.OrthographicSize = 5f;
+            }
+
+                yield return null;
+        }
+
+
+
+        // --- 최종 보정 ---
+        Time.timeScale = slowTarget;
+        Time.fixedDeltaTime = originalFixedDelta * slowTarget;
+        virtualCamera.m_Lens.OrthographicSize = 5f;
+        // --- HP 회복 ---
+        while (player.Player_HP < (player.Max_HP / 2))
+        {
+            player.Player_HP += 1;
+            yield return new WaitForSecondsRealtime(0.1f); // timeScale 무시
+        }
+
+        // --- 빠르게 복귀 ---
+        elapsed = 0f;
+        startScale = Time.timeScale;
+
+        while (elapsed < restoreDuration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            float t = Mathf.Clamp01(elapsed / restoreDuration);
+
+            Time.timeScale = Mathf.Lerp(startScale, 1f, t);
+            Time.fixedDeltaTime = originalFixedDelta * Time.timeScale;
+            virtualCamera.m_Lens.OrthographicSize = Mathf.Lerp(5f, 11f, t);
+            yield return null;
+        }
+
+        // 마지막 값 보정
+        Time.timeScale = 1f;
+        virtualCamera.m_Lens.OrthographicSize = 11f;
+        Time.fixedDeltaTime = originalFixedDelta;
+
+        player.revival_Effect_Flag = false;
     }
 }
 

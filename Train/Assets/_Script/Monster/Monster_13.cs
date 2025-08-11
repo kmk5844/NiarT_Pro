@@ -65,7 +65,7 @@ public class Monster_13 : Monster
 
     void Attack()
     {
-        if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay))
+        if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay) && monster_gametype != Monster_GameType.Die)
         {
             AttackFlag = true;
             Monster_coroutine = StartCoroutine(FireCorutine());
