@@ -41,6 +41,10 @@ public class DictionaryDirector : MonoBehaviour
     [Header("스토리 도감")]
     public Transform storyTransform;
 
+    public Button EnterButton;
+
+    bool storyFlag;
+    int storyNum;
 
     private void Start()
     {
@@ -187,15 +191,24 @@ public class DictionaryDirector : MonoBehaviour
         }
     }
 
-    public void Enter_StoryMode(bool flag, int num = -1)
+    public void SetStory(bool flag, int num = -1)
     {
-        if (flag)
+        storyFlag = flag;
+        storyNum = num;
+
+        EnterButton.interactable = true;
+
+    }
+
+    public void Enter_StoryMode()
+    {
+        if (storyFlag)
         {
             SceneManager.LoadScene("CutScene", LoadSceneMode.Additive);
         }
         else
         {
-            SA_StoryLIst_.Select_Dic_Story_Num = num;
+            SA_StoryLIst_.Select_Dic_Story_Num = storyNum;
             SceneManager.LoadScene("Story", LoadSceneMode.Additive);
         }
     }
@@ -204,5 +217,6 @@ public class DictionaryDirector : MonoBehaviour
     {
         SettingUI();
         DicToggleGroup.transform.GetChild(0).GetComponent<Toggle>().isOn = true;
+        EnterButton.interactable = false;
     }
 }

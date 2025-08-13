@@ -25,16 +25,6 @@ public class StoryDataObject : ScriptableObject
     public string Story_End { get {  return story_end; } }
 
     [SerializeField]
-    private string story_title_kr;
-    public string Story_Title_Kr { get { return story_title_kr; } }
-    [SerializeField]
-    private string story_title_en;
-    public string Story_Title_En { get { return story_title_en; } }
-    [SerializeField]
-    private string story_title_jp;
-    public string Story_Title_Jp { get { return story_title_jp; } }
-
-    [SerializeField]
     private bool start_flag;
     public bool Start_Flag { get { return start_flag; } }
 
@@ -42,6 +32,15 @@ public class StoryDataObject : ScriptableObject
     private bool end_flag;
     public bool End_Flag { get { return end_flag; } }
 
+    [Header("»çÀü")]
+    [SerializeField]
+    private int stagenum;
+    public int Stage_Num { get { return stagenum; } }
+
+    [SerializeField]
+    private bool dic_flag;
+    public bool Dic_Flag { get { return dic_flag; }
+    }
     public void ChangeFlag(bool startAndend)
     {
         if (startAndend)
@@ -55,17 +54,16 @@ public class StoryDataObject : ScriptableObject
         Save();
     }
 
-    public void Auto_StoryData_Insert(int _story_num, int _branch_index, string _background, string _story_end)//, string _story_title_kr, string _story_title_en, string _story_title_jp)
+    public void Auto_StoryData_Insert(int _story_num, int _branch_index, string _background, string _story_end, int _stage_num, bool dicFlag)//, string _story_title_kr, string _story_title_en, string _story_title_jp)
     {
         story_num = _story_num;
         branch_index = _branch_index;
         background = _background;
         story_end = _story_end;
-/*        story_title_kr = _story_title_kr;
-        story_title_en = _story_title_en;
-        story_title_jp = _story_title_jp;*/
         start_flag = false;
         end_flag = false;
+        stagenum = _stage_num;
+        dic_flag = dicFlag;
         Save(true);
     }
 

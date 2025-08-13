@@ -108,8 +108,7 @@ public class Medic : Mercenary
     {
         isHeal_HP = true;
         unit.GetComponent<Mercenary_Type>().Heal_HP(Heal_HpAmount);
-        Debug.Log(Heal_HpAmount);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(2f);
         isHeal_HP = false;
     }
 

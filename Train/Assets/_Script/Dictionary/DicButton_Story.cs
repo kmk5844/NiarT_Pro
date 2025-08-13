@@ -1,12 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using UnityEngine.Localization;
 using UnityEngine.Localization.Components;
 using UnityEngine.UI;
 
 public class DicButton_Story : MonoBehaviour
 {
+    public TextMeshProUGUI storyNumText;
+    public TextMeshProUGUI storyStageText;
     public LocalizeStringEvent storyText;
 
     DictionaryDirector dicDirector;
@@ -27,7 +27,9 @@ public class DicButton_Story : MonoBehaviour
         btn = GetComponent<Button>();
         btn.interactable = true;
         cutSceneFlag = true;
+        storyNumText.text = "0";
         storyText.StringReference.TableEntryReference = "UI_Dic_CutScene";
+        storyStageText.text = "CutScene";
         AddButton();
     }
 
@@ -36,7 +38,8 @@ public class DicButton_Story : MonoBehaviour
         dicDirector = _dicDirector;
         sa_storylist = _storylist;
         num = _num;
-        
+        storyNumText.text = (num + 1).ToString();
+
         if (sa_storylist.StoryList[num].Start_Flag && sa_storylist.StoryList[num].End_Flag)
         {
             flag = true;
@@ -52,11 +55,21 @@ public class DicButton_Story : MonoBehaviour
         storyText.StringReference.Arguments = new object[] { num+1 };
         storyText.StringReference.TableEntryReference = "UI_Dic_Story";
         storyText.RefreshString();
+       
+        if (!sa_storylist.StoryList[num].Dic_Flag)
+        {
+            storyStageText.text = "¢º Stage " + (sa_storylist.StoryList[num].Stage_Num / 5 + 1)+ "-" + ((sa_storylist.StoryList[num].Stage_Num % 5) + 1) + " 1";
+        }
+        else
+        {
+            storyStageText.text = "¢º Stage " + (sa_storylist.StoryList[num].Stage_Num / 5 + 1) + "-" + ((sa_storylist.StoryList[num].Stage_Num % 5) + 1) + " 2";
+        }
+
         AddButton();
     }
 
     void AddButton()
     {
-        btn.onClick.AddListener(() => dicDirector.Enter_StoryMode(cutSceneFlag, num));
+        btn.onClick.AddListener(() => dicDirector.SetStory(flag, num));
     }
 }

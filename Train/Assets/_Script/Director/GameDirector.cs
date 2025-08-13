@@ -84,8 +84,6 @@ public class GameDirector : MonoBehaviour
     private List<int> Emerging_Monster_Ground;
     [SerializeField]
     private List<int> Emerging_MonsterCount;
-    [Header("스테이지에 따른 백그라운드")]
-    public GameObject[] BackGroundList;
 
     [Header("미션 정보")]
     public bool Mission_Train_Flag;
@@ -159,9 +157,11 @@ public class GameDirector : MonoBehaviour
     float distance_lastSpeedTime;
     float distance_time;
 
+    [Header("스테이지에 따른 백그라운드")]
+    public GameObject[] BackGroundList;
     [Header("Satation")]
-    public bool Station_OnOffFlag;
     public GameObject Station_Object;
+    public GameObject[] StationObjectList; 
     bool isStationHideFlag;
     bool isStationShowFlag;
     bool isStationHideEndFlag;
@@ -235,10 +235,9 @@ public class GameDirector : MonoBehaviour
         Before_Sub_Num = SA_PlayerData.Before_Sub_Stage;
         Select_Sub_Num = SA_PlayerData.Select_Sub_Stage;
 
-/*        Mission_Num = 0;
-        Stage_Num = 0;
-        Select_Sub_Num = 0;*/
-
+        Mission_Num = 0;
+        Stage_Num = 11;
+        Select_Sub_Num = 0;
 
         //TrainDistance = 70000;
 
@@ -758,37 +757,28 @@ public class GameDirector : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (Station_OnOffFlag)
-        {
-            if (gameType == GameType.Playing)
-            {
-                if (Time.time >= StartTime + 0.1f && !isStationHideFlag)
-                {
-                    isStationHideFlag = true;
-                    StartCoroutine(Hide_And_Show_Station(true));
-                }
-            }
 
-            if (gameType == GameType.Ending)
+        if (gameType == GameType.Playing)
+        {
+            if (Time.time >= StartTime + 0.1f && !isStationHideFlag)
             {
-                if (monsterDirector.GameDirector_EndingFlag)
-                {
-                    if (monsterDirector.GameDirecotr_AllDieFlag)
-                    {
-                        if (TrainSpeed < 12f && TrainSpeed >= 10f && !isStationShowFlag)
-                        {
-                            isStationShowFlag = true;
-                            StartCoroutine(Hide_And_Show_Station(false));
-                        }
-                    }
-                }
+                isStationHideFlag = true;
+                StartCoroutine(Hide_And_Show_Station(true));
             }
         }
-        else
+
+        if (gameType == GameType.Ending)
         {
-            if (Station_Object.activeSelf)
+            if (monsterDirector.GameDirector_EndingFlag)
             {
-                Station_Object.SetActive(false);
+                if (monsterDirector.GameDirecotr_AllDieFlag)
+                {
+                    if (TrainSpeed < 12f && TrainSpeed >= 10f && !isStationShowFlag)
+                    {
+                        isStationShowFlag = true;
+                        StartCoroutine(Hide_And_Show_Station(false));
+                    }
+                }
             }
         }
     }
@@ -844,16 +834,8 @@ public class GameDirector : MonoBehaviour
     void StageBackGround_Setting()
     {
         int _stageNum = EX_GameData.Information_Stage[Stage_Num].GameBackGround;
-
-        switch (_stageNum) {
-            case 0:
-                Station_OnOffFlag = true;
-                break;
-            case 1:
-                Station_OnOffFlag = false;
-                break;
-        }
         BackGroundList[_stageNum].SetActive(true);
+        StationObjectList[_stageNum].SetActive(true);
     }
 
     void Train_Init()

@@ -5,7 +5,10 @@ using UnityEngine.UI;
 
 public class DicButton : MonoBehaviour
 {
+    public GameObject Monster;
     public Image dicimage;
+    public GameObject Item;
+    public Image Itemimage;
 
     DictionaryDirector dicDirector;
     //∏ÛΩ∫≈Õ
@@ -25,6 +28,9 @@ public class DicButton : MonoBehaviour
 
     public void SettingMonsterDicButton(DictionaryDirector _dicDirector, SA_Monster _monsterData, int _num, bool _boss)
     {
+        Monster.SetActive(true);
+        Item.SetActive(false);
+
         dicDirector = _dicDirector;
         sa_monster = _monsterData;
         num = _num;
@@ -61,6 +67,9 @@ public class DicButton : MonoBehaviour
 
     public void SettingItemDicButton(DictionaryDirector _dicDirector, SA_ItemList _list, int index)
     {
+        Monster.SetActive(false);
+        Item.SetActive(true);
+
         dicDirector = _dicDirector;
         sa_itemlist = _list;
         num = _list.Item_Dic_List[index].item_num;
@@ -70,11 +79,11 @@ public class DicButton : MonoBehaviour
         btn.interactable = flag;
         if (flag)
         {
-            dicimage.sprite = Resources.Load<Sprite>("Dictionary/Item/Item_On_" + num);
+            Itemimage.sprite = Resources.Load<Sprite>("Dictionary/Item/Item_On_" + num);
         }
         else
         {
-            dicimage.sprite = Resources.Load<Sprite>("Dictionary/Item/Item_Off_" + num);
+            Itemimage.sprite = Resources.Load<Sprite>("Dictionary/Item/Item_Off_" + num);
         }
         AddButton(1);
     }
