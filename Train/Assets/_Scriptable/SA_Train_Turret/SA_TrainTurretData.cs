@@ -45,6 +45,9 @@ public class SA_TrainTurretData : ScriptableObject
     [SerializeField]
     private int level_trainturretnumber_70;
     public int Level_TrainTurretNumber_70 { get { return level_trainturretnumber_70; } }
+    [SerializeField]
+    private int level_trainturretnumber_80;
+    public int Level_TrainTurretNumber_80 { get { return level_trainturretnumber_80; } }
 
     public void SA_Train_Turret_Upgrade(int trainNum)
     {
@@ -74,6 +77,9 @@ public class SA_TrainTurretData : ScriptableObject
             case 7:
                 level_trainturretnumber_70++;
                 break;
+            case 8:
+                level_trainturretnumber_80++;
+                break;
         }
         Save();
     }
@@ -98,6 +104,8 @@ public class SA_TrainTurretData : ScriptableObject
                 return level_trainturretnumber_60;
             case 7:
                 return level_trainturretnumber_70;
+            case 8:
+                return level_trainturretnumber_80;
             default:
                 return 0;
         }
@@ -169,6 +177,7 @@ public class SA_TrainTurretData : ScriptableObject
         ES3.Save("SA_TrainData_Data_level_trainturretnumber_50", level_trainturretnumber_50);
         ES3.Save("SA_TrainData_Data_level_trainturretnumber_60", level_trainturretnumber_60);
         ES3.Save("SA_TrainData_Data_level_trainturretnumber_70", level_trainturretnumber_70);
+        ES3.Save("SA_TrainData_Data_level_trainturretnumber_80", level_trainturretnumber_80);
     }
 
     private IEnumerator SaveSync()
@@ -193,6 +202,8 @@ public class SA_TrainTurretData : ScriptableObject
         yield return new WaitForSeconds(0.001f);
         ES3.Save("SA_TrainData_Data_level_trainturretnumber_70", level_trainturretnumber_70);
         yield return new WaitForSeconds(0.001f);
+        ES3.Save("SA_TrainData_Data_level_trainturretnumber_80", level_trainturretnumber_80);
+        yield return new WaitForSeconds(0.001f);
     }
 
     public void Load()
@@ -207,6 +218,7 @@ public class SA_TrainTurretData : ScriptableObject
         level_trainturretnumber_50 = ES3.Load<int>("SA_TrainData_Data_level_trainturretnumber_50");
         level_trainturretnumber_60 = ES3.Load<int>("SA_TrainData_Data_level_trainturretnumber_60");
         level_trainturretnumber_70 = ES3.Load<int>("SA_TrainData_Data_level_trainturretnumber_70");
+        level_trainturretnumber_80 = ES3.Load<int>("SA_TrainData_Data_level_trainturretnumber_80");
     }
 
     public IEnumerator LoadSync()
@@ -221,6 +233,7 @@ public class SA_TrainTurretData : ScriptableObject
         level_trainturretnumber_50 = ES3.Load<int>("SA_TrainData_Data_level_trainturretnumber_50",50);
         level_trainturretnumber_60 = ES3.Load<int>("SA_TrainData_Data_level_trainturretnumber_60",60);
         level_trainturretnumber_70 = ES3.Load<int>("SA_TrainData_Data_level_trainturretnumber_70",70);
+        level_trainturretnumber_80 = ES3.Load<int>("SA_TrainData_Data_level_trainturretnumber_80",80);
         yield return new WaitForSeconds(0.001f);
     }
 
@@ -237,6 +250,7 @@ public class SA_TrainTurretData : ScriptableObject
         level_trainturretnumber_50 = 50;
         level_trainturretnumber_60 = 60;
         level_trainturretnumber_70 = 70;
+        level_trainturretnumber_80 = 80;
         Save();
     }
 
@@ -253,6 +267,7 @@ public class SA_TrainTurretData : ScriptableObject
         level_trainturretnumber_50 = 50;
         level_trainturretnumber_60 = 60;
         level_trainturretnumber_70 = 70;
+        level_trainturretnumber_80 = 80;
         runner.StartCoroutine(SaveSync());
         yield return null;
     }

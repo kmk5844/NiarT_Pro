@@ -1210,7 +1210,8 @@ public class GameDirector : MonoBehaviour
 
     public void DestoryEngine()
     {
-        Game_Lose(0);
+        int LoseNum = 3;
+        Game_Lose(LoseNum);
     }
 
     private void Game_Lose(int losenum)

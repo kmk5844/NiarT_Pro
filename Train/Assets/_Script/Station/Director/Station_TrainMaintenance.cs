@@ -29,64 +29,6 @@ public class Station_TrainMaintenance : MonoBehaviour
     public GameObject Item_DataObject;
     Station_ItemData itemData;
 
-    /*    [Header("UI에서 나타나는 기차")]
-        public Transform UI_TrainList;
-        public Transform UI_TrainButtonList;
-        public GameObject[] Train_Button;
-
-        public int UI_Train_Num;
-        int UI_Init_Train_Turret_Num;
-        public int UI_Init_Train_Booster_Num;
-        int UI_Train_Turret_Num;
-        int UI_Train_Booster_Num;
-        bool UI_Train_Turret_Flag;
-        bool UI_Train_Booster_Flag;
-        public TextMeshProUGUI UI_TrainLevel_Text;
-        public TextMeshProUGUI UI_TrainMax_Text;
-
-        [Header("기차 변경 윈도우")]
-        public Button Change_Button;
-        public Button Add_Button;
-        [SerializeField]
-        List<int> Train_Change_Num;
-        public ScrollRect ScrollRect_ChangeTrain;
-        public Transform Train_Change_Content;
-        public GameObject Train_Card;
-        int Max_Train;
-        [SerializeField]
-        List<Toggle> Train_Toggle;
-        int Toggle_Train_Num;
-        bool ChangeFlag;
-        public TextMeshProUGUI Cost_Add_Text;
-
-        [Header("파츠 변경 윈도우")]
-        public List<int> Train_Turret_Part_Change_Num;
-        public List<int> Train_Booster_Part_Change_Num;
-        public ScrollRect ScrollRect_Turret_Part;
-        public ScrollRect ScrollRect_Booster_Part;
-        public GameObject UI_Train_Part_Window;
-        public LocalizeStringEvent UI_Train_Part_Text;
-        public GameObject Part_Card;
-        public Transform Turret_Part_Content;
-        public Transform Booster_Part_Content;
-        public GameObject Part_Ban;
-        int Toggle_Turret_Part_Num;
-        int Toggle_Booster_Part_Num;
-        [SerializeField]
-        List<Toggle> Turret_Part_Toggle;
-        [SerializeField]
-        List<Toggle> Booster_Part_Toggle;
-        public Button Part_Change_Button;
-        bool Equip_Part_Flag;
-        public bool Part_Window_Flag;*/
-
-    /*    [Header("기차 업그레이드 윈도우")]
-        public TextMeshProUGUI Before_Text;
-        public TextMeshProUGUI After_Text;
-        public Button Upgrade_Button;
-        public Image Material_Image;
-        public TextMeshProUGUI[] Upgrade_Text; // 0 : Coin, 1 : 가지고 있는 재료템, 2: 재료 충족 조건*/
-
     [Header("기차 구매")]
     public ToggleGroup UI_TrainStore_Toggle;
     public TMP_Dropdown TrainBuy_DropDown;
@@ -2003,6 +1945,7 @@ else // 기차 교체
 
         foreach (int i in TrainList)
         {
+            Debug.Log(sa_trainData.SA_TrainChangeNum(i));
             TrainUpgradeList_Button_Object.GetComponent<TrainUpgradeList_Button>().Train_Num = sa_trainData.SA_TrainChangeNum(i);
             Instantiate(TrainUpgradeList_Button_Object, TrainUgpradeList_Content[0]);
             Instantiate(TrainUpgradeList_Button_Object, TrainUgpradeList_Content[1]);
@@ -2046,7 +1989,7 @@ else // 기차 교체
     private void Resize_Train_List_Content(int i)
     {
         RectTransform ContentSize = TrainUgpradeList_Content[i].GetComponent<RectTransform>();
-        ContentSize.sizeDelta = new Vector2(-500 + (92 * TrainUgpradeList_Content[i].childCount), 53);
+        ContentSize.sizeDelta = new Vector2(-450 + (92 * TrainUgpradeList_Content[i].childCount), 53);
     }
 
     private void Setting_TrainType_DropDown_Upgrade()
@@ -2163,17 +2106,14 @@ else // 기차 교체
             Train_Information_Upgrade_Text.StringReference.TableEntryReference = "Train_Turret_Information_" + (Train_Upgrade_Num2 / 10);
             TrainUpgrade_trainLevel = sa_trainturretData.SA_Train_Turret_ChangeNum(Train_Upgrade_Num2);
             TrainUpgrade_cost = trainData.EX_Game_Data.Information_Train_Turret_Part[TrainUpgrade_trainLevel].Train_Upgrade_Cost;
-        }
-/*        else if(Train_Upgrade_Num1 == 52)
+        }else if(Train_Upgrade_Num1 >= 92)
         {
-
-            Train_MainImage_Upgrade.sprite = Resources.Load<Sprite>("Sprite/Train/Train_52_" + Train_Upgrade_Num2 / 10 * 10);
-
-            Train_Name_Upgrade_Text.StringReference.TableEntryReference = "Train_Booster_Name_" + (Train_Upgrade_Num2 / 10);
-            Train_Information_Upgrade_Text.StringReference.TableEntryReference = "Train_Booster_Information_" + (Train_Upgrade_Num2 / 10);
-            TrainUpgrade_trainLevel = sa_trainboosterData.SA_Train_Booster_ChangeNum(Train_Upgrade_Num2);
-            TrainUpgrade_cost = trainData.EX_Game_Data.Information_Train_Booster_Part[TrainUpgrade_trainLevel].Train_Upgrade_Cost;
-        }*/
+            Train_MainImage_Upgrade.sprite = Resources.Load<Sprite>("Sprite/Train/Train_" + Train_Upgrade_Num1);
+            Train_Name_Upgrade_Text.StringReference.TableEntryReference = "Train_Name_" + Train_Upgrade_Num1;
+            Train_Information_Upgrade_Text.StringReference.TableEntryReference = "Train_Information_" + Train_Upgrade_Num1;
+            TrainUpgrade_trainLevel = sa_trainData.SA_TrainChangeNum(Train_Upgrade_Num1);
+            TrainUpgrade_cost = trainData.EX_Game_Data.Information_Train[TrainUpgrade_trainLevel].Train_Upgrade_Cost;
+        }
         else
         {
             Train_MainImage_Upgrade.sprite = Resources.Load<Sprite>("Sprite/Train/Train_" + Train_Upgrade_Num1);
@@ -2365,6 +2305,8 @@ else // 기차 교체
             {
                 Open_Warning_Window();
             }
+
+            
         }
 /*        else if(Train_Upgrade_Num1 == 52)
         {

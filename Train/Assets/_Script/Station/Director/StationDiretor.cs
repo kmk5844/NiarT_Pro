@@ -781,11 +781,6 @@ public class StationDirector : MonoBehaviour
         isMoving = false;
     }*/
 
-    public void activeNotice(int i, bool flag)
-    {
-        GameNotice[i].SetActive(flag);
-    }
-
     public void BuySoundSFX(bool flag)
     {
         if (flag)

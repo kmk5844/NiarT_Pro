@@ -596,7 +596,7 @@ MonoBehaviour:
     Train_Type: Booster
     Train_Special: 60,300,5,1
     Train_Buy_Cost: 30000
-    Train_Upgrade_Cost: 44000
+    Train_Upgrade_Cost: 40000
     Store: 1
     Change: 1
   - Number: 51
@@ -706,7 +706,7 @@ MonoBehaviour:
     Train_Type: Repair
     Train_Special: 60,4,2
     Train_Buy_Cost: 60000
-    Train_Upgrade_Cost: 65000
+    Train_Upgrade_Cost: -100
     Store: 0
     Change: 0
   - Number: 61
@@ -816,7 +816,7 @@ MonoBehaviour:
     Train_Type: TurretFactory
     Train_Special: 60,1
     Train_Buy_Cost: 60000
-    Train_Upgrade_Cost: 65000
+    Train_Upgrade_Cost: -100
     Store: 1
     Change: 1
   - Number: 71
@@ -926,7 +926,7 @@ MonoBehaviour:
     Train_Type: DronFactory
     Train_Special: 60,3,6
     Train_Buy_Cost: 60000
-    Train_Upgrade_Cost: 65000
+    Train_Upgrade_Cost: -100
     Store: 0
     Change: 0
   - Number: 81
@@ -1058,7 +1058,7 @@ MonoBehaviour:
     Train_Type: Platform
     Train_Special: 0
     Train_Buy_Cost: 50000
-    Train_Upgrade_Cost: 0
+    Train_Upgrade_Cost: -100
     Store: 0
     Change: 0
   - Number: 93
@@ -1069,7 +1069,7 @@ MonoBehaviour:
     Train_Type: FuelSignal
     Train_Special: 60,10,20
     Train_Buy_Cost: 60000
-    Train_Upgrade_Cost: 0
+    Train_Upgrade_Cost: -100
     Store: 0
     Change: 0
   - Number: 94
@@ -1080,7 +1080,7 @@ MonoBehaviour:
     Train_Type: Hangar
     Train_Special: 60,3000,5000,10000
     Train_Buy_Cost: 150000
-    Train_Upgrade_Cost: 0
+    Train_Upgrade_Cost: -100
     Store: 0
     Change: 0
   - Number: 95
@@ -1091,7 +1091,7 @@ MonoBehaviour:
     Train_Type: IronPlateFactory
     Train_Special: 60
     Train_Buy_Cost: 100000
-    Train_Upgrade_Cost: 0
+    Train_Upgrade_Cost: -100
     Store: 0
     Change: 0
   - Number: 96
@@ -1102,7 +1102,7 @@ MonoBehaviour:
     Train_Type: TurretUpgrade
     Train_Special: 60,50,5
     Train_Buy_Cost: 100000
-    Train_Upgrade_Cost: 0
+    Train_Upgrade_Cost: -100
     Store: 0
     Change: 0
   - Number: 97
@@ -2408,7 +2408,7 @@ MonoBehaviour:
     Train_Attack: 0
     Train_Attack_Delay: 2.5
     Train_Buy_Cost: 20000
-    Train_Upgrade_Cost: 25000
+    Train_Upgrade_Cost: -100
     Train_Information: 
     Train_Select_Information: 
     Store: 0
@@ -2754,96 +2754,112 @@ MonoBehaviour:
     BeforeStation_Button: 0
     BeforeGameStart_Button: 1
     Story_Index: 0,1
+    StationBackGround: 0
     GameBackGround: 0
   - Stage: 1
     MissionList: 0
     BeforeStation_Button: 1
     BeforeGameStart_Button: 0
     Story_Index: 2,-1
+    StationBackGround: 0
     GameBackGround: 0
   - Stage: 2
     MissionList: 0,2
     BeforeStation_Button: 0
     BeforeGameStart_Button: 0
     Story_Index: -1,-1
+    StationBackGround: 0
     GameBackGround: 0
   - Stage: 3
     MissionList: 0,2
     BeforeStation_Button: 0
     BeforeGameStart_Button: 0
     Story_Index: -1,-1
+    StationBackGround: 0
     GameBackGround: 0
   - Stage: 4
     MissionList: 5
     BeforeStation_Button: 1
     BeforeGameStart_Button: 1
     Story_Index: 3,4
+    StationBackGround: 0
     GameBackGround: 0
   - Stage: 5
     MissionList: 0,2,3,4
     BeforeStation_Button: 1
     BeforeGameStart_Button: 1
     Story_Index: 5,6
+    StationBackGround: 0
     GameBackGround: 0
   - Stage: 6
     MissionList: 0,2,3,4
     BeforeStation_Button: 0
     BeforeGameStart_Button: 1
     Story_Index: -1,7
+    StationBackGround: 0
     GameBackGround: 0
   - Stage: 7
     MissionList: 0,2,3,4
     BeforeStation_Button: 0
     BeforeGameStart_Button: 1
     Story_Index: -1,8
+    StationBackGround: 0
     GameBackGround: 0
   - Stage: 8
     MissionList: 0,2,3,4
     BeforeStation_Button: 1
     BeforeGameStart_Button: 1
     Story_Index: 9,10
+    StationBackGround: 0
     GameBackGround: 0
   - Stage: 9
     MissionList: 5
     BeforeStation_Button: 1
     BeforeGameStart_Button: 1
     Story_Index: 11,12
+    StationBackGround: 0
     GameBackGround: 0
   - Stage: 10
     MissionList: 0,1,2,3,4
     BeforeStation_Button: 1
     BeforeGameStart_Button: 0
     Story_Index: 13,-1
+    StationBackGround: 0
     GameBackGround: 0
   - Stage: 11
     MissionList: 0,1,2,3,4
     BeforeStation_Button: 0
     BeforeGameStart_Button: 0
     Story_Index: -1,-1
+    StationBackGround: 0
     GameBackGround: 1
   - Stage: 12
     MissionList: 0,1,2,3,4
     BeforeStation_Button: 0
     BeforeGameStart_Button: 0
     Story_Index: -1,-1
+    StationBackGround: 1
     GameBackGround: 1
   - Stage: 13
     MissionList: 0,1,2,3,4
     BeforeStation_Button: 0
     BeforeGameStart_Button: 0
     Story_Index: -1,-1
+    StationBackGround: 1
     GameBackGround: 1
   - Stage: 14
     MissionList: 5
     BeforeStation_Button: 0
     BeforeGameStart_Button: 0
     Story_Index: -1,-1
+    StationBackGround: 1
     GameBackGround: 1
   - Stage: 15
     MissionList: -1
     BeforeStation_Button: 0
     BeforeGameStart_Button: 0
     Story_Index: -100,-1
+    StationBackGround: 1
     GameBackGround: 1
   Information_Mercenary:
   - Number: 0
@@ -5707,7 +5723,7 @@ MonoBehaviour:
     Cool_Time: 0
   - Num: 133
     Item_Id: 
-    Item_Name: "\uBCFC\uD488\uC5C6\uB294 \uBAA8\uC790"
+    Item_Name: "\uBE48 \uCE94"
     Item_Type: Inventory
     Item_Information: 
     Rarity_Type: Common
@@ -5717,7 +5733,7 @@ MonoBehaviour:
     Cool_Time: 0
   - Num: 134
     Item_Id: 
-    Item_Name: "\uC2AC\uB77C\uC784\uBCFC"
+    Item_Name: "\uADC0\uAC78\uC774"
     Item_Type: Quset
     Item_Information: "\uD018\uC2A4\uD2B8 \uC544\uC774\uD15C\uC785\uB2C8\uB2E4."
     Rarity_Type: Common
@@ -5737,7 +5753,7 @@ MonoBehaviour:
     Cool_Time: 0
   - Num: 136
     Item_Id: 
-    Item_Name: "\uACE0\uCCA0"
+    Item_Name: "\uC5F4\uC1E0"
     Item_Type: Quset
     Item_Information: "\uD018\uC2A4\uD2B8 \uC544\uC774\uD15C\uC785\uB2C8\uB2E4."
     Rarity_Type: Common
@@ -5777,7 +5793,7 @@ MonoBehaviour:
     Cool_Time: 0
   - Num: 140
     Item_Id: 
-    Item_Name: "\uB098\uBB34 \uD310\uC790"
+    Item_Name: "\uBE44\uB514\uC624 \uD14C\uC774\uD504"
     Item_Type: Quset
     Item_Information: "\uD018\uC2A4\uD2B8 \uC544\uC774\uD15C\uC785\uB2C8\uB2E4."
     Rarity_Type: Common

@@ -140,25 +140,29 @@ public class Station_Player : MonoBehaviour
         if (collision.name.Equals("Door_TrainMainTenance"))
         {
             DoorFlag_Train = true;
-            stationDirector.activeNotice(0, true);
+            collision.transform.GetChild(0).gameObject.SetActive(true);
+            //stationDirector.activeNotice(0, true);
         }
 
         if (collision.name.Equals("Door_Store"))
         {
             DoorFlag_Store = true;
-            stationDirector.activeNotice(1, true);
+            //stationDirector.activeNotice(1, true);
+            collision.transform.GetChild(0).gameObject.SetActive(true);
         }
 
         if (collision.name.Equals("Door_Training"))
         {
             DoorFlag_Training = true;
-            stationDirector.activeNotice(2, true);
+            //stationDirector.activeNotice(2, true);
+            collision.transform.GetChild(0).gameObject.SetActive(true);
         }
 
         if (collision.name.Equals("Door_Start"))
         {
             DoorFlag_Start = true;
-            stationDirector.activeNotice(3, true);
+            //stationDirector.activeNotice(3, true);
+            collision.transform.GetChild(0).gameObject.SetActive(true);
         }
     }
 
@@ -168,25 +172,29 @@ public class Station_Player : MonoBehaviour
         if (collision.name.Equals("Door_TrainMainTenance"))
         {
             DoorFlag_Train = false;
-            stationDirector.activeNotice(0, false);
+            //stationDirector.activeNotice(0, false);
+            collision.transform.GetChild(0).gameObject.SetActive(false);
         }
 
         if (collision.name.Equals("Door_Store"))
         {
             DoorFlag_Store = false;
-            stationDirector.activeNotice(1, false);
+            //stationDirector.activeNotice(1, false);
+            collision.transform.GetChild(0).gameObject.SetActive(false);
         }
 
         if (collision.name.Equals("Door_Training"))
         {
             DoorFlag_Training = false;
-            stationDirector.activeNotice(2, false);
+            //stationDirector.activeNotice(2, false);
+            collision.transform.GetChild(0).gameObject.SetActive(false);
         }
 
         if (collision.name.Equals("Door_Start"))
         {
             DoorFlag_Start = false;
-            stationDirector.activeNotice(3, false);
+            //stationDirector.activeNotice(3, false);
+            collision.transform.GetChild(0).gameObject.SetActive(true);
         }
 
     }
