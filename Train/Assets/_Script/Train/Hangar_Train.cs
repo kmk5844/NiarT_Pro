@@ -7,7 +7,7 @@ public class Hangar_Train : MonoBehaviour
     SA_PlayerData playerdata;
     GameObject itemdirector_object;
     UseItem useitemScript;
-    SA_ItemList_Test itemList_Test;
+    SA_ItemList itemList;
 
     public float SpawnTime;
     public int[] coin = new int[3];
@@ -31,7 +31,7 @@ public class Hangar_Train : MonoBehaviour
         playerdata = gameDirector.player.playerSet();
         itemdirector_object = GameObject.Find("ItemDirector");
         useitemScript = itemdirector_object.GetComponent<UseItem>();
-        itemList_Test = useitemScript.itemList_Test;
+        itemList = useitemScript.itemList;
 
         SpawnTime = float.Parse(trainData.trainData_Special_String[0]);
         coin[0] = int.Parse(trainData.trainData_Special_String[1]);
@@ -96,7 +96,7 @@ public class Hangar_Train : MonoBehaviour
                 break;
         }
         GameObject spawnitem = Instantiate(SpawnItem, Spawn_Position_Item.position, Quaternion.identity);
-        spawnitem.GetComponent<HangarSpawn_Item>().SetItem(itemList_Test.Item[num], useitemScript);
+        spawnitem.GetComponent<HangarSpawn_Item>().SetItem(itemList.Item[num], useitemScript);
     }
 
     public void EnterDoor(int num)

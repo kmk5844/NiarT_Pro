@@ -1158,13 +1158,16 @@ public class Player : MonoBehaviour
                 ItemTurret = Resources.Load<GameObject>("ItemObject/Mini_Missile_Turret");
                 break;
             case 5:
-                ItemTurret = Resources.Load<GameObject>("ItemObject/Mini_Laser_Turret");
+                ItemTurret = Resources.Load<GameObject>("ItemObject/Mini_Missile_Turret2");
                 break;
             case 6:
                 ItemTurret = Resources.Load<GameObject>("ItemObject/Mini_Laser_Turret");
                 break;
+            case 7:
+                ItemTurret = Resources.Load<GameObject>("ItemObject/Mini_Laser_Turret");
+                break;
         }
-        Debug.Log(ItemTurret);
+        //Debug.Log(ItemTurret);
         ItemTurret.GetComponent<Item_Mini_Turret_Director>().Set(num, delayTime, atk, atkDelay);
         if(num != 6)
         {
@@ -1187,13 +1190,13 @@ public class Player : MonoBehaviour
                     Item_Player_Spawn_Turret(0, 10, 20, 0.15f);
                     break;
                 case 1:
-                    Item_Player_Spawn_Turret(0, 30, 40, 0.15f);
+                    Item_Player_Spawn_Turret(0, 10, 40, 0.15f);
                     break;
                 case 2:
-                    Item_Player_Spawn_Turret(1, 30, 0, 0);
+                    Item_Player_Spawn_Turret(1, 10, 0, 0);
                     break;
                 case 3:
-                    Item_Player_Spawn_Turret(2, 30, 50, 0);
+                    Item_Player_Spawn_Turret(2, 10, 50, 0);
                     break;
                 case 4:
                     Item_Player_Spawn_Turret(3, 10, 0, 0.1f);
@@ -1202,7 +1205,7 @@ public class Player : MonoBehaviour
                     Item_Player_Spawn_Turret(4, 10, 50, 3f);
                     break;
                 case 6:
-                    Item_Player_Spawn_Turret(4, 30, 60, 2f);
+                    Item_Player_Spawn_Turret(4, 10, 60, 2f);
                     break;
                 case 7:
                     Item_Player_Spawn_Turret(5, 0, 20, 0);

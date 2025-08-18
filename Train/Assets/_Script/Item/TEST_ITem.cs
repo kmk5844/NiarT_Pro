@@ -6,10 +6,10 @@ using UnityEngine;
 public class TEST_ITem : MonoBehaviour
 {
     public int Num;
-    public SA_ItemList_Test testItemList;
+    //public SA_ItemList_Test testItemList;
     public UseItem useitemScript;
     [SerializeField]
-    ItemDataObject_Test Item;
+    //ItemDataObject_Test Item;
 
     Vector2 SupplyItem_Position;
     bool bounceFlag;
@@ -17,7 +17,7 @@ public class TEST_ITem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Item = testItemList.Item[Num];
+        //Item = testItemList.Item[Num];
     }
 
     // Update is called once per frame
@@ -58,7 +58,7 @@ public class TEST_ITem : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            useitemScript.Get_SupplyItem(Item.Num);
+            //useitemScript.Get_SupplyItem(Item.Num);
             Destroy(gameObject);
         }
     }

@@ -29,7 +29,7 @@ public class Item_MiniDron : MonoBehaviour
     int FireCount;
     public GameObject MissileBullet;
     public Transform Target;
-    int DronHp;
+    public int DronHp;
 
     void Start()
     {
@@ -156,11 +156,11 @@ public class Item_MiniDron : MonoBehaviour
         }
         else if (type == MiniDronType.DeffensDron)
         {
-            MiniDronRid2d.velocity = new Vector2(UpDown * 10f, 0);
+            MiniDronRid2d.velocity = new Vector2(UpDown * 5f, 0);
 /*            SpriteObject.transform.position = new Vector2(transform.position.x, SpriteObject.transform.position.y);
             SpriteObject.transform.Translate(new Vector2(0, UpDown * 3f * Time.deltaTime)); // 오른쪽 경계에 도달하면 왼쪽으로 방향 전환*/
-            if (transform.position.x > MonsterDirector.MaxPos_Sky.x) { UpDown = -1; } // 왼쪽 경계에 도달하면 오른쪽으로 방향 전환
-            else if (transform.position.x < MonsterDirector.MinPos_Sky.x) { UpDown = 1; }
+            if (transform.position.x > MonsterDirector.MaxPos_Sky.x-2f) { UpDown = -1; } // 왼쪽 경계에 도달하면 오른쪽으로 방향 전환
+            else if (transform.position.x < MonsterDirector.MinPos_Sky.x + 2f) { UpDown = 1; }
         }
     }
 

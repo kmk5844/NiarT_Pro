@@ -2,15 +2,13 @@ using System.IO;
 using UnityEngine;
 using UnityEditor;
 using System.Collections;
+using UnityEngine.Localization.SmartFormat.GlobalVariables;
 
 public class ItemDataObject : ScriptableObject
 {
     [SerializeField]
     private int num;
     public int Num { get { return num; } }
-    [SerializeField]
-    private string item_id;
-    public string Item_Id {  get { return item_id; } }
 
     [SerializeField]
     private string item_name;
@@ -21,16 +19,10 @@ public class ItemDataObject : ScriptableObject
     [SerializeField]
     private string item_information;
     public string Item_Information {  get { return item_information; } }
-    [SerializeField]
-    private Information_Item_Box_Type box_type;
-    public Information_Item_Box_Type Box_Type { get { return box_type; } }
 
     [SerializeField]
     private Information_Item_Rarity_Type item_rarity_type;
     public Information_Item_Rarity_Type Item_Rarity_Type { get { return item_rarity_type; } }
-    [SerializeField]
-    private bool use_flag;
-    public bool Use_Flag { get { return use_flag; } }
 
     [SerializeField]
     private bool buy_flag;
@@ -39,14 +31,16 @@ public class ItemDataObject : ScriptableObject
     private bool sell_flag;
     public bool Sell_Flag { get { return sell_flag; } }
     [SerializeField]
+
+    private bool supply_monster;
+    public bool Supply_Monster { get { return supply_monster; } }
+
+    [SerializeField]
     private int item_buy_pride;
     public int Item_Buy_Pride { get { return item_buy_pride; } }
     [SerializeField]
     private int item_sell_pride;
     public int Item_Sell_Pride { get { return item_sell_pride; } }
-    [SerializeField]
-    private bool supply_monster;
-    public bool Supply_Monster { get { return supply_monster; } }
 
     [SerializeField]
     private int max_equip;
@@ -65,24 +59,50 @@ public class ItemDataObject : ScriptableObject
     public int Item_Count { get { return item_count; } }
 
     public void Auto_Item_Insert(
-        int _num, string _item_id, string _item_name, Information_Item_Type _item_type, string _item_information,
-        Information_Item_Box_Type _box_type, Information_Item_Rarity_Type _rarrity_type, bool _use_flag
-        , bool _buy_flag, bool _sell_flag, int _buy_pride, int _sell_pride, bool _supply_monster, int _max_equip, float _cool_time ,int _item_count
+        int _num, string _item_name, Information_Item_Type _item_type, string _item_information,
+        Information_Item_Rarity_Type _rarrity_type, string buy_sell_supply_flag,
+        string buy_sell_pride, int _max_equip, float _cool_time ,int _item_count
         )
     {
         num = _num;
-        item_id = _item_id;
         item_name = _item_name;
         item_type = _item_type;
         item_information = _item_information;
-        box_type = _box_type;
         item_rarity_type = _rarrity_type;
-        use_flag = _use_flag;
-        buy_flag = _buy_flag;
-        sell_flag = _sell_flag;
-        item_buy_pride = _buy_pride;
-        item_sell_pride = _sell_pride;
-        supply_monster = _supply_monster;
+
+        string[] flag = buy_sell_supply_flag.Split(',');
+        string[] pride = buy_sell_pride.Split(",");
+
+        if (flag[0].Equals("true"))
+        {
+            buy_flag = true;
+        }
+        else
+        {
+            buy_flag = false;
+        }
+
+        if (flag[1].Equals("true"))
+        {
+            sell_flag = true;
+        }
+        else
+        {
+            sell_flag = false;
+        }
+
+        if (flag[2].Equals("true"))
+        {
+            supply_monster = true;
+        }
+        else
+        {
+            supply_monster = false;
+        }
+
+        item_buy_pride = int.Parse(pride[0]);
+        item_sell_pride = int.Parse(pride[1]);
+
         max_equip = _max_equip;
         cool_time = _cool_time;
         item_sprite = Resources.Load<Sprite>("ItemIcon/" + num);
@@ -145,17 +165,8 @@ public enum Information_Item_Type {
     Equipment,
     Immediate,
     Weapon,
-    Material,
-    Box,
     Inventory,
     Quset,
-    Empty
-}
-
-public enum Information_Item_Box_Type { 
-    Item,
-    Material,
-    None,
     Empty
 }
 
@@ -165,6 +176,7 @@ public enum Information_Item_Rarity_Type
     Rare,
     Unique,
     Epic,
+    Legendary,
     Empty,
     
     Error

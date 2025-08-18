@@ -13,7 +13,7 @@ public class ItemBuy_Object : MonoBehaviour
     public string item_name;
     public string item_information;
     public int item_pride;
-    public bool item_use;
+    //public bool item_use;
     int item_Count;
 
     [Header("정보 표시")]
@@ -36,7 +36,7 @@ public class ItemBuy_Object : MonoBehaviour
         item_Count = item.Item_Count;
         item_Count_text.text = item_Count.ToString();
 
-        item_use = item.Use_Flag;
+        //item_use = item.Use_Flag;
     }
 
     private void Update()

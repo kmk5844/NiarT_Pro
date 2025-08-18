@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class Item_Iron_Plate : MonoBehaviour
 {
+    public SpriteRenderer sprite;
+    public Sprite[] sprites;
     public Train_InGame Train;
+    int spriteNum = -1;
     public int HP;
     int MaxHP = 1500;
-
-    public void Set(Train_InGame train, int hp)
+    public void Set(Train_InGame train, int hp, int sp_num)
     {
         Train = train;
         HP = hp;
+        changeSprite(sp_num);
     }
-
     public void Heal(int hp)
     {
         if(hp > MaxHP)
@@ -28,6 +30,17 @@ public class Item_Iron_Plate : MonoBehaviour
         }
     }
 
+    void changeSprite(int sp)
+    {
+        if(spriteNum < sp)
+        {
+            spriteNum = sp;
+            sprite.sprite = sprites[spriteNum];
+        }else if(spriteNum >= sp)
+        {
+            
+        }
+    }
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Monster_Bullet")){

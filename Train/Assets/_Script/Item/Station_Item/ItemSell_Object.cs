@@ -14,7 +14,6 @@ public class ItemSell_Object : MonoBehaviour
     public string item_information;
     public int item_Count;
     public int item_pride;
-    public bool item_use;
 
     [Header("정보 표시")]
     public Image item_icon_object;
@@ -38,7 +37,7 @@ public class ItemSell_Object : MonoBehaviour
         item_Count = item.Item_Count;
         item_Count_text.text = item_Count.ToString();
 
-        item_use = item.Use_Flag;
+        //item_use = item.Use_Flag;
     }
     public void Click_Item()
     {

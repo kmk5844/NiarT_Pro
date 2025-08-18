@@ -4,12 +4,9 @@ using UnityEngine;
 
 public class ItemDirector : MonoBehaviour
 {
-    public bool On_ItemList_Test;
-
     public GameDirector gameDirector;
     public UIDirector uiDirector;
     public SA_ItemList itemList;
-    public SA_ItemList_Test itemList_Test;
     public SA_ItemData itemData;
     UseItem useitem;
 
@@ -28,14 +25,14 @@ public class ItemDirector : MonoBehaviour
 
     private void Start()
     {
-/*        try
+        try
         {
             itemData.Load();
         }
         catch
         {
             itemData.Init();
-        }*/
+        }
 
         EquipedItemFlag = new bool[3];
         player_revival_flag = false;
@@ -56,14 +53,7 @@ public class ItemDirector : MonoBehaviour
             }
             else
             {
-                if (!On_ItemList_Test)
-                {
-                    uiDirector.Item_EquipedIcon(i, itemList.Item[itemData.Equiped_Item[i]].Item_Sprite, itemData.Equiped_Item_Count[i]);
-                }
-                else
-                {
-                    uiDirector.Item_EquipedIcon(i, itemList_Test.Item[itemData.Equiped_Item[i]].Item_Sprite, itemData.Equiped_Item_Count[i]);
-                }
+                uiDirector.Item_EquipedIcon(i, itemList.Item[itemData.Equiped_Item[i]].Item_Sprite, itemData.Equiped_Item_Count[i]);
                 EquipedItemFlag[i] = true;
             }
         }
@@ -122,15 +112,7 @@ public class ItemDirector : MonoBehaviour
             }
             else
             {
-                if (!On_ItemList_Test)
-                {
-                    uiDirector.Item_EquipedIcon(num, itemList.Item[itemData.Equiped_Item[num]].Item_Sprite, itemData.Equiped_Item_Count[num]);
-                }
-                else
-                {
-                    uiDirector.Item_EquipedIcon(num, itemList_Test.Item[itemData.Equiped_Item[num]].Item_Sprite, itemData.Equiped_Item_Count[num]);
-                }
-
+                uiDirector.Item_EquipedIcon(num, itemList.Item[itemData.Equiped_Item[num]].Item_Sprite, itemData.Equiped_Item_Count[num]);
             }
         }
     }
@@ -142,8 +124,8 @@ public class ItemDirector : MonoBehaviour
 
     public void Item_Reward_Equiped()
     {
-        int num = Random.Range(0, itemList_Test.Equiped_Item_List.Count);
-        ItemDataObject_Test item = itemList_Test.Equiped_Item_List[num];
+        int num = Random.Range(0, itemList.Equiped_Item_List.Count);
+        ItemDataObject item = itemList.Equiped_Item_List[num];
         //Debug.Log(item.Item_Count);
         item.Item_Count_UP();
         //Debug.Log(item.Item_Count);

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "SA_ItemList", menuName = "Scriptable/SA_Item/List", order = 9)]
+[CreateAssetMenu(fileName = "SA_ItemList", menuName = "Scriptable/SA_Item/List_Test", order = 9)]
 
 public class SA_ItemList : ScriptableObject
 {
@@ -15,19 +15,9 @@ public class SA_ItemList : ScriptableObject
     private List<ItemDataObject> item;
     public List<ItemDataObject> Item { get { return item; } }
 
-    [Header("StoreRarityType")]
     [SerializeField]
-    private List<ItemDataObject> common_store_itemlist;
-    public List<ItemDataObject> Common_Store_ItemList { get { return common_store_itemlist; } }
-    [SerializeField]
-    private List<ItemDataObject> rare_store_itemlist;
-    public List<ItemDataObject> Rare_Store_ItemList { get { return rare_store_itemlist; } }
-    [SerializeField]
-    private List<ItemDataObject> unique_store_itemlist;
-    public List<ItemDataObject> Unique_Store_ItemList { get { return unique_store_itemlist; } }
-    [SerializeField]
-    private List<ItemDataObject> epic_store_itemlist;
-    public List<ItemDataObject> Epic_Store_ItemList { get { return epic_store_itemlist; } }
+    private List<ItemDataObject> equiped_item_list;
+    public List<ItemDataObject> Equiped_Item_List { get { return equiped_item_list; } }
 
     [Header("SupplyRarityType")]
     [SerializeField]
@@ -42,21 +32,19 @@ public class SA_ItemList : ScriptableObject
     [SerializeField]
     private List<ItemDataObject> epic_supply_itemlist;
     public List<ItemDataObject> Epic_Supply_ItemList { get { return epic_supply_itemlist; } }
+    [SerializeField]
+    private List<ItemDataObject> legendary_supply_itemlist;
+    public List<ItemDataObject> Legendary_Supply_ItemList { get { return  legendary_supply_itemlist; } }
 
     [Header("Dictionary")]
     [SerializeField]
     private List<Item_Dic_Def> item_dic_list;
-
     public List<Item_Dic_Def> Item_Dic_List { get { return item_dic_list; } }
     public void Editor_ItemList_Init()
     {
         item.Clear();
 
-        common_store_itemlist.Clear();
-        rare_store_itemlist.Clear();
-        unique_store_itemlist.Clear();
-        epic_store_itemlist.Clear();
-
+        equiped_item_list.Clear();
         common_supply_itemlist.Clear();
         rare_supply_itemlist.Clear();
         unique_supply_itemlist.Clear();
@@ -97,50 +85,28 @@ public class SA_ItemList : ScriptableObject
     public void ItemList_InsertObject(ItemDataObject newobjcet)
     {
         item.Add(newobjcet);
-        if(newobjcet.Num != 0 && newobjcet.Num  != 12 && newobjcet.Num != 37)
-        {
-            if (newobjcet.Item_Type == Information_Item_Type.Equipment)
-            {
-                Item_Dic_Def _item = new Item_Dic_Def();
-                _item.item_num = newobjcet.Num;
-                _item.item_dic_flag = true;
-                item_dic_list.Add(_item);
-            }
-            else if (newobjcet.Item_Type == Information_Item_Type.Immediate || newobjcet.Item_Type == Information_Item_Type.Inventory)
-            {
-                Item_Dic_Def _item = new Item_Dic_Def();
-                _item.item_num = newobjcet.Num;
-                _item.item_dic_flag = false;
-                item_dic_list.Add(_item);
-            }
-        }
 
-        switch (newobjcet.Item_Rarity_Type)
+        if (newobjcet.Item_Type == Information_Item_Type.Equipment)
         {
-            case Information_Item_Rarity_Type.Common:
-                if (newobjcet.Box_Type != Information_Item_Box_Type.None)
-                {
-                    common_store_itemlist.Add(newobjcet);
-                }
-                break;
-            case Information_Item_Rarity_Type.Rare:
-                if (newobjcet.Box_Type != Information_Item_Box_Type.None)
-                {
-                    rare_store_itemlist.Add(newobjcet);
-                }
-                break;
-            case Information_Item_Rarity_Type.Unique:
-                if (newobjcet.Box_Type != Information_Item_Box_Type.None)
-                {
-                    unique_store_itemlist.Add(newobjcet);
-                }
-                break;
-            case Information_Item_Rarity_Type.Epic:
-                if (newobjcet.Box_Type != Information_Item_Box_Type.None)
-                {
-                    epic_store_itemlist.Add(newobjcet);
-                }
-                break;
+            equiped_item_list.Add(newobjcet);
+            Item_Dic_Def _item = new Item_Dic_Def();
+            _item.item_num = newobjcet.Num;
+            _item.item_dic_flag = true;
+            item_dic_list.Add(_item);
+        }
+        else if (newobjcet.Item_Type == Information_Item_Type.Immediate)
+        {
+            Item_Dic_Def _item = new Item_Dic_Def();
+            _item.item_num = newobjcet.Num;
+            _item.item_dic_flag = false;
+            item_dic_list.Add(_item);
+        }else if(newobjcet.Item_Type == Information_Item_Type.Inventory)
+        {
+            equiped_item_list.Add(newobjcet);
+            Item_Dic_Def _item = new Item_Dic_Def();
+            _item.item_num = newobjcet.Num;
+            _item.item_dic_flag = false;
+            item_dic_list.Add(_item);
         }
 
         if (newobjcet.Supply_Monster)
@@ -158,6 +124,9 @@ public class SA_ItemList : ScriptableObject
                     break;
                 case Information_Item_Rarity_Type.Epic:
                     epic_supply_itemlist.Add(newobjcet);
+                    break;
+                case Information_Item_Rarity_Type.Legendary:
+                    Legendary_Supply_ItemList.Add(newobjcet);
                     break;
             }
         }
@@ -182,12 +151,12 @@ public class SA_ItemList : ScriptableObject
 
         public void Save()
         {
-            ES3.Save<bool>("Item_Dic_Flag_" + item_num, item_dic_flag);
+            ES3.Save<bool>("Item_Dic_Flag_T_" + item_num, item_dic_flag);
         }
 
         public void Load(bool boss)
         {
-            item_dic_flag = ES3.Load<bool>("Item_Dic_Flag_" + item_num, false);
+            item_dic_flag = ES3.Load<bool>("Item_Dic_Flag_T_" + item_num, false);
         }
     }
 }

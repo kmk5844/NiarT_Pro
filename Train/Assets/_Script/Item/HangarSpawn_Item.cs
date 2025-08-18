@@ -7,7 +7,7 @@ public class HangarSpawn_Item : MonoBehaviour
 {
     UseItem useitemScript;
 
-    public ItemDataObject_Test Item;
+    public ItemDataObject Item;
     public AudioClip GetItemSFX;
 
     SpriteRenderer _sprite;
@@ -27,7 +27,7 @@ public class HangarSpawn_Item : MonoBehaviour
         transform.Translate(movement * Time.deltaTime);
     }
 
-    public void SetItem(ItemDataObject_Test _item, UseItem use)
+    public void SetItem(ItemDataObject _item, UseItem use)
     {
         Item = _item;
         Check_Mat();
@@ -38,19 +38,19 @@ public class HangarSpawn_Item : MonoBehaviour
     {
         _sprite = GetComponent<SpriteRenderer>();
         mat = _sprite.material;
-        if (Item.Item_Rarity_Type == Information_Item_Rarity_Type_Test.Common)
+        if (Item.Item_Rarity_Type == Information_Item_Rarity_Type.Common)
         {
             mat.SetColor("_SolidOutline", Color.gray);
         }
-        else if (Item.Item_Rarity_Type == Information_Item_Rarity_Type_Test.Rare)
+        else if (Item.Item_Rarity_Type == Information_Item_Rarity_Type.Rare)
         {
             mat.SetColor("_SolidOutline", Color.blue);
         }
-        else if (Item.Item_Rarity_Type == Information_Item_Rarity_Type_Test.Unique)
+        else if (Item.Item_Rarity_Type == Information_Item_Rarity_Type.Unique)
         {
             mat.SetColor("_SolidOutline", new Color(166, 0, 255));
         }
-        else if (Item.Item_Rarity_Type == Information_Item_Rarity_Type_Test.Epic)
+        else if (Item.Item_Rarity_Type == Information_Item_Rarity_Type.Epic)
         {
             mat.SetColor("_SolidOutline", Color.yellow);
         }

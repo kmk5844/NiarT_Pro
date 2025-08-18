@@ -36,7 +36,7 @@ public class IronPlateFactory : MonoBehaviour
         int HP = Random.Range(1, 3);
         HP *= 100;
 
-        gameDirector.Item_Spawn_Train_BulletproofPlate(HP);
+        gameDirector.Item_Spawn_Train_BulletproofPlate(HP, 0);
 
         useflag = false;
         lastTime = Time.time;

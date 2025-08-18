@@ -56,9 +56,9 @@ namespace ES3Types
 					case "item_information":
 					instance = (ItemDataObject)reader.SetPrivateField("item_information", reader.Read<System.String>(), instance);
 					break;
-					case "box_type":
+					/*case "box_type":
 					instance = (ItemDataObject)reader.SetPrivateField("box_type", reader.Read<Information_Item_Box_Type>(), instance);
-					break;
+					break;*/
 					case "item_rarity_type":
 					instance = (ItemDataObject)reader.SetPrivateField("item_rarity_type", reader.Read<Information_Item_Rarity_Type>(), instance);
 					break;

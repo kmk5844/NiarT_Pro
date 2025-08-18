@@ -379,7 +379,7 @@ public class Train_InGame : MonoBehaviour
         }
     }
 
-    public void Item_Spawn_IronPlate(int hp)
+    public void Item_Spawn_IronPlate(int hp, int sp_Num)
     {
         if (!ItemIronPlateFlag)
         {
@@ -387,7 +387,7 @@ public class Train_InGame : MonoBehaviour
             IronPlate = Instantiate(Resources.Load<GameObject>("ItemObject/Item_Iron_Plate"), transform.position , Quaternion.identity);
             IronPlate.transform.SetParent(transform);
             IronPlate.transform.localPosition = new Vector2(-0.4f, 0.9f);
-            IronPlate.GetComponent<Item_Iron_Plate>().Set(this, hp);
+            IronPlate.GetComponent<Item_Iron_Plate>().Set(this, hp, sp_Num);
         }
         else
         {

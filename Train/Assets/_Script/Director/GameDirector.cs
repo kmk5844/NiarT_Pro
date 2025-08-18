@@ -1369,11 +1369,11 @@ public class GameDirector : MonoBehaviour
         }
     }
 
-    public void Item_Spawn_Train_BulletproofPlate(int hp)
+    public void Item_Spawn_Train_BulletproofPlate(int hp, int sp_Num)
     {
         for(int i = 0; i < Train_List.childCount; i++)
         {
-            Train_List.GetChild(i).GetComponent<Train_InGame>().Item_Spawn_IronPlate(hp);
+            Train_List.GetChild(i).GetComponent<Train_InGame>().Item_Spawn_IronPlate(hp, sp_Num);
         }
     }
 

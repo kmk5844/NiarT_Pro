@@ -29,7 +29,7 @@ public class ItemList_Object : MonoBehaviour
         item_name = item.Item_Name;
         item_information = item.Item_Information;
         item_count = item.Item_Count;
-        item_use = item.Use_Flag;
+        //item_use = item.Use_Flag;
         item_icon_object.sprite = item.Item_Sprite;
         item_object_text_count.text = item_count.ToString();
 

@@ -16,7 +16,7 @@ public class Auto_ScritableObject : EditorWindow
     string itemCount_Num = "";
     string itemCount_Single = "";
 
-    private string[] Type = { "Item", "Stage", "Quest" ,"Story", "Monster", "Item_Test"};
+    private string[] Type = { "Item", "Stage", "Quest" ,"Story", "Monster"/*, "Item_Test"*/};
 
     //bool showBtn = true;
     int selectType;
@@ -29,7 +29,7 @@ public class Auto_ScritableObject : EditorWindow
     public SA_MissionData SA_MissionData_;
     public SA_StoryLIst SA_StoryList_;
     public SA_Monster SA_Monster_;
-    public SA_ItemList_Test SA_ItemList_Test_;
+    //public SA_ItemList_Test SA_ItemList_Test_;
 
     private void OnGUI()
     {
@@ -122,7 +122,7 @@ public class Auto_ScritableObject : EditorWindow
                 SetMonster();
             }
         }
-        else if (selectType == 5)
+        /*else if (selectType == 5)
         {
             SA_ItemList_Test_ = (SA_ItemList_Test)EditorGUILayout.ObjectField("SA_ItemList_Test", SA_ItemList_Test_, typeof(SA_ItemList_Test), false);
             if (GUILayout.Button("Create Auto Item"))
@@ -162,14 +162,14 @@ public class Auto_ScritableObject : EditorWindow
             {
                 Add_ItemSingleCount_Test(itemCount_Num, itemCount_Single);
             }
-        }
+        }*/
     }
 
 
 
     //아이템
 
-    public static void DeleteAllFilesInFolder_Item()
+/*    public static void DeleteAllFilesInFolder_Item()
     {
         string[] filePaths = Directory.GetFiles("Assets/_Scriptable/SA_Item/Item_Object/");
         foreach (string filePath in filePaths)
@@ -318,7 +318,7 @@ public class Auto_ScritableObject : EditorWindow
         }
         return Information_Item_Rarity_Type.Error;
     }
-
+*/
     //stage
     public static void DeleteAllFilesInFolder_Stage()
     {
@@ -651,9 +651,9 @@ public class Auto_ScritableObject : EditorWindow
 
 
     //ItemList_Test
-    public static void DeleteAllFilesInFolder_Item_Test()
+    public static void DeleteAllFilesInFolder_Item()
     {
-        string[] filePaths = Directory.GetFiles("Assets/_Scriptable/SA_Item/Item_Object_Test/");
+        string[] filePaths = Directory.GetFiles("Assets/_Scriptable/SA_Item/Item_Object/");
         foreach (string filePath in filePaths)
         {
             File.Delete(filePath);
@@ -662,39 +662,37 @@ public class Auto_ScritableObject : EditorWindow
         AssetDatabase.Refresh();
     }
 
-    void CreatObjectsFromList_Item_Test()
+    void CreatObjectsFromList_Item()
     {
         List<Info_Item_Test> itemList = DataTable_Game.Information_Item2;
 
         //Empty ItemObject
-        ItemDataObject_Test itemObject = ScriptableObject.CreateInstance<ItemDataObject_Test>();
+        ItemDataObject itemObject = ScriptableObject.CreateInstance<ItemDataObject>();
         itemObject.Auto_Item_Insert(
             -1,
-            "Empty Item",
             "비어있는 아이템",
-            Information_Item_Type_Test.Empty,
+            Information_Item_Type.Empty,
             "비어있는 아이템",
-            Information_Item_Rarity_Type_Test.Empty,
+            Information_Item_Rarity_Type.Empty,
             "false,false,false",
             "0,0",
             0,
             0,
             0
             );
-        AssetDatabase.CreateAsset(itemObject, "Assets/_Scriptable/SA_Item/Item_Object_Test/EmptyItemObject.asset");
+        AssetDatabase.CreateAsset(itemObject, "Assets/_Scriptable/SA_Item/Item_Object/EmptyItemObject.asset");
         AssetDatabase.SaveAssets();
-        SA_ItemList_Test_.ItemList_EmptyObject(itemObject);
+        SA_ItemList_.ItemList_EmptyObject(itemObject);
 
         foreach (Info_Item_Test item in itemList)
         {
-            itemObject = ScriptableObject.CreateInstance<ItemDataObject_Test>();
+            itemObject = ScriptableObject.CreateInstance<ItemDataObject>();
             itemObject.Auto_Item_Insert(
                 item.Num,
-                item.Item_Id.Replace("^", ""),
                 item.Item_Name,
-                CheckItemType_Test(item.Item_Type),
+                CheckItemType(item.Item_Type),
                 item.Item_Information,
-                CheckItemRarityType_Test(item.Rarity_Type),
+                CheckItemRarityType(item.Rarity_Type),
                 item.Buy_Sell_Supply_Flag,
                 item.Buy_Sell_Pride,
                 item.Max_Equip,
@@ -702,77 +700,77 @@ public class Auto_ScritableObject : EditorWindow
                 0
                 );
 
-            AssetDatabase.CreateAsset(itemObject, "Assets/_Scriptable/SA_Item/Item_Object_Test/" + item.Num + "_" + item.Item_Id.Replace("^", "_") + ".asset");
+            AssetDatabase.CreateAsset(itemObject, "Assets/_Scriptable/SA_Item/Item_Object/" + "Item_" + item.Num + ".asset");
             AssetDatabase.SaveAssets();
-            SA_ItemList_Test_.ItemList_InsertObject(itemObject);
+            SA_ItemList_.ItemList_InsertObject(itemObject);
         }
-        UnityEditor.EditorUtility.SetDirty(SA_ItemList_Test_);
+        UnityEditor.EditorUtility.SetDirty(SA_ItemList_);
     }
 
 
-    void Init_ItemCount_Test()
+    void Init_ItemCount()
     {
-        foreach (ItemDataObject_Test item in SA_ItemList_Test_.Item)
+        foreach (ItemDataObject item in SA_ItemList_.Item)
         {
             item.Init();
             UnityEditor.EditorUtility.SetDirty(item);
         }
     }
 
-    void Add_ItemCount_Test(string count_s)
+    void Add_ItemCount(string count_s)
     {
         int count = int.Parse(count_s);
-        foreach (ItemDataObject_Test item in SA_ItemList_Test_.Item)
+        foreach (ItemDataObject item in SA_ItemList_.Item)
         {
             item.Item_Count_UP(count);
             UnityEditor.EditorUtility.SetDirty(item);
         }
     }
 
-    void Add_ItemSingleCount_Test(string itemNum, string count_s)
+    void Add_ItemSingleCount(string itemNum, string count_s)
     {
         int Num = int.Parse(itemNum);
         int count = int.Parse(count_s);
 
-        ItemDataObject_Test item = SA_ItemList_Test_.Item[Num];
+        ItemDataObject item = SA_ItemList_.Item[Num];
         item.Init();
         item.Item_Count_UP(count);
         UnityEditor.EditorUtility.SetDirty(item);
     }
 
-    Information_Item_Type_Test CheckItemType_Test(string itemtype)
+    Information_Item_Type CheckItemType(string itemtype)
     {
         switch (itemtype)
         {
             case "Equipment":
-                return Information_Item_Type_Test.Equipment;
+                return Information_Item_Type.Equipment;
             case "Immediate":
-                return Information_Item_Type_Test.Immediate;
+                return Information_Item_Type.Immediate;
             case "Weapon":
-                return Information_Item_Type_Test.Weapon;
+                return Information_Item_Type.Weapon;
             case "Inventory":
-                return Information_Item_Type_Test.Inventory;
+                return Information_Item_Type.Inventory;
             case "Quset":
-                return Information_Item_Type_Test.Quset;
+                return Information_Item_Type.Quset;
         }
-        return Information_Item_Type_Test.Empty;
+        return Information_Item_Type.Empty;
     }
-    Information_Item_Rarity_Type_Test CheckItemRarityType_Test(string raritytype)
+    Information_Item_Rarity_Type CheckItemRarityType(string raritytype)
     {
         switch (raritytype)
         {
             case "Common":
-                return Information_Item_Rarity_Type_Test.Common;
+                return Information_Item_Rarity_Type.Common;
             case "Rare":
-                return Information_Item_Rarity_Type_Test.Rare;
+                return Information_Item_Rarity_Type.Rare;
             case "Unique":
-                return Information_Item_Rarity_Type_Test.Unique;
+                return Information_Item_Rarity_Type.Unique;
             case "Epic":
-                return Information_Item_Rarity_Type_Test.Epic;
+                return Information_Item_Rarity_Type.Epic;
             case "Legendary": 
-                return Information_Item_Rarity_Type_Test.Legendary;
+                return Information_Item_Rarity_Type.Legendary;
 
         }
-        return Information_Item_Rarity_Type_Test.Error;
+        return Information_Item_Rarity_Type.Error;
     }
 }

@@ -25,8 +25,8 @@ public class StationDirector : MonoBehaviour
     Station_Inventory Director_Inventory;
     [SerializeField]
     Station_GameStart Director_GameStart;
-    [SerializeField]
-    Station_Conversion Direcotr_Conversion;
+/*    [SerializeField]
+    Station_Conversion Direcotr_Conversion;*/
 
     [Header("특수 플래그")]
     public bool simplestationFlag;
@@ -82,9 +82,9 @@ public class StationDirector : MonoBehaviour
     [Header("Click Lobby -> GameStart")]
     public GameObject UI_GameStart;
 
-    //6: Converstion
+/*    //6: Converstion
     [Header("Click Lobby -> Conversion")]
-    public GameObject UI_Conversion;
+    public GameObject UI_Conversion;*/
 
     //7: Dictionary
     [Header("Click Lobby -> Dictionary")]
@@ -463,8 +463,8 @@ public class StationDirector : MonoBehaviour
                 ui_num = 5;
                 break;
             case 6:
-                UI_Conversion.SetActive(true);
-                ui_num = 6;
+/*                UI_Conversion.SetActive(true);
+                ui_num = 6;*/
                 break;
             case 7:
                 MMSoundManagerSoundPlayEvent.Trigger(ESCSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
@@ -637,8 +637,8 @@ public class StationDirector : MonoBehaviour
             }
         }else if(ui_num == 6)
         {
-            Direcotr_Conversion.Item_53_Init();
-            UI_Conversion.gameObject.SetActive(false);
+            //Direcotr_Conversion.Item_53_Init();
+            //UI_Conversion.gameObject.SetActive(false);
             //Check_ItemList(false, useItem);
         }else if(ui_num == 7)
         { 

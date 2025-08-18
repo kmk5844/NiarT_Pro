@@ -45,20 +45,41 @@ public class Item_Rope_Turret : MonoBehaviour
             {
                 NonTargetPos = line.GetPosition(1);
                 isRetracting = false;
-                if (!isRetracting)
-                {
-                    StartCoroutine(NonGrapple());
-                    target = null;
-                }
+                StartCoroutine(NonGrapple());
+                target = null;
             }
         }
-
 
         if (isRetracting)
         {
             line.SetPosition(0, transform.position);
-            line.SetPosition(1, target.transform.position);
+
+            if (!target) // null 또는 파괴된 경우 자동으로 걸러짐
+            {
+                isRetracting = false;
+                StartCoroutine(NonGrapple());
+                target = null;
+                return;
+            }
+
+            try
+            {
+                line.SetPosition(1, target.transform.position);
+            }
+            catch (MissingReferenceException)
+            {
+                isRetracting = false;
+                StartCoroutine(NonGrapple());
+                target = null;
+            }
         }
+
+
+/*        if (isRetracting)
+        {
+            line.SetPosition(0, transform.position);
+            line.SetPosition(1, target.transform.position);
+        }*/
     }
     IEnumerator Grapple()
     {
@@ -123,7 +144,7 @@ public class Item_Rope_Turret : MonoBehaviour
             }
         }
     }
-
+/*
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("Monster"))
@@ -145,5 +166,5 @@ public class Item_Rope_Turret : MonoBehaviour
                 }
             }
         }
-    }
+    }*/
 }
