@@ -8,7 +8,8 @@ public class Repair_Train : MonoBehaviour
     Train_InGame trainData;
     GameDirector gameDirector;
     Transform TrainList_InGame;
-    
+
+    public float elapsed;
     public float SpawnTime;
     public float HealParsent;
     public int HealCount;
@@ -43,6 +44,8 @@ public class Repair_Train : MonoBehaviour
         {
             if (!trainData.DestoryFlag)
             {
+                elapsed = Time.time - lastTime;
+
                 if (Time.time > lastTime + SpawnTime)
                 {
                     GameObject robot = Instantiate(RepairRobotObject, transform.position, Quaternion.identity);

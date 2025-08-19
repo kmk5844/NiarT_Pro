@@ -43,6 +43,7 @@ public class DataManager : MonoBehaviour
     public SA_StoryLIst storyData;
     public SA_MissionData missionData;
     public SA_Event eventData;
+    public SA_Monster monsterData;
 
     //public GameObject DebugObject;
 
@@ -85,6 +86,10 @@ public class DataManager : MonoBehaviour
         yield return StartCoroutine(missionData.LoadSync(this));
         Debug.Log(11);
         yield return StartCoroutine(eventData.LoadSync());
+        Debug.Log(12);
+        yield return StartCoroutine(monsterData.LoadSync());
+        Debug.Log(13);
+        yield return StartCoroutine(InventoryItem_Data.LoadDicSync());
         //Destroy(DebugObject);
     }
 
@@ -130,5 +135,9 @@ public class DataManager : MonoBehaviour
         yield return StartCoroutine(missionData.InitAsync(this));
         Debug.Log(11);
         yield return StartCoroutine(eventData.InitAsync());
+        Debug.Log(12);
+        yield return StartCoroutine(monsterData.InitAsync());
+        Debug.Log(13);
+        yield return StartCoroutine(InventoryItem_Data.InitDicSync());
     }
 }

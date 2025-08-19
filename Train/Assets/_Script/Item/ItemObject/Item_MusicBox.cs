@@ -30,9 +30,9 @@ public class Item_MusicBox : MonoBehaviour
     IEnumerator Music()
     {
         // 1차 성장: 0.5f ~ 4f
-        while (circle2D.radius < 7f)
+        while (circle2D.radius < 6f)
         {
-            circle2D.radius += 0.2f;
+            circle2D.radius += 0.1f;
             yield return null;
         }
 
@@ -45,7 +45,7 @@ public class Item_MusicBox : MonoBehaviour
             changeFlag = false;
         }
         circle2D.radius = 0.5f;
-        yield return new WaitForSeconds(0.5f); // 필요시 잠깐 대기
+        yield return new WaitForSeconds(2f); // 필요시 잠깐 대기
         MusicFlag = false;
     }
 

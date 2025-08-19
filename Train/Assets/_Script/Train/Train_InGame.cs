@@ -392,6 +392,7 @@ public class Train_InGame : MonoBehaviour
         else
         {
             IronPlate.GetComponent<Item_Iron_Plate>().Heal(hp);
+            IronPlate.GetComponent<Item_Iron_Plate>().changeSprite(sp_Num);
         }
     }
 

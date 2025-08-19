@@ -129,8 +129,8 @@ public class UseItem : MonoBehaviour
 
         switch (num)
         {
-            case 0:
-                Debug.Log("부활 전용 -> 클릭 X");
+            /*case 0:
+                //Debug.Log("부활 전용 -> 클릭 X");
                 break;
             case 1:
                 player.Item_Player_Heal_HP(5);
@@ -217,7 +217,7 @@ public class UseItem : MonoBehaviour
                 break;
             case 28:
                 player.Item_SmallPortion(10);
-                break;
+                break;*/
             case 29:
                 StartCoroutine(gameDirector.Item_Coin_Plus(10));
                 break;
@@ -268,7 +268,7 @@ public class UseItem : MonoBehaviour
                 player.Item_Player_Spawn_Turret(6, 0, 20, 0);
                 break;
             case 45:
-                player.Item_Player_Spawn_Turret(6, 1, 20, 0);
+                player.Item_Player_Spawn_Turret(6, 0, 20, 1);
                 break;
             case 46:
                 player.Item_Player_Spawn_Turret(7, 5, 20, 0);
@@ -277,10 +277,10 @@ public class UseItem : MonoBehaviour
                 StartCoroutine(player.Item_JumpUp(10));
                 break;
             case 48:
-                player.Item_Player_Spawn_SonicDevice(10);
+                player.Item_Player_Spawn_SonicDevice(0,10);
                 break;
             case 49:
-                player.Item_Player_Spawn_SonicDevice(20);
+                player.Item_Player_Spawn_SonicDevice(1,20);
                 break;
             case 50:
                 monsterDirector.Item_Player_Spawn_Scarecrow(0);
@@ -361,6 +361,7 @@ public class UseItem : MonoBehaviour
                 break;
             case 74:
                 StartCoroutine(player.Item_Player_Giant_GunAndBullet(20));
+                StartCoroutine(player.Item_Player_AtkUP(5, 20));
                 break;
             case 75:
                 gameDirector.Item_Use_Train_Turret_All_SpeedUP(10, 12);
@@ -535,6 +536,11 @@ public class UseItem : MonoBehaviour
                 missionDirector.MaterialCount();
                 itemList.Item[num].Item_Count_UP();
                 break;
+        }
+
+        if (itemList.Item_Dic_List[num] != null)
+        {
+            itemList.Item_Dic_List[num].ChangeItem();
         }
 
         if (coolTime_Flag)

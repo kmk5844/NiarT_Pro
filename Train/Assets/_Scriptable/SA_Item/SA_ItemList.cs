@@ -100,7 +100,15 @@ public class SA_ItemList : ScriptableObject
             _item.item_num = newobjcet.Num;
             _item.item_dic_flag = false;
             item_dic_list.Add(_item);
-        }else if(newobjcet.Item_Type == Information_Item_Type.Inventory)
+        }
+        else if (newobjcet.Item_Type == Information_Item_Type.Weapon)
+        {
+            Item_Dic_Def _item = new Item_Dic_Def();
+            _item.item_num = newobjcet.Num;
+            _item.item_dic_flag = false;
+            item_dic_list.Add(_item);
+        }
+        else if (newobjcet.Item_Type == Information_Item_Type.Inventory)
         {
             equiped_item_list.Add(newobjcet);
             Item_Dic_Def _item = new Item_Dic_Def();
@@ -132,15 +140,53 @@ public class SA_ItemList : ScriptableObject
         }
     }
 
+    public IEnumerator LoadDicSync()
+    {
+        foreach (Item_Dic_Def item_dic in item_dic_list)
+        {
+            item_dic.Load(); // Assuming boss items have numbers >= 1000
+            yield return new WaitForSeconds(0.001f); // 비동기 처리를 위해 약간의 대기 시간 추가
+        }
+    }
+
+    public IEnumerator InitDicSync()
+    {
+        foreach (Item_Dic_Def item_dic in item_dic_list)
+        {
+            if(item_dic.item_dic_flag)
+            {
+                int num = item_dic.item_num;
+                if (item[num].Item_Type == Information_Item_Type.Immediate)
+                {
+                    if (item_dic.item_dic_flag)
+                    {
+                        item_dic.item_dic_flag = false;
+                        item_dic.Save();
+                    }
+                }else if(item[num].Item_Type == Information_Item_Type.Inventory)
+                {
+                    if (item_dic.item_dic_flag)
+                    {
+                        item_dic.item_dic_flag = false;
+                        item_dic.Save();
+                    }
+                }
+                item_dic.item_dic_flag = false; // 초기화 시 모든 아이템 딕셔너리 플래그를 false로 설정
+            }
+            yield return new WaitForSeconds(0.001f); // 비동기 처리를 위해 약간의 대기 시간 추가
+        }
+    }
+
+
     [Serializable]
-    public struct Item_Dic_Def
+    public class Item_Dic_Def
     {
         [SerializeField]
         public int item_num;
 
         public bool item_dic_flag;
 
-        public void ChangeMonster()
+        public void ChangeItem()
         {
             if (!item_dic_flag)
             {
@@ -154,9 +200,16 @@ public class SA_ItemList : ScriptableObject
             ES3.Save<bool>("Item_Dic_Flag_T_" + item_num, item_dic_flag);
         }
 
-        public void Load(bool boss)
+        public void Load()
         {
-            item_dic_flag = ES3.Load<bool>("Item_Dic_Flag_T_" + item_num, false);
+            if(item_num >=0 && item_num < 29)
+            {
+                item_dic_flag = ES3.Load<bool>("Item_Dic_Flag_T_" + item_num, true);
+            }
+            else if(item_num >= 29)
+            {
+                item_dic_flag = ES3.Load<bool>("Item_Dic_Flag_T_" + item_num, false);
+            }
         }
     }
 }

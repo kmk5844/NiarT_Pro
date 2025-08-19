@@ -7,6 +7,7 @@ public class IronPlateFactory : MonoBehaviour
     Train_InGame trainData;
     GameDirector gameDirector;
 
+    public float elapsed;
     public float SpawnTime;
 
     float lastTime;
@@ -25,6 +26,7 @@ public class IronPlateFactory : MonoBehaviour
     {
         if (gameDirector.gameType == GameType.Playing || gameDirector.gameType == GameType.Boss)
         {
+            elapsed = Time.time - lastTime;
             if (Time.time > lastTime + SpawnTime && !useflag)
             {
                 useflag = true;

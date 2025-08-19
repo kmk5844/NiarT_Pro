@@ -447,6 +447,14 @@ public class PlayerReadyDirector : MonoBehaviour
         Change_ListSlelectFlag(false);
     }
 
+    public void Click_Delete_Train(int index)
+    {
+        Ready_Using_TrainList_Object obj = __List__usingtrain[index];
+        obj.Change_Train(-1, -1);
+        Empty_TrainData(index);
+        Change_ListSlelectFlag(false);
+    }
+
     public void Click_Select_Train(int TrainNum_1, int TrainNum_2)
     {
         Select_TrainNum_1 = TrainNum_1;
@@ -541,6 +549,11 @@ public class PlayerReadyDirector : MonoBehaviour
                 sa_trainBoosterData.SA_Train_Booster_Remove(Sub_TrainNum_Booster);
             }*/
         }
+    }
+
+    void Empty_TrainData(int index)
+    {
+        sa_trainData.SA_Train_Change(index, -1);
     }
 
     void Check_Index(int index)
@@ -999,7 +1012,7 @@ public class PlayerReadyDirector : MonoBehaviour
 
         bool checkFlag;
 
-        if (hasMinusOne || !has10To19)
+        if (/*hasMinusOne ||*/!has10To19)
         {
             checkFlag =  true; //빈 기차가 있을 경우 / 연료기차가 없을 경우
         }
@@ -1011,13 +1024,17 @@ public class PlayerReadyDirector : MonoBehaviour
         if (!checkFlag)
         {
             MMSoundManagerSoundPlayEvent.Trigger(ButtonSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+            if (hasMinusOne)
+            {
+                sa_trainData.SA_Train_Remove_Empty();
+            }
             gameObject.SetActive(false);
             UI_SubStageSelect.SetActive(true);
             playerData.SA_PlayerData.change_clickStartButton(true);
         }
         else
         {
-            if (hasMinusOne && !has10To19) //빈기차가 있을경우 && 연료기차가 없을 경우
+            /*if (hasMinusOne && !has10To19) //빈기차가 있을경우 && 연료기차가 없을 경우
             {
                 StartWarnningText.StringReference.TableEntryReference = "UI_Ready_Train_Equip_0";
             }
@@ -1025,7 +1042,7 @@ public class PlayerReadyDirector : MonoBehaviour
             {
                 StartWarnningText.StringReference.TableEntryReference = "UI_Ready_Train_Equip_1";
             }
-            else if(!hasMinusOne && !has10To19) // 연료 기차가 없을 경우
+            else */if(/*!hasMinusOne && */!has10To19) // 연료 기차가 없을 경우
             {
                 StartWarnningText.StringReference.TableEntryReference = "UI_Ready_Train_Equip_2";
             }

@@ -5,6 +5,8 @@ using UnityEngine;
 public class RepairRobot : MonoBehaviour
 {
     public GameObject TargetTrain;
+    Animator anic;
+
 
     float moveSpeed = 3f;
 
@@ -14,6 +16,11 @@ public class RepairRobot : MonoBehaviour
     bool repairflag = false;
 
     bool repairCorutineFlag = false;
+
+    private void Start()
+    {
+        anic = GetComponent<Animator>();
+    }
 
     private void Update()
     {
@@ -60,8 +67,10 @@ public class RepairRobot : MonoBehaviour
         Train_InGame train = TargetTrain.GetComponent<Train_InGame>();
         for (int i = 0; i < HealCount; i++)
         {
+            anic.SetTrigger("Repair");
+            yield return new WaitForSeconds(0.14f);
             train.Item_Train_Heal_HP(HealPersent);
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1f);
         }
 
         yield return new WaitForSeconds(0.5f);

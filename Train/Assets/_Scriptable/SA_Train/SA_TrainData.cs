@@ -207,6 +207,12 @@ public class SA_TrainData : ScriptableObject
         Save();
     }
 
+    public void SA_Train_Remove_Empty()
+    {
+        train_num.RemoveAll(x => x == -1);
+        Save();
+    }
+
     private void Save()
     {
         ES3.Save("SA_TrainData_Data_Train_Num", train_num);

@@ -7,6 +7,7 @@ public class TurretUpgradeTrain : MonoBehaviour
     Train_InGame trainData;
     GameDirector gameDirector;
 
+    public float elapsed;
     public float SpawnTime;
     float Persent;
     float delayTime;
@@ -30,6 +31,7 @@ public class TurretUpgradeTrain : MonoBehaviour
         {
             if (!trainData.DestoryFlag)
             {
+                elapsed = Time.time - lastTime;
                 if (Time.time > lastTime + SpawnTime && !useflag)
                 {
                     useflag = true;

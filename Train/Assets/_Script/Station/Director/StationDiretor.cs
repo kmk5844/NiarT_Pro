@@ -103,7 +103,7 @@ public class StationDirector : MonoBehaviour
     [Header("Option")]
     public GameObject Option_Object;
 
-    int ui_num;
+    public int ui_num;
     public bool Item_Buy_Sell;
     int ui_Maintenance_Num;
     int ui_Inventory_Num;
@@ -646,7 +646,7 @@ public class StationDirector : MonoBehaviour
         }
         //UI_BackGround.gameObject.SetActive(false);
 
-        if (ui_num != 4)
+        if (ui_num != 4 && ui_num != 7)
         {
             ui_num = 0; // 꺼져있을 때만 적용
         }

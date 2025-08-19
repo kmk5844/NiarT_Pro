@@ -10,7 +10,7 @@ public class DictionaryDirector : MonoBehaviour
     public Game_DataTable Data_Game;
     public SA_Monster SA_Monster_;
     public SA_ItemList SA_ItemList_;
-    public SA_StoryLIst SA_StoryLIst_;
+    public SA_StoryLIst SA_StoryList_;
     [Space(20)]
     [Header("공통 UI")]
     //토글 작업
@@ -40,7 +40,6 @@ public class DictionaryDirector : MonoBehaviour
     [Space(20)]
     [Header("스토리 도감")]
     public Transform storyTransform;
-
     public Button EnterButton;
 
     bool storyFlag;
@@ -125,6 +124,7 @@ public class DictionaryDirector : MonoBehaviour
             obj.SettingMonsterDicButton(this, SA_Monster_, i, true);
             obj.name = num_ + "_" + Data_Game.Information_Boss[i].Monster_Name;
         }
+        Resize(monsterTransform, monster_count + boss_count, 3);
     }
     public void ShowMonsterInformation(int num, bool boss)
     {
@@ -161,6 +161,9 @@ public class DictionaryDirector : MonoBehaviour
             obj.SettingItemDicButton(this, SA_ItemList_, i);
             obj.name = num_ + "_" + Data_Game.Information_Item[num_].Item_Name;
         }
+
+        Resize(itemTransform, item_count, 3);
+
     }
     public void ShowItemInformation(int num)
     {
@@ -178,7 +181,7 @@ public class DictionaryDirector : MonoBehaviour
 
     private void Spawn_StoryButton()
     {
-        int story_count = SA_StoryLIst_.StoryList.Count;
+        int story_count = SA_StoryList_.StoryList.Count;
         DicButton_Story obj;
 
         //cutScnene;
@@ -187,8 +190,10 @@ public class DictionaryDirector : MonoBehaviour
 
         for (int i = 0 ; i < story_count; i++) {
             obj = Instantiate(dicStoryButton, storyTransform);
-            obj.SettingStoryButton(this, SA_StoryLIst_, i);
+            obj.SettingStoryButton(this, SA_StoryList_, i);
         }
+
+        Resize(storyTransform, story_count+1, 1);
     }
 
     public void SetStory(bool flag, int num = -1)
@@ -197,7 +202,6 @@ public class DictionaryDirector : MonoBehaviour
         storyNum = num;
 
         EnterButton.interactable = true;
-
     }
 
     public void Enter_StoryMode()
@@ -208,7 +212,7 @@ public class DictionaryDirector : MonoBehaviour
         }
         else
         {
-            SA_StoryLIst_.Select_Dic_Story_Num = storyNum;
+            SA_StoryList_.Select_Dic_Story_Num = storyNum;
             SceneManager.LoadScene("Story", LoadSceneMode.Additive);
         }
     }
@@ -218,5 +222,24 @@ public class DictionaryDirector : MonoBehaviour
         SettingUI();
         DicToggleGroup.transform.GetChild(0).GetComponent<Toggle>().isOn = true;
         EnterButton.interactable = false;
+    }
+
+    public void Resize(Transform trans, int count, int cellCount)
+    {
+        RectTransform rectTransform = trans.GetComponent<RectTransform>();
+        GridLayoutGroup grid = trans.GetComponent<GridLayoutGroup>();
+
+        // 한 줄에 들어가는 셀 개수 계산
+        int rowCount = Mathf.CeilToInt(count / (float)cellCount);
+
+        // 전체 높이 = 위아래 패딩 + (rowCount × 셀 높이) + (rowCount-1) × Spacing
+        float height = grid.padding.top
+                     + grid.padding.bottom
+                     + rowCount * grid.cellSize.y
+                     + (rowCount - 1) * grid.spacing.y;
+
+        Vector2 size = rectTransform.sizeDelta;
+        size.y = height;
+        rectTransform.sizeDelta = size;
     }
 }

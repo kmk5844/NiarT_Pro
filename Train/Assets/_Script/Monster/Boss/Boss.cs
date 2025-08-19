@@ -8,6 +8,7 @@ public class Boss : MonoBehaviour
 {
     protected int Boss_Num;
     public Game_DataTable EX_GameData;
+    public SA_Monster monsterData;
     GameDirector gameDirector;
     protected PolygonCollider2D col;
     protected bool DieFlag;
@@ -141,6 +142,9 @@ public class Boss : MonoBehaviour
         {
             gameDirector.Mission_Monster_Kill();
         }
+
+        monsterData.Boss_Dic[Boss_Num].ChangeMonster(true);
+
         gameDirector.Gmae_Boss_Kill(Monster_Coin);
         Change_DieFlag();
     }

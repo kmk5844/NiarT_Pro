@@ -616,7 +616,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
     }
     public void UseItem(ItemDataObject item)
     {
-        if (item.Num == 41)
+        if (item.Num == 78)
         {
             player.PlayerHP_Item(false);
             StartCoroutine(player.Item_41());

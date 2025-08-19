@@ -5,6 +5,7 @@ public class TurretFactory_Train : MonoBehaviour
     Train_InGame trainData;
     GameDirector gameDirector;
 
+    public float elasped;
     public float SpawnTime;
     public int TurretCount;
 
@@ -25,6 +26,7 @@ public class TurretFactory_Train : MonoBehaviour
         {
             if(!trainData.DestoryFlag)
             {
+                elasped = Time.time - lastTime;
                 if (Time.time > lastTime + SpawnTime)
                 {
                     SpawnTurret();

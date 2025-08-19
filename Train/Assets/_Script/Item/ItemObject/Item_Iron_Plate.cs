@@ -30,15 +30,12 @@ public class Item_Iron_Plate : MonoBehaviour
         }
     }
 
-    void changeSprite(int sp)
+    public void changeSprite(int sp)
     {
-        if(spriteNum < sp)
+        if (sp > spriteNum) // sp가 현재보다 클 때만
         {
             spriteNum = sp;
             sprite.sprite = sprites[spriteNum];
-        }else if(spriteNum >= sp)
-        {
-            
         }
     }
     public void OnTriggerEnter2D(Collider2D collision)

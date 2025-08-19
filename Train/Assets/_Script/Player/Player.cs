@@ -1169,7 +1169,7 @@ public class Player : MonoBehaviour
         }
         //Debug.Log(ItemTurret);
         ItemTurret.GetComponent<Item_Mini_Turret_Director>().Set(num, delayTime, atk, atkDelay);
-        if(num != 6)
+        if(num != 7)
         {
             Instantiate(ItemTurret, new Vector2(pos, -0.55f), Quaternion.identity);
         }
@@ -1233,13 +1233,22 @@ public class Player : MonoBehaviour
         Instantiate(MusicBox, new Vector2(transform.position.x, -0.45f), Quaternion.identity);
     }
 
-    public void Item_Player_Spawn_SonicDevice(int delayTime)
+    public void Item_Player_Spawn_SonicDevice(int version, int delayTime)
     {
-        GameObject sound_Prefab = Resources.Load<GameObject>("ItemObject/SoundDevice");
+        GameObject sound_Prefab = null;
+        if (version == 0)
+        {
+            sound_Prefab = Resources.Load<GameObject>("ItemObject/SoundDevice");
+        }
+        else if(version == 1)
+        {
+            sound_Prefab = Resources.Load<GameObject>("ItemObject/SoundDevice2");
+        }
         float pos = Random.Range(minGroundPos.x + 3.5f, maxGroundPos.x - 3.5f);
         GameObject SoundDevice = Instantiate(sound_Prefab, new Vector2(pos, -0.45f), Quaternion.identity);
         Destroy(SoundDevice, delayTime);
     }
+
 
     public IEnumerator Item_Player_ArmorUP(int Persent, int delayTime)
     {

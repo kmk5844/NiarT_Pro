@@ -1945,7 +1945,6 @@ else // 기차 교체
 
         foreach (int i in TrainList)
         {
-            Debug.Log(sa_trainData.SA_TrainChangeNum(i));
             TrainUpgradeList_Button_Object.GetComponent<TrainUpgradeList_Button>().Train_Num = sa_trainData.SA_TrainChangeNum(i);
             Instantiate(TrainUpgradeList_Button_Object, TrainUgpradeList_Content[0]);
             Instantiate(TrainUpgradeList_Button_Object, TrainUgpradeList_Content[1]);

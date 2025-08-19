@@ -12,6 +12,7 @@ public class Hangar_Train : MonoBehaviour
     public float SpawnTime;
     public int[] coin = new int[3];
 
+    public float elapsed;
     public float lastTime;
 
     public bool useFlag;
@@ -48,6 +49,7 @@ public class Hangar_Train : MonoBehaviour
         {
             if (!trainData.DestoryFlag)
             {
+                elapsed = Time.time - lastTime;
                 if (Time.time > lastTime + SpawnTime)
                 {
                     useFlag = true;

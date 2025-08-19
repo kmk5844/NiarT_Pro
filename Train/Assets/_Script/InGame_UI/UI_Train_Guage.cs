@@ -8,6 +8,7 @@ public class UI_Train_Guage : MonoBehaviour
 {
     int num;
 
+    // 0: None, 1: Medic, 2: Turret, 3: Booster, 4: Self_Turret, 5: Supply, 6: Repair, 7: TurretFactory, 8: DronFactory, 9: FuelSignal, 10: Hangar, 11: IronPlateFactory, 12: TurretUpgrade
     Train_InGame Train_Data;
     public Image HP_Guage;
     public Image Special_Guage;
@@ -15,11 +16,14 @@ public class UI_Train_Guage : MonoBehaviour
     Turret turret;
     Booster_Train booster;
     SelfTurret_Train self_turret;
-    Dash_Train dash;
     Supply_Train supply;
-
-    public Image LevelImage;
-    public Sprite[] Level;
+    Repair_Train repair;
+    TurretFactory_Train turretFactory;
+    DronFactoryTrain dronFactory;
+    FuelSignalTrain fuelSignal;
+    Hangar_Train hangar;
+    IronPlateFactory ironPlateFactory;
+    TurretUpgradeTrain turretUpgrade;
 
     float timer;
 
@@ -53,9 +57,45 @@ public class UI_Train_Guage : MonoBehaviour
             num = 5;
             supply = Train_Data.GetComponentInChildren<Supply_Train>();
         }
+        if(Train_Data.Train_Type.Equals("Repair"))
+        {
+            num = 6;
+            repair = Train_Data.GetComponentInChildren<Repair_Train>();
+        }
+        if (Train_Data.Train_Type.Equals("TurretFactory"))
+        {
+            num = 7;
+            turretFactory = Train_Data.GetComponentInChildren<TurretFactory_Train>();
+        }
+        if (Train_Data.Train_Type.Equals("DronFactory"))
+        {
+            num = 8;
+            dronFactory = Train_Data.GetComponentInChildren<DronFactoryTrain>();
+        }
+        if(Train_Data.Train_Type.Equals("FuelSignal"))
+        {
+            num = 9;
+            fuelSignal = Train_Data.GetComponentInChildren<FuelSignalTrain>();
+        }
+        if (Train_Data.Train_Type.Equals("Hangar"))
+        {
+            num = 10;
+            hangar = Train_Data.GetComponentInChildren<Hangar_Train>();
+        }
+        if (Train_Data.Train_Type.Equals("IronPlateFactory"))
+        {
+            num = 11;
+            ironPlateFactory = Train_Data.GetComponentInChildren<IronPlateFactory>();
+
+        }
+        if(Train_Data.Train_Type.Equals("TurretUpgrade"))
+        {
+            num = 12;
+            turretUpgrade = Train_Data.GetComponentInChildren<TurretUpgradeTrain>();
+        }
+
 
         int level = Train_Data.CheckLevel();
-        LevelImage.sprite = Level[level];
     }
 
     void Update()
@@ -113,6 +153,34 @@ public class UI_Train_Guage : MonoBehaviour
         {
             float FuelAmout = (float)supply.SupplyTrain_Fuel / (float)supply.Max_SupplyTrain_Fuel;
             Special_Guage.fillAmount = FuelAmout;
+        }else if(num == 6)
+        {
+            float TimeAmout = (float)repair.elapsed / (float)repair.SpawnTime;
+            Special_Guage.fillAmount = TimeAmout;
+        }else if(num == 7)
+        {
+            float TimeAmout = (float)turretFactory.elasped / (float)turretFactory.SpawnTime;
+            Special_Guage.fillAmount = TimeAmout;
+        }else if(num == 8)
+        {
+            float TimeAmout = (float)dronFactory.elapsed / (float)dronFactory.SpawnTime;
+            Special_Guage.fillAmount = TimeAmout;
+        }else if(num == 9)
+        {
+            float TimeAmout = (float)fuelSignal.elapsed / (float)fuelSignal.SpawnTime;
+            Special_Guage.fillAmount = TimeAmout;
+        }else if(num == 10)
+        {
+            float TimeAmout = (float)hangar.elapsed / (float)hangar.SpawnTime;
+            Special_Guage.fillAmount = TimeAmout;
+        }else if(num == 11)
+        {
+            float TimeAmout = (float)ironPlateFactory.elapsed / (float)ironPlateFactory.SpawnTime;
+            Special_Guage.fillAmount = TimeAmout;
+        }else if(num == 12)
+        {
+            float TimeAmout = (float)turretUpgrade.elapsed / (float)turretUpgrade.SpawnTime;
+            Special_Guage.fillAmount = TimeAmout;
         }
     }
 }

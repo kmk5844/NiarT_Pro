@@ -8,6 +8,7 @@ public class DronFactoryTrain : MonoBehaviour
     Train_InGame trainData;
     GameDirector gameDirector;
 
+    public float elapsed;
     public float SpawnTime;
     public int minHP;
     public int maxHP;
@@ -29,6 +30,7 @@ public class DronFactoryTrain : MonoBehaviour
         {
             if (!trainData.DestoryFlag)
             {
+                elapsed = Time.time - lastTime;
                 if (Time.time > lastTime + SpawnTime)
                 {
                     SpanwDron();

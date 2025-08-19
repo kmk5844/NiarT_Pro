@@ -33,7 +33,14 @@ public class Ready_Buy_TrainObject : MonoBehaviour
         else
         {
             TrainImage.sprite = Resources.Load<Sprite>("Sprite/Train/Train_" + TrainNum_1);
-            Name_Text.StringReference.TableEntryReference = "Train_Name_" + (TrainNum_1 / 10);
+            if(TrainNum_1 < 90)
+            {
+                Name_Text.StringReference.TableEntryReference = "Train_Name_" + (TrainNum_1 / 10);
+            }
+            else
+            {
+                Name_Text.StringReference.TableEntryReference = "Train_Name_" + TrainNum_1;
+            }
         }
         Btn.onClick.AddListener(()=>director.Click_Select_Train(TrainNum_1, TrainNum_2));
     }

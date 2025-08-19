@@ -8,6 +8,7 @@ public class FuelSignalTrain : MonoBehaviour
     Train_InGame trainData;
     GameDirector gameDirector;
 
+    public float elapsed;
     public float SpawnTime;
     public int minFuel;
     public int maxFuel;
@@ -34,6 +35,7 @@ public class FuelSignalTrain : MonoBehaviour
         {
             if (!trainData.DestoryFlag)
             {
+                elapsed = Time.time - lastTime;
                 if (Time.time > lastTime + SpawnTime && !useflag)
                 {
                     useflag = true;
@@ -52,5 +54,4 @@ public class FuelSignalTrain : MonoBehaviour
         useflag = false;
         lastTime = Time.time;
     }
-    
 }

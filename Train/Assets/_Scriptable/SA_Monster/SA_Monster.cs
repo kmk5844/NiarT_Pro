@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 
@@ -37,8 +38,44 @@ public class SA_Monster : ScriptableObject
         }
     }
 
+    public IEnumerator LoadSync()
+    {
+        foreach (var monster in monster_dic)
+        {
+            monster.Load(false);
+            yield return new WaitForSeconds(0.001f); // 비동기 처리를 위해 약간의 대기 시간 추가
+        }
+
+        foreach (var boss in boss_dic)
+        {
+            boss.Load(true);
+            yield return new WaitForSeconds(0.001f); // 비동기 처리를 위해 약간의 대기 시간 추가
+        }
+    }
+
+    public IEnumerator InitAsync()
+    {
+        foreach (var monster in monster_dic)
+        {
+            if (monster.monster_dic_flag)
+            {
+                monster.Init(false);
+                yield return new WaitForSeconds(0.001f); // 비동기 처리를 위해 약간의 대기 시간 추가
+            }
+        }
+
+        foreach (var boss in boss_dic)
+        {
+            if (boss.monster_dic_flag)
+            {
+                boss.Init(true);
+                yield return new WaitForSeconds(0.001f); // 비동기 처리를 위해 약간의 대기 시간 추가
+            }
+        }
+    }
+
     [Serializable]
-    public struct Monster_Dic_Def{
+    public class Monster_Dic_Def{
         [SerializeField]
         public int monster_num;
 
@@ -49,6 +86,7 @@ public class SA_Monster : ScriptableObject
             if (!monster_dic_flag)
             {
                 monster_dic_flag = true;
+                Debug.Log(monster_dic_flag);
                 Save(flag);
             }
         }
@@ -75,6 +113,12 @@ public class SA_Monster : ScriptableObject
             {
                 monster_dic_flag = ES3.Load<bool>("Boss_Dic_Flag_" + monster_num, false);
             }
+        }
+
+        public void Init(bool boss)
+        {
+            monster_dic_flag = false;
+            Save(boss);
         }
     }
 }

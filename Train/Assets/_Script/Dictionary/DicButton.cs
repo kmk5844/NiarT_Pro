@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization.Components;
 using UnityEngine.UI;
 
 public class DicButton : MonoBehaviour
 {
     public GameObject Monster;
     public Image dicimage;
+    public LocalizeStringEvent MonsterName;
     public GameObject Item;
     public Image Itemimage;
+    public LocalizeStringEvent ItemName;
 
     DictionaryDirector dicDirector;
     //∏ÛΩ∫≈Õ
@@ -35,31 +38,37 @@ public class DicButton : MonoBehaviour
         sa_monster = _monsterData;
         num = _num;
         bossFlag = _boss;
+        MonsterName.StringReference.TableReference = "ExcelData_Table_St";
+       
         btn = GetComponent<Button>();
         if (!bossFlag)
         {
             flag = sa_monster.Monster_Dic[num].monster_dic_flag;
+            MonsterName.StringReference.TableEntryReference = "Monster_" + num;
             btn.interactable = flag;
+            dicimage.sprite = Resources.Load<Sprite>("Dictionary/Monster/Monster_On_" + num);
             if (flag)
             {
-                dicimage.sprite = Resources.Load<Sprite>("Dictionary/Monster/Monster_On_" + num);
+                dicimage.color = Color.white;
             }
             else
             {
-                dicimage.sprite = Resources.Load<Sprite>("Dictionary/Monster/Monster_Off_" + num);
+                dicimage.color = Color.black;   
             }
         }
         else
         {
             flag = sa_monster.Boss_Dic[num].monster_dic_flag;
+            MonsterName.StringReference.TableEntryReference = "Boss_" + num;
             btn.interactable = flag;
+            dicimage.sprite = Resources.Load<Sprite>("Dictionary/Monster/Boss_On_" + num);
             if (flag)
             {
-                dicimage.sprite = Resources.Load<Sprite>("Dictionary/Monster/Boss_On_" + num);
+                dicimage.color = Color.white;
             }
             else
             {
-                dicimage.sprite = Resources.Load<Sprite>("Dictionary/Monster/Boss_Off_" + num);
+                dicimage.color = Color.black;
             }
         }
         AddButton(0);
@@ -73,17 +82,20 @@ public class DicButton : MonoBehaviour
         dicDirector = _dicDirector;
         sa_itemlist = _list;
         num = _list.Item_Dic_List[index].item_num;
+        ItemName.StringReference.TableReference = "ItemData_Table_St";
+        ItemName.StringReference.TableEntryReference = "Item_Name_" + num;
         btn = GetComponent<Button>();
 
         flag = sa_itemlist.Item_Dic_List[index].item_dic_flag;
         btn.interactable = flag;
+        Itemimage.sprite = Resources.Load<Sprite>("ItemIcon/" + num);
         if (flag)
         {
-            Itemimage.sprite = Resources.Load<Sprite>("Dictionary/Item/Item_On_" + num);
+            Itemimage.color = Color.white;
         }
         else
         {
-            Itemimage.sprite = Resources.Load<Sprite>("Dictionary/Item/Item_Off_" + num);
+            Itemimage.color = Color.black;
         }
         AddButton(1);
     }

@@ -22,8 +22,8 @@ public class Item_Mini_Turret_Director : MonoBehaviour
         }
         else if (num == 2)
         {
-            Item_Fire_Turret turret_3 = turret.GetComponent <Item_Fire_Turret>();
-            turret_3.spawnTime= delayTime;
+            Item_Fire_Turret turret_3 = turret.GetComponent<Item_Fire_Turret>();
+            turret_3.spawnTime = delayTime;
             turret_3.atk = Attack;
         }
         else if (num == 3)
@@ -31,17 +31,26 @@ public class Item_Mini_Turret_Director : MonoBehaviour
             Item_Flare_Turret turret_4 = turret.GetComponent<Item_Flare_Turret>();
             turret_4.SpawnTime = delayTime;
 
-        }else if(num == 4)
+        }
+        else if (num == 4)
         {
             Item_Missile_Turret turret_5 = turret.GetComponent<Item_Missile_Turret>();
-            turret_5.Attack =Attack;
+            turret_5.Attack = Attack;
             turret_5.SpawnTime = delayTime;
             turret_5.Attack_Delay = AttackDelay;
-        }else if(num == 5)
+        }
+        else if (num == 5)
+        {
+            Item_Missile_Turret turret_5 = turret.GetComponent<Item_Missile_Turret>();
+            turret_5.Attack = Attack;
+            turret_5.SpawnTime = delayTime;
+            turret_5.Attack_Delay = AttackDelay;
+        }
+        else if (num == 6)
         {
             Item_Laser_Turret turret_6 = turret.GetComponent<Item_Laser_Turret>();
             turret_6.attack = Attack;
-            if(AttackDelay == 0)
+            if (AttackDelay == 0)
             {
                 turret_6.laserType = false;
                 turret_6.groundType = false;
@@ -52,16 +61,12 @@ public class Item_Mini_Turret_Director : MonoBehaviour
                 turret_6.groundType = false;
             }
         }
-        else if(num == 6)
+        else if (num == 7)
         {
             Item_Laser_Turret turret_6 = turret.GetComponent<Item_Laser_Turret>();
             turret_6.attack = Attack;
             turret_6.SpawnDelay = delayTime;
             turret_6.groundType = true;
-        }
-        else if(num == 7)
-        {
-
         }
     }
 }

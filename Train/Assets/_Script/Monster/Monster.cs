@@ -16,6 +16,7 @@ public class Monster : MonoBehaviour
     public Monster_GameType monster_gametype;
     [Header("데이터 모음")]
     public Game_DataTable EX_GameData;
+    public SA_Monster monsterData;
 
     [Header("몬스터 정보")]
     [SerializeField]
@@ -685,6 +686,8 @@ public class Monster : MonoBehaviour
         Instantiate(Monster_Kill_Particle, transform.localPosition, Quaternion.identity);
 
         col.enabled = false;
+
+        monsterData.Monster_Dic[Monster_Num].ChangeMonster(false);
 
         if (SteamAchievement.instance != null)
         {

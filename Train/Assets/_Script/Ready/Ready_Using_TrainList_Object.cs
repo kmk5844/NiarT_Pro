@@ -27,6 +27,7 @@ public class Ready_Using_TrainList_Object : MonoBehaviour
     public GameObject Add_Object;
     public GameObject Select_Arrow_Object;
     public Button Btn;
+    public Button DeleteBtn;
 
     bool SelectFlag;
     public AudioClip equipSFX;
@@ -64,6 +65,7 @@ public class Ready_Using_TrainList_Object : MonoBehaviour
             Add_Object.SetActive(true);
         }
         Btn.onClick.AddListener(() => director.Click_Change_Train(Index));
+        DeleteBtn.onClick.AddListener(() => director.Click_Delete_Train(Index));
         Btn.interactable = false;
     }
 
@@ -119,12 +121,26 @@ public class Ready_Using_TrainList_Object : MonoBehaviour
             {
                 Name_Text.StringReference.TableEntryReference = "Train_Booster_Name_" + (TrainNum_2 / 10);
             }*/
+        }else if (TrainNum_1 == -1)
+        {
+            EmptyTrainFlag = true;
+            Add_Object.SetActive(true);
+            TrainImage.gameObject.SetActive(false);
+            Name_Text.StringReference.TableEntryReference = null;
+            Name_Text.GetComponent<TextMeshProUGUI>().text = "";
         }
         else
         {
             TrainImage.sprite = Resources.Load<Sprite>("Sprite/Train/Train_" + TrainNum_1);
             Level_Text.text = "Lv." + ((TrainNum_1 % 10) + 1);
-            Name_Text.StringReference.TableEntryReference = "Train_Name_" + (TrainNum_1 / 10);
+            if ((TrainNum_1<90))
+            {
+                Name_Text.StringReference.TableEntryReference = "Train_Name_" + (TrainNum_1 / 10);
+            }
+            else
+            {
+                Name_Text.StringReference.TableEntryReference = "Train_Name_" + TrainNum_1;
+            }
         }
         MMSoundManagerSoundPlayEvent.Trigger(equipSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
     }

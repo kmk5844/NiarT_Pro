@@ -25,15 +25,22 @@ public class TrainUpgradeList_Button : MonoBehaviour
             Train_Image.sprite = Resources.Load<Sprite>("Sprite/Train/Train_91_" + (Train_Num2 / 10) * 10);
             Train_Text.StringReference.TableEntryReference = "Train_Turret_Name_" + (Train_Num2 / 10);
         }
-/*        else if(Train_Num == 52)
-        {
-            Train_Image.sprite = Resources.Load<Sprite>("Sprite/Train/Train_52_" + (Train_Num2 / 10) * 10);
-            Train_Text.StringReference.TableEntryReference = "Train_Booster_Name_" + (Train_Num2 / 10);
-        }*/
+        /*        else if(Train_Num == 52)
+                {
+                    Train_Image.sprite = Resources.Load<Sprite>("Sprite/Train/Train_52_" + (Train_Num2 / 10) * 10);
+                    Train_Text.StringReference.TableEntryReference = "Train_Booster_Name_" + (Train_Num2 / 10);
+                }*/
         else
         {
             Train_Image.sprite = Resources.Load<Sprite>("Sprite/Train/Train_" + Train_Num);
-            Train_Text.StringReference.TableEntryReference = "Train_Name_" + (Train_Num / 10);
+            if (Train_Num < 90)
+            {
+                Train_Text.StringReference.TableEntryReference = "Train_Name_" + (Train_Num / 10);
+            }
+            else
+            {
+                Train_Text.StringReference.TableEntryReference = "Train_Name_" + Train_Num;
+            }
         }
     }
 
