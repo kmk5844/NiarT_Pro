@@ -13,7 +13,7 @@ public class Game_DataTable: ScriptableObject
 	public List<Info_Boss> Information_Boss;
 	public List<Info_Stage> Information_Stage; // Replace 'EntityType' to an actual type that is serializable.
 	public List<Info_Mercenary> Information_Mercenary; // Replace 'EntityType' to an actual type that is serializable.
-	public List<Info_Item> Information_Item; // Replace 'EntityType' to an actual type that is serializable.
-	public List<Info_Item_Test> Information_Item2;
+	public List<Info_Item> Information_Item;
+	public List<Info_Item_Before> Information_Item_Before; // Replace 'EntityType' to an actual type that is serializable.
     public List<Info_FoodCard> Information_FoodCard;
 }

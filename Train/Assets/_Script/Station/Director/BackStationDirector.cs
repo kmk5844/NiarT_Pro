@@ -20,9 +20,4 @@ public class BackStationDirector : MonoBehaviour
         StationObject[num].SetActive(true);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

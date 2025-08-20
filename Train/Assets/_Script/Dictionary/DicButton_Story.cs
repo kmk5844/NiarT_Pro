@@ -27,6 +27,7 @@ public class DicButton_Story : MonoBehaviour
         btn = GetComponent<Button>();
         btn.interactable = true;
         cutSceneFlag = true;
+        num = 0;
         storyNumText.text = "0";
         storyText.StringReference.TableEntryReference = "UI_Dic_CutScene";
         storyStageText.text = "CutScene";
@@ -70,6 +71,13 @@ public class DicButton_Story : MonoBehaviour
 
     void AddButton()
     {
-        btn.onClick.AddListener(() => dicDirector.SetStory(flag, num));
+        if (cutSceneFlag)
+        {
+            btn.onClick.AddListener(() => dicDirector.SetStory(cutSceneFlag, 0));
+        }
+        else
+        {
+            btn.onClick.AddListener(() => dicDirector.SetStory(cutSceneFlag, num + 1));
+        }
     }
 }

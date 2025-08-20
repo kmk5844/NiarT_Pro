@@ -133,7 +133,7 @@ public class ItemDirector : MonoBehaviour
 
     public void Item_UseDron()
     {
-        int num = Random.Range(1, 3);
+        int num = Random.Range(1, 4);
         Dron.GetComponentInChildren<Supply_Train_Dron>().SupplyDron_SetData(num, 3);
         Instantiate(Dron);
     }

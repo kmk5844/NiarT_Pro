@@ -1,6 +1,7 @@
 using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SupplyMonster_Item : MonoBehaviour
@@ -9,10 +10,12 @@ public class SupplyMonster_Item : MonoBehaviour
     public bool MissionMaterialFlag;
     GameObject itemdirector_object;
     ItemDirector itemdirector;
-    List<ItemDataObject> common_supplylist;
-    List<ItemDataObject> rare_supplylist;
-    List<ItemDataObject> unique_supplylist;
-    List<ItemDataObject> epic_supplylist;
+    public List<ItemDataObject> common_supplylist;
+    public List<ItemDataObject> rare_supplylist;
+    public List<ItemDataObject> unique_supplylist;
+    public List<ItemDataObject> epic_supplylist;
+    public List<ItemDataObject> epic_supplylist_NoWeapon;
+    public List<ItemDataObject> legendary_supplylist;
     [SerializeField]
     ItemDataObject Item;
     UseItem useitemScript;
@@ -27,13 +30,17 @@ public class SupplyMonster_Item : MonoBehaviour
     {
         itemdirector_object = GameObject.Find("ItemDirector");
         itemdirector = itemdirector_object.GetComponent<ItemDirector>();
-        common_supplylist = itemdirector.itemList.Common_Supply_ItemList;
-        rare_supplylist = itemdirector.itemList.Rare_Supply_ItemList;
-        unique_supplylist = itemdirector.itemList.Unique_Supply_ItemList;
-        epic_supplylist = itemdirector.itemList.Epic_Supply_ItemList;
+        common_supplylist = itemdirector.itemList.Common_Supply_ItemList.ToList();
+        rare_supplylist = itemdirector.itemList.Rare_Supply_ItemList.ToList();
+        unique_supplylist = itemdirector.itemList.Unique_Supply_ItemList.ToList();
+        epic_supplylist = itemdirector.itemList.Epic_Supply_ItemList.ToList();
+        epic_supplylist_NoWeapon = itemdirector.itemList.Epic_Supply_ItemList.ToList();
+        epic_supplylist_NoWeapon.RemoveAll(item => item.Item_Type == Information_Item_Type.Weapon);
+        legendary_supplylist = itemdirector.itemList.Legendary_Supply_ItemList.ToList();
         useitemScript = itemdirector_object.GetComponent<UseItem>();
         bounceFlag = false;
         mat = GetComponent<SpriteRenderer>().material;
+
 
         if (MissionMaterialFlag)
         {
@@ -88,34 +95,41 @@ public class SupplyMonster_Item : MonoBehaviour
     private void Choice_Item()
     {
         int num = 0;
-        if (!Player.Item_GunFlag)
-        {
-            num = Random.Range(0, 101);
-        }
-        else
-        {
-            num = Random.Range(0, 96);
-        }
+        num = Random.Range(0, 101);
 
-        if(num >= 0 && num < 70)
+        Debug.Log(num);
+
+        if (num >= 0 && num < 70) //70%
         {
             Item = common_supplylist[Random.Range(0, common_supplylist.Count)];
             mat.SetColor("_SolidOutline", Color.gray);
         }
-        else if(num >= 70 && num < 85)
+        else if (num >= 70 && num < 85) //15%
         {
             Item = rare_supplylist[Random.Range(0, rare_supplylist.Count)];
             mat.SetColor("_SolidOutline", Color.blue);
         }
-        else if(num >= 85 && num < 95)
+        else if (num >= 85 && num < 95) //10%
         {
             Item = unique_supplylist[Random.Range(0, unique_supplylist.Count)];
-            mat.SetColor("_SolidOutline", new Color(166,0,255));
+            mat.SetColor("_SolidOutline", new Color(166, 0, 255));
         }
-        else if(num >= 95 && num < 101)
+        else if (num >= 95 && num < 98) //3%
         {
-            Item = epic_supplylist[Random.Range(0, epic_supplylist.Count)];
+            if(!Player.Item_GunFlag)
+            {
+                Item = epic_supplylist[Random.Range(0, epic_supplylist.Count)];
+            }
+            else
+            {
+                Item = epic_supplylist[Random.Range(0, epic_supplylist_NoWeapon.Count)];
+            }
             mat.SetColor("_SolidOutline", Color.yellow);
+        }
+        else if (num >= 99 && num < 101)//1%
+        {
+            Item = legendary_supplylist[Random.Range(0, legendary_supplylist.Count)];
+            mat.SetColor("_SolidOutline", new Color(161, 251, 232));
         }
     }
 

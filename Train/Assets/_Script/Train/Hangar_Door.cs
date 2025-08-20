@@ -7,6 +7,12 @@ public class Hangar_Door : MonoBehaviour
     public int num;
 
     Hangar_Train director;
+    BoxCollider2D col;
+
+    private void Start()
+    {
+        col = GetComponent<BoxCollider2D>();
+    }
 
     public void Set(Hangar_Train direcotr_)
     {
@@ -23,7 +29,7 @@ public class Hangar_Door : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && col.enabled)
         { 
             director.ExitDoor();
         }

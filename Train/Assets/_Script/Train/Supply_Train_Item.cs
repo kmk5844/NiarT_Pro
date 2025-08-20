@@ -1,4 +1,5 @@
 using MoreMountains.Tools;
+using System;
 using UnityEngine;
 
 public class Supply_Train_Item : MonoBehaviour
@@ -68,6 +69,10 @@ public class Supply_Train_Item : MonoBehaviour
         else if (Item.Item_Rarity_Type == Information_Item_Rarity_Type.Epic)
         {
             mat.SetColor("_SolidOutline", Color.yellow);
+        }
+        else if (Item.Item_Rarity_Type == Information_Item_Rarity_Type.Legendary)//1%
+        {
+            mat.SetColor("_SolidOutline", new Color(161, 251, 232));
         }
     }
 

@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class Hangar_Train : MonoBehaviour
@@ -20,6 +21,7 @@ public class Hangar_Train : MonoBehaviour
     int doorNum = -1;
 
     public Collider2D[] DoorCollider;
+    public GameObject[] DoorPrideObject;
     bool changeFlag = false;
 
     public GameObject SpawnItem;
@@ -38,9 +40,16 @@ public class Hangar_Train : MonoBehaviour
         coin[0] = int.Parse(trainData.trainData_Special_String[1]);
         coin[1] = int.Parse(trainData.trainData_Special_String[2]);
         coin[2] = int.Parse(trainData.trainData_Special_String[3]);
-        foreach(Collider2D door in DoorCollider)
+        foreach (Collider2D door in DoorCollider)
         {
             door.GetComponent<Hangar_Door>().Set(this);
+        }
+        for (int i = 0; i < 3; i++)
+        {
+            {
+                DoorPrideObject[i].SetActive(false);
+                DoorPrideObject[i].GetComponentInChildren<TextMeshProUGUI>().text = "-" + coin[i] + "G";
+            }
         }
     }
     void Update()
@@ -59,11 +68,14 @@ public class Hangar_Train : MonoBehaviour
                         {
                             DoorCollider[i].enabled = true;
                         }
+
                         changeFlag = true;
                     }
                 }
             }
         }
+
+
     }
 
     public void ClickWeapon()
@@ -73,7 +85,7 @@ public class Hangar_Train : MonoBehaviour
         changeFlag = false;
         for (int i = 0; i < DoorCollider.Length; i++)
         {
-            DoorCollider[i].enabled = true;
+            DoorCollider[i].enabled = false;
         }
         ExitDoor();
         lastTime = Time.time;
@@ -105,6 +117,7 @@ public class Hangar_Train : MonoBehaviour
     {
         if(playerdata.Coin > coin[num])
         {
+            DoorPrideObject[num].SetActive(true);
             doorFlag = true;
         }
         else
@@ -116,6 +129,7 @@ public class Hangar_Train : MonoBehaviour
 
     public void ExitDoor()
     {
+        DoorPrideObject[doorNum].SetActive(false);
         doorFlag = false;
         doorNum = -1;
     }

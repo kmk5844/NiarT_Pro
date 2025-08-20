@@ -41,6 +41,9 @@ public class DictionaryDirector : MonoBehaviour
     [Header("스토리 도감")]
     public Transform storyTransform;
     public Button EnterButton;
+    public LocalizeStringEvent Story_Title;
+    public LocalizeStringEvent Story_SubTitle;
+    public LocalizeStringEvent Story_Plot;
 
     bool storyFlag;
     int storyNum;
@@ -91,6 +94,9 @@ public class DictionaryDirector : MonoBehaviour
         ShowMonster_Information.StringReference.TableReference = "ExcelData_Table_St";
         ShowItem_Name.StringReference.TableReference = "ItemData_Table_St";
         ShowItem_Information.StringReference.TableReference = "ItemData_Table_St";
+        Story_Title.StringReference.TableReference = "Story_St";
+        Story_SubTitle.StringReference.TableReference = "Story_St";
+        Story_Plot.StringReference.TableReference = "Story_St";
     }
 
     void SettingUI()
@@ -137,13 +143,13 @@ public class DictionaryDirector : MonoBehaviour
 
         if (!boss)
         {
-            ShowMonster_Image.sprite = Resources.Load<Sprite>("Dictionary/Monster_On_" + num);
+            ShowMonster_Image.sprite = Resources.Load<Sprite>("Dictionary/Monster/Monster_On_" + num);
             ShowMonster_Name.StringReference.TableEntryReference = "Monster_" + num;
             ShowMonster_Information.StringReference.TableEntryReference = "Monster_Info_" + num;
         }
         else
         {
-            ShowMonster_Image.sprite = Resources.Load<Sprite>("Dictionary/Boss_On_" + num);
+            ShowMonster_Image.sprite = Resources.Load<Sprite>("Dictionary/Monster/Boss_On_" + num);
             ShowMonster_Name.StringReference.TableEntryReference = "Boss_" + num;
             ShowMonster_Information.StringReference.TableEntryReference = "Boss_Info_" + num;
         }
@@ -201,11 +207,18 @@ public class DictionaryDirector : MonoBehaviour
         storyFlag = flag;
         storyNum = num;
 
-        EnterButton.interactable = true;
+        if (!EnterButton.interactable)
+        {
+            EnterButton.interactable = true;
+        }
+        Story_Title.StringReference.TableEntryReference = "Story_Title_" + num;
+        Story_SubTitle.StringReference.TableEntryReference = "Story_SubTitle_" + num;
+        Story_Plot.StringReference.TableEntryReference = "Story_Plot_" + num;
     }
 
     public void Enter_StoryMode()
     {
+        Debug.Log(storyFlag);
         if (storyFlag)
         {
             SceneManager.LoadScene("CutScene", LoadSceneMode.Additive);

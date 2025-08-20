@@ -49,6 +49,7 @@ public class SA_ItemList : ScriptableObject
         rare_supply_itemlist.Clear();
         unique_supply_itemlist.Clear();
         epic_supply_itemlist.Clear();
+        legendary_supply_itemlist.Clear();
 
         item_dic_list.Clear();
     }
@@ -156,18 +157,19 @@ public class SA_ItemList : ScriptableObject
             if(item_dic.item_dic_flag)
             {
                 int num = item_dic.item_num;
-                if (item[num].Item_Type == Information_Item_Type.Immediate)
+                if (item[num].Item_Type != Information_Item_Type.Equipment)
                 {
                     if (item_dic.item_dic_flag)
                     {
                         item_dic.item_dic_flag = false;
                         item_dic.Save();
                     }
-                }else if(item[num].Item_Type == Information_Item_Type.Inventory)
+                }
+                else
                 {
-                    if (item_dic.item_dic_flag)
+                    if (!item_dic.item_dic_flag)
                     {
-                        item_dic.item_dic_flag = false;
+                        item_dic.item_dic_flag = true;
                         item_dic.Save();
                     }
                 }

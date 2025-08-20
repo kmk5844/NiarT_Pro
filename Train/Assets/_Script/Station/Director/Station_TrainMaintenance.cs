@@ -2193,6 +2193,26 @@ else // 기차 교체
             Plus_HP = trainData_Info2.Train_HP - trainData_Info.Train_HP;
             Plus_Weight = trainData_Info2.Train_Weight - trainData_Info.Train_Weight;
             Plus_Armor = trainData_Info2.Train_Armor - trainData_Info.Train_Armor;
+        }else if(Train_Upgrade_Num1 >= 92) //기차 업그레이드
+        {
+            int num = sa_trainData.SA_TrainChangeNum(Train_Upgrade_Num1);
+            Info_Train trainData_Info = trainData.EX_Game_Data.Information_Train[num];
+            Info_Train trainData_Info2 = null;
+            EX_HP = 1 - (trainData_Info.Train_HP / MaxHP);
+            EX_Weight = 1 - (trainData_Info.Train_Weight / MaxWeight);
+            EX_Armor = 1 - (trainData_Info.Train_Armor / MaxArmor);
+            //int index = num % 10;
+            Before_LevelImage.sprite = Level_Sprite[0];
+
+            trainData_Info2 = trainData.EX_Game_Data.Information_Train[num];
+            EX_HP2 = EX_HP;
+            EX_Weight2 = EX_Weight;
+            EX_Armor2 = EX_Armor;
+            After_LevelImage.sprite = Level_Sprite[0];
+
+            Plus_HP = trainData_Info2.Train_HP - trainData_Info.Train_HP;
+            Plus_Weight = trainData_Info2.Train_Weight - trainData_Info.Train_Weight;
+            Plus_Armor = trainData_Info2.Train_Armor - trainData_Info.Train_Armor;
         }
         /*else if (Train_Upgrade_Num1 == 52)
         {

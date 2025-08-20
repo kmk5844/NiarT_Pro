@@ -116,8 +116,8 @@ public class StationDirector : MonoBehaviour
     public AudioClip BuySFX;
     public AudioClip ErrorSFX;
 
-    [Header("게임")]
-    public GameObject[] GameNotice;
+/*    [Header("게임")]
+    public GameObject[] GameNotice;*/
 
     public static bool DicFlag;
     public static bool Dic_BGM_Flag;

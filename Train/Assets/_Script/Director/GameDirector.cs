@@ -3,11 +3,8 @@ using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.Localization.Plugins.XLIFF.V20;
 using UnityEngine;
 using UnityEngine.UI;
-using static PixelCrushers.AnimatorSaver;
-using static UnityEngine.ParticleSystem;
 
 
 //Script Execution Order로 조절 중
@@ -234,11 +231,11 @@ public class GameDirector : MonoBehaviour
         }
         Before_Sub_Num = SA_PlayerData.Before_Sub_Stage;
         Select_Sub_Num = SA_PlayerData.Select_Sub_Stage;
-
+/*
         Mission_Num = 0;
         Stage_Num = 11;
         Select_Sub_Num = 0;
-
+*/
         //TrainDistance = 70000;
 
         SubStageData = SA_MissionData.missionStage(Mission_Num, Stage_Num, Select_Sub_Num);
@@ -327,8 +324,6 @@ public class GameDirector : MonoBehaviour
             QualitySettings.vSyncCount = 0;
             Application.targetFrameRate = 60;
         }
-
-
 
         player.maxRespawnPosition = new Vector3(-0.43f, 0f, 0);
         player.minRespawnPosition = new Vector3(-10.94f * (Train_Num.Count - 1), 0f, 0);

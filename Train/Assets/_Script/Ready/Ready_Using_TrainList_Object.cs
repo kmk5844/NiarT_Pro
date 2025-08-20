@@ -64,6 +64,12 @@ public class Ready_Using_TrainList_Object : MonoBehaviour
             TrainImage.gameObject.SetActive(false);
             Add_Object.SetActive(true);
         }
+
+        if (TrainNum_1 < 10 && TrainNum_1 >= 0)
+        {
+            DeleteBtn.gameObject.SetActive(false);
+        }
+
         Btn.onClick.AddListener(() => director.Click_Change_Train(Index));
         DeleteBtn.onClick.AddListener(() => director.Click_Delete_Train(Index));
         Btn.interactable = false;
@@ -128,17 +134,19 @@ public class Ready_Using_TrainList_Object : MonoBehaviour
             TrainImage.gameObject.SetActive(false);
             Name_Text.StringReference.TableEntryReference = null;
             Name_Text.GetComponent<TextMeshProUGUI>().text = "";
+            Level_Text.text = "Lv." + 0;
         }
         else
         {
             TrainImage.sprite = Resources.Load<Sprite>("Sprite/Train/Train_" + TrainNum_1);
-            Level_Text.text = "Lv." + ((TrainNum_1 % 10) + 1);
-            if ((TrainNum_1<90))
+            if ((TrainNum_1 < 90))
             {
+                Level_Text.text = "Lv." + ((TrainNum_1 % 10) + 1);
                 Name_Text.StringReference.TableEntryReference = "Train_Name_" + (TrainNum_1 / 10);
             }
             else
             {
+                Level_Text.text = "Lv." + 1;
                 Name_Text.StringReference.TableEntryReference = "Train_Name_" + TrainNum_1;
             }
         }

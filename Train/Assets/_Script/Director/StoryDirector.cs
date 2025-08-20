@@ -56,7 +56,7 @@ public class StoryDirector : MonoBehaviour
 
     public AudioListener audioListener;
     public GameObject eventsystem;
-    bool additiveFlag;
+    public bool additiveFlag;
 
     private void Awake()
     {

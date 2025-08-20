@@ -78,26 +78,16 @@ public class Supply_Train_Dron : MonoBehaviour
         {
             Random_Rarity = 0;
 
-/*            if (Random_Rarity_probability >= 0 && Random_Rarity_probability < 80)
-            {
-                Random_Rarity = 0;
-            }else if(Random_Rarity_probability >= 80 && Random_Rarity_probability <= 100)
-            {
-                Random_Rarity = 1;
-            }*/
         }else if(gradeNum == 2)
         {
             if (Random_Rarity_probability >= 0 && Random_Rarity_probability < 50)
             {
                 Random_Rarity = 0;
             }
-            else if (Random_Rarity_probability >= 95 && Random_Rarity_probability < 100)
+            else if (Random_Rarity_probability >= 95 && Random_Rarity_probability < 101)
             {
                 Random_Rarity = 1;
-            }/*else if(Random_Rarity_probability >= 95 && Random_Rarity_probability <= 100)
-            {
-                Random_Rarity = 2;
-            }*/
+            }
         }
         else if(gradeNum == 3)
         {
@@ -109,9 +99,12 @@ public class Supply_Train_Dron : MonoBehaviour
             {
                 Random_Rarity = 2;
             }
-            else if (Random_Rarity_probability >= 95 && Random_Rarity_probability <= 100)
+            else if (Random_Rarity_probability >= 95 && Random_Rarity_probability < 99)
             {
                 Random_Rarity = 3;
+            }else if(Random_Rarity_probability >= 95 && Random_Rarity_probability < 101)
+            {
+                Random_Rarity = 4; // Legendary
             }
         }
 
@@ -136,9 +129,12 @@ public class Supply_Train_Dron : MonoBehaviour
             {
                 Random_num = Random.Range(0, itemList.Epic_Supply_ItemList.Count);
                 return itemList.Epic_Supply_ItemList[Random_num];
+            }else if(Random_Rarity == 4)
+            {
+                Random_num = Random.Range(0, itemList.Legendary_Supply_ItemList.Count);
+                return itemList.Legendary_Supply_ItemList[Random_num];
             }
             return itemList.Common_Supply_ItemList[1];
         }
-
     }
 }

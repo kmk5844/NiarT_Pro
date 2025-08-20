@@ -664,7 +664,7 @@ public class Auto_ScritableObject : EditorWindow
 
     void CreatObjectsFromList_Item()
     {
-        List<Info_Item_Test> itemList = DataTable_Game.Information_Item2;
+        List<Info_Item> itemList = DataTable_Game.Information_Item;
 
         //Empty ItemObject
         ItemDataObject itemObject = ScriptableObject.CreateInstance<ItemDataObject>();
@@ -684,7 +684,7 @@ public class Auto_ScritableObject : EditorWindow
         AssetDatabase.SaveAssets();
         SA_ItemList_.ItemList_EmptyObject(itemObject);
 
-        foreach (Info_Item_Test item in itemList)
+        foreach (Info_Item item in itemList)
         {
             itemObject = ScriptableObject.CreateInstance<ItemDataObject>();
             itemObject.Auto_Item_Insert(

@@ -104,7 +104,6 @@ public class SubStageSelectDirector : MonoBehaviour
             float fuelPercent = (float)Fuel / (float)Total_Fuel * 100f;
             UI_FuelParsent_Text.text = fuelPercent.ToString("F0") + "%"; // 정수로 출력
         }
-
     }
 
     private void Update()

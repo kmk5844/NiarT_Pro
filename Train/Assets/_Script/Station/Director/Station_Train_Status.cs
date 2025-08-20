@@ -15,6 +15,13 @@ public class Station_Train_Status : MonoBehaviour
     public SupplyStatus supply;
     public BoosterStatus booster;
     public TurretStatus turret;
+    public RepairStatus repair;
+    public TurretFactoryStatus turretFactory;
+    public DronFactoryStatus dronFactory;
+    public FuelSignalStatus fuelSignal;
+    public HangarStatus hangar;
+    public IronPlateFactoryStatus ironFactory;
+    public TurretUpgradeStatus turretUpgrade;
 
     [Serializable]
     public struct CommonStatus
@@ -86,6 +93,68 @@ public class Station_Train_Status : MonoBehaviour
         public TextMeshProUGUI AtkDelay__Text;
     }
 
+    [Serializable]
+    public struct RepairStatus
+    {
+        public GameObject RepairObj;
+        public TextMeshProUGUI Repair_CoolTime_Text;
+        public TextMeshProUGUI Repair_Heal_Text;
+        public TextMeshProUGUI Repair_Heal_Count_Text;
+    }
+
+    [Serializable]
+    public struct TurretFactoryStatus
+    {
+        public GameObject TurretFactoryObj;
+        public TextMeshProUGUI TurretFactory_CoolTime_Text;
+        public TextMeshProUGUI TurretFactory_Count_Text;
+    }
+
+    [Serializable]
+    public struct DronFactoryStatus
+    {
+        public GameObject DronFactoryObj;
+        public TextMeshProUGUI DronFactory_CoolTime_Text;
+        public TextMeshProUGUI DronFactory_MinHP_Text;
+        public TextMeshProUGUI DronFactory_MaxHP_Text;
+    }
+
+    [Serializable]
+    public struct FuelSignalStatus
+    {
+        public GameObject FuelSignalObj;
+        public TextMeshProUGUI FuelSignal_CoolTime_Text;
+        public TextMeshProUGUI FuelSignal_MinFuel_Text;
+        public TextMeshProUGUI FuelSignal_MaxFuel_Text;
+    }
+
+    [Serializable]
+    public struct HangarStatus
+    {
+        public GameObject HangarObj;
+        public TextMeshProUGUI Hangar_CoolTime_Text;
+        public TextMeshProUGUI Hangar_Shelter1_Text;
+        public TextMeshProUGUI Hangar_Shelter2_Text;
+        public TextMeshProUGUI Hangar_Shelter3_Text;
+    }
+
+    [Serializable]
+    public struct IronPlateFactoryStatus
+    {
+        public GameObject IronFactoryObj;
+        public TextMeshProUGUI IronFactory_CoolTime_Text;
+        public TextMeshProUGUI IronFactory_HP_Text; // 200
+    }
+
+    [Serializable]
+    public struct TurretUpgradeStatus
+    {
+        public GameObject TurretUpgradeObj;
+        public TextMeshProUGUI TurretUpgrade_CoolTime_Text;
+        public TextMeshProUGUI TurretUpgrade_Persent_Text;
+        public TextMeshProUGUI TurretUpgrade_DelayTime_Text;
+    }
+
     public void Setting_TrainCommon(int hp, int weight, int armor)
     {
         if (!common.CommonObj.activeSelf)
@@ -127,6 +196,35 @@ public class Station_Train_Status : MonoBehaviour
         {
             turret.TurrteObj.SetActive(false);
         }
+        if (repair.RepairObj.activeSelf)
+        {
+            repair.RepairObj.SetActive(false);
+        }
+        if (turretFactory.TurretFactoryObj.activeSelf)
+        {
+            turretFactory.TurretFactoryObj.SetActive(false);
+        }
+        if (dronFactory.DronFactoryObj.activeSelf)
+        {
+            dronFactory.DronFactoryObj.SetActive(false);
+        }
+        if (fuelSignal.FuelSignalObj.activeSelf)
+        {
+            fuelSignal.FuelSignalObj.SetActive(false);
+        }
+        if (hangar.HangarObj.activeSelf)
+        {
+            hangar.HangarObj.SetActive(false);
+        }
+        if (ironFactory.IronFactoryObj.activeSelf)
+        {
+            ironFactory.IronFactoryObj.SetActive(false);
+        }
+        if (turretUpgrade.TurretUpgradeObj.activeSelf)
+        {
+            turretUpgrade.TurretUpgradeObj.SetActive(false);
+        }
+
 
         switch (Type)
         {
@@ -170,6 +268,47 @@ public class Station_Train_Status : MonoBehaviour
                 turret.TurrteObj.SetActive(true);
                 turret.Atk_Text.text= status[0];
                 turret.AtkDelay__Text.text = status[1];
+                break;
+            case "Repair":
+                repair.RepairObj.SetActive(true);
+                repair.Repair_CoolTime_Text.text = status[0];
+                repair.Repair_Heal_Text.text = status[1];
+                repair.Repair_Heal_Count_Text.text = status[2];
+                break;
+            case "TurretFactory":
+                turretFactory.TurretFactoryObj.SetActive(true);
+                turretFactory.TurretFactory_CoolTime_Text.text = status[0];
+                turretFactory.TurretFactory_Count_Text.text = status[1];
+                break;
+            case "DronFactory":
+                dronFactory.DronFactoryObj.SetActive(true);
+                dronFactory.DronFactory_CoolTime_Text.text = status[0];
+                dronFactory.DronFactory_MinHP_Text.text = (int.Parse(status[1]) * 100).ToString();
+                dronFactory.DronFactory_MaxHP_Text.text = (int.Parse(status[2]) * 100).ToString();
+                break;
+            case "FuelSignal":
+                fuelSignal.FuelSignalObj.SetActive(true);
+                fuelSignal.FuelSignal_CoolTime_Text.text = status[0];
+                fuelSignal.FuelSignal_MinFuel_Text.text = status[1];
+                fuelSignal.FuelSignal_MaxFuel_Text.text = status[2];
+                break;
+            case "Hangar":
+                hangar.HangarObj.SetActive(true);
+                hangar.Hangar_CoolTime_Text.text = status[0];
+                hangar.Hangar_Shelter1_Text.text = status[1];
+                hangar.Hangar_Shelter2_Text.text = status[2];
+                hangar.Hangar_Shelter3_Text.text = status[3];
+                break;
+            case "IronPlateFactory":
+                ironFactory.IronFactoryObj.SetActive(true);
+                ironFactory.IronFactory_CoolTime_Text.text = status[0];
+                ironFactory.IronFactory_HP_Text.text = "200";
+                break;
+            case "TurretUpgrade":
+                turretUpgrade.TurretUpgradeObj.SetActive(true);
+                turretUpgrade.TurretUpgrade_CoolTime_Text.text = status[0];
+                turretUpgrade.TurretUpgrade_Persent_Text.text = status[1];
+                turretUpgrade.TurretUpgrade_DelayTime_Text.text = status[2];
                 break;
         }
     }
