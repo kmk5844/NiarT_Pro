@@ -94,6 +94,7 @@ public class SubStageSelectDirector : MonoBehaviour
         }
 
         Total_Fuel = ES3.Load<int>("Train_Curret_TotalFuel", -1);
+        Debug.Log("Total_Fuel: " + Total_Fuel);
         if (Total_Fuel == -1)
         {
             UI_FuelParsent_Text.text = "100%";
@@ -101,6 +102,7 @@ public class SubStageSelectDirector : MonoBehaviour
         else
         {
             Fuel = ES3.Load<int>("Train_Curret_Fuel", 100);
+            Debug.Log("Fuel: " + Fuel);
             float fuelPercent = (float)Fuel / (float)Total_Fuel * 100f;
             UI_FuelParsent_Text.text = fuelPercent.ToString("F0") + "%"; // 정수로 출력
         }

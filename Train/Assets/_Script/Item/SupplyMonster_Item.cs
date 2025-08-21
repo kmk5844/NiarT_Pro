@@ -34,8 +34,7 @@ public class SupplyMonster_Item : MonoBehaviour
         rare_supplylist = itemdirector.itemList.Rare_Supply_ItemList.ToList();
         unique_supplylist = itemdirector.itemList.Unique_Supply_ItemList.ToList();
         epic_supplylist = itemdirector.itemList.Epic_Supply_ItemList.ToList();
-        epic_supplylist_NoWeapon = itemdirector.itemList.Epic_Supply_ItemList.ToList();
-        epic_supplylist_NoWeapon.RemoveAll(item => item.Item_Type == Information_Item_Type.Weapon);
+        epic_supplylist_NoWeapon = itemdirector.itemList.Epic_Supply_ItemList_NonWeapon.ToList();
         legendary_supplylist = itemdirector.itemList.Legendary_Supply_ItemList.ToList();
         useitemScript = itemdirector_object.GetComponent<UseItem>();
         bounceFlag = false;
@@ -114,7 +113,7 @@ public class SupplyMonster_Item : MonoBehaviour
             Item = unique_supplylist[Random.Range(0, unique_supplylist.Count)];
             mat.SetColor("_SolidOutline", new Color(166, 0, 255));
         }
-        else if (num >= 95 && num < 98) //3%
+        else if (num >= 95 && num < 99) //3%
         {
             if(!Player.Item_GunFlag)
             {

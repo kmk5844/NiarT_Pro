@@ -5,6 +5,7 @@ using UnityEngine;
 public class EMP_Turret : Turret
 {
     public CircleCollider2D circle2D;
+    public GameObject BulletImage;
     bool MusicFlag;
     int atk;
 
@@ -38,15 +39,38 @@ public class EMP_Turret : Turret
 
     IEnumerator Music()
     {
-        // 1차 성장: 0.5f ~ 4f
-        while (circle2D.radius < 10f)
+        BulletImage.transform.localScale = Vector3.zero; // 초기 크기
+        BulletImage.SetActive(true);
+
+        float duration = 0.3f; // 성장 시간
+        float elapsed = 0f;
+
+        float startRadius = 0f;
+        float endRadius = 10f;
+
+        circle2D.radius = 0;
+        circle2D.enabled = true;
+        while (elapsed < duration)
         {
-            circle2D.radius += 0.2f;
+            elapsed += Time.deltaTime;
+
+            // 0~1 사이 보간값
+            float t = elapsed / duration;
+
+            // 원의 반지름 보간
+            circle2D.radius = Mathf.Lerp(startRadius, endRadius, t);
+
+            // 이미지 크기도 같이 변경
+            BulletImage.transform.localScale = Vector3.one * circle2D.radius * 0.77f;
+
             yield return null;
         }
 
-        circle2D.radius = 0.5f;
-        yield return new WaitForSeconds(0.5f); // 필요시 잠깐 대기
+        // 마지막 보정
+        circle2D.radius = endRadius;
+        yield return new WaitForSeconds(0.1f); // 필요시 잠깐 대기
+        BulletImage.SetActive(false);
+        circle2D.enabled = false;
         MusicFlag = false;
         lastTime = Time.time;
     }

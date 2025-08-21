@@ -1845,14 +1845,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 165918953}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6, y: -1, z: 40}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 6, y: 2.3, z: 28}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 79248391}
   - {fileID: 1148635146}
-  m_Father: {fileID: 963194228}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &175510323
 GameObject:
@@ -11805,6 +11805,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnMonster_Flag: 0
   MissionMaterialFlag: 0
+  common_supplylist: []
+  rare_supplylist: []
+  unique_supplylist: []
+  epic_supplylist: []
+  epic_supplylist_NoWeapon: []
+  legendary_supplylist: []
   Item: {fileID: 0}
   GetItemSFX: {fileID: 0}
 --- !u!212 &865382433
@@ -13057,8 +13063,7 @@ Transform:
   m_LocalPosition: {x: 0, y: -0.28, z: -12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 165918954}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &963194234
@@ -15674,6 +15679,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnMonster_Flag: 0
   MissionMaterialFlag: 0
+  common_supplylist: []
+  rare_supplylist: []
+  unique_supplylist: []
+  epic_supplylist: []
+  epic_supplylist_NoWeapon: []
+  legendary_supplylist: []
   Item: {fileID: 0}
   GetItemSFX: {fileID: 0}
 --- !u!212 &1146538343
@@ -18316,6 +18327,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnMonster_Flag: 0
   MissionMaterialFlag: 0
+  common_supplylist: []
+  rare_supplylist: []
+  unique_supplylist: []
+  epic_supplylist: []
+  epic_supplylist_NoWeapon: []
+  legendary_supplylist: []
   Item: {fileID: 0}
   GetItemSFX: {fileID: 0}
 --- !u!212 &1360319524
@@ -18926,6 +18943,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnMonster_Flag: 0
   MissionMaterialFlag: 0
+  common_supplylist: []
+  rare_supplylist: []
+  unique_supplylist: []
+  epic_supplylist: []
+  epic_supplylist_NoWeapon: []
+  legendary_supplylist: []
   Item: {fileID: 0}
   GetItemSFX: {fileID: 0}
 --- !u!212 &1442833275
@@ -20741,11 +20764,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3396181284324112665, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3457745493300843812, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
       propertyPath: m_StringReference.m_TableEntryReference.m_KeyId
       value: 26168961730203648
+      objectReference: {fileID: 0}
+    - target: {fileID: 3816987703380627452, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4334045728222537664, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
       propertyPath: m_fontSize
@@ -20914,6 +20941,10 @@ PrefabInstance:
     - target: {fileID: 5635962536043184934, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5685713958112102613, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8200209941670578818, guid: fb6aa5e1579f734419fab4e5dd4a8de6, type: 3}
       propertyPath: m_text
@@ -22392,6 +22423,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnMonster_Flag: 0
   MissionMaterialFlag: 0
+  common_supplylist: []
+  rare_supplylist: []
+  unique_supplylist: []
+  epic_supplylist: []
+  epic_supplylist_NoWeapon: []
+  legendary_supplylist: []
   Item: {fileID: 0}
   GetItemSFX: {fileID: 0}
 --- !u!212 &1855482784
@@ -23974,6 +24011,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnMonster_Flag: 0
   MissionMaterialFlag: 0
+  common_supplylist: []
+  rare_supplylist: []
+  unique_supplylist: []
+  epic_supplylist: []
+  epic_supplylist_NoWeapon: []
+  legendary_supplylist: []
   Item: {fileID: 0}
   GetItemSFX: {fileID: 0}
 --- !u!212 &1968838705
@@ -26066,6 +26109,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnMonster_Flag: 0
   MissionMaterialFlag: 0
+  common_supplylist: []
+  rare_supplylist: []
+  unique_supplylist: []
+  epic_supplylist: []
+  epic_supplylist_NoWeapon: []
+  legendary_supplylist: []
   Item: {fileID: 0}
   GetItemSFX: {fileID: 0}
 --- !u!212 &2113717426
@@ -33299,6 +33348,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 604414562}
+  - {fileID: 165918954}
   - {fileID: 963194228}
   - {fileID: 787404157}
   - {fileID: 1770909224}

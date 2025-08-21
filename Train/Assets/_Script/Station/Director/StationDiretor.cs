@@ -646,14 +646,16 @@ public class StationDirector : MonoBehaviour
         }
         //UI_BackGround.gameObject.SetActive(false);
 
-        if (ui_num != 4 && ui_num != 7)
+        ui_num = 0;
+
+/*        if (ui_num != 4 && ui_num != 7)
         {
-            ui_num = 0; // 꺼져있을 때만 적용
+            // 꺼져있을 때만 적용
         }
         else
         {
             ui_num = 3;
-        }
+        }*/
         //UI_Lobby.gameObject.SetActive(true);
     }
 

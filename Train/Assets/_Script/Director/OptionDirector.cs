@@ -246,7 +246,7 @@ public class OptionDirector : MonoBehaviour
         }
         else if (x % 2 == 1)
         {
-            screenMode = FullScreenMode.ExclusiveFullScreen;
+            screenMode = FullScreenMode.FullScreenWindow;
         }
 
         Screen.SetResolution(resolutions[resoutionNum / 2].width,

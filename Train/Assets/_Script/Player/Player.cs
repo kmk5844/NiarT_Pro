@@ -232,7 +232,7 @@ public class Player : MonoBehaviour
                 isMouseDown = false;
             }
 
-            if (Input.GetKeyDown(KeyCode.R) && FireCount != 0)
+/*            if (Input.GetKeyDown(KeyCode.R) && FireCount != 0)
             {
                 if (!STEAM_clickflag_R)
                 {
@@ -248,7 +248,7 @@ public class Player : MonoBehaviour
                 }
 
                 StartCoroutine(Reloading());
-            }
+            }*/
 
             if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
             {
@@ -739,10 +739,10 @@ public class Player : MonoBehaviour
             }
             else
             {
-                if (!ReloadingFlag)
+/*                if (!ReloadingFlag)
                 {
                     MMSoundManagerSoundPlayEvent.Trigger(ShootSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
-                }
+                }*/
             }
 
             lastTime = Time.time;
@@ -980,7 +980,7 @@ public class Player : MonoBehaviour
         return Max_HP;
     }
 
-    IEnumerator Reloading()
+/*    IEnumerator Reloading()
     {
         ReloadingFlag = true;
         FireCount = MaxFireCount;
@@ -997,7 +997,7 @@ public class Player : MonoBehaviour
         Reload.SetActive(false);
         FireCount = 0;
         ReloadingFlag = false;
-    }
+    }*/
 
     //Item ºÎºÐ
     private void Check_Pos()

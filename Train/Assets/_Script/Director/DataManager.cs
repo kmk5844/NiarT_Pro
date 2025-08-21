@@ -139,5 +139,6 @@ public class DataManager : MonoBehaviour
         yield return StartCoroutine(monsterData.InitAsync());
         Debug.Log(13);
         yield return StartCoroutine(InventoryItem_Data.InitDicSync());
+        ES3.Save<int>("Train_Curret_TotalFuel", -1);
     }
 }

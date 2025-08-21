@@ -82,14 +82,14 @@ public class SA_ItemData : ScriptableObject
     }
     public void Load()
     {
-        equiped_item = ES3.Load<List<int>>(name + "_Equiped_Item");
-        equiped_item_count = ES3.Load<List<int>>(name + "_Equiped_ItemCount");
+        equiped_item = ES3.Load<List<int>>(name + "_Equiped_Item", new List<int> { -1, -1, -1 });
+        equiped_item_count = ES3.Load<List<int>>(name + "_Equiped_ItemCount", new List<int> { 0, 0, 0 });
     }
 
     public IEnumerator LoadSync()
     {
         equiped_item = ES3.Load<List<int>>(name + "_Equiped_Item", new List<int> {-1,-1,-1 });
-        equiped_item_count = ES3.Load<List<int>>(name + "_Equiped_ItemCount", new List<int> { 0,0,0 });
+        equiped_item_count = ES3.Load<List<int>>(name + "_Equiped_ItemCount", new List<int> { 0, 0, 0 });
         yield return new WaitForSeconds(0.001f);
     }
 

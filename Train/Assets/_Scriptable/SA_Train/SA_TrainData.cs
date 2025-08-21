@@ -72,25 +72,27 @@ public class SA_TrainData : ScriptableObject
         {
             case (0):
                 level_train_enginetier++;
-                  Save();
+                Save_Solo("level_train_enginetier");
                 break;
             case (1):
                 level_train_maxtrain++;
-                Save(); break;
+                Save_Solo("level_train_maxtrain");
+                break;
             case (2):
                 level_train_maxmercenary++;
-                Save(); break;
+                Save_Solo("level_train_maxmercenary");
+                break;
             case (3):
                 level_train_maxspeed++;
-                 Save();
+                Save_Solo("level_train_maxspeed");
                 break;
             case (4):
                 level_train_armor++;
-                 Save();
+                 Save_Solo("level_train_armor");
                 break;
             case (5):
                 level_train_efficient++;
-                 Save();
+                Save_Solo("level_train_efficient");
                 break;
         }
     }
@@ -101,33 +103,41 @@ public class SA_TrainData : ScriptableObject
         {
             case 0:
                 level_trainnumber_00++;
+                Save_Solo("level_trainnumber_00");
                 break;
             case 1:
                 level_trainnumber_10++;
+                Save_Solo("level_trainnumber_10");
                 break;
             case 2:
                 level_trainnumber_20++;
+                Save_Solo("level_trainnumber_20");
                 break;
             case 3:
                 level_trainnumber_30++;
+                Save_Solo("level_trainnumber_30");
                 break;
             case 4:
                 level_trainnumber_40++;
+                Save_Solo("level_trainnumber_40");
                 break;
             case 5:
                 level_trainnumber_50++;
+                Save_Solo("level_trainnumber_50");
                 break;
             case 6:
                 level_trainnumber_60++;
+                Save_Solo("level_trainnumber_60");
                 break;
             case 7:
                 level_trainnumber_70++;
+                Save_Solo("level_trainnumber_70");
                 break;
             case 8:
                 level_trainnumber_80++;
+                Save_Solo("level_trainnumber_80");
                 break;
         }
-        Save();
     }
 
     public int SA_TrainChangeNum(int trainNum)
@@ -174,7 +184,7 @@ public class SA_TrainData : ScriptableObject
                 Train_Num[i] = Train_Num[i] + 1;
             }
         }
-        Save();
+        Save_Solo("train_num");
     }
 
     public void SA_TrainUpgrade_Renewal_2(int TrainNum)
@@ -186,32 +196,91 @@ public class SA_TrainData : ScriptableObject
                 Train_Num[i] = Train_Num[i] + 1;
             }
         }
-        Save();
+        Save_Solo("train_num");
     }
 
     public void SA_Train_Buy(int TrainNum)
     {
         train_buy_num.Add(TrainNum);
-        Save();
+        Save_Solo("train_buy_num");
     }
 
     public void SA_Train_Add(int TrainNum)
     {
         train_num.Add(TrainNum);
-        Save();
+        Save_Solo("train_num");
     }
 
     public void SA_Train_Change(int index, int chnage)
     {
         train_num[index] = chnage;
-        Save();
+        Save_Solo("train_num");
     }
 
     public void SA_Train_Remove_Empty()
     {
         train_num.RemoveAll(x => x == -1);
-        Save();
+        Save_Solo("train_num");
     }
+
+    private void Save_Solo(string str)
+    {
+        switch (str)
+        {
+            case "train_num":
+                ES3.Save("SA_TrainData_Data_Train_Num", train_num);
+                break;
+            case "level_train_enginetier":
+                ES3.Save<int>("SA_TrainData_Data_level_train_enginetier", level_train_enginetier);
+                break;
+            case "level_train_maxtrain":
+                ES3.Save<int>("SA_TrainData_Data_level_train_maxtrain", level_train_maxtrain);
+                break;
+            case "level_train_maxmercenary":
+                ES3.Save<int>("SA_TrainData_Data_level_train_maxmercenary", level_train_maxmercenary);
+                break;
+            case "level_train_maxspeed":
+                ES3.Save<int>("SA_TrainData_Data_level_train_maxspeed", level_train_maxspeed);
+                break;
+            case "level_train_armor":
+                ES3.Save<int>("SA_TrainData_Data_level_train_armor", level_train_armor);
+                break;
+            case "level_train_efficient":
+                ES3.Save<int>("SA_TrainData_Data_level_train_efficient", level_train_efficient);
+                break;
+            case "train_buy_num":
+                ES3.Save("SA_TrainData_Data_Train_Buy_Num", train_buy_num);
+                break;
+            case "level_trainnumber_00":
+                ES3.Save<int>("SA_TrainData_Data_level_trainnumber_00", level_trainnumber_00);
+                break;
+            case "level_trainnumber_10":
+                ES3.Save<int>("SA_TrainData_Data_level_trainnumber_10", level_trainnumber_10);
+                break;
+            case "level_trainnumber_20":
+                ES3.Save<int>("SA_TrainData_Data_level_trainnumber_20", level_trainnumber_20);
+                break;
+            case "level_trainnumber_30":
+                ES3.Save<int>("SA_TrainData_Data_level_trainnumber_30", level_trainnumber_30);
+                break;
+            case "level_trainnumber_40":
+                ES3.Save<int>("SA_TrainData_Data_level_trainnumber_40", level_trainnumber_40);
+                break;
+            case "level_trainnumber_50":
+                ES3.Save<int>("SA_TrainData_Data_level_trainnumber_50", level_trainnumber_50);
+                break;
+            case "level_trainnumber_60":
+                ES3.Save<int>("SA_TrainData_Data_level_trainnumber_60", level_trainnumber_60);
+                break;
+            case "level_trainnumber_70":
+                ES3.Save<int>("SA_TrainData_Data_level_trainnumber_70", level_trainnumber_70);
+                break;
+            case "level_trainnumber_80":
+                ES3.Save<int>("SA_TrainData_Data_level_trainnumber_80", level_trainnumber_80);
+                break;
+        }
+    }
+
 
     private void Save()
     {
@@ -230,8 +299,8 @@ public class SA_TrainData : ScriptableObject
         ES3.Save<int>("SA_TrainData_Data_level_trainnumber_40", level_trainnumber_40);
         ES3.Save<int>("SA_TrainData_Data_level_trainnumber_50", level_trainnumber_50);
         ES3.Save<int>("SA_TrainData_Data_level_trainnumber_60", level_trainnumber_60);
-        ES3.Save<int>("SA_TrainData_Data_level_trainnumber_60", level_trainnumber_70);
-        ES3.Save<int>("SA_TrainData_Data_level_trainnumber_60", level_trainnumber_80);
+        ES3.Save<int>("SA_TrainData_Data_level_trainnumber_70", level_trainnumber_70);
+        ES3.Save<int>("SA_TrainData_Data_level_trainnumber_80", level_trainnumber_80);
     }
 
     private IEnumerator SaveSync()

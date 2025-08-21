@@ -85,6 +85,7 @@ public class Station_GameStart : MonoBehaviour
         for (int i = 0; i < stageButton.Count; i++)
         {
             stageButton[i].stationGameStartDirector = this;
+            
         }
         SelectButton.gameObject.SetActive(false);
         CancelButton.gameObject.SetActive(false);

@@ -35,6 +35,15 @@ public class StageButton_Route : MonoBehaviour
             btn = GetComponent<Button>();
         }
         btn.enabled = stageData.Stage_OpenFlag;
+
+        if (btn.enabled)
+        {
+            btn.image.color = Color.white;
+        }
+        else
+        {
+            btn.image.color = Color.gray;
+        }
     }
 
     public void ChangeStageNum(int i, StageDataObject _stageData)

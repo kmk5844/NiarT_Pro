@@ -1013,9 +1013,8 @@ public class GameDirector : MonoBehaviour
 
     private void Game_Win()
     {
-        GameEnd_SavePlayerData();
         SubStage_Clear();
-        SubStage_LockOff();
+        SubStage_LockOff(); // 마지막 스테이지 종료 판단
         MMSoundManagerSoundPlayEvent.Trigger(WinSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
     }
 
@@ -1072,7 +1071,7 @@ public class GameDirector : MonoBehaviour
             SA_PlayerData.SA_BeforeSubSelectStage_Save(-1);
         }
 
-        Change_Game_End(true, lastFlag);
+        Change_Game_End(true, lastFlag); // 마지막 스테이지 종료 판단
     }
 
     private void Change_Game_End(bool WinFlag, bool subStage_Last, int LoseNum = -1) // 이겼을 때
@@ -1089,6 +1088,7 @@ public class GameDirector : MonoBehaviour
                 if (flag) // 문제 없다.
                 {
                     //Debug.Log("작동 완료" + flag);
+                    GameEnd_SavePlayerData(false);
                     uiDirector.Open_SubSelect();
                     SA_PlayerData.SA_GameWinReward(false, Total_Coin);
                 }
@@ -1099,8 +1099,10 @@ public class GameDirector : MonoBehaviour
                     //Debug.Log("작업 해야됨" + flag);
                     missionDirector.selectmission.Mission_Fail();
                     SA_PlayerData.SA_MissionPlaying(false);
+                    GameEnd_SavePlayerData(true);
                     uiDirector.Open_Result_UI(false, Total_Coin, missionDirector.selectmission, chapter_clearFlag, LoseNum);
                 }
+
             }
             else //마지막스테이지일 때
             {
@@ -1109,7 +1111,8 @@ public class GameDirector : MonoBehaviour
                 { // 미션 통과다
                     //Debug.Log("마지막 작동 완료" + flag);
                     missionDirector.selectmission.Mission_Sucesses(SA_StageList.Stage[Stage_Num]);
-                    
+                    GameEnd_SavePlayerData(true);
+
                     uiDirector.Open_Result_UI(true, Total_Coin, missionDirector.selectmission, chapter_clearFlag, LoseNum);
                     LastSubStageClear();
                     SA_PlayerData.change_clickStartButton(false);
@@ -1125,7 +1128,6 @@ public class GameDirector : MonoBehaviour
                     {
                         Debug.Log("CLEAR_STAGE_" + Stage_Num);
                     }
-
                 }
                 else // 미션 실패다
                 {
@@ -1572,19 +1574,24 @@ public class GameDirector : MonoBehaviour
         MaxSpeed -= Add_Speed;
     }
 
-    public void GameEnd_SavePlayerData()
+    public void GameEnd_SavePlayerData(bool flag)//false: 마지막 스테이지 X / true: 마지막 스테이지 O
     {
-        player.GameEnd_PlayerSave();
-        GameEnd_TrainSave_Fuel();
-        for(int i = 0; i < Train_List.childCount; i++)
+        if (!flag)
         {
-            Train_List.GetChild(i).GetComponent<Train_InGame>().GameEnd_TrainSave();
+            player.GameEnd_PlayerSave();
+            for (int i = 0; i < Train_List.childCount; i++)
+            {
+                Train_List.GetChild(i).GetComponent<Train_InGame>().GameEnd_TrainSave();
+            }
+            ES3.Save<int>("Train_Curret_Fuel", TrainFuel);
+            //미션 진행 중일 때
         }
-    }
-
-    void GameEnd_TrainSave_Fuel()
-    {
-        ES3.Save<int>("Train_Curret_Fuel", TrainFuel);
+        else
+        {
+            ES3.Save<int>("Train_Curret_TotalFuel", -1);
+            //미션 실패하거나 미션 성공했을 때
+        }
+            
     }
 
     public void closeOption()

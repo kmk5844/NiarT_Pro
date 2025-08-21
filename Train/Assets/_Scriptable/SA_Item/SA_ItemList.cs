@@ -33,6 +33,9 @@ public class SA_ItemList : ScriptableObject
     private List<ItemDataObject> epic_supply_itemlist;
     public List<ItemDataObject> Epic_Supply_ItemList { get { return epic_supply_itemlist; } }
     [SerializeField]
+    private List<ItemDataObject> epic_supply_itemlist_NonWeapon;
+    public List<ItemDataObject> Epic_Supply_ItemList_NonWeapon { get { return epic_supply_itemlist_NonWeapon; } }
+    [SerializeField]
     private List<ItemDataObject> legendary_supply_itemlist;
     public List<ItemDataObject> Legendary_Supply_ItemList { get { return  legendary_supply_itemlist; } }
 
@@ -49,6 +52,7 @@ public class SA_ItemList : ScriptableObject
         rare_supply_itemlist.Clear();
         unique_supply_itemlist.Clear();
         epic_supply_itemlist.Clear();
+
         legendary_supply_itemlist.Clear();
 
         item_dic_list.Clear();
@@ -133,6 +137,10 @@ public class SA_ItemList : ScriptableObject
                     break;
                 case Information_Item_Rarity_Type.Epic:
                     epic_supply_itemlist.Add(newobjcet);
+                    if (!newobjcet.Item_Type.Equals(Information_Item_Type.Weapon))
+                    {
+                        epic_supply_itemlist_NonWeapon.Add(newobjcet);
+                    }
                     break;
                 case Information_Item_Rarity_Type.Legendary:
                     Legendary_Supply_ItemList.Add(newobjcet);
@@ -159,21 +167,10 @@ public class SA_ItemList : ScriptableObject
                 int num = item_dic.item_num;
                 if (item[num].Item_Type != Information_Item_Type.Equipment)
                 {
-                    if (item_dic.item_dic_flag)
-                    {
-                        item_dic.item_dic_flag = false;
-                        item_dic.Save();
-                    }
+                    item_dic.item_dic_flag = false;
+                    item_dic.Save();
                 }
-                else
-                {
-                    if (!item_dic.item_dic_flag)
-                    {
-                        item_dic.item_dic_flag = true;
-                        item_dic.Save();
-                    }
-                }
-                item_dic.item_dic_flag = false; // 초기화 시 모든 아이템 딕셔너리 플래그를 false로 설정
+
             }
             yield return new WaitForSeconds(0.001f); // 비동기 처리를 위해 약간의 대기 시간 추가
         }

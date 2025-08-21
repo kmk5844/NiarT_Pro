@@ -72,6 +72,7 @@ public class Monster : MonoBehaviour
 
     protected float EndTime;
     protected bool EndFlag;
+    protected bool DieFlag;
     protected bool DestoryFlag;
 
     float laser_hit_time;
@@ -143,6 +144,7 @@ public class Monster : MonoBehaviour
 
         player = GameObject.FindGameObjectWithTag("Player");
         EndFlag = false;
+        DieFlag = false;
         DestoryFlag = false;
 
         default_LocalScale_X = transform.localScale.x;
@@ -676,6 +678,7 @@ public class Monster : MonoBehaviour
 
     public void MonsterDie()
     {
+        monster_gametype = Monster_GameType.Die;
         Monster_HP = 0;
         gameDirector.Game_Monster_Kill(Monster_Coin);
         MMSoundManagerSoundPlayEvent.Trigger(DieSfX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);

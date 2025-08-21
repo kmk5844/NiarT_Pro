@@ -123,12 +123,19 @@ public class Supply_Train_Dron : MonoBehaviour
             {
                 Random_num = Random.Range(0, itemList.Unique_Supply_ItemList.Count);
                 return itemList.Unique_Supply_ItemList[Random_num];
-
             }
             else if (Random_Rarity == 3)
             {
-                Random_num = Random.Range(0, itemList.Epic_Supply_ItemList.Count);
-                return itemList.Epic_Supply_ItemList[Random_num];
+                if (!Player.Item_GunFlag)
+                {
+                    Random_num = Random.Range(0, itemList.Epic_Supply_ItemList.Count);
+                    return itemList.Epic_Supply_ItemList[Random_num];
+                }
+                else
+                {
+                    Random_num = Random.Range(0, itemList.Epic_Supply_ItemList_NonWeapon.Count);
+                    return itemList.Epic_Supply_ItemList_NonWeapon[Random_num];
+                }
             }else if(Random_Rarity == 4)
             {
                 Random_num = Random.Range(0, itemList.Legendary_Supply_ItemList.Count);

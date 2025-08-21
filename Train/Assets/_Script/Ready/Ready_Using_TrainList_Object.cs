@@ -31,6 +31,7 @@ public class Ready_Using_TrainList_Object : MonoBehaviour
 
     bool SelectFlag;
     public AudioClip equipSFX;
+    public AudioClip deleteSFX;
 
     private void Start()
     {
@@ -127,7 +128,9 @@ public class Ready_Using_TrainList_Object : MonoBehaviour
             {
                 Name_Text.StringReference.TableEntryReference = "Train_Booster_Name_" + (TrainNum_2 / 10);
             }*/
-        }else if (TrainNum_1 == -1)
+            MMSoundManagerSoundPlayEvent.Trigger(equipSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+        }
+        else if (TrainNum_1 == -1)
         {
             EmptyTrainFlag = true;
             Add_Object.SetActive(true);
@@ -135,6 +138,7 @@ public class Ready_Using_TrainList_Object : MonoBehaviour
             Name_Text.StringReference.TableEntryReference = null;
             Name_Text.GetComponent<TextMeshProUGUI>().text = "";
             Level_Text.text = "Lv." + 0;
+            MMSoundManagerSoundPlayEvent.Trigger(deleteSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         }
         else
         {
@@ -149,7 +153,8 @@ public class Ready_Using_TrainList_Object : MonoBehaviour
                 Level_Text.text = "Lv." + 1;
                 Name_Text.StringReference.TableEntryReference = "Train_Name_" + TrainNum_1;
             }
+            //MMSoundManagerSoundPlayEvent.Trigger(deleteSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+            MMSoundManagerSoundPlayEvent.Trigger(equipSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         }
-        MMSoundManagerSoundPlayEvent.Trigger(equipSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
     }
 }

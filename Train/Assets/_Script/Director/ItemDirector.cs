@@ -126,9 +126,7 @@ public class ItemDirector : MonoBehaviour
     {
         int num = Random.Range(0, itemList.Equiped_Item_List.Count);
         ItemDataObject item = itemList.Equiped_Item_List[num];
-        //Debug.Log(item.Item_Count);
         item.Item_Count_UP();
-        //Debug.Log(item.Item_Count);
     }
 
     public void Item_UseDron()

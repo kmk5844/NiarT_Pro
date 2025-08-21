@@ -205,7 +205,7 @@ public class DictionaryDirector : MonoBehaviour
     public void SetStory(bool flag, int num = -1)
     {
         storyFlag = flag;
-        storyNum = num;
+        storyNum = num - 1;
 
         if (!EnterButton.interactable)
         {

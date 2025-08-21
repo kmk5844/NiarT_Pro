@@ -887,6 +887,7 @@ public class PlayerReadyDirector : MonoBehaviour
             Inventory_ItemObject.GetComponent<ItemEquip_Object>().SetSetting(item, drag, this);
             Instantiate(Inventory_ItemObject, Inventory_ItemList);
         }
+        Resize(Inventory_ItemList, itemListData.Equipment_Inventory_ItemList.Count, 3);
     }
 
     void Instantiate_Equip_Item()
@@ -909,6 +910,25 @@ public class PlayerReadyDirector : MonoBehaviour
             drag.SetActive(false);
             Equip_ItemObject[i].SetSetting(equiped_item, drag, this);
         }
+    }
+
+    public void Resize(Transform trans, int count, int cellCount)
+    {
+        RectTransform rectTransform = trans.GetComponent<RectTransform>();
+        GridLayoutGroup grid = trans.GetComponent<GridLayoutGroup>();
+
+        // 한 줄에 들어가는 셀 개수 계산
+        int rowCount = Mathf.CeilToInt(count / (float)cellCount);
+
+        // 전체 높이 = 위아래 패딩 + (rowCount × 셀 높이) + (rowCount-1) × Spacing
+        float height = grid.padding.top
+                     + grid.padding.bottom
+                     + rowCount * grid.cellSize.y
+                     + (rowCount - 1) * grid.spacing.y;
+
+        Vector2 size = rectTransform.sizeDelta;
+        size.y = height;
+        rectTransform.sizeDelta = size;
     }
 
     void Init_Item_Information()
