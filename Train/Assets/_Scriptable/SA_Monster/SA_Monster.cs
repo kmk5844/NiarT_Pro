@@ -86,7 +86,7 @@ public class SA_Monster : ScriptableObject
             if (!monster_dic_flag)
             {
                 monster_dic_flag = true;
-                Debug.Log(monster_dic_flag);
+                //Debug.Log(monster_dic_flag);
                 Save(flag);
             }
         }

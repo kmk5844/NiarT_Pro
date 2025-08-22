@@ -25,8 +25,10 @@ public class StationDirector : MonoBehaviour
     Station_Inventory Director_Inventory;
     [SerializeField]
     Station_GameStart Director_GameStart;
-/*    [SerializeField]
-    Station_Conversion Direcotr_Conversion;*/
+    [SerializeField]
+    DictionaryDirector Director_Dictionary;
+    /*    [SerializeField]
+        Station_Conversion Direcotr_Conversion;*/
 
     [Header("특수 플래그")]
     public bool simplestationFlag;
@@ -174,6 +176,18 @@ public class StationDirector : MonoBehaviour
         {
             MMSoundManagerSoundPlayEvent.Trigger(StationBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true);
             Dic_BGM_Flag = false;
+        }
+
+        if(ui_num == 7)
+        {
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                Director_Dictionary.prevClick();
+            }
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                Director_Dictionary.nextClick();
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.Escape) && !DicFlag)

@@ -619,7 +619,7 @@ public class Player : MonoBehaviour
     {
         canDash = false;
         isDashing = true;
-        float originalGravity = rigid.gravityScale; 
+        float originalGravity = rigid.gravityScale;
         rigid.gravityScale = 0f; // 대시 중 중력 비활성화
                                  //rigid.velocity = new Vector2(horizontalInput * dashingPower, 0f);
         /*

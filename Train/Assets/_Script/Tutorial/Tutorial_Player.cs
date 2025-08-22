@@ -23,6 +23,8 @@ public class Tutorial_Player : MonoBehaviour
     float jumpSpeed = 8.5f;
     float jumpdistance = 1.5f;
     float jumpFlagDistance;
+    int jumpCount = 0;
+    int jumpMaxCount = 1;
 
     bool ReloadingFlag;
     int firecount;
@@ -47,6 +49,12 @@ public class Tutorial_Player : MonoBehaviour
     int Bullet_Atk;
     bool MariGold_Skill_Flag;
     bool MariGold_Skill_Fire_Flag;
+    bool canDash = true;
+    bool isDashing = false;
+    float dashingPower = 4f;
+    float dashingTime = 0.2f;
+    float dashingCooldown = 1f;
+    float horizontalInput;
 
     [Header("Sound")]
     public AudioClip ShootSFX;
@@ -106,10 +114,14 @@ public class Tutorial_Player : MonoBehaviour
     {
         if (T_FireFlag)
         {
+            if (isDashing)
+            {
+                return;
+            }
+
             if (Input.GetMouseButtonDown(0))
             {
                 isMouseDown = true;
-
             }
 
             if (Input.GetMouseButtonUp(0))
@@ -117,10 +129,15 @@ public class Tutorial_Player : MonoBehaviour
                 isMouseDown = false;
             }
 
-/*            if (Input.GetKeyDown(KeyCode.R) && firecount != 0)
+            if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
             {
-                StartCoroutine(Reloading());
-            }*/
+                StartCoroutine(Dash());
+            }
+
+            /*            if (Input.GetKeyDown(KeyCode.R) && firecount != 0)
+                        {
+                            StartCoroutine(Reloading());
+                        }*/
 
             if (gameDirector.gameType == GameType_T.Tutorial)
             {
@@ -170,10 +187,19 @@ public class Tutorial_Player : MonoBehaviour
         {
             if (Input.GetButtonDown("Jump") && !jumpFlag)
             {
+                rigid.velocity = new Vector2(rigid.velocity.x, 0f);
                 rigid.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
                 ani.SetTrigger("Jump");
-                T_JumpCount++;
             }
+
+            if (Input.GetButtonDown("Jump") && jumpFlag && jumpCount < jumpMaxCount)
+            {
+                rigid.velocity = new Vector2(rigid.velocity.x, 0f);
+                rigid.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+                ani.SetTrigger("Jump");
+                jumpCount++;
+            }
+
         }
 
         if (T_Skill_Q && !T_Skill_Q_End)
@@ -231,15 +257,8 @@ public class Tutorial_Player : MonoBehaviour
     {
         if (T_MoveFlag)
         {
-            float h = Input.GetAxisRaw("Horizontal");
-            if(h < 0f)
-            {
-                rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
-            }
-            else if(h > 0f)
-            {
-                rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
-            }
+            horizontalInput = Input.GetAxisRaw("Horizontal");
+            rigid.AddForce(Vector2.right * horizontalInput, ForceMode2D.Impulse);
         }
 
         Debug.DrawRay(rigid.position, Vector3.down * jumpdistance, Color.green);
@@ -254,6 +273,10 @@ public class Tutorial_Player : MonoBehaviour
         if (rayHit.collider != null && rayHit.distance >= jumpFlagDistance)
         {
             jumpFlag = false;
+            if (jumpCount != 0)
+            {
+                jumpCount = 0;
+            }
         }
         else
         {
@@ -432,5 +455,49 @@ public class Tutorial_Player : MonoBehaviour
     public float Check_GunBullet()
     {
         return Mathf.Clamp01((float)(max_firecount - firecount) / (float)max_firecount);
+    }
+
+    IEnumerator Dash()
+    {
+        canDash = false;
+        isDashing = true;
+        float originalGravity = rigid.gravityScale;
+        rigid.gravityScale = 0f; // 대시 중 중력 비활성화
+                                 //rigid.velocity = new Vector2(horizontalInput * dashingPower, 0f);
+        /*
+                Vector2 dashTarget = rigid.position + new Vector2(horizontalInput * dashingPower, 0f);
+                rigid.MovePosition(dashTarget);
+                yield return new WaitForSeconds(dashingTime);*/
+        Vector2 start = transform.position;
+        Vector2 end = start + new Vector2(horizontalInput * dashingPower, 0f);
+
+        float elapsed = 0f;
+
+        while (elapsed < dashingTime)
+        {
+            float t = elapsed / dashingTime;
+
+            // 부드러운 가속/감속을 원하면 AnimationCurve 활용
+            float curvedT = EvaluateDashCurve(t);
+
+            transform.position = Vector2.Lerp(start, end, curvedT);
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = end;
+
+        rigid.gravityScale = originalGravity; // 대시 후 중력 재활성화
+
+        isDashing = false;
+        yield return new WaitForSeconds(dashingCooldown);
+        canDash = true;
+    }
+    private float EvaluateDashCurve(float t)
+    {
+        //return 1f - Mathf.Pow(2f, -10f * t);
+        return t < 0.5f ? 2f * t * t : -1f + (4f - 2f * t) * t;
+        //return t * t * (3f - 2f * t); // SmoothStep
     }
 }

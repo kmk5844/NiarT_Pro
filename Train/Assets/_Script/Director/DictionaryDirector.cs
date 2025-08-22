@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization.Components;
 using UnityEngine.SceneManagement;
@@ -45,11 +43,12 @@ public class DictionaryDirector : MonoBehaviour
     public LocalizeStringEvent Story_SubTitle;
     public LocalizeStringEvent Story_Plot;
 
+    int DicNum;
     bool storyFlag;
     int storyNum;
-
     private void Start()
     {
+        DicNum = 0;
         SettingToggle();
         Spawn_MonsterButton();
         Spawn_ItemButton();
@@ -68,6 +67,20 @@ public class DictionaryDirector : MonoBehaviour
         }
     }
 
+    public void prevClick()
+    {
+        if (DicNum <= 0) return;
+        DicNum--;
+        DicToggleGroup.transform.GetChild(DicNum).GetComponent<Toggle>().isOn = true;
+    }
+
+    public void nextClick()
+    {
+        if(DicNum > 3) return; 
+        DicNum++;
+        DicToggleGroup.transform.GetChild(DicNum).GetComponent<Toggle>().isOn = true;
+    }
+
     void ToggleChangeWindow(bool isOn)
     {
         if (isOn)
@@ -76,6 +89,7 @@ public class DictionaryDirector : MonoBehaviour
             {
                 if (DicToggleGroup.transform.GetChild(i).GetComponent<Toggle>().isOn)
                 {
+                    DicNum = i;
                     DicWindow[i].SetActive(true);
                     DicToggleGroup.transform.GetChild(i).GetComponent<Toggle>().interactable = false;
                 }

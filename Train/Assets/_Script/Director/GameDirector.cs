@@ -197,11 +197,13 @@ public class GameDirector : MonoBehaviour
 
     [Header("웨이브")]
     public GameObject SupplyRefresh_ItemObject;
-    public float RefreshPersent;
-    int RefreshDistance;
+
+    public int RefreshCount;
+    public int[] RefreshDistance;
+    public int currentRefreshIndex = 0;
+    public bool[] refreshFlag;
+
     bool waveUIFlag;
-    bool firstRefresh;
-    bool endRefresh;
     bool SpawnRefreshSupply;
     bool getSupply;
     public bool waveinfoFlag;
@@ -289,9 +291,12 @@ public class GameDirector : MonoBehaviour
         StageBackGround_Setting();
         Stage_Init();
         Train_Init();
+        /*
+                RefreshPersent = 50;
+                RefreshDistance = (int)(Destination_Distance * (RefreshPersent / 100));*/
 
-        RefreshPersent = 50;
-        RefreshDistance = (int)(Destination_Distance * (RefreshPersent / 100));
+        RefreshCount = 3;
+        CalculateRefreshPoints();
 
         newPoint = new Vector2[4];
         {
@@ -448,10 +453,16 @@ public class GameDirector : MonoBehaviour
                 TrainFuel = 0;
             }
 
-            if(RefreshDistance < TrainDistance && !firstRefresh)
+            if(currentRefreshIndex < RefreshCount)
             {
-                firstRefresh = true;
-                gameType = GameType.Refreshing;
+                if (RefreshDistance[currentRefreshIndex] < TrainDistance && !refreshFlag[currentRefreshIndex])
+                {
+                    refreshFlag[currentRefreshIndex] = true;
+                    getSupply = false;
+                    refreshinfoFlag = false;
+                    SpawnRefreshSupply = false;
+                    gameType = GameType.Refreshing;
+                }
             }
 
             if (Destination_Distance < TrainDistance && !GameWinFlag)
@@ -649,6 +660,7 @@ public class GameDirector : MonoBehaviour
                     }
                     uiDirector.SKillLock(false);
                     SkillLockFlag = false;
+                    currentRefreshIndex++;
                     gameType = GameType.Playing;
                 }
             }
@@ -1300,6 +1312,19 @@ public class GameDirector : MonoBehaviour
     }
 
     //Refresh부분
+    void CalculateRefreshPoints()
+    {
+        int divisions = RefreshCount + 1;
+        RefreshDistance = new int[RefreshCount];
+        refreshFlag = new bool[RefreshCount];
+
+        for (int i = 0; i < RefreshCount; i++)
+        {
+            RefreshDistance[i] = Destination_Distance * (i + 1) / divisions;
+            refreshFlag[i] = false;
+        }
+    }
+
     public void RefreshReward()
     {
         int rewardNum = Random.Range(0, 4);
@@ -1307,25 +1332,33 @@ public class GameDirector : MonoBehaviour
         //1번 플레이어 체력
         //2번 기차 체력
         //3번 종합세트
-        int rewardPersent = Random.Range(1, 16);
-
-        switch (rewardNum)
+        int rewardPersent = 0;
+        if (rewardNum != 3)
         {
-            case 0:
-                Item_Fuel_Charge(rewardPersent);
-                break;
-            case 1:
-                player.Item_Player_Heal_HP(rewardPersent);
-                break;
-            case 2:
-                Item_Use_Train_Heal_HP(rewardPersent);
-                break;
-            case 3:
-                Item_Fuel_Charge(rewardPersent);
-                player.Item_Player_Heal_HP(rewardPersent);
-                Item_Use_Train_Heal_HP(rewardPersent);
-                break;
+            rewardPersent = Random.Range(5, 21);
         }
+        else
+        {
+            rewardPersent = Random.Range(1, 16);
+        }
+
+            switch (rewardNum)
+            {
+                case 0:
+                    Item_Fuel_Charge(rewardPersent);
+                    break;
+                case 1:
+                    player.Item_Player_Heal_HP(rewardPersent);
+                    break;
+                case 2:
+                    Item_Use_Train_Heal_HP(rewardPersent);
+                    break;
+                case 3:
+                    Item_Fuel_Charge(rewardPersent);
+                    player.Item_Player_Heal_HP(rewardPersent);
+                    Item_Use_Train_Heal_HP(rewardPersent);
+                    break;
+            }
         uiDirector.ItemInformation_On(null, true, rewardNum, rewardPersent);
         getSupply = true;
     }
