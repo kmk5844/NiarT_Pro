@@ -49,6 +49,10 @@ public class MissionDataObject : ScriptableObject
     public bool NextStageFlag { get { return nextstageflag; } }
 
     [SerializeField]
+    private int wavecount;
+    public int Wave_Count { get { return wavecount; } }
+
+    [SerializeField]
     private string substage_status;
     public string SubStage_Status { get { return substage_status; } }
 
@@ -72,7 +76,7 @@ public class MissionDataObject : ScriptableObject
         int _mission_num,
         int _stage_num, int _substage_num, SubStageType _substage_type,
         int _distance, string _emerging_monster, string _monster_count,
-        string _open_substagenum, string _substage_status, bool _stagestartflag, bool _nextstageflag)
+        string _open_substagenum, string _substage_status, bool _stagestartflag, bool _nextstageflag, int _wavecount)
     {
         mission_num = _mission_num;
         stage_num = _stage_num;
@@ -85,6 +89,7 @@ public class MissionDataObject : ScriptableObject
         substage_status = _substage_status;
         startstageflag = _stagestartflag;
         nextstageflag = _nextstageflag;
+        wavecount = _wavecount;
         CheckReadyFlag();
         if (_stagestartflag)
         {

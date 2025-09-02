@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Localization.Components;
 using UnityEngine.Localization;
+using UnityEditor.Search;
 
 public class UIDirector : MonoBehaviour
 {
@@ -37,6 +38,9 @@ public class UIDirector : MonoBehaviour
     public TextMeshProUGUI Coin_Text;
     public Slider Speed_Arrow;
     public GameObject WarningObject;
+
+    [Header("Game UI - Wave")]
+    public GameObject WaveLine;
 
     [Header("Clear UI")]
     public GameObject Clear_UI;
@@ -139,7 +143,7 @@ public class UIDirector : MonoBehaviour
         }
 
         Equiped_Skill_Image = new Image[Equiped_Item_List.childCount];
-        for(int i = 0; i < Equiped_Skill_List.childCount; i++)
+        for (int i = 0; i < Equiped_Skill_List.childCount; i++)
         {
             Equiped_Skill_Image[i] = Equiped_Skill_List.GetChild(i).GetComponent<Image>();
         }
@@ -154,7 +158,7 @@ public class UIDirector : MonoBehaviour
         ItemName_Text.StringReference.TableReference = "ItemData_Table_St";
         ItemInformation_Text.StringReference.TableReference = "ItemData_Table_St";
 
-        LoseFlag = false;   
+        LoseFlag = false;
         OptionFlag = false;
         missionInformationFlag = true;
         Click_MissionInformation();
@@ -229,8 +233,8 @@ public class UIDirector : MonoBehaviour
             }
             else
             {
-                Result_Text_List[2].text = mission.MissionReward/2 + "G";
-                Result_Text_List[3].text = "+" + (Coin + (mission.MissionReward/2)) + "G";
+                Result_Text_List[2].text = mission.MissionReward / 2 + "G";
+                Result_Text_List[3].text = "+" + (Coin + (mission.MissionReward / 2)) + "G";
             }
 
             missionTitle.StringReference.TableReference = "MissionList_St";
@@ -360,7 +364,7 @@ public class UIDirector : MonoBehaviour
     public void Item_EquipedIcon(int equiped_num, Sprite img, int Count)
     {
         Equiped_Item_Image[equiped_num].sprite = img;
-        if(Count != 0)
+        if (Count != 0)
         {
             Equiped_Item_Count[equiped_num].text = Count.ToString();
         }
@@ -386,7 +390,7 @@ public class UIDirector : MonoBehaviour
             ItemInformation_Text.StringReference.Arguments = new object[] { SupplyPersent };
             ItemInformation_Text.RefreshString();
         }
-        
+
         //ItemName_Text.text = itemName;
         //ItemInformation_Text.text = itemInformation;
         if (!ItemInformation_Object_Flag)
@@ -431,13 +435,13 @@ public class UIDirector : MonoBehaviour
         float elapsedTime = 0f;
 
         ItemInformation_Object_Flag = false;
-        while(elapsedTime < duration)
+        while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;
             float t = Mathf.Clamp01(elapsedTime / duration);
             float newX = Mathf.Lerp(startX, targetX, t);
             ItemInformation.anchoredPosition = new Vector2(newX, ItemInformation.anchoredPosition.y);
-            if(ItemInformation_Object_Flag)
+            if (ItemInformation_Object_Flag)
             {
                 StartCoroutine(ItemInformation_Object_On());
                 break;
@@ -660,8 +664,8 @@ public class UIDirector : MonoBehaviour
         }
 
         yield return new WaitForSeconds(3f);
-        
-        if(num == 0)
+
+        if (num == 0)
         {
             StartCoroutine(gamedirector.Item_Double_Coin(5));
         }
@@ -681,5 +685,21 @@ public class UIDirector : MonoBehaviour
         gamedirector.Item_Dice_Reward(num);
 
         DiceWindow.SetActive(false);
+    }
+
+    public void SetWave(int count)
+    {
+        WaveCount = count;
+        float[] wavecount = new float[WaveCount];
+
+        int divisions = WaveCount + 1;
+
+        for (int i = 0; i < WaveCount; i++)
+        {
+            wavecount[i] = 243f * (i + 1) / divisions;
+            Transform trans = WaveLine.transform.GetChild(i);
+            trans.gameObject.SetActive(true);
+            trans.GetComponent<RectTransform>().anchoredPosition = new Vector3(wavecount[i], 4, 0);
+        }
     }
 }

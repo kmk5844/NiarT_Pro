@@ -33,6 +33,7 @@ public class SubStage_Select : MonoBehaviour
     MissionDataObject missionData;
     [SerializeField]
     SubStageSelectDirector subStageSelectDirector;
+    bool testflag = false;
 
     bool startFlag = false;
     public Sprite[] temporarilySprite;
@@ -53,7 +54,8 @@ public class SubStage_Select : MonoBehaviour
         catch
         {
             missionData = GetComponentInParent<testSubStageScript>().FindMissionData(MissionNum, StageNum, SubStageNum);
-            Debug.Log("TEst");
+            testflag = true;
+            Debug.Log("Test");
         }
 
 
@@ -154,7 +156,7 @@ public class SubStage_Select : MonoBehaviour
     }
     private void OnEnable()
     {
-        if (startFlag)
+        if (startFlag && !testflag)
         {
             if (subStageSelectDirector.selectNum == SubStageNum)
             {

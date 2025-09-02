@@ -408,7 +408,8 @@ public class Auto_ScritableObject : EditorWindow
                 Q_Des.Open_SubStageNum,
                 Q_Des.SubStage_Status,
                 Q_Des.StartStageFlag,
-                Q_Des.NextStageFlag
+                Q_Des.NextStageFlag,
+                Q_Des.Wave_Count
                 );
 
             string guide1 = "Assets/_Scriptable/SA_Mission/Mission_Object/0_Destination/Stage" + Q_Des.Stage_Num;
@@ -436,7 +437,8 @@ public class Auto_ScritableObject : EditorWindow
                 Q_Mat.Open_SubStageNum,
                 Q_Mat.SubStage_Status,
                 Q_Mat.StartStageFlag,
-                Q_Mat.NextStageFlag
+                Q_Mat.NextStageFlag,
+                Q_Mat.Wave_Count
                 );
 
             string guide1 = "Assets/_Scriptable/SA_Mission/Mission_Object/1_Material/Stage" + Q_Mat.Stage_Num;
@@ -466,7 +468,8 @@ public class Auto_ScritableObject : EditorWindow
                 Q_Mon.Open_SubStageNum,
                 Q_Mon.SubStage_Status,
                 Q_Mon.StartStageFlag,
-                Q_Mon.NextStageFlag
+                Q_Mon.NextStageFlag,
+                Q_Mon.Wave_Count
                 );
 
             string guide1 = "Assets/_Scriptable/SA_Mission/Mission_Object/2_Monster/Stage" + Q_Mon.Stage_Num;
@@ -495,7 +498,8 @@ public class Auto_ScritableObject : EditorWindow
                 Q_Esc.Open_SubStageNum,
                 Q_Esc.SubStage_Status,
                 Q_Esc.StartStageFlag,
-                Q_Esc.NextStageFlag
+                Q_Esc.NextStageFlag,
+                Q_Esc.Wave_Count
                 );
 
             string guide1 = "Assets/_Scriptable/SA_Mission/Mission_Object/3_Escort/Stage" + Q_Esc.Stage_Num;
@@ -524,7 +528,8 @@ public class Auto_ScritableObject : EditorWindow
                 Q_Con.Open_SubStageNum,
                 Q_Con.SubStage_Status,
                 Q_Con.StartStageFlag,
-                Q_Con.NextStageFlag
+                Q_Con.NextStageFlag,
+                Q_Con.Wave_Count
                 );
 
             string guide1 = "Assets/_Scriptable/SA_Mission/Mission_Object/4_Convoy/Stage" + Q_Con.Stage_Num;
@@ -553,7 +558,8 @@ public class Auto_ScritableObject : EditorWindow
                 Q_Bos.Open_SubStageNum,
                 Q_Bos.SubStage_Status,
                 Q_Bos.StartStageFlag,
-                Q_Bos.NextStageFlag
+                Q_Bos.NextStageFlag,
+                Q_Bos.Wave_Count
                 );
 
             string guide1 = "Assets/_Scriptable/SA_Mission/Mission_Object/5_Boss/Stage" + Q_Bos.Stage_Num;

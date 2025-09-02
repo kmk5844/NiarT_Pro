@@ -233,11 +233,11 @@ public class GameDirector : MonoBehaviour
         }
         Before_Sub_Num = SA_PlayerData.Before_Sub_Stage;
         Select_Sub_Num = SA_PlayerData.Select_Sub_Stage;
-/*
-        Mission_Num = 0;
-        Stage_Num = 11;
-        Select_Sub_Num = 0;
-*/
+
+/*        Mission_Num = 0;
+        Stage_Num = 10;
+        Select_Sub_Num = 4;*/
+
         //TrainDistance = 70000;
 
         SubStageData = SA_MissionData.missionStage(Mission_Num, Stage_Num, Select_Sub_Num);
@@ -295,7 +295,7 @@ public class GameDirector : MonoBehaviour
                 RefreshPersent = 50;
                 RefreshDistance = (int)(Destination_Distance * (RefreshPersent / 100));*/
 
-        RefreshCount = 3;
+        RefreshCount = SubStageData.Wave_Count;
         CalculateRefreshPoints();
 
         newPoint = new Vector2[4];
@@ -1323,6 +1323,7 @@ public class GameDirector : MonoBehaviour
             RefreshDistance[i] = Destination_Distance * (i + 1) / divisions;
             refreshFlag[i] = false;
         }
+        uiDirector.SetWave(RefreshCount);
     }
 
     public void RefreshReward()

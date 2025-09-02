@@ -14,5 +14,6 @@ public class Info_Q_Information
     public string Open_SubStageNum;
     public bool StartStageFlag;
     public bool NextStageFlag;
+    public int Wave_Count;
     public string SubStage_Status;
 }
