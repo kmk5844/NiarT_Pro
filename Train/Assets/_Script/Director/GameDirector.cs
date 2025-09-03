@@ -210,6 +210,10 @@ public class GameDirector : MonoBehaviour
     public bool refreshinfoFlag;
     public bool SkillLockFlag;
 
+    //-----이펙트----
+    [HideInInspector]
+    public bool MarryGold_Skill_Q_Flag = false;
+
     void Awake()
     {
         gameType = GameType.Starting;
@@ -1606,6 +1610,13 @@ public class GameDirector : MonoBehaviour
         MaxSpeed += Add_Speed;
         yield return new WaitForSeconds(During);
         MaxSpeed -= Add_Speed;
+    }
+
+    public IEnumerator Train_MarryGold_SkillEffect(float During)
+    {
+        MarryGold_Skill_Q_Flag = true;
+        yield return new WaitForSeconds(During);
+        MarryGold_Skill_Q_Flag = false;
     }
 
     public void GameEnd_SavePlayerData(bool flag)//false: 마지막 스테이지 X / true: 마지막 스테이지 O

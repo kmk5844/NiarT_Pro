@@ -104,6 +104,7 @@ public class SkillDirector : MonoBehaviour
         {
             StartCoroutine(gameDirector.Train_MasSpeedChange(200, skill_during[num]));
             StartCoroutine(gameDirector.Item_Train_SpeedUp(skill_during[num], 1.5f));
+            StartCoroutine(gameDirector.Train_MarryGold_SkillEffect(skill_during[num]));
         }else if (num == 1)
         {
             StartCoroutine(player.MariGold_Skill2(skill_during[num]));
