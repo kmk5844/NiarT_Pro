@@ -41,6 +41,9 @@ public class PlayerReadyDirector : MonoBehaviour
     bool trainFlag;
     bool mercenaryFlag;
     bool itemFlag;
+    public GameObject [] trainCheckObject;
+    public GameObject [] mercenaryCheckObject;
+    public GameObject [] itemCheckObject;
 
     public GameObject HelpWindow;
     bool helpFlag;
@@ -57,7 +60,6 @@ public class PlayerReadyDirector : MonoBehaviour
     int Select_TrainNum_1;
     int Select_TrainNum_2;
     int Sub_TrainNum_Turret;
-    int Sub_TrainNum_Booster;
 
     public TMP_Dropdown TrainList_DropDown;
     public GameObject[] List_Trian_Type;
@@ -152,9 +154,11 @@ public class PlayerReadyDirector : MonoBehaviour
         UI_Window[1].SetActive(false);
         UI_Window[2].SetActive(false);
 
+        CheckInit();
         trainFlag = true;
         mercenaryFlag = false;
         itemFlag = false;
+        CheckSpritneEnable();
         StartButton.interactable = false;
         StartWarnningText.StringReference.TableReference = "MissionSelect_Table_St";
 
@@ -345,8 +349,8 @@ public class PlayerReadyDirector : MonoBehaviour
         buy.director = this;
         int _TrainNum = sa_trainData.SA_TrainChangeNum(10);
         buy.TrainNum_1 = _TrainNum; //-> 수정
-        Instantiate(buy, Buy_TrainList[0]);
-        Instantiate(buy, Buy_TrainList[1]);
+        Ready_Buy_TrainObject Btn_0 = Instantiate(buy, Buy_TrainList[0]);
+        Ready_Buy_TrainObject Btn_1 = Instantiate(buy, Buy_TrainList[1]);
         AllCount++;
         CommonCount++;
 
@@ -355,8 +359,8 @@ public class PlayerReadyDirector : MonoBehaviour
         {
             _TrainNum = sa_trainData.SA_TrainChangeNum(sa_trainData.Train_Buy_Num[i]);
             buy.TrainNum_1 = _TrainNum;
-            Instantiate(buy, Buy_TrainList[0]);
-            Instantiate(buy, Buy_TrainList[1]);
+            Btn_0 = Instantiate(buy, Buy_TrainList[0]);
+            Btn_1 = Instantiate(buy, Buy_TrainList[1]);
             AllCount++;
             CommonCount++;
         }
@@ -460,18 +464,25 @@ public class PlayerReadyDirector : MonoBehaviour
         Select_TrainNum_1 = TrainNum_1;
         Select_TrainNum_2 = TrainNum_2;
 
-/*        if(TrainNum_1 == 52)
+
+        if (TrainNum_1 >= 10 && TrainNum_1 < 20 || TrainNum_1 == 91 || TrainNum_1 == 92)
         {
-            if (sa_trainData.Train_Num.Contains(52))
+            Change_ListSlelectFlag(true);
+        }
+        else
+        {
+            if (sa_trainData.Train_Num.Contains(TrainNum_1))
             {
-                Change_ListSlelectFlag(true, 52);// 부스터 기차가 포함되어있는 경우.
+                Change_ListSlelectFlag(true, TrainNum_1);
             }
             else
             {
-                Change_ListSlelectFlag(true); // 부스터 기차가 포함되어있지 않을 경우.
+                Change_ListSlelectFlag(true);
             }
         }
-        else*/ if(TrainNum_1 >= 40 && TrainNum_1 < 50) // 
+
+/*
+        if (TrainNum_1 >= 40 && TrainNum_1 < 50) // 
         {
             if (sa_trainData.Train_Num.Contains(TrainNum_1))
             {
@@ -481,7 +492,8 @@ public class PlayerReadyDirector : MonoBehaviour
             {
                 Change_ListSlelectFlag(true); // 연락 기차가 포함되어있지 않을 경우.
             }
-        }else if(TrainNum_1 >= 50 && TrainNum_1 < 60)
+        }
+        else if (TrainNum_1 >= 50 && TrainNum_1 < 60)
         {
             if (sa_trainData.Train_Num.Contains(TrainNum_1))
             {
@@ -495,7 +507,7 @@ public class PlayerReadyDirector : MonoBehaviour
         else // 기본
         {
             Change_ListSlelectFlag(true);
-        }
+        }*/
     }
 
     void Change_TrainData(int index)
@@ -559,7 +571,6 @@ public class PlayerReadyDirector : MonoBehaviour
     void Check_Index(int index)
     {
         Sub_TrainNum_Turret = 0;
-        Sub_TrainNum_Booster = 0;
         for (int i = 0; i < index; i++) {
             if (sa_trainData.Train_Num[i] == 91)
             {
@@ -1004,6 +1015,8 @@ public class PlayerReadyDirector : MonoBehaviour
             itemFlag = true;
         }
 
+        CheckSpritneEnable();
+
         if (trainFlag && mercenaryFlag && itemFlag)
         {
             StartButton.interactable = true;
@@ -1014,13 +1027,56 @@ public class PlayerReadyDirector : MonoBehaviour
         }
     }
 
+    void CheckInit()
+    {
+        foreach (GameObject check in trainCheckObject)
+        {
+            check.SetActive(false);
+        }
+        foreach (GameObject check in mercenaryCheckObject)
+        {
+            check.SetActive(false);
+        }
+        foreach (GameObject check in itemCheckObject)
+        {
+            check.SetActive(false);
+        }
+    }
+
+    void CheckSpritneEnable()
+    {
+        if(trainFlag)
+        {
+            foreach(GameObject check in trainCheckObject)
+            {
+                check.SetActive(true);
+            }
+        }
+
+        if (mercenaryFlag)
+        {
+            foreach (GameObject check in mercenaryCheckObject)
+            {
+                check.SetActive(true);
+            }
+        }
+
+        if (itemFlag)
+        {
+            foreach (GameObject check in itemCheckObject)
+            {
+                check.SetActive(true);
+            }
+        }
+    }
+
     public void ItemTab_StartButton()
     {
-
-        //연료체크
+        //기차체크
         bool hasMinusOne = trainData.Train_Num.Contains(-1);
         bool has10To19 = false;
 
+        //트레인 데이터 순회하면서 하나씩 체크
         for (int i = 0; i < trainData.Train_Num.Count; i++)
         {
             if (trainData.Train_Num[i] / 10 == 1 || trainData.Train_Num[i] == 10)

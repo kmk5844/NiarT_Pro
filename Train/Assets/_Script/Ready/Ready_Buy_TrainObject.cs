@@ -15,8 +15,30 @@ public class Ready_Buy_TrainObject : MonoBehaviour
     public Image TrainImage;
     public Button Btn;
 
+    public GameObject SpecialObject;
+
     private void Start()
     {
+        if(TrainNum_1 != 91)
+        {
+            gameObject.name = TrainNum_1.ToString();
+            Btn.gameObject.name = TrainNum_1 + "_Btn";
+        }
+        else
+        {
+            gameObject.name = TrainNum_1 + "_" + TrainNum_2;
+            Btn.gameObject.name = TrainNum_1 + "_" + TrainNum_2 + "_Btn";
+        }
+
+        if (TrainNum_1 >= 10 && TrainNum_1 < 20 || TrainNum_1 == 92 || TrainNum_1 == 91)
+        {
+            SpecialObject.SetActive(true);
+        }
+        else
+        {
+            SpecialObject.SetActive(false);
+        }
+
         Name_Text.StringReference.TableReference = "ExcelData_Table_St";
         if (TrainNum_1 == 91 /*|| TrainNum_1 == 52*/)
         {
@@ -44,4 +66,6 @@ public class Ready_Buy_TrainObject : MonoBehaviour
         }
         Btn.onClick.AddListener(()=>director.Click_Select_Train(TrainNum_1, TrainNum_2));
     }
+
+
 }

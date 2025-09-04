@@ -62,7 +62,7 @@ public class Item_Dagger : Bullet
                 {
                     GameObject DangerPre = Instantiate(Dagger, new Vector2(transform.position.x, transform.position.y), Quaternion.Euler(0, 0, (72 * i)));
                     DangerPre.GetComponent<Item_Dagger>().Set(0, subAtk);
-                    DangerPre.transform.localScale = Vector3.one;
+                    DangerPre.transform.localScale = new Vector3(2,2,2);
                 }
                 Destroy(this.gameObject);
                 changflag = true;

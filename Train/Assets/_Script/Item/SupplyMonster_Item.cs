@@ -96,24 +96,24 @@ public class SupplyMonster_Item : MonoBehaviour
         int num = 0;
         num = Random.Range(0, 101);
 
-        Debug.Log(num);
+        //Debug.Log(num);
 
-        if (num >= 0 && num < 70) //70%
+        if (num >= 0 && num < 50) //50%
         {
             Item = common_supplylist[Random.Range(0, common_supplylist.Count)];
             mat.SetColor("_SolidOutline", Color.gray);
         }
-        else if (num >= 70 && num < 85) //15%
+        else if (num >= 50 && num < 80) //30%
         {
             Item = rare_supplylist[Random.Range(0, rare_supplylist.Count)];
             mat.SetColor("_SolidOutline", Color.blue);
         }
-        else if (num >= 85 && num < 95) //10%
+        else if (num >= 80 && num < 90) //10%
         {
             Item = unique_supplylist[Random.Range(0, unique_supplylist.Count)];
             mat.SetColor("_SolidOutline", new Color(166, 0, 255));
         }
-        else if (num >= 95 && num < 99) //3%
+        else if (num >= 90 && num < 97) //7%
         {
             if(!Player.Item_GunFlag)
             {
@@ -125,7 +125,7 @@ public class SupplyMonster_Item : MonoBehaviour
             }
             mat.SetColor("_SolidOutline", Color.yellow);
         }
-        else if (num >= 99 && num < 101)//1%
+        else if (num >= 97 && num < 101)//3%
         {
             Item = legendary_supplylist[Random.Range(0, legendary_supplylist.Count)];
             mat.SetColor("_SolidOutline", new Color(161, 251, 232));

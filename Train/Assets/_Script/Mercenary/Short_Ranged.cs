@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +15,9 @@ public class Short_Ranged : Mercenary
     bool attackFlag;
     public bool lockFlag;
 
+    public Transform moveTarget;
     public Transform Target;
+    public ParticleSystem Hit_Effect;
 
     protected override void Awake()
     {
@@ -38,6 +41,9 @@ public class Short_Ranged : Mercenary
     protected override void Update()
     {
         base.Update();
+
+
+
 
         if (Target != null && Target.gameObject != null && Target.gameObject.activeInHierarchy)
         {
@@ -80,11 +86,36 @@ public class Short_Ranged : Mercenary
 
     private void FixedUpdate()
     {
+        Vector2 Origin = new Vector2(transform.position.x, transform.position.y + 0.5f);
+
+        Vector2 RayRight = Vector2.right;
+        Vector2 RayLeft = Vector2.left;
+        float maxDistance = 7;
+
+        RaycastHit2D hitRight = Physics2D.Raycast(Origin, RayRight, maxDistance, LayerMask.GetMask("Monster"));
+        RaycastHit2D hitLeft = Physics2D.Raycast(Origin, RayLeft, maxDistance, LayerMask.GetMask("Monster"));
+        Debug.DrawRay(Origin, RayRight * maxDistance, Color.red);
+        Debug.DrawRay(Origin, RayLeft * maxDistance, Color.red);
+
         if (Mer_GameType == GameType.Playing || Mer_GameType == GameType.Boss || Mer_GameType == GameType.Refreshing)
         {
             if (act == Active.move)
             {
-                base.Combatant_Move();
+                if (hitRight.collider != null)
+                {
+                    Move_X = 1f;
+                    base.non_combatant_Flip();
+                    base.non_combatant_Move();
+                }else if(hitLeft.collider != null)
+                {
+                    Move_X = -1f;
+                    base.non_combatant_Flip();
+                    base.non_combatant_Move();
+                }
+                else
+                {
+                    base.Combatant_Move();
+                }
             }
 
             if (act == Active.work && Target != null)
@@ -158,6 +189,7 @@ public class Short_Ranged : Mercenary
 
     IEnumerator Attack()
     {
+        Hit_Effect.Play();
         attackFlag = true;
         yield return new WaitForSeconds(0.5f);
         Attack_Collider.enabled = true;

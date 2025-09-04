@@ -56,7 +56,14 @@ public class Ready_Using_TrainList_Object : MonoBehaviour
             {
                 TrainImage.sprite = Resources.Load<Sprite>("Sprite/Train/Train_" + TrainNum_1);
                 Level_Text.text = "Lv." + ((TrainNum_1 % 10) + 1);
-                Name_Text.StringReference.TableEntryReference = "Train_Name_" + (TrainNum_1 / 10);
+                if (TrainNum_1 < 90)
+                {
+                    Name_Text.StringReference.TableEntryReference = "Train_Name_" + (TrainNum_1 / 10);
+                }
+                else
+                {
+                    Name_Text.StringReference.TableEntryReference = "Train_Name_" + TrainNum_1;
+                }
             }
             Add_Object.SetActive(false);
         }
