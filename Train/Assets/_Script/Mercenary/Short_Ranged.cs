@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Short_Ranged : Mercenary
 {
+
     public int unit_Attack;
     public float unit_Attack_Delay;
     Short_Ranged_KillZone attackZone;

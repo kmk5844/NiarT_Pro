@@ -111,7 +111,7 @@ public class SupplyMonster_Item : MonoBehaviour
         else if (num >= 80 && num < 90) //10%
         {
             Item = unique_supplylist[Random.Range(0, unique_supplylist.Count)];
-            mat.SetColor("_SolidOutline", new Color(166, 0, 255));
+            mat.SetColor("_SolidOutline", new Color(166f/255f, 0, 255f/255f));
         }
         else if (num >= 90 && num < 97) //7%
         {
@@ -128,7 +128,7 @@ public class SupplyMonster_Item : MonoBehaviour
         else if (num >= 97 && num < 101)//3%
         {
             Item = legendary_supplylist[Random.Range(0, legendary_supplylist.Count)];
-            mat.SetColor("_SolidOutline", new Color(161, 251, 232));
+            mat.SetColor("_SolidOutline", new Color(161f/255f, 251f/255f, 232f/255f));
         }
     }
 

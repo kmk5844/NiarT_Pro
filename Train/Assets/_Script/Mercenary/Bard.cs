@@ -15,6 +15,7 @@ public class Bard : Mercenary
     Player player;
 
     bool buffFlag;
+    public ParticleSystem effect;
     protected override void Awake()
     {
         base.Awake();
@@ -52,6 +53,7 @@ public class Bard : Mercenary
             if(act == Active.die && isDying)
             {
                 Bard_Die_Buff();
+                effect.Stop();
                 isDying = false;
             }
         }

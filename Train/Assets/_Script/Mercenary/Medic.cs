@@ -13,6 +13,7 @@ public class Medic : Mercenary
 
     bool isHeal_HP;
 
+    public ParticleSystem HealEffect;
 
     protected override void Awake()
     {
@@ -107,6 +108,7 @@ public class Medic : Mercenary
     IEnumerator Heal_HP()
     {
         isHeal_HP = true;
+        HealEffect.Play();
         unit.GetComponent<Mercenary_Type>().Heal_HP(Heal_HpAmount);
         yield return new WaitForSeconds(2f);
         isHeal_HP = false;

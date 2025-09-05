@@ -11,6 +11,8 @@ public class Engine_Driver : Mercenary
     int Level_Fuel;
     int Level_Def;
 
+    public ParticleSystem effect;
+
     protected override void Awake()
     {
         base.Awake();
@@ -44,6 +46,7 @@ public class Engine_Driver : Mercenary
             if(act == Active.die && isDying)
             {
                 EngineDriver_Die_Buff();
+                effect.Stop();
                 isDying = false;
             }
         }else if(Mer_GameType == GameType.Ending)

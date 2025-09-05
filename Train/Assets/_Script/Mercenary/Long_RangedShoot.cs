@@ -14,6 +14,8 @@ public class Long_RangedShoot : MonoBehaviour
     float lastTime;
 
     Long_Ranged unit;
+    public ParticleSystem FireEffect;
+
 
     void Start()
     {
@@ -91,6 +93,7 @@ public class Long_RangedShoot : MonoBehaviour
         if(Time.time >= lastTime + unit_Attack_Delay)
         {
             BulletObj.GetComponent<Bullet>().atk = unit_Attack;
+            FireEffect.Play();
             Instantiate(BulletObj, transform.position, transform.rotation, Bullet_List);
             lastTime = Time.time;
         }

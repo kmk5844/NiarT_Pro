@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Engineer : Mercenary
 {
@@ -18,7 +19,8 @@ public class Engineer : Mercenary
     private int move_work_Speed;
     [SerializeField]
     private int repaireTrain_parsent;
-    Vector2 Player_X_Position;
+
+    public ParticleSystem repair_Effect;
 
     bool TrainSpawnFlag;
 
@@ -149,6 +151,7 @@ public class Engineer : Mercenary
     {
         isRepairing = true;
         train.Train_HP += Heal;
+        repair_Effect.Play();
         yield return new WaitForSeconds(0.5f);
         isRepairing = false;
     }

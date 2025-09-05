@@ -101,14 +101,9 @@ public class UI_Train_Guage : MonoBehaviour
     void Update()
     {
         HP_Guage.fillAmount = Train_Data.HP_Parsent / 100f;
-        if (Train_Data.HP_Parsent < 30f)
+        if (!Train_Data.isCooltimeCheckFlag)
         {
-            timer += Time.deltaTime;
-            if (timer >= 0.3f)
-            {
-                ON_Object.SetActive(!ON_Object.activeSelf);
-                timer = 0f;
-            }
+            ON_Object.SetActive(true);
         }
         else
         {

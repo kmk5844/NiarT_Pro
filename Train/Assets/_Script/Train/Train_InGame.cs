@@ -76,7 +76,8 @@ public class Train_InGame : MonoBehaviour
     int EngineerCallHpCheck;
     int cooltime;
     bool isEngineerCallFlag;
-    bool isCooltimeCheckFlag;
+    [HideInInspector]
+    public  bool isCooltimeCheckFlag;
 
     private void Awake()
     {

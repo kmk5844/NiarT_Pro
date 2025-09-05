@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,9 +15,12 @@ public class Item_Dagger : Bullet
     bool changflag;
     int RandomPos_Y;
 
+    public AudioClip Dagger_SFX;
+
     protected override void Start()
     {
         base.Start();
+        MMSoundManagerSoundPlayEvent.Trigger(Dagger_SFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position, loop: false);
         fall = false;
         changflag = false;
         rid.velocity = Quaternion.Euler(0f, 0f, transform.rotation.eulerAngles.z) * Vector2.right * Speed;
