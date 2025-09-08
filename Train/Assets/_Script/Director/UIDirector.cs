@@ -6,7 +6,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Localization.Components;
 using UnityEngine.Localization;
-using UnityEditor.Search;
 
 public class UIDirector : MonoBehaviour
 {

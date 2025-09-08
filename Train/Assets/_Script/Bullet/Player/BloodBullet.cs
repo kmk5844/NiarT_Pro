@@ -33,7 +33,7 @@ public class BloodBullet : Bullet
         if (collision.gameObject.CompareTag("Monster"))
         {
             collision.gameObject.GetComponent<Monster>().Damage_Monster_BombAndDron(atk);
-            player.Item_Player_Heal_HP(0.5f);
+            player.Item_Player_Heal_HP(1f);
             Destroy(gameObject);
         }
     }

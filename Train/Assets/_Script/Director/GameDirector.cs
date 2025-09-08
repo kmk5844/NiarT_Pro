@@ -760,6 +760,13 @@ public class GameDirector : MonoBehaviour
                 }
             }
         }
+        else if (gameType == GameType.GameEnd)
+        {
+            if(Time.timeScale != 0f)
+            {
+                Time.timeScale = 0;
+            }
+        }
         else
         {
             ChangeCursor(false);

@@ -18,6 +18,7 @@ public class TurretFactory_Train : MonoBehaviour
 
         SpawnTime = float.Parse(trainData.trainData_Special_String[0]);
         TurretCount = int.Parse(trainData.trainData_Special_String[1]);
+
     }
 
     void Update()
@@ -50,7 +51,7 @@ public class TurretFactory_Train : MonoBehaviour
 
     void SpawnTurret(int num)
     {
-        float pos = Random.Range(MonsterDirector.MinPos_Ground.x + 3.5f, MonsterDirector.MinPos_Ground.x - 3.5f);
+        float pos = Random.Range(MonsterDirector.MinPos_Ground.x + 3.5f, MonsterDirector.MaxPos_Ground.x - 3.5f);
         GameObject ItemTurret = null;
         float delayTime = Random.Range(5f, 10f);
         int atk = 0;
@@ -83,24 +84,32 @@ public class TurretFactory_Train : MonoBehaviour
                 ItemTurret = Resources.Load<GameObject>("ItemObject/Mini_Missile_Turret");
                 break;
             case 5:
-                atk = Random.Range(10, 25);
-                atkDelay = 0;
-                ItemTurret = Resources.Load<GameObject>("ItemObject/Mini_Laser_Turret");
+                atk = Random.Range(40, 61);
+                atkDelay = Random.Range(1f, 3f);
+                ItemTurret = Resources.Load<GameObject>("ItemObject/Mini_Missile_Turret2");
                 break;
             case 6:
                 atk = Random.Range(10, 25);
-                atkDelay = 0;
+                atkDelay = Random.Range(0, 3);
                 ItemTurret = Resources.Load<GameObject>("ItemObject/Mini_Laser_Turret");
                 break;
+            case 7:
+                atk = Random.Range(10, 25);
+                atkDelay = 0;
+                ItemTurret = Resources.Load<GameObject>("ItemObject/Mini_Laser_Turret_2");
+                break;
         }
+
+        Debug.Log(ItemTurret);
         ItemTurret.GetComponent<Item_Mini_Turret_Director>().Set(num, delayTime, atk, atkDelay);
-        if (num != 6)
+
+        if (num != 7)
         {
             Instantiate(ItemTurret, new Vector2(pos, -0.55f), Quaternion.identity);
         }
         else
         {
-            Instantiate(ItemTurret, new Vector2(MonsterDirector.MinPos_Ground.x + 3f, -0.55f), Quaternion.identity);
+            Instantiate(ItemTurret, new Vector2(MonsterDirector.MinPos_Ground.x + 3.5f, -0.9f), Quaternion.identity);
         }
     }
 }

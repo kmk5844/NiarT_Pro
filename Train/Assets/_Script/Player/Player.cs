@@ -1205,16 +1205,16 @@ public class Player : MonoBehaviour
                     Item_Player_Spawn_Turret(4, 10, 50, 3f);
                     break;
                 case 6:
-                    Item_Player_Spawn_Turret(4, 10, 60, 2f);
+                    Item_Player_Spawn_Turret(4, 10, 60, 2.5f);
                     break;
                 case 7:
-                    Item_Player_Spawn_Turret(5, 0, 20, 0);
+                    Item_Player_Spawn_Turret(5, 10, 60, 2f);
                     break;
                 case 8:
-                    Item_Player_Spawn_Turret(5, 0, 20, 1);
+                    Item_Player_Spawn_Turret(5, 10, 70, 1.5f);
                     break;
                 case 9:
-                    Item_Player_Spawn_Turret(6, 0, 20, 5);
+                    Item_Player_Spawn_Turret(6, 10, 20, 5);
                     break;
             }
         }

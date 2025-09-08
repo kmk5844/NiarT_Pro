@@ -14,7 +14,6 @@ public class EffectDirector : MonoBehaviour
     {
         windlist[0].Stop();
         windlist[1].Stop();
-        windlist[2].Stop();
     }
 
     // Update is called once per frame
@@ -29,20 +28,15 @@ public class EffectDirector : MonoBehaviour
         float trainSpeed = gameDirector.TrainSpeed;
         // 이전에 재생 중이던 파티클 시스템이 무엇인지 추적하는 변수입니다.
         ParticleSystem nextWindEffect;
-        if (trainSpeed < 3)
+        if (trainSpeed < 50)
         {
             // 다음으로 재생할 파티클 시스템이 없으므로 null로 설정합니다.
             nextWindEffect = null;
         }
-        else if (trainSpeed < 50)
-        {
-            // 속도가 50 미만일 경우 windlist[0]을 다음 재생 대상으로 설정합니다.
-            nextWindEffect = windlist[0];
-        }
         else // trainSpeed >= 50
         {
             // 속도가 50 이상일 경우 windlist[1]을 다음 재생 대상으로 설정합니다.
-            nextWindEffect = windlist[1];
+            nextWindEffect = windlist[0];
         }
 
         // '현재 재생 중인 파티클 시스템'과 '다음으로 재생할 시스템'이 다를 경우에만
@@ -70,15 +64,7 @@ public class EffectDirector : MonoBehaviour
         {
             var mainModule = nextWindEffect.main;
             float normalizedSpeed = Mathf.Clamp01(trainSpeed / gameDirector.MaxSpeed);
-
-            if (trainSpeed < 50)
-            {
-                mainModule.simulationSpeed = Mathf.Lerp(2f, 3f, normalizedSpeed);
-            }
-            else
-            {
-                mainModule.simulationSpeed = Mathf.Lerp(1f, 4f, normalizedSpeed);
-            }
+            mainModule.simulationSpeed = Mathf.Lerp(1f, 4f, normalizedSpeed);
         }
     }
 
@@ -92,8 +78,8 @@ public class EffectDirector : MonoBehaviour
             // 켜져 있어야 하는 상태
             if (currentExtraWindEffect == null)
             {
-                windlist[2].Play();
-                currentExtraWindEffect = windlist[2];
+                windlist[1].Play();
+                currentExtraWindEffect = windlist[1];
             }
         }
         else
@@ -101,7 +87,7 @@ public class EffectDirector : MonoBehaviour
             // 꺼져 있어야 하는 상태
             if (currentExtraWindEffect != null)
             {
-                windlist[2].Stop();
+                windlist[1].Stop();
                 currentExtraWindEffect = null;
             }
         }

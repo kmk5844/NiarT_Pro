@@ -74,8 +74,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1392214971
-  m_SortingLayer: 4
-  m_SortingOrder: 0
+  m_SortingLayer: 3
+  m_SortingOrder: 100
   m_Sprite: {fileID: 1595504826, guid: 32a6386971e937b43a7b2f868358d78b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -99,7 +99,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf9bf33b5eda34446a3660c5148f8160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Item: {fileID: 11400000, guid: 55bcb7c2089d35f4f927b65611beadb3, type: 2}
+  SpawnMonster_Flag: 0
+  MissionMaterialFlag: 0
+  common_supplylist: []
+  rare_supplylist: []
+  unique_supplylist: []
+  epic_supplylist: []
+  epic_supplylist_NoWeapon: []
+  legendary_supplylist: []
+  Item: {fileID: 0}
   GetItemSFX: {fileID: 8300000, guid: 128d6f89b6b262440b1368926d360e1e, type: 3}
 --- !u!50 &438044292292352191
 Rigidbody2D:

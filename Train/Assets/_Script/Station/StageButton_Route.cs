@@ -35,7 +35,6 @@ public class StageButton_Route : MonoBehaviour
             btn = GetComponent<Button>();
         }
         btn.enabled = stageData.Stage_OpenFlag;
-
         if (btn.enabled)
         {
             btn.image.color = Color.white;
@@ -55,6 +54,14 @@ public class StageButton_Route : MonoBehaviour
         if (btn != null)
         {
             btn.enabled = stageData.Stage_OpenFlag;
+            if (btn.enabled)
+            {
+                btn.image.color = Color.white;
+            }
+            else
+            {
+                btn.image.color = Color.gray;
+            }
         }
 
         if (_stageData.Stage_ClearFlag)

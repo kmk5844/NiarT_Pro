@@ -78,12 +78,15 @@ public class Station_Player : MonoBehaviour
                 }
             }
         }
-/*
-        if (Input.GetKeyDown(KeyCode.P))
+        else
         {
-            stationDirector.ClickLobbyButton(2);
-        }
-*/
+            ani.SetBool("Move", false);
+        }/*
+                if (Input.GetKeyDown(KeyCode.P))
+                {
+                    stationDirector.ClickLobbyButton(2);
+                }
+        */
 
         if (rigid.velocity.x > moveSpeed)
         {
@@ -107,7 +110,7 @@ public class Station_Player : MonoBehaviour
     void FixedUpdate()
     {
         float h = Input.GetAxisRaw("Horizontal");
-        if (!OpenUIFlag)
+        if (!OpenUIFlag && !stationDirector.Option_Flag)
         {
             if (h < 0f)
             {

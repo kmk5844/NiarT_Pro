@@ -149,7 +149,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1220580936262881868}
-  - component: {fileID: 3999662309208476682}
   - component: {fileID: 5476007317155202789}
   - component: {fileID: 8394635248725114193}
   - component: {fileID: 974667706924537510}
@@ -176,26 +175,6 @@ Transform:
   - {fileID: 5973460145958891398}
   m_Father: {fileID: 8732378522186777434}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3999662309208476682
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4274265988566171942}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b2586cbfd068c14b9789efec2874900, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MiniTurret: {fileID: 7461811526161225891}
-  FireObject: {fileID: 5973460145958891398}
-  BulletObject: {fileID: 2284520680175412986, guid: 2709630a9ab7a4f409cdc5293e5e434b, type: 3}
-  Z: 0
-  Default_Turret: 0
-  SpawnTime: 0
-  AttackDelay: 0
-  Attack: 0
 --- !u!212 &5476007317155202789
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -676,7 +655,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c07cb799f1bbef84ebb1da77134b490b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turret: {fileID: 0}
+  turret: {fileID: 350267826166272580}
 --- !u!1 &9045073019663754633
 GameObject:
   m_ObjectHideFlags: 0

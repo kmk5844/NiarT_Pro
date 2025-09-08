@@ -7,7 +7,6 @@ public class StunBullet : Bullet
     protected override void Start()
     {
         base.Start();
-        atk = 15;
         Bullet_Player();
     }
 

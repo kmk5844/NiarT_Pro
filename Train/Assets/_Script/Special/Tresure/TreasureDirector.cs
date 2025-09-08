@@ -122,14 +122,10 @@ public class TreasureDirector : MonoBehaviour
                 int randomItem;
                 if (Random.value < 20f / 32f)
                 {
-                    randomItem = Random.Range(0, 20);
-                    if (randomItem == 0 || randomItem == 12)
-                    {
-                        randomItem = 1;
-                    }
+                    randomItem = Random.Range(0, 29);
                 }
                 else
-                    randomItem = Random.Range(58, 70);
+                    randomItem = Random.Range(115, 134);
 
                 ItemDataObject item = itemlist.Item[randomItem];
                 List_Item.Add(item);

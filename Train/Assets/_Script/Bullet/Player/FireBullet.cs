@@ -8,7 +8,6 @@ public class FireBullet : Bullet
     protected override void Start()
     {
         base.Start();
-        atk -= 10;
         Bullet_Player();
     }
 

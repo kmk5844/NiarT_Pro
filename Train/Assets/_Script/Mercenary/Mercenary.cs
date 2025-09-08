@@ -51,8 +51,14 @@ public class Mercenary : MonoBehaviour
     float def_constant;
 
     [Header("UI")]
-    public GameObject HP_Waring_Object;
+    public Image SpeechBubble;
+    public Sprite[] SpeechBubbleSprites;
+    int speeechIndex;
     public Image HP_Guage;
+
+    [Header("용병정보")]
+    public GameObject Body;
+    public GameObject Gravestone;
 
     protected virtual void Awake()
     {
@@ -87,23 +93,16 @@ public class Mercenary : MonoBehaviour
         isCombatantWalking = false;
         isCombatantIdling = false;
 
-        HP_Waring_Object.SetActive(false);
+        Gravestone.gameObject.SetActive(false);
+        SpeechBubble.gameObject.SetActive(true);
         HP_Guage.fillAmount = 1f;
     }
 
     protected virtual void Update()
     {
         Check_GameType();
-        if (Check_HpParsent() < 30)
-        {
-            HP_Waring_Object.SetActive(true);
-        }
-        else
-        {
-            HP_Waring_Object.SetActive(false);
-        }
-
         HP_Guage.fillAmount = Check_HpParsent() / 100f;
+        SpeechBubble_Change();
     }
 
     protected void Combatant_Move()
@@ -315,6 +314,8 @@ public class Mercenary : MonoBehaviour
             {
                 HP = 0;
                 act = Active.die;
+                Body.SetActive(false);
+                Gravestone.SetActive(true);
             }
             else
             {
@@ -338,6 +339,25 @@ public class Mercenary : MonoBehaviour
     {
         Gizmos.color = Color.green;
         Gizmos.DrawLine(new Vector3(MinMove_X, -1.3f, 0), new Vector3(MaxMove_X, -1.3f, 0));
+    }
+
+    public void SpeechBubble_Change()
+    {
+        int index = 0;
+
+        switch (act)
+        {
+            case Active.work: index = 0; break;
+            case Active.move: index = 1; break;
+            case Active.die: index = 2; break;
+            case Active.Game_Wait: index = 1; break;
+        }
+
+        if (speeechIndex != index)
+        {
+            speeechIndex = index;
+            SpeechBubble.sprite = SpeechBubbleSprites[index];
+        }
     }
 
     public void Data_Index()

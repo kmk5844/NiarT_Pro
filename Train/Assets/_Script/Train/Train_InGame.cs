@@ -276,6 +276,8 @@ public class Train_InGame : MonoBehaviour
                 break;
             case "Medic":
                 Train_Heal = int.Parse(trainData_Special_String[0]);
+                Train_Heal_Amount = int.Parse(trainData_Special_String[1]);
+                Train_Heal_timeBet = float.Parse(trainData_Special_String[2]);
                 Max_Train_Heal = Train_Heal;
                 break;
         }
