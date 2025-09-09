@@ -123,6 +123,57 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &42557433
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 42557435}
+  - component: {fileID: 42557434}
+  m_Layer: 0
+  m_Name: PrevStageDirector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &42557434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 42557433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 603e0e1821c938c45a389444085061ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: 00cbb5f50188b374e85c8a529a52b4b0, type: 2}
+  missionData: {fileID: 11400000, guid: bdf3b75d5d747fa469e3130af30aa84e, type: 2}
+  missionNum: 0
+  stageNum: 0
+  Before_Sub_Num: 0
+  Select_Sub_Num: 0
+  PrevSubStageNum: 
+--- !u!4 &42557435
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 42557433}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 70.950806, y: 42.996494, z: -0.00054167124}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &52987558
 GameObject:
   m_ObjectHideFlags: 0
@@ -1675,6 +1726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8be8b1c1617dff44bac6b1c4df5f81a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  storydirector: {fileID: 0}
 --- !u!95 &1384470153
 Animator:
   serializedVersion: 5
@@ -2382,6 +2434,7 @@ SceneRoots:
   - {fileID: 1463430980}
   - {fileID: 1673999097}
   - {fileID: 285334318}
+  - {fileID: 42557435}
   - {fileID: 339962469}
   - {fileID: 2072960682}
   - {fileID: 1490327858}

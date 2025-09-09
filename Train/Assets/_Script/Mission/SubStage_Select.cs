@@ -171,7 +171,7 @@ public class SubStage_Select : MonoBehaviour
 
     public void ClickSubStage()                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
     {
-        if(subStageSelectDirector.InformationObject != null)
+        if (subStageSelectDirector.InformationObject != null)
         {
             subStageSelectDirector.CancelSubStage();
         }
@@ -197,7 +197,7 @@ public class SubStage_Select : MonoBehaviour
         }
         else // 특수스테이지일때
         {
-            DataManager.Instance.playerData.SA_BeforeSubSelectStage_Save(missionData.SubStage_Num);
+            //DataManager.Instance.playerData.SA_BeforeSubSelectStage_Save(missionData.SubStage_Num);
             subStageSelectDirector.Open_SpecialStage();
         }
         InformationObject.SetActive(false);

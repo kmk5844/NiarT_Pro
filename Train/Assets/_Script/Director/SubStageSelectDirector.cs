@@ -32,6 +32,7 @@ public class SubStageSelectDirector : MonoBehaviour
     public int missionNum;
     public int stageNum;
     public int selectNum;
+    List<int> PrevSubStageNum;
 
     int Fuel;
     int Total_Fuel;
@@ -51,8 +52,6 @@ public class SubStageSelectDirector : MonoBehaviour
         {
             QualitySettings.vSyncCount = 1;
         }
-
-
 
         //itemListData = GetComponent<Station_ItemData>();
         selectNum = -1;
@@ -186,6 +185,7 @@ public class SubStageSelectDirector : MonoBehaviour
 
     void SpecialStage_Check()
     {
+
         string[] nextSubStageList = SelectSubStageData.Open_SubStageNum.Split(',');
         if(NextSubStageNum == null)
         {

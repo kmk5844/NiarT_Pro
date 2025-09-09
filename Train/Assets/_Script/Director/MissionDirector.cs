@@ -135,6 +135,7 @@ public class MissionDirector : MonoBehaviour
                 break;
             case MissionType.Monster:
                 selectmission.monsterCount = monsterCount;
+                stageEnd();
                 break;
             case MissionType.Escort:
                 break;
@@ -143,8 +144,8 @@ public class MissionDirector : MonoBehaviour
                 break;
             case MissionType.Boss:
                 selectmission.bossCount = monsterCount;
+                stageEnd();
                 break;
         }
-        stageEnd();
     }
 }

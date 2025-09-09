@@ -24,13 +24,13 @@ public class GameDirector : MonoBehaviour
 
     //새로운 스테이지 정보
     [SerializeField]
-    MissionDataObject SubStageData;
+    public MissionDataObject SubStageData;
     //다음에 해금할 스테이지 정보
     [SerializeField]
-    List<int> NextSubStageNum;
+    public List<int> NextSubStageNum;
     //잠글 스테이지 정보
     [SerializeField]
-    List<int> PrevSubStageNum;
+    public List<int> PrevSubStageNum;
 
     public SA_PlayerData SA_PlayerData;
     public Game_DataTable EX_GameData;
@@ -202,6 +202,8 @@ public class GameDirector : MonoBehaviour
     public int[] RefreshDistance;
     public int currentRefreshIndex = 0;
     public bool[] refreshFlag;
+    public float refreshMaxTime = 5f;
+    public float lastrefreshTime;
 
     bool waveUIFlag;
     bool SpawnRefreshSupply;
@@ -238,9 +240,9 @@ public class GameDirector : MonoBehaviour
         Before_Sub_Num = SA_PlayerData.Before_Sub_Stage;
         Select_Sub_Num = SA_PlayerData.Select_Sub_Stage;
 
-/*        Mission_Num = 0;
-        Stage_Num = 10;
-        Select_Sub_Num = 4;*/
+        Mission_Num = 0;
+        Stage_Num = 0;
+        Select_Sub_Num = 0;
 
         //TrainDistance = 70000;
 
@@ -260,7 +262,6 @@ public class GameDirector : MonoBehaviour
                 MissionDataObject PrevStageData = SA_MissionData.missionStage(Mission_Num, Stage_Num, Before_Sub_Num);
                 PrevSubStageNum = new List<int>();
                 string[] prevSubStageList = PrevStageData.Open_SubStageNum.Split(',');
-
                 foreach (string sub in prevSubStageList)
                 {
                     PrevSubStageNum.Add(int.Parse(sub));
@@ -493,7 +494,7 @@ public class GameDirector : MonoBehaviour
                 }
                 TrainSpeed = 0;
                 GameLoseFlag = true;
-                Game_Lose(LoseNum);
+                Game_Lose(LoseNum); //기차속도 0이하, 플레이어 체력 0이하 -> 평상시
             }
 
             if (!GameWinFlag || !GameLoseFlag)
@@ -559,7 +560,7 @@ public class GameDirector : MonoBehaviour
                 }
                 TrainSpeed = 0;
                 GameLoseFlag = true;
-                Game_Lose(LoseNum);
+                Game_Lose(LoseNum); //기차 속도 0이하, 플레이어 체력 0이하->보스전
             }
         }else if(gameType == GameType.Refreshing)
         {
@@ -587,34 +588,22 @@ public class GameDirector : MonoBehaviour
                         waveUIFlag = true;
                     }
 
-                    if (Time.time >= lastSpeedTime + 0.05f)
+                    if (!SpawnRefreshSupply)
                     {
-                        if (TrainSpeed > 40)
+                        SpawnRefreshSupply = true;
+                        float RandomX = Random.Range(player.transform.position.x - 5f, player.transform.position.x + 5f);
+                        if(RandomX > MonsterDirector.MaxPos_Ground.x)
                         {
-                            TrainSpeed -= TrainSpeedUP * 3;
+                            RandomX = MonsterDirector.MaxPos_Ground.x;
                         }
-                        else
+                        else if (RandomX < MonsterDirector.MinPos_Ground.x)
                         {
-                            TrainSpeed = 40;
-                            if (!SpawnRefreshSupply)
-                            {
-                                SpawnRefreshSupply = true;
-                                float RandomX = Random.Range(player.transform.position.x - 5f, player.transform.position.x + 5f);
-                                if(RandomX > MonsterDirector.MaxPos_Ground.x)
-                                {
-                                    RandomX = MonsterDirector.MaxPos_Ground.x;
-                                }
-                                else if (RandomX < MonsterDirector.MinPos_Ground.x)
-                                {
-                                    RandomX = MonsterDirector.MinPos_Ground.x;
-                                }
+                            RandomX = MonsterDirector.MinPos_Ground.x;
+                        }
 
-                                Vector2 pos = new Vector2(RandomX, player.transform.position.y + 15);
-                                SupplyRefresh_ItemObject.GetComponent<SupplyRefresh_Item>().director = this;
-                                Instantiate(SupplyRefresh_ItemObject, pos, Quaternion.identity);
-                            }
-                        }
-                        lastSpeedTime = Time.time;
+                        Vector2 pos = new Vector2(RandomX, player.transform.position.y + 15);
+                        SupplyRefresh_ItemObject.GetComponent<SupplyRefresh_Item>().director = this;
+                        Instantiate(SupplyRefresh_ItemObject, pos, Quaternion.identity);
                     }
                 }
                 else
@@ -650,11 +639,10 @@ public class GameDirector : MonoBehaviour
 
                 if (Time.time >= lastSpeedTime + timeBet)
                 {
-                    TrainSpeed += TrainSpeedUP;
                     lastSpeedTime = Time.time;
                 }
 
-                if(TrainSpeed > 90)
+                if(Time.time >= lastrefreshTime + refreshMaxTime)
                 {
                     if (monsterDirector.GameDirector_RefreshFlag)
                     {
@@ -691,7 +679,7 @@ public class GameDirector : MonoBehaviour
                     LoseNum = 1;
                 }
                 GameLoseFlag = true;
-                Game_Lose(LoseNum);
+                Game_Lose(LoseNum); // 기차 체력 0이하, 플레이어 체력 0이하 -> 몬스터 전원 처치 전
             }
         }
         else if (gameType == GameType.Ending)
@@ -762,10 +750,7 @@ public class GameDirector : MonoBehaviour
         }
         else if (gameType == GameType.GameEnd)
         {
-            if(Time.timeScale != 0f)
-            {
-                Time.timeScale = 0;
-            }
+
         }
         else
         {
@@ -1100,7 +1085,6 @@ public class GameDirector : MonoBehaviour
     private void Change_Game_End(bool WinFlag, bool subStage_Last, int LoseNum = -1) // 이겼을 때
     {
         gameType = GameType.GameEnd;
-        Time.timeScale = 0f;
         bool chapter_clearFlag = SA_StageList.Stage[Stage_Num].Stage_ClearFlag;
         if (WinFlag)
         {
@@ -1143,7 +1127,7 @@ public class GameDirector : MonoBehaviour
                     SA_PlayerData.SA_MissionPlaying(false);
                     SA_MissionData.SubStage_Init(Stage_Num, Mission_Num); // 승리
 
-                    if(SteamAchievement.instance != null)
+                    if (SteamAchievement.instance != null)
                     {
                         SteamAchievement.instance.Achieve("CLEAR_STAGE_" + Stage_Num);
                     }
@@ -1155,8 +1139,10 @@ public class GameDirector : MonoBehaviour
                 else // 미션 실패다
                 {
                     //Debug.Log("작업 해야됨 - 실패로 간주하고 초기화해야됨");
+                    LoseNum = 2;
                     missionDirector.selectmission.Mission_Fail();
                     SA_PlayerData.SA_MissionPlaying(false);
+                    SA_MissionData.SubStage_Init(Stage_Num, Mission_Num); // 승리
                     uiDirector.Open_Result_UI(false, Total_Coin, missionDirector.selectmission, chapter_clearFlag, LoseNum);
                 }
             }
@@ -1209,7 +1195,7 @@ public class GameDirector : MonoBehaviour
 
     public void MissionFail()
     {
-        Change_Game_End(false, false, 2);
+        Change_Game_End(false, false, 2); // 미션 실패했을 때, 패배
     }
 
     private void LastSubStageClear()
@@ -1231,12 +1217,12 @@ public class GameDirector : MonoBehaviour
     public void DestoryEngine()
     {
         int LoseNum = 3;
-        Game_Lose(LoseNum);
+        Game_Lose(LoseNum); //엔진 파괴로 인한 패배
     }
 
     private void Game_Lose(int losenum)
     {
-        Change_Game_End(false, false ,losenum);
+        Change_Game_End(false, false ,losenum); // 게임 진행 도중에 패배
         MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, BGM_ID);
         MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, TrainSFX_ID);
         MMSoundManagerSoundPlayEvent.Trigger(LoseSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
@@ -1372,6 +1358,7 @@ public class GameDirector : MonoBehaviour
                     break;
             }
         uiDirector.ItemInformation_On(null, true, rewardNum, rewardPersent);
+        lastrefreshTime = Time.time;
         getSupply = true;
     }
 

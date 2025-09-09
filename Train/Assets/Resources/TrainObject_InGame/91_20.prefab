@@ -58,6 +58,7 @@ MonoBehaviour:
   Train_Weight: 0
   Train_Armor: 0
   Train_Type: 
+  DestoryFlag: 0
   Train_MaxSpeed: 0
   Train_Efficient: 0
   Train_Engine_Power: 0
@@ -66,27 +67,18 @@ MonoBehaviour:
   Train_Attack_Delay: 0
   Train_Special: 
   Not_DestoryTrain: 0
+  trainData_Special_String: []
   Train_Heal: 0
   Max_Train_Heal: 0
   Train_Heal_Amount: 0
   Train_Heal_timeBet: 0
   isHealing: 0
-  Train_Self_UseFuel: 0
-  Train_Self_Attack: 0
-  Train_Self_Attack_Delay: 0
-  Train_Self_Second: 0
-  Train_Supply_UseFuel: 0
-  Train_Supply_Grade: 0
-  Train_Supply_Count: 0
-  Train_Booster_WarningSpeed: 0
-  Train_Booster_BoosterFuel: 0
-  Train_Booster_UseFuel: 0
-  Train_Booster_BoosterSpeedUP: 0
   isReparing: 0
   isRepairable: 0
   gameDirector: {fileID: 0}
   UI_Level: 0
   trainHitSFX: {fileID: 0}
+  isCooltimeCheckFlag: 0
 --- !u!1 &853806287188376498
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,7 +542,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7395727194237591702}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.23, y: 0.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -684,7 +676,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bff5bd5964f6284089d917ecc7b1dac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  raser: {fileID: 2472524224025091587}
+  laser: {fileID: 0}
   Z: 0
 --- !u!1 &8458045764759971878
 GameObject:
@@ -930,11 +922,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8738239727484446125, guid: fbff826045596bf49bdc19059febe591, type: 3}
       propertyPath: m_SortingOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8738239727484446125, guid: fbff826045596bf49bdc19059febe591, type: 3}
       propertyPath: m_SortingLayerID
-      value: 1130603629
+      value: -611559395
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

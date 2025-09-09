@@ -554,11 +554,11 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
                     }
                     else
                     {
-                        if(speed != 0)
+                        if (speed != 0)
                         {
                             speed = 0;
                         }
-                          
+
                         if (!ClearFlag)
                         {
                             distance++;//13
