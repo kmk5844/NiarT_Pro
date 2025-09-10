@@ -1,6 +1,7 @@
 using MoreMountains.Tools;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GamePlay_Tutorial_Director : MonoBehaviour
 {
@@ -30,8 +31,9 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
     public GameObject SpawnItemObject;
     public GameObject SpawnWaveItemObject;
     public GameObject TrainObject;
-
     public int gold;
+
+    public Tutorial_Train EngineTrain;
 
     public float speed;
     public float Max_Speed;
@@ -46,8 +48,10 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
 
     public GameObject[] EmphasisObejct;
     public bool aimFlag;
+    
 
     bool spawnWaveFlag;
+    bool uiWaveFlag = false;
     /*{
     0. PlayerHP
     1. Itme
@@ -469,9 +473,10 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
 
                 if (!spawnWaveFlag)
                 {
-                    if (speed > 40)
+                    if (speed < 200)
                     {
-                        speed -= (Time.deltaTime * 30f);
+                        speed += (Time.deltaTime * 40f);
+                        Fuel -= (Time.deltaTime * 1000f);
                     }
                     else
                     {
@@ -483,20 +488,21 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
                 {
                     if (T_SpawnWaveItem_Flag)
                     {
-                        if (speed < 200)
+                        if (!uiWaveFlag)
                         {
-                            speed += (Time.deltaTime * 30f);
-                            Fuel -= (Time.deltaTime * 1000f);
+                            StartCoroutine(uiDirector.WaveFillObjectShow());
                         }
-                        else
+
+                        if(uiDirector.waveFlag)
                         {
-                            speed = 200f;
-                            if (!ClearFlag)
-                            {
-                                distance++;
-                                StartCoroutine(Clear(Tutorial_List.T_Fuel));
-                                ClearFlag = true;
-                            }
+                            uiDirector.WaveFillObject.SetActive(false);
+                        }
+
+                        if (!ClearFlag && uiDirector.waveFlag)
+                        {
+                            distance++;
+                            StartCoroutine(Clear(Tutorial_List.T_Fuel));
+                            ClearFlag = true;
                         }
                     }
                 }
@@ -536,33 +542,47 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
                     T_Flag = false;
                 }
 
-                if(player.PlayerHP > 0)
+                if(player.PlayerHP > 0 && speed > 0)
                 {
                     float damagePerSecond = 1200f;
                     player.PlayerHP -= (int)(damagePerSecond * Time.deltaTime);
                 }
-                else
+                else if(player.PlayerHP <= 0 && speed > 0)
                 {
                     if (EmphasisObejct[0].activeSelf)
                     {
                         EmphasisObejct[0].SetActive(false);
                         EmphasisObejct[3].SetActive(true);
                     }
+
                     if (speed > 0)
                     {
                         speed -= (Time.deltaTime * 60f);
                     }
+
+                }
+                else if(player.PlayerHP <= 0 && speed <= 0)
+                {
+                    if (EmphasisObejct[3].activeSelf)
+                    {
+                        speed = 0;
+                        EmphasisObejct[3].SetActive(false);
+                        EmphasisObejct[8].SetActive(true);
+                    }
+
+                    if(EngineTrain.Train_HP > 0)
+                    {
+                        float damagePerSecond = 1400f;
+                        EngineTrain.Train_HP -= (int)(damagePerSecond * Time.deltaTime);
+                    }
                     else
                     {
-                        if (speed != 0)
-                        {
-                            speed = 0;
-                        }
+                        EngineTrain.Train_HP = 0;
 
                         if (!ClearFlag)
                         {
                             distance++;//13
-                            EmphasisObejct[3].SetActive(false);
+                            EmphasisObejct[8].SetActive(false);
                             StartCoroutine(Clear(Tutorial_List.T_Win));
                             ClearFlag = true;
                         }

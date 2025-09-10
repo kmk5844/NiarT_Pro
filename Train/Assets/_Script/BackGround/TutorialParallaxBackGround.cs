@@ -67,7 +67,13 @@ public class TutorialParallaxBackGround : MonoBehaviour
         for (int i = 0; i < backgrounds.Length; i++)
         {
             float speed = backSpeed[i] * parallaxSpeed;
-            offset += (Time.deltaTime * speed + (GameDirector.speed / 10000f));
+            if (GameDirector.speed != 0) {
+                offset += (Time.deltaTime * speed + (GameDirector.speed / 10000f));
+            }
+            else if(GameDirector.speed == 0)
+            {
+                offset += 0;
+            }
             mat[i].SetTextureOffset("_MainTex", new Vector2(offset, 0) * speed);
         }
     }

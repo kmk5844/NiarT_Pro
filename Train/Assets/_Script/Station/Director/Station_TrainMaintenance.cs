@@ -52,6 +52,10 @@ public class Station_TrainMaintenance : MonoBehaviour
     public Button Train_BuyButton;
     public GameObject TrainPart_Lock_Object;
 
+    public GameObject UseTypeObject_Store;
+    public Image UseTypeImage_Store;
+    public Sprite[] UseTypeSprite;
+
     [Header("기차 구매 - 트레인 정보")]
     public float MaxHP;
     public float MaxWeight;
@@ -97,6 +101,9 @@ public class Station_TrainMaintenance : MonoBehaviour
     public TextMeshProUGUI Plus_Armor_Text;
 
     public GameObject clickTrainObject;
+    public GameObject UseTypeObject_Upgrade;
+    public Image UseTypeImage_Upgrade;
+
 
     [Header("기차 업그레이드 - 트레인 리스트")]
     public TMP_Dropdown TrainUpgradeList_DropDown;
@@ -1669,19 +1676,37 @@ else // 기차 교체
                 Train_BuyButton.gameObject.SetActive(true);
             }
         }
-/*        else if(List_TrainType_Num == 2)
-        {
-            Train_Name_Buy_Text.StringReference.TableEntryReference = "Train_Booster_Name_" + (trainNum / 10);  
-            Train_Information_Buy_Text.StringReference.TableEntryReference = "Train_Booster_Information_" + (trainNum / 10);
-            train_pride = trainData.EX_Game_Data.Information_Train_Booster_Part[trainNum].Train_Buy_Cost;
-            Train_Pride_Text.text = train_pride.ToString();
-            Train_BuyButton.interactable = !trainData.SA_TrainBoosterData.Train_Booster_Buy_Num.Contains(trainNum);
-        }*/
-
+        /*        else if(List_TrainType_Num == 2)
+                {
+                    Train_Name_Buy_Text.StringReference.TableEntryReference = "Train_Booster_Name_" + (trainNum / 10);  
+                    Train_Information_Buy_Text.StringReference.TableEntryReference = "Train_Booster_Information_" + (trainNum / 10);
+                    train_pride = trainData.EX_Game_Data.Information_Train_Booster_Part[trainNum].Train_Buy_Cost;
+                    Train_Pride_Text.text = train_pride.ToString();
+                    Train_BuyButton.interactable = !trainData.SA_TrainBoosterData.Train_Booster_Buy_Num.Contains(trainNum);
+                }*/
+        Check_UseType_Store(trainNum);
         //-----------리스트버튼-------
         Check_TrainType_ListButton();
         StartCoroutine(Check_TrainState_Slider_Buy());
         Check_TrainState();
+    }
+
+    private void Check_UseType_Store(int TrainNum)
+    {
+        UseTypeObject_Store.SetActive(false);
+        if(List_TrainType_Num == 0)
+        {
+            if (TrainNum >= 30 && TrainNum < 60)
+            {
+                UseTypeObject_Store.SetActive(true);
+                UseTypeImage_Store.sprite = UseTypeSprite[0];
+            }
+            else if (TrainNum >= 60 && TrainNum < 100)
+            {
+                UseTypeObject_Store.SetActive(true);
+                UseTypeImage_Store.sprite = UseTypeSprite[1];
+            }
+        }
     }
 
     private void Check_TrainType_ListButton()
@@ -2051,7 +2076,26 @@ else // 기차 교체
         Check_TrainChange_Upgrade();
         StartCoroutine(Check_TrainState_Slider_Upgrade());
         Check_TrainState_Upgrade();
+        Check_UseType_Upgrade(Train_Num);
         clickTrainObject = obj;
+    }
+  
+    private void Check_UseType_Upgrade(int TrainNum)
+    {
+        UseTypeObject_Upgrade.SetActive(false);
+        if(TrainNum != 91)
+        {
+            if (TrainNum >= 30 && TrainNum < 60)
+            {
+                UseTypeObject_Upgrade.SetActive(true);
+                UseTypeImage_Upgrade.sprite = UseTypeSprite[0];
+            }
+            else if (TrainNum >= 60 && TrainNum < 100)
+            {
+                UseTypeObject_Upgrade.SetActive(true);
+                UseTypeImage_Upgrade.sprite = UseTypeSprite[1];
+            }
+        }
     }
 
     void Check_TrainState_Upgrade()

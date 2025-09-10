@@ -240,9 +240,9 @@ public class GameDirector : MonoBehaviour
         Before_Sub_Num = SA_PlayerData.Before_Sub_Stage;
         Select_Sub_Num = SA_PlayerData.Select_Sub_Stage;
 
-        Mission_Num = 0;
-        Stage_Num = 0;
-        Select_Sub_Num = 0;
+/*        Mission_Num = 0;
+        Stage_Num = 2;
+        Select_Sub_Num = 3;*/
 
         //TrainDistance = 70000;
 
@@ -408,6 +408,7 @@ public class GameDirector : MonoBehaviour
             if (!waveinfoFlag)
             {
                 waveinfoFlag = true;
+                uiDirector.WaveCountUp();
                 StartCoroutine(uiDirector.WaveInformation(true));
             }
         }
@@ -634,7 +635,7 @@ public class GameDirector : MonoBehaviour
                 if (!waveinfoFlag)
                 {
                     waveinfoFlag = true;
-                    StartCoroutine(uiDirector.WaveInformation(true));
+                    StartCoroutine(uiDirector.WaveFillObjectShow());
                 }
 
                 if (Time.time >= lastSpeedTime + timeBet)
@@ -642,7 +643,13 @@ public class GameDirector : MonoBehaviour
                     lastSpeedTime = Time.time;
                 }
 
-                if(Time.time >= lastrefreshTime + refreshMaxTime)
+/*                float elapsed = Time.time - lastrefreshTime;
+                float progress = Mathf.Clamp01(elapsed / refreshMaxTime);
+
+                // fillAmount 갱신 (이 부분은 if문 밖에 둬야 항상 보임)
+                uiDirector.WaveFillAmount.fillAmount = progress;*/
+
+                if (Time.time >= lastrefreshTime + refreshMaxTime)
                 {
                     if (monsterDirector.GameDirector_RefreshFlag)
                     {
@@ -654,6 +661,8 @@ public class GameDirector : MonoBehaviour
                     SkillLockFlag = false;
                     currentRefreshIndex++;
                     gameType = GameType.Playing;
+                    uiDirector.WaveCountUp();
+                    StartCoroutine(uiDirector.WaveInformation(true));
                 }
             }
 

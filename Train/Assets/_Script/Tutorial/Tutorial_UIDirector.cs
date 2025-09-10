@@ -30,6 +30,10 @@ public class Tutorial_UIDirector : MonoBehaviour
     public Image Fuel_Image;
     public Slider Distance_UI;
     public GameObject ClearObject;
+    [Header("Wave")]
+    public GameObject WaveFillObject;
+    public Image WaveFillAmount;
+    public bool waveFlag = false;
     [Header("게임 튜토리얼")]
     public GameObject GameTutorial_Window;
     public LocalizeStringEvent Title_Text;
@@ -65,6 +69,7 @@ public class Tutorial_UIDirector : MonoBehaviour
         foreach (GameObject gameInfo in GameUI_Information){
             gameInfo.SetActive(false);
         }
+        WaveFillObject.SetActive(false);
 
         count = 0;
 
@@ -186,5 +191,22 @@ public class Tutorial_UIDirector : MonoBehaviour
     {
         option_Flag = false;
         Option_UI.SetActive(false);
+    }
+    public IEnumerator WaveFillObjectShow()
+    {
+        WaveFillObject.SetActive(true);
+        WaveFillAmount.fillAmount = 0f;
+        float duration = 5.1f;
+        float elapsedTime = 0f;
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / duration);
+            WaveFillAmount.fillAmount = Mathf.Lerp(0f, 1f, t);
+            yield return null;
+        }
+        WaveFillObject.SetActive(false);
+        yield return new WaitForSeconds(1f);
+        waveFlag = true;
     }
 }

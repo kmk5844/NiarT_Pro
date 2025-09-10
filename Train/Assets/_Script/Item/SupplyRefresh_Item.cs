@@ -24,9 +24,9 @@ public class SupplyRefresh_Item : MonoBehaviour
     {
         if (!bounceFlag)
         {
-            if (transform.position.y > SupplyItem_Position.y -0.3f)
+            if (transform.position.y > SupplyItem_Position.y -0.35f)
             {
-                transform.Translate(12 * Vector2.down * Time.deltaTime);
+                transform.Translate(10 * Vector2.down * Time.deltaTime);
             }
             else
             {

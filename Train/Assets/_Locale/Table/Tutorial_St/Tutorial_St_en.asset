@@ -155,11 +155,9 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 12521248509971
-    m_Localized: 'Once a certain section is reached, the wave ends. After the wave
-      ends, items will drop and you must eat them to start the next wave.
-
-      (The
-      box will fall only when the train speed reaches 40 km/h.)'
+    m_Localized: Once a certain amount of time has been reached, the wave ends. After
+      the wave ends, items will drop. You must collect them to start the next wave
+      after 5 seconds.
     m_Metadata:
       m_Items: []
   - m_Id: 12521248509972
@@ -168,8 +166,17 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 12521248509973
-    m_Localized: "You lose when either the player\u2019s health or the train's speed
-      drops to 0."
+    m_Localized: 'Loss Conditions
+
+      1. The player''s health reaches 0.
+
+      2.
+      The train''s speed reaches 0.
+
+      3. The engine train''s durability reaches
+      0.
+
+      If any of these conditions are met, the player loses.'
     m_Metadata:
       m_Items: []
   - m_Id: 68012720490926080
@@ -267,6 +274,19 @@ MonoBehaviour:
       m_Items: []
   - m_Id: 116316672541970432
     m_Localized: It can be avoided with Shfit.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116683289872420864
+    m_Localized: 'The image on the left is the "Fuel Consumption" icon.
+
+      You
+      can refill your fuel reserves by consuming your train fuel.
+
+      The image
+      on the right is the "Cooldown" icon.
+
+      You must wait a certain amount
+      of time before you can use the item.'
     m_Metadata:
       m_Items: []
   references:

@@ -118,6 +118,8 @@ public class UIDirector : MonoBehaviour
     [Header("Wave")]
     public Sprite[] Refresh_Item_Sprite;
     public GameObject WaveObject;
+    public GameObject WaveFillObject;
+    public Image WaveFillAmount;
     int WaveCount;
 
     [Header("¿Â¿¸")]
@@ -169,6 +171,7 @@ public class UIDirector : MonoBehaviour
         DiceAniCon = DiceWindow.GetComponent<Animator>();
 
         PlayerGunObject[playerData.Player_Num].SetActive(true);
+        WaveFillObject.SetActive(false);
     }
     private void Update()
     {
@@ -575,6 +578,10 @@ public class UIDirector : MonoBehaviour
         }
     }
 
+    public void WaveCountUp()
+    {
+        WaveCount++;
+    }
 
     public IEnumerator WaveInformation(bool waveflag)
     {
@@ -591,6 +598,21 @@ public class UIDirector : MonoBehaviour
         yield return StartCoroutine(Wave_Object_Off(waveflag));
     }
 
+    public IEnumerator WaveFillObjectShow()
+    {
+        WaveFillObject.SetActive(true);
+        WaveFillAmount.fillAmount = 0f;
+        float duration = 5.1f;
+        float elapsedTime = 0f;
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsedTime / duration);
+            WaveFillAmount.fillAmount = Mathf.Lerp(0f, 1f, t);
+            yield return null;
+        }
+        WaveFillObject.SetActive(false);
+    }
 
     IEnumerator Wave_Object_On(bool waveflag)
     {
@@ -600,9 +622,9 @@ public class UIDirector : MonoBehaviour
 
         float duration = 0.4f;
         float elapsedTime = 0f;
+
         if (waveflag)
         {
-            WaveCount++;
             WaveObject.GetComponentInChildren<TextMeshProUGUI>().text = "WAVE-" + WaveCount;
         }
         else
