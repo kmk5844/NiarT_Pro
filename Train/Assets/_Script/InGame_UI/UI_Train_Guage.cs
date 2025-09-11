@@ -154,28 +154,55 @@ public class UI_Train_Guage : MonoBehaviour
             Special_Guage.fillAmount = TimeAmout;
         }else if(num == 7)
         {
-            float TimeAmout = (float)turretFactory.elasped / (float)turretFactory.SpawnTime;
-            Special_Guage.fillAmount = TimeAmout;
-        }else if(num == 8)
+            /*float TimeAmout = (float)turretFactory.elasped / (float)turretFactory.SpawnTime;
+            Special_Guage.fillAmount = TimeAmout;*/
+
+            int elapsedSeconds = Mathf.FloorToInt(turretFactory.elasped);
+            float spawnSeconds = (float)Mathf.FloorToInt(turretFactory.SpawnTime);  // float으로 변환
+
+            Special_Guage.fillAmount = (elapsedSeconds % spawnSeconds) / spawnSeconds;
+            /*            float TimeAmount = turretFactory.elasped / turretFactory.SpawnTime;
+                        Special_Guage.fillAmount = Mathf.Clamp01(TimeAmount);*/
+        }
+        else if(num == 8)
         {
-            float TimeAmout = (float)dronFactory.elapsed / (float)dronFactory.SpawnTime;
-            Special_Guage.fillAmount = TimeAmout;
-        }else if(num == 9)
+            int elapsedSeconds = Mathf.FloorToInt(dronFactory.elapsed);
+            float spawnSeconds = (float)Mathf.FloorToInt(dronFactory.SpawnTime);  // float으로 변환
+            Special_Guage.fillAmount = (elapsedSeconds % spawnSeconds) / spawnSeconds;
+            /*
+                        Special_Guage.fillAmount = (elapsedSeconds % spawnSeconds) / spawnSeconds;
+                        float TimeAmout = (float)dronFactory.elapsed / (float)dronFactory.SpawnTime;*/
+        }
+        else if(num == 9)
         {
-            float TimeAmout = (float)fuelSignal.elapsed / (float)fuelSignal.SpawnTime;
-            Special_Guage.fillAmount = TimeAmout;
+            int elapsedSeconds = Mathf.FloorToInt(fuelSignal.elapsed);
+            float spawnSeconds = (float)Mathf.FloorToInt(fuelSignal.SpawnTime);
+
+            // UI 게이지: 부드럽게 0~1 범위로
+            Special_Guage.fillAmount = Mathf.Clamp01(elapsedSeconds / spawnSeconds);
+
         }else if(num == 10)
         {
-            float TimeAmout = (float)hangar.elapsed / (float)hangar.SpawnTime;
-            Special_Guage.fillAmount = TimeAmout;
-        }else if(num == 11)
+            int elapsedSeconds = Mathf.FloorToInt(hangar.elapsed);
+            float spawnSeconds = (float)Mathf.FloorToInt(hangar.SpawnTime);  // float으로 변환
+            Special_Guage.fillAmount = Mathf.Clamp01(elapsedSeconds / spawnSeconds);
+            /*            float TimeAmout = (float)hangar.elapsed / (float)hangar.SpawnTime;
+                        Special_Guage.fillAmount = TimeAmout;*/
+        }
+        else if(num == 11)
         {
-            float TimeAmout = (float)ironPlateFactory.elapsed / (float)ironPlateFactory.SpawnTime;
-            Special_Guage.fillAmount = TimeAmout;
+            int elapsedSeconds = Mathf.FloorToInt(ironPlateFactory.elapsed);
+            float spawnSeconds = (float)Mathf.FloorToInt(ironPlateFactory.SpawnTime);  // float으로 변환
+            Special_Guage.fillAmount = Mathf.Clamp01(elapsedSeconds / spawnSeconds);
+           /* float TimeAmout = (float)ironPlateFactory.elapsed / (float)ironPlateFactory.SpawnTime;
+            Special_Guage.fillAmount = TimeAmout;*/
         }else if(num == 12)
         {
-            float TimeAmout = (float)turretUpgrade.elapsed / (float)turretUpgrade.SpawnTime;
-            Special_Guage.fillAmount = TimeAmout;
+            int elapsedSeconds = Mathf.FloorToInt(turretUpgrade.elapsed);
+            float spawnSeconds = (float)Mathf.FloorToInt(turretUpgrade.SpawnTime);  // float으로 변환
+            Special_Guage.fillAmount = Mathf.Clamp01(elapsedSeconds / spawnSeconds);
+            /* float TimeAmout = (float)turretUpgrade.elapsed / (float)turretUpgrade.SpawnTime;
+             Special_Guage.fillAmount = TimeAmout;*/
         }
     }
 }

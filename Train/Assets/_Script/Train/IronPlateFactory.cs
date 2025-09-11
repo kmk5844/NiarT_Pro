@@ -26,12 +26,19 @@ public class IronPlateFactory : MonoBehaviour
     {
         if (gameDirector.gameType == GameType.Playing || gameDirector.gameType == GameType.Boss)
         {
-            elapsed = Time.time - lastTime;
-            if (Time.time > lastTime + SpawnTime && !useflag)
+            elapsed += Time.deltaTime;
+
+            // 강제로 초 단위로 변환
+            int elapsedSeconds = Mathf.FloorToInt(elapsed);
+            int spawnSeconds = Mathf.FloorToInt(SpawnTime);
+
+            // 시간이 충분하면 useflag 허용 (한 번만)
+            if (!useflag && elapsedSeconds >= spawnSeconds)
             {
                 useflag = true;
             }
         }
+
     }
     public void ClickTrain()
     {
@@ -41,6 +48,6 @@ public class IronPlateFactory : MonoBehaviour
         gameDirector.Item_Spawn_Train_BulletproofPlate(HP, 0);
 
         useflag = false;
-        lastTime = Time.time;
+        elapsed = 0;
     }
 }

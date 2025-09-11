@@ -10,10 +10,10 @@ public class FuelSignalTrain : MonoBehaviour
 
     public float elapsed;
     public float SpawnTime;
+    public float pausedElapsed;
     public int minFuel;
     public int maxFuel;
 
-    float lastTime;
     public bool useflag;
 
     public GameObject Supply;
@@ -33,6 +33,24 @@ public class FuelSignalTrain : MonoBehaviour
     {
         if (gameDirector.gameType == GameType.Playing || gameDirector.gameType == GameType.Boss)
         {
+            if (!useflag)
+            {
+                elapsed += Time.deltaTime;
+            }
+
+            // 강제로 초 단위로 변환
+            int elapsedSeconds = Mathf.FloorToInt(elapsed);
+            int spawnSeconds = Mathf.FloorToInt(SpawnTime);
+
+            // 시간이 충분하면 useflag 허용 (한 번만)
+            if (!useflag && elapsedSeconds > spawnSeconds)
+            {
+                useflag = true;
+            }
+        }
+
+/*        if (gameDirector.gameType == GameType.Playing || gameDirector.gameType == GameType.Boss)
+        {
             if (!trainData.DestoryFlag)
             {
                 elapsed = Time.time - lastTime;
@@ -41,7 +59,7 @@ public class FuelSignalTrain : MonoBehaviour
                     useflag = true;
                 }
             }
-        }
+        }*/
     }
 
     public void ClickTrain()
@@ -52,6 +70,6 @@ public class FuelSignalTrain : MonoBehaviour
         supply.GetComponent<SupplyRefresh_Item>().FuelSignalSet(gameDirector, Fuel);
 
         useflag = false;
-        lastTime = Time.time;
+        elapsed = 0f;
     }
 }

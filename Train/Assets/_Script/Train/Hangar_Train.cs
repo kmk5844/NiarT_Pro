@@ -14,7 +14,6 @@ public class Hangar_Train : MonoBehaviour
     public int[] coin = new int[3];
 
     public float elapsed;
-    public float lastTime;
 
     public bool useFlag;
     public bool doorFlag;
@@ -56,26 +55,27 @@ public class Hangar_Train : MonoBehaviour
     {
         if (gameDirector.gameType == GameType.Playing || gameDirector.gameType == GameType.Boss)
         {
-            if (!trainData.DestoryFlag)
-            {
-                elapsed = Time.time - lastTime;
-                if (Time.time > lastTime + SpawnTime)
-                {
-                    useFlag = true;
-                    if (changeFlag == false)
-                    {
-                        for (int i = 0; i < DoorCollider.Length; i++)
-                        {
-                            DoorCollider[i].enabled = true;
-                        }
+            elapsed += Time.deltaTime;
 
-                        changeFlag = true;
+            // 강제로 초 단위로 변환
+            int elapsedSeconds = Mathf.FloorToInt(elapsed);
+            int spawnSeconds = Mathf.FloorToInt(SpawnTime);
+
+            // 시간이 충분하면 useflag 허용 (한 번만)
+            if (!useFlag && elapsedSeconds >= spawnSeconds)
+            {
+                useFlag = true;
+                if (changeFlag == false)
+                {
+                    for (int i = 0; i < DoorCollider.Length; i++)
+                    {
+                        DoorCollider[i].enabled = true;
                     }
+
+                    changeFlag = true;
                 }
             }
         }
-
-
     }
 
     public void ClickWeapon()
@@ -88,7 +88,7 @@ public class Hangar_Train : MonoBehaviour
             DoorCollider[i].enabled = false;
         }
         ExitDoor();
-        lastTime = Time.time;
+        elapsed = 0;
     }
 
     void ChoiceWeapon()

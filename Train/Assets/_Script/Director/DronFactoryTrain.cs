@@ -9,6 +9,7 @@ public class DronFactoryTrain : MonoBehaviour
 
     public float elapsed;
     public float SpawnTime;
+    public float pausedElapsed;
     public int minHP;
     public int maxHP;
 
@@ -29,13 +30,29 @@ public class DronFactoryTrain : MonoBehaviour
         {
             if (!trainData.DestoryFlag)
             {
-                elapsed = Time.time - lastTime;
-                if (Time.time > lastTime + SpawnTime)
+                // 프레임 단위 누적
+                elapsed += Time.deltaTime;
+
+                // 강제로 초 단위로 변환
+                int elapsedSeconds = Mathf.FloorToInt(elapsed);
+                int spawnSeconds = Mathf.FloorToInt(SpawnTime);
+
+                while (elapsedSeconds >= spawnSeconds)
                 {
                     SpanwDron();
-                    lastTime = Time.time;
+
+                    // 초 단위 차감
+                    elapsedSeconds -= spawnSeconds;
+
+                    // elasped도 차감
+                    elapsed -= spawnSeconds;
                 }
             }
+        }
+        else if (gameDirector.gameType == GameType.Refreshing)
+        {
+            // Refresh 상태에서는 누적 시간을 그대로 유지
+            pausedElapsed = Time.time - lastTime;
         }
     }
 

@@ -121,6 +121,7 @@ public class UIDirector : MonoBehaviour
     public GameObject WaveFillObject;
     public Image WaveFillAmount;
     int WaveCount;
+    int DisplayCount;
 
     [Header("¿Â¿¸")]
     public Image ReLoading_Guage;
@@ -162,6 +163,7 @@ public class UIDirector : MonoBehaviour
         LoseFlag = false;
         OptionFlag = false;
         missionInformationFlag = true;
+        DisplayCount = 0;
         Click_MissionInformation();
 
         ItemInformation_Object_Flag = false;
@@ -580,7 +582,7 @@ public class UIDirector : MonoBehaviour
 
     public void WaveCountUp()
     {
-        WaveCount++;
+        DisplayCount++;
     }
 
     public IEnumerator WaveInformation(bool waveflag)
@@ -625,7 +627,7 @@ public class UIDirector : MonoBehaviour
 
         if (waveflag)
         {
-            WaveObject.GetComponentInChildren<TextMeshProUGUI>().text = "WAVE-" + WaveCount;
+            WaveObject.GetComponentInChildren<TextMeshProUGUI>().text = "WAVE-" + DisplayCount;
         }
         else
         {

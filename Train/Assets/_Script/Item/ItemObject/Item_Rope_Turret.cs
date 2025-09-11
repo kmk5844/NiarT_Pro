@@ -89,10 +89,17 @@ public class Item_Rope_Turret : MonoBehaviour
         line.SetPosition(0, transform.position);
         line.SetPosition(1, transform.position);
 
-        Vector2 newPos;
+        Vector2 newPos = Vector2.zero;
         for (; t < time; t += grappleShootSpeed * Time.deltaTime)
         {
-            newPos = Vector2.Lerp(transform.position, target.transform.position, t / time);
+            try
+            {
+                newPos = Vector2.Lerp(transform.position, target.transform.position, t / time);
+            }
+            catch
+            {
+                StopAllCoroutines();
+            }
             line.SetPosition(0, transform.position);
             line.SetPosition(1, newPos);
             yield return null;

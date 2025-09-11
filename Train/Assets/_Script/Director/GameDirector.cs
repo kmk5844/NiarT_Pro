@@ -241,7 +241,7 @@ public class GameDirector : MonoBehaviour
         Select_Sub_Num = SA_PlayerData.Select_Sub_Stage;
 
 /*        Mission_Num = 0;
-        Stage_Num = 2;
+        Stage_Num = 1;
         Select_Sub_Num = 3;*/
 
         //TrainDistance = 70000;
@@ -418,7 +418,7 @@ public class GameDirector : MonoBehaviour
             {
                 if(Time.time >= lastSpeedTime + 0.2f)
                 {
-                    if (9 >= TrainSpeed)
+                    if (12 >= TrainSpeed)
                     {
                         TrainSpeed += TrainSpeedUP;
                     }
@@ -1536,11 +1536,11 @@ public class GameDirector : MonoBehaviour
         if (flag)
         {
             StartX = 6f;
-            TargetX = -36f;
+            TargetX = MonsterDirector.MinPos_Ground.x - 40f;
         }
         else
         {
-            StartX = 40f;
+            StartX = 50f;
             TargetX = 6f;
         }
 

@@ -10,6 +10,7 @@ public class Repair_Train : MonoBehaviour
     Transform TrainList_InGame;
 
     public float elapsed;
+    public float pausedElapsed;
     public float SpawnTime;
     public float HealParsent;
     public int HealCount;
@@ -42,42 +43,65 @@ public class Repair_Train : MonoBehaviour
     {
         if (gameDirector.gameType == GameType.Playing || gameDirector.gameType == GameType.Boss)
         {
-            if (!trainData.DestoryFlag)
+            if (gameDirector.gameType == GameType.Playing || gameDirector.gameType == GameType.Boss)
             {
-                elapsed = Time.time - lastTime;
-
-                if (Time.time > lastTime + SpawnTime)
+                if (!trainData.DestoryFlag)
                 {
-                    GameObject robot = Instantiate(RepairRobotObject, transform.position, Quaternion.identity);
-                    GameObject train = TrainList_InGame.GetChild(TargetNum).gameObject;
-                    robot.GetComponent<RepairRobot>().Set(train, HealParsent, HealCount);
-                    lastTime = Time.time;
-                }
+                    // 프레임 단위 누적
+                    elapsed += Time.deltaTime;
 
-                if (!Targeting)
-                {
-                    Targeting = true;
-                    for (int i = 0; i < TrainList_InGame.childCount; i++)
+                    // 강제로 초 단위로 변환
+                    int elapsedSeconds = Mathf.FloorToInt(elapsed);
+                    int spawnSeconds = Mathf.FloorToInt(SpawnTime);
+
+                    while (elapsedSeconds >= spawnSeconds)
                     {
-                        float HP = TrainList_InGame.GetChild(i).GetComponent<Train_InGame>().HP_Parsent;
+                        SpawnRepair();
 
-                        if (TargetHP == -1)
+                        // 초 단위 차감
+                        elapsedSeconds -= spawnSeconds;
+
+                        // elasped도 차감
+                        elapsed -= spawnSeconds;
+                    }
+
+                    if (!Targeting)
+                    {
+                        Targeting = true;
+                        for (int i = 0; i < TrainList_InGame.childCount; i++)
                         {
-                            TargetHP = HP;
-                            TargetNum = i;
-                        }
-                        else
-                        {
-                            if (TargetHP > HP)
+                            float HP = TrainList_InGame.GetChild(i).GetComponent<Train_InGame>().HP_Parsent;
+
+                            if (TargetHP == -1)
                             {
                                 TargetHP = HP;
                                 TargetNum = i;
                             }
+                            else
+                            {
+                                if (TargetHP > HP)
+                                {
+                                    TargetHP = HP;
+                                    TargetNum = i;
+                                }
+                            }
                         }
+                        Targeting = false;
                     }
-                    Targeting = false;
                 }
             }
+            else if (gameDirector.gameType == GameType.Refreshing)
+            {
+                // Refresh 상태에서는 누적 시간을 그대로 유지
+                pausedElapsed = Time.time - lastTime;
+            }
         }
+    }
+
+    public void SpawnRepair()
+    {
+        GameObject robot = Instantiate(RepairRobotObject, transform.position, Quaternion.identity);
+        GameObject train = TrainList_InGame.GetChild(TargetNum).gameObject;
+        robot.GetComponent<RepairRobot>().Set(train, HealParsent, HealCount);
     }
 }

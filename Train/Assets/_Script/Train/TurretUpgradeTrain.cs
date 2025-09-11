@@ -29,13 +29,16 @@ public class TurretUpgradeTrain : MonoBehaviour
     {
         if (gameDirector.gameType == GameType.Playing || gameDirector.gameType == GameType.Boss)
         {
-            if (!trainData.DestoryFlag)
+            elapsed += Time.deltaTime;
+
+            // 강제로 초 단위로 변환
+            int elapsedSeconds = Mathf.FloorToInt(elapsed);
+            int spawnSeconds = Mathf.FloorToInt(SpawnTime);
+
+            // 시간이 충분하면 useflag 허용 (한 번만)
+            if (!useflag && elapsedSeconds >= spawnSeconds)
             {
-                elapsed = Time.time - lastTime;
-                if (Time.time > lastTime + SpawnTime && !useflag)
-                {
-                    useflag = true;
-                }
+                useflag = true;
             }
         }
     }
@@ -44,6 +47,6 @@ public class TurretUpgradeTrain : MonoBehaviour
         gameDirector.Item_Use_Train_Turret_All_SpeedUP(Persent,delayTime);
 
         useflag = false;
-        lastTime = Time.time;
+        elapsed = 0;
     }
 }
