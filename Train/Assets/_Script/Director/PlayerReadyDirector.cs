@@ -1154,6 +1154,7 @@ public class PlayerReadyDirector : MonoBehaviour
 
     public void Yes_MissionCancel()
     {
+        ES3.Save<int>("Train_Curret_TotalFuel", -1);
         playerData.SA_PlayerData.SA_MissionPlaying(false);
         playerData.SA_PlayerData.SA_GameLoseCoin(selectMission.MissionCoinLosePersent);
         missionData.SubStage_Init(stageNum, missionNum); // 미션 취소

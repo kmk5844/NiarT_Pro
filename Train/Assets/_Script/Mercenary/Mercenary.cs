@@ -172,6 +172,15 @@ public class Mercenary : MonoBehaviour
                 isCombatantWalking = false;
             }
 
+            if(transform.position.x < MinMove_X)
+            {
+                transform.position = new Vector2(MinMove_X, Move_Y);
+            }
+            else if (transform.position.x > MaxMove_X)
+            {
+                transform.position = new Vector2(MaxMove_X, Move_Y);
+            }
+
             if (isCombatantWalking)
             {
                 rb2D.velocity = new Vector2(Move_X * moveSpeed, rb2D.velocity.y);

@@ -759,7 +759,7 @@ public class GameDirector : MonoBehaviour
         }
         else if (gameType == GameType.GameEnd)
         {
-
+            ChangeCursor(false);
         }
         else
         {
@@ -1342,11 +1342,11 @@ public class GameDirector : MonoBehaviour
         int rewardPersent = 0;
         if (rewardNum != 3)
         {
-            rewardPersent = Random.Range(5, 21);
+            rewardPersent = Random.Range(5, 16);
         }
         else
         {
-            rewardPersent = Random.Range(1, 16);
+            rewardPersent = Random.Range(1, 13);
         }
 
             switch (rewardNum)

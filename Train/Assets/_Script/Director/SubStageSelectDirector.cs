@@ -23,6 +23,7 @@ public class SubStageSelectDirector : MonoBehaviour
     public TextMeshProUGUI UI_MissionInformation;
     public TextMeshProUGUI UI_MainStageText;
     public TextMeshProUGUI UI_FuelParsent_Text;
+    public Image UI_FuelImage;
 
     public GameObject UI_MapTab;
     public GameObject UI_SubStageSelect;
@@ -93,17 +94,19 @@ public class SubStageSelectDirector : MonoBehaviour
         }
 
         Total_Fuel = ES3.Load<int>("Train_Curret_TotalFuel", -1);
-        Debug.Log("Total_Fuel: " + Total_Fuel);
+        //Debug.Log("Total_Fuel: " + Total_Fuel);
         if (Total_Fuel == -1)
         {
             UI_FuelParsent_Text.text = "100%";
+            UI_FuelImage.fillAmount = 1f;
         }
         else
         {
             Fuel = ES3.Load<int>("Train_Curret_Fuel", 100);
-            Debug.Log("Fuel: " + Fuel);
+            //Debug.Log("Fuel: " + Fuel);
             float fuelPercent = (float)Fuel / (float)Total_Fuel * 100f;
             UI_FuelParsent_Text.text = fuelPercent.ToString("F0") + "%"; // 정수로 출력
+            UI_FuelImage.fillAmount = fuelPercent / 100f;
         }
     }
 
@@ -213,6 +216,7 @@ public class SubStageSelectDirector : MonoBehaviour
     public void Yes_MissionCancel()
     {
         SelectMission gm = GameObject.Find("SelectMission").GetComponent<SelectMission>();
+        ES3.Save<int>("Train_Curret_TotalFuel", -1);
         playerData.SA_MissionPlaying(false);
         playerData.SA_GameLoseCoin(gm.MissionCoinLosePersent);
         missionData.SubStage_Init(stageNum, missionNum); // 미션 취소
