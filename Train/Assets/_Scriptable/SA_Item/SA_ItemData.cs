@@ -119,4 +119,11 @@ public class SA_ItemData : ScriptableObject
 
         yield return null;
     }
+
+    public void Test(int num, int itemNum, int count)
+    {
+        equiped_item[num] = itemNum;
+        equiped_item_count[num] = count;
+        Save();
+    }
 }

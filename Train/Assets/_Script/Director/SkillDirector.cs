@@ -18,6 +18,8 @@ public class SkillDirector : MonoBehaviour
     public float[] Item_Skill_CoolTime;
 
     public bool[] SkillFlag;
+
+    public ParticleSystem[] SkillEffect;
     // Start is called before the first frame update
     void Start()
     {
@@ -88,6 +90,7 @@ public class SkillDirector : MonoBehaviour
     void Player_Skill(int skill_num)
     {
         uiDirector.SkillCoolTime_Instantiate(skill_num, skill_during[skill_num]);
+        StartCoroutine(Show_SkillEffect(skill_num));
         if (PlayerNum == 0)
         {
             MariGold_Skill(skill_num);
@@ -96,6 +99,13 @@ public class SkillDirector : MonoBehaviour
         {
             Peyote_Skill(skill_num);
         }//그 외의 캐릭터 추가 시.
+    }
+
+    IEnumerator Show_SkillEffect(int skillNum)
+    {
+        SkillEffect[skillNum].Play();
+        yield return new WaitForSeconds(skill_during[skillNum]);
+        SkillEffect[skillNum].Stop(true);
     }
 
     void MariGold_Skill(int num)

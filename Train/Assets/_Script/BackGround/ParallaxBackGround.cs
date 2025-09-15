@@ -22,12 +22,10 @@ public class parallex : MonoBehaviour
     public float parallaxSpeed;
 
     float offset;
-    Transform Player;
 
     // Start is called before the first frame update
     void Start()
     {
-        Player = GameObject.FindWithTag("Player").transform;
         GameDirector = GameDirector_Object.GetComponent<GameDirector>();
         cam = Camera.main.transform;
 
@@ -67,14 +65,20 @@ public class parallex : MonoBehaviour
         if (GameDirector.gameType == GameType.Playing ||GameDirector.gameType == GameType.Boss ||
             GameDirector.gameType == GameType.Refreshing || GameDirector.gameType == GameType.Ending)
         {
+            float motionBlur = Mathf.Clamp((GameDirector.TrainSpeed / GameDirector.MaxSpeed) * 3f, 0f, 3f);
+
             for (int i = 0; i < backgrounds.Length; i++)
             {
                 float speed = backSpeed[i] * parallaxSpeed;
-                if(GameDirector.TrainSpeed > 0)
+                if (GameDirector.TrainSpeed > 0)
                 {
                     offset += (Time.deltaTime * speed + (Time.deltaTime * GameDirector.TrainSpeed / 100f));
                 }
                 mat[i].SetTextureOffset("_MainTex", new Vector2(offset, 0) * speed);
+                if (mat[i].HasProperty("_BlurIntensity"))
+                {
+                    mat[i].SetFloat("_BlurIntensity", motionBlur);
+                }
             }
         }
     }

@@ -28,6 +28,7 @@ public class ItemDirector : MonoBehaviour
         try
         {
             itemData.Load();
+            itemData.Test(0, 1, 20);
         }
         catch
         {

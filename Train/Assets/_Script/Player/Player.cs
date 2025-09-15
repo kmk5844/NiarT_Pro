@@ -60,6 +60,7 @@ public class Player : MonoBehaviour
     bool jumpitemFlag_Minus;
     int jumpItemCount = 0;
     bool isMouseDown;
+    float MouseZ;
     public float jumpdistance = 1.3f;
     float jumpFlagDistance;
     //대시
@@ -149,6 +150,12 @@ public class Player : MonoBehaviour
     bool STEAM_clickflag_R;
     public bool revival_Effect_Flag;
 
+    [Header("Effect")]
+    public GameObject WarkEffect;
+    public ParticleSystem DashEffect;
+    public ParticleSystem JumpEffect;
+    public ParticleSystem HealEffect;
+
     void Start()
     {
         gamedirector = GameObject.Find("GameDirector").GetComponent<GameDirector>();
@@ -208,7 +215,17 @@ public class Player : MonoBehaviour
     {
         gameDirectorType = gamedirector.gameType;
 
-        if (gameDirectorType == GameType.Starting ||  gameDirectorType == GameType.Playing
+        if (jumpFlag)
+        {
+            WarkEffect.SetActive(false);
+        }
+        else
+        {
+            WarkEffect.SetActive(true);
+        }
+
+
+        if (gameDirectorType == GameType.Starting || gameDirectorType == GameType.Playing
             || gameDirectorType == GameType.Boss || gameDirectorType == GameType.Refreshing ||
             gameDirectorType == GameType.Ending)
         {
@@ -227,28 +244,28 @@ public class Player : MonoBehaviour
                 isMouseDown = false;
             }
 
-            if(Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
                 isMouseDown = false;
             }
 
-/*            if (Input.GetKeyDown(KeyCode.R) && FireCount != 0)
-            {
-                if (!STEAM_clickflag_R)
-                {
-                    if (SteamAchievement.instance != null)
-                    {
-                        SteamAchievement.instance.Achieve("CLICK_KEY_R");
-                    }
-                    else
-                    {
-                        Debug.Log("CLICK_KEY_R");
-                    }
-                    STEAM_clickflag_R = true;
-                }
+            /*            if (Input.GetKeyDown(KeyCode.R) && FireCount != 0)
+                        {
+                            if (!STEAM_clickflag_R)
+                            {
+                                if (SteamAchievement.instance != null)
+                                {
+                                    SteamAchievement.instance.Achieve("CLICK_KEY_R");
+                                }
+                                else
+                                {
+                                    Debug.Log("CLICK_KEY_R");
+                                }
+                                STEAM_clickflag_R = true;
+                            }
 
-                StartCoroutine(Reloading());
-            }*/
+                            StartCoroutine(Reloading());
+                        }*/
 
             if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
             {
@@ -470,6 +487,7 @@ public class Player : MonoBehaviour
                 rigid.velocity = new Vector2(rigid.velocity.x, 0f);
                 rigid.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
                 ani.SetTrigger("Jump");
+                JumpEffect.Play();
             }
 
             if (!jumpitemFlag_Minus)
@@ -479,6 +497,7 @@ public class Player : MonoBehaviour
                     rigid.velocity = new Vector2(rigid.velocity.x, 0f);
                     rigid.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
                     ani.SetTrigger("Jump");
+                    JumpEffect.Play();
                     jumpCount++;
                 }
             }
@@ -559,10 +578,10 @@ public class Player : MonoBehaviour
             mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
 
             Vector3 rot = mousePos - GunObject.transform.position;
-            float rotZ = Mathf.Atan2(rot.y, rot.x) * Mathf.Rad2Deg;
-            GunObject.transform.rotation = Quaternion.Euler(0, 0, rotZ);
+            MouseZ = Mathf.Atan2(rot.y, rot.x) * Mathf.Rad2Deg;
+            GunObject.transform.rotation = Quaternion.Euler(0, 0, MouseZ);
 
-            if (rotZ >= -90 && rotZ <= 90)
+            if (MouseZ >= -90 && MouseZ <= 90)
             {
                 GunObject.transform.localScale = new Vector3(GunObject_Scale.x, GunObject_Scale.y, GunObject_Scale.z);
             }
@@ -619,6 +638,31 @@ public class Player : MonoBehaviour
     {
         canDash = false;
         isDashing = true;
+
+        if(horizontalInput > 0)
+        {
+            if (MouseZ >= -90 && MouseZ <= 90)
+            {
+                DashEffect.transform.localRotation = Quaternion.Euler(0, 90, 90);
+            }
+            else
+            {
+                DashEffect.transform.localRotation = Quaternion.Euler(0, -90, 90);
+            }
+        }
+        else
+        {
+            if (MouseZ >= -90 && MouseZ <= 90)
+            {
+                DashEffect.transform.localRotation = Quaternion.Euler(0, -90, 90);
+            }
+            else
+            {
+                DashEffect.transform.localRotation = Quaternion.Euler(0, 90, 90);
+            }
+        }
+
+        DashEffect.Play();
         float originalGravity = rigid.gravityScale;
         rigid.gravityScale = 0f; // 대시 중 중력 비활성화
                                  //rigid.velocity = new Vector2(horizontalInput * dashingPower, 0f);
@@ -651,6 +695,11 @@ public class Player : MonoBehaviour
         isDashing = false;
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
+    }
+
+    void DashRotation()
+    {
+
     }
 
     private float EvaluateDashCurve(float t)
@@ -739,10 +788,10 @@ public class Player : MonoBehaviour
             }
             else
             {
-/*                if (!ReloadingFlag)
+                if (!ReloadingFlag)
                 {
                     MMSoundManagerSoundPlayEvent.Trigger(ShootSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
-                }*/
+                }
             }
 
             lastTime = Time.time;
@@ -929,11 +978,6 @@ public class Player : MonoBehaviour
         return Mathf.Clamp01((float)(MaxFireCount-FireCount) / (float)MaxFireCount);
     }
 
-    public void Heal_HP(int Medic_Heal)
-    {
-        Player_HP += Medic_Heal;
-    }
-
     public void P_Buff(Bard_Type type, int amount, bool flag)
     {
         if (flag)
@@ -1012,6 +1056,7 @@ public class Player : MonoBehaviour
     {
         int heal = (int)(Max_HP * (persent / 100f));
         Player_HP += heal;
+        HealEffect.Play();
         if (Player_HP > Max_HP)
         {
             Player_HP = Max_HP;
