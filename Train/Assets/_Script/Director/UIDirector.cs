@@ -131,6 +131,10 @@ public class UIDirector : MonoBehaviour
     public AudioClip WaveSFX;
     public AudioClip ClearSFX;
 
+    [Header("Effect")]
+    public GameObject WarningSpeedEffect;
+    ParticleSystem WarningSpeedEffect_System;
+
     bool STEAM_CLICK_KEY_V_FLAG;
     private void Awake()
     {
@@ -174,9 +178,31 @@ public class UIDirector : MonoBehaviour
 
         PlayerGunObject[playerData.Player_Num].SetActive(true);
         WaveFillObject.SetActive(false);
+
+        WarningSpeedEffect_System = WarningSpeedEffect.GetComponentInChildren<ParticleSystem>();
+        WarningSpeedEffect_System.Stop();
     }
     private void Update()
     {
+        if (gamedirector.gameType == GameType.Playing || gamedirector.gameType == GameType.Boss)
+        {
+            if (gamedirector.TrainSpeed <= 50)
+            {
+                WarningSpeedEffect.SetActive(true);
+                Speed_Text.text = "<size=21><color=red>" + (int)gamedirector.TrainSpeed + "</size></color> Km/h";
+            }
+            else
+            {
+                WarningSpeedEffect.SetActive(false);
+                Speed_Text.text = "<size=21>" + (int)gamedirector.TrainSpeed + "</size> Km/h";
+            }
+        }
+        else
+        {
+            Speed_Text.text = "<size=21>" + (int)gamedirector.TrainSpeed + "</size> Km/h";
+            WarningSpeedEffect.SetActive(false);
+        }
+
         if (gamedirector.gameType != GameType.Ending && gamedirector.gameType != GameType.GameEnd)
         {
             if (ItemInformation_Object_Flag)
@@ -215,7 +241,7 @@ public class UIDirector : MonoBehaviour
         TotalFuel_Bar.fillAmount = gamedirector.Check_Fuel();
         ReLoading_Guage.fillAmount = player.Check_GunBullet();
 
-        Speed_Text.text = "<size=21>" + (int)gamedirector.TrainSpeed + "</size> Km/h";
+        //Speed_Text.text = "<size=21>" + (int)gamedirector.TrainSpeed + "</size> Km/h";
         Fuel_Text.text = (int)(gamedirector.Check_Fuel() * 100f) + "%";
         Speed_Arrow.value = gamedirector.TrainSpeed / gamedirector.MaxSpeed;
 

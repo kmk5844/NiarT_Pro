@@ -155,6 +155,7 @@ public class Player : MonoBehaviour
     public ParticleSystem DashEffect;
     public ParticleSystem JumpEffect;
     public ParticleSystem HealEffect;
+    public GameObject HPWaringEffect;
 
     void Start()
     {
@@ -222,6 +223,15 @@ public class Player : MonoBehaviour
         else
         {
             WarkEffect.SetActive(true);
+        }
+
+        if(Check_HpParsent() < 30f)
+        {
+            HPWaringEffect.SetActive(true);
+        }
+        else
+        {
+            HPWaringEffect.SetActive(false);
         }
 
 
@@ -487,7 +497,7 @@ public class Player : MonoBehaviour
                 rigid.velocity = new Vector2(rigid.velocity.x, 0f);
                 rigid.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
                 ani.SetTrigger("Jump");
-                JumpEffect.Play();
+                //JumpEffect.Play();
             }
 
             if (!jumpitemFlag_Minus)
