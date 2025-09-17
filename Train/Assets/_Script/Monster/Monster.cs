@@ -332,19 +332,28 @@ public class Monster : MonoBehaviour
 
     protected void Fire_Debuff()
     {
-        if (fire_debuff_flag)
+        if(monster_gametype != Monster_GameType.Die)
         {
-            if (fire_hit_Count < 11) // 변경예정
+            if (fire_debuff_flag)
             {
-                if (!fire_hit_flag) {
-                    StartCoroutine(Fire_Hit_Corutine());
+                if (fire_hit_Count < 11) // 변경예정
+                {
+                    if (!fire_hit_flag)
+                    {
+                        StartCoroutine(Fire_Hit_Corutine());
+                    }
+                }
+                else
+                {
+                    fire_debuff_flag = false;
                 }
             }
-            else
-            {
-                fire_debuff_flag = false;
-            }
         }
+        else
+        {
+            fire_debuff_flag = false;
+        }
+
     }
 
     IEnumerator Fire_Hit_Corutine()

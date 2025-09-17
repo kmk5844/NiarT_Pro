@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using MoreMountains.Feel;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,6 +8,8 @@ public class Intercept_Flare_Turret : Turret
 {
     public Transform BulletObject;
     GameObject[] Flare_List;
+    public ParticleSystem[] FireEffect;
+
 
     protected override void Start()
     {
@@ -39,18 +42,47 @@ public class Intercept_Flare_Turret : Turret
 
     IEnumerator Flare_Opne_And_Close(int num)
     {
-        while (Flare_List[num].transform.localEulerAngles.z <= 120)
+        float rotated = 0f;
+        while (rotated < 120f)
         {
-            Flare_List[num].transform.Rotate(new Vector3(0, 0, 300f * Time.deltaTime));
+            float delta = 300f * Time.deltaTime;
+            Flare_List[num].transform.Rotate(0, 0, delta);
+            rotated += delta;
             yield return null;
         }
-        Vector2 Flare_Positinon = new Vector2 (Flare_List[num].transform.position.x + 0.2f, Flare_List[num].transform.position.y - 0.1f);
+
+        Vector2 Flare_Positinon = new Vector2(
+            Flare_List[num].transform.position.x + 0.2f,
+            Flare_List[num].transform.position.y - 0.1f
+        );
         Instantiate(BulletObject, Flare_Positinon, transform.rotation, Bullet_List);
+        FireEffect[num].Play();
+
         yield return new WaitForSeconds(0.5f);
-        while (Flare_List[num].transform.localEulerAngles.z  >= 1)
+
+        // 뒤로 회전 (120도까지 복귀)
+        rotated = 0f;
+        while (rotated < 120f)
         {
-            Flare_List[num].transform.Rotate(new Vector3(0, 0, -300f * Time.deltaTime));
+            float delta = 300f * Time.deltaTime;
+            Flare_List[num].transform.Rotate(0, 0, -delta);
+            rotated += delta;
             yield return null;
         }
+
+        /*        while (Flare_List[num].transform.localEulerAngles.z <= 120)
+                {
+                    Flare_List[num].transform.Rotate(new Vector3(0, 0, 300f * Time.deltaTime));
+                    yield return null;
+                }
+                Vector2 Flare_Positinon = new Vector2 (Flare_List[num].transform.position.x + 0.2f, Flare_List[num].transform.position.y - 0.1f);
+                Instantiate(BulletObject, Flare_Positinon, transform.rotation, Bullet_List);
+                FireEffect[num].Play();
+                yield return new WaitForSeconds(0.5f);
+                while (Flare_List[num].transform.localEulerAngles.z  >= 1)
+                {
+                    Flare_List[num].transform.Rotate(new Vector3(0, 0, -300f * Time.deltaTime));
+                    yield return null;
+                }*/
     }
 }

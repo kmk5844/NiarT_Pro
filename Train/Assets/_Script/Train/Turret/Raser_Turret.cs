@@ -11,6 +11,7 @@ public class Raser_Turret : Turret
     float Data_Attack_Delay;
     float train_Attacking_Delay;
     public float Z;
+    public ParticleSystem FireEffect;
     
     protected override void Start()
     {
@@ -60,6 +61,7 @@ public class Raser_Turret : Turret
                     {
                         laser.SetActive(false);
                         Fire_Flag = false;
+                        FireEffect.Stop();
                         train_Attack_Delay = Data_Attack_Delay;
                         lastTime = Time.time;
                     }
@@ -83,6 +85,7 @@ public class Raser_Turret : Turret
                     {
                         laser.SetActive(true);
                         Fire_Flag = true;
+                        FireEffect.Play();
                         train_Attack_Delay = train_Attacking_Delay;
                         lastTime = Time.time;
                     }
@@ -96,6 +99,7 @@ public class Raser_Turret : Turret
                     {
                         laser.SetActive(false);
                         Fire_Flag = false;
+                        FireEffect.Stop();
                         train_Attack_Delay = Data_Attack_Delay;
                         lastTime = Time.time;
                     }
@@ -106,6 +110,7 @@ public class Raser_Turret : Turret
                     {
                         laser.SetActive(true);
                         Fire_Flag = true;
+                        FireEffect.Play();
                         train_Attack_Delay = train_Attacking_Delay;
                         lastTime = Time.time;
                     }

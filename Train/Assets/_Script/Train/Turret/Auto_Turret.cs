@@ -8,7 +8,8 @@ public class Auto_Turret : Turret
     public Transform FireObject;
     public Transform BulletObject;
     Transform Target;
-    public float Z;    
+    public float Z;
+    public ParticleSystem FireEffect;
 
     protected override void Start()
     {
@@ -73,6 +74,7 @@ public class Auto_Turret : Turret
         if (Time.time >= lastTime + (train_Attack_Delay - Item_Attack_Delay))
         {
             Instantiate(BulletObject, FireObject.position, FireObject.rotation, Bullet_List);
+            FireEffect.Play();
             lastTime = Time.time;
         }
     }

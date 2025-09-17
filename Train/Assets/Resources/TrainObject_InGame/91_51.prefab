@@ -410,6 +410,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3659750651288305338}
   - component: {fileID: 4542272348748041771}
+  - component: {fileID: 5699654334123438749}
   m_Layer: 0
   m_Name: 91_51
   m_TagString: Untagged
@@ -449,6 +450,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trainData: {fileID: 11400000, guid: 3a83740cb85032c498c0bbd5b0a2ec9d, type: 2}
+  Train_Index: 0
   Train_Num: 0
   Train_Num2: 0
   Train_HP: 0
@@ -457,38 +459,42 @@ MonoBehaviour:
   Train_Weight: 0
   Train_Armor: 0
   Train_Type: 
+  DestoryFlag: 0
   Train_MaxSpeed: 0
   Train_Efficient: 0
   Train_Engine_Power: 0
   Train_Fuel: 0
   Train_Attack: 0
   Train_Attack_Delay: 0
-  Train_WarningSpeed: 0
-  Train_BoosterFuel: 0
-  Train_UseFuel: 0
-  Train_BoosterSpeedUP: 0
-  Train_BoosterTime: 0
   Train_Special: 
   Not_DestoryTrain: 0
+  trainData_Special_String: []
   Train_Heal: 0
   Max_Train_Heal: 0
   Train_Heal_Amount: 0
   Train_Heal_timeBet: 0
   isHealing: 0
-  Train_Self_UseFuel: 0
-  Train_Self_Attack: 0
-  Train_Self_Attack_Delay: 0
-  Train_Self_Second: 0
-  Train_Supply_UseFuel: 0
-  Train_Supply_Grade: 0
-  Train_Supply_Count: 0
-  Train_Dash_UseFuel: 0
-  Train_Dash_PalyerAmount: 0
-  Train_Dash_Second: 0
   isReparing: 0
   isRepairable: 0
   gameDirector: {fileID: 0}
   UI_Level: 0
+  trainHitSFX: {fileID: 0}
+  isCooltimeCheckFlag: 0
+  warningFlag: 0
+  redSpriteFlag: 0
+--- !u!114 &5699654334123438749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6558524421676788571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b25e4ec6943d4c4e9bc2663f96a2fba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trainSprite: []
 --- !u!1 &9134103707433391457
 GameObject:
   m_ObjectHideFlags: 0

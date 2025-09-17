@@ -69,7 +69,6 @@ public class Train_InGame : MonoBehaviour
     public GameDirector gameDirector;
     public int UI_Level;
     bool LoseFlag;
-    SpriteRenderer TrainSprite;
     public AudioClip trainHitSFX;
 
     [Header("엔지니어")]
@@ -78,6 +77,12 @@ public class Train_InGame : MonoBehaviour
     bool isEngineerCallFlag;
     [HideInInspector]
     public  bool isCooltimeCheckFlag;
+
+    [HideInInspector]
+    public bool warningFlag;
+    [HideInInspector]
+    public bool redSpriteFlag;
+
 
     private void Awake()
     {
@@ -148,7 +153,6 @@ public class Train_InGame : MonoBehaviour
 
     private void Start()
     {
-        TrainSprite = GetComponentInChildren<SpriteRenderer>();
         gameObject.name = Train_Index + ". " + gameObject.name;
     }
 
@@ -158,9 +162,17 @@ public class Train_InGame : MonoBehaviour
         HP_Parsent = (float)Train_HP / (float)Max_Train_HP * 100f;
         //여기서 만약 기차가 파괴 시 쓰면 좋은 함수 (업데이트 문이라면 조심)
 
-        if (HP_Parsent < 50f)
+        if (HP_Parsent < 30f)
         {
-            TrainSprite.color = Color.Lerp(Color.white, Color.red, ((100f - (HP_Parsent * 2)) / 100f));
+            if(!warningFlag)
+            {
+                StartCoroutine(WarningFlag());
+            }
+            //TrainSprite.color = Color.Lerp(Color.white, Color.red, ((100f - (HP_Parsent * 2)) / 100f));
+        }
+        else
+        {
+            redSpriteFlag = false;
         }
 
         if (Train_HP <= 0)
@@ -206,7 +218,8 @@ public class Train_InGame : MonoBehaviour
         }
         else
         {
-            if(DestoryFlag == true){
+            if (DestoryFlag == true)
+            {
                 DestoryFlag = false;
             }
         }
@@ -235,6 +248,16 @@ public class Train_InGame : MonoBehaviour
             }
         }
         UI_Level = CheckLevel();
+    }
+
+    public IEnumerator WarningFlag()
+    {
+        warningFlag = true;
+        redSpriteFlag = true;
+        yield return new WaitForSeconds(0.5f);
+        redSpriteFlag = false;
+        yield return new WaitForSeconds(0.5f);
+        warningFlag = false;
     }
 
     public int CheckLevel()

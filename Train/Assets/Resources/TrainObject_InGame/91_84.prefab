@@ -121,6 +121,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4910145755587029164}
   - component: {fileID: 3232256433616990448}
+  - component: {fileID: 4898224870605820231}
   m_Layer: 0
   m_Name: 91_84
   m_TagString: Untagged
@@ -189,6 +190,22 @@ MonoBehaviour:
   gameDirector: {fileID: 0}
   UI_Level: 0
   trainHitSFX: {fileID: 0}
+  isCooltimeCheckFlag: 0
+  warningFlag: 0
+  redSpriteFlag: 0
+--- !u!114 &4898224870605820231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2029552063646954325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b25e4ec6943d4c4e9bc2663f96a2fba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trainSprite: []
 --- !u!1 &7604380747196173948
 GameObject:
   m_ObjectHideFlags: 0
@@ -260,7 +277,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -611559395
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 2
   m_Sprite: {fileID: -1094407995, guid: 8b946c7477647dd4e8cdf299bd49f4f4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

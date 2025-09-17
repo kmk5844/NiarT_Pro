@@ -13,6 +13,7 @@ public class Arrow_Turret : Turret
     Vector3 ArrowOriginPosition;
     Transform Target;
     public float Z;
+    public ParticleSystem FireEffect;
 
     protected override void Start()
     {
@@ -102,10 +103,12 @@ public class Arrow_Turret : Turret
             if(Random_Arrow == 10 || Random_Arrow == 5)
             {
                 Instantiate(BulletObject_Fire, FireObject.position, FireObject.rotation, Bullet_List);
+                FireEffect.Play();
             }
             else
             {
                 Instantiate(BulletObject, FireObject.position, FireObject.rotation, Bullet_List);
+                FireEffect.Play();
             }
             lastTime = Time.time;
         }

@@ -9,6 +9,7 @@ public class Intercept_Missile_Turret : Turret
     public Transform BulletObject;
     public Transform Target;
     public float Z;
+    public ParticleSystem FireEffect;
 
     protected override void Start()
     {
@@ -43,6 +44,7 @@ public class Intercept_Missile_Turret : Turret
         {
             BulletObject.GetComponent<Missile_TurretBullet>().monster_target = Target;
             Instantiate(BulletObject, FireObject.position, FireObject.rotation, Bullet_List);
+            FireEffect.Play();
             lastTime = Time.time;
         }
     }
