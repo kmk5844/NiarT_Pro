@@ -8,6 +8,7 @@ public class EMP_Turret : Turret
     public GameObject BulletImage;
     bool MusicFlag;
     int atk;
+    public ParticleSystem BoomEffect;
 
     protected override void Start()
     {
@@ -41,7 +42,7 @@ public class EMP_Turret : Turret
     {
         BulletImage.transform.localScale = Vector3.zero; // 초기 크기
         BulletImage.SetActive(true);
-
+        BoomEffect.Play();
         float duration = 0.3f; // 성장 시간
         float elapsed = 0f;
 

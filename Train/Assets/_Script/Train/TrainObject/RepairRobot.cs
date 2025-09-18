@@ -17,6 +17,9 @@ public class RepairRobot : MonoBehaviour
 
     bool repairCorutineFlag = false;
 
+    public ParticleSystem RepairEffect;
+    public ParticleSystem BoomEffect;
+
     private void Start()
     {
         anic = GetComponent<Animator>();
@@ -72,8 +75,8 @@ public class RepairRobot : MonoBehaviour
             train.Item_Train_Heal_HP(HealPersent);
             yield return new WaitForSeconds(1f);
         }
-
-        yield return new WaitForSeconds(0.5f);
+        BoomEffect.Play();
+        yield return new WaitForSeconds(0.14f);
         repairflag = true;
     }
 
@@ -82,5 +85,10 @@ public class RepairRobot : MonoBehaviour
         TargetTrain = train;
         HealPersent = healpersent;
         HealCount = count;
+    }
+
+    public void PlayRepair()
+    {
+        RepairEffect.Play();
     }
 }

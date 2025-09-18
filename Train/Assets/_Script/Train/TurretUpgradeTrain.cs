@@ -15,6 +15,12 @@ public class TurretUpgradeTrain : MonoBehaviour
     float lastTime;
     public bool useflag;
 
+    public Transform LeverObject;
+    public SpriteRenderer GuageSprite;
+    public ParticleSystem UseEffect;
+
+    bool endflag;
+
     void Start()
     {
         trainData = transform.GetComponentInParent<Train_InGame>();
@@ -29,7 +35,10 @@ public class TurretUpgradeTrain : MonoBehaviour
     {
         if (gameDirector.gameType == GameType.Playing || gameDirector.gameType == GameType.Boss)
         {
-            elapsed += Time.deltaTime;
+            if (!endflag)
+            {
+                elapsed += Time.deltaTime;
+            }
 
             // 강제로 초 단위로 변환
             int elapsedSeconds = Mathf.FloorToInt(elapsed);
@@ -44,9 +53,37 @@ public class TurretUpgradeTrain : MonoBehaviour
     }
     public void ClickTrain()
     {
+        UseEffect.Play();
         gameDirector.Item_Use_Train_Turret_All_SpeedUP(Persent,delayTime);
-
+        StartCoroutine(Click());
         useflag = false;
-        elapsed = 0;
     }
+
+    public IEnumerator Click()
+    {
+        elapsed = 0;
+        endflag = true;
+        LeverObject.localScale = new Vector3(1, -1, 1);
+        GuageSprite.size = new Vector2(1.66f, 1f);
+        // 시작 사이즈
+        Vector2 size = GuageSprite.size;
+        Vector2 targetSize = new Vector2(0f, size.y);
+
+        float elaspsedTime = 0f;
+
+        while (elaspsedTime < delayTime)
+        {
+            elaspsedTime += Time.deltaTime;
+            float t = Mathf.Clamp01(elaspsedTime / delayTime);
+
+            GuageSprite.size = Vector2.Lerp(size, targetSize, t);
+
+            yield return null; // 한 프레임 대기
+        }
+
+        GuageSprite.size = Vector2.zero;
+        LeverObject.localScale = new Vector3(1, 1, 1);
+        endflag = false;
+    }
+
 }

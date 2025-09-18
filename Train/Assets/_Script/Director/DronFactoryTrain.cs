@@ -14,6 +14,8 @@ public class DronFactoryTrain : MonoBehaviour
     public int maxHP;
 
     public float lastTime;
+
+    public ParticleSystem UseEffect;
     private void Start()
     {
         trainData = transform.GetComponentInParent<Train_InGame>();
@@ -60,9 +62,10 @@ public class DronFactoryTrain : MonoBehaviour
     {
         GameObject MiniDeffeceDron = Resources.Load<GameObject>("ItemObject/MiniDeffenceDron");
         Vector2 pos = new Vector2(MonsterDirector.MinPos_Sky.x - 2, 3f);
+        UseEffect.Play();
         GameObject dron = Instantiate(MiniDeffeceDron, pos, Quaternion.identity);
         int hp = Random.Range(minHP, maxHP);
-        hp *= 100;
+        hp *= 80;
         dron.GetComponent<Item_MiniDron>().DeffeceDronSet(hp);
     }
 }

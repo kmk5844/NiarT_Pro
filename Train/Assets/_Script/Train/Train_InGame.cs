@@ -355,7 +355,6 @@ public class Train_InGame : MonoBehaviour
     public IEnumerator Train_Healing()
     {
         isHealing = true;
-
         if (Train_Heal - Train_Heal_Amount < 0)
         {
             Train_Heal = 0;

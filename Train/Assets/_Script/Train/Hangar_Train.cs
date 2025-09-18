@@ -69,7 +69,10 @@ public class Hangar_Train : MonoBehaviour
                 {
                     for (int i = 0; i < DoorCollider.Length; i++)
                     {
-                        DoorCollider[i].enabled = true;
+                        if (playerdata.Coin > coin[i])
+                        {
+                            DoorCollider[i].enabled = true;
+                        }
                     }
 
                     changeFlag = true;

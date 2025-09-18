@@ -7,6 +7,8 @@ public class Train_SpriteWarning : MonoBehaviour
 {
     public SpriteRenderer[] trainSprite;
     Train_InGame train;
+    public GameObject WarningEffect;
+
 
     private void Start()
     {
@@ -16,11 +18,26 @@ public class Train_SpriteWarning : MonoBehaviour
 
     private void Update()
     {
+        if (train.warningFlag)
+        {
+            if (WarningEffect && !WarningEffect.activeSelf)
+            {
+                WarningEffect.SetActive(true);
+            }
+        }
+        else
+        {
+            if (WarningEffect && WarningEffect.activeSelf)
+            {
+                WarningEffect.SetActive(false);
+            }
+        }
+
         if (train.redSpriteFlag)
         {
             foreach (SpriteRenderer sprite in trainSprite)
             {
-                sprite.color =  Color.red;
+                sprite.color = Color.red;
             }
         }
         else

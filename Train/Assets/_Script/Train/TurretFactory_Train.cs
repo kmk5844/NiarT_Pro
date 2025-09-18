@@ -12,6 +12,8 @@ public class TurretFactory_Train : MonoBehaviour
     public float lastTime;
     public float pausedElapsed;
 
+    public ParticleSystem UseEffect;
+
     private void Start()
     {
         trainData = transform.GetComponentInParent<Train_InGame>();
@@ -117,9 +119,10 @@ public class TurretFactory_Train : MonoBehaviour
                 break;
         }
 
-        Debug.Log(ItemTurret);
+        //Debug.Log(ItemTurret);
         ItemTurret.GetComponent<Item_Mini_Turret_Director>().Set(num, delayTime, atk, atkDelay);
 
+        UseEffect.Play();
         if (num != 7)
         {
             Instantiate(ItemTurret, new Vector2(pos, -0.55f), Quaternion.identity);

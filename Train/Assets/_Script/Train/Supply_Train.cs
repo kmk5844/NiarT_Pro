@@ -20,6 +20,7 @@ public class Supply_Train : MonoBehaviour
     int supply_count;
 
     public GameObject Dron;
+    public ParticleSystem SiginalEffect;
 
     private void Start()
     {
@@ -75,6 +76,7 @@ public class Supply_Train : MonoBehaviour
         FuelFlag = false;
         UseFlag = false;
         Dron.GetComponentInChildren<Supply_Train_Dron>().SupplyDron_SetData(supply_grade, supply_count);
+        SiginalEffect.Play();
         Instantiate(Dron);
         SupplyTrain_Fuel = 0;
         lastTime = Time.time;

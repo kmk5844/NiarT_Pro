@@ -42,6 +42,9 @@ public class SelfTurret_Train : MonoBehaviour
     float WaitTime;
     public float fillAmount_Time;
 
+    public ParticleSystem FireEffect;
+    Vector3 fireEffectLocalScale;
+
     private void Start()
     {
         SelfTurretTrain = GetComponentInParent<Train_InGame>(); 
@@ -70,6 +73,7 @@ public class SelfTurret_Train : MonoBehaviour
         {
             Player_Part[i] = Player_Object.transform.GetChild(i).GetComponent<SpriteRenderer>();
         }
+        fireEffectLocalScale = FireEffect.transform.localScale;
 
         Player_Object.SetActive(false);
         timebet = 0.05f;
@@ -155,15 +159,17 @@ public class SelfTurret_Train : MonoBehaviour
             float rotZ = Mathf.Atan2(rot.y, rot.x) * Mathf.Rad2Deg;
             TurretObject. transform.rotation = Quaternion.Euler(0, 0, rotZ);
 
-            if(rotZ >= -90 && rotZ <= 90)
+            if (rotZ >= -90 && rotZ <= 90)
             {
                 Turret_column.transform.localScale = new Vector3(1, 1, 1);
                 TurretObject.transform.localScale = new Vector3(TurretObject_Scale.x, TurretObject_Scale.y, TurretObject_Scale.z);
+                FireEffect.transform.localScale = new Vector3(fireEffectLocalScale.x, fireEffectLocalScale.y, fireEffectLocalScale.z);
             }
             else
             {
                 Turret_column.transform.localScale = new Vector3(-1, 1, 1);
                 TurretObject.transform.localScale = new Vector3(TurretObject_Scale.x * -1, TurretObject_Scale.y * -1, TurretObject_Scale.z);
+                FireEffect.transform.localScale = new Vector3(-fireEffectLocalScale.x, fireEffectLocalScale.y, fireEffectLocalScale.z);
             }
         }
     }
@@ -205,6 +211,7 @@ public class SelfTurret_Train : MonoBehaviour
         if(Time.time >= atk_lastTime + Turret_AtkDelay)
         {
             Bullet_Object.GetComponent<Bullet>().atk = Turret_Atk;
+            FireEffect.Play();
             Instantiate(Bullet_Object, FireZone.position, Quaternion.identity);
             MMSoundManagerSoundPlayEvent.Trigger(Shoot_SFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
             atk_lastTime = Time.time;

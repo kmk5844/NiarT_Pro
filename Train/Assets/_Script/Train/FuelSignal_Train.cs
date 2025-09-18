@@ -17,7 +17,7 @@ public class FuelSignalTrain : MonoBehaviour
     public bool useflag;
 
     public GameObject Supply;
-
+    public ParticleSystem UseEffect;
     // Start is called before the first frame update
     void Start()
     {
@@ -66,6 +66,7 @@ public class FuelSignalTrain : MonoBehaviour
     {
         int Fuel = Random.Range(minFuel, maxFuel);
 
+        UseEffect.Play();
         GameObject supply = Instantiate(Supply, new Vector2(transform.position.x + 2, transform.position.y + 15), Quaternion.identity);
         supply.GetComponent<SupplyRefresh_Item>().FuelSignalSet(gameDirector, Fuel);
 

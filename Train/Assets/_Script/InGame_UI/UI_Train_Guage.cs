@@ -13,6 +13,7 @@ public class UI_Train_Guage : MonoBehaviour
     public Image HP_Guage;
     public Image Special_Guage;
     public GameObject ON_Object;
+
     Turret turret;
     Booster_Train booster;
     SelfTurret_Train self_turret;

@@ -9,9 +9,23 @@ public class Hangar_Door : MonoBehaviour
     Hangar_Train director;
     BoxCollider2D col;
 
+    public GameObject CanEffect;
+
     private void Start()
     {
         col = GetComponent<BoxCollider2D>();
+    }
+
+    private void Update()
+    {
+        if (col.enabled)
+        {
+            CanEffect.SetActive(true);
+        }
+        else
+        {
+            CanEffect.SetActive(false);
+        }
     }
 
     public void Set(Hangar_Train direcotr_)

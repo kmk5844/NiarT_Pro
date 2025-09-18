@@ -24,6 +24,8 @@ public class Repair_Train : MonoBehaviour
 
     bool Targeting;
 
+    public ParticleSystem UseEffect;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -100,6 +102,7 @@ public class Repair_Train : MonoBehaviour
 
     public void SpawnRepair()
     {
+        UseEffect.Play();
         GameObject robot = Instantiate(RepairRobotObject, transform.position, Quaternion.identity);
         GameObject train = TrainList_InGame.GetChild(TargetNum).gameObject;
         robot.GetComponent<RepairRobot>().Set(train, HealParsent, HealCount);
