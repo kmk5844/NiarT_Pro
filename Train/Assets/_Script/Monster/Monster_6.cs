@@ -34,6 +34,8 @@ public class Monster_6 : Monster
         monsterScale = transform.localScale;
         Check_ItemSpeedSpawn();
         monster_gametype = Monster_GameType.Fighting;
+        base.WalkEffect.SetActive(true);
+
     }
 
     protected override void Update()

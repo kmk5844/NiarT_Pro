@@ -16,6 +16,8 @@ public class Monster_5 : Monster
     float EgglastTime;
     float DestroyTime;
 
+    public ParticleSystem cloudEffect;
+
     protected override void Start()
     {
         Monster_Num = 5;
@@ -61,6 +63,7 @@ public class Monster_5 : Monster
             if (Egg_Object.transform.localScale.x > 1.2f && !Bounce_flag)
             {
                 Bounce_flag = true;
+                cloudEffect.Play();
                 Bounce_value = -Bounce_Speed * Time.deltaTime;
             }
             else if (Egg_Object.transform.localScale.x < 1f && Bounce_flag)

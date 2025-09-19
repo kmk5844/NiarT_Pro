@@ -11,6 +11,8 @@ public class Monster : MonoBehaviour
 {
     Collider2D col;
     protected int Monster_Num;
+    public SpriteRenderer monsterSprite;
+    Material monsterMat;
     [Header("몬스터 게임타입")]
     [SerializeField]
     public Monster_GameType monster_gametype;
@@ -60,10 +62,10 @@ public class Monster : MonoBehaviour
 
     GameObject HitDamage;
 
-    [Header("잔상")]
+/*    [Header("잔상")]
     public GameObject AfterImage_Particle;
     protected float AfterImage_Particle_LocalScale_X;
-    protected float AfterImage_Particle_LocalScale_Y;
+    protected float AfterImage_Particle_LocalScale_Y;*/
 
     GameObject Monster_Kill_Particle;
 
@@ -105,9 +107,10 @@ public class Monster : MonoBehaviour
     float default_LocalScale_Z;
 
     public GameObject StunEffect;
+    public GameObject WalkEffect;
+
     public float monster_xPos;
     AudioClip DieSfX;
-
     protected virtual void Start()
     {
         lastTime = Time.time;
@@ -120,6 +123,14 @@ public class Monster : MonoBehaviour
         HitDamage = Resources.Load<GameObject>("Monster/Hit_Text");
         Monster_Kill_Particle = Resources.Load<GameObject>("Monster/Monster_Kill_Effect");
         DieSfX = Resources.Load<AudioClip>("Sound/SFX/Monster_Die_SFX");
+        try
+        {
+            monsterMat = GetComponent<SpriteRenderer>().material;
+        }
+        catch
+        {
+            monsterMat = monsterSprite.material;
+        }
 
         Monster_Name = EX_GameData.Information_Monster[Monster_Num].Monster_Name;
         Monster_HP = EX_GameData.Information_Monster[Monster_Num].Monster_HP;
@@ -139,8 +150,8 @@ public class Monster : MonoBehaviour
 
         monster_Bullet_List = GameObject.Find("Bullet_List").GetComponent<Transform>();
 
-        AfterImage_Particle_LocalScale_X = AfterImage_Particle.transform.localScale.x;
-        AfterImage_Particle_LocalScale_Y = AfterImage_Particle.transform.localScale.y;
+        //AfterImage_Particle_LocalScale_X = AfterImage_Particle.transform.localScale.x;
+        //AfterImage_Particle_LocalScale_Y = AfterImage_Particle.transform.localScale.y;
 
         player = GameObject.FindGameObjectWithTag("Player");
         EndFlag = false;
@@ -373,12 +384,12 @@ public class Monster : MonoBehaviour
         if (player.transform.position.x - transform.position.x < 0f)
         {
             transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-            AfterImage_Particle.transform.localScale = new Vector3(-AfterImage_Particle_LocalScale_X, AfterImage_Particle_LocalScale_Y, 1);
+            //AfterImage_Particle.transform.localScale = new Vector3(-AfterImage_Particle_LocalScale_X, AfterImage_Particle_LocalScale_Y, 1);
         }
         else
         {
             transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-            AfterImage_Particle.transform.localScale = new Vector3(AfterImage_Particle_LocalScale_X, AfterImage_Particle_LocalScale_Y, 1);
+            //AfterImage_Particle.transform.localScale = new Vector3(AfterImage_Particle_LocalScale_X, AfterImage_Particle_LocalScale_Y, 1);
         }
     } // 공통적으로 적용해야 함
 
@@ -404,6 +415,7 @@ public class Monster : MonoBehaviour
         HitDamage.GetComponent<Hit_Text_Damage>().damage = hit_atk;
         HitDamage.GetComponent<Hit_Text_Damage>().Random_X = transform.position.x + Random.Range(-0.5f, 0.5f);
         HitDamage.GetComponent<Hit_Text_Damage>().Random_Y = transform.position.y + Random.Range(0.5f, 1.5f);
+        StartCoroutine(MatHitEffect());
         Instantiate(HitDamage, monster_Bullet_List);
         if (Monster_HP - hit_atk > 0)
         {
@@ -430,6 +442,7 @@ public class Monster : MonoBehaviour
         HitDamage.GetComponent<Hit_Text_Damage>().damage = hit_atk;
         HitDamage.GetComponent<Hit_Text_Damage>().Random_X = transform.position.x + Random.Range(-0.5f, 0.5f);
         HitDamage.GetComponent<Hit_Text_Damage>().Random_Y = transform.position.y + Random.Range(0.5f, 1.5f);
+        StartCoroutine(MatHitEffect());
         Instantiate(HitDamage, monster_Bullet_List);
         if (Monster_HP - hit_atk > 0)
         {
@@ -450,6 +463,7 @@ public class Monster : MonoBehaviour
         HitDamage.GetComponent<Hit_Text_Damage>().damage = mercenary_atk;
         HitDamage.GetComponent<Hit_Text_Damage>().Random_X = transform.position.x + Random.Range(-0.5f, 0.5f);
         HitDamage.GetComponent<Hit_Text_Damage>().Random_Y = transform.position.y + Random.Range(0.5f, 1.5f);
+        StartCoroutine(MatHitEffect());
         Instantiate(HitDamage, monster_Bullet_List);
         if (Monster_HP - mercenary_atk > 0)
         {
@@ -466,6 +480,7 @@ public class Monster : MonoBehaviour
         HitDamage.GetComponent<Hit_Text_Damage>().damage = Bomb_Atk * 2;
         HitDamage.GetComponent<Hit_Text_Damage>().Random_X = transform.position.x + Random.Range(-0.5f, 0.5f);
         HitDamage.GetComponent<Hit_Text_Damage>().Random_Y = transform.position.y + Random.Range(0.5f, 1.5f);
+        StartCoroutine(MatHitEffect());
         Instantiate(HitDamage, monster_Bullet_List);
         if (Monster_HP - Bomb_Atk * 2 > 0)
         {
@@ -482,6 +497,7 @@ public class Monster : MonoBehaviour
         HitDamage.GetComponent<Hit_Text_Damage>().damage = Atk;
         HitDamage.GetComponent<Hit_Text_Damage>().Random_X = transform.position.x + Random.Range(-0.5f, 0.5f);
         HitDamage.GetComponent<Hit_Text_Damage>().Random_Y = transform.position.y + Random.Range(0.5f, 1.5f);
+        StartCoroutine(MatHitEffect());
         Instantiate(HitDamage, monster_Bullet_List);
         if (Monster_HP - Atk > 0)
         {
@@ -498,6 +514,7 @@ public class Monster : MonoBehaviour
         HitDamage.GetComponent<Hit_Text_Damage>().damage = 10;
         HitDamage.GetComponent<Hit_Text_Damage>().Random_X = transform.position.x + Random.Range(-0.5f, 0.5f);
         HitDamage.GetComponent<Hit_Text_Damage>().Random_Y = transform.position.y + Random.Range(0.5f, 1.5f);
+        StartCoroutine(MatHitEffect());
         Instantiate(HitDamage, monster_Bullet_List);
         if (Monster_HP - 10 > 0)
         {
@@ -515,6 +532,7 @@ public class Monster : MonoBehaviour
         HitDamage.GetComponent<Hit_Text_Damage>().damage = hit_atk;
         HitDamage.GetComponent<Hit_Text_Damage>().Random_X = transform.position.x + Random.Range(-0.5f, 0.5f);
         HitDamage.GetComponent<Hit_Text_Damage>().Random_Y = transform.position.y + Random.Range(0.5f, 1.5f);
+        StartCoroutine(MatHitEffect());
         Instantiate(HitDamage, monster_Bullet_List);
         if (Monster_HP - hit_atk > 0)
         {
@@ -670,6 +688,35 @@ public class Monster : MonoBehaviour
         }
         Damage_Monster_Collsion(collision);
     }
+
+
+    IEnumerator MatHitEffect()
+    {
+        monsterMat.SetFloat("_HitEffectBlend", 0.05f);
+
+        float duration = 0.2f; // 올라가는 시간
+        float elapsed = 0f;
+
+        // 0 → 0.5
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
+            monsterMat.SetFloat("_HitEffectBlend", Mathf.Lerp(0f, 0.15f, t));
+            yield return null;
+        }
+
+        // 0.5에서 0으로
+        elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
+            monsterMat.SetFloat("_HitEffectBlend", Mathf.Lerp(0.15f, 0f, t));
+            yield return null;
+        }
+    }
+
 
     //아이템 부분
     public void Item_Monster_CureseFlag(int Persent)

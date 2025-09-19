@@ -97,7 +97,8 @@ public class Monster_7 : Monster
     {
         float elapsedTime = 0;
         float duration = 1.5f;
-    
+        base.WalkEffect.SetActive(true);
+
         while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;

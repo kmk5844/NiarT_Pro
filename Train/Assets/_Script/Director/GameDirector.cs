@@ -10,6 +10,16 @@ using UnityEngine.UI;
 //Script Execution Order로 조절 중
 public class GameDirector : MonoBehaviour
 {
+    [Header("테스트")]
+    public bool Test_Mode;
+    public int Test_Mission_Num;
+    public int Test_Stage_Num;
+    public int Test_Select_Sub_Num;
+    public int Test_TrainDistance;
+
+    public string Test_Monster_Num;
+    public string Test_Monster_Count;
+
     [Header("카메라")]
     public CinemachineVirtualCamera virtualCamera;
     [Header("게임 타입")]
@@ -240,11 +250,13 @@ public class GameDirector : MonoBehaviour
         Before_Sub_Num = SA_PlayerData.Before_Sub_Stage;
         Select_Sub_Num = SA_PlayerData.Select_Sub_Stage;
 
-/*        Mission_Num = 0;
-        Stage_Num = 1;
-        Select_Sub_Num = 3;*/
+        if (Test_Mode)
+        {
+            Mission_Num = Test_Mission_Num;
+            Stage_Num = Test_Stage_Num;
+            Select_Sub_Num = Test_Select_Sub_Num;
+        }
 
-        //TrainDistance = 70000;
 
         SubStageData = SA_MissionData.missionStage(Mission_Num, Stage_Num, Select_Sub_Num);
 
@@ -800,7 +812,15 @@ public class GameDirector : MonoBehaviour
         Emerging_Monster_String = SubStageData.Emerging_Monster;
         Emerging_MonsterCount_String = SubStageData.Monster_Count;
         Destination_Distance = SubStageData.Distance;
-
+        if (Test_Mode)
+        {
+            if(Test_Monster_Num != null)
+            {
+                Emerging_Monster_String = Test_Monster_Num;
+                Emerging_MonsterCount_String = Test_Monster_Count;
+            }
+            Destination_Distance = Test_TrainDistance;
+        }
         Emerging_Monster_Sky = new List<int>();
         Emerging_Monster_Ground = new List<int>();
         Emerging_MonsterCount = new List<int>();

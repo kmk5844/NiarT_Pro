@@ -21,6 +21,9 @@ public class TurretUpgradeTrain : MonoBehaviour
 
     bool endflag;
 
+    public SpriteRenderer[] FuelGuage;
+    float segmentSize = 1.08f;
+    int GuageNum = 4;
     void Start()
     {
         trainData = transform.GetComponentInParent<Train_InGame>();
@@ -40,6 +43,31 @@ public class TurretUpgradeTrain : MonoBehaviour
                 elapsed += Time.deltaTime;
             }
 
+            float progress = Mathf.Clamp01(elapsed / SpawnTime);
+
+            // 현재 몇 번째 칸인지
+            int section = Mathf.FloorToInt(progress * GuageNum);
+            section = Mathf.Clamp(section, 0, GuageNum - 1);
+            float sectionProgress = (progress * GuageNum) - section;
+            // 모든 스프라이트 초기화
+            for (int i = 0; i < GuageNum; i++)
+            {
+                if (i < section)
+                {
+                    // 이전 칸들은 꽉 채움
+                    FuelGuage[i].size = new Vector2(FuelGuage[i].size.x, segmentSize);
+                }
+                else if (i == section)
+                {
+                    // 현재 칸은 진행률만큼 채움
+                    FuelGuage[i].size = new Vector2(FuelGuage[i].size.x, sectionProgress * segmentSize);
+                }
+                else
+                {
+                    // 이후 칸들은 비움
+                    FuelGuage[i].size = new Vector2(FuelGuage[i].size.x, 0f);
+                }
+            }
             // 강제로 초 단위로 변환
             int elapsedSeconds = Mathf.FloorToInt(elapsed);
             int spawnSeconds = Mathf.FloorToInt(SpawnTime);

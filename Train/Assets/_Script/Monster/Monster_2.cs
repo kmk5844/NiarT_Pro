@@ -59,6 +59,7 @@ public class Monster_2 : Monster
         float elapsedTime = 0;
         float duration = 1f;
         float height = Random.Range(-1f, -3f);
+        base.WalkEffect.SetActive(true);
 
         while (elapsedTime < duration)
         {

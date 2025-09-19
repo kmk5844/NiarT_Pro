@@ -23,6 +23,8 @@ public class Monster_4 : Monster
         transform.position = new Vector3(20 + x, transform.position.y, transform.position.z);
         xPos = -1f;
         Check_ItemSpeedSpawn();
+        base.WalkEffect.SetActive(true);
+
         monster_gametype = Monster_GameType.Fighting;
     }
 

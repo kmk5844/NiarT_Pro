@@ -23,6 +23,8 @@ public class Monster_14 : Monster
         xPos = -1f;
         Check_ItemSpeedSpawn();
         monster_gametype = Monster_GameType.Fighting;
+        base.WalkEffect.SetActive(true);
+
     }
 
     protected override void Update()

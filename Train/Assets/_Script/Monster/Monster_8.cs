@@ -60,6 +60,7 @@ public class Monster_8 : Monster
         float duration = Random.Range(4f, 6f);
         float shakeAmplitude = 1f; // 좌우 흔들림의 크기 조절 (원하는 값으로 조절)
         float shakeFrequency = 5f;    // 좌우로 흔들리는 횟수 (n번)
+        base.WalkEffect.SetActive(true);
 
         while (elapsedTime < duration)
         {

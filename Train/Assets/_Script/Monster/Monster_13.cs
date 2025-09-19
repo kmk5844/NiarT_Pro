@@ -153,6 +153,7 @@ public class Monster_13 : Monster
         float duration = Random.Range(0.5f, 1f);
         float height = Random.Range(-1f, -3f);
 
+        base.WalkEffect.SetActive(true);
         while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;
@@ -185,12 +186,12 @@ public class Monster_13 : Monster
         if (MaxMinFlag)
         {
             transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-            AfterImage_Particle.transform.localScale = new Vector3(-AfterImage_Particle_LocalScale_X, AfterImage_Particle_LocalScale_Y, 1);
+            //AfterImage_Particle.transform.localScale = new Vector3(-AfterImage_Particle_LocalScale_X, AfterImage_Particle_LocalScale_Y, 1);
         }
         else
         {
             transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-            AfterImage_Particle.transform.localScale = new Vector3(AfterImage_Particle_LocalScale_X, AfterImage_Particle_LocalScale_Y, 1);
+            //AfterImage_Particle.transform.localScale = new Vector3(AfterImage_Particle_LocalScale_X, AfterImage_Particle_LocalScale_Y, 1);
         }
     }
 
