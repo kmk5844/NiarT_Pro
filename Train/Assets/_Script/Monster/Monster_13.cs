@@ -65,6 +65,16 @@ public class Monster_13 : Monster
 
     void Attack()
     {
+        if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay) - 0.65f)
+        {
+            if (!warningFlag)
+            {
+                WarningEffect.Play();
+                warningFlag = true;
+            }
+        }
+
+
         if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay) && monster_gametype != Monster_GameType.Die)
         {
             AttackFlag = true;
@@ -143,6 +153,7 @@ public class Monster_13 : Monster
             yield return null;
         }
         AttackFlag = false;
+        warningFlag = false;
         lastTime = Time.time;
         Monster_coroutine = null;
     }

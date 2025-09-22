@@ -80,6 +80,15 @@ public class Monster_10 : Monster
 */
     void _BulletFire()
     {
+        if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay) - 0.65f)
+        {
+            if (!warningFlag)
+            {
+                WarningEffect.Play();
+                warningFlag = true;
+            }
+        }
+
         if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay) && monster_gametype != Monster_GameType.Die)
         {
             GameObject bullet = BulletObject;
@@ -91,6 +100,7 @@ public class Monster_10 : Monster
                 bullet.GetComponent<Monster_Bullet_Angle>().SetAngle_And_Fire(angle);
                 Instantiate(bullet, Fire_Zone.position, transform.rotation, monster_Bullet_List);
             }
+            warningFlag = false;
             lastTime = Time.time;
         }
     }

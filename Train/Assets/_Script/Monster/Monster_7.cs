@@ -119,6 +119,7 @@ public class Monster_7 : Monster
         float jump_duration = 1f;
         float height = Random.Range(5f, 10f);
         jumpAfter_Pos = new Vector2(jump_Pos.x + Random.Range(5f, 8f), transform.position.y);
+        WarningEffect.Play();
         while (elapsedTime < jump_duration)
         {
             elapsedTime += Time.deltaTime;

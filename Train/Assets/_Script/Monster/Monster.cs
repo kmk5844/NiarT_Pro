@@ -57,6 +57,8 @@ public class Monster : MonoBehaviour
     protected float Bullet_Slow;
     protected float lastTime;
     protected Transform monster_Bullet_List;
+    protected bool warningFlag;
+    public ParticleSystem WarningEffect;
     [SerializeField]
     protected Transform Fire_Zone;
 

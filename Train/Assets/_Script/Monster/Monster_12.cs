@@ -109,6 +109,15 @@ public class Monster_12 : Monster
 
     void attackDelay()
     {
+        if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay) - 0.65f)
+        {
+            if (!warningFlag)
+            {
+                WarningEffect.Play();
+                warningFlag = true;
+            }
+        }
+
         if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay))
         {
             if (!warningMarkFlag)
@@ -128,7 +137,6 @@ public class Monster_12 : Monster
                 }
             }
             warningMarkFlag = true;
-            
             WarningMark.SetActive(true);
         }
     }
@@ -147,6 +155,7 @@ public class Monster_12 : Monster
             }
         }
         attackFlag = false;
+        warningFlag = false;
         lastTime = Time.time;
     }
 

@@ -84,6 +84,7 @@ public class Monster_11 : Monster
 
     public void AttackTrigger()
     {
+        WarningEffect.Play();
         ani.SetTrigger("Attack");
     }
 

@@ -7,6 +7,10 @@ using UnityEngine.UI;
 public class Boss : MonoBehaviour
 {
     protected int Boss_Num;
+    public SpriteRenderer bossSprite;
+    Material bossMat;
+    private Coroutine hitCoroutine;
+    private bool resetEffect = false;
     public Game_DataTable EX_GameData;
     public SA_Monster monsterData;
     GameDirector gameDirector;
@@ -38,6 +42,9 @@ public class Boss : MonoBehaviour
     protected float lastTime;
     protected Transform monster_Bullet_List;
 
+    public ParticleSystem SkillEffect;
+    public bool skilleffect_flag;
+
     GameObject HitDamage;
     protected Transform player_pos;
     protected Vector3 local_Scale;
@@ -54,6 +61,15 @@ public class Boss : MonoBehaviour
         gameDirector = GameObject.Find("GameDirector").GetComponent<GameDirector>();
         HitDamage = Resources.Load<GameObject>("Monster/Hit_Text");
         DieFlag = false;
+
+        try
+        {
+            bossMat = GetComponent<SpriteRenderer>().material;
+        }
+        catch
+        {
+            bossMat = bossSprite.material;
+        }
 
         Monster_Name = EX_GameData.Information_Boss[Boss_Num].Monster_Name;
         Monster_HP = EX_GameData.Information_Boss[Boss_Num].Monster_HP;
@@ -93,6 +109,7 @@ public class Boss : MonoBehaviour
         HitDamage.GetComponent<Hit_Text_Damage>().damage = hit_atk;
         HitDamage.GetComponent<Hit_Text_Damage>().Random_X = transform.position.x + Random.Range(-0.5f, 0.5f);
         HitDamage.GetComponent<Hit_Text_Damage>().Random_Y = transform.position.y + Random.Range(0.5f, 1.5f);
+        TriggerHitEffect();
         Instantiate(HitDamage, monster_Bullet_List);
         if (Monster_HP - hit_atk > 0)
         {
@@ -109,6 +126,8 @@ public class Boss : MonoBehaviour
         HitDamage.GetComponent<Hit_Text_Damage>().damage = hit_atk;
         HitDamage.GetComponent<Hit_Text_Damage>().Random_X = transform.position.x + Random.Range(-0.5f, 0.5f);
         HitDamage.GetComponent<Hit_Text_Damage>().Random_Y = transform.position.y + Random.Range(0.5f, 1.5f);
+        TriggerHitEffect();
+
         Instantiate(HitDamage, monster_Bullet_List);
         if (Monster_HP - hit_atk > 0)
         {
@@ -125,6 +144,7 @@ public class Boss : MonoBehaviour
         HitDamage.GetComponent<Hit_Text_Damage>().damage = Bomb_Atk;
         HitDamage.GetComponent<Hit_Text_Damage>().Random_X = transform.position.x + Random.Range(-0.5f, 0.5f);
         HitDamage.GetComponent<Hit_Text_Damage>().Random_Y = transform.position.y + Random.Range(0.5f, 1.5f);
+        TriggerHitEffect();
         Instantiate(HitDamage, monster_Bullet_List);
         if (Monster_HP - Bomb_Atk > 0)
         {
@@ -262,5 +282,41 @@ public class Boss : MonoBehaviour
         yield return new WaitForSeconds(1f);
         fire_hit_Count++;
         fire_hit_flag = false;
+    }
+
+
+
+    public void TriggerHitEffect()
+    {
+        if (hitCoroutine == null)
+            hitCoroutine = StartCoroutine(MatHitEffect());
+        else
+            resetEffect = true; // 이미 돌고 있으면 리셋
+    }
+
+
+    IEnumerator MatHitEffect()
+    {
+        float duration = 0.2f;
+
+        while (true)
+        {
+            resetEffect = false;
+            bossMat.SetFloat("_HitEffectBlend", 0.2f);
+
+            float elapsed = 0f;
+            while (elapsed < duration && !resetEffect)
+            {
+                elapsed += Time.deltaTime;
+                float t = elapsed / duration;
+                bossMat.SetFloat("_HitEffectBlend", Mathf.Lerp(0.2f, 0f, t));
+                yield return null;
+            }
+
+            if (!resetEffect) break; // 끝까지 다 돌았고, 새 입력 없으면 종료
+        }
+
+        bossMat.SetFloat("_HitEffectBlend", 0f);
+        hitCoroutine = null;
     }
 }

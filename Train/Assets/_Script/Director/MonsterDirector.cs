@@ -197,18 +197,42 @@ public class MonsterDirector : MonoBehaviour
         {
             yield return new WaitForSeconds(Random.Range(0.2f, 0.5f));
             int skyORground = Random.Range(0, 2);
-            
-            if(skyORground == 0 && Monster_List_Sky.childCount < Emerging_MonsterCount_List[0] + item_MonsterCount_Sky)
+
+            try
             {
-                int MonsterRandomIndex = Random.Range(0, Emerging_Monster_List_Sky.Count);
-                Check_Sky_OR_Ground_Monster(Emerging_Monster_List_Sky[MonsterRandomIndex], Bossflag, false);
+                if (skyORground == 0 && Monster_List_Sky.childCount < Emerging_MonsterCount_List[0] + item_MonsterCount_Sky)
+                {
+                    int MonsterRandomIndex = Random.Range(0, Emerging_Monster_List_Sky.Count);
+                    Check_Sky_OR_Ground_Monster(Emerging_Monster_List_Sky[MonsterRandomIndex], Bossflag, false);
+                }
+            }
+            catch
+            {
+                if (skyORground == 1 && Monster_List_Ground.childCount < Emerging_MonsterCount_List[1] + item_MonsterCount_Ground)
+                {
+                    int MonsterRandomIndex = Random.Range(0, Emerging_Monster_List_Ground.Count);
+                    Check_Sky_OR_Ground_Monster(Emerging_Monster_List_Ground[MonsterRandomIndex], Bossflag, true);
+                }
             }
 
-            if (skyORground == 1 && Monster_List_Ground.childCount < Emerging_MonsterCount_List[1] + item_MonsterCount_Ground)
+
+            try
             {
-                int MonsterRandomIndex = Random.Range(0, Emerging_Monster_List_Ground.Count);
-                Check_Sky_OR_Ground_Monster(Emerging_Monster_List_Ground[MonsterRandomIndex], Bossflag, true);
+                if (skyORground == 1 && Monster_List_Ground.childCount < Emerging_MonsterCount_List[1] + item_MonsterCount_Ground)
+                {
+                    int MonsterRandomIndex = Random.Range(0, Emerging_Monster_List_Ground.Count);
+                    Check_Sky_OR_Ground_Monster(Emerging_Monster_List_Ground[MonsterRandomIndex], Bossflag, true);
+                }
             }
+            catch
+            {
+                if (skyORground == 0 && Monster_List_Sky.childCount < Emerging_MonsterCount_List[0] + item_MonsterCount_Sky)
+                {
+                    int MonsterRandomIndex = Random.Range(0, Emerging_Monster_List_Sky.Count);
+                    Check_Sky_OR_Ground_Monster(Emerging_Monster_List_Sky[MonsterRandomIndex], Bossflag, false);
+                }
+            }
+
         }
         else
         {

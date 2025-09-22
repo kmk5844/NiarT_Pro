@@ -51,10 +51,20 @@ public class Monster_4 : Monster
     }
     void BulletFire()
     {
+        if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay) - 0.65f)
+        {
+            if (!warningFlag)
+            {
+                WarningEffect.Play();
+                warningFlag = true;
+            }
+        }
+
         if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay) && monster_gametype != Monster_GameType.Die)
         {
             GameObject bullet = Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
             bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, Bullet_Speed, 0);
+            warningFlag = false;
             lastTime = Time.time;
         }
     }

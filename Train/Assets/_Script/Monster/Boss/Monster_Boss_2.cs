@@ -27,6 +27,9 @@ public class Monster_Boss_2 : Boss
 
     public GameObject Skill_0_Bullet;
     public GameObject Skill_3_Bullet;
+
+    public ParticleSystem fireEffect;
+    public ParticleSystem fireEffect2;
     protected override void Start()
     {
         Boss_Num = 2;
@@ -106,8 +109,19 @@ public class Monster_Boss_2 : Boss
             {
                 GameObject defaultBullet = Instantiate(Boss_Bullet, Fire_Zone.position, Quaternion.identity, monster_Bullet_List);
                 defaultBullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk, Bullet_Slow, 20, 0);
+                fireEffect.Play();
                 attack_lastTime = Time.time;
             }
+
+            if(Time.time >= move_lastTime + move_delayTime - 1.2f)
+            {
+                if (!skilleffect_flag)
+                {
+                    SkillEffect.Play();
+                    skilleffect_flag = true;
+                }
+            }
+
 
             if (Time.time >= move_lastTime + move_delayTime)
             {
@@ -235,6 +249,7 @@ public class Monster_Boss_2 : Boss
         {
             float RandomY = Random.Range(-1f, 1f);
             Vector3 newPos = new Vector3(Fire_Zone.transform.position.x, Fire_Zone.transform.position.y + RandomY, Fire_Zone.transform.position.z);
+            fireEffect.Play();
             GameObject defaultBullet = Instantiate(Boss_Bullet, newPos, Quaternion.identity, monster_Bullet_List);
             defaultBullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk/2, 1, 20, 0);
             attack_lastTime = Time.time;
@@ -280,6 +295,7 @@ public class Monster_Boss_2 : Boss
             {
                 float RandomY = Random.Range(-0.2f, 0.7f);
                 Vector3 newPos = new Vector3(Fire_Zone.transform.position.x, Fire_Zone.transform.position.y + RandomY, Fire_Zone.transform.position.z);
+                fireEffect.Play();
                 GameObject defaultBullet = Instantiate(Skill_3_Bullet, newPos, Quaternion.identity, monster_Bullet_List);
                 defaultBullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk/4, Bullet_Slow, 20, 1);
                 yield return new WaitForSeconds(0.03f);
@@ -316,6 +332,7 @@ public class Monster_Boss_2 : Boss
         for (int i = 0; i < 5; i++)
         {
             Skill_0_Bullet.GetComponent<Boss2_MissileSkill>().PlayerTarget = true;
+            //fireEffect2.Play();
             Instantiate(Skill_0_Bullet, Fire_Zone.transform.position, Quaternion.identity, monster_Bullet_List);
             yield return new WaitForSeconds(0.5f);
         }
@@ -328,6 +345,7 @@ public class Monster_Boss_2 : Boss
         {
             transform.position = new Vector3(transform.position.x, 10f, 0);
             move_delayTime = Random.Range(5f, 8f);
+            skilleffect_flag = false;
             move_lastTime = Time.time;
             playType = Boss_PlayType.Move;
         }

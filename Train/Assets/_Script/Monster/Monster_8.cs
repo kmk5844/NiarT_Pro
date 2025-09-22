@@ -39,7 +39,8 @@ public class Monster_8 : Monster
         {
             isBulletFlag = true;
             BulletObject.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, Bullet_Speed, 0);
-            if(monster_gametype != Monster_GameType.GameEnding && monster_gametype != Monster_GameType.Die)
+
+            if (monster_gametype != Monster_GameType.GameEnding && monster_gametype != Monster_GameType.Die)
             {
                 BulletObject.GetComponent<Monster_Bullet_Angle>().SetAngle_And_Fire(30);
                 Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
@@ -78,6 +79,11 @@ public class Monster_8 : Monster
         }
         if (monster_gametype != Monster_GameType.CowBoy_Debuff)
         {
+            if (!warningFlag)
+            {
+                WarningEffect.Play();
+                warningFlag = true;
+            }
             monster_gametype = Monster_GameType.Fighting;
             isBombFlag = true;
         }

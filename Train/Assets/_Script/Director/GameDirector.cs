@@ -814,11 +814,8 @@ public class GameDirector : MonoBehaviour
         Destination_Distance = SubStageData.Distance;
         if (Test_Mode)
         {
-            if(Test_Monster_Num != null)
-            {
-                Emerging_Monster_String = Test_Monster_Num;
-                Emerging_MonsterCount_String = Test_Monster_Count;
-            }
+            Emerging_Monster_String = Test_Monster_Num;
+            Emerging_MonsterCount_String = Test_Monster_Count;
             Destination_Distance = Test_TrainDistance;
         }
         Emerging_Monster_Sky = new List<int>();
@@ -830,13 +827,14 @@ public class GameDirector : MonoBehaviour
         {
             int num1;
             num1 = int.Parse(Monster_String[i]);
-
-            if(EX_GameData.Information_Monster[num1].Monster_Type == "Sky")
+            if (EX_GameData.Information_Monster[num1].Monster_Type == "Sky")
             {
+                Debug.Log("하늘 몬스터 : " + num1);
                 Emerging_Monster_Sky.Add(num1);
             }
             else if (EX_GameData.Information_Monster[num1].Monster_Type == "Ground")
             {
+                Debug.Log("지상 몬스터 : " + num1);
                 Emerging_Monster_Ground.Add(num1);
             }
         }
@@ -844,7 +842,6 @@ public class GameDirector : MonoBehaviour
         for (int i = 0; i < MonsterCount_String.Length; i++)
         {
             int num2;
-
             num2 = int.Parse(MonsterCount_String[i]);
             Emerging_MonsterCount.Add(num2);
         }
