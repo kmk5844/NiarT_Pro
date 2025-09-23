@@ -23,25 +23,25 @@ public class Boss1_TentacleObject : MonoBehaviour
         if(Num == 0)
         {
             shortAtk_Information.Atk = 100;
-            shortAtk_Information.Force = 15;
+            shortAtk_Information.Force = 10;
             Bomb = false;
         }
         else if(Num == 1)
         {
-            shortAtk_Information.Atk = 200;
-            shortAtk_Information.Force = 20;
+            shortAtk_Information.Atk = 150;
+            shortAtk_Information.Force = 10;
             Bomb = false;
         }
         else if(Num == 2)
         {
-            shortAtk_Information.Atk = 50;
-            shortAtk_Information.Force = 8;
+            shortAtk_Information.Atk = 150;
+            shortAtk_Information.Force = 5;
             Bomb = false;
         }
         else if (Num == 3)
         {
-            shortAtk_Information.Atk = 75;
-            shortAtk_Information.Force = 15;
+            shortAtk_Information.Atk = 100;
+            shortAtk_Information.Force = 10;
             Bomb = true;
         }
     }

@@ -25,6 +25,8 @@ public class Monster_Boss_1 : Boss
     float attack_lastTime;
     float attack_delayTime;
 
+    public ParticleSystem FireEffect;
+    public ParticleSystem WarningEffect;
     protected override void Start()
     {
         Boss_Num = 1;
@@ -37,8 +39,8 @@ public class Monster_Boss_1 : Boss
         transform.position = new Vector3(MonsterDirector.MaxPos_Sky.x + 18f, 0.79f, 56);
         playType = Boss_PlayType.Spawn;
 
-        move_delayTime = 10f;
-        attack_delayTime = 1f;
+        move_delayTime = 5f;
+        attack_delayTime = 0.4f;
     }
 
     protected override void Update()
@@ -171,42 +173,42 @@ public class Monster_Boss_1 : Boss
         if(skill == 0)
         {
             TentacleObject.GetComponent<Boss1_TentacleObject>().SetSkillNum(0);
-            for (int i = 0; i < 15; i++)
+            for (int i = 0; i < 25; i++)
             {
                 xPos = Random.Range(MonsterDirector.MinPos_Ground.x, MonsterDirector.MaxPos_Ground.x);
                 pos = new Vector2(xPos, -1.2f);
                 Instantiate(TentacleObject, pos, Quaternion.identity, monster_Bullet_List);
-                yield return new WaitForSeconds(0.15f);
+                yield return new WaitForSeconds(0.05f);
             }
         }else if(skill == 1)
         {
             TentacleObject.GetComponent<Boss1_TentacleObject>().SetSkillNum(1);
             Quaternion rot = Quaternion.Euler(0f, 0f, -30f);
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < 12; i++)
             {
-                xPos = MonsterDirector.MinPos_Ground.x + (i * 3.3f);
+                xPos = MonsterDirector.MinPos_Ground.x + (i * 2.5f);
                 pos = new Vector2(xPos, -1.2f);
                 Instantiate(TentacleObject, pos, rot, monster_Bullet_List);
-                yield return new WaitForSeconds(0.2f);
+                yield return new WaitForSeconds(0.05f);
             }
         }else if(skill == 2)
         {
             TentacleObject.GetComponent<Boss1_TentacleObject>().SetSkillNum(2);
-            for(int i = 0; i < 20; i++)
+            for(int i = 0; i < 30; i++)
             {
                 Quaternion rot = Quaternion.Euler(0f, 0f, Random.Range(-30f, 30f));
                 xPos = Random.Range(MonsterDirector.MinPos_Ground.x, MonsterDirector.MaxPos_Ground.x);
                 pos = new Vector2(xPos, -1.2f);
                 Instantiate(TentacleObject, pos, rot, monster_Bullet_List);
-                yield return new WaitForSeconds(0.15f);
+                yield return new WaitForSeconds(0.05f);
             }
         }else if(skill == 3)
         {
             TentacleObject.GetComponent<Boss1_TentacleObject>().SetSkillNum(3);
             float playerPos = player.transform.position.x;
-            for(int i =  -2; i < 3; i++)
+            for(int i =  -2; i < 6; i++)
             {
-                xPos = playerPos + (i * 3.5f);
+                xPos = playerPos + (i * 2.5f);
                 pos = new Vector2(xPos, -1.2f);
                 Instantiate(TentacleObject, pos, Quaternion.identity, monster_Bullet_List);
             }
@@ -242,6 +244,7 @@ public class Monster_Boss_1 : Boss
     //공격 애니메이션 삽입
     public void BulletFire()
     {
+        FireEffect.Emit(30);
         GameObject defaultBullet = Instantiate(Boss_Bullet, Fire_Zone.position, Quaternion.identity, monster_Bullet_List);
         defaultBullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk, Bullet_Slow, 0);
         attack_lastTime = Time.time;
@@ -250,7 +253,8 @@ public class Monster_Boss_1 : Boss
     //공격 애니메이션 종료 후, 삽입.
     public void ToMove()
     {
-        move_delayTime = Random.Range(8f, 12f);
+        WarningEffect.Play();
+        move_delayTime = Random.Range(1.5f, 2.5f);
         move_lastTime = Time.time;
         playType = Boss_PlayType.Move;
         ResetAni();

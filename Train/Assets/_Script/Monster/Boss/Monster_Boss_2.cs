@@ -3,10 +3,13 @@ using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Android;
 
 public class Monster_Boss_2 : Boss
 {
     public Transform Fire_Zone;
+    public Transform MacinGun_Fire_Zone;
+    public Transform Missile_Fire_Zone;
     GameObject player;
 
     [SerializeField]
@@ -28,8 +31,13 @@ public class Monster_Boss_2 : Boss
     public GameObject Skill_0_Bullet;
     public GameObject Skill_3_Bullet;
 
-    public ParticleSystem fireEffect;
-    public ParticleSystem fireEffect2;
+    public ParticleSystem Default_Effect;
+    public ParticleSystem MachineGun_Effect;
+    public ParticleSystem Missile_Effect;
+    public ParticleSystem DieEffect;
+    ParticleSystem[] alldieEffect;
+    Vector3 DieEffectOriginPos;
+    bool dieEffectFlag;
     protected override void Start()
     {
         Boss_Num = 2;
@@ -41,6 +49,9 @@ public class Monster_Boss_2 : Boss
         transform.rotation = Quaternion.Euler(0,0,20);
         transform.localScale = new Vector3(-local_Scale.x, local_Scale.y, local_Scale.z);
         playType = Boss_PlayType.Spawn;
+
+        DieEffectOriginPos = DieEffect.transform.localPosition;
+        alldieEffect = DieEffect.GetComponentsInChildren<ParticleSystem>();
 
         move_delayTime = 10f;
         attack_delayTime = 0.6f;
@@ -109,7 +120,7 @@ public class Monster_Boss_2 : Boss
             {
                 GameObject defaultBullet = Instantiate(Boss_Bullet, Fire_Zone.position, Quaternion.identity, monster_Bullet_List);
                 defaultBullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk, Bullet_Slow, 20, 0);
-                fireEffect.Play();
+                Default_Effect.Play();
                 attack_lastTime = Time.time;
             }
 
@@ -217,17 +228,48 @@ public class Monster_Boss_2 : Boss
             if(playType != Boss_PlayType.Die)
             {
                 playType = Boss_PlayType.Die;
+                Destroy(gameObject, 10f);
             }
         }
 
         if (playType == Boss_PlayType.Die)
         {
+            if (!dieEffectFlag)
+            {
+                StartCoroutine(DieCorutine());
+            }
+
+            DieEffect.Emit(9);
+
             movement = new Vector3(-3f, -5f, 0f);
-            transform.Translate(movement * 4f * Time.deltaTime);
-            Destroy(gameObject, 8f);
+            transform.Translate(movement * Time.deltaTime);
+        }
+    }
+
+    IEnumerator DieCorutine()
+    {
+        dieEffectFlag = true;
+        Vector2 diePos = new Vector2(
+           DieEffectOriginPos.x + Random.Range(-2f, 2f),
+           DieEffectOriginPos.y + Random.Range(-1f, 1f)
+        );
+        DieEffect.transform.localPosition = diePos;
+
+        foreach (var ps in alldieEffect)
+        {
+            var emission = ps.emission;
+
+            ParticleSystem.Burst burst = emission.GetBurst(0);
+            float burstCount = burst.count.constant; // ¿ŒΩ∫∆Â≈Õ Burstø° ¿˚»˘ ∞™
+
+            ps.Emit((int)burstCount);
         }
 
+        float EmitTime = Random.Range(0.1f, 0.2f);
+        yield return new WaitForSeconds(EmitTime); // 0.2√  ∞£∞›¿∏∑Œ ≈Õ¡¸
+        dieEffectFlag = false;
     }
+
     IEnumerator RandomBomb()
     {
         float x1 = MonsterDirector.MinPos_Ground.x;
@@ -249,7 +291,7 @@ public class Monster_Boss_2 : Boss
         {
             float RandomY = Random.Range(-1f, 1f);
             Vector3 newPos = new Vector3(Fire_Zone.transform.position.x, Fire_Zone.transform.position.y + RandomY, Fire_Zone.transform.position.z);
-            fireEffect.Play();
+            Default_Effect.Play();
             GameObject defaultBullet = Instantiate(Boss_Bullet, newPos, Quaternion.identity, monster_Bullet_List);
             defaultBullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk/2, 1, 20, 0);
             attack_lastTime = Time.time;
@@ -294,8 +336,8 @@ public class Monster_Boss_2 : Boss
             for(int j = 0; j < 6; j++)
             {
                 float RandomY = Random.Range(-0.2f, 0.7f);
-                Vector3 newPos = new Vector3(Fire_Zone.transform.position.x, Fire_Zone.transform.position.y + RandomY, Fire_Zone.transform.position.z);
-                fireEffect.Play();
+                Vector3 newPos = new Vector3(MacinGun_Fire_Zone.transform.position.x, MacinGun_Fire_Zone.transform.position.y + RandomY, MacinGun_Fire_Zone.transform.position.z);
+                MachineGun_Effect.Play();
                 GameObject defaultBullet = Instantiate(Skill_3_Bullet, newPos, Quaternion.identity, monster_Bullet_List);
                 defaultBullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk/4, Bullet_Slow, 20, 1);
                 yield return new WaitForSeconds(0.03f);
@@ -332,8 +374,8 @@ public class Monster_Boss_2 : Boss
         for (int i = 0; i < 5; i++)
         {
             Skill_0_Bullet.GetComponent<Boss2_MissileSkill>().PlayerTarget = true;
-            //fireEffect2.Play();
-            Instantiate(Skill_0_Bullet, Fire_Zone.transform.position, Quaternion.identity, monster_Bullet_List);
+            Missile_Effect.Play();
+            Instantiate(Skill_0_Bullet, Missile_Fire_Zone.transform.position, Quaternion.identity, monster_Bullet_List);
             yield return new WaitForSeconds(0.5f);
         }
         ToMove();

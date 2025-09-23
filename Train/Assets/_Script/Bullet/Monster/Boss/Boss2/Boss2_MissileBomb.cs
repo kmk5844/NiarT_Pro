@@ -6,7 +6,14 @@ public class Boss2_MissileBomb : MonsterBullet
 {
     private void OnDestroy()
     {
-        Destroy(GetComponentInParent<Boss2_MissileSkill>().gameObject);
+        try
+        {
+            Destroy(GetComponentInParent<Boss2_MissileSkill>().gameObject);
+        }
+        catch
+        {
+
+        }
     }
 
     protected override void Start()
