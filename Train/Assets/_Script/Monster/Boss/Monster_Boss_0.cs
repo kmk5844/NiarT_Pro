@@ -39,6 +39,14 @@ public class Monster_Boss_0 : Boss
     bool jumpAni;
     Transform Monster_List;
 
+    public GameObject warkEffect;
+    public ParticleSystem AttackEffect;
+    public ParticleSystem DieEffect;
+    ParticleSystem[] alldieEffect;
+    Vector3 DieEffectOriginPos;
+    bool dieEffectFlag;
+
+
     protected override void Start()
     {
         Boss_Num = 0;
@@ -53,13 +61,16 @@ public class Monster_Boss_0 : Boss
         playType = Boss_PlayType.Spawn;
         col.enabled = false;
 
+        DieEffectOriginPos = DieEffect.transform.localPosition;
+        alldieEffect = DieEffect.GetComponentsInChildren<ParticleSystem>();
+
         skillCount = 1;
         skillMaxCount = 5;
         move_delayTime = 5f;
         attack_delayTime = 1.5f;
         try
         {
-            Monster_List = GameObject.Find("Monster_List").transform;
+            Monster_List = GameObject.Find("Monster_List(Ground)").transform;
         }
         catch
         {
@@ -130,9 +141,19 @@ public class Monster_Boss_0 : Boss
 
             if(Time.time >= attack_lastTime + attack_delayTime)
             {
+                AttackEffect.Play();
                 GameObject defaultBullet = Instantiate(Boss_Bullet, Fire_Zone.position, Quaternion.identity, monster_Bullet_List);
                 defaultBullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk, Bullet_Slow, 0);
                 attack_lastTime = Time.time;
+            }
+
+            if (Time.time >= move_lastTime + move_delayTime - 1.2f)
+            {
+                if (!skilleffect_flag)
+                {
+                    SkillEffect.Play();
+                    skilleffect_flag = true;
+                }
             }
 
             if (Time.time >= move_lastTime + move_delayTime)
@@ -205,7 +226,7 @@ public class Monster_Boss_0 : Boss
                 {
                     playType = Boss_PlayType.Jump_Healing;
                     jump_Time = 0;
-                    heal_max_count = Random.Range(4, 8);
+                    heal_max_count = Random.Range(10, 15);
                     jumpAni = false;
                 }
             }
@@ -215,6 +236,7 @@ public class Monster_Boss_0 : Boss
         {
             if(col.enabled == true)
             {
+                gameDirector.BossHeal(true);
                 col.enabled = false;
             }
 
@@ -228,6 +250,7 @@ public class Monster_Boss_0 : Boss
             else
             {
                 heal_count = 0;
+                gameDirector.BossHeal(false);
                 playType = Boss_PlayType.Jump_DOWN;
                 ResetAni();
             }
@@ -271,6 +294,8 @@ public class Monster_Boss_0 : Boss
             if(playType != Boss_PlayType.Die)
             {
                 playType = Boss_PlayType.Die;
+                warkEffect.SetActive(false);
+                Destroy(gameObject, 10f);
                 ResetAni();
             }
         }
@@ -278,31 +303,35 @@ public class Monster_Boss_0 : Boss
 
         if (playType == Boss_PlayType.Die)
         {
+            if (!dieEffectFlag)
+            {
+                StartCoroutine(DieCorutine());
+            }
+
             if (!aniFlag)
             {
                 TriggerAnimation();
                 aniFlag = true;
             }
 
-            movement = new Vector3(-1f, 0f, 0f);
-            transform.Translate(movement * 1.5f * Time.deltaTime);
-            Destroy(gameObject, 8f);
+            movement = new Vector3(-2.5f, 0f, 0f);
+            transform.Translate(movement * Time.deltaTime);
         }
     }
     IEnumerator HealCount()
     {
         heal_flag = true;
-        Monster_HP += (int)((Monster_Max_HP * 0.5f) / 100f);
+        Monster_HP += (int)((Monster_Max_HP * 1f) / 100f);
         //Debug.Log((Monster_Max_HP * 1) / 100f);
         //Debug.Log(Monster_HP);
         //보스 치유하는 코드
         if (heal_count != heal_max_count)
         {
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(0.5f);
         }
         else
         {
-            yield return new WaitForSeconds(5);
+            yield return new WaitForSeconds(1);
         }
         heal_count++;
         heal_flag = false;
@@ -310,14 +339,16 @@ public class Monster_Boss_0 : Boss
 
     IEnumerator Spawn_Egg_Skill()
     {
-        int eggNum = Random.Range(1, 5);
+        int eggNum = Random.Range(4, 7);
+
         for (int i = 0; i < eggNum; i++)
         {
-            Instantiate(Boss_Egg_Object, Monster_List);
-            yield return new WaitForSeconds(0.5f);
+            Vector2 rand = new Vector2(Random.Range(MonsterDirector.MinPos_Ground.x, MonsterDirector.MaxPos_Ground.x), 0f);
+            Instantiate(Boss_Egg_Object, rand,Quaternion.identity, Monster_List);
+            yield return new WaitForSeconds(0.2f);
         }
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.3f);
         ToMove();
     }
 
@@ -332,10 +363,10 @@ public class Monster_Boss_0 : Boss
                 {
                     float xPos = MonsterDirector.MinPos_Ground.x + (count * 1.8f);
                     GameObject WarningMark = Instantiate(Warning, new Vector2(xPos, MonsterDirector.MinPos_Ground.y), Quaternion.identity);
-                    WarningMark.GetComponent<Warning_Boss_Skill_1>().GetBulletInformation(Bullet_Atk, Bullet_Slow);
+                    WarningMark.GetComponent<Warning_Boss_Skill_1>().GetBulletInformation(Bullet_Atk-50, Bullet_Slow-5);
                     count++;
 
-                    yield return new WaitForSeconds(0.2f);
+                    yield return new WaitForSeconds(0.02f);
                 }
                 else
                 {
@@ -344,17 +375,17 @@ public class Monster_Boss_0 : Boss
             }
         } else if (num == 1)
         {
-            int MaxCount = 15;
+            int MaxCount = 40;
             while (true)
             {
                 if(count < MaxCount)
                 {
                     float xPos = player_pos.position.x;
                     GameObject WarningMark = Instantiate(Warning, new Vector2(xPos, MonsterDirector.MinPos_Ground.y), Quaternion.identity);
-                    WarningMark.GetComponent<Warning_Boss_Skill_1>().GetBulletInformation(Bullet_Atk, Bullet_Slow);
+                    WarningMark.GetComponent<Warning_Boss_Skill_1>().GetBulletInformation(Bullet_Atk-50, Bullet_Slow-5);
                     count++;
 
-                    yield return new WaitForSeconds(0.05f);
+                    yield return new WaitForSeconds(0.02f);
                 }
                 else
                 {
@@ -369,15 +400,39 @@ public class Monster_Boss_0 : Boss
 
     IEnumerator Spider_Web_Skill()
     {
-        for(int i = 0; i < 3; i++)
+        for(int i = 0; i < 5; i++)
         {
-            Boss_SpiderWeb_Bullet.GetComponent<Boss_0_Skill3_Bullet>().Fire_GetInformation(player_pos.position, Random.Range(-6f, 6f), Bullet_Atk, Bullet_Slow, 10f);
+            Boss_SpiderWeb_Bullet.GetComponent<Boss_0_Skill3_Bullet>().Fire_GetInformation(player_pos.position, Random.Range(-6f, 6f), (Bullet_Atk-50), (Bullet_Slow-3), 10f);
             Instantiate(Boss_SpiderWeb_Bullet, Fire_Zone.position, Quaternion.identity);
-            yield return new WaitForSeconds(0.7f);
+            yield return new WaitForSeconds(0.3f);
         }
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         ToMove();
+    }
+
+    IEnumerator DieCorutine()
+    {
+        dieEffectFlag = true;
+        Vector2 diePos = new Vector2(
+           DieEffectOriginPos.x + Random.Range(-4f, 4f),
+           DieEffectOriginPos.y + Random.Range(-4f, 2.3f)
+        );
+        DieEffect.transform.localPosition = diePos;
+
+        foreach (var ps in alldieEffect)
+        {
+            var emission = ps.emission;
+
+            ParticleSystem.Burst burst = emission.GetBurst(0);
+            float burstCount = burst.count.constant; // 인스펙터 Burst에 적힌 값
+
+            ps.Emit((int)burstCount);
+        }
+
+        float EmitTime = Random.Range(0.1f, 0.2f);
+        yield return new WaitForSeconds(EmitTime); // 0.2초 간격으로 터짐
+        dieEffectFlag = false;
     }
 
     void TriggerAnimation()
@@ -420,8 +475,9 @@ public class Monster_Boss_0 : Boss
     
     private void ToMove()
     {
-        move_delayTime = Random.Range(5f, 8f);
-        move_lastTime = Time.time; 
+        move_delayTime = Random.Range(3f, 5f);
+        move_lastTime = Time.time;
+        skilleffect_flag = false;
         playType = Boss_PlayType.Move;
         ResetAni();
     }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.ExceptionServices;
 using UnityEngine;
 
 public class Monster_Boss_1 : Boss
@@ -25,8 +26,15 @@ public class Monster_Boss_1 : Boss
     float attack_lastTime;
     float attack_delayTime;
 
+    bool skilleffectflag;
+
+    public GameObject WarkEffect;
     public ParticleSystem FireEffect;
     public ParticleSystem WarningEffect;
+    public ParticleSystem DieEffect;
+    ParticleSystem[] alldieEffect;
+    Vector3 DieEffectOriginPos;
+    bool dieEffectFlag;
     protected override void Start()
     {
         Boss_Num = 1;
@@ -36,9 +44,13 @@ public class Monster_Boss_1 : Boss
         move_xPos = 1f;
         move_speed = 3f;
         player = GameObject.FindWithTag("Player");
-        transform.position = new Vector3(MonsterDirector.MaxPos_Sky.x + 18f, 0.79f, 56);
+        transform.position = new Vector3(MonsterDirector.MaxPos_Sky.x + 18f, 0.79f, 32);
         playType = Boss_PlayType.Spawn;
 
+        DieEffectOriginPos = DieEffect.transform.localPosition;
+        alldieEffect = DieEffect.GetComponentsInChildren<ParticleSystem>();
+
+        skilleffectflag = false;
         move_delayTime = 5f;
         attack_delayTime = 0.4f;
     }
@@ -100,6 +112,12 @@ public class Monster_Boss_1 : Boss
                 BulletFire();
             }
 
+            if (!skilleffectflag && Time.time >= move_lastTime + move_delayTime - 0.2f)
+            {
+                skilleffectflag = true;
+                WarningEffect.Play();
+            }
+
             //스킬
             if (Time.time >= move_lastTime + move_delayTime)
             {
@@ -144,7 +162,9 @@ public class Monster_Boss_1 : Boss
             if (playType != Boss_PlayType.Die)
             {
                 playType = Boss_PlayType.Die;
+                WarkEffect.SetActive(false);
                 ResetAni();
+                Destroy(gameObject, 10f);
             }
         }
 
@@ -157,11 +177,38 @@ public class Monster_Boss_1 : Boss
                 aniFlag = true;
             }
 
-            movement = new Vector3(1f, 0f, 0f);
-            transform.position = new Vector3(transform.position.x, transform.position.y-0.3f, transform.position.z);
-            transform.Translate(movement * 4f * Time.deltaTime);
-            Destroy(gameObject, 8f);
+            if (!dieEffectFlag)
+            {
+                StartCoroutine(DieCorutine());
+            }
+
+            movement = new Vector3(-2f, 0f, 0f);
+            transform.Translate(movement * Time.deltaTime);
         }
+    }
+    IEnumerator DieCorutine()
+    {
+        dieEffectFlag = true;
+        Vector3 diePos = new Vector3(
+           DieEffectOriginPos.x + Random.Range(-2f, 2.2f),
+           DieEffectOriginPos.y + Random.Range(-0.2f, -0.8f),
+           DieEffectOriginPos.z
+           );
+        DieEffect.transform.localPosition = diePos;
+
+        foreach (var ps in alldieEffect)
+        {
+            var emission = ps.emission;
+
+            ParticleSystem.Burst burst = emission.GetBurst(0);
+            float burstCount = burst.count.constant; // 인스펙터 Burst에 적힌 값
+
+            ps.Emit((int)burstCount);
+        }
+
+        float EmitTime = Random.Range(0.1f, 0.2f);
+        yield return new WaitForSeconds(EmitTime); // 0.2초 간격으로 터짐
+        dieEffectFlag = false;
     }
 
     IEnumerator skill_Tentacle(int skill)
@@ -253,10 +300,10 @@ public class Monster_Boss_1 : Boss
     //공격 애니메이션 종료 후, 삽입.
     public void ToMove()
     {
-        WarningEffect.Play();
         move_delayTime = Random.Range(1.5f, 2.5f);
         move_lastTime = Time.time;
         playType = Boss_PlayType.Move;
+        skilleffectflag = false;
         ResetAni();
     }
 

@@ -26,6 +26,7 @@ public class Monster_6 : Monster
         base.Start();
 
         //monsterType = monster6_Type.move;
+        transform.localPosition = new Vector2(transform.localPosition.x, MonsterDirector.MinPos_Ground.y);
         MonsterDirector_Pos = transform.localPosition;
 
         xPos = -1;

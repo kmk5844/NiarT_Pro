@@ -829,12 +829,10 @@ public class GameDirector : MonoBehaviour
             num1 = int.Parse(Monster_String[i]);
             if (EX_GameData.Information_Monster[num1].Monster_Type == "Sky")
             {
-                Debug.Log("하늘 몬스터 : " + num1);
                 Emerging_Monster_Sky.Add(num1);
             }
             else if (EX_GameData.Information_Monster[num1].Monster_Type == "Ground")
             {
-                Debug.Log("지상 몬스터 : " + num1);
                 Emerging_Monster_Ground.Add(num1);
             }
         }
@@ -1780,6 +1778,11 @@ public class GameDirector : MonoBehaviour
         Time.fixedDeltaTime = originalFixedDelta;
 
         player.revival_Effect_Flag = false;
+    }
+
+    public void BossHeal(bool flag)
+    {
+        uiDirector.BossHPHealEffect.SetActive(flag);
     }
 }
 

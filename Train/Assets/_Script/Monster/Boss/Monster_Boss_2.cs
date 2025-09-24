@@ -239,8 +239,7 @@ public class Monster_Boss_2 : Boss
                 StartCoroutine(DieCorutine());
             }
 
-            DieEffect.Emit(9);
-
+            //DieEffect.Emit(9);
             movement = new Vector3(-3f, -5f, 0f);
             transform.Translate(movement * Time.deltaTime);
         }

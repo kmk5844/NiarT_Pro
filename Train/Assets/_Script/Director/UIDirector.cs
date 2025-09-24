@@ -134,6 +134,7 @@ public class UIDirector : MonoBehaviour
     [Header("Effect")]
     public GameObject WarningSpeedEffect;
     ParticleSystem WarningSpeedEffect_System;
+    public GameObject BossHPHealEffect;
 
     bool STEAM_CLICK_KEY_V_FLAG;
     private void Awake()

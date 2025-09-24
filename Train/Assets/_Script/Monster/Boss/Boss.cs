@@ -13,7 +13,7 @@ public class Boss : MonoBehaviour
     private bool resetEffect = false;
     public Game_DataTable EX_GameData;
     public SA_Monster monsterData;
-    GameDirector gameDirector;
+    protected GameDirector gameDirector;
     protected PolygonCollider2D col;
     protected bool DieFlag;
     
