@@ -29,6 +29,7 @@ public class UIDirector : MonoBehaviour
     public Image Player_Head;
     public Sprite[] Player_Head_Sprite;
     public Image Player_HP_Bar;
+    public GameObject WarningHP_Effect;
     public Slider Distance_Bar;
     public Image TotalFuel_Bar;
     public TextMeshProUGUI Speed_Text;
@@ -37,6 +38,7 @@ public class UIDirector : MonoBehaviour
     public TextMeshProUGUI Coin_Text;
     public Slider Speed_Arrow;
     public GameObject WarningObject;
+    public GameObject WaitBoard;
 
     [Header("Game UI - Wave")]
     public GameObject WaveLine;
@@ -71,10 +73,10 @@ public class UIDirector : MonoBehaviour
     public GameObject SkillCoolTime_Object;
 
     [Header("Skill UI")]
-    public Transform Equiped_Skill_List;
     public Image[] Equiped_Skill_Image;
     public Image[] Equiped_CoolTime_Skill_Image;
     public GameObject[] Equiped_Skill_Lock;
+    public GameObject[] Equiped_Skill_Effect;
     public bool SKillLockFlag;
 
     [Header("Result UI 관련된 텍스트 및 아이템")]
@@ -136,6 +138,8 @@ public class UIDirector : MonoBehaviour
     ParticleSystem WarningSpeedEffect_System;
     public GameObject BossHPHealEffect;
 
+    public ParticleSystem FuelChargeEffect;
+
     bool STEAM_CLICK_KEY_V_FLAG;
     private void Awake()
     {
@@ -147,12 +151,6 @@ public class UIDirector : MonoBehaviour
         {
             Equiped_Item_Image[i] = Equiped_Item_List.GetChild(i).GetComponent<Image>();
             Equiped_Item_Count[i] = Equiped_Item_List.GetChild(i).GetComponentInChildren<TextMeshProUGUI>();
-        }
-
-        Equiped_Skill_Image = new Image[Equiped_Item_List.childCount];
-        for (int i = 0; i < Equiped_Skill_List.childCount; i++)
-        {
-            Equiped_Skill_Image[i] = Equiped_Skill_List.GetChild(i).GetComponent<Image>();
         }
     }
     private void Start()
@@ -239,6 +237,16 @@ public class UIDirector : MonoBehaviour
         }
 
         Player_HP_Bar.fillAmount = player.Check_HpParsent() / 100f;
+
+        if(player.Check_HpParsent() <= 30f)
+        {
+            WarningHP_Effect.SetActive(true);
+        }
+        else
+        {
+            WarningHP_Effect.SetActive(false);
+        }
+
         TotalFuel_Bar.fillAmount = gamedirector.Check_Fuel();
         ReLoading_Guage.fillAmount = player.Check_GunBullet();
 
@@ -750,6 +758,19 @@ public class UIDirector : MonoBehaviour
             Transform trans = WaveLine.transform.GetChild(i);
             trans.gameObject.SetActive(true);
             trans.GetComponent<RectTransform>().anchoredPosition = new Vector3(wavecount[i], 4, 0);
+        }
+    }
+
+    public void SetWaitBoard(bool Flag)
+    {
+        if (!Flag && !WaitBoard.activeSelf)
+        {
+            WaitBoard.SetActive(true);
+        }
+
+        if(Flag && WaitBoard.activeSelf)
+        {
+            WaitBoard.SetActive(false);
         }
     }
 }

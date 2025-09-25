@@ -69,6 +69,7 @@ public class SkillDirector : MonoBehaviour
 
     IEnumerator Player_ClickSkill(int skill_num)
     {
+        uiDirector.Equiped_Skill_Effect[skill_num].SetActive(false);
         Player_Skill(skill_num);
         //CoolTime
         SkillFlag[skill_num] = true;
@@ -84,6 +85,7 @@ public class SkillDirector : MonoBehaviour
             uiDirector.Equiped_CoolTime_Skill_Image[skill_num].fillAmount = Mathf.Lerp(1f, 0f, elapsedTime / skill_cooltime[skill_num]);
             yield return null;
         }
+        uiDirector.Equiped_Skill_Effect[skill_num].SetActive(true);
         SkillFlag[skill_num] = false;
     }
 
@@ -113,7 +115,7 @@ public class SkillDirector : MonoBehaviour
         if(num == 0)
         {
             StartCoroutine(gameDirector.Train_MasSpeedChange(200, skill_during[num]));
-            StartCoroutine(gameDirector.Item_Train_SpeedUp(skill_during[num], 1.5f));
+            StartCoroutine(gameDirector.Skill_Train_SpeedUp(skill_during[num], 1.5f));
             StartCoroutine(gameDirector.Train_MarryGold_SkillEffect(skill_during[num]));
         }else if (num == 1)
         {

@@ -26,7 +26,6 @@ public class Train_InGame : MonoBehaviour
 
     int Level_Anmor;
     public int Train_Armor;
-
     public string Train_Type;
     public bool DestoryFlag;
 
@@ -83,6 +82,8 @@ public class Train_InGame : MonoBehaviour
     [HideInInspector]
     public bool redSpriteFlag;
 
+    [Header("¿Ã∆Â∆Æ")]
+    public ParticleSystem HealEffect;
 
     private void Awake()
     {
@@ -379,6 +380,7 @@ public class Train_InGame : MonoBehaviour
     {
         if (isRepairable)
         {
+            HealEffect.Play();
             int heal = (int)(Max_Train_HP * (persent / 100f));
             if (Train_HP + heal < Max_Train_HP)
             {

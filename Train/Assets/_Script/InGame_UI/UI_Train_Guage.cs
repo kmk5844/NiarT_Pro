@@ -13,6 +13,7 @@ public class UI_Train_Guage : MonoBehaviour
     public Image HP_Guage;
     public Image Special_Guage;
     public GameObject ON_Object;
+    public ParticleSystem HealEffect;
 
     Turret turret;
     Booster_Train booster;
@@ -32,7 +33,8 @@ public class UI_Train_Guage : MonoBehaviour
     {
         GetComponent<Canvas>().sortingLayerName = "Train";
         Train_Data = GetComponentInParent<Train_InGame>();
-        
+        Train_Data.HealEffect = HealEffect;
+
         num = 0;
         if (Train_Data.Train_Type.Equals("Medic"))
         {

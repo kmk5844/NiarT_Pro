@@ -6,14 +6,19 @@ public class EffectDirector : MonoBehaviour
 {
     public GameDirector gameDirector;
     public ParticleSystem[] windlist;
-    private ParticleSystem currentWindEffect = null;
-    private ParticleSystem currentExtraWindEffect = null;
+    public ParticleSystem currentWindEffect;
+    public ParticleSystem currentExtraWindEffect;
+    public ParticleSystem currentItemWindEffect;
 
     // Start is called before the first frame update
     void Start()
     {
         windlist[0].Stop();
         windlist[1].Stop();
+        windlist[2].Stop();
+        currentWindEffect = windlist[0];
+        currentExtraWindEffect = windlist[1];
+        currentItemWindEffect = windlist[2];
     }
 
     // Update is called once per frame
@@ -21,6 +26,7 @@ public class EffectDirector : MonoBehaviour
     {
         checkWind();
         checkExtraWind();
+        checkItemWind();
     }
 
     void checkWind()
@@ -98,6 +104,41 @@ public class EffectDirector : MonoBehaviour
             float trainSpeed = gameDirector.TrainSpeed;
             float normalizedSpeed = Mathf.Clamp01(trainSpeed / gameDirector.MaxSpeed);
             var mainModule = currentExtraWindEffect.main;
+            mainModule.simulationSpeed = Mathf.Lerp(3f, 5f, normalizedSpeed);
+        }
+    }
+
+
+    // (새로 추가된 함수)
+    void checkItemWind()
+    {
+        bool isItemWindActive = gameDirector.ItemSpeedUpEffectFlag;
+        // 외부에서 받아온 불리언 변수를 기반으로 파티클을 켜고 끕니다.
+        if (isItemWindActive)
+        {
+            // 켜져 있어야 하는 상태
+            if (currentItemWindEffect == null)
+            {
+                windlist[2].Play();
+                currentItemWindEffect = windlist[2];
+            }
+        }
+        else
+        {
+            // 꺼져 있어야 하는 상태
+            if (currentItemWindEffect != null)
+            {
+                windlist[2].Stop();
+                currentItemWindEffect = null;
+            }
+        }
+
+        // 추가된 요구사항: simulationSpeed 동일하게 적용
+        if (currentItemWindEffect != null)
+        {
+            float trainSpeed = gameDirector.TrainSpeed;
+            float normalizedSpeed = Mathf.Clamp01(trainSpeed / gameDirector.MaxSpeed);
+            var mainModule = currentItemWindEffect.main;
             mainModule.simulationSpeed = Mathf.Lerp(3f, 5f, normalizedSpeed);
         }
     }

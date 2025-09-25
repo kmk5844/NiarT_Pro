@@ -225,10 +225,15 @@ public class GameDirector : MonoBehaviour
     //-----이펙트----
     [HideInInspector]
     public bool MarryGold_Skill_Q_Flag = false;
+    [HideInInspector]
+    public bool RevivalCorutineFlag;
+    [HideInInspector]
+    public bool ItemSpeedUpEffectFlag;
 
     void Awake()
     {
         gameType = GameType.Starting;
+        SKillLock(true);
         try
         {
             if (GameManager.Instance.Demo)
@@ -336,6 +341,7 @@ public class GameDirector : MonoBehaviour
         ItemFlag_Coin = false;
         waveinfoFlag = false;
         refreshinfoFlag = false;
+        RevivalCorutineFlag = false;
     }
 
     private void Start()
@@ -491,7 +497,11 @@ public class GameDirector : MonoBehaviour
 
             if(player.Player_HP <= 0 && revivalFlag)
             {
-                StartCoroutine(RevivalEffect(0.1f, 3, 2));
+                if (!RevivalCorutineFlag)
+                {
+                    StartCoroutine(RevivalEffect(0.1f, 3, 2));
+                    RevivalCorutineFlag = true;
+                }
             }
 
             if ((TrainSpeed <= 0 || (player.Player_HP <= 0 && !revivalFlag) && GameStartFlag && !GameLoseFlag))
@@ -593,8 +603,7 @@ public class GameDirector : MonoBehaviour
 
                 if (monsterDirector.GameDirecotr_AllDieFlag)
                 {
-                    uiDirector.SKillLock(true);
-                    SkillLockFlag = true;
+                    SKillLock(true);
                     if (!waveUIFlag)
                     {
                         StartCoroutine(uiDirector.WaveInformation(false));
@@ -669,8 +678,7 @@ public class GameDirector : MonoBehaviour
                         monsterDirector.GameDirector_SpawnFlag = true;
                         monsterDirector.GameDirecotr_AllDieFlag = false;
                     }
-                    uiDirector.SKillLock(false);
-                    SkillLockFlag = false;
+                    SKillLock(false);
                     currentRefreshIndex++;
                     gameType = GameType.Playing;
                     uiDirector.WaveCountUp();
@@ -1395,6 +1403,7 @@ public class GameDirector : MonoBehaviour
     public void Item_Fuel_Charge(float persent)
     {
         int fuelCharge = (int)(Total_TrainFuel * (persent / 100f));
+        uiDirector.FuelChargeEffect.Play();
         if(TrainFuel + fuelCharge < Total_TrainFuel)
         {
             TrainFuel += fuelCharge;
@@ -1455,11 +1464,20 @@ public class GameDirector : MonoBehaviour
         TrainDistance += (int)(Destination_Distance * (persent / 100.0));
     }
 
-    public IEnumerator Item_Train_SpeedUp(float delayTime, float SpeedUp = 0.5f)
+    public IEnumerator Skill_Train_SpeedUp(float delayTime, float SpeedUp = 0.5f)
     {
         TrainSpeedUP += SpeedUp;
         yield return new WaitForSeconds(delayTime);
         TrainSpeedUP -= SpeedUp;
+    }
+
+    public IEnumerator Item_Train_SpeedUp(float delayTime, float SpeedUp = 0.5f)
+    {
+        ItemSpeedUpEffectFlag = true;
+        TrainSpeedUP += SpeedUp;
+        yield return new WaitForSeconds(delayTime);
+        TrainSpeedUP -= SpeedUp;
+        ItemSpeedUpEffectFlag = false;
     }
 
     public IEnumerator Item_Coin_Plus(int delayTime)
@@ -1547,6 +1565,11 @@ public class GameDirector : MonoBehaviour
         float StartX;
         float TargetX;
         float Speed;
+        if (!SkillLockFlag)
+        {
+            SKillLock(true);
+        }
+        uiDirector.SetWaitBoard(false);
 
         if (flag)
         {
@@ -1612,6 +1635,9 @@ public class GameDirector : MonoBehaviour
         {
             Station_Object.SetActive(false);
         }
+
+        uiDirector.SetWaitBoard(true);
+        SKillLock(false);
     }
     IEnumerator TrainStart_SFX()
     {
@@ -1714,6 +1740,7 @@ public class GameDirector : MonoBehaviour
         float CameraZoom_Init = virtualCamera.m_Lens.OrthographicSize;
         float originalFixedDelta = Time.fixedDeltaTime;
         float fixedDeltaStart = Time.fixedDeltaTime;
+        bool effectFlag = false;
 
         float SmootherStep(float x)
         {
@@ -1740,22 +1767,28 @@ public class GameDirector : MonoBehaviour
             {
                 virtualCamera.m_Lens.OrthographicSize = 5f;
             }
-
-                yield return null;
+            yield return null;
         }
-
 
 
         // --- 최종 보정 ---
         Time.timeScale = slowTarget;
         Time.fixedDeltaTime = originalFixedDelta * slowTarget;
         virtualCamera.m_Lens.OrthographicSize = 5f;
+
+        if (!effectFlag)
+        {
+            player.HealEffect.Play();
+            effectFlag = true;
+        }
+
         // --- HP 회복 ---
         while (player.Player_HP < (player.Max_HP / 2))
         {
-            player.Player_HP += 1;
-            yield return new WaitForSecondsRealtime(0.1f); // timeScale 무시
+            player.Player_HP += 17;
+            yield return null; // timeScale 무시
         }
+        player.Player_HP = player.Max_HP / 2;
 
         // --- 빠르게 복귀 ---
         elapsed = 0f;
@@ -1783,6 +1816,12 @@ public class GameDirector : MonoBehaviour
     public void BossHeal(bool flag)
     {
         uiDirector.BossHPHealEffect.SetActive(flag);
+    }
+
+    public void SKillLock(bool flag)
+    {
+        uiDirector.SKillLock(flag);
+        SkillLockFlag = flag;
     }
 }
 
