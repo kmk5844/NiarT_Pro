@@ -5,6 +5,7 @@ using UnityEngine;
 public class Item_Shield : MonoBehaviour
 {
     public int HP;
+    public ParticleSystem HitEffect;
 
     private void Start()
     {
@@ -15,6 +16,9 @@ public class Item_Shield : MonoBehaviour
     {
         if (collision.CompareTag("Monster_Bullet"))
         {
+            Vector2 pos = new Vector2(collision.transform.localPosition.x, collision.transform.localPosition.y);
+            Instantiate(HitEffect, pos, Quaternion.identity);
+
             int monsterAtk = collision.GetComponent<MonsterBullet>().atk;
             if (HP - monsterAtk < 0)
             {

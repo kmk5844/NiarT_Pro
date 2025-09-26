@@ -1009,21 +1009,26 @@ public class GameDirector : MonoBehaviour
         }
     }
 
-    public void Game_Monster_Kill(int GetCoin)
+    public bool Game_Monster_Kill(int GetCoin)
     {
         if (ItemFlag_DoubleCoin)
         {
             Total_Coin += GetCoin * 2;
+            uiDirector.Gameing_Text(Total_Coin);
+            return true;
         }else if (ItemFlag_Coin)
         {
             Total_Coin += (GetCoin + Random.Range(0, 201));
+            uiDirector.Gameing_Text(Total_Coin);
+            return true;
         }
         else
         {
             Total_Coin += GetCoin;
+            uiDirector.Gameing_Text(Total_Coin);
+            return false;
         }
 
-        uiDirector.Gameing_Text(Total_Coin);
     }
 
     public void Mission_Monster_Kill()

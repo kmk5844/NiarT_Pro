@@ -82,8 +82,11 @@ public class Train_InGame : MonoBehaviour
     [HideInInspector]
     public bool redSpriteFlag;
 
-    [Header("¿Ã∆Â∆Æ")]
+    [HideInInspector]
     public ParticleSystem HealEffect;
+    [HideInInspector]
+    public ParticleSystem BoosterEffect;
+    int BoosterEffectCount;
 
     private void Awake()
     {
@@ -155,6 +158,7 @@ public class Train_InGame : MonoBehaviour
     private void Start()
     {
         gameObject.name = Train_Index + ". " + gameObject.name;
+        BoosterEffectCount = 0;
     }
 
     private void Update()
@@ -398,9 +402,16 @@ public class Train_InGame : MonoBehaviour
     public IEnumerator Item_Train_Turret_SpeedUP(float persent, float delayTime)
     {
         if (Train_Type.Equals("Turret")){
+            BoosterEffect.Play();
+            BoosterEffectCount++;
             transform.GetComponentInChildren<Turret>().Item_Turret_Attack_Speed_UP(persent, true);
             transform.GetComponentInChildren<Turret>().Item_Turret_Rotattion_Speed_UP(persent, true);
             yield return new WaitForSeconds(delayTime);
+            BoosterEffectCount--;
+            if(BoosterEffectCount == 0)
+            {
+                BoosterEffect.Stop();
+            }
             transform.GetComponentInChildren<Turret>().Item_Turret_Attack_Speed_UP(persent, false);
             transform.GetComponentInChildren<Turret>().Item_Turret_Rotattion_Speed_UP(persent, false);
         }

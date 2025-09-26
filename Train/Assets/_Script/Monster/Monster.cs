@@ -113,6 +113,9 @@ public class Monster : MonoBehaviour
 
     public float monster_xPos;
     AudioClip DieSfX;
+
+    MonsterEffect monsterEffect;
+
     protected virtual void Start()
     {
         lastTime = Time.time;
@@ -125,6 +128,7 @@ public class Monster : MonoBehaviour
         HitDamage = Resources.Load<GameObject>("Monster/Hit_Text");
         Monster_Kill_Particle = Resources.Load<GameObject>("Monster/Monster_Kill_Effect");
         DieSfX = Resources.Load<AudioClip>("Sound/SFX/Monster_Die_SFX");
+        monsterEffect = GetComponentInChildren<MonsterEffect>();
         try
         {
             monsterMat = GetComponent<SpriteRenderer>().material;
@@ -738,7 +742,12 @@ public class Monster : MonoBehaviour
     {
         monster_gametype = Monster_GameType.Die;
         Monster_HP = 0;
-        gameDirector.Game_Monster_Kill(Monster_Coin);
+        bool effectFlag = gameDirector.Game_Monster_Kill(Monster_Coin);
+
+        if (effectFlag)
+        {
+            monsterEffect.BounsCoinPlay();
+        }
         MMSoundManagerSoundPlayEvent.Trigger(DieSfX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         if (Monster_Mission_CountFlag)
         {

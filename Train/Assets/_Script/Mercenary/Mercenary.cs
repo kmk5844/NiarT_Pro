@@ -59,6 +59,7 @@ public class Mercenary : MonoBehaviour
     [Header("용병정보")]
     public GameObject Body;
     public GameObject Gravestone;
+    public MercenaryEffect mercenaryEffect;
 
     protected virtual void Awake()
     {
@@ -426,6 +427,7 @@ public class Mercenary : MonoBehaviour
     public void Item_Snack()
     {
         //이전 아이템
+        mercenaryEffect.HealEffectPlay();
         HP = MaxHP;
     }
 
@@ -443,7 +445,8 @@ public class Mercenary : MonoBehaviour
 
     public void Item_Fatigue_Reliever()
     {
-        if(HP < (MaxHP / 2))
+        mercenaryEffect.HealEffectPlay();
+        if (HP < (MaxHP / 2))
         {
             HP = MaxHP/2;
         }

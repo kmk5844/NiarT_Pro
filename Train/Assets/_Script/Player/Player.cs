@@ -156,6 +156,8 @@ public class Player : MonoBehaviour
     public ParticleSystem JumpEffect;
     public ParticleSystem HealEffect;
     public GameObject HPWaringEffect;
+    public ParticleSystem MoveBuffEffect;
+    public ParticleSystem AttackBuffEffect;
 
     void Start()
     {
@@ -1085,6 +1087,7 @@ public class Player : MonoBehaviour
 
     public IEnumerator Item_Player_SpeedUP(float speed, int delayTime)
     {
+        MoveBuffEffect.Play();
         moveItemSpeed += speed;
         yield return new WaitForSeconds(delayTime);
         moveItemSpeed -= speed;
@@ -1109,6 +1112,7 @@ public class Player : MonoBehaviour
 
     public IEnumerator Item_Player_AtkUp_Persent(int AddAtkPersent, int delayTime)
     {
+        AttackBuffEffect.Play();
         int add = Default_Atk * (100 + AddAtkPersent) / 100 - Default_Atk;
         item_Atk += add; 
         yield return new WaitForSeconds(delayTime);
@@ -1124,6 +1128,7 @@ public class Player : MonoBehaviour
 
     public IEnumerator Item_Player_DoubleAtkUP(int delayTime)
     {
+        AttackBuffEffect.Play();
         item_Atk += Bullet_Atk;
         yield return new WaitForSeconds(delayTime);
         item_Atk -= Bullet_Atk;

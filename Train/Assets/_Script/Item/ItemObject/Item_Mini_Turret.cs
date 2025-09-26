@@ -7,7 +7,7 @@ public class Item_Mini_Turret : MonoBehaviour
     bool Target_Flag;
     public GameObject MiniTurret;
     public Transform FireObject;
-    public Transform BulletObject;
+    public GameObject BulletObject;
     Transform Target;
     Transform BulletList;
     float train_Attack_Delay;
@@ -19,17 +19,18 @@ public class Item_Mini_Turret : MonoBehaviour
     public float AttackDelay;
     public int Attack;
 
+    public ParticleSystem FireEffect;
+
     void Start()
     {
         Target_Flag = false;
         if (!Default_Turret)
         {
-            BulletObject.GetComponent<Bullet>().atk = Attack;
             train_Attack_Delay = AttackDelay;
         }
         else
         {
-            BulletObject.GetComponent<Bullet>().atk = 5;
+            Attack = 5;
             train_Attack_Delay = 0.7f;
         }
         BulletList = GameObject.Find("Bullet_List").transform;
@@ -98,7 +99,9 @@ public class Item_Mini_Turret : MonoBehaviour
     {
         if (Time.time >= lastTime + train_Attack_Delay)
         {
-            Instantiate(BulletObject, FireObject.position, FireObject.rotation, BulletList);
+            FireEffect.Play();
+            GameObject bullet = Instantiate(BulletObject, FireObject.position, FireObject.rotation, BulletList);
+            bullet.GetComponent<Bullet>().atk = Attack;
             lastTime = Time.time;
         }
     }
