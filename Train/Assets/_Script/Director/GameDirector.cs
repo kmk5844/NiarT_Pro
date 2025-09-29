@@ -1466,6 +1466,7 @@ public class GameDirector : MonoBehaviour
 
     public void Item_Use_Map(int persent)
     {
+        uiDirector.MapEffect.Play();
         TrainDistance += (int)(Destination_Distance * (persent / 100.0));
     }
 

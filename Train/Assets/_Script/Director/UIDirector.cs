@@ -137,6 +137,7 @@ public class UIDirector : MonoBehaviour
     public GameObject WarningSpeedEffect;
     ParticleSystem WarningSpeedEffect_System;
     public GameObject BossHPHealEffect;
+    public ParticleSystem MapEffect;
 
     public ParticleSystem FuelChargeEffect;
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
 
 public class Item_Missile_Turret : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class Item_Missile_Turret : MonoBehaviour
     public GameObject BulletObject;
     public Transform FireObject;
     float Z;
+    public ParticleSystem particle;
 
     // Start is called before the first frame update
     void Start()
@@ -85,7 +87,7 @@ public class Item_Missile_Turret : MonoBehaviour
         if (Time.time >= lastTime + Attack_Delay)
         {
             BulletObject.GetComponent<Missile_TurretBullet>().monster_target = Target;
-
+            particle.Play();
             Instantiate(BulletObject, FireObject.position, FireObject.rotation, BulletList);
             lastTime = Time.time;
         }

@@ -16,8 +16,8 @@ public class Scarecrow_Object : MonoBehaviour
     float lastTime;
     float Bullet_Delay;
     public GameObject bullet;
-
     public bool Monster_InGameFlag;
+    public GameObject HitEffect;
 
     AudioClip DieSFX;
     private void Start()
@@ -92,6 +92,7 @@ public class Scarecrow_Object : MonoBehaviour
         {
             if (collision.CompareTag("Monster_Bullet"))
             {
+                Instantiate(HitEffect, collision.transform.position, Quaternion.identity);
                 int hit_atk = collision.gameObject.GetComponent<MonsterBullet>().atk;
                 if (MonsterHP - hit_atk > 0)
                 {

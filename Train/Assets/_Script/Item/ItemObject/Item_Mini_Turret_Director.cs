@@ -5,7 +5,6 @@ using UnityEngine;
 public class Item_Mini_Turret_Director : MonoBehaviour
 {
     public GameObject turret;
-
     public void Set(int num, float delayTime, int Attack, float AttackDelay)
     {
         if (num == 0)

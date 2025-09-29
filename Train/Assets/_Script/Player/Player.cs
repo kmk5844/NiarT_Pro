@@ -1224,7 +1224,7 @@ public class Player : MonoBehaviour
                 ItemTurret = Resources.Load<GameObject>("ItemObject/Mini_Laser_Turret");
                 break;
             case 7:
-                ItemTurret = Resources.Load<GameObject>("ItemObject/Mini_Laser_Turret");
+                ItemTurret = Resources.Load<GameObject>("ItemObject/Mini_Laser_Turret_2");
                 break;
         }
         //Debug.Log(ItemTurret);
@@ -1235,7 +1235,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            Instantiate(ItemTurret, new Vector2(minGroundPos.x + 3f, -0.55f), Quaternion.identity);
+            Instantiate(ItemTurret, new Vector2(minGroundPos.x + 3f, -0.88f), Quaternion.identity);
         }
     }
 
