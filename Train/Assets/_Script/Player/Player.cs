@@ -158,6 +158,8 @@ public class Player : MonoBehaviour
     public GameObject HPWaringEffect;
     public ParticleSystem MoveBuffEffect;
     public ParticleSystem AttackBuffEffect;
+    public ParticleSystem MoveDeBuffEffect;
+    public ParticleSystem DeffenceBuffEffect;
 
     void Start()
     {
@@ -1312,6 +1314,7 @@ public class Player : MonoBehaviour
 
     public IEnumerator Item_Player_ArmorUP(int Persent, int delayTime)
     {
+        DeffenceBuffEffect.Play();
         item_Armor = (int)(Player_Armor * (Persent / 100f));
         Player_Armor += item_Armor;
         era = 1f - (float)Player_Armor / def_constant;
@@ -1321,6 +1324,7 @@ public class Player : MonoBehaviour
     }
     public IEnumerator Item_Drink_Bear(float delayTime)
     {
+        MoveDeBuffEffect.Play();
         jumpitemFlag_Minus = true;
         moveItemSpeed = -1 * ((moveSpeed * 15) / 100);
         yield return new WaitForSeconds(delayTime);

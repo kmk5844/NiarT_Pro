@@ -16,6 +16,8 @@ public class Item_RobotPlant_Robot : MonoBehaviour
     bool BombFlag;
     int Move_X;
 
+    public GameObject AtkObject;
+
     GameObject BombParticle;
 
     Transform Unit_Scale;
@@ -27,6 +29,7 @@ public class Item_RobotPlant_Robot : MonoBehaviour
     {
         Move_X = 1;
         BombFlag = false;
+        AtkObject.SetActive(false);
         BombObject.SetActive(false);
         BombObject.GetComponent<Item_RobotPlant_Bomb>().atk = Atk;
         type = RobotType.walk;
@@ -83,6 +86,7 @@ public class Item_RobotPlant_Robot : MonoBehaviour
     IEnumerator Robot_Bomb()
     {
         BombFlag = true;
+        AtkObject.SetActive(true);
         yield return new WaitForSeconds(1);
         Instantiate(BombParticle, transform.localPosition, Quaternion.identity);
         BombObject.SetActive(true);

@@ -10,6 +10,9 @@ public class Item_Iron_Plate : MonoBehaviour
     int spriteNum = -1;
     public int HP;
     int MaxHP = 1500;
+
+    public ParticleSystem hitEffect;
+
     public void Set(Train_InGame train, int hp, int sp_num)
     {
         Train = train;
@@ -41,6 +44,9 @@ public class Item_Iron_Plate : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Monster_Bullet")){
+
+            Instantiate(hitEffect, collision.transform.position, Quaternion.identity);
+
             int atk = collision.GetComponent<MonsterBullet>().atk;
             // Destroy the bullet
             Destroy(collision.gameObject);

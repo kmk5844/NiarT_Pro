@@ -8,6 +8,8 @@ public class Item_MusicBox : MonoBehaviour
     bool MusicFlag;
     public bool changeFlag;
     public float SpawnTime;
+    public ParticleSystem[] Effect; 
+
 
     // Start is called before the first frame update
     void Start()
@@ -15,6 +17,7 @@ public class Item_MusicBox : MonoBehaviour
         MusicFlag = false;  
         changeFlag = false;
         circle2D = GetComponent<CircleCollider2D>();
+        circle2D.enabled = false;
         Destroy(gameObject, SpawnTime);
     }
 
@@ -29,8 +32,18 @@ public class Item_MusicBox : MonoBehaviour
     }
     IEnumerator Music()
     {
-        // 1차 성장: 0.5f ~ 4f
-        while (circle2D.radius < 6f)
+        circle2D.enabled = true;
+
+        if (changeFlag)
+        {
+            Effect[0].Play();
+        }
+        else
+        {
+            Effect[1].Play();
+        }
+            // 1차 성장: 0.5f ~ 4f
+        while (circle2D.radius < 2.5f)
         {
             circle2D.radius += 0.1f;
             yield return null;
@@ -44,7 +57,8 @@ public class Item_MusicBox : MonoBehaviour
         {
             changeFlag = false;
         }
-        circle2D.radius = 0.5f;
+        circle2D.enabled = false;
+        circle2D.radius = 0.1f;
         yield return new WaitForSeconds(2f); // 필요시 잠깐 대기
         MusicFlag = false;
     }

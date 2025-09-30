@@ -9,6 +9,7 @@ public class Item_RobotPlant : MonoBehaviour
     public int SpawnTime;
     public GameObject Robot;
     bool SpawnFlag;
+    public ParticleSystem SpawnParticle;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +31,7 @@ public class Item_RobotPlant : MonoBehaviour
     {
         SpawnFlag = true;
         yield return new WaitForSeconds(SpawnTime);
+        SpawnParticle.Play();
         Instantiate(Robot, transform.position, Quaternion.identity);
         SpawnFlag = false;
     }

@@ -711,7 +711,7 @@ public class UIDirector : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
-        Debug.Log(num);
+        //Debug.Log(num);
 
         if (num == 0)
         {
@@ -736,9 +736,8 @@ public class UIDirector : MonoBehaviour
         DiceWindow.SetActive(true);
 
         yield return new WaitForSeconds(2f);
-
         DiceAniCon.SetInteger("DiceNum", num);
-
+        //Debug.Log(num);
         yield return new WaitForSeconds(3f);
 
         gamedirector.Item_Dice_Reward(num);

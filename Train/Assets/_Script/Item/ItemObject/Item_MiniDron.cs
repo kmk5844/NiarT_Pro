@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
 
 public class Item_MiniDron : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class Item_MiniDron : MonoBehaviour
     public GameObject MissileBullet;
     public Transform Target;
     public int DronHp;
+    public ParticleSystem atkParticle;
 
     void Start()
     {
@@ -167,6 +169,7 @@ public class Item_MiniDron : MonoBehaviour
     IEnumerator MissileFire()
     {
         FireFlag = true;
+        atkParticle.Play();
         GameObject missile = Instantiate(MissileBullet, transform.position, Quaternion.identity);
         missile.GetComponent<Missile_TurretBullet>().atk = 50;
         missile.GetComponent<Missile_TurretBullet>().monster_target = Target;
@@ -184,7 +187,8 @@ public class Item_MiniDron : MonoBehaviour
     {
         if(type == MiniDronType.DeffensDron && collision.CompareTag("Monster_Bullet"))
         {
-            if(DronHp > 0)
+            Instantiate(atkParticle, collision.transform.position, Quaternion.identity);
+            if (DronHp > 0)
             {
                 DronHp -= collision.GetComponent<MonsterBullet>().atk;
             }

@@ -20,6 +20,7 @@ public class Supply_Train_Dron : MonoBehaviour
     Vector3 spawnPosition = new Vector3(MonsterDirector.MinPos_Sky.x - 15f, MonsterDirector.MaxPos_Sky.y + 3f);
 
     public GameObject SupplyItem_Objcet;
+    public ParticleSystem SpawnParticle;
 
     private void Start()
     {
@@ -45,6 +46,7 @@ public class Supply_Train_Dron : MonoBehaviour
             if (transform.position.x > Supply_Pos_X[SupplyCount])
             {
                 SupplyItem_Objcet.GetComponent<Supply_Train_Item>().Item = item[SupplyCount];
+                SpawnParticle.Play();
                 Instantiate(SupplyItem_Objcet, transform.position, Quaternion.identity);
                 SupplyCount++;
             }
