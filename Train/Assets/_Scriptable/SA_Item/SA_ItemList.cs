@@ -52,6 +52,7 @@ public class SA_ItemList : ScriptableObject
         rare_supply_itemlist.Clear();
         unique_supply_itemlist.Clear();
         epic_supply_itemlist.Clear();
+        epic_supply_itemlist_NonWeapon.Clear();
 
         legendary_supply_itemlist.Clear();
 

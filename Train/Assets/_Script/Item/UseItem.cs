@@ -124,7 +124,7 @@ public class UseItem : MonoBehaviour
     public void Get_SupplyItem(int num)
     {
         bool coolTime_Flag = true;
-        uiDirector.View_ItemList(itemList.Item[num].Item_Sprite);
+        //uiDirector.View_ItemList(itemList.Item[num].Item_Sprite);
         itemDirector.Get_Supply_Item_Information(itemList.Item[num]);
 
         switch (num)

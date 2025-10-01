@@ -26,6 +26,7 @@ public class Item_Missile_Turret : MonoBehaviour
         BulletList = GameObject.Find("Bullet_List").transform;
         BulletObject.GetComponent<Missile_TurretBullet>().atk = Attack;
         lastTime = 0;
+        Destroy(Turret, SpawnTime);
     }
 
     // Update is called once per frame

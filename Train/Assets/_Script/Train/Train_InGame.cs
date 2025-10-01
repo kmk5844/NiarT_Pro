@@ -86,7 +86,10 @@ public class Train_InGame : MonoBehaviour
     public ParticleSystem HealEffect;
     [HideInInspector]
     public ParticleSystem BoosterEffect;
+    [HideInInspector]
+    public ParticleSystem ArmorEffect;
     int BoosterEffectCount;
+    int ArmorEffectCount;
 
     private void Awake()
     {
@@ -444,9 +447,17 @@ public class Train_InGame : MonoBehaviour
 
     public IEnumerator Item_Armor_Up(int delaytime,int persent)
     {
+        ArmorEffect.Play();
+        ArmorEffectCount++;
+        //Debug.Log(ArmorEffectCount);
         int item_armor = (int)(Train_Armor * (persent / 100f));
         Train_Armor += item_armor;
         yield return new WaitForSeconds(delaytime);
+        ArmorEffectCount--;
+        if(ArmorEffectCount == 0)
+        {
+            ArmorEffect.Stop();
+        }
         Train_Armor -= item_armor;
         //era는 업데이트문에서 처리하고 있음.
     }

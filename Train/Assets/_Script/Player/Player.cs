@@ -22,6 +22,8 @@ public class Player : MonoBehaviour
     private EventDirector eventDirector;
     [SerializeField]
     private Player_Debuff playerDebuff;
+    [SerializeField]
+    private Player_Effect_Event playerEffectEvent;
     Train_InGame train;
 
     [Header("¹«±â")]
@@ -711,11 +713,6 @@ public class Player : MonoBehaviour
         canDash = true;
     }
 
-    void DashRotation()
-    {
-
-    }
-
     private float EvaluateDashCurve(float t)
     {
         //return 1f - Mathf.Pow(2f, -10f * t);
@@ -733,11 +730,15 @@ public class Player : MonoBehaviour
             {
                 if (!ReloadingFlag)
                 {
+                    BulletEffect();
                     Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
-                    ani.SetTrigger("Shoot_0");
-                    if (MariGold_Skill_Flag && !MariGold_Skill_Fire_Flag)
+                    if(GunIndex == 0)
                     {
-                        StartCoroutine(MariGold_Skill_BulletFire());
+                        ani.SetTrigger("Shoot_0");
+                        if (MariGold_Skill_Flag && !MariGold_Skill_Fire_Flag)
+                        {
+                            StartCoroutine(MariGold_Skill_BulletFire());
+                        }
                     }
 
 /*                    if (FireCount < MaxFireCount-1)
@@ -759,8 +760,12 @@ public class Player : MonoBehaviour
             {
                 if (!ReloadingFlag)
                 {
+                    BulletEffect();
                     Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
-                    ani.SetTrigger("Shoot_1");
+                    if(GunIndex == 0)
+                    {
+                        ani.SetTrigger("Shoot_1");
+                    }
 /*                    if(FireCount < MaxFireCount)
                     {
                         if (!Item_GunFlag)
@@ -818,6 +823,45 @@ public class Player : MonoBehaviour
                     Item_Gun_Default();
                 }
             }
+        }
+    }
+
+    void BulletEffect()
+    {
+        switch (GunIndex)
+        {
+            case 1:
+                //¼¶±¤Åº
+                break;
+            case 2:
+                //°ÔÆ²¸µ°Ç
+                playerEffectEvent.Gatling_GunEvent();
+                break;
+            case 3:
+                //¹Ì»çÀÏ
+                playerEffectEvent.Missile_GunEvent();
+                break;
+            case 4:
+                //·¹ÀÌÀú
+                break;
+            case 5:
+                //È­¿° ¹æ»ç±â
+                break;
+            case 6:
+                //¼ö·ùÅº
+                break;
+            case 7:
+                //½ÅÈ£Åº
+                playerEffectEvent.Signal_FlareEvent();
+                break;
+            case 8:
+                //À¯Åº ¹ß»ç±â
+                playerEffectEvent.Grenade_GunEvent();
+                break;
+            case 9:
+                //Àú°Ý¼ÒÃÑ
+                playerEffectEvent.Sniper_GunEvent();
+                break;
         }
     }
 

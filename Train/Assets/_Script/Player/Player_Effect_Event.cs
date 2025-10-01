@@ -12,12 +12,8 @@ public class Player_Effect_Event : MonoBehaviour
     public ParticleSystem Gun4;*/
 
     [Header("Æ¯¼ö ÃÑ ÀÌÆåÆ®")]
-    public ParticleSystem FlashBang;
     public ParticleSystem Gatling_Gun;
     public ParticleSystem Missile_Gun;
-    public ParticleSystem Laser_Gun;
-    public ParticleSystem Fire_Gun;
-    public ParticleSystem Grenade;
     public ParticleSystem Signal_Flare;
     public ParticleSystem Grenade_Gun;
     public ParticleSystem Sniper_Gun;
@@ -33,10 +29,6 @@ public class Player_Effect_Event : MonoBehaviour
     {
         Gun1.Play();
     }
-    public void FlashBangEvent()
-    {
-        FlashBang.Play();
-    }
     public void Gatling_GunEvent()
     {
         Gatling_Gun.Play();
@@ -44,18 +36,6 @@ public class Player_Effect_Event : MonoBehaviour
     public void Missile_GunEvent()
     {
         Missile_Gun.Play();
-    }
-    public void Laser_GunEvent()
-    {
-        Laser_Gun.Play();
-    }
-    public void Fire_GunEvent()
-    {
-        Fire_Gun.Play();
-    }
-    public void GrenadeEvent()
-    {
-        Grenade.Play();
     }
     public void Signal_FlareEvent()
     {

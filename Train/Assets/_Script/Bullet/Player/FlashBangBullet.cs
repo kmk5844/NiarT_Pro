@@ -7,7 +7,7 @@ public class FlashBangBullet : Bullet
 {
     bool bombFlag;
     float cutline;
-
+    public ParticleSystem FlashBang_Effect;
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -46,6 +46,8 @@ public class FlashBangBullet : Bullet
     }
     void Explode()
     {
+        rid.velocity = Vector2.zero;
+        FlashBang_Effect.Play();
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 3);
         {
             foreach (Collider2D collider in colliders)
@@ -61,7 +63,6 @@ public class FlashBangBullet : Bullet
 
         gameObject.GetComponentInParent<SpriteRenderer>().enabled = false;
         gameObject.GetComponentInChildren<TrailRenderer>().enabled = false;
-        //¿©±â¼­ ÆøÅº ¾Ö´Ï¸ÞÀÌ¼Ç 
         Destroy(gameObject, 2f);
     }
 }

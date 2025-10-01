@@ -7,6 +7,7 @@ public class Grenade : Bullet
 {
     bool bombFlag;
     float cutline;
+    public GameObject Grenade_Explosion_Effect;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -55,6 +56,8 @@ public class Grenade : Bullet
                 if (collider.CompareTag("Monster"))
                 {
                     collider.GetComponent<Monster>().Damage_Monster_Item(atk);
+                    GameObject effectobj = Instantiate(Grenade_Explosion_Effect, collider.transform.position, Quaternion.identity);
+                    effectobj.SetActive(true);
                 }
             }
             bombFlag = true;
@@ -63,7 +66,7 @@ public class Grenade : Bullet
         gameObject.GetComponentInParent<SpriteRenderer>().enabled = false;
         gameObject.GetComponentInChildren<TrailRenderer>().enabled = false;
         //¿©±â¼­ ÆøÅº ¾Ö´Ï¸ÞÀÌ¼Ç 
-        Destroy(gameObject, 2f);
+        Destroy(gameObject);
     }
 
 }

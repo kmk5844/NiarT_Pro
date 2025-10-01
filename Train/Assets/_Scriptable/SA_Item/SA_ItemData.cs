@@ -20,8 +20,11 @@ public class SA_ItemData : ScriptableObject
     {
         if (equiped_item_count[num] == 1)
         {
+            //테스트 전용
+            /*int _num = equiped_item[num];
+            equiped_item[num] = _num+1;*/
             equiped_item_count[num] -= 1;
-            
+
             equiped_item.RemoveAt(num);
             equiped_item.Insert(num, -1);
         }

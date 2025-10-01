@@ -1448,7 +1448,8 @@ public class GameDirector : MonoBehaviour
     {
         for(int i = 0; i < Train_List.childCount; i++)
         {
-            Train_List.GetChild(i).GetComponent<Train_InGame>().Item_Armor_Up(delayTime, parsent);
+            Train_InGame train = Train_List.GetChild(i).GetComponent<Train_InGame>();
+            StartCoroutine(train.Item_Armor_Up(delayTime, parsent));
         }
     }
 

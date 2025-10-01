@@ -8,12 +8,14 @@ public class Signal_Flare : Bullet
     bool bombFlag;
     float cutline;
     int firecount = 0;
-    int maxFirecount = 15;
+    int maxFirecount = 20;
     public GameObject DownBullet;
+    public GameObject SkyEffect;
 
     // Start is called before the first frame update
     protected override void Start()
     {
+        SkyEffect.SetActive(false);
         cutline = MonsterDirector.MaxPos_Sky.y + 2f;
         base.Start();
         DownBullet.GetComponent<Bullet>().atk = atk;
@@ -45,6 +47,7 @@ public class Signal_Flare : Bullet
         if (!bombFlag)
         {
             rid.velocity = Vector2.zero;
+            SkyEffect.SetActive(true);
             StartCoroutine(SkyFire());
             bombFlag = true;
         }
@@ -54,7 +57,7 @@ public class Signal_Flare : Bullet
     {
         while(firecount < maxFirecount)
         {
-            float pos = Random.Range(transform.position.x - 4f, transform.position.x + 4f);
+            float pos = Random.Range(transform.position.x - 5f, transform.position.x + 5f);
             Vector2 newVec = new Vector2(pos, transform.position.y);
             DownBullet.transform.position = newVec;
             DownBullet.transform.rotation = Quaternion.Euler(0, 0, 180);
