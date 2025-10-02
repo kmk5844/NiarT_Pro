@@ -231,7 +231,7 @@ public class Player : MonoBehaviour
             WarkEffect.SetActive(true);
         }
 
-        if(Check_HpParsent() < 30f)
+        if (Check_HpParsent() < 30f)
         {
             HPWaringEffect.SetActive(true);
         }

@@ -145,7 +145,7 @@ public class SupplyMonster_Item : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             MMSoundManagerSoundPlayEvent.Trigger(GetItemSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
-            useitemScript.Get_SupplyItem(Item.Num);
+            useitemScript.Get_CheckItem(Item.Num);
             Destroy(gameObject);
         }
     }

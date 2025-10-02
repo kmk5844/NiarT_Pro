@@ -75,4 +75,9 @@ public class Tutorial_Train : MonoBehaviour
         StartCoroutine(GetComponentInChildren<Tutorial_Turret>().useTurret(player));
         Train_MP = 0;
     }
+
+    public float CheckHP()
+    {
+        return (float)Train_HP / (float)Train_Max_HP * 100f;
+    }
 }

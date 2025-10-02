@@ -121,12 +121,50 @@ public class UseItem : MonoBehaviour
         uiDirector.ItemCoolTime_Instantiate(itemList.Item[num]);
     }
 
+
+    public void Get_CheckItem(int num)
+    {
+        //여기서 플레이어의 아이템 체크 후,
+        // 저장되어있는 아이템이 없다면
+        // 추가
+
+        //만약에 둘 다 있다면
+        //즉시 사용
+        bool checkFlag = false;
+        int supplyListNum = -1;
+        if (num < 115)
+        {
+            for(int i = 0; i < itemDirector.SupplyItem.Length; i++)
+            {
+                if (itemDirector.SupplyItem[i] == -1)
+                {
+                    checkFlag = true;
+                    supplyListNum = i;
+                    break;
+                }
+            }
+
+            if (checkFlag)
+            {
+                itemDirector.SupplySet(supplyListNum, num);
+            }
+            else
+            {
+                Get_SupplyItem(num);
+            }
+        }
+        else
+        {
+            Get_SupplyItem(num);
+        }
+    }
+
     public void Get_SupplyItem(int num)
     {
         bool coolTime_Flag = true;
         //uiDirector.View_ItemList(itemList.Item[num].Item_Sprite);
-        itemDirector.Get_Supply_Item_Information(itemList.Item[num]);
 
+        itemDirector.Get_Supply_Item_Information(itemList.Item[num]);
         switch (num)
         {
             /*case 0:

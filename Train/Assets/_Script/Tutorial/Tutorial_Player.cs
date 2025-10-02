@@ -55,6 +55,7 @@ public class Tutorial_Player : MonoBehaviour
     float dashingTime = 0.2f;
     float dashingCooldown = 1f;
     float horizontalInput;
+    float MouseZ;
 
     [Header("Sound")]
     public AudioClip ShootSFX;
@@ -78,6 +79,15 @@ public class Tutorial_Player : MonoBehaviour
     public bool T_UseItem_Flag;
     public bool T_Train;
     public bool T_Train_Flag;
+
+    [Header("Effect")]
+    public GameObject WarkEffect;
+    public ParticleSystem DashEffect;
+    public ParticleSystem JumpEffect;
+    public ParticleSystem HealEffect;
+    public GameObject HPWaringEffect;
+    public ParticleSystem QSkillEffect;
+    public ParticleSystem ESkillEffect;
 
     private void Awake()
     {
@@ -112,6 +122,16 @@ public class Tutorial_Player : MonoBehaviour
 
     private void Update()
     {
+
+        if ((float)PlayerHP / (float)Max_PlayerHP * 100f < 30f)
+        {
+            HPWaringEffect.SetActive(true);
+        }
+        else
+        {
+            HPWaringEffect.SetActive(false);
+        }
+
         if (T_FireFlag)
         {
             if (isDashing)
@@ -197,7 +217,17 @@ public class Tutorial_Player : MonoBehaviour
                 rigid.velocity = new Vector2(rigid.velocity.x, 0f);
                 rigid.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
                 ani.SetTrigger("Jump");
+                JumpEffect.Play();
                 jumpCount++;
+            }
+
+            if (jumpFlag)
+            {
+                WarkEffect.SetActive(false);
+            }
+            else
+            {
+                WarkEffect.SetActive(true);
             }
 
         }
@@ -206,6 +236,8 @@ public class Tutorial_Player : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Q) && !T_Skill_Q_Click)
             {
+                QSkillEffect.Play();
+
                 MMSoundManagerSoundPlayEvent.Trigger(SkillUseSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
                 MariGold_Skill(0);
                 UIDirector.skill_coolTime(0);
@@ -216,6 +248,8 @@ public class Tutorial_Player : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
+                ESkillEffect.Play();
+
                 MMSoundManagerSoundPlayEvent.Trigger(SkillUseSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
                 MariGold_Skill(1);
                 UIDirector.skill_coolTime(1);
@@ -286,10 +320,10 @@ public class Tutorial_Player : MonoBehaviour
         mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
 
         Vector3 rot = mousePos - GunObject.transform.position;
-        float rotZ = Mathf.Atan2(rot.y, rot.x) * Mathf.Rad2Deg;
-        GunObject.transform.rotation = Quaternion.Euler(0, 0, rotZ);
+        MouseZ = Mathf.Atan2(rot.y, rot.x) * Mathf.Rad2Deg;
+        GunObject.transform.rotation = Quaternion.Euler(0, 0, MouseZ);
 
-        if (rotZ >= -90 && rotZ <= 90)
+        if (MouseZ >= -90 && MouseZ <= 90)
         {
             GunObject.transform.localScale = new Vector3(GunObject_Scale.x, GunObject_Scale.y, GunObject_Scale.z);
         }
@@ -390,6 +424,7 @@ public class Tutorial_Player : MonoBehaviour
     {
         if (_Flag)
         {
+            HealEffect.Play();
             PlayerHP += (5000 / 100) * 20;
         }
         else
@@ -461,6 +496,30 @@ public class Tutorial_Player : MonoBehaviour
     {
         canDash = false;
         isDashing = true;
+        if (horizontalInput > 0)
+        {
+            if (MouseZ >= -90 && MouseZ <= 90)
+            {
+                DashEffect.transform.localRotation = Quaternion.Euler(0, 90, 90);
+            }
+            else
+            {
+                DashEffect.transform.localRotation = Quaternion.Euler(0, -90, 90);
+            }
+        }
+        else
+        {
+            if (MouseZ >= -90 && MouseZ <= 90)
+            {
+                DashEffect.transform.localRotation = Quaternion.Euler(0, -90, 90);
+            }
+            else
+            {
+                DashEffect.transform.localRotation = Quaternion.Euler(0, 90, 90);
+            }
+        }
+
+        DashEffect.Play();
         float originalGravity = rigid.gravityScale;
         rigid.gravityScale = 0f; // 대시 중 중력 비활성화
                                  //rigid.velocity = new Vector2(horizontalInput * dashingPower, 0f);

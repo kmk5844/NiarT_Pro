@@ -13,6 +13,8 @@ public class ItemDirector : MonoBehaviour
     [SerializeField]
     bool[] EquipedItemFlag;
     [SerializeField]
+    bool[] SupplyItemFlag;
+    [SerializeField]
     float Duration;
 
     public GameObject Dron;
@@ -22,6 +24,8 @@ public class ItemDirector : MonoBehaviour
 
     [Header("Sound")]
     public AudioClip UseItemSound;
+
+    public int[] SupplyItem;
 
     private void Start()
     {
@@ -35,8 +39,13 @@ public class ItemDirector : MonoBehaviour
             itemData.Init();
         }
 
-        EquipedItemFlag = new bool[3];
+        EquipedItemFlag = new bool[5];
+        SupplyItemFlag = new bool[2];
         player_revival_flag = false;
+
+        SupplyItem = new int[2];
+        SupplyItem[0] = -1;
+        SupplyItem[1] = -1;
 
         for (int i = 0; i < itemData.Equiped_Item.Count; i++)
         {
@@ -57,6 +66,13 @@ public class ItemDirector : MonoBehaviour
                 uiDirector.Item_EquipedIcon(i, itemList.Item[itemData.Equiped_Item[i]].Item_Sprite, itemData.Equiped_Item_Count[i]);
                 EquipedItemFlag[i] = true;
             }
+        }
+
+        for(int i = 3; i < 5; i++)
+        {
+            uiDirector.Item_EquipedIcon(i, itemData.EmptyObject.Item_Sprite, -2);
+            EquipedItemFlag[i] = true;
+            SupplyItemFlag[i-3] = false;
         }
 
         if (player_revival_flag)
@@ -84,7 +100,16 @@ public class ItemDirector : MonoBehaviour
         {
             Change_EquipedItem(2);
             StartCoroutine(EquipItemCoolTime(2));
-    }
+        }else if(Input.GetKeyDown(KeyCode.Alpha4) && SupplyItemFlag[0] && EquipedItemFlag[3])
+        {
+            Use_SupplyItem(0);
+            StartCoroutine(EquipItemCoolTime(3));
+        }
+        else if(Input.GetKeyDown(KeyCode.Alpha5) && SupplyItemFlag[1] && EquipedItemFlag[4])
+        {
+            Use_SupplyItem(1);
+            StartCoroutine(EquipItemCoolTime(4));
+        }
     }
 
     IEnumerator EquipItemCoolTime(int i)
@@ -118,6 +143,22 @@ public class ItemDirector : MonoBehaviour
         }
     }
 
+    private void Use_SupplyItem(int num)
+    {
+        int changeNum = -1;
+        if(num == 0)
+        {
+            changeNum = 3;
+        }else if(num == 1)
+        {
+            changeNum = 4;
+        }
+        MMSoundManagerSoundPlayEvent.Trigger(UseItemSound, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+        useitem.Get_SupplyItem(SupplyItem[num]);
+        SupplyItem[num] = -1;
+        uiDirector.Item_EquipedIcon(changeNum, itemData.EmptyObject.Item_Sprite, -2);
+    }
+
     public void Get_Supply_Item_Information(ItemDataObject Item)
     {
         uiDirector.ItemInformation_On(Item);
@@ -141,5 +182,21 @@ public class ItemDirector : MonoBehaviour
     {
         player_revival_flag = false;
         Change_EquipedItem(player_revival_num);
+    }
+
+    public void SupplySet(int index, int itemNum)
+    {
+        int changeNum = -1;
+        if (index == 0)
+        {
+            changeNum = 3;
+        }
+        else if (index == 1)
+        {
+            changeNum = 4;
+        }
+        SupplyItem[index] = itemNum;
+        uiDirector.Item_EquipedIcon(changeNum, itemList.Item[itemNum].Item_Sprite, -2);
+        SupplyItemFlag[index] = true;
     }
 }

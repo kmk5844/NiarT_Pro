@@ -70,6 +70,9 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
 
     bool STEAM_TUTORIAL_BACK_FLAG;
 
+    public GameObject EngineWarning;
+    public GameObject SpeedWarning;
+
     private void Awake()
     {
         Fuel = 60000;
@@ -105,7 +108,37 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
 
     private void Update()
     {
-        if(player.PlayerHP < 500 && tutorialList != Tutorial_List.T_Lose)
+        if(EngineTrain.CheckHP() < 30f)
+        {
+            if(!EngineWarning.activeSelf)
+            {
+                EngineWarning.SetActive(true);
+            }
+        }
+        else
+        {
+            if (EngineWarning.activeSelf)
+            {
+                EngineWarning.SetActive(false);
+            }
+        }
+
+        if (speed < 50f)
+        {
+            if (!SpeedWarning.activeSelf)
+            {
+                SpeedWarning.SetActive(true);
+            }
+        }
+        else
+        {
+            if (SpeedWarning.activeSelf)
+            {
+                SpeedWarning.SetActive(false);
+            }
+        }
+
+        if (player.PlayerHP < 500 && tutorialList != Tutorial_List.T_Lose)
         {
             player.PlayerHP = 500;
         }
@@ -335,6 +368,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
 
                 if (player.T_Skill_Q_End)
                 {
+                    player.QSkillEffect.Stop();
                     uiDirector.skill_changeIcon(false);
                     uiDirector.SkillLock[0].SetActive(true);
                     if (!ClearFlag)
@@ -359,6 +393,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
 
                 if (player.T_Skill_E_End)
                 {
+                    player.ESkillEffect.Stop();
                     uiDirector.SkillLock[1].SetActive(true);
                     if (!ClearFlag)
                     {

@@ -7,6 +7,7 @@ using UnityEngine.Android;
 
 public class Monster_Boss_2 : Boss
 {
+    Animator ani;
     public Transform Fire_Zone;
     public Transform MacinGun_Fire_Zone;
     public Transform Missile_Fire_Zone;
@@ -38,6 +39,7 @@ public class Monster_Boss_2 : Boss
     ParticleSystem[] alldieEffect;
     Vector3 DieEffectOriginPos;
     bool dieEffectFlag;
+
     protected override void Start()
     {
         Boss_Num = 2;
@@ -52,6 +54,7 @@ public class Monster_Boss_2 : Boss
 
         DieEffectOriginPos = DieEffect.transform.localPosition;
         alldieEffect = DieEffect.GetComponentsInChildren<ParticleSystem>();
+        ani = GetComponent<Animator>();
 
         move_delayTime = 10f;
         attack_delayTime = 0.6f;
@@ -236,11 +239,12 @@ public class Monster_Boss_2 : Boss
         {
             if (!dieEffectFlag)
             {
+                ani.SetTrigger("Die");
                 StartCoroutine(DieCorutine());
             }
 
             //DieEffect.Emit(9);
-            movement = new Vector3(-3f, -5f, 0f);
+            movement = new Vector3(-3f, -7f, 0f);
             transform.Translate(movement * Time.deltaTime);
         }
     }

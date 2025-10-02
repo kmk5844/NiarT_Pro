@@ -34,6 +34,7 @@ public class Tutorial_UIDirector : MonoBehaviour
     public GameObject WaveFillObject;
     public Image WaveFillAmount;
     public bool waveFlag = false;
+    int wavecount = 0;
     [Header("게임 튜토리얼")]
     public GameObject GameTutorial_Window;
     public LocalizeStringEvent Title_Text;
@@ -194,19 +195,23 @@ public class Tutorial_UIDirector : MonoBehaviour
     }
     public IEnumerator WaveFillObjectShow()
     {
-        WaveFillObject.SetActive(true);
-        WaveFillAmount.fillAmount = 0f;
-        float duration = 5.1f;
-        float elapsedTime = 0f;
-        while (elapsedTime < duration)
+        if(wavecount == 0)
         {
-            elapsedTime += Time.deltaTime;
-            float t = Mathf.Clamp01(elapsedTime / duration);
-            WaveFillAmount.fillAmount = Mathf.Lerp(0f, 1f, t);
-            yield return null;
+            wavecount++;
+            WaveFillObject.SetActive(true);
+            WaveFillAmount.fillAmount = 0f;
+            float duration = 5.1f;
+            float elapsedTime = 0f;
+            while (elapsedTime < duration)
+            {
+                elapsedTime += Time.deltaTime;
+                float t = Mathf.Clamp01(elapsedTime / duration);
+                WaveFillAmount.fillAmount = Mathf.Lerp(0f, 1f, t);
+                yield return null;
+            }
+            WaveFillObject.SetActive(false);
+            yield return new WaitForSeconds(1f);
+            waveFlag = true;
         }
-        WaveFillObject.SetActive(false);
-        yield return new WaitForSeconds(1f);
-        waveFlag = true;
     }
 }
