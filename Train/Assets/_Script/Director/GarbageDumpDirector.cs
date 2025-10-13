@@ -42,12 +42,12 @@ public class GarbageDumpDirector : MonoBehaviour
         }
 
         garbageList = new List<ItemDataObject>();
-        for(int i = 65; i < 70; i++)
+        for(int i = 122; i < 133; i++)
         {
             garbageList.Add(sa_ItemList_.Item[i]);
         }
 
-        randomCount = Random.Range(0, 10);
+        randomCount = Random.Range(1, 10);
         NextButton.GetComponent<Button>().onClick.AddListener(() => Click_NextButton());
         NextButton.SetActive(false);
     }
@@ -87,7 +87,7 @@ public class GarbageDumpDirector : MonoBehaviour
             int TF = Random.Range(0, 101);
             if(TF > 90)
             {
-                int rand = Random.Range(0, 20);
+                int rand = Random.Range(0, 29);
                 item = sa_ItemList_.Item[rand];
             }
             else

@@ -89,10 +89,7 @@ public class SubStage_Select : MonoBehaviour
             case SubStageType.SimpleStation:
                 GetComponent<Image>().sprite = temporarilySprite[4];
                 break;
-            case SubStageType.Food:
-                GetComponent<Image>().sprite = temporarilySprite[4];
-                break;
-            case SubStageType.Treasure:
+            case SubStageType.Special:
                 GetComponent<Image>().sprite = temporarilySprite[4];
                 break;
             default:

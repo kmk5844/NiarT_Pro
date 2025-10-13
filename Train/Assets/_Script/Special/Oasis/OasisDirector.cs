@@ -83,6 +83,25 @@ public class OasisDirector : MonoBehaviour
         NextButton.gameObject.SetActive(false);
     }
 
+    /*
+       case 0:
+          //다음 스테이지 종료까지 플레이어 이동속도 증가
+      case 1:
+          //다음 스테이지 종료까지 플레이어 방어력 증가
+      case 2:
+          //다음 스테이지 종료까지 플레이어 공격력 증가
+      case 3:
+          //다음 스테이지 종료까지 플레이어 공격속도 증가
+      case 4:
+          //다음 스테이지 종료까지 플레이어 공격력, 공격속도 다소 증가
+      case 5:
+          //다음 스테이지 종료까지 플레이어 방어력, 이동속도 다소 증가
+      case 6:
+          //플레이어 회복
+      case 7:
+          //다음 스테이지 종료까지 플레이어 점프력 강화
+      */
+
     void oasissButton_Click(int i, int x)
     {
         int randNum = x;

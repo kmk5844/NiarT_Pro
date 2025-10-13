@@ -46,6 +46,7 @@ public class SubStageSelectDirector : MonoBehaviour
     public GameObject Option;
     bool optionFlag;
     bool cancelFlag;
+    public int TestNum = 0;
 
     private void Start()
     {
@@ -67,7 +68,6 @@ public class SubStageSelectDirector : MonoBehaviour
             UI_MissionCancelWindow.SetActive(false);
         }
     }
-
     public void OnEnable()
     {
         int missionNum = 0;
@@ -141,21 +141,77 @@ public class SubStageSelectDirector : MonoBehaviour
         {
             playerData.change_simplestation(true);
             SceneManager.LoadScene("Station");
-        }else if(SelectSubStageData.SubStage_Type == SubStageType.Food)
+        }else if(SelectSubStageData.SubStage_Type == SubStageType.Special)
         {
-            SceneManager.LoadScene("FoodSelect");
-        }
-        else if (SelectSubStageData.SubStage_Type == SubStageType.Treasure)
-        {
-            SceneManager.LoadScene("Treasure");
+            //특수 스테이지 변경 타임
+            int stageNum = Random.Range(0, 19);
+            switch (stageNum)
+            {
+                case 0:
+                    SceneManager.LoadScene("FoodSelect");
+                    break;
+                case 1:
+                    SceneManager.LoadScene("Treasure");
+                    break;
+                case 2:
+                    SceneManager.LoadScene("Casino");
+                    break;
+                case 3:
+                    SceneManager.LoadScene("GarbageDump");
+                    break;
+                case 4:
+                    SceneManager.LoadScene("Oasis");
+                    break;
+                case 5:
+                    SceneManager.LoadScene("Predator'sDen");
+                    break;
+                case 6:
+                    SceneManager.LoadScene("DrowsinessShelter");
+                    break;
+                case 7:
+                    SceneManager.LoadScene("Exchange");
+                    break;
+                case 8:
+                    SceneManager.LoadScene("Storm");
+                    break;
+                case 9:
+                    SceneManager.LoadScene("Pharmacy");
+                    break;
+                case 10:
+                    SceneManager.LoadScene("Checkpoint");
+                    break;
+                case 11:
+                    SceneManager.LoadScene("OldHospital");
+                    break;
+                case 12:
+                    SceneManager.LoadScene("OldGasStation");
+                    break;
+                case 13:
+                    SceneManager.LoadScene("OldMaintenance");
+                    break;
+                case 14:
+                    SceneManager.LoadScene("DrowRoom");
+                    break;
+                case 15:
+                    SceneManager.LoadScene("BlackMarket");
+                    break;
+                case 16:
+                    SceneManager.LoadScene("OldTranning");
+                    break;
+                case 17:
+                    SceneManager.LoadScene("SupplyStation");
+                    break;
+                case 18:
+                    SceneManager.LoadScene("PrintingPress");
+                    break;
+            }
         }
     }
 
     public void Start_SelectSubStage()
     {
         if (SelectSubStageData.SubStage_Type != SubStageType.SimpleStation
-            || SelectSubStageData.SubStage_Type != SubStageType.Food
-            || SelectSubStageData.SubStage_Type != SubStageType.Treasure) // 전투
+            || SelectSubStageData.SubStage_Type != SubStageType.Special) // 전투
         {
             if (SceneManager.GetActiveScene().name != "CharacterSelect")
             {
@@ -188,7 +244,6 @@ public class SubStageSelectDirector : MonoBehaviour
 
     void SpecialStage_Check()
     {
-
         string[] nextSubStageList = SelectSubStageData.Open_SubStageNum.Split(',');
         if(NextSubStageNum == null)
         {

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,16 +22,23 @@ public class CheckpointDirector : MonoBehaviour
     bool InsertFlag;
     bool RewardFlag;
     bool StopFlag;
+    int prevCoinData;
+    int nowCoinData;
 
     [Header("UI")]
     public Slider slider;
     public Image slider_Handle;
     RectTransform slider_Handle_Ract;
+    public GameObject X_ImageObject;
+    public GameObject O_ImageObject;
+    public TextMeshProUGUI CoinText;
 
     private void Awake()
     {
-        Special_Story.Story_Init(null, 0, 0, 0);
+        Special_Story.Story_Init(null, 10, 0, 0);
         CheckPointWindow.SetActive(false);
+        X_ImageObject.SetActive(true);
+        O_ImageObject.SetActive(false);
     }
 
     // Start is called before the first frame update
@@ -81,17 +89,18 @@ public class CheckpointDirector : MonoBehaviour
                 }
                 else
                 {
+                    X_ImageObject.SetActive(false);
+                    O_ImageObject.SetActive(true);
                     RewardFlag = true;
                 }
             }
         }
 
-
         if (RewardFlag)
         {
-            Reward();
-            RewardFlag = false;
+            StartCoroutine(Reward());
             StopFlag = true;
+            RewardFlag = false;
         }
     }
 
@@ -101,12 +110,16 @@ public class CheckpointDirector : MonoBehaviour
         startFlag = true;
     }
 
-    public void Reward()
+    IEnumerator Reward()
     {
-        Debug.Log(playerData.Coin);
+        //Debug.Log(playerData.Coin);
+        prevCoinData = playerData.Coin;
         playerData.SA_GameLoseCoin(10);
+        nowCoinData = playerData.Coin;
+        CoinText.text = prevCoinData + " G   <color=red>->  " + nowCoinData + " G</color>";
+        yield return new WaitForSeconds(1f);
         CheckWindow.SetActive(true);
-        Debug.Log(playerData.Coin);
+        //Debug.Log(playerData.Coin);
     }
 
     public void CheckPointEnd()

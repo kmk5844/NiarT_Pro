@@ -588,10 +588,8 @@ public class Auto_ScritableObject : EditorWindow
                 return SubStageType.HardCore;
             case "Boss":
                 return SubStageType.Boss;
-            case "Food":
-                return SubStageType.Food;
-            case "Treasure":
-                return SubStageType.Treasure;
+            case "Special":
+                return SubStageType.Special;
             case "Store":
                 return SubStageType.Store;
             case "Maintenance":
