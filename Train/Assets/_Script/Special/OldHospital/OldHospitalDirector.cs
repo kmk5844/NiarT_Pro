@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,14 +27,20 @@ public class OldHospitalDirector : MonoBehaviour
     int maxHP;
     int damageHP;
     bool startFlag;
+    int HealNum;
 
     [Header("UI")]
     public Button[] button;
+    public TextMeshProUGUI healText;
+    public TextMeshProUGUI goldText;
+    public TextMeshProUGUI playerGoldText;
+    public Button HealButton;
+
+    public TextMeshProUGUI CheckText;
 
     private void Awake()
     {
         Special_Story.Story_Init(null, 0, 0, 0);
-        OldHospitalWindow.SetActive(false);
     }
 
     // Start is called before the first frame update
@@ -44,9 +51,14 @@ public class OldHospitalDirector : MonoBehaviour
             //Debug.Log("¿€µø");
             QualitySettings.vSyncCount = 0;
         }
+        OldHospitalWindow.SetActive(false);
+        healText.gameObject.SetActive(false);
+        goldText.gameObject.SetActive(false);
+        HealButton.interactable = false;
 
         playerHP = ES3.Load<int>("Player_Curret_HP");
         int Level_HP = playerData.Level_Player_HP;
+        playerGoldText.text = playerData.Coin + " G";
         maxHP = gamedatatable.Information_Player[playerData.Player_Num].Player_HP;
         maxHP = maxHP + (((maxHP * Level_HP) * 10) / 100);
         damageHP = maxHP - playerHP;
@@ -58,6 +70,7 @@ public class OldHospitalDirector : MonoBehaviour
         {
             giveCoin[i] = totalcoin * Parsent_Coin[i] / 100;
             healHP[i] = damageHP * Parsent_Heal[i] / 100;
+            //Debug.Log(healHP[i]);
         }
     }
 
@@ -77,14 +90,36 @@ public class OldHospitalDirector : MonoBehaviour
 
     public void ClickRewardButton(int i)
     {
-        int num = i;
-        Heal(num);
-        playerData.SA_Buy_Coin(giveCoin[num]);
+        if (!healText.gameObject.activeSelf)
+        {
+            healText.gameObject.SetActive(true);
+            goldText.gameObject.SetActive(true);
+        }
+        if(HealButton.interactable == false)
+        {
+            HealButton.interactable = true;
+        }
+        HealNum = i;
+        ChangeInformation();
+    }
+
+    public void ClickHeal()
+    {
+        Heal(HealNum);
+        playerData.SA_Buy_Coin(giveCoin[HealNum]);
+        playerGoldText.text = playerData.Coin + " G";
+        CheckText.text = damageHP + "+" + healHP[HealNum] + " = " + (damageHP + healHP[HealNum]);
         CheckWindow.SetActive(true);
-        for(int j = 0; j<button.Length; j++)
+        for (int j = 0; j < button.Length; j++)
         {
             button[j].interactable = false;
         }
+    }
+
+    void ChangeInformation()
+    {
+        healText.text = Parsent_Heal[HealNum] + "%";
+        goldText.text = giveCoin[HealNum] + " G";
     }
 
     void Heal(int i)

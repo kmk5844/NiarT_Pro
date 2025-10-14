@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static TreeEditor.TreeGroup;
@@ -29,11 +30,11 @@ public class DrowRoomDirector : MonoBehaviour
     public Button DrowButton;
     public Button AllOpenButton;
     public Button NextButton;
-
+    public TextMeshProUGUI PlayerGoldText;
+    public TextMeshProUGUI AllOpenGoldText;
     private void Awake()
     {
         Special_Story.Story_Init(null, 0, 0, 0);
-        DrowRoomWindow.SetActive(false);
     }
 
     // Start is called before the first frame update
@@ -43,7 +44,8 @@ public class DrowRoomDirector : MonoBehaviour
         {
             QualitySettings.vSyncCount = 0;
         }
-
+        PlayerGoldText.text = playerData.Coin + " G";
+        RewardList.gameObject.SetActive(false);
         RandomSet();
         for (int i = 0; i < 10; i++)
         {
@@ -54,7 +56,7 @@ public class DrowRoomDirector : MonoBehaviour
 
         int coinMat = 1 << 10;
         int PayGold = gold * coinMat;
-        Debug.Log(PayGold);
+        AllOpenGoldText.text = PayGold + " G";
         if (playerData.Coin >= PayGold)
         {
             AllOpenButton.interactable = true;
@@ -78,7 +80,9 @@ public class DrowRoomDirector : MonoBehaviour
 
     void StartEvent()
     {
-        DrowRoomWindow.SetActive(true);
+        RewardList.gameObject.SetActive(true);
+        AllOpenButton.gameObject.SetActive(true);
+        NextButton.gameObject.SetActive(true);
         startFlag = true;
     }
 
@@ -87,15 +91,12 @@ public class DrowRoomDirector : MonoBehaviour
         rewardItemList = new List<ItemDataObject>();
         for(int i = 0; i < 10; i++)
         {
-            int num = Random.Range(0, 33);
-            if (num < 20)
+            int num = Random.Range(0, 29);
+            if (num < 29)
             {
                 rewardItemList.Add(itemData.Item[num]);
             }
-            else
-            {
-                rewardItemList.Add(itemData.Item[num + 37]);
-            }
+            btn.ChangeGold(gold);
         }
     }
 
@@ -147,19 +148,11 @@ public class DrowRoomDirector : MonoBehaviour
             {
                 btn.button.interactable = false;
             }
+            btn.ChangeGold(PayGold);
         }
-
         NextButton.interactable = true;
     }
 
-
-    public void showDrow()
-    {
-        DrowButton.gameObject.SetActive(false);
-        RewardList.gameObject.SetActive(true);
-        AllOpenButton.gameObject.SetActive(true);
-        NextButton.gameObject.SetActive(true);
-    }
     public void DrowRoomEnd()
     {
         SelectStage.SetActive(true);
@@ -170,6 +163,7 @@ public class DrowRoomDirector : MonoBehaviour
         int coinMat = 1 << (openCount - 1);
         int PayGold = gold * coinMat;
         playerData.SA_Buy_Coin(PayGold);
+        PlayerGoldText.text = playerData.Coin + " G";
         openCount++;
     }
 }

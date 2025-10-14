@@ -1996,23 +1996,22 @@ public class Player : MonoBehaviour
                 Player_HP += ((Player_HP * 15) / 100);
                 break;
             case 6:
-                //플레이어 감소
+                //플레이어 HP 감소
                 Player_HP -= ((Player_HP * 15) / 100);
                 break;
             case 7:
-                //플레이어 감소
+                //플레이어 감소, 다음 스테이지 종료까지 플레이어 공격력 증가
                 Player_HP -= ((Player_HP * 15) / 100);    
-                //다음 스테이지 종료까지 플레이어 공격력 증가
                 Bullet_Atk += ((Bullet_Atk * 15) / 100);
                 Default_Atk = Bullet_Atk;
                 break;           
             case 8:
-                //플레이어 감소
+                //플레이어 감소, 공격속도 증가
                 Player_HP -= ((Player_HP * 15) / 100);
                 Bullet_Delay -= ((Bullet_Delay * 15) / 100);
                 break;
             case 9:
-                //플레이어 감소
+                //플레이어 HP 감소, 방어력 증가
                 Player_HP -= ((Player_HP * 15) / 100);
                 Player_Armor += ((Player_Armor * 15) / 100);
                 break;
