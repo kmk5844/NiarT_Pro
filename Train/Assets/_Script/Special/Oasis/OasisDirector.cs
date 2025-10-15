@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,6 +21,10 @@ public class OasisDirector : MonoBehaviour
 
     [Header("UI")]
     public Button[] oasisButton;
+    [SerializeField]
+    Image[] oasisButtonimages;
+    [SerializeField]
+    TextMeshProUGUI[] oasisButtonText;
     public Button NextButton;
 
     [SerializeField]
@@ -36,8 +41,6 @@ public class OasisDirector : MonoBehaviour
         {
             QualitySettings.vSyncCount = 1;
         }
-
-
         SettingInit();
     }
 
@@ -78,6 +81,7 @@ public class OasisDirector : MonoBehaviour
             int cardNum = i;
             int x = RandNum[i];
             oasisButton[i].onClick.AddListener(() => oasissButton_Click(cardNum, x));
+            
         }
         NextButton.onClick.AddListener(NextStation);
         NextButton.gameObject.SetActive(false);
@@ -107,24 +111,34 @@ public class OasisDirector : MonoBehaviour
         int randNum = x;
         if(i == 0)
         {
-            oasisButton[0].enabled = false;
+            OpenButton(0, randNum);
             oasisButton[1].gameObject.SetActive(false);
             oasisButton[2].gameObject.SetActive(false);
         }
         else if (i == 1) {
-            oasisButton[1].enabled = false;
+            OpenButton(1, randNum);
+
             oasisButton[0].gameObject.SetActive(false);
             oasisButton[2].gameObject.SetActive(false);
         }
         else if(i == 2)
         {
-            oasisButton[2].enabled = false;
+            OpenButton(2, randNum);
             oasisButton[0].gameObject.SetActive(false);
             oasisButton[1].gameObject.SetActive(false);
         }
 
         eventData.Choice_Oasis(randNum);
         NextButton.gameObject.SetActive(true);
+    }
+
+    void OpenButton(int index, int randNum)
+    {
+        oasisButton[index].enabled = false;
+        oasisButton[index].interactable = false;
+        oasisButtonimages[index].gameObject.SetActive(true);
+        oasisButtonText[index].text = randNum + "¹ø È¿°ú";
+        oasisButtonText[index].gameObject.SetActive(true);
     }
 
     void NextStation()

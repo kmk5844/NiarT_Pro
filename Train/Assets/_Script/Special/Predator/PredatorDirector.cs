@@ -51,8 +51,9 @@ public class PredatorDirector : MonoBehaviour
             QualitySettings.vSyncCount = 1;
         }
 
-        MaxCount = Random.Range(20, 40);
+        MaxCount = Random.Range(30, 51);
         elapsedTime = MaxTime;
+        TimeText.text = MaxTime + "s";
 
         slider.value = 0;
         slider.maxValue = MaxCount;
@@ -82,7 +83,7 @@ public class PredatorDirector : MonoBehaviour
             if (currentTime != displayTime)
             {
                 displayTime = currentTime;
-                TimeText.text = displayTime.ToString();
+                TimeText.text = displayTime + "s";
             }
 
             if(currentTime <= 0f)

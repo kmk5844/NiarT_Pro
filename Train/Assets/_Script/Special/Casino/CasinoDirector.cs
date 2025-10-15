@@ -19,7 +19,7 @@ public class CasinoDirector : MonoBehaviour
     public SA_PlayerData playerData;
     public Sprite[] foodImage;
     int money;
-    int[] bat = { 2, 4, 8, 16, 32, 64, 128, 256};
+    int[] bat = { 1, 2, 4, 8, 16, 32, 64, 128, 256};
     int bat_index = 0;
     bool[] casinoflag = { false, false, false };
     bool casino_end;
@@ -41,6 +41,7 @@ public class CasinoDirector : MonoBehaviour
     [Header("Ä«Áö³ë")]
     public Image[] casinoImage;
     public Button[] casinoButton;
+    public TextMeshProUGUI playerGoldText;
 
     private void Awake()
     {
@@ -67,11 +68,11 @@ public class CasinoDirector : MonoBehaviour
         Setting_Init();
         CheckButton();
         CheckText();
+        playerGoldText.text = playerData.Coin + " G";
     }
 
     void Setting_Init()
     {
-
         casino_end = true;
         for (int i = 0; i < 3; i++) { 
             casinoflag[i] = false;
@@ -130,7 +131,6 @@ public class CasinoDirector : MonoBehaviour
         CheckButton();
         CheckText();
     }
-
     void moneyCheck()
     {
         moneyFlag = false;
@@ -161,8 +161,6 @@ public class CasinoDirector : MonoBehaviour
             money = 1000;
         }
     }
-
-
     void CheckButton()
     {
         if (!moneyFlag)
@@ -202,9 +200,11 @@ public class CasinoDirector : MonoBehaviour
     void Bat()
     {
         playerData.SA_Buy_Coin(money);
+        playerGoldText.text = playerData.Coin + " G";
         casino_end = false;
         for(int i = 0; i < 3; i++)
         {
+            casinoflag[i] = false;
             casinoButton[i].interactable = true;
         }
         BattingButton.gameObject.SetActive(false);
@@ -225,6 +225,7 @@ public class CasinoDirector : MonoBehaviour
     void Stop()
     {
         playerData.SA_Get_Coin(money * bat[bat_index]);
+        playerGoldText.text = playerData.Coin + " G";
         UpButton.gameObject.SetActive(true);
         DownButton.gameObject.SetActive(true);
         BattingButton.gameObject.SetActive(true);

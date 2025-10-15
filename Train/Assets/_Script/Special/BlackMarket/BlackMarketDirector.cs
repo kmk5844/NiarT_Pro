@@ -10,20 +10,24 @@ public class BlackMarketDirector : MonoBehaviour
 
     [Header("Window")]
     public GameObject BlackMarketWindow;
-    //public GameObject CheckWindow;
+    public GameObject CheckWindow;
     public GameObject SelectStage;
 
     [Header("Data")]
     public SA_PlayerData playerData;
     public SA_ItemList itemList;
     ItemDataObject[] item_Arr;
+    [SerializeField]
     int[] itemCount_Arr;
+    [SerializeField]
     int[] Persent_Arr;
+    [SerializeField]
     int[] Pride_Arr;
     bool startFlag;
 
     [Header("UI")]
     public BlackMarketCard[] card;
+    public TextMeshProUGUI playerGoldText;
 
     private void Awake()
     {
@@ -39,6 +43,7 @@ public class BlackMarketDirector : MonoBehaviour
             QualitySettings.vSyncCount = 0;
         }
         SettingCard();
+        playerGoldText.text = playerData.Coin + " G";
     }
 
     // Update is called once per frame
@@ -76,7 +81,7 @@ public class BlackMarketDirector : MonoBehaviour
             itemCount_Arr[i]= count;
             Persent_Arr[i] = persent;
             Pride_Arr[i] = ((itemCount_Arr[i] * item_Arr[i].Item_Buy_Pride) * (100 - Persent_Arr[i]) / 100);
-            card[i].SettingCard(this, _Item, count, persent);
+            card[i].SettingCard(i, this, _Item, count, persent);
         }
     }
 
@@ -96,14 +101,19 @@ public class BlackMarketDirector : MonoBehaviour
 
     public void WarningPrideWindow()
     {
-        Debug.Log("경고");
+        CheckWindow.SetActive(true);
+    }
+
+    public void CloaseWarningPrideWindow()
+    {
+        CheckWindow.SetActive(false);
     }
 
     public void ClickItem(int index)
     {
         item_Arr[index].Item_Count_UP(itemCount_Arr[index]);
         playerData.SA_Buy_Coin(Pride_Arr[index]);
-        Debug.Log("구매 완료");
+        playerGoldText.text = playerData.Coin + " G";
     }
 
 }

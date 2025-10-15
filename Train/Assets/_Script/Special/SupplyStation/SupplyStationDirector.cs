@@ -27,6 +27,8 @@ public class SupplyStationDirector : MonoBehaviour
 
     [Header("UI")]
     public TextMeshProUGUI countText;
+    public TextMeshProUGUI rewardText;
+    public TextMeshProUGUI boxResultText;
 
     [Header("Game")]
     public Vector2 Min_Vec;
@@ -130,32 +132,32 @@ public class SupplyStationDirector : MonoBehaviour
 
     public void Reward()
     {
-        if(count < 4)
+        if(count < 5)
         {
             rewardGrade = 1;
             rewardCount = 0;
         }
-        else if(count >= 4 && count < 6)
+        else if(count >= 5 && count < 8)
         {
             rewardGrade = 1;
             rewardCount = 1;
         }
-        else if(count >= 6 && count < 9)
+        else if(count >= 8 && count < 12)
         {
             rewardGrade = 1;
             rewardCount = 2;
         }
-        else if(count >= 9 && count < 12)
+        else if(count >= 12 && count < 16)
         {
             rewardGrade = 1;
             rewardCount = 3;
         }
-        else if(count >= 12 && count < 15)
+        else if(count >= 16 && count < 20)
         {
             rewardGrade = 2;
             rewardCount = 2;
         }
-        else if(count >= 15)
+        else if(count >= 20)
         {
             rewardGrade = 2;
             rewardCount = 3;
@@ -167,6 +169,8 @@ public class SupplyStationDirector : MonoBehaviour
     {
         SupplyMiniGameWindow.SetActive(false);
         Reward();
+        boxResultText.text = count + "°³ ½×±â ¼º°ø!";
+        rewardText.text = "È¹µæ º¸»ó : " + rewardCount + "°³ (µî±Þ " + rewardGrade + ")";
         CheckWindow.SetActive(true);
         minigameflag = false;
     }

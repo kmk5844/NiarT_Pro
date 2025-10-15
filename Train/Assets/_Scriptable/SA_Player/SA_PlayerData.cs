@@ -192,7 +192,9 @@ public class SA_PlayerData : ScriptableObject
             curret_hp = 5000;
         }
 
-        int hp = curret_hp - curret_hp * (persent / 100);
+        int hp = (int)(curret_hp - curret_hp * (persent / 100));
+        hp = Mathf.Max(hp, 0);
+
         ES3.Save<int>("Player_Curret_HP", hp);
     }
 

@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,10 +20,17 @@ public class DrowsinessShelterDirector : MonoBehaviour
     public Image targetImage;
     float fadeDuration = 2f;
     public Button SleepButton;
+    public TextMeshProUGUI playerHPText;
+    public GameObject[] BlackBoard;
 
-    //[Header("µ•¿Ã≈Õ")]
+
+    [Header("µ•¿Ã≈Õ")]
+    public SA_PlayerData playerData;
+    public Game_DataTable game_DataTable;
+    int originPlayerHP;
     int beforePlayerHP;
-    int playerHP;
+    int curretPlayerHP;
+    int Max_HP;
     bool startFlag;
 
     private void Awake()
@@ -37,9 +46,13 @@ public class DrowsinessShelterDirector : MonoBehaviour
         {
             QualitySettings.vSyncCount = 1;
         }
+        originPlayerHP = game_DataTable.Information_Player[playerData.Player_Num].Player_HP;
+        curretPlayerHP = ES3.Load<int>("Player_Curret_HP");
+        beforePlayerHP = curretPlayerHP;
+        Max_HP = originPlayerHP + (((originPlayerHP * playerData.Level_Player_HP) * 10) / 100);
 
-        playerHP = ES3.Load<int>("Player_Curret_HP");
-        beforePlayerHP = playerHP;
+        BlackBoard[0].SetActive(true);
+        BlackBoard[1].SetActive(false);
 
         CheckWindow.SetActive(false);
         SleepButton.onClick.AddListener(() => Click_Rest());
@@ -62,17 +75,26 @@ public class DrowsinessShelterDirector : MonoBehaviour
 
     public void Click_Rest()
     {
+        BlackBoard[0].SetActive(false);
+        BlackBoard[1].SetActive(true);
         StartCoroutine(Sleep());
         SleepButton.interactable = false;
     }
 
     IEnumerator Sleep()
     {
-        Debug.Log("ƒƒƒ");
         yield return StartCoroutine(FadeTo(1f));
         yield return new WaitForSeconds(5f);
-        playerHP = playerHP * 120 / 100;
-        ES3.Save<int>("Player_Curret_HP", playerHP);
+
+        curretPlayerHP += (int)(Max_HP * 0.2f);
+
+        // √÷¥Î √º∑¬ √ ∞˙ πÊ¡ˆ
+        if (curretPlayerHP > Max_HP)
+        {
+            curretPlayerHP = Max_HP;
+        }
+
+        ES3.Save<int>("Player_Curret_HP", curretPlayerHP);
         yield return StartCoroutine(FadeTo(0f)); // ≈ı∏Ì (π‡æ∆¡¸)
     }
 
@@ -100,6 +122,7 @@ public class DrowsinessShelterDirector : MonoBehaviour
 
         if(targetAlpha == 0f)
         {
+            playerHPText.text = beforePlayerHP + "<color=red>  ->  " + curretPlayerHP + "</color>";
             CheckWindow.SetActive(true);
         }
     }

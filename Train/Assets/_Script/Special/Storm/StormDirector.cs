@@ -22,10 +22,12 @@ public class StormDirector : MonoBehaviour
     private float currentTime = 0f;
     private bool isRunning = false;
     bool minigameFlag = false;
+    int Debuff_Parsent;
 
     [Header("UI")]
     public Slider slider;
     public TextMeshProUGUI textTimer;
+    public TextMeshProUGUI CheckWindowText;
 
 
     private void Awake()
@@ -94,25 +96,27 @@ public class StormDirector : MonoBehaviour
     {
         int seconds = Mathf.FloorToInt(currentTime % 60);
 
-        if(seconds <= 8)
+        if(seconds <= 10)
         {
-            Reward_Debuff(2);
-        }else if(seconds > 8 && seconds <= 10)
+            Debuff_Parsent = 2;
+        }else if(seconds > 10 && seconds <= 14)
         {
-            Reward_Debuff(5);
+            Debuff_Parsent = 5;
         }
-        else if (seconds > 10 && seconds <= 12)
+        else if (seconds > 14 && seconds <= 16)
         {
-            Reward_Debuff(7);
+            Debuff_Parsent = 7;
         }
-        else if(seconds > 12 && seconds <= 14)
+        else if(seconds > 16 && seconds <= 20)
         {
-            Reward_Debuff(10);
+            Debuff_Parsent = 10;
         }
-        else if (seconds > 14)
+        else if (seconds > 20)
         {
-            Reward_Debuff(15);
+            Debuff_Parsent = 15;
         }
+        Reward_Debuff(Debuff_Parsent);
+        CheckWindowText.text = "폭풍우 통과!\n기차 체력 및 연료 " + Debuff_Parsent + "% 감소";
         CheckWindow.SetActive(true);
     }
 

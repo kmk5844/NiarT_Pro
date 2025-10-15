@@ -21,12 +21,12 @@ public class GarbageDumpDirector : MonoBehaviour
 
     [Header("UI")]
     public Transform garbageTransform;
+    public GameObject CollectButton;
     public GameObject garbageObject;
     public GameObject garbageWindow;
     public GameObject NextButton;
 
     bool startFlag;
-    bool gabageFlag;
     private void Awake()
     {
         Special_Story.Story_Init(null, 0, 0, 0);
@@ -48,6 +48,7 @@ public class GarbageDumpDirector : MonoBehaviour
         }
 
         randomCount = Random.Range(1, 10);
+        garbageTransform.gameObject.SetActive(false);
         NextButton.GetComponent<Button>().onClick.AddListener(() => Click_NextButton());
         NextButton.SetActive(false);
     }
@@ -58,24 +59,25 @@ public class GarbageDumpDirector : MonoBehaviour
         {
             StartEvent();
         }
+    }
 
-        if (Input.GetMouseButtonDown(0) && gabageFlag)
-        {
-            OpenGarbage();
-        }
+    public void ClickCollectGarbage()
+    {
+        OpenGarbage();
+        CollectButton.SetActive(false);
+        garbageTransform.gameObject.SetActive(true);
+
     }
 
     private void StartEvent()
     {
         GarbageDumpWindow.SetActive(true);
-        gabageFlag = true;
         startFlag = true;
     }
 
     void OpenGarbage()
     {
         garbageWindow.SetActive(true);
-        gabageFlag = false;
         StartCoroutine(Open());
     }
 
