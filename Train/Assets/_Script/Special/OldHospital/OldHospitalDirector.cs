@@ -57,10 +57,12 @@ public class OldHospitalDirector : MonoBehaviour
         HealButton.interactable = false;
 
         playerHP = ES3.Load<int>("Player_Curret_HP");
+        playerHP = 4300;
         int Level_HP = playerData.Level_Player_HP;
         playerGoldText.text = playerData.Coin + " G";
         maxHP = gamedatatable.Information_Player[playerData.Player_Num].Player_HP;
         maxHP = maxHP + (((maxHP * Level_HP) * 10) / 100);
+        Debug.Log("MaxHP : " + maxHP + " Level_HP : " + Level_HP + " Player_HP : " + playerHP);
         damageHP = maxHP - playerHP;
 
         totalcoin = playerData.Coin;
@@ -105,10 +107,10 @@ public class OldHospitalDirector : MonoBehaviour
 
     public void ClickHeal()
     {
+        CheckText.text = playerHP + "+" + healHP[HealNum] + " = "  + (playerHP + (healHP[HealNum]));
         Heal(HealNum);
         playerData.SA_Buy_Coin(giveCoin[HealNum]);
         playerGoldText.text = playerData.Coin + " G";
-        CheckText.text = damageHP + "+" + healHP[HealNum] + " = " + (damageHP + healHP[HealNum]);
         CheckWindow.SetActive(true);
         for (int j = 0; j < button.Length; j++)
         {

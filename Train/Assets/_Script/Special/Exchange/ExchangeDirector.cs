@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization.Components;
 using UnityEngine.UI;
 
 public class ExchangeDirector : MonoBehaviour
@@ -27,6 +28,7 @@ public class ExchangeDirector : MonoBehaviour
     public Transform ItemTransform;
     public GameObject Itemobject;
     public Image SelectItemImage;
+    public LocalizeStringEvent SelectName;
 
     private void Awake()
     {
@@ -97,6 +99,8 @@ public class ExchangeDirector : MonoBehaviour
     {
         SelectItem = item;
         SelectItemImage.sprite = SelectItem.Item_Sprite;
+        SelectName.StringReference.TableReference = "ItemData_Table_St";
+        SelectName.StringReference.TableEntryReference = "Item_Name_" + item.Num;
     }
 
     public void Click_Exchange()
