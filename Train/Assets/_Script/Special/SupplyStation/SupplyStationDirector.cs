@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.Components;
 
 
 public class SupplyStationDirector : MonoBehaviour
@@ -27,8 +28,8 @@ public class SupplyStationDirector : MonoBehaviour
 
     [Header("UI")]
     public TextMeshProUGUI countText;
-    public TextMeshProUGUI rewardText;
-    public TextMeshProUGUI boxResultText;
+    public LocalizeStringEvent rewardText;
+    public LocalizeStringEvent boxResultText;
 
     [Header("Game")]
     public Vector2 Min_Vec;
@@ -58,6 +59,10 @@ public class SupplyStationDirector : MonoBehaviour
         spawnFlag = true;
         SupplySpeed = 3;
         countText.text = "0";
+        rewardText.StringReference.TableReference = "SpecialStage_St";
+        rewardText.StringReference.TableEntryReference = "SupplyStation_SucessReward";
+        boxResultText.StringReference.TableReference = "SpecialStage_St";
+        boxResultText.StringReference.TableEntryReference = "SupplyStation_SucessCount";
         SupplyMiniGameWindow.SetActive(false);
         CheckWindow.SetActive(false);
     }
@@ -113,6 +118,7 @@ public class SupplyStationDirector : MonoBehaviour
     {
         timeflag = true;
         yield return new WaitForSeconds(2.4f);
+        countText.text = count.ToString();
         timeflag = false;
         spawnFlag = true;
     }
@@ -120,7 +126,6 @@ public class SupplyStationDirector : MonoBehaviour
     public void Count()
     {
         count++;
-        countText.text = count.ToString();
         SupplySpeed = 3 + ((float)count * 0.6f);
     }
 
@@ -132,32 +137,33 @@ public class SupplyStationDirector : MonoBehaviour
 
     public void Reward()
     {
-        if(count < 5)
+        int _count = count - 1;
+        if (_count < 6)
         {
             rewardGrade = 1;
             rewardCount = 0;
         }
-        else if(count >= 5 && count < 8)
+        else if(_count >= 6 && _count < 9)
         {
             rewardGrade = 1;
             rewardCount = 1;
         }
-        else if(count >= 8 && count < 12)
+        else if(_count >= 9 && _count < 12)
         {
             rewardGrade = 1;
             rewardCount = 2;
         }
-        else if(count >= 12 && count < 16)
+        else if(_count >= 12 && _count < 16)
         {
             rewardGrade = 1;
             rewardCount = 3;
         }
-        else if(count >= 16 && count < 20)
+        else if(_count >= 16 && _count < 20)
         {
             rewardGrade = 2;
             rewardCount = 2;
         }
-        else if(count >= 20)
+        else if(_count >= 20)
         {
             rewardGrade = 2;
             rewardCount = 3;
@@ -169,8 +175,10 @@ public class SupplyStationDirector : MonoBehaviour
     {
         SupplyMiniGameWindow.SetActive(false);
         Reward();
-        boxResultText.text = count + "°³ ½×±â ¼º°ø!";
-        rewardText.text = "È¹µæ º¸»ó : " + rewardCount + "°³ (µî±Þ " + rewardGrade + ")";
+        boxResultText.StringReference.Arguments = new object[] { count - 1 };
+        rewardText.StringReference.Arguments = new object[] { rewardCount, rewardGrade };
+        boxResultText.RefreshString();
+        rewardText.RefreshString();
         CheckWindow.SetActive(true);
         minigameflag = false;
     }

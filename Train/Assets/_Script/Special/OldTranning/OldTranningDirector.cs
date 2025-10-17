@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.Components;
 using UnityEngine.UI;
 
 public class OldTranningDirector : MonoBehaviour
@@ -30,7 +31,7 @@ public class OldTranningDirector : MonoBehaviour
     public Button TranningButton;
     public Button NextStageButton;
     public Image targetImage;
-    public TextMeshProUGUI CheckWindowText;
+    public LocalizeStringEvent CheckWindowText;
 
     private void Awake()
     {
@@ -44,6 +45,7 @@ public class OldTranningDirector : MonoBehaviour
             QualitySettings.vSyncCount = 0;
         }
         PlayerImage.sprite = PlayerableImage[playerData.Player_Num];
+        CheckWindowText.StringReference.TableReference = "SpecialStage_St";
         OldTranningWindow.SetActive(false);
     }
 
@@ -115,67 +117,70 @@ public class OldTranningDirector : MonoBehaviour
     {
         RewardNum = Random.Range(0, 11);
         eventData.OldTrannningOn(RewardNum);
-        switch (RewardNum)
-        {
-            case 0:
-                // 공격력 증가
-                CheckWindowText.text = "공격력 증가!";
-                //Debug.Log("공격력 증가");
-                break;
-            case 1:
-                // 점프력 증가
-                CheckWindowText.text = "점프력 증가!";
-                //Debug.Log("점프력 증가");
-                break;
-            case 2:
-                // 방어력 증가
-                CheckWindowText.text = "방어력 증가!";
-                //Debug.Log("방어력 증가");
-                break;
-            case 3:
-                // 공격속도 증가
-                CheckWindowText.text = "공격속도 증가!";
-                //Debug.Log("공격속도 증가");
-                break;
-            case 4:
-                // 이동속도 증가
-                CheckWindowText.text = "이동속도 증가!";
-                //Debug.Log("이동속도 증가");
-                break;
-            case 5:
-                // 체력 회복
-                CheckWindowText.text = "체력 회복!";
-                //Debug.Log("체력 증가");
-                break;
-            case 6:
-                // 체력 감소
-                CheckWindowText.text = "체력 감소!";
-                //Debug.Log("체력 감소");
-                break;
-            case 7:
-                // 체력 감소 + 공격력 증가
-                CheckWindowText.text = "체력 감소! 공격력 증가!";
-                //Debug.Log("체력 감소");
-                //Debug.Log("공격력 증가");
-                break;
-            case 8:
-                // 체력 감소 + 공격속도 증가
-                CheckWindowText.text = "체력 감소! 공격속도 증가!";
-                //Debug.Log("체력 감소");
-                //Debug.Log("공격속도 증가");
-                break;
-            case 9:
-                // 체력 감소 + 방어력 증가
-                CheckWindowText.text = "체력 감소! 방어력 증가!";
-                //Debug.Log("체력 감소");
-                //Debug.Log("방어력 증가");
-                break;
-            case 10:
-                // 아무런 효과가 없다.
-                CheckWindowText.text = "아무런 효과가 없다.";
-                //Debug.Log("X");
-                break;
-        }
+        CheckWindowText.StringReference.TableEntryReference = "OldTranning_TranningReward_" + RewardNum;
+        /*
+
+                switch (RewardNum)
+                {
+                    case 0:
+                        // 공격력 증가
+                        CheckWindowText.text = "공격력 증가!";
+                        //Debug.Log("공격력 증가");
+                        break;
+                    case 1:
+                        // 점프력 증가
+                        CheckWindowText.text = "점프력 증가!";
+                        //Debug.Log("점프력 증가");
+                        break;
+                    case 2:
+                        // 방어력 증가
+                        CheckWindowText.text = "방어력 증가!";
+                        //Debug.Log("방어력 증가");
+                        break;
+                    case 3:
+                        // 공격속도 증가
+                        CheckWindowText.text = "공격속도 증가!";
+                        //Debug.Log("공격속도 증가");
+                        break;
+                    case 4:
+                        // 이동속도 증가
+                        CheckWindowText.text = "이동속도 증가!";
+                        //Debug.Log("이동속도 증가");
+                        break;
+                    case 5:
+                        // 체력 회복
+                        CheckWindowText.text = "체력 회복!";
+                        //Debug.Log("체력 증가");
+                        break;
+                    case 6:
+                        // 체력 감소
+                        CheckWindowText.text = "체력 감소!";
+                        //Debug.Log("체력 감소");
+                        break;
+                    case 7:
+                        // 체력 감소 + 공격력 증가
+                        CheckWindowText.text = "체력 감소! 공격력 증가!";
+                        //Debug.Log("체력 감소");
+                        //Debug.Log("공격력 증가");
+                        break;
+                    case 8:
+                        // 체력 감소 + 공격속도 증가
+                        CheckWindowText.text = "체력 감소! 공격속도 증가!";
+                        //Debug.Log("체력 감소");
+                        //Debug.Log("공격속도 증가");
+                        break;
+                    case 9:
+                        // 체력 감소 + 방어력 증가
+                        CheckWindowText.text = "체력 감소! 방어력 증가!";
+                        //Debug.Log("체력 감소");
+                        //Debug.Log("방어력 증가");
+                        break;
+                    case 10:
+                        // 아무런 효과가 없다.
+                        CheckWindowText.text = "아무런 효과가 없다.";
+                        //Debug.Log("X");
+                        break;
+                }*/
     }
 
 

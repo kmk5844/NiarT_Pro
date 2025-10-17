@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.Components;
 using UnityEngine.UI;
 
 public class OldHospitalDirector : MonoBehaviour
@@ -31,8 +32,11 @@ public class OldHospitalDirector : MonoBehaviour
 
     [Header("UI")]
     public Button[] button;
-    public TextMeshProUGUI healText;
-    public TextMeshProUGUI goldText;
+    public LocalizeStringEvent[] HealInformation;
+    public LocalizeStringEvent[] CoinInformation;
+    public LocalizeStringEvent healText;
+    public LocalizeStringEvent goldText;
+    public LocalizeStringEvent checkinformationText;
     public TextMeshProUGUI playerGoldText;
     public Button HealButton;
 
@@ -57,18 +61,36 @@ public class OldHospitalDirector : MonoBehaviour
         HealButton.interactable = false;
 
         playerHP = ES3.Load<int>("Player_Curret_HP");
-        playerHP = 4300;
         int Level_HP = playerData.Level_Player_HP;
         playerGoldText.text = playerData.Coin + " G";
         maxHP = gamedatatable.Information_Player[playerData.Player_Num].Player_HP;
         maxHP = maxHP + (((maxHP * Level_HP) * 10) / 100);
-        Debug.Log("MaxHP : " + maxHP + " Level_HP : " + Level_HP + " Player_HP : " + playerHP);
         damageHP = maxHP - playerHP;
 
         totalcoin = playerData.Coin;
         giveCoin = new int[3];
         healHP = new int[3];
+
         for(int i = 0; i < 3; i++)
+        {
+            HealInformation[i].StringReference.Arguments = new object[] { Parsent_Heal[i] };
+            HealInformation[i].StringReference.TableReference = "SpecialStage_St";
+            HealInformation[i].StringReference.TableEntryReference = "OldHospital_InformationHeal";
+            HealInformation[i].RefreshString();
+            CoinInformation[i].StringReference.Arguments = new object[] { Parsent_Coin[i] };
+            CoinInformation[i].StringReference.TableReference = "SpecialStage_St";
+            CoinInformation[i].StringReference.TableEntryReference = "OldHospital_InformationGold";
+            CoinInformation[i].RefreshString();
+        }
+
+        healText.StringReference.TableReference = "SpecialStage_St";
+        healText.StringReference.TableEntryReference = "OldHospital_InformationCheckHeal";
+        goldText.StringReference.TableReference = "SpecialStage_St";
+        goldText.StringReference.TableEntryReference = "OldHospital_InformationCheckGold";
+        checkinformationText.StringReference.TableReference = "SpecialStage_St";
+        checkinformationText.StringReference.TableEntryReference = "OldHospital_InformationHealEnd";
+
+        for (int i = 0; i < 3; i++)
         {
             giveCoin[i] = totalcoin * Parsent_Coin[i] / 100;
             healHP[i] = damageHP * Parsent_Heal[i] / 100;
@@ -107,7 +129,9 @@ public class OldHospitalDirector : MonoBehaviour
 
     public void ClickHeal()
     {
-        CheckText.text = playerHP + "+" + healHP[HealNum] + " = "  + (playerHP + (healHP[HealNum]));
+        checkinformationText.StringReference.Arguments = new object[] { Parsent_Heal[HealNum] };
+        checkinformationText.RefreshString();
+        CheckText.text = playerHP + "<color=green> + " + healHP[HealNum] + " = "  + (playerHP + (healHP[HealNum])+"</color>");
         Heal(HealNum);
         playerData.SA_Buy_Coin(giveCoin[HealNum]);
         playerGoldText.text = playerData.Coin + " G";
@@ -120,8 +144,12 @@ public class OldHospitalDirector : MonoBehaviour
 
     void ChangeInformation()
     {
-        healText.text = Parsent_Heal[HealNum] + "%";
-        goldText.text = giveCoin[HealNum] + " G";
+        healText.StringReference.Arguments = new object[] { Parsent_Heal[HealNum] };
+        goldText.StringReference.Arguments = new object[] { giveCoin[HealNum] };
+        healText.RefreshString();
+        goldText.RefreshString();
+        //healText.text = Parsent_Heal[HealNum] + "%";
+        //goldText.text = giveCoin[HealNum] + " G";
     }
 
     void Heal(int i)

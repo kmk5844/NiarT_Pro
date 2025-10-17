@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.Components;
 using UnityEngine.UI;
 
 public class StormDirector : MonoBehaviour
@@ -27,7 +28,7 @@ public class StormDirector : MonoBehaviour
     [Header("UI")]
     public Slider slider;
     public TextMeshProUGUI textTimer;
-    public TextMeshProUGUI CheckWindowText;
+    public LocalizeStringEvent CheckWindowText;
 
 
     private void Awake()
@@ -45,6 +46,9 @@ public class StormDirector : MonoBehaviour
             QualitySettings.vSyncCount = 0;
             Application.targetFrameRate = 60;
         }
+        CheckWindowText.StringReference.TableReference = "SpecialStage_St";
+        CheckWindowText.StringReference.TableEntryReference = "Storm_Reward";
+        textTimer.text = string.Format("{0:00}:{1:00}.{2:000}", 0, 0, 0);
 
         slider.maxValue = 100f;
     }
@@ -116,7 +120,8 @@ public class StormDirector : MonoBehaviour
             Debuff_Parsent = 15;
         }
         Reward_Debuff(Debuff_Parsent);
-        CheckWindowText.text = "폭풍우 통과!\n기차 체력 및 연료 " + Debuff_Parsent + "% 감소";
+        CheckWindowText.StringReference.Arguments = new object[] { Debuff_Parsent };
+        CheckWindowText.RefreshString();
         CheckWindow.SetActive(true);
     }
 

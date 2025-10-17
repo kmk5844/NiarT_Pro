@@ -184,10 +184,12 @@ public class SubStageSelectDirector : MonoBehaviour
                     SceneManager.LoadScene("OldHospital");
                     break;
                 case 12:
-                    SceneManager.LoadScene("OldGasStation");
+                    //SceneManager.LoadScene("OldGasStation");
+                    SceneManager.LoadScene("OldHospital"); // 임시 조치
                     break;
                 case 13:
-                    SceneManager.LoadScene("OldMaintenance");
+                    //SceneManager.LoadScene("OldMaintenance");
+                    SceneManager.LoadScene("Storm"); // 임시 조치
                     break;
                 case 14:
                     SceneManager.LoadScene("DrowRoom");
@@ -202,7 +204,8 @@ public class SubStageSelectDirector : MonoBehaviour
                     SceneManager.LoadScene("SupplyStation");
                     break;
                 case 18:
-                    SceneManager.LoadScene("PrintingPress");
+                    //SceneManager.LoadScene("PrintingPress");
+                    SceneManager.LoadScene("SupplyStation"); //임시 조치
                     break;
             }
         }

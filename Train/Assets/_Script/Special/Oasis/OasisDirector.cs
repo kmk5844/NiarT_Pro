@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Localization.Components;
 using UnityEngine.UI;
 
 public class OasisDirector : MonoBehaviour
@@ -24,7 +25,7 @@ public class OasisDirector : MonoBehaviour
     [SerializeField]
     Image[] oasisButtonimages;
     [SerializeField]
-    TextMeshProUGUI[] oasisButtonText;
+    LocalizeStringEvent[] oasisButtonText;
     public Button NextButton;
 
     [SerializeField]
@@ -41,6 +42,7 @@ public class OasisDirector : MonoBehaviour
         {
             QualitySettings.vSyncCount = 1;
         }
+
         SettingInit();
     }
 
@@ -81,7 +83,9 @@ public class OasisDirector : MonoBehaviour
             int cardNum = i;
             int x = RandNum[i];
             oasisButton[i].onClick.AddListener(() => oasissButton_Click(cardNum, x));
-            
+            oasisButtonText[i].StringReference.TableReference = "SpecialStage_St";
+
+
         }
         NextButton.onClick.AddListener(NextStation);
         NextButton.gameObject.SetActive(false);
@@ -137,7 +141,8 @@ public class OasisDirector : MonoBehaviour
         oasisButton[index].enabled = false;
         oasisButton[index].interactable = false;
         oasisButtonimages[index].gameObject.SetActive(true);
-        oasisButtonText[index].text = randNum + "번 효과";
+        oasisButtonText[index].StringReference.TableEntryReference = "Oasis_Reward_" + randNum;
+        //oasisButtonText[index].text = randNum + "번 효과";
         oasisButtonText[index].gameObject.SetActive(true);
     }
 
