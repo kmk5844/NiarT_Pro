@@ -33,10 +33,9 @@ public class PharmacyDirector : MonoBehaviour
     public TextMeshProUGUI playerCoinText;
     public TextMeshProUGUI checkWindowText;
 
-
     private void Awake()
     {
-        Special_Story.Story_Init(null, 0, 0, 0);
+        Special_Story.Story_Init(null, 9, 0, 0);
         PrarmacyWindow.SetActive(false);
     }
 
@@ -66,7 +65,6 @@ public class PharmacyDirector : MonoBehaviour
         {
             BuyButton.interactable= false;
         }
-
     }
 
     // Update is called once per frame
@@ -83,7 +81,6 @@ public class PharmacyDirector : MonoBehaviour
         PrarmacyWindow.SetActive(true);
         startFlag = true;
     }
-
 
     public void ClickHeal()
     {

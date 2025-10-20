@@ -34,7 +34,7 @@ public class DrowRoomDirector : MonoBehaviour
     public TextMeshProUGUI AllOpenGoldText;
     private void Awake()
     {
-        Special_Story.Story_Init(null, 0, 0, 0);
+        Special_Story.Story_Init(null, 14, 0, 0);
     }
 
     // Start is called before the first frame update

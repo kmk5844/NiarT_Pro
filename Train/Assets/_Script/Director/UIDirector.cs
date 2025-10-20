@@ -186,7 +186,7 @@ public class UIDirector : MonoBehaviour
     {
         if (gamedirector.gameType == GameType.Playing || gamedirector.gameType == GameType.Boss)
         {
-            if (gamedirector.TrainSpeed <= 50)
+            if (gamedirector.TrainSpeed <= 50f)
             {
                 WarningSpeedEffect.SetActive(true);
                 Speed_Text.text = "<size=21><color=red>" + (int)gamedirector.TrainSpeed + "</size></color> Km/h";
@@ -666,6 +666,7 @@ public class UIDirector : MonoBehaviour
 
         if (waveflag)
         {
+            PlayerLogDirector.WaveStart(DisplayCount);
             WaveObject.GetComponentInChildren<TextMeshProUGUI>().text = "WAVE-" + DisplayCount;
         }
         else
@@ -752,7 +753,7 @@ public class UIDirector : MonoBehaviour
     {
         WaveCount = count;
         float[] wavecount = new float[WaveCount];
-
+        
         int divisions = WaveCount + 1;
 
         for (int i = 0; i < WaveCount; i++)

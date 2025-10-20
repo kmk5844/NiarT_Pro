@@ -44,7 +44,7 @@ public class OldHospitalDirector : MonoBehaviour
 
     private void Awake()
     {
-        Special_Story.Story_Init(null, 0, 0, 0);
+        Special_Story.Story_Init(null, 11, 0, 0);
     }
 
     // Start is called before the first frame update

@@ -56,12 +56,14 @@ public class SkillDirector : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Q) && !SkillFlag[0])
                 {
                     player.SkillSoundSFX();
+                    PlayerLogDirector.SkillUse(PlayerNum, 0);
                     StartCoroutine(Player_ClickSkill(0));
                 }
 
                 if (Input.GetKeyDown(KeyCode.E) && !SkillFlag[1])
                 {
                     player.SkillSoundSFX();
+                    PlayerLogDirector.SkillUse(PlayerNum, 1);
                     StartCoroutine(Player_ClickSkill(1));
                 }
             }
@@ -88,6 +90,7 @@ public class SkillDirector : MonoBehaviour
         }
         uiDirector.Equiped_Skill_Effect[skill_num].SetActive(true);
         SkillFlag[skill_num] = false;
+        PlayerLogDirector.SkillCharge(PlayerNum, skill_num);
     }
 
     void Player_Skill(int skill_num)

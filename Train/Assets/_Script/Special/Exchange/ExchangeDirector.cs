@@ -32,7 +32,7 @@ public class ExchangeDirector : MonoBehaviour
 
     private void Awake()
     {
-        Special_Story.Story_Init(null, 0, 0, 0);
+        Special_Story.Story_Init(null, 7, 0, 0);
         ExchangeWindow.SetActive(false);
     }
 

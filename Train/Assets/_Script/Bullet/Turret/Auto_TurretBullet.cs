@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Auto_TurretBullet : Bullet
 {
+    public bool MercenaryFlag;
+    public int MercenaryNum;
     protected override void Start()
     {
         base.Start();

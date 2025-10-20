@@ -325,6 +325,10 @@ public class Train_InGame : MonoBehaviour
         else
         {
             Train_HP -= damageTaken;
+            if(Train_Type == "Engine" && HP_Parsent < 30f)
+            {
+                PlayerLogDirector.TrainWarning(HP_Parsent);
+            }
         }
     }
 

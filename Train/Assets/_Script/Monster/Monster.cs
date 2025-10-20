@@ -429,6 +429,13 @@ public class Monster : MonoBehaviour
         }
         else
         {
+            if (collision.gameObject.GetComponent<Auto_TurretBullet>() != null)
+            {
+                if (collision.gameObject.GetComponent<Auto_TurretBullet>().MercenaryFlag)
+                {
+                    PlayerLogDirector.MercenaryKill(collision.gameObject.GetComponent<Auto_TurretBullet>().MercenaryNum);
+                }
+            }
             MonsterDie();
         }
     }
@@ -477,6 +484,7 @@ public class Monster : MonoBehaviour
         }
         else
         {
+            PlayerLogDirector.MercenaryKill(collision.GetComponentInParent<Mercenary>().mercenaryNum);
             MonsterDie();
         }
     }

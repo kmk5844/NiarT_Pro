@@ -230,6 +230,8 @@ public class GameDirector : MonoBehaviour
     [HideInInspector]
     public bool ItemSpeedUpEffectFlag;
 
+    bool playerLog_TrainSpeed = false;
+    
     void Awake()
     {
         gameType = GameType.Starting;
@@ -261,7 +263,6 @@ public class GameDirector : MonoBehaviour
             Stage_Num = Test_Stage_Num;
             Select_Sub_Num = Test_Select_Sub_Num;
         }
-
 
         SubStageData = SA_MissionData.missionStage(Mission_Num, Stage_Num, Select_Sub_Num);
 
@@ -432,6 +433,14 @@ public class GameDirector : MonoBehaviour
         }
         else if (gameType == GameType.Playing)
         {
+            if (TrainSpeed < 50f)
+            {
+                if (!playerLog_TrainSpeed)
+                {
+                    StartCoroutine(LogShow_TrainSpeed());
+                }
+            }
+
             if (!isStationHideEndFlag)
             {
                 if(Time.time >= lastSpeedTime + 0.2f)
@@ -1829,6 +1838,14 @@ public class GameDirector : MonoBehaviour
     {
         uiDirector.SKillLock(flag);
         SkillLockFlag = flag;
+    }
+
+    IEnumerator LogShow_TrainSpeed()
+    {
+        playerLog_TrainSpeed = true;
+        PlayerLogDirector.SpeedWarning(TrainSpeed);
+        yield return new WaitForSeconds(4f);
+        playerLog_TrainSpeed = false;
     }
 }
 

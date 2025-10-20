@@ -33,7 +33,7 @@ public class OasisDirector : MonoBehaviour
 
     private void Awake()
     {
-        Special_Story.Story_Init(null, 0, 0, 0);
+        Special_Story.Story_Init(null, 4, 0, 0);
         OasisWindow.SetActive(false);
     }
     private void Start()

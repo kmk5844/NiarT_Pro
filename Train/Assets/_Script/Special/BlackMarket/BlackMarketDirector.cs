@@ -31,7 +31,7 @@ public class BlackMarketDirector : MonoBehaviour
 
     private void Awake()
     {
-        Special_Story.Story_Init(null, 0, 0, 0);
+        Special_Story.Story_Init(null, 15, 0, 0);
         BlackMarketWindow.SetActive(false);
     }
 

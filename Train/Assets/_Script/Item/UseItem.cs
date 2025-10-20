@@ -118,6 +118,7 @@ public class UseItem : MonoBehaviour
                 player.Item_SmallPortion(10);
                 break;
         }
+        PlayerLogDirector.ItemUse(num);
         uiDirector.ItemCoolTime_Instantiate(itemList.Item[num]);
     }
 
@@ -151,11 +152,13 @@ public class UseItem : MonoBehaviour
             else
             {
                 Get_SupplyItem(num);
+                PlayerLogDirector.ItemUse(num);
             }
         }
         else
         {
             Get_SupplyItem(num);
+            PlayerLogDirector.ItemGet(num);
         }
     }
 

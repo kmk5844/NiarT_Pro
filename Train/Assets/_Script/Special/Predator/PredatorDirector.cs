@@ -39,7 +39,7 @@ public class PredatorDirector : MonoBehaviour
 
     private void Awake()
     {
-        Special_Story.Story_Init(null, 0, 0, 0);
+        Special_Story.Story_Init(null, 5, 0, 0);
         PredatorWindow.SetActive(false);
     }
 

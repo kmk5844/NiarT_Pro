@@ -45,7 +45,7 @@ public class CasinoDirector : MonoBehaviour
 
     private void Awake()
     {
-        Special_Story.Story_Init(null, 0, 0, 0);
+        Special_Story.Story_Init(null, 2, 0, 0);
         CasinoWindow.SetActive(false);
     }
 

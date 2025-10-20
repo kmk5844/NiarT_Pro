@@ -29,7 +29,7 @@ public class GarbageDumpDirector : MonoBehaviour
     bool startFlag;
     private void Awake()
     {
-        Special_Story.Story_Init(null, 0, 0, 0);
+        Special_Story.Story_Init(null, 3, 0, 0);
         GarbageDumpWindow.SetActive(false);
     }
 

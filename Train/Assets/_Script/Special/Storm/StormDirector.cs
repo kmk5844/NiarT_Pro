@@ -30,10 +30,9 @@ public class StormDirector : MonoBehaviour
     public TextMeshProUGUI textTimer;
     public LocalizeStringEvent CheckWindowText;
 
-
     private void Awake()
     {
-        Special_Story.Story_Init(null, 0, 0, 0);
+        Special_Story.Story_Init(null, 8, 0, 0);
         StormWindow.SetActive(false);
     }
 

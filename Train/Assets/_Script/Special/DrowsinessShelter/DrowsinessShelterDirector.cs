@@ -35,7 +35,7 @@ public class DrowsinessShelterDirector : MonoBehaviour
 
     private void Awake()
     {
-        Special_Story.Story_Init(null, 0, 0, 0);
+        Special_Story.Story_Init(null, 6, 0, 0);
         ShelterWindow.SetActive(false);
     }
 

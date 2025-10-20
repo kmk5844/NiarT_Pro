@@ -959,6 +959,10 @@ public class Player : MonoBehaviour
         else
         {
             Player_HP -= damageTaken;
+            if (Check_HpParsent() < 30f)
+            {
+                PlayerLogDirector.PlayerHPWarning(Check_HpParsent());
+            }
         }
     }
 

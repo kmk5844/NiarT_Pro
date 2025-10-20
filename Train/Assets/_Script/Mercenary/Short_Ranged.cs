@@ -190,9 +190,9 @@ public class Short_Ranged : Mercenary
 
     IEnumerator Attack()
     {
-        Hit_Effect.Play();
         attackFlag = true;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.3f);
+        Hit_Effect.Play();
         Attack_Collider.enabled = true;
         yield return new WaitForSeconds(0.5f);
         Attack_Collider.enabled = false;

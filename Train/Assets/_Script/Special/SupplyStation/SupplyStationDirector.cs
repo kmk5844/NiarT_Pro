@@ -41,7 +41,7 @@ public class SupplyStationDirector : MonoBehaviour
 
     private void Awake()
     {
-        Special_Story.Story_Init(null, 0, 0, 0);
+        Special_Story.Story_Init(null, 17, 0, 0);
         SupplyStationWindow.SetActive(false);
     }
 

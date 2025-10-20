@@ -32,7 +32,7 @@ public class ItemDirector : MonoBehaviour
         try
         {
             itemData.Load();
-            //itemData.Test(0, 1, 1);
+            itemData.Test(0, 1, 1);
         }
         catch
         {
@@ -155,6 +155,7 @@ public class ItemDirector : MonoBehaviour
         }
         MMSoundManagerSoundPlayEvent.Trigger(UseItemSound, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         useitem.Get_SupplyItem(SupplyItem[num]);
+        PlayerLogDirector.ItemUse(SupplyItem[num]);
         SupplyItem[num] = -1;
         uiDirector.Item_EquipedIcon(changeNum, itemData.EmptyObject.Item_Sprite, -2);
     }

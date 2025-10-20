@@ -26,6 +26,7 @@ public class Mercenary : MonoBehaviour
     protected float Move_Y;
 
     [Header("용병 정보")]
+    public int mercenaryNum;
     [SerializeField]
     protected Active act;
     public int HP;
@@ -35,6 +36,7 @@ public class Mercenary : MonoBehaviour
     public int atk;
     public float moveSpeed;
     protected Rigidbody2D rb2D;
+    protected CapsuleCollider2D capsuleCollider2D;
 
     //전투 용병 Move
     bool isCombatantWalking;
@@ -75,6 +77,7 @@ public class Mercenary : MonoBehaviour
     {
         TrainCount = Train_List.childCount;
         rb2D = GetComponent<Rigidbody2D>();
+        capsuleCollider2D = GetComponent<CapsuleCollider2D>();
 
         Move_X = 1f;
         MaxMove_X = 3f;
@@ -326,6 +329,8 @@ public class Mercenary : MonoBehaviour
                 act = Active.die;
                 Body.SetActive(false);
                 Gravestone.SetActive(true);
+                capsuleCollider2D.enabled = false;
+                PlayerLogDirector.MercenaryDie(mercenaryNum);
             }
             else
             {
@@ -375,49 +380,57 @@ public class Mercenary : MonoBehaviour
         switch (Type)
         {
             case mercenaryType.Engine_Driver:
+                mercenaryNum = 0;
                 HP = EX_Level_Data.Level_Mercenary_Engine_Driver[SA_MercenaryData.Level_Engine_Driver].HP;
                 moveSpeed = EX_Level_Data.Level_Mercenary_Engine_Driver[SA_MercenaryData.Level_Engine_Driver].MoveSpeed;
                 def = EX_Level_Data.Level_Mercenary_Engine_Driver[SA_MercenaryData.Level_Engine_Driver].Def;
                 GetComponent<Engine_Driver>().Level_AddStatus_Engine_Driver(EX_Level_Data.Level_Mercenary_Engine_Driver, SA_MercenaryData.Level_Engine_Driver);
                 break;
             case mercenaryType.Engineer:
+                mercenaryNum = 1;
                 HP = EX_Level_Data.Level_Mercenary_Engineer[SA_MercenaryData.Level_Engineer].HP;
                 moveSpeed = EX_Level_Data.Level_Mercenary_Engineer[SA_MercenaryData.Level_Engineer].MoveSpeed;
                 def = EX_Level_Data.Level_Mercenary_Engineer[SA_MercenaryData.Level_Engineer].Def;
                 GetComponent<Engineer>().Level_AddStatus_Engineer(EX_Level_Data.Level_Mercenary_Engineer, SA_MercenaryData.Level_Engineer);
                 break;
             case mercenaryType.Long_Ranged:
+                mercenaryNum = 2;
                 HP = EX_Level_Data.Level_Mercenary_Long_Ranged[SA_MercenaryData.Level_Long_Ranged].HP;
                 moveSpeed = EX_Level_Data.Level_Mercenary_Long_Ranged[SA_MercenaryData.Level_Long_Ranged].MoveSpeed;
                 def = EX_Level_Data.Level_Mercenary_Long_Ranged[SA_MercenaryData.Level_Long_Ranged].Def;
                 GetComponent<Long_Ranged>().Level_AddStatus_LongRanged(EX_Level_Data.Level_Mercenary_Long_Ranged, SA_MercenaryData.Level_Long_Ranged);
                 break;
             case mercenaryType.Short_Ranged:
+                mercenaryNum = 3;
                 HP = EX_Level_Data.Level_Mercenary_Short_Ranged[SA_MercenaryData.Level_Short_Ranged].HP;
                 moveSpeed = EX_Level_Data.Level_Mercenary_Short_Ranged[SA_MercenaryData.Level_Short_Ranged].MoveSpeed;
                 def = EX_Level_Data.Level_Mercenary_Short_Ranged[SA_MercenaryData.Level_Short_Ranged].Def;
                 GetComponent<Short_Ranged>().Level_AddStatus_ShortRanged(EX_Level_Data.Level_Mercenary_Short_Ranged, SA_MercenaryData.Level_Short_Ranged);
                 break;
             case mercenaryType.Medic:
+                mercenaryNum = 4;
                 HP = EX_Level_Data.Level_Mercenary_Medic[SA_MercenaryData.Level_Medic].HP;
                 moveSpeed = EX_Level_Data.Level_Mercenary_Medic[SA_MercenaryData.Level_Medic].MoveSpeed;
                 def = EX_Level_Data.Level_Mercenary_Medic[SA_MercenaryData.Level_Medic].Def;
                 GetComponent<Medic>().Level_AddStatus_Medic(EX_Level_Data.Level_Mercenary_Medic, SA_MercenaryData.Level_Medic);
                 break;
             case mercenaryType.Bard:
+                mercenaryNum = 5;
                 HP = EX_Level_Data.Level_Mercenary_Bard[SA_MercenaryData.Level_Bard].HP;
                 moveSpeed = EX_Level_Data.Level_Mercenary_Bard[SA_MercenaryData.Level_Bard].MoveSpeed;
                 def = EX_Level_Data.Level_Mercenary_Bard[SA_MercenaryData.Level_Bard].Def;
                 GetComponent<Bard>().Level_AddStatus_Bard(EX_Level_Data.Level_Mercenary_Bard, SA_MercenaryData.Level_Bard); //특수 스탯
                 break;
             case mercenaryType.CowBoy:
+                mercenaryNum = 6;
                 HP = EX_Level_Data.Level_Mercenary_CowBoy[SA_MercenaryData.Level_CowBoy].HP;
                 moveSpeed = EX_Level_Data.Level_Mercenary_CowBoy[SA_MercenaryData.Level_CowBoy].MoveSpeed;
                 def = EX_Level_Data.Level_Mercenary_CowBoy[SA_MercenaryData.Level_CowBoy].Def;
                 //카우보이의 개별적인 특수 스탯이 없음.
                 break;
             case mercenaryType.Escort:
-                Debug.Log(moveSpeed);
+                mercenaryNum = 7;
+                //Debug.Log(moveSpeed);
                 //액셀 데이터에서 따로 받음
                 break;
         }
