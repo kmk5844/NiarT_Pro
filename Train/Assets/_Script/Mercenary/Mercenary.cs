@@ -262,7 +262,6 @@ public class Mercenary : MonoBehaviour
         }
     }
 
-
     public float Check_MoveX()
     {
         return Move_X;
@@ -335,6 +334,10 @@ public class Mercenary : MonoBehaviour
             else
             {
                 HP -= damageTaken;
+                if(Type == mercenaryType.Escort && Check_HpParsent() < 30f)
+                {
+                    PlayerLogDirector.EscortWarning(Check_HpParsent());
+                }
             }
             Destroy(collision.gameObject);
         }

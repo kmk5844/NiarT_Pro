@@ -72,6 +72,8 @@ public class CowBoy_Grap : MonoBehaviour
         line.SetPosition(0, transform.position);
         line.SetPosition(1, transform.position);
 
+        PlayerLogDirector.MercenaryRope(unit.mercenaryNum);
+
         Vector2 newPos;
         for(; t < time; t+= grappleShootSpeed * Time.deltaTime)
         {

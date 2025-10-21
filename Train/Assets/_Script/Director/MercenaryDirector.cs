@@ -28,6 +28,11 @@ public class MercenaryDirector : MonoBehaviour
     int EscortArmor;
     int EscortMoveSpeed;
 
+    private void Awake()
+    {
+        EscortFlag = false;
+    }
+
     void Start()
     {
         Mercenary_Spawn_Flag = false;

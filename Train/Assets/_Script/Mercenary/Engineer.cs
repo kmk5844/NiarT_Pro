@@ -78,7 +78,7 @@ public class Engineer : Mercenary
                 {
                     if (!train.isReparing) // 수리 중인 플래그가 꺼져있을 때
                     {
-                        
+                        PlayerLogDirector.MercenaryRepair(mercenaryNum);
                         train.isReparing = true;
                     }
 

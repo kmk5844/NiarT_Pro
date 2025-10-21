@@ -41,29 +41,36 @@ public class Mercenary_Type : MonoBehaviour
         }
     }
 
-    public void Heal_HP(int Medic_Heal)
+    public void Medic_Heal_HP(int Medic_Heal)
     {
         switch (mercenary_type)
         {
             case mercenaryType.Engineer:
+                PlayerLogDirector.MercenaryHeal(4, 1);
                 GetComponent<Engineer>().HP += Medic_Heal;
                 break;
             case mercenaryType.Long_Ranged:
+                PlayerLogDirector.MercenaryHeal(4, 2);
                 GetComponent<Long_Ranged>().HP += Medic_Heal;
                 break;
             case mercenaryType.Short_Ranged:
+                PlayerLogDirector.MercenaryHeal(4, 3);
                 GetComponent<Short_Ranged>().HP += Medic_Heal;
                 break;
             case mercenaryType.Medic:
+                PlayerLogDirector.MercenaryHeal(4, 4);
                 GetComponent<Medic>().HP += Medic_Heal;
                 break;
             case mercenaryType.Engine_Driver:
+                PlayerLogDirector.MercenaryHeal(4, 0);
                 GetComponent<Engine_Driver>().HP += Medic_Heal;
                 break;
             case mercenaryType.Bard:
+                PlayerLogDirector.MercenaryHeal(4, 5);
                 GetComponent<Bard>().HP += Medic_Heal;
                 break;
             case mercenaryType.CowBoy:
+                PlayerLogDirector.MercenaryHeal(4, 6);
                 GetComponent<CowBoy>().HP += Medic_Heal;
                 break;
         }

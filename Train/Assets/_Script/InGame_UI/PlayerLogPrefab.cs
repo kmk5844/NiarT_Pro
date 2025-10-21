@@ -1,4 +1,5 @@
 
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Localization.Components;
 using UnityEngine.Localization.Settings;
@@ -7,11 +8,19 @@ public class PlayerLogPrefab : MonoBehaviour
 {
     public LocalizeStringEvent LogText;
 
-    public void LogTextSet(LogType type, string str)
+    public void LogTextSetSingle(LogType type, string str)
     {
         LogText.StringReference.TableReference = "PlayerLogUI_St";
         LogText.StringReference.TableEntryReference = type.ToString();
         LogText.StringReference.Arguments = new object[] { str };
+        LogText.RefreshString();
+    }
+
+    public void LogTextSetDouble(LogType type, string str, string str2)
+    {
+        LogText.StringReference.Arguments = new object[] { str , str2 };
+        LogText.StringReference.TableReference = "PlayerLogUI_St";
+        LogText.StringReference.TableEntryReference = type.ToString();
         LogText.RefreshString();
     }
 
@@ -24,6 +33,9 @@ public class PlayerLogPrefab : MonoBehaviour
     {
         MercenaryKill,
         MercenaryDie,
+        MercenaryRepair,
+        MercenaryRope,
+        MercenaryHeal,
         ItemUse,
         ItemGet,
         ItemBuff,
@@ -33,6 +45,8 @@ public class PlayerLogPrefab : MonoBehaviour
         SpeedWarning,
         SkillUse,
         SkillCharge,
-        WaveStart
+        WaveStart,
+        MissionTrainWarning,
+        EscortWarning
     }
 }

@@ -329,6 +329,10 @@ public class Train_InGame : MonoBehaviour
             {
                 PlayerLogDirector.TrainWarning(HP_Parsent);
             }
+            if(Train_Type == "Quest" && HP_Parsent < 30f)
+            {
+                PlayerLogDirector.MissionTrainWarning(HP_Parsent);
+            }
         }
     }
 

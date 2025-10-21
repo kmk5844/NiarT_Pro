@@ -2,9 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Localization.Settings;
+using UnityEngine.UI;
 
 public class PlayerLogDirector : MonoBehaviour
 {
+    public static bool OnOff;
+    [Header("옵션에 추가된 토글 : 인게임에서만 적용")]
+    public Toggle logToggle;
+
     public Transform logTransform;
     public static Transform LogTransform { get; private set; }
     public PlayerLogPrefab playerLogPrefab;
@@ -14,6 +19,19 @@ public class PlayerLogDirector : MonoBehaviour
     {
         LogTransform = logTransform;
         PlayerLogPrefab = playerLogPrefab;
+        OnOff = ES3.Load<bool>("Setting_PlayerLogUI", true);
+    }
+
+    private void Start()
+    {
+        logToggle.isOn = OnOff;
+        logToggle.onValueChanged.AddListener(delegate { ChnageToggle(); });
+    }
+
+    void ChnageToggle()
+    {
+        OnOff = logToggle.isOn;
+        ES3.Save<bool>("Setting_PlayerLogUI", OnOff);
     }
 
     public static void MercenaryKill(int mercenaryNum)
@@ -80,13 +98,57 @@ public class PlayerLogDirector : MonoBehaviour
         SetPrefab(PlayerLogPrefab.LogType.WaveStart, waveNum.ToString());
     }
 
+    public static void MercenaryRepair(int mercenaryNum)
+    {
+        string str = LocalizationSettings.StringDatabase.GetLocalizedString("ExcelData_Table_St", "Mercenary_Name_" + mercenaryNum);
+        SetPrefab(PlayerLogPrefab.LogType.MercenaryRepair, str);
+    }
+
+    public static void MercenaryRope(int mercenaryNum)
+    {
+        string str = LocalizationSettings.StringDatabase.GetLocalizedString("ExcelData_Table_St", "Mercenary_Name_" + mercenaryNum);
+        SetPrefab(PlayerLogPrefab.LogType.MercenaryRope, str);
+    }
+
+    public static void MercenaryHeal(int mercenaryNum, int healMercenaryNum)
+    {
+        string str = LocalizationSettings.StringDatabase.GetLocalizedString("ExcelData_Table_St", "Mercenary_Name_" + mercenaryNum);
+        string str2 = LocalizationSettings.StringDatabase.GetLocalizedString("ExcelData_Table_St", "Mercenary_Name_" + healMercenaryNum);
+        SetPrefab_Double(PlayerLogPrefab.LogType.MercenaryHeal, str, str2);
+    }
+
+    public static void MissionTrainWarning(float Persent)
+    {
+        SetPrefab(PlayerLogPrefab.LogType.MissionTrainWarning, Persent.ToString("F1"));
+    }
+    public static void EscortWarning(float Persent)
+    {
+        SetPrefab(PlayerLogPrefab.LogType.EscortWarning, Persent.ToString("F1"));
+    }
+
     static void SetPrefab(PlayerLogPrefab.LogType log, string str)
     {
-        PlayerLogPrefab pre = Instantiate(PlayerLogPrefab, LogTransform);
-        pre.LogTextSet(log, str);
-        if (LogTransform.childCount > 4)
+        if (OnOff)
         {
-            Destroy(LogTransform.GetChild(0).gameObject);
+            PlayerLogPrefab pre = Instantiate(PlayerLogPrefab, LogTransform);
+            pre.LogTextSetSingle(log, str);
+            if (LogTransform.childCount > 4)
+            {
+                Destroy(LogTransform.GetChild(0).gameObject);
+            }
+        }
+    }
+
+    static void SetPrefab_Double(PlayerLogPrefab.LogType log, string str, string str2)
+    {
+        if (OnOff)
+        {
+            PlayerLogPrefab pre = Instantiate(PlayerLogPrefab, LogTransform);
+            pre.LogTextSetDouble(log, str, str2);
+            if (LogTransform.childCount > 4)
+            {
+                Destroy(LogTransform.GetChild(0).gameObject);
+            }
         }
     }
 }
