@@ -116,6 +116,7 @@ public class Player : MonoBehaviour
     bool MariGold_Skill_Flag;
     bool MariGold_Skill_Fire_Flag;
     bool DebuffImmunityFlag;
+    bool medictrainFlag;
 
     [Header("상호작용 Key")]
     public GameObject KeyObject;
@@ -216,6 +217,7 @@ public class Player : MonoBehaviour
         Item_Gun_ClickCount = 0;
         MariGold_Skill_Flag = false;
         DebuffImmunityFlag = false;
+        medictrainFlag = true;
     }
 
     private void Update()
@@ -312,7 +314,7 @@ public class Player : MonoBehaviour
                 if (Check_HpParsent() < 95f && !isHealing)
                 {
                     KeyObject.SetActive(true);
-                    if (Input.GetKeyDown(KeyCode.F) && KeyCount == 0)
+                    if (Input.GetKeyDown(KeyCode.F) && KeyCount == 0 && medictrainFlag == true)
                     {
                         if (train.Not_DestoryTrain)
                         {
@@ -459,6 +461,7 @@ public class Player : MonoBehaviour
             }
             else if (Input.GetKeyDown(KeyCode.F) && KeyCount == 3)
             {
+                StartCoroutine(MedicTrainCoolTime());
                 StopCoroutine(train_Heal);
                 OnOff_Sprite(false);
                 train.isHealing = false;
@@ -1085,6 +1088,14 @@ public class Player : MonoBehaviour
     {
         return Max_HP;
     }
+
+    IEnumerator MedicTrainCoolTime()
+    {
+        medictrainFlag = false;
+        yield return new WaitForSeconds(5f);
+        medictrainFlag = true;
+    }
+
 
 /*    IEnumerator Reloading()
     {

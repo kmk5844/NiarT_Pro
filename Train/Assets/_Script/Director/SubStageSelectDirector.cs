@@ -17,6 +17,8 @@ public class SubStageSelectDirector : MonoBehaviour
     MissionDataObject SelectSubStageData;
     int SelectSubStageNum;
     [SerializeField]
+    List<int> PrevSubStageNum;
+    [SerializeField]
     List<int> NextSubStageNum;
 
     [Header("UI")]
@@ -33,7 +35,6 @@ public class SubStageSelectDirector : MonoBehaviour
     public int missionNum;
     public int stageNum;
     public int selectNum;
-    List<int> PrevSubStageNum;
 
     int Fuel;
     int Total_Fuel;
@@ -136,6 +137,7 @@ public class SubStageSelectDirector : MonoBehaviour
     public void Open_SpecialStage()
     {
         SpeacialStage_Clear();
+        SpecialStage_LockOn();
         SpecialStage_LockOff();
         if (SelectSubStageData.SubStage_Type == SubStageType.SimpleStation)
         {
@@ -233,6 +235,21 @@ public class SubStageSelectDirector : MonoBehaviour
         SelectSubStageData.SubStage_Clear();
     }
 
+    void SpecialStage_LockOn()
+    {
+        foreach(int subStageNum in PrevSubStageNum)
+        {
+            if(subStageNum != -1)
+            {
+                if(SelectSubStageData.SubStage_Num != subStageNum)
+                {
+                    MissionDataObject mission = missionData.missionStage(missionNum, stageNum, subStageNum);
+                    mission.SubStageLockOn();
+                }
+            }
+        }
+    }
+
     void SpecialStage_LockOff()
     {
         foreach(int subStageNum in NextSubStageNum)
@@ -247,6 +264,29 @@ public class SubStageSelectDirector : MonoBehaviour
 
     void SpecialStage_Check()
     {
+        //-----------------이전
+        int missionNum = playerData.Mission_Num;
+        int stageNum = playerData.Select_Stage;
+        int beforeSubstageNum = playerData.Before_Sub_Stage;
+
+        MissionDataObject mission = missionData.missionStage(missionNum, stageNum, beforeSubstageNum);
+        string[] prevSubStageList = mission.Open_SubStageNum.Split(',');
+
+        if (PrevSubStageNum == null)
+        {
+            PrevSubStageNum = new List<int>();
+        }
+        else
+        {
+            PrevSubStageNum.Clear();
+        }
+
+        foreach (string sub in prevSubStageList)
+        {
+            PrevSubStageNum.Add(int.Parse(sub));
+        }
+
+        //-----------------현재
         string[] nextSubStageList = SelectSubStageData.Open_SubStageNum.Split(',');
         if(NextSubStageNum == null)
         {
@@ -261,6 +301,7 @@ public class SubStageSelectDirector : MonoBehaviour
         {
             NextSubStageNum.Add(int.Parse(sub));
         }
+        
     }
 
     public void ClickMissionCancel()

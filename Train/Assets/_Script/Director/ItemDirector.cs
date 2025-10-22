@@ -32,7 +32,7 @@ public class ItemDirector : MonoBehaviour
         try
         {
             itemData.Load();
-            itemData.Test(0, 1, 1);
+            //itemData.Test(0, 1, 1);
         }
         catch
         {
@@ -104,11 +104,14 @@ public class ItemDirector : MonoBehaviour
         {
             Use_SupplyItem(0);
             StartCoroutine(EquipItemCoolTime(3));
+            SupplyItemFlag[0] = false;
         }
         else if(Input.GetKeyDown(KeyCode.Alpha5) && SupplyItemFlag[1] && EquipedItemFlag[4])
         {
             Use_SupplyItem(1);
             StartCoroutine(EquipItemCoolTime(4));
+            SupplyItemFlag[1] = false;
+
         }
     }
 

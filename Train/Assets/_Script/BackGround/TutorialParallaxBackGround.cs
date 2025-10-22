@@ -2,6 +2,7 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.UIElements;
 
 public class TutorialParallaxBackGround : MonoBehaviour
@@ -64,6 +65,8 @@ public class TutorialParallaxBackGround : MonoBehaviour
 
     private void LateUpdate()
     {
+        float motionBlur = Mathf.Clamp((GameDirector.speed / GameDirector.Max_Speed) * 3f, 0f, 3f);
+
         for (int i = 0; i < backgrounds.Length; i++)
         {
             float speed = backSpeed[i] * parallaxSpeed;
@@ -75,6 +78,10 @@ public class TutorialParallaxBackGround : MonoBehaviour
                 offset += 0;
             }
             mat[i].SetTextureOffset("_MainTex", new Vector2(offset, 0) * speed);
+            if (mat[i].HasProperty("_BlurIntensity"))
+            {
+                mat[i].SetFloat("_BlurIntensity", motionBlur);
+            }
         }
     }
     private void FixedUpdate()

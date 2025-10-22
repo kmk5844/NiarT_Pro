@@ -2306,23 +2306,48 @@ else // 기차 교체
             int index = num % 10;
             Before_LevelImage.sprite = Level_Sprite[index];
 
-            if (num % 10 < 5)
+            if(num >= 50 && num < 55) // 부스터 기차만 최대 레벨이 다름
             {
-                After_LevelImage.sprite = Level_Sprite[index + 1];
-                trainData_Info2 = trainData.EX_Game_Data.Information_Train[num + 1];
-                EX_HP2 = 1 - (trainData_Info2.Train_HP / MaxHP);
-                EX_Weight2 = 1 - (trainData_Info2.Train_Weight / MaxWeight);
-                EX_Armor2 = 1 - (trainData_Info2.Train_Armor / MaxArmor);
+                if (num % 10 < 4)
+                {
+                    After_LevelImage.sprite = Level_Sprite[index + 1];
+                    trainData_Info2 = trainData.EX_Game_Data.Information_Train[num + 1];
+                    EX_HP2 = 1 - (trainData_Info2.Train_HP / MaxHP);
+                    EX_Weight2 = 1 - (trainData_Info2.Train_Weight / MaxWeight);
+                    EX_Armor2 = 1 - (trainData_Info2.Train_Armor / MaxArmor);
 
+                }
+                else //max
+                {
+                    After_LevelImage.sprite = Level_Sprite[index];
+                    trainData_Info2 = trainData.EX_Game_Data.Information_Train[num];
+                    EX_HP2 = EX_HP;
+                    EX_Weight2 = EX_Weight;
+                    EX_Armor2 = EX_Armor;
+                }
             }
-            else //max
+            else
             {
-                After_LevelImage.sprite = Level_Sprite[index];
-                trainData_Info2 = trainData.EX_Game_Data.Information_Train[num];
-                EX_HP2 = EX_HP;
-                EX_Weight2 = EX_Weight;
-                EX_Armor2 = EX_Armor;
+                if (num % 10 < 5)
+                {
+                    After_LevelImage.sprite = Level_Sprite[index + 1];
+                    trainData_Info2 = trainData.EX_Game_Data.Information_Train[num + 1];
+                    EX_HP2 = 1 - (trainData_Info2.Train_HP / MaxHP);
+                    EX_Weight2 = 1 - (trainData_Info2.Train_Weight / MaxWeight);
+                    EX_Armor2 = 1 - (trainData_Info2.Train_Armor / MaxArmor);
+
+                }
+                else //max
+                {
+                    After_LevelImage.sprite = Level_Sprite[index];
+                    trainData_Info2 = trainData.EX_Game_Data.Information_Train[num];
+                    EX_HP2 = EX_HP;
+                    EX_Weight2 = EX_Weight;
+                    EX_Armor2 = EX_Armor;
+                }
             }
+
+            
 
             Plus_HP = trainData_Info2.Train_HP - trainData_Info.Train_HP;
             Plus_Weight = trainData_Info2.Train_Weight - trainData_Info.Train_Weight;

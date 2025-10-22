@@ -140,7 +140,7 @@ public class SA_PlayerData : ScriptableObject
 
     public void SA_Test()
     {
-        coin = 999999;
+        coin = 999999999;
         Save_Solo("Coin");
     }
 
