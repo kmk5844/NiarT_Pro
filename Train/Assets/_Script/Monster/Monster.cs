@@ -51,10 +51,10 @@ public class Monster : MonoBehaviour
     [SerializeField]
     protected GameObject BulletObject;
     [SerializeField]
-    protected int Bullet_Atk;
+    public int Bullet_Atk;
     protected float Bullet_Speed;
     protected float Bullet_Delay;
-    protected float Bullet_Slow;
+    public float Bullet_Slow;
     protected float lastTime;
     protected Transform monster_Bullet_List;
     protected bool warningFlag;

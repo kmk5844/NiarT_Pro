@@ -22,7 +22,7 @@ public class Hit_TrainFloor : MonoBehaviour
         if (collision.CompareTag("Monster_Bullet"))
         {
             MonsterBullet bullet = collision.gameObject.GetComponent<MonsterBullet>();
-            CameraShakeManager.instance.CameraShake(impulseSource);  
+            CameraShakeManager.instance.CameraShake(impulseSource);
             train.Train_MonsterHit(bullet);
 
             float rnd = Random.Range(0f, 2f);

@@ -21,7 +21,7 @@ public class Monster_Bullet_LR_Parabola : MonsterBullet
         base.Start();
         Bullet_Time = 0f;
         FireZone = transform.position;
-        RandomXPos = Random.Range(1f, 4f);
+        RandomXPos = Random.Range(1.5f, 5f);
         Destroy(gameObject, 5f);
     }
 
