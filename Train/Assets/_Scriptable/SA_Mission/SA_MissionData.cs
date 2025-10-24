@@ -81,6 +81,10 @@ public class SA_MissionData : ScriptableObject
     public MissionDataObject missionStage(int missionNum, int StageNum, int SubStageNum)
     {
         var missionList = stagelist.Find(x => x.mainstageNum == StageNum);
+        //Debug.Log(missionNum);
+        //Debug.Log(StageNum);
+        //Debug.Log(SubStageNum);
+        //Debug.Log(missionList.Q_Des[SubStageNum]);
         if (missionNum == 0)
         {
             return missionList.Q_Des[SubStageNum];

@@ -1122,7 +1122,7 @@ public class GameDirector : MonoBehaviour
         }
         else
         {
-            SA_PlayerData.SA_BeforeSubSelectStage_Save(-1);
+            SA_PlayerData.SA_BeforeSubSelectStage_Save(0);
         }
 
         Change_Game_End(true, lastFlag); // 마지막 스테이지 종료 판단

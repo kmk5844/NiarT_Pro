@@ -493,7 +493,7 @@ public class SA_PlayerData : ScriptableObject
         coin = 0;
         //point = 0;
         new_stage = 0;
-        before_sub_stage = -1;
+        before_sub_stage = 0;
         select_stage = 0;
         story_num = 0;
         Character_LockOff[0] = true;
@@ -523,7 +523,7 @@ public class SA_PlayerData : ScriptableObject
         //point = 0;
         new_stage = 0;
 
-        before_sub_stage = -1;
+        before_sub_stage = 0;
         select_stage = 0;
         story_num = 0;
         Character_LockOff[0] = true;

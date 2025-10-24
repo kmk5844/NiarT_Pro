@@ -26,7 +26,7 @@ public class Monster_16 : Monster
         //BulletObject = Resources.Load<GameObject>("Bullet/Monster/" + Monster_Num);
 
         base.Start();
-        transform.localPosition = MonsterDirector.MaxPos_Sky;
+        //transform.localPosition = MonsterDirector.MaxPos_Sky;
         MonsterDirector_Pos = transform.localPosition;
         Spawn_Init_Pos =
                     new Vector2(MonsterDirector_Pos.x + Random.Range(4, 12f),

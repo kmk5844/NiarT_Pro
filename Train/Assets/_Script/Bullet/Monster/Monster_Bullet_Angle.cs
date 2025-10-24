@@ -8,7 +8,6 @@ public class Monster_Bullet_Angle : MonsterBullet
     Vector2 vector;
     GameObject BombParticle;
 
-
     protected override void Start()
     {
         BombParticle = Resources.Load<GameObject>("Bullet/10_Effect");

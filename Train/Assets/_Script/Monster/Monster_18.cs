@@ -12,7 +12,7 @@ public class Monster_18 : Monster
     [SerializeField]
     float speed;
     Animator anicon;
-    bool attackFlag = false;
+    bool attackFlag;
     protected override void Start()
     {
         Monster_Num = 18;
@@ -122,7 +122,8 @@ public class Monster_18 : Monster
 
     public void BulletFire()
     {
-        Debug.Log("ơ");
+        GameObject bullet = Instantiate(BulletObject, Fire_Zone.position, Quaternion.identity);
+        bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, Bullet_Speed, 0);
     }
 
     public void AttackAniEnd()
