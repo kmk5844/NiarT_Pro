@@ -12,6 +12,7 @@ public class GameDirector : MonoBehaviour
 {
     [Header("테스트")]
     public bool Test_Mode;
+    public bool Test_Boss_Mode;
     public int Test_Mission_Num;
     public int Test_Stage_Num;
     public int Test_Select_Sub_Num;
@@ -19,6 +20,7 @@ public class GameDirector : MonoBehaviour
 
     public string Test_Monster_Num;
     public string Test_Monster_Count;
+    public string Test_Boss_Num;
 
     [Header("카메라")]
     public CinemachineVirtualCamera virtualCamera;
@@ -866,12 +868,23 @@ public class GameDirector : MonoBehaviour
         if (SubStageData.SubStage_Type == SubStageType.Boss)
         {
             Data_BossFlag = true;
-
             string[] Boss_String = SubStageData.SubStage_Status.Split(',');
             Emerging_Boss.Add(int.Parse(Boss_String[0]));
             Emerging_Boss_Distance.Add(int.Parse(Boss_String[1]));
             Emerging_Boss_Monster_Count.Add(int.Parse(Boss_String[2]));
             monsterDirector.Get_Boss_List(Emerging_Boss);
+        }
+
+        if (Test_Mode)
+        {
+            if (Test_Boss_Mode)
+            {
+                Data_BossFlag = true;
+                Emerging_Boss.Add(int.Parse(Test_Boss_Num));
+                Emerging_Boss_Distance.Add(1);
+                Emerging_Boss_Monster_Count.Add(1);
+                monsterDirector.Get_Boss_List(Emerging_Boss);
+            }
         }
     }
 

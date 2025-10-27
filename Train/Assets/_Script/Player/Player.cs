@@ -53,6 +53,9 @@ public class Player : MonoBehaviour
     [SerializeField] float moveSpeed;
     [SerializeField] float jumpSpeed;
     Rigidbody2D rigid;
+    bool slowzoneFlag;
+    float slowmoveSpeed = 0f;
+    float slowjumpSpeed = 0f;
     //int moveX;
     bool rotationOn;
     bool jumpFlag;
@@ -242,6 +245,19 @@ public class Player : MonoBehaviour
             HPWaringEffect.SetActive(false);
         }
 
+        if (slowzoneFlag)
+        {
+            slowmoveSpeed = moveSpeed / 5f * 4f;
+            slowjumpSpeed = jumpSpeed / 5f * 4f; 
+            Debug.Log(moveSpeed - slowmoveSpeed);
+            Debug.Log(jumpSpeed - slowjumpSpeed);
+        }
+        else
+        {
+            slowmoveSpeed = 0f;
+            slowjumpSpeed = 0f;
+        }
+
 
         if (gameDirectorType == GameType.Starting || gameDirectorType == GameType.Playing
             || gameDirectorType == GameType.Boss || gameDirectorType == GameType.Refreshing ||
@@ -285,7 +301,7 @@ public class Player : MonoBehaviour
                             StartCoroutine(Reloading());
                         }*/
 
-            if (Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+            if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && !slowzoneFlag)
             {
                 StartCoroutine(Dash());
             }
@@ -504,7 +520,7 @@ public class Player : MonoBehaviour
             if (Input.GetButtonDown("Jump") && !jumpFlag)
             {
                 rigid.velocity = new Vector2(rigid.velocity.x, 0f);
-                rigid.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+                rigid.AddForce(Vector2.up * (jumpSpeed - slowjumpSpeed), ForceMode2D.Impulse);
                 ani.SetTrigger("Jump");
                 //JumpEffect.Play();
             }
@@ -514,7 +530,7 @@ public class Player : MonoBehaviour
                 if (Input.GetButtonDown("Jump") && jumpFlag && jumpCount < jumpMaxCount)
                 {
                     rigid.velocity = new Vector2(rigid.velocity.x, 0f);
-                    rigid.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Impulse);
+                    rigid.AddForce(Vector2.up * (jumpSpeed-slowjumpSpeed), ForceMode2D.Impulse);
                     ani.SetTrigger("Jump");
                     JumpEffect.Play();
                     jumpCount++;
@@ -571,13 +587,13 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (rigid.velocity.x > moveSpeed + moveItemSpeed)
+        if (rigid.velocity.x > moveSpeed + moveItemSpeed - slowmoveSpeed)
         {
-            rigid.velocity = new Vector2(moveSpeed + moveItemSpeed, rigid.velocity.y);
+            rigid.velocity = new Vector2(moveSpeed + moveItemSpeed - slowmoveSpeed, rigid.velocity.y);
         }
-        else if (rigid.velocity.x < -(moveSpeed + moveItemSpeed))
+        else if (rigid.velocity.x < -(moveSpeed + moveItemSpeed - slowmoveSpeed))
         {
-            rigid.velocity = new Vector2(-(moveSpeed + moveItemSpeed), rigid.velocity.y);
+            rigid.velocity = new Vector2(-(moveSpeed + moveItemSpeed - slowmoveSpeed), rigid.velocity.y);
         }
     }
 
@@ -1012,6 +1028,19 @@ public class Player : MonoBehaviour
                 Blood_Effect();
                 ShortAtk_PlayerEffect(short_info.xPos, short_info.Force);
             }
+        }
+
+        if (collision.CompareTag("SlowZone"))
+        {
+            slowzoneFlag = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("SlowZone"))
+        {
+            slowzoneFlag = false;
         }
     }
 

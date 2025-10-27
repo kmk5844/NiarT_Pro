@@ -1,6 +1,7 @@
 using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,6 +20,8 @@ public class Monster_24 : Monster
 
     bool attackFlag;
     Animator anicon;
+    [HideInInspector]
+    public bool BeeHome_Flag = false;
 
     protected override void Start()
     {
@@ -26,12 +29,14 @@ public class Monster_24 : Monster
         BulletObject = Resources.Load<GameObject>("Bullet/Monster/" + Monster_Num);
 
         base.Start();
-        MonsterDirector_Pos = transform.localPosition;
-        Spawn_Init_Pos =
-          new Vector2(MonsterDirector_Pos.x + Random.Range(4, 12f),
-                MonsterDirector.MaxPos_Sky.y + 5f);
-        transform.localPosition = Spawn_Init_Pos;
-
+        if (!BeeHome_Flag)
+        {
+            MonsterDirector_Pos = transform.localPosition;
+            Spawn_Init_Pos =
+              new Vector2(MonsterDirector_Pos.x + Random.Range(4, 12f),
+                    MonsterDirector.MaxPos_Sky.y + 5f);
+            transform.localPosition = Spawn_Init_Pos;
+        }
         speed = 6f;
         moveDir = Random.insideUnitCircle.normalized;
 
@@ -79,19 +84,40 @@ public class Monster_24 : Monster
         float height = Random.Range(-1f, -3f);
 
         base.WalkEffect.SetActive(true);
-
-        while (elapsedTime < duration)
+        if (!BeeHome_Flag)
         {
-            elapsedTime += Time.deltaTime;
-            float t = Mathf.Clamp01(elapsedTime / duration);
+            while (elapsedTime < duration)
+            {
+                elapsedTime += Time.deltaTime;
+                float t = Mathf.Clamp01(elapsedTime / duration);
 
-            float xPos = Mathf.Lerp(Spawn_Init_Pos.x, MonsterDirector_Pos.x, t);
-            float yPos = Mathf.Sin(Mathf.PI * t) * height + Mathf.Lerp(Spawn_Init_Pos.y, MonsterDirector_Pos.y, t);
-            transform.localPosition = new Vector2(xPos, yPos);
-            //Debug.Log(yPos);
+                float xPos = Mathf.Lerp(Spawn_Init_Pos.x, MonsterDirector_Pos.x, t);
+                float yPos = Mathf.Sin(Mathf.PI * t) * height + Mathf.Lerp(Spawn_Init_Pos.y, MonsterDirector_Pos.y, t);
+                transform.localPosition = new Vector2(xPos, yPos);
+                //Debug.Log(yPos);
 
-            yield return null;
+                yield return null;
+            }
         }
+        else
+        {
+            Spawn_Init_Pos = transform.localPosition;
+            Vector2 originPos = new Vector2(Random.Range(MonsterDirector.MinPos_Sky.x, MonsterDirector.MaxPos_Sky.x),
+                                            Random.Range(MonsterDirector.MinPos_Sky.y, MonsterDirector.MaxPos_Sky.y));
+            while (elapsedTime < duration)
+            {
+                elapsedTime += Time.deltaTime;
+                float t = Mathf.Clamp01(elapsedTime / duration);
+
+                float xPos = Mathf.Lerp(Spawn_Init_Pos.x, originPos.x, t);
+                float yPos = Mathf.Sin(Mathf.PI * t) * height + Mathf.Lerp(Spawn_Init_Pos.y, originPos.y, t);
+                transform.localPosition = new Vector2(xPos, yPos);
+                //Debug.Log(yPos);
+
+                yield return null;
+            }
+        }
+            
         if (monster_gametype != Monster_GameType.CowBoy_Debuff)
         {
             monster_gametype = Monster_GameType.Fighting;

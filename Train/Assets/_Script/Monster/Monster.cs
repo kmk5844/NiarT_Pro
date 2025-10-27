@@ -11,6 +11,7 @@ public class Monster : MonoBehaviour
 {
     Collider2D col;
     protected int Monster_Num;
+    public int GetMonsterNum() { return Monster_Num; }
     public SpriteRenderer monsterSprite;
     Material monsterMat;
     [Header("몬스터 게임타입")]
