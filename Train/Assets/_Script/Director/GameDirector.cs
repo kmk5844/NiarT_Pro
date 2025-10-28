@@ -57,6 +57,7 @@ public class GameDirector : MonoBehaviour
     public PolygonCollider2D CameraConfiler;
     public FillDirector fill_director;
     public MercenaryDirector mercenaryDirector;
+    public PlayerStatusDirector playerStatusDirector;
     Vector2[] newPoint;
     List<int> Train_Num;
     List<int> Train_Turret_Num;

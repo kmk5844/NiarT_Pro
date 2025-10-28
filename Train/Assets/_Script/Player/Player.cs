@@ -11,7 +11,9 @@ public class Player : MonoBehaviour
     GameType gameDirectorType;
     Player_Chage playerchageDirector;
     UIDirector uidirector;
-    
+    PlayerStatusDirector playerStatusDirector;
+
+
     public int PlayerNum;
 
     [SerializeField]
@@ -171,6 +173,7 @@ public class Player : MonoBehaviour
     {
         gamedirector = GameObject.Find("GameDirector").GetComponent<GameDirector>();
         uidirector = gamedirector.uiDirector;
+        playerStatusDirector = gamedirector.playerStatusDirector;
         playerchageDirector = GetComponent<Player_Chage>();
         mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         ani = GetComponent<Animator>();
@@ -226,6 +229,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
         gameDirectorType = gamedirector.gameType;
+        NowStatus();
 
         if (jumpFlag)
         {
@@ -964,6 +968,7 @@ public class Player : MonoBehaviour
         }
         Player_Armor = Player_Armor + (((Player_Armor * Level_Armor) * 10) / 100);
         moveSpeed = moveSpeed + (((moveSpeed * Level_Speed)) / 50);
+        playerStatusDirector.SetOriginStatus(Bullet_Atk, Bullet_Delay, Player_Armor, moveSpeed);
     }
 
     public void MonsterHit(int MonsterBullet_Atk)
@@ -2061,6 +2066,11 @@ public class Player : MonoBehaviour
                 break;
         }
         eventData.OldTranningOff();
+    }
+
+    void NowStatus()
+    {
+        playerStatusDirector.GetNowSatus(Bullet_Atk + item_Atk, Bullet_Delay + item_Delay, Player_Armor + item_Armor, moveSpeed + moveItemSpeed);
     }
 
     public SA_PlayerData playerSet()

@@ -62,7 +62,7 @@ public class Monster_Boss_3 : Boss
 
         DieEffectOriginPos = DieEffect.transform.localPosition;
         alldieEffect = DieEffect.GetComponentsInChildren<ParticleSystem>();
-        attack_delayTime = 2f;
+        attack_delayTime = 4f;
         BeeShield.SetActive(false);
     }
 
@@ -299,8 +299,8 @@ public class Monster_Boss_3 : Boss
 
     public void SpawnBee()
     {
-        int rnd = Random.Range(0, 101);
-        if(rnd >= 0 && rnd < 76)
+        int rnd = Random.Range(0, 11);
+        if(rnd >= 0 && rnd < 7)
         {
             Instantiate(SmallBee, new Vector3(transform.position.x, transform.position.y - 1f, 0), Quaternion.identity, Monster_List_Sky);
         }
@@ -425,7 +425,7 @@ public class Monster_Boss_3 : Boss
     {
         if (playType != Boss_PlayType.Die)
         {
-            move_delayTime = Random.Range(5f, 8f);
+            move_delayTime = Random.Range(4f, 10f);
             skilleffect_flag = false;
             move_lastTime = Time.time;
             ResetAni();
