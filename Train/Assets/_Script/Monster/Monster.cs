@@ -33,6 +33,7 @@ public class Monster : MonoBehaviour
     [SerializeField]
     protected bool Monster_CountFlag;
     protected Coroutine Monster_coroutine;
+    protected bool Monster_TrainSlowType = false;
 
     [Header("미션")]
     public bool Monster_Mission_MaterialFlag = false;
@@ -73,7 +74,7 @@ public class Monster : MonoBehaviour
     GameObject Monster_Kill_Particle;
 
     protected GameObject player; //플레이어 위치에 따라 플립하는 경우.
-    protected GameDirector gameDirector; // 리워드 접수해야함.
+    protected GameDirector gameDirector; // 리워드 접수해야함. + slow포함
 
     protected float EndTime;
     protected bool EndFlag;
@@ -130,6 +131,7 @@ public class Monster : MonoBehaviour
         Monster_Kill_Particle = Resources.Load<GameObject>("Monster/Monster_Kill_Effect");
         DieSfX = Resources.Load<AudioClip>("Sound/SFX/Monster_Die_SFX");
         monsterEffect = GetComponentInChildren<MonsterEffect>();
+
         try
         {
             monsterMat = GetComponent<SpriteRenderer>().material;
@@ -144,6 +146,10 @@ public class Monster : MonoBehaviour
         Monster_Score = EX_GameData.Information_Monster[Monster_Num].Monster_Score;
         Monster_Coin = EX_GameData.Information_Monster[Monster_Num].Monster_Coin;
         Monster_Type = EX_GameData.Information_Monster[Monster_Num].Monster_Type;
+        if(Monster_Type == "Slow")
+        {
+            Monster_TrainSlowType = true;
+        }
         Monster_CountFlag = EX_GameData.Information_Monster[Monster_Num].Monster_CountFlag;
         Bullet_Atk = EX_GameData.Information_Monster[Monster_Num].Monster_Atk;
         Bullet_Speed = EX_GameData.Information_Monster[Monster_Num].Monster_Bullet_Speed;
@@ -757,6 +763,12 @@ public class Monster : MonoBehaviour
         {
             monsterEffect.BounsCoinPlay();
         }
+
+        if (Monster_TrainSlowType)
+        {
+            gameDirector.SetMonsterSlow(false);
+        }
+
         MMSoundManagerSoundPlayEvent.Trigger(DieSfX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         if (Monster_Mission_CountFlag)
         {
@@ -765,7 +777,6 @@ public class Monster : MonoBehaviour
         Instantiate(Monster_Kill_Particle, transform.localPosition, Quaternion.identity);
 
         col.enabled = false;
-
         monsterData.Monster_Dic[Monster_Num].ChangeMonster(false);
 
         if (SteamAchievement.instance != null)
@@ -791,7 +802,7 @@ public class Monster : MonoBehaviour
         {
             StartCoroutine(DieCorutine(true));
         }
-        else if (Monster_Type == "Ground")
+        else if (Monster_Type == "Ground" || Monster_Type == "Slow")
         {
             StartCoroutine(DieCorutine(false));
         }

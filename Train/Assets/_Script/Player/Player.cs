@@ -249,8 +249,6 @@ public class Player : MonoBehaviour
         {
             slowmoveSpeed = moveSpeed / 5f * 4f;
             slowjumpSpeed = jumpSpeed / 5f * 4f; 
-            Debug.Log(moveSpeed - slowmoveSpeed);
-            Debug.Log(jumpSpeed - slowjumpSpeed);
         }
         else
         {

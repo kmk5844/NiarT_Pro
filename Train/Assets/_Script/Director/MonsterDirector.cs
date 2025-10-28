@@ -14,10 +14,12 @@ public class MonsterDirector : MonoBehaviour
     [Header("몬스터 정보 및 리스트")]
     public Transform Monster_List_Sky;
     public Transform Monster_List_Ground;
+    public Transform Monster_List_Slow;
 
     public Transform Boss_List;
     List<int> Emerging_Monster_List_Sky;
     List<int> Emerging_Monster_List_Ground;
+    List<int> Emerging_Monster_List_Slow;
     List<int> Emerging_MonsterCount_List;
     [SerializeField]
     List<int> Emerging_Boss_List;
@@ -41,6 +43,7 @@ public class MonsterDirector : MonoBehaviour
     public static Vector2 MaxPos_Ground;
     public static Vector2 MinPos_Ground;
 
+    public bool GameDirector_StartFlag;
     public bool GameDirector_SpawnFlag;
     public bool GameDirector_BossFlag;
     public bool GameDirector_Boss_SpawnFlag;
@@ -51,11 +54,13 @@ public class MonsterDirector : MonoBehaviour
 
     bool isSpawing = false;
     bool isSupplySpawing = false;
+    bool isSlowSpawing = false;
 
     [Header("몬스터 한도 설정")]
     public int MaxMonsterNum;
     public int MonsterNum;
     int SupplyMonsterNum;
+    int SlowMonsterNum;
     int item_MonsterCount;
     int item_MonsterCount_Sky;
     int item_MonsterCount_Ground;
@@ -88,6 +93,7 @@ public class MonsterDirector : MonoBehaviour
     {
         BossCount = 0;
         MonsterNum = 0;
+        GameDirector_StartFlag = false;
         GameDirector_SpawnFlag = false;
         GameDirector_BossFlag = false;
         GameDirector_Boss_SpawnFlag = false;
@@ -118,6 +124,8 @@ public class MonsterDirector : MonoBehaviour
     void Update()
     {
         MonsterNum = Monster_List_Ground.childCount + Monster_List_Sky.childCount;
+        SupplyMonsterNum = SupplyMonster_List.childCount;
+        SlowMonsterNum = Monster_List_Slow.childCount;
 
         if (GameDirector_RefreshFlag)
         {
@@ -128,8 +136,7 @@ public class MonsterDirector : MonoBehaviour
 
             if (!GameDirector_SpawnFlag)
             {
-                SupplyMonsterNum = SupplyMonster_List.childCount;
-                if (SupplyMonsterNum == 0 && MonsterNum <= 0)
+                if (SlowMonsterNum == 0 && SupplyMonsterNum == 0 && MonsterNum <= 0)
                 {
                     if (!GameDirecotr_AllDieFlag)
                     {
@@ -160,6 +167,7 @@ public class MonsterDirector : MonoBehaviour
                         StartCoroutine(AppearMonster(false));
                     }
 
+
                     if (!GameDirector_Boss_SpawnFlag)
                     {
                         StartCoroutine(AppearMonster(true));
@@ -168,18 +176,26 @@ public class MonsterDirector : MonoBehaviour
                 }
 
                 SupplyMonsterNum = SupplyMonster_List.childCount;
+                SlowMonsterNum = Monster_List_Slow.childCount;
                 if (SupplyMonsterNum < 1 && !isSupplySpawing)
                 {
                     StartCoroutine(AppearSupplyMonster());
                 }
-            }
+                if (Emerging_Monster_List_Slow.Count > 0)
+                {
+                    if (SlowMonsterNum < 1 && !isSlowSpawing)
+                    {
+                        StartCoroutine(AppearSlowMonster());
+                    }
+                }
         }
         else
         {
-            if (!GameDirector_SpawnFlag)
+            if (!GameDirector_SpawnFlag && GameDirector_StartFlag)
             {
                 SupplyMonsterNum = SupplyMonster_List.childCount;
-                if(SupplyMonsterNum == 0 && MonsterNum <= 0)
+                SlowMonsterNum = Monster_List_Slow.childCount;
+                if(SlowMonsterNum == 0 && SupplyMonsterNum == 0 && MonsterNum <= 0)
                 {
                     if (!GameDirecotr_AllDieFlag)
                     {
@@ -255,6 +271,24 @@ public class MonsterDirector : MonoBehaviour
         isSupplySpawing = false;
     }
 
+    IEnumerator AppearSlowMonster()
+    {
+        isSlowSpawing = true;
+        yield return new WaitForSeconds(Random.Range(10f, 21f));
+        Random_xPos = Random.Range(MinPos_Ground.x, MaxPos_Ground.x);
+        Random_yPos = Random.Range(MinPos_Ground.y, MaxPos_Ground.y);
+
+        int MonsterRandomIndex = Random.Range(0, Emerging_Monster_List_Slow.Count);
+        int MonsterNum = Emerging_Monster_List_Slow[MonsterRandomIndex];
+        string monster_name = EX_GameData.Information_Monster[MonsterNum].Monster_Name;
+        GameObject _Monster = Resources.Load<GameObject>("Monster/" + MonsterNum + "_" + monster_name);
+        if (GameDirector_SpawnFlag == true)
+        {
+            Instantiate(_Monster, new Vector3(Random_xPos, Random_yPos, 0), Quaternion.identity, Monster_List_Slow);
+        }
+        isSlowSpawing = false;}
+    }
+
     private void Check_Sky_OR_Ground_Monster(int Monster_Num, bool bossFlag, bool monsterType = false)
     {
         if (!monsterType)
@@ -326,18 +360,17 @@ public class MonsterDirector : MonoBehaviour
     }
 
 
-    public void Get_Monster_List(List<int> GameDirector_Monster_List_Sky, List<int> GameDirector_Monster_List_Ground, List<int>GameDirector_MonsterCount_List)
+    public void Get_Monster_List(List<int> GameDirector_Monster_List_Sky, List<int> GameDirector_Monster_List_Ground,List<int>GameDirector_Monster_List_Slow, List<int>GameDirector_MonsterCount_List)
     {
         Emerging_Monster_List_Sky = GameDirector_Monster_List_Sky;
         Emerging_Monster_List_Ground = GameDirector_Monster_List_Ground;
-
+        Emerging_Monster_List_Slow = GameDirector_Monster_List_Slow;
         Emerging_MonsterCount_List = GameDirector_MonsterCount_List;
 
         MaxMonsterNum = 0;
         foreach(int M in Emerging_MonsterCount_List) {
             MaxMonsterNum += M;
         }
-        
     }
 
     public void Get_Boss_List(List<int> GameDirector_Boss_List)

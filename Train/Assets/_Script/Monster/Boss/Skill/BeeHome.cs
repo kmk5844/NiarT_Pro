@@ -33,7 +33,7 @@ public class BeeHome : MonoBehaviour
             }
             else
             {
-                if (Count < 1)
+                if (Count < 6)
                 {
                     int random = Random.Range(0, 11);
                     if (random < 9)

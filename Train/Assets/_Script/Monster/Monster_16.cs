@@ -23,7 +23,7 @@ public class Monster_16 : Monster
     {
         Monster_Num = 16;
         Bullet_Delay = 6;
-        //BulletObject = Resources.Load<GameObject>("Bullet/Monster/" + Monster_Num);
+        BulletObject = Resources.Load<GameObject>("Bullet/Monster/" + Monster_Num);
 
         base.Start();
         //transform.localPosition = MonsterDirector.MaxPos_Sky;
@@ -170,14 +170,17 @@ public class Monster_16 : Monster
 
     public void AniStart()
     {
-        Debug.Log("AniStart");
         startPos = transform.localPosition;
-
     }
 
     public void BulletFire()
     {
-        Debug.Log("BulletFire");
+        GameObject bullet = Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
+        bullet.GetComponent<Monster_Bullet_Angle>().SetAngle_And_Fire(45f);
+        bullet = Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
+        bullet.GetComponent<Monster_Bullet_Angle>().SetAngle_And_Fire(0f);
+        bullet = Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
+        bullet.GetComponent<Monster_Bullet_Angle>().SetAngle_And_Fire(-45f);
     }
 
     public void attackTrigger()

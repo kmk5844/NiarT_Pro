@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static Coffee.UIExtensions.UIParticleAttractor;
 
 public class Monster_Boss_3 : Boss
 {
@@ -19,7 +20,7 @@ public class Monster_Boss_3 : Boss
     float move_lastTime = 0f;
     float attack_lastTime = 0f;
     float move_delayTime = 5f;
-    float attack_delayTime = 3f;
+    float attack_delayTime;
 
     int skillNum;
 
@@ -40,6 +41,10 @@ public class Monster_Boss_3 : Boss
     public GameObject BeeSlowObject;
 
     bool beeShieldFlag;
+    public ParticleSystem DieEffect;
+    ParticleSystem[] alldieEffect;
+    Vector3 DieEffectOriginPos;
+    bool dieEffectFlag;
 
     protected override void Start()
     {
@@ -55,6 +60,9 @@ public class Monster_Boss_3 : Boss
         Monster_List_Sky = GameObject.Find("Monster_List(Sky)").transform;
         player = GameObject.FindWithTag("Player");
 
+        DieEffectOriginPos = DieEffect.transform.localPosition;
+        alldieEffect = DieEffect.GetComponentsInChildren<ParticleSystem>();
+        attack_delayTime = 2f;
         BeeShield.SetActive(false);
     }
 
@@ -119,6 +127,7 @@ public class Monster_Boss_3 : Boss
             if (Time.time >= move_lastTime + move_delayTime)
             {
                 playType = Boss_PlayType.Skill;
+                ResetAni();
             }
         }
 
@@ -138,8 +147,6 @@ public class Monster_Boss_3 : Boss
             {
                 skillNum = Random.Range(1, 5);
             }
-
-            skillNum = 4;
 
             if (skillNum == 0)
             {
@@ -165,8 +172,8 @@ public class Monster_Boss_3 : Boss
             {
                 StartCoroutine(BeeSlow());
             }
+
             playType = Boss_PlayType.SKill_Using;
-            ResetAni();
         }
 
         if (playType == Boss_PlayType.SKill_Using)
@@ -210,6 +217,20 @@ public class Monster_Boss_3 : Boss
                 playType = Boss_PlayType.Die;
                 Destroy(gameObject, 10f);
             }
+        }
+
+        if (playType == Boss_PlayType.Die)
+        {
+            Vector3 movement;
+            if (!dieEffectFlag)
+            {
+                ani.SetTrigger("Die");
+                StartCoroutine(DieCorutine());
+            }
+
+            //DieEffect.Emit(9);
+            movement = new Vector3(-3f, -7f, 0f);
+            transform.Translate(movement * Time.deltaTime);
         }
     }
 
@@ -261,12 +282,13 @@ public class Monster_Boss_3 : Boss
     {
         if (playType == Boss_PlayType.Spawn || playType == Boss_PlayType.Move)
         {
+            ani.SetBool("Skill", false);
             ani.SetTrigger("Move");
         }
 
         if (playType == Boss_PlayType.Skill)
         {
-            ani.SetTrigger("Skill");
+            ani.SetBool("Skill", true);
         }
 
         if (playType == Boss_PlayType.Die)
@@ -290,7 +312,7 @@ public class Monster_Boss_3 : Boss
 
     IEnumerator BeeShieldSkill()
     {
-        yield return 2f;
+        yield return new WaitForSeconds(1f);
         beeShieldFlag = true;
         BeeShield.SetActive(true);
         ToMove();
@@ -348,7 +370,7 @@ public class Monster_Boss_3 : Boss
             }
         }
 
-        yield return null;
+        yield return new WaitForSeconds(1f);
         ToMove();
     }
 
@@ -369,7 +391,7 @@ public class Monster_Boss_3 : Boss
                 break;
             }
         }
-        yield return null;
+        yield return new WaitForSeconds(1f);
         ToMove();
     }
 
@@ -387,15 +409,15 @@ public class Monster_Boss_3 : Boss
         float rndX = Random.Range(MonsterDirector.MinPos_Sky.x  + 2f, MonsterDirector.MaxPos_Sky.x - 2f);
         GameObject beehome = Instantiate(BeeHome, new Vector2(rndX, MonsterDirector.MaxPos_Sky.y), Quaternion.identity);
         beehome.GetComponent<BeeHome>().Set(Monster_List_Sky);
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(1f);
         ToMove();
     }
 
     IEnumerator BeeSlow()
     {
-        GameObject slowobject = Instantiate(BeeSlowObject, new Vector2(player.transform.position.x, MonsterDirector.MinPos_Ground.y - 0.3f), Quaternion.identity);
+        GameObject slowobject = Instantiate(BeeSlowObject, new Vector2(player.transform.position.x, MonsterDirector.MinPos_Ground.y - 0.05f), Quaternion.identity);
         Destroy(slowobject, 10f);
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(1f);
         ToMove();
     }
 
@@ -406,6 +428,7 @@ public class Monster_Boss_3 : Boss
             move_delayTime = Random.Range(5f, 8f);
             skilleffect_flag = false;
             move_lastTime = Time.time;
+            ResetAni();
             playType = Boss_PlayType.Move;
         }
     }
@@ -422,8 +445,33 @@ public class Monster_Boss_3 : Boss
             transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             //AfterImage_Particle.transform.localScale = new Vector3(AfterImage_Particle_LocalScale_X, AfterImage_Particle_LocalScale_Y, 1);
         }
+
+
     }
-enum Boss_PlayType
+    IEnumerator DieCorutine()
+    {
+        dieEffectFlag = true;
+        Vector2 diePos = new Vector2(
+           DieEffectOriginPos.x + Random.Range(-0.8f, 0.8f),
+           DieEffectOriginPos.y + Random.Range(-0.8f, 0.8f)
+        );
+        DieEffect.transform.localPosition = diePos;
+
+        foreach (var ps in alldieEffect)
+        {
+            var emission = ps.emission;
+
+            ParticleSystem.Burst burst = emission.GetBurst(0);
+            float burstCount = burst.count.constant; // ¿ŒΩ∫∆Â≈Õ Burstø° ¿˚»˘ ∞™
+
+            ps.Emit((int)burstCount);
+        }
+
+        float EmitTime = Random.Range(0.1f, 0.2f);
+        yield return new WaitForSeconds(EmitTime); // 0.2√  ∞£∞›¿∏∑Œ ≈Õ¡¸
+        dieEffectFlag = false;
+    }
+    enum Boss_PlayType
 {
     Spawn,
     Move,

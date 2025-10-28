@@ -54,8 +54,10 @@ public class Monster_23 : Monster
 
         if (monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
         {
-            //BulletFire();
-            //FlipMonster();
+            if (!BossSignalFlag)
+            {
+                BulletFire();
+            }
             FlipMonster();
         }
     }
@@ -95,11 +97,9 @@ public class Monster_23 : Monster
         else
         {
             Spawn_Init_Pos = transform.position;
-            Debug.Log("Spawn : " + Spawn_Init_Pos);
             Vector2 originPos = new Vector2(Random.Range(MonsterDirector.MinPos_Sky.x, MonsterDirector.MaxPos_Sky.x),
                                             Random.Range(MonsterDirector.MinPos_Sky.y, MonsterDirector.MaxPos_Sky.y));
-            Debug.Log("Origin : " + originPos);
-
+            
             while (elapsedTime < duration)
             {
                 elapsedTime += Time.deltaTime;
@@ -133,7 +133,10 @@ public class Monster_23 : Monster
 
         if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay) && monster_gametype != Monster_GameType.Die)
         {
-            
+            GameObject bullet = Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
+            bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, Bullet_Speed, 0);
+            warningFlag = false;
+            lastTime = Time.time;
         }
     }
 

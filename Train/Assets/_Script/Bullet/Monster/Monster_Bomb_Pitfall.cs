@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Monster_Bomb_Pitfall : MonsterBullet
 {
-    public float DestoryDelay = 5f;
+    public float DestoryDelay = 7f;
     public GameObject BombCollider;
     GameObject BombParticle;
 
@@ -23,7 +23,6 @@ public class Monster_Bomb_Pitfall : MonsterBullet
         Instantiate(BombParticle, transform.localPosition, Quaternion.identity);
         Destroy(gameObject, 0.2f);
     }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))

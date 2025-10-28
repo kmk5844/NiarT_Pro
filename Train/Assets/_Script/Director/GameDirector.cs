@@ -6,7 +6,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 //Script Execution Order로 조절 중
 public class GameDirector : MonoBehaviour
 {
@@ -84,7 +83,7 @@ public class GameDirector : MonoBehaviour
     public int Stage_Num;
     public int Before_Sub_Num;
     public int Select_Sub_Num;
-    
+
     string Emerging_Monster_String;
     string Emerging_MonsterCount_String;
     [SerializeField]
@@ -92,7 +91,10 @@ public class GameDirector : MonoBehaviour
     [SerializeField]
     private List<int> Emerging_Monster_Ground;
     [SerializeField]
+    private List<int> Emerging_Monster_Slow;
+    [SerializeField]
     private List<int> Emerging_MonsterCount;
+    private bool Emerging_Monster_Slow_Flag;
 
     [Header("미션 정보")]
     public bool Mission_Train_Flag;
@@ -170,7 +172,7 @@ public class GameDirector : MonoBehaviour
     public GameObject[] BackGroundList;
     [Header("Satation")]
     public GameObject Station_Object;
-    public GameObject[] StationObjectList; 
+    public GameObject[] StationObjectList;
     bool isStationHideFlag;
     bool isStationShowFlag;
     bool isStationHideEndFlag;
@@ -233,7 +235,7 @@ public class GameDirector : MonoBehaviour
     public bool ItemSpeedUpEffectFlag;
 
     bool playerLog_TrainSpeed = false;
-    
+    bool monsterSlowFlag = false;
     void Awake()
     {
         gameType = GameType.Starting;
@@ -270,12 +272,12 @@ public class GameDirector : MonoBehaviour
 
         NextSubStageNum = new List<int>();
         string[] nextSubStageList = SubStageData.Open_SubStageNum.Split(',');
-        foreach(string sub in nextSubStageList)
+        foreach (string sub in nextSubStageList)
         {
             NextSubStageNum.Add(int.Parse(sub));
         }
 
-        if(Select_Sub_Num != 0)
+        if (Select_Sub_Num != 0)
         {
             if (Before_Sub_Num != -1)
             {
@@ -366,7 +368,7 @@ public class GameDirector : MonoBehaviour
         {
             MaxSpeed += ((MaxSpeed * 3) / 100); // 많을 수록 유리
             Efficient -= ((Efficient * 10) / 100); // 적을 수록 유리
-            timeBet = 0.1f - ((EnginePower+1) * 0.001f);
+            timeBet = 0.1f - ((EnginePower + 1) * 0.001f);
         }
 
         if (FoodEffect_Flag_Impositive)
@@ -387,17 +389,17 @@ public class GameDirector : MonoBehaviour
     void Update()
     {
         //TEST
-/*        if (Input.GetKeyDown("]"))
-        {
-            if (Data_BossFlag)
-            {
-                TrainSpeed = 1000;
-            }
-            else
-            {
-                TrainDistance = 99999999;
-            }
-        }*/
+        /*        if (Input.GetKeyDown("]"))
+                {
+                    if (Data_BossFlag)
+                    {
+                        TrainSpeed = 1000;
+                    }
+                    else
+                    {
+                        TrainDistance = 99999999;
+                    }
+                }*/
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -418,9 +420,9 @@ public class GameDirector : MonoBehaviour
             }
         }
 
-        if(gameType == GameType.Starting)
+        if (gameType == GameType.Starting)
         {
-            if(Time.time >= StartTime + 1f)
+            if (Time.time >= StartTime + 1f)
             {
                 gameType = GameType.Playing;
                 StartTime = Time.time;
@@ -445,7 +447,7 @@ public class GameDirector : MonoBehaviour
 
             if (!isStationHideEndFlag)
             {
-                if(Time.time >= lastSpeedTime + 0.2f)
+                if (Time.time >= lastSpeedTime + 0.2f)
                 {
                     if (12 >= TrainSpeed)
                     {
@@ -459,27 +461,40 @@ public class GameDirector : MonoBehaviour
                 if (Time.time >= RandomStartTime + StartTime && !GameStartFlag)
                 {
                     GameStartFlag = true;
+                    monsterDirector.GameDirector_StartFlag = true;
                     monsterDirector.GameDirector_SpawnFlag = true;
                     SoundSequce(PlayBGM);
                 }
                 else if (Time.time >= lastSpeedTime + timeBet && GameWinFlag == false)
                 {
-                    if (MaxSpeed >= TrainSpeed)
+                    if (!monsterSlowFlag)
                     {
-                        if (TrainFuel > 0)
+                        if (MaxSpeed >= TrainSpeed)
                         {
-                            TrainSpeed += TrainSpeedUP;
-                            TrainFuel -= Efficient;
+                            if (TrainFuel > 0)
+                            {
+                                TrainSpeed += TrainSpeedUP;
+                                TrainFuel -= Efficient;
+                            }
+                        }
+                        else
+                        {
+                            if (TrainFuel > 0)
+                            {
+                                TrainFuel -= Efficient;
+                            }
                         }
                     }
                     else
                     {
+                        TrainSpeed -= TrainSpeedUP;
                         if (TrainFuel > 0)
                         {
                             TrainFuel -= Efficient;
                         }
                     }
                     lastSpeedTime = Time.time;
+
                 }
             }
 
@@ -488,7 +503,7 @@ public class GameDirector : MonoBehaviour
                 TrainFuel = 0;
             }
 
-            if(currentRefreshIndex < RefreshCount)
+            if (currentRefreshIndex < RefreshCount)
             {
                 if (RefreshDistance[currentRefreshIndex] < TrainDistance && !refreshFlag[currentRefreshIndex])
                 {
@@ -506,7 +521,7 @@ public class GameDirector : MonoBehaviour
                 gameType = GameType.Ending;
             }
 
-            if(player.Player_HP <= 0 && revivalFlag)
+            if (player.Player_HP <= 0 && revivalFlag)
             {
                 if (!RevivalCorutineFlag)
                 {
@@ -518,11 +533,11 @@ public class GameDirector : MonoBehaviour
             if ((TrainSpeed <= 0 || (player.Player_HP <= 0 && !revivalFlag) && GameStartFlag && !GameLoseFlag))
             {
                 int LoseNum = 0;
-                if(TrainSpeed <= 0)
+                if (TrainSpeed <= 0)
                 {
                     LoseNum = 0;
                 }
-                else if(player.Player_HP <= 0)
+                else if (player.Player_HP <= 0)
                 {
                     LoseNum = 1;
                 }
@@ -554,7 +569,7 @@ public class GameDirector : MonoBehaviour
                 }
             }
         }
-        else if(gameType == GameType.Boss)
+        else if (gameType == GameType.Boss)
         {
             if (Time.time >= lastSpeedTime + timeBet && GameWinFlag == false)
             {
@@ -596,7 +611,8 @@ public class GameDirector : MonoBehaviour
                 GameLoseFlag = true;
                 Game_Lose(LoseNum); //기차 속도 0이하, 플레이어 체력 0이하->보스전
             }
-        }else if(gameType == GameType.Refreshing)
+        }
+        else if (gameType == GameType.Refreshing)
         {
             if (!getSupply)
             {
@@ -625,7 +641,7 @@ public class GameDirector : MonoBehaviour
                     {
                         SpawnRefreshSupply = true;
                         float RandomX = Random.Range(player.transform.position.x - 5f, player.transform.position.x + 5f);
-                        if(RandomX > MonsterDirector.MaxPos_Ground.x)
+                        if (RandomX > MonsterDirector.MaxPos_Ground.x)
                         {
                             RandomX = MonsterDirector.MaxPos_Ground.x;
                         }
@@ -675,11 +691,11 @@ public class GameDirector : MonoBehaviour
                     lastSpeedTime = Time.time;
                 }
 
-/*                float elapsed = Time.time - lastrefreshTime;
-                float progress = Mathf.Clamp01(elapsed / refreshMaxTime);
+                /*                float elapsed = Time.time - lastrefreshTime;
+                                float progress = Mathf.Clamp01(elapsed / refreshMaxTime);
 
-                // fillAmount 갱신 (이 부분은 if문 밖에 둬야 항상 보임)
-                uiDirector.WaveFillAmount.fillAmount = progress;*/
+                                // fillAmount 갱신 (이 부분은 if문 밖에 둬야 항상 보임)
+                                uiDirector.WaveFillAmount.fillAmount = progress;*/
 
                 if (Time.time >= lastrefreshTime + refreshMaxTime)
                 {
@@ -704,7 +720,7 @@ public class GameDirector : MonoBehaviour
 
             if ((TrainSpeed <= 0 || player.Player_HP <= 0) && GameStartFlag && !GameLoseFlag)
             {
-                if(TrainSpeed < 0)
+                if (TrainSpeed < 0)
                 {
                     TrainSpeed = 0;
                 }
@@ -842,7 +858,7 @@ public class GameDirector : MonoBehaviour
         Emerging_MonsterCount = new List<int>();
         string[] Monster_String = Emerging_Monster_String.Split(',');
         string[] MonsterCount_String = Emerging_MonsterCount_String.Split(",");
-        for(int i = 0; i < Monster_String.Length; i++)
+        for (int i = 0; i < Monster_String.Length; i++)
         {
             int num1;
             num1 = int.Parse(Monster_String[i]);
@@ -854,6 +870,10 @@ public class GameDirector : MonoBehaviour
             {
                 Emerging_Monster_Ground.Add(num1);
             }
+            else if (EX_GameData.Information_Monster[num1].Monster_Type == "Slow")
+            {
+                Emerging_Monster_Slow.Add(num1);
+            }
         }
 
         for (int i = 0; i < MonsterCount_String.Length; i++)
@@ -863,7 +883,7 @@ public class GameDirector : MonoBehaviour
             Emerging_MonsterCount.Add(num2);
         }
 
-        monsterDirector.Get_Monster_List(Emerging_Monster_Sky, Emerging_Monster_Ground, Emerging_MonsterCount);
+        monsterDirector.Get_Monster_List(Emerging_Monster_Sky, Emerging_Monster_Ground, Emerging_Monster_Slow, Emerging_MonsterCount);
 
         if (SubStageData.SubStage_Type == SubStageType.Boss)
         {
@@ -904,7 +924,7 @@ public class GameDirector : MonoBehaviour
 
         if (Mission_Train_Flag)
         {
-            int index = Random.Range(1, Train_Num.Count+1);
+            int index = Random.Range(1, Train_Num.Count + 1);
             Train_Num.Insert(index, 90);
         }
 
@@ -947,18 +967,19 @@ public class GameDirector : MonoBehaviour
                 //나머지칸
                 TrainObject.transform.position = new Vector3(-10.94f * i, 0f, 0);
             }
-            
+
             Train_InGame train = TrainObject.GetComponent<Train_InGame>();
-            
+
             train.Train_Index = i;
             train.trainHitSFX = TrainHitSFX;
 
-            if(train.Train_Type.Equals("Engine"))
+            if (train.Train_Type.Equals("Engine"))
             {
                 TrainMaxSpeed = train.Train_MaxSpeed;
                 TrainEfficient = train.Train_Efficient;
                 TrainEnginePower = train.Train_Engine_Power;
-            }else if (train.Train_Type.Equals("Fuel"))
+            }
+            else if (train.Train_Type.Equals("Fuel"))
             {
                 TrainFuel += train.Train_Fuel;
             }
@@ -1038,7 +1059,8 @@ public class GameDirector : MonoBehaviour
             Total_Coin += GetCoin * 2;
             uiDirector.Gameing_Text(Total_Coin);
             return true;
-        }else if (ItemFlag_Coin)
+        }
+        else if (ItemFlag_Coin)
         {
             Total_Coin += (GetCoin + Random.Range(0, 201));
             uiDirector.Gameing_Text(Total_Coin);
@@ -1060,13 +1082,13 @@ public class GameDirector : MonoBehaviour
 
     public void Gmae_Boss_Kill(int GetCoin) //보스는 2배 적용 X
     {
-        if(!ItemFlag_Coin)
+        if (!ItemFlag_Coin)
         {
             Total_Coin += GetCoin;
         }
         else
         {
-            int coin = Random.Range(0,201);
+            int coin = Random.Range(0, 201);
             Total_Coin += (GetCoin + coin);
         }
         BossCount++;
@@ -1076,7 +1098,7 @@ public class GameDirector : MonoBehaviour
         gameType = GameType.Playing;
         SoundSequce(PlayBGM);
     }
-   
+
 
     private void Game_Win()
     {
@@ -1094,7 +1116,7 @@ public class GameDirector : MonoBehaviour
     {
         bool Initflag = false;
 
-        if(Select_Sub_Num == 0)
+        if (Select_Sub_Num == 0)
         {
             Before_Sub_Num = -1;
         }
@@ -1114,11 +1136,11 @@ public class GameDirector : MonoBehaviour
             }
         }
 
-        if(Before_Sub_Num != -1)
+        if (Before_Sub_Num != -1)
         {
-            foreach(int substageNum in PrevSubStageNum)
+            foreach (int substageNum in PrevSubStageNum)
             {
-                if(substageNum != Select_Sub_Num)
+                if (substageNum != Select_Sub_Num)
                 {
                     MissionDataObject mission = SA_MissionData.missionStage(Mission_Num, Stage_Num, substageNum);
                     if (!mission.StageClearFlag)
@@ -1281,7 +1303,7 @@ public class GameDirector : MonoBehaviour
 
     private void Game_Lose(int losenum)
     {
-        Change_Game_End(false, false ,losenum); // 게임 진행 도중에 패배
+        Change_Game_End(false, false, losenum); // 게임 진행 도중에 패배
         MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, BGM_ID);
         MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, TrainSFX_ID);
         MMSoundManagerSoundPlayEvent.Trigger(LoseSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
@@ -1323,7 +1345,7 @@ public class GameDirector : MonoBehaviour
         return (float)TrainFuel / (float)Total_TrainFuel;
     }
 
-    public void ChangeCursor(bool flag , bool atkFlag = false)
+    public void ChangeCursor(bool flag, bool atkFlag = false)
     {
         if (flag) // 게임 진행 중일 때
         {
@@ -1399,23 +1421,23 @@ public class GameDirector : MonoBehaviour
             rewardPersent = Random.Range(1, 13);
         }
 
-            switch (rewardNum)
-            {
-                case 0:
-                    Item_Fuel_Charge(rewardPersent);
-                    break;
-                case 1:
-                    player.Item_Player_Heal_HP(rewardPersent);
-                    break;
-                case 2:
-                    Item_Use_Train_Heal_HP(rewardPersent);
-                    break;
-                case 3:
-                    Item_Fuel_Charge(rewardPersent);
-                    player.Item_Player_Heal_HP(rewardPersent);
-                    Item_Use_Train_Heal_HP(rewardPersent);
-                    break;
-            }
+        switch (rewardNum)
+        {
+            case 0:
+                Item_Fuel_Charge(rewardPersent);
+                break;
+            case 1:
+                player.Item_Player_Heal_HP(rewardPersent);
+                break;
+            case 2:
+                Item_Use_Train_Heal_HP(rewardPersent);
+                break;
+            case 3:
+                Item_Fuel_Charge(rewardPersent);
+                player.Item_Player_Heal_HP(rewardPersent);
+                Item_Use_Train_Heal_HP(rewardPersent);
+                break;
+        }
         uiDirector.ItemInformation_On(null, true, rewardNum, rewardPersent);
         lastrefreshTime = Time.time;
         getSupply = true;
@@ -1431,7 +1453,7 @@ public class GameDirector : MonoBehaviour
     {
         int fuelCharge = (int)(Total_TrainFuel * (persent / 100f));
         uiDirector.FuelChargeEffect.Play();
-        if(TrainFuel + fuelCharge < Total_TrainFuel)
+        if (TrainFuel + fuelCharge < Total_TrainFuel)
         {
             TrainFuel += fuelCharge;
         }
@@ -1443,7 +1465,7 @@ public class GameDirector : MonoBehaviour
 
     public void Item_Use_Train_Heal_HP(float persent)
     {
-        for(int i = 0; i < Train_List.childCount; i++)
+        for (int i = 0; i < Train_List.childCount; i++)
         {
             Train_List.GetChild(i).GetComponent<Train_InGame>().Item_Train_Heal_HP(persent);
         }
@@ -1451,7 +1473,7 @@ public class GameDirector : MonoBehaviour
 
     public void Item_Use_Train_Turret_All_SpeedUP(float persent, float delayTime)
     {
-        for(int i = 0; i < Train_List.childCount; i++)
+        for (int i = 0; i < Train_List.childCount; i++)
         {
             Train_InGame train = Train_List.GetChild(i).GetComponent<Train_InGame>();
             StartCoroutine(train.Item_Train_Turret_SpeedUP(persent, delayTime));
@@ -1460,7 +1482,7 @@ public class GameDirector : MonoBehaviour
 
     public void Item_Spawn_Train_BulletproofPlate(int hp, int sp_Num)
     {
-        for(int i = 0; i < Train_List.childCount; i++)
+        for (int i = 0; i < Train_List.childCount; i++)
         {
             Train_List.GetChild(i).GetComponent<Train_InGame>().Item_Spawn_IronPlate(hp, sp_Num);
         }
@@ -1468,7 +1490,7 @@ public class GameDirector : MonoBehaviour
 
     public void Item_Train_Armor_Up(int delayTime, int parsent)
     {
-        for(int i = 0; i < Train_List.childCount; i++)
+        for (int i = 0; i < Train_List.childCount; i++)
         {
             Train_InGame train = Train_List.GetChild(i).GetComponent<Train_InGame>();
             StartCoroutine(train.Item_Armor_Up(delayTime, parsent));
@@ -1557,7 +1579,7 @@ public class GameDirector : MonoBehaviour
     IEnumerator Boss_Waring_Mark()
     {
         int Warning_ID = BGM_ID + 10;
-        MMSoundManagerSoundPlayEvent.Trigger(WarningSFX, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID: Warning_ID, fade:true, fadeInitialVolume: 0.5f, fadeDuration :0.3f);
+        MMSoundManagerSoundPlayEvent.Trigger(WarningSFX, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID: Warning_ID, fade: true, fadeInitialVolume: 0.5f, fadeDuration: 0.3f);
         uiDirector.WarningObject.SetActive(true);
         MMSoundManagerSoundFadeEvent.Trigger(MMSoundManagerSoundFadeEvent.Modes.StopFade, Warning_ID, 3f, 0f, new MMTweenType(MMTween.MMTweenCurve.EaseInCubic));
         yield return new WaitForSeconds(3f);
@@ -1619,7 +1641,7 @@ public class GameDirector : MonoBehaviour
             float fac = 11f;
             while (Station_Object.transform.localPosition.x > TargetX)
             {
-                if(Time.timeScale != 0)
+                if (Time.timeScale != 0)
                 {
                     Speed = Time.deltaTime * fac + (TrainSpeed / 1000f);
                 }
@@ -1675,10 +1697,10 @@ public class GameDirector : MonoBehaviour
         TrainSFX_ID += 1;
         MMSoundManagerSoundPlayEvent.Trigger(TrainLoopSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position, loop: true, ID: TrainSFX_ID);
         yield return MMCoroutine.WaitFor(1.8f);
-        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, TrainSFX_ID-1);
+        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, TrainSFX_ID - 1);
     }
 
-    public IEnumerator Train_MasSpeedChange(int Add_Speed,float During)
+    public IEnumerator Train_MasSpeedChange(int Add_Speed, float During)
     {
         MaxSpeed += Add_Speed;
         yield return new WaitForSeconds(During);
@@ -1709,7 +1731,7 @@ public class GameDirector : MonoBehaviour
             ES3.Save<int>("Train_Curret_TotalFuel", -1);
             //미션 실패하거나 미션 성공했을 때
         }
-            
+
     }
 
     public void closeOption()
@@ -1721,7 +1743,7 @@ public class GameDirector : MonoBehaviour
     }
 
     //----------------수리-------------------
-    public void EngineerSet(int w_hp, int m_hp,  int cooltime)
+    public void EngineerSet(int w_hp, int m_hp, int cooltime)
     {
         repairFlag = true;
         repair_Warning_HPCheck = w_hp;
@@ -1788,7 +1810,7 @@ public class GameDirector : MonoBehaviour
 
             Time.timeScale = Mathf.Clamp(Mathf.Lerp(startScale, slowTarget, smoothT), 0.01f, 1.5f);
             Time.fixedDeltaTime = Mathf.Clamp(Mathf.Lerp(fixedDeltaStart, originalFixedDelta * slowTarget, smoothT), 0.0001f, 0.05f);
-            if(virtualCamera.m_Lens.OrthographicSize > 5.01f)
+            if (virtualCamera.m_Lens.OrthographicSize > 5.01f)
             {
                 virtualCamera.m_Lens.OrthographicSize = Mathf.Lerp(CameraZoom_Init, 5f, smoothT);
             }
@@ -1859,6 +1881,10 @@ public class GameDirector : MonoBehaviour
         PlayerLogDirector.SpeedWarning(TrainSpeed);
         yield return new WaitForSeconds(4f);
         playerLog_TrainSpeed = false;
+    }
+    public void SetMonsterSlow(bool flag)
+    {
+        monsterSlowFlag = flag;
     }
 }
 
