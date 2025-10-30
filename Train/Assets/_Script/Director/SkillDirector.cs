@@ -141,6 +141,7 @@ public class SkillDirector : MonoBehaviour
 
     public void Item_Skill_CoolTime_Set(int Persent)
     {
+        PlayerLogDirector.ItemUseInformation(PlayerLogPrefab.LogType.SkillCoolTimeDown, Persent.ToString());
         for (int i = 0; i < 2; i++)
         {
             SkillCoolDownEffect[i].Play();

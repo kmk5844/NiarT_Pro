@@ -26,7 +26,7 @@ public class Player : MonoBehaviour
     private Player_Debuff playerDebuff;
     [SerializeField]
     private Player_Effect_Event playerEffectEvent;
-    Train_InGame train;
+    public Train_InGame train;
 
     [Header("¹«±â")]
     [SerializeField]
@@ -251,7 +251,7 @@ public class Player : MonoBehaviour
 
         if (slowzoneFlag)
         {
-            slowmoveSpeed = moveSpeed / 5f * 4f;
+            slowmoveSpeed = moveSpeed + moveItemSpeed / 5f * 4f;
             slowjumpSpeed = jumpSpeed / 5f * 4f; 
         }
         else
@@ -589,13 +589,15 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (rigid.velocity.x > moveSpeed + moveItemSpeed - slowmoveSpeed)
+        float effectiveSpeed = Mathf.Max(0f, moveSpeed + moveItemSpeed - slowmoveSpeed);
+
+        if (rigid.velocity.x > effectiveSpeed)
         {
-            rigid.velocity = new Vector2(moveSpeed + moveItemSpeed - slowmoveSpeed, rigid.velocity.y);
+            rigid.velocity = new Vector2(effectiveSpeed, rigid.velocity.y);
         }
-        else if (rigid.velocity.x < -(moveSpeed + moveItemSpeed - slowmoveSpeed))
+        else if (rigid.velocity.x < -effectiveSpeed)
         {
-            rigid.velocity = new Vector2(-(moveSpeed + moveItemSpeed - slowmoveSpeed), rigid.velocity.y);
+            rigid.velocity = new Vector2(-effectiveSpeed, rigid.velocity.y);
         }
     }
 
@@ -951,20 +953,27 @@ public class Player : MonoBehaviour
         Default_Atk = Bullet_Atk;
         Bullet_Delay = Bullet_Delay - (((Bullet_Delay * Level_AtkDelay)) / 50);
         Max_HP = Player_HP + (((Player_HP * Level_HP) * 10) / 100);
-        if (gamedirector.Select_Sub_Num == 0)
+        if (!gamedirector.Infinite_Mode)
         {
-            Player_HP = Max_HP;
-        }
-        else
-        {
-            try
-            {
-                Player_HP = ES3.Load<int>("Player_Curret_HP");
-            }
-            catch
+            if (gamedirector.Select_Sub_Num == 0)
             {
                 Player_HP = Max_HP;
             }
+            else
+            {
+                try
+                {
+                    Player_HP = ES3.Load<int>("Player_Curret_HP");
+                }
+                catch
+                {
+                    Player_HP = Max_HP;
+                }
+            }
+        }
+        else
+        {
+            Player_HP = Max_HP;
         }
         Player_Armor = Player_Armor + (((Player_Armor * Level_Armor) * 10) / 100);
         moveSpeed = moveSpeed + (((moveSpeed * Level_Speed)) / 50);
@@ -1182,8 +1191,10 @@ public class Player : MonoBehaviour
     {
         MoveBuffEffect.Play();
         moveItemSpeed += speed;
+        PlayerLogDirector.ItemBuff(PlayerLogPrefab.LogType.P_MoveSpeed, speed.ToString("F1"));
         yield return new WaitForSeconds(delayTime);
         moveItemSpeed -= speed;
+        PlayerLogDirector.ItemBuffEnd(PlayerLogPrefab.LogType.P_MoveSpeed, speed.ToString("F1"));
     }
 
     public IEnumerator Item_Player_Heal_HP_Auto(float perseent, int delaytime)
@@ -1199,32 +1210,40 @@ public class Player : MonoBehaviour
     public IEnumerator Item_Player_AtkUP(int AddAtk, int delayTime)
     {
         item_Atk += AddAtk;
+        PlayerLogDirector.ItemBuff(PlayerLogPrefab.LogType.P_Atk, AddAtk.ToString());
         yield return new WaitForSeconds(delayTime);
         item_Atk -= AddAtk;
+        PlayerLogDirector.ItemBuffEnd(PlayerLogPrefab.LogType.P_Atk, AddAtk.ToString());
     }
 
     public IEnumerator Item_Player_AtkUp_Persent(int AddAtkPersent, int delayTime)
     {
         AttackBuffEffect.Play();
         int add = Default_Atk * (100 + AddAtkPersent) / 100 - Default_Atk;
-        item_Atk += add; 
+        item_Atk += add;
+        PlayerLogDirector.ItemBuff(PlayerLogPrefab.LogType.P_Atk, add.ToString());
         yield return new WaitForSeconds(delayTime);
         item_Atk -= add;
+        PlayerLogDirector.ItemBuffEnd(PlayerLogPrefab.LogType.P_Atk, add.ToString());
     }
 
     public IEnumerator Item_Player_AtkDelayDown(float atkdelaytime, int delayTime)
     {
         item_Delay -= atkdelaytime;
+        PlayerLogDirector.ItemBuff(PlayerLogPrefab.LogType.P_AtkDelay, atkdelaytime.ToString("F1"));
         yield return new WaitForSeconds(delayTime);
         item_Delay += atkdelaytime;
+        PlayerLogDirector.ItemBuffEnd(PlayerLogPrefab.LogType.P_AtkDelay, atkdelaytime.ToString("F1"));
     }
 
     public IEnumerator Item_Player_DoubleAtkUP(int delayTime)
     {
         AttackBuffEffect.Play();
         item_Atk += Bullet_Atk;
+        PlayerLogDirector.ItemBuff(PlayerLogPrefab.LogType.P_Atk, Bullet_Atk.ToString());
         yield return new WaitForSeconds(delayTime);
         item_Atk -= Bullet_Atk;
+        PlayerLogDirector.ItemBuffEnd(PlayerLogPrefab.LogType.P_Atk, Bullet_Atk.ToString());
     }
 
     public IEnumerator Item_Player_Debuff_Immunity(int delayTime)
@@ -1409,18 +1428,23 @@ public class Player : MonoBehaviour
         item_Armor = (int)(Player_Armor * (Persent / 100f));
         Player_Armor += item_Armor;
         era = 1f - (float)Player_Armor / def_constant;
+        PlayerLogDirector.ItemBuff(PlayerLogPrefab.LogType.P_Armor, Persent.ToString("F1"));
         yield return new WaitForSeconds(delayTime);
         Player_Armor -= item_Armor;
         era = 1f - (float)Player_Armor / def_constant;
+        item_Armor = 0;
+        PlayerLogDirector.ItemBuff(PlayerLogPrefab.LogType.P_Armor, Persent.ToString("F1"));
     }
     public IEnumerator Item_Drink_Bear(float delayTime)
     {
         MoveDeBuffEffect.Play();
         jumpitemFlag_Minus = true;
         moveItemSpeed = -1 * ((moveSpeed * 15) / 100);
+        PlayerLogDirector.ItemDeBuff(PlayerLogPrefab.LogType.P_MoveSpeed, "15");
         yield return new WaitForSeconds(delayTime);
         jumpitemFlag_Minus = false;
         moveItemSpeed = 0;
+        PlayerLogDirector.ItemDeBuffEnd(PlayerLogPrefab.LogType.P_MoveSpeed, "15");
     }
 
     public void Item_Player_Spawn_Dron(int num)
@@ -2070,7 +2094,7 @@ public class Player : MonoBehaviour
 
     void NowStatus()
     {
-        playerStatusDirector.GetNowSatus(Bullet_Atk + item_Atk, Bullet_Delay + item_Delay, Player_Armor + item_Armor, moveSpeed + moveItemSpeed);
+        playerStatusDirector.GetNowSatus(Bullet_Atk + item_Atk, Bullet_Delay + item_Delay, Player_Armor, moveSpeed + moveItemSpeed - slowmoveSpeed);
     }
 
     public SA_PlayerData playerSet()

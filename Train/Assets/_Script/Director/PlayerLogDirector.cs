@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Localization.Components;
 using UnityEngine.Localization.Settings;
 using UnityEngine.UI;
 
@@ -15,6 +17,9 @@ public class PlayerLogDirector : MonoBehaviour
     public PlayerLogPrefab playerLogPrefab;
     public static PlayerLogPrefab PlayerLogPrefab { get; private set; }
 
+    private static readonly Queue<GameObject> logQueue = new Queue<GameObject>();
+    private const int MaxLogs = 4;
+
     private void Awake()
     {
         LogTransform = logTransform;
@@ -26,6 +31,22 @@ public class PlayerLogDirector : MonoBehaviour
     {
         logToggle.isOn = OnOff;
         logToggle.onValueChanged.AddListener(delegate { ChnageToggle(); });
+    }
+
+    private void Update()
+    {
+        while (logQueue.Count > MaxLogs)
+        {
+            var oldest = logQueue.Dequeue();
+            if (oldest != null)
+                Destroy(oldest);
+        }
+
+        // 혹시 Destroy()가 아직 반영 안 되어도 다음 프레임에 다시 체크됨
+        if (LogTransform.childCount > MaxLogs)
+        {
+            Destroy(LogTransform.GetChild(0).gameObject);
+        }
     }
 
     void ChnageToggle()
@@ -58,14 +79,48 @@ public class PlayerLogDirector : MonoBehaviour
         SetPrefab(PlayerLogPrefab.LogType.ItemGet, str);
     }
 
-    public static void ItemBuff()
+    public static void ItemBuff(PlayerLogPrefab.LogType type, string Num)
     {
-        SetPrefab(PlayerLogPrefab.LogType.ItemBuff, "스테이터스 안내");
+        string result = LocalizationSettings.StringDatabase.GetLocalizedString(
+            "PlayerLogUI_St",           // TableReference
+            type.ToString(),            // TableEntryReference
+            new object[] { Num }        // Arguments
+        );
+        SetPrefab(PlayerLogPrefab.LogType.ItemBuff, result);
     }
 
-    public static void ItemBuffEnd()
+    public static void ItemBuffEnd(PlayerLogPrefab.LogType type, string Num)
     {
-        SetPrefab(PlayerLogPrefab.LogType.ItemBuffEnd,"스테이터스 안내2");
+        string result = LocalizationSettings.StringDatabase.GetLocalizedString(
+            "PlayerLogUI_St",           // TableReference
+            type.ToString(),            // TableEntryReference
+            new object[] { Num }        // Arguments
+        );
+        SetPrefab(PlayerLogPrefab.LogType.ItemBuffEnd, result);
+    }
+
+    public static void ItemDeBuff(PlayerLogPrefab.LogType type, string Num)
+    {
+        string result = LocalizationSettings.StringDatabase.GetLocalizedString(
+            "PlayerLogUI_St",           // TableReference
+            type.ToString(),            // TableEntryReference
+            new object[] { Num }        // Arguments
+        );
+        SetPrefab(PlayerLogPrefab.LogType.ItemDeBuff, result);
+    }
+
+    public static void ItemDeBuffEnd(PlayerLogPrefab.LogType type, string Num)
+    {
+        string result = LocalizationSettings.StringDatabase.GetLocalizedString(
+            "PlayerLogUI_St",           // TableReference
+            type.ToString(),            // TableEntryReference
+            new object[] { Num }        // Arguments
+        );
+        SetPrefab(PlayerLogPrefab.LogType.ItemDeBuffEnd, result);
+    }
+    public static void ItemUseInformation(PlayerLogPrefab.LogType type, string str = "")
+    {
+        SetPrefab(type, str);
     }
 
     public static void TrainWarning(float Persent)
@@ -143,12 +198,9 @@ public class PlayerLogDirector : MonoBehaviour
     {
         if (OnOff)
         {
-            PlayerLogPrefab pre = Instantiate(PlayerLogPrefab, LogTransform);
+            var pre = Instantiate(PlayerLogPrefab, LogTransform);
             pre.LogTextSetDouble(log, str, str2);
-            if (LogTransform.childCount > 4)
-            {
-                Destroy(LogTransform.GetChild(0).gameObject);
-            }
+            logQueue.Enqueue(pre.gameObject);
         }
     }
 }

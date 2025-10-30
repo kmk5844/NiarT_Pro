@@ -188,6 +188,7 @@ public class MonsterDirector : MonoBehaviour
                         StartCoroutine(AppearSlowMonster());
                     }
                 }
+            }
         }
         else
         {
@@ -195,7 +196,7 @@ public class MonsterDirector : MonoBehaviour
             {
                 SupplyMonsterNum = SupplyMonster_List.childCount;
                 SlowMonsterNum = Monster_List_Slow.childCount;
-                if(SlowMonsterNum == 0 && SupplyMonsterNum == 0 && MonsterNum <= 0)
+                if (SlowMonsterNum == 0 && SupplyMonsterNum == 0 && MonsterNum <= 0)
                 {
                     if (!GameDirecotr_AllDieFlag)
                     {
@@ -258,11 +259,11 @@ public class MonsterDirector : MonoBehaviour
         isSpawing = false;
     }
 
-    IEnumerator AppearSupplyMonster() 
+    IEnumerator AppearSupplyMonster()
     {
         isSupplySpawing = true;
         yield return new WaitForSeconds(Random.Range(4f, 8f));
-        Random_xPos = Random.Range(MinPos_Sky.x+10f, MaxPos_Sky.x-10f);
+        Random_xPos = Random.Range(MinPos_Sky.x + 10f, MaxPos_Sky.x - 10f);
         Random_yPos = Random.Range(MinPos_Sky.y, MaxPos_Sky.y);
         if (GameDirector_SpawnFlag == true)
         {
@@ -286,7 +287,7 @@ public class MonsterDirector : MonoBehaviour
         {
             Instantiate(_Monster, new Vector3(Random_xPos, Random_yPos, 0), Quaternion.identity, Monster_List_Slow);
         }
-        isSlowSpawing = false;}
+        isSlowSpawing = false;
     }
 
     private void Check_Sky_OR_Ground_Monster(int Monster_Num, bool bossFlag, bool monsterType = false)
@@ -395,6 +396,16 @@ public class MonsterDirector : MonoBehaviour
             MaxMonsterNum += M;
         }
         BossCount++;
+    }
+
+    public void Infinite()
+    {
+        GameDirector_StartFlag = false;
+        GameDirector_SpawnFlag = false;
+        GameDirector_BossFlag = false;
+        GameDirector_Boss_SpawnFlag = false;
+        GameDirector_EndingFlag = false;
+        GameDirecotr_AllDieFlag = false;
     }
 
     private void OnDrawGizmos()

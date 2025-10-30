@@ -38,8 +38,6 @@ public class PlayerLogPrefab : MonoBehaviour
         MercenaryHeal,
         ItemUse,
         ItemGet,
-        ItemBuff,
-        ItemBuffEnd,
         TrainWarning,
         PlayerHPWarning,
         SpeedWarning,
@@ -47,6 +45,28 @@ public class PlayerLogPrefab : MonoBehaviour
         SkillCharge,
         WaveStart,
         MissionTrainWarning,
-        EscortWarning
+        EscortWarning,
+        //-----------------------새로 추가
+        Revival,
+        ItemBuff,
+        ItemBuffEnd,
+        ItemDeBuff,
+        ItemDeBuffEnd,
+        SkillCoolTimeDown,
+        MapMove,
+        CoinFront,
+        CoinBack,
+        P_Atk,
+        P_AtkDelay,
+        P_Armor,
+        P_MoveSpeed,
+        T_TurretSpeed,
+        T_Armor,
+        Dice_1,
+        Dice_2,
+        Dice_3,
+        Dice_4,
+        Dice_5,
+        Dice_6
     }
 }

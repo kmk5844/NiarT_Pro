@@ -114,6 +114,9 @@ public class SA_PlayerData : ScriptableObject
     private bool station_tutorial;
     public bool Station_Tutorial {  get { return station_tutorial; } }
 
+    [SerializeField]
+    private bool Infinite_Mode;
+    public bool infinite_mode { get { return Infinite_Mode; } }
 
     public void SA_GameWinReward(bool lastStage, int R_Coin)
     {
@@ -304,11 +307,20 @@ public class SA_PlayerData : ScriptableObject
         Save();
     }
 
-
     public void SA_BeforeSubSelectStage_Save(int stage)
     {
         before_sub_stage = stage;
         Save_Solo("BeforeSubStage");
+    }
+
+    public void SA_Infinite_Start()
+    {
+        Infinite_Mode = true;
+    }
+
+    public void SA_Infinite_End()
+    {
+        Infinite_Mode = false;
     }
 
     private void Save()

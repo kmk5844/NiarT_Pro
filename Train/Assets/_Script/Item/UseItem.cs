@@ -88,7 +88,7 @@ public class UseItem : MonoBehaviour
                 StartCoroutine(player.Item_Player_Heal_HP_Auto(5f, 10));
                 break;
             case 19:
-                mercenaryDirector.Item_Use_Fatigue_Reliever();
+                mercenaryDirector.Item_Use_Fatigue_Reliever(); // È¸º¹
                 break;
             case 20:
                 StartCoroutine(player.Item_Player_AtkUp_Persent(3, 20));
@@ -419,6 +419,7 @@ public class UseItem : MonoBehaviour
                 StartCoroutine(player.Item_Player_SpeedUP(3f, 20));
                 StartCoroutine(player.Item_Player_AtkUP(10, 20));
                 StartCoroutine(player.Item_Player_AtkDelayDown(0.1f, 20));
+                StartCoroutine(player.Item_Player_ArmorUP(5, 20));
                 break;
             case 79:
                 player.Item_Player_Spawn_Dron(0);

@@ -13,12 +13,15 @@ public class UIDirector : MonoBehaviour
     Player player;
     public SA_ItemList itemList;
     SA_PlayerData playerData;
+    
+    bool infiniteFlag;
 
     [Header("전체적인 UI 오브젝트")]
     public GameObject Game_UI;
     public GameObject Pause_UI;
     public GameObject Result_UI;
     public GameObject Option_UI;
+    public GameObject TrainInformation_UI;
 
     [Header("Playing UI")]
     public Image Player_Blood;
@@ -42,6 +45,17 @@ public class UIDirector : MonoBehaviour
 
     [Header("Game UI - Wave")]
     public GameObject WaveLine;
+
+    [Header("TrainInformationUI")]
+    public LocalizeStringEvent TrainName_Localization;
+    bool RepairFlag;
+    public LocalizeStringEvent Repair_Localization;
+    public TextMeshProUGUI Common_HP;
+    public TextMeshProUGUI Common_Armor;
+    public GameObject[] TrainStatus;
+    public LocalizeStringEvent[] TrainStatus_Localization;
+    public TextMeshProUGUI[] TrainStatus_Text;
+    Train_InGame train;
 
     [Header("Clear UI")]
     public GameObject Clear_UI;
@@ -95,8 +109,6 @@ public class UIDirector : MonoBehaviour
     public Transform GetItemList_Transform_Result;
     public GameObject GetItemList_Object;
     public ResultItem_Tooltip Tooltip_Object;
-
-    bool OptionFlag;
 
     [HideInInspector]
     public bool LoseFlag;
@@ -160,12 +172,12 @@ public class UIDirector : MonoBehaviour
         Player_Head.sprite = Player_Head_Sprite[player.PlayerNum];
         Player_Blood_Color = Player_Blood.GetComponent<Image>().color;
         playerData = gamedirector.SA_PlayerData;
+        infiniteFlag = gamedirector.Infinite_Mode;
 
         ItemName_Text.StringReference.TableReference = "ItemData_Table_St";
         ItemInformation_Text.StringReference.TableReference = "ItemData_Table_St";
 
         LoseFlag = false;
-        OptionFlag = false;
         missionInformationFlag = true;
         DisplayCount = 0;
         Click_MissionInformation();
@@ -181,6 +193,7 @@ public class UIDirector : MonoBehaviour
 
         WarningSpeedEffect_System = WarningSpeedEffect.GetComponentInChildren<ParticleSystem>();
         WarningSpeedEffect_System.Stop();
+        TrainInformationInit();
     }
     private void Update()
     {
@@ -211,11 +224,6 @@ public class UIDirector : MonoBehaviour
                 {
                     StartCoroutine(ItemInformation_Object_Off());
                 }
-            }
-
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                ON_OFF_Option_UI(OptionFlag);
             }
         }
 
@@ -309,16 +317,287 @@ public class UIDirector : MonoBehaviour
 
     public void ON_OFF_Option_UI(bool Flag)
     {
-        if (Flag)
+        Option_UI.SetActive(Flag);
+    }
+
+    public void ON_OFF_TrainInformation_UI(bool Flag)
+    {
+        TrainInformation_UI.SetActive(Flag);
+    }
+
+    public void ON_TrainInformation_UI(Train_InGame train_InGame)
+    {
+        //진행 중
+        train = train_InGame;
+        int num = train.Get_Train_Num;
+        int num2 = train.Get_Train_Num2;
+
+        if(num < 90)
         {
-            OptionFlag = false;
-            Option_UI.SetActive(false);
+            TrainName_Localization.StringReference.TableEntryReference = "Train_Name_" + num / 10;
         }
         else
         {
-            OptionFlag = true;
-            Option_UI.SetActive(true);
+            if(num == 91)
+            {
+                TrainName_Localization.StringReference.TableEntryReference = "Train_Turret_Name_" + num2;
+            }
+            else
+            {
+                TrainName_Localization.StringReference.TableEntryReference = "Train_Name_" + num;
+            }
         }
+
+        RepairFlag = !train.isCooltimeCheckFlag;
+        Common_HP.text =  "<color=red>" + train.Train_HP + "</color> / " + train.Max_Train_HP;
+
+        if(train.Train_Armor - train.Origin_Train_Armor > 0)
+        {
+            Common_Armor.text = train.Origin_Train_Armor + " -> <color=green>" + train.Train_Armor + " ▲";
+        }else if (train.Train_Armor - train.Origin_Train_Armor == 0)
+        {
+            Common_Armor.text = train.Train_Armor.ToString();
+        }
+        else
+        {
+            Common_Armor.text = train.Origin_Train_Armor + " -> <color=red>" + train.Train_Armor + " ▼";
+        }
+
+
+        if (RepairFlag)
+        {
+            Repair_Localization.StringReference.TableEntryReference = "UI_Train_Information_Repair";
+        }
+        else
+        {
+            Repair_Localization.StringReference.TableEntryReference = "UI_Train_Information_NoRepair";
+        }
+
+        string type = train.Train_Type;
+        switch (type)
+        {
+            case "Engine":
+                TrainStatus_Localization[0].StringReference.TableEntryReference = "UI_Train_Status_MaxSpeed";
+                TrainStatus_Localization[1].StringReference.TableEntryReference = "UI_Train_Status_Efficient";
+                TrainStatus_Localization[2].StringReference.TableEntryReference = "UI_Train_Status_EnginePower";
+                TrainStatus_Text[0].text = gamedirector.Get_TrainMaxSpeed + " -> <color=red>" + gamedirector.MaxSpeed;
+                TrainStatus_Text[1].text = gamedirector.Get_TrainEfficient + " -> <color=green>" + gamedirector.Get_NowEfficient;
+                TrainStatus_Text[2].text = gamedirector.Get_TrainEnginePower + " -> <color=green>" + gamedirector.Get_NowEnginePower;
+                TrainStatus[0].SetActive(true);
+                TrainStatus[1].SetActive(true);
+                TrainStatus[2].SetActive(true);
+                break;
+            case "Medic":
+                TrainStatus_Localization[0].StringReference.TableEntryReference = "UI_Train_Status_TotalAmount";
+                TrainStatus_Text[0].text = "<color=red>" + train.Train_Heal + "</color> / " + train.Max_Train_Heal;
+                TrainStatus[0].SetActive(true);
+                TrainStatus[1].SetActive(false);
+                TrainStatus[2].SetActive(false);
+                break;
+            case "Self_Turret": 
+                SelfTurret_Train selfTurret = train.GetComponentInChildren<SelfTurret_Train>();
+                TrainStatus_Localization[0].StringReference.TableEntryReference = "UI_Train_Status_FuelAmount";
+                TrainStatus_Localization[1].StringReference.TableEntryReference = "UI_Train_Status_Atk";
+                TrainStatus_Localization[2].StringReference.TableEntryReference = "UI_Train_Status_AtkDelay";
+                if(selfTurret.SelfTurretTrain_Fuel >= selfTurret.Max_SelfTurretTrain_Fuel)
+                {
+                    TrainStatus_Text[0].text = "<color=green>" + selfTurret.Max_SelfTurretTrain_Fuel + "</color> / " + selfTurret.Max_SelfTurretTrain_Fuel;
+                }
+                else
+                {
+                    TrainStatus_Text[0].text = "<color=red>" + selfTurret.SelfTurretTrain_Fuel + "</color> / " + selfTurret.Max_SelfTurretTrain_Fuel;
+                }
+                TrainStatus_Text[1].text = train.trainData_Special_String[1].ToString();
+                TrainStatus_Text[2].text = train.trainData_Special_String[2].ToString();
+                TrainStatus[0].SetActive(true);
+                TrainStatus[1].SetActive(true);
+                TrainStatus[2].SetActive(true);
+                break;
+            case "Supply":
+                Supply_Train supply = train.GetComponentInChildren<Supply_Train>();
+                TrainStatus_Localization[0].StringReference.TableEntryReference = "UI_Train_Status_FuelAmount";
+                if (supply.SupplyTrain_Fuel >= supply.Max_SupplyTrain_Fuel)
+                {
+                    TrainStatus_Text[0].text = "<color=green>" + supply.Max_SupplyTrain_Fuel + "</color> / " + supply.Max_SupplyTrain_Fuel;
+                }
+                else
+                {
+                    TrainStatus_Text[0].text = "<color=red>" + supply.SupplyTrain_Fuel + "</color> / " + supply.Max_SupplyTrain_Fuel;
+                }
+                TrainStatus[0].SetActive(true);
+                TrainStatus[1].SetActive(false);
+                TrainStatus[2].SetActive(false);
+                break;
+            case "Booster":
+                Booster_Train booster = train.GetComponentInChildren<Booster_Train>();
+                TrainStatus_Localization[0].StringReference.TableEntryReference = "UI_Train_Status_WarningSpeed";
+                TrainStatus_Localization[1].StringReference.TableEntryReference = "UI_Train_Status_FuelAmount";
+                TrainStatus_Text[0].text = train.trainData_Special_String[0].ToString();
+                if (booster.BoosterFuel >= booster.Data_BoosterFuel)
+                {
+                    TrainStatus_Text[1].text = "<color=green>" + booster.Data_BoosterFuel + "</color> / " + booster.Data_BoosterFuel;
+                }
+                else
+                {
+                    TrainStatus_Text[1].text = "<color=red>" + booster.BoosterFuel + "</color> / " + booster.Data_BoosterFuel;
+                }
+                TrainStatus[0].SetActive(true);
+                TrainStatus[1].SetActive(true);
+                TrainStatus[2].SetActive(false);
+                break;
+            case "Repair":
+                Repair_Train Repair = train.GetComponentInChildren<Repair_Train>();
+                TrainStatus_Localization[0].StringReference.TableEntryReference = "UI_Train_Status_CoolTime";
+                TrainStatus_Localization[1].StringReference.TableEntryReference = "UI_Train_Status_HealPersent";
+                TrainStatus_Localization[2].StringReference.TableEntryReference = "UI_Train_Status_HealCount";
+                if (Repair.elapsed >= Repair.SpawnTime)
+                {
+                    TrainStatus_Text[0].text = "<color=green>" + Repair.SpawnTime + "</color> / " + Repair.SpawnTime;
+                }
+                else
+                {
+                    TrainStatus_Text[0].text = "<color=red>" + Repair.elapsed.ToString("F0") + "</color> / " + Repair.SpawnTime;
+                }
+                TrainStatus_Text[1].text = train.trainData_Special_String[1] + "%";
+                TrainStatus_Text[2].text = train.trainData_Special_String[2].ToString();
+                TrainStatus[0].SetActive(true);
+                TrainStatus[1].SetActive(true);
+                TrainStatus[2].SetActive(true);
+                break;
+            case "TurretFactory":
+                TurretFactory_Train TF = train.GetComponentInChildren<TurretFactory_Train>();
+                TrainStatus_Localization[0].StringReference.TableEntryReference = "UI_Train_Status_CoolTime";
+                if (TF.elasped >= TF.SpawnTime)
+                {
+                    TrainStatus_Text[0].text = "<color=green>" + TF.SpawnTime + "</color> / " + TF.SpawnTime;
+                }
+                else
+                {
+                    TrainStatus_Text[0].text = "<color=red>" + TF.elasped.ToString("F0") + "</color> / " + TF.SpawnTime;
+                }
+                TrainStatus[0].SetActive(true);
+                TrainStatus[1].SetActive(false);
+                TrainStatus[2].SetActive(false);
+                break;
+            case "DronFactory":
+                DronFactoryTrain DF = train.GetComponentInChildren<DronFactoryTrain>();
+                TrainStatus_Localization[0].StringReference.TableEntryReference = "UI_Train_Status_CoolTime";
+                TrainStatus_Localization[1].StringReference.TableEntryReference = "UI_Train_Status_ObjectHP";
+                if (DF.elapsed >= DF.SpawnTime)
+                {
+                    TrainStatus_Text[0].text = "<color=green>" + DF.SpawnTime + "</color> / " + DF.SpawnTime;
+                }
+                else
+                {
+                    TrainStatus_Text[0].text = "<color=red>" + DF.elapsed.ToString("F0") + "</color> / " + DF.SpawnTime;
+                }
+                TrainStatus_Text[1].text = int.Parse(train.trainData_Special_String[1]) * 100 + " ~ " + int.Parse(train.trainData_Special_String[2]) * 100;
+                TrainStatus[0].SetActive(true);
+                TrainStatus[1].SetActive(true);
+                TrainStatus[2].SetActive(false);
+                break;
+            case "FuelSignal":
+                FuelSignalTrain FT = train.GetComponentInChildren<FuelSignalTrain>();
+                TrainStatus_Localization[0].StringReference.TableEntryReference = "UI_Train_Status_CoolTime";
+                TrainStatus_Localization[1].StringReference.TableEntryReference = "UI_Train_Status_SupplyFuel"; 
+                if (FT.elapsed >= FT.SpawnTime)
+                {
+                    TrainStatus_Text[0].text = "<color=green>" + FT.SpawnTime + "</color> / " + FT.SpawnTime;
+                }
+                else
+                {
+                    TrainStatus_Text[0].text = "<color=red>" + FT.elapsed.ToString("F0") + "</color> / " + FT.SpawnTime;
+                }
+                TrainStatus_Text[1].text = int.Parse(train.trainData_Special_String[1]) + "% ~ " + int.Parse(train.trainData_Special_String[2]) + "%";
+                TrainStatus[0].SetActive(true);
+                TrainStatus[1].SetActive(true);
+                TrainStatus[2].SetActive(false);
+                break;
+            case "Hangar":
+                Hangar_Train HT = train.GetComponentInChildren<Hangar_Train>();
+                TrainStatus_Localization[0].StringReference.TableEntryReference = "UI_Train_Status_CoolTime";
+                if (HT.elapsed >= HT.SpawnTime)
+                {
+                    TrainStatus_Text[0].text = "<color=green>" + HT.SpawnTime + "</color> / " + HT.SpawnTime;
+                }
+                else
+                {
+                    TrainStatus_Text[0].text = "<color=red>" + HT.elapsed.ToString("F0") + "</color> / " + HT.SpawnTime;
+                }
+                TrainStatus[0].SetActive(true);
+                TrainStatus[1].SetActive(false);
+                TrainStatus[2].SetActive(false);
+                break;
+            case "IronPlateFactory":
+                IronPlateFactory IT = train.GetComponentInChildren<IronPlateFactory>();
+                TrainStatus_Localization[0].StringReference.TableEntryReference = "UI_Train_Status_CoolTime";
+                TrainStatus_Localization[1].StringReference.TableEntryReference = "UI_Train_Status_ObjectHP";
+                if (IT.elapsed >= IT.SpawnTime)
+                {
+                    TrainStatus_Text[0].text = "<color=green>" + IT.SpawnTime + "</color> / " + IT.SpawnTime;
+                }
+                else
+                {
+                    TrainStatus_Text[0].text = "<color=red>" + IT.elapsed.ToString("F0") + "</color> / " + IT.SpawnTime;
+                }
+                TrainStatus_Text[1].text = 100 + " ~ " + 300;
+                TrainStatus[0].SetActive(true);
+                TrainStatus[1].SetActive(true);
+                TrainStatus[2].SetActive(false);
+                break;
+            case "TurretUpgrade":
+                TurretUpgradeTrain TU = train.GetComponentInChildren<TurretUpgradeTrain>();
+                TrainStatus_Localization[0].StringReference.TableEntryReference = "UI_Train_Status_CoolTime";
+                TrainStatus_Localization[1].StringReference.TableEntryReference = "UI_Train_Status_UpPersent";
+                if (TU.elapsed >= TU.SpawnTime)
+                {
+                    TrainStatus_Text[0].text = "<color=green>" + TU.SpawnTime + "</color> / " + TU.SpawnTime;
+                }
+                else
+                {
+                    TrainStatus_Text[0].text = "<color=red>" + TU.elapsed.ToString("F0") + "</color> / " + TU.SpawnTime;
+                }
+                TrainStatus_Text[1].text = train.trainData_Special_String[1] + "%";
+                TrainStatus[0].SetActive(true);
+                TrainStatus[1].SetActive(true);
+                TrainStatus[2].SetActive(false);
+                break;
+            case "Turret":
+                TrainStatus_Localization[0].StringReference.TableEntryReference = "UI_Train_Status_Atk";
+                TrainStatus_Localization[1].StringReference.TableEntryReference = "UI_Train_Status_AtkDelay";
+                TrainStatus_Text[0].text = train.Train_Attack.ToString();
+                if(train.Plus_Attack_Delay != 0)
+                {
+                    TrainStatus_Text[1].text = train.Train_Attack_Delay.ToString("F1") + " -> <color=green>" + (train.Train_Attack_Delay - train.Plus_Attack_Delay).ToString("F1") + " ▲";
+                }
+                else
+                {
+                    TrainStatus_Text[1].text = train.Train_Attack_Delay.ToString("F1");
+                }
+                TrainStatus[0].SetActive(true);
+                TrainStatus[1].SetActive(true);
+                TrainStatus[2].SetActive(false);
+                break;
+            default :
+                TrainStatus[0].SetActive(false);
+                TrainStatus[1].SetActive(false);
+                TrainStatus[2].SetActive(false);
+                break;
+
+        }
+    }
+
+    void TrainInformationInit()
+    {
+        TrainInformation_UI.SetActive(false);
+        TrainName_Localization.StringReference.TableReference = "ExcelData_Table_St";
+        Repair_Localization.StringReference.TableReference = "InGame_Table_St";
+        for(int i = 0; i < 3; i++)
+        {
+            TrainStatus[i].SetActive(false);
+            TrainStatus_Localization[i].StringReference.TableReference = "Station_Table_St";
+        }
+        RepairFlag = false;
     }
 
     public void Gameing_Text(int Coin)
@@ -368,14 +647,12 @@ public class UIDirector : MonoBehaviour
     public void Click_Option()
     {
         gamedirector.GameType_Option(true);
-        OptionFlag = true;
         Option_UI.SetActive(true);
     }
 
     public void Click_Option_Exit()
     {
         gamedirector.GameType_Option(false);
-        OptionFlag = false;
         Option_UI.SetActive(false);
     }
 
@@ -731,6 +1008,11 @@ public class UIDirector : MonoBehaviour
         if (num == 0)
         {
             StartCoroutine(gamedirector.Item_Double_Coin(5));
+            PlayerLogDirector.ItemUseInformation(PlayerLogPrefab.LogType.CoinFront, "5");
+        }
+        else
+        {
+            PlayerLogDirector.ItemUseInformation(PlayerLogPrefab.LogType.CoinBack);
         }
         CoinWindow.SetActive(false);
     }

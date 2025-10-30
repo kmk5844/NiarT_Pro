@@ -33,6 +33,8 @@ public class GameDirector : MonoBehaviour
     public SA_StageList SA_StageList;
     //StageDataObject StageData;
 
+
+    [Header("스토리 버전")]
     //새로운 스테이지 정보
     [SerializeField]
     public MissionDataObject SubStageData;
@@ -42,6 +44,9 @@ public class GameDirector : MonoBehaviour
     //잠글 스테이지 정보
     [SerializeField]
     public List<int> PrevSubStageNum;
+
+    [Header("무한 버전")]
+    public bool Infinite_Mode = false;
 
     public SA_PlayerData SA_PlayerData;
     public Game_DataTable EX_GameData;
@@ -132,18 +137,39 @@ public class GameDirector : MonoBehaviour
     [Header("레벨 업 적용 전의 기차")]
     [SerializeField]
     int TrainMaxSpeed;
+    public int Get_TrainMaxSpeed
+    {
+        get { return TrainMaxSpeed; }
+    }
     [SerializeField]
     int TrainEfficient;
+    public int Get_TrainEfficient
+    {
+        get { return TrainEfficient; }
+    }
     [SerializeField]
     int TrainEnginePower;
+    public int Get_TrainEnginePower
+    {
+        get { return TrainEnginePower; }
+    }
 
     [Header("레벨 업 적용 후의 기차")]
     [SerializeField]
     public float MaxSpeed;
     [SerializeField]
     int Efficient;
+    public int Get_NowEfficient
+    {
+        get { return Efficient; }
+    }
+
     [SerializeField]
     int EnginePower;
+    public int Get_NowEnginePower
+    {
+        get { return EnginePower; }
+    }
 
     [Header("수리")]
     bool repairFlag = false;
@@ -256,7 +282,7 @@ public class GameDirector : MonoBehaviour
         }
         catch
         {
-            Mission_Num = SA_PlayerData.Mission_Num;
+            Mission_Num  = SA_PlayerData.Mission_Num;
             Stage_Num = SA_PlayerData.Select_Stage;
         }
         Before_Sub_Num = SA_PlayerData.Before_Sub_Stage;
@@ -269,27 +295,36 @@ public class GameDirector : MonoBehaviour
             Select_Sub_Num = Test_Select_Sub_Num;
         }
 
-        SubStageData = SA_MissionData.missionStage(Mission_Num, Stage_Num, Select_Sub_Num);
-
-        NextSubStageNum = new List<int>();
-        string[] nextSubStageList = SubStageData.Open_SubStageNum.Split(',');
-        foreach (string sub in nextSubStageList)
+        if (!Infinite_Mode)
         {
-            NextSubStageNum.Add(int.Parse(sub));
-        }
+            SubStageData = SA_MissionData.missionStage(Mission_Num, Stage_Num, Select_Sub_Num);
 
-        if (Select_Sub_Num != 0)
-        {
-            if (Before_Sub_Num != -1)
+            NextSubStageNum = new List<int>();
+            string[] nextSubStageList = SubStageData.Open_SubStageNum.Split(',');
+            foreach (string sub in nextSubStageList)
             {
-                MissionDataObject PrevStageData = SA_MissionData.missionStage(Mission_Num, Stage_Num, Before_Sub_Num);
-                PrevSubStageNum = new List<int>();
-                string[] prevSubStageList = PrevStageData.Open_SubStageNum.Split(',');
-                foreach (string sub in prevSubStageList)
+                NextSubStageNum.Add(int.Parse(sub));
+            }
+
+            if (Select_Sub_Num != 0)
+            {
+                if (Before_Sub_Num != -1)
                 {
-                    PrevSubStageNum.Add(int.Parse(sub));
+                    MissionDataObject PrevStageData = SA_MissionData.missionStage(Mission_Num, Stage_Num, Before_Sub_Num);
+                    PrevSubStageNum = new List<int>();
+                    string[] prevSubStageList = PrevStageData.Open_SubStageNum.Split(',');
+                    foreach (string sub in prevSubStageList)
+                    {
+                        PrevSubStageNum.Add(int.Parse(sub));
+                    }
                 }
             }
+        }
+        else
+        {
+            Mission_Num = 999;
+            Stage_Num = 999;
+            Select_Sub_Num = 999;
         }
 
         BGM_ID = 30;
@@ -315,15 +350,21 @@ public class GameDirector : MonoBehaviour
         cursorHotspot_Aim = new Vector2(cursorAim_UnAtk.width / 2, cursorAim_UnAtk.height / 2);
         ChangeCursor(true);
         BossGuage = uiDirector.BossHP_Guage;
-
         StageBackGround_Setting();
-        Stage_Init();
-        Train_Init();
-        /*
-                RefreshPersent = 50;
-                RefreshDistance = (int)(Destination_Distance * (RefreshPersent / 100));*/
 
-        RefreshCount = SubStageData.Wave_Count;
+        if (!Infinite_Mode)
+        {
+            Stage_Init();
+            Train_Init();
+            RefreshCount = SubStageData.Wave_Count;
+        }
+        else
+        {
+            Stage_Init_Infinit();
+            Train_Init_Infinit();
+            RefreshCount = 0;
+        }
+
         CalculateRefreshPoints();
 
         newPoint = new Vector2[4];
@@ -401,11 +442,30 @@ public class GameDirector : MonoBehaviour
                         TrainDistance = 99999999;
                     }
                 }*/
+        if (Input.GetMouseButton(1))
+        {
+            if (!uiDirector.TrainInformation_UI.activeSelf)
+            {
+                uiDirector.ON_OFF_TrainInformation_UI(true);
+            }
+            else
+            {
+                uiDirector.ON_TrainInformation_UI(player.train);
+            }
+        }
+        else
+        {
+            if (uiDirector.TrainInformation_UI.activeSelf)
+            {
+                uiDirector.ON_OFF_TrainInformation_UI(false);
+            }
+        }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (gameType == GameType.Starting || gameType == GameType.Playing || gameType == GameType.Boss || gameType == GameType.Refreshing)
             {
+                uiDirector.ON_OFF_Option_UI(true);
                 Before_GameType = gameType;
                 gameType = GameType.Pause;
                 MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Pause, BGM_ID);
@@ -414,6 +474,7 @@ public class GameDirector : MonoBehaviour
             }
             else if (gameType == GameType.Pause)
             {
+                uiDirector.ON_OFF_Option_UI(false);
                 gameType = Before_GameType;
                 MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Resume, BGM_ID);
                 MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Resume, TrainSFX_ID);
@@ -909,9 +970,68 @@ public class GameDirector : MonoBehaviour
         }
     }
 
+    void Stage_Init_Infinit()
+    {
+        Emerging_Monster_String = "0"; // 임시
+        Emerging_MonsterCount_String = "5,0"; // 임시
+        Destination_Distance = 10000;
+        Emerging_Monster_Sky = new List<int>();
+        Emerging_Monster_Ground = new List<int>();
+        Emerging_MonsterCount = new List<int>();
+        string[] Monster_String = Emerging_Monster_String.Split(',');
+        string[] MonsterCount_String = Emerging_MonsterCount_String.Split(",");
+        for (int i = 0; i < Monster_String.Length; i++)
+        {
+            int num1;
+            num1 = int.Parse(Monster_String[i]);
+            if (EX_GameData.Information_Monster[num1].Monster_Type == "Sky")
+            {
+                Emerging_Monster_Sky.Add(num1);
+            }
+            else if (EX_GameData.Information_Monster[num1].Monster_Type == "Ground")
+            {
+                Emerging_Monster_Ground.Add(num1);
+            }
+            else if (EX_GameData.Information_Monster[num1].Monster_Type == "Slow")
+            {
+                Emerging_Monster_Slow.Add(num1);
+            }
+        }
+
+        for (int i = 0; i < MonsterCount_String.Length; i++)
+        {
+            int num2;
+            num2 = int.Parse(MonsterCount_String[i]);
+            Emerging_MonsterCount.Add(num2);
+        }
+
+        monsterDirector.Get_Monster_List(Emerging_Monster_Sky, Emerging_Monster_Ground, Emerging_Monster_Slow, Emerging_MonsterCount);
+
+        if (Test_Mode)
+        {
+            if (Test_Boss_Mode)
+            {
+                Data_BossFlag = true;
+                Emerging_Boss.Add(int.Parse(Test_Boss_Num));
+                Emerging_Boss_Distance.Add(1);
+                Emerging_Boss_Monster_Count.Add(1);
+                monsterDirector.Get_Boss_List(Emerging_Boss);
+            }
+        }
+    }
+
     void StageBackGround_Setting()
     {
-        int _stageNum = EX_GameData.Information_Stage[Stage_Num].GameBackGround;
+        int _stageNum = 0;
+        if (!Infinite_Mode)
+        {
+            _stageNum = EX_GameData.Information_Stage[Stage_Num].GameBackGround;
+        }
+        else
+        {
+            _stageNum = 0;
+        }
+
         BackGroundList[_stageNum].SetActive(true);
         StationObjectList[_stageNum].SetActive(true);
     }
@@ -1007,6 +1127,71 @@ public class GameDirector : MonoBehaviour
             ES3.Save<int>("Train_Curret_TotalFuel", Total_TrainFuel);
         }
     }
+
+    void Train_Init_Infinit()
+    {
+        Trains = new List<Train_InGame>();
+        Train_Turret_Count = 0;
+
+        List<int> TrainNumList = new List<int>() { 0, 10, 91 }; //임시
+        List<int> TrainTurretNumList = new List<int>() { 0 }
+        ; //임시
+        Train_Num = TrainNumList.ToList();
+        Train_Turret_Num = TrainTurretNumList.ToList();
+
+        for (int i = 0; i < Train_Num.Count; i++)
+        {
+            if (Train_Num[i] == 91)
+            {
+                TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_InGame/91_" + Train_Turret_Num[Train_Turret_Count]), Train_List);
+                Train_Turret_Count++;
+            }
+            else
+            {
+                TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_InGame/" + Train_Num[i]), Train_List);
+            }
+
+            if (i == 0)
+            {
+                //엔진칸
+                TrainObject.transform.position = new Vector3(-0.43f, 0f, 0);
+            }
+            else
+            {
+                //나머지칸
+                TrainObject.transform.position = new Vector3(-10.94f * i, 0f, 0);
+            }
+
+            Train_InGame train = TrainObject.GetComponent<Train_InGame>();
+
+            train.Train_Index = i;
+            train.trainHitSFX = TrainHitSFX;
+
+            if (train.Train_Type.Equals("Engine"))
+            {
+                TrainMaxSpeed = train.Train_MaxSpeed;
+                TrainEfficient = train.Train_Efficient;
+                TrainEnginePower = train.Train_Engine_Power;
+            }
+            else if (train.Train_Type.Equals("Fuel"))
+            {
+                TrainFuel += train.Train_Fuel;
+            }
+            TrainWeight += train.Train_Weight;
+            Trains.Add(train);
+        }
+
+        Train_Count = Train_List.childCount;
+
+        Level_EngineTier = 0;
+        Level_MaxSpeed = 0;
+        Level_Efficient = 0;
+        Level();
+        SpawnTrainFlag = true;
+
+        Total_TrainFuel = TrainFuel;
+    }
+
     public void Level()
     {
         MaxSpeed = TrainMaxSpeed + ((TrainMaxSpeed * Level_MaxSpeed) / 100); // 많을 수록 유리
@@ -1073,7 +1258,6 @@ public class GameDirector : MonoBehaviour
             uiDirector.Gameing_Text(Total_Coin);
             return false;
         }
-
     }
 
     public void Mission_Monster_Kill()
@@ -1103,8 +1287,15 @@ public class GameDirector : MonoBehaviour
 
     private void Game_Win()
     {
-        SubStage_Clear();
-        SubStage_LockOff(); // 마지막 스테이지 종료 판단
+        if(!Infinite_Mode)
+        {
+            SubStage_Clear();
+            SubStage_LockOff(); // 마지막 스테이지 종료 판단
+        }
+        else
+        {
+            Change_Game_End(true, lastFlag);
+        }
         MMSoundManagerSoundPlayEvent.Trigger(WinSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
     }
 
@@ -1167,101 +1358,87 @@ public class GameDirector : MonoBehaviour
     private void Change_Game_End(bool WinFlag, bool subStage_Last, int LoseNum = -1) // 이겼을 때
     {
         gameType = GameType.GameEnd;
-        bool chapter_clearFlag = SA_StageList.Stage[Stage_Num].Stage_ClearFlag;
-        if (WinFlag)
+        if(!Infinite_Mode)
         {
-            missionDirector.Adjustment_Mission(); // 정보 갱신하기.
-            if (!subStage_Last)
+            bool chapter_clearFlag = SA_StageList.Stage[Stage_Num].Stage_ClearFlag;
+            if (WinFlag)
             {
-                bool flag = missionDirector.selectmission.CheckMission(lastFlag);
-                if (flag) // 문제 없다.
+                missionDirector.Adjustment_Mission(); // 정보 갱신하기.
+                if (!subStage_Last)
                 {
-                    //Debug.Log("작동 완료" + flag);
-                    GameEnd_SavePlayerData(false);
-                    uiDirector.Open_SubSelect();
-                    SA_PlayerData.SA_GameWinReward(false, Total_Coin);
-                }
-                else
-                {
-                    //문제가 발생했으니 결과창을 띄운다
-                    //미션 실패다.
-                    //Debug.Log("작업 해야됨" + flag);
-                    missionDirector.selectmission.Mission_Fail();
-                    SA_PlayerData.SA_MissionPlaying(false);
-                    GameEnd_SavePlayerData(true);
-                    uiDirector.Open_Result_UI(false, Total_Coin, missionDirector.selectmission, chapter_clearFlag, LoseNum);
-                }
-
-            }
-            else //마지막스테이지일 때
-            {
-                bool flag = missionDirector.selectmission.CheckMission(lastFlag);
-                if (flag)
-                { // 미션 통과다
-                    //Debug.Log("마지막 작동 완료" + flag);
-                    missionDirector.selectmission.Mission_Sucesses(SA_StageList.Stage[Stage_Num]);
-                    GameEnd_SavePlayerData(true);
-
-                    uiDirector.Open_Result_UI(true, Total_Coin, missionDirector.selectmission, chapter_clearFlag, LoseNum);
-                    LastSubStageClear();
-                    SA_PlayerData.change_clickStartButton(false);
-                    SA_PlayerData.SA_GameWinReward(true, Total_Coin);
-                    SA_PlayerData.SA_MissionPlaying(false);
-                    SA_MissionData.SubStage_Init(Stage_Num, Mission_Num); // 승리
-
-                    if (SteamAchievement.instance != null)
+                    bool flag = missionDirector.selectmission.CheckMission(lastFlag);
+                    if (flag) // 문제 없다.
                     {
-                        SteamAchievement.instance.Achieve("CLEAR_STAGE_" + Stage_Num);
+                        //Debug.Log("작동 완료" + flag);
+                        GameEnd_SavePlayerData(false);
+                        uiDirector.Open_SubSelect();
+                        SA_PlayerData.SA_GameWinReward(false, Total_Coin);
                     }
                     else
                     {
-                        Debug.Log("CLEAR_STAGE_" + Stage_Num);
+                        //문제가 발생했으니 결과창을 띄운다
+                        //미션 실패다.
+                        //Debug.Log("작업 해야됨" + flag);
+                        missionDirector.selectmission.Mission_Fail();
+                        SA_PlayerData.SA_MissionPlaying(false);
+                        GameEnd_SavePlayerData(true);
+                        uiDirector.Open_Result_UI(false, Total_Coin, missionDirector.selectmission, chapter_clearFlag, LoseNum);
                     }
+
                 }
-                else // 미션 실패다
+                else //마지막스테이지일 때
                 {
-                    //Debug.Log("작업 해야됨 - 실패로 간주하고 초기화해야됨");
-                    LoseNum = 2;
-                    missionDirector.selectmission.Mission_Fail();
-                    SA_PlayerData.SA_MissionPlaying(false);
-                    SA_MissionData.SubStage_Init(Stage_Num, Mission_Num); // 승리
-                    uiDirector.Open_Result_UI(false, Total_Coin, missionDirector.selectmission, chapter_clearFlag, LoseNum);
-                }
-            }
-        }
-        else // 패배했을 때... //체력 부족 및 기차가 멈췄을 때,
-        {
-            missionDirector.selectmission.Mission_Fail();
-            SA_PlayerData.SA_MissionPlaying(false);
-            uiDirector.Open_Result_UI(false, Total_Coin, missionDirector.selectmission, chapter_clearFlag, LoseNum);
-        }
-        /*
-                if (WinFlag && subStage_Last)
-                {
-                   string[] ItemList = Reward_ItemNum.Split(',');
-                                string[] ItemList_Count = Reward_ItemCount.Split(",");
-                                List<int> Item_List = new List<int>();
-                                int ItemNum;
-                                int ItemCount;
-                    if (!StageData.Player_FirstPlay)
-                    {
-                        for (int i = 0; i < Reward_Num + 1; i++)
+                    bool flag = missionDirector.selectmission.CheckMission(lastFlag);
+                    if (flag)
+                    { // 미션 통과다
+                      //Debug.Log("마지막 작동 완료" + flag);
+                        missionDirector.selectmission.Mission_Sucesses(SA_StageList.Stage[Stage_Num]);
+                        GameEnd_SavePlayerData(true);
+
+                        uiDirector.Open_Result_UI(true, Total_Coin, missionDirector.selectmission, chapter_clearFlag, LoseNum);
+                        LastSubStageClear();
+                        SA_PlayerData.change_clickStartButton(false);
+                        SA_PlayerData.SA_GameWinReward(true, Total_Coin);
+                        SA_PlayerData.SA_MissionPlaying(false);
+                        SA_MissionData.SubStage_Init(Stage_Num, Mission_Num); // 승리
+
+                        if (SteamAchievement.instance != null)
                         {
-                            ItemNum = int.Parse(ItemList[i]);
-                            ItemCount = int.Parse(ItemList_Count[i]);
-                            if (ItemNum != -1)
-                            {
-                                itemDirector.itemList.Item[ItemNum].Item_Count_UP(ItemCount);
-                                uiDirector.GetItemList_Num.Add(ItemNum);
-                            }
+                            SteamAchievement.instance.Achieve("CLEAR_STAGE_" + Stage_Num);
+                        }
+                        else
+                        {
+                            Debug.Log("CLEAR_STAGE_" + Stage_Num);
                         }
                     }
-                    else
+                    else // 미션 실패다
                     {
-                        int BeforeGradeNum = Check_StageDataGrade();
-                        if(BeforeGradeNum < Reward_Num)
+                        //Debug.Log("작업 해야됨 - 실패로 간주하고 초기화해야됨");
+                        LoseNum = 2;
+                        missionDirector.selectmission.Mission_Fail();
+                        SA_PlayerData.SA_MissionPlaying(false);
+                        SA_MissionData.SubStage_Init(Stage_Num, Mission_Num); // 승리
+                        uiDirector.Open_Result_UI(false, Total_Coin, missionDirector.selectmission, chapter_clearFlag, LoseNum);
+                    }
+                }
+            }
+            else // 패배했을 때... //체력 부족 및 기차가 멈췄을 때,
+            {
+                missionDirector.selectmission.Mission_Fail();
+                SA_PlayerData.SA_MissionPlaying(false);
+                uiDirector.Open_Result_UI(false, Total_Coin, missionDirector.selectmission, chapter_clearFlag, LoseNum);
+            }
+            /*
+                    if (WinFlag && subStage_Last)
+                    {
+                       string[] ItemList = Reward_ItemNum.Split(',');
+                                    string[] ItemList_Count = Reward_ItemCount.Split(",");
+                                    List<int> Item_List = new List<int>();
+                                    int ItemNum;
+                                    int ItemCount;
+                        if (!StageData.Player_FirstPlay)
                         {
-                            for(int i = BeforeGradeNum + 1; i < Reward_Num + 1; i++)
+                            for (int i = 0; i < Reward_Num + 1; i++)
                             {
                                 ItemNum = int.Parse(ItemList[i]);
                                 ItemCount = int.Parse(ItemList_Count[i]);
@@ -1272,7 +1449,48 @@ public class GameDirector : MonoBehaviour
                                 }
                             }
                         }
-                    }*/
+                        else
+                        {
+                            int BeforeGradeNum = Check_StageDataGrade();
+                            if(BeforeGradeNum < Reward_Num)
+                            {
+                                for(int i = BeforeGradeNum + 1; i < Reward_Num + 1; i++)
+                                {
+                                    ItemNum = int.Parse(ItemList[i]);
+                                    ItemCount = int.Parse(ItemList_Count[i]);
+                                    if (ItemNum != -1)
+                                    {
+                                        itemDirector.itemList.Item[ItemNum].Item_Count_UP(ItemCount);
+                                        uiDirector.GetItemList_Num.Add(ItemNum);
+                                    }
+                                }
+                            }
+                        }*/
+        }
+        else
+        {
+            if (WinFlag)
+            {
+                Destination_Distance = Destination_Distance += 10000;
+                TrainDistance = 0;
+                monsterDirector.Infinite();
+                GameStartFlag = false;
+                isStationHideFlag = false;
+                isStationHideEndFlag = false;
+                isStationShowFlag = false;
+                isStationShowEndFlag = false;
+                GameWinFlag = false;
+                StartTime = Time.time;
+                gameType = GameType.Starting;
+                Debug.Log("이어서");
+            }else
+            {
+                missionDirector.selectmission.Infinite_End();
+                SA_PlayerData.SA_Infinite_End();
+                Debug.Log("무한모드 종료");
+            }
+        }
+        
     }
 
     public void MissionFail()
@@ -1479,6 +1697,14 @@ public class GameDirector : MonoBehaviour
             Train_InGame train = Train_List.GetChild(i).GetComponent<Train_InGame>();
             StartCoroutine(train.Item_Train_Turret_SpeedUP(persent, delayTime));
         }
+        StartCoroutine(Item_Use_Train_Turret_All_SpeedUp_Log(persent, delayTime));
+    }
+
+    IEnumerator Item_Use_Train_Turret_All_SpeedUp_Log(float persent, float delayTime)
+    {
+        PlayerLogDirector.ItemBuff(PlayerLogPrefab.LogType.T_TurretSpeed, persent.ToString("F1"));
+        yield return new WaitForSeconds(delayTime);
+        PlayerLogDirector.ItemBuffEnd(PlayerLogPrefab.LogType.T_TurretSpeed, persent.ToString("F1"));
     }
 
     public void Item_Spawn_Train_BulletproofPlate(int hp, int sp_Num)
@@ -1496,6 +1722,14 @@ public class GameDirector : MonoBehaviour
             Train_InGame train = Train_List.GetChild(i).GetComponent<Train_InGame>();
             StartCoroutine(train.Item_Armor_Up(delayTime, parsent));
         }
+        StartCoroutine(Item_Train_Armor_Up_Log(parsent, delayTime));
+    }
+
+    IEnumerator Item_Train_Armor_Up_Log(float persent, float delayTime)
+    {
+        PlayerLogDirector.ItemBuff(PlayerLogPrefab.LogType.T_Armor, persent.ToString("F1"));
+        yield return new WaitForSeconds(delayTime);
+        PlayerLogDirector.ItemBuffEnd(PlayerLogPrefab.LogType.T_Armor, persent.ToString("F1"));
     }
 
     public void Item_Use_Lucky_Coin()
@@ -1513,6 +1747,7 @@ public class GameDirector : MonoBehaviour
     public void Item_Use_Map(int persent)
     {
         uiDirector.MapEffect.Play();
+        PlayerLogDirector.ItemUseInformation(PlayerLogPrefab.LogType.MapMove, persent.ToString());
         TrainDistance += (int)(Destination_Distance * (persent / 100.0));
     }
 
@@ -1550,27 +1785,33 @@ public class GameDirector : MonoBehaviour
     {
         if (num == 1)
         {
+            PlayerLogDirector.ItemUseInformation(PlayerLogPrefab.LogType.Dice_1);
             player.Item_Player_Heal_HP(15f);
         }
         else if (num == 2)
         {
+            PlayerLogDirector.ItemUseInformation(PlayerLogPrefab.LogType.Dice_2);
             Item_Use_Train_Heal_HP(15f);
         }
         else if (num == 3)
         {
+            PlayerLogDirector.ItemUseInformation(PlayerLogPrefab.LogType.Dice_3);
             Item_Fuel_Charge(15f);
         }
         else if (num == 4)
         {
+            PlayerLogDirector.ItemUseInformation(PlayerLogPrefab.LogType.Dice_4);
             Total_Coin += 1000;
             uiDirector.Gameing_Text(Total_Coin);
         }
         else if (num == 5)
         {
+            PlayerLogDirector.ItemUseInformation(PlayerLogPrefab.LogType.Dice_5);
             itemDirector.Item_Reward_Equiped();
         }
         else if (num == 6)
         {
+            PlayerLogDirector.ItemUseInformation(PlayerLogPrefab.LogType.Dice_6);
             Item_Fuel_Charge(10f);
             player.Item_Player_Heal_HP(10f);
             Item_Use_Train_Heal_HP(10f);
@@ -1861,6 +2102,7 @@ public class GameDirector : MonoBehaviour
         Time.timeScale = 1f;
         virtualCamera.m_Lens.OrthographicSize = 11f;
         Time.fixedDeltaTime = originalFixedDelta;
+        PlayerLogDirector.ItemUseInformation(PlayerLogPrefab.LogType.Revival);
 
         player.revival_Effect_Flag = false;
     }

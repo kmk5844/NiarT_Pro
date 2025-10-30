@@ -12,8 +12,18 @@ public class Train_InGame : MonoBehaviour
 
     [SerializeField]
     int Train_Num;
+    [HideInInspector]
+    public int Get_Train_Num
+    {
+        get { return Train_Num; }
+    }
     [SerializeField]
     int Train_Num2;
+    [HideInInspector]
+    public int Get_Train_Num2
+    {
+        get { return Train_Num2; }
+    }   
     bool TurretFlag;
 
     [Header("선택된 기차 정보")]
@@ -26,6 +36,7 @@ public class Train_InGame : MonoBehaviour
 
     int Level_Anmor;
     public int Train_Armor;
+    public int Origin_Train_Armor;
     public string Train_Type;
     public bool DestoryFlag;
 
@@ -41,6 +52,7 @@ public class Train_InGame : MonoBehaviour
     [Header("포탑")]
     public int Train_Attack;
     public float Train_Attack_Delay;
+    public float Plus_Attack_Delay;
     //특수 스트링
     [Header("특수 파라미터")]
     public string Train_Special;
@@ -75,7 +87,7 @@ public class Train_InGame : MonoBehaviour
     int cooltime;
     bool isEngineerCallFlag;
     [HideInInspector]
-    public  bool isCooltimeCheckFlag;
+    public bool isCooltimeCheckFlag;
 
     [HideInInspector]
     public bool warningFlag;
@@ -145,15 +157,23 @@ public class Train_InGame : MonoBehaviour
             }
         }
 
-        if(gameDirector.Select_Sub_Num == 0)
+        if (!gameDirector.Infinite_Mode)
         {
-            Train_HP = Max_Train_HP;
+            if (gameDirector.Select_Sub_Num == 0)
+            {
+                Train_HP = Max_Train_HP;
+            }
+            else
+            {
+                Train_HP = ES3.Load<int>("Train_Curret_HP_TrainIndex_" + Train_Index, Max_Train_HP);
+                Train_HP = (Train_HP * Max_Train_HP) / 100;
+            }
         }
         else
         {
-            Train_HP = ES3.Load<int>("Train_Curret_HP_TrainIndex_" + Train_Index, Max_Train_HP);
-            Train_HP = (Train_HP * Max_Train_HP) /100;
+            Train_HP = Max_Train_HP;
         }
+        
         Train_Type = trainData.Information_Train[Train_Num].Train_Type;
         CheckType();
     }
@@ -161,6 +181,7 @@ public class Train_InGame : MonoBehaviour
     private void Start()
     {
         gameObject.name = Train_Index + ". " + gameObject.name;
+        Origin_Train_Armor = Train_Armor;
         BoosterEffectCount = 0;
     }
 
@@ -416,6 +437,7 @@ public class Train_InGame : MonoBehaviour
             BoosterEffect.Play();
             BoosterEffectCount++;
             transform.GetComponentInChildren<Turret>().Item_Turret_Attack_Speed_UP(persent, true);
+            Plus_Attack_Delay = Train_Attack_Delay * (persent / 100f);
             transform.GetComponentInChildren<Turret>().Item_Turret_Rotattion_Speed_UP(persent, true);
             yield return new WaitForSeconds(delayTime);
             BoosterEffectCount--;
@@ -424,6 +446,7 @@ public class Train_InGame : MonoBehaviour
                 BoosterEffect.Stop();
             }
             transform.GetComponentInChildren<Turret>().Item_Turret_Attack_Speed_UP(persent, false);
+            Plus_Attack_Delay = 0f;
             transform.GetComponentInChildren<Turret>().Item_Turret_Rotattion_Speed_UP(persent, false);
         }
     }

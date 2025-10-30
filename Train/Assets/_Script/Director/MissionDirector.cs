@@ -18,6 +18,7 @@ public class MissionDirector : MonoBehaviour
     int monsterCount; // 몬스터와 보스와 같이, 카운팅
     [SerializeField]
     int materialCount;
+    bool infiniteFlag;
 
     //Script Execution Order로 조절 중
     void Awake()
@@ -49,11 +50,18 @@ public class MissionDirector : MonoBehaviour
                     countFlag = true;
                     monsterDirector.missionFlag_boss = true;
                     break;
+                case MissionType.Infinite:
+                    infiniteFlag = true;
+                    gameDirector.Infinite_Mode = true;
+                    break;
             }
 
             try
             {
-                uiDirector.CheckMissionInformation(selectmission.MISSIONNUM, selectmission.MISSIONDATATABLE, selectmission.missionList_Index);
+                if (selectmission.MissionType != MissionType.Infinite)
+                {
+                    uiDirector.CheckMissionInformation(selectmission.MISSIONNUM, selectmission.MISSIONDATATABLE, selectmission.missionList_Index);
+                }
             }catch (Exception e)
             {
                 Debug.Log(e);
@@ -145,6 +153,9 @@ public class MissionDirector : MonoBehaviour
             case MissionType.Boss:
                 selectmission.bossCount = monsterCount;
                 stageEnd();
+                break;
+            case MissionType.Infinite:
+                //무한모드
                 break;
         }
     }

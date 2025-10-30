@@ -56,13 +56,20 @@ public class SelectMission : MonoBehaviour
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
-        stageNum = playerData.Select_Stage;
-        missionNum = playerData.Mission_Num;
-        FindString = stageNum + ","+ missionNum;
-        SetMissionSetting();
-        SetMissionType();
-        SetMissionState();
-        Load(MissionType);
+        if (!playerData.infinite_mode)
+        {
+            stageNum = playerData.Select_Stage;
+            missionNum = playerData.Mission_Num;
+            FindString = stageNum + "," + missionNum;
+            SetMissionSetting();
+            SetMissionType();
+            SetMissionState();
+            Load(MissionType);
+        }
+        else
+        {
+            MissionType = MissionType.Infinite;
+        }
     }
 
     public void SetDataSetting(SA_PlayerData _playerData, Quest_DataTable _missionDataTable, SA_MissionData _missionData)
@@ -112,6 +119,9 @@ public class SelectMission : MonoBehaviour
                 break;     
             case "Boss":
                 MissionType = MissionType.Boss;
+                break;
+            case "Infinite":
+                MissionType = MissionType.Infinite;
                 break;
         }
     }
@@ -242,6 +252,8 @@ public class SelectMission : MonoBehaviour
                 _count = int.Parse(_state[1]);
                 M_Boss.SetSetting(_num, _count);
                 break;
+            case MissionType.Infinite:
+                break;
         }
     }
      
@@ -278,6 +290,11 @@ public class SelectMission : MonoBehaviour
         {
             eventData.SA_EventFlag_Off();
         }
+        Destroy(this.gameObject);
+    }
+
+    public void Infinite_End()
+    {
         Destroy(this.gameObject);
     }
 
@@ -466,5 +483,6 @@ public enum MissionType {
     Monster,
     Escort,
     Convoy,
-    Boss
+    Boss,
+    Infinite
 }

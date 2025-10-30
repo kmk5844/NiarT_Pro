@@ -32,7 +32,7 @@ public class ItemDirector : MonoBehaviour
         try
         {
             itemData.Load();
-            //itemData.Test(0, 1, 1);
+            //itemData.Test(0, 16, 1);
         }
         catch
         {
