@@ -485,6 +485,7 @@ public class SA_PlayerData : ScriptableObject
         station_tutorial = ES3.Load<bool>("SA_PlayerData_Data_Station_Tutorial",false);
         mission_playing = ES3.Load<bool>("SA_PlayerData_Data_MissionPlaying",false);
         click_readyflag = ES3.Load<bool>("SA_PlayerData_Data_Click_ReaduyFlag", false);
+        Infinite_Mode = false;
         //GameManager.Instance.FILE_Critical();
 
         yield return new WaitForSeconds(0.001f);
@@ -516,6 +517,7 @@ public class SA_PlayerData : ScriptableObject
         }
         mission_playing = false;
         click_readyflag = false;
+        Infinite_Mode = false;
 
         Save();
     }
@@ -546,6 +548,8 @@ public class SA_PlayerData : ScriptableObject
         }
         mission_playing = false;
         click_readyflag = false;
+        Infinite_Mode = false;
+
         runner.StartCoroutine(SaveSync());
         yield return new WaitForSeconds(0.001f);
     }

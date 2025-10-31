@@ -1486,7 +1486,6 @@ public class GameDirector : MonoBehaviour
             }else
             {
                 missionDirector.selectmission.Infinite_End();
-                SA_PlayerData.SA_Infinite_End();
                 Debug.Log("무한모드 종료");
             }
         }

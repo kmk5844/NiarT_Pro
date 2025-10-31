@@ -22,6 +22,9 @@ public class MenuDirector : MonoBehaviour
     bool optionFlag;
     bool InfiniteFlag;
 
+    public bool InfiniteTestFlag;
+    public GameObject SelectMissionObject;
+
     public Button[] menuButton;
 
     private void Start()
@@ -125,8 +128,31 @@ public class MenuDirector : MonoBehaviour
     {
         InfiniteFlag = true;
         startwindow_ani.SetBool("InfinityMode", true);
-        Check_Information_Text.StringReference.TableEntryReference = "UI_Infinty_Ban";
-        //Check_Information_Text.text = "금지";
+        if (!InfiniteTestFlag)
+        {
+            Check_Information_Text.StringReference.TableEntryReference = "UI_Infinty_Ban";
+            //Check_Information_Text.text = "금지";
+        }
+        else
+        {
+            Check_Information_Text.StringReference.TableEntryReference = "UI_Infinty_Ban";
+        }
+    }
+
+    public void Click_Infinite_YesButton()
+    {
+        if (!InfiniteTestFlag)
+        {
+            Click_Back_Button();
+        }
+        else
+        {
+            SelectMissionObject.GetComponent<SelectMission>().SetDataSetting_infinite(DataManager.Instance.playerData);
+            GameObject gm = Instantiate(SelectMissionObject);
+            gm.name = "SelectMission_Infinite";
+
+            LoadingManager.LoadScene("CharacterSelect");
+        }
     }
 
     public void Click_Back_Button()

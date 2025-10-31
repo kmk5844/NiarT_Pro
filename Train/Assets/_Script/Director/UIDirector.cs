@@ -57,6 +57,9 @@ public class UIDirector : MonoBehaviour
     public TextMeshProUGUI[] TrainStatus_Text;
     Train_InGame train;
 
+    [Header("InfiniteMode")]
+    public GameObject Option_Station_Button;
+
     [Header("Clear UI")]
     public GameObject Clear_UI;
 
@@ -194,6 +197,11 @@ public class UIDirector : MonoBehaviour
         WarningSpeedEffect_System = WarningSpeedEffect.GetComponentInChildren<ParticleSystem>();
         WarningSpeedEffect_System.Stop();
         TrainInformationInit();
+
+        if (infiniteFlag)
+        {
+            Option_Station_Button.SetActive(false);
+        }
     }
     private void Update()
     {
@@ -1058,5 +1066,14 @@ public class UIDirector : MonoBehaviour
         {
             WaitBoard.SetActive(false);
         }
+    }
+
+    public void CheckWindow_infiniteButton()
+    {
+        if (infiniteFlag)
+        {
+            gamedirector.missionDirector.selectmission.Infinite_End();
+        }
+        LoadingManager.LoadScene("1.MainMenu");
     }
 }

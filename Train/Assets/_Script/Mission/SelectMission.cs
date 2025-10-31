@@ -79,6 +79,13 @@ public class SelectMission : MonoBehaviour
         missionData = _missionData;
     }
 
+    public void SetDataSetting_infinite(SA_PlayerData _playerData)
+    {
+        playerData = _playerData;
+        playerData.SA_Infinite_Start();
+        MissionType = MissionType.Infinite;
+    }
+
     void SetMissionSetting()
     {
         missionList_Index = 0;
@@ -295,6 +302,7 @@ public class SelectMission : MonoBehaviour
 
     public void Infinite_End()
     {
+        playerData.SA_Infinite_End();
         Destroy(this.gameObject);
     }
 

@@ -25,7 +25,15 @@ public class MissionDirector : MonoBehaviour
     {
         try
         {
-            selectmission = GameObject.Find("SelectMission").GetComponent<SelectMission>();
+            if (!DataManager.Instance.playerData.infinite_mode)
+            {
+                selectmission = GameObject.Find("SelectMission").GetComponent<SelectMission>();
+            }
+            else
+            {
+                selectmission = GameObject.Find("SelectMission_Infinite").GetComponent<SelectMission>();
+            }
+
             monsterCount = 0;
             switch (selectmission.MissionType)
             {
