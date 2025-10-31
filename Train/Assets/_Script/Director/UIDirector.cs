@@ -9,6 +9,11 @@ using UnityEngine.Localization;
 
 public class UIDirector : MonoBehaviour
 {
+    [SerializeField]
+    int TestCard = 0;
+    [SerializeField]
+    int TestCount = 0;
+
     public GameDirector gamedirector;
     Player player;
     public SA_ItemList itemList;
@@ -22,6 +27,7 @@ public class UIDirector : MonoBehaviour
     public GameObject Result_UI;
     public GameObject Option_UI;
     public GameObject TrainInformation_UI;
+    public GameObject Infinite_UI;
 
     [Header("Playing UI")]
     public Image Player_Blood;
@@ -157,6 +163,8 @@ public class UIDirector : MonoBehaviour
     public ParticleSystem FuelChargeEffect;
 
     bool STEAM_CLICK_KEY_V_FLAG;
+
+
     private void Awake()
     {
         isBloodFlag = false;
@@ -176,6 +184,7 @@ public class UIDirector : MonoBehaviour
         Player_Blood_Color = Player_Blood.GetComponent<Image>().color;
         playerData = gamedirector.SA_PlayerData;
         infiniteFlag = gamedirector.Infinite_Mode;
+        Infinite_UI.SetActive(false);
 
         ItemName_Text.StringReference.TableReference = "ItemData_Table_St";
         ItemInformation_Text.StringReference.TableReference = "ItemData_Table_St";
@@ -1075,5 +1084,17 @@ public class UIDirector : MonoBehaviour
             gamedirector.missionDirector.selectmission.Infinite_End();
         }
         LoadingManager.LoadScene("1.MainMenu");
+    }
+
+    public void Infinite_UI_Open()
+    {
+        Infinite_UI.SetActive(true);
+    }
+    public void Infinite_UI_Close()
+    {
+        gamedirector.SetInfiniteCard(TestCard, TestCount.ToString());
+        gamedirector.SelectCard_StageInit();
+        Infinite_UI.SetActive(false);
+        TestCount++;
     }
 }

@@ -101,7 +101,6 @@ public class MercenaryDirector : MonoBehaviour
         }
         checkActEngineer = false;
     }
-
     public void Check_List()
     {
         bool checkFlag = false;
@@ -143,6 +142,13 @@ public class MercenaryDirector : MonoBehaviour
         {
             Mercenary_List.GetChild(i).GetComponent<Mercenary>().Item_Fatigue_Reliever();
         }
+    }
+
+    //무한모드
+    public void Spawn_Mercenary(int Mercenary_Num)
+    {
+        GameObject MercenaryObject = Instantiate(Resources.Load<GameObject>("MercenaryObject/" + Mercenary_Num), Mercenary_List);
+        MercenaryObject.name = MercenaryObject.GetComponent<Mercenary>().Type.ToString();
     }
 
     public void SetEscort(int HP, int Armor, int MoveSpeed)

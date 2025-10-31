@@ -1,4 +1,5 @@
 using Cinemachine;
+using JetBrains.Annotations;
 using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
@@ -33,7 +34,6 @@ public class GameDirector : MonoBehaviour
     public SA_StageList SA_StageList;
     //StageDataObject StageData;
 
-
     [Header("스토리 버전")]
     //새로운 스테이지 정보
     [SerializeField]
@@ -59,12 +59,16 @@ public class GameDirector : MonoBehaviour
     public ItemDirector itemDirector;
     public MissionDirector missionDirector;
     public SkillDirector skillDirector;
+    [SerializeField]
+    private CinemachineConfiner confiner2d;
     public PolygonCollider2D CameraConfiler;
     public FillDirector fill_director;
     public MercenaryDirector mercenaryDirector;
     public PlayerStatusDirector playerStatusDirector;
     Vector2[] newPoint;
+    [SerializeField]
     List<int> Train_Num;
+    [SerializeField]
     List<int> Train_Turret_Num;
     int Train_Turret_Count;
     GameObject TrainObject;
@@ -366,15 +370,8 @@ public class GameDirector : MonoBehaviour
         }
 
         CalculateRefreshPoints();
+        CameraConfilerSet(Train_Count - 1);
 
-        newPoint = new Vector2[4];
-        {
-            newPoint[0] = new Vector2(3.5f + 20f, -4);
-            newPoint[1] = new Vector2(3.5f + 20f, 14.5f);
-            newPoint[2] = new Vector2(-5.47f + (-10.94f * (Train_Count - 1)) - 20f, 14.5f);
-            newPoint[3] = new Vector2(-5.47f + (-10.94f * (Train_Count - 1)) - 20f, -4);
-        }
-        CameraConfiler.points = newPoint;
 
         RandomStartTime = Random.Range(4f, 6f);
         BossCount = 0;
@@ -974,7 +971,7 @@ public class GameDirector : MonoBehaviour
     {
         Emerging_Monster_String = "0"; // 임시
         Emerging_MonsterCount_String = "5,0"; // 임시
-        Destination_Distance = 10000;
+        Destination_Distance = 5000;
         Emerging_Monster_Sky = new List<int>();
         Emerging_Monster_Ground = new List<int>();
         Emerging_MonsterCount = new List<int>();
@@ -1133,9 +1130,8 @@ public class GameDirector : MonoBehaviour
         Trains = new List<Train_InGame>();
         Train_Turret_Count = 0;
 
-        List<int> TrainNumList = new List<int>() { 0, 10, 91 }; //임시
-        List<int> TrainTurretNumList = new List<int>() { 0 }
-        ; //임시
+        List<int> TrainNumList = new List<int>() { 0, 10 }; //임시
+        List<int> TrainTurretNumList = new List<int>() {}; //임시
         Train_Num = TrainNumList.ToList();
         Train_Turret_Num = TrainTurretNumList.ToList();
 
@@ -1473,23 +1469,28 @@ public class GameDirector : MonoBehaviour
             {
                 Destination_Distance = Destination_Distance += 10000;
                 TrainDistance = 0;
-                monsterDirector.Infinite();
-                GameStartFlag = false;
-                isStationHideFlag = false;
-                isStationHideEndFlag = false;
-                isStationShowFlag = false;
-                isStationShowEndFlag = false;
-                GameWinFlag = false;
-                StartTime = Time.time;
-                gameType = GameType.Starting;
-                Debug.Log("이어서");
-            }else
+                uiDirector.Infinite_UI_Open();
+            }
+            else
             {
                 missionDirector.selectmission.Infinite_End();
                 Debug.Log("무한모드 종료");
             }
         }
-        
+    }
+
+    public void SelectCard_StageInit()
+    {
+        monsterDirector.Infinite();
+        GameStartFlag = false;
+        isStationHideFlag = false;
+        isStationHideEndFlag = false;
+        isStationShowFlag = false;
+        isStationShowEndFlag = false;
+        GameWinFlag = false;
+        StartTime = Time.time;
+        gameType = GameType.Starting;
+        Debug.Log("이어서");
     }
 
     public void MissionFail()
@@ -2127,6 +2128,203 @@ public class GameDirector : MonoBehaviour
     public void SetMonsterSlow(bool flag)
     {
         monsterSlowFlag = flag;
+    }
+
+
+    void CameraConfilerSet(int Count)
+    {
+        newPoint = new Vector2[4];
+        {
+            newPoint[0] = new Vector2(3.5f + 20f, -4);
+            newPoint[1] = new Vector2(3.5f + 20f, 14.5f);
+            newPoint[2] = new Vector2(-5.47f + (-10.94f * Count) - 20f, 14.5f);
+            newPoint[3] = new Vector2(-5.47f + (-10.94f * Count) - 20f, -4);
+        }
+        CameraConfiler.points = newPoint;
+        confiner2d.InvalidatePathCache();
+    }
+
+    //인피니트 모드
+
+    public void SetInfiniteCard(int cardNum, string status = "")
+    {
+        if(cardNum == 0)
+        {
+            Infinite_SpawnTrain(false, int.Parse(status));
+        }
+
+        if (cardNum == 1)
+        {
+            Infinite_SpawnTrain(true, int.Parse(status));
+        }
+
+        if(cardNum == 2)
+        {
+            Infinite_TrainUpgrade(false, int.Parse(status));
+        }
+
+        if(cardNum == 3)
+        {
+            Infinite_TrainUpgrade(true, int.Parse(status));
+        }
+
+        if(cardNum == 4)
+        {
+            mercenaryDirector.Spawn_Mercenary(int.Parse(status));
+        }
+    }
+
+    void Infinite_SpawnTrain(bool Turret, int trainNum)
+    {
+        if (!Turret)
+        {
+            Train_Num.Add(trainNum);
+            TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_InGame/" + Train_Num[Train_Num.Count - 1]), Train_List);
+        }
+        else
+        {
+            Train_Num.Add(91);
+            Train_Turret_Num.Add(trainNum);
+            TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_InGame/91_" + Train_Turret_Num[Train_Turret_Num.Count - 1]), Train_List);
+        }
+        int now_Count = Train_Num.Count - 1;
+        Train_InGame train = TrainObject.GetComponent<Train_InGame>();
+        if (train.Train_Type.Equals("Engine"))
+        {
+            TrainObject.transform.position = new Vector3(-0.43f, 0f, 0);
+        }
+        else
+        {
+            TrainObject.transform.position = new Vector3(-10.94f * now_Count, 0f, 0);
+        }
+        train.Train_Index = now_Count;
+        train.trainHitSFX = TrainHitSFX;
+        TrainWeight += train.Train_Weight;
+        Trains.Add(train);
+        if (train.Train_Type.Equals("Fuel"))
+        {
+            int addFuel = train.Train_Fuel;
+
+            Total_TrainFuel = Total_TrainFuel + addFuel;
+            TrainFuel = TrainFuel + addFuel;
+        }
+        Level();
+        CameraConfilerSet(now_Count);
+        player.maxRespawnPosition = new Vector3(-0.43f, 0f, 0);
+        player.minRespawnPosition = new Vector3(-10.94f * (Train_Num.Count - 1), 0f, 0);
+        monsterDirector.SetSpawnPosition(Train_Num.Count);
+    }
+
+    void Infinite_SpawnTrain_Upgrade(bool Turret, int trainNum, int index, int turretindex,int originFuel = 0)
+    {
+        if (!Turret)
+        {
+            Train_Num[index] = trainNum;
+            TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_InGame/" + trainNum), Train_List);
+        }
+        else
+        {
+            Train_Turret_Num[turretindex] = trainNum;
+            TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_InGame/91_" + trainNum), Train_List);
+        }
+        Train_InGame train = TrainObject.GetComponent<Train_InGame>();
+        if (train.Train_Type.Equals("Engine")){
+            TrainObject.transform.position = new Vector3(-0.43f, 0f, 0);
+        }
+        else
+        {
+            TrainObject.transform.position = new Vector3(-10.94f * index, 0f, 0);
+        }
+        train.Train_Index = index;
+        train.trainHitSFX = TrainHitSFX;
+        TrainWeight += train.Train_Weight;
+        Trains[index] = train;
+
+        if (train.Train_Type.Equals("Engine"))
+        {
+            TrainMaxSpeed = train.Train_MaxSpeed;
+            TrainEfficient = train.Train_Efficient;
+            TrainEnginePower = train.Train_Engine_Power;
+        }
+        else if (train.Train_Type.Equals("Fuel"))
+        {
+            int addFuel = train.Train_Fuel - originFuel;
+            TrainFuel += addFuel;
+            Total_TrainFuel += addFuel;
+        }
+        Level();
+        //CameraConfilerSet(now_Count);
+    }
+
+    void Infinite_TrainUpgrade(bool Turret, int TrainNum)
+    {
+        int originFuel = 0;
+        int turretCount = 0;
+        for(int i = 0; i < Train_List.childCount; i++)
+        {
+            Train_InGame train = Train_List.GetChild(i).GetComponent<Train_InGame>();
+            if (!Turret)
+            {
+                if (train.Get_Train_Num == TrainNum)
+                {
+                    //무게 빼고, 보유하고 있던 연료량도 다시 계산
+                    //엔진이라면 재지정 -> 어차피 생성하는 것처럼 빼고 Level로 재지정하면 된다.
+                    TrainWeight -= train.Train_Weight;
+                    if (train.Train_Type.Equals("Fuel"))
+                    {
+                        originFuel = train.Train_Fuel;
+                    }
+                    Destroy(Train_List.GetChild(i).gameObject);
+                    Infinite_SpawnTrain_Upgrade(false, TrainNum + 1, i, turretCount, originFuel);
+                }
+            }
+            else
+            {
+                if (train.Get_Train_Num == 91 && train.Get_Train_Num2 == TrainNum)
+                {
+                    //무게 빼고, 보유하고 있던 연료량도 다시 계산
+                    //엔진이라면 재지정 -> 어차피 생성하는 것처럼 빼고 Level로 재지정하면 된다.
+                    TrainWeight -= train.Train_Weight;
+                    Destroy(Train_List.GetChild(i).gameObject);
+                    Infinite_SpawnTrain_Upgrade(true, TrainNum + 1, i, turretCount, originFuel);
+                    turretCount++;
+                }
+            }
+        }
+
+        StartCoroutine(SortChildren());
+    }
+
+    IEnumerator SortChildren()
+    {
+        yield return null;
+
+        /*        for(int i = 0; i < Train_List.childCount; i++)
+                {
+                    string[] No = Train_List.GetChild(i).name.Split('.');
+                    Debug.Log(No);
+
+                }*/
+
+        var children = Train_List.Cast<Transform>().ToList();
+
+        var sorted = false
+            ? children.OrderByDescending(GetLeadingNumber).ToList()
+            : children.OrderBy(GetLeadingNumber).ToList();
+
+        for (int i = 0; i < sorted.Count; i++)
+            sorted[i].SetSiblingIndex(i);
+    }
+
+    // 이름의 첫 숫자(예: "2.91_0" → 2) 추출
+    float GetLeadingNumber(Transform t)
+    {
+        string name = t.name;
+        string firstPart = name.Split('.')[0];
+
+        if (float.TryParse(firstPart, out float num))
+            return num;
+        return 0f;
     }
 }
 
