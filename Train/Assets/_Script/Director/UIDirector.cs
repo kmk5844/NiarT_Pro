@@ -9,11 +9,6 @@ using UnityEngine.Localization;
 
 public class UIDirector : MonoBehaviour
 {
-    [SerializeField]
-    int TestCard = 0;
-    [SerializeField]
-    int TestCount = 0;
-
     public GameDirector gamedirector;
     Player player;
     public SA_ItemList itemList;
@@ -1090,11 +1085,15 @@ public class UIDirector : MonoBehaviour
     {
         Infinite_UI.SetActive(true);
     }
-    public void Infinite_UI_Close()
+
+    public void Infinite_UI_Close(string TestString)
     {
-        gamedirector.SetInfiniteCard(TestCard, TestCount.ToString());
+        string[] ar = TestString.Split(',');
+        int TestCard = int.Parse(ar[0]);
+        string TestCount = ar[1];
+
+        gamedirector.SetInfiniteCard(TestCard, TestCount);
         gamedirector.SelectCard_StageInit();
         Infinite_UI.SetActive(false);
-        TestCount++;
     }
 }

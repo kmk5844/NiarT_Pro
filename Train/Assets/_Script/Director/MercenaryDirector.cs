@@ -149,6 +149,23 @@ public class MercenaryDirector : MonoBehaviour
     {
         GameObject MercenaryObject = Instantiate(Resources.Load<GameObject>("MercenaryObject/" + Mercenary_Num), Mercenary_List);
         MercenaryObject.name = MercenaryObject.GetComponent<Mercenary>().Type.ToString();
+        MercenaryObject.GetComponent<Mercenary>().InfiniteMode = true;
+        MercenaryObject.GetComponent<Mercenary>().InfiniteLevel = gameDirector.Infinite_MercenaryNum.UpgradeNum[Mercenary_Num];
+        gameDirector.CheckMercenarySpawn(Mercenary_Num);
+    }
+
+    public void Upgrade_Mercenary(int Mercenary_Num)
+    {
+        int level = gameDirector.Infinite_MercenaryNum.UpgradeNum[Mercenary_Num];
+
+        for(int i = 0; i < Mercenary_List.childCount - 1; i++)
+        {
+            int num = Mercenary_List.GetChild(i).GetComponent<Mercenary>().mercenaryNum;
+            if(num == Mercenary_Num)
+            {
+                Mercenary_List.GetChild(i).GetComponent<Mercenary>().Upgrade_Mercenary_Infinite(level);
+            }
+        }
     }
 
     public void SetEscort(int HP, int Armor, int MoveSpeed)

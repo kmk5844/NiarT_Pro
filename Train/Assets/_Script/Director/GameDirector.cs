@@ -47,7 +47,11 @@ public class GameDirector : MonoBehaviour
 
     [Header("무한 버전")]
     public bool Infinite_Mode = false;
+    public Infinite_UpgradeNum Infinite_TrainNum;
+    public Infinite_UpgradeNum Infinite_TurretNum;
+    public Infinite_UpgradeNum Infinite_MercenaryNum;
 
+    [Header("데이터")]
     public SA_PlayerData SA_PlayerData;
     public Game_DataTable EX_GameData;
     public Level_DataTable EX_LevelData;
@@ -329,6 +333,17 @@ public class GameDirector : MonoBehaviour
             Mission_Num = 999;
             Stage_Num = 999;
             Select_Sub_Num = 999;
+            Infinite_TrainNum.Set_Init(new List<int>() { 0, 10, 20, 30, 40, 50, 60, 70, 80, 92, 93, 94, 95, 96 });
+            Infinite_TurretNum.Set_Init(new List<int>() { 0, 10, 20, 30, 40, 50 ,60 ,70, 80 });
+            Infinite_MercenaryNum.Set_Init(new List<int>() {0, 0, 0, 0, 0, 0, 0});
+            for(int i= 0; i < 2; i++)
+            {
+                Infinite_TrainNum.Set_LockFlag(i, true);
+            }
+            for(int i =  9; i<14; i++)
+            {
+                Infinite_TrainNum.Set_UpgradeFlag(i, false);
+            }
         }
 
         BGM_ID = 30;
@@ -2146,6 +2161,13 @@ public class GameDirector : MonoBehaviour
 
     //인피니트 모드
 
+    public void InfiniteInit()
+    {
+        Infinite_TrainNum = new Infinite_UpgradeNum();
+        Infinite_TurretNum = new Infinite_UpgradeNum();
+        Infinite_MercenaryNum = new Infinite_UpgradeNum();
+    }
+
     public void SetInfiniteCard(int cardNum, string status = "")
     {
         if(cardNum == 0)
@@ -2172,21 +2194,39 @@ public class GameDirector : MonoBehaviour
         {
             mercenaryDirector.Spawn_Mercenary(int.Parse(status));
         }
+
+        if(cardNum == 5)
+        {
+            UpgradeMercenaryNum(int.Parse(status));
+        }
     }
 
     void Infinite_SpawnTrain(bool Turret, int trainNum)
     {
         if (!Turret)
         {
-            Train_Num.Add(trainNum);
+            bool Lockflag = Infinite_TrainNum.Find_LockFlag((trainNum/10));
+            if(!Lockflag)
+            {
+                Infinite_TrainNum.Set_LockFlag(trainNum / 10, true);
+            }
+            int trainUpgradeNum = Infinite_TrainNum.Find_TrainNum(trainNum); // index;
+            Train_Num.Add(trainUpgradeNum);
             TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_InGame/" + Train_Num[Train_Num.Count - 1]), Train_List);
         }
         else
         {
             Train_Num.Add(91);
-            Train_Turret_Num.Add(trainNum);
+            bool Lockflag = Infinite_TurretNum.Find_LockFlag((trainNum / 10));
+            if (!Lockflag)
+            {
+                Infinite_TurretNum.Set_LockFlag(trainNum / 10, true);
+            }
+            int turretUpgradeNum = Infinite_TurretNum.Find_TrainNum(trainNum);
+            Train_Turret_Num.Add(turretUpgradeNum);
             TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_InGame/91_" + Train_Turret_Num[Train_Turret_Num.Count - 1]), Train_List);
         }
+
         int now_Count = Train_Num.Count - 1;
         Train_InGame train = TrainObject.GetComponent<Train_InGame>();
         if (train.Train_Type.Equals("Engine"))
@@ -2197,6 +2237,7 @@ public class GameDirector : MonoBehaviour
         {
             TrainObject.transform.position = new Vector3(-10.94f * now_Count, 0f, 0);
         }
+
         train.Train_Index = now_Count;
         train.trainHitSFX = TrainHitSFX;
         TrainWeight += train.Train_Weight;
@@ -2228,6 +2269,7 @@ public class GameDirector : MonoBehaviour
             TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_InGame/91_" + trainNum), Train_List);
         }
         Train_InGame train = TrainObject.GetComponent<Train_InGame>();
+
         if (train.Train_Type.Equals("Engine")){
             TrainObject.transform.position = new Vector3(-0.43f, 0f, 0);
         }
@@ -2235,6 +2277,7 @@ public class GameDirector : MonoBehaviour
         {
             TrainObject.transform.position = new Vector3(-10.94f * index, 0f, 0);
         }
+
         train.Train_Index = index;
         train.trainHitSFX = TrainHitSFX;
         TrainWeight += train.Train_Weight;
@@ -2260,12 +2303,28 @@ public class GameDirector : MonoBehaviour
     {
         int originFuel = 0;
         int turretCount = 0;
-        for(int i = 0; i < Train_List.childCount; i++)
+        int beforeTrainNum = 0;
+        int upgradeTrainNum = 0;
+
+        if (!Turret)
+        {
+            beforeTrainNum = Infinite_TrainNum.Find_TrainNum(TrainNum);
+            Infinite_TrainNum.Upgrade_TrainNum(TrainNum);
+            upgradeTrainNum = Infinite_TrainNum.Find_TrainNum(TrainNum);
+        }
+        else
+        {
+            beforeTrainNum = Infinite_TurretNum.Find_TrainNum(TrainNum);
+            Infinite_TurretNum.Upgrade_TrainNum(TrainNum);
+            upgradeTrainNum = Infinite_TurretNum.Find_TrainNum(TrainNum);
+        }
+
+        for (int i = 0; i < Train_List.childCount; i++)
         {
             Train_InGame train = Train_List.GetChild(i).GetComponent<Train_InGame>();
             if (!Turret)
             {
-                if (train.Get_Train_Num == TrainNum)
+                if (train.Get_Train_Num == beforeTrainNum)
                 {
                     //무게 빼고, 보유하고 있던 연료량도 다시 계산
                     //엔진이라면 재지정 -> 어차피 생성하는 것처럼 빼고 Level로 재지정하면 된다.
@@ -2275,18 +2334,18 @@ public class GameDirector : MonoBehaviour
                         originFuel = train.Train_Fuel;
                     }
                     Destroy(Train_List.GetChild(i).gameObject);
-                    Infinite_SpawnTrain_Upgrade(false, TrainNum + 1, i, turretCount, originFuel);
+                    Infinite_SpawnTrain_Upgrade(false, upgradeTrainNum, i, turretCount, originFuel);
                 }
             }
             else
             {
-                if (train.Get_Train_Num == 91 && train.Get_Train_Num2 == TrainNum)
+                if (train.Get_Train_Num == 91 && train.Get_Train_Num2 == beforeTrainNum)
                 {
                     //무게 빼고, 보유하고 있던 연료량도 다시 계산
                     //엔진이라면 재지정 -> 어차피 생성하는 것처럼 빼고 Level로 재지정하면 된다.
                     TrainWeight -= train.Train_Weight;
                     Destroy(Train_List.GetChild(i).gameObject);
-                    Infinite_SpawnTrain_Upgrade(true, TrainNum + 1, i, turretCount, originFuel);
+                    Infinite_SpawnTrain_Upgrade(true, upgradeTrainNum, i, turretCount, originFuel);
                     turretCount++;
                 }
             }
@@ -2326,8 +2385,81 @@ public class GameDirector : MonoBehaviour
             return num;
         return 0f;
     }
+
+    public void CheckMercenarySpawn(int MercenaryNum)
+    {
+        if (!Infinite_MercenaryNum.LockFlag[MercenaryNum])
+        {
+            Infinite_MercenaryNum.Set_LockFlag(MercenaryNum, true);
+        }
+    }
+
+    public void UpgradeMercenaryNum(int MercenaryNum)
+    {
+        Infinite_MercenaryNum.Upgrade_Mercenary(MercenaryNum);
+        mercenaryDirector.Upgrade_Mercenary(MercenaryNum);
+    }
 }
 
+[System.Serializable]
+public struct Infinite_UpgradeNum
+{
+    public List<int> UpgradeNum;
+    public List<bool> LockFlag;
+    public List<bool> UpgradeFlag;
+
+    public void Set_Init(List<int> Num)
+    {
+        UpgradeNum = Num.ToList();
+        LockFlag = new List<bool>();
+        for(int i = 0; i < UpgradeNum.Count; i++)
+        {
+            LockFlag.Add(false);
+            UpgradeFlag.Add(true);
+        }
+    }
+
+    public void Set_LockFlag(int index, bool flag)
+    {
+        //기차 생성 시 락 해제
+        LockFlag[index] = flag;
+    }
+
+    public void Set_UpgradeFlag(int index, bool flag)
+    {
+        UpgradeFlag[index] = flag;
+    }
+
+    public void Spawn_TrainNum(int TrainNum)
+    {
+        int index = TrainNum / 10;
+        LockFlag[index] = true;
+    }
+
+    public int Find_TrainNum(int TrainNum)
+    {
+        int index = TrainNum / 10;
+        return UpgradeNum[index];
+    }
+
+    public bool Find_LockFlag(int index)
+    {
+        return LockFlag[index];
+    }
+
+    public void Upgrade_TrainNum(int TrainNum)
+    {
+        int index = TrainNum / 10;
+        int upgradeNum = UpgradeNum[index];
+        UpgradeNum[index] = upgradeNum + 1;
+    }
+
+    public void Upgrade_Mercenary(int MercenaryNum)
+    {
+        int upgradeNum = UpgradeNum[MercenaryNum];
+        UpgradeNum[MercenaryNum] = upgradeNum + 1;
+    }
+}
 
 public enum GameType{
     Starting,

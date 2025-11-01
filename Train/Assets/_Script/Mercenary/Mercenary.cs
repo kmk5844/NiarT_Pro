@@ -63,6 +63,10 @@ public class Mercenary : MonoBehaviour
     public GameObject Gravestone;
     public MercenaryEffect mercenaryEffect;
 
+    [Header("무한모드")]
+    public bool InfiniteMode = false;
+    public int InfiniteLevel = 0;
+
     protected virtual void Awake()
     {
         gameDirector = GameObject.Find("GameDirector").GetComponent<GameDirector>();
@@ -89,6 +93,11 @@ public class Mercenary : MonoBehaviour
         Unit_Scale_X = Unit_Scale.localScale.x;
         Unit_Scale_Y = Unit_Scale.localScale.y;
         Unit_Scale_Z = Unit_Scale.localScale.z;
+
+        if (InfiniteMode)
+        {
+            Data_Index_Infinite();
+        }
 
         def_constant = 100;
         era = 1f - (float)def / def_constant;
@@ -438,6 +447,119 @@ public class Mercenary : MonoBehaviour
                 break;
         }
     }
+
+    public void Data_Index_Infinite()
+    {
+        switch (Type)
+        {
+            case mercenaryType.Engine_Driver:
+                mercenaryNum = 0;
+                HP = EX_Level_Data.Level_Mercenary_Engine_Driver[InfiniteLevel].HP;
+                moveSpeed = EX_Level_Data.Level_Mercenary_Engine_Driver[InfiniteLevel].MoveSpeed;
+                def = EX_Level_Data.Level_Mercenary_Engine_Driver[InfiniteLevel].Def;
+                GetComponent<Engine_Driver>().Level_AddStatus_Engine_Driver(EX_Level_Data.Level_Mercenary_Engine_Driver, InfiniteLevel);
+                break;
+            case mercenaryType.Engineer:
+                mercenaryNum = 1;
+                HP = EX_Level_Data.Level_Mercenary_Engineer[InfiniteLevel].HP;
+                moveSpeed = EX_Level_Data.Level_Mercenary_Engineer[InfiniteLevel].MoveSpeed;
+                def = EX_Level_Data.Level_Mercenary_Engineer[InfiniteLevel].Def;
+                GetComponent<Engineer>().Level_AddStatus_Engineer(EX_Level_Data.Level_Mercenary_Engineer, InfiniteLevel);
+                break;
+            case mercenaryType.Long_Ranged:
+                mercenaryNum = 2;
+                HP = EX_Level_Data.Level_Mercenary_Long_Ranged[InfiniteLevel].HP;
+                moveSpeed = EX_Level_Data.Level_Mercenary_Long_Ranged[InfiniteLevel].MoveSpeed;
+                def = EX_Level_Data.Level_Mercenary_Long_Ranged[InfiniteLevel].Def;
+                GetComponent<Long_Ranged>().Level_AddStatus_LongRanged(EX_Level_Data.Level_Mercenary_Long_Ranged, InfiniteLevel);
+                break;
+            case mercenaryType.Short_Ranged:
+                mercenaryNum = 3;
+                HP = EX_Level_Data.Level_Mercenary_Short_Ranged[InfiniteLevel].HP;
+                moveSpeed = EX_Level_Data.Level_Mercenary_Short_Ranged[InfiniteLevel].MoveSpeed;
+                def = EX_Level_Data.Level_Mercenary_Short_Ranged[InfiniteLevel].Def;
+                GetComponent<Short_Ranged>().Level_AddStatus_ShortRanged(EX_Level_Data.Level_Mercenary_Short_Ranged, InfiniteLevel);
+                break;
+            case mercenaryType.Medic:
+                mercenaryNum = 4;
+                HP = EX_Level_Data.Level_Mercenary_Medic[InfiniteLevel].HP;
+                moveSpeed = EX_Level_Data.Level_Mercenary_Medic[InfiniteLevel].MoveSpeed;
+                def = EX_Level_Data.Level_Mercenary_Medic[InfiniteLevel].Def;
+                GetComponent<Medic>().Level_AddStatus_Medic(EX_Level_Data.Level_Mercenary_Medic, InfiniteLevel);
+                break;
+            case mercenaryType.Bard:
+                mercenaryNum = 5;
+                HP = EX_Level_Data.Level_Mercenary_Bard[InfiniteLevel].HP;
+                moveSpeed = EX_Level_Data.Level_Mercenary_Bard[InfiniteLevel].MoveSpeed;
+                def = EX_Level_Data.Level_Mercenary_Bard[InfiniteLevel].Def;
+                GetComponent<Bard>().Level_AddStatus_Bard(EX_Level_Data.Level_Mercenary_Bard,   InfiniteLevel); //특수 스탯
+                break;
+            case mercenaryType.CowBoy:
+                mercenaryNum = 6;
+                HP = EX_Level_Data.Level_Mercenary_CowBoy[InfiniteLevel].HP;
+                moveSpeed = EX_Level_Data.Level_Mercenary_CowBoy[InfiniteLevel].MoveSpeed;
+                def = EX_Level_Data.Level_Mercenary_CowBoy[InfiniteLevel].Def;
+                //카우보이의 개별적인 특수 스탯이 없음.
+                break;
+        }
+    }
+
+    public void Upgrade_Mercenary_Infinite(int Level)
+    {
+        InfiniteLevel = Level;
+        int beforeHp = MaxHP;
+        int UpgradeHP = 0;
+
+        switch (Type)
+        {
+            case mercenaryType.Engine_Driver:
+                UpgradeHP = EX_Level_Data.Level_Mercenary_Engine_Driver[InfiniteLevel].HP;
+                moveSpeed = EX_Level_Data.Level_Mercenary_Engine_Driver[InfiniteLevel].MoveSpeed;
+                def = EX_Level_Data.Level_Mercenary_Engine_Driver[InfiniteLevel].Def;
+                GetComponent<Engine_Driver>().Level_AddStatus_Engine_Driver(EX_Level_Data.Level_Mercenary_Engine_Driver, InfiniteLevel);
+                break;
+            case mercenaryType.Engineer:
+                UpgradeHP = EX_Level_Data.Level_Mercenary_Engineer[InfiniteLevel].HP;
+                moveSpeed = EX_Level_Data.Level_Mercenary_Engineer[InfiniteLevel].MoveSpeed;
+                def = EX_Level_Data.Level_Mercenary_Engineer[InfiniteLevel].Def;
+                GetComponent<Engineer>().Level_AddStatus_Engineer(EX_Level_Data.Level_Mercenary_Engineer, InfiniteLevel);
+                break;
+            case mercenaryType.Long_Ranged:
+                UpgradeHP = EX_Level_Data.Level_Mercenary_Long_Ranged[InfiniteLevel].HP;
+                moveSpeed = EX_Level_Data.Level_Mercenary_Long_Ranged[InfiniteLevel].MoveSpeed;
+                def = EX_Level_Data.Level_Mercenary_Long_Ranged[InfiniteLevel].Def;
+                GetComponent<Long_Ranged>().Level_AddStatus_LongRanged(EX_Level_Data.Level_Mercenary_Long_Ranged, InfiniteLevel);
+                break;
+            case mercenaryType.Short_Ranged:
+                UpgradeHP = EX_Level_Data.Level_Mercenary_Short_Ranged[InfiniteLevel].HP;
+                moveSpeed = EX_Level_Data.Level_Mercenary_Short_Ranged[InfiniteLevel].MoveSpeed;
+                def = EX_Level_Data.Level_Mercenary_Short_Ranged[InfiniteLevel].Def;
+                GetComponent<Short_Ranged>().Level_AddStatus_ShortRanged(EX_Level_Data.Level_Mercenary_Short_Ranged, InfiniteLevel);
+                break;
+            case mercenaryType.Medic:
+                UpgradeHP = EX_Level_Data.Level_Mercenary_Medic[InfiniteLevel].HP;
+                moveSpeed = EX_Level_Data.Level_Mercenary_Medic[InfiniteLevel].MoveSpeed;
+                def = EX_Level_Data.Level_Mercenary_Medic[InfiniteLevel].Def;
+                GetComponent<Medic>().Level_AddStatus_Medic(EX_Level_Data.Level_Mercenary_Medic, InfiniteLevel);
+                break;
+            case mercenaryType.Bard:
+                UpgradeHP = EX_Level_Data.Level_Mercenary_Bard[InfiniteLevel].HP;
+                moveSpeed = EX_Level_Data.Level_Mercenary_Bard[InfiniteLevel].MoveSpeed;
+                def = EX_Level_Data.Level_Mercenary_Bard[InfiniteLevel].Def;
+                GetComponent<Bard>().Level_AddStatus_Bard(EX_Level_Data.Level_Mercenary_Bard, InfiniteLevel); //특수 스탯
+                break;
+            case mercenaryType.CowBoy:
+                UpgradeHP = EX_Level_Data.Level_Mercenary_CowBoy[InfiniteLevel].HP;
+                moveSpeed = EX_Level_Data.Level_Mercenary_CowBoy[InfiniteLevel].MoveSpeed;
+                def = EX_Level_Data.Level_Mercenary_CowBoy[InfiniteLevel].Def;
+                //카우보이의 개별적인 특수 스탯이 없음.
+                break;
+        }
+
+        MaxHP = UpgradeHP;
+        HP += (UpgradeHP - beforeHp);
+    }
+
 
     //Item부분
     public void Item_Snack()
