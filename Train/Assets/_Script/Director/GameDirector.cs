@@ -50,6 +50,8 @@ public class GameDirector : MonoBehaviour
     public Infinite_UpgradeNum Infinite_TrainNum;
     public Infinite_UpgradeNum Infinite_TurretNum;
     public Infinite_UpgradeNum Infinite_MercenaryNum;
+    public Infinite_UpgradeNum Infinite_TrainPassive;
+    public Infinite_UpgradeNum Infinite_PlayerPassive;
 
     [Header("데이터")]
     public SA_PlayerData SA_PlayerData;
@@ -336,11 +338,13 @@ public class GameDirector : MonoBehaviour
             Infinite_TrainNum.Set_Init(new List<int>() { 0, 10, 20, 30, 40, 50, 60, 70, 80, 92, 93, 94, 95, 96 });
             Infinite_TurretNum.Set_Init(new List<int>() { 0, 10, 20, 30, 40, 50 ,60 ,70, 80 });
             Infinite_MercenaryNum.Set_Init(new List<int>() {0, 0, 0, 0, 0, 0, 0});
+            Infinite_TrainPassive.Set_Init(new List<int>() { 0, 0, 0, 0 }); //0. 최대스피드, 1. 효율성, 2. 엔진파워 ,3. 기차 방어력
+            Infinite_PlayerPassive.Set_Init(new List<int>() { 0, 0, 0, 0, 0 }); //공격력, 공격속도, 방어력, 이동속도, 체력
             for(int i= 0; i < 2; i++)
             {
                 Infinite_TrainNum.Set_LockFlag(i, true);
             }
-            for(int i =  9; i<14; i++)
+            for(int i =  9; i < 14; i++)
             {
                 Infinite_TrainNum.Set_UpgradeFlag(i, false);
             }
@@ -1194,9 +1198,6 @@ public class GameDirector : MonoBehaviour
 
         Train_Count = Train_List.childCount;
 
-        Level_EngineTier = 0;
-        Level_MaxSpeed = 0;
-        Level_Efficient = 0;
         Level();
         SpawnTrainFlag = true;
 
@@ -1205,10 +1206,20 @@ public class GameDirector : MonoBehaviour
 
     public void Level()
     {
-        MaxSpeed = TrainMaxSpeed + ((TrainMaxSpeed * Level_MaxSpeed) / 100); // 많을 수록 유리
-        MaxSpeed = MaxSpeed - (TrainWeight / 100000); //무게로 인해 speed 감소
-        Efficient = TrainEfficient - (Level_Efficient / 2); // 적을 수록 유리
-        EnginePower = (TrainEnginePower + Level_EngineTier);
+        if (!Infinite_Mode)
+        {
+            MaxSpeed = TrainMaxSpeed + ((TrainMaxSpeed * Level_MaxSpeed) / 100); // 많을 수록 유리
+            MaxSpeed = MaxSpeed - (TrainWeight / 100000); //무게로 인해 speed 감소
+            Efficient = TrainEfficient - (Level_Efficient / 2); // 적을 수록 유리
+            EnginePower = (TrainEnginePower + Level_EngineTier);
+        }
+        else
+        {
+            MaxSpeed = TrainMaxSpeed + ((TrainMaxSpeed * Infinite_TrainPassive.UpgradeNum[0]) / 100); // 많을 수록 유리
+            MaxSpeed = MaxSpeed - (TrainWeight / 100000); //무게로 인해 speed 감소
+            Efficient = TrainEfficient - (Infinite_TrainPassive.UpgradeNum[1] / 2); // 적을 수록 유리
+            EnginePower = (TrainEnginePower + Infinite_TrainPassive.UpgradeNum[2]);
+        }
     }
 
     public void Game_MonsterHit(float slow)
@@ -2166,6 +2177,8 @@ public class GameDirector : MonoBehaviour
         Infinite_TrainNum = new Infinite_UpgradeNum();
         Infinite_TurretNum = new Infinite_UpgradeNum();
         Infinite_MercenaryNum = new Infinite_UpgradeNum();
+        Infinite_TrainPassive = new Infinite_UpgradeNum();
+        Infinite_PlayerPassive = new Infinite_UpgradeNum();
     }
 
     public void SetInfiniteCard(int cardNum, string status = "")
@@ -2198,6 +2211,16 @@ public class GameDirector : MonoBehaviour
         if(cardNum == 5)
         {
             UpgradeMercenaryNum(int.Parse(status));
+        }
+
+        if(cardNum == 6)
+        {
+            UpgradeTrainPassiveNum(int.Parse(status));
+        }
+
+        if(cardNum == 7)
+        {
+            UpgradePlayerPassiveNum(int.Parse(status));
         }
     }
 
@@ -2396,8 +2419,29 @@ public class GameDirector : MonoBehaviour
 
     public void UpgradeMercenaryNum(int MercenaryNum)
     {
-        Infinite_MercenaryNum.Upgrade_Mercenary(MercenaryNum);
+        Infinite_MercenaryNum.Upgrade_Level(MercenaryNum);
         mercenaryDirector.Upgrade_Mercenary(MercenaryNum);
+    }
+
+    public void UpgradeTrainPassiveNum(int PassiveNum)
+    {
+        Infinite_TrainPassive.Upgrade_Level(PassiveNum);
+        if(PassiveNum == 0 || PassiveNum == 1 || PassiveNum == 2)
+        {
+            Level();
+        }
+        else if(PassiveNum == 3)
+        {
+            for(int i = 0; i < Train_List.childCount; i++)
+            {
+                Train_List.GetChild(i).GetComponent<Train_InGame>().InfiniteMode_ArmorUpgrade();
+            }
+        }
+    }
+
+    public void UpgradePlayerPassiveNum(int PassiveNum)
+    {
+        Infinite_PlayerPassive.Upgrade_Level(PassiveNum);
     }
 }
 
@@ -2454,10 +2498,10 @@ public struct Infinite_UpgradeNum
         UpgradeNum[index] = upgradeNum + 1;
     }
 
-    public void Upgrade_Mercenary(int MercenaryNum)
+    public void Upgrade_Level(int Num)
     {
-        int upgradeNum = UpgradeNum[MercenaryNum];
-        UpgradeNum[MercenaryNum] = upgradeNum + 1;
+        int upgradeNum = UpgradeNum[Num];
+        UpgradeNum[Num] = upgradeNum + 1;
     }
 }
 

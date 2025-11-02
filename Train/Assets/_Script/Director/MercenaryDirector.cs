@@ -158,7 +158,7 @@ public class MercenaryDirector : MonoBehaviour
     {
         int level = gameDirector.Infinite_MercenaryNum.UpgradeNum[Mercenary_Num];
 
-        for(int i = 0; i < Mercenary_List.childCount - 1; i++)
+        for(int i = 0; i < Mercenary_List.childCount; i++)
         {
             int num = Mercenary_List.GetChild(i).GetComponent<Mercenary>().mercenaryNum;
             if(num == Mercenary_Num)

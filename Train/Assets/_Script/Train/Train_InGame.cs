@@ -133,20 +133,28 @@ public class Train_InGame : MonoBehaviour
             Train_Num = int.Parse(gameObject.name);
         }
 
+        if (!gameDirector.Infinite_Mode)
+        {
+            Level_Anmor = gameDirector.SA_TrainData.Level_Train_Armor;
+        }
+        else
+        {
+            Level_Anmor = gameDirector.Infinite_TrainPassive.UpgradeNum[3];
+        }
 
-        Level_Anmor = gameDirector.SA_TrainData.Level_Train_Armor;
         if (TurretFlag)
         {
             Max_Train_HP = trainData.Information_Train_Turret_Part[Train_Num2].Train_HP;
             Train_Weight = trainData.Information_Train_Turret_Part[Train_Num2].Train_Weight;
             Train_Armor = trainData.Information_Train_Turret_Part[Train_Num2].Train_Armor;
+            Origin_Train_Armor = Train_Armor;
         }
-/*        else if (BoosterFlag)
-        {
-            Max_Train_HP = trainData.Information_Train_Booster_Part[Train_Num2].Train_HP;
-            Train_Weight = trainData.Information_Train_Booster_Part[Train_Num2].Train_Weight;
-            Train_Armor = trainData.Information_Train_Booster_Part[Train_Num2].Train_Armor;
-        }*/
+        /*        else if (BoosterFlag)
+                {
+                    Max_Train_HP = trainData.Information_Train_Booster_Part[Train_Num2].Train_HP;
+                    Train_Weight = trainData.Information_Train_Booster_Part[Train_Num2].Train_Weight;
+                    Train_Armor = trainData.Information_Train_Booster_Part[Train_Num2].Train_Armor;
+                }*/
         else
         {
             if(Train_Num != 90)
@@ -154,8 +162,11 @@ public class Train_InGame : MonoBehaviour
                 Max_Train_HP = trainData.Information_Train[Train_Num].Train_HP;
                 Train_Weight = trainData.Information_Train[Train_Num].Train_Weight;
                 Train_Armor = trainData.Information_Train[Train_Num].Train_Armor;
+                Origin_Train_Armor = Train_Armor;
             }
         }
+
+        Train_Armor = Level_ChangeArmor(Train_Armor);
 
         if (!gameDirector.Infinite_Mode)
         {
@@ -181,7 +192,6 @@ public class Train_InGame : MonoBehaviour
     private void Start()
     {
         gameObject.name = Train_Index + ". " + gameObject.name;
-        Origin_Train_Armor = Train_Armor;
         BoosterEffectCount = 0;
     }
 
@@ -525,5 +535,22 @@ public class Train_InGame : MonoBehaviour
     {
         int HP_Persent = (Train_HP * 100) / Max_Train_HP;
         ES3.Save<int>("Train_Curret_HP_TrainIndex_" + Train_Index, HP_Persent);
+    }
+
+    public void InfiniteMode_ArmorUpgrade()
+    {
+        Level_Anmor = gameDirector.Infinite_TrainPassive.UpgradeNum[3];
+        if (TurretFlag)
+        {
+            Train_Armor = trainData.Information_Train_Turret_Part[Train_Num2].Train_Armor;
+        }
+        else
+        {
+            if (Train_Num != 90)
+            {
+                Train_Armor = trainData.Information_Train[Train_Num].Train_Armor;
+            }
+        }
+        Train_Armor = Level_ChangeArmor(Train_Armor);
     }
 }

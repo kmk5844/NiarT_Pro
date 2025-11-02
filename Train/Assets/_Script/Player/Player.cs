@@ -949,6 +949,23 @@ public class Player : MonoBehaviour
         int Level_Armor = playerData.Level_Player_Armor;
         int Level_Speed = playerData.Level_Player_Speed;
 
+        if (!gamedirector.Infinite_Mode)
+        {
+            Level_Atk = playerData.Level_Player_Atk;
+            Level_AtkDelay = playerData.Level_Player_AtkDelay;
+            Level_HP = playerData.Level_Player_HP;
+            Level_Armor = playerData.Level_Player_Armor;
+            Level_Speed = playerData.Level_Player_Speed;
+        }
+        else
+        {
+            Level_Atk = gamedirector.Infinite_PlayerPassive.UpgradeNum[0];
+            Level_AtkDelay = gamedirector.Infinite_PlayerPassive.UpgradeNum[1];
+            Level_HP = gamedirector.Infinite_PlayerPassive.UpgradeNum[2];
+            Level_Armor = gamedirector.Infinite_PlayerPassive.UpgradeNum[3];
+            Level_Speed = gamedirector.Infinite_PlayerPassive.UpgradeNum[4];
+        }
+
         Bullet_Atk = Bullet_Atk + (((Bullet_Atk * Level_Atk * 5)) / 100);
         Default_Atk = Bullet_Atk;
         Bullet_Delay = Bullet_Delay - (((Bullet_Delay * Level_AtkDelay)) / 50);
@@ -980,6 +997,10 @@ public class Player : MonoBehaviour
         playerStatusDirector.SetOriginStatus(Bullet_Atk, Bullet_Delay, Player_Armor, moveSpeed);
     }
 
+    void Level_Infinite()
+    {
+
+    }
     public void MonsterHit(int MonsterBullet_Atk)
     {
         int damageTaken = Mathf.RoundToInt(MonsterBullet_Atk * era);
