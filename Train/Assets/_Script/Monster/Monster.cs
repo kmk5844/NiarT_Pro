@@ -118,6 +118,14 @@ public class Monster : MonoBehaviour
 
     MonsterEffect monsterEffect;
 
+    //무한모드
+    [SerializeField]
+    bool InfiniteMode;
+    [SerializeField]
+    int InfiniteCount;
+    [SerializeField]
+    bool Infinite_Status_ChagngeFlag = false;
+
     protected virtual void Start()
     {
         lastTime = Time.time;
@@ -155,6 +163,7 @@ public class Monster : MonoBehaviour
         Bullet_Speed = EX_GameData.Information_Monster[Monster_Num].Monster_Bullet_Speed;
         Bullet_Delay = EX_GameData.Information_Monster[Monster_Num].Monster_Bullet_Delay;
         Bullet_Slow = EX_GameData.Information_Monster[Monster_Num].Monster_Bullet_Slow;
+
 
         if (Monster_Mission_MaterialFlag)
         {
@@ -212,6 +221,17 @@ public class Monster : MonoBehaviour
 
     protected virtual void Update()
     {
+        if (InfiniteMode)
+        {
+            if (!Infinite_Status_ChagngeFlag)
+            {
+                Monster_HP = Monster_HP + (InfiniteCount * 5);
+                Bullet_Atk = Bullet_Atk + (InfiniteCount * 10);
+                Bullet_Slow = Bullet_Slow + (InfiniteCount * 0.1f);
+                Infinite_Status_ChagngeFlag = true;
+            }
+        }
+
         if(Monster_HP <= 0)
         {
             monster_gametype = Monster_GameType.Die;
@@ -866,6 +886,13 @@ public class Monster : MonoBehaviour
     {
         material_Item = _item;
         material_drop = _drop;
+    }
+
+    //--------------무한모드----------
+    public void SetInfinite(int count)
+    {
+        InfiniteMode = true;
+        InfiniteCount = count;
     }
 }
 

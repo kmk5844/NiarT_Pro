@@ -54,6 +54,7 @@ public class GameDirector : MonoBehaviour
     public Infinite_UpgradeNum Infinite_PlayerPassive;
     bool SpawnTurretFlag_Infinite = false;
     bool SpawnMercenaryFlag_Infinite = false;
+    public int Infinite_Count;
 
     [Header("데이터")]
     public SA_PlayerData SA_PlayerData;
@@ -388,6 +389,7 @@ public class GameDirector : MonoBehaviour
             Stage_Init_Infinit();
             Train_Init_Infinit();
             RefreshCount = 0;
+            Infinite_Count = 0;
         }
 
         CalculateRefreshPoints();
@@ -1496,13 +1498,16 @@ public class GameDirector : MonoBehaviour
             if (WinFlag)
             {
                 Destination_Distance = Destination_Distance += 10000;
+                RefreshCount = Destination_Distance / 40000;
+                CalculateRefreshPoints();
+                Infinite_Count++;
                 TrainDistance = 0;
                 uiDirector.Infinite_UI_Open();
             }
             else
             {
                 missionDirector.selectmission.Infinite_End();
-                Debug.Log("무한모드 종료");
+                //Debug.Log("무한모드 종료");
             }
         }
     }

@@ -102,7 +102,6 @@ public class MonsterDirector : MonoBehaviour
     [Header("Sound")]
     public AudioClip SpawnSFX;
 
-
     private void Awake()
     {
         BossCount = 0;
@@ -350,6 +349,11 @@ public class MonsterDirector : MonoBehaviour
             if (missionFlag_monster)
             {
                 _Monster.GetComponent<Monster>().Monster_Mission_CountFlag = missionDirector.CheckMonster(Monster_Num);
+            }
+
+            if (infiniteMode)
+            {
+                _Monster.GetComponent<Monster>().SetInfinite(gameDirector.Infinite_Count);
             }
 
             if (GameDirector_SpawnFlag == true)
