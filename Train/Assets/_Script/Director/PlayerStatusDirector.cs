@@ -56,15 +56,15 @@ public class PlayerStatusDirector : MonoBehaviour
     {
         if (now_AtkDelay - origin_AtkDelay > 0)
         {
-            AtkDelayText.text = origin_AtkDelay.ToString("F1") + "<color=red> + " + (now_AtkDelay - origin_AtkDelay).ToString("F1");
+            AtkDelayText.text = origin_AtkDelay.ToString("F2") + "<color=red> + " + (now_AtkDelay - origin_AtkDelay).ToString("F1");
         }
         else if (now_AtkDelay - origin_AtkDelay < 0)
         {
-            AtkDelayText.text = origin_AtkDelay.ToString("F1") + "<color=green> - " + (origin_AtkDelay - now_AtkDelay).ToString("F1");
+            AtkDelayText.text = origin_AtkDelay.ToString("F2") + "<color=green> - " + (origin_AtkDelay - now_AtkDelay).ToString("F1");
         }
         else
         {
-            AtkDelayText.text = origin_AtkDelay.ToString("F1");
+            AtkDelayText.text = origin_AtkDelay.ToString("F2");
         }
     }
 
@@ -88,11 +88,11 @@ public class PlayerStatusDirector : MonoBehaviour
     {
         if (now_moveSpeed - orgin_moveSpeed > 0)
         {
-            MoveSpeedText.text = orgin_moveSpeed.ToString("F1") + "<color=green> + " + (now_moveSpeed - orgin_moveSpeed).ToString("F1");
+            MoveSpeedText.text = orgin_moveSpeed.ToString("F1") + "<color=green> + " + (now_moveSpeed - orgin_moveSpeed).ToString("F2");
         }
         else if (now_moveSpeed - orgin_moveSpeed < 0)
         {
-            MoveSpeedText.text = orgin_moveSpeed.ToString("F1") + "<color=red> - " + (orgin_moveSpeed - now_moveSpeed).ToString("F1");
+            MoveSpeedText.text = orgin_moveSpeed.ToString("F1") + "<color=red> - " + (orgin_moveSpeed - now_moveSpeed).ToString("F2");
         }
         else
         {

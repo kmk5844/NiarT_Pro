@@ -943,11 +943,11 @@ public class Player : MonoBehaviour
     }
     void Level()
     {
-        int Level_Atk = playerData.Level_Player_Atk;
-        int Level_AtkDelay = playerData.Level_Player_AtkDelay;
-        int Level_HP = playerData.Level_Player_HP;
-        int Level_Armor = playerData.Level_Player_Armor;
-        int Level_Speed = playerData.Level_Player_Speed;
+        int Level_Atk = 0;
+        int Level_AtkDelay = 0;
+        int Level_HP = 0;
+        int Level_Armor = 0;
+        int Level_Speed = 0;
 
         if (!gamedirector.Infinite_Mode)
         {
@@ -997,9 +997,43 @@ public class Player : MonoBehaviour
         playerStatusDirector.SetOriginStatus(Bullet_Atk, Bullet_Delay, Player_Armor, moveSpeed);
     }
 
-    void Level_Infinite()
+    public void Level_Infinite(int num)
     {
+        int Level_Atk = 0;
+        int Level_AtkDelay = 0;
+        int Level_HP = 0;
+        int Level_Armor = 0;
+        int Level_Speed = 0;
+        
+        Level_Atk = gamedirector.Infinite_PlayerPassive.UpgradeNum[0];
+        Level_AtkDelay = gamedirector.Infinite_PlayerPassive.UpgradeNum[1];
+        Level_HP = gamedirector.Infinite_PlayerPassive.UpgradeNum[2];
+        Level_Armor = gamedirector.Infinite_PlayerPassive.UpgradeNum[3];
+        Level_Speed = gamedirector.Infinite_PlayerPassive.UpgradeNum[4];
+        
+        if(num == 0)
+        {
+            Bullet_Atk = playerData.Atk + (((playerData.Atk * Level_Atk * 5)) / 100);
+            Default_Atk = Bullet_Atk;
+        }else if(num == 1)
+        {
+            Bullet_Delay = playerData.Delay - (((playerData.Delay * Level_AtkDelay)) / 50);
+        }else if(num == 2)
+        {
+            int currentHP = Player_HP;
+            int originHP = Max_HP;
+            Max_HP = playerData.HP + (((playerData.HP * Level_HP) * 10) / 100);
+            int UpgradeHP = Max_HP - originHP;
+            Player_HP = currentHP + UpgradeHP;
+        }else if (num ==3)
+        {
+            Player_Armor = playerData.Armor + (((playerData.Armor * Level_Armor) * 10) / 100);
+        }else if (num == 4)
+        {
+            moveSpeed = playerData.MoveSpeed + (((playerData.MoveSpeed * Level_Speed)) / 50);
+        }
 
+        playerStatusDirector.SetOriginStatus(Bullet_Atk, Bullet_Delay, Player_Armor, moveSpeed);
     }
     public void MonsterHit(int MonsterBullet_Atk)
     {

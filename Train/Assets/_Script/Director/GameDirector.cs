@@ -52,6 +52,8 @@ public class GameDirector : MonoBehaviour
     public Infinite_UpgradeNum Infinite_MercenaryNum;
     public Infinite_UpgradeNum Infinite_TrainPassive;
     public Infinite_UpgradeNum Infinite_PlayerPassive;
+    bool SpawnTurretFlag_Infinite = false;
+    bool SpawnMercenaryFlag_Infinite = false;
 
     [Header("데이터")]
     public SA_PlayerData SA_PlayerData;
@@ -988,9 +990,9 @@ public class GameDirector : MonoBehaviour
 
     void Stage_Init_Infinit()
     {
-        Emerging_Monster_String = "0"; // 임시
-        Emerging_MonsterCount_String = "5,0"; // 임시
-        Destination_Distance = 5000;
+        Emerging_Monster_String = "0,3"; // 임시
+        Emerging_MonsterCount_String = "5,3"; // 임시
+        Destination_Distance = 20000;
         Emerging_Monster_Sky = new List<int>();
         Emerging_Monster_Ground = new List<int>();
         Emerging_MonsterCount = new List<int>();
@@ -1084,7 +1086,7 @@ public class GameDirector : MonoBehaviour
                 }
                 catch
                 {
-                    Debug.Log("테스트");
+                    //Debug.Log("테스트");
                     _train.Train_Weight = 10000;
                 }
                 _train.Train_Armor = 30;
@@ -1507,7 +1509,7 @@ public class GameDirector : MonoBehaviour
 
     public void SelectCard_StageInit()
     {
-        monsterDirector.Infinite();
+        monsterDirector.Clear_MonsterDirector();
         GameStartFlag = false;
         isStationHideFlag = false;
         isStationHideEndFlag = false;
@@ -2172,80 +2174,165 @@ public class GameDirector : MonoBehaviour
 
     //인피니트 모드
 
-    public void InfiniteInit()
+    public void SetCard()
     {
-        Infinite_TrainNum = new Infinite_UpgradeNum();
-        Infinite_TurretNum = new Infinite_UpgradeNum();
-        Infinite_MercenaryNum = new Infinite_UpgradeNum();
-        Infinite_TrainPassive = new Infinite_UpgradeNum();
-        Infinite_PlayerPassive = new Infinite_UpgradeNum();
+        for(int i = 0; i < 3; i++)
+        {
+            int rndNum = Random.Range(0, 9);
+            if(rndNum == 3 && !SpawnTurretFlag_Infinite)
+            {
+                rndNum = 1;
+                SpawnTurretFlag_Infinite = true;
+            }
+            if(rndNum == 5 && !SpawnMercenaryFlag_Infinite)
+            {
+                rndNum = 4;
+                SpawnMercenaryFlag_Infinite = true;
+            }
+
+            string str = "";
+            string strstatus = "";
+            if (rndNum == 0)
+            {
+                int trainIndex = Random.Range(1, Infinite_TrainNum.UpgradeNum.Count); //엔진 기차 제외하고
+                strstatus = trainIndex.ToString(); }
+            else if(rndNum == 1)
+            {
+                int turretIndex = Random.Range(0, Infinite_TurretNum.UpgradeNum.Count);
+                strstatus = turretIndex.ToString();
+            }else if(rndNum == 2)
+            {
+                var candidates = new List<int>();
+
+                for (int j = 0; j < Infinite_TrainNum.UpgradeNum.Count; j++)
+                {
+                    if (Infinite_TrainNum.LockOffFlag[j] && Infinite_TrainNum.UpgradeCanFlag[j])
+                        candidates.Add(j);
+                }
+
+                if (candidates.Count > 0)
+                {
+                    int upgradeTrainIndex = candidates[Random.Range(0, candidates.Count)];
+                    strstatus = upgradeTrainIndex.ToString();
+                }
+            }else if(rndNum == 3)
+            {
+                var candidates = new List<int>();
+
+                for (int j = 0; j < Infinite_TurretNum.UpgradeNum.Count; j++)
+                {
+                    if (Infinite_TurretNum.LockOffFlag[j] && Infinite_TurretNum.UpgradeCanFlag[j])
+                        candidates.Add(j);
+                }
+
+                if (candidates.Count > 0)
+                {
+                    int upgradeTrainIndex = candidates[Random.Range(0, candidates.Count)];
+                    strstatus = upgradeTrainIndex.ToString();
+                }
+            }else if(rndNum == 4)
+            {
+                int MercenaryIndex = Random.Range(0, Infinite_MercenaryNum.UpgradeNum.Count);
+                strstatus = MercenaryIndex.ToString();
+            }
+            else if(rndNum == 5)
+            {
+                var candidates = new List<int>();
+
+                for (int j = 0; j < Infinite_MercenaryNum.UpgradeNum.Count; j++)
+                {
+                    if (Infinite_MercenaryNum.LockOffFlag[j] && Infinite_MercenaryNum.UpgradeCanFlag[j])
+                        candidates.Add(j);
+                }
+
+                if (candidates.Count > 0)
+                {
+                    int upgradeTrainIndex = candidates[Random.Range(0, candidates.Count)];
+                    strstatus = upgradeTrainIndex.ToString();
+                }
+            }
+            else if(rndNum == 6)
+            {
+                int TrainPassiveIndex = Random.Range(0, Infinite_TrainPassive.UpgradeNum.Count);
+                strstatus = TrainPassiveIndex.ToString();
+            }
+            else if(rndNum == 7)
+            {
+                int PlayerPassiveIndex = Random.Range(0, Infinite_PlayerPassive.UpgradeNum.Count);
+                strstatus = PlayerPassiveIndex.ToString();
+            }
+            else if(rndNum == 8)
+            {
+                int equipedNum = Random.Range(0, 3);
+                int ItemNum = Random.Range(0, 29);
+                int ItemCount = Random.Range(1, 5);
+                if(equipedNum == 0)
+                {
+                    ItemCount = 1;
+                }
+                strstatus = equipedNum.ToString() + "-" + ItemNum.ToString() + "-" + ItemCount.ToString();
+            }
+
+            str = rndNum + "," + strstatus;
+
+            uiDirector.InfiniteMode_Button_String[i] = str;
+        }
     }
 
-    public void SetInfiniteCard(int cardNum, string status = "")
+    public void ClickInfiniteCard(int cardNum, string status = "")
     {
         if(cardNum == 0)
         {
             Infinite_SpawnTrain(false, int.Parse(status));
-        }
-
-        if (cardNum == 1)
+        }else if (cardNum == 1)
         {
             Infinite_SpawnTrain(true, int.Parse(status));
-        }
-
-        if(cardNum == 2)
+        }else if(cardNum == 2)
         {
             Infinite_TrainUpgrade(false, int.Parse(status));
-        }
-
-        if(cardNum == 3)
+        }else if(cardNum == 3)
         {
             Infinite_TrainUpgrade(true, int.Parse(status));
-        }
-
-        if(cardNum == 4)
+        }else if(cardNum == 4)
         {
             mercenaryDirector.Spawn_Mercenary(int.Parse(status));
-        }
-
-        if(cardNum == 5)
+        }else if (cardNum == 5)
         {
             UpgradeMercenaryNum(int.Parse(status));
-        }
-
-        if(cardNum == 6)
+        }else if (cardNum == 6)
         {
             UpgradeTrainPassiveNum(int.Parse(status));
-        }
-
-        if(cardNum == 7)
+        }else if (cardNum == 7)
         {
             UpgradePlayerPassiveNum(int.Parse(status));
+        }else if (cardNum == 8)
+        {
+            SetItem(status);
         }
     }
 
-    void Infinite_SpawnTrain(bool Turret, int trainNum)
+    void Infinite_SpawnTrain(bool Turret, int trainIndex)
     {
         if (!Turret)
         {
-            bool Lockflag = Infinite_TrainNum.Find_LockFlag((trainNum/10));
+            bool Lockflag = Infinite_TrainNum.LockOffFlag[trainIndex];
             if(!Lockflag)
             {
-                Infinite_TrainNum.Set_LockFlag(trainNum / 10, true);
+                Infinite_TrainNum.Set_LockFlag(trainIndex, true);
             }
-            int trainUpgradeNum = Infinite_TrainNum.Find_TrainNum(trainNum); // index;
+            int trainUpgradeNum = Infinite_TrainNum.UpgradeNum[trainIndex]; // index;
             Train_Num.Add(trainUpgradeNum);
             TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_InGame/" + Train_Num[Train_Num.Count - 1]), Train_List);
         }
         else
         {
             Train_Num.Add(91);
-            bool Lockflag = Infinite_TurretNum.Find_LockFlag((trainNum / 10));
+            bool Lockflag = Infinite_TurretNum.LockOffFlag[trainIndex];
             if (!Lockflag)
             {
-                Infinite_TurretNum.Set_LockFlag(trainNum / 10, true);
+                Infinite_TurretNum.Set_LockFlag(trainIndex, true);
             }
-            int turretUpgradeNum = Infinite_TurretNum.Find_TrainNum(trainNum);
+            int turretUpgradeNum = Infinite_TurretNum.UpgradeNum[trainIndex];
             Train_Turret_Num.Add(turretUpgradeNum);
             TrainObject = Instantiate(Resources.Load<GameObject>("TrainObject_InGame/91_" + Train_Turret_Num[Train_Turret_Num.Count - 1]), Train_List);
         }
@@ -2322,7 +2409,7 @@ public class GameDirector : MonoBehaviour
         //CameraConfilerSet(now_Count);
     }
 
-    void Infinite_TrainUpgrade(bool Turret, int TrainNum)
+    void Infinite_TrainUpgrade(bool Turret, int TrainIndex)
     {
         int originFuel = 0;
         int turretCount = 0;
@@ -2331,15 +2418,15 @@ public class GameDirector : MonoBehaviour
 
         if (!Turret)
         {
-            beforeTrainNum = Infinite_TrainNum.Find_TrainNum(TrainNum);
-            Infinite_TrainNum.Upgrade_TrainNum(TrainNum);
-            upgradeTrainNum = Infinite_TrainNum.Find_TrainNum(TrainNum);
+            beforeTrainNum = Infinite_TrainNum.UpgradeNum[TrainIndex];
+            Infinite_TrainNum.Upgrade_TrainNum(TrainIndex);
+            upgradeTrainNum = Infinite_TrainNum.UpgradeNum[TrainIndex];
         }
         else
         {
-            beforeTrainNum = Infinite_TurretNum.Find_TrainNum(TrainNum);
-            Infinite_TurretNum.Upgrade_TrainNum(TrainNum);
-            upgradeTrainNum = Infinite_TurretNum.Find_TrainNum(TrainNum);
+            beforeTrainNum = Infinite_TurretNum.UpgradeNum[TrainIndex];
+            Infinite_TurretNum.Upgrade_TrainNum(TrainIndex);
+            upgradeTrainNum = Infinite_TurretNum.UpgradeNum[TrainIndex];
         }
 
         for (int i = 0; i < Train_List.childCount; i++)
@@ -2411,7 +2498,7 @@ public class GameDirector : MonoBehaviour
 
     public void CheckMercenarySpawn(int MercenaryNum)
     {
-        if (!Infinite_MercenaryNum.LockFlag[MercenaryNum])
+        if (!Infinite_MercenaryNum.LockOffFlag[MercenaryNum])
         {
             Infinite_MercenaryNum.Set_LockFlag(MercenaryNum, true);
         }
@@ -2442,6 +2529,13 @@ public class GameDirector : MonoBehaviour
     public void UpgradePlayerPassiveNum(int PassiveNum)
     {
         Infinite_PlayerPassive.Upgrade_Level(PassiveNum);
+        player.Level_Infinite(PassiveNum);
+    }
+
+    public void SetItem(string str)
+    {
+        string[] st = str.Split('-');
+        itemDirector.SetItem_Infinite(int.Parse(st[0]), int.Parse(st[1]), int.Parse(st[2]));
     }
 }
 
@@ -2449,59 +2543,42 @@ public class GameDirector : MonoBehaviour
 public struct Infinite_UpgradeNum
 {
     public List<int> UpgradeNum;
-    public List<bool> LockFlag;
-    public List<bool> UpgradeFlag;
+    public List<bool> LockOffFlag;
+    public List<bool> UpgradeCanFlag;
 
     public void Set_Init(List<int> Num)
     {
         UpgradeNum = Num.ToList();
-        LockFlag = new List<bool>();
-        for(int i = 0; i < UpgradeNum.Count; i++)
+        LockOffFlag = new List<bool>();
+        UpgradeCanFlag = new List<bool>();
+        for (int i = 0; i < UpgradeNum.Count; i++)
         {
-            LockFlag.Add(false);
-            UpgradeFlag.Add(true);
+            LockOffFlag.Add(false);
+            UpgradeCanFlag.Add(true);
         }
     }
 
     public void Set_LockFlag(int index, bool flag)
     {
         //기차 생성 시 락 해제
-        LockFlag[index] = flag;
+        LockOffFlag[index] = flag;
     }
 
     public void Set_UpgradeFlag(int index, bool flag)
     {
-        UpgradeFlag[index] = flag;
+        UpgradeCanFlag[index] = flag;
     }
 
-    public void Spawn_TrainNum(int TrainNum)
+    public void Upgrade_TrainNum(int index)
     {
-        int index = TrainNum / 10;
-        LockFlag[index] = true;
-    }
-
-    public int Find_TrainNum(int TrainNum)
-    {
-        int index = TrainNum / 10;
-        return UpgradeNum[index];
-    }
-
-    public bool Find_LockFlag(int index)
-    {
-        return LockFlag[index];
-    }
-
-    public void Upgrade_TrainNum(int TrainNum)
-    {
-        int index = TrainNum / 10;
         int upgradeNum = UpgradeNum[index];
         UpgradeNum[index] = upgradeNum + 1;
     }
 
-    public void Upgrade_Level(int Num)
+    public void Upgrade_Level(int index)
     {
-        int upgradeNum = UpgradeNum[Num];
-        UpgradeNum[Num] = upgradeNum + 1;
+        int upgradeNum = UpgradeNum[index];
+        UpgradeNum[index] = upgradeNum + 1;
     }
 }
 

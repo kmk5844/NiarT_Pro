@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ public class MonsterDirector : MonoBehaviour
 {
     // 스테이지 정보 나온 후, 스테이지에 따라 몬스터 변경해야함
     // 그리고 엑셀에 몬스터 정보도 나와야 한다.
+    public GameDirector gameDirector;
     public Game_DataTable EX_GameData;
     public SA_PlayerData SA_PlayerData;
     public MissionDirector missionDirector;
@@ -17,12 +19,23 @@ public class MonsterDirector : MonoBehaviour
     public Transform Monster_List_Slow;
 
     public Transform Boss_List;
+    [SerializeField]
     List<int> Emerging_Monster_List_Sky;
+    [SerializeField]
     List<int> Emerging_Monster_List_Ground;
+    [SerializeField]
     List<int> Emerging_Monster_List_Slow;
+    [SerializeField]
     List<int> Emerging_MonsterCount_List;
     [SerializeField]
     List<int> Emerging_Boss_List;
+
+    [Header("무한모드")]
+    bool infiniteMode;
+    [SerializeField]
+    List<int> Infinite_Monster_Data;
+    float InfiniteSpawnTime = 0.5f;
+    float InfiniteClearMinusTime = 0.02f;
 
     [Header("미션")]
     public bool missionFlag_material = false;
@@ -89,6 +102,7 @@ public class MonsterDirector : MonoBehaviour
     [Header("Sound")]
     public AudioClip SpawnSFX;
 
+
     private void Awake()
     {
         BossCount = 0;
@@ -118,6 +132,18 @@ public class MonsterDirector : MonoBehaviour
         MinPos_Ground = new Vector2(-5.47f + (-10.94f * (TrainCount-1)), -1.19f);
         //몬스터 소환 위치가 달라진다.
         //기차 길이에 따라 정해야한다.
+        infiniteMode = gameDirector.Infinite_Mode;
+        if (infiniteMode)
+        {
+            for(int i = 0; i < EX_GameData.Information_Monster.Count; i++)
+            {
+                if (EX_GameData.Information_Monster[i].Monster_InfiniteFlag)
+                {
+                    Infinite_Monster_Data.Add(EX_GameData.Information_Monster[i].Number);
+                }
+            }
+            Check_InfiniteMonster(true);
+        }
     }
 
     // Update is called once per frame
@@ -212,9 +238,15 @@ public class MonsterDirector : MonoBehaviour
         isSpawing = true;
         if (!Bossflag)
         {
-            yield return new WaitForSeconds(Random.Range(0.2f, 0.5f));
-            int skyORground = Random.Range(0, 2);
-
+            if (!infiniteMode)
+            {
+                yield return new WaitForSeconds(Random.Range(0.2f, 0.5f));
+            }
+            else
+            {
+                yield return new WaitForSeconds(InfiniteSpawnTime);
+            }
+                int skyORground = Random.Range(0, 2);
             try
             {
                 if (skyORground == 0 && Monster_List_Sky.childCount < Emerging_MonsterCount_List[0] + item_MonsterCount_Sky)
@@ -398,15 +430,6 @@ public class MonsterDirector : MonoBehaviour
         BossCount++;
     }
 
-    public void Infinite()
-    {
-        GameDirector_StartFlag = false;
-        GameDirector_SpawnFlag = false;
-        GameDirector_BossFlag = false;
-        GameDirector_Boss_SpawnFlag = false;
-        GameDirector_EndingFlag = false;
-        GameDirecotr_AllDieFlag = false;
-    }
 
     private void OnDrawGizmos()
     {
@@ -533,6 +556,69 @@ public class MonsterDirector : MonoBehaviour
         missionMaterial_Drop = _drop;
     }
 
+    //무한 모드
+    public void Infinite()
+    {
+        GameDirector_StartFlag = false;
+        GameDirector_SpawnFlag = false;
+        GameDirector_BossFlag = false;
+        GameDirector_Boss_SpawnFlag = false;
+        GameDirector_EndingFlag = false;
+        GameDirecotr_AllDieFlag = false;
+    }
+
+    public void Clear_MonsterDirector()
+    {
+        Clear_SetSpawnTime(); // 스폰 시간 감소
+        Clear_SetMonsterList();
+        Clear_SetMonsterCount();
+        Infinite();
+    }
+
+    void Clear_SetSpawnTime()
+    {
+        if(InfiniteSpawnTime != 0.1f)
+        {
+            InfiniteSpawnTime -= InfiniteClearMinusTime;
+            if(InfiniteSpawnTime < 0.1f)
+            {
+                InfiniteSpawnTime = 0.1f;
+            }
+        }
+    }
+
+    void Clear_SetMonsterList()
+    {
+        for(int i = 0; i < 2; i++)
+        {
+            int rnd = Random.Range(0, Infinite_Monster_Data.Count);
+            Debug.Log(EX_GameData.Information_Monster[Infinite_Monster_Data[rnd]].Number);
+            if (EX_GameData.Information_Monster[Infinite_Monster_Data[rnd]].Monster_Type.Equals("Sky"))
+            {
+                Emerging_Monster_List_Sky.Add(Infinite_Monster_Data[rnd]);
+                Infinite_Monster_Data.Remove(Infinite_Monster_Data[rnd]);
+            }else if (EX_GameData.Information_Monster[Infinite_Monster_Data[rnd]].Monster_Type.Equals("Ground"))
+            {
+                Emerging_Monster_List_Ground.Add(Infinite_Monster_Data[rnd]);
+                Infinite_Monster_Data.Remove(Infinite_Monster_Data[rnd]);
+            } else if (EX_GameData.Information_Monster[Infinite_Monster_Data[rnd]].Monster_Type.Equals("Slow"))
+            {
+                Emerging_Monster_List_Slow.Add(Infinite_Monster_Data[rnd]);
+                Infinite_Monster_Data.Remove(Infinite_Monster_Data[rnd]);
+            }
+        }
+    }
+
+    void Clear_SetMonsterCount()
+    {
+        int num = Emerging_MonsterCount_List[0];
+        Emerging_MonsterCount_List[0] = num + 1;
+        Debug.Log(Emerging_MonsterCount_List[0]);
+        num = Emerging_MonsterCount_List[1];
+        Emerging_MonsterCount_List[1] = num + 1;
+        Debug.Log(Emerging_MonsterCount_List[1]);
+    }
+
     public void SetSpawnPosition(int TrainCount)
     {
         MaxPos_Sky = new Vector2(6f, 9f);
@@ -540,5 +626,33 @@ public class MonsterDirector : MonoBehaviour
 
         MaxPos_Ground = new Vector2(3.5f, -1.19f);
         MinPos_Ground = new Vector2(-5.47f + (-10.94f * (TrainCount - 1)), -1.19f);
+    }
+
+    public void Check_InfiniteMonster(bool ALL, string Num = "")
+    {
+        if (ALL)
+        {
+            for (int i = 0; i < Emerging_Monster_List_Sky.Count; i++)
+            {
+                Infinite_Monster_Data.Remove(Emerging_Monster_List_Sky[i]);
+            }
+            for (int i = 0; i < Emerging_Monster_List_Ground.Count; i++)
+            {
+                Infinite_Monster_Data.Remove(Emerging_Monster_List_Ground[i]);
+            }
+            for (int i = 0; i < Emerging_Monster_List_Slow.Count; i++)
+            {
+                Infinite_Monster_Data.Remove(Emerging_Monster_List_Slow[i]);
+            }
+        }
+        else
+        {
+            string[] splitNum = Num.Split(',');
+            for(int i = 0; i < splitNum.Length; i++)
+            {
+                int num_= int.Parse(splitNum[i]);
+                Infinite_Monster_Data.Remove(num_);
+            }
+        }
     }
 }

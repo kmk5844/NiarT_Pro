@@ -60,6 +60,7 @@ public class UIDirector : MonoBehaviour
 
     [Header("InfiniteMode")]
     public GameObject Option_Station_Button;
+    public string[] InfiniteMode_Button_String;
 
     [Header("Clear UI")]
     public GameObject Clear_UI;
@@ -206,6 +207,8 @@ public class UIDirector : MonoBehaviour
         {
             Option_Station_Button.SetActive(false);
         }
+
+        InfiniteMode_Button_String = new string[3];
     }
     private void Update()
     {
@@ -697,6 +700,7 @@ public class UIDirector : MonoBehaviour
         {
             if (Count != 0)
             {
+                Equiped_Item_Count[equiped_num].gameObject.SetActive(true);
                 Equiped_Item_Count[equiped_num].text = Count.ToString();
             }
             else
@@ -1083,16 +1087,16 @@ public class UIDirector : MonoBehaviour
 
     public void Infinite_UI_Open()
     {
+        gamedirector.SetCard();
         Infinite_UI.SetActive(true);
     }
 
-    public void Infinite_UI_Close(string TestString)
+    public void Infinite_UI_Close(int i)
     {
-        string[] ar = TestString.Split(',');
+        string[] ar = InfiniteMode_Button_String[i].Split(',');
         int TestCard = int.Parse(ar[0]);
         string TestCount = ar[1];
-
-        gamedirector.SetInfiniteCard(TestCard, TestCount);
+        gamedirector.ClickInfiniteCard(TestCard, TestCount);
         gamedirector.SelectCard_StageInit();
         Infinite_UI.SetActive(false);
     }

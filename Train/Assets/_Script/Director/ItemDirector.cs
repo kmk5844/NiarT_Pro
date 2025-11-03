@@ -8,6 +8,7 @@ public class ItemDirector : MonoBehaviour
     public UIDirector uiDirector;
     public SA_ItemList itemList;
     public SA_ItemData itemData;
+    public SA_ItemData itemData_Infinite;
     UseItem useitem;
 
     [SerializeField]
@@ -21,7 +22,7 @@ public class ItemDirector : MonoBehaviour
 
     bool player_revival_flag;
     int player_revival_num = 0;
-
+    bool Infinite_Mode_Flag = false;
     [Header("Sound")]
     public AudioClip UseItemSound;
 
@@ -46,39 +47,61 @@ public class ItemDirector : MonoBehaviour
         SupplyItem = new int[2];
         SupplyItem[0] = -1;
         SupplyItem[1] = -1;
-
-        for (int i = 0; i < itemData.Equiped_Item.Count; i++)
+        Infinite_Mode_Flag = gameDirector.Infinite_Mode;
+        if (!Infinite_Mode_Flag)
         {
-            if (itemData.Equiped_Item[i] == -1)
+            for (int i = 0; i < itemData.Equiped_Item.Count; i++)
             {
-                uiDirector.Item_EquipedIcon(i, itemData.EmptyObject.Item_Sprite, itemData.Equiped_Item_Count[i]);
-                EquipedItemFlag[i] = false;
-            }else if (itemData.Equiped_Item[i] == 0)
-            {
-                //제세동기
-                uiDirector.Item_EquipedIcon(i, itemList.Item[itemData.Equiped_Item[i]].Item_Sprite, itemData.Equiped_Item_Count[i]);
-                player_revival_flag = true;
-                EquipedItemFlag[i] = false;
-                player_revival_num = i;
+                if (itemData.Equiped_Item[i] == -1)
+                {
+                    uiDirector.Item_EquipedIcon(i, itemData.EmptyObject.Item_Sprite, itemData.Equiped_Item_Count[i]);
+                    EquipedItemFlag[i] = false;
+                }
+                else if (itemData.Equiped_Item[i] == 0)
+                {
+                    //제세동기
+                    uiDirector.Item_EquipedIcon(i, itemList.Item[itemData.Equiped_Item[i]].Item_Sprite, itemData.Equiped_Item_Count[i]);
+                    player_revival_flag = true;
+                    EquipedItemFlag[i] = false;
+                    player_revival_num = i;
+                }
+                else
+                {
+                    uiDirector.Item_EquipedIcon(i, itemList.Item[itemData.Equiped_Item[i]].Item_Sprite, itemData.Equiped_Item_Count[i]);
+                    EquipedItemFlag[i] = true;
+                }
             }
-            else
+
+            for (int i = 3; i < 5; i++)
             {
-                uiDirector.Item_EquipedIcon(i, itemList.Item[itemData.Equiped_Item[i]].Item_Sprite, itemData.Equiped_Item_Count[i]);
+                uiDirector.Item_EquipedIcon(i, itemData.EmptyObject.Item_Sprite, -2);
                 EquipedItemFlag[i] = true;
+                SupplyItemFlag[i - 3] = false;
+            }
+
+            if (player_revival_flag)
+            {
+                gameDirector.Revival_PlayerSet();
+                //게임 디렉터에게 신호를 알려줘야함.
             }
         }
-
-        for(int i = 3; i < 5; i++)
+        else
         {
-            uiDirector.Item_EquipedIcon(i, itemData.EmptyObject.Item_Sprite, -2);
-            EquipedItemFlag[i] = true;
-            SupplyItemFlag[i-3] = false;
-        }
+            for (int i = 0; i < itemData.Equiped_Item.Count; i++)
+            {
+                if (itemData.Equiped_Item[i] == -1)
+                {
+                    uiDirector.Item_EquipedIcon(i, itemData.EmptyObject.Item_Sprite, itemData.Equiped_Item_Count[i]);
+                    EquipedItemFlag[i] = false;
+                }   
+            }
 
-        if (player_revival_flag)
-        {
-            gameDirector.Revival_PlayerSet();
-            //게임 디렉터에게 신호를 알려줘야함.
+            for (int i = 3; i < 5; i++)
+            {
+                uiDirector.Item_EquipedIcon(i, itemData.EmptyObject.Item_Sprite, -2);
+                EquipedItemFlag[i] = true;
+                SupplyItemFlag[i - 3] = false;
+            }
         }
 
         useitem = GetComponent<UseItem>();
@@ -87,18 +110,37 @@ public class ItemDirector : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1) && EquipedItemFlag[0])
-        { 
-            Change_EquipedItem(0);
+        {
+            if (!Infinite_Mode_Flag)
+            {
+                Change_EquipedItem(0);
+            }
+            else
+            {
+                Change_EquipedItem_Infinite(0);
+            }
             StartCoroutine(EquipItemCoolTime(0));
         }
         else if (Input.GetKeyDown(KeyCode.Alpha2) && EquipedItemFlag[1])
         {
-            Change_EquipedItem(1);
+            if (!Infinite_Mode_Flag) {
+                Change_EquipedItem(1);
+            }
+            else
+            {
+                Change_EquipedItem_Infinite(1);
+            }
             StartCoroutine(EquipItemCoolTime(1));
         }
         else if (Input.GetKeyDown(KeyCode.Alpha3) && EquipedItemFlag[2])
         {
-            Change_EquipedItem(2);
+            if (!Infinite_Mode_Flag) {
+                Change_EquipedItem(2);
+            }
+            else
+            {
+                Change_EquipedItem_Infinite(2);
+            }
             StartCoroutine(EquipItemCoolTime(2));
         }else if(Input.GetKeyDown(KeyCode.Alpha4) && SupplyItemFlag[0] && EquipedItemFlag[3])
         {
@@ -185,7 +227,14 @@ public class ItemDirector : MonoBehaviour
     public void RevivalUse()
     {
         player_revival_flag = false;
-        Change_EquipedItem(player_revival_num);
+        if (!Infinite_Mode_Flag)
+        {
+            Change_EquipedItem(player_revival_num);
+        }
+        else
+        {
+            Change_EquipedItem_Infinite(player_revival_num);
+        }
     }
 
     public void SupplySet(int index, int itemNum)
@@ -203,4 +252,41 @@ public class ItemDirector : MonoBehaviour
         uiDirector.Item_EquipedIcon(changeNum, itemList.Item[itemNum].Item_Sprite, -2);
         SupplyItemFlag[index] = true;
     }
+
+    //InfiniteMode()
+
+    public void SetItem_Infinite(int num, int ItemNum, int Count)
+    {
+        itemData_Infinite.Equip_Item(num, itemList.Item[ItemNum], Count); // 아이템 등록
+
+        uiDirector.Item_EquipedIcon(num, itemList.Item[ItemNum].Item_Sprite, Count); // UI 아이콘 변경
+        
+        EquipedItemFlag[num] = true; //사용가능하다는 플래그 변경
+
+        if (ItemNum == 0) 
+        {
+            player_revival_flag = true;
+            player_revival_num = num;
+            gameDirector.Revival_PlayerSet();
+        }
+    }
+
+    private void Change_EquipedItem_Infinite(int num)
+    {
+        MMSoundManagerSoundPlayEvent.Trigger(UseItemSound, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+        if (itemData_Infinite.Equiped_Item[num] != -1)
+        {
+            useitem.UseEquipItem(itemData_Infinite.Equiped_Item[num]);
+            itemData_Infinite.UseEquipedItem(num);
+            if (itemData_Infinite.Equiped_Item[num] == -1)
+            {
+                uiDirector.Item_EquipedIcon(num, itemData_Infinite.EmptyObject.Item_Sprite, itemData_Infinite.Equiped_Item_Count[num]);
+            }
+            else
+            {
+                uiDirector.Item_EquipedIcon(num, itemList.Item[itemData_Infinite.Equiped_Item[num]].Item_Sprite, itemData_Infinite.Equiped_Item_Count[num]);
+            }
+        }
+    }
+
 }

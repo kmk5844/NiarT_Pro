@@ -8,6 +8,10 @@ using UnityEngine;
 public class SA_ItemData : ScriptableObject
 {
     public ItemDataObject EmptyObject;
+
+    [SerializeField]
+    private bool InfiniteMode;
+
     [SerializeField]
     private List<int> equiped_item;
     public List<int> Equiped_Item { get { return equiped_item; } }
@@ -72,55 +76,73 @@ public class SA_ItemData : ScriptableObject
 
     public void Save()
     {
-        ES3.Save<List<int>>(name + "_Equiped_Item", equiped_item);
-        ES3.Save(name + "_Equiped_ItemCount", equiped_item_count);
+        if (!InfiniteMode)
+        {
+            ES3.Save<List<int>>(name + "_Equiped_Item", equiped_item);
+            ES3.Save(name + "_Equiped_ItemCount", equiped_item_count);
+        }
     }
     
     public IEnumerator SaveSync()
     {
-        ES3.Save<List<int>>(name + "_Equiped_Item", equiped_item);
-        yield return new WaitForSeconds(0.001f);
-        ES3.Save(name + "_Equiped_ItemCount", equiped_item_count);
-        yield return new WaitForSeconds(0.001f);
+        if (!InfiniteMode)
+        {
+            ES3.Save<List<int>>(name + "_Equiped_Item", equiped_item);
+            yield return new WaitForSeconds(0.001f);
+            ES3.Save(name + "_Equiped_ItemCount", equiped_item_count);
+            yield return new WaitForSeconds(0.001f);
+        }
     }
     public void Load()
     {
-        equiped_item = ES3.Load<List<int>>(name + "_Equiped_Item", new List<int> { -1, -1, -1 });
-        equiped_item_count = ES3.Load<List<int>>(name + "_Equiped_ItemCount", new List<int> { 0, 0, 0 });
+        if (!InfiniteMode)
+        {
+            equiped_item = ES3.Load<List<int>>(name + "_Equiped_Item", new List<int> { -1, -1, -1 });
+            equiped_item_count = ES3.Load<List<int>>(name + "_Equiped_ItemCount", new List<int> { 0, 0, 0 });
+        }
     }
 
     public IEnumerator LoadSync()
     {
-        equiped_item = ES3.Load<List<int>>(name + "_Equiped_Item", new List<int> {-1,-1,-1 });
-        equiped_item_count = ES3.Load<List<int>>(name + "_Equiped_ItemCount", new List<int> { 0, 0, 0 });
-        yield return new WaitForSeconds(0.001f);
+        if (!InfiniteMode)
+        {
+            equiped_item = ES3.Load<List<int>>(name + "_Equiped_Item", new List<int> {-1,-1,-1 });
+            equiped_item_count = ES3.Load<List<int>>(name + "_Equiped_ItemCount", new List<int> { 0, 0, 0 });
+            yield return new WaitForSeconds(0.001f);
+        }
     }
 
     public void Init()
     {
-        for(int i = 0; i < equiped_item.Count; i++)
+        if (!InfiniteMode)
         {
-            equiped_item[i] = -1;
-            equiped_item_count[i] = 0;
+            for (int i = 0; i < equiped_item.Count; i++)
+            {
+                equiped_item[i] = -1;
+                equiped_item_count[i] = 0;
+            }
+            Save();
         }
-        Save();
     }
 
     public IEnumerator InitAsync(MonoBehaviour runner)
     {
-        for (int i = 0; i < equiped_item.Count; i++)
+        if (!InfiniteMode)
         {
-            equiped_item[i] = -1;
-            equiped_item_count[i] = 0;
-
-            if(i % 5 == 0)
+            for (int i = 0; i < equiped_item.Count; i++)
             {
-                yield return new WaitForSeconds(0.01f);
-            }
-        }
-        yield return runner.StartCoroutine(SaveSync());
+                equiped_item[i] = -1;
+                equiped_item_count[i] = 0;
 
-        yield return null;
+                if (i % 5 == 0)
+                {
+                    yield return new WaitForSeconds(0.01f);
+                }
+            }
+            yield return runner.StartCoroutine(SaveSync());
+
+            yield return null;
+        }
     }
 
     public void Test(int num, int itemNum, int count)
