@@ -808,6 +808,11 @@ public class Monster : MonoBehaviour
             Debug.Log("KILL_MONSTER_" + Monster_Num);
         }
 
+        if (gameDirector.Infinite_Mode)
+        {
+            gameDirector.Infinite_mosnterCount++;
+        }
+
         start_DieCoroutine();
     }
 

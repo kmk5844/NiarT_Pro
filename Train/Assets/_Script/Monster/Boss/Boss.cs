@@ -166,6 +166,12 @@ public class Boss : MonoBehaviour
         monsterData.Boss_Dic[Boss_Num].ChangeMonster(true);
 
         gameDirector.Gmae_Boss_Kill(Monster_Coin);
+
+       if (gameDirector.Infinite_Mode)
+       {
+            gameDirector.Infinite_bossCount++;
+       }
+
         Change_DieFlag();
     }
 

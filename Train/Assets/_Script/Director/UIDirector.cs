@@ -58,10 +58,6 @@ public class UIDirector : MonoBehaviour
     public TextMeshProUGUI[] TrainStatus_Text;
     Train_InGame train;
 
-    [Header("InfiniteMode")]
-    public GameObject Option_Station_Button;
-    public string[] InfiniteMode_Button_String;
-
     [Header("Clear UI")]
     public GameObject Clear_UI;
 
@@ -104,6 +100,21 @@ public class UIDirector : MonoBehaviour
     public GameObject LoseWindow;
     public LocalizeStringEvent LoseText;
 
+
+    [Header("Infinite UI")]
+    public GameObject Option_Station_Button;
+    public GameObject Resulte_DefaultNext_Button;
+    public string[] InfiniteMode_Button_String;
+    public TextMeshProUGUI Infinite_Distance_Text;
+    public GameObject InfiniteResulteWindow;
+    public TextMeshProUGUI Infinite_MainDistance_Text;
+    public TextMeshProUGUI Infinite_SubDistance_Text;
+    public TextMeshProUGUI Infinite_Stage_Text;
+    public TextMeshProUGUI Infinite_Mosnter_Count;
+    public TextMeshProUGUI Infinite_Boss_Count;
+
+
+    [Header("Mission UI")]
     public LocalizeStringEvent missionTitle;
     public TextMeshProUGUI missionInformation;
 
@@ -206,6 +217,9 @@ public class UIDirector : MonoBehaviour
         if (infiniteFlag)
         {
             Option_Station_Button.SetActive(false);
+            missionTextInformation_text.gameObject.SetActive(false);
+            missionCountText_text.gameObject.SetActive(false);
+            Infinite_Distance_Text.gameObject.SetActive(true);
         }
 
         InfiniteMode_Button_String = new string[3];
@@ -349,13 +363,13 @@ public class UIDirector : MonoBehaviour
 
         if(num < 90)
         {
-            TrainName_Localization.StringReference.TableEntryReference = "Train_Name_" + num / 10;
+            TrainName_Localization.StringReference.TableEntryReference = "Train_Name_" + (num / 10);
         }
         else
         {
             if(num == 91)
             {
-                TrainName_Localization.StringReference.TableEntryReference = "Train_Turret_Name_" + num2;
+                TrainName_Localization.StringReference.TableEntryReference = "Train_Turret_Name_" + (num2 / 10);
             }
             else
             {
@@ -1097,7 +1111,30 @@ public class UIDirector : MonoBehaviour
         int TestCard = int.Parse(ar[0]);
         string TestCount = ar[1];
         gamedirector.ClickInfiniteCard(TestCard, TestCount);
+        Debug.Log(TestCount);
         gamedirector.SelectCard_StageInit();
         Infinite_UI.SetActive(false);
+    }
+
+    public void Infinite_UI_Resulte(int distance, int stagecount, int monsterCount, int bossCount)
+    {
+        Result_UI.SetActive(true);
+        Resulte_DefaultNext_Button.SetActive(false);
+        InfiniteResulteWindow.SetActive(true);
+        Infinite_MainDistance_Text.text = (distance / 10000) + "km";
+        Infinite_SubDistance_Text.text = (distance / 10) + "m";
+        Infinite_Stage_Text.text = "¢º " + stagecount;
+        Infinite_Mosnter_Count.text = "¢º " + monsterCount;
+        Infinite_Boss_Count.text = "¢º " + bossCount;
+    }
+
+    public void Infinite_MainMenu()
+    {
+        LoadingManager.LoadScene("1.MainMenu");
+    }
+
+    public void SetInfinite_Distance(int num)
+    {
+        Infinite_Distance_Text.text = "Distance : " + num + "m";
     }
 }

@@ -24,11 +24,20 @@ public class SA_ItemList : ScriptableObject
     private List<ItemDataObject> common_supply_itemlist;
     public List<ItemDataObject> Common_Supply_ItemList { get { return common_supply_itemlist; } }
     [SerializeField]
+    private List<ItemDataObject> common_supply_itemlist_nongarbage;
+    public List<ItemDataObject> Common_Supply_ItemList_NonGarbage { get { return common_supply_itemlist_nongarbage; } }
+    [SerializeField]
     private List<ItemDataObject> rare_supply_itemlist;
     public List<ItemDataObject> Rare_Supply_ItemList { get { return rare_supply_itemlist; } }
     [SerializeField]
+    private List<ItemDataObject> rare_supply_itemlist_nongarbage;
+    public List<ItemDataObject> Rare_Supply_ItemList_NonGarbage { get { return rare_supply_itemlist_nongarbage; } }
+    [SerializeField]
     private List<ItemDataObject> unique_supply_itemlist;
     public List<ItemDataObject> Unique_Supply_ItemList { get { return unique_supply_itemlist; } }
+    [SerializeField]
+    private List<ItemDataObject> unique_supply_itemlist_nongarbage;
+    public List<ItemDataObject> Unique_Supply_ItemList_NonGarbage { get { return unique_supply_itemlist_nongarbage; } }
     [SerializeField]
     private List<ItemDataObject> epic_supply_itemlist;
     public List<ItemDataObject> Epic_Supply_ItemList { get { return epic_supply_itemlist; } }
@@ -49,8 +58,11 @@ public class SA_ItemList : ScriptableObject
 
         equiped_item_list.Clear();
         common_supply_itemlist.Clear();
+        common_supply_itemlist_nongarbage.Clear();
         rare_supply_itemlist.Clear();
+        rare_supply_itemlist_nongarbage.Clear();
         unique_supply_itemlist.Clear();
+        unique_supply_itemlist_nongarbage.Clear();
         epic_supply_itemlist.Clear();
         epic_supply_itemlist_NonWeapon.Clear();
 
@@ -129,12 +141,24 @@ public class SA_ItemList : ScriptableObject
             {
                 case Information_Item_Rarity_Type.Common:
                     common_supply_itemlist.Add(newobjcet);
+                    if (newobjcet.Infinite_Flag)
+                    {
+                        common_supply_itemlist_nongarbage.Add(newobjcet);
+                    }
                     break;
                 case Information_Item_Rarity_Type.Rare:
                     rare_supply_itemlist.Add(newobjcet);
+                    if (newobjcet.Infinite_Flag)
+                    {
+                        rare_supply_itemlist_nongarbage.Add(newobjcet);
+                    }
                     break;
                 case Information_Item_Rarity_Type.Unique:
                     unique_supply_itemlist.Add(newobjcet);
+                    if (newobjcet.Infinite_Flag)
+                    {
+                        unique_supply_itemlist_nongarbage.Add(newobjcet);
+                    }
                     break;
                 case Information_Item_Rarity_Type.Epic:
                     epic_supply_itemlist.Add(newobjcet);

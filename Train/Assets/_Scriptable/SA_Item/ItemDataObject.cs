@@ -58,10 +58,14 @@ public class ItemDataObject : ScriptableObject
     private int item_count;
     public int Item_Count { get { return item_count; } }
 
+    [SerializeField]
+    private bool infinite_flag;
+    public bool Infinite_Flag { get { return infinite_flag; } }
+
     public void Auto_Item_Insert(
         int _num, string _item_name, Information_Item_Type _item_type, string _item_information,
         Information_Item_Rarity_Type _rarrity_type, string buy_sell_supply_flag,
-        string buy_sell_pride, int _max_equip, float _cool_time ,int _item_count
+        string buy_sell_pride, int _max_equip, float _cool_time ,int _item_count, bool _infiniteflag
         )
     {
         num = _num;
@@ -107,6 +111,7 @@ public class ItemDataObject : ScriptableObject
         cool_time = _cool_time;
         item_sprite = Resources.Load<Sprite>("ItemIcon/" + num);
         item_count = _item_count;
+        infinite_flag = _infiniteflag;
     }
 
     public void Item_Count_Down() // 사용하거나, 팔 때

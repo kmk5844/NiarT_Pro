@@ -4,6 +4,7 @@ using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.AddressableAssets.Build;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -55,6 +56,11 @@ public class GameDirector : MonoBehaviour
     bool SpawnTurretFlag_Infinite = false;
     bool SpawnMercenaryFlag_Infinite = false;
     public int Infinite_Count;
+    int Infinite_Total_Distance = 0;
+    [HideInInspector]
+    public int Infinite_mosnterCount = 0;
+    [HideInInspector]
+    public int Infinite_bossCount = 0;
 
     [Header("데이터")]
     public SA_PlayerData SA_PlayerData;
@@ -601,6 +607,7 @@ public class GameDirector : MonoBehaviour
             {
                 GameWinFlag = true;
                 gameType = GameType.Ending;
+                TrainDistance = Destination_Distance;
             }
 
             if (player.Player_HP <= 0 && revivalFlag)
@@ -894,11 +901,15 @@ public class GameDirector : MonoBehaviour
         {
             ChangeCursor(false);
         }
+
+        if (Infinite_Mode)
+        {
+            uiDirector.SetInfinite_Distance((Infinite_Total_Distance + TrainDistance)/10);
+        }
     }
 
     private void FixedUpdate()
     {
-
         if (gameType == GameType.Playing)
         {
             if (Time.time >= StartTime + 0.1f && !isStationHideFlag)
@@ -1435,6 +1446,7 @@ public class GameDirector : MonoBehaviour
                         else
                         {
                             Debug.Log("CLEAR_STAGE_" + Stage_Num);
+                            Debug.Log("CLEAR_STAGE_" + Stage_Num);
                         }
                     }
                     else // 미션 실패다
@@ -1497,6 +1509,7 @@ public class GameDirector : MonoBehaviour
         {
             if (WinFlag)
             {
+                Infinite_Total_Distance += Destination_Distance;
                 Destination_Distance = Destination_Distance += 10000;
                 RefreshCount = Destination_Distance / 40000;
                 CalculateRefreshPoints();
@@ -1507,7 +1520,7 @@ public class GameDirector : MonoBehaviour
             else
             {
                 missionDirector.selectmission.Infinite_End();
-                //Debug.Log("무한모드 종료");
+                uiDirector.Infinite_UI_Resulte(Infinite_Total_Distance + TrainDistance, Infinite_Count, Infinite_mosnterCount, Infinite_bossCount);
             }
         }
     }
@@ -1515,6 +1528,18 @@ public class GameDirector : MonoBehaviour
     public void SelectCard_StageInit()
     {
         monsterDirector.Clear_MonsterDirector();
+        if (Infinite_Count != 0 && Infinite_Count % 6 == 0)
+        {
+            Data_BossFlag = true;
+            monsterDirector.Set_SetBossList();
+            Emerging_Boss_Distance.Add(98);
+            Emerging_Boss_Monster_Count.Add(monsterDirector.Get_MonsterAllCount()/2);
+        }
+        else
+        {
+            Data_BossFlag = false;
+            monsterDirector.Set_InitBossList();
+        }
         GameStartFlag = false;
         isStationHideFlag = false;
         isStationHideEndFlag = false;
@@ -1523,7 +1548,6 @@ public class GameDirector : MonoBehaviour
         GameWinFlag = false;
         StartTime = Time.time;
         gameType = GameType.Starting;
-        Debug.Log("이어서");
     }
 
     public void MissionFail()

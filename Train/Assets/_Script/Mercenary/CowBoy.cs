@@ -8,6 +8,7 @@ public class CowBoy : Mercenary
     public bool refreshFlag;
     CowBoy_Grap grap;
     CircleCollider2D grapZone;
+    public bool isDieFlag = false;
     protected override void Awake()
     {
         base.Awake();
@@ -31,6 +32,7 @@ public class CowBoy : Mercenary
             {
                 HP = 0;
                 act = Active.die;
+                isDieFlag = true;
                 isDying = true;
             }
 

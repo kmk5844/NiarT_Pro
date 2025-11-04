@@ -10,9 +10,13 @@ public class SupplyMonster_Item : MonoBehaviour
     public bool MissionMaterialFlag;
     GameObject itemdirector_object;
     ItemDirector itemdirector;
+    bool InfiniteFlag = false;
     public List<ItemDataObject> common_supplylist;
+    public List<ItemDataObject> common_supplylist_NonGarbage;
     public List<ItemDataObject> rare_supplylist;
+    public List<ItemDataObject> rare_supplylist_NonGarbage;
     public List<ItemDataObject> unique_supplylist;
+    public List<ItemDataObject> unique_supplylist_NonGarbage;
     public List<ItemDataObject> epic_supplylist;
     public List<ItemDataObject> epic_supplylist_NoWeapon;
     public List<ItemDataObject> legendary_supplylist;
@@ -30,9 +34,13 @@ public class SupplyMonster_Item : MonoBehaviour
     {
         itemdirector_object = GameObject.Find("ItemDirector");
         itemdirector = itemdirector_object.GetComponent<ItemDirector>();
+        InfiniteFlag = itemdirector.Infinite_Mode_Flag;
         common_supplylist = itemdirector.itemList.Common_Supply_ItemList.ToList();
+        common_supplylist_NonGarbage = itemdirector.itemList.Common_Supply_ItemList_NonGarbage.ToList();
         rare_supplylist = itemdirector.itemList.Rare_Supply_ItemList.ToList();
+        rare_supplylist_NonGarbage = itemdirector.itemList.Rare_Supply_ItemList_NonGarbage.ToList();
         unique_supplylist = itemdirector.itemList.Unique_Supply_ItemList.ToList();
+        unique_supplylist_NonGarbage = itemdirector.itemList.Unique_Supply_ItemList_NonGarbage.ToList();
         epic_supplylist = itemdirector.itemList.Epic_Supply_ItemList.ToList();
         epic_supplylist_NoWeapon = itemdirector.itemList.Epic_Supply_ItemList_NonWeapon.ToList();
         legendary_supplylist = itemdirector.itemList.Legendary_Supply_ItemList.ToList();
@@ -102,17 +110,38 @@ public class SupplyMonster_Item : MonoBehaviour
         {
             if (num >= 0 && num < 50) //50%
             {
-                Item = common_supplylist[Random.Range(0, common_supplylist.Count)];
+                if (!InfiniteFlag)
+                {
+                    Item = common_supplylist[Random.Range(0, common_supplylist.Count)];
+                }
+                else
+                {
+                    Item = common_supplylist[Random.Range(0, common_supplylist_NonGarbage.Count)];
+                }
                 mat.SetColor("_SolidOutline", Color.gray);
             }
             else if (num >= 50 && num < 80) //30%
             {
-                Item = rare_supplylist[Random.Range(0, rare_supplylist.Count)];
+                if (!InfiniteFlag)
+                {
+                    Item = rare_supplylist[Random.Range(0, rare_supplylist.Count)];
+                }
+                else
+                {
+                    Item = rare_supplylist[Random.Range(0, rare_supplylist_NonGarbage.Count)];
+                }
                 mat.SetColor("_SolidOutline", Color.blue);
             }
             else if (num >= 80 && num < 90) //10%
             {
-                Item = unique_supplylist[Random.Range(0, unique_supplylist.Count)];
+                if (!InfiniteFlag)
+                {
+                    Item = unique_supplylist[Random.Range(0, unique_supplylist.Count)];
+                }
+                else
+                {
+                    Item = unique_supplylist[Random.Range(0, unique_supplylist_NonGarbage.Count)];
+                }
                 mat.SetColor("_SolidOutline", new Color(166f / 255f, 0, 255f / 255f));
             }
             else if (num >= 90 && num < 97) //7%

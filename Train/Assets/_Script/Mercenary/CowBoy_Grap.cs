@@ -15,6 +15,7 @@ public class CowBoy_Grap : MonoBehaviour
     bool isRetracting;
     Vector2 NonTargetPos;
     public GameObject target;
+    bool DieFlag;
     private void Start()
     {
         isCounting = false;
@@ -29,38 +30,52 @@ public class CowBoy_Grap : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(target != null)
+        if (!unit.isDieFlag)
         {
-            if (target.GetComponent<Monster>().monster_gametype == Monster_GameType.Die && isGrappling)
+            if (target != null)
             {
-                NonTargetPos = line.GetPosition(1);
-                isRetracting = false;
-                StartCoroutine(NonGrapple());
-                target = null;
+                if (target.GetComponent<Monster>().monster_gametype == Monster_GameType.Die && isGrappling)
+                {
+                    NonTargetPos = line.GetPosition(1);
+                    isRetracting = false;
+                    StartCoroutine(NonGrapple());
+                    target = null;
+                }
+            }
+
+            if (isRetracting)
+            {
+                line.SetPosition(0, transform.position);
+
+                if (!target) // null 또는 파괴된 경우 자동으로 걸러짐
+                {
+                    isRetracting = false;
+                    StartCoroutine(NonGrapple());
+                    target = null;
+                    return;
+                }
+
+                try
+                {
+                    line.SetPosition(1, target.transform.position);
+                }
+                catch (MissingReferenceException)
+                {
+                    isRetracting = false;
+                    StartCoroutine(NonGrapple());
+                    target = null;
+                }
             }
         }
-
-        if (isRetracting)
+        else
         {
-            line.SetPosition(0, transform.position);
-
-            if (!target) // null 또는 파괴된 경우 자동으로 걸러짐
+            if (!DieFlag)
             {
                 isRetracting = false;
                 StartCoroutine(NonGrapple());
                 target = null;
+                DieFlag = true;
                 return;
-            }
-
-            try
-            {
-                line.SetPosition(1, target.transform.position);
-            }
-            catch(MissingReferenceException)
-            {
-                isRetracting = false;
-                StartCoroutine(NonGrapple());
-                target = null;
             }
         }
     }

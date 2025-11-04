@@ -11,4 +11,5 @@ public class Info_Item
     public string Buy_Sell_Pride;
     public int Max_Equip;
     public int Cool_Time;
+    public bool InfiniteFlag;
 }

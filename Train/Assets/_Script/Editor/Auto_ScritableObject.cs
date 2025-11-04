@@ -682,7 +682,8 @@ public class Auto_ScritableObject : EditorWindow
             "0,0",
             0,
             0,
-            0
+            0,
+            false
             );
         AssetDatabase.CreateAsset(itemObject, "Assets/_Scriptable/SA_Item/Item_Object/EmptyItemObject.asset");
         AssetDatabase.SaveAssets();
@@ -701,7 +702,8 @@ public class Auto_ScritableObject : EditorWindow
                 item.Buy_Sell_Pride,
                 item.Max_Equip,
                 item.Cool_Time,
-                0
+                0,
+                item.InfiniteFlag
                 );
 
             AssetDatabase.CreateAsset(itemObject, "Assets/_Scriptable/SA_Item/Item_Object/" + "Item_" + item.Num + ".asset");

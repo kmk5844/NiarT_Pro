@@ -22,7 +22,7 @@ public class ItemDirector : MonoBehaviour
 
     bool player_revival_flag;
     int player_revival_num = 0;
-    bool Infinite_Mode_Flag = false;
+    public  bool Infinite_Mode_Flag = false;
     [Header("Sound")]
     public AudioClip UseItemSound;
 

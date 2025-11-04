@@ -17,8 +17,8 @@ public class MonsterDirector : MonoBehaviour
     public Transform Monster_List_Sky;
     public Transform Monster_List_Ground;
     public Transform Monster_List_Slow;
-
     public Transform Boss_List;
+
     [SerializeField]
     List<int> Emerging_Monster_List_Sky;
     [SerializeField]
@@ -34,6 +34,8 @@ public class MonsterDirector : MonoBehaviour
     bool infiniteMode;
     [SerializeField]
     List<int> Infinite_Monster_Data;
+    [SerializeField]
+    List<int> Infinite_Boss_Data;
     float InfiniteSpawnTime = 0.5f;
     float InfiniteClearMinusTime = 0.02f;
 
@@ -140,6 +142,10 @@ public class MonsterDirector : MonoBehaviour
                 {
                     Infinite_Monster_Data.Add(EX_GameData.Information_Monster[i].Number);
                 }
+            }
+            for(int i = 0; i < EX_GameData.Information_Boss.Count; i++)
+            {
+                Infinite_Boss_Data.Add(EX_GameData.Information_Boss[i].Number);
             }
             Check_InfiniteMonster(true);
         }
@@ -596,7 +602,6 @@ public class MonsterDirector : MonoBehaviour
         for(int i = 0; i < 2; i++)
         {
             int rnd = Random.Range(0, Infinite_Monster_Data.Count);
-            Debug.Log(EX_GameData.Information_Monster[Infinite_Monster_Data[rnd]].Number);
             if (EX_GameData.Information_Monster[Infinite_Monster_Data[rnd]].Monster_Type.Equals("Sky"))
             {
                 Emerging_Monster_List_Sky.Add(Infinite_Monster_Data[rnd]);
@@ -613,14 +618,30 @@ public class MonsterDirector : MonoBehaviour
         }
     }
 
+    public void Set_SetBossList()
+    {
+        int rnd = Random.Range(0, Infinite_Boss_Data.Count);
+        Emerging_Boss_List.Add(rnd);
+    }
+
+    public void Set_InitBossList()
+    {
+        Emerging_Boss_List.Clear();
+    }
+
     void Clear_SetMonsterCount()
     {
         int num = Emerging_MonsterCount_List[0];
         Emerging_MonsterCount_List[0] = num + 1;
-        Debug.Log(Emerging_MonsterCount_List[0]);
         num = Emerging_MonsterCount_List[1];
         Emerging_MonsterCount_List[1] = num + 1;
-        Debug.Log(Emerging_MonsterCount_List[1]);
+    }
+
+    public int Get_MonsterAllCount()
+    {
+        int num = Emerging_MonsterCount_List[0];
+        int num2 = Emerging_MonsterCount_List[1];
+        return num+ num2;
     }
 
     public void SetSpawnPosition(int TrainCount)
