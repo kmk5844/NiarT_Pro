@@ -58,6 +58,11 @@ public class MonsterBullet : MonoBehaviour
         Speed = speed;
         x_scale = X_Scale;
     }
+
+    public void SetSpeed(float speed)
+    {
+        Speed = speed;
+    }
 }
 
 public enum MonsterBulletType

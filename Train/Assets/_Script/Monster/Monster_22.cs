@@ -144,8 +144,13 @@ public class Monster_22 : Monster
 
     public void BulletFire()
     {
-        GameObject bullet = Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
-        bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, Bullet_Speed, xPos);
+        int rndCont = Random.Range(4, 12);
+        for(int i = 0; i < rndCont; i++)
+        {
+            GameObject bullet = Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
+            bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, Bullet_Speed, xPos);
+            bullet.GetComponent<MonsterBullet>().SetSpeed(Random.Range(4f, 10f));
+        }
     }
 
     void MonsterMove()

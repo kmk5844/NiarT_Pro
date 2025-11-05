@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2284520680175412986}
   - component: {fileID: -2744086448423873013}
   - component: {fileID: 671212997857220322}
-  - component: {fileID: -1280178554475784308}
+  - component: {fileID: -1390225265111292905}
   m_Layer: 10
   m_Name: 21
   m_TagString: Monster_Bullet
@@ -96,9 +96,9 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.04, y: 0.14}
-  m_Direction: 0
---- !u!114 &-1280178554475784308
+  m_Size: {x: 0.15, y: 0.1}
+  m_Direction: 1
+--- !u!114 &-1390225265111292905
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,13 +107,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 2284520680175412988}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a1b2da864b9b16458b7aeded567db50, type: 3}
+  m_Script: {fileID: 11500000, guid: b585dd0d9154b514082f1f718c55e3fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 0
   atk: 0
   slow: 0
   bulletType: 0
+  DestoryDelay: 7
+  MaxScale: 3
+  Collider: {fileID: 671212997857220322}
+  bulletSprite: {fileID: 5150013396006075103}
 --- !u!1 &2474847819362676072
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,8 +191,8 @@ SpriteRenderer:
   m_SortingLayerID: -611559395
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1735324415, guid: 19533833793240146845e250bce25ed9, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 183299064, guid: b658fb5bcd1232247ae517ba88105f6c, type: 3}
+  m_Color: {r: 0.76415086, g: 1, b: 0.94990057, a: 1}
   m_FlipX: 0
   m_FlipY: 1
   m_DrawMode: 0
@@ -212,7 +216,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5236934807006853621, guid: 178faf6730928ae459bfd458d91bc86d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.08
+      value: 0.016
       objectReference: {fileID: 0}
     - target: {fileID: 5236934807006853621, guid: 178faf6730928ae459bfd458d91bc86d, type: 3}
       propertyPath: m_LocalPosition.z
