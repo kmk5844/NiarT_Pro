@@ -6,6 +6,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Localization.Components;
 using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
+using System;
 
 public class UIDirector : MonoBehaviour
 {
@@ -13,7 +15,7 @@ public class UIDirector : MonoBehaviour
     Player player;
     public SA_ItemList itemList;
     SA_PlayerData playerData;
-    
+
     bool infiniteFlag;
 
     [Header("전체적인 UI 오브젝트")]
@@ -105,6 +107,9 @@ public class UIDirector : MonoBehaviour
     public GameObject Option_Station_Button;
     public GameObject Resulte_DefaultNext_Button;
     public string[] InfiniteMode_Button_String;
+    public Image[] InfiniteMode_Button_Icon;
+    public LocalizeStringEvent[] InfiniteMode_Button_MainsStr;
+    public LocalizeStringEvent[] InfiniteMode_Button_SubsStr;
     public TextMeshProUGUI Infinite_Distance_Text;
     public GameObject InfiniteResulteWindow;
     public TextMeshProUGUI Infinite_MainDistance_Text;
@@ -113,6 +118,13 @@ public class UIDirector : MonoBehaviour
     public TextMeshProUGUI Infinite_Mosnter_Count;
     public TextMeshProUGUI Infinite_Boss_Count;
 
+    [Header("Infinite UI_Icon")]
+    public Sprite Infinite_TrainAdd_Icon;
+    public Sprite Infinite_TrainUpgrade_Icon;
+    public Sprite Infinite_MercenarAdd_Icon;
+    public Sprite Infinite_MercenarUpgrade_Icon;
+    public Sprite[] Infinite_Train_Passive_Icon;
+    public Sprite[] Infinite_Player_Passive_Icon;
 
     [Header("Mission UI")]
     public LocalizeStringEvent missionTitle;
@@ -220,6 +232,10 @@ public class UIDirector : MonoBehaviour
             missionTextInformation_text.gameObject.SetActive(false);
             missionCountText_text.gameObject.SetActive(false);
             Infinite_Distance_Text.gameObject.SetActive(true);
+            for (int i = 0; i < 3; i++) {
+                InfiniteMode_Button_MainsStr[i].StringReference.TableReference = "InGame_Table_St";
+                InfiniteMode_Button_SubsStr[i].StringReference.TableReference = "InGame_Table_St";
+            }
         }
 
         InfiniteMode_Button_String = new string[3];
@@ -276,7 +292,7 @@ public class UIDirector : MonoBehaviour
 
         Player_HP_Bar.fillAmount = player.Check_HpParsent() / 100f;
 
-        if(player.Check_HpParsent() <= 30f)
+        if (player.Check_HpParsent() <= 30f)
         {
             WarningHP_Effect.SetActive(true);
         }
@@ -361,13 +377,13 @@ public class UIDirector : MonoBehaviour
         int num = train.Get_Train_Num;
         int num2 = train.Get_Train_Num2;
 
-        if(num < 90)
+        if (num < 90)
         {
             TrainName_Localization.StringReference.TableEntryReference = "Train_Name_" + (num / 10);
         }
         else
         {
-            if(num == 91)
+            if (num == 91)
             {
                 TrainName_Localization.StringReference.TableEntryReference = "Train_Turret_Name_" + (num2 / 10);
             }
@@ -378,12 +394,13 @@ public class UIDirector : MonoBehaviour
         }
 
         RepairFlag = !train.isCooltimeCheckFlag;
-        Common_HP.text =  "<color=red>" + train.Train_HP + "</color> / " + train.Max_Train_HP;
+        Common_HP.text = "<color=red>" + train.Train_HP + "</color> / " + train.Max_Train_HP;
 
-        if(train.Train_Armor - train.Origin_Train_Armor > 0)
+        if (train.Train_Armor - train.Origin_Train_Armor > 0)
         {
             Common_Armor.text = train.Origin_Train_Armor + " -> <color=green>" + train.Train_Armor + " ▲";
-        }else if (train.Train_Armor - train.Origin_Train_Armor == 0)
+        }
+        else if (train.Train_Armor - train.Origin_Train_Armor == 0)
         {
             Common_Armor.text = train.Train_Armor.ToString();
         }
@@ -423,12 +440,12 @@ public class UIDirector : MonoBehaviour
                 TrainStatus[1].SetActive(false);
                 TrainStatus[2].SetActive(false);
                 break;
-            case "Self_Turret": 
+            case "Self_Turret":
                 SelfTurret_Train selfTurret = train.GetComponentInChildren<SelfTurret_Train>();
                 TrainStatus_Localization[0].StringReference.TableEntryReference = "UI_Train_Status_FuelAmount";
                 TrainStatus_Localization[1].StringReference.TableEntryReference = "UI_Train_Status_Atk";
                 TrainStatus_Localization[2].StringReference.TableEntryReference = "UI_Train_Status_AtkDelay";
-                if(selfTurret.SelfTurretTrain_Fuel >= selfTurret.Max_SelfTurretTrain_Fuel)
+                if (selfTurret.SelfTurretTrain_Fuel >= selfTurret.Max_SelfTurretTrain_Fuel)
                 {
                     TrainStatus_Text[0].text = "<color=green>" + selfTurret.Max_SelfTurretTrain_Fuel + "</color> / " + selfTurret.Max_SelfTurretTrain_Fuel;
                 }
@@ -528,7 +545,7 @@ public class UIDirector : MonoBehaviour
             case "FuelSignal":
                 FuelSignalTrain FT = train.GetComponentInChildren<FuelSignalTrain>();
                 TrainStatus_Localization[0].StringReference.TableEntryReference = "UI_Train_Status_CoolTime";
-                TrainStatus_Localization[1].StringReference.TableEntryReference = "UI_Train_Status_SupplyFuel"; 
+                TrainStatus_Localization[1].StringReference.TableEntryReference = "UI_Train_Status_SupplyFuel";
                 if (FT.elapsed >= FT.SpawnTime)
                 {
                     TrainStatus_Text[0].text = "<color=green>" + FT.SpawnTime + "</color> / " + FT.SpawnTime;
@@ -595,7 +612,7 @@ public class UIDirector : MonoBehaviour
                 TrainStatus_Localization[0].StringReference.TableEntryReference = "UI_Train_Status_Atk";
                 TrainStatus_Localization[1].StringReference.TableEntryReference = "UI_Train_Status_AtkDelay";
                 TrainStatus_Text[0].text = train.Train_Attack.ToString();
-                if(train.Plus_Attack_Delay != 0)
+                if (train.Plus_Attack_Delay != 0)
                 {
                     TrainStatus_Text[1].text = train.Train_Attack_Delay.ToString("F1") + " -> <color=green>" + (train.Train_Attack_Delay - train.Plus_Attack_Delay).ToString("F1") + " ▲";
                 }
@@ -607,7 +624,7 @@ public class UIDirector : MonoBehaviour
                 TrainStatus[1].SetActive(true);
                 TrainStatus[2].SetActive(false);
                 break;
-            default :
+            default:
                 TrainStatus[0].SetActive(false);
                 TrainStatus[1].SetActive(false);
                 TrainStatus[2].SetActive(false);
@@ -621,7 +638,7 @@ public class UIDirector : MonoBehaviour
         TrainInformation_UI.SetActive(false);
         TrainName_Localization.StringReference.TableReference = "ExcelData_Table_St";
         Repair_Localization.StringReference.TableReference = "InGame_Table_St";
-        for(int i = 0; i < 3; i++)
+        for (int i = 0; i < 3; i++)
         {
             TrainStatus[i].SetActive(false);
             TrainStatus_Localization[i].StringReference.TableReference = "Station_Table_St";
@@ -710,7 +727,7 @@ public class UIDirector : MonoBehaviour
     public void Item_EquipedIcon(int equiped_num, Sprite img, int Count)
     {
         Equiped_Item_Image[equiped_num].sprite = img;
-        if(Count != -2) // SupplyItem전용
+        if (Count != -2) // SupplyItem전용
         {
             if (Count != 0)
             {
@@ -1065,7 +1082,7 @@ public class UIDirector : MonoBehaviour
     {
         WaveCount = count;
         float[] wavecount = new float[WaveCount];
-        
+
         int divisions = WaveCount + 1;
 
         for (int i = 0; i < WaveCount; i++)
@@ -1084,7 +1101,7 @@ public class UIDirector : MonoBehaviour
             WaitBoard.SetActive(true);
         }
 
-        if(Flag && WaitBoard.activeSelf)
+        if (Flag && WaitBoard.activeSelf)
         {
             WaitBoard.SetActive(false);
         }
@@ -1136,5 +1153,114 @@ public class UIDirector : MonoBehaviour
     public void SetInfinite_Distance(int num)
     {
         Infinite_Distance_Text.text = "Distance : " + num + "m";
+    }
+
+    public void SetCard_IconAndStr(int index, int MainNum, string str)
+    {
+        InfiniteMode_Button_MainsStr[index].StringReference.TableEntryReference = "UI_Infinite_Button_Main_" + MainNum;
+        if (MainNum == 0)
+        {
+            InfiniteMode_Button_Icon[index].sprite = Infinite_TrainAdd_Icon;
+            int num = int.Parse(str);
+            string localized = "";
+            if (num < 9)
+            {
+                localized = LocalizationSettings.StringDatabase.GetLocalizedString("ExcelData_Table_St", "Train_Name_" + num);
+            }
+            else
+            {
+                int trainNum = 90 + (num - 7);
+                localized = LocalizationSettings.StringDatabase.GetLocalizedString("ExcelData_Table_St", "Train_Name_" + trainNum);
+            }
+            InfiniteMode_Button_SubsStr[index].StringReference.TableEntryReference = "UI_Infinite_Button_Information_0";
+            InfiniteMode_Button_SubsStr[index].StringReference.Arguments = new object[] { localized };
+            InfiniteMode_Button_SubsStr[index].RefreshString();
+        }
+        else if (MainNum == 1)
+        {
+            InfiniteMode_Button_Icon[index].sprite = Infinite_TrainAdd_Icon;
+            int num = int.Parse(str);
+            string localized = LocalizationSettings.StringDatabase.GetLocalizedString("ExcelData_Table_St", "Train_Turret_Name_" + num);
+            InfiniteMode_Button_SubsStr[index].StringReference.TableEntryReference = "UI_Infinite_Button_Information_0";
+            InfiniteMode_Button_SubsStr[index].StringReference.Arguments = new object[] { localized };
+            InfiniteMode_Button_SubsStr[index].RefreshString();
+
+        }
+        else if (MainNum == 2)
+        {
+            InfiniteMode_Button_Icon[index].sprite = Infinite_TrainUpgrade_Icon;
+            int num = int.Parse(str);
+            string localized = "";
+            if (num < 9)
+            {
+                localized = LocalizationSettings.StringDatabase.GetLocalizedString("ExcelData_Table_St", "Train_Name_" + num);
+            }
+            else
+            {
+                int trainNum = 90 + (num - 7);
+                localized = LocalizationSettings.StringDatabase.GetLocalizedString("ExcelData_Table_St", "Train_Name_" + trainNum);
+            }
+            InfiniteMode_Button_SubsStr[index].StringReference.TableEntryReference = "UI_Infinite_Button_Information_1";
+            InfiniteMode_Button_SubsStr[index].StringReference.Arguments = new object[] { localized };
+            InfiniteMode_Button_SubsStr[index].RefreshString();
+        }
+        else if (MainNum == 3)
+        {
+            InfiniteMode_Button_Icon[index].sprite = Infinite_TrainUpgrade_Icon;
+            int num = int.Parse(str);
+            string localized = LocalizationSettings.StringDatabase.GetLocalizedString("ExcelData_Table_St", "Train_Turret_Name_" + (num / 10));
+            InfiniteMode_Button_SubsStr[index].StringReference.TableEntryReference = "UI_Infinite_Button_Information_1";
+            InfiniteMode_Button_SubsStr[index].StringReference.Arguments = new object[] { localized };
+            InfiniteMode_Button_SubsStr[index].RefreshString();
+        }
+        else if (MainNum == 4)
+        {
+            InfiniteMode_Button_Icon[index].sprite = Infinite_MercenarAdd_Icon;
+            int num = int.Parse(str);
+            string localized = LocalizationSettings.StringDatabase.GetLocalizedString("ExcelData_Table_St", "Mercenary_Name_" + num);
+            InfiniteMode_Button_SubsStr[index].StringReference.TableEntryReference = "UI_Infinite_Button_Information_3";
+            InfiniteMode_Button_SubsStr[index].StringReference.Arguments = new object[] { localized };
+            InfiniteMode_Button_SubsStr[index].RefreshString();
+        }
+        else if (MainNum == 5)
+        {
+            InfiniteMode_Button_Icon[index].sprite = Infinite_MercenarUpgrade_Icon;
+            int num = int.Parse(str);
+            string localized = LocalizationSettings.StringDatabase.GetLocalizedString("ExcelData_Table_St", "Mercenary_Name_" + num);
+            InfiniteMode_Button_SubsStr[index].StringReference.TableEntryReference = "UI_Infinite_Button_Information_4";
+            InfiniteMode_Button_SubsStr[index].StringReference.Arguments = new object[] { localized };
+            InfiniteMode_Button_SubsStr[index].RefreshString();
+        }
+        else if (MainNum == 6)
+        {
+            int num = int.Parse(str); // 0, 최대속도, 1, 효율, 2, 엔진파워, 3, 방어력
+            InfiniteMode_Button_Icon[index].sprite = Infinite_Train_Passive_Icon[num];
+            string localized = LocalizationSettings.StringDatabase.GetLocalizedString("InGame_Table_St", "UI_TrainPassive_" + num);
+            InfiniteMode_Button_SubsStr[index].StringReference.TableEntryReference = "UI_Infinite_Button_Information_1";
+            InfiniteMode_Button_SubsStr[index].StringReference.Arguments = new object[] { localized };
+            InfiniteMode_Button_SubsStr[index].RefreshString();
+        }
+        else if(MainNum == 7)
+        {
+            int num = int.Parse(str); // 0 , 공격력 1, 공속 2, 체력 3, 방어력 4, 속도
+            InfiniteMode_Button_Icon[index].sprite = Infinite_Player_Passive_Icon[num];
+            string localized = LocalizationSettings.StringDatabase.GetLocalizedString("InGame_Table_St", "UI_PlayerPassive_" + num);
+            InfiniteMode_Button_SubsStr[index].StringReference.TableEntryReference = "UI_Infinite_Button_Information_1";
+            InfiniteMode_Button_SubsStr[index].StringReference.Arguments = new object[] { localized };
+            InfiniteMode_Button_SubsStr[index].RefreshString();
+
+        }
+        else if(MainNum == 8)
+        {
+            string[] strSplit = str.Split("-");
+            int num = int.Parse(strSplit[0]); // 인덱스
+            int num2 = int.Parse(strSplit[1]); // 아이템 넘버
+            int num3 = int.Parse(strSplit[2]); // 갯수
+            InfiniteMode_Button_Icon[index].sprite = itemList.Item[num2].Item_Sprite;
+            string localized = LocalizationSettings.StringDatabase.GetLocalizedString("ItemData_Table_St", "Item_Name_" + num2);
+            InfiniteMode_Button_SubsStr[index].StringReference.TableEntryReference = "UI_Infinite_Button_Information_2";
+            InfiniteMode_Button_SubsStr[index].StringReference.Arguments = new object[] { (num+1), localized, num3 };
+            InfiniteMode_Button_SubsStr[index].RefreshString();
+        }
     }
 }

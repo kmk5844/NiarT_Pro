@@ -650,9 +650,9 @@ public class Auto_ScritableObject : EditorWindow
         }
 
         UnityEditor.EditorUtility.SetDirty(SA_StoryList_);
+        UnityEditor.AssetDatabase.SaveAssets();
+        UnityEditor.AssetDatabase.Refresh();
     }
-
-
 
     //ItemList_Test
     public static void DeleteAllFilesInFolder_Item()

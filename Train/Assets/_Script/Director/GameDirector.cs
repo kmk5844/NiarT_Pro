@@ -1510,8 +1510,9 @@ public class GameDirector : MonoBehaviour
             if (WinFlag)
             {
                 Infinite_Total_Distance += Destination_Distance;
-                Destination_Distance = Destination_Distance += 10000;
+                Destination_Distance += 10000;
                 RefreshCount = Destination_Distance / 40000;
+                TrainFuel = Total_TrainFuel; //Max시키기.
                 CalculateRefreshPoints();
                 Infinite_Count++;
                 TrainDistance = 0;
@@ -2211,12 +2212,10 @@ public class GameDirector : MonoBehaviour
             if(rndNum == 3 && !SpawnTurretFlag_Infinite)
             {
                 rndNum = 1;
-                SpawnTurretFlag_Infinite = true;
             }
             if(rndNum == 5 && !SpawnMercenaryFlag_Infinite)
             {
                 rndNum = 4;
-                SpawnMercenaryFlag_Infinite = true;
             }
 
             string str = "";
@@ -2244,6 +2243,12 @@ public class GameDirector : MonoBehaviour
                     int upgradeTrainIndex = candidates[Random.Range(0, candidates.Count)];
                     strstatus = upgradeTrainIndex.ToString();
                 }
+                else
+                {
+                    rndNum = 0;
+                    int trainIndex = Random.Range(1, Infinite_TrainNum.UpgradeNum.Count); //엔진 기차 제외하고
+                    strstatus = trainIndex.ToString();
+                }
             }else if(rndNum == 3)
             {
                 var candidates = new List<int>();
@@ -2258,6 +2263,12 @@ public class GameDirector : MonoBehaviour
                 {
                     int upgradeTrainIndex = candidates[Random.Range(0, candidates.Count)];
                     strstatus = upgradeTrainIndex.ToString();
+                }
+                else
+                {
+                    rndNum = 2;
+                    int turretIndex = Random.Range(0, Infinite_TurretNum.UpgradeNum.Count);
+                    strstatus = turretIndex.ToString();
                 }
             }else if(rndNum == 4)
             {
@@ -2278,6 +2289,12 @@ public class GameDirector : MonoBehaviour
                 {
                     int upgradeTrainIndex = candidates[Random.Range(0, candidates.Count)];
                     strstatus = upgradeTrainIndex.ToString();
+                }
+                else // 없을 경우
+                {
+                    rndNum = 4;
+                    int MercenaryIndex = Random.Range(0, Infinite_MercenaryNum.UpgradeNum.Count);
+                    strstatus = MercenaryIndex.ToString();
                 }
             }
             else if(rndNum == 6)
@@ -2305,6 +2322,7 @@ public class GameDirector : MonoBehaviour
             str = rndNum + "," + strstatus;
 
             uiDirector.InfiniteMode_Button_String[i] = str;
+            uiDirector.SetCard_IconAndStr(i, rndNum, strstatus);
         }
     }
 
@@ -2316,10 +2334,14 @@ public class GameDirector : MonoBehaviour
         }else if (cardNum == 1)
         {
             Infinite_SpawnTrain(true, int.Parse(status));
-        }else if(cardNum == 2)
+            SpawnTurretFlag_Infinite = true;
+
+        }
+        else if(cardNum == 2)
         {
             Infinite_TrainUpgrade(false, int.Parse(status));
-        }else if(cardNum == 3)
+        }
+        else if(cardNum == 3)
         {
             Infinite_TrainUpgrade(true, int.Parse(status));
         }else if(cardNum == 4)
@@ -2328,6 +2350,7 @@ public class GameDirector : MonoBehaviour
         }else if (cardNum == 5)
         {
             UpgradeMercenaryNum(int.Parse(status));
+            SpawnMercenaryFlag_Infinite = true;
         }else if (cardNum == 6)
         {
             UpgradeTrainPassiveNum(int.Parse(status));
@@ -2448,13 +2471,20 @@ public class GameDirector : MonoBehaviour
         if (!Turret)
         {
             beforeTrainNum = Infinite_TrainNum.UpgradeNum[TrainIndex];
-            Infinite_TrainNum.Upgrade_TrainNum(TrainIndex);
+            if(TrainIndex != 5)
+            {
+                Infinite_TrainNum.Upgrade_TrainNum(TrainIndex, false);
+            }
+            else
+            {
+                Infinite_TrainNum.Upgrade_TrainNum(TrainIndex, true);
+            }
             upgradeTrainNum = Infinite_TrainNum.UpgradeNum[TrainIndex];
         }
         else
         {
             beforeTrainNum = Infinite_TurretNum.UpgradeNum[TrainIndex];
-            Infinite_TurretNum.Upgrade_TrainNum(TrainIndex);
+            Infinite_TurretNum.Upgrade_TrainNum(TrainIndex, false);
             upgradeTrainNum = Infinite_TurretNum.UpgradeNum[TrainIndex];
         }
 
@@ -2535,13 +2565,13 @@ public class GameDirector : MonoBehaviour
 
     public void UpgradeMercenaryNum(int MercenaryNum)
     {
-        Infinite_MercenaryNum.Upgrade_Level(MercenaryNum);
+        Infinite_MercenaryNum.Upgrade_Level(MercenaryNum, true);
         mercenaryDirector.Upgrade_Mercenary(MercenaryNum);
     }
 
     public void UpgradeTrainPassiveNum(int PassiveNum)
     {
-        Infinite_TrainPassive.Upgrade_Level(PassiveNum);
+        Infinite_TrainPassive.Upgrade_Level(PassiveNum,false);
         if(PassiveNum == 0 || PassiveNum == 1 || PassiveNum == 2)
         {
             Level();
@@ -2557,7 +2587,7 @@ public class GameDirector : MonoBehaviour
 
     public void UpgradePlayerPassiveNum(int PassiveNum)
     {
-        Infinite_PlayerPassive.Upgrade_Level(PassiveNum);
+        Infinite_PlayerPassive.Upgrade_Level(PassiveNum,false);
         player.Level_Infinite(PassiveNum);
     }
 
@@ -2598,16 +2628,37 @@ public struct Infinite_UpgradeNum
         UpgradeCanFlag[index] = flag;
     }
 
-    public void Upgrade_TrainNum(int index)
+    public void Upgrade_TrainNum(int index, bool booster)
     {
         int upgradeNum = UpgradeNum[index];
         UpgradeNum[index] = upgradeNum + 1;
+        if (!booster)
+        {
+            if (UpgradeNum[index] %10 == 5)
+            {
+                UpgradeCanFlag[index] = false;
+            }
+        }
+        else
+        {
+            if (UpgradeNum[index] % 10 == 4)
+            {
+                UpgradeCanFlag[index] = false;
+            }
+        }
     }
 
-    public void Upgrade_Level(int index)
+    public void Upgrade_Level(int index, bool Max)
     {
         int upgradeNum = UpgradeNum[index];
         UpgradeNum[index] = upgradeNum + 1;
+        if (Max)
+        {
+            if (UpgradeNum[index] % 10 == 5)
+            {
+                UpgradeCanFlag[index] = false;
+            }
+        }
     }
 }
 

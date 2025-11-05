@@ -116,6 +116,14 @@ public class Mercenary : MonoBehaviour
         Check_GameType();
         HP_Guage.fillAmount = Check_HpParsent() / 100f;
         SpeechBubble_Change();
+
+        if (gameDirector.Infinite_Mode)
+        {
+            if(gameDirector.gameType == GameType.GameEnd)
+            {
+                Destroy(this.gameObject);
+            }
+        }
     }
 
     protected void Combatant_Move()
