@@ -299,7 +299,14 @@ public class MonsterDirector : MonoBehaviour
     IEnumerator AppearSupplyMonster()
     {
         isSupplySpawing = true;
-        yield return new WaitForSeconds(Random.Range(4f, 8f));
+        if (!infiniteMode)
+        {
+            yield return new WaitForSeconds(Random.Range(4f, 8f));
+        }
+        else
+        {
+            yield return new WaitForSeconds(Random.Range(1f, 3f));
+        }
         Random_xPos = Random.Range(MinPos_Sky.x + 10f, MaxPos_Sky.x - 10f);
         Random_yPos = Random.Range(MinPos_Sky.y, MaxPos_Sky.y);
         if (GameDirector_SpawnFlag == true)

@@ -48,11 +48,15 @@ public class Monster_2 : Monster
         Fire_Debuff();
         Check_ItemSpeedFlag();
 
-        if (monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding && monster_gametype != Monster_GameType.Die)
+        if (!DieFlag)
         {
-            BulletFire();
-            FlipMonster();
+            if (monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
+            {
+                BulletFire();
+                FlipMonster();
+            }
         }
+        
     }
     IEnumerator SpawnMonster()
     {

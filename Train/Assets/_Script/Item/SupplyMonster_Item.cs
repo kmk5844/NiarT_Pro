@@ -116,7 +116,11 @@ public class SupplyMonster_Item : MonoBehaviour
                 }
                 else
                 {
-                    Item = common_supplylist[Random.Range(0, common_supplylist_NonGarbage.Count)];
+                    Item = common_supplylist_NonGarbage[Random.Range(0, common_supplylist_NonGarbage.Count)];
+                    if(Item.Num == 92)
+                    {
+                        Debug.Log("??");
+                    }
                 }
                 mat.SetColor("_SolidOutline", Color.gray);
             }
@@ -128,7 +132,7 @@ public class SupplyMonster_Item : MonoBehaviour
                 }
                 else
                 {
-                    Item = rare_supplylist[Random.Range(0, rare_supplylist_NonGarbage.Count)];
+                    Item = rare_supplylist_NonGarbage[Random.Range(0, rare_supplylist_NonGarbage.Count)];
                 }
                 mat.SetColor("_SolidOutline", Color.blue);
             }
@@ -140,7 +144,7 @@ public class SupplyMonster_Item : MonoBehaviour
                 }
                 else
                 {
-                    Item = unique_supplylist[Random.Range(0, unique_supplylist_NonGarbage.Count)];
+                    Item = unique_supplylist_NonGarbage[Random.Range(0, unique_supplylist_NonGarbage.Count)];
                 }
                 mat.SetColor("_SolidOutline", new Color(166f / 255f, 0, 255f / 255f));
             }
@@ -152,7 +156,7 @@ public class SupplyMonster_Item : MonoBehaviour
                 }
                 else
                 {
-                    Item = epic_supplylist[Random.Range(0, epic_supplylist_NoWeapon.Count)];
+                    Item = epic_supplylist_NoWeapon[Random.Range(0, epic_supplylist_NoWeapon.Count)];
                 }
                 mat.SetColor("_SolidOutline", Color.yellow);
             }

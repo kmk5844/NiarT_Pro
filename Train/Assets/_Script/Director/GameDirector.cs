@@ -241,6 +241,7 @@ public class GameDirector : MonoBehaviour
     public AudioClip LoseSFX;
     public AudioClip TrainHitSFX;
     int Change_Train_ID;
+    [SerializeField]
     int TrainSFX_ID; // ID : 100;
 
     [HideInInspector]
@@ -841,7 +842,10 @@ public class GameDirector : MonoBehaviour
                 {
                     if (!Change_Win_BGM_Flag)
                     {
-                        SoundSequce(WinBGM);
+                        if (!Infinite_Mode)
+                        {
+                            SoundSequce(WinBGM);
+                        }
                         MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, TrainSFX_ID);
                         MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, TrainSFX_ID);
                         TrainSFX_ID += 1;
@@ -889,6 +893,28 @@ public class GameDirector : MonoBehaviour
                         gameType = GameType.GameEnd;
                         Game_Win();
                         TrainSpeed = 0;
+                    }
+                }
+                else
+                {
+                    if ((TrainSpeed <= 0 || player.Player_HP <= 0) && GameStartFlag && !GameLoseFlag)
+                    {
+                        if (TrainSpeed < 0)
+                        {
+                            TrainSpeed = 0;
+                        }
+
+                        int LoseNum = 0;
+                        if (TrainSpeed <= 0)
+                        {
+                            LoseNum = 0;
+                        }
+                        else if (player.Player_HP <= 0)
+                        {
+                            LoseNum = 1;
+                        }
+                        GameLoseFlag = true;
+                        Game_Lose(LoseNum); // 기차 체력 0이하, 플레이어 체력 0이하 -> 몬스터 전원 처치 전
                     }
                 }
             }
@@ -1511,10 +1537,18 @@ public class GameDirector : MonoBehaviour
             {
                 Infinite_Total_Distance += Destination_Distance;
                 Destination_Distance += 10000;
-                RefreshCount = Destination_Distance / 40000;
+                player.Player_HP = player.Max_HP;
                 TrainFuel = Total_TrainFuel; //Max시키기.
+                for(int i = 0; i < Train_List.childCount; i++)
+                {
+                    Train_InGame train = Train_List.GetChild(i).GetComponent<Train_InGame>();
+                    train.Train_HP = train.Max_Train_HP;
+                }
+                RefreshCount = Destination_Distance / 40000;
                 CalculateRefreshPoints();
                 Infinite_Count++;
+                Change_Win_BGM_Flag = false;
+                currentRefreshIndex = 0;
                 TrainDistance = 0;
                 uiDirector.Infinite_UI_Open();
             }
@@ -1549,6 +1583,7 @@ public class GameDirector : MonoBehaviour
         GameWinFlag = false;
         StartTime = Time.time;
         gameType = GameType.Starting;
+        StartCoroutine(TrainStart_SFX());
     }
 
     public void MissionFail()
@@ -2596,6 +2631,15 @@ public class GameDirector : MonoBehaviour
         string[] st = str.Split('-');
         itemDirector.SetItem_Infinite(int.Parse(st[0]), int.Parse(st[1]), int.Parse(st[2]));
     }
+    public int GetTotalCoin()
+    {
+        return Total_Coin;
+    }
+    public void UseTotalCoin(int coin)
+    {
+        Total_Coin -= coin;
+        uiDirector.Gameing_Text(Total_Coin);
+    }
 }
 
 [System.Serializable]
@@ -2660,6 +2704,8 @@ public struct Infinite_UpgradeNum
             }
         }
     }
+
+
 }
 
 public enum GameType{

@@ -777,6 +777,7 @@ public class Monster : MonoBehaviour
     {
         monster_gametype = Monster_GameType.Die;
         Monster_HP = 0;
+        DieFlag = true;
         bool effectFlag = gameDirector.Game_Monster_Kill(Monster_Coin);
 
         if (effectFlag)

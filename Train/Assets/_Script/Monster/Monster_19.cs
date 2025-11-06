@@ -42,14 +42,18 @@ public class Monster_19 : Monster
         Fire_Debuff();
         Check_ItemSpeedFlag();
 
-        if (monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
+        if (!DieFlag)
         {
-            if (!atkFlag)
+            if (monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
             {
-                AttackAni();
+                if (!atkFlag)
+                {
+                    AttackAni();
+                }
+                FlipMonster_();
             }
-            FlipMonster_();
         }
+        
     }
 
     protected override void FixedUpdate()
@@ -121,10 +125,14 @@ public class Monster_19 : Monster
 
     public void BulletFire()
     {
-        GameObject bullet = Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
-        bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, Bullet_Speed, xPos);
-        GameObject bullet2 = Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
-        bullet2.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, Bullet_Speed, xPos);
+        if (!DieFlag)
+        {
+            GameObject bullet = Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
+            bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, Bullet_Speed, xPos);
+            GameObject bullet2 = Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
+            bullet2.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, Bullet_Speed, xPos);
+        }
+        
     }
 
     public void AttackAniEnd()

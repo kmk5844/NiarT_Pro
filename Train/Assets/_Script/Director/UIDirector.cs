@@ -199,7 +199,15 @@ public class UIDirector : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        Player_Head.sprite = Player_Head_Sprite[player.PlayerNum];
+        try
+        {
+            Player_Head.sprite = Player_Head_Sprite[player.PlayerNum];
+        }
+        catch
+        {
+            Debug.Log("Ãß°¡ÇØ¾ßµÊ");
+            Player_Head.sprite = Player_Head_Sprite[0];
+        }
         Player_Blood_Color = Player_Blood.GetComponent<Image>().color;
         playerData = gamedirector.SA_PlayerData;
         infiniteFlag = gamedirector.Infinite_Mode;
@@ -219,7 +227,15 @@ public class UIDirector : MonoBehaviour
         CoinAniCon = CoinWindow.GetComponent<Animator>();
         DiceAniCon = DiceWindow.GetComponent<Animator>();
 
-        PlayerGunObject[playerData.Player_Num].SetActive(true);
+        try
+        {
+            PlayerGunObject[playerData.Player_Num].SetActive(true);
+        }
+        catch
+        {
+            Debug.Log("PlayerGunObject Ãß°¡ÇØ¾ßµÊ");
+            PlayerGunObject[0].SetActive(true);
+        }
         WaveFillObject.SetActive(false);
 
         WarningSpeedEffect_System = WarningSpeedEffect.GetComponentInChildren<ParticleSystem>();
@@ -1128,7 +1144,6 @@ public class UIDirector : MonoBehaviour
         int TestCard = int.Parse(ar[0]);
         string TestCount = ar[1];
         gamedirector.ClickInfiniteCard(TestCard, TestCount);
-        Debug.Log(TestCount);
         gamedirector.SelectCard_StageInit();
         Infinite_UI.SetActive(false);
     }
@@ -1208,7 +1223,7 @@ public class UIDirector : MonoBehaviour
         {
             InfiniteMode_Button_Icon[index].sprite = Infinite_TrainUpgrade_Icon;
             int num = int.Parse(str);
-            string localized = LocalizationSettings.StringDatabase.GetLocalizedString("ExcelData_Table_St", "Train_Turret_Name_" + (num / 10));
+            string localized = LocalizationSettings.StringDatabase.GetLocalizedString("ExcelData_Table_St", "Train_Turret_Name_" + num);
             InfiniteMode_Button_SubsStr[index].StringReference.TableEntryReference = "UI_Infinite_Button_Information_1";
             InfiniteMode_Button_SubsStr[index].StringReference.Arguments = new object[] { localized };
             InfiniteMode_Button_SubsStr[index].RefreshString();

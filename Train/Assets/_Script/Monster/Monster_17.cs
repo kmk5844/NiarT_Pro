@@ -54,14 +54,18 @@ public class Monster_17 : Monster
         Fire_Debuff();
         Check_ItemSpeedFlag();
 
-        if (monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
+        if (!DieFlag)
         {
-            if (!AttackFlag)
+            if (monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
             {
-                MonsterMove();
+                if (!AttackFlag)
+                {
+                    MonsterMove();
+                }
+                FlipMonster();
             }
-            FlipMonster();
         }
+        
     }
 
     protected override void FixedUpdate()

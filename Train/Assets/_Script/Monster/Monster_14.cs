@@ -34,10 +34,14 @@ public class Monster_14 : Monster
         Fire_Debuff();
         Check_ItemSpeedFlag();
 
-        if (monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
+        if (!DieFlag)
         {
-            BulletFire();
+            if (monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
+            {
+                BulletFire();
+            }
         }
+           
     }
 
     protected override void FixedUpdate()

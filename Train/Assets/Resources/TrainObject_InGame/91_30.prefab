@@ -228,6 +228,7 @@ MonoBehaviour:
   Max_Train_HP: 0
   Train_Weight: 0
   Train_Armor: 0
+  Origin_Train_Armor: 0
   Train_Type: 
   DestoryFlag: 0
   Train_MaxSpeed: 0
@@ -236,6 +237,7 @@ MonoBehaviour:
   Train_Fuel: 0
   Train_Attack: 0
   Train_Attack_Delay: 0
+  Plus_Attack_Delay: 0
   Train_Special: 
   Not_DestoryTrain: 0
   trainData_Special_String: []
@@ -252,6 +254,9 @@ MonoBehaviour:
   isCooltimeCheckFlag: 0
   warningFlag: 0
   redSpriteFlag: 0
+  HealEffect: {fileID: 0}
+  BoosterEffect: {fileID: 0}
+  ArmorEffect: {fileID: 0}
 --- !u!114 &8898055032777360765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,6 +270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trainSprite: []
+  WarningEffect: {fileID: 0}
 --- !u!1 &3780805646712526560
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,6 +457,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BulletObject: {fileID: 2284520680175412986, guid: f5b40bb29ad53864883bbf5f85cd9636, type: 3}
+  Balloon_List: {fileID: 7530545348855336069}
 --- !u!1 &7068885211573969688
 GameObject:
   m_ObjectHideFlags: 0

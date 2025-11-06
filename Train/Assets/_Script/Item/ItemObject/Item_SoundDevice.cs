@@ -74,6 +74,7 @@ public class Item_SoundDevice : MonoBehaviour
             if (monster != null)
             {
                 monster.Damage_Monster_Item(atk);
+                Debug.Log("Sound Device Hit Monster");
             }
         }
     }

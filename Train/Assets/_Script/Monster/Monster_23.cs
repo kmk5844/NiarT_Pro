@@ -52,23 +52,30 @@ public class Monster_23 : Monster
         Fire_Debuff();
         Check_ItemSpeedFlag();
 
-        if (monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
+        if (!DieFlag)
         {
-            if (!BossSignalFlag)
+            if (monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
             {
-                BulletFire();
+                if (!BossSignalFlag)
+                {
+                    BulletFire();
+                }
+                FlipMonster();
             }
-            FlipMonster();
         }
     }
 
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-        if (monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
+        if (!DieFlag)
         {
-            MonsterMove();
+            if (monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
+            {
+                MonsterMove();
+            }
         }
+       
     }
 
     IEnumerator SpawnMonster()

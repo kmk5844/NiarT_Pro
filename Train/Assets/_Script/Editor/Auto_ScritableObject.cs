@@ -649,7 +649,7 @@ public class Auto_ScritableObject : EditorWindow
             SA_Monster_.Editor_Add(boss.Number, true);
         }
 
-        UnityEditor.EditorUtility.SetDirty(SA_StoryList_);
+        UnityEditor.EditorUtility.SetDirty(SA_Monster_);
         UnityEditor.AssetDatabase.SaveAssets();
         UnityEditor.AssetDatabase.Refresh();
     }

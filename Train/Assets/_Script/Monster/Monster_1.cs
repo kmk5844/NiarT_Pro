@@ -46,10 +46,13 @@ public class Monster_1 : Monster
         Fire_Debuff();
         Check_ItemSpeedFlag();
 
-        if(monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
+        if (!DieFlag)
         {
-            BulletFire();
-            FlipMonster();
+            if (monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
+            {
+                BulletFire();
+                FlipMonster();
+            }
         }
 
         if(Monster_HP <= 0 && !Spawn_Itme_Flag)

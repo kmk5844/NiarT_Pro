@@ -27,22 +27,26 @@ public class Monster_20 : Monster
         Total_GameType();
         Fire_Debuff();
 
-        if (monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
+        if (!DieFlag)
         {
-            if (transform.position.x >= MonsterDirector.MaxPos_Ground.x + 1.5f)
+            if (monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
             {
-                transform.Translate(Vector2.left * 20f * Time.deltaTime);
-            }
-            else
-            {
-                if (!lockFlag)
+                if (transform.position.x >= MonsterDirector.MaxPos_Ground.x + 1.5f)
                 {
-                    gameDirector.SetMonsterSlow(true);
-                    base.WalkEffect.SetActive(true);
-                    lockFlag = true;
+                    transform.Translate(Vector2.left * 20f * Time.deltaTime);
+                }
+                else
+                {
+                    if (!lockFlag)
+                    {
+                        gameDirector.SetMonsterSlow(true);
+                        base.WalkEffect.SetActive(true);
+                        lockFlag = true;
+                    }
                 }
             }
         }
+        
     }
 
     protected override void FixedUpdate()

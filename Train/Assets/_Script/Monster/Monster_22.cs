@@ -51,25 +51,32 @@ public class Monster_22 : Monster
         Fire_Debuff();
         Check_ItemSpeedFlag();
 
-        if (monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
+        if (!DieFlag)
         {
-            if (!attackFlag)
+            if (monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
             {
-                AttackAni();
+                if (!attackFlag)
+                {
+                    AttackAni();
+                }
+                //FlipMonster();
+                FlipMonster();
             }
-            //FlipMonster();
-            FlipMonster();
         }
+        
     }
 
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-        if (monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
+        if (!DieFlag)
         {
-            if (!attackFlag)
+            if (monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
             {
-                MonsterMove();
+                if (!attackFlag)
+                {
+                    MonsterMove();
+                }
             }
         }
     }
@@ -144,13 +151,17 @@ public class Monster_22 : Monster
 
     public void BulletFire()
     {
-        int rndCont = Random.Range(4, 12);
-        for(int i = 0; i < rndCont; i++)
+        if (!DieFlag)
         {
-            GameObject bullet = Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
-            bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, Bullet_Speed, xPos);
-            bullet.GetComponent<MonsterBullet>().SetSpeed(Random.Range(4f, 10f));
+            int rndCont = Random.Range(4, 12);
+            for (int i = 0; i < rndCont; i++)
+            {
+                GameObject bullet = Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
+                bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, Bullet_Speed, xPos);
+                bullet.GetComponent<MonsterBullet>().SetSpeed(Random.Range(4f, 10f));
+            }
         }
+
     }
 
     void MonsterMove()

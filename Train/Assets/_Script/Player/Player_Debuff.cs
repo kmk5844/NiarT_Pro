@@ -25,7 +25,7 @@ public class Player_Debuff : MonoBehaviour
     {
         if (PlayerStatus_poisonFlag)
         {
-            if(!PosionEffect.activeSelf)
+            if (!PosionEffect.activeSelf)
             {
                 PosionEffect.SetActive(true);
             }
@@ -55,7 +55,7 @@ public class Player_Debuff : MonoBehaviour
     IEnumerator CorutineDebuff()
     {
         poisonFlag = true;
-        player.Player_HP -= (maxHP / 100) * 5;
+        player.Player_HP -= (maxHP / 100) * 3;
         player.Blood_Effect();
         yield return new WaitForSeconds(1);
         if(poisonNum < Max_poisonNum)

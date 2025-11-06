@@ -25,6 +25,7 @@ public class Hangar_Train : MonoBehaviour
 
     public GameObject SpawnItem;
     public Transform Spawn_Position_Item;
+    bool InfiniteModeFlag = false;
 
     private void Start()
     {
@@ -39,6 +40,7 @@ public class Hangar_Train : MonoBehaviour
         coin[0] = int.Parse(trainData.trainData_Special_String[1]);
         coin[1] = int.Parse(trainData.trainData_Special_String[2]);
         coin[2] = int.Parse(trainData.trainData_Special_String[3]);
+        InfiniteModeFlag = gameDirector.Infinite_Mode;
         foreach (Collider2D door in DoorCollider)
         {
             door.GetComponent<Hangar_Door>().Set(this);
@@ -65,22 +67,43 @@ public class Hangar_Train : MonoBehaviour
             if (!useFlag && elapsedSeconds >= spawnSeconds)
             {
                 useFlag = true;
-                if (changeFlag == false)
+                if (!InfiniteModeFlag) //스토리모드
+                {
+                    if (changeFlag == false)
+                    {
+                        for (int i = 0; i < DoorCollider.Length; i++)
+                        {
+                            if (playerdata.Coin > coin[i])
+                            {
+                                DoorCollider[i].enabled = true;
+                            }
+                        }
+                        changeFlag = true;
+                    }
+                }
+                else // 무한모드
                 {
                     for (int i = 0; i < DoorCollider.Length; i++)
                     {
-                        if (playerdata.Coin > coin[i])
+                        if (gameDirector.GetTotalCoin() > coin[i])
                         {
                             DoorCollider[i].enabled = true;
                         }
                     }
-
-                    changeFlag = true;
+                }
+            }else if(useFlag && elapsedSeconds >= spawnSeconds && InfiniteModeFlag)
+            {
+                Debug.Log(gameDirector.GetTotalCoin());
+                for (int i = 0; i < DoorCollider.Length; i++)
+                {
+                    if (gameDirector.GetTotalCoin() > coin[i])
+                    {
+                        DoorCollider[i].enabled = true;
+                    }
                 }
             }
         }
     }
-
     public void ClickWeapon()
     {
         ChoiceWeapon();
@@ -101,16 +124,21 @@ public class Hangar_Train : MonoBehaviour
         {
             case 0:
                 num = Random.Range(52, 60);
-                playerdata.SA_Buy_Coin_InGame(coin[0]);
                 break;
             case 1:
                 num = Random.Range(102, 109);
-                playerdata.SA_Buy_Coin_InGame(coin[1]);
                 break;
             case 2:
                 num = Random.Range(109, 114);
-                playerdata.SA_Buy_Coin_InGame(coin[2]);
                 break;
+        }
+        if (!InfiniteModeFlag)
+        {
+            playerdata.SA_Buy_Coin_InGame(coin[doorNum]);
+        }
+        else
+        {
+            gameDirector.UseTotalCoin(coin[doorNum]);
         }
         GameObject spawnitem = Instantiate(SpawnItem, Spawn_Position_Item.position, Quaternion.identity);
         spawnitem.GetComponent<HangarSpawn_Item>().SetItem(itemList.Item[num], useitemScript);
@@ -118,14 +146,29 @@ public class Hangar_Train : MonoBehaviour
 
     public void EnterDoor(int num)
     {
-        if(playerdata.Coin > coin[num])
+        if (!InfiniteModeFlag)
         {
-            DoorPrideObject[num].SetActive(true);
-            doorFlag = true;
+            if (playerdata.Coin > coin[num])
+            {
+                DoorPrideObject[num].SetActive(true);
+                doorFlag = true;
+            }
+            else
+            {
+                doorFlag = false;
+            }
         }
         else
         {
-            doorFlag = false;
+            if (gameDirector.GetTotalCoin() > coin[num])
+            {
+                DoorPrideObject[num].SetActive(true);
+                doorFlag = true;
+            }
+            else
+            {
+                doorFlag = false;
+            }
         }
         doorNum = num;
     }

@@ -90,13 +90,17 @@ public class Monster_9 : Monster
             }
         }
 
-        if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay) && monster_gametype != Monster_GameType.Die)
+        if (!DieFlag)
         {
-            Random_BulletCount = Random.Range(2, 6);
-            ani.SetTrigger("Attack");
-            warningFlag = false;
-            attackFlag = true;
+            if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay) && monster_gametype != Monster_GameType.Die)
+            {
+                Random_BulletCount = Random.Range(2, 6);
+                ani.SetTrigger("Attack");
+                warningFlag = false;
+                attackFlag = true;
+            }
         }
+        
     }
 
     void _BulletFire()

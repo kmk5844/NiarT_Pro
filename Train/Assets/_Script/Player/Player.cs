@@ -777,7 +777,6 @@ public class Player : MonoBehaviour
                         StartCoroutine(Reloading());
                     }*/
                 }
-
             }
             else if(PlayerNum == 1) //¼¼ÀÌÁö
             {
@@ -801,27 +800,84 @@ public class Player : MonoBehaviour
                         StartCoroutine(Reloading());
                     }*/
                 }
-            }
-            else
+            }else if(PlayerNum == 2)
             {
-                if (!Item_GunFlag) // ¼¦°Ç Àü¿ë
+                if (!ReloadingFlag)
                 {
+                    BulletEffect();
                     Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
-                    if (!Item_GunSpecial_BulletFlag)
+                    if (GunIndex == 0)
                     {
-                        for (int i = 0; i < 4; i++) // 5°³ÀÇ ¼¦°Ç ÅºÈ¯À» ¹ß»ç
-                        {
-                            Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
-                        }
+                        ani.SetTrigger("Shoot_0");
                     }
-                    ani.SetTrigger("Shoot_1");
-                }
-                else
-                {
-                    Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
+
+                    /*                    if (FireCount < MaxFireCount-1)
+                                        {
+                                            if (!Item_GunFlag)
+                                            {
+                                                FireCount++;
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            StartCoroutine(Reloading());
+                                        }*/
                 }
 
-                Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
+            }
+            else if(PlayerNum == 3)
+            {
+                if (!ReloadingFlag)
+                {
+                    BulletEffect();
+                    Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
+                    if (GunIndex == 0)
+                    {
+                        ani.SetTrigger("Shoot_0");
+                    }
+
+                    /*                    if (FireCount < MaxFireCount-1)
+                                        {
+                                            if (!Item_GunFlag)
+                                            {
+                                                FireCount++;
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            StartCoroutine(Reloading());
+                                        }*/
+                }
+            }
+            else if (PlayerNum == 4)
+            {
+                if (!ReloadingFlag)
+                {
+                    BulletEffect();
+                    for (int i = 0; i < 4; i++) // 5°³ÀÇ ¼¦°Ç ÅºÈ¯À» ¹ß»ç
+                    {
+                        Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
+                    }
+                    if (GunIndex == 0)
+                    {
+                        ani.SetTrigger("Shoot_0");
+                    }
+
+                    /*                    if (FireCount < MaxFireCount-1)
+                                        {
+                                            if (!Item_GunFlag)
+                                            {
+                                                FireCount++;
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            StartCoroutine(Reloading());
+                                        }*/
+                }
             }
 
             if (GunIndex == 1)
@@ -1781,7 +1837,7 @@ public class Player : MonoBehaviour
                 GunObject_List[GunIndex].SetActive(true);
                 Bullet_Fire_Transform = GunObject_List[GunIndex].GetComponent<Transform>().GetChild(0);
                 playerBullet = Resources.Load<GameObject>("Bullet/Player/Special/Grenade");
-                playerBullet.GetComponent<Bullet>().atk = 60;
+                Bullet_Atk = 60;
                 Item_Gun_CountFlag = true;
                 Item_Gun_ClickCount = 0;
                 Item_Gun_Max_ClickCount = max;
@@ -1791,7 +1847,7 @@ public class Player : MonoBehaviour
                 GunObject_List[GunIndex].SetActive(true);
                 Bullet_Fire_Transform = GunObject_List[GunIndex].GetComponent<Transform>().GetChild(0);
                 playerBullet = Resources.Load<GameObject>("Bullet/Player/Special/Signal_Flare");
-                playerBullet.GetComponent<Bullet>().atk = 20;
+                Bullet_Atk = 30;
                 Item_Gun_CountFlag = true;
                 Item_Gun_ClickCount = 0;
                 Item_Gun_Max_ClickCount = max;
@@ -1801,7 +1857,7 @@ public class Player : MonoBehaviour
                 GunObject_List[GunIndex].SetActive(true);
                 Bullet_Fire_Transform = GunObject_List[GunIndex].GetComponent<Transform>().GetChild(0);
                 playerBullet = Resources.Load<GameObject>("Bullet/Player/Special/GrenadeBullet");
-                playerBullet.GetComponent<Bullet>().atk = 100;
+                Bullet_Atk = 100;
                 Item_Gun_CountFlag = true;
                 Item_Gun_ClickCount = 0;
                 Item_Gun_Max_ClickCount = max;
@@ -1811,7 +1867,7 @@ public class Player : MonoBehaviour
                 GunObject_List[GunIndex].SetActive(true);
                 Bullet_Fire_Transform = GunObject_List[GunIndex].GetComponent<Transform>().GetChild(0);
                 playerBullet = Resources.Load<GameObject>("Bullet/Player/Special/SniperBullet");
-                playerBullet.GetComponent<Bullet>().atk = 500;
+                Bullet_Atk = 500;
                 Item_Gun_CountFlag = true;
                 Item_Gun_ClickCount = 0;
                 Item_Gun_Max_ClickCount = max;

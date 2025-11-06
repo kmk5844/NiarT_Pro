@@ -39,7 +39,14 @@ public class SkillDirector : MonoBehaviour
             SkillFlag[i] = false;
             skill_cooltime[i] = float.Parse(cool[i]);
             skill_during[i] = float.Parse(dur[i]);
-            uiDirector.Equiped_Skill_Image[i].sprite = Skill_Sprite[(2 * PlayerNum) + i];
+            try
+            {
+                uiDirector.Equiped_Skill_Image[i].sprite = Skill_Sprite[(2 * PlayerNum) + i];
+            }
+            catch
+            {
+                uiDirector.Equiped_Skill_Image[i].sprite = Skill_Sprite[i];
+            }
         }
     }
 
@@ -104,6 +111,17 @@ public class SkillDirector : MonoBehaviour
         else if (PlayerNum == 1)
         {
             Peyote_Skill(skill_num);
+        }else if(PlayerNum == 2)
+        {
+            Aster_Skill(skill_num);
+        }
+        else if(PlayerNum == 3)
+        {
+            Rodanthe_Skill(skill_num);
+        }
+        else if(PlayerNum == 4)
+        {
+            Acer_Skill(skill_num);
         }//그 외의 캐릭터 추가 시.
     }
 
@@ -136,6 +154,41 @@ public class SkillDirector : MonoBehaviour
         else if (num == 1)
         {
             gameDirector.Item_Use_Train_Turret_All_SpeedUP(15, skill_during[num]);
+        }
+    }
+
+    void Aster_Skill(int num)
+    {
+        if(num == 0)
+        {
+            //지나가면서 몬스터 타격
+        }else if(num == 1)
+        {
+            //플레이어의 공속 빨라짐
+        }
+    }
+
+    void Rodanthe_Skill(int num)
+    {
+        if (num == 0)
+        {
+            //플레이어와 용병 30% 힐
+        }
+        else if (num == 1)
+        {
+            //3발정도 날아감
+        }
+    }
+
+    void Acer_Skill(int num)
+    {
+        if (num == 0)
+        {
+            //체력 잃는 동시에 공격력, 방어력, 공속, 스피드 업그레이드
+        }
+        else if (num == 1)
+        {
+            //전방에 바람을 가른다.
         }
     }
 

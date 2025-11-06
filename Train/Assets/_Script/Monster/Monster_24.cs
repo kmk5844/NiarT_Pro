@@ -54,14 +54,17 @@ public class Monster_24 : Monster
         Fire_Debuff();
         Check_ItemSpeedFlag();
 
-        if (monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
+        if (!DieFlag)
         {
-            if (!attackFlag)
+            if (monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
             {
-                AttackAni();
+                if (!attackFlag)
+                {
+                    AttackAni();
+                }
+                //FlipMonster();
+                FlipMonster();
             }
-            //FlipMonster();
-            FlipMonster();
         }
     }
 
@@ -70,7 +73,7 @@ public class Monster_24 : Monster
         base.FixedUpdate();
         if (monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
         {
-            if (!attackFlag)
+            if (!attackFlag && !DieFlag)
             {
                 MonsterMove();
             }
@@ -145,8 +148,11 @@ public class Monster_24 : Monster
 
     public void BulletFire()
     {
-        GameObject bullet = Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
-        bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, Bullet_Speed, xPos);
+        if (!DieFlag)
+        {
+            GameObject bullet = Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
+            bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, Bullet_Speed, xPos);
+        }
     }
 
     public void AttackAniEnd()

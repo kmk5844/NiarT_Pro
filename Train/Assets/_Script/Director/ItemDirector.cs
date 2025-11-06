@@ -258,15 +258,14 @@ public class ItemDirector : MonoBehaviour
     public void SetItem_Infinite(int num, int ItemNum, int Count)
     {
         itemData_Infinite.Equip_Item(num, itemList.Item[ItemNum], Count); // 아이템 등록
-
         uiDirector.Item_EquipedIcon(num, itemList.Item[ItemNum].Item_Sprite, Count); // UI 아이콘 변경
-        
         EquipedItemFlag[num] = true; //사용가능하다는 플래그 변경
 
         if (ItemNum == 0) 
         {
             player_revival_flag = true;
             player_revival_num = num;
+            EquipedItemFlag[num] = false;
             gameDirector.Revival_PlayerSet();
         }
     }

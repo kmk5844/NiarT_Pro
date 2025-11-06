@@ -49,14 +49,18 @@ public class Monster_16 : Monster
         Fire_Debuff();
         Check_ItemSpeedFlag();
 
-        if (monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
+        if (!DieFlag)
         {
-            if (!AttackFlag)
+            if (monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
             {
-                attack();
+                if (!AttackFlag)
+                {
+                    attack();
+                }
+                FlipMonster();
             }
-            FlipMonster();
         }
+        
     }
 
     protected override void FixedUpdate()
@@ -175,12 +179,15 @@ public class Monster_16 : Monster
 
     public void BulletFire()
     {
-        GameObject bullet = Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
-        bullet.GetComponent<Monster_Bullet_Angle>().SetAngle_And_Fire(45f);
-        bullet = Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
-        bullet.GetComponent<Monster_Bullet_Angle>().SetAngle_And_Fire(0f);
-        bullet = Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
-        bullet.GetComponent<Monster_Bullet_Angle>().SetAngle_And_Fire(-45f);
+        if (!DieFlag)
+        {
+            GameObject bullet = Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
+            bullet.GetComponent<Monster_Bullet_Angle>().SetAngle_And_Fire(45f);
+            bullet = Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
+            bullet.GetComponent<Monster_Bullet_Angle>().SetAngle_And_Fire(0f);
+            bullet = Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
+            bullet.GetComponent<Monster_Bullet_Angle>().SetAngle_And_Fire(-45f);
+        }
     }
 
     public void attackTrigger()
