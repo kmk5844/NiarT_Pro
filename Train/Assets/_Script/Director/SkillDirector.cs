@@ -162,9 +162,12 @@ public class SkillDirector : MonoBehaviour
         if(num == 0)
         {
             //지나가면서 몬스터 타격
+            GameObject Dron = Resources.Load<GameObject>("ItemObject/AsterSkill_Support");
+            Instantiate(Dron);
         }else if(num == 1)
         {
             //플레이어의 공속 빨라짐
+            StartCoroutine(player.Aster_Skill2(skill_during[num]));
         }
     }
 
@@ -173,10 +176,12 @@ public class SkillDirector : MonoBehaviour
         if (num == 0)
         {
             //플레이어와 용병 30% 힐
+            gameDirector.Rodanthe_Skill_Heal(30f);
         }
         else if (num == 1)
         {
             //3발정도 날아감
+
         }
     }
 
@@ -185,10 +190,12 @@ public class SkillDirector : MonoBehaviour
         if (num == 0)
         {
             //체력 잃는 동시에 공격력, 방어력, 공속, 스피드 업그레이드
+            StartCoroutine(player.Acer_Skill_Upgrade(30f, skill_during[num]));
         }
         else if (num == 1)
         {
             //전방에 바람을 가른다.
+
         }
     }
 

@@ -10,7 +10,6 @@ public class Item_MiniDron : MonoBehaviour
         LaserDron,
         MissileDron,
         DeffensDron,
-
     }
 
     public MiniDronType type;
@@ -44,7 +43,7 @@ public class Item_MiniDron : MonoBehaviour
         MiniDronRid2d = GetComponent<Rigidbody2D>();
         //DefaultDron_BoxCollider = GetComponent<BoxCollider2D>();
 
-        if(type == MiniDronType.DefaultDron)
+        if (type == MiniDronType.DefaultDron)
         {
             DefaultDron_BoxCollider.enabled = true;
             if(LaserObject != null)

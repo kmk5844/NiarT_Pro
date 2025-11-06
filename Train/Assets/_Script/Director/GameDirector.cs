@@ -1874,6 +1874,12 @@ public class GameDirector : MonoBehaviour
         ItemFlag_DoubleCoin = false;
     }
 
+    public void Rodanthe_Skill_Heal(float persent)
+    {
+        player.Item_Player_Heal_HP(persent);
+        mercenaryDirector.Item_Use_HealPersent((int)persent);
+    }
+
     public void Item_Dice_Reward(int num)
     {
         if (num == 1)

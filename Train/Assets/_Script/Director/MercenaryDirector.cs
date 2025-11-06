@@ -144,6 +144,14 @@ public class MercenaryDirector : MonoBehaviour
         }
     }
 
+    public void Item_Use_HealPersent(int Persent)
+    {
+        for(int i= 0; i < Mercenary_List.childCount; i++)
+        {
+            Mercenary_List.GetChild(i).GetComponent<Mercenary>().Item_Mercenary_Heal_HP(Persent);
+        }
+    }
+
     //무한모드
     public void Spawn_Mercenary(int Mercenary_Num)
     {

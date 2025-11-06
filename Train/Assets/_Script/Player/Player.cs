@@ -34,8 +34,10 @@ public class Player : MonoBehaviour
     [SerializeField]
     int Bullet_Atk;
     int Default_Atk;
+    int Skill_Bullet_Atk;
     [SerializeField]
     float Bullet_Delay;
+    float Skill_Bullet_Delay;
     public Transform Bullet_Fire_Transform;
     Transform Player_Bullet_List;
     float lastTime;
@@ -50,10 +52,12 @@ public class Player : MonoBehaviour
     float era;
     [SerializeField]
     float def_constant;
+    int Skill_Player_Armor;
 
     [Header("이동 속도")]
     [SerializeField] float moveSpeed;
     [SerializeField] float jumpSpeed;
+
     Rigidbody2D rigid;
     bool slowzoneFlag;
     float slowmoveSpeed = 0f;
@@ -62,6 +66,7 @@ public class Player : MonoBehaviour
     bool rotationOn;
     bool jumpFlag;
     float moveItemSpeed = 0;
+    float Skill_Move_Speed;
     int jumpCount = 0;
     int jumpMaxCount = 1;
     bool jumpitemFlag_Minus;
@@ -70,6 +75,8 @@ public class Player : MonoBehaviour
     float MouseZ;
     public float jumpdistance = 1.3f;
     float jumpFlagDistance;
+    
+
     //대시
     bool canDash = true;
     bool isDashing = false;
@@ -168,6 +175,7 @@ public class Player : MonoBehaviour
     public ParticleSystem AttackBuffEffect;
     public ParticleSystem MoveDeBuffEffect;
     public ParticleSystem DeffenceBuffEffect;
+
 
     void Start()
     {
@@ -589,7 +597,7 @@ public class Player : MonoBehaviour
             }
         }
 
-        float effectiveSpeed = Mathf.Max(0f, moveSpeed + moveItemSpeed - slowmoveSpeed);
+        float effectiveSpeed = Mathf.Max(0f, moveSpeed + moveItemSpeed - slowmoveSpeed + Skill_Move_Speed);
 
         if (rigid.velocity.x > effectiveSpeed)
         {
@@ -745,10 +753,10 @@ public class Player : MonoBehaviour
 
     void BulletFire()
     {
-        if (Time.time >= lastTime + (Bullet_Delay + item_Delay))
+        if (Time.time >= lastTime + (Bullet_Delay + item_Delay + Skill_Bullet_Delay))
         {
             GameObject bullet = playerBullet;
-            bullet.GetComponent<Bullet>().atk = Bullet_Atk + item_Atk;
+            bullet.GetComponent<Bullet>().atk = Bullet_Atk + item_Atk + Skill_Bullet_Atk;
             if(PlayerNum == 0)
             {
                 if (!ReloadingFlag)
@@ -1973,6 +1981,35 @@ public class Player : MonoBehaviour
         MMSoundManagerSoundPlayEvent.Trigger(ShootSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         FireCount++;
         MariGold_Skill_Fire_Flag = false;
+    }
+
+    public IEnumerator Aster_Skill2(float during)
+    {
+        Skill_Bullet_Delay -= (Bullet_Delay / 2f);
+        yield return new WaitForSeconds(during);
+        Skill_Bullet_Delay = 0f;
+    }
+
+    public IEnumerator Acer_Skill_Upgrade(float persent, float during)
+    {
+        Player_HP = Player_HP * (100 - (int)persent) / 100;
+        Skill_Bullet_Atk = Bullet_Atk * (int)persent / 100;
+        {
+            Skill_Player_Armor = (int)(Player_Armor * (persent / 100f));
+            Player_Armor += Skill_Player_Armor;
+            era = 1f - (float)Player_Armor / def_constant;
+        }
+        Skill_Bullet_Delay = Bullet_Delay * persent / 100;
+        Skill_Move_Speed = moveSpeed * persent / 100;
+        yield return new WaitForSeconds(during);
+        Skill_Bullet_Atk = 0;
+        {
+            Player_Armor -= Skill_Player_Armor;
+            era = 1f - (float)Player_Armor / def_constant;
+            Skill_Player_Armor = 0;
+        }
+        Skill_Bullet_Delay = 0f;
+        Skill_Move_Speed = 0f;
     }
 
     public void GameEnd_PlayerSave() {
