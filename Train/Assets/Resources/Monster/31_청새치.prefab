@@ -1,5 +1,99 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4236178509836993832
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9071499597190690764}
+  - component: {fileID: 696270737880526452}
+  - component: {fileID: 6272118071198636066}
+  m_Layer: 10
+  m_Name: Tackle
+  m_TagString: Monster_Bullet
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9071499597190690764
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4236178509836993832}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.296, y: 0.058, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7976047841580440950}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &696270737880526452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4236178509836993832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d5c7e54f3515914eb71b88c93645d46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 0
+  atk: 0
+  slow: 0
+  bulletType: 0
+--- !u!61 &6272118071198636066
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4236178509836993832}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.036922276, y: -0.12241781}
+  m_SpriteTilingProperty:
+    border: {x: 0.25, y: 0.25, z: 0.25, w: 0.25}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 2
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.0738442, y: 0.09449624}
+  m_EdgeRadius: 0
 --- !u!1 &4381525608370454315
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,6 +279,7 @@ Transform:
   - {fileID: 4741079927591269212}
   - {fileID: 4498824267978040254}
   - {fileID: 424993660591949827}
+  - {fileID: 9071499597190690764}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -0.667, z: 0}
 --- !u!212 &3102294194950935420
@@ -228,7 +323,7 @@ SpriteRenderer:
   m_SortingLayerID: 375295091
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9b7f9a818c9529e47a6a6ed7e104cd89, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 084337421aaf1b64aaacf5b53f2dad2f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -283,15 +378,18 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.36789045, y: -0.19510163}
+    - - {x: -0.6817237, y: -0.23171283}
+      - {x: -0.52323234, y: -0.069482565}
+      - {x: -0.40694797, y: -0.22268069}
       - {x: 0.05621029, y: -0.23252845}
-      - {x: 0.36052307, y: -0.043970004}
-      - {x: 0.39567968, y: 0.065775484}
-      - {x: 0.36990586, y: 0.11375679}
-      - {x: 0.34230146, y: 0.12385024}
+      - {x: 0.49390203, y: -0.10673226}
+      - {x: 0.7565875, y: -0.057134047}
+      - {x: 0.42744207, y: -0.030073509}
+      - {x: 0.32922524, y: -0.00951992}
       - {x: 0.2126082, y: 0.04297673}
-      - {x: -0.048929885, y: 0.17635165}
-      - {x: -0.34940827, y: 0.024652883}
+      - {x: -0.09077422, y: 0.0926684}
+      - {x: -0.52548766, y: -0.04716815}
+      - {x: -0.7260078, y: 0.20247953}
   m_UseDelaunayMesh: 0
 --- !u!114 &3249563669106792536
 MonoBehaviour:
@@ -305,7 +403,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bd2c0d254d049d4fb53ce337d5f830b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterSprite: {fileID: 0}
   monster_gametype: 0
   EX_GameData: {fileID: 11400000, guid: 3a83740cb85032c498c0bbd5b0a2ec9d, type: 2}
   monsterData: {fileID: 11400000, guid: 1725873c9ee29b3449b73d0e0b1358ac, type: 2}
@@ -336,6 +433,11 @@ MonoBehaviour:
   movement: {x: 0, y: 0, z: 0}
   speed: 0
   max_xPos: 0
+  direction: {x: 0, y: 0}
+  FishSprite:
+  - {fileID: 21300000, guid: 9b7f9a818c9529e47a6a6ed7e104cd89, type: 3}
+  - {fileID: 21300000, guid: 084337421aaf1b64aaacf5b53f2dad2f, type: 3}
+  bullet: {fileID: 696270737880526452}
 --- !u!1 &8556176419555939304
 GameObject:
   m_ObjectHideFlags: 0

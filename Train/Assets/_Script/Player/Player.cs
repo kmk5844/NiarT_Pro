@@ -1167,12 +1167,17 @@ public class Player : MonoBehaviour
             {
                 MonsterBullet bullet = collision.GetComponent<MonsterBullet>();
                 MonsterHit(bullet.atk);
+
                 if (bullet.bulletType != MonsterBulletType.Nomal && !DebuffImmunityFlag)
                 {
                     playerDebuff.GetDebuff(bullet.bulletType);
                 }
                 Pain_Voice();
                 Blood_Effect();
+                if (collision.name.Equals("Tackle"))
+                {
+                    collision.GetComponentInParent<Monster>().MonsterDie(true);
+                }
                 Destroy(collision.gameObject);
             }
 

@@ -12,12 +12,16 @@ public class Monster_31 : Monster
     float speed;
     [SerializeField]
     float max_xPos;
-
+    [SerializeField]
+    private Vector2 direction;
+    bool attackFlag;
+    public Sprite[] FishSprite;
+    public MonsterBullet bullet;
 
     // Start is called before the first frame update
     protected override void Start()
     {
-        Monster_Num = 32;
+        Monster_Num = 31;
 
         base.Start();
         MonsterDirector_Pos = new Vector2(transform.localPosition.x, transform.localPosition.y - 2f);
@@ -32,6 +36,8 @@ public class Monster_31 : Monster
         xPos = -1;
         Check_ItemSpeedSpawn();
         Monster_coroutine = StartCoroutine(SpawnMonster());
+        monsterSprite.sprite = FishSprite[0];
+        bullet.atk = Bullet_Atk;
     }
 
     // Update is called once per frame
@@ -42,6 +48,20 @@ public class Monster_31 : Monster
         Fire_Debuff();
         //FlipMonster();
 
+        if (!DieFlag)
+        {
+            if (monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
+            {
+                if(!attackFlag)
+                {
+                    BulletFire();
+                }
+                else
+                {
+                    transform.Translate(direction * speed * Time.deltaTime, Space.World);
+                }
+            }
+        }
         Check_ItemSpeedFlag();
     }
 
@@ -50,7 +70,34 @@ public class Monster_31 : Monster
         base.FixedUpdate();
         if (monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
         {
-            MonsterMove();
+            if (!attackFlag)
+            {
+                MonsterMove();
+            }
+        }
+    }
+
+
+    void BulletFire()
+    {
+        if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay) - 0.65f)
+        {
+            if (!warningFlag)
+            {
+                WarningEffect.Play();
+                warningFlag = true;
+            }
+        }
+
+        if (Time.time >= lastTime + (Bullet_Delay + Item_Monster_AtkDelay) && monster_gametype != Monster_GameType.Die)
+        {
+            monsterSprite.sprite = FishSprite[1];
+            direction = (player.transform.position - transform.position).normalized;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0, 0, angle);
+            speed = 20f;
+            Destroy(gameObject, 3f);
+            attackFlag = true;
         }
     }
 

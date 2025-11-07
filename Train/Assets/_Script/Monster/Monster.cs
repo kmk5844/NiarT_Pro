@@ -12,7 +12,7 @@ public class Monster : MonoBehaviour
     Collider2D col;
     protected int Monster_Num;
     public int GetMonsterNum() { return Monster_Num; }
-    public SpriteRenderer monsterSprite;
+    protected SpriteRenderer monsterSprite;
     Material monsterMat;
     [Header("몬스터 게임타입")]
     [SerializeField]
@@ -140,14 +140,8 @@ public class Monster : MonoBehaviour
         DieSfX = Resources.Load<AudioClip>("Sound/SFX/Monster_Die_SFX");
         monsterEffect = GetComponentInChildren<MonsterEffect>();
 
-        try
-        {
-            monsterMat = GetComponent<SpriteRenderer>().material;
-        }
-        catch
-        {
-            monsterMat = monsterSprite.material;
-        }
+        monsterSprite = GetComponent<SpriteRenderer>();
+        monsterMat = monsterSprite.material;
 
         Monster_Name = EX_GameData.Information_Monster[Monster_Num].Monster_Name;
         Monster_HP = EX_GameData.Information_Monster[Monster_Num].Monster_HP;
@@ -777,11 +771,15 @@ public class Monster : MonoBehaviour
         Item_Giant_Persent = Persent;
     }
 
-    public void MonsterDie()
+    public void MonsterDie(bool CoinZero = false)
     {
         monster_gametype = Monster_GameType.Die;
         Monster_HP = 0;
         DieFlag = true;
+        if (CoinZero)
+        {
+            Monster_Coin = 0;
+        }
         bool effectFlag = gameDirector.Game_Monster_Kill(Monster_Coin);
 
         if (effectFlag)
