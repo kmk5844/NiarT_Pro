@@ -27,7 +27,14 @@ public class Bard : Mercenary
         Mercenary_List = mercenaryDirector.Mercenary_List;
         act = Active.work;
         buffFlag = false;
-        transform.position = new Vector2(-2f, Move_Y);
+        if (!gameDirector.Infinite_Mode)
+        {
+            transform.position = new Vector2(-2f, Move_Y);
+        }else
+        {
+            float rndX = Random.Range(MonsterDirector.MinPos_Ground.x, MonsterDirector.MaxPos_Ground.x);
+            transform.position = new Vector2(rndX, Move_Y);
+        }
         bard_type = gameDirector.SA_MercenaryData.Bard_Type;
         player = gameDirector.player;
     }
@@ -72,57 +79,88 @@ public class Bard : Mercenary
 
     void Bard_Survival_Buff()
     {
-        switch (bard_type)
+        if (!gameDirector.Infinite_Mode)
         {
-            case Bard_Type.HP_Buff:
-                player.P_Buff(bard_type, Level_HP, true);
-                for (int i = 0; i < Mercenary_List.childCount; i++)
-                {
-                    Mercenary_List.GetChild(i).GetComponent<Mercenary_Type>().Buff_HP(Level_HP, true);
-                }
-                break;
-            case Bard_Type.Atk_Buff:
-                player.P_Buff(bard_type, Level_Atk, true);
-                for (int i = 0; i < Mercenary_List.childCount; i++)
-                {
-                    Mercenary_List.GetChild(i).GetComponent<Mercenary_Type>().Buff_Atk(Level_Atk, true);
-                }
-                break;
-            case Bard_Type.Def_Buff:
-                player.P_Buff(bard_type, Level_Def, true);
-                for (int i = 0; i < Mercenary_List.childCount; i++)
-                {
-                    Mercenary_List.GetChild(i).GetComponent<Mercenary_Type>().Buff_Def(Level_Def, true);
-                }
-                break;
+            switch (bard_type)
+            {
+                case Bard_Type.HP_Buff:
+                    player.P_Buff(bard_type, Level_HP, true);
+                    for (int i = 0; i < Mercenary_List.childCount; i++)
+                    {
+                        Mercenary_List.GetChild(i).GetComponent<Mercenary_Type>().Buff_HP(Level_HP, true);
+                    }
+                    break;
+                case Bard_Type.Atk_Buff:
+                    player.P_Buff(bard_type, Level_Atk, true);
+                    for (int i = 0; i < Mercenary_List.childCount; i++)
+                    {
+                        Mercenary_List.GetChild(i).GetComponent<Mercenary_Type>().Buff_Atk(Level_Atk, true);
+                    }
+                    break;
+                case Bard_Type.Def_Buff:
+                    player.P_Buff(bard_type, Level_Def, true);
+                    for (int i = 0; i < Mercenary_List.childCount; i++)
+                    {
+                        Mercenary_List.GetChild(i).GetComponent<Mercenary_Type>().Buff_Def(Level_Def, true);
+                    }
+                    break;
+            }
         }
+        else
+        {
+            player.P_Buff(bard_type, Level_HP, true);
+            player.P_Buff(bard_type, Level_Atk, true);
+            player.P_Buff(bard_type, Level_Def, true);
+            for (int i = 0; i < Mercenary_List.childCount; i++)
+            {
+                Mercenary_List.GetChild(i).GetComponent<Mercenary_Type>().Buff_HP(Level_HP, true);
+                Mercenary_List.GetChild(i).GetComponent<Mercenary_Type>().Buff_Atk(Level_Atk, true);
+                Mercenary_List.GetChild(i).GetComponent<Mercenary_Type>().Buff_Def(Level_Def, true);
+            }
+        }
+        
     }
 
     void Bard_Die_Buff()
     {
-        switch (bard_type)
+        if (!gameDirector.Infinite_Mode)
         {
-            case Bard_Type.HP_Buff:
-                player.P_Buff(bard_type, Level_HP, false);
-                for (int i = 0; i < Mercenary_List.childCount; i++)
-                {
-                    Mercenary_List.GetChild(i).GetComponent<Mercenary_Type>().Buff_HP(Level_HP, false);
-                }
-                break;
-            case Bard_Type.Atk_Buff:
-                player.P_Buff(bard_type, Level_Atk, false);
-                for (int i = 0; i < Mercenary_List.childCount; i++)
-                {
-                    Mercenary_List.GetChild(i).GetComponent<Mercenary_Type>().Buff_Atk(Level_Atk, false);
-                }
-                break;
-            case Bard_Type.Def_Buff:
-                player.P_Buff(bard_type, Level_Def, false);
-                for (int i = 0; i < Mercenary_List.childCount; i++)
-                {
-                    Mercenary_List.GetChild(i).GetComponent<Mercenary_Type>().Buff_Def(Level_Def, false);
-                }
-                break;
+            switch (bard_type)
+            {
+                case Bard_Type.HP_Buff:
+                    player.P_Buff(bard_type, Level_HP, false);
+                    for (int i = 0; i < Mercenary_List.childCount; i++)
+                    {
+                        Mercenary_List.GetChild(i).GetComponent<Mercenary_Type>().Buff_HP(Level_HP, false);
+                    }
+                    break;
+                case Bard_Type.Atk_Buff:
+                    player.P_Buff(bard_type, Level_Atk, false);
+                    for (int i = 0; i < Mercenary_List.childCount; i++)
+                    {
+                        Mercenary_List.GetChild(i).GetComponent<Mercenary_Type>().Buff_Atk(Level_Atk, false);
+                    }
+                    break;
+                case Bard_Type.Def_Buff:
+                    player.P_Buff(bard_type, Level_Def, false);
+                    for (int i = 0; i < Mercenary_List.childCount; i++)
+                    {
+                        Mercenary_List.GetChild(i).GetComponent<Mercenary_Type>().Buff_Def(Level_Def, false);
+                    }
+                    break;
+            }
+        }
+        else
+        {
+            player.P_Buff(bard_type, Level_HP, false);
+            player.P_Buff(bard_type, Level_Atk, false);
+            player.P_Buff(bard_type, Level_Def, false);
+            for (int i = 0; i < Mercenary_List.childCount; i++)
+            {
+                Mercenary_List.GetChild(i).GetComponent<Mercenary_Type>().Buff_HP(Level_HP, false);
+                Mercenary_List.GetChild(i).GetComponent<Mercenary_Type>().Buff_Atk(Level_Atk, false);
+                Mercenary_List.GetChild(i).GetComponent<Mercenary_Type>().Buff_Def(Level_Def, false);
+            }
         }
     }
 }

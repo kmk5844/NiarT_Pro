@@ -17,6 +17,17 @@ public class Hit_TrainFloor : MonoBehaviour
         impulseSource = impulse_Object.GetComponent<CinemachineImpulseSource>();
     }
 
+    public void HitTrain(Monster monster)
+    {
+        CameraShakeManager.instance.CameraShake(impulseSource);
+        train.Train_MonsterHit(monster);
+
+        float rnd = Random.Range(0f, 2f);
+        Vector2 pos = new Vector2(monster.transform.localPosition.x, monster.transform.localPosition.y);
+
+        Instantiate(Hit_Effect, pos, Quaternion.identity);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Monster_Bullet"))

@@ -127,8 +127,10 @@ public class Player : MonoBehaviour
 
     bool MariGold_Skill_Flag;
     bool MariGold_Skill_Fire_Flag;
+    bool Rodanthe_Skill_Flag;
     bool DebuffImmunityFlag;
     bool medictrainFlag;
+    bool AcerSkill_WindFlag;
 
     [Header("상호작용 Key")]
     public GameObject KeyObject;
@@ -844,19 +846,31 @@ public class Player : MonoBehaviour
                     {
                         ani.SetTrigger("Shoot_0");
                     }
+                    if (Rodanthe_Skill_Flag)
+                    {
+                        GameObject skillbullet = Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
+                        skillbullet.GetComponent<PlayerBullet>().Setting_Rodante(10);
+                        skillbullet = Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
+                        skillbullet.GetComponent<PlayerBullet>().Setting_Rodante(-10);
+                        skillbullet = Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
+                        skillbullet.GetComponent<PlayerBullet>().Setting_Rodante(20);
+                        skillbullet = Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
+                        skillbullet.GetComponent<PlayerBullet>().Setting_Rodante(-20);
+                    }
 
-                    /*                    if (FireCount < MaxFireCount-1)
-                                        {
-                                            if (!Item_GunFlag)
-                                            {
-                                                FireCount++;
-                                            }
+                    /*   
+                     *   if (FireCount < MaxFireCount-1)
+                        {
+                        if (!Item_GunFlag)
+                        {
+                            FireCount++;
+                        }
 
-                                        }
-                                        else
-                                        {
-                                            StartCoroutine(Reloading());
-                                        }*/
+                    }
+                    else
+                    {
+                        StartCoroutine(Reloading());
+                    }*/
                 }
             }
             else if (PlayerNum == 4)
@@ -864,10 +878,21 @@ public class Player : MonoBehaviour
                 if (!ReloadingFlag)
                 {
                     BulletEffect();
-                    for (int i = 0; i < 4; i++) // 5개의 샷건 탄환을 발사
+                    if (!AcerSkill_WindFlag)
                     {
-                        Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
+                        for (int i = 0; i < 4; i++) // 5개의 샷건 탄환을 발사
+                        {
+                            Instantiate(bullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
+                        }
                     }
+                    else
+                    {
+                        GameObject skillBullet = Resources.Load<GameObject>("Bullet/Player/Acer_Wind");
+                        skillBullet.GetComponent<PlayerBullet>().atk = Bullet_Atk + item_Atk + Skill_Bullet_Atk;
+                        GameObject gm = Instantiate(skillBullet, Bullet_Fire_Transform.position, Quaternion.identity, Player_Bullet_List);
+                        gm.name = "Acer_Wind";
+                    }
+                        
                     if (GunIndex == 0)
                     {
                         ani.SetTrigger("Shoot_0");
@@ -1992,14 +2017,14 @@ public class Player : MonoBehaviour
 
     public IEnumerator Acer_Skill_Upgrade(float persent, float during)
     {
-        Player_HP = Player_HP * (100 - (int)persent) / 100;
+        Player_HP = Player_HP * 90 / 100;
         Skill_Bullet_Atk = Bullet_Atk * (int)persent / 100;
         {
             Skill_Player_Armor = (int)(Player_Armor * (persent / 100f));
             Player_Armor += Skill_Player_Armor;
             era = 1f - (float)Player_Armor / def_constant;
         }
-        Skill_Bullet_Delay = Bullet_Delay * persent / 100;
+        Skill_Bullet_Delay = (Bullet_Delay * persent / 100) * -1f;
         Skill_Move_Speed = moveSpeed * persent / 100;
         yield return new WaitForSeconds(during);
         Skill_Bullet_Atk = 0;
@@ -2030,7 +2055,19 @@ public class Player : MonoBehaviour
         KeyObject.SetActive(true);
     }
 
+    public IEnumerator Rodanthe_Skill2(float during)
+    {
+        Rodanthe_Skill_Flag = true;
+        yield return new WaitForSeconds(during);
+        Rodanthe_Skill_Flag = false;
+    }
 
+    public IEnumerator Acer_Wind(float during)
+    {
+        AcerSkill_WindFlag = true;
+        yield return new WaitForSeconds(during);
+        AcerSkill_WindFlag = false;
+    }
 
     //---------------------------------------음식
     private void Check_Food()

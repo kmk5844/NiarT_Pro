@@ -666,6 +666,10 @@ public class Monster : MonoBehaviour
             {
                 Fire_Hit(collision);
             }
+            if (collision.gameObject.name.Equals("Acer_Wind"))
+            {
+                Laser_Hit(collision, true);
+            }
         }
 
         if (collision.gameObject.tag.Equals("Item"))

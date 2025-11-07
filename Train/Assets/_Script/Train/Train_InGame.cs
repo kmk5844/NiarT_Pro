@@ -367,6 +367,30 @@ public class Train_InGame : MonoBehaviour
         }
     }
 
+    public void Train_MonsterHit(Monster monster)
+    {
+        Debug.Log(monster.Bullet_Atk);
+        gameDirector.Game_MonsterHit(monster.Bullet_Slow); //슬로우가 있어야 한다.
+        int damageTaken = Mathf.RoundToInt(monster.Bullet_Atk * era);
+        MMSoundManagerSoundPlayEvent.Trigger(trainHitSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+        if (Train_HP - damageTaken < 0)
+        {
+            Train_HP = 0;
+        }
+        else
+        {
+            Train_HP -= damageTaken;
+            if (Train_Type == "Engine" && HP_Parsent < 30f)
+            {
+                PlayerLogDirector.TrainWarning(HP_Parsent);
+            }
+            if (Train_Type == "Quest" && HP_Parsent < 30f)
+            {
+                PlayerLogDirector.MissionTrainWarning(HP_Parsent);
+            }
+        }
+    }
+
     private void Destroy_Train(int i) // 0 -> 엔진 / 1 -> 일반 / 2 -> 포탑 /3 -> 퀘스트
     {
         //엔진 기차 파괴 : 게임 END

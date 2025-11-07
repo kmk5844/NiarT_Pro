@@ -22,7 +22,15 @@ public class Engine_Driver : Mercenary
     {
         base.Start();
         act = Active.work;
-        transform.position = new Vector2(-4.4f, Move_Y);
+        if (!gameDirector.Infinite_Mode)
+        {
+            transform.position = new Vector2(-4.4f, Move_Y);
+        }
+        else
+        {
+            float rndX = Random.Range(MonsterDirector.MinPos_Ground.x, MonsterDirector.MaxPos_Ground.x);
+            transform.position = new Vector2(rndX, Move_Y);
+        }
         isSurvival = true;
         isDying = false;
 
@@ -56,39 +64,64 @@ public class Engine_Driver : Mercenary
     }
 
     void EngineDriver_Survival_Buff() {
-        switch (Driver_Type)
+        if (!gameDirector.Infinite_Mode)
         {
-            case Engine_Driver_Type.speed:
-                gameDirector.Engine_Driver_Passive(Engine_Driver_Type.speed, Level_Speed, true);
-                break;
-            case Engine_Driver_Type.fuel:
-                gameDirector.Engine_Driver_Passive(Engine_Driver_Type.fuel, Level_Fuel, true);
-                break;
-            case Engine_Driver_Type.def:
-                for (int i = 0; i < Train_List.childCount; i++)
-                {
-                    Train_List.GetChild(i).GetComponent<Train_InGame>().Train_Armor += Level_Def;
-                }
-                break;
+            switch (Driver_Type)
+            {
+                case Engine_Driver_Type.speed:
+                    gameDirector.Engine_Driver_Passive(Engine_Driver_Type.speed, Level_Speed, true);
+                    break;
+                case Engine_Driver_Type.fuel:
+                    gameDirector.Engine_Driver_Passive(Engine_Driver_Type.fuel, Level_Fuel, true);
+                    break;
+                case Engine_Driver_Type.def:
+                    for (int i = 0; i < Train_List.childCount; i++)
+                    {
+                        Train_List.GetChild(i).GetComponent<Train_InGame>().Train_Armor += Level_Def;
+                    }
+                    break;
+            }
+        }
+        else
+        {
+            gameDirector.Engine_Driver_Passive(Engine_Driver_Type.speed, Level_Speed, true);
+            gameDirector.Engine_Driver_Passive(Engine_Driver_Type.fuel, Level_Fuel, true);
+            for (int i = 0; i < Train_List.childCount; i++)
+            {
+                Train_List.GetChild(i).GetComponent<Train_InGame>().Train_Armor += Level_Def;
+            }
         }
     }
+        
 
     void EngineDriver_Die_Buff()
     {
-        switch (Driver_Type)
+        if (!gameDirector)
         {
-            case Engine_Driver_Type.speed:
-                gameDirector.Engine_Driver_Passive(Engine_Driver_Type.speed, Level_Speed, false);
-                break;
-            case Engine_Driver_Type.fuel:
-                gameDirector.Engine_Driver_Passive(Engine_Driver_Type.fuel, Level_Fuel, false);
-                break;
-            case Engine_Driver_Type.def:
-                for (int i = 0; i < Train_List.childCount; i++)
-                {
-                    Train_List.GetChild(i).GetComponent<Train_InGame>().Train_Armor -= Level_Def;
-                }
-                break;
+            switch (Driver_Type)
+            {
+                case Engine_Driver_Type.speed:
+                    gameDirector.Engine_Driver_Passive(Engine_Driver_Type.speed, Level_Speed, false);
+                    break;
+                case Engine_Driver_Type.fuel:
+                    gameDirector.Engine_Driver_Passive(Engine_Driver_Type.fuel, Level_Fuel, false);
+                    break;
+                case Engine_Driver_Type.def:
+                    for (int i = 0; i < Train_List.childCount; i++)
+                    {
+                        Train_List.GetChild(i).GetComponent<Train_InGame>().Train_Armor -= Level_Def;
+                    }
+                    break;
+            }
+        }
+        else
+        {
+            gameDirector.Engine_Driver_Passive(Engine_Driver_Type.speed, Level_Speed, false);
+            gameDirector.Engine_Driver_Passive(Engine_Driver_Type.fuel, Level_Fuel, false);
+            for (int i = 0; i < Train_List.childCount; i++)
+            {
+                Train_List.GetChild(i).GetComponent<Train_InGame>().Train_Armor -= Level_Def;
+            }
         }
     }
 

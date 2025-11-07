@@ -319,8 +319,15 @@ public class MonsterDirector : MonoBehaviour
     IEnumerator AppearSlowMonster()
     {
         isSlowSpawing = true;
-        yield return new WaitForSeconds(Random.Range(10f, 21f));
-        Random_xPos = Random.Range(MinPos_Ground.x, MaxPos_Ground.x);
+        if (!gameDirector.Test_Mode)
+        {
+            yield return new WaitForSeconds(Random.Range(10f, 21f));
+        }
+        else
+        {
+            yield return new WaitForSeconds(1f);
+        }
+            Random_xPos = Random.Range(MinPos_Ground.x, MaxPos_Ground.x);
         Random_yPos = Random.Range(MinPos_Ground.y, MaxPos_Ground.y);
 
         int MonsterRandomIndex = Random.Range(0, Emerging_Monster_List_Slow.Count);

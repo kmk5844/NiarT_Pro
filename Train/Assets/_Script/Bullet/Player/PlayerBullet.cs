@@ -6,14 +6,21 @@ public class PlayerBullet : Bullet
 {
     public bool ShotGunFlag;
     public bool RifleFlag;
+    public bool RoDanteFlag;
+    public float Angle;
+    public bool AcerSkillFlag;
     protected override void Start()
     {
         base.Start();
         if (ShotGunFlag)
         {
-            Speed = Random.Range(40f, 55f);
+            Speed = Random.Range(30f, 45f);
         }
         Bullet_Player();
+        if (AcerSkillFlag)
+        {
+            StartCoroutine(AcerSKill());
+        }
     }
 
     void Bullet_Player()
@@ -45,6 +52,13 @@ public class PlayerBullet : Bullet
 
             // 속도 설정
             rid.velocity = new Vector2(dir.x, dir.y).normalized * Speed;
+        }else if (RoDanteFlag)
+        {
+            dir = Quaternion.Euler(0, 0,Angle) * dir;
+            Vector3 rotation = transform.position - mousePos;
+            float rot = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0, 0, rot + 90 + Angle);
+            rid.velocity = new Vector2(dir.x, dir.y).normalized * Speed;
         }
         else
         {
@@ -55,5 +69,30 @@ public class PlayerBullet : Bullet
         }
 
         Destroy(gameObject, 3f);
+    }
+
+    IEnumerator AcerSKill()
+    {
+        atk = atk / 2;
+        float duration = 1f;
+        Vector2 startScale_Size = transform.localScale;
+        float time = 0f;
+
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            float t = time / duration;
+            transform.localScale = Vector2.Lerp(startScale_Size, startScale_Size * 60f, t);
+            yield return null;
+        }
+
+        transform.localScale = startScale_Size * 60f;
+    }
+
+    public void Setting_Rodante(float angle_)
+    {
+        atk = atk / 2;
+        RoDanteFlag = true;
+        Angle = angle_;
     }
 }

@@ -181,7 +181,7 @@ public class SkillDirector : MonoBehaviour
         else if (num == 1)
         {
             //3발정도 날아감
-
+            StartCoroutine(player.Rodanthe_Skill2(skill_during[num]));
         }
     }
 
@@ -195,7 +195,7 @@ public class SkillDirector : MonoBehaviour
         else if (num == 1)
         {
             //전방에 바람을 가른다.
-
+            StartCoroutine(player.Acer_Wind(skill_during[num]));
         }
     }
 
