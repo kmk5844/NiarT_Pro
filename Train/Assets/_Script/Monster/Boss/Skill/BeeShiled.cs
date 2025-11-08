@@ -7,7 +7,7 @@ public class BeeShiled : MonoBehaviour
     [SerializeField]
     int BeeNum;
     BeeShieldDirector Director;
-    int BeeShieldHP = 120;
+    int BeeShieldHP = 60;
     float laser_hit_time = 0f;
     float fire_hit_time = 0f;
     GameObject HitDamage;

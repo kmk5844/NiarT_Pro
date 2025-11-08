@@ -71,7 +71,6 @@ public class Monster_Boss_3 : Boss
     {
         base.Update();
     }
-
     protected void FixedUpdate()
     {
         Fire_Debuff();

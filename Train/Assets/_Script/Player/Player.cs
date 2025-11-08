@@ -178,6 +178,11 @@ public class Player : MonoBehaviour
     public ParticleSystem MoveDeBuffEffect;
     public ParticleSystem DeffenceBuffEffect;
 
+    [SerializeField]
+    bool atkZoneFlag = false;
+    float atkZoneDamageTime = 0.5f;
+    bool atkZone_Atking = false;
+    int atkZone_atk = 0;
 
     void Start()
     {
@@ -268,6 +273,14 @@ public class Player : MonoBehaviour
         {
             slowmoveSpeed = 0f;
             slowjumpSpeed = 0f;
+        }
+
+        if (atkZoneFlag)
+        {
+            if (!atkZone_Atking)
+            {
+                StartCoroutine(atkZoneCorutine());
+            }
         }
 
 
@@ -654,7 +667,19 @@ public class Player : MonoBehaviour
                 Reload.transform.localScale = new Vector3(ReloadObject_Scale.x, ReloadObject_Scale.y, ReloadObject_Scale.z);
                 transform.rotation = Quaternion.Euler(0, 0, 0);
             }
+
+            if (atkZoneFlag)
+            {
+                bool stillInside = Physics2D.OverlapCircle(transform.position, 0.2f, LayerMask.GetMask("Monster_AtkZone"));
+                if (!stillInside)
+                {
+                    atkZoneFlag = false;
+                    atkZone_Atking = false;
+                    atkZone_atk = 0;
+                }
+            }
         }
+
 
         Debug.DrawRay(rigid.position, Vector3.down * jumpdistance, Color.green);
         RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, jumpdistance, LayerMask.GetMask("Platform"));
@@ -1159,6 +1184,16 @@ public class Player : MonoBehaviour
         Pain_Voice();
     }
 
+    IEnumerator atkZoneCorutine()
+    {
+        atkZone_Atking = true;
+        MonsterHit(atkZone_atk);
+        Pain_Voice();
+        Blood_Effect();
+        yield return new WaitForSeconds(atkZoneDamageTime);
+        atkZone_Atking = false;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!revival_Effect_Flag)
@@ -1195,6 +1230,13 @@ public class Player : MonoBehaviour
         {
             slowzoneFlag = true;
         }
+
+        if (collision.CompareTag("Monster_AtkZone"))
+        {
+            atkZoneFlag = true;
+            //공격력 받아옴.
+            atkZone_atk = collision.GetComponent<MonsterBullet>().atk;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -1202,6 +1244,13 @@ public class Player : MonoBehaviour
         if (collision.CompareTag("SlowZone"))
         {
             slowzoneFlag = false;
+        }
+
+        if (collision.CompareTag("Monster_AtkZone"))
+        {
+            atkZoneFlag = false;
+            atkZone_Atking = false;
+            atkZone_atk = 0;
         }
     }
 

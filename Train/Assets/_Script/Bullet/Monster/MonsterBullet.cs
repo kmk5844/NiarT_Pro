@@ -20,7 +20,8 @@ public class MonsterBullet : MonoBehaviour
     protected int x_scale;
 
     public MonsterBulletType bulletType;
-
+    bool destoryFlag;
+    float destoryTime;
     //bool targetFlag;
     protected virtual void Start()
     {
@@ -28,6 +29,10 @@ public class MonsterBullet : MonoBehaviour
         player_target = GameObject.FindGameObjectWithTag("Player").transform;
         Train_List = GameObject.Find("Train_List").transform;
         //Mercenary_List = GameObject.Find("Mercenary_List").transform;
+        if (destoryFlag)
+        {
+            Destroy(gameObject, destoryTime);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -62,6 +67,12 @@ public class MonsterBullet : MonoBehaviour
     public void SetSpeed(float speed)
     {
         Speed = speed;
+    }
+
+    public void SetDestory(float time)
+    {
+        destoryFlag = true;
+        destoryTime = time;
     }
 }
 

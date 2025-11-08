@@ -26,7 +26,7 @@ public class Monster_30 : Monster
     protected override void Start()
     {
         Monster_Num = 30;
-        //BulletObject = Resources.Load<GameObject>("Bullet/Monster/" + Monster_Num);
+        BulletObject = Resources.Load<GameObject>("Bullet/Monster/" + Monster_Num);
 
         base.Start();
         //transform.localPosition = MonsterDirector.MaxPos_Sky;
@@ -95,7 +95,12 @@ public class Monster_30 : Monster
 
     void BulletFire()
     {
-        Debug.Log("Fire");
+        for(int i = 0; i < 5; i++)
+        {
+            GameObject bullet = Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
+            bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, Bullet_Speed, 0);
+            bullet.GetComponent<MonsterBullet>().SetSpeed(Random.Range(8f, 12f));
+        }
     }
 
     void MonsterMove()
