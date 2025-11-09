@@ -101,6 +101,9 @@ public class MissionSelectButton : MonoBehaviour
                     MissionInformation_Text.RefreshString();
                 };
                 break;
+            case 6: // 스토리
+                MissionInformation_Text.StringReference.TableEntryReference = "Information_" + missionNum;
+                break;
         }
     }
 
@@ -110,6 +113,10 @@ public class MissionSelectButton : MonoBehaviour
         if (missionNum == 4)
         {
             missionSelectDirector.Open_Numerical_Settings_Convoy(missionNum, state);
+        }else if(missionNum == 6)
+        {
+            //바로 스토리 진행
+            GameManager.Instance.BeforeGameStart_Enter();
         }
         else
         {

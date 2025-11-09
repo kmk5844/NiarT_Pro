@@ -21,10 +21,11 @@ public class Player_Chage : MonoBehaviour
     public Transform[] FireZone;
 
     public GameObject Sage_Add_Cloth;
-
+    public GameObject Acer_Add_Cloth;
     public void ChangePlayer(int num)
     {
         Sage_Add_Cloth.SetActive(false);
+        Acer_Add_Cloth.SetActive(false);
 
         switch (num)
         {
@@ -58,6 +59,7 @@ public class Player_Chage : MonoBehaviour
                 Foot[0].sprite = Acer_Sprite[1];
                 Foot[1].sprite = Acer_Sprite[2];
                 Gun[4].SetActive(true);
+                Acer_Add_Cloth.SetActive(true);
                 break;
         }
     }

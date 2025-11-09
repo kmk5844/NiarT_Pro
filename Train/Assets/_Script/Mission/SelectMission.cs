@@ -492,5 +492,6 @@ public enum MissionType {
     Escort,
     Convoy,
     Boss,
-    Infinite
+    Infinite,
+    Story
 }
