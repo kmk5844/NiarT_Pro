@@ -135,7 +135,7 @@ public class MenuDirector : MonoBehaviour
         }
         else
         {
-            Check_Information_Text.StringReference.TableEntryReference = "UI_Infinty_Ban";
+            Check_Information_Text.StringReference.TableEntryReference = "UI_Infinite_Information";
         }
     }
 

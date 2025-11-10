@@ -19,5 +19,4 @@ public class BackStationDirector : MonoBehaviour
         virtualCamera_Confiner.m_BoundingShape2D = CameraRange[num];
         StationObject[num].SetActive(true);
     }
-
 }

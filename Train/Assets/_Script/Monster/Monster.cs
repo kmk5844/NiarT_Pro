@@ -10,9 +10,12 @@ using UnityEngine.UIElements;
 public class Monster : MonoBehaviour
 {
     Collider2D col;
+    [SerializeField]
     protected int Monster_Num;
     public int GetMonsterNum() { return Monster_Num; }
     protected SpriteRenderer monsterSprite;
+    [Header("할당 X, 예외 발생 시 적용")]
+    public SpriteRenderer ExMonsterSprite;
     Material monsterMat;
     [Header("몬스터 게임타입")]
     [SerializeField]
@@ -140,7 +143,15 @@ public class Monster : MonoBehaviour
         DieSfX = Resources.Load<AudioClip>("Sound/SFX/Monster_Die_SFX");
         monsterEffect = GetComponentInChildren<MonsterEffect>();
 
-        monsterSprite = GetComponent<SpriteRenderer>();
+        if(ExMonsterSprite != null)
+        {
+            monsterSprite = ExMonsterSprite;
+        }
+        else
+        {
+            monsterSprite = GetComponent<SpriteRenderer>();
+        }
+        
         monsterMat = monsterSprite.material;
 
         Monster_Name = EX_GameData.Information_Monster[Monster_Num].Monster_Name;

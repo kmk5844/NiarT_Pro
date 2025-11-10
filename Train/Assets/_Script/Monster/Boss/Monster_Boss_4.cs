@@ -1,7 +1,6 @@
+using DG.Tweening;
 using JetBrains.Annotations;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static Coffee.UIExtensions.UIParticleAttractor;
@@ -209,7 +208,7 @@ public class Monster_Boss_4 : Boss
 
     public void BulletFire()
     {
-        for(int i = 0; i < 8; i++)
+        for(int i = 0; i < 5; i++)
         {
             GameObject defaultBullet = Instantiate(Boss_Bullet, Fire_Zone.position, Quaternion.identity, monster_Bullet_List);
             defaultBullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk, Bullet_Slow, 0, 0);
@@ -220,9 +219,8 @@ public class Monster_Boss_4 : Boss
 
     IEnumerator BigBulletSkill()
     {
-        //Vector2 newPos = Fire_Zone
-        GameObject Skill = Instantiate(SkillBigBullet, Fire_Zone.localPosition, Quaternion.identity, monster_Bullet_List);
-        Skill.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk / 2, 1, 20, 0);
+        GameObject Skill = Instantiate(SkillBigBullet, Fire_Zone.position, Quaternion.identity, monster_Bullet_List);
+        Skill.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk * 6, 1, 20, 0);
         //attack_lastTime = Time.time;
         yield return new WaitForSeconds(0.2f);
         ToMove();

@@ -271,9 +271,13 @@ public class SA_PlayerData : ScriptableObject
         }
     }
 
-    public void SA_StoryEnd()
+    public void SA_StoryEnd(bool StoryMode)
     {
         story_num++;
+        if (StoryMode)
+        {
+            new_stage++;
+        }
         Save();
     }
 

@@ -1,10 +1,8 @@
 using Cinemachine;
-using JetBrains.Annotations;
 using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.AddressableAssets.Build;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -686,7 +684,16 @@ public class GameDirector : MonoBehaviour
                 TrainFuel = 0;
             }
 
-            if ((TrainSpeed <= 0 || player.Player_HP <= 0) && GameStartFlag && !GameLoseFlag)
+            if (player.Player_HP <= 0 && revivalFlag)
+            {
+                if (!RevivalCorutineFlag)
+                {
+                    StartCoroutine(RevivalEffect(0.1f, 3, 2));
+                    RevivalCorutineFlag = true;
+                }
+            }
+
+            if ((TrainSpeed <= 0 || (player.Player_HP <= 0 && !revivalFlag)) && GameStartFlag && !GameLoseFlag)
             {
                 int LoseNum = 0;
                 if (TrainSpeed <= 0)
@@ -808,7 +815,16 @@ public class GameDirector : MonoBehaviour
                 TrainFuel = 0;
             }
 
-            if ((TrainSpeed <= 0 || player.Player_HP <= 0) && GameStartFlag && !GameLoseFlag)
+            if (player.Player_HP <= 0 && revivalFlag)
+            {
+                if (!RevivalCorutineFlag)
+                {
+                    StartCoroutine(RevivalEffect(0.1f, 3, 2));
+                    RevivalCorutineFlag = true;
+                }
+            }
+
+            if ((TrainSpeed <= 0 || (player.Player_HP <= 0 && !revivalFlag)) && GameStartFlag && !GameLoseFlag)
             {
                 if (TrainSpeed < 0)
                 {
@@ -897,7 +913,16 @@ public class GameDirector : MonoBehaviour
                 }
                 else
                 {
-                    if ((TrainSpeed <= 0 || player.Player_HP <= 0) && GameStartFlag && !GameLoseFlag)
+                    if (player.Player_HP <= 0 && revivalFlag)
+                    {
+                        if (!RevivalCorutineFlag)
+                        {
+                            StartCoroutine(RevivalEffect(0.1f, 3, 2));
+                            RevivalCorutineFlag = true;
+                        }
+                    }
+
+                    if ((TrainSpeed <= 0 || (player.Player_HP <= 0 && !revivalFlag)) && GameStartFlag && !GameLoseFlag)
                     {
                         if (TrainSpeed < 0)
                         {

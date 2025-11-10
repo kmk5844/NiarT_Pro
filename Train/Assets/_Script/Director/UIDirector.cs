@@ -1173,6 +1173,7 @@ public class UIDirector : MonoBehaviour
     public void SetCard_IconAndStr(int index, int MainNum, string str)
     {
         InfiniteMode_Button_MainsStr[index].StringReference.TableEntryReference = "UI_Infinite_Button_Main_" + MainNum;
+        InfiniteMode_Button_SubsSubStr[index].gameObject.SetActive(false);
         if (MainNum == 0)
         {
             int trainNum = 0;
@@ -1289,8 +1290,8 @@ public class UIDirector : MonoBehaviour
                 strNum = 4;
             }
             InfiniteMode_Button_SubsSubStr[index].gameObject.SetActive(true);
-            InfiniteMode_Button_SubsSubStr[index].StringReference.TableReference = "ItemData_Table_St";
-            InfiniteMode_Button_SubsSubStr[index].StringReference.TableEntryReference = "Item_Information_" + strNum;
+            InfiniteMode_Button_SubsSubStr[index].StringReference.TableReference = "Station_Table_St";
+            InfiniteMode_Button_SubsSubStr[index].StringReference.TableEntryReference = "UI_Passive_Upgrade_Card_" + strNum;
         }
         else if(MainNum == 7)
         {

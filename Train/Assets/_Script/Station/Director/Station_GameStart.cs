@@ -6,6 +6,8 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
 using UnityEngine.Localization.Components;
+using JetBrains.Annotations;
+using System.Linq;
 
 public class Station_GameStart : MonoBehaviour
 {
@@ -25,12 +27,16 @@ public class Station_GameStart : MonoBehaviour
     public Button prevButton;
     public Button CancelButton;
     public Button SelectButton;
-    public Transform ChapterButton_List;
+    public StageButton_Route[] ChapterButton_List;
+    public StageButton_Route Boss_ChapterButton;
+    public StageButton_Route NoneBoss_ChapterButton;
+    bool ExceptionFlag;
 
     [Header("스테이지 선택")]
     public int SelectChapterNum;
     public int maxChapterNum;
     List<StageButton_Route> stageButton;
+    public int[] Exception_Number;
 
     int clickNum;
     bool FirstFlag = false;
@@ -46,16 +52,24 @@ public class Station_GameStart : MonoBehaviour
         saPlayerData = stationPlayerData.SA_PlayerData;
 
         SelectChapterNum = (saPlayerData.New_Stage / 5);
-        maxChapterNum = 3;
+        maxChapterNum = 6;
 
         stageButton = new List<StageButton_Route>();
 
-        for (int i = 0; i < ChapterButton_List.childCount; i++)
+        for (int i = 0; i < 4; i++)
         {
-            StageButton_Route _StageButton = ChapterButton_List.GetChild(i).GetComponent<StageButton_Route>();
+            StageButton_Route _StageButton = ChapterButton_List[i];
             _StageButton.ButtonNum = i;
             stageButton.Add(_StageButton);
         }
+
+        ExceptionFlag = true;
+        ExceptionFlag = !Exception_Number.Contains(SelectChapterNum);
+        Boss_ChapterButton.ButtonNum = 4;
+        NoneBoss_ChapterButton.ButtonNum = 4;
+        Boss_ChapterButton.gameObject.SetActive(ExceptionFlag);
+        NoneBoss_ChapterButton.gameObject.SetActive(!ExceptionFlag);
+
         ButtonSetting();
         UpdateButtonState();
   
@@ -85,8 +99,10 @@ public class Station_GameStart : MonoBehaviour
         for (int i = 0; i < stageButton.Count; i++)
         {
             stageButton[i].stationGameStartDirector = this;
-            
         }
+        Boss_ChapterButton.stationGameStartDirector = this;
+        NoneBoss_ChapterButton.stationGameStartDirector= this;
+
         SelectButton.gameObject.SetActive(false);
         CancelButton.gameObject.SetActive(false);
     }
@@ -103,6 +119,8 @@ public class Station_GameStart : MonoBehaviour
             StartCoroutine(Data_Update(i));
         }
 
+        StartCoroutine(Data_Update_Boss());
+
         if (FirstFlag)
         {
             CancelSelectStage();
@@ -116,17 +134,54 @@ public class Station_GameStart : MonoBehaviour
         stageButton[i].ChangeStageNum(num, stagelist[num]);
     }
 
+    IEnumerator Data_Update_Boss()
+    {
+        int num = (5 * SelectChapterNum) + 4;
+        ExceptionFlag = true;
+        ExceptionFlag = !Exception_Number.Contains(SelectChapterNum);
+        Boss_ChapterButton.gameObject.SetActive(ExceptionFlag);
+        NoneBoss_ChapterButton.gameObject.SetActive(!ExceptionFlag);
+        yield return null;
+        Boss_ChapterButton.ChangeStageNum(num, stagelist[num]);
+        NoneBoss_ChapterButton.ChangeStageNum(num, stagelist[num]);
+    }
+
     public void SelectStage(int buttonNum)
     {
-        if(clickNum != -1)
+        if(clickNum == 4)
+        {
+            Boss_ChapterButton.SelectMarkOff();
+            NoneBoss_ChapterButton.SelectMarkOff();
+            clickNum = -1;
+        }
+        else if(clickNum != -1)
         {
             stageButton[clickNum].SelectMarkOff();
             clickNum = -1;
         }
         CancelButton.gameObject.SetActive(true);
-        SelectButton.gameObject.SetActive(true);
+
+        int num = (5 * SelectChapterNum) + buttonNum;
+        if (stagelist[num].Stage_ClearFlag)
+        {
+            SelectButton.gameObject.SetActive(false);
+        }
+        else
+        {
+            SelectButton.gameObject.SetActive(true);
+        }
+
         clickNum = buttonNum;
-        stageButton[clickNum].SelectMarkOn();
+        
+        if(clickNum == 4)
+        {
+            Boss_ChapterButton.SelectMarkOn();
+            NoneBoss_ChapterButton.SelectMarkOn();
+        }
+        else
+        {
+            stageButton[clickNum].SelectMarkOn();
+        }
     }
 
     public void CancelSelectStage()
@@ -135,14 +190,36 @@ public class Station_GameStart : MonoBehaviour
         {
             CancelButton.gameObject.SetActive(false);
             SelectButton.gameObject.SetActive(false);
-            stageButton[clickNum].SelectMarkOff();
+            if(clickNum == 4)
+            {
+                Boss_ChapterButton.SelectMarkOff();
+                NoneBoss_ChapterButton.SelectMarkOff();
+            }
+            else
+            {
+                stageButton[clickNum].SelectMarkOff();
+            }
             clickNum = -1;
         }
     }
     
     public void ClickGameStart()
     {
-        saPlayerData.SA_SelectLevel(stageButton[clickNum].stageData_Num);
+        if(clickNum == 4)
+        {
+            if (ExceptionFlag)
+            {
+                saPlayerData.SA_SelectLevel(Boss_ChapterButton.stageData_Num);
+            }
+            else
+            {
+                saPlayerData.SA_SelectLevel(NoneBoss_ChapterButton.stageData_Num);
+            }
+        }
+        else
+        {
+            saPlayerData.SA_SelectLevel(stageButton[clickNum].stageData_Num);
+        }
         GameManager.Instance.BeforeGameStart_Enter();
 /*        try
         {

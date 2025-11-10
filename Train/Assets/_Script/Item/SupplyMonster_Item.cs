@@ -25,7 +25,6 @@ public class SupplyMonster_Item : MonoBehaviour
     UseItem useitemScript;
 
     public AudioClip GetItemSFX;
-
     Vector2 SupplyItem_Position;
     bool bounceFlag;
 
@@ -104,11 +103,9 @@ public class SupplyMonster_Item : MonoBehaviour
         int num = 0;
         num = Random.Range(0, 101);
 
-        //Debug.Log(num);
-
         try
         {
-            if (num >= 0 && num < 50) //50%
+            if (num >= 0 && num < 40) //40%
             {
                 if (!InfiniteFlag)
                 {
@@ -117,14 +114,10 @@ public class SupplyMonster_Item : MonoBehaviour
                 else
                 {
                     Item = common_supplylist_NonGarbage[Random.Range(0, common_supplylist_NonGarbage.Count)];
-                    if(Item.Num == 92)
-                    {
-                        Debug.Log("??");
-                    }
                 }
                 mat.SetColor("_SolidOutline", Color.gray);
             }
-            else if (num >= 50 && num < 80) //30%
+            else if (num >= 40 && num < 70) //30%
             {
                 if (!InfiniteFlag)
                 {
@@ -136,7 +129,7 @@ public class SupplyMonster_Item : MonoBehaviour
                 }
                 mat.SetColor("_SolidOutline", Color.blue);
             }
-            else if (num >= 80 && num < 90) //10%
+            else if (num >= 70 && num < 86) //15%
             {
                 if (!InfiniteFlag)
                 {
@@ -148,7 +141,7 @@ public class SupplyMonster_Item : MonoBehaviour
                 }
                 mat.SetColor("_SolidOutline", new Color(166f / 255f, 0, 255f / 255f));
             }
-            else if (num >= 90 && num < 97) //7%
+            else if (num >= 86 && num < 96) //10%
             {
                 if (!Player.Item_GunFlag)
                 {
@@ -160,7 +153,7 @@ public class SupplyMonster_Item : MonoBehaviour
                 }
                 mat.SetColor("_SolidOutline", Color.yellow);
             }
-            else if (num >= 97 && num < 101)//3%
+            else if (num >= 96 && num < 101)//3%
             {
                 Item = legendary_supplylist[Random.Range(0, legendary_supplylist.Count)];
                 mat.SetColor("_SolidOutline", new Color(161f / 255f, 251f / 255f, 232f / 255f));
@@ -172,7 +165,7 @@ public class SupplyMonster_Item : MonoBehaviour
             mat.SetColor("_SolidOutline", Color.gray);
         }
     }
-
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))

@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
     public SA_LocalData LocalData;
     public SA_StoryLIst StoryData;
     public SA_MissionData MissionData;
+    public SA_StageList StageList;
     public Quest_DataTable QuestData;
     public GameObject SelectMissionObject;
 
@@ -73,26 +74,26 @@ public class GameManager : MonoBehaviour
 
     public void Update()
     {
-        /*        if (Input.GetKeyDown(KeyCode.Alpha0))
-                {
-                    if (Time.timeScale == 0)
-                    {
-                        Time.timeScale = 1;
-                    }
-
-                    if (GameObject.Find("SelectMission"))
-                    {
-                        GameObject gm = GameObject.Find("SelectMission");
-                        Destroy(gm);
-                    }
-                    StopAllCoroutines();
-                    Game_DataReset();
-                }*/
-
-        if (Input.GetKeyDown(KeyCode.Alpha9))
+        if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-            PlayerData.SA_Test();
+            if (Time.timeScale == 0)
+            {
+                Time.timeScale = 1;
+            }
+
+            if (GameObject.Find("SelectMission"))
+            {
+                GameObject gm = GameObject.Find("SelectMission");
+                Destroy(gm);
+            }
+            StopAllCoroutines();
+            Game_DataReset();
         }
+
+        /*        if (Input.GetKeyDown(KeyCode.Alpha9))
+                {
+                    PlayerData.SA_Test();
+                }*/
     }
 
 
@@ -273,7 +274,13 @@ public void DataLoad()
         if (index != -1 && !StoryData.StoryList[index].End_Flag)
         {
             LoadingManager.LoadScene(storyData.Story_Branch[index].Story_End);
-            PlayerData.SA_StoryEnd();
+            bool StoryMode = storyData.Story_Branch[index].StoryModeFlag;
+            if (StoryMode)
+            {
+                StageList.Stage[PlayerData.Select_Stage].Clear_StageChage();
+                StageList.Stage[PlayerData.Select_Stage+1].Open_StageChange();
+            }
+            PlayerData.SA_StoryEnd(StoryMode);
             StoryData.StoryList[index].ChangeFlag(false);
             if (SteamAchievement.instance != null)
             {

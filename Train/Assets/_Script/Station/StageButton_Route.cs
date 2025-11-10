@@ -10,6 +10,7 @@ public class StageButton_Route : MonoBehaviour
     public Station_GameStart stationGameStartDirector;
     [SerializeField]
     StageDataObject stageData;
+    
     public int stageData_Num;
     Button btn;
 
@@ -18,19 +19,21 @@ public class StageButton_Route : MonoBehaviour
     public Image Chapter_Num_Image;
     public GameObject SelectMark;
     public GameObject ClearMark;
-
     public GameObject ClearSprite;
+
+    [HideInInspector]
+    public bool ExceptionClickFlag;
 
     private void Start()
     {
         SelectMark.SetActive(false);
         //ClearMark.SetActive(false);
-        btn.onClick.AddListener(()=>stationGameStartDirector.SelectStage(ButtonNum));    
+        btn.onClick.AddListener(()=>stationGameStartDirector.SelectStage(ButtonNum));
     }
 
     public void OnEnable()
     {
-        if(btn == null)
+        if (btn == null)
         {
             btn = GetComponent<Button>();
         }

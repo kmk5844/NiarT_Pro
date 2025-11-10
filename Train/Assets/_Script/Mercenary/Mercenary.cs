@@ -119,7 +119,7 @@ public class Mercenary : MonoBehaviour
 
         if (gameDirector.Infinite_Mode)
         {
-            if(gameDirector.gameType == GameType.GameEnd)
+            if(act == Active.die && gameDirector.gameType == GameType.GameEnd)
             {
                 Destroy(this.gameObject);
             }

@@ -153,7 +153,7 @@ public class Monster_22 : Monster
     {
         if (!DieFlag)
         {
-            int rndCont = Random.Range(4, 12);
+            int rndCont = Random.Range(3, 7);
             for (int i = 0; i < rndCont; i++)
             {
                 GameObject bullet = Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);

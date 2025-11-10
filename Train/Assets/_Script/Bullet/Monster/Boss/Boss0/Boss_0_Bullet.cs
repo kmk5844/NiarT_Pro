@@ -27,7 +27,7 @@ public class Boss_0_Bullet : MonsterBullet
             float t = Bullet_Time / 1.2f;
 
             float x = Mathf.Lerp(Bullet_Init_Position.x, targetPosition.x, t);
-            float y = 6 * Mathf.Sin(Mathf.PI * t);
+            float y = 6 * Mathf.Sin(Mathf.PI * t) + Bullet_Init_Position.y;
             //Mathf.Lerp(Bullet_Init_Position.y, Bullet_Init_Position.y, t); //+ 6 * Mathf.Sin(Mathf.PI * t);
 
             float z = Mathf.Lerp(45f, -90f, t);
@@ -37,7 +37,7 @@ public class Boss_0_Bullet : MonsterBullet
         }
         else
         {
-            transform.Translate(4 *Vector2.down * Time.deltaTime);
+            transform.Translate(20 *Vector2.down * Time.deltaTime);
         }
     }
 }
