@@ -36,7 +36,7 @@ public class Monster_29 : Monster
         transform.localPosition = Spawn_Init_Pos;
 
         speed = 6f;
-        jumpHeight = Random.Range(4f, 7f);
+        jumpHeight = Random.Range(6f, 15f);
         jumpFrequency = Random.Range(3f, 5f);
         xPos = -1f;
         monsterSprite.sprite = FishSprite[0];
@@ -154,7 +154,7 @@ public class Monster_29 : Monster
         if (!loading && Mathf.Sin(elapsedTime) <= 0f)
         {
             loading = true;
-            jumpHeight = Random.Range(4f, 8f);
+            jumpHeight = Random.Range(6f, 12f);
             jumpFrequency = Random.Range(3f, 6f);
             // 착지 시점 처리 가능
         }

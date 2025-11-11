@@ -22,9 +22,12 @@ public class UseItem : MonoBehaviour
         itemDirector = GetComponent<ItemDirector>();
     }
 
-    public void UseEquipItem(int num)
+    public void UseEquipItem(int num, bool InfiniteFlag)
     {
-        itemList.Item[num].Item_Count_Down();
+        if (!InfiniteFlag)
+        {
+            itemList.Item[num].Item_Count_Down();
+        }
         itemDirector.Get_Supply_Item_Information(itemList.Item[num]);
         switch (num)
         {

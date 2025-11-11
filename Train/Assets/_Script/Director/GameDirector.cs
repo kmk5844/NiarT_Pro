@@ -1568,6 +1568,10 @@ public class GameDirector : MonoBehaviour
                 {
                     Train_InGame train = Train_List.GetChild(i).GetComponent<Train_InGame>();
                     train.Train_HP = train.Max_Train_HP;
+                    if(train.Train_Type == "Medic")
+                    {
+                        train.Train_Heal = train.Max_Train_Heal;
+                    }
                 }
                 RefreshCount = Destination_Distance / 40000;
                 CalculateRefreshPoints();
@@ -1580,6 +1584,10 @@ public class GameDirector : MonoBehaviour
             else
             {
                 missionDirector.selectmission.Infinite_End();
+                monsterDirector.Monster_List_Ground.gameObject.SetActive(false);
+                monsterDirector.Monster_List_Sky.gameObject.SetActive(false);
+                monsterDirector.Monster_List_Slow.gameObject.SetActive(false);
+                monsterDirector.Boss_List.gameObject.SetActive(false);
                 uiDirector.Infinite_UI_Resulte(Infinite_Total_Distance + TrainDistance, Infinite_Count, Infinite_mosnterCount, Infinite_bossCount);
             }
         }

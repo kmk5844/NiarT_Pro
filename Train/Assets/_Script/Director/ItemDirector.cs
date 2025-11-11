@@ -32,7 +32,14 @@ public class ItemDirector : MonoBehaviour
     {
         try
         {
-            itemData.Load();
+            if (!gameDirector.Infinite_Mode)
+            {
+                itemData.Load();
+            }
+            else
+            {
+                itemData.Init();
+            }
             //itemData.Test(0, 16, 1);
         }
         catch
@@ -175,7 +182,7 @@ public class ItemDirector : MonoBehaviour
         MMSoundManagerSoundPlayEvent.Trigger(UseItemSound, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         if (itemData.Equiped_Item[num] != -1)
         {
-            useitem.UseEquipItem(itemData.Equiped_Item[num]);
+            useitem.UseEquipItem(itemData.Equiped_Item[num], false);
             itemData.UseEquipedItem(num);
             if(itemData.Equiped_Item[num] == -1)
             {
@@ -275,7 +282,7 @@ public class ItemDirector : MonoBehaviour
         MMSoundManagerSoundPlayEvent.Trigger(UseItemSound, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         if (itemData_Infinite.Equiped_Item[num] != -1)
         {
-            useitem.UseEquipItem(itemData_Infinite.Equiped_Item[num]);
+            useitem.UseEquipItem(itemData_Infinite.Equiped_Item[num], true);
             itemData_Infinite.UseEquipedItem(num);
             if (itemData_Infinite.Equiped_Item[num] == -1)
             {

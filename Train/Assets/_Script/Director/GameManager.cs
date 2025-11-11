@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha0))
+/*        if (Input.GetKeyDown(KeyCode.Alpha0))
         {
             if (Time.timeScale == 0)
             {
@@ -88,7 +88,7 @@ public class GameManager : MonoBehaviour
             }
             StopAllCoroutines();
             Game_DataReset();
-        }
+        }*/
 
         /*        if (Input.GetKeyDown(KeyCode.Alpha9))
                 {

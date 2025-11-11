@@ -39,7 +39,6 @@ public class SA_ItemData : ScriptableObject
         Save();
     }
 
-
     public void Empty_Item(int num)
     {
         equiped_item[num] = -1;
