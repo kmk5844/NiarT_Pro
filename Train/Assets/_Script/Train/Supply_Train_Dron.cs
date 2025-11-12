@@ -1,6 +1,3 @@
-using PixelCrushers.DialogueSystem;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Supply_Train_Dron : MonoBehaviour
@@ -18,6 +15,7 @@ public class Supply_Train_Dron : MonoBehaviour
 
     Rigidbody2D rid;
     Vector3 spawnPosition = new Vector3(MonsterDirector.MinPos_Sky.x - 15f, MonsterDirector.MaxPos_Sky.y + 3f);
+    bool InfiniteFlag = false;
 
     public GameObject SupplyItem_Objcet;
     public ParticleSystem SpawnParticle;
@@ -64,10 +62,11 @@ public class Supply_Train_Dron : MonoBehaviour
         transform.position = new Vector3(transform.position.x, transform.position.y + offset, transform.position.z);
     }
 
-    public void SupplyDron_SetData(int num, int count)
+    public void SupplyDron_SetData(int num, int count, bool _InfiniteFlag)
     {
         gradeNum = num;
         Data_SupplyCount = count;
+        InfiniteFlag = _InfiniteFlag;
     }
 
     ItemDataObject Check_Grade()
@@ -110,7 +109,7 @@ public class Supply_Train_Dron : MonoBehaviour
             }
         }
 
-        { // Random_ Rarity = 0-> Common / 1-> Rare / 2-> Unique / 3-> Epic
+        if(!InfiniteFlag){ // Random_ Rarity = 0-> Common / 1-> Rare / 2-> Unique / 3-> Epic
             if (Random_Rarity == 0)
             {
                 Random_num = Random.Range(0, itemList.Common_Supply_ItemList.Count);
@@ -142,6 +141,33 @@ public class Supply_Train_Dron : MonoBehaviour
             {
                 Random_num = Random.Range(0, itemList.Legendary_Supply_ItemList.Count);
                 return itemList.Legendary_Supply_ItemList[Random_num];
+            }
+            return itemList.Common_Supply_ItemList[1];
+        }
+        else
+        {
+            int num = Random.Range(0, 101);
+            if (num >= 0 && num < 40) //40%
+            {
+                 return itemList.Common_Supply_ItemList_NonGarbage[Random.Range(0, itemList.Common_Supply_ItemList_NonGarbage.Count)];
+            }
+            else if (num >= 40 && num < 70) //30%
+            {
+                
+                return itemList.Rare_Supply_ItemList_NonGarbage[Random.Range(0, itemList.Rare_Supply_ItemList_NonGarbage.Count)];
+            }
+            else if (num >= 70 && num < 86) //15%
+            {
+                return itemList.Unique_Supply_ItemList_NonGarbage[Random.Range(0, itemList.Unique_Supply_ItemList_NonGarbage.Count)];
+            }
+            else if (num >= 86 && num < 96) //10%
+            {
+
+                return itemList.Epic_Supply_ItemList_NonWeapon[Random.Range(0, itemList.Epic_Supply_ItemList_NonWeapon.Count)];
+            }
+            else if (num >= 96 && num < 101)//3%
+            {
+                return itemList.Legendary_Supply_ItemList[Random.Range(0, itemList.Legendary_Supply_ItemList.Count)];
             }
             return itemList.Common_Supply_ItemList[1];
         }

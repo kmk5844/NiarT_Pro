@@ -61,7 +61,7 @@ public class EventDirector : MonoBehaviour
     IEnumerator UseDron()
     {
         yield return new WaitForSeconds(5f);
-        Dron.GetComponentInChildren<Supply_Train_Dron>().SupplyDron_SetData(SA_Event_.SupplyStation_Grade, SA_Event_.SupplyStation_Count);
+        Dron.GetComponentInChildren<Supply_Train_Dron>().SupplyDron_SetData(SA_Event_.SupplyStation_Grade, SA_Event_.SupplyStation_Count, false);
         Instantiate(Dron);
         SA_Event_.SupplyStationOff();
     }

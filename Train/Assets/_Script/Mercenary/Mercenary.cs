@@ -123,6 +123,11 @@ public class Mercenary : MonoBehaviour
             {
                 Destroy(this.gameObject);
             }
+
+            if(act == Active.Game_Wait && gameDirector.gameType == GameType.Starting)
+            {
+                act = Active.move;
+            }
         }
     }
 

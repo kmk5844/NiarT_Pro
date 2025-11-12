@@ -75,7 +75,7 @@ public class Supply_Train : MonoBehaviour
     {
         FuelFlag = false;
         UseFlag = false;
-        Dron.GetComponentInChildren<Supply_Train_Dron>().SupplyDron_SetData(supply_grade, supply_count);
+        Dron.GetComponentInChildren<Supply_Train_Dron>().SupplyDron_SetData(supply_grade, supply_count, gameDirector.Infinite_Mode);
         SiginalEffect.Play();
         Instantiate(Dron);
         SupplyTrain_Fuel = 0;
