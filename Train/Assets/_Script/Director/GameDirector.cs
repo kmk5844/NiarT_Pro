@@ -488,7 +488,7 @@ public class GameDirector : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (gameType == GameType.Starting || gameType == GameType.Playing || gameType == GameType.Boss || gameType == GameType.Refreshing)
+            if (gameType == GameType.Starting || gameType == GameType.Playing || gameType == GameType.Boss || gameType == GameType.Refreshing || gameType == GameType.Ending)
             {
                 uiDirector.ON_OFF_Option_UI(true);
                 Before_GameType = gameType;
@@ -2017,7 +2017,7 @@ public class GameDirector : MonoBehaviour
             {
                 if (Time.timeScale != 0)
                 {
-                    Speed = Time.deltaTime * fac + (TrainSpeed / 1000f);
+                    Speed = Time.deltaTime * fac + (TrainSpeed / 200f);
                 }
                 else
                 {
@@ -2034,7 +2034,7 @@ public class GameDirector : MonoBehaviour
             {
                 if (Time.timeScale != 0)
                 {
-                    Speed = Time.deltaTime * fac + (TrainSpeed / 1000f);
+                    Speed = Time.deltaTime * fac + (TrainSpeed / 200f);
                 }
                 else
                 {
@@ -2280,7 +2280,8 @@ public class GameDirector : MonoBehaviour
 
     public void SetCard()
     {
-        for(int i = 0; i < 3; i++)
+        uiDirector.InitRerollButton();
+        for (int i = 0; i < 3; i++)
         {
             int rndNum = Random.Range(0, 9);
             if(rndNum == 3 && !SpawnTurretFlag_Infinite)
@@ -2398,6 +2399,128 @@ public class GameDirector : MonoBehaviour
             uiDirector.InfiniteMode_Button_String[i] = str;
             uiDirector.SetCard_IconAndStr(i, rndNum, strstatus);
         }
+    }
+
+    public void SetRerollButton(int index)
+    {
+        int rndNum = Random.Range(0, 9);
+        if (rndNum == 3 && !SpawnTurretFlag_Infinite)
+        {
+            rndNum = 1;
+        }
+        if (rndNum == 5 && !SpawnMercenaryFlag_Infinite)
+        {
+            rndNum = 4;
+        }
+
+        string str = "";
+        string strstatus = "";
+        if (rndNum == 0)
+        {
+            int trainIndex = Random.Range(1, Infinite_TrainNum.UpgradeNum.Count); //엔진 기차 제외하고
+            strstatus = trainIndex.ToString();
+        }
+        else if (rndNum == 1)
+        {
+            int turretIndex = Random.Range(0, Infinite_TurretNum.UpgradeNum.Count);
+            strstatus = turretIndex.ToString();
+        }
+        else if (rndNum == 2)
+        {
+            var candidates = new List<int>();
+
+            for (int j = 0; j < Infinite_TrainNum.UpgradeNum.Count; j++)
+            {
+                if (Infinite_TrainNum.LockOffFlag[j] && Infinite_TrainNum.UpgradeCanFlag[j])
+                    candidates.Add(j);
+            }
+
+            if (candidates.Count > 0)
+            {
+                int upgradeTrainIndex = candidates[Random.Range(0, candidates.Count)];
+                strstatus = upgradeTrainIndex.ToString();
+            }
+            else
+            {
+                rndNum = 0;
+                int trainIndex = Random.Range(1, Infinite_TrainNum.UpgradeNum.Count); //엔진 기차 제외하고
+                strstatus = trainIndex.ToString();
+            }
+        }
+        else if (rndNum == 3)
+        {
+            var candidates = new List<int>();
+
+            for (int j = 0; j < Infinite_TurretNum.UpgradeNum.Count; j++)
+            {
+                if (Infinite_TurretNum.LockOffFlag[j] && Infinite_TurretNum.UpgradeCanFlag[j])
+                    candidates.Add(j);
+            }
+
+            if (candidates.Count > 0)
+            {
+                int upgradeTrainIndex = candidates[Random.Range(0, candidates.Count)];
+                strstatus = upgradeTrainIndex.ToString();
+            }
+            else
+            {
+                rndNum = 2;
+                int turretIndex = Random.Range(0, Infinite_TurretNum.UpgradeNum.Count);
+                strstatus = turretIndex.ToString();
+            }
+        }
+        else if (rndNum == 4)
+        {
+            int MercenaryIndex = Random.Range(0, Infinite_MercenaryNum.UpgradeNum.Count);
+            strstatus = MercenaryIndex.ToString();
+        }
+        else if (rndNum == 5)
+        {
+            var candidates = new List<int>();
+
+            for (int j = 0; j < Infinite_MercenaryNum.UpgradeNum.Count; j++)
+            {
+                if (Infinite_MercenaryNum.LockOffFlag[j] && Infinite_MercenaryNum.UpgradeCanFlag[j])
+                    candidates.Add(j);
+            }
+
+            if (candidates.Count > 0)
+            {
+                int upgradeTrainIndex = candidates[Random.Range(0, candidates.Count)];
+                strstatus = upgradeTrainIndex.ToString();
+            }
+            else // 없을 경우
+            {
+                rndNum = 4;
+                int MercenaryIndex = Random.Range(0, Infinite_MercenaryNum.UpgradeNum.Count);
+                strstatus = MercenaryIndex.ToString();
+            }
+        }
+        else if (rndNum == 6)
+        {
+            int TrainPassiveIndex = Random.Range(0, Infinite_TrainPassive.UpgradeNum.Count);
+            strstatus = TrainPassiveIndex.ToString();
+        }
+        else if (rndNum == 7)
+        {
+            int PlayerPassiveIndex = Random.Range(0, Infinite_PlayerPassive.UpgradeNum.Count);
+            strstatus = PlayerPassiveIndex.ToString();
+        }
+        else if (rndNum == 8)
+        {
+            int equipedNum = Random.Range(0, 3);
+            int ItemNum = Random.Range(0, 29);
+            int ItemCount = Random.Range(1, 5);
+            if (equipedNum == 0)
+            {
+                ItemCount = 1;
+            }
+            strstatus = equipedNum.ToString() + "-" + ItemNum.ToString() + "-" + ItemCount.ToString();
+        }
+
+        str = rndNum + "," + strstatus;
+        uiDirector.InfiniteMode_Button_String[index] = str;
+        uiDirector.SetCard_IconAndStr(index, rndNum, strstatus);
     }
 
     public void ClickInfiniteCard(int cardNum, string status = "")

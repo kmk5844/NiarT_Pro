@@ -36,7 +36,7 @@ public class MonsterDirector : MonoBehaviour
     List<int> Infinite_Monster_Data;
     [SerializeField]
     List<int> Infinite_Boss_Data;
-    float InfiniteSpawnTime = 0.5f;
+    float InfiniteSpawnTime = 0.8f;
     float InfiniteClearMinusTime = 0.02f;
 
     [Header("¹Ì¼Ç")]
@@ -245,7 +245,7 @@ public class MonsterDirector : MonoBehaviour
         {
             if (!infiniteMode)
             {
-                yield return new WaitForSeconds(Random.Range(0.2f, 0.5f));
+                yield return new WaitForSeconds(Random.Range(0.3f, 0.5f));
             }
             else
             {
@@ -305,7 +305,7 @@ public class MonsterDirector : MonoBehaviour
         }
         else
         {
-            yield return new WaitForSeconds(Random.Range(1f, 3f));
+            yield return new WaitForSeconds(Random.Range(0.5f, 2.5f));
         }
         Random_xPos = Random.Range(MinPos_Sky.x + 10f, MaxPos_Sky.x - 10f);
         Random_yPos = Random.Range(MinPos_Sky.y, MaxPos_Sky.y);
@@ -613,22 +613,21 @@ public class MonsterDirector : MonoBehaviour
 
     void Clear_SetMonsterList()
     {
-        for(int i = 0; i < 2; i++)
+        int rnd = Random.Range(0, Infinite_Monster_Data.Count);
+        if (EX_GameData.Information_Monster[Infinite_Monster_Data[rnd]].Monster_Type.Equals("Sky"))
         {
-            int rnd = Random.Range(0, Infinite_Monster_Data.Count);
-            if (EX_GameData.Information_Monster[Infinite_Monster_Data[rnd]].Monster_Type.Equals("Sky"))
-            {
-                Emerging_Monster_List_Sky.Add(Infinite_Monster_Data[rnd]);
-                Infinite_Monster_Data.Remove(Infinite_Monster_Data[rnd]);
-            }else if (EX_GameData.Information_Monster[Infinite_Monster_Data[rnd]].Monster_Type.Equals("Ground"))
-            {
-                Emerging_Monster_List_Ground.Add(Infinite_Monster_Data[rnd]);
-                Infinite_Monster_Data.Remove(Infinite_Monster_Data[rnd]);
-            } else if (EX_GameData.Information_Monster[Infinite_Monster_Data[rnd]].Monster_Type.Equals("Slow"))
-            {
-                Emerging_Monster_List_Slow.Add(Infinite_Monster_Data[rnd]);
-                Infinite_Monster_Data.Remove(Infinite_Monster_Data[rnd]);
-            }
+            Emerging_Monster_List_Sky.Add(Infinite_Monster_Data[rnd]);
+            Infinite_Monster_Data.Remove(Infinite_Monster_Data[rnd]);
+        }
+        else if (EX_GameData.Information_Monster[Infinite_Monster_Data[rnd]].Monster_Type.Equals("Ground"))
+        {
+            Emerging_Monster_List_Ground.Add(Infinite_Monster_Data[rnd]);
+            Infinite_Monster_Data.Remove(Infinite_Monster_Data[rnd]);
+        }
+        else if (EX_GameData.Information_Monster[Infinite_Monster_Data[rnd]].Monster_Type.Equals("Slow"))
+        {
+            Emerging_Monster_List_Slow.Add(Infinite_Monster_Data[rnd]);
+            Infinite_Monster_Data.Remove(Infinite_Monster_Data[rnd]);
         }
     }
 

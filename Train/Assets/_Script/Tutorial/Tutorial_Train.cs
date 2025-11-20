@@ -51,8 +51,8 @@ public class Tutorial_Train : MonoBehaviour
             {
                 if(Train_MP < Train_Max_MP)
                 {
-                    Train_MP += (100f * Time.deltaTime);
-                    director.Fuel -= (1000f * Time.deltaTime);
+                    Train_MP += (500f * Time.deltaTime);
+                    director.Fuel -= (5000f * Time.deltaTime);
                 }
                 else
                 {

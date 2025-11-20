@@ -10,8 +10,6 @@ public class Tutorial_UIDirector : MonoBehaviour
     public Tutorial_Player Player;
     public GamePlay_Tutorial_Director tutorialDirector;
 
-    public List<GameObject> GameUI;
-    public List<GameObject> GameUI_Information;
     int count;
     int MaxCount;
 
@@ -25,7 +23,6 @@ public class Tutorial_UIDirector : MonoBehaviour
     public TextMeshProUGUI Score_Text;
     public TextMeshProUGUI Gold_Text;
     public TextMeshProUGUI Speed_Text;
-    public Slider Speed_Arrow;
     public TextMeshProUGUI Fuel_Text;
     public Image Fuel_Image;
     public Slider Distance_UI;
@@ -40,16 +37,16 @@ public class Tutorial_UIDirector : MonoBehaviour
     public LocalizeStringEvent Title_Text;
     public LocalizeStringEvent Information_Text;
     public GameObject Compelte_Object;
-
     public bool UI_Information_Click_Flag;
     public GameObject Click_Text_object;
-
     public GameObject Option_UI;
     public bool option_Flag;
-
     public Image BulletGuage;
-
     public GameObject[] SkillLock;
+
+    [Header("µµ¿òÃ¢")]
+    public Tutorial_HelpInformation[] HelpInformation;
+
     private void Start()
     {
         Title_Text.StringReference.TableReference = "Tutorial_St";
@@ -61,20 +58,13 @@ public class Tutorial_UIDirector : MonoBehaviour
         {
             image.sprite = Tutorial_Icon_Sprite[0];
         }
+        foreach(Tutorial_HelpInformation helpobject in HelpInformation)
+        {
+            helpobject.gameObject.SetActive(false);
+        }
         item_Icon_Count_Object.SetActive(false);
 
-        foreach (GameObject game in GameUI) {
-            game.SetActive(false);
-        }
-
-        foreach (GameObject gameInfo in GameUI_Information){
-            gameInfo.SetActive(false);
-        }
         WaveFillObject.SetActive(false);
-
-        count = 0;
-
-        MaxCount = GameUI.Count;
         UI_Information_Click_Flag = true;
     }
 
@@ -83,40 +73,11 @@ public class Tutorial_UIDirector : MonoBehaviour
         PlayerHP_Image.fillAmount = ((float)Player.PlayerHP / (float)Player.Max_PlayerHP);
         Gold_Text.text = tutorialDirector.gold.ToString();
         Speed_Text.text = (int)tutorialDirector.speed + " Km/H";
-        Speed_Arrow.value = tutorialDirector.speed/tutorialDirector.Max_Speed;
         float fuelPersent = (float)(tutorialDirector.Fuel / (float)tutorialDirector.Max_Fuel);
         Fuel_Text.text = (int)(fuelPersent * 100) + "%";
         Fuel_Image.fillAmount = fuelPersent;
         Distance_UI.value = (float)tutorialDirector.distance / (float)tutorialDirector.max_distance;
         //BulletGuage.fillAmount = Player.Check_GunBullet();
-
-    }
-
-    public void nextTutorial()
-    {
-        if(count < MaxCount)
-        {
-            GameUI[count].SetActive(true);
-        }
-
-        if(count == 0)
-        {
-            GameUI_Information[count].SetActive(true);
-        }
-        else
-        {
-            if(count < MaxCount - 1)
-            {
-                GameUI_Information[count - 1].SetActive(false);
-                GameUI_Information[count].SetActive(true);
-            }
-        }
-        count++;
-
-        if(count < MaxCount)
-        {
-            StartCoroutine(WaitTime());
-        }
     }
 
     public IEnumerator WaitTime()
@@ -128,16 +89,16 @@ public class Tutorial_UIDirector : MonoBehaviour
         UI_Information_Click_Flag = true;
     }
 
-    public void item_changeIcon(bool flag)
+    public void item_changeIcon(int index, int itemNum, bool flag)
     {
         if (flag)
         {
-            Item_Icon[0].sprite = Tutorial_Icon_Sprite[1];
+            Item_Icon[index].sprite = Tutorial_Icon_Sprite[itemNum];
             item_Icon_Count_Object.SetActive(true);
         }
         else
         {
-            Item_Icon[0].sprite = Tutorial_Icon_Sprite[0];
+            Item_Icon[index].sprite = Tutorial_Icon_Sprite[0];
             item_Icon_Count_Object.SetActive(false);
         }
     }
@@ -158,25 +119,6 @@ public class Tutorial_UIDirector : MonoBehaviour
     {
         Skill_Icon_CoolTime[i].fillAmount = 1f;
     }
-
-    public void lastTutorial()
-    {
-        GameUI_Information[GameUI_Information.Count-1].SetActive(false);
-        Click_Text_object.SetActive(false);
-    }
-
-    public bool checkFlag()
-    {
-        if(count == MaxCount)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
     public void changeText(int index)
     {
         Title_Text.StringReference.TableEntryReference = "Tutorial_Game_Title_"+ index;

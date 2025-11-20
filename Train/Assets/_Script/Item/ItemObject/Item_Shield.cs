@@ -19,7 +19,16 @@ public class Item_Shield : MonoBehaviour
             Vector2 pos = new Vector2(collision.transform.localPosition.x, collision.transform.localPosition.y);
             Instantiate(HitEffect, pos, Quaternion.identity);
 
-            int monsterAtk = collision.GetComponent<MonsterBullet>().atk;
+            int monsterAtk = 0;
+            try
+            {
+                monsterAtk = collision.GetComponent<MonsterBullet>().atk;
+            }
+            catch
+            {
+                monsterAtk = 100;
+            }
+
             if (HP - monsterAtk < 0)
             {
                 Destroy(collision.gameObject);

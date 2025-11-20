@@ -1,4 +1,5 @@
 using MoreMountains.Tools;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -40,6 +41,8 @@ public class Tutorial_Player : MonoBehaviour
     public GameObject KeyObject;
     public GameObject bullet;
 
+    public Transform ItemList;
+
     Tutorial_Train train;
     bool rotationOn;
     bool isMouseDown;
@@ -75,6 +78,8 @@ public class Tutorial_Player : MonoBehaviour
     public bool T_Skill_E;
     public bool T_Skill_E_End;
     public bool T_SpawnItem_Flag;
+    public bool T_UseItem_4;
+    public bool T_UseItem_5;
     public bool T_UseItem;
     public bool T_UseItem_Flag;
     public bool T_Train;
@@ -113,6 +118,8 @@ public class Tutorial_Player : MonoBehaviour
         T_Skill_Q_End = false;
         T_Skill_E_End = false;
         T_SpawnItem_Flag = false;
+        T_UseItem_4 = false;
+        T_UseItem_5 = false;
         T_UseItem = false;
         T_UseItem_Flag = false;
         T_Train = false;
@@ -253,6 +260,35 @@ public class Tutorial_Player : MonoBehaviour
                 MMSoundManagerSoundPlayEvent.Trigger(SkillUseSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
                 MariGold_Skill(1);
                 UIDirector.skill_coolTime(1);
+            }
+        }
+
+        if(!T_SpawnItem_Flag && gameDirector.Tutorial_AutoGetFlag)
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                if (!T_UseItem_4)
+                {
+                    UIDirector.item_changeIcon(3, 0, false);
+                    StartCoroutine(Item_52());
+                    gameDirector.EmphasisObejct[9].SetActive(false);
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                if (!T_UseItem_5)
+                {
+                    UIDirector.item_changeIcon(4, 0, false);
+                    Item_66();
+                    gameDirector.EmphasisObejct[10].SetActive(false);
+                }
+                T_UseItem_5 = true;
+            }
+
+            if(T_UseItem_4 && T_UseItem_5)
+            {
+                T_SpawnItem_Flag = true;
             }
         }
 
@@ -425,7 +461,7 @@ public class Tutorial_Player : MonoBehaviour
         if (_Flag)
         {
             HealEffect.Play();
-            PlayerHP += (5000 / 100) * 20;
+            PlayerHP += (5000 / 100) * 10;
         }
         else
         {
@@ -433,14 +469,42 @@ public class Tutorial_Player : MonoBehaviour
         }
     }
 
-    public IEnumerator Item_41()
+    public IEnumerator Item_52()
+    {
+        GameObject Dagger = Resources.Load<GameObject>("ItemObject/Dagger");
+        Dagger.GetComponent<Item_Dagger>().Set(0, Bullet_Atk);
+        yield return new WaitForSeconds(0.3f);
+        Instantiate(Dagger, new Vector2(transform.position.x, transform.position.y), Quaternion.Euler(0, 0, 180));
+        yield return new WaitForSeconds(0.3f);
+        Instantiate(Dagger, new Vector2(transform.position.x, transform.position.y), Quaternion.Euler(0, 0, 135));
+        yield return new WaitForSeconds(0.3f);
+        Instantiate(Dagger, new Vector2(transform.position.x, transform.position.y), Quaternion.Euler(0, 0, 90));
+        yield return new WaitForSeconds(0.3f);
+        Instantiate(Dagger, new Vector2(transform.position.x, transform.position.y), Quaternion.Euler(0, 0, 45));
+        yield return new WaitForSeconds(0.3f);
+        Instantiate(Dagger, new Vector2(transform.position.x, transform.position.y), Quaternion.Euler(0, 0, 0));
+        yield return new WaitForSeconds(0.3f);
+        T_UseItem_4 = true;
+    }
+
+    public void Item_66()
+    {
+        GameObject shield;
+        shield = Resources.Load<GameObject>("ItemObject/MiniShield");
+        shield.GetComponent<Item_Shield>().HP = 1000;
+        Instantiate(shield, ItemList);
+    }
+
+    public IEnumerator Item_78()
     {
         moveSpeed = 9;
         Bullet_Delay = 0.2f;
-        yield return new WaitForSeconds(8f);
+        yield return new WaitForSeconds(4f);
         moveSpeed = 7;
         Bullet_Delay = 0.5f;
-        T_SpawnItem_Flag = true;
+        gameDirector.EmphasisObejct[9].SetActive(true);
+        gameDirector.EmphasisObejct[10].SetActive(true);
+        gameDirector.Tutorial_AutoGetFlag = true;
     }
 
     void MariGold_Skill1()

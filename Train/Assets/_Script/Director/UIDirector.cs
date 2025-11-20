@@ -117,6 +117,8 @@ public class UIDirector : MonoBehaviour
     public TextMeshProUGUI Infinite_Stage_Text;
     public TextMeshProUGUI Infinite_Mosnter_Count;
     public TextMeshProUGUI Infinite_Boss_Count;
+    public Button[] Infinite_RerollButton;
+
 
     [Header("Infinite UI_Icon")]
     public Sprite Infinite_TrainAdd_Icon;
@@ -180,7 +182,6 @@ public class UIDirector : MonoBehaviour
     public ParticleSystem MapEffect;
 
     public ParticleSystem FuelChargeEffect;
-
     bool STEAM_CLICK_KEY_V_FLAG;
 
 
@@ -1317,6 +1318,20 @@ public class UIDirector : MonoBehaviour
             InfiniteMode_Button_SubsSubStr[index].gameObject.SetActive(true);
             InfiniteMode_Button_SubsSubStr[index].StringReference.TableReference = "ItemData_Table_St";
             InfiniteMode_Button_SubsSubStr[index].StringReference.TableEntryReference = "Item_Information_" + num2;
+        }
+    }
+
+    public void Click_RerollButton(int num)
+    {
+        gamedirector.SetRerollButton(num);
+        Infinite_RerollButton[num].interactable = false;
+    }
+
+    public void InitRerollButton()
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            Infinite_RerollButton[i].interactable = true;
         }
     }
 }

@@ -20,7 +20,7 @@ public class Tutorial_SpawnItem : MonoBehaviour
     void Start()
     {
         tutorialDirector = GameObject.Find("TutorialDirector").GetComponent<GamePlay_Tutorial_Director>();
-        transform.position = new Vector2(0.5f, 14.5f);
+        transform.position = new Vector2(Random.Range(-0.5f, 0.5f), 14.5f);
         bounceFlag = false;
         SupplyItem_Position = -1f;
         _sprite = GetComponent<SpriteRenderer>();
@@ -35,7 +35,7 @@ public class Tutorial_SpawnItem : MonoBehaviour
         {
             if (transform.position.y > SupplyItem_Position)
             {
-                transform.Translate(4f * Vector2.down * Time.deltaTime);
+                transform.Translate(6f * Vector2.down * Time.deltaTime);
             }
             else
             {
@@ -56,7 +56,22 @@ public class Tutorial_SpawnItem : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             MMSoundManagerSoundPlayEvent.Trigger(GetItemSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
-            tutorialDirector.UseItem(Item);
+            if (!tutorialDirector.Tutorial_4GetFlag && !tutorialDirector.Tutorial_5GetFlag)
+            {
+                tutorialDirector.Tutorial_4GetFlag = true;
+                tutorialDirector.uiDirector.item_changeIcon(3, 4, true);
+                Instantiate(tutorialDirector.SpawnItemObject);
+            }
+            else if(tutorialDirector.Tutorial_4GetFlag && !tutorialDirector.Tutorial_5GetFlag)
+            {
+                tutorialDirector.Tutorial_5GetFlag = true;
+                tutorialDirector.uiDirector.item_changeIcon(4, 5, true);
+                Instantiate(tutorialDirector.SpawnItemObject);
+            }
+            else if(tutorialDirector.Tutorial_4GetFlag && tutorialDirector.Tutorial_5GetFlag)
+            {
+                tutorialDirector.UseItem(Item);
+            }
             Destroy(gameObject);
         }
     }
