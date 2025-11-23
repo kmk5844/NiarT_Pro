@@ -83,7 +83,7 @@ public class Tutorial_HelpInformation : MonoBehaviour
 
         help_object[before_help_num].SetActive(false);
         help_object[help_num].SetActive(true);
-        //HelpText.StringReference.TableEntryReference = Help_String + "_" + help_num;
+        HelpText.StringReference.TableEntryReference = Help_String + "_" + help_num;
     }
 
     public void ReadEnd_Click()

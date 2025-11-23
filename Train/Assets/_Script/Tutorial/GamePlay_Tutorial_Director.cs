@@ -227,7 +227,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
 
                     if (!ClearFlag)
                     {
-                        distance++;//1
+                        //distance++;//1
                         tutorialList = Tutorial_List.T_Control;
                         T_Flag = true;
                     }
