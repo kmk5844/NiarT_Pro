@@ -33,6 +33,11 @@ public class CheckpointDirector : MonoBehaviour
     public GameObject O_ImageObject;
     public TextMeshProUGUI CoinText;
 
+    [Header("Tutorial")]
+    public GameObject Tutorial_Object;
+    bool isReappearing;
+    bool rewardFlag = false;
+
     private void Awake()
     {
         Special_Story.Story_Init(null, 10, 0, 0);
@@ -102,17 +107,31 @@ public class CheckpointDirector : MonoBehaviour
             StopFlag = true;
             RewardFlag = false;
         }
+
+        if (Input.GetMouseButtonDown(0) && Tutorial_Object.activeSelf && !isReappearing && !rewardFlag)
+        {
+            Tutorial_Object.SetActive(false);
+            StartCoroutine(Reappear());
+        }
+
+        if(rewardFlag && Tutorial_Object.activeSelf)
+        {
+            Tutorial_Object.SetActive(false);
+        }
     }
 
     private void StartEvent()
     {
         CheckPointWindow.SetActive(true);
+        Tutorial_Object.SetActive(true);
+
         startFlag = true;
     }
 
     IEnumerator Reward()
     {
         //Debug.Log(playerData.Coin);
+        rewardFlag = true;
         prevCoinData = playerData.Coin;
         playerData.SA_GameLoseCoin(10);
         nowCoinData = playerData.Coin;
@@ -125,5 +144,25 @@ public class CheckpointDirector : MonoBehaviour
     public void CheckPointEnd()
     {
         SelectStage.SetActive(true);
+    }
+
+    IEnumerator Reappear()
+    {
+        isReappearing = true;
+        float delay = 1f;
+        float timer = 0f;
+
+        while (timer < delay)
+        {
+            // 꾹 누르고 있는 동안은 타이머 멈춤 (모바일 포함)
+            if (!Input.GetMouseButton(0))  // 눌리지 않고 있을 때만 증가
+            {
+                timer += Time.deltaTime;
+            }
+
+            yield return null;
+        }
+        Tutorial_Object.SetActive(true);
+        isReappearing = false;
     }
 }

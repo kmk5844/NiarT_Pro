@@ -30,6 +30,9 @@ public class StormDirector : MonoBehaviour
     public TextMeshProUGUI textTimer;
     public LocalizeStringEvent CheckWindowText;
 
+    [Header("Tutorial")]
+    public GameObject Tutorial_Object;
+
     private void Awake()
     {
         Special_Story.Story_Init(null, 8, 0, 0);
@@ -91,6 +94,12 @@ public class StormDirector : MonoBehaviour
 
     private void StartEvent()
     {
+        Tutorial_Object.SetActive(true);
+    }
+
+    public void TutorialEnd()
+    {
+        Tutorial_Object.SetActive(false);
         StormWindow.SetActive(true);
         startFlag = true;
     }

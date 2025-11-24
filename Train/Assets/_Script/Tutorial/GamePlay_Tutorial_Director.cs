@@ -82,7 +82,7 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
         Fuel = 60000;
         Max_Fuel = Fuel;
         Max_Speed = 200;
-        max_distance = 10;
+        max_distance = 9;
 
         cursorAim_UnAtk = Resources.Load<Texture2D>("Cursor/Aim6464_UnAttack");
         cursorAim_Atk = Resources.Load<Texture2D>("Cursor/Aim6464_Attack");
@@ -273,6 +273,8 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
                     EmphasisObejct[7].SetActive(true);
                     player.T_Skill_Q = true;
                     player.T_Skill_E = true;
+                    uiDirector.skill_changeIcon(true);
+                    uiDirector.skill_changeIcon(false);
                     T_Flag = false;
                 }
 
@@ -306,7 +308,6 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
                 {
                     player.QSkillEffect.Stop();
                     player.ESkillEffect.Stop();
-                    uiDirector.skill_changeIcon(false);
                     uiDirector.SkillLock[0].SetActive(true);
                     uiDirector.SkillLock[1].SetActive(true);
                     if (!ClearFlag)
@@ -506,58 +507,6 @@ public class GamePlay_Tutorial_Director : MonoBehaviour
                     }
                     T_Flag = true;
                 }
-                /*if (T_Flag)
-                {
-                    EmphasisObejct[0].SetActive(true);
-                    T_Flag = false;
-                }
-
-                if(player.PlayerHP > 0 && speed > 0)
-                {
-                    float damagePerSecond = 1200f;
-                    player.PlayerHP -= (int)(damagePerSecond * Time.deltaTime);
-                }
-                else if(player.PlayerHP <= 0 && speed > 0)
-                {
-                    if (EmphasisObejct[0].activeSelf)
-                    {
-                        EmphasisObejct[0].SetActive(false);
-                        EmphasisObejct[3].SetActive(true);
-                    }
-
-                    if (speed > 0)
-                    {
-                        speed -= (Time.deltaTime * 60f);
-                    }
-
-                }
-                else if(player.PlayerHP <= 0 && speed <= 0)
-                {
-                    if (EmphasisObejct[3].activeSelf)
-                    {
-                        speed = 0;
-                        EmphasisObejct[3].SetActive(false);
-                        EmphasisObejct[8].SetActive(true);
-                    }
-
-                    if(EngineTrain.Train_HP > 0)
-                    {
-                        float damagePerSecond = 1400f;
-                        EngineTrain.Train_HP -= (int)(damagePerSecond * Time.deltaTime);
-                    }
-                    else
-                    {
-                        EngineTrain.Train_HP = 0;
-
-                        if (!ClearFlag)
-                        {
-                            distance++;//13
-                            EmphasisObejct[8].SetActive(false);
-                            StartCoroutine(Clear(Tutorial_List.T_Win));
-                            ClearFlag = true;
-                        }
-                    }
-                }*/
             }
 
             if (tutorialList == Tutorial_List.T_Win)

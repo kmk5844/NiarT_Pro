@@ -39,6 +39,9 @@ public class SupplyStationDirector : MonoBehaviour
     [HideInInspector]
     public SupplyObject Spawingsupply;
 
+    [Header("Tutorial")]
+    public GameObject Tutorial_Object;
+
     private void Awake()
     {
         Special_Story.Story_Init(null, 17, 0, 0);
@@ -105,6 +108,12 @@ public class SupplyStationDirector : MonoBehaviour
     }
     void StartEvent()
     {
+        Tutorial_Object.SetActive(true);
+    }
+
+   public void TutorialEnd()
+    {
+        Tutorial_Object.SetActive(false);
         SupplyStationWindow.SetActive(true);
         SupplyMiniGameWindow.SetActive(true);
         startFlag = true;

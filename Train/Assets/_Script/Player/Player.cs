@@ -13,7 +13,6 @@ public class Player : MonoBehaviour
     UIDirector uidirector;
     PlayerStatusDirector playerStatusDirector;
 
-
     public int PlayerNum;
 
     [SerializeField]
@@ -183,6 +182,9 @@ public class Player : MonoBehaviour
     float atkZoneDamageTime = 0.5f;
     bool atkZone_Atking = false;
     int atkZone_atk = 0;
+
+    [Header("System")]
+    public CapsuleCollider2D playerCollider;
 
     void Start()
     {
@@ -737,6 +739,7 @@ public class Player : MonoBehaviour
         }
 
         DashEffect.Play();
+        playerCollider.enabled = false;
         float originalGravity = rigid.gravityScale;
         rigid.gravityScale = 0f; // 대시 중 중력 비활성화
                                  //rigid.velocity = new Vector2(horizontalInput * dashingPower, 0f);
@@ -767,6 +770,8 @@ public class Player : MonoBehaviour
         rigid.gravityScale = originalGravity; // 대시 후 중력 재활성화
 
         isDashing = false;
+        playerCollider.enabled = true;
+
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
     }

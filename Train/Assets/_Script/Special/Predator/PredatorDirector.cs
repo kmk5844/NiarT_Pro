@@ -37,6 +37,9 @@ public class PredatorDirector : MonoBehaviour
     public TextMeshProUGUI TimeText;
     public Transform ChanceList;
 
+    [Header("Tutorial")]
+    public GameObject Tutorial_Object;
+
     private void Awake()
     {
         Special_Story.Story_Init(null, 5, 0, 0);
@@ -51,7 +54,7 @@ public class PredatorDirector : MonoBehaviour
             QualitySettings.vSyncCount = 1;
         }
 
-        MaxCount = Random.Range(30, 51);
+        MaxCount = Random.Range(60, 90);
         elapsedTime = MaxTime;
         TimeText.text = MaxTime + "s";
 
@@ -129,6 +132,12 @@ public class PredatorDirector : MonoBehaviour
     }
     private void StartEvent()
     {
+        Tutorial_Object.SetActive(true);
+    }
+
+    public void TutorialEnd()
+    {
+        Tutorial_Object.SetActive(false);
         PredatorWindow.SetActive(true);
         startFlag = true;
     }
@@ -199,7 +208,15 @@ public class PredatorDirector : MonoBehaviour
         ES3.Save("Player_Curret_HP", Player_HP);
         //연료
         int TrainFuel;
-        TrainFuel = ES3.Load<int>("Train_Curret_Fuel");
+        try
+        {
+            TrainFuel = ES3.Load<int>("Train_Curret_Fuel");
+        }
+        catch
+        {
+            Debug.Log("테스트");
+            TrainFuel = 5000;
+        }
         TrainFuel = TrainFuel * 90 / 100;
         ES3.Save("Train_Curret_Fuel", TrainFuel);
         //돈
