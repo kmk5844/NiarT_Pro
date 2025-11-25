@@ -1,3 +1,4 @@
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -33,6 +34,10 @@ public class OldTranningDirector : MonoBehaviour
     public Image targetImage;
     public LocalizeStringEvent CheckWindowText;
 
+    [Header("---------Sound---------")]
+    public AudioClip OldTranningBGM;
+    public AudioClip MissionSelectBGM;
+
     private void Awake()
     {
         Special_Story.Story_Init(null, 16, 0, 0);
@@ -47,6 +52,7 @@ public class OldTranningDirector : MonoBehaviour
         PlayerImage.sprite = PlayerableImage[playerData.Player_Num];
         CheckWindowText.StringReference.TableReference = "SpecialStage_St";
         OldTranningWindow.SetActive(false);
+        MMSoundManagerSoundPlayEvent.Trigger(OldTranningBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID : 10);
     }
 
     // Update is called once per frame
@@ -65,6 +71,8 @@ public class OldTranningDirector : MonoBehaviour
 
     public void OldTranningEnd()
     {
+        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, 10);
+        MMSoundManagerSoundPlayEvent.Trigger(MissionSelectBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID: 20);
         SelectStage.SetActive(true);
     }
 

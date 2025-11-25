@@ -1864,6 +1864,8 @@ MonoBehaviour:
   - {fileID: 1815263308}
   playerData: {fileID: 11400000, guid: 00cbb5f50188b374e85c8a529a52b4b0, type: 2}
   game_DataTable: {fileID: 11400000, guid: 3a83740cb85032c498c0bbd5b0a2ec9d, type: 2}
+  DrowsinessShelterBGM: {fileID: 8300000, guid: cef0f70cc8ab8df41baeee324dc0e130, type: 3}
+  MissionSelectBGM: {fileID: 8300000, guid: 432d610baf913f84b8d6c8fd5d061a5f, type: 3}
 --- !u!114 &1627328243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1970,6 +1972,7 @@ GameObject:
   - component: {fileID: 1730329648}
   - component: {fileID: 1730329647}
   - component: {fileID: 1730329646}
+  - component: {fileID: 1730329649}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -2079,6 +2082,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1730329644}
   m_CullTransparentMesh: 1
+--- !u!114 &1730329649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730329644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f43f73ee983569b43808fe023b28e3dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 66d1415e81c3f1740962ec25bc68c396, type: 3}
+  onClickFlag: 0
 --- !u!1 &1807961143
 GameObject:
   m_ObjectHideFlags: 0
@@ -2091,6 +2108,7 @@ GameObject:
   - component: {fileID: 1807961147}
   - component: {fileID: 1807961146}
   - component: {fileID: 1807961145}
+  - component: {fileID: 1807961148}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -2212,6 +2230,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1807961143}
   m_CullTransparentMesh: 1
+--- !u!114 &1807961148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1807961143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f43f73ee983569b43808fe023b28e3dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 66d1415e81c3f1740962ec25bc68c396, type: 3}
+  onClickFlag: 0
 --- !u!1 &1815263308
 GameObject:
   m_ObjectHideFlags: 0

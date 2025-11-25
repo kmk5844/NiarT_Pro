@@ -1,3 +1,4 @@
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -31,6 +32,10 @@ public class OasisDirector : MonoBehaviour
     [SerializeField]
     List<int> RandNum = new List<int>();
 
+    [Header("---------Sound---------")]
+    public AudioClip OasisBGM;
+    public AudioClip MissionSelectBGM;
+
     private void Awake()
     {
         Special_Story.Story_Init(null, 4, 0, 0);
@@ -44,6 +49,7 @@ public class OasisDirector : MonoBehaviour
         }
 
         SettingInit();
+        MMSoundManagerSoundPlayEvent.Trigger(OasisBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID : 10);
     }
 
     private void Update()
@@ -148,6 +154,8 @@ public class OasisDirector : MonoBehaviour
 
     void NextStation()
     {
+        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, 10);
+        MMSoundManagerSoundPlayEvent.Trigger(MissionSelectBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID: 20);
         SelectStage.SetActive(true);
     }
 }

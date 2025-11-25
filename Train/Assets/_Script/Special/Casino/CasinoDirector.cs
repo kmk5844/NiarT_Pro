@@ -43,6 +43,10 @@ public class CasinoDirector : MonoBehaviour
     public Button[] casinoButton;
     public TextMeshProUGUI playerGoldText;
 
+    [Header("---------Sound---------")]
+    public AudioClip CasinoBGM;
+    public AudioClip MissionSelectBGM;
+
     private void Awake()
     {
         Special_Story.Story_Init(null, 2, 0, 0);
@@ -69,6 +73,7 @@ public class CasinoDirector : MonoBehaviour
         CheckButton();
         CheckText();
         playerGoldText.text = playerData.Coin + " G";
+        MMSoundManagerSoundPlayEvent.Trigger(CasinoBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID : 10);
     }
 
     void Setting_Init()
@@ -310,8 +315,8 @@ public class CasinoDirector : MonoBehaviour
 
     public void Click_NextButton()
     {
-        /*MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, 10);
-        MMSoundManagerSoundPlayEvent.Trigger(MissionSelectBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID: 20);*/
+        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, 10);
+        MMSoundManagerSoundPlayEvent.Trigger(MissionSelectBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID: 20);
         SelectStage.SetActive(true);
     }
 }

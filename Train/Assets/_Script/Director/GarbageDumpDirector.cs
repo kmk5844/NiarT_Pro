@@ -26,6 +26,10 @@ public class GarbageDumpDirector : MonoBehaviour
     public GameObject garbageWindow;
     public GameObject NextButton;
 
+    [Header("---------Sound---------")]
+    public AudioClip GarbageBGM;
+    public AudioClip MissionSelectBGM;
+
     bool startFlag;
     private void Awake()
     {
@@ -51,6 +55,7 @@ public class GarbageDumpDirector : MonoBehaviour
         garbageTransform.gameObject.SetActive(false);
         NextButton.GetComponent<Button>().onClick.AddListener(() => Click_NextButton());
         NextButton.SetActive(false);
+        MMSoundManagerSoundPlayEvent.Trigger(GarbageBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID : 10);
     }
 
     private void Update()
@@ -105,8 +110,8 @@ public class GarbageDumpDirector : MonoBehaviour
     }
     public void Click_NextButton()
     {
-        /*MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, 10);
-        MMSoundManagerSoundPlayEvent.Trigger(MissionSelectBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID: 20);*/
+        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, 10);
+        MMSoundManagerSoundPlayEvent.Trigger(MissionSelectBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID: 20);
         SelectStage.SetActive(true);
     }
 }

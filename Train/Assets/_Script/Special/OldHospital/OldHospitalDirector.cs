@@ -1,3 +1,4 @@
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -41,6 +42,10 @@ public class OldHospitalDirector : MonoBehaviour
     public Button HealButton;
 
     public TextMeshProUGUI CheckText;
+
+    [Header("---------Sound---------")]
+    public AudioClip OldHospitalBGM;
+    public AudioClip MissionSelectBGM;
 
     private void Awake()
     {
@@ -96,6 +101,7 @@ public class OldHospitalDirector : MonoBehaviour
             healHP[i] = damageHP * Parsent_Heal[i] / 100;
             //Debug.Log(healHP[i]);
         }
+        MMSoundManagerSoundPlayEvent.Trigger(OldHospitalBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID : 10);
     }
 
     void Update()
@@ -160,6 +166,8 @@ public class OldHospitalDirector : MonoBehaviour
 
     public void OldHospitalEnd()
     {
+        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, 10);
+        MMSoundManagerSoundPlayEvent.Trigger(MissionSelectBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID: 20);
         SelectStage.SetActive(true);
     }
 }

@@ -1,3 +1,4 @@
+using MoreMountains.Tools;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,6 +30,10 @@ public class BlackMarketDirector : MonoBehaviour
     public BlackMarketCard[] card;
     public TextMeshProUGUI playerGoldText;
 
+    [Header("---------Sound---------")]
+    public AudioClip MarketBGM;
+    public AudioClip MissionSelectBGM;
+
     private void Awake()
     {
         Special_Story.Story_Init(null, 15, 0, 0);
@@ -44,6 +49,8 @@ public class BlackMarketDirector : MonoBehaviour
         }
         SettingCard();
         playerGoldText.text = playerData.Coin + " G";
+        MMSoundManagerSoundPlayEvent.Trigger(MarketBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID: 10);
+
     }
 
     // Update is called once per frame
@@ -62,6 +69,8 @@ public class BlackMarketDirector : MonoBehaviour
 
     public void BlackMarketEnd()
     {
+        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, 10);
+        MMSoundManagerSoundPlayEvent.Trigger(MissionSelectBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID: 20);
         SelectStage.SetActive(true);
     }
 

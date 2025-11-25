@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -40,6 +41,10 @@ public class PredatorDirector : MonoBehaviour
     [Header("Tutorial")]
     public GameObject Tutorial_Object;
 
+    [Header("---------Sound---------")]
+    public AudioClip PredatorBGM;
+    public AudioClip MissionSelectBGM;
+
     private void Awake()
     {
         Special_Story.Story_Init(null, 5, 0, 0);
@@ -67,6 +72,7 @@ public class PredatorDirector : MonoBehaviour
             Icon.Setting(RandomNum);
             Instantiate(Icon, IconList);
         }
+        MMSoundManagerSoundPlayEvent.Trigger(PredatorBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID : 10);
     }
 
 
@@ -234,6 +240,8 @@ public class PredatorDirector : MonoBehaviour
 
     public void PredatorEnd()
     {
+        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, 10);
+        MMSoundManagerSoundPlayEvent.Trigger(MissionSelectBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID: 20);
         SelectStage.SetActive(true);
     }
 }

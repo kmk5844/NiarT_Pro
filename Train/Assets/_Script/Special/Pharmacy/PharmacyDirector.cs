@@ -1,3 +1,4 @@
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -33,10 +34,15 @@ public class PharmacyDirector : MonoBehaviour
     public TextMeshProUGUI playerCoinText;
     public TextMeshProUGUI checkWindowText;
 
+    [Header("---------Sound---------")]
+    public AudioClip PharmacyBGM;
+    public AudioClip MissionSelectBGM;
+
     private void Awake()
     {
         Special_Story.Story_Init(null, 9, 0, 0);
         PrarmacyWindow.SetActive(false);
+        MMSoundManagerSoundPlayEvent.Trigger(PharmacyBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID : 10);
     }
 
     // Start is called before the first frame update
@@ -109,6 +115,8 @@ public class PharmacyDirector : MonoBehaviour
 
     public void PharmacyEnd()
     {
+        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, 10);
+        MMSoundManagerSoundPlayEvent.Trigger(MissionSelectBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID: 20);
         SelectStage.SetActive(true);
     }
 }

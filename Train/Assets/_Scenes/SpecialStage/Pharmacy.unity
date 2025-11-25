@@ -522,6 +522,7 @@ GameObject:
   - component: {fileID: 332363995}
   - component: {fileID: 332363994}
   - component: {fileID: 332363993}
+  - component: {fileID: 332363996}
   m_Layer: 5
   m_Name: StageButton
   m_TagString: Untagged
@@ -631,6 +632,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 332363991}
   m_CullTransparentMesh: 1
+--- !u!114 &332363996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 332363991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f43f73ee983569b43808fe023b28e3dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 66d1415e81c3f1740962ec25bc68c396, type: 3}
+  onClickFlag: 0
 --- !u!1001 &401102992
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1450,6 +1465,8 @@ MonoBehaviour:
   StageButton: {fileID: 332363993}
   playerCoinText: {fileID: 1206799945}
   checkWindowText: {fileID: 431502210}
+  PharmacyBGM: {fileID: 8300000, guid: 84fac8df5fcb33a45b4bec9a3f94f9bc, type: 3}
+  MissionSelectBGM: {fileID: 8300000, guid: 432d610baf913f84b8d6c8fd5d061a5f, type: 3}
 --- !u!114 &808119887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2474,6 +2491,7 @@ GameObject:
   - component: {fileID: 1410851674}
   - component: {fileID: 1410851673}
   - component: {fileID: 1410851672}
+  - component: {fileID: 1410851675}
   m_Layer: 5
   m_Name: BuyButton
   m_TagString: Untagged
@@ -2583,6 +2601,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1410851670}
   m_CullTransparentMesh: 1
+--- !u!114 &1410851675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1410851670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f43f73ee983569b43808fe023b28e3dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 66d1415e81c3f1740962ec25bc68c396, type: 3}
+  onClickFlag: 0
 --- !u!1 &1520871940
 GameObject:
   m_ObjectHideFlags: 0

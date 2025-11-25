@@ -1,3 +1,4 @@
+using MoreMountains.Tools;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -42,6 +43,10 @@ public class SupplyStationDirector : MonoBehaviour
     [Header("Tutorial")]
     public GameObject Tutorial_Object;
 
+    [Header("---------Sound---------")]
+    public AudioClip SupplyBGM;
+    public AudioClip MissionSelectBGM;
+
     private void Awake()
     {
         Special_Story.Story_Init(null, 17, 0, 0);
@@ -68,6 +73,7 @@ public class SupplyStationDirector : MonoBehaviour
         boxResultText.StringReference.TableEntryReference = "SupplyStation_SucessCount";
         SupplyMiniGameWindow.SetActive(false);
         CheckWindow.SetActive(false);
+        MMSoundManagerSoundPlayEvent.Trigger(SupplyBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID : 10);
     }
 
     // Update is called once per frame
@@ -121,6 +127,8 @@ public class SupplyStationDirector : MonoBehaviour
 
     public void SupplyStationEnd()
     {
+        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, 10);
+        MMSoundManagerSoundPlayEvent.Trigger(MissionSelectBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID: 20);
         SelectStage.SetActive(true);
     }
     IEnumerator SpawnTime()

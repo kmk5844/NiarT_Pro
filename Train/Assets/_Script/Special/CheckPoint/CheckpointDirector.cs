@@ -1,3 +1,4 @@
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -38,6 +39,10 @@ public class CheckpointDirector : MonoBehaviour
     bool isReappearing;
     bool rewardFlag = false;
 
+    [Header("---------Sound---------")]
+    public AudioClip CheckPointBGM;
+    public AudioClip MissionSelectBGM;
+
     private void Awake()
     {
         Special_Story.Story_Init(null, 10, 0, 0);
@@ -59,6 +64,7 @@ public class CheckpointDirector : MonoBehaviour
         slider.minValue = 0f;
         slider.maxValue = 1f;
         slider_Handle_Ract = slider_Handle.GetComponent<RectTransform>();
+        MMSoundManagerSoundPlayEvent.Trigger(CheckPointBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID : 10);
     }
 
     // Update is called once per frame
@@ -143,6 +149,8 @@ public class CheckpointDirector : MonoBehaviour
 
     public void CheckPointEnd()
     {
+        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, 10);
+        MMSoundManagerSoundPlayEvent.Trigger(MissionSelectBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID: 20);
         SelectStage.SetActive(true);
     }
 

@@ -1,3 +1,4 @@
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -31,6 +32,12 @@ public class DrowRoomDirector : MonoBehaviour
     public Button NextButton;
     public TextMeshProUGUI PlayerGoldText;
     public TextMeshProUGUI AllOpenGoldText;
+
+
+    [Header("---------Sound---------")]
+    public AudioClip DrownRoomBGM;
+    public AudioClip MissionSelectBGM;
+
     private void Awake()
     {
         Special_Story.Story_Init(null, 14, 0, 0);
@@ -67,6 +74,7 @@ public class DrowRoomDirector : MonoBehaviour
 
         NextButton.gameObject.SetActive(false);
         NextButton.interactable = false;
+        MMSoundManagerSoundPlayEvent.Trigger(DrownRoomBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID : 10);
     }
 
     void Update()
@@ -154,6 +162,8 @@ public class DrowRoomDirector : MonoBehaviour
 
     public void DrowRoomEnd()
     {
+        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, 10);
+        MMSoundManagerSoundPlayEvent.Trigger(MissionSelectBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID: 20);
         SelectStage.SetActive(true);
     }
 

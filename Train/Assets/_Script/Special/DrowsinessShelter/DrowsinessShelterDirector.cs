@@ -1,3 +1,4 @@
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -32,6 +33,10 @@ public class DrowsinessShelterDirector : MonoBehaviour
     int Max_HP;
     bool startFlag;
 
+    [Header("---------Sound---------")]
+    public AudioClip DrowsinessShelterBGM;
+    public AudioClip MissionSelectBGM;
+
     private void Awake()
     {
         Special_Story.Story_Init(null, 6, 0, 0);
@@ -55,6 +60,7 @@ public class DrowsinessShelterDirector : MonoBehaviour
 
         CheckWindow.SetActive(false);
         SleepButton.onClick.AddListener(() => Click_Rest());
+        MMSoundManagerSoundPlayEvent.Trigger(DrowsinessShelterBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID : 10);
     }
 
     // Update is called once per frame
@@ -127,8 +133,8 @@ public class DrowsinessShelterDirector : MonoBehaviour
     }
     public void Click_NextButton()
     {
-        /*MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, 10);
-        MMSoundManagerSoundPlayEvent.Trigger(MissionSelectBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID: 20);*/
+        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, 10);
+        MMSoundManagerSoundPlayEvent.Trigger(MissionSelectBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID: 20);
         SelectStage.SetActive(true);
     }
 }

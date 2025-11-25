@@ -1,3 +1,4 @@
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -33,6 +34,10 @@ public class StormDirector : MonoBehaviour
     [Header("Tutorial")]
     public GameObject Tutorial_Object;
 
+    [Header("---------Sound---------")]
+    public AudioClip StormBGM;
+    public AudioClip MissionSelectBGM;
+
     private void Awake()
     {
         Special_Story.Story_Init(null, 8, 0, 0);
@@ -53,6 +58,7 @@ public class StormDirector : MonoBehaviour
         textTimer.text = string.Format("{0:00}:{1:00}.{2:000}", 0, 0, 0);
 
         slider.maxValue = 100f;
+        MMSoundManagerSoundPlayEvent.Trigger(StormBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID : 10);
     }
 
     // Update is called once per frame
@@ -169,6 +175,8 @@ public class StormDirector : MonoBehaviour
 
     public void StormEnd()
     {
+        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Stop, 10);
+        MMSoundManagerSoundPlayEvent.Trigger(MissionSelectBGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: true, ID: 20);
         SelectStage.SetActive(true);
     }
 }

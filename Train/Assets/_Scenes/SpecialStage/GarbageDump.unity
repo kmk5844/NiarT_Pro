@@ -716,6 +716,8 @@ MonoBehaviour:
   garbageObject: {fileID: 2005160247794575543, guid: 2ec2c840571e69b459af82d081006af6, type: 3}
   garbageWindow: {fileID: 404277329}
   NextButton: {fileID: 1988148933}
+  GarbageBGM: {fileID: 8300000, guid: 406c5af99172ef24b9b043e6077078ae, type: 3}
+  MissionSelectBGM: {fileID: 8300000, guid: 432d610baf913f84b8d6c8fd5d061a5f, type: 3}
 --- !u!114 &972025070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -918,6 +920,7 @@ GameObject:
   - component: {fileID: 1159238016}
   - component: {fileID: 1159238015}
   - component: {fileID: 1159238014}
+  - component: {fileID: 1159238017}
   m_Layer: 5
   m_Name: StartButton
   m_TagString: Untagged
@@ -1039,6 +1042,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1159238012}
   m_CullTransparentMesh: 1
+--- !u!114 &1159238017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1159238012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f43f73ee983569b43808fe023b28e3dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 66d1415e81c3f1740962ec25bc68c396, type: 3}
+  onClickFlag: 0
 --- !u!1 &1386456367
 GameObject:
   m_ObjectHideFlags: 0
@@ -1566,6 +1583,7 @@ GameObject:
   - component: {fileID: 1988148937}
   - component: {fileID: 1988148936}
   - component: {fileID: 1988148935}
+  - component: {fileID: 1988148938}
   m_Layer: 5
   m_Name: nextStation
   m_TagString: Untagged
@@ -1675,6 +1693,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1988148933}
   m_CullTransparentMesh: 1
+--- !u!114 &1988148938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1988148933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f43f73ee983569b43808fe023b28e3dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 66d1415e81c3f1740962ec25bc68c396, type: 3}
+  onClickFlag: 0
 --- !u!1 &2094218776
 GameObject:
   m_ObjectHideFlags: 0

@@ -178,6 +178,8 @@ MonoBehaviour:
   textTimer: {fileID: 1200844462}
   CheckWindowText: {fileID: 695012294}
   Tutorial_Object: {fileID: 8281585131829310778}
+  StormBGM: {fileID: 8300000, guid: eccf482a9c6c0df42a1bed9c4bb56864, type: 3}
+  MissionSelectBGM: {fileID: 8300000, guid: 432d610baf913f84b8d6c8fd5d061a5f, type: 3}
 --- !u!114 &62279507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1066,7 +1068,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 15
+  m_fontSize: 14
   m_fontSizeBase: 15
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2471,6 +2473,7 @@ GameObject:
   - component: {fileID: 2013527344}
   - component: {fileID: 2013527343}
   - component: {fileID: 2013527342}
+  - component: {fileID: 2013527345}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -2592,6 +2595,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2013527340}
   m_CullTransparentMesh: 1
+--- !u!114 &2013527345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2013527340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f43f73ee983569b43808fe023b28e3dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 66d1415e81c3f1740962ec25bc68c396, type: 3}
+  onClickFlag: 0
 --- !u!1 &2144310624
 GameObject:
   m_ObjectHideFlags: 0

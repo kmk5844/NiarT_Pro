@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 124212000}
   - component: {fileID: 124211999}
   - component: {fileID: 124211998}
+  - component: {fileID: 124212001}
   m_Layer: 5
   m_Name: ExchangeButton
   m_TagString: Untagged
@@ -255,6 +256,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 124211996}
   m_CullTransparentMesh: 1
+--- !u!114 &124212001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 124211996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f43f73ee983569b43808fe023b28e3dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 66d1415e81c3f1740962ec25bc68c396, type: 3}
+  onClickFlag: 0
 --- !u!1 &194724505
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,6 +476,7 @@ GameObject:
   - component: {fileID: 415059753}
   - component: {fileID: 415059752}
   - component: {fileID: 415059751}
+  - component: {fileID: 415059754}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -582,6 +598,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 415059749}
   m_CullTransparentMesh: 1
+--- !u!114 &415059754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 415059749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f43f73ee983569b43808fe023b28e3dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 66d1415e81c3f1740962ec25bc68c396, type: 3}
+  onClickFlag: 0
 --- !u!1 &443072991
 GameObject:
   m_ObjectHideFlags: 0
@@ -1764,6 +1794,7 @@ GameObject:
   - component: {fileID: 1067748348}
   - component: {fileID: 1067748347}
   - component: {fileID: 1067748346}
+  - component: {fileID: 1067748349}
   m_Layer: 5
   m_Name: NextButton
   m_TagString: Untagged
@@ -1885,6 +1916,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1067748344}
   m_CullTransparentMesh: 1
+--- !u!114 &1067748349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1067748344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f43f73ee983569b43808fe023b28e3dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 66d1415e81c3f1740962ec25bc68c396, type: 3}
+  onClickFlag: 0
 --- !u!1 &1140707838
 GameObject:
   m_ObjectHideFlags: 0
@@ -2544,6 +2589,8 @@ MonoBehaviour:
   Itemobject: {fileID: 1321703671059168178, guid: d8e62f7376693ba4b978f536d9b01bce, type: 3}
   SelectItemImage: {fileID: 1004421183}
   SelectName: {fileID: 1284873712}
+  ExchangeBGM: {fileID: 8300000, guid: 1493a7a16a95b27448cf7fbbf4c54876, type: 3}
+  MissionSelectBGM: {fileID: 8300000, guid: 432d610baf913f84b8d6c8fd5d061a5f, type: 3}
 --- !u!114 &1537600795
 MonoBehaviour:
   m_ObjectHideFlags: 0
