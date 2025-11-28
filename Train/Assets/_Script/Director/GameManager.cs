@@ -76,10 +76,10 @@ public class GameManager : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Slash))
+/*        if (Input.GetKeyDown(KeyCode.Slash))
         {
             TestMode = true;
-        }
+        }*/
 
         /*        if (Input.GetKeyDown(KeyCode.Alpha0))
                 {
