@@ -27,7 +27,7 @@ MonoBehaviour:
     Player_ReloadTime: 1.2
   - Number: 1
     Player_Name: Sage
-    Player_Atk: 6
+    Player_Atk: 10
     Player_Armor: 30
     Player_Delay: 0.1
     Player_HP: 5000
@@ -45,8 +45,8 @@ MonoBehaviour:
     Player_HP: 5000
     Player_MoveSpeed: 7
     Player_Bullet: Bullet/Player/Bullet_Player2
-    Player_Skill_CoolTime: 30,30
-    Player_Skill_During: 30,30
+    Player_Skill_CoolTime: 60,30
+    Player_Skill_During: 0,10
     Player_MaxFireCount: 20
     Player_ReloadTime: 1
   - Number: 3
@@ -57,8 +57,8 @@ MonoBehaviour:
     Player_HP: 6000
     Player_MoveSpeed: 7
     Player_Bullet: Bullet/Player/Bullet_Player3
-    Player_Skill_CoolTime: 30,30
-    Player_Skill_During: 30,30
+    Player_Skill_CoolTime: 60,40
+    Player_Skill_During: 0,8
     Player_MaxFireCount: 30
     Player_ReloadTime: 2
   - Number: 4
@@ -2904,7 +2904,7 @@ MonoBehaviour:
   - Number: 27
     Monster_Name: "\uBB38\uC5B4"
     Monster_HP: 200
-    Monster_Atk: 150
+    Monster_Atk: 10
     Monster_Bullet_Speed: 0
     Monster_Bullet_Delay: 8
     Monster_Bullet_Slow: 3
@@ -3150,15 +3150,15 @@ MonoBehaviour:
   - Stage: 14
     MissionList: 5
     BeforeStation_Button: 1
-    BeforeGameStart_Button: 1
-    Story_Index: 18,19
+    BeforeGameStart_Button: 0
+    Story_Index: 18,-1
     StationBackGround: 1
     GameBackGround: 1
   - Stage: 15
     MissionList: 6
-    BeforeStation_Button: 0
+    BeforeStation_Button: 1
     BeforeGameStart_Button: 1
-    Story_Index: -1,20
+    Story_Index: 19,20
     StationBackGround: 2
     GameBackGround: -1
   - Stage: 16
@@ -3297,8 +3297,8 @@ MonoBehaviour:
   - Stage: 35
     MissionList: 1,2
     BeforeStation_Button: 1
-    BeforeGameStart_Button: 1
-    Story_Index: 35,-100
+    BeforeGameStart_Button: 0
+    Story_Index: 35,-1
     StationBackGround: 3
     GameBackGround: 3
   - Stage: 36
@@ -3331,7 +3331,7 @@ MonoBehaviour:
     GameBackGround: 3
   - Stage: 40
     MissionList: 0
-    BeforeStation_Button: 1
+    BeforeStation_Button: 0
     BeforeGameStart_Button: 0
     Story_Index: -100,-1
     StationBackGround: 3

@@ -228,7 +228,7 @@ public class UIDirector : MonoBehaviour
         CoinAniCon = CoinWindow.GetComponent<Animator>();
         DiceAniCon = DiceWindow.GetComponent<Animator>();
 
-        try
+/*        try
         {
             PlayerGunObject[playerData.Player_Num].SetActive(true);
         }
@@ -236,7 +236,7 @@ public class UIDirector : MonoBehaviour
         {
             Debug.Log("PlayerGunObject Ãß°¡ÇØ¾ßµÊ");
             PlayerGunObject[0].SetActive(true);
-        }
+        }*/
         WaveFillObject.SetActive(false);
 
         WarningSpeedEffect_System = WarningSpeedEffect.GetComponentInChildren<ParticleSystem>();
@@ -665,7 +665,14 @@ public class UIDirector : MonoBehaviour
 
     public void Gameing_Text(int Coin)
     {
-        Coin_Text.text = (playerData.Coin + Coin).ToString();
+        if (gamedirector.Infinite_Mode)
+        {
+            Coin_Text.text = Coin.ToString();
+        }
+        else
+        {
+            Coin_Text.text = (playerData.Coin + Coin).ToString();
+        }
     }
 
     public void Open_SubSelect()
@@ -908,7 +915,7 @@ public class UIDirector : MonoBehaviour
         string[] missionState = DataList.Q_List[missionList_Index].Quest_State.Split(',');
 
         LocalizedString monsterString = new LocalizedString();
-        monsterString.TableReference = "MissionList_St";
+        monsterString.TableReference = "ExcelData_Table_St";
 
         switch (missionNum)
         {
@@ -917,7 +924,7 @@ public class UIDirector : MonoBehaviour
                 missionTextInformation_text.StringReference.TableEntryReference = "Information_" + missionNum;
                 break;
             case 1:
-                missionTextInformation_text.StringReference.Arguments = new object[] { missionState[0] };
+                missionTextInformation_text.StringReference.Arguments = new object[] { missionState[1] };
                 missionTextInformation_text.StringReference.TableEntryReference = "Information_" + missionNum;
                 missionTextInformation_text.RefreshString();
                 break;

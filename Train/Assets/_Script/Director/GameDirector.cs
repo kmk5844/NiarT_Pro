@@ -467,6 +467,22 @@ public class GameDirector : MonoBehaviour
                         TrainDistance = 99999999;
                     }
                 }*/
+
+        if(GameManager.Instance != null && GameManager.Instance.TestMode && Input.GetKeyDown(KeyCode.RightBracket)){
+            gameType = GameType.Playing;
+            GameStartFlag = true;
+            monsterDirector.GameDirector_StartFlag = true;
+            monsterDirector.GameDirector_SpawnFlag = true;
+            if (Data_BossFlag)
+            {
+                TrainSpeed = 1000;
+            }
+            else
+            {
+                TrainDistance = 99999999;
+            }
+        }
+
         if (Input.GetMouseButton(1))
         {
             if (!uiDirector.TrainInformation_UI.activeSelf)

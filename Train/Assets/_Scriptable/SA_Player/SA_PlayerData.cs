@@ -241,6 +241,10 @@ public class SA_PlayerData : ScriptableObject
         if(new_stage == 25)//페요테 해제
         {
             character_lockoff[1] = true;
+        }else if(New_Stage == 35)//아스타, 로단테 해제
+        {
+            character_lockoff[2] = true;
+            character_lockoff[3] = true;
         }
         Save();
     }

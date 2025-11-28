@@ -168,6 +168,7 @@ public class UseItem : MonoBehaviour
     public void Get_SupplyItem(int num)
     {
         bool coolTime_Flag = true;
+        bool Mat = false;
         //uiDirector.View_ItemList(itemList.Item[num].Item_Sprite);
 
         itemDirector.Get_Supply_Item_Information(itemList.Item[num]);
@@ -574,6 +575,7 @@ public class UseItem : MonoBehaviour
             case 148:
             case 149:
                 coolTime_Flag = false;
+                Mat = true;
                 if (!uiDirector.GetItemList_Num.Contains(num))
                 {
                     uiDirector.GetItemList_Num.Add(num);
@@ -583,7 +585,7 @@ public class UseItem : MonoBehaviour
                 break;
         }
 
-        if (itemList.Item_Dic_List[num] != null)
+        if (!Mat && itemList.Item_Dic_List[num] != null)
         {
             itemList.Item_Dic_List[num].ChangeItem();
         }

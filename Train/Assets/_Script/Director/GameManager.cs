@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     }
     #endregion
     public bool Demo;
+    public bool TestMode;
     public Game_DataTable gameData;
     public Story_DataTable storyData;
     public SA_PlayerData PlayerData;
@@ -70,25 +71,31 @@ public class GameManager : MonoBehaviour
             GameObject gm = Instantiate(SelectMissionObject);
             gm.name = "SelectMission";
         }
+        TestMode = false;
     }
 
     public void Update()
     {
-/*        if (Input.GetKeyDown(KeyCode.Alpha0))
+        if (Input.GetKeyDown(KeyCode.Slash))
         {
-            if (Time.timeScale == 0)
-            {
-                Time.timeScale = 1;
-            }
+            TestMode = true;
+        }
 
-            if (GameObject.Find("SelectMission"))
-            {
-                GameObject gm = GameObject.Find("SelectMission");
-                Destroy(gm);
-            }
-            StopAllCoroutines();
-            Game_DataReset();
-        }*/
+        /*        if (Input.GetKeyDown(KeyCode.Alpha0))
+                {
+                    if (Time.timeScale == 0)
+                    {
+                        Time.timeScale = 1;
+                    }
+
+                    if (GameObject.Find("SelectMission"))
+                    {
+                        GameObject gm = GameObject.Find("SelectMission");
+                        Destroy(gm);
+                    }
+                    StopAllCoroutines();
+                    Game_DataReset();
+                }*/
 
         /*        if (Input.GetKeyDown(KeyCode.Alpha9))
                 {

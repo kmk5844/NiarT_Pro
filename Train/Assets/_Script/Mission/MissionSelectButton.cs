@@ -12,6 +12,8 @@ public class MissionSelectButton : MonoBehaviour
     public SA_PlayerData playerData;
     public MissionSelectDirector missionSelectDirector;
 
+    public string str = "";
+
     [Header("UI")]
     public LocalizeStringEvent MissionType_Text;
     public LocalizeStringEvent MissionInformation_Text;
@@ -49,10 +51,11 @@ public class MissionSelectButton : MonoBehaviour
         MissionType_Text.StringReference.TableEntryReference = "Title_" + missionNum;
         MissionInformation_Text.StringReference.TableReference = "MissionList_St";
 
-        string[] missionState = missionList_Table.Q_List[missionList_index].Quest_State.Split(',');
+        str = missionList_Table.Q_List[missionList_index].Quest_State;
+        string[] missionState = str.Split(',');
 
         LocalizedString monsterString = new LocalizedString();
-        monsterString.TableReference = "MissionList_St";
+        monsterString.TableReference = "ExcelData_Table_St";
 
         switch (missionNum)
         {
@@ -61,7 +64,7 @@ public class MissionSelectButton : MonoBehaviour
                 MissionInformation_Text.StringReference.TableEntryReference = "Information_" + missionNum;
                 break;
             case 1:
-                MissionInformation_Text.StringReference.Arguments = new object[] { missionState[0] };
+                MissionInformation_Text.StringReference.Arguments = new object[] { missionState[1]};
                 MissionInformation_Text.StringReference.TableEntryReference = "Information_" + missionNum;
                 MissionInformation_Text.RefreshString();
                 break;
