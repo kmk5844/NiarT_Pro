@@ -9,7 +9,7 @@ using UnityEngine.UIElements;
 
 public class Monster : MonoBehaviour
 {
-    Collider2D col;
+    protected Collider2D col;
     [SerializeField]
     protected int Monster_Num;
     public int GetMonsterNum() { return Monster_Num; }
