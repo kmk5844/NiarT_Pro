@@ -5352,7 +5352,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6989d9e12aa8c564aaec17288a2e3e90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterSprite: {fileID: 0}
+  Monster_Num: 0
+  ExMonsterSprite: {fileID: 0}
   monster_gametype: 0
   EX_GameData: {fileID: 11400000, guid: 3a83740cb85032c498c0bbd5b0a2ec9d, type: 2}
   monsterData: {fileID: 11400000, guid: 1725873c9ee29b3449b73d0e0b1358ac, type: 2}
@@ -5377,6 +5378,9 @@ MonoBehaviour:
   StunEffect: {fileID: 6224767322669133730}
   WalkEffect: {fileID: 2010733657990902704}
   monster_xPos: 0
+  InfiniteMode: 0
+  InfiniteCount: 0
+  Infinite_Status_ChagngeFlag: 0
   AttackFlag: 0
 --- !u!1 &9130998939580361295
 GameObject:
@@ -5390,7 +5394,7 @@ GameObject:
   - component: {fileID: 6672474883099259668}
   - component: {fileID: 5274738009553072002}
   - component: {fileID: 5781028960168454917}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: BombCollider
   m_TagString: Monster_Bullet
   m_Icon: {fileID: 0}

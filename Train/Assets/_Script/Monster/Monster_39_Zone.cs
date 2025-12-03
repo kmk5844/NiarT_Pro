@@ -12,7 +12,8 @@ public class Monster_39_Zone : MonoBehaviour
     [SerializeField]
     private Collider2D zoneCol;          // ÀÌ Zone collider
 
-    Monster_39 director;
+    Monster_39 director_39;
+    Monster_50 director_50;
 
     private void Awake()
     {
@@ -20,7 +21,8 @@ public class Monster_39_Zone : MonoBehaviour
     }
     private void Start()
     {
-        director = GetComponentInParent<Monster_39>();
+        director_39 = GetComponentInParent<Monster_39>();
+        director_50 = GetComponentInParent<Monster_50>();
     }   
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -64,13 +66,29 @@ public class Monster_39_Zone : MonoBehaviour
         }
 
 
-        if (PlayerInZone)
+        if (director_39 != null)
         {
-            director.changeAtkFlag(true);
+            if (PlayerInZone)
+            {
+                director_39.changeAtkFlag(true);
+            }
+            else
+            {
+                director_39.changeAtkFlag(false);
+            }
         }
-        else
+
+        if (director_50 != null)
         {
-            director.changeAtkFlag(false);
+            if (PlayerInZone)
+            {
+                director_50.changeAtkFlag(true);
+            }
+            else
+            {
+                director_50.changeAtkFlag(false);
+            }
         }
+        
     }
 }
