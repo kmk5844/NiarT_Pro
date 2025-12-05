@@ -1,3 +1,5 @@
+using JetBrains.Annotations;
+using PixelCrushers.DialogueSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +12,10 @@ public class Monster_Boss_5 : Boss
     public Transform Fire_Zone;
     GameObject player;
     float Speed;
+
+    [Header("광폭화 모드")]
+    [SerializeField]
+    bool BerserkMode;
 
     Vector2 MonsterDirector_Pos;
     Vector2 Spawn_Init_Pos;
@@ -36,10 +42,15 @@ public class Monster_Boss_5 : Boss
     bool didHighAction = false;
     int JumpDashNum = 0;
 
-    public GameObject SKill_Object;
+    public GameObject Skill_Dangger_Player_Object;
+    public GameObject Skill_Dangger_Angle_Object;
+    public GameObject Skill_Bomb_Object;
+    public GameObject Skill_Wind_Object;
+
     Vector3 dashTargetPos;
     bool SpawnFlag = false;
     bool dashFlag = false;
+    bool skillDashFlag = false;
 
     private float idleMoveRange = 1.5f; // 왔다갔다 이동 범위
     private Vector3 idleCenterPos;
@@ -155,7 +166,7 @@ public class Monster_Boss_5 : Boss
                 }
             }
 
-            if (Time.time >= move_lastTime + move_delayTime)
+            if (Time.time >= move_lastTime + move_delayTime && !dashFlag)
             {
                 playType = Boss_PlayType.SKill;
             }
@@ -164,18 +175,49 @@ public class Monster_Boss_5 : Boss
         if(playType == Boss_PlayType.SKill)
         {
             //skillNum = Random.Range(0, 5);
-            skillNum = 0;
+            skillNum = 2;
             if(skillNum == 0)
             {
-                Debug.Log("스킬 사용");
+                //체력 회복 5%
+                StartCoroutine(BossHPHeal());
+            }
+            else if(skillNum == 1)
+            {
+                //뛰어서 단검을 날림
+                Vector2 target = new Vector2(transform.position.x + 5f, transform.position.y);
+                StartCoroutine(JumpSkill(target, 8f));
+                //1. 플레이어 향해 단검 날리기
+                //2. 단검 폭발
+                //3. 단검 내리꽂기
+            }
+            else if(skillNum == 2)
+            {
+                //검기 날리기
+                StartCoroutine(SkillWind());
+                //1. 플레이어 향해 검기 날리기
+                //2. 좌우로 검기날리기
+                //3. 플레이어 위치에서 위 아래로 검기날리기
+            }
+            else if(skillNum == 3)
+            {
+                //대쉬하면서 폭탄 날리기
+                StartCoroutine(DashBomb());
+            }
+            else if(skillNum == 4)
+            {
+                StartCoroutine(DaggerPosition());
+            }
+            else if(skillNum == 5)
+            {
+                StartCoroutine(ShotGunPosition());
             }
             playType = Boss_PlayType.Skill_Using;
         }
 
         if(playType == Boss_PlayType.Skill_Using)
         {
-            playType = Boss_PlayType.Move;
-            move_lastTime = Time.time;
+            //playType = Boss_PlayType.Move;
+            //move_lastTime = Time.time;
         }
 
         if (DieFlag)
@@ -197,7 +239,243 @@ public class Monster_Boss_5 : Boss
             //DieEffect.Emit(9);
         }
     }
+    IEnumerator BossHPHeal()
+    {
+        gameDirector.BossHeal(true);
+        int heal = Monster_Max_HP * 5 / 100;
 
+        Monster_HP += heal;
+        if (Monster_HP > Monster_Max_HP)
+        {
+            Monster_HP = Monster_Max_HP;
+        }
+        yield return new WaitForSeconds(0.5f);
+        gameDirector.BossHeal(false);
+        ToMove();
+    }
+
+    IEnumerator JumpSkill(Vector2 jumpTargetPos, float jumpHeight)
+    {
+        bool _didHighAction = false;
+        int daggerSkill = Random.Range(0, 3);
+        daggerSkill = 2;
+
+        Vector2 startPos = transform.position;
+        float upDuration = 1f;     // 상승 시간
+        float downDuration = 0.5f;   // 하강 시간
+
+        float elapsed = 0f;
+
+        while (elapsed < upDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / upDuration);
+
+            float x = Mathf.Lerp(startPos.x, jumpTargetPos.x, t * 0.5f);
+            float y = startPos.y + Mathf.Sin(Mathf.PI * t * 0.5f) * jumpHeight;
+            transform.position = new Vector3(x, y, transform.position.z);
+
+            yield return null;
+        }
+
+        // 최고점 도달
+        if (!_didHighAction)
+        {
+            _didHighAction = true;
+            yield return StartCoroutine(HighAction(daggerSkill));
+        }
+
+        elapsed = 0f;
+        Vector2 peakPos = transform.position;
+
+        while (elapsed < downDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / downDuration);
+
+            // X는 정상적으로 목표 지점으로 이동
+            float x = Mathf.Lerp(peakPos.x, jumpTargetPos.x, t);
+
+            // Y는 피크에서 targetPos.y로 부드럽게 내려오기
+            float y = Mathf.Lerp(peakPos.y, jumpTargetPos.y, t);
+
+            transform.position = new Vector3(x, y, transform.position.z);
+
+            yield return null;
+        }
+
+        transform.position = jumpTargetPos; // 보정
+        yield return new WaitForSeconds(2f);
+        ToMove();
+    }
+
+    IEnumerator HighAction(int skillIndex)
+    {
+        if (skillIndex == 0)
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                Vector3 RandomPos = new Vector2(0, Random.Range(-0.5f, 0.5f));
+                GameObject bullet = Instantiate(Skill_Dangger_Player_Object,
+                                                Fire_Zone.position + RandomPos,
+                                                Quaternion.identity);
+
+                bullet.GetComponent<MonsterBullet>()
+                      .Get_MonsterBullet_Information(Bullet_Atk, Bullet_Slow, 30f);
+
+                yield return new WaitForSeconds(0.1f);
+            }
+        }
+        else if (skillIndex == 1)
+        {
+            for(int i = 0; i < 16; i++)
+            {
+                GameObject bullet = Instantiate(Skill_Dangger_Angle_Object,
+                                               transform.position,
+                                               Quaternion.identity);
+                bullet.GetComponent<MonsterBullet>()
+                      .Get_MonsterBullet_Information(Bullet_Atk, Bullet_Slow, 30f);
+                bullet.GetComponent<Monster_Bullet_Angle>()
+                      .SetAngle_And_Fire(-45 + (i * 6));
+            }
+            yield return null;
+        }
+        else if (skillIndex == 2)
+        {
+            for(int i = 0; i < 16; i++)
+            {
+                Vector3 RandomPos = new Vector2(Random.Range(-7f, 7f), 0);
+                GameObject bullet = Instantiate(Skill_Dangger_Angle_Object,
+                                               (transform.position + RandomPos),
+                                               Quaternion.identity);
+                bullet.GetComponent<MonsterBullet>()
+                      .Get_MonsterBullet_Information(Bullet_Atk, Bullet_Slow, Random.Range(10f, 40f));
+                bullet.GetComponent<Monster_Bullet_Angle>()
+                      .SetAngle_And_Fire(0f);
+            }
+            yield return null;
+        }
+    }
+
+    IEnumerator DaggerPosition()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            Vector3 RandomPos = new Vector2(0, Random.Range(-0.8f, 0.8f));
+            GameObject bullet = Instantiate(Skill_Dangger_Player_Object,
+                                            Fire_Zone.position + RandomPos,
+                                            Quaternion.identity);
+
+            bullet.GetComponent<MonsterBullet>()
+                  .Get_MonsterBullet_Information(Bullet_Atk, Bullet_Slow, 20f);
+
+            yield return new WaitForSeconds(0.1f);
+        }
+        yield return new WaitForSeconds(2f);
+        ToMove();
+    }
+
+    IEnumerator ShotGunPosition()
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            BulletFire();
+            yield return new WaitForSeconds(0.3f);
+        }
+        yield return new WaitForSeconds(0.3f);
+        BulletFire();
+        BulletFire();
+        yield return new WaitForSeconds(5f);
+        ToMove();
+    }
+
+    IEnumerator DashBomb()
+    {
+        float offset = (player.transform.position.x > transform.position.x) ? 1f : -1f;
+        float targetX = player.transform.position.x + offset;
+
+        targetX = Mathf.Clamp(targetX, MonsterDirector.MinPos_Ground.x + 1f, MonsterDirector.MaxPos_Ground.x - 1f);
+        Vector3 dashTargetPos_ = new Vector3(targetX, transform.position.y, transform.position.z);
+
+        Vector3 startPos = transform.position;  // 시작 지점 저장
+        float logInterval = 2f;                // 출력 간격 (1m)
+        float nextLogDist = logInterval;
+
+        while (true)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, dashTargetPos_, 35f * Time.deltaTime);
+
+            float traveled = Vector3.Distance(startPos, transform.position);
+            float totalDist = Vector3.Distance(startPos, dashTargetPos_);
+
+            if (traveled >= nextLogDist)
+            {
+                GameObject Bullet = Instantiate(Skill_Bomb_Object,
+                                                  transform.position,
+                                                  Quaternion.identity);
+                Bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk, Bullet_Slow, 5f);
+                Bullet.GetComponent<Monster_Bullet_Angle>().SetAngle_And_Fire(180f);
+                nextLogDist += logInterval;
+            }
+
+            if (Vector3.Distance(transform.position, dashTargetPos_) < 0.1f)
+            {
+                dashFlag = false;
+                idleCenterPos = transform.position;
+
+                ToMove();
+
+                break;
+            }
+
+            yield return null;
+        }
+    }
+
+    IEnumerator SkillWind()
+    {
+        int skillNum = Random.Range(0, 3);
+        if(skillNum == 0)
+        {
+            for(int i = 0; i < 3; i++)
+            {
+                GameObject wind = Instantiate(Skill_Wind_Object,
+                                       transform.position,
+                                       Quaternion.identity);
+                wind.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk, 0f, 12f);
+                wind.GetComponent<Boss_5_Wind>().SetPlayer();
+                yield return new WaitForSeconds(1f);
+            }
+        }
+        else if(skillNum == 1)
+        {
+            for(int i = 0; i < 5; i++)
+            {
+                GameObject wind = Instantiate(Skill_Wind_Object,
+                                       transform.position,
+                                       Quaternion.identity);
+                wind.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk, 0f, 12f);
+                wind.GetComponent<Boss_5_Wind>().SetAngle(90 + (i * 45));
+            }
+        }else if(skillNum == 2)
+        {
+            Vector2 playerPos = player.transform.position;
+
+            GameObject wind = Instantiate(Skill_Wind_Object,
+                                       playerPos + new Vector2(0, 8f),
+                                       Quaternion.identity);
+            wind.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk, 0f, 12f);
+            wind.GetComponent<Boss_5_Wind>().SetAngle(0);
+            wind = Instantiate(Skill_Wind_Object,
+                                       playerPos + new Vector2(0, -8f),
+                                       Quaternion.identity);
+            wind.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk, 0f, 12f);
+            wind.GetComponent<Boss_5_Wind>().SetAngle(180);
+        }
+       
+        yield return new WaitForSeconds(3f);
+        ToMove();
+    }
     void IdleMove()
     {
         // 좌우로 오락가락
@@ -338,6 +616,19 @@ public class Monster_Boss_5 : Boss
         float EmitTime = Random.Range(0.1f, 0.2f);
         yield return new WaitForSeconds(EmitTime); // 0.2초 간격으로 터짐
         dieEffectFlag = false;
+    }
+
+    private void ToMove()
+    {
+        if (playType != Boss_PlayType.Die)
+        {
+            move_delayTime = Random.Range(3f, 6f);
+            skilleffect_flag = false;
+            attack_lastTime = Time.time;
+            move_lastTime = Time.time;
+            //ResetAni();
+            playType = Boss_PlayType.Move;
+        }
     }
 }
     

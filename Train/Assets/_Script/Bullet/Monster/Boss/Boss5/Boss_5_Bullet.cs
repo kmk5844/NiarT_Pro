@@ -12,7 +12,7 @@ public class Boss_5_Bullet : MonsterBullet
     protected override void Start()
     {
         base.Start();
-        Speed = Random.Range(30f, 45f);
+        Speed = Random.Range(20f, 40f);
         BulletFire();
     }
 
@@ -22,7 +22,7 @@ public class Boss_5_Bullet : MonsterBullet
         Vector2 dir = (base.player_target.position - transform.position).normalized;
 
         // 무작위 각도 추가
-        float angleOffset = Random.Range(-9f, 9f);
+        float angleOffset = Random.Range(-12f, 12f);
         dir = Quaternion.Euler(0, 0, angleOffset) * (Vector3)dir;
 
         // 회전 설정

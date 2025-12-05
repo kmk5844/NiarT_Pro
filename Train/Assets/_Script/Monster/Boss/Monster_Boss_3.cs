@@ -376,7 +376,9 @@ public class Monster_Boss_3 : Boss
     IEnumerator BeeHeal()
     {
         int healCount = 0;
-        for(int i = 0; i < Monster_List_Sky.childCount; i++)
+        gameDirector.BossHeal(true);
+
+        for (int i = 0; i < Monster_List_Sky.childCount; i++)
         {
             if(Monster_List_Sky.GetChild(i).GetComponent<Monster>().GetMonsterNum() == 23)
             {
@@ -391,6 +393,8 @@ public class Monster_Boss_3 : Boss
             }
         }
         yield return new WaitForSeconds(1f);
+        gameDirector.BossHeal(false);
+
         ToMove();
     }
 
