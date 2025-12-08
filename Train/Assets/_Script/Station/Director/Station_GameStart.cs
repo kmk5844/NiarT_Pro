@@ -52,7 +52,7 @@ public class Station_GameStart : MonoBehaviour
         saPlayerData = stationPlayerData.SA_PlayerData;
 
         SelectChapterNum = (saPlayerData.New_Stage / 5);
-        maxChapterNum = 8;
+        maxChapterNum = 9;
 
         stageButton = new List<StageButton_Route>();
 

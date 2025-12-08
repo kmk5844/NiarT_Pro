@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2284520680175412986}
   - component: {fileID: -2744086448423873013}
-  - component: {fileID: 671212997857220322}
+  - component: {fileID: 2649308009645156052}
   - component: {fileID: -1280178554475784308}
   m_Layer: 10
   m_Name: 41
@@ -63,8 +63,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!70 &671212997857220322
-CapsuleCollider2D:
+--- !u!58 &2649308009645156052
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -92,12 +92,12 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.04, y: 0.14}
-  m_Direction: 0
+  serializedVersion: 2
+  m_Radius: 0.08
 --- !u!114 &-1280178554475784308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,13 +139,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2474847819362676072}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: -0.0258, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2284520680175412986}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!212 &8587016891314322372
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -185,9 +185,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -611559395
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 334241385, guid: bf458d9a59be2ff47bb475396e6fe313, type: 3}
+  m_Sprite: {fileID: 1957794624, guid: 183e4cae15b8e104fa67cfdfe7addfa7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

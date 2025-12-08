@@ -334,6 +334,7 @@ GameObject:
   - component: {fileID: 3102294194950935420}
   - component: {fileID: -3259779365467001941}
   - component: {fileID: 1803952552137539726}
+  - component: {fileID: 8747517310758370947}
   m_Layer: 8
   m_Name: "39_CCTV\uB85C\uBD07"
   m_TagString: Monster
@@ -458,23 +459,13 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.16492173, y: -0.26754707}
-      - {x: 0.17974283, y: -0.15149063}
+    - - {x: 0.0063905455, y: -0.26754707}
+      - {x: -0.25914538, y: 0.054026738}
+      - {x: -0.08045931, y: 0.3193065}
+      - {x: 0.062312294, y: 0.34168413}
+      - {x: 0.2664282, y: 0.2892071}
+      - {x: 0.34140158, y: 0.12450422}
       - {x: 0.23535272, y: -0.10150951}
-      - {x: 0.24627328, y: -0.02999407}
-      - {x: 0.32595748, y: -0.032703906}
-      - {x: 0.33632892, y: 0.0038141906}
-      - {x: 0.2243702, y: 0.022945493}
-      - {x: 0.17804591, y: 0.07202849}
-      - {x: 0.17264843, y: 0.3121071}
-      - {x: -0.037351724, y: 0.31676525}
-      - {x: -0.06329475, y: 0.13450247}
-      - {x: -0.13198206, y: 0.05560845}
-      - {x: -0.3402906, y: 0.01005131}
-      - {x: -0.12360974, y: 0.0066892505}
-      - {x: -0.08649027, y: -0.1451276}
-      - {x: 0.027167745, y: -0.334404}
-      - {x: 0.08475497, y: -0.32484394}
   m_UseDelaunayMesh: 0
 --- !u!114 &1803952552137539726
 MonoBehaviour:
@@ -521,6 +512,27 @@ MonoBehaviour:
   speed: 0
   atkFlag: 0
   ZoneObject: {fileID: 168164699294092735}
+--- !u!95 &8747517310758370947
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7976047841580440944}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 3562a0c05d282c9498de4b6b50e1fa46, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8556176419555939304
 GameObject:
   m_ObjectHideFlags: 0
@@ -549,7 +561,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -0.5, z: 0.01}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4741079927591269212}
@@ -772,8 +784,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 3
-      minScalar: 2
+      scalar: 0.8
+      minScalar: 0.5
       maxCurve:
         serializedVersion: 2
         m_Curve:

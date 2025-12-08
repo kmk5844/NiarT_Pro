@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2284520680175412986}
   - component: {fileID: -2744086448423873013}
-  - component: {fileID: 671212997857220322}
+  - component: {fileID: 8618772011197757566}
   - component: {fileID: 7844710105983855058}
   m_Layer: 10
   m_Name: 43
@@ -63,8 +63,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!70 &671212997857220322
-CapsuleCollider2D:
+--- !u!58 &8618772011197757566
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -92,12 +92,12 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.006208375, y: 0.00068693364}
-  m_Size: {x: 0.115613036, y: 0.115613036}
-  m_Direction: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.09
 --- !u!114 &7844710105983855058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,13 +140,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2474847819362676072}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: -1, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2284520680175412986}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -180}
 --- !u!212 &8587016891314322372
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -186,9 +186,9 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -611559395
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 373934248, guid: 9fdf43b9effe0fe4bbe4332df37fc127, type: 3}
+  m_Sprite: {fileID: -1306714754, guid: 56e9a731d8530f54598577e782ca33d6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

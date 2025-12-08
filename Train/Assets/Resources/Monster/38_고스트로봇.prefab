@@ -161,6 +161,7 @@ GameObject:
   - component: {fileID: 3102294194950935420}
   - component: {fileID: 5271221546680106949}
   - component: {fileID: -3259779365467001941}
+  - component: {fileID: 748826534876550240}
   m_Layer: 8
   m_Name: "38_\uACE0\uC2A4\uD2B8\uB85C\uBD07"
   m_TagString: Monster
@@ -228,7 +229,7 @@ SpriteRenderer:
   m_SortingLayerID: 375295091
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4ce1d728048fcc84a80542857fd9240b, type: 3}
+  m_Sprite: {fileID: 1485364704, guid: f13d566343d299542ae184dd09f75b81, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -318,7 +319,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.2, y: 1.2}
+    oldSize: {x: 1.2, y: 1.4}
     newSize: {x: 1.19, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -326,24 +327,33 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.16492173, y: -0.26754707}
-      - {x: 0.17974283, y: -0.15149063}
-      - {x: 0.23535272, y: -0.10150951}
-      - {x: 0.24627328, y: -0.02999407}
-      - {x: 0.32595748, y: -0.032703906}
-      - {x: 0.33632892, y: 0.0038141906}
-      - {x: 0.2243702, y: 0.022945493}
-      - {x: 0.17804591, y: 0.07202849}
-      - {x: 0.17264843, y: 0.3121071}
-      - {x: -0.037351724, y: 0.31676525}
-      - {x: -0.06329475, y: 0.13450247}
-      - {x: -0.13198206, y: 0.05560845}
-      - {x: -0.3402906, y: 0.01005131}
-      - {x: -0.12360974, y: 0.0066892505}
-      - {x: -0.08649027, y: -0.1451276}
-      - {x: 0.027167745, y: -0.334404}
-      - {x: 0.08475497, y: -0.32484394}
+    - - {x: 0.43824783, y: 0.44697896}
+      - {x: 0.0032896884, y: -0.39821938}
+      - {x: -0.25860006, y: -0.39837056}
+      - {x: -0.11600922, y: 0.31617883}
+      - {x: 0.059964914, y: 0.49339348}
   m_UseDelaunayMesh: 0
+--- !u!95 &748826534876550240
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7976047841580440944}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d3c4d9ccc40f64241b72b669eda4a079, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8556176419555939304
 GameObject:
   m_ObjectHideFlags: 0
@@ -371,8 +381,8 @@ Transform:
   m_GameObject: {fileID: 8556176419555939304}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.5, z: 0.01}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalPosition: {x: 0.034, y: -0.256, z: 0.009}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4741079927591269212}
@@ -595,8 +605,8 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 3
-      minScalar: 2
+      scalar: 0.8
+      minScalar: 0.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -5140,15 +5150,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7063304253784090655, guid: d362c476fa3f55845a300f03c1236090, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.15
+      value: 0.294
       objectReference: {fileID: 0}
     - target: {fileID: 7063304253784090655, guid: d362c476fa3f55845a300f03c1236090, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.15
+      value: -0.05
       objectReference: {fileID: 0}
     - target: {fileID: 7063304253784090655, guid: d362c476fa3f55845a300f03c1236090, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.003
       objectReference: {fileID: 0}
     - target: {fileID: 7063304253784090655, guid: d362c476fa3f55845a300f03c1236090, type: 3}
       propertyPath: m_LocalRotation.w

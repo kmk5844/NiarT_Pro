@@ -364,6 +364,49 @@ MonoBehaviour:
     Quest_State: 4,1
     Quest_Reward: 60000
     Quest_Fail: 50
+  - Stage_Mission: 40,0
+    Quest_Type: Destination
+    Quest_Information: "\uBB34\uC0AC\uD788 \uBAA9\uC801\uC9C0\uAE4C\uC9C0 \uB3C4\uCC29\uD558\uC138\uC694"
+    Quest_State: -1
+    Quest_Reward: 40000
+    Quest_Fail: 40
+  - Stage_Mission: 41,1
+    Quest_Type: Material
+    Quest_Information: "\uC7AC\uB8CC\uB97C \uC218\uC9D1\uD558\uC138\uC694"
+    Quest_State: 142,20,40
+    Quest_Reward: 40000
+    Quest_Fail: 40
+  - Stage_Mission: 41,3
+    Quest_Type: Escort
+    Quest_Information: "\uC774\uBD10, \uB2E4\uC74C \uC815\uAC70\uC7A5\uC73C\uB85C
+      \uB370\uB824\uB2E4\uC918"
+    Quest_State: 4000,30,8
+    Quest_Reward: 40000
+    Quest_Fail: 40
+  - Stage_Mission: 42,2
+    Quest_Type: Monster
+    Quest_Information: "\uACE0\uC2A4\uD2B8 \uB85C\uBD07\uC744 \uCC98\uCE58\uD558\uC138\uC694."
+    Quest_State: 38,15
+    Quest_Reward: 50000
+    Quest_Fail: 40
+  - Stage_Mission: 42,4
+    Quest_Type: Convoy
+    Quest_Information: "\uD638\uC1A1\uD558\uC138\uC694"
+    Quest_State: 20000,80000,20000,100000,300000
+    Quest_Reward: 0
+    Quest_Fail: 40
+  - Stage_Mission: 43,0
+    Quest_Type: Destination
+    Quest_Information: "\uBB34\uC0AC\uD788 \uBAA9\uC801\uC9C0\uAE4C\uC9C0 \uB3C4\uCC29\uD558\uC138\uC694"
+    Quest_State: -1
+    Quest_Reward: 40000
+    Quest_Fail: 40
+  - Stage_Mission: 44,5
+    Quest_Type: Boss
+    Quest_Information: "\uC5D0\uD0A4\uC6C0\uC744 \uC7A1\uC544\uC8FC\uC138\uC694."
+    Quest_State: 5,1
+    Quest_Reward: 70000
+    Quest_Fail: 70
   Q_Destination:
   - Stage_Num: 0
     SubStage_Num: 0
@@ -1663,6 +1706,402 @@ MonoBehaviour:
     NextStageFlag: 1
     Wave_Count: 5
     SubStage_Status: 
+  - Stage_Num: 40
+    SubStage_Num: 0
+    SubStage_Type: Normal
+    Distance: 350000
+    Emerging_Monster: 35,36,37,38,45,46
+    Monster_Count: 10,5
+    Open_SubStageNum: 1
+    StartStageFlag: 1
+    NextStageFlag: 0
+    Wave_Count: 2
+    SubStage_Status: 
+  - Stage_Num: 40
+    SubStage_Num: 1
+    SubStage_Type: Normal
+    Distance: 360000
+    Emerging_Monster: 35,36,37,38,45,46
+    Monster_Count: 11,5
+    Open_SubStageNum: 2,6
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 2
+    SubStage_Status: 
+  - Stage_Num: 40
+    SubStage_Num: 2
+    SubStage_Type: Special
+    Distance: -1
+    Emerging_Monster: -1
+    Monster_Count: -1
+    Open_SubStageNum: 3
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: -1
+    SubStage_Status: 
+  - Stage_Num: 40
+    SubStage_Num: 3
+    SubStage_Type: Hard
+    Distance: 380000
+    Emerging_Monster: 35,36,37,38,39,44,45,46
+    Monster_Count: 11,5
+    Open_SubStageNum: 4
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 3
+    SubStage_Status: 
+  - Stage_Num: 40
+    SubStage_Num: 4
+    SubStage_Type: Special
+    Distance: -1
+    Emerging_Monster: -1
+    Monster_Count: -1
+    Open_SubStageNum: 5
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: -1
+    SubStage_Status: 
+  - Stage_Num: 40
+    SubStage_Num: 5
+    SubStage_Type: HardCore
+    Distance: 420000
+    Emerging_Monster: 35,36,37,38,39,44,45,46
+    Monster_Count: 12,6
+    Open_SubStageNum: 10
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 4
+    SubStage_Status: 
+  - Stage_Num: 40
+    SubStage_Num: 6
+    SubStage_Type: Special
+    Distance: -1
+    Emerging_Monster: -1
+    Monster_Count: -1
+    Open_SubStageNum: 7,11
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: -1
+    SubStage_Status: 
+  - Stage_Num: 40
+    SubStage_Num: 7
+    SubStage_Type: Hard
+    Distance: 380000
+    Emerging_Monster: 35,36,37,38,39,44,45,46
+    Monster_Count: 10,5
+    Open_SubStageNum: 8
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 3
+    SubStage_Status: 
+  - Stage_Num: 40
+    SubStage_Num: 8
+    SubStage_Type: Special
+    Distance: -1
+    Emerging_Monster: -1
+    Monster_Count: -1
+    Open_SubStageNum: 9
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: -1
+    SubStage_Status: 
+  - Stage_Num: 40
+    SubStage_Num: 9
+    SubStage_Type: HardCore
+    Distance: 420000
+    Emerging_Monster: 35,36,37,38,39,44,45,46
+    Monster_Count: 11,6
+    Open_SubStageNum: 10
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 4
+    SubStage_Status: 
+  - Stage_Num: 40
+    SubStage_Num: 10
+    SubStage_Type: Hard
+    Distance: 400000
+    Emerging_Monster: 35,36,37,38,39,44,45,46
+    Monster_Count: 10,5
+    Open_SubStageNum: 15
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 3
+    SubStage_Status: 
+  - Stage_Num: 40
+    SubStage_Num: 11
+    SubStage_Type: Hard
+    Distance: 380000
+    Emerging_Monster: 35,36,37,38,39,44,45
+    Monster_Count: 10,5
+    Open_SubStageNum: 12
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 3
+    SubStage_Status: 
+  - Stage_Num: 40
+    SubStage_Num: 12
+    SubStage_Type: Special
+    Distance: -1
+    Emerging_Monster: -1
+    Monster_Count: -1
+    Open_SubStageNum: 13
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: -1
+    SubStage_Status: 
+  - Stage_Num: 40
+    SubStage_Num: 13
+    SubStage_Type: Hard
+    Distance: 400000
+    Emerging_Monster: 35,36,37,38,39,44,45,46
+    Monster_Count: 10,5
+    Open_SubStageNum: 14
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 3
+    SubStage_Status: 
+  - Stage_Num: 40
+    SubStage_Num: 14
+    SubStage_Type: Special
+    Distance: -1
+    Emerging_Monster: -1
+    Monster_Count: -1
+    Open_SubStageNum: 15
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: -1
+    SubStage_Status: 
+  - Stage_Num: 40
+    SubStage_Num: 15
+    SubStage_Type: HardCore
+    Distance: 420000
+    Emerging_Monster: 35,36,37,38,39,44,45,46
+    Monster_Count: 11,6
+    Open_SubStageNum: 16
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 4
+    SubStage_Status: 
+  - Stage_Num: 40
+    SubStage_Num: 16
+    SubStage_Type: HardCore
+    Distance: 450000
+    Emerging_Monster: 35,36,37,38,39,44,45,46
+    Monster_Count: 12,7
+    Open_SubStageNum: -1
+    StartStageFlag: 0
+    NextStageFlag: 1
+    Wave_Count: 5
+    SubStage_Status: 
+  - Stage_Num: 43
+    SubStage_Num: 0
+    SubStage_Type: Normal
+    Distance: 380000
+    Emerging_Monster: 35,36,37,38,39,40,41,43,44,45,46,47,48,49,50
+    Monster_Count: 11,4
+    Open_SubStageNum: 1
+    StartStageFlag: 1
+    NextStageFlag: 0
+    Wave_Count: 1
+    SubStage_Status: 
+  - Stage_Num: 43
+    SubStage_Num: 1
+    SubStage_Type: Normal
+    Distance: 390000
+    Emerging_Monster: 35,36,37,38,39,40,41,43,44,45,46,47,48,49,50
+    Monster_Count: 11,5
+    Open_SubStageNum: 2,8
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 1
+    SubStage_Status: 
+  - Stage_Num: 43
+    SubStage_Num: 2
+    SubStage_Type: Normal
+    Distance: 400000
+    Emerging_Monster: 35,36,37,38,39,40,41,43,44,45,46,47,48,49,50
+    Monster_Count: 12,4
+    Open_SubStageNum: 3,6
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 1
+    SubStage_Status: 
+  - Stage_Num: 43
+    SubStage_Num: 3
+    SubStage_Type: Special
+    Distance: -1
+    Emerging_Monster: -1
+    Monster_Count: -1
+    Open_SubStageNum: 4
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: -1
+    SubStage_Status: 
+  - Stage_Num: 43
+    SubStage_Num: 4
+    SubStage_Type: Hard
+    Distance: 420000
+    Emerging_Monster: 35,36,37,38,39,40,41,43,44,45,46,47,48,49,50
+    Monster_Count: 12,5
+    Open_SubStageNum: 5
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 2
+    SubStage_Status: 
+  - Stage_Num: 43
+    SubStage_Num: 5
+    SubStage_Type: Hard
+    Distance: 440000
+    Emerging_Monster: 35,36,37,38,39,40,41,43,44,45,46,47,48,49,51
+    Monster_Count: 12,5
+    Open_SubStageNum: 7
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 2
+    SubStage_Status: 
+  - Stage_Num: 43
+    SubStage_Num: 6
+    SubStage_Type: Hard
+    Distance: 430000
+    Emerging_Monster: 35,36,37,38,39,40,41,43,44,45,46,47,48,49,52
+    Monster_Count: 12,5
+    Open_SubStageNum: 7
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 2
+    SubStage_Status: 
+  - Stage_Num: 43
+    SubStage_Num: 7
+    SubStage_Type: Normal
+    Distance: 440000
+    Emerging_Monster: 35,36,37,38,39,40,41,43,44,45,46,47,48,49,53
+    Monster_Count: 12,5
+    Open_SubStageNum: 17
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 1
+    SubStage_Status: 
+  - Stage_Num: 43
+    SubStage_Num: 8
+    SubStage_Type: Normal
+    Distance: 400000
+    Emerging_Monster: 35,36,37,38,39,40,41,43,44,45,46,47,48,49,54
+    Monster_Count: 11,4
+    Open_SubStageNum: 9,13
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 1
+    SubStage_Status: 
+  - Stage_Num: 43
+    SubStage_Num: 9
+    SubStage_Type: Normal
+    Distance: 410000
+    Emerging_Monster: 35,36,37,38,39,40,41,43,44,45,46,47,48,49,55
+    Monster_Count: 11,5
+    Open_SubStageNum: 10
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 1
+    SubStage_Status: 
+  - Stage_Num: 43
+    SubStage_Num: 10
+    SubStage_Type: Special
+    Distance: -1
+    Emerging_Monster: -1
+    Monster_Count: -1
+    Open_SubStageNum: 11
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: -1
+    SubStage_Status: 
+  - Stage_Num: 43
+    SubStage_Num: 11
+    SubStage_Type: Hard
+    Distance: 430000
+    Emerging_Monster: 35,36,37,38,39,40,41,43,44,45,46,47,48,49,57
+    Monster_Count: 12,5
+    Open_SubStageNum: 12
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 2
+    SubStage_Status: 
+  - Stage_Num: 43
+    SubStage_Num: 12
+    SubStage_Type: Hard
+    Distance: 450000
+    Emerging_Monster: 35,36,37,38,39,40,41,43,44,45,46,47,48,49,58
+    Monster_Count: 12,5
+    Open_SubStageNum: 16
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 2
+    SubStage_Status: 
+  - Stage_Num: 43
+    SubStage_Num: 13
+    SubStage_Type: Special
+    Distance: -1
+    Emerging_Monster: -1
+    Monster_Count: -1
+    Open_SubStageNum: 14
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: -1
+    SubStage_Status: 
+  - Stage_Num: 43
+    SubStage_Num: 14
+    SubStage_Type: Hard
+    Distance: 450000
+    Emerging_Monster: 35,36,37,38,39,40,41,43,44,45,46,47,48,49,60
+    Monster_Count: 12,5
+    Open_SubStageNum: 15
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 3
+    SubStage_Status: 
+  - Stage_Num: 43
+    SubStage_Num: 15
+    SubStage_Type: Special
+    Distance: -1
+    Emerging_Monster: -1
+    Monster_Count: -1
+    Open_SubStageNum: 16
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: -1
+    SubStage_Status: 
+  - Stage_Num: 43
+    SubStage_Num: 16
+    SubStage_Type: HardCore
+    Distance: 460000
+    Emerging_Monster: 35,36,37,38,39,40,41,43,44,45,46,47,48,49,62
+    Monster_Count: 12,6
+    Open_SubStageNum: 17
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 4
+    SubStage_Status: 
+  - Stage_Num: 43
+    SubStage_Num: 17
+    SubStage_Type: HardCore
+    Distance: 470000
+    Emerging_Monster: 35,36,37,38,39,40,41,43,44,45,46,47,48,49,63
+    Monster_Count: 13,6
+    Open_SubStageNum: 18
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 4
+    SubStage_Status: 
+  - Stage_Num: 43
+    SubStage_Num: 18
+    SubStage_Type: HardCore
+    Distance: 480000
+    Emerging_Monster: 35,36,37,38,39,40,41,43,44,45,46,47,48,49,50
+    Monster_Count: 13,7
+    Open_SubStageNum: -1
+    StartStageFlag: 0
+    NextStageFlag: 1
+    Wave_Count: 4
+    SubStage_Status: 
   Q_Material:
   - Stage_Num: 6
     SubStage_Num: 0
@@ -2301,6 +2740,215 @@ MonoBehaviour:
     StartStageFlag: 0
     NextStageFlag: 1
     Wave_Count: 5
+    SubStage_Status: 
+  - Stage_Num: 41
+    SubStage_Num: 0
+    SubStage_Type: Normal
+    Distance: 360000
+    Emerging_Monster: 35,36,37,38,45,46
+    Monster_Count: 10,5
+    Open_SubStageNum: 1,4,7
+    StartStageFlag: 1
+    NextStageFlag: 0
+    Wave_Count: 1
+    SubStage_Status: 
+  - Stage_Num: 41
+    SubStage_Num: 1
+    SubStage_Type: Normal
+    Distance: 370000
+    Emerging_Monster: 35,36,37,38,45,46
+    Monster_Count: 11,6
+    Open_SubStageNum: 2
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 1
+    SubStage_Status: 
+  - Stage_Num: 41
+    SubStage_Num: 2
+    SubStage_Type: Hard
+    Distance: 390000
+    Emerging_Monster: 35,36,37,38,39,44,45,46
+    Monster_Count: 11,6
+    Open_SubStageNum: 3
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 2
+    SubStage_Status: 
+  - Stage_Num: 41
+    SubStage_Num: 3
+    SubStage_Type: Special
+    Distance: -1
+    Emerging_Monster: -1
+    Monster_Count: -1
+    Open_SubStageNum: 6
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: -1
+    SubStage_Status: 
+  - Stage_Num: 41
+    SubStage_Num: 4
+    SubStage_Type: Normal
+    Distance: 370000
+    Emerging_Monster: 35,36,37,38,45,46
+    Monster_Count: 11,6
+    Open_SubStageNum: 5
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 1
+    SubStage_Status: 
+  - Stage_Num: 41
+    SubStage_Num: 5
+    SubStage_Type: Normal
+    Distance: 370000
+    Emerging_Monster: 35,36,37,38,45,46
+    Monster_Count: 11,6
+    Open_SubStageNum: 6
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 1
+    SubStage_Status: 
+  - Stage_Num: 41
+    SubStage_Num: 6
+    SubStage_Type: Hard
+    Distance: 380000
+    Emerging_Monster: 35,36,37,38,39,44,45,46
+    Monster_Count: 12,6
+    Open_SubStageNum: 12
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 2
+    SubStage_Status: 
+  - Stage_Num: 41
+    SubStage_Num: 7
+    SubStage_Type: Normal
+    Distance: 370000
+    Emerging_Monster: 35,36,37,38,45,46
+    Monster_Count: 10,5
+    Open_SubStageNum: 8,9
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 1
+    SubStage_Status: 
+  - Stage_Num: 41
+    SubStage_Num: 8
+    SubStage_Type: Normal
+    Distance: 380000
+    Emerging_Monster: 35,36,37,38,45,46
+    Monster_Count: 10,5
+    Open_SubStageNum: 11
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 1
+    SubStage_Status: 
+  - Stage_Num: 41
+    SubStage_Num: 9
+    SubStage_Type: Special
+    Distance: -1
+    Emerging_Monster: -1
+    Monster_Count: -1
+    Open_SubStageNum: 10
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: -1
+    SubStage_Status: 
+  - Stage_Num: 41
+    SubStage_Num: 10
+    SubStage_Type: Hard
+    Distance: 390000
+    Emerging_Monster: 35,36,37,38,39,44,45,46
+    Monster_Count: 11,6
+    Open_SubStageNum: 11
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 2
+    SubStage_Status: 
+  - Stage_Num: 41
+    SubStage_Num: 11
+    SubStage_Type: Hard
+    Distance: 400000
+    Emerging_Monster: 35,36,37,38,39,44,45,46
+    Monster_Count: 12,6
+    Open_SubStageNum: 12
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 2
+    SubStage_Status: 
+  - Stage_Num: 41
+    SubStage_Num: 12
+    SubStage_Type: Special
+    Distance: -1
+    Emerging_Monster: -1
+    Monster_Count: -1
+    Open_SubStageNum: 13
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: -1
+    SubStage_Status: 
+  - Stage_Num: 41
+    SubStage_Num: 13
+    SubStage_Type: HardCore
+    Distance: 420000
+    Emerging_Monster: 35,36,37,38,39,44,45,46
+    Monster_Count: 12,6
+    Open_SubStageNum: 14,17
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 3
+    SubStage_Status: 
+  - Stage_Num: 41
+    SubStage_Num: 14
+    SubStage_Type: Special
+    Distance: -1
+    Emerging_Monster: -1
+    Monster_Count: -1
+    Open_SubStageNum: 15
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: -1
+    SubStage_Status: 
+  - Stage_Num: 41
+    SubStage_Num: 15
+    SubStage_Type: HardCore
+    Distance: 420000
+    Emerging_Monster: 35,36,37,38,39,40,41,44,45,46
+    Monster_Count: 12,6
+    Open_SubStageNum: 16
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 4
+    SubStage_Status: 
+  - Stage_Num: 41
+    SubStage_Num: 16
+    SubStage_Type: HardCore
+    Distance: 440000
+    Emerging_Monster: 35,36,37,38,39,40,41,44,45,46
+    Monster_Count: 12,6
+    Open_SubStageNum: 18
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 4
+    SubStage_Status: 
+  - Stage_Num: 41
+    SubStage_Num: 17
+    SubStage_Type: HardCore
+    Distance: 420000
+    Emerging_Monster: 35,36,37,38,39,40,41,44,45,46
+    Monster_Count: 12,6
+    Open_SubStageNum: 18
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 4
+    SubStage_Status: 
+  - Stage_Num: 41
+    SubStage_Num: 18
+    SubStage_Type: HardCore
+    Distance: 460000
+    Emerging_Monster: 35,36,37,38,39,40,41,44,45,46
+    Monster_Count: 12,6
+    Open_SubStageNum: -1
+    StartStageFlag: 0
+    NextStageFlag: 1
+    Wave_Count: 4
     SubStage_Status: 
   Q_Monster:
   - Stage_Num: 3
@@ -3150,6 +3798,171 @@ MonoBehaviour:
     NextStageFlag: 1
     Wave_Count: 5
     SubStage_Status: 
+  - Stage_Num: 42
+    SubStage_Num: 0
+    SubStage_Type: Normal
+    Distance: 370000
+    Emerging_Monster: 35,36,37,38,39,44,45,46,47
+    Monster_Count: 10,5
+    Open_SubStageNum: 1
+    StartStageFlag: 1
+    NextStageFlag: 0
+    Wave_Count: 1
+    SubStage_Status: 
+  - Stage_Num: 42
+    SubStage_Num: 1
+    SubStage_Type: Normal
+    Distance: 380000
+    Emerging_Monster: 35,36,37,38,39,44,45,46,47
+    Monster_Count: 10,5
+    Open_SubStageNum: 2,4
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 1
+    SubStage_Status: 
+  - Stage_Num: 42
+    SubStage_Num: 2
+    SubStage_Type: Hard
+    Distance: 390000
+    Emerging_Monster: 35,36,37,38,39,44,45,46,47
+    Monster_Count: 11,5
+    Open_SubStageNum: 3
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 2
+    SubStage_Status: 
+  - Stage_Num: 42
+    SubStage_Num: 3
+    SubStage_Type: Hard
+    Distance: 420000
+    Emerging_Monster: 35,36,37,38,39,44,45,46,47
+    Monster_Count: 11,5
+    Open_SubStageNum: 6
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 2
+    SubStage_Status: 
+  - Stage_Num: 42
+    SubStage_Num: 4
+    SubStage_Type: Hard
+    Distance: 390000
+    Emerging_Monster: 35,36,37,38,39,44,45,46,47
+    Monster_Count: 11,5
+    Open_SubStageNum: 5
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 2
+    SubStage_Status: 
+  - Stage_Num: 42
+    SubStage_Num: 5
+    SubStage_Type: Hard
+    Distance: 420000
+    Emerging_Monster: 35,36,37,38,39,44,45,46,47
+    Monster_Count: 11,5
+    Open_SubStageNum: 6
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 2
+    SubStage_Status: 
+  - Stage_Num: 42
+    SubStage_Num: 6
+    SubStage_Type: Special
+    Distance: -1
+    Emerging_Monster: -1
+    Monster_Count: -1
+    Open_SubStageNum: 7
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: -1
+    SubStage_Status: 
+  - Stage_Num: 42
+    SubStage_Num: 7
+    SubStage_Type: HardCore
+    Distance: 440000
+    Emerging_Monster: 35,36,37,38,39,40,41,44,45,46
+    Monster_Count: 12,6
+    Open_SubStageNum: 8,10,12
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 3
+    SubStage_Status: 
+  - Stage_Num: 42
+    SubStage_Num: 8
+    SubStage_Type: Special
+    Distance: -1
+    Emerging_Monster: -1
+    Monster_Count: -1
+    Open_SubStageNum: 9
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: -1
+    SubStage_Status: 
+  - Stage_Num: 42
+    SubStage_Num: 9
+    SubStage_Type: HardCore
+    Distance: 400000
+    Emerging_Monster: 35,36,37,38,39,40,41,44,45,46
+    Monster_Count: 12,6
+    Open_SubStageNum: 14
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 3
+    SubStage_Status: 
+  - Stage_Num: 42
+    SubStage_Num: 10
+    SubStage_Type: Special
+    Distance: -1
+    Emerging_Monster: -1
+    Monster_Count: -1
+    Open_SubStageNum: 11
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: -1
+    SubStage_Status: 
+  - Stage_Num: 42
+    SubStage_Num: 11
+    SubStage_Type: HardCore
+    Distance: 430000
+    Emerging_Monster: 35,36,37,38,39,40,41,44,45,46
+    Monster_Count: 12,6
+    Open_SubStageNum: 14
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 4
+    SubStage_Status: 
+  - Stage_Num: 42
+    SubStage_Num: 12
+    SubStage_Type: Special
+    Distance: -1
+    Emerging_Monster: -1
+    Monster_Count: -1
+    Open_SubStageNum: 13
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: -1
+    SubStage_Status: 
+  - Stage_Num: 42
+    SubStage_Num: 13
+    SubStage_Type: HardCore
+    Distance: 460000
+    Emerging_Monster: 35,36,37,38,39,40,41,44,45,46
+    Monster_Count: 12,6
+    Open_SubStageNum: 14
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 5
+    SubStage_Status: 
+  - Stage_Num: 42
+    SubStage_Num: 14
+    SubStage_Type: HardCore
+    Distance: 440000
+    Emerging_Monster: 35,36,37,38,39,40,41,43,44,45,46,47,48,49,50
+    Monster_Count: 13,7
+    Open_SubStageNum: -1
+    StartStageFlag: 0
+    NextStageFlag: 1
+    Wave_Count: 4
+    SubStage_Status: 
   Q_Escort:
   - Stage_Num: 6
     SubStage_Num: 0
@@ -3843,6 +4656,127 @@ MonoBehaviour:
     StartStageFlag: 0
     NextStageFlag: 1
     Wave_Count: 5
+    SubStage_Status: 
+  - Stage_Num: 41
+    SubStage_Num: 0
+    SubStage_Type: Normal
+    Distance: 360000
+    Emerging_Monster: 35,36,37,38,45,46
+    Monster_Count: 10,5
+    Open_SubStageNum: 1
+    StartStageFlag: 1
+    NextStageFlag: 0
+    Wave_Count: 1
+    SubStage_Status: 
+  - Stage_Num: 41
+    SubStage_Num: 1
+    SubStage_Type: Normal
+    Distance: 370000
+    Emerging_Monster: 35,36,37,38,45,46
+    Monster_Count: 11,5
+    Open_SubStageNum: 2
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 1
+    SubStage_Status: 
+  - Stage_Num: 41
+    SubStage_Num: 2
+    SubStage_Type: Special
+    Distance: -1
+    Emerging_Monster: -1
+    Monster_Count: -1
+    Open_SubStageNum: 3
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: -1
+    SubStage_Status: 
+  - Stage_Num: 41
+    SubStage_Num: 3
+    SubStage_Type: Hard
+    Distance: 390000
+    Emerging_Monster: 35,36,37,38,39,44,45,46
+    Monster_Count: 11,6
+    Open_SubStageNum: 4
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 2
+    SubStage_Status: 
+  - Stage_Num: 41
+    SubStage_Num: 4
+    SubStage_Type: Hard
+    Distance: 410000
+    Emerging_Monster: 35,36,37,38,39,44,45,46
+    Monster_Count: 11,6
+    Open_SubStageNum: 5
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 2
+    SubStage_Status: 
+  - Stage_Num: 41
+    SubStage_Num: 5
+    SubStage_Type: Special
+    Distance: -1
+    Emerging_Monster: -1
+    Monster_Count: -1
+    Open_SubStageNum: 6
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: -1
+    SubStage_Status: 
+  - Stage_Num: 41
+    SubStage_Num: 6
+    SubStage_Type: HardCore
+    Distance: 430000
+    Emerging_Monster: 35,36,37,38,39,40,41,44,45,46
+    Monster_Count: 11,6
+    Open_SubStageNum: 7
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 3
+    SubStage_Status: 
+  - Stage_Num: 41
+    SubStage_Num: 7
+    SubStage_Type: HardCore
+    Distance: 450000
+    Emerging_Monster: 35,36,37,38,39,40,41,44,45,46
+    Monster_Count: 12,6
+    Open_SubStageNum: 8
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 3
+    SubStage_Status: 
+  - Stage_Num: 41
+    SubStage_Num: 8
+    SubStage_Type: Special
+    Distance: -1
+    Emerging_Monster: -1
+    Monster_Count: -1
+    Open_SubStageNum: 9
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: -1
+    SubStage_Status: 
+  - Stage_Num: 41
+    SubStage_Num: 9
+    SubStage_Type: HardCore
+    Distance: 460000
+    Emerging_Monster: 35,36,37,38,39,40,41,44,45,46
+    Monster_Count: 12,6
+    Open_SubStageNum: 10
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 4
+    SubStage_Status: 
+  - Stage_Num: 41
+    SubStage_Num: 10
+    SubStage_Type: HardCore
+    Distance: 460000
+    Emerging_Monster: 35,36,37,38,39,40,41,44,45,46
+    Monster_Count: 12,6
+    Open_SubStageNum: -1
+    StartStageFlag: 0
+    NextStageFlag: 1
+    Wave_Count: 4
     SubStage_Status: 
   Q_Convoy:
   - Stage_Num: 7
@@ -4736,6 +5670,182 @@ MonoBehaviour:
     NextStageFlag: 1
     Wave_Count: 4
     SubStage_Status: 
+  - Stage_Num: 42
+    SubStage_Num: 0
+    SubStage_Type: Normal
+    Distance: 370000
+    Emerging_Monster: 35,36,37,38,39,44,45,46,47
+    Monster_Count: 10,5
+    Open_SubStageNum: 1
+    StartStageFlag: 1
+    NextStageFlag: 0
+    Wave_Count: 1
+    SubStage_Status: 
+  - Stage_Num: 42
+    SubStage_Num: 1
+    SubStage_Type: Normal
+    Distance: 380000
+    Emerging_Monster: 35,36,37,38,39,44,45,46,47
+    Monster_Count: 10,5
+    Open_SubStageNum: 2,8
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 2
+    SubStage_Status: 
+  - Stage_Num: 42
+    SubStage_Num: 2
+    SubStage_Type: Normal
+    Distance: 390000
+    Emerging_Monster: 35,36,37,38,39,44,45,46,47
+    Monster_Count: 11,5
+    Open_SubStageNum: 3,5
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 2
+    SubStage_Status: 
+  - Stage_Num: 42
+    SubStage_Num: 3
+    SubStage_Type: Normal
+    Distance: 390000
+    Emerging_Monster: 35,36,37,38,39,44,45,46,47
+    Monster_Count: 11,5
+    Open_SubStageNum: 4
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 2
+    SubStage_Status: 
+  - Stage_Num: 42
+    SubStage_Num: 4
+    SubStage_Type: Normal
+    Distance: 390000
+    Emerging_Monster: 35,36,37,38,39,44,45,46,47
+    Monster_Count: 11,5
+    Open_SubStageNum: 6
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 2
+    SubStage_Status: 
+  - Stage_Num: 42
+    SubStage_Num: 5
+    SubStage_Type: Hard
+    Distance: 420000
+    Emerging_Monster: 35,36,37,38,39,40,41,44,45,46,47
+    Monster_Count: 12,6
+    Open_SubStageNum: 6
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 3
+    SubStage_Status: 
+  - Stage_Num: 42
+    SubStage_Num: 6
+    SubStage_Type: Special
+    Distance: -1
+    Emerging_Monster: -1
+    Monster_Count: -1
+    Open_SubStageNum: 7
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: -1
+    SubStage_Status: 
+  - Stage_Num: 42
+    SubStage_Num: 7
+    SubStage_Type: HardCore
+    Distance: 450000
+    Emerging_Monster: 35,36,37,38,39,40,41,43,44,45,46,47,48,49,50
+    Monster_Count: 13,6
+    Open_SubStageNum: 14
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 4
+    SubStage_Status: 
+  - Stage_Num: 42
+    SubStage_Num: 8
+    SubStage_Type: Normal
+    Distance: 390000
+    Emerging_Monster: 35,36,37,38,39,44,45,46,47
+    Monster_Count: 10,5
+    Open_SubStageNum: 9,11
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 2
+    SubStage_Status: 
+  - Stage_Num: 42
+    SubStage_Num: 9
+    SubStage_Type: Special
+    Distance: -1
+    Emerging_Monster: -1
+    Monster_Count: -1
+    Open_SubStageNum: 10
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: -1
+    SubStage_Status: 
+  - Stage_Num: 42
+    SubStage_Num: 10
+    SubStage_Type: HardCore
+    Distance: 430000
+    Emerging_Monster: 35,36,37,38,39,40,41,43,44,45,46,47,48,49,50
+    Monster_Count: 13,6
+    Open_SubStageNum: 12
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 4
+    SubStage_Status: 
+  - Stage_Num: 42
+    SubStage_Num: 11
+    SubStage_Type: Normal
+    Distance: 400000
+    Emerging_Monster: 35,36,37,38,39,44,45,46,47
+    Monster_Count: 11,5
+    Open_SubStageNum: 12
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 2
+    SubStage_Status: 
+  - Stage_Num: 42
+    SubStage_Num: 12
+    SubStage_Type: Hard
+    Distance: 410000
+    Emerging_Monster: 35,36,37,38,39,40,41,44,45,46,47
+    Monster_Count: 12,6
+    Open_SubStageNum: 13
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 3
+    SubStage_Status: 
+  - Stage_Num: 42
+    SubStage_Num: 13
+    SubStage_Type: Hard
+    Distance: 420000
+    Emerging_Monster: 35,36,37,38,39,40,41,44,45,46,47
+    Monster_Count: 12,6
+    Open_SubStageNum: 14
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 3
+    SubStage_Status: 
+  - Stage_Num: 42
+    SubStage_Num: 14
+    SubStage_Type: Special
+    Distance: -1
+    Emerging_Monster: -1
+    Monster_Count: -1
+    Open_SubStageNum: 15
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: -1
+    SubStage_Status: 
+  - Stage_Num: 42
+    SubStage_Num: 15
+    SubStage_Type: HardCore
+    Distance: 46000
+    Emerging_Monster: 35,36,37,38,39,40,41,43,44,45,46,47,48,49,50
+    Monster_Count: 13,7
+    Open_SubStageNum: -1
+    StartStageFlag: 0
+    NextStageFlag: 1
+    Wave_Count: 5
+    SubStage_Status: 
   Q_Boss:
   - Stage_Num: 4
     SubStage_Num: 0
@@ -5386,3 +6496,212 @@ MonoBehaviour:
     NextStageFlag: 1
     Wave_Count: 6
     SubStage_Status: 4,98,11
+  - Stage_Num: 44
+    SubStage_Num: 0
+    SubStage_Type: Normal
+    Distance: 280000
+    Emerging_Monster: 35,36,37,38,39,40,41,43,44,45,46,47,48,49,50
+    Monster_Count: 10,5
+    Open_SubStageNum: 1
+    StartStageFlag: 1
+    NextStageFlag: 0
+    Wave_Count: 2
+    SubStage_Status: 
+  - Stage_Num: 44
+    SubStage_Num: 1
+    SubStage_Type: Normal
+    Distance: 300000
+    Emerging_Monster: 35,36,37,38,39,40,41,43,44,45,46,47,48,49,50
+    Monster_Count: 11,5
+    Open_SubStageNum: 2,5
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 2
+    SubStage_Status: 
+  - Stage_Num: 44
+    SubStage_Num: 2
+    SubStage_Type: Normal
+    Distance: 320000
+    Emerging_Monster: 35,36,37,38,39,40,41,43,44,45,46,47,48,49,50
+    Monster_Count: 11,6
+    Open_SubStageNum: 3
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 2
+    SubStage_Status: 
+  - Stage_Num: 44
+    SubStage_Num: 3
+    SubStage_Type: Normal
+    Distance: 340000
+    Emerging_Monster: 35,36,37,38,39,40,41,43,44,45,46,47,48,49,50
+    Monster_Count: 12,5
+    Open_SubStageNum: 4
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 2
+    SubStage_Status: 
+  - Stage_Num: 44
+    SubStage_Num: 4
+    SubStage_Type: Normal
+    Distance: 360000
+    Emerging_Monster: 35,36,37,38,39,40,41,43,44,45,46,47,48,49,50
+    Monster_Count: 12,6
+    Open_SubStageNum: 7
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 2
+    SubStage_Status: 
+  - Stage_Num: 44
+    SubStage_Num: 5
+    SubStage_Type: Special
+    Distance: -1
+    Emerging_Monster: -1
+    Monster_Count: -1
+    Open_SubStageNum: 6
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: -1
+    SubStage_Status: 
+  - Stage_Num: 44
+    SubStage_Num: 6
+    SubStage_Type: Hard
+    Distance: 380000
+    Emerging_Monster: 35,36,37,38,39,40,41,43,44,45,46,47,48,49,50
+    Monster_Count: 12,7
+    Open_SubStageNum: 7
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 3
+    SubStage_Status: 
+  - Stage_Num: 44
+    SubStage_Num: 7
+    SubStage_Type: Normal
+    Distance: 380000
+    Emerging_Monster: 35,36,37,38,39,40,41,43,44,45,46,47,48,49,50
+    Monster_Count: 12,6
+    Open_SubStageNum: 8
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 2
+    SubStage_Status: 
+  - Stage_Num: 44
+    SubStage_Num: 8
+    SubStage_Type: Hard
+    Distance: 400000
+    Emerging_Monster: 35,36,37,38,39,40,41,43,44,45,46,47,48,49,50
+    Monster_Count: 13,7
+    Open_SubStageNum: 9,11
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 3
+    SubStage_Status: 
+  - Stage_Num: 44
+    SubStage_Num: 9
+    SubStage_Type: Special
+    Distance: -1
+    Emerging_Monster: -1
+    Monster_Count: -1
+    Open_SubStageNum: 10
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: -1
+    SubStage_Status: 
+  - Stage_Num: 44
+    SubStage_Num: 10
+    SubStage_Type: HardCore
+    Distance: 480000
+    Emerging_Monster: 35,36,37,38,39,40,41,43,44,45,46,47,48,49,50
+    Monster_Count: 14,8
+    Open_SubStageNum: 14
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 4
+    SubStage_Status: 
+  - Stage_Num: 44
+    SubStage_Num: 11
+    SubStage_Type: Hard
+    Distance: 410000
+    Emerging_Monster: 35,36,37,38,39,40,41,43,44,45,46,47,48,49,50
+    Monster_Count: 12,6
+    Open_SubStageNum: 12
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 3
+    SubStage_Status: 
+  - Stage_Num: 44
+    SubStage_Num: 12
+    SubStage_Type: Hard
+    Distance: 420000
+    Emerging_Monster: 35,36,37,38,39,40,41,43,44,45,46,47,48,49,50
+    Monster_Count: 12,7
+    Open_SubStageNum: 13
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 3
+    SubStage_Status: 
+  - Stage_Num: 44
+    SubStage_Num: 13
+    SubStage_Type: Hard
+    Distance: 430000
+    Emerging_Monster: 35,36,37,38,39,40,41,43,44,45,46,47,48,49,50
+    Monster_Count: 13,7
+    Open_SubStageNum: 14
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 3
+    SubStage_Status: 
+  - Stage_Num: 44
+    SubStage_Num: 14
+    SubStage_Type: Hard
+    Distance: 440000
+    Emerging_Monster: 35,36,37,38,39,40,41,43,44,45,46,47,48,49,50
+    Monster_Count: 13,8
+    Open_SubStageNum: 15
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 3
+    SubStage_Status: 
+  - Stage_Num: 44
+    SubStage_Num: 15
+    SubStage_Type: Hard
+    Distance: 460000
+    Emerging_Monster: 35,36,37,38,39,40,41,43,44,45,46,47,48,49,50
+    Monster_Count: 14,,7
+    Open_SubStageNum: 16
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 3
+    SubStage_Status: 
+  - Stage_Num: 44
+    SubStage_Num: 16
+    SubStage_Type: HardCore
+    Distance: 480000
+    Emerging_Monster: 35,36,37,38,39,40,41,43,44,45,46,47,48,49,50
+    Monster_Count: 14,8
+    Open_SubStageNum: 17
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: 4
+    SubStage_Status: 
+  - Stage_Num: 44
+    SubStage_Num: 17
+    SubStage_Type: SimpleStation
+    Distance: -1
+    Emerging_Monster: -1
+    Monster_Count: -1
+    Open_SubStageNum: 18
+    StartStageFlag: 0
+    NextStageFlag: 0
+    Wave_Count: -1
+    SubStage_Status: 
+  - Stage_Num: 44
+    SubStage_Num: 18
+    SubStage_Type: Boss
+    Distance: 500000
+    Emerging_Monster: 35,36,37,38,39,40,41,43,44,45,46,47,48,49,50
+    Monster_Count: 15,8
+    Open_SubStageNum: -1
+    StartStageFlag: 0
+    NextStageFlag: 1
+    Wave_Count: 7
+    SubStage_Status: 5,98,6
