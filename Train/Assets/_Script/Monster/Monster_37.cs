@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using JetBrains.Annotations;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -125,18 +126,21 @@ public class Monster_37 : Monster
     IEnumerator atk()
     {
         atkFlag = true;
+        float[] direction = new float[2];
         // 1) 초기 랜덤 회전
-        foreach (GameObject laser in LaserObject)
-        {
-            laser.SetActive(true);
-            laser.transform.rotation = Quaternion.Euler(0, 0, Random.Range(-45f, 45f));
-            laser.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, 0, 0, 0);
-        }
-        int[] direction = new int[2];
         for (int i = 0; i < 2; i++)
         {
-            direction[i] = Random.Range(0, 2) == 0 ? 1 : -1;
+            LaserObject[i].SetActive(true);
+            float rid = Random.Range(-120f, -60f);
+            LaserObject[i].transform.rotation = Quaternion.Euler(0, 0, rid);
+            Vector3 e = LaserObject[i].transform.eulerAngles;
+            if (e.z > 180f) e.z -= 360f;
+            LaserObject[i].transform.eulerAngles = e;
+            direction[i] = (rid > -90f) ? -1f : 1f;
+            LaserObject[i].GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, 0, 0, 0);
+
         }
+
         float rotatedAngle = 0f;      // 지금까지 회전한 누적각도
         float rotateSpeed = 35f;      // 초당 회전 속도(원하면 조절)
 

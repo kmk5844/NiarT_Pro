@@ -25,7 +25,7 @@ public class UIDirector : MonoBehaviour
     public GameObject Option_UI;
     public GameObject TrainInformation_UI;
     public GameObject Infinite_UI;
-
+    
     [Header("Playing UI")]
     public Image Player_Blood;
     Color Player_Blood_Color;

@@ -31,7 +31,7 @@ public class Monster_41 : Monster
                 MonsterDirector.MaxPos_Sky.y + 5f);
         transform.localPosition = Spawn_Init_Pos;
 
-        speed = Random.Range(3f, 7f);
+        speed = Random.Range(2f, 3f);
         max_xPos = Random.Range(1, 9);
         frequency = Random.Range(12f, 20f);
         amplitude = Random.Range(1f, 2.5f);

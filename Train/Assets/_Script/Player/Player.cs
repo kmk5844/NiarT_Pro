@@ -1268,6 +1268,13 @@ public class Player : MonoBehaviour
         else if(PlayerNum == 1)
         {
            MMSoundManagerSoundPlayEvent.Trigger(Mail_Pain_SFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+        }else if(PlayerNum == 2)
+        {
+            MMSoundManagerSoundPlayEvent.Trigger(Femail_Pain_SFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+        }
+        else if(PlayerNum == 3)
+        {
+            MMSoundManagerSoundPlayEvent.Trigger(Femail_Pain_SFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
         }
     }
 

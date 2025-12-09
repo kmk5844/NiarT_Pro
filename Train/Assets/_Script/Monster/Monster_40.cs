@@ -131,10 +131,25 @@ public class Monster_40 : Monster
         atkFlag = true;
         // 1) 초기 랜덤 회전
         LaserObjcet.SetActive(true);
-        LaserObjcet.transform.rotation = Quaternion.Euler(0, 0, 30f);
-        LaserObjcet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, 0, 0, 0);
-        float rotatedAngle = 0f;      // 지금까지 회전한 누적각도
-        float rotateSpeed = 40f;      // 초당 회전 속도(원하면 조절)
+
+        float baseAngle = -40f;
+
+        // 몬스터 플립 기준 각도 설정
+        float angle = baseAngle;
+        if (transform.localScale.x < 0f)  // 부모(몬스터)가 좌우 반전 상태라면
+        {
+            angle = 380f;  // 반대 방향 거울 각도
+        }
+
+        // 정확한 초기 각도 적용
+        LaserObjcet.transform.rotation = Quaternion.Euler(0, 0, angle);
+
+        // 회전 방향도 몬스터 기준
+        LaserObjcet.GetComponent<MonsterBullet>()
+            .Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, 0, 0, 0);
+
+        float rotatedAngle = 0f;
+        float rotateSpeed = 40f;
 
         // 2) 매 프레임마다 회전
         while (true)
@@ -145,7 +160,7 @@ public class Monster_40 : Monster
             // 레이저들 전부 회전 적용
             LaserObjcet.transform.Rotate(0, 0, delta * -1);
 
-            if (rotatedAngle >= 60f)
+            if (rotatedAngle >= 90f)
                 break;
 
             yield return null; // 다음 프레임까지 기다림
