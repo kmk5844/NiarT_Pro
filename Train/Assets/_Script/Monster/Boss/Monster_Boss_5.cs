@@ -174,8 +174,8 @@ public class Monster_Boss_5 : Boss
 
         if(playType == Boss_PlayType.SKill)
         {
-            //skillNum = Random.Range(0, 5);
-            skillNum = 2;
+            skillNum = Random.Range(0, 5);
+            //skillNum = 2;
             if(skillNum == 0)
             {
                 //체력 회복 5%

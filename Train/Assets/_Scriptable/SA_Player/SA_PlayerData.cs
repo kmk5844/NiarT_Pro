@@ -568,18 +568,23 @@ public class SA_PlayerData : ScriptableObject
         {
             case (0):
                 level_atk++;
+                Save_Solo("Level_Atk");
                 break;
             case (1):
                 level_atkdelay++;
+                Save_Solo("Level_AtkDelay");
                 break;
             case (2):
                 level_armor++;
+                Save_Solo("Level_PlayerArmor");
                 break;
             case (3):
                 level_speed++;
+                Save_Solo("Level_PlayerSpeed");
                 break;
             case (4):
                 level_hp++;
+                Save_Solo("Level_PlayerHP");
                 break;
         }
     }

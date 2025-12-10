@@ -8,4 +8,5 @@ public class Info_Stage
     public string Story_Index;
     public int StationBackGround;
     public int GameBackGround;
+    public int SupplyMonsterNum;
 }

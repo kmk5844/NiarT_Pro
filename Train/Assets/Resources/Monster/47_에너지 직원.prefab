@@ -29,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 3186392533666958161}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.679, y: 0.033, z: -0}
-  m_LocalScale: {x: -80, y: 1.4898, z: 1}
+  m_LocalPosition: {x: -0.553, y: 0.0232, z: -0.001}
+  m_LocalScale: {x: -300, y: 0.8907691, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3824300813860831442}
@@ -269,6 +269,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3824300813860831442}
   - component: {fileID: 134859301288039501}
+  - component: {fileID: 3089145469773784513}
   m_Layer: 0
   m_Name: LaserGun
   m_TagString: Untagged
@@ -286,7 +287,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.0058184955, z: -0, w: 0.9999831}
   m_LocalPosition: {x: -0.003, y: -0.006, z: -0}
-  m_LocalScale: {x: 0.5000339, y: 0.5, z: 0.9998646}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7008199358915496674}
@@ -304,6 +305,58 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ee72d472d37b5f4892a7f39e27359a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!212 &3089145469773784513
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7466605731134933572}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 375295091
+  m_SortingLayer: 5
+  m_SortingOrder: 1
+  m_Sprite: {fileID: -1432861696, guid: 1999fc9afc0072e4787da6e486ca2acd, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 2, y: 2}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
 --- !u!1 &7538185384902093416
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,6 +434,7 @@ GameObject:
   - component: {fileID: 3102294194950935420}
   - component: {fileID: -3259779365467001941}
   - component: {fileID: 2194946612717866638}
+  - component: {fileID: 5619399678090462282}
   m_Layer: 8
   m_Name: "47_\uC5D0\uB108\uC9C0 \uC9C1\uC6D0"
   m_TagString: Monster
@@ -450,7 +504,7 @@ SpriteRenderer:
   m_SortingLayerID: 375295091
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6df4327c39cfe3c4f85e55d482a304c1, type: 3}
+  m_Sprite: {fileID: 1872484759, guid: 2b83a8e9f4ec9144aaaf683667188bd1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -506,7 +560,7 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: -0.2317728, y: -0.4375475}
-      - {x: -0.40206647, y: 0.19867195}
+      - {x: -0.31570613, y: 0.18689622}
       - {x: -0.01860432, y: 0.54740036}
       - {x: 0.27114633, y: 0.42126215}
       - {x: 0.35718766, y: 0.15930428}
@@ -558,6 +612,27 @@ MonoBehaviour:
   speed: 0
   max_xPos: 0
   LaserObject: {fileID: 3186392533666958161}
+--- !u!95 &5619399678090462282
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7976047841580440944}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 796d6c2dfd9f2b84384cacb589ecae80, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8556176419555939304
 GameObject:
   m_ObjectHideFlags: 0

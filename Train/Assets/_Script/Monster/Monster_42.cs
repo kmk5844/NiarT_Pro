@@ -22,7 +22,7 @@ public class Monster_42 : Monster
         Monster_Num = 42;
 
         base.Start();
-        MonsterDirector_Pos = new Vector2(transform.localPosition.x, transform.localPosition.y);
+        MonsterDirector_Pos = new Vector2(transform.localPosition.x, MonsterDirector.MinPos_Ground.y);
         Spawn_Init_Pos =
             new Vector2(MonsterDirector_Pos.x + Random.Range(2f, 5f),
                 MonsterDirector.MinPos_Ground.y - 4f);
@@ -77,7 +77,7 @@ public class Monster_42 : Monster
         float duration = 1f;
         float height = Random.Range(3f, 5f);
         base.WalkEffect.SetActive(true);
-
+        base.col.enabled = false;
         while (elapsedTime < duration)
         {
             elapsedTime += Time.deltaTime;
@@ -92,6 +92,7 @@ public class Monster_42 : Monster
         }
         transform.localPosition = MonsterDirector_Pos;
         monster_gametype = Monster_GameType.Fighting;
+        base.col.enabled = true;
         Monster_coroutine = null;
     }
 

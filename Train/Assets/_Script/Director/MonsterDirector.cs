@@ -48,7 +48,8 @@ public class MonsterDirector : MonoBehaviour
 
     [Header("보급 몬스터 정보 및 리스트")]
     public Transform SupplyMonster_List;
-    public GameObject SupplyMonster_Object;
+    public GameObject[] SupplyMonster_Object;
+    public int SupplyMonster_Num;
 
     [Header("몬스터 공중 스폰 설정")]
     public static Vector2 MaxPos_Sky;
@@ -311,7 +312,7 @@ public class MonsterDirector : MonoBehaviour
         Random_yPos = Random.Range(MinPos_Sky.y, MaxPos_Sky.y);
         if (GameDirector_SpawnFlag == true)
         {
-            Instantiate(SupplyMonster_Object, new Vector3(Random_xPos, Random_yPos, 0), Quaternion.identity, SupplyMonster_List);
+            Instantiate(SupplyMonster_Object[SupplyMonster_Num], new Vector3(Random_xPos, Random_yPos, 0), Quaternion.identity, SupplyMonster_List);
         }
         isSupplySpawing = false;
     }
@@ -327,7 +328,8 @@ public class MonsterDirector : MonoBehaviour
         {
             yield return new WaitForSeconds(1f);
         }
-            Random_xPos = Random.Range(MinPos_Ground.x, MaxPos_Ground.x);
+
+        Random_xPos = Random.Range(MinPos_Ground.x, MaxPos_Ground.x);
         Random_yPos = Random.Range(MinPos_Ground.y, MaxPos_Ground.y);
 
         int MonsterRandomIndex = Random.Range(0, Emerging_Monster_List_Slow.Count);
@@ -417,12 +419,13 @@ public class MonsterDirector : MonoBehaviour
     }
 
 
-    public void Get_Monster_List(List<int> GameDirector_Monster_List_Sky, List<int> GameDirector_Monster_List_Ground,List<int>GameDirector_Monster_List_Slow, List<int>GameDirector_MonsterCount_List)
+    public void Get_Monster_List(List<int> GameDirector_Monster_List_Sky, List<int> GameDirector_Monster_List_Ground,List<int>GameDirector_Monster_List_Slow, List<int>GameDirector_MonsterCount_List, int SupplyNum)
     {
         Emerging_Monster_List_Sky = GameDirector_Monster_List_Sky;
         Emerging_Monster_List_Ground = GameDirector_Monster_List_Ground;
         Emerging_Monster_List_Slow = GameDirector_Monster_List_Slow;
         Emerging_MonsterCount_List = GameDirector_MonsterCount_List;
+        SupplyMonster_Num = SupplyNum;
 
         MaxMonsterNum = 0;
         foreach(int M in Emerging_MonsterCount_List) {

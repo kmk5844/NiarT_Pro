@@ -1016,6 +1016,7 @@ public class GameDirector : MonoBehaviour
         Emerging_Monster_Sky = new List<int>();
         Emerging_Monster_Ground = new List<int>();
         Emerging_MonsterCount = new List<int>();
+        int SupplyMonsterNum = EX_GameData.Information_Stage[Stage_Num].SupplyMonsterNum;
         string[] Monster_String = Emerging_Monster_String.Split(',');
         string[] MonsterCount_String = Emerging_MonsterCount_String.Split(",");
         for (int i = 0; i < Monster_String.Length; i++)
@@ -1043,7 +1044,7 @@ public class GameDirector : MonoBehaviour
             Emerging_MonsterCount.Add(num2);
         }
 
-        monsterDirector.Get_Monster_List(Emerging_Monster_Sky, Emerging_Monster_Ground, Emerging_Monster_Slow, Emerging_MonsterCount);
+        monsterDirector.Get_Monster_List(Emerging_Monster_Sky, Emerging_Monster_Ground, Emerging_Monster_Slow, Emerging_MonsterCount, SupplyMonsterNum);
 
         if (SubStageData.SubStage_Type == SubStageType.Boss)
         {
@@ -1103,7 +1104,7 @@ public class GameDirector : MonoBehaviour
             Emerging_MonsterCount.Add(num2);
         }
 
-        monsterDirector.Get_Monster_List(Emerging_Monster_Sky, Emerging_Monster_Ground, Emerging_Monster_Slow, Emerging_MonsterCount);
+        monsterDirector.Get_Monster_List(Emerging_Monster_Sky, Emerging_Monster_Ground, Emerging_Monster_Slow, Emerging_MonsterCount, 0);
 
         if (Test_Mode)
         {
@@ -1977,23 +1978,43 @@ public class GameDirector : MonoBehaviour
         SoundSequce(BossBGM);
         float fadeDuration = 1f;
         float fadeElapsed = 0f;
-        Image warningImage = uiDirector.WarningObject.GetComponent<Image>();
-        Color originalColor = warningImage.color;
+        Image[] WarningImage = new Image[2];
+        for(int i = 0; i < 2; i++)
+        {
+            WarningImage[i] = uiDirector.WarningObject.transform.GetChild(i).GetComponent<Image>();
+        }
+
+        Color[] originalColor = new Color[2];
+        for (int i = 0; i < 2; i++)
+        {
+            originalColor[i] = WarningImage[i].color;
+        }
 
         while (fadeElapsed < fadeDuration)
         {
             fadeElapsed += Time.deltaTime;
             float alpha = Mathf.Lerp(1f, 0f, fadeElapsed / fadeDuration);
-            warningImage.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
+            for(int i = 0; i < 2; i++)
+            {
+                WarningImage[i].color = new Color(originalColor[i].r, originalColor[i].g, originalColor[i].b, alpha);
+            }
+            //warningImage.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
             yield return null;
         }
 
         // 완전히 투명하게 만든 후 WarningObject 비활성화
-        warningImage.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0f);
+        //warningImage.color = new Color(originalColor.r, originalColor.g, originalColor.b, 0f);
+        for (int i = 0; i < 2; i++)
+        {
+            WarningImage[i].color = new Color(originalColor[i].r, originalColor[i].g, originalColor[i].b, 0f);
+        }
 
         uiDirector.WarningObject.SetActive(false);
 
-        warningImage.color = new Color(originalColor.r, originalColor.g, originalColor.b, 1f);
+        for (int i = 0; i < 2; i++)
+        {
+            WarningImage[i].color = new Color(originalColor[i].r, originalColor[i].g, originalColor[i].b, 1f);
+        }
         yield return new WaitForSeconds(1.5f);
 
 
