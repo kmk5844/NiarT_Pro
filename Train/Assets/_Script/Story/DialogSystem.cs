@@ -4,6 +4,9 @@ using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
 using MoreMountains.Tools;
+using JetBrains.Annotations;
+using UnityEditor.Localization.Plugins.XLIFF.V20;
+using System;
 
 public class DialogSystem : MonoBehaviour
 {
@@ -24,6 +27,8 @@ public class DialogSystem : MonoBehaviour
     private bool Back_Flag;
     private bool Option_Flag;
 	private float delay;
+    private bool SelectEvent_Flag;
+    private bool SelectAnswer_Flag;
 
 	[SerializeField]
 	private int stageNum;
@@ -39,6 +44,12 @@ public class DialogSystem : MonoBehaviour
     Image CutScene_Sprite;
 	[SerializeField]
 	private	Speaker[] speakers;		// 대화에 참여하는 캐릭터들의 UI
+    [SerializeField]
+    GameObject SelectObject;
+    [SerializeField]
+    private GameObject[] SelectButton;
+    int SelectButtonNum;
+
 	[SerializeField]
 	private	List<DialogData> dialogs;               // 현재 분기의 대사 목록 배열
 
@@ -68,6 +79,12 @@ public class DialogSystem : MonoBehaviour
             eventFlag = selectMission.M_Event;
             delay = 2;
         }
+
+        for (int i = 0; i < 3; i++)
+        {
+            SelectButton[i].GetComponent<StorySelectButton>().Setting_Director(this);
+        }
+
         ButtonSFX = Resources.Load<AudioClip>("Sound/SFX/ButtonSFX");
         Check_Local();
 
@@ -114,7 +131,7 @@ public class DialogSystem : MonoBehaviour
             Option_Flag = storydirector.Option_Flag;
         }
 
-        if (Input.GetMouseButtonDown(0) && Auto_Flag)
+        if (Input.GetMouseButtonDown(0) && Auto_Flag &&!SelectEvent_Flag)
         {
             storydirector.Click_Cancel_Auto_Flag();
         }
@@ -157,7 +174,7 @@ public class DialogSystem : MonoBehaviour
 
         if (!Back_Flag && !Option_Flag)
         {
-            if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)) && !SkipHit_Flag && !AutoHit_Flag && !BackHit_Flag && !OptionHit_Flag)
+            if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)) && !SkipHit_Flag && !AutoHit_Flag && !BackHit_Flag && !OptionHit_Flag && !SelectEvent_Flag)
             {
                 if (isTypingEffect == true)
                 {
@@ -200,7 +217,7 @@ public class DialogSystem : MonoBehaviour
                 }
             }
 
-            if (Auto_Flag && !isTypingEffect)
+            if (Auto_Flag && !isTypingEffect && !SelectEvent_Flag)
             {
                 // 대사가 남아있을 경우 다음 대사 진행
                 if (dialogs.Count > currentDialogIndex + 1)
@@ -227,23 +244,93 @@ public class DialogSystem : MonoBehaviour
 
     private void SetNextDialog()
 	{
-		// 이전 화자의 대화 관련 오브젝트 비활성화
-		SetActiveObjects(speakers[currentSpeakerIndex], false);
-		// 다음 대사를 진행하도록 
-		currentDialogIndex ++;
+        if(currentSpeakerIndex == -1)
+        {
+            SelectEvent_Flag = false;
+            SelectAnswer_Flag = true;
+            SelectObject.SetActive(false);
+            for (int i = 0; i < 3; i++)
+            {
+                SelectButton[i].GetComponent<StorySelectButton>().Init();
+            }
+        }
+        else
+        {
+            // 이전 화자의 대화 관련 오브젝트 비활성화
+            SetActiveObjects(speakers[currentSpeakerIndex], false);
+        }
+        // 다음 대사를 진행하도록
+        if (!SelectAnswer_Flag)
+        {
+            currentDialogIndex++;
+        }
+        else
+        {
+            string[] str = dialogs[currentDialogIndex + 1].etc.Split(',');
+            int index = Array.IndexOf(str, "Answer");
+            if (str[index + 1] == SelectButtonNum.ToString())
+            {
+                currentDialogIndex++;
+            }
+            else
+            {
+                while (true)
+                {
+                    string[] str_ = dialogs[currentDialogIndex + 1].etc.Split(',');
+                    bool exists = Array.Exists(str_, element => element == "Answer");
+                    if (exists)
+                    {
+                        currentDialogIndex++;
+                    }
+                    else
+                    {
+                        //currentDialogIndex--;
+                        currentDialogIndex++;
+                        SelectAnswer_Flag = false;
+                        break;
+                    }
+                }
+            }
+        }
         // 현재 화자 순번 설정
+        //Debug.Log(currentDialogIndex);
 		currentSpeakerIndex = dialogs[currentDialogIndex].speakerIndex;
-        // 현재 화자의 대화 관련 오브젝트 활성화
-		SetActiveObjects(speakers[currentSpeakerIndex], true);
+        if(currentSpeakerIndex == -1)
+        {
+            SelectEvent_Flag = true;
+            for (int i = 0; i < 3; i++)
+            {
+                string[] dialogEtc = dialogs[currentDialogIndex].etc.Split(',');
+                if (dialogEtc[0] != "Select")
+                {
+                    //currentDialogIndex--;
+                    SelectButton[i].GetComponent<StorySelectButton>().Init();
+                }
+                else
+                {
+                    SelectButton[i].GetComponent<StorySelectButton>().Setting(dialogs[currentDialogIndex].dialogue);
+                    currentDialogIndex++;
+                }
+            }
+            SelectObject.SetActive(true);
+        }
+        else
+        {
+            SetActiveObjects(speakers[currentSpeakerIndex], true);
+            // 현재 화자의 대화 관련 오브젝트 활성화
+        }
 
         //커스텀 작동
         CheckCustom();
 
-        // 현재 화자 이름 텍스트 설정
-        speakers[currentSpeakerIndex].textName.text = dialogs[currentDialogIndex].name;
-		// 현재 화자의 대사 텍스트 설정
-		//speakers[currentSpeakerIndex].textDialogue.text = dialogs[currentDialogIndex].dialogue;
-		StartCoroutine("OnTypingText");
+        if(currentSpeakerIndex != -1)
+        {
+            // 현재 화자 이름 텍스트 설정
+            speakers[currentSpeakerIndex].textName.text = dialogs[currentDialogIndex].name;
+            // 현재 화자의 대사 텍스트 설정
+            //speakers[currentSpeakerIndex].textDialogue.text = dialogs[currentDialogIndex].dialogue;
+            StartCoroutine("OnTypingText");
+        }
 	}
 
 	private void SetActiveObjects(Speaker speaker, bool visible)
@@ -490,6 +577,26 @@ public class DialogSystem : MonoBehaviour
     void Click_Button_SFX()
     {
         MMSoundManagerSoundPlayEvent.Trigger(ButtonSFX, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
+    }
+
+    public void SetSelectButtonNum(int num)
+    {
+        SelectButtonNum = num;
+        while (true)
+        {
+            string[] str = dialogs[currentDialogIndex].etc.Split(',');
+            int index = Array.IndexOf(str, "Answer");
+            if (str[index + 1] == SelectButtonNum.ToString())
+            {
+                currentDialogIndex--;
+                SetNextDialog();
+                break;
+            }
+            else
+            {
+                currentDialogIndex++;
+            }
+        }
     }
 }
 

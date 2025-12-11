@@ -72,11 +72,19 @@ public class MissionDataObject : ScriptableObject
     private bool stageopenflag;
     public bool StageOpenFlag { get { return stageopenflag; } }
 
+    [SerializeField]
+    private bool storyflag;
+    public bool StoryFlag { get { return storyflag; } }
+    [SerializeField]
+    private string storyStatus;
+    public string StoryStatus { get { return storyStatus; } }
+
     public void Auto_SubStage_Insert(
         int _mission_num,
         int _stage_num, int _substage_num, SubStageType _substage_type,
         int _distance, string _emerging_monster, string _monster_count,
-        string _open_substagenum, string _substage_status, bool _stagestartflag, bool _nextstageflag, int _wavecount)
+        string _open_substagenum, string _substage_status, bool _stagestartflag, bool _nextstageflag, int _wavecount
+        ,bool _storyflag = false, string _storyStatus = "")
     {
         mission_num = _mission_num;
         stage_num = _stage_num;
@@ -90,6 +98,8 @@ public class MissionDataObject : ScriptableObject
         startstageflag = _stagestartflag;
         nextstageflag = _nextstageflag;
         wavecount = _wavecount;
+        storyflag = _storyflag;
+        storyStatus = _storyStatus;
         CheckReadyFlag();
         if (_stagestartflag)
         {

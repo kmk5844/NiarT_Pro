@@ -392,7 +392,7 @@ public class Auto_ScritableObject : EditorWindow
         List<Info_Q_Information> Q_Monster = DataTable_Quest.Q_Monster;
         List<Info_Q_Information> Q_Escort = DataTable_Quest.Q_Escort;
         List<Info_Q_Information> Q_Convoy = DataTable_Quest.Q_Convoy;
-        List<Info_Q_Information> Q_Boss = DataTable_Quest.Q_Boss;
+        List<Info_Q_Information_Boss> Q_Boss = DataTable_Quest.Q_Boss;
 
         foreach (Info_Q_Information Q_Des in Q_Destination)
         {
@@ -544,7 +544,7 @@ public class Auto_ScritableObject : EditorWindow
             SA_MissionData_.Add_List(Q_Con.Stage_Num, 4, questObject);
         }
 
-        foreach (Info_Q_Information Q_Bos in Q_Boss)
+        foreach (Info_Q_Information_Boss Q_Bos in Q_Boss)
         {
             MissionDataObject questObject = ScriptableObject.CreateInstance<MissionDataObject>();
             questObject.Auto_SubStage_Insert(
@@ -559,7 +559,9 @@ public class Auto_ScritableObject : EditorWindow
                 Q_Bos.SubStage_Status,
                 Q_Bos.StartStageFlag,
                 Q_Bos.NextStageFlag,
-                Q_Bos.Wave_Count
+                Q_Bos.Wave_Count,
+                Q_Bos.Story_Flag,
+                Q_Bos.Story_Status
                 );
 
             string guide1 = "Assets/_Scriptable/SA_Mission/Mission_Object/5_Boss/Stage" + Q_Bos.Stage_Num;
