@@ -26,6 +26,7 @@ public class GameDirector : MonoBehaviour
     [Header("게임 타입")]
     public GameType gameType;
     GameType Before_GameType;
+    GameType Before_GameType_Story;
     [Header("데이터 모음")]
     public SA_TrainData SA_TrainData;
     public SA_TrainTurretData SA_TrainTurretData;
@@ -78,6 +79,7 @@ public class GameDirector : MonoBehaviour
     public FillDirector fill_director;
     public MercenaryDirector mercenaryDirector;
     public PlayerStatusDirector playerStatusDirector;
+    public StoryDirector_InGame storyDirector;
     Vector2[] newPoint;
     [SerializeField]
     List<int> Train_Num;
@@ -135,6 +137,18 @@ public class GameDirector : MonoBehaviour
     [SerializeField]
     private List<int> Emerging_Boss_Distance;
     int BossCount;
+
+    [Header("스토리 정보")]
+    public Transform CanvasUI;
+    bool storyFlag = false;
+    [SerializeField]
+    private bool Data_StoryFlag;
+    [SerializeField]
+    private bool StoryCanFlag;//플레이어의 스토리 Num이 맞으면 실행 / 맞지 않으면 꺼짐.
+    [SerializeField]
+    int storyDistance;
+    [SerializeField]
+    GameObject storyBranch;
 
     [Header("기차 리스트")]
     public Transform Train_List;
@@ -659,6 +673,22 @@ public class GameDirector : MonoBehaviour
                 }
             }
 
+            if(Data_StoryFlag && StoryCanFlag && !storyFlag)
+            {
+                if (((float)TrainDistance / (float)Destination_Distance * 100f) > storyDistance)
+                {
+                    //저쪽에서 미리 생성된 걸 연다.
+                    Before_GameType_Story = gameType;
+                    gameType = GameType.Story;
+
+
+                    StartCoroutine(storyDirector.dialog.Story_InGame());
+                    storyDirector.StartStory_Data();
+                    storyFlag = true;
+                    Time.timeScale = 0f;
+                }
+            }
+
             if (Data_BossFlag)
             {
                 if (BossCount < Emerging_Boss_Distance.Count)
@@ -672,6 +702,14 @@ public class GameDirector : MonoBehaviour
                     }
                 }
             }
+        }else if(gameType == GameType.Story)
+        {
+/*            if(Input.GetMouseButton(0) || Input.GetKeyDown(KeyCode.Space))
+            {
+                Debug.Log("스토리 넘김");
+                //storyBranch.SetActive(false);
+                //gameType = Before_GameType_Story;
+            }*/
         }
         else if (gameType == GameType.Boss)
         {
@@ -1054,6 +1092,12 @@ public class GameDirector : MonoBehaviour
             Emerging_Boss_Distance.Add(int.Parse(Boss_String[1]));
             Emerging_Boss_Monster_Count.Add(int.Parse(Boss_String[2]));
             monsterDirector.Get_Boss_List(Emerging_Boss);
+        }
+
+        if (SubStageData.StoryFlag)
+        {
+            Data_StoryFlag = true;
+            storyDirector.SetStorySetting(SA_PlayerData.Story_Num, SubStageData.StoryStatus);
         }
 
         if (Test_Mode)
@@ -2839,6 +2883,25 @@ public class GameDirector : MonoBehaviour
         Total_Coin -= coin;
         uiDirector.Gameing_Text(Total_Coin);
     }
+    public void SetStory(int distance, int branch, bool canFlag)
+    {
+        storyDistance = distance;
+        GameObject branchobejct = Resources.Load<GameObject>("Story/InGame/Branch" + branch + "_InGame");
+        storyBranch = Instantiate(branchobejct, CanvasUI);
+        storyBranch.SetActive(false);
+        storyBranch.transform.SetAsLastSibling();
+        StoryCanFlag = canFlag;
+        storyDirector.SetBranch(storyBranch);
+    }
+
+    public void EndStory()
+    {
+        storyBranch.SetActive(false);
+        SA_PlayerData.SA_StoryEnd(false);//실행 되는 순간 스토리 Num++;
+        storyDirector.EndStory_Data();
+        gameType = Before_GameType_Story;
+        Time.timeScale = 1f;
+    }
 }
 
 [System.Serializable]
@@ -2903,8 +2966,6 @@ public struct Infinite_UpgradeNum
             }
         }
     }
-
-
 }
 
 public enum GameType{
@@ -2916,4 +2977,5 @@ public enum GameType{
     Option,
     Ending,
     GameEnd,
+    Story
 }//점차 늘어갈 예정

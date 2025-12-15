@@ -13,6 +13,7 @@ public class DialogSystem : MonoBehaviour
 	[SerializeField]
 	private GameObject StoryDirector_Objcet;
 	StoryDirector storydirector;
+    StoryDirector_InGame storydirector_InGame;
 
     public bool SpecialFlag;
     private GameObject SelectDirector_Object;
@@ -58,7 +59,7 @@ public class DialogSystem : MonoBehaviour
 	private	bool			isFirst = true;				// 최초 1회만 호출하기 위한 변수
 	private	int				currentDialogIndex = -1;	// 현재 대사 순번
 	private	int				currentSpeakerIndex = 0;	// 현재 말을 하는 화자(Speaker)의 speakers 배열 순번
-	private	float			typingSpeed = 0.02f;			// 텍스트 타이핑 효과의 재생 속도
+	private	float			typingSpeed = 0.02f;		// 텍스트 타이핑 효과의 재생 속도
 	private	bool			isTypingEffect = false;     // 텍스트 타이핑 효과를 재생중인지
 
     AudioClip ButtonSFX;
@@ -116,7 +117,7 @@ public class DialogSystem : MonoBehaviour
             }
         }*/
         Setup();
-	}
+    }
 
     private void Update()
     {
@@ -143,6 +144,22 @@ public class DialogSystem : MonoBehaviour
 		stageNum = StageNum;
         storyNum = StoryNum;
 		branch = Branch;
+    }
+
+    public void Story_Init_InGame(GameObject StoryDirector_Object, int StageNum, int StoryNum, int Branch)
+    {
+        StoryDirector_Objcet = StoryDirector_Object;
+        stageNum = StageNum;
+        storyNum = StoryNum;
+        branch = Branch;
+
+        SpecialFlag = false;
+        storydirector_InGame = StoryDirector_Objcet.GetComponent<StoryDirector_InGame>();
+        delay = storydirector_InGame.delayTime;
+
+        dialogs.Clear();
+        Check_Local();
+        Setup();
     }
 
     private void Setup()
@@ -189,7 +206,7 @@ public class DialogSystem : MonoBehaviour
                     speakers[currentSpeakerIndex].objectArrow.SetActive(true);
 
 
-                    if (!SpecialFlag)
+                    if (!SpecialFlag && storydirector != null)
                     {
                         storydirector.Instantiate_BackLog(currentDialogIndex);
                     }
@@ -371,12 +388,12 @@ public class DialogSystem : MonoBehaviour
 
 			index ++;
 		
-			yield return new WaitForSeconds(typingSpeed);
+			yield return new WaitForSecondsRealtime(typingSpeed);
 		}
 
         if (Auto_Flag)
         {
-            yield return new WaitForSeconds(delay);
+            yield return new WaitForSecondsRealtime(delay);
         }
 
         isTypingEffect = false;     
@@ -384,7 +401,7 @@ public class DialogSystem : MonoBehaviour
 		// 대사가 완료되었을 때 출력되는 커서 활성화
 		speakers[currentSpeakerIndex].objectArrow.SetActive(true);
 
-        if (!SpecialFlag)
+        if (!SpecialFlag && storydirector != null)
         {
             storydirector.Instantiate_BackLog(currentDialogIndex);
         }

@@ -39,8 +39,8 @@ public class StoryDataObject : ScriptableObject
 
     [SerializeField]
     private bool dic_flag;
-    public bool Dic_Flag { get { return dic_flag; }
-    }
+    public bool Dic_Flag { get { return dic_flag; } }
+
     public void ChangeFlag(bool startAndend)
     {
         if (startAndend)

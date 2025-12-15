@@ -278,11 +278,12 @@ public class SA_PlayerData : ScriptableObject
     public void SA_StoryEnd(bool StoryMode)
     {
         story_num++;
+        Save_Solo("StoryNum");
         if (StoryMode)
         {
             new_stage++;
+            Save_Solo("NewStage");
         }
-        Save();
     }
 
     public void SA_StoryUnEnd()
@@ -294,7 +295,7 @@ public class SA_PlayerData : ScriptableObject
     public void SA_StoryNum_Chnage(int i)
     {
         story_num = i;
-        Save();
+        Save_Solo("StoryNum");
     }
 
     public void SA_ClickMission(int i)
@@ -384,7 +385,7 @@ public class SA_PlayerData : ScriptableObject
                 break;
             case "SelectStage":
                 ES3.Save<int>("SA_PlayerData_Data_select_stage", select_stage);
-        Debug.Log("select_stage 저장 완료");
+                Debug.Log("select_stage 저장 완료");
                 break;
             case "BeforeSubStage":
                 ES3.Save<int>("SA_PlayerData_Data_before_sub_stage", before_sub_stage);
