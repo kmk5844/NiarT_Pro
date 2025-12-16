@@ -32,9 +32,6 @@ public class StoryDirector : MonoBehaviour
     [SerializeField]
     private Button OptionButton;
 
-    public TextMeshProUGUI Stage_Title;
-    public TextMeshProUGUI Stage_Num;
-
     public bool skipHit_Flag;
     public bool toggleHit_Flag;
     public bool backHit_Flag;
@@ -53,6 +50,8 @@ public class StoryDirector : MonoBehaviour
     public GameObject BackLog_Object;
     public GameObject Option_Window;
     public Image BackGround_Image;
+    public GameObject FullCutScene_Object;
+    public Image FullCutScene_Image;
 
     AudioClip ButtonSFX;
 
@@ -117,26 +116,6 @@ public class StoryDirector : MonoBehaviour
         gameObject.GetComponent<Dialog>().dialogSystem = branch_DialogSystem;
         BackLog = new List<DialogData>();
         branch_DialogSystem.Get_Dialogs();
-
-/*        if(sa_localdata.Local_Index == 0)
-        {
-            Stage_Title.text = EX_StoryData.Story_Branch[index].Story_Title_En;
-            Stage_Num.text = EX_StoryData.Story_Branch[index].Story_Sub_En;
-            //영어
-        }
-        else if (sa_localdata.Local_Index == 1)
-        {
-            Stage_Title.text = EX_StoryData.Story_Branch[index].Story_Title_Kr  ;
-            Stage_Num.text = EX_StoryData.Story_Branch[index].Story_Sub_Kr;
-            //한글
-        }
-        else if (sa_localdata.Local_Index == 2)
-        {
-            Stage_Title.text = EX_StoryData.Story_Branch[index].Story_Title_Jp;
-            Stage_Num.text = EX_StoryData.Story_Branch[index].Story_Sub_Jp;
-            //일본어
-        }*/
-        //Stage_Num.text = "Story " + EX_StoryData.Story_Branch[index].Story_Title_Num;
     }
     // Start is called before the first frame update
     void Start()
@@ -328,5 +307,22 @@ public class StoryDirector : MonoBehaviour
         BackLog_Content.GetComponent<RectTransform>().sizeDelta = new Vector2 (pos.x, pos.y + 45);
         GameObject Back = Instantiate(BackLog_Object, BackLog_Content);
         Back.GetComponent<BackLog_object>().SetString(BackLog[num].name, BackLog[num].dialogue, BackLog[num].backLog_Color);
+    }
+
+    public void Set_Full_CutScene(string str)
+    {
+        if (str.Equals("None"))
+        {
+            FullCutScene_Image.sprite = null;
+        }
+        else
+        {
+            FullCutScene_Image.sprite = Resources.Load<Sprite>("Story/CutScene/" + str);
+        }
+    }
+
+    public void Active_Full_CutScene(bool flag)
+    {
+        FullCutScene_Object.SetActive(flag);
     }
 }

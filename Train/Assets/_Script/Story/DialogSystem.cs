@@ -520,7 +520,6 @@ public class DialogSystem : MonoBehaviour
 
     private void CheckCustom()
     {
-
         if (CutScene_Sprite.gameObject.activeSelf)
         {
             CutScene_Sprite.gameObject.SetActive(false);
@@ -533,12 +532,6 @@ public class DialogSystem : MonoBehaviour
         {
             AudioClip sound = Resources.Load<AudioClip>("Story/Sound/" + dialogs[currentDialogIndex].Sound);
             MMSoundManagerSoundPlayEvent.Trigger(sound, MMSoundManager.MMSoundManagerTracks.Sfx, this.transform.position);
-        }
-
-        if (dialogs[currentDialogIndex].Player_Sprite != "" && !SpecialFlag)
-        {
-            Sprite ChangeSprite = Resources.Load<Sprite>("Story/Sprite/" + dialogs[currentDialogIndex].Player_Sprite);
-            speakers[currentSpeakerIndex].player_able.sprite = ChangeSprite;
         }
 
         if (dialogs[currentDialogIndex].Player_Animation != "" && !SpecialFlag)
@@ -586,7 +579,34 @@ public class DialogSystem : MonoBehaviour
                         _index = int.Parse(etc_st[i]);
                         speakers[_index].player_able.gameObject.SetActive(false);
                         break;
+                    case "FullCutScene_Open":
+                        i++;
+                        storydirector.Set_Full_CutScene(etc_st[i]);
+                        storydirector.Active_Full_CutScene(true);
+                        break;
+                    case "FullCutScene_Close":
+                        i++;
+                        storydirector.Set_Full_CutScene("None");
+                        storydirector.Active_Full_CutScene(false);
+                        break;
                 }
+            }
+        }
+
+        if (dialogs[currentDialogIndex].Player_Sprite != "" && !SpecialFlag)
+        {
+            if (dialogs[currentDialogIndex].Player_Sprite == "None")
+            {
+                speakers[currentSpeakerIndex].player_able.gameObject.SetActive(false);
+            }
+            else
+            {
+                Sprite ChangeSprite = Resources.Load<Sprite>("Story/Sprite/" + dialogs[currentDialogIndex].Player_Sprite);
+                if (!speakers[currentSpeakerIndex].player_able.gameObject.activeSelf)
+                {
+                    speakers[currentSpeakerIndex].player_able.gameObject.SetActive(true);
+                }
+                speakers[currentSpeakerIndex].player_able.sprite = ChangeSprite;
             }
         }
     }
