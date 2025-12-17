@@ -208,7 +208,10 @@ public class DialogSystem : MonoBehaviour
 
                     if (!SpecialFlag && storydirector != null)
                     {
-                        storydirector.Instantiate_BackLog(currentDialogIndex);
+                        if (!dialogs[currentDialogIndex].name.Equals(""))
+                        {
+                            storydirector.Instantiate_BackLog(currentDialogIndex);
+                        }
                     }
 
                     return false;
@@ -403,7 +406,10 @@ public class DialogSystem : MonoBehaviour
 
         if (!SpecialFlag && storydirector != null)
         {
-            storydirector.Instantiate_BackLog(currentDialogIndex);
+            if (!dialogs[currentDialogIndex].name.Equals(""))
+            {
+                storydirector.Instantiate_BackLog(currentDialogIndex);
+            }
         }
     }
 

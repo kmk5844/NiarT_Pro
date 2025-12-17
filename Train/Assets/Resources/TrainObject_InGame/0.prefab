@@ -9888,6 +9888,7 @@ MonoBehaviour:
   Max_Train_HP: 0
   Train_Weight: 0
   Train_Armor: 0
+  Origin_Train_Armor: 0
   Train_Type: 
   DestoryFlag: 0
   Train_MaxSpeed: 0
@@ -9896,6 +9897,7 @@ MonoBehaviour:
   Train_Fuel: 0
   Train_Attack: 0
   Train_Attack_Delay: 0
+  Plus_Attack_Delay: 0
   Train_Special: 
   Not_DestoryTrain: 0
   trainData_Special_String: []
@@ -9914,6 +9916,7 @@ MonoBehaviour:
   redSpriteFlag: 0
   HealEffect: {fileID: 0}
   BoosterEffect: {fileID: 0}
+  ArmorEffect: {fileID: 0}
 --- !u!114 &4477345407328323777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9953,12 +9956,48 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealParticle
       objectReference: {fileID: 0}
+    - target: {fileID: 424900625255507418, guid: fbff826045596bf49bdc19059febe591, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1511316999998063865, guid: fbff826045596bf49bdc19059febe591, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1615467622978389380, guid: fbff826045596bf49bdc19059febe591, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2247692936576383248, guid: fbff826045596bf49bdc19059febe591, type: 3}
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
     - target: {fileID: 2762710353259837382, guid: fbff826045596bf49bdc19059febe591, type: 3}
       propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397371524188836500, guid: fbff826045596bf49bdc19059febe591, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397371524189131640, guid: fbff826045596bf49bdc19059febe591, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397371524189183154, guid: fbff826045596bf49bdc19059febe591, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397371524189188204, guid: fbff826045596bf49bdc19059febe591, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397371524189213796, guid: fbff826045596bf49bdc19059febe591, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3454517312677030319, guid: fbff826045596bf49bdc19059febe591, type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3864957731200890806, guid: fbff826045596bf49bdc19059febe591, type: 3}
@@ -10039,6 +10078,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3864957731200890806, guid: fbff826045596bf49bdc19059febe591, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613642903021405380, guid: fbff826045596bf49bdc19059febe591, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600718332673888760, guid: fbff826045596bf49bdc19059febe591, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8600718332673896492, guid: fbff826045596bf49bdc19059febe591, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

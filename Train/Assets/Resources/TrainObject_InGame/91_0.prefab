@@ -10304,6 +10304,7 @@ MonoBehaviour:
   Max_Train_HP: 0
   Train_Weight: 0
   Train_Armor: 0
+  Origin_Train_Armor: 0
   Train_Type: 
   DestoryFlag: 0
   Train_MaxSpeed: 0
@@ -10312,6 +10313,7 @@ MonoBehaviour:
   Train_Fuel: 0
   Train_Attack: 0
   Train_Attack_Delay: 0
+  Plus_Attack_Delay: 0
   Train_Special: 
   Not_DestoryTrain: 0
   trainData_Special_String: []
@@ -10330,6 +10332,7 @@ MonoBehaviour:
   redSpriteFlag: 0
   HealEffect: {fileID: 0}
   BoosterEffect: {fileID: 0}
+  ArmorEffect: {fileID: 0}
 --- !u!114 &-1010734054521157629
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10355,6 +10358,10 @@ PrefabInstance:
     - target: {fileID: 2247692936576383248, guid: fbff826045596bf49bdc19059febe591, type: 3}
       propertyPath: m_Name
       value: Train_HP_UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 2762710353259837382, guid: fbff826045596bf49bdc19059febe591, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3864957731200890806, guid: fbff826045596bf49bdc19059febe591, type: 3}
       propertyPath: m_Pivot.x

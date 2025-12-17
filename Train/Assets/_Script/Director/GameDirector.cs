@@ -414,7 +414,6 @@ public class GameDirector : MonoBehaviour
         CalculateRefreshPoints();
         CameraConfilerSet(Train_Count - 1);
 
-
         RandomStartTime = Random.Range(4f, 6f);
         BossCount = 0;
         lastSpeedTime = 0;
