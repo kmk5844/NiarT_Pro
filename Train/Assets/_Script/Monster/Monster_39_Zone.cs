@@ -14,6 +14,7 @@ public class Monster_39_Zone : MonoBehaviour
 
     Monster_39 director_39;
     Monster_50 director_50;
+    Monster_58 director_58;
 
     private void Awake()
     {
@@ -23,7 +24,8 @@ public class Monster_39_Zone : MonoBehaviour
     {
         director_39 = GetComponentInParent<Monster_39>();
         director_50 = GetComponentInParent<Monster_50>();
-    }   
+        director_58 = GetComponentInParent<Monster_58>();
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -90,5 +92,17 @@ public class Monster_39_Zone : MonoBehaviour
             }
         }
         
+        if(director_58 != null)
+        {
+            if (PlayerInZone)
+            {
+                director_58.changeAtkFlag(true);
+            }
+            else
+            {
+                director_58.changeAtkFlag(false);
+            }
+        }
+
     }
 }

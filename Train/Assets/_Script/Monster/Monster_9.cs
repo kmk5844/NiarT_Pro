@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Monster_9 : Monster
 {
-
     [SerializeField]
     Vector3 movement;
     int xPos;

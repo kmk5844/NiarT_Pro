@@ -209,7 +209,7 @@ public class MonsterDirector : MonoBehaviour
 
                 SupplyMonsterNum = SupplyMonster_List.childCount;
                 SlowMonsterNum = Monster_List_Slow.childCount;
-                if (SupplyMonsterNum < 1 && !isSupplySpawing)
+                if (SupplyMonsterNum < 2 && !isSupplySpawing)
                 {
                     StartCoroutine(AppearSupplyMonster());
                 }
@@ -302,7 +302,7 @@ public class MonsterDirector : MonoBehaviour
         isSupplySpawing = true;
         if (!infiniteMode)
         {
-            yield return new WaitForSeconds(Random.Range(4f, 8f));
+            yield return new WaitForSeconds(Random.Range(3f, 5f));
         }
         else
         {

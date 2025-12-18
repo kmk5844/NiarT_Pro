@@ -33,9 +33,9 @@ public class Monster_51 : Monster
         Check_ItemSpeedSpawn();
         Monster_coroutine = StartCoroutine(SpawnMonster());
         ShortAtkObject.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, 0, 0, 0);
+        ShortAtkObject.SetActive(false);
         //anicon = GetComponent<Animator>();
         attackFlag = false;
-
     }
 
     protected override void Update()
@@ -115,10 +115,12 @@ public class Monster_51 : Monster
     IEnumerator atkMove()
     {
         atkCorutineFlag = true;
+        ShortAtkObject.SetActive(true);
         speed = 12f;
         yield return new WaitForSeconds(4f);
         lastTime = Time.time;
         speed = 4f;
+        ShortAtkObject.SetActive(false);
         atkCorutineFlag = false;
     }
 

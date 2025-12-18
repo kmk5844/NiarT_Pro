@@ -84,6 +84,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &4548089262050727092
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1565257265937923840}
+  m_Layer: 8
+  m_Name: FireZone_2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1565257265937923840
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4548089262050727092}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.359, y: -0.021, z: -0.008}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7976047841580440950}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7538185384902093416
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,7 +174,7 @@ Transform:
   m_GameObject: {fileID: 7907666104797928302}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.03, y: -0.025, z: -0}
+  m_LocalPosition: {x: -0.245, y: -0.029, z: 0.006}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -159,8 +190,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7976047841580440950}
   - component: {fileID: 3102294194950935420}
-  - component: {fileID: 4220511369484635780}
   - component: {fileID: -3259779365467001941}
+  - component: {fileID: 4081528984532673632}
   m_Layer: 8
   m_Name: "56_\uB2E4\uC5F0\uBC1C \uB4DC\uB860"
   m_TagString: Monster
@@ -182,6 +213,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3038813298022747462}
+  - {fileID: 1565257265937923840}
   - {fileID: 4741079927591269212}
   - {fileID: 4498824267978040254}
   - {fileID: 1729778162680841330}
@@ -240,49 +272,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4220511369484635780
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7976047841580440944}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a76d03bc8bba3a94daddef98a6ebffd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Monster_Num: 0
-  ExMonsterSprite: {fileID: 0}
-  monster_gametype: 0
-  EX_GameData: {fileID: 11400000, guid: 3a83740cb85032c498c0bbd5b0a2ec9d, type: 2}
-  monsterData: {fileID: 11400000, guid: 1725873c9ee29b3449b73d0e0b1358ac, type: 2}
-  Monster_Name: 
-  Monster_HP: 0
-  Monster_Score: 0
-  Monster_Coin: 0
-  Monster_CountFlag: 0
-  Monster_Mission_MaterialFlag: 0
-  Monster_Mission_CountFlag: 0
-  material_Item: {fileID: 0}
-  material_drop: 0
-  Monster_Type: 
-  BulletObject: {fileID: 0}
-  Bullet_Atk: 0
-  Bullet_Slow: 0
-  WarningEffect: {fileID: 6406873121749404779}
-  Fire_Zone: {fileID: 3038813298022747462}
-  fire_debuff_flag: 0
-  Item_Monster_Atk: 0
-  Item_Monster_AtkDelay: 0
-  StunEffect: {fileID: 6224767322669133730}
-  WalkEffect: {fileID: 8556176419555939304}
-  monster_xPos: 0
-  InfiniteMode: 0
-  InfiniteCount: 0
-  Infinite_Status_ChagngeFlag: 0
-  speed: 0
-  max_xPos: 0
 --- !u!60 &-3259779365467001941
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -345,6 +334,50 @@ PolygonCollider2D:
       - {x: 0.027167745, y: -0.334404}
       - {x: 0.08475497, y: -0.32484394}
   m_UseDelaunayMesh: 0
+--- !u!114 &4081528984532673632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7976047841580440944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16feb2fd6bc42ee4a8c726f5118e29c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Monster_Num: 0
+  ExMonsterSprite: {fileID: 0}
+  monster_gametype: 0
+  EX_GameData: {fileID: 11400000, guid: 3a83740cb85032c498c0bbd5b0a2ec9d, type: 2}
+  monsterData: {fileID: 11400000, guid: 1725873c9ee29b3449b73d0e0b1358ac, type: 2}
+  Monster_Name: 
+  Monster_HP: 0
+  Monster_Score: 0
+  Monster_Coin: 0
+  Monster_CountFlag: 0
+  Monster_Mission_MaterialFlag: 0
+  Monster_Mission_CountFlag: 0
+  material_Item: {fileID: 0}
+  material_drop: 0
+  Monster_Type: 
+  BulletObject: {fileID: 0}
+  Bullet_Atk: 0
+  Bullet_Slow: 0
+  WarningEffect: {fileID: 6406873121749404779}
+  Fire_Zone: {fileID: 3038813298022747462}
+  fire_debuff_flag: 0
+  Item_Monster_Atk: 0
+  Item_Monster_AtkDelay: 0
+  StunEffect: {fileID: 6224767322669133730}
+  WalkEffect: {fileID: 8556176419555939304}
+  monster_xPos: 0
+  InfiniteMode: 0
+  InfiniteCount: 0
+  Infinite_Status_ChagngeFlag: 0
+  speed: 0
+  max_xPos: 0
+  SubFireZone: {fileID: 1565257265937923840}
 --- !u!1 &8556176419555939304
 GameObject:
   m_ObjectHideFlags: 0
