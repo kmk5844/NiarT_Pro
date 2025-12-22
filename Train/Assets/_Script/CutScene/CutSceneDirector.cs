@@ -13,11 +13,9 @@ using static MoreMountains.Tools.MMSoundManager;
 public class CutSceneDirector : MonoBehaviour
 {
     public AudioListener audioListener;
-    public bool NewFlag;
     bool additiveFlag;
 
     public PlayableDirector timelineDirector;
-    public LocalizeStringEvent text_Name;
     public LocalizeStringEvent text_Dialog;
 
     public AudioClip CutSceneBGM;
@@ -49,7 +47,6 @@ public class CutSceneDirector : MonoBehaviour
 
         MMSoundManagerSoundPlayEvent.Trigger(CutSceneBGM, MMSoundManager.MMSoundManagerTracks.Music, transform.position, ID : 10);
         i = 0;
-        text_Name.StringReference.TableReference = "CutScene_St";
         text_Dialog.StringReference.TableReference = "CutScene_St";
     }
 
@@ -63,17 +60,8 @@ public class CutSceneDirector : MonoBehaviour
 
     public void ChnageText()
     {
-        if (!NewFlag)
-        {
-            text_Dialog.StringReference.TableEntryReference = "Cut_" + i;
-            i++;
-        }
-        else
-        {
-            text_Name.StringReference.TableEntryReference = "NewCut_Name_" + i;
-            text_Dialog.StringReference.TableEntryReference = "NewCut_Dialog_" + i;
-            i++;
-        }
+        text_Dialog.StringReference.TableEntryReference = "Cut_" + i;
+        i++;
     }
 
     public void EndCutScene()

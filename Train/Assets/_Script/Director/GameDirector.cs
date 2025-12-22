@@ -1656,14 +1656,7 @@ public class GameDirector : MonoBehaviour
     public void SelectCard_StageInit()
     {
         monsterDirector.Clear_MonsterDirector();
-        if (Infinite_Count != 0 && Infinite_Count % 6 == 0)
-        {
-            Data_BossFlag = true;
-            monsterDirector.Set_SetBossList();
-            Emerging_Boss_Distance.Add(98);
-            Emerging_Boss_Monster_Count.Add(monsterDirector.Get_MonsterAllCount()/2);
-        }
-        else
+        if (Infinite_Count == 0)
         {
             Data_BossFlag = false;
             monsterDirector.Set_InitBossList();

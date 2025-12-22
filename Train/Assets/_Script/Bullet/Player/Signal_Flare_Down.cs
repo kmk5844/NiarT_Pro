@@ -7,6 +7,7 @@ public class Signal_Flare_Down : Bullet
     {
         base.Start();
         Bullet_Player();
+        Destroy(gameObject, 7f);
     }
 
     void Bullet_Player()

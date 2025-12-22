@@ -8,6 +8,8 @@ public class Monster_1 : Monster
     Vector3 movement;
     float xPos;
 
+    Animator ani;
+
     [Header("속도, 최대 길이")] // 몬스터 무브를 변경해야할 가능성이 높음
     [SerializeField]
     float speed;
@@ -33,6 +35,8 @@ public class Monster_1 : Monster
         speed = Random.Range(0.3f, 1.2f);
         max_xPos = Random.Range(1, 9);
 
+        ani = GetComponent<Animator>();
+
         xPos = -1f;
         Spawn_Itme_Flag = false;
         Check_ItemSpeedSpawn();
@@ -57,6 +61,7 @@ public class Monster_1 : Monster
 
         if(Monster_HP <= 0 && !Spawn_Itme_Flag)
         {
+            ani.SetBool("DieAni", true);
             Spawn_Itme_Flag = true;
             AfterDie_Spawn_Item();
         }

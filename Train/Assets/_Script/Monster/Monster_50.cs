@@ -21,7 +21,7 @@ public class Monster_50 : Monster
         player = GameObject.FindWithTag("Player");
 
         base.Start();
-
+        MonsterDirector_Pos = transform.position;
         Spawn_Init_Pos =
             new Vector2(MonsterDirector_Pos.x + Random.Range(2f, 5f),
                 MonsterDirector.MinPos_Ground.y - 5f);
