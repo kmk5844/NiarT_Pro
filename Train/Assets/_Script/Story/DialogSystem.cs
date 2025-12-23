@@ -4,8 +4,6 @@ using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
 using MoreMountains.Tools;
-using JetBrains.Annotations;
-using UnityEditor.Localization.Plugins.XLIFF.V20;
 using System;
 
 public class DialogSystem : MonoBehaviour

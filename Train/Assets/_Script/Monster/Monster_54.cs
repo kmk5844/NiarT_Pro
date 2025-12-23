@@ -98,6 +98,7 @@ public class Monster_54 : Monster
             monster_gametype = Monster_GameType.Fighting;
         }
         Monster_coroutine = null;
+        lastTime = Time.time;
     }
 
     private void bulletFire()

@@ -34,7 +34,7 @@ public class Monster_60 : Monster
                 MonsterDirector.MaxPos_Sky.y + 5f);
         transform.localPosition = Spawn_Init_Pos;
 
-        speed = 5f;
+        speed = 3f;
         moveDir = Random.insideUnitCircle.normalized;
 
         xPos = -1;
@@ -126,7 +126,7 @@ public class Monster_60 : Monster
     {
         if (!DieFlag)
         {
-            for(int i = 0; i < 10; i++)
+            for(int i = 0; i < 6; i++)
             {
                 GameObject bullet = Instantiate(BulletObject, Fire_Zone.position, transform.rotation, monster_Bullet_List);
                 bullet.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(Bullet_Atk - (int)Item_Monster_Atk, Bullet_Slow, Bullet_Speed, xPos);
@@ -164,7 +164,7 @@ public class Monster_60 : Monster
         {
             changeTimer = 0f;
             directionChangeInterval = Random.Range(0.3f, 0.6f);
-            speed = Random.Range(6f, 12f);
+            speed = Random.Range(2f, 5f);
             // 기존 방향에서 ±randomAngleRange 정도 랜덤 회전
             float angle = Random.Range(-randomAngleRange, randomAngleRange);
             float rad = angle * Mathf.Deg2Rad;

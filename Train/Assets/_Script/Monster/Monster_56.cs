@@ -119,7 +119,7 @@ public class Monster_56 : Monster
     IEnumerator atk()
     {
         atkFlag = true;
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 12; i++)
         {
             GameObject bullet = null;
             if (i % 2 == 0)

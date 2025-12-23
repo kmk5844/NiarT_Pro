@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 4381525608370454315}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.6, z: -0}
+  m_LocalPosition: {x: 0, y: 0.953, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -143,7 +143,7 @@ Transform:
   m_GameObject: {fileID: 7907666104797928302}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.033, y: 0.108, z: 0.001}
+  m_LocalPosition: {x: 0.32, y: -0.58, z: -0.007}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -160,9 +160,9 @@ GameObject:
   - component: {fileID: 7976047841580440950}
   - component: {fileID: 3102294194950935420}
   - component: {fileID: -3259779365467001941}
-  - component: {fileID: 7220011521345197465}
+  - component: {fileID: 2115293475375144588}
   m_Layer: 8
-  m_Name: "55_\uD3ED\uBC1C \uB4DC\uB860"
+  m_Name: "60_\uC0C1\uACF5 \uAC10\uC2DC\uC790"
   m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -229,7 +229,7 @@ SpriteRenderer:
   m_SortingLayerID: 375295091
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d63eca8516ea75541ade7b034bd80127, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3697b3e1616473a4cb5975f0e702da3f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -276,7 +276,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.2, y: 1.2}
+    oldSize: {x: 2, y: 2}
     newSize: {x: 1.19, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -284,25 +284,20 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.16492173, y: -0.26754707}
-      - {x: 0.17974283, y: -0.15149063}
-      - {x: 0.23535272, y: -0.10150951}
-      - {x: 0.24627328, y: -0.02999407}
-      - {x: 0.32595748, y: -0.032703906}
-      - {x: 0.33632892, y: 0.0038141906}
-      - {x: 0.2243702, y: 0.022945493}
-      - {x: 0.17804591, y: 0.07202849}
-      - {x: 0.17264843, y: 0.3121071}
-      - {x: -0.037351724, y: 0.31676525}
-      - {x: -0.06329475, y: 0.13450247}
-      - {x: -0.13198206, y: 0.05560845}
-      - {x: -0.3402906, y: 0.01005131}
-      - {x: -0.12360974, y: 0.0066892505}
-      - {x: -0.08649027, y: -0.1451276}
-      - {x: 0.027167745, y: -0.334404}
-      - {x: 0.08475497, y: -0.32484394}
+    - - {x: -0.57838255, y: -0.012214052}
+      - {x: -0.58867383, y: 0.70804983}
+      - {x: 0.2574795, y: 0.71861345}
+      - {x: 0.5172415, y: 0.41244686}
+      - {x: 0.8253628, y: 0.17450264}
+      - {x: 0.80252963, y: -0.3450211}
+      - {x: 0.6089184, y: -0.3325867}
+      - {x: 0.47883034, y: -0.64647394}
+      - {x: -0.1461588, y: -0.6408182}
+      - {x: -0.2501137, y: -0.41730502}
+      - {x: -0.39886, y: -0.42631218}
+      - {x: -0.46882033, y: -0.26552266}
   m_UseDelaunayMesh: 0
---- !u!114 &7220011521345197465
+--- !u!114 &2115293475375144588
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -311,7 +306,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7976047841580440944}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6620acc611a64144bae9e173cd789aec, type: 3}
+  m_Script: {fileID: 11500000, guid: 617d8d07a00e0fa41acbe278f694c33b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Monster_Num: 0
@@ -345,7 +340,6 @@ MonoBehaviour:
   Infinite_Status_ChagngeFlag: 0
   movement: {x: 0, y: 0, z: 0}
   speed: 0
-  max_xPos: 0
 --- !u!1 &8556176419555939304
 GameObject:
   m_ObjectHideFlags: 0
@@ -9972,15 +9966,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7063304253784090655, guid: d362c476fa3f55845a300f03c1236090, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.15
+      value: 0.255
       objectReference: {fileID: 0}
     - target: {fileID: 7063304253784090655, guid: d362c476fa3f55845a300f03c1236090, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.15
+      value: 0.236
       objectReference: {fileID: 0}
     - target: {fileID: 7063304253784090655, guid: d362c476fa3f55845a300f03c1236090, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7063304253784090655, guid: d362c476fa3f55845a300f03c1236090, type: 3}
       propertyPath: m_LocalRotation.w
