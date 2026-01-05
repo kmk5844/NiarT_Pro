@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using SCPE;
 public class EffectDirector : MonoBehaviour
 {
     public GameDirector gameDirector;
@@ -10,6 +10,9 @@ public class EffectDirector : MonoBehaviour
     public ParticleSystem currentExtraWindEffect;
     public ParticleSystem currentItemWindEffect;
 
+    public GameObject speedLinesObject_Extra;
+    public GameObject speedLinesObject_Item;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +22,8 @@ public class EffectDirector : MonoBehaviour
         currentWindEffect = windlist[0];
         currentExtraWindEffect = windlist[1];
         currentItemWindEffect = windlist[2];
+        speedLinesObject_Extra.SetActive(false);
+        speedLinesObject_Item.SetActive(false);
     }
 
     // Update is called once per frame
@@ -87,6 +92,11 @@ public class EffectDirector : MonoBehaviour
                 windlist[1].Play();
                 currentExtraWindEffect = windlist[1];
             }
+
+            if(speedLinesObject_Extra.activeSelf == false)
+            {
+                speedLinesObject_Extra.SetActive(true);
+            }
         }
         else
         {
@@ -95,6 +105,11 @@ public class EffectDirector : MonoBehaviour
             {
                 windlist[1].Stop();
                 currentExtraWindEffect = null;
+            }
+
+            if (speedLinesObject_Extra.activeSelf == true)
+            {
+                speedLinesObject_Extra.SetActive(false);
             }
         }
 
@@ -122,6 +137,11 @@ public class EffectDirector : MonoBehaviour
                 windlist[2].Play();
                 currentItemWindEffect = windlist[2];
             }
+
+            if (speedLinesObject_Item.activeSelf == false)
+            {
+                speedLinesObject_Item.SetActive(true);
+            }
         }
         else
         {
@@ -130,6 +150,11 @@ public class EffectDirector : MonoBehaviour
             {
                 windlist[2].Stop();
                 currentItemWindEffect = null;
+            }
+
+            if (speedLinesObject_Item.activeSelf == true)
+            {
+                speedLinesObject_Item.SetActive(false);
             }
         }
 

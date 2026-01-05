@@ -1347,7 +1347,6 @@ public class Player : MonoBehaviour
         medictrainFlag = true;
     }
 
-
 /*    IEnumerator Reloading()
     {
         ReloadingFlag = true;

@@ -203,7 +203,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -384,28 +384,43 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trainData: {fileID: 11400000, guid: 3a83740cb85032c498c0bbd5b0a2ec9d, type: 2}
-  TrainNum: 10
-  Train_Name: 
+  Train_Index: 0
+  Train_Num: 0
+  Train_Num2: 0
   Train_HP: 0
+  HP_Parsent: 100
+  Max_Train_HP: 0
   Train_Weight: 0
   Train_Armor: 0
+  Origin_Train_Armor: 0
   Train_Type: 
+  DestoryFlag: 0
   Train_MaxSpeed: 0
   Train_Efficient: 0
   Train_Engine_Power: 0
   Train_Fuel: 0
   Train_Attack: 0
   Train_Attack_Delay: 0
+  Plus_Attack_Delay: 0
+  Train_Special: 
+  Not_DestoryTrain: 0
+  trainData_Special_String: []
   Train_Heal: 0
-  HP_Arrow: {fileID: 8932776512312491155}
-  cur_HP: 0
+  Max_Train_Heal: 0
+  Train_Heal_Amount: 0
+  Train_Heal_timeBet: 0
+  isHealing: 0
   isReparing: 0
   isRepairable: 0
-  def_constant: 100
-  Heal_Amount: 0
-  Heal_timeBet: 0
-  isHealing: 0
-  openMedicTrian: 0
+  gameDirector: {fileID: 0}
+  UI_Level: 0
+  trainHitSFX: {fileID: 0}
+  isCooltimeCheckFlag: 0
+  warningFlag: 0
+  redSpriteFlag: 0
+  HealEffect: {fileID: 0}
+  BoosterEffect: {fileID: 0}
+  ArmorEffect: {fileID: 0}
 --- !u!1 &6478914489543421460
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,7 +476,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -480,7 +495,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1130603629
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 34a62729b0c56b34684344ad3ad87475, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -550,3 +565,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 191f0d7b2abf8784fa1c03125716f845, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Hit_Effect: {fileID: 0}

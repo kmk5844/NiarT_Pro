@@ -4813,7 +4813,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9844,7 +9844,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f91893c37d364574284492a6dbd9da9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterSprite: {fileID: 0}
+  Monster_Num: 0
+  ExMonsterSprite: {fileID: 0}
   monster_gametype: 0
   EX_GameData: {fileID: 11400000, guid: 3a83740cb85032c498c0bbd5b0a2ec9d, type: 2}
   monsterData: {fileID: 11400000, guid: 1725873c9ee29b3449b73d0e0b1358ac, type: 2}
@@ -9860,6 +9861,7 @@ MonoBehaviour:
   Monster_Type: 
   BulletObject: {fileID: 0}
   Bullet_Atk: 0
+  Bullet_Slow: 0
   WarningEffect: {fileID: 8847030584236314634}
   Fire_Zone: {fileID: 6795028378935529038}
   fire_debuff_flag: 0
@@ -9868,6 +9870,9 @@ MonoBehaviour:
   StunEffect: {fileID: 7411006623913987594}
   WalkEffect: {fileID: 1038447817597837497}
   monster_xPos: 0
+  InfiniteMode: 0
+  InfiniteCount: 0
+  Infinite_Status_ChagngeFlag: 0
   speed: 0
   max_xPos: 0
 --- !u!95 &5824008644157386921

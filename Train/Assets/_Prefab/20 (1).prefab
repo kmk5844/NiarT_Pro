@@ -47,7 +47,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccf8cb1de2fda8b49954c7039bd883ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Bullet: {fileID: 2284520680175412986, guid: 2709630a9ab7a4f409cdc5293e5e434b, type: 3}
+  FireObject: {fileID: 0}
+  BulletObject: {fileID: 0}
+  Z: 0
+  FireEffect: {fileID: 0}
 --- !u!58 &7270255689549930403
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -130,7 +133,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -149,7 +152,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1130603629
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 498bb7bea8edba945a468c8d4b8d3f9f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -210,28 +213,43 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trainData: {fileID: 11400000, guid: 3a83740cb85032c498c0bbd5b0a2ec9d, type: 2}
-  TrainNum: 20
-  Train_Name: 
+  Train_Index: 0
+  Train_Num: 0
+  Train_Num2: 0
   Train_HP: 0
+  HP_Parsent: 100
+  Max_Train_HP: 0
   Train_Weight: 0
-  Train_Anmor: 0
+  Train_Armor: 0
+  Origin_Train_Armor: 0
   Train_Type: 
+  DestoryFlag: 0
   Train_MaxSpeed: 0
   Train_Efficient: 0
   Train_Engine_Power: 0
   Train_Fuel: 0
   Train_Attack: 0
   Train_Attack_Delay: 0
-  Train_Food: 0
+  Plus_Attack_Delay: 0
+  Train_Special: 
+  Not_DestoryTrain: 0
+  trainData_Special_String: []
   Train_Heal: 0
-  cur_HP: 0
+  Max_Train_Heal: 0
+  Train_Heal_Amount: 0
+  Train_Heal_timeBet: 0
+  isHealing: 0
   isReparing: 0
   isRepairable: 0
-  def_constant: 0
-  Heal_Amount: 0
-  Heal_timeBet: 0
-  isHealing: 0
-  openMedicTrian: 0
+  gameDirector: {fileID: 0}
+  UI_Level: 0
+  trainHitSFX: {fileID: 0}
+  isCooltimeCheckFlag: 0
+  warningFlag: 0
+  redSpriteFlag: 0
+  HealEffect: {fileID: 0}
+  BoosterEffect: {fileID: 0}
+  ArmorEffect: {fileID: 0}
 --- !u!1 &4369463179147774333
 GameObject:
   m_ObjectHideFlags: 0
@@ -285,7 +303,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -304,7 +322,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1130603629
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
@@ -414,7 +432,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -433,7 +451,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1130603629
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 3b4633c05f472ff409315009b322e643, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

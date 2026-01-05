@@ -4966,7 +4966,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f5df60118c3c54418a24a57f653a7d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterSprite: {fileID: 0}
+  Monster_Num: 0
+  ExMonsterSprite: {fileID: 0}
   monster_gametype: 0
   EX_GameData: {fileID: 11400000, guid: 3a83740cb85032c498c0bbd5b0a2ec9d, type: 2}
   monsterData: {fileID: 11400000, guid: 1725873c9ee29b3449b73d0e0b1358ac, type: 2}
@@ -4982,6 +4983,7 @@ MonoBehaviour:
   Monster_Type: 
   BulletObject: {fileID: 0}
   Bullet_Atk: 0
+  Bullet_Slow: 0
   WarningEffect: {fileID: 0}
   Fire_Zone: {fileID: 0}
   fire_debuff_flag: 0
@@ -4990,6 +4992,9 @@ MonoBehaviour:
   StunEffect: {fileID: 1471341239706722363}
   WalkEffect: {fileID: 0}
   monster_xPos: 0
+  InfiniteMode: 0
+  InfiniteCount: 0
+  Infinite_Status_ChagngeFlag: 0
   Egg_Object: {fileID: 8378882597074424644}
   Baby_Spider_Object: {fileID: 5659844273149742336, guid: 168f20553ec716d4f97bcf9dc46316e1, type: 3}
   cloudEffect: {fileID: 8475442188761209921}
@@ -5101,7 +5106,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

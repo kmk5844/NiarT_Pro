@@ -1,3 +1,9 @@
+2.4.0
+
+Fixed:
+- Shader error when building on MacOS due to VR-specific code being activated
+- (Unity 2023.2+) Possible build error, causing a black screen, when effects are used but no post-processing is.
+
 2.3.9
 
 Fixed:

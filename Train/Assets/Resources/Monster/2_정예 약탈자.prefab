@@ -4913,7 +4913,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9853,7 +9853,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e668a5910b427684eb7f7599881bf3b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterSprite: {fileID: 0}
+  Monster_Num: 0
+  ExMonsterSprite: {fileID: 0}
   monster_gametype: 0
   EX_GameData: {fileID: 11400000, guid: 3a83740cb85032c498c0bbd5b0a2ec9d, type: 2}
   monsterData: {fileID: 11400000, guid: 1725873c9ee29b3449b73d0e0b1358ac, type: 2}
@@ -9869,6 +9870,7 @@ MonoBehaviour:
   Monster_Type: 
   BulletObject: {fileID: 0}
   Bullet_Atk: 0
+  Bullet_Slow: 0
   WarningEffect: {fileID: 6483413437626007788}
   Fire_Zone: {fileID: 1929626064526476302}
   fire_debuff_flag: 0
@@ -9877,7 +9879,9 @@ MonoBehaviour:
   StunEffect: {fileID: 8593268185251618056}
   WalkEffect: {fileID: 4205762404156969822}
   monster_xPos: 0
-  monsterEffect: {fileID: 115071106485546221}
+  InfiniteMode: 0
+  InfiniteCount: 0
+  Infinite_Status_ChagngeFlag: 0
   speed: 0
   max_xPos: 0
   frequency: 0
@@ -10180,17 +10184,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bdd91099865cf664dbfde3ca6c140de0, type: 3}
---- !u!114 &115071106485546221 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7465062935985451676, guid: bdd91099865cf664dbfde3ca6c140de0, type: 3}
-  m_PrefabInstance: {fileID: 7350415274641956465}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa43b45ab938bc04f8f2444ce5b737a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &4281045437098121029 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6730840316169537844, guid: bdd91099865cf664dbfde3ca6c140de0, type: 3}
