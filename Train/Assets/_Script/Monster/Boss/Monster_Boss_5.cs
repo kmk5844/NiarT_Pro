@@ -630,15 +630,13 @@ public class Monster_Boss_5 : Boss
             playType = Boss_PlayType.Move;
         }
     }
-}
-    
-
-enum Boss_PlayType
-{
-    Spawn,
-    Move,
-    Move_Wait,
-    SKill,
-    Skill_Using,
-    Die
+    enum Boss_PlayType
+    {
+        Spawn,
+        Move,
+        Move_Wait,
+        SKill,
+        Skill_Using,
+        Die
+    }
 }

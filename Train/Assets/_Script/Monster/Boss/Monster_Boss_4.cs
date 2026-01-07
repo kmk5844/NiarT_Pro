@@ -318,12 +318,12 @@ public class Monster_Boss_4 : Boss
         dieEffectFlag = false;
     }
     enum Boss_PlayType
-{
-    Spawn,
-    Move,
-    Move_Wait,
-    Skill,
-    SKill_Using,
-    Die
+    {
+        Spawn,
+        Move,
+        Move_Wait,
+        Skill,
+        SKill_Using,
+        Die
     }
 }

@@ -25,8 +25,6 @@ public class CustomLight_12 : MonoBehaviour
     Light2D _light;
     bool flag;
 
-    bool firstFlag;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -39,68 +37,77 @@ public class CustomLight_12 : MonoBehaviour
     private void Update()
     {
         if (flag)
-        {
-            // X는 계속 이동
-            transform.Translate(Vector3.right * SpeedX * Time.deltaTime);
-            transform.Rotate(0f, 0f, RoateSpeed * Time.deltaTime);
-        }
+        { // X는 계속 이동
+          transform.Translate(Vector3.right * SpeedX * Time.deltaTime);
+          transform.Rotate(0f, 0f, RoateSpeed * Time.deltaTime * 2f); 
+        } 
     }
 
     IEnumerator lightSetting()
     {
+        // 최초 딜레이
+        yield return new WaitForSeconds(Random.Range(1f, 3f));
+
         while (true)
         {
-            if (!flag)
-            {
-                StartCoroutine(lightOnOff());
-            }
+            yield return StartCoroutine(lightOnOff());
             yield return new WaitForSeconds(Random.Range(0.5f, 2f));
         }
     }
 
     IEnumerator lightOnOff()
     {
-        if (!firstFlag)
-        {
-            yield return new WaitForSeconds(Random.Range(1f, 3f));
-            firstFlag = true;
-        }
-
         flag = true;
+        // 랜덤 세팅
         SpeedX = Random.Range(0.5f, 0.7f);
         RoateSpeed = Random.Range(-2f, 2f);
-        transform.position = new Vector3(Random.Range(InitVec.x -3f, InitVec.x + 3f),InitVec.y);
-        float radius = Random.Range(MinRadius, MaxRadius);
-        transform.localRotation = Quaternion.Euler(0, 0, radius);
 
-        float duration = Random.Range(Minduration, Maxduration);
+        transform.position = new Vector3(
+            Random.Range(InitVec.x - 3f, InitVec.x + 3f),
+            InitVec.y
+        );
+
+        float roation = Random.Range(MinRadius, MaxRadius);
+        transform.localRotation = Quaternion.Euler(0, 0, roation);
 
         float innerAngle = Random.Range(MinSpotAngle, MaxSpotAngle);
         _light.pointLightInnerAngle = innerAngle;
         _light.pointLightOuterAngle = Random.Range(innerAngle, MaxSpotAngle);
-        
+
+        float maxIntensity = MaxIntensity;
+
+        // =====================
+        // Fade In
+        // =====================
+        float fadeInDuration = Random.Range(0.3f, 0.8f);
         float t = 0f;
-        while (t < duration)
+
+        while (t < fadeInDuration)
         {
             t += Time.deltaTime;
-            float eased = Mathf.SmoothStep(0f, 1f, t / duration);
-            _light.intensity = Mathf.Lerp(0f, MaxIntensity, eased);
+            float eased = Mathf.SmoothStep(0f, 1f, t / fadeInDuration);
+            _light.intensity = Mathf.Lerp(0f, maxIntensity, eased);
             yield return null;
         }
-        _light.intensity = MaxIntensity;
+        _light.intensity = maxIntensity;
 
-        yield return new WaitForSeconds(1f);
+        // 살짝 유지
+        yield return new WaitForSeconds(Random.Range(0.1f, 0.4f));
 
+        // =====================
+        // Fade Out
+        // =====================
+        float fadeOutDuration = Random.Range(0.5f, 1.2f);
         t = 0f;
-        while (t < duration)
+
+        while (t < fadeOutDuration)
         {
             t += Time.deltaTime;
-            float eased = Mathf.SmoothStep(0f, 1f, t / duration);
-            _light.intensity = Mathf.Lerp(MaxIntensity, 0f, eased);
+            float eased = Mathf.SmoothStep(0f, 1f, t / fadeOutDuration);
+            _light.intensity = Mathf.Lerp(maxIntensity, 0f, eased);
             yield return null;
         }
         _light.intensity = 0f;
-
         flag = false;
     }
 }
