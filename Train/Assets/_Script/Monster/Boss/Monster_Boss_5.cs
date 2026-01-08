@@ -214,7 +214,7 @@ public class Monster_Boss_5 : Boss
             playType = Boss_PlayType.Skill_Using;
         }
 
-        if(playType == Boss_PlayType.Skill_Using)
+        if (playType == Boss_PlayType.Skill_Using)
         {
             //playType = Boss_PlayType.Move;
             //move_lastTime = Time.time;
