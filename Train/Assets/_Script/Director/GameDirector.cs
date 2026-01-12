@@ -469,19 +469,19 @@ public class GameDirector : MonoBehaviour
     void Update()
     {
         //TEST
-        /*        if (Input.GetKeyDown("]"))
-                {
-                    if (Data_BossFlag)
-                    {
-                        TrainSpeed = 1000;
-                    }
-                    else
-                    {
-                        TrainDistance = 99999999;
-                    }
-                }*/
+/*        if (Input.GetKeyDown("]"))
+        {
+            if (Data_BossFlag)
+            {
+                TrainSpeed = 1000;
+            }
+            else
+            {
+                TrainDistance = 99999999;
+            }
+        }*/
 
-        if(GameManager.Instance != null && GameManager.Instance.TestMode && Input.GetKeyDown(KeyCode.RightBracket)){
+        if (GameManager.Instance != null && GameManager.Instance.TestMode && Input.GetKeyDown(KeyCode.RightBracket)){
             gameType = GameType.Playing;
             GameStartFlag = true;
             monsterDirector.GameDirector_StartFlag = true;

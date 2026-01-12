@@ -137,7 +137,6 @@ public class Monster_Boss_6 : Boss
         if (playType == Boss_PlayType.SKill)
         {
             skillNum = Random.Range(0, 8);
-            skillNum = 7;
 
             if (skillNum == 0)
             {

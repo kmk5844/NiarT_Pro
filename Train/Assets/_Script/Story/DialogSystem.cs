@@ -79,9 +79,12 @@ public class DialogSystem : MonoBehaviour
             delay = 2;
         }
 
-        for (int i = 0; i < 3; i++)
+        if (!SpecialFlag)
         {
-            SelectButton[i].GetComponent<StorySelectButton>().Setting_Director(this);
+            for (int i = 0; i < 3; i++)
+            {
+                SelectButton[i].GetComponent<StorySelectButton>().Setting_Director(this);
+            }
         }
 
         ButtonSFX = Resources.Load<AudioClip>("Sound/SFX/ButtonSFX");

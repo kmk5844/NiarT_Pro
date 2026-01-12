@@ -79,28 +79,28 @@ public class GameManager : MonoBehaviour
 /*        if (Input.GetKeyDown(KeyCode.Slash))
         {
             TestMode = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            if (Time.timeScale == 0)
+            {
+                Time.timeScale = 1;
+            }
+
+            if (GameObject.Find("SelectMission"))
+            {
+                GameObject gm = GameObject.Find("SelectMission");
+                Destroy(gm);
+            }
+            StopAllCoroutines();
+            Game_DataReset();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            PlayerData.SA_Test();
         }*/
-
-        /*        if (Input.GetKeyDown(KeyCode.Alpha0))
-                {
-                    if (Time.timeScale == 0)
-                    {
-                        Time.timeScale = 1;
-                    }
-
-                    if (GameObject.Find("SelectMission"))
-                    {
-                        GameObject gm = GameObject.Find("SelectMission");
-                        Destroy(gm);
-                    }
-                    StopAllCoroutines();
-                    Game_DataReset();
-                }*/
-
-        /*        if (Input.GetKeyDown(KeyCode.Alpha9))
-                {
-                    PlayerData.SA_Test();
-                }*/
     }
 
 
