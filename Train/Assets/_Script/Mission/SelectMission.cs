@@ -213,7 +213,13 @@ public class SelectMission : MonoBehaviour
             }
             else if (MissionType == MissionType.Boss)
             {
-                if(bossCount >= M_Boss.BossCount)
+                int BossCountSum = 0;
+                foreach(int m in M_Boss.BossCount)
+                {
+                    BossCountSum += m;
+                }
+
+                if(bossCount >= BossCountSum)
                 {
                     return true;
                 }
@@ -255,9 +261,19 @@ public class SelectMission : MonoBehaviour
                 //missionSelect에서 플레이어가 직접 설정함
                 break;
             case MissionType.Boss:
-                _num = int.Parse(_state[0]);
-                _count = int.Parse(_state[1]);
-                M_Boss.SetSetting(_num, _count);
+                int index_ = int.Parse(_state[0]);
+                int[] boss_num_ = new int[index_];
+                int[] boss_count_ = new int[index_];
+                int j = 1;
+                for (int i = 0; i < index_; i++)
+                {
+                    boss_num_[i] = int.Parse(_state[j]);
+                    boss_count_[i] = int.Parse(_state[j + 1]);
+                    j += 2;
+                }
+                _num = int.Parse(_state[1]);
+                _count = int.Parse(_state[2]);
+                M_Boss.SetSetting(index_, boss_num_, boss_count_);
                 break;
             case MissionType.Infinite:
                 break;
@@ -363,11 +379,16 @@ public class SelectMission : MonoBehaviour
     [Serializable]
     public struct MissionBoss_State
     {
-        public int BossNum;
-        public int BossCount;
+        public int BossIndex;
+        public int[] BossNum;
+        public int[] BossCount;
 
-        public void SetSetting(int _num, int _count)
+        public void SetSetting(int index, int[] _num, int[] _count)
         {
+            BossIndex = index;
+            BossNum = new int[index];
+            BossCount = new int[index];
+
             BossNum = _num;
             BossCount = _count;
         }

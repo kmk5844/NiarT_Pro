@@ -439,7 +439,7 @@ public class Monster_Boss_6 : Boss
         dieEffectFlag = true;
         Vector2 diePos = new Vector2(
            DieEffectOriginPos.x + Random.Range(-2f, 2f),
-           DieEffectOriginPos.y + Random.Range(-1f, 1f)
+           DieEffectOriginPos.y + Random.Range(-4.5f, 3.5f)
         );
         DieEffect.transform.localPosition = diePos;
 

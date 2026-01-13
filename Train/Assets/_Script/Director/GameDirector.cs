@@ -1087,9 +1087,22 @@ public class GameDirector : MonoBehaviour
         {
             Data_BossFlag = true;
             string[] Boss_String = SubStageData.SubStage_Status.Split(',');
-            Emerging_Boss.Add(int.Parse(Boss_String[0]));
-            Emerging_Boss_Distance.Add(int.Parse(Boss_String[1]));
-            Emerging_Boss_Monster_Count.Add(int.Parse(Boss_String[2]));
+            int i = 0;
+
+            while (true)
+            {
+                if (i < Boss_String.Length)
+                {
+                    Emerging_Boss.Add(int.Parse(Boss_String[i]));
+                    Emerging_Boss_Distance.Add(int.Parse(Boss_String[i+1]));
+                    Emerging_Boss_Monster_Count.Add(int.Parse(Boss_String[i+2]));
+                    i += 3;
+                }
+                else
+                {
+                    break;
+                }
+            }
             monsterDirector.Get_Boss_List(Emerging_Boss);
         }
 

@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -90,19 +91,44 @@ public class MissionSelectButton : MonoBehaviour
                 MissionInformation_Text.StringReference.TableEntryReference = "Information_" + missionNum;
                 break;
             case 5:
-                monsterString.TableEntryReference = "Boss_" + missionState[0]; // 예: Boss_0, Boss_1 같은 식
-
-                // monsterString 번역값 가져와서 Argument로 전달
-                MissionInformation_Text.StringReference.Arguments = new object[] { -1 };
-                monsterString.GetLocalizedStringAsync().Completed += handle =>
+                int index = int.Parse(missionState[0]);
+                if (index == 1)
                 {
-                    string monsterName = handle.Result;
+                    monsterString.TableEntryReference = "Boss_" + missionState[1]; // 예: Boss_0, Boss_1 같은 식
 
-                    // Argument에 monsterName 넣기
-                    MissionInformation_Text.StringReference.Arguments = new object[] { monsterName };
-                    MissionInformation_Text.StringReference.TableEntryReference = "Information_" + missionNum;
-                    MissionInformation_Text.RefreshString();
-                };
+                    // monsterString 번역값 가져와서 Argument로 전달
+                    MissionInformation_Text.StringReference.Arguments = new object[] { -1 };
+                    monsterString.GetLocalizedStringAsync().Completed += handle =>
+                    {
+                        string monsterName = handle.Result;
+
+                        // Argument에 monsterName 넣기
+                        MissionInformation_Text.StringReference.Arguments = new object[] { monsterName };
+                        MissionInformation_Text.StringReference.TableEntryReference = "Information_" + missionNum;
+                        MissionInformation_Text.RefreshString();
+                    };
+                }
+                else
+                {
+                    string name_ = "Boss_SP_";
+                    int j = 1;
+                    for(int i = 0; i < index; i++)
+                    {
+                        name_ += missionState[j];
+                        j += 2;
+                    }
+                    // monsterString 번역값 가져와서 Argument로 전달
+                    MissionInformation_Text.StringReference.Arguments = new object[] { -1 };
+                    monsterString.GetLocalizedStringAsync().Completed += handle =>
+                    {
+                        string monsterName = handle.Result;
+
+                        // Argument에 monsterName 넣기
+                        MissionInformation_Text.StringReference.Arguments = new object[] { monsterName };
+                        MissionInformation_Text.StringReference.TableEntryReference = "Information_" + missionNum;
+                        MissionInformation_Text.RefreshString();
+                    };
+                }
                 break;
             case 6: // 스토리
                 MissionInformation_Text.StringReference.TableEntryReference = "Information_" + missionNum;

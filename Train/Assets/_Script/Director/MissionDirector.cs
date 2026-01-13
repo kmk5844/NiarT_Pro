@@ -112,14 +112,21 @@ public class MissionDirector : MonoBehaviour
     //Boss -> 보스와 일치할 경우 CountFlag가 켜지는 것이다.
     public bool CheckBoss(int BossNum)
     {
-        if(selectmission.M_Boss.BossNum == BossNum)
+        bool flag = false;
+        for(int i = 0; i < selectmission.M_Boss.BossIndex; i++)
         {
-            return true;
+            if (selectmission.M_Boss.BossNum[i] == BossNum)
+            {
+                flag = true;
+                break;
+            }
+            else
+            {
+                flag = false;
+            }
         }
-        else
-        {
-            return false;
-        }
+
+        return flag;
     }
 
     public void MaterialCount()
