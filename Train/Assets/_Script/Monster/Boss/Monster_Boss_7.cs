@@ -1,3 +1,4 @@
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -183,18 +184,20 @@ public class Monster_Boss_7 : Boss
             {
                 playType = Boss_PlayType.Die;
                 col.enabled = false;
+                Destroy(gameObject, 10f);
             }
         }
 
 
         if (playType == Boss_PlayType.Die)
         {
-            if (!dieEffectFlag && dieCount < 4)
+            if (!dieEffectFlag)
             {
                 StartCoroutine(DieCorutine());
-                dieCount++;
             }
             //DieEffect.Emit(9);
+            Vector3 movement = new Vector3(-10f, -4f, 0f);
+            transform.Translate(movement * Time.deltaTime);
         }
     }
 

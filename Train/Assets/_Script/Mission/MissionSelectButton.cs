@@ -117,12 +117,13 @@ public class MissionSelectButton : MonoBehaviour
                         name_ += missionState[j];
                         j += 2;
                     }
+
+                    monsterString.TableEntryReference = name_; // 예: Boss_0, Boss_1 같은 식
                     // monsterString 번역값 가져와서 Argument로 전달
                     MissionInformation_Text.StringReference.Arguments = new object[] { -1 };
                     monsterString.GetLocalizedStringAsync().Completed += handle =>
                     {
                         string monsterName = handle.Result;
-
                         // Argument에 monsterName 넣기
                         MissionInformation_Text.StringReference.Arguments = new object[] { monsterName };
                         MissionInformation_Text.StringReference.TableEntryReference = "Information_" + missionNum;

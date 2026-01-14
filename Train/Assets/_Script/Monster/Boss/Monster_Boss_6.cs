@@ -191,6 +191,7 @@ public class Monster_Boss_6 : Boss
             {
                 playType = Boss_PlayType.Die;
                 col.enabled = false;
+                Destroy(gameObject, 10f);
             }
         }
 
@@ -203,6 +204,8 @@ public class Monster_Boss_6 : Boss
                 dieCount++;
             }
             //DieEffect.Emit(9);
+            Vector3 movement = new Vector3(-10f, 0f, 0f);
+            transform.Translate(movement * Time.deltaTime);
         }
     }
 
