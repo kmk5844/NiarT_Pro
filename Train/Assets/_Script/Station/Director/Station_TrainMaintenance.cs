@@ -2217,7 +2217,7 @@ else // 기차 교체
             EX_Weight = 1 - (trainData_Info.Train_Weight / MaxWeight);
             EX_Armor = 1 - (trainData_Info.Train_Armor / MaxArmor);
 
-            if (index % 10 < 5)
+            if (index % 10 < 9)
             {
                 After_LevelImage.sprite = Level_Sprite[index + 1];
                 trainData_Info2 = trainData.EX_Game_Data.Information_Train_Turret_Part[num2+1];
@@ -2328,7 +2328,7 @@ else // 기차 교체
             }
             else
             {
-                if (num % 10 < 5)
+                if (num % 10 < 9)
                 {
                     After_LevelImage.sprite = Level_Sprite[index + 1];
                     trainData_Info2 = trainData.EX_Game_Data.Information_Train[num + 1];

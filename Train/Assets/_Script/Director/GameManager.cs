@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Slash))
+/*        if (Input.GetKeyDown(KeyCode.Slash))
         {
             TestMode = true;
         }
@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             PlayerData.SA_Test();
-        }
+        }*/
     }
 
 

@@ -1450,7 +1450,6 @@ public class GameDirector : MonoBehaviour
     {
         if(!Infinite_Mode)
         {
-            Debug.Log("DD");
             SubStage_Clear();
             SubStage_LockOff(); // 마지막 스테이지 종료 판단
         }

@@ -954,9 +954,9 @@ public class UIDirector : MonoBehaviour
                 int index = int.Parse(missionState[0]);
                 if(index == 1)
                 {
-                    monsterString.TableEntryReference = "Boss_" + missionState[1]; // 예: Boss_0, Boss_1 같은 식
                     missionTextInformation_text.StringReference.Arguments = new object[] { -1 };
-                    monsterString.TableEntryReference = "Boss_" + missionState[0]; // 예: Boss_0, Boss_1 같은 식
+                    monsterString.TableEntryReference = "Boss_" + missionState[1]; // 예: Boss_0, Boss_1 같은 식
+                    //monsterString.TableEntryReference = "Boss_" + missionState[0]; // 예: Boss_0, Boss_1 같은 식
                                                                                    // monsterString 번역값 가져와서 Argument로 전달
                     monsterString.GetLocalizedStringAsync().Completed += handle =>
                     {

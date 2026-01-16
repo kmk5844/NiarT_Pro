@@ -15,7 +15,6 @@ public class CharacterDirector : MonoBehaviour
 
     private void Start()
     {
-
         if (QualitySettings.vSyncCount != 1)
         {
             QualitySettings.vSyncCount = 1;
