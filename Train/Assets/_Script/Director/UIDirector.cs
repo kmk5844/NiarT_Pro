@@ -97,14 +97,14 @@ public class UIDirector : MonoBehaviour
     public bool SKillLockFlag;
 
     [Header("Result UI 관련된 텍스트 및 아이템")]
-    public TextMeshProUGUI[] Result_Text_List; //0. Stage, 1. Score, 2. Gold, 3. Rank 4. Point
+    //public TextMeshProUGUI[] Result_Text_List; //0. Stage, 1. Score, 2. Gold, 3. Rank 4. Point
+    public TextMeshProUGUI Result_SucessMissionReward_Text;
     public GameObject WinWindow;
     public GameObject LoseWindow;
     public LocalizeStringEvent LoseText;
 
     [Header("Infinite UI")]
     public GameObject Option_Station_Button;
-    public GameObject Resulte_DefaultNext_Button;
     public string[] InfiniteMode_Button_String;
     public Image[] InfiniteMode_Button_Icon;
     public LocalizeStringEvent[] InfiniteMode_Button_MainsStr;
@@ -116,7 +116,7 @@ public class UIDirector : MonoBehaviour
     public TextMeshProUGUI Infinite_SubDistance_Text;
     public TextMeshProUGUI Infinite_Stage_Text;
     public TextMeshProUGUI Infinite_Mosnter_Count;
-    public TextMeshProUGUI Infinite_Boss_Count;
+    //public TextMeshProUGUI Infinite_Boss_Count;
     public Button[] Infinite_RerollButton;
 
 
@@ -328,24 +328,22 @@ public class UIDirector : MonoBehaviour
         Distance_Bar.value = gamedirector.Check_Distance();
     }
 
-    public void Open_Result_UI(bool Win, int Coin, SelectMission mission, bool ChapterClear, int LoseNum = -1)
+    public void Open_Result_UI(bool Win, SelectMission mission,/* bool ChapterClear,*/ int LoseNum = -1)
     {
-        Result_Text_List[1].text = Coin + "G"; // + "원";
         if (Win)
         {
             WinWindow.SetActive(true);
             LoseWindow.SetActive(false);
 
-            if (!ChapterClear)
+            Result_SucessMissionReward_Text.text = mission.MissionReward + "G";
+/*            if (!ChapterClear)
             {
-                Result_Text_List[2].text = mission.MissionReward + "G";
-                Result_Text_List[3].text = "+" + (Coin + mission.MissionReward) + "G";
+                Result_Text_List[0].text = mission.MissionReward + "G";
             }
             else
             {
-                Result_Text_List[2].text = mission.MissionReward / 2 + "G";
-                Result_Text_List[3].text = "+" + (Coin + (mission.MissionReward / 2)) + "G";
-            }
+                Result_Text_List[0].text = mission.MissionReward / 2 + "G";
+            }*/
 
             missionTitle.StringReference.TableReference = "MissionList_St";
             missionTitle.StringReference.TableEntryReference = "Title_" + mission.MISSIONNUM;
@@ -367,8 +365,7 @@ public class UIDirector : MonoBehaviour
             WinWindow.SetActive(false);
             LoseWindow.SetActive(true);
 
-            Result_Text_List[2].text = "0G";
-            Result_Text_List[3].text = "-" + (int)(playerData.Coin * (mission.MissionCoinLosePersent / 100f));
+            Result_SucessMissionReward_Text.text = "0G";
             LoseText.StringReference.TableReference = "InGame_Table_St";
             LoseText.StringReference.TableEntryReference = "UI_Lose_Text_" + LoseText_Num;
         }
@@ -1183,16 +1180,15 @@ public class UIDirector : MonoBehaviour
         Infinite_UI.SetActive(false);
     }
 
-    public void Infinite_UI_Resulte(int distance, int stagecount, int monsterCount, int bossCount)
+    public void Infinite_UI_Resulte(int distance, int stagecount, int monsterCount)//, int bossCount)
     {
         Result_UI.SetActive(true);
-        Resulte_DefaultNext_Button.SetActive(false);
         InfiniteResulteWindow.SetActive(true);
         Infinite_MainDistance_Text.text = (distance / 10000) + "km";
         Infinite_SubDistance_Text.text = (distance / 10) + "m";
         Infinite_Stage_Text.text = "▶ " + stagecount;
         Infinite_Mosnter_Count.text = "▶ " + monsterCount;
-        Infinite_Boss_Count.text = "▶ " + bossCount;
+        //Infinite_Boss_Count.text = "▶ " + bossCount;
     }
 
     public void Infinite_MainMenu()

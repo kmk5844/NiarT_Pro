@@ -73,9 +73,9 @@ SpriteRenderer:
   m_SortingLayerID: 1518619973
   m_SortingLayer: 8
   m_SortingOrder: 1
-  m_Sprite: {fileID: 334241385, guid: bf458d9a59be2ff47bb475396e6fe313, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4bec41e46497eeb4590843ec5861fa34, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.17, y: 0.07}
@@ -94,8 +94,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2284520680175412986}
   - component: {fileID: -2744086448423873013}
-  - component: {fileID: 6269809221885246463}
   - component: {fileID: 7384597239948580330}
+  - component: {fileID: 8440966368430491385}
   m_Layer: 10
   m_Name: FireBall_P
   m_TagString: Monster_Bullet
@@ -147,8 +147,24 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!70 &6269809221885246463
-CapsuleCollider2D:
+--- !u!114 &7384597239948580330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2284520680175412988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 368b917f86230aa42925c4e7a2cf4e94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 0
+  atk: 0
+  slow: 0
+  bulletType: 0
+--- !u!58 &8440966368430491385
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -180,24 +196,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.04, y: 0.14}
-  m_Direction: 0
---- !u!114 &7384597239948580330
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2284520680175412988}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 368b917f86230aa42925c4e7a2cf4e94, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Speed: 0
-  atk: 0
-  slow: 0
-  bulletType: 0
+  serializedVersion: 2
+  m_Radius: 0.1
 --- !u!1001 &1533884095568923474
 PrefabInstance:
   m_ObjectHideFlags: 0

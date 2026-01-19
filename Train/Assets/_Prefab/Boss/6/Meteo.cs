@@ -6,6 +6,7 @@ public class Meteo : MonsterBullet
 {
     bool ScarecrowFlag;
     MonsterDirector monsterdirector;
+    public SpriteRenderer spriteRenderer;
 
     Vector2 maxScale = new Vector2(40, 40);
     protected override void Start()
@@ -47,6 +48,7 @@ public class Meteo : MonsterBullet
 
     void PlayerFire()
     {
+        spriteRenderer.flipY = true;
         float Rx = Random.Range(player_target.position.x - 20, player_target.position.x + 20);
         if (!ScarecrowFlag)
         {

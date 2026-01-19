@@ -1521,7 +1521,6 @@ public class GameDirector : MonoBehaviour
         gameType = GameType.GameEnd;
         if(!Infinite_Mode)
         {
-            bool chapter_clearFlag = SA_StageList.Stage[Stage_Num].Stage_ClearFlag;
             if (WinFlag)
             {
                 missionDirector.Adjustment_Mission(); // 정보 갱신하기.
@@ -1543,7 +1542,7 @@ public class GameDirector : MonoBehaviour
                         missionDirector.selectmission.Mission_Fail();
                         SA_PlayerData.SA_MissionPlaying(false);
                         GameEnd_SavePlayerData(true);
-                        uiDirector.Open_Result_UI(false, Total_Coin, missionDirector.selectmission, chapter_clearFlag, LoseNum);
+                        uiDirector.Open_Result_UI(false, missionDirector.selectmission, LoseNum);
                     }
 
                 }
@@ -1556,7 +1555,7 @@ public class GameDirector : MonoBehaviour
                         missionDirector.selectmission.Mission_Sucesses(SA_StageList.Stage[Stage_Num]);
                         GameEnd_SavePlayerData(true);
 
-                        uiDirector.Open_Result_UI(true, Total_Coin, missionDirector.selectmission, chapter_clearFlag, LoseNum);
+                        uiDirector.Open_Result_UI(true, missionDirector.selectmission, LoseNum);
                         LastSubStageClear();
                         SA_PlayerData.change_clickStartButton(false);
                         SA_PlayerData.SA_GameWinReward(true, Total_Coin);
@@ -1580,7 +1579,7 @@ public class GameDirector : MonoBehaviour
                         missionDirector.selectmission.Mission_Fail();
                         SA_PlayerData.SA_MissionPlaying(false);
                         SA_MissionData.SubStage_Init(Stage_Num, Mission_Num); // 승리
-                        uiDirector.Open_Result_UI(false, Total_Coin, missionDirector.selectmission, chapter_clearFlag, LoseNum);
+                        uiDirector.Open_Result_UI(false, missionDirector.selectmission, LoseNum);
                     }
                 }
             }
@@ -1588,7 +1587,7 @@ public class GameDirector : MonoBehaviour
             {
                 missionDirector.selectmission.Mission_Fail();
                 SA_PlayerData.SA_MissionPlaying(false);
-                uiDirector.Open_Result_UI(false, Total_Coin, missionDirector.selectmission, chapter_clearFlag, LoseNum);
+                uiDirector.Open_Result_UI(false, missionDirector.selectmission, LoseNum);
             }
             /*
                     if (WinFlag && subStage_Last)
@@ -1661,7 +1660,7 @@ public class GameDirector : MonoBehaviour
                 monsterDirector.Monster_List_Sky.gameObject.SetActive(false);
                 monsterDirector.Monster_List_Slow.gameObject.SetActive(false);
                 monsterDirector.Boss_List.gameObject.SetActive(false);
-                uiDirector.Infinite_UI_Resulte(Infinite_Total_Distance + TrainDistance, Infinite_Count, Infinite_mosnterCount, Infinite_bossCount);
+                uiDirector.Infinite_UI_Resulte(Infinite_Total_Distance + TrainDistance, Infinite_Count, Infinite_mosnterCount);//, Infinite_bossCount);
             }
         }
     }
