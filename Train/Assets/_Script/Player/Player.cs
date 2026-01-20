@@ -2082,7 +2082,7 @@ public class Player : MonoBehaviour
 
     public IEnumerator Acer_Skill_Upgrade(float persent, float during)
     {
-        Player_HP = Player_HP * 90 / 100;
+        Player_HP = Player_HP * 70 / 100;
         Skill_Bullet_Atk = Bullet_Atk * (int)persent / 100;
         {
             Skill_Player_Armor = (int)(Player_Armor * (persent / 100f));
@@ -2100,6 +2100,17 @@ public class Player : MonoBehaviour
         }
         Skill_Bullet_Delay = 0f;
         Skill_Move_Speed = 0f;
+
+        for(int i = 0; i < 3; i++)
+        {
+            yield return new WaitForSeconds(1f);
+            Player_HP += Mathf.RoundToInt(Max_HP * 0.12f);
+            if (Player_HP > Max_HP)
+            {
+                Player_HP = Max_HP;
+            }
+        }
+
     }
 
     public void GameEnd_PlayerSave() {

@@ -11,6 +11,8 @@ public class Monster_Boss_6 : Boss
     public Transform Fire_Zone;
     GameObject player;
     float Speed;
+    public Animator ani;
+    bool aniFlag;
 
     Vector2 MonsterDirector_Pos;
     public Transform WorkTrailObject;
@@ -95,12 +97,23 @@ public class Monster_Boss_6 : Boss
         {
             if (!SpawnFlag)
             {
+                if (!aniFlag)
+                {
+                    TriggerAnimation();
+                    aniFlag = true;
+                }
                 StartCoroutine(SpawnCorutine());
             }
         }
 
         if (playType == Boss_PlayType.Move)
         {
+            if (!aniFlag)
+            {
+                TriggerAnimation();
+                aniFlag = true;
+            }
+
             if (MonsterDirector_Pos.x - 2 > transform.position.x)
             {
                 move_xPos = 1f;
@@ -130,12 +143,19 @@ public class Monster_Boss_6 : Boss
 
             if (Time.time >= move_lastTime + move_delayTime)
             {
-                playType = Boss_PlayType.SKill;
+                playType = Boss_PlayType.Skill;
+                ResetAni();
             }
         }
 
-        if (playType == Boss_PlayType.SKill)
+        if (playType == Boss_PlayType.Skill)
         {
+            if (!aniFlag)
+            {
+                TriggerAnimation();
+                aniFlag = true;
+            }
+
             skillNum = Random.Range(0, 8);
 
             if (skillNum == 0)
@@ -198,10 +218,10 @@ public class Monster_Boss_6 : Boss
 
         if (playType == Boss_PlayType.Die)
         {
-            if (!dieEffectFlag && dieCount < 4)
+            ani.SetTrigger("Die");
+            if (!dieEffectFlag)
             {
                 StartCoroutine(DieCorutine());
-                dieCount++;
             }
             //DieEffect.Emit(9);
             Vector3 movement = new Vector3(-10f, 0f, 0f);
@@ -260,6 +280,8 @@ public class Monster_Boss_6 : Boss
         move_lastTime = Time.time;
         attack_lastTime = Time.time;
         playType = Boss_PlayType.Move;
+        aniFlag = false;
+
     }
 
     IEnumerator Skill_0()
@@ -461,6 +483,28 @@ public class Monster_Boss_6 : Boss
         dieEffectFlag = false;
     }
 
+    void TriggerAnimation()
+    {
+        if (playType == Boss_PlayType.Spawn || playType == Boss_PlayType.Move)
+        {
+            ani.SetBool("Skill", false);
+        }
+
+        if (playType == Boss_PlayType.Skill)
+        {
+            ani.SetBool("Skill", true);
+        }
+
+        if (playType == Boss_PlayType.Die)
+        {
+            ani.SetTrigger("Die");
+        }
+    }
+
+    void ResetAni()
+    {
+        aniFlag = false;
+    }
 
     private void ToMove()
     {
@@ -470,7 +514,7 @@ public class Monster_Boss_6 : Boss
             skilleffect_flag = false;
             attack_lastTime = Time.time;
             move_lastTime = Time.time;
-            //ResetAni();
+            ResetAni();
             playType = Boss_PlayType.Move;
         }
     }
@@ -479,7 +523,7 @@ public class Monster_Boss_6 : Boss
         Spawn,
         Move,
         Move_Wait,
-        SKill,
+        Skill,
         Skill_Using,
         Die
     }

@@ -6,11 +6,21 @@ public class Monster_Bullet_LR_Streight : MonsterBullet
 {
     public bool flag = false;
     public SpriteRenderer spriteRenderer;
+    public bool Bossflag = false;
     protected override void Start()
     {
         base.Start();
         Bullet_Fire();
     }
+
+    private void Update()
+    {
+        if(transform.position.x > MonsterDirector.MaxPos_Ground.x -1f || transform.position.x < MonsterDirector.MinPos_Ground.x + 1f)
+        {
+            Destroy(gameObject);
+        }
+    }
+
 
     void Bullet_Fire()
     {

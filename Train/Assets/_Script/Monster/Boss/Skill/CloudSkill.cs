@@ -43,7 +43,7 @@ public class CloudSkill : MonoBehaviour
 
     void BulletFire()
     {
-        Vector2 vec = new Vector2(transform.position.x + Random.Range(-3f, 3f), transform.position.y);
+        Vector2 vec = new Vector2(transform.position.x + Random.Range(-4f, 4f), transform.position.y);
         GameObject bullet_ = Instantiate(BulletObj, vec, Quaternion.identity);
         bullet_.GetComponent<MonsterBullet>().Get_MonsterBullet_Information(atk, slow, speed);
     }
