@@ -347,7 +347,7 @@ public class SA_PlayerData : ScriptableObject
         //ES3.Save<int>("SA_PlayerData_Data_point", point);
         ES3.Save<int>("SA_PlayerData_Data_new_stage", new_stage);
         ES3.Save<int>("SA_PlayerData_Data_select_stage", select_stage);
-        Debug.Log("select_stage 저장 완료");
+        //Debug.Log("select_stage 저장 완료");
         ES3.Save<int>("SA_PlayerData_Data_before_sub_stage", before_sub_stage);
         ES3.Save<int>("SA_PlayerData_Data_mission_num", mission_num);
         ES3.Save<bool[]>("SA_PlayerData_Data_LockOff", character_lockoff);

@@ -3,6 +3,7 @@ using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -60,6 +61,8 @@ public class GameDirector : MonoBehaviour
     public int Infinite_mosnterCount = 0;
     [HideInInspector]
     public int Infinite_bossCount = 0;
+    [HideInInspector]
+    public int Infinite_BestScore = 0;
 
     [Header("데이터")]
     public SA_PlayerData SA_PlayerData;
@@ -80,6 +83,7 @@ public class GameDirector : MonoBehaviour
     public MercenaryDirector mercenaryDirector;
     public PlayerStatusDirector playerStatusDirector;
     public StoryDirector_InGame storyDirector;
+    public RankingDirector rankingDirector;
     Vector2[] newPoint;
     [SerializeField]
     List<int> Train_Num;
@@ -436,6 +440,15 @@ public class GameDirector : MonoBehaviour
             //Debug.Log("작동");
             QualitySettings.vSyncCount = 0;
             Application.targetFrameRate = 60;
+        }
+
+        if (Infinite_Mode)
+        {
+            rankingDirector.gameObject.SetActive(true);
+        }
+        else
+        {
+            rankingDirector.gameObject.SetActive(false);
         }
 
         player.maxRespawnPosition = new Vector3(-0.43f, 0f, 0);
@@ -1655,12 +1668,23 @@ public class GameDirector : MonoBehaviour
             }
             else
             {
+                bool flag = false;
+
                 missionDirector.selectmission.Infinite_End();
                 monsterDirector.Monster_List_Ground.gameObject.SetActive(false);
                 monsterDirector.Monster_List_Sky.gameObject.SetActive(false);
+                monsterDirector.SupplyMonster_List.gameObject.SetActive(false);
                 monsterDirector.Monster_List_Slow.gameObject.SetActive(false);
                 monsterDirector.Boss_List.gameObject.SetActive(false);
+                if(rankingDirector.myBestScore > Infinite_Total_Distance + TrainDistance / 10)
+                {
+                    flag = false;
+                }else
+                {
+                    flag = true;
+                }
                 uiDirector.Infinite_UI_Resulte(Infinite_Total_Distance + TrainDistance, Infinite_Count, Infinite_mosnterCount);//, Infinite_bossCount);
+                rankingDirector.SubmitScore(Infinite_Total_Distance + TrainDistance / 10, flag);
             }
         }
     }
