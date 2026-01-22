@@ -10,7 +10,7 @@ public class ParallaxBackGround_Sprite : MonoBehaviour
     public float wrapWidth = 20f;
 
     Vector3 startPos;
-
+    public bool leftAndRight = false;
     void Start()
     {
         gameDirector = GameObject.Find("GameDirector").GetComponent<GameDirector>();
@@ -20,13 +20,19 @@ public class ParallaxBackGround_Sprite : MonoBehaviour
     void Update()
     {
         float trainSpeed = gameDirector.TrainSpeed / 100f;
-
         float move = trainSpeed * depth * Time.deltaTime;
 
-        // 기차가 → , 배경은 ←
-        transform.Translate(Vector3.right * move);
+        // 배경 왼쪽 이동
+        if (!leftAndRight)
+        {
+            transform.Translate(Vector3.left * move);
+        }
+        else
+        {
+            transform.Translate(Vector3.right * move);
+        }
 
-        // 무한 루프
+        // 무한 루프 처리
         if (transform.localPosition.x <= startPos.x - wrapWidth)
         {
             transform.localPosition += Vector3.right * wrapWidth * 2f;

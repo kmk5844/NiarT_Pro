@@ -897,7 +897,6 @@ public class Station_Store : MonoBehaviour
             {
                 rect.sizeDelta = new Vector2(0, 45 + (145 * (count / 3)));
             }
-
         }
     }
 

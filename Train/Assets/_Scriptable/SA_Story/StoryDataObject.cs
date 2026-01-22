@@ -45,13 +45,17 @@ public class StoryDataObject : ScriptableObject
     {
         if (startAndend)
         {
-            start_flag = true;
+            //start_flag = true;
+            SetFlagAndSave(ref storydatause, "story_storydatause");
+            SetFlagAndSave(ref start_flag, "story_start_flag");
         }
         else
         {
-            end_flag = true;
+            //end_flag = true;
+            SetFlagAndSave(ref storydatause, "story_storydatause");
+            SetFlagAndSave(ref end_flag, "story_end_flag");
         }
-        Save();
+        //Save();
     }
 
     public void Auto_StoryData_Insert(int _story_num, int _branch_index, string _background, string _story_end, int _stage_num, bool dicFlag)//, string _story_title_kr, string _story_title_en, string _story_title_jp)
@@ -94,6 +98,34 @@ public class StoryDataObject : ScriptableObject
         ES3.Save<bool>("Story_" + story_num + "_StoryDataUse", storydatause);
         ES3.Save<bool>("Story_" + story_num + "_Start_Flag", start_flag);
         ES3.Save<bool>("Story_" + story_num + "_End_Flag", end_flag);
+    }
+
+    private void SetFlagAndSave(ref bool flag, string key)
+    {
+        if (!flag)
+        {
+            flag = true;
+            Save_Solo(key);
+        }
+    }
+
+    void Save_Solo(string str)
+    {
+        switch (str)
+        {
+            case "story_storydatause":
+                ES3.Save<bool>("Story_" + story_num + "_StoryDataUse", storydatause);
+                break;
+            case "story_start_flag":
+                ES3.Save<bool>("Story_" + story_num + "_Start_Flag", start_flag);
+                break;
+            case "story_end_flag":
+                ES3.Save<bool>("Story_" + story_num + "_End_Flag", end_flag);
+                break;
+            default:
+                Debug.LogError("잘못된 키값 입력 : " + str);
+                break;
+        }
     }
 
     public IEnumerator SaveSync(bool Init = false)

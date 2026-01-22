@@ -63,7 +63,8 @@ public class SA_MercenaryData : ScriptableObject
         {
             engine_driver_type = Engine_Driver_Type.def;
         }
-        Save();
+        Save_Solo("engine_driver_type");
+        //Save();
     }
 
     public int SA_Get_EngineDriver_Type_DropDown_Value()
@@ -97,7 +98,8 @@ public class SA_MercenaryData : ScriptableObject
         {
             bard_type = Bard_Type.Def_Buff;
         }
-        Save();
+        Save_Solo("bard_type");
+        //Save();
     }
 
     public int SA_Get_Bard_Type_DropDown_Value()
@@ -123,25 +125,28 @@ public class SA_MercenaryData : ScriptableObject
     public void SA_Mercenary_Num_Plus(int i)
     {
         mercenary_num.Add(i);
-        Save();
+        Save_Solo("mercenary_num");
+        //Save();
     }
 
     public void SA_Mercenary_Change(int index, int MercenaryNum)
     {
         mercenary_num[index] = MercenaryNum;
-        Save();
+        Save_Solo("mercenary_num");
+        //Save();
     }
 
     public void SA_Mercenary_Num_Remove(int i)
     {
         mercenary_num.Remove(i);
-        Save();
+        Save_Solo("mercenary_num");
+        //Save();
     }
 
     public void SA_Mercenary_Buy(int Num)
     {
         mercenary_buy_num.Add(Num);
-        Save();
+        Save_Solo("mercenary_buy_num");
     }
     public void SA_Mercenary_Level_Up(int Num)
     {
@@ -149,31 +154,31 @@ public class SA_MercenaryData : ScriptableObject
         {
             case 0:
                 level_engine_driver++;
-                Save();
+                Save_Solo("level_engine_driver");
                 break;
             case 1:
                 level_engineer++;
-                Save();
+                Save_Solo("level_engineer");
                 break;
             case 2:
                 level_long_ranged++;
-                Save();
+                Save_Solo("level_long_ranged");
                 break;
             case 3:
                 level_short_ranged++;
-                Save();
+                Save_Solo("level_short_ranged");
                 break;
             case 4:
                 level_medic++;
-                Save();
+                Save_Solo("level_medic");
                 break;
             case 5:
                 level_bard++;
-                Save();
+                Save_Solo("level_bard");
                 break;
             case 6:
                 level_cowboy++;
-                Save();
+                Save_Solo("level_cowboy");
                 break;
         }
     }
@@ -192,6 +197,50 @@ public class SA_MercenaryData : ScriptableObject
         ES3.Save("SA_Mercenary_Data_Data_level_bard", level_bard);
         ES3.Save("SA_Mercenary_Data_Data_level_cowboy", level_cowboy);
 
+    }
+
+    private void Save_Solo(string str)
+    {
+        switch (str)
+        {
+            case "mercenary_num":
+                ES3.Save("SA_Mercenary_Data_Data_mercenary_num", mercenary_num);
+                break;
+            case "level_engine_driver":
+                ES3.Save("SA_Mercenary_Data_Data_level_engine_driver", level_engine_driver);
+                break;
+            case "level_engineer":
+                ES3.Save("SA_Mercenary_Data_Data_level_engineer", level_engineer);
+                break;
+            case "level_long_ranged":
+                ES3.Save("SA_Mercenary_Data_Data_level_long_ranged", level_long_ranged);
+                break;
+            case "level_short_ranged":
+                ES3.Save("SA_Mercenary_Data_Data_level_short_ranged", level_short_ranged);
+                break;
+            case "level_medic":
+                ES3.Save("SA_Mercenary_Data_Data_level_medic", level_medic);
+                break;
+            case "engine_driver_type":
+                ES3.Save<Engine_Driver_Type>("SA_Mercenary_Data_engine_driver_type", engine_driver_type);
+                break;
+            case "mercenary_buy_num":
+                ES3.Save("SA_Mercenary_Data_Data_mercenary_buy_num", mercenary_buy_num);
+                break;
+            //데모버전 이후
+            case "bard_type":
+                ES3.Save<Bard_Type>("SA_Mercenary_Data_bard_type", bard_type);
+                break;
+            case "level_bard":
+                ES3.Save("SA_Mercenary_Data_Data_level_bard", level_bard);
+                break;
+            case "level_cowboy":
+                ES3.Save("SA_Mercenary_Data_Data_level_cowboy", level_cowboy);
+                break;
+            default:
+                Debug.LogError("잘못된 문자열 입력");
+                break;
+        }
     }
 
     private IEnumerator SaveSync()

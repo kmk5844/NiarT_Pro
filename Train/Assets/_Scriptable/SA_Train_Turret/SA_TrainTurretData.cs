@@ -55,33 +55,42 @@ public class SA_TrainTurretData : ScriptableObject
         {
             case 0:
                 level_trainturretnumber_00++;
+                Save_Solo("level_trainturretnumber_00");
                 break;
             case 1:
                 level_trainturretnumber_10++;
+                Save_Solo("level_trainturretnumber_10");
                 break;
             case 2:
                 level_trainturretnumber_20++;
+                Save_Solo("level_trainturretnumber_20");
                 break;
             case 3:
                 level_trainturretnumber_30++;
+                Save_Solo("level_trainturretnumber_30");
                 break;
             case 4:
                 level_trainturretnumber_40++;
+                Save_Solo("level_trainturretnumber_40");
                 break;
             case 5:
                 level_trainturretnumber_50++;
+                Save_Solo("level_trainturretnumber_50");
                 break;
             case 6:
                 level_trainturretnumber_60++;
+                Save_Solo("level_trainturretnumber_60");
                 break;
             case 7:
                 level_trainturretnumber_70++;
+                Save_Solo("level_trainturretnumber_70");
                 break;
             case 8:
                 level_trainturretnumber_80++;
+                Save_Solo("level_trainturretnumber_80");
                 break;
         }
-        Save();
+        //Save();
     }
 
     public int SA_Train_Turret_ChangeNum(int trainTurretNum)
@@ -121,7 +130,8 @@ public class SA_TrainTurretData : ScriptableObject
                 Train_Turret_Num[i] = Train_Turret_Num[i] + 1;
             }
         }
-        Save();
+        Save_Solo("train_turret_num");
+        //Save();
     }
 
     public void SA_Train_Turret_Upgrade_Renewal_2(int TrainNum)
@@ -133,36 +143,42 @@ public class SA_TrainTurretData : ScriptableObject
                 Train_Turret_Num[i] = Train_Turret_Num[i] + 1;
             }
         }
-        Save();
+        Save_Solo("train_turret_num");
+        //Save();
     }
 
     public void SA_Train_Turret_Buy(int TrainNum)
     {
         train_turret_buy_num.Add(TrainNum);
-        Save();
+        Save_Solo("train_turret_buy_num");
+        //Save();
     }
 
     public void SA_Train_Turret_Add(int TrainNum)
     {
         train_turret_num.Add(TrainNum);
-        Save();
+        Save_Solo("train_turret_num");
+        //Save();
     }
     public void SA_Train_Turret_Insert(int index,int TrainNum)
     {
         train_turret_num.Insert(index,TrainNum);
-        Save();
+        Save_Solo("train_turret_num");
+        //Save();
     }
 
     public void SA_Train_Turret_Change(int index, int chnage)
     {
         train_turret_num[index] = chnage;
-        Save();
+        Save_Solo("train_turret_num");
+        //Save();
     }
 
     public void SA_Train_Turret_Remove(int index)
     {
         train_turret_num.RemoveAt(index);
-        Save();
+        Save_Solo("train_turret_num");
+        //Save();
     }
 
     private void Save()
@@ -178,6 +194,46 @@ public class SA_TrainTurretData : ScriptableObject
         ES3.Save("SA_TrainData_Data_level_trainturretnumber_60", level_trainturretnumber_60);
         ES3.Save("SA_TrainData_Data_level_trainturretnumber_70", level_trainturretnumber_70);
         ES3.Save("SA_TrainData_Data_level_trainturretnumber_80", level_trainturretnumber_80);
+    }
+
+    private void Save_Solo(string str)
+    {
+        switch (str)
+        {
+            case "train_turret_num":
+                ES3.Save("SA_TrainData_Data_Train_Turret_Num", train_turret_num);
+                break;
+            case "train_turret_buy_num":
+                ES3.Save("SA_TrainData_Data_Train_Turret_Buy_Num", train_turret_buy_num);
+                break;
+            case "level_trainturretnumber_00":
+                ES3.Save("SA_TrainData_Data_level_trainturretnumber_00", level_trainturretnumber_00);
+                break;
+            case "level_trainturretnumber_10":
+                ES3.Save("SA_TrainData_Data_level_trainturretnumber_10", level_trainturretnumber_10);
+                break;
+            case "level_trainturretnumber_20":
+                ES3.Save("SA_TrainData_Data_level_trainturretnumber_20", level_trainturretnumber_20);
+                break;
+            case "level_trainturretnumber_30":
+                ES3.Save("SA_TrainData_Data_level_trainturretnumber_30", level_trainturretnumber_30);
+                break;
+            case "level_trainturretnumber_40":
+                ES3.Save("SA_TrainData_Data_level_trainturretnumber_40", level_trainturretnumber_40);
+                break;
+            case "level_trainturretnumber_50":
+                ES3.Save("SA_TrainData_Data_level_trainturretnumber_50", level_trainturretnumber_50);
+                break;
+            case "level_trainturretnumber_60":
+                ES3.Save("SA_TrainData_Data_level_trainturretnumber_60", level_trainturretnumber_60);
+                break;
+            case "level_trainturretnumber_70":
+                ES3.Save("SA_TrainData_Data_level_trainturretnumber_70", level_trainturretnumber_70);
+                break;
+            case "level_trainturretnumber_80":
+                ES3.Save("SA_TrainData_Data_level_trainturretnumber_80", level_trainturretnumber_80);
+                break;
+        }
     }
 
     private IEnumerator SaveSync()

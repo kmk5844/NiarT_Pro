@@ -138,7 +138,8 @@ public class SA_PlayerData : ScriptableObject
         }
         coin += R_Coin;
         //point += R_Point;
-        Save();
+        Save_Solo("NewStage");
+        Save_Solo("Coin");
     }
 
     public void SA_Test()
@@ -156,7 +157,7 @@ public class SA_PlayerData : ScriptableObject
     public void SA_Click_Playable(int i)
     {
         player_num = i;
-        Save();
+        //Save();
     }
 
     public void SA_Buy_Coin(int R_Coin)
@@ -233,7 +234,7 @@ public class SA_PlayerData : ScriptableObject
     public void SA_SelectSubStage(int substagenum)
     {
         select_sub_stage = substagenum;
-        Save();
+        //Save();
     }
 
     public void SA_CharecterCheck()
@@ -249,7 +250,7 @@ public class SA_PlayerData : ScriptableObject
         {
             //character_lockoff[4] = true;
         }
-        Save();
+        Save_Solo("LockOff");
     }
 
     public int SA_CheckCharecter_Num()
@@ -274,7 +275,7 @@ public class SA_PlayerData : ScriptableObject
         if (!firstflag)
         {
             firstflag = true;
-            Save();
+            Save_Solo("FirstFlag");
         }
     }
 
@@ -291,8 +292,9 @@ public class SA_PlayerData : ScriptableObject
 
     public void SA_StoryUnEnd()
     {
+        //사용 안할 가능성이 있음.
         story_num--;
-        Save();
+        Save_Solo("StoryNum");
     }
 
     public void SA_StoryNum_Chnage(int i)
@@ -316,7 +318,9 @@ public class SA_PlayerData : ScriptableObject
         {
             click_readyflag = false;
         }
-        Save();
+        Save_Solo("MissionPlaying");
+        Save_Solo("Click_ReadyFlag");
+        //Save();
     }
 
     public void SA_BeforeSubSelectStage_Save(int stage)
@@ -440,7 +444,6 @@ public class SA_PlayerData : ScriptableObject
         Debug.Log("select_stage 저장 완료");
         yield return new WaitForSeconds(0.001f);
         ES3.Save<int>("SA_PlayerData_Data_before_sub_stage", before_sub_stage);
-
         yield return new WaitForSeconds(0.001f);
         ES3.Save<int>("SA_PlayerData_Data_mission_num", mission_num);
         yield return new WaitForSeconds(0.001f);

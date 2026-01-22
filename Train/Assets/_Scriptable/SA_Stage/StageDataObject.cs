@@ -43,20 +43,38 @@ public class StageDataObject : ScriptableObject
 
     public void Clear_StageChage()
     {
+/*        if (!stagedatause)
+        {
+            stagedatause = true;
+        }
+
         if (!stage_clearflag)
         {
             stage_clearflag = true;
         }
-        Save();
+        Save_Solo("stage_stagedatause");
+        Save_Solo("stage_clearflag");
+        //Save();*/
+
+        SetFlagAndSave(ref stage_clearflag, "stage_clearflag");
+        SetFlagAndSave(ref stage_openflag, "stage_openflag");
     }
 
     public void Open_StageChange()
     {
+/*        if (!stagedatause)
+        {
+            stagedatause = true;
+        }
+
         if (!stage_openflag)
         {
             stage_openflag = true;
         }
-        Save();
+        Save_Solo("stage_stagedatause");
+        Save_Solo("stage_openflag");*/
+        SetFlagAndSave(ref stagedatause, "stage_stagedatause");
+        SetFlagAndSave(ref stage_openflag, "stage_openflag");
     }
 
     public void Save(bool Init = false)
@@ -72,7 +90,32 @@ public class StageDataObject : ScriptableObject
         ES3.Save<bool>("Stage_" + stage_num + "_stage_stagedatause", stagedatause);
         ES3.Save<bool>("Stage_" + stage_num + "_stage_openflag", stage_openflag);
         ES3.Save<bool>("Stage_" + stage_num + "_stage_clearflag", stage_clearflag);
-        Debug.Log("저장 완료");
+        //Debug.Log("저장 완료");
+    }
+
+    private void SetFlagAndSave(ref bool flag, string key)
+    {
+        if (!flag)
+        {
+            flag = true;
+            Save_Solo(key);
+        }
+    }
+
+    void Save_Solo(string str)
+    {
+        switch (str)
+        {
+            case "stage_stagedatause":
+                ES3.Save<bool>("Stage_" + stage_num + "_stage_stagedatause", stagedatause);
+                break;
+            case "stage_openflag":
+                ES3.Save<bool>("Stage_" + stage_num + "_stage_openflag", stage_openflag);
+                break;
+            case "stage_clearflag":
+                ES3.Save<bool>("Stage_" + stage_num + "_stage_clearflag", stage_clearflag);
+                break;
+        }
     }
 
     public IEnumerator SaveSync(bool Init = false)
