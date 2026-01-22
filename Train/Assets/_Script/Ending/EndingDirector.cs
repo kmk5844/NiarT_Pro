@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EndingDirector : MonoBehaviour
 {
-
-    // Start is called before the first frame update
     void Start()
     {
         if (SteamAchievement.instance != null)
@@ -17,5 +16,17 @@ public class EndingDirector : MonoBehaviour
             Debug.Log("EARLY_END");
         }
 
+    }
+
+    public void EndEvent()
+    {
+        try
+        {
+            LoadingManager.LoadScene("1.MainMenu");
+        }
+        catch
+        {
+            SceneManager.LoadScene("1.MainMenu");
+        }
     }
 }
