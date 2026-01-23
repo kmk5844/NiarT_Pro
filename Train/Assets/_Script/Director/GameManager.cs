@@ -259,6 +259,9 @@ public void DataLoad()
             else if(index == -100) //데모버전 종료
             {
                 LoadingManager.LoadScene("Demo_End");
+            }else if(index == -1000)
+            {
+                LoadingManager.LoadScene("Ending_Credits");
             }
         }
 

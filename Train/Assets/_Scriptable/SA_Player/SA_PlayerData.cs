@@ -246,9 +246,9 @@ public class SA_PlayerData : ScriptableObject
         {
             character_lockoff[2] = true;
             character_lockoff[3] = true;
-        }else if(New_Stage == 45)
+        }else if(New_Stage >= 45 && !character_lockoff[4])
         {
-            //character_lockoff[4] = true;
+            character_lockoff[4] = true;
         }
         Save_Solo("LockOff");
     }

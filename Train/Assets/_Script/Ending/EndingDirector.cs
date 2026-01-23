@@ -1,3 +1,4 @@
+using MoreMountains.Tools;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class EndingDirector : MonoBehaviour
 {
+    public AudioClip BGM;
+
     void Start()
     {
         if (SteamAchievement.instance != null)
@@ -28,5 +31,15 @@ public class EndingDirector : MonoBehaviour
         {
             SceneManager.LoadScene("1.MainMenu");
         }
+    }
+
+    public void StartBGM()
+    {
+        MMSoundManagerSoundPlayEvent.Trigger(BGM, MMSoundManager.MMSoundManagerTracks.Music, this.transform.position, loop: false, ID: 10);
+    }
+
+    public void EndBGM()
+    {
+        MMSoundManagerSoundControlEvent.Trigger(MMSoundManagerSoundControlEventTypes.Free, 10);
     }
 }
