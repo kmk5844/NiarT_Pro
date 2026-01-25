@@ -30,24 +30,30 @@ public class RankingDirector : MonoBehaviour
         // Unity Services 초기화
         await UnityServices.InitializeAsync();
 
-        if (!AuthenticationService.Instance.IsSignedIn)
+        try
         {
-            // 익명 로그인
-            try
+            if (!AuthenticationService.Instance.IsSignedIn)
             {
                 await AuthenticationService.Instance.SignInAnonymouslyAsync();
-                isSignedIn = true;
                 Debug.Log("Signed in anonymously.");
             }
-            catch(Exception e)
+            else
             {
-                Debug.LogWarning($"인터넷 없음 또는 로그인 실패: {e.Message}");
+                Debug.Log("Already signed in.");
+            }
+            isSignedIn = true;
+        }
+        catch (Exception ex)
+        {
+            {
+                Debug.LogWarning($"인터넷 없음 또는 로그인 실패: {ex.Message}");
                 isSignedIn = false;
                 return;
             }
+
+            // 로그인 완료 후 내 점수 가져오기
         }
 
-        // 로그인 완료 후 내 점수 가져오기
         await FetchMyBestScore();
     }
 

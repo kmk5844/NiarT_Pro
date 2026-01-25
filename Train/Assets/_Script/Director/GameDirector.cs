@@ -2126,7 +2126,14 @@ public class GameDirector : MonoBehaviour
             {
                 if (Time.timeScale != 0)
                 {
-                    Speed = Time.deltaTime * fac + (TrainSpeed / 200f);
+                    if (!Infinite_Mode)
+                    {
+                        Speed = Time.deltaTime * fac + (TrainSpeed / 200f);
+                    }
+                    else
+                    {
+                        Speed = Time.deltaTime * fac + (TrainSpeed / 100f);
+                    }
                 }
                 else
                 {
@@ -2143,7 +2150,14 @@ public class GameDirector : MonoBehaviour
             {
                 if (Time.timeScale != 0)
                 {
-                    Speed = Time.deltaTime * fac + (TrainSpeed / 200f);
+                    if (!Infinite_Mode)
+                    {
+                        Speed = Time.deltaTime * fac + (TrainSpeed / 200f);
+                    }
+                    else
+                    {
+                        Speed = Time.deltaTime * fac + (TrainSpeed / 100f);
+                    }
                 }
                 else
                 {
@@ -2495,7 +2509,7 @@ public class GameDirector : MonoBehaviour
             {
                 int equipedNum = Random.Range(0, 3);
                 int ItemNum = Random.Range(0, 29);
-                int ItemCount = Random.Range(1, 5);
+                int ItemCount = Random.Range(3, 8);
                 if(equipedNum == 0)
                 {
                     ItemCount = 1;

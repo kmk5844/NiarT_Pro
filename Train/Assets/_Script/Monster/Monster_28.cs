@@ -43,7 +43,7 @@ public class Monster_28 : Monster
         {
             if (monster_gametype == Monster_GameType.Fighting || monster_gametype == Monster_GameType.GameEnding)
             {
-                //AttackAni();
+                AttackAni();
                 FlipMonster();
             }
         }

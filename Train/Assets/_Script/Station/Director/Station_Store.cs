@@ -776,7 +776,6 @@ public class Station_Store : MonoBehaviour
             Instantiate(ItemBuyList_Object, Item_Buy_Window.transform);
         }
         Resize_ListContent(0, itemData.Store_Buy_itemList.Count);
-
     }
 
     public void Click_ItemBuy()
@@ -817,6 +816,7 @@ public class Station_Store : MonoBehaviour
             Cancel_SelectItem();
             Close_Buy_Window();
             Init_Information();
+            Resize_ListContent(0, itemData.Store_Sell_itemList.Count);
         }
         else
         {
@@ -919,6 +919,7 @@ public class Station_Store : MonoBehaviour
         Cancel_SelectItem();
         Close_Sell_Window();
         Init_Information();
+        Resize_ListContent(0, itemData.Store_Sell_itemList.Count);
         //Check_Player_Coin_Point();
     }
 

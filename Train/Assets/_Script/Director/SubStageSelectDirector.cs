@@ -131,6 +131,9 @@ public class SubStageSelectDirector : MonoBehaviour
         SelectSubStageData = mission;
         SelectSubStageNum = mission.SubStage_Num;
         playerData.SA_SelectSubStage(SelectSubStageNum);
+        if (SelectSubStageNum == 0){
+            playerData.SA_BeforeSubSelectStage_Save(0);
+        }
         SpecialStage_Check();
     }
 

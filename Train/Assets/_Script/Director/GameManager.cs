@@ -44,6 +44,8 @@ public class GameManager : MonoBehaviour
     public SA_StageList StageList;
     public Quest_DataTable QuestData;
     public GameObject SelectMissionObject;
+    public GameObject SelectMissionObject_Mission;
+
 
     Texture2D cursorOrigin;
     Vector2 cursorHotspot_Origin;
@@ -70,6 +72,7 @@ public class GameManager : MonoBehaviour
             SelectMissionObject.GetComponent<SelectMission>().SetDataSetting(PlayerData, QuestData, MissionData);
             GameObject gm = Instantiate(SelectMissionObject);
             gm.name = "SelectMission";
+            SelectMissionObject_Mission = gm;
         }
         TestMode = false;
     }
@@ -325,10 +328,20 @@ public void DataLoad()
          StartCoroutine(LoadGameRoutine());
     }
 
+    public void Set_MissionSet(GameObject Mission)
+    {
+        //게임 중에 새로 세우기.
+        SelectMissionObject_Mission = Mission;
+    }
+
     public void Game_DataReset()
     {
         SceneManager.LoadScene("-1.LoadingScene_Data");
         StartCoroutine(ResetGameRoutine());
+        if (SelectMissionObject_Mission)
+        {
+            Destroy(SelectMissionObject_Mission);
+        }
 /*        DataManager.Instance.Init();
         StoryFlag_Init();
         SceneManager.LoadScene(0);*/

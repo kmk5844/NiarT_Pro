@@ -145,6 +145,7 @@ public class MissionSelectDirector : MonoBehaviour
     {
         GameObject game_obj = Instantiate(SelectMissionObject);
         game_obj.name = "SelectMission";
+        GameManager.Instance.Set_MissionSet(game_obj);
         yield return new WaitForSeconds(0.02f);
         MissionSelect.SetActive(false);
         ReadyObject.SetActive(true);

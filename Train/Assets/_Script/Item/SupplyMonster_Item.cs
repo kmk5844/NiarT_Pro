@@ -53,6 +53,7 @@ public class SupplyMonster_Item : MonoBehaviour
             if (!SpawnMonster_Flag)
             {
                 mat.SetColor("_SolidOutline", Color.green);
+                Destroy(gameObject, 10f);
             }
             else
             {
