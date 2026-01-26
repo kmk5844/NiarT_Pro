@@ -120,7 +120,6 @@ public class SA_MissionData : ScriptableObject
 
     public void SubStage_Init(int MainStageNum, int MissionNum)
     {
-        //Debug.Log(MainStageNum + " , "+ MissionNum);
         switch (MissionNum)
         {
             case 0:

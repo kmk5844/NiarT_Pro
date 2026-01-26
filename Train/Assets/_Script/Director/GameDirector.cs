@@ -1508,6 +1508,7 @@ public class GameDirector : MonoBehaviour
             {
                 if (substageNum != Select_Sub_Num)
                 {
+                    Debug.Log(substageNum);
                     MissionDataObject mission = SA_MissionData.missionStage(Mission_Num, Stage_Num, substageNum);
                     if (!mission.StageClearFlag)
                     {

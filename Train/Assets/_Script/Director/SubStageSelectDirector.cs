@@ -235,6 +235,7 @@ public class SubStageSelectDirector : MonoBehaviour
 
     void SpeacialStage_Clear()
     {
+        playerData.SA_BeforeSubSelectStage_Save(SelectSubStageNum);
         SelectSubStageData.SubStage_Clear();
     }
 
@@ -321,6 +322,8 @@ public class SubStageSelectDirector : MonoBehaviour
         ES3.Save<int>("Train_Curret_TotalFuel", -1);
         playerData.SA_MissionPlaying(false);
         playerData.SA_GameLoseCoin(gm.MissionCoinLosePersent);
+        stageNum = playerData.Select_Stage;
+        missionNum = playerData.Mission_Num;
         missionData.SubStage_Init(stageNum, missionNum); // 미션 취소
         Destroy(gm.gameObject);
         SceneManager.LoadScene("Station");
@@ -331,8 +334,6 @@ public class SubStageSelectDirector : MonoBehaviour
         cancelFlag = false;
         UI_MissionCancelWindow.SetActive(false);
     }
-
-
 
     public void ClickSubStage(GameObject _informationObject)
     {
