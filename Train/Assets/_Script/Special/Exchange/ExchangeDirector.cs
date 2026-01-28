@@ -15,6 +15,8 @@ public class ExchangeDirector : MonoBehaviour
     public GameObject ExchangeWindow;
     public GameObject SelectStage;
     public GameObject RewardWindow;
+    public GameObject ExchangeButtonObejct;
+    Button ExchangeButton;
 
     [Header("µ•¿Ã≈Õ")]
     public SA_ItemList ItemData;
@@ -23,6 +25,7 @@ public class ExchangeDirector : MonoBehaviour
     public ItemDataObject SelectItem;
     bool exchangeflag = false;
     bool startFlag;
+    bool clickItemFlag = false;
 
     [Header("UI")]
     public Image RewardImage;
@@ -48,6 +51,7 @@ public class ExchangeDirector : MonoBehaviour
         {
             QualitySettings.vSyncCount = 1;
         }
+        ExchangeButton = ExchangeButtonObejct.GetComponent<Button>();
 
         ItemSetting();
         RewardSetting();
@@ -60,6 +64,15 @@ public class ExchangeDirector : MonoBehaviour
         if (dialog.storyEnd_SpecialFlag && !startFlag)
         {
             StartEvent();
+        }
+
+        if (!clickItemFlag)
+        {
+            ExchangeButton.interactable = false;
+        }
+        else
+        {
+            ExchangeButton.interactable = true;
         }
 
         if (exchangeflag)
@@ -103,6 +116,10 @@ public class ExchangeDirector : MonoBehaviour
 
     public void Click_Item(ItemDataObject item)
     {
+        if (!clickItemFlag)
+        {
+            clickItemFlag = true;
+        }
         SelectItem = item;
         SelectItemImage.sprite = SelectItem.Item_Sprite;
         SelectName.StringReference.TableReference = "ItemData_Table_St";
